@@ -95,60 +95,70 @@ func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTy
 
 // Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) ([]TrusthubV1SupportingDocumentType, error) {
-	response, err := c.StreamSupportingDocumentType(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamSupportingDocumentType(params)
 
 	records := make([]TrusthubV1SupportingDocumentType, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams SupportingDocumentType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocumentTypeParams) (chan TrusthubV1SupportingDocumentType, error) {
+func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocumentTypeParams) (chan TrusthubV1SupportingDocumentType, chan error) {
 	if params == nil {
 		params = &ListSupportingDocumentTypeParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan TrusthubV1SupportingDocumentType, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageSupportingDocumentType(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamSupportingDocumentType(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamSupportingDocumentType(response *ListSupportingDocumentTypeResponse, params *ListSupportingDocumentTypeParams, recordChannel chan TrusthubV1SupportingDocumentType, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan TrusthubV1SupportingDocumentType, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.SupportingDocumentTypes
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListSupportingDocumentTypeResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.SupportingDocumentTypes
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListSupportingDocumentTypeResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSupportingDocumentTypeResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListSupportingDocumentTypeResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListSupportingDocumentTypeResponse(nextPageUrl string) (interface{}, error) {

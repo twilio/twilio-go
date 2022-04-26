@@ -129,60 +129,70 @@ func (c *ApiService) PageUserBinding(ServiceSid string, UserSid string, params *
 
 // Lists UserBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) ([]IpMessagingV2UserBinding, error) {
-	response, err := c.StreamUserBinding(ServiceSid, UserSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamUserBinding(ServiceSid, UserSid, params)
 
 	records := make([]IpMessagingV2UserBinding, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams UserBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) (chan IpMessagingV2UserBinding, error) {
+func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) (chan IpMessagingV2UserBinding, chan error) {
 	if params == nil {
 		params = &ListUserBindingParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan IpMessagingV2UserBinding, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageUserBinding(ServiceSid, UserSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamUserBinding(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamUserBinding(response *ListUserBindingResponse, params *ListUserBindingParams, recordChannel chan IpMessagingV2UserBinding, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV2UserBinding, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Bindings
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListUserBindingResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Bindings
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListUserBindingResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListUserBindingResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListUserBindingResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListUserBindingResponse(nextPageUrl string) (interface{}, error) {

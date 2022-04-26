@@ -168,60 +168,70 @@ func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyPara
 
 // Lists CredentialPublicKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams) ([]AccountsV1CredentialPublicKey, error) {
-	response, err := c.StreamCredentialPublicKey(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamCredentialPublicKey(params)
 
 	records := make([]AccountsV1CredentialPublicKey, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams CredentialPublicKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyParams) (chan AccountsV1CredentialPublicKey, error) {
+func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyParams) (chan AccountsV1CredentialPublicKey, chan error) {
 	if params == nil {
 		params = &ListCredentialPublicKeyParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan AccountsV1CredentialPublicKey, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageCredentialPublicKey(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamCredentialPublicKey(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamCredentialPublicKey(response *ListCredentialPublicKeyResponse, params *ListCredentialPublicKeyParams, recordChannel chan AccountsV1CredentialPublicKey, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan AccountsV1CredentialPublicKey, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Credentials
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListCredentialPublicKeyResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Credentials
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListCredentialPublicKeyResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCredentialPublicKeyResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListCredentialPublicKeyResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListCredentialPublicKeyResponse(nextPageUrl string) (interface{}, error) {

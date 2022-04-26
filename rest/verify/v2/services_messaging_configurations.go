@@ -164,60 +164,70 @@ func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListM
 
 // Lists MessagingConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) ([]VerifyV2MessagingConfiguration, error) {
-	response, err := c.StreamMessagingConfiguration(ServiceSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamMessagingConfiguration(ServiceSid, params)
 
 	records := make([]VerifyV2MessagingConfiguration, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams MessagingConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) (chan VerifyV2MessagingConfiguration, error) {
+func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) (chan VerifyV2MessagingConfiguration, chan error) {
 	if params == nil {
 		params = &ListMessagingConfigurationParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan VerifyV2MessagingConfiguration, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageMessagingConfiguration(ServiceSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamMessagingConfiguration(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamMessagingConfiguration(response *ListMessagingConfigurationResponse, params *ListMessagingConfigurationParams, recordChannel chan VerifyV2MessagingConfiguration, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2MessagingConfiguration, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.MessagingConfigurations
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListMessagingConfigurationResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.MessagingConfigurations
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListMessagingConfigurationResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListMessagingConfigurationResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListMessagingConfigurationResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListMessagingConfigurationResponse(nextPageUrl string) (interface{}, error) {

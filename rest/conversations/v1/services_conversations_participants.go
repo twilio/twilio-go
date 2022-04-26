@@ -248,60 +248,70 @@ func (c *ApiService) PageServiceConversationParticipant(ChatServiceSid string, C
 
 // Lists ServiceConversationParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams) ([]ConversationsV1ServiceConversationParticipant, error) {
-	response, err := c.StreamServiceConversationParticipant(ChatServiceSid, ConversationSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamServiceConversationParticipant(ChatServiceSid, ConversationSid, params)
 
 	records := make([]ConversationsV1ServiceConversationParticipant, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams ServiceConversationParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams) (chan ConversationsV1ServiceConversationParticipant, error) {
+func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams) (chan ConversationsV1ServiceConversationParticipant, chan error) {
 	if params == nil {
 		params = &ListServiceConversationParticipantParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ConversationsV1ServiceConversationParticipant, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageServiceConversationParticipant(ChatServiceSid, ConversationSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamServiceConversationParticipant(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamServiceConversationParticipant(response *ListServiceConversationParticipantResponse, params *ListServiceConversationParticipantParams, recordChannel chan ConversationsV1ServiceConversationParticipant, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1ServiceConversationParticipant, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Participants
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListServiceConversationParticipantResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Participants
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListServiceConversationParticipantResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListServiceConversationParticipantResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListServiceConversationParticipantResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListServiceConversationParticipantResponse(nextPageUrl string) (interface{}, error) {

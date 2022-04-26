@@ -108,60 +108,70 @@ func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, pa
 
 // Lists TaskReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) ([]TaskrouterV1TaskReservation, error) {
-	response, err := c.StreamTaskReservation(WorkspaceSid, TaskSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamTaskReservation(WorkspaceSid, TaskSid, params)
 
 	records := make([]TaskrouterV1TaskReservation, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams TaskReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) (chan TaskrouterV1TaskReservation, error) {
+func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) (chan TaskrouterV1TaskReservation, chan error) {
 	if params == nil {
 		params = &ListTaskReservationParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan TaskrouterV1TaskReservation, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageTaskReservation(WorkspaceSid, TaskSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamTaskReservation(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamTaskReservation(response *ListTaskReservationResponse, params *ListTaskReservationParams, recordChannel chan TaskrouterV1TaskReservation, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1TaskReservation, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Reservations
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListTaskReservationResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Reservations
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListTaskReservationResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListTaskReservationResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListTaskReservationResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListTaskReservationResponse(nextPageUrl string) (interface{}, error) {

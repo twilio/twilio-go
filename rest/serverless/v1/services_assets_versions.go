@@ -100,60 +100,70 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 
 // Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) ([]ServerlessV1AssetVersion, error) {
-	response, err := c.StreamAssetVersion(ServiceSid, AssetSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamAssetVersion(ServiceSid, AssetSid, params)
 
 	records := make([]ServerlessV1AssetVersion, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) (chan ServerlessV1AssetVersion, error) {
+func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) (chan ServerlessV1AssetVersion, chan error) {
 	if params == nil {
 		params = &ListAssetVersionParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ServerlessV1AssetVersion, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageAssetVersion(ServiceSid, AssetSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamAssetVersion(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamAssetVersion(response *ListAssetVersionResponse, params *ListAssetVersionParams, recordChannel chan ServerlessV1AssetVersion, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ServerlessV1AssetVersion, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.AssetVersions
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListAssetVersionResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.AssetVersions
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListAssetVersionResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAssetVersionResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListAssetVersionResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListAssetVersionResponse(nextPageUrl string) (interface{}, error) {

@@ -193,60 +193,70 @@ func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, p
 
 // Lists Webhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) ([]VerifyV2Webhook, error) {
-	response, err := c.StreamWebhook(ServiceSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamWebhook(ServiceSid, params)
 
 	records := make([]VerifyV2Webhook, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Webhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams) (chan VerifyV2Webhook, error) {
+func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams) (chan VerifyV2Webhook, chan error) {
 	if params == nil {
 		params = &ListWebhookParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan VerifyV2Webhook, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageWebhook(ServiceSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamWebhook(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamWebhook(response *ListWebhookResponse, params *ListWebhookParams, recordChannel chan VerifyV2Webhook, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2Webhook, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Webhooks
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListWebhookResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Webhooks
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListWebhookResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListWebhookResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListWebhookResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListWebhookResponse(nextPageUrl string) (interface{}, error) {

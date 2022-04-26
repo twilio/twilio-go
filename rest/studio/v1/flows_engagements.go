@@ -179,60 +179,70 @@ func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams
 
 // Lists Engagement records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams) ([]StudioV1Engagement, error) {
-	response, err := c.StreamEngagement(FlowSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamEngagement(FlowSid, params)
 
 	records := make([]StudioV1Engagement, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams) (chan StudioV1Engagement, error) {
+func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams) (chan StudioV1Engagement, chan error) {
 	if params == nil {
 		params = &ListEngagementParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan StudioV1Engagement, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageEngagement(FlowSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamEngagement(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamEngagement(response *ListEngagementResponse, params *ListEngagementParams, recordChannel chan StudioV1Engagement, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan StudioV1Engagement, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Engagements
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListEngagementResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Engagements
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListEngagementResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListEngagementResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListEngagementResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListEngagementResponse(nextPageUrl string) (interface{}, error) {

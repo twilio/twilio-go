@@ -209,60 +209,70 @@ func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, par
 
 // Lists SipAuthCallsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) ([]ApiV2010SipAuthCallsCredentialListMapping, error) {
-	response, err := c.StreamSipAuthCallsCredentialListMapping(DomainSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamSipAuthCallsCredentialListMapping(DomainSid, params)
 
 	records := make([]ApiV2010SipAuthCallsCredentialListMapping, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams SipAuthCallsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (chan ApiV2010SipAuthCallsCredentialListMapping, error) {
+func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (chan ApiV2010SipAuthCallsCredentialListMapping, chan error) {
 	if params == nil {
 		params = &ListSipAuthCallsCredentialListMappingParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010SipAuthCallsCredentialListMapping, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageSipAuthCallsCredentialListMapping(DomainSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamSipAuthCallsCredentialListMapping(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamSipAuthCallsCredentialListMapping(response *ListSipAuthCallsCredentialListMappingResponse, params *ListSipAuthCallsCredentialListMappingParams, recordChannel chan ApiV2010SipAuthCallsCredentialListMapping, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010SipAuthCallsCredentialListMapping, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Contents
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Contents
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListSipAuthCallsCredentialListMappingResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSipAuthCallsCredentialListMappingResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListSipAuthCallsCredentialListMappingResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListSipAuthCallsCredentialListMappingResponse(nextPageUrl string) (interface{}, error) {

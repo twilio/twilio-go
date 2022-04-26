@@ -104,7 +104,6 @@ package main
 
 import (
 	"github.com/twilio/twilio-go"
-	"os"
 )
 
 func main() {
@@ -128,7 +127,6 @@ import (
 	"fmt"
 	"github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
-	"os"
 )
 
 func main() {
@@ -243,7 +241,6 @@ func main() {
 		fmt.Println(*resp.Sid)
 	}
 }
-
 ```
 
 ### Create a Studio Flow
@@ -254,7 +251,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 
 	"github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/studio/v2"
@@ -309,8 +305,9 @@ receive (limit) and the maximum size you want each page fetch to be (pageSize). 
 for you.
 
 `List` eagerly fetches all records and returns them as a list, whereas `Stream` streams the records and lazily retrieves
-the pages as you iterate over the collection. You can also page manually using the `PageXxx` function in each of the
-apis.
+the pages as you iterate over the collection. Also, `List` returns no records if any errors are encountered while paging,
+whereas `Stream` returns all records up until encountering an error. You can also page manually using the `PageXxx`
+function in each of the apis.
 
 ```go
 package main
@@ -348,7 +345,6 @@ func main() {
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"

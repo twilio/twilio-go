@@ -177,60 +177,70 @@ func (c *ApiService) PageEsimProfile(params *ListEsimProfileParams, pageToken, p
 
 // Lists EsimProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEsimProfile(params *ListEsimProfileParams) ([]SupersimV1EsimProfile, error) {
-	response, err := c.StreamEsimProfile(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamEsimProfile(params)
 
 	records := make([]SupersimV1EsimProfile, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams EsimProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEsimProfile(params *ListEsimProfileParams) (chan SupersimV1EsimProfile, error) {
+func (c *ApiService) StreamEsimProfile(params *ListEsimProfileParams) (chan SupersimV1EsimProfile, chan error) {
 	if params == nil {
 		params = &ListEsimProfileParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan SupersimV1EsimProfile, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageEsimProfile(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamEsimProfile(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamEsimProfile(response *ListEsimProfileResponse, params *ListEsimProfileParams, recordChannel chan SupersimV1EsimProfile, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan SupersimV1EsimProfile, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.EsimProfiles
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListEsimProfileResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.EsimProfiles
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListEsimProfileResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListEsimProfileResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListEsimProfileResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListEsimProfileResponse(nextPageUrl string) (interface{}, error) {

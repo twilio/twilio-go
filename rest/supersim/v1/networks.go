@@ -122,60 +122,70 @@ func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken, pageNumbe
 
 // Lists Network records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNetwork(params *ListNetworkParams) ([]SupersimV1Network, error) {
-	response, err := c.StreamNetwork(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamNetwork(params)
 
 	records := make([]SupersimV1Network, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Network records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamNetwork(params *ListNetworkParams) (chan SupersimV1Network, error) {
+func (c *ApiService) StreamNetwork(params *ListNetworkParams) (chan SupersimV1Network, chan error) {
 	if params == nil {
 		params = &ListNetworkParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan SupersimV1Network, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageNetwork(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamNetwork(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamNetwork(response *ListNetworkResponse, params *ListNetworkParams, recordChannel chan SupersimV1Network, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan SupersimV1Network, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Networks
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListNetworkResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Networks
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListNetworkResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListNetworkResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListNetworkResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListNetworkResponse(nextPageUrl string) (interface{}, error) {

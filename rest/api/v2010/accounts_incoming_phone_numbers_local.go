@@ -365,60 +365,70 @@ func (c *ApiService) PageIncomingPhoneNumberLocal(params *ListIncomingPhoneNumbe
 
 // Lists IncomingPhoneNumberLocal records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams) ([]ApiV2010IncomingPhoneNumberLocal, error) {
-	response, err := c.StreamIncomingPhoneNumberLocal(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamIncomingPhoneNumberLocal(params)
 
 	records := make([]ApiV2010IncomingPhoneNumberLocal, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams IncomingPhoneNumberLocal records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams) (chan ApiV2010IncomingPhoneNumberLocal, error) {
+func (c *ApiService) StreamIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams) (chan ApiV2010IncomingPhoneNumberLocal, chan error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberLocalParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010IncomingPhoneNumberLocal, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageIncomingPhoneNumberLocal(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamIncomingPhoneNumberLocal(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamIncomingPhoneNumberLocal(response *ListIncomingPhoneNumberLocalResponse, params *ListIncomingPhoneNumberLocalParams, recordChannel chan ApiV2010IncomingPhoneNumberLocal, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010IncomingPhoneNumberLocal, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.IncomingPhoneNumbers
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberLocalResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.IncomingPhoneNumbers
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListIncomingPhoneNumberLocalResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberLocalResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListIncomingPhoneNumberLocalResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListIncomingPhoneNumberLocalResponse(nextPageUrl string) (interface{}, error) {

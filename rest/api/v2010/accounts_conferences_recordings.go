@@ -187,60 +187,70 @@ func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListC
 
 // Lists ConferenceRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) ([]ApiV2010ConferenceRecording, error) {
-	response, err := c.StreamConferenceRecording(ConferenceSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamConferenceRecording(ConferenceSid, params)
 
 	records := make([]ApiV2010ConferenceRecording, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams ConferenceRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) (chan ApiV2010ConferenceRecording, error) {
+func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) (chan ApiV2010ConferenceRecording, chan error) {
 	if params == nil {
 		params = &ListConferenceRecordingParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010ConferenceRecording, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageConferenceRecording(ConferenceSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamConferenceRecording(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamConferenceRecording(response *ListConferenceRecordingResponse, params *ListConferenceRecordingParams, recordChannel chan ApiV2010ConferenceRecording, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010ConferenceRecording, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Recordings
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListConferenceRecordingResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Recordings
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListConferenceRecordingResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListConferenceRecordingResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListConferenceRecordingResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListConferenceRecordingResponse(nextPageUrl string) (interface{}, error) {

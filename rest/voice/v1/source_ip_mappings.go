@@ -156,60 +156,70 @@ func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, page
 
 // Lists SourceIpMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) ([]VoiceV1SourceIpMapping, error) {
-	response, err := c.StreamSourceIpMapping(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamSourceIpMapping(params)
 
 	records := make([]VoiceV1SourceIpMapping, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams SourceIpMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams) (chan VoiceV1SourceIpMapping, error) {
+func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams) (chan VoiceV1SourceIpMapping, chan error) {
 	if params == nil {
 		params = &ListSourceIpMappingParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan VoiceV1SourceIpMapping, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageSourceIpMapping(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamSourceIpMapping(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamSourceIpMapping(response *ListSourceIpMappingResponse, params *ListSourceIpMappingParams, recordChannel chan VoiceV1SourceIpMapping, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan VoiceV1SourceIpMapping, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.SourceIpMappings
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListSourceIpMappingResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.SourceIpMappings
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListSourceIpMappingResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSourceIpMappingResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListSourceIpMappingResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListSourceIpMappingResponse(nextPageUrl string) (interface{}, error) {

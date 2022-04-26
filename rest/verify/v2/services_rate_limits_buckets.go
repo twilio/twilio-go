@@ -168,60 +168,70 @@ func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *
 
 // Lists Bucket records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) ([]VerifyV2Bucket, error) {
-	response, err := c.StreamBucket(ServiceSid, RateLimitSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamBucket(ServiceSid, RateLimitSid, params)
 
 	records := make([]VerifyV2Bucket, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Bucket records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) (chan VerifyV2Bucket, error) {
+func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) (chan VerifyV2Bucket, chan error) {
 	if params == nil {
 		params = &ListBucketParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan VerifyV2Bucket, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageBucket(ServiceSid, RateLimitSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamBucket(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamBucket(response *ListBucketResponse, params *ListBucketParams, recordChannel chan VerifyV2Bucket, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2Bucket, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Buckets
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListBucketResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Buckets
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListBucketResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListBucketResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListBucketResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListBucketResponse(nextPageUrl string) (interface{}, error) {

@@ -99,60 +99,70 @@ func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 
 // Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) ([]TaskrouterV1WorkerChannel, error) {
-	response, err := c.StreamWorkerChannel(WorkspaceSid, WorkerSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamWorkerChannel(WorkspaceSid, WorkerSid, params)
 
 	records := make([]TaskrouterV1WorkerChannel, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams WorkerChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (chan TaskrouterV1WorkerChannel, error) {
+func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (chan TaskrouterV1WorkerChannel, chan error) {
 	if params == nil {
 		params = &ListWorkerChannelParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan TaskrouterV1WorkerChannel, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageWorkerChannel(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamWorkerChannel(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamWorkerChannel(response *ListWorkerChannelResponse, params *ListWorkerChannelParams, recordChannel chan TaskrouterV1WorkerChannel, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkerChannel, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Channels
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListWorkerChannelResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Channels
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListWorkerChannelResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListWorkerChannelResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListWorkerChannelResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListWorkerChannelResponse(nextPageUrl string) (interface{}, error) {

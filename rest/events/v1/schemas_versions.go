@@ -98,60 +98,70 @@ func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParam
 
 // Lists SchemaVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParams) ([]EventsV1SchemaVersion, error) {
-	response, err := c.StreamSchemaVersion(Id, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamSchemaVersion(Id, params)
 
 	records := make([]EventsV1SchemaVersion, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams SchemaVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionParams) (chan EventsV1SchemaVersion, error) {
+func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionParams) (chan EventsV1SchemaVersion, chan error) {
 	if params == nil {
 		params = &ListSchemaVersionParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan EventsV1SchemaVersion, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageSchemaVersion(Id, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamSchemaVersion(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamSchemaVersion(response *ListSchemaVersionResponse, params *ListSchemaVersionParams, recordChannel chan EventsV1SchemaVersion, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan EventsV1SchemaVersion, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.SchemaVersions
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListSchemaVersionResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.SchemaVersions
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListSchemaVersionResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSchemaVersionResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListSchemaVersionResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListSchemaVersionResponse(nextPageUrl string) (interface{}, error) {

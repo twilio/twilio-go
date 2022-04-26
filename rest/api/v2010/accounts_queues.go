@@ -214,60 +214,70 @@ func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber st
 
 // Lists Queue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListQueue(params *ListQueueParams) ([]ApiV2010Queue, error) {
-	response, err := c.StreamQueue(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamQueue(params)
 
 	records := make([]ApiV2010Queue, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Queue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamQueue(params *ListQueueParams) (chan ApiV2010Queue, error) {
+func (c *ApiService) StreamQueue(params *ListQueueParams) (chan ApiV2010Queue, chan error) {
 	if params == nil {
 		params = &ListQueueParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010Queue, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageQueue(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamQueue(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamQueue(response *ListQueueResponse, params *ListQueueParams, recordChannel chan ApiV2010Queue, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010Queue, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Queues
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListQueueResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Queues
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListQueueResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListQueueResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListQueueResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListQueueResponse(nextPageUrl string) (interface{}, error) {

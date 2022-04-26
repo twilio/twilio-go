@@ -227,60 +227,70 @@ func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *Lis
 
 // Lists SipIpAddress records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) ([]ApiV2010SipIpAddress, error) {
-	response, err := c.StreamSipIpAddress(IpAccessControlListSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamSipIpAddress(IpAccessControlListSid, params)
 
 	records := make([]ApiV2010SipIpAddress, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams SipIpAddress records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) (chan ApiV2010SipIpAddress, error) {
+func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) (chan ApiV2010SipIpAddress, chan error) {
 	if params == nil {
 		params = &ListSipIpAddressParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010SipIpAddress, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageSipIpAddress(IpAccessControlListSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamSipIpAddress(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamSipIpAddress(response *ListSipIpAddressResponse, params *ListSipIpAddressParams, recordChannel chan ApiV2010SipIpAddress, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010SipIpAddress, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.IpAddresses
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListSipIpAddressResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.IpAddresses
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListSipIpAddressResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSipIpAddressResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListSipIpAddressResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListSipIpAddressResponse(nextPageUrl string) (interface{}, error) {

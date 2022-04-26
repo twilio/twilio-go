@@ -202,60 +202,70 @@ func (c *ApiService) PageKey(params *ListKeyParams, pageToken, pageNumber string
 
 // Lists Key records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListKey(params *ListKeyParams) ([]ApiV2010Key, error) {
-	response, err := c.StreamKey(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamKey(params)
 
 	records := make([]ApiV2010Key, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Key records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamKey(params *ListKeyParams) (chan ApiV2010Key, error) {
+func (c *ApiService) StreamKey(params *ListKeyParams) (chan ApiV2010Key, chan error) {
 	if params == nil {
 		params = &ListKeyParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010Key, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageKey(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamKey(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamKey(response *ListKeyResponse, params *ListKeyParams, recordChannel chan ApiV2010Key, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010Key, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Keys
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListKeyResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Keys
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListKeyResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListKeyResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListKeyResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListKeyResponse(nextPageUrl string) (interface{}, error) {

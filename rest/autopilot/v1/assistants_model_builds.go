@@ -161,60 +161,70 @@ func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildP
 
 // Lists ModelBuild records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams) ([]AutopilotV1ModelBuild, error) {
-	response, err := c.StreamModelBuild(AssistantSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamModelBuild(AssistantSid, params)
 
 	records := make([]AutopilotV1ModelBuild, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams ModelBuild records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuildParams) (chan AutopilotV1ModelBuild, error) {
+func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuildParams) (chan AutopilotV1ModelBuild, chan error) {
 	if params == nil {
 		params = &ListModelBuildParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan AutopilotV1ModelBuild, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageModelBuild(AssistantSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamModelBuild(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamModelBuild(response *ListModelBuildResponse, params *ListModelBuildParams, recordChannel chan AutopilotV1ModelBuild, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1ModelBuild, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.ModelBuilds
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListModelBuildResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.ModelBuilds
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListModelBuildResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListModelBuildResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListModelBuildResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListModelBuildResponse(nextPageUrl string) (interface{}, error) {

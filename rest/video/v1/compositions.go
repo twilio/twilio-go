@@ -268,60 +268,70 @@ func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken, p
 
 // Lists Composition records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListComposition(params *ListCompositionParams) ([]VideoV1Composition, error) {
-	response, err := c.StreamComposition(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamComposition(params)
 
 	records := make([]VideoV1Composition, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Composition records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamComposition(params *ListCompositionParams) (chan VideoV1Composition, error) {
+func (c *ApiService) StreamComposition(params *ListCompositionParams) (chan VideoV1Composition, chan error) {
 	if params == nil {
 		params = &ListCompositionParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan VideoV1Composition, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageComposition(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamComposition(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamComposition(response *ListCompositionResponse, params *ListCompositionParams, recordChannel chan VideoV1Composition, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan VideoV1Composition, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Compositions
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListCompositionResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Compositions
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListCompositionResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCompositionResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListCompositionResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListCompositionResponse(nextPageUrl string) (interface{}, error) {
