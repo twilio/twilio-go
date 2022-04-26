@@ -11,6 +11,12 @@
 
 package openapi
 
+import (
+	"encoding/json"
+
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010CallFeedbackSummary struct for ApiV2010CallFeedbackSummary
 type ApiV2010CallFeedbackSummary struct {
 	// The unique sid that identifies this account
@@ -41,4 +47,61 @@ type ApiV2010CallFeedbackSummary struct {
 	StartDate *string `json:"start_date,omitempty"`
 	// The status of the feedback summary
 	Status *string `json:"status,omitempty"`
+}
+
+func (response *ApiV2010CallFeedbackSummary) UnmarshalJSON(bytes []byte) (err error) {
+	raw := struct {
+		AccountSid                    *string        `json:"account_sid"`
+		CallCount                     *int           `json:"call_count"`
+		CallFeedbackCount             *int           `json:"call_feedback_count"`
+		DateCreated                   *string        `json:"date_created"`
+		DateUpdated                   *string        `json:"date_updated"`
+		EndDate                       *string        `json:"end_date"`
+		IncludeSubaccounts            *bool          `json:"include_subaccounts"`
+		Issues                        *[]interface{} `json:"issues"`
+		QualityScoreAverage           *interface{}   `json:"quality_score_average"`
+		QualityScoreMedian            *interface{}   `json:"quality_score_median"`
+		QualityScoreStandardDeviation *interface{}   `json:"quality_score_standard_deviation"`
+		Sid                           *string        `json:"sid"`
+		StartDate                     *string        `json:"start_date"`
+		Status                        *string        `json:"status"`
+	}{}
+
+	if err = json.Unmarshal(bytes, &raw); err != nil {
+		return err
+	}
+
+	*response = ApiV2010CallFeedbackSummary{
+		AccountSid:         raw.AccountSid,
+		CallCount:          raw.CallCount,
+		CallFeedbackCount:  raw.CallFeedbackCount,
+		DateCreated:        raw.DateCreated,
+		DateUpdated:        raw.DateUpdated,
+		EndDate:            raw.EndDate,
+		IncludeSubaccounts: raw.IncludeSubaccounts,
+		Issues:             raw.Issues,
+		Sid:                raw.Sid,
+		StartDate:          raw.StartDate,
+		Status:             raw.Status,
+	}
+
+	responseQualityScoreAverage, err := client.UnmarshalFloat32(raw.QualityScoreAverage)
+	if err != nil {
+		return err
+	}
+	response.QualityScoreAverage = responseQualityScoreAverage
+
+	responseQualityScoreMedian, err := client.UnmarshalFloat32(raw.QualityScoreMedian)
+	if err != nil {
+		return err
+	}
+	response.QualityScoreMedian = responseQualityScoreMedian
+
+	responseQualityScoreStandardDeviation, err := client.UnmarshalFloat32(raw.QualityScoreStandardDeviation)
+	if err != nil {
+		return err
+	}
+	response.QualityScoreStandardDeviation = responseQualityScoreStandardDeviation
+
+	return
 }

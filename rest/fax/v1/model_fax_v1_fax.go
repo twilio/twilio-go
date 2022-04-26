@@ -12,7 +12,10 @@
 package openapi
 
 import (
+	"encoding/json"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // FaxV1Fax struct for FaxV1Fax
@@ -53,4 +56,59 @@ type FaxV1Fax struct {
 	To *string `json:"to,omitempty"`
 	// The absolute URL of the fax resource
 	Url *string `json:"url,omitempty"`
+}
+
+func (response *FaxV1Fax) UnmarshalJSON(bytes []byte) (err error) {
+	raw := struct {
+		AccountSid  *string                 `json:"account_sid"`
+		ApiVersion  *string                 `json:"api_version"`
+		DateCreated *time.Time              `json:"date_created"`
+		DateUpdated *time.Time              `json:"date_updated"`
+		Direction   *string                 `json:"direction"`
+		Duration    *int                    `json:"duration"`
+		From        *string                 `json:"from"`
+		Links       *map[string]interface{} `json:"links"`
+		MediaSid    *string                 `json:"media_sid"`
+		MediaUrl    *string                 `json:"media_url"`
+		NumPages    *int                    `json:"num_pages"`
+		Price       *interface{}            `json:"price"`
+		PriceUnit   *string                 `json:"price_unit"`
+		Quality     *string                 `json:"quality"`
+		Sid         *string                 `json:"sid"`
+		Status      *string                 `json:"status"`
+		To          *string                 `json:"to"`
+		Url         *string                 `json:"url"`
+	}{}
+
+	if err = json.Unmarshal(bytes, &raw); err != nil {
+		return err
+	}
+
+	*response = FaxV1Fax{
+		AccountSid:  raw.AccountSid,
+		ApiVersion:  raw.ApiVersion,
+		DateCreated: raw.DateCreated,
+		DateUpdated: raw.DateUpdated,
+		Direction:   raw.Direction,
+		Duration:    raw.Duration,
+		From:        raw.From,
+		Links:       raw.Links,
+		MediaSid:    raw.MediaSid,
+		MediaUrl:    raw.MediaUrl,
+		NumPages:    raw.NumPages,
+		PriceUnit:   raw.PriceUnit,
+		Quality:     raw.Quality,
+		Sid:         raw.Sid,
+		Status:      raw.Status,
+		To:          raw.To,
+		Url:         raw.Url,
+	}
+
+	responsePrice, err := client.UnmarshalFloat32(raw.Price)
+	if err != nil {
+		return err
+	}
+	response.Price = responsePrice
+
+	return
 }
