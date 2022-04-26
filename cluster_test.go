@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	ApiV2010 "github.com/twilio/twilio-go/rest/api/v2010"
+	Api "github.com/twilio/twilio-go/rest/api/v2010"
 	ChatV2 "github.com/twilio/twilio-go/rest/chat/v2"
 	EventsV1 "github.com/twilio/twilio-go/rest/events/v1"
 )
@@ -30,12 +30,12 @@ func TestMain(m *testing.M) {
 }
 
 func TestSendingAText(t *testing.T) {
-	params := &ApiV2010.CreateMessageParams{}
+	params := &Api.CreateMessageParams{}
 	params.SetTo(to)
 	params.SetFrom(from)
 	params.SetBody("Hello there")
 
-	resp, err := testClient.ApiV2010.CreateMessage(params)
+	resp, err := testClient.Api.CreateMessage(params)
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
 	assert.Equal(t, "Hello there", *resp.Body)
@@ -44,7 +44,7 @@ func TestSendingAText(t *testing.T) {
 }
 
 func TestListingNumbers(t *testing.T) {
-	resp, err := testClient.ApiV2010.ListIncomingPhoneNumber(nil)
+	resp, err := testClient.Api.ListIncomingPhoneNumber(nil)
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
 	// from, to numbers plus any other numbers that's configured for the account.
@@ -52,10 +52,10 @@ func TestListingNumbers(t *testing.T) {
 }
 
 func TestListingANumber(t *testing.T) {
-	params := &ApiV2010.ListIncomingPhoneNumberParams{}
+	params := &Api.ListIncomingPhoneNumberParams{}
 	params.SetPhoneNumber(from)
 
-	resp, err := testClient.ApiV2010.ListIncomingPhoneNumber(params)
+	resp, err := testClient.Api.ListIncomingPhoneNumber(params)
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
 	assert.Equal(t, 1, len(resp))

@@ -7,7 +7,7 @@ import (
 
 	"github.com/twilio/twilio-go/client"
 	AccountsV1 "github.com/twilio/twilio-go/rest/accounts/v1"
-	ApiV2010 "github.com/twilio/twilio-go/rest/api/v2010"
+	Api "github.com/twilio/twilio-go/rest/api/v2010"
 	AutopilotV1 "github.com/twilio/twilio-go/rest/autopilot/v1"
 	BulkexportsV1 "github.com/twilio/twilio-go/rest/bulkexports/v1"
 	ChatV1 "github.com/twilio/twilio-go/rest/chat/v1"
@@ -48,7 +48,7 @@ import (
 type RestClient struct {
 	*client.RequestHandler
 	AccountsV1      *AccountsV1.ApiService
-	ApiV2010        *ApiV2010.ApiService
+	Api             *Api.ApiService
 	AutopilotV1     *AutopilotV1.ApiService
 	BulkexportsV1   *BulkexportsV1.ApiService
 	ChatV1          *ChatV1.ApiService
@@ -136,7 +136,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	}
 
 	c.AccountsV1 = AccountsV1.NewApiService(c.RequestHandler)
-	c.ApiV2010 = ApiV2010.NewApiService(c.RequestHandler)
+	c.Api = Api.NewApiService(c.RequestHandler)
 	c.AutopilotV1 = AutopilotV1.NewApiService(c.RequestHandler)
 	c.BulkexportsV1 = BulkexportsV1.NewApiService(c.RequestHandler)
 	c.ChatV1 = ChatV1.NewApiService(c.RequestHandler)
