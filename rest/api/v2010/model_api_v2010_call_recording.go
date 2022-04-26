@@ -11,6 +11,12 @@
 
 package openapi
 
+import (
+	"encoding/json"
+
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010CallRecording struct for ApiV2010CallRecording
 type ApiV2010CallRecording struct {
 	// The SID of the Account that created the resource
@@ -49,4 +55,59 @@ type ApiV2010CallRecording struct {
 	Track *string `json:"track,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
 	Uri *string `json:"uri,omitempty"`
+}
+
+func (response *ApiV2010CallRecording) UnmarshalJSON(bytes []byte) (err error) {
+	raw := struct {
+		AccountSid        *string      `json:"account_sid"`
+		ApiVersion        *string      `json:"api_version"`
+		CallSid           *string      `json:"call_sid"`
+		Channels          *int         `json:"channels"`
+		ConferenceSid     *string      `json:"conference_sid"`
+		DateCreated       *string      `json:"date_created"`
+		DateUpdated       *string      `json:"date_updated"`
+		Duration          *string      `json:"duration"`
+		EncryptionDetails *interface{} `json:"encryption_details"`
+		ErrorCode         *int         `json:"error_code"`
+		Price             *interface{} `json:"price"`
+		PriceUnit         *string      `json:"price_unit"`
+		Sid               *string      `json:"sid"`
+		Source            *string      `json:"source"`
+		StartTime         *string      `json:"start_time"`
+		Status            *string      `json:"status"`
+		Track             *string      `json:"track"`
+		Uri               *string      `json:"uri"`
+	}{}
+
+	if err = json.Unmarshal(bytes, &raw); err != nil {
+		return err
+	}
+
+	*response = ApiV2010CallRecording{
+		AccountSid:        raw.AccountSid,
+		ApiVersion:        raw.ApiVersion,
+		CallSid:           raw.CallSid,
+		Channels:          raw.Channels,
+		ConferenceSid:     raw.ConferenceSid,
+		DateCreated:       raw.DateCreated,
+		DateUpdated:       raw.DateUpdated,
+		Duration:          raw.Duration,
+		EncryptionDetails: raw.EncryptionDetails,
+		ErrorCode:         raw.ErrorCode,
+		PriceUnit:         raw.PriceUnit,
+		Sid:               raw.Sid,
+		Source:            raw.Source,
+		StartTime:         raw.StartTime,
+		Status:            raw.Status,
+		Track:             raw.Track,
+		Uri:               raw.Uri,
+	}
+
+	responsePrice, err := client.UnmarshalFloat32(raw.Price)
+	if err != nil {
+		return err
+	}
+	response.Price = responsePrice
+
+	return
 }
