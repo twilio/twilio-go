@@ -7,6 +7,8 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"os"
+	"regexp"
+	"strings"
 	"testing"
 	"time"
 
@@ -265,4 +267,26 @@ func TestClient_SetAccountSid(t *testing.T) {
 	client := NewClient("user", "pass")
 	client.SetAccountSid("account_sid")
 	assert.Equal(t, "account_sid", client.AccountSid())
+}
+
+func TestClient_DefaultUserAgentHeaders(t *testing.T) {
+	headerServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			assert.Regexp(t, regexp.MustCompile(`^twilio-go/[0-9.]+\s\(\w+\s\w+\)\sgo/[^\s]+$`), request.Header.Get("User-Agent"))
+		}))
+
+	resp, _ := testClient.SendRequest("GET", headerServer.URL, nil, nil)
+	assert.Equal(t, 200, resp.StatusCode)
+}
+
+func TestClient_UserAgentExtensionsHeaders(t *testing.T) {
+	var expectedExtensions = []string{"twilio-run/2.0.0-test", "flex-plugin/3.4.0"}
+	testClient.UserAgentExtensions = expectedExtensions
+	headerServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			var headersList = strings.Split(request.Header.Get("User-Agent"), " ")
+			assert.Equal(t, headersList[len(headersList)-len(expectedExtensions):], expectedExtensions)
+		}))
+	resp, _ := testClient.SendRequest("GET", headerServer.URL, nil, nil)
+	assert.Equal(t, 200, resp.StatusCode)
 }
