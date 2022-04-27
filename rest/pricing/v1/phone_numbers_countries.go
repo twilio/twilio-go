@@ -94,60 +94,70 @@ func (c *ApiService) PagePhoneNumberCountry(params *ListPhoneNumberCountryParams
 
 // Lists PhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams) ([]PricingV1PhoneNumberCountry, error) {
-	response, err := c.StreamPhoneNumberCountry(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamPhoneNumberCountry(params)
 
 	records := make([]PricingV1PhoneNumberCountry, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams PhoneNumberCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryParams) (chan PricingV1PhoneNumberCountry, error) {
+func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryParams) (chan PricingV1PhoneNumberCountry, chan error) {
 	if params == nil {
 		params = &ListPhoneNumberCountryParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan PricingV1PhoneNumberCountry, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PagePhoneNumberCountry(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamPhoneNumberCountry(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamPhoneNumberCountry(response *ListPhoneNumberCountryResponse, params *ListPhoneNumberCountryParams, recordChannel chan PricingV1PhoneNumberCountry, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan PricingV1PhoneNumberCountry, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Countries
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Countries
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListPhoneNumberCountryResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListPhoneNumberCountryResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListPhoneNumberCountryResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListPhoneNumberCountryResponse(nextPageUrl string) (interface{}, error) {

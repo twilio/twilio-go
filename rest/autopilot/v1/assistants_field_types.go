@@ -161,60 +161,70 @@ func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypePar
 
 // Lists FieldType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams) ([]AutopilotV1FieldType, error) {
-	response, err := c.StreamFieldType(AssistantSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamFieldType(AssistantSid, params)
 
 	records := make([]AutopilotV1FieldType, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams FieldType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeParams) (chan AutopilotV1FieldType, error) {
+func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeParams) (chan AutopilotV1FieldType, chan error) {
 	if params == nil {
 		params = &ListFieldTypeParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan AutopilotV1FieldType, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageFieldType(AssistantSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamFieldType(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamFieldType(response *ListFieldTypeResponse, params *ListFieldTypeParams, recordChannel chan AutopilotV1FieldType, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1FieldType, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.FieldTypes
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListFieldTypeResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.FieldTypes
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListFieldTypeResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListFieldTypeResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListFieldTypeResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListFieldTypeResponse(nextPageUrl string) (interface{}, error) {

@@ -120,60 +120,70 @@ func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid strin
 
 // Lists DocumentPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) ([]SyncV1DocumentPermission, error) {
-	response, err := c.StreamDocumentPermission(ServiceSid, DocumentSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamDocumentPermission(ServiceSid, DocumentSid, params)
 
 	records := make([]SyncV1DocumentPermission, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams DocumentPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) (chan SyncV1DocumentPermission, error) {
+func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) (chan SyncV1DocumentPermission, chan error) {
 	if params == nil {
 		params = &ListDocumentPermissionParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan SyncV1DocumentPermission, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageDocumentPermission(ServiceSid, DocumentSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamDocumentPermission(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamDocumentPermission(response *ListDocumentPermissionResponse, params *ListDocumentPermissionParams, recordChannel chan SyncV1DocumentPermission, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan SyncV1DocumentPermission, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Permissions
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListDocumentPermissionResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Permissions
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListDocumentPermissionResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListDocumentPermissionResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListDocumentPermissionResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListDocumentPermissionResponse(nextPageUrl string) (interface{}, error) {

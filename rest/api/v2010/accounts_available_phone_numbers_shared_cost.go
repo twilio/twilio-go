@@ -247,60 +247,70 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 
 // Lists AvailablePhoneNumberSharedCost records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) ([]ApiV2010AvailablePhoneNumberSharedCost, error) {
-	response, err := c.StreamAvailablePhoneNumberSharedCost(CountryCode, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamAvailablePhoneNumberSharedCost(CountryCode, params)
 
 	records := make([]ApiV2010AvailablePhoneNumberSharedCost, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams AvailablePhoneNumberSharedCost records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) (chan ApiV2010AvailablePhoneNumberSharedCost, error) {
+func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) (chan ApiV2010AvailablePhoneNumberSharedCost, chan error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberSharedCostParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010AvailablePhoneNumberSharedCost, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageAvailablePhoneNumberSharedCost(CountryCode, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamAvailablePhoneNumberSharedCost(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamAvailablePhoneNumberSharedCost(response *ListAvailablePhoneNumberSharedCostResponse, params *ListAvailablePhoneNumberSharedCostParams, recordChannel chan ApiV2010AvailablePhoneNumberSharedCost, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AvailablePhoneNumberSharedCost, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.AvailablePhoneNumbers
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberSharedCostResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.AvailablePhoneNumbers
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListAvailablePhoneNumberSharedCostResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberSharedCostResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListAvailablePhoneNumberSharedCostResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListAvailablePhoneNumberSharedCostResponse(nextPageUrl string) (interface{}, error) {

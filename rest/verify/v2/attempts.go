@@ -168,60 +168,70 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 
 // Lists VerificationAttempt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptParams) ([]VerifyV2VerificationAttempt, error) {
-	response, err := c.StreamVerificationAttempt(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamVerificationAttempt(params)
 
 	records := make([]VerifyV2VerificationAttempt, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams VerificationAttempt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptParams) (chan VerifyV2VerificationAttempt, error) {
+func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptParams) (chan VerifyV2VerificationAttempt, chan error) {
 	if params == nil {
 		params = &ListVerificationAttemptParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan VerifyV2VerificationAttempt, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageVerificationAttempt(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamVerificationAttempt(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamVerificationAttempt(response *ListVerificationAttemptResponse, params *ListVerificationAttemptParams, recordChannel chan VerifyV2VerificationAttempt, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2VerificationAttempt, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Attempts
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListVerificationAttemptResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Attempts
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListVerificationAttemptResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListVerificationAttemptResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListVerificationAttemptResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListVerificationAttemptResponse(nextPageUrl string) (interface{}, error) {

@@ -134,60 +134,70 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 
 // Lists RoomParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomParticipantParams) ([]VideoV1RoomParticipant, error) {
-	response, err := c.StreamRoomParticipant(RoomSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamRoomParticipant(RoomSid, params)
 
 	records := make([]VideoV1RoomParticipant, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams RoomParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParticipantParams) (chan VideoV1RoomParticipant, error) {
+func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParticipantParams) (chan VideoV1RoomParticipant, chan error) {
 	if params == nil {
 		params = &ListRoomParticipantParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan VideoV1RoomParticipant, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageRoomParticipant(RoomSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamRoomParticipant(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamRoomParticipant(response *ListRoomParticipantResponse, params *ListRoomParticipantParams, recordChannel chan VideoV1RoomParticipant, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan VideoV1RoomParticipant, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Participants
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListRoomParticipantResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Participants
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListRoomParticipantResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListRoomParticipantResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListRoomParticipantResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListRoomParticipantResponse(nextPageUrl string) (interface{}, error) {

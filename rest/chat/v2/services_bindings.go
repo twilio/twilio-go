@@ -137,60 +137,70 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 
 // Lists Binding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) ([]ChatV2Binding, error) {
-	response, err := c.StreamBinding(ServiceSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamBinding(ServiceSid, params)
 
 	records := make([]ChatV2Binding, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Binding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams) (chan ChatV2Binding, error) {
+func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams) (chan ChatV2Binding, chan error) {
 	if params == nil {
 		params = &ListBindingParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ChatV2Binding, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageBinding(ServiceSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamBinding(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamBinding(response *ListBindingResponse, params *ListBindingParams, recordChannel chan ChatV2Binding, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ChatV2Binding, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Bindings
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListBindingResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Bindings
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListBindingResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListBindingResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListBindingResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListBindingResponse(nextPageUrl string) (interface{}, error) {

@@ -168,60 +168,70 @@ func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToke
 
 // Lists CredentialAws records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams) ([]AccountsV1CredentialAws, error) {
-	response, err := c.StreamCredentialAws(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamCredentialAws(params)
 
 	records := make([]AccountsV1CredentialAws, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams CredentialAws records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams) (chan AccountsV1CredentialAws, error) {
+func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams) (chan AccountsV1CredentialAws, chan error) {
 	if params == nil {
 		params = &ListCredentialAwsParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan AccountsV1CredentialAws, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageCredentialAws(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamCredentialAws(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamCredentialAws(response *ListCredentialAwsResponse, params *ListCredentialAwsParams, recordChannel chan AccountsV1CredentialAws, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan AccountsV1CredentialAws, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Credentials
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListCredentialAwsResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Credentials
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListCredentialAwsResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCredentialAwsResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListCredentialAwsResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListCredentialAwsResponse(nextPageUrl string) (interface{}, error) {

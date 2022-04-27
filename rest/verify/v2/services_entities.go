@@ -155,60 +155,70 @@ func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pag
 
 // Lists Entity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) ([]VerifyV2Entity, error) {
-	response, err := c.StreamEntity(ServiceSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamEntity(ServiceSid, params)
 
 	records := make([]VerifyV2Entity, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Entity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (chan VerifyV2Entity, error) {
+func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (chan VerifyV2Entity, chan error) {
 	if params == nil {
 		params = &ListEntityParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan VerifyV2Entity, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageEntity(ServiceSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamEntity(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamEntity(response *ListEntityResponse, params *ListEntityParams, recordChannel chan VerifyV2Entity, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2Entity, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Entities
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListEntityResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Entities
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListEntityResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListEntityResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListEntityResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListEntityResponse(nextPageUrl string) (interface{}, error) {

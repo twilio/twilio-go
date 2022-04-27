@@ -74,60 +74,70 @@ func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParam
 
 // Lists DataSession records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams) ([]WirelessV1DataSession, error) {
-	response, err := c.StreamDataSession(SimSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamDataSession(SimSid, params)
 
 	records := make([]WirelessV1DataSession, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams DataSession records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionParams) (chan WirelessV1DataSession, error) {
+func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionParams) (chan WirelessV1DataSession, chan error) {
 	if params == nil {
 		params = &ListDataSessionParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan WirelessV1DataSession, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageDataSession(SimSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamDataSession(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamDataSession(response *ListDataSessionResponse, params *ListDataSessionParams, recordChannel chan WirelessV1DataSession, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan WirelessV1DataSession, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.DataSessions
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListDataSessionResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.DataSessions
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListDataSessionResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListDataSessionResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListDataSessionResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListDataSessionResponse(nextPageUrl string) (interface{}, error) {

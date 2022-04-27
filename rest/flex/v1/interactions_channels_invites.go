@@ -119,60 +119,70 @@ func (c *ApiService) PageInteractionChannelInvite(InteractionSid string, Channel
 
 // Lists InteractionChannelInvite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInteractionChannelInvite(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) ([]FlexV1InteractionChannelInvite, error) {
-	response, err := c.StreamInteractionChannelInvite(InteractionSid, ChannelSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamInteractionChannelInvite(InteractionSid, ChannelSid, params)
 
 	records := make([]FlexV1InteractionChannelInvite, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams InteractionChannelInvite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInteractionChannelInvite(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) (chan FlexV1InteractionChannelInvite, error) {
+func (c *ApiService) StreamInteractionChannelInvite(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) (chan FlexV1InteractionChannelInvite, chan error) {
 	if params == nil {
 		params = &ListInteractionChannelInviteParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan FlexV1InteractionChannelInvite, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageInteractionChannelInvite(InteractionSid, ChannelSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamInteractionChannelInvite(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamInteractionChannelInvite(response *ListInteractionChannelInviteResponse, params *ListInteractionChannelInviteParams, recordChannel chan FlexV1InteractionChannelInvite, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan FlexV1InteractionChannelInvite, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Invites
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListInteractionChannelInviteResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Invites
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListInteractionChannelInviteResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListInteractionChannelInviteResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListInteractionChannelInviteResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListInteractionChannelInviteResponse(nextPageUrl string) (interface{}, error) {

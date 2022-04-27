@@ -160,60 +160,70 @@ func (c *ApiService) PageRecordingAddOnResult(ReferenceSid string, params *ListR
 
 // Lists RecordingAddOnResult records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRecordingAddOnResult(ReferenceSid string, params *ListRecordingAddOnResultParams) ([]ApiV2010RecordingAddOnResult, error) {
-	response, err := c.StreamRecordingAddOnResult(ReferenceSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamRecordingAddOnResult(ReferenceSid, params)
 
 	records := make([]ApiV2010RecordingAddOnResult, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams RecordingAddOnResult records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRecordingAddOnResult(ReferenceSid string, params *ListRecordingAddOnResultParams) (chan ApiV2010RecordingAddOnResult, error) {
+func (c *ApiService) StreamRecordingAddOnResult(ReferenceSid string, params *ListRecordingAddOnResultParams) (chan ApiV2010RecordingAddOnResult, chan error) {
 	if params == nil {
 		params = &ListRecordingAddOnResultParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010RecordingAddOnResult, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageRecordingAddOnResult(ReferenceSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamRecordingAddOnResult(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamRecordingAddOnResult(response *ListRecordingAddOnResultResponse, params *ListRecordingAddOnResultParams, recordChannel chan ApiV2010RecordingAddOnResult, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010RecordingAddOnResult, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.AddOnResults
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListRecordingAddOnResultResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.AddOnResults
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListRecordingAddOnResultResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListRecordingAddOnResultResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListRecordingAddOnResultResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListRecordingAddOnResultResponse(nextPageUrl string) (interface{}, error) {

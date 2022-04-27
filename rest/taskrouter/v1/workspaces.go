@@ -201,60 +201,70 @@ func (c *ApiService) PageWorkspace(params *ListWorkspaceParams, pageToken, pageN
 
 // Lists Workspace records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkspace(params *ListWorkspaceParams) ([]TaskrouterV1Workspace, error) {
-	response, err := c.StreamWorkspace(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamWorkspace(params)
 
 	records := make([]TaskrouterV1Workspace, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Workspace records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorkspace(params *ListWorkspaceParams) (chan TaskrouterV1Workspace, error) {
+func (c *ApiService) StreamWorkspace(params *ListWorkspaceParams) (chan TaskrouterV1Workspace, chan error) {
 	if params == nil {
 		params = &ListWorkspaceParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan TaskrouterV1Workspace, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageWorkspace(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamWorkspace(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamWorkspace(response *ListWorkspaceResponse, params *ListWorkspaceParams, recordChannel chan TaskrouterV1Workspace, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1Workspace, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Workspaces
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListWorkspaceResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Workspaces
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListWorkspaceResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListWorkspaceResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListWorkspaceResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListWorkspaceResponse(nextPageUrl string) (interface{}, error) {

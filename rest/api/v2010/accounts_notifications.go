@@ -159,60 +159,70 @@ func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken,
 
 // Lists Notification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNotification(params *ListNotificationParams) ([]ApiV2010Notification, error) {
-	response, err := c.StreamNotification(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamNotification(params)
 
 	records := make([]ApiV2010Notification, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Notification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamNotification(params *ListNotificationParams) (chan ApiV2010Notification, error) {
+func (c *ApiService) StreamNotification(params *ListNotificationParams) (chan ApiV2010Notification, chan error) {
 	if params == nil {
 		params = &ListNotificationParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010Notification, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageNotification(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamNotification(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamNotification(response *ListNotificationResponse, params *ListNotificationParams, recordChannel chan ApiV2010Notification, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010Notification, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Notifications
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListNotificationResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Notifications
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListNotificationResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListNotificationResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListNotificationResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListNotificationResponse(nextPageUrl string) (interface{}, error) {

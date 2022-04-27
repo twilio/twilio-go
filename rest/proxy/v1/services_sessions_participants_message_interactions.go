@@ -152,60 +152,70 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 
 // Lists MessageInteraction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) ([]ProxyV1MessageInteraction, error) {
-	response, err := c.StreamMessageInteraction(ServiceSid, SessionSid, ParticipantSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamMessageInteraction(ServiceSid, SessionSid, ParticipantSid, params)
 
 	records := make([]ProxyV1MessageInteraction, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams MessageInteraction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (chan ProxyV1MessageInteraction, error) {
+func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (chan ProxyV1MessageInteraction, chan error) {
 	if params == nil {
 		params = &ListMessageInteractionParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ProxyV1MessageInteraction, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageMessageInteraction(ServiceSid, SessionSid, ParticipantSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamMessageInteraction(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamMessageInteraction(response *ListMessageInteractionResponse, params *ListMessageInteractionParams, recordChannel chan ProxyV1MessageInteraction, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ProxyV1MessageInteraction, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Interactions
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListMessageInteractionResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Interactions
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListMessageInteractionResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListMessageInteractionResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListMessageInteractionResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListMessageInteractionResponse(nextPageUrl string) (interface{}, error) {

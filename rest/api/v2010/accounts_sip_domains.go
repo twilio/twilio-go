@@ -313,60 +313,70 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageN
 
 // Lists SipDomain records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipDomain(params *ListSipDomainParams) ([]ApiV2010SipDomain, error) {
-	response, err := c.StreamSipDomain(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamSipDomain(params)
 
 	records := make([]ApiV2010SipDomain, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams SipDomain records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010SipDomain, error) {
+func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010SipDomain, chan error) {
 	if params == nil {
 		params = &ListSipDomainParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010SipDomain, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageSipDomain(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamSipDomain(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamSipDomain(response *ListSipDomainResponse, params *ListSipDomainParams, recordChannel chan ApiV2010SipDomain, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010SipDomain, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Domains
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListSipDomainResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Domains
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListSipDomainResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSipDomainResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListSipDomainResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListSipDomainResponse(nextPageUrl string) (interface{}, error) {

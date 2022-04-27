@@ -213,60 +213,70 @@ func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken, pageN
 
 // Lists Assistant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAssistant(params *ListAssistantParams) ([]AutopilotV1Assistant, error) {
-	response, err := c.StreamAssistant(params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamAssistant(params)
 
 	records := make([]AutopilotV1Assistant, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams Assistant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAssistant(params *ListAssistantParams) (chan AutopilotV1Assistant, error) {
+func (c *ApiService) StreamAssistant(params *ListAssistantParams) (chan AutopilotV1Assistant, chan error) {
 	if params == nil {
 		params = &ListAssistantParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan AutopilotV1Assistant, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageAssistant(params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamAssistant(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamAssistant(response *ListAssistantResponse, params *ListAssistantParams, recordChannel chan AutopilotV1Assistant, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1Assistant, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Assistants
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListAssistantResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Assistants
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListAssistantResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAssistantResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListAssistantResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListAssistantResponse(nextPageUrl string) (interface{}, error) {

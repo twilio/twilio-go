@@ -155,60 +155,70 @@ func (c *ApiService) PageNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 
 // Lists NetworkAccessProfileNetwork records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) ([]SupersimV1NetworkAccessProfileNetwork, error) {
-	response, err := c.StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid, params)
 
 	records := make([]SupersimV1NetworkAccessProfileNetwork, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams NetworkAccessProfileNetwork records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (chan SupersimV1NetworkAccessProfileNetwork, error) {
+func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (chan SupersimV1NetworkAccessProfileNetwork, chan error) {
 	if params == nil {
 		params = &ListNetworkAccessProfileNetworkParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan SupersimV1NetworkAccessProfileNetwork, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageNetworkAccessProfileNetwork(NetworkAccessProfileSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamNetworkAccessProfileNetwork(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamNetworkAccessProfileNetwork(response *ListNetworkAccessProfileNetworkResponse, params *ListNetworkAccessProfileNetworkParams, recordChannel chan SupersimV1NetworkAccessProfileNetwork, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan SupersimV1NetworkAccessProfileNetwork, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Networks
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListNetworkAccessProfileNetworkResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Networks
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListNetworkAccessProfileNetworkResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListNetworkAccessProfileNetworkResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListNetworkAccessProfileNetworkResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListNetworkAccessProfileNetworkResponse(nextPageUrl string) (interface{}, error) {

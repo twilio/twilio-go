@@ -154,60 +154,70 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 
 // Lists IpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) ([]TrunkingV1IpAccessControlList, error) {
-	response, err := c.StreamIpAccessControlList(TrunkSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamIpAccessControlList(TrunkSid, params)
 
 	records := make([]TrunkingV1IpAccessControlList, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams IpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) (chan TrunkingV1IpAccessControlList, error) {
+func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) (chan TrunkingV1IpAccessControlList, chan error) {
 	if params == nil {
 		params = &ListIpAccessControlListParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan TrunkingV1IpAccessControlList, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageIpAccessControlList(TrunkSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamIpAccessControlList(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamIpAccessControlList(response *ListIpAccessControlListResponse, params *ListIpAccessControlListParams, recordChannel chan TrunkingV1IpAccessControlList, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan TrunkingV1IpAccessControlList, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.IpAccessControlLists
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListIpAccessControlListResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.IpAccessControlLists
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListIpAccessControlListResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListIpAccessControlListResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListIpAccessControlListResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListIpAccessControlListResponse(nextPageUrl string) (interface{}, error) {

@@ -183,60 +183,70 @@ func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, pa
 
 // Lists FieldValue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) ([]AutopilotV1FieldValue, error) {
-	response, err := c.StreamFieldValue(AssistantSid, FieldTypeSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamFieldValue(AssistantSid, FieldTypeSid, params)
 
 	records := make([]AutopilotV1FieldValue, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams FieldValue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) (chan AutopilotV1FieldValue, error) {
+func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) (chan AutopilotV1FieldValue, chan error) {
 	if params == nil {
 		params = &ListFieldValueParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan AutopilotV1FieldValue, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageFieldValue(AssistantSid, FieldTypeSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamFieldValue(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamFieldValue(response *ListFieldValueResponse, params *ListFieldValueParams, recordChannel chan AutopilotV1FieldValue, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1FieldValue, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.FieldValues
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListFieldValueResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.FieldValues
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListFieldValueResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListFieldValueResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListFieldValueResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListFieldValueResponse(nextPageUrl string) (interface{}, error) {

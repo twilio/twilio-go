@@ -136,60 +136,70 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 
 // Lists CustomerProfileEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) ([]TrusthubV1CustomerProfileEvaluation, error) {
-	response, err := c.StreamCustomerProfileEvaluation(CustomerProfileSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamCustomerProfileEvaluation(CustomerProfileSid, params)
 
 	records := make([]TrusthubV1CustomerProfileEvaluation, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams CustomerProfileEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) (chan TrusthubV1CustomerProfileEvaluation, error) {
+func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) (chan TrusthubV1CustomerProfileEvaluation, chan error) {
 	if params == nil {
 		params = &ListCustomerProfileEvaluationParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan TrusthubV1CustomerProfileEvaluation, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageCustomerProfileEvaluation(CustomerProfileSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamCustomerProfileEvaluation(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamCustomerProfileEvaluation(response *ListCustomerProfileEvaluationResponse, params *ListCustomerProfileEvaluationParams, recordChannel chan TrusthubV1CustomerProfileEvaluation, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan TrusthubV1CustomerProfileEvaluation, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.Results
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListCustomerProfileEvaluationResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.Results
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListCustomerProfileEvaluationResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCustomerProfileEvaluationResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListCustomerProfileEvaluationResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListCustomerProfileEvaluationResponse(nextPageUrl string) (interface{}, error) {

@@ -247,60 +247,70 @@ func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params
 
 // Lists AvailablePhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) ([]ApiV2010AvailablePhoneNumberTollFree, error) {
-	response, err := c.StreamAvailablePhoneNumberTollFree(CountryCode, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamAvailablePhoneNumberTollFree(CountryCode, params)
 
 	records := make([]ApiV2010AvailablePhoneNumberTollFree, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams AvailablePhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) (chan ApiV2010AvailablePhoneNumberTollFree, error) {
+func (c *ApiService) StreamAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) (chan ApiV2010AvailablePhoneNumberTollFree, chan error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberTollFreeParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan ApiV2010AvailablePhoneNumberTollFree, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageAvailablePhoneNumberTollFree(CountryCode, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamAvailablePhoneNumberTollFree(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamAvailablePhoneNumberTollFree(response *ListAvailablePhoneNumberTollFreeResponse, params *ListAvailablePhoneNumberTollFreeParams, recordChannel chan ApiV2010AvailablePhoneNumberTollFree, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AvailablePhoneNumberTollFree, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.AvailablePhoneNumbers
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberTollFreeResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.AvailablePhoneNumbers
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListAvailablePhoneNumberTollFreeResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberTollFreeResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListAvailablePhoneNumberTollFreeResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListAvailablePhoneNumberTollFreeResponse(nextPageUrl string) (interface{}, error) {

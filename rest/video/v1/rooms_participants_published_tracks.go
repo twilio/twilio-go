@@ -100,60 +100,70 @@ func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, Participa
 
 // Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) ([]VideoV1RoomParticipantPublishedTrack, error) {
-	response, err := c.StreamRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params)
-	if err != nil {
-		return nil, err
-	}
+	response, errors := c.StreamRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params)
 
 	records := make([]VideoV1RoomParticipantPublishedTrack, 0)
-
 	for record := range response {
 		records = append(records, record)
 	}
 
-	return records, err
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
 }
 
 // Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (chan VideoV1RoomParticipantPublishedTrack, error) {
+func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (chan VideoV1RoomParticipantPublishedTrack, chan error) {
 	if params == nil {
 		params = &ListRoomParticipantPublishedTrackParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
+	recordChannel := make(chan VideoV1RoomParticipantPublishedTrack, 1)
+	errorChannel := make(chan error, 1)
+
 	response, err := c.PageRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params, "", "")
 	if err != nil {
-		return nil, err
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamRoomParticipantPublishedTrack(response, params, recordChannel, errorChannel)
 	}
 
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamRoomParticipantPublishedTrack(response *ListRoomParticipantPublishedTrackResponse, params *ListRoomParticipantPublishedTrackParams, recordChannel chan VideoV1RoomParticipantPublishedTrack, errorChannel chan error) {
 	curRecord := 1
-	//set buffer size of the channel to 1
-	channel := make(chan VideoV1RoomParticipantPublishedTrack, 1)
 
-	go func() {
-		for response != nil {
-			responseRecords := response.PublishedTracks
-			for item := range responseRecords {
-				channel <- responseRecords[item]
-				curRecord += 1
-				if params.Limit != nil && *params.Limit < curRecord {
-					close(channel)
-					return
-				}
-			}
-
-			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
-				close(channel)
+	for response != nil {
+		responseRecords := response.PublishedTracks
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
 				return
 			}
-
-			response = record.(*ListRoomParticipantPublishedTrackResponse)
 		}
-		close(channel)
-	}()
 
-	return channel, err
+		record, err := client.GetNext(c.baseURL, response, c.getNextListRoomParticipantPublishedTrackResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListRoomParticipantPublishedTrackResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListRoomParticipantPublishedTrackResponse(nextPageUrl string) (interface{}, error) {
