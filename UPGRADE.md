@@ -2,7 +2,7 @@
 
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
-[2022-04-27] 0.2.x to 0.1.x-rc.x
+[2022-04-27] 0.2.x to 1.x.xrc
 -----------------------------
 ### CHANGED - Renammed ApiV2010 to Api.
 ApiV2010 has now been renamed to Api. This has caused a breaking change for all endpoints located under `rest/api/2010`.
@@ -20,7 +20,7 @@ params.SetTo("+15558675310")
 resp, err := client.ApiV2010.CreateMessage(params)
 ```
 ```go
-//0.1.x-rc.x
+//1.x.xrc
 client := twilio.NewRestClient()
 
 params := &api.CreateMessageParams{}
@@ -38,7 +38,7 @@ params := &api.CreateAccountParams{}
 resp, err := client.ApiV2010.FetchAccount("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 ```
 ```go
-//0.1.x-rc.x
+//1.x.xrc
 client := twilio.NewRestClient()
 params := &api.CreateAccountParams{}
 resp, err := client.Api.FetchAccount("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
@@ -54,7 +54,7 @@ params.SetQualityScore(1)
 resp, err := client.ApiV2010.UpdateCallFeedback("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", params)
 ```
 ```go
-//0.1.x-rc.x
+//1.x.xrc
 client := twilio.NewRestClient()
 
 params := &api.UpdateCallFeedbackParams{}
@@ -72,7 +72,7 @@ params := &api.DeleteParticipantParams{}
 err := client.ApiV2010.DeleteParticipant("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", params)
 ```
 ```go
-//0.1.x-rc.x
+//1.x.xrc
 client := twilio.NewRestClient()
 
 params := &api.DeleteParticipantParams{}
