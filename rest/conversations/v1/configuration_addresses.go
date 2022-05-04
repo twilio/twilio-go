@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.28.2
+ * API version: 1.29.0
  * Contact: support@twilio.com
  */
 
@@ -192,12 +192,18 @@ func (c *ApiService) FetchConfigurationAddress(Sid string) (*ConversationsV1Conf
 
 // Optional parameters for the method 'ListConfigurationAddress'
 type ListConfigurationAddressParams struct {
+	// Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
+	Type *string `json:"Type,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
+func (params *ListConfigurationAddressParams) SetType(Type string) *ListConfigurationAddressParams {
+	params.Type = &Type
+	return params
+}
 func (params *ListConfigurationAddressParams) SetPageSize(PageSize int) *ListConfigurationAddressParams {
 	params.PageSize = &PageSize
 	return params
@@ -214,6 +220,9 @@ func (c *ApiService) PageConfigurationAddress(params *ListConfigurationAddressPa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}

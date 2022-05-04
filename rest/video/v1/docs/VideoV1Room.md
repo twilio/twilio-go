@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **EmptyRoomTimeout** | Pointer to **int** | The time a room will remain active after last participant leaves. |
 **EnableTurn** | Pointer to **bool** | Enable Twilio's Network Traversal TURN service |
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | The UTC end time of the room in UTC ISO 8601 format |
+**LargeRoom** | Pointer to **bool** | Indicates if this is a large room. |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
 **MaxConcurrentPublishedTracks** | Pointer to **int** | The maximum number of published tracks allowed in the room at the same time |
 **MaxParticipantDuration** | Pointer to **int** | The maximum number of seconds a Participant can be connected to the room |

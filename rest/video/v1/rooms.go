@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.28.2
+ * API version: 1.29.0
  * Contact: support@twilio.com
  */
 
@@ -29,6 +29,8 @@ type CreateRoomParams struct {
 	EmptyRoomTimeout *int `json:"EmptyRoomTimeout,omitempty"`
 	// Deprecated, now always considered to be true.
 	EnableTurn *bool `json:"EnableTurn,omitempty"`
+	// When set to true, indicated that this is the large room.
+	LargeRoom *bool `json:"LargeRoom,omitempty"`
 	// The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
 	MaxParticipantDuration *int `json:"MaxParticipantDuration,omitempty"`
 	// The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
@@ -63,6 +65,10 @@ func (params *CreateRoomParams) SetEmptyRoomTimeout(EmptyRoomTimeout int) *Creat
 }
 func (params *CreateRoomParams) SetEnableTurn(EnableTurn bool) *CreateRoomParams {
 	params.EnableTurn = &EnableTurn
+	return params
+}
+func (params *CreateRoomParams) SetLargeRoom(LargeRoom bool) *CreateRoomParams {
+	params.LargeRoom = &LargeRoom
 	return params
 }
 func (params *CreateRoomParams) SetMaxParticipantDuration(MaxParticipantDuration int) *CreateRoomParams {
@@ -124,6 +130,9 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 	}
 	if params != nil && params.EnableTurn != nil {
 		data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn))
+	}
+	if params != nil && params.LargeRoom != nil {
+		data.Set("LargeRoom", fmt.Sprint(*params.LargeRoom))
 	}
 	if params != nil && params.MaxParticipantDuration != nil {
 		data.Set("MaxParticipantDuration", fmt.Sprint(*params.MaxParticipantDuration))

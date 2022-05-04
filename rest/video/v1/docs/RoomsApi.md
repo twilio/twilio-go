@@ -31,6 +31,7 @@ Name | Type | Description
 **AudioOnly** | **bool** | When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
 **EmptyRoomTimeout** | **int** | Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
 **EnableTurn** | **bool** | Deprecated, now always considered to be true.
+**LargeRoom** | **bool** | When set to true, indicated that this is the large room.
 **MaxParticipantDuration** | **int** | The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
 **MaxParticipants** | **int** | The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
 **MediaRegion** | **string** | The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in &#x60;peer-to-peer&#x60; rooms.***

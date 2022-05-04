@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.28.2
+ * API version: 1.29.0
  * Contact: support@twilio.com
  */
 
@@ -33,6 +33,8 @@ type VideoV1Room struct {
 	EnableTurn *bool `json:"enable_turn,omitempty"`
 	// The UTC end time of the room in UTC ISO 8601 format
 	EndTime *time.Time `json:"end_time,omitempty"`
+	// Indicates if this is a large room.
+	LargeRoom *bool `json:"large_room,omitempty"`
 	// The URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The maximum number of published tracks allowed in the room at the same time

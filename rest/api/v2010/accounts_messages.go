@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.28.2
+ * API version: 1.29.0
  * Contact: support@twilio.com
  */
 
@@ -51,7 +51,7 @@ type CreateMessageParams struct {
 	ProvideFeedback *bool `json:"ProvideFeedback,omitempty"`
 	// Indicates your intent to schedule a message. Pass the value `fixed` to schedule a message at a fixed time.
 	ScheduleType *string `json:"ScheduleType,omitempty"`
-	// If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media. This is a Beta Feature.
+	// If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
 	SendAsMms *bool `json:"SendAsMms,omitempty"`
 	// The time that Twilio will send the message. Must be in ISO 8601 format.
 	SendAt *time.Time `json:"SendAt,omitempty"`

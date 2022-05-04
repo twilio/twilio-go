@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.28.2
+ * API version: 1.29.0
  * Contact: support@twilio.com
  */
 
@@ -42,7 +42,7 @@ type CreateServiceParams struct {
 	PushApnCredentialSid *string `json:"Push.ApnCredentialSid,omitempty"`
 	// Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
 	PushFcmCredentialSid *string `json:"Push.FcmCredentialSid,omitempty"`
-	// Optional configuration for the Push factors. If true, include the date in the Challenge's reponse. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: true
+	// Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
 	PushIncludeDate *bool `json:"Push.IncludeDate,omitempty"`
 	// Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
 	SkipSmsToLandlines *bool `json:"SkipSmsToLandlines,omitempty"`
@@ -400,7 +400,7 @@ type UpdateServiceParams struct {
 	PushApnCredentialSid *string `json:"Push.ApnCredentialSid,omitempty"`
 	// Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
 	PushFcmCredentialSid *string `json:"Push.FcmCredentialSid,omitempty"`
-	// Optional configuration for the Push factors. If true, include the date in the Challenge's reponse. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: true
+	// Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
 	PushIncludeDate *bool `json:"Push.IncludeDate,omitempty"`
 	// Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
 	SkipSmsToLandlines *bool `json:"SkipSmsToLandlines,omitempty"`

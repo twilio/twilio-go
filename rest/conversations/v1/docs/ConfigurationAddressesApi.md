@@ -164,6 +164,7 @@ Other parameters are passed through a pointer to a ListConfigurationAddressParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**Type** | **string** | Filter the address configurations by its type. This value can be one of: &#x60;whatsapp&#x60;, &#x60;sms&#x60;.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

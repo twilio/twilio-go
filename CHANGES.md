@@ -1,5 +1,25 @@
 twilio-go changelog
 ====================
+[2022-05-04] Version 0.25.0
+---------------------------
+**Library - Feature**
+- [PR #162](https://github.com/twilio/twilio-go/pull/162): twilio-go stream functions also return error channel. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #158](https://github.com/twilio/twilio-go/pull/158): add unmarshaling helper for float32. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Chore**
+- [PR #159](https://github.com/twilio/twilio-go/pull/159): [DI-1566] modify ua string. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+**Conversations**
+- Expose query parameter `type` in list operation on Address Configurations resource
+
+**Supersim**
+- Add `data_total_billed` and `billed_units` fields to Super SIM UsageRecords API response.
+- Change ESimProfiles `Eid` parameter to optional to enable Activation Code download method support **(breaking change)**
+
+**Verify**
+- Deprecate `push.include_date` parameter in create and update service.
+
+
 [2022-04-20] Version 0.24.1
 ---------------------------
 **Library - Test**
