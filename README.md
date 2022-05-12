@@ -38,6 +38,14 @@ To use twilio-go in your project initialize go modules then run:
 go get github.com/twilio/twilio-go
 ```
 
+## Installing release candidates
+
+To use twilio-go release candidates initialize go modules then run:
+
+```bash
+go get github.com/twilio/twilio-go@1.x.x-rc.x
+```
+
 ## Getting Started
 
 Getting started with the Twilio API couldn't be easier. Create a
