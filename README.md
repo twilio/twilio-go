@@ -38,6 +38,14 @@ To use twilio-go in your project initialize go modules then run:
 go get github.com/twilio/twilio-go
 ```
 
+## Installing release candidates
+
+To use twilio-go release candidates initialize go modules then run:
+
+```bash
+go get github.com/twilio/twilio-go@1.x.x-rc.x
+```
+
 ## Getting Started
 
 Getting started with the Twilio API couldn't be easier. Create a
@@ -137,7 +145,7 @@ func main() {
 	params := &openapi.CreateIncomingPhoneNumberParams{}
 	params.SetPhoneNumber(phoneNumber)
 
-	resp, err := client.ApiV2010.CreateIncomingPhoneNumber(params)
+	resp, err := client.Api.CreateIncomingPhoneNumber(params)
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
@@ -170,7 +178,7 @@ func main() {
 	params.SetFrom(from)
 	params.SetBody("Hello there")
 
-	resp, err := client.ApiV2010.CreateMessage(params)
+	resp, err := client.Api.CreateMessage(params)
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
@@ -203,7 +211,7 @@ func main() {
 	params.SetFrom(from)
 	params.SetUrl("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
 
-	resp, err := client.ApiV2010.CreateCall(params)
+	resp, err := client.Api.CreateCall(params)
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
@@ -329,12 +337,12 @@ func main() {
 	params.SetPageSize(20)
 	params.SetLimit(100)
 
-	resp, _ := client.ApiV2010.ListMessage(params)
+	resp, _ := client.Api.ListMessage(params)
 	for record := range resp {
 		fmt.Println("Body: ", *resp[record].Body)
 	}
 
-	channel, _ := client.ApiV2010.StreamMessage(params)
+	channel, _ := client.Api.StreamMessage(params)
 	for record := range channel {
 		fmt.Println("Body: ", *record.Body)
 	}
@@ -363,7 +371,7 @@ func main() {
 
 	var pageToken string
 	var pageNumber string
-	resp, err = client.ApiV2010.PageMessage(params, "", "")
+	resp, err = client.Api.PageMessage(params, "", "")
 	if err != nil {
 		fmt.Println(err)
 	} else {
@@ -374,7 +382,7 @@ func main() {
 		pageNumber = q.Get("Page")
 	}
 
-	resp, err := client.ApiV2010.PageMessage(params, pageToken, pageNumber)
+	resp, err := client.Api.PageMessage(params, pageToken, pageNumber)
 	if err != nil {
 		fmt.Println(err)
 	} else {
@@ -407,7 +415,7 @@ func main() {
 	params := &openapi.CreateIncomingPhoneNumberParams{}
 	params.SetPhoneNumber(phoneNumber)
 
-	resp, err := client.ApiV2010.CreateIncomingPhoneNumber(params)
+	resp, err := client.Api.CreateIncomingPhoneNumber(params)
 	if err != nil {
 		twilioError := err.(*twilioclient.TwilioRestError)
 		fmt.Println(twilioError.Error())
@@ -430,7 +438,7 @@ package main
 
 import (
 	"github.com/twilio/twilio-go/client"
-	apiv2010 "github.com/twilio/twilio-go/rest/api/v2010"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 	serverless "github.com/twilio/twilio-go/rest/serverless/v1"
 	"os"
 )
@@ -446,7 +454,7 @@ func main() {
 	}
 	defaultClient.SetAccountSid(accountSid)
 
-	coreApiService := apiv2010.NewApiServiceWithClient(defaultClient)
+	coreApiService := openapi.NewApiServiceWithClient(defaultClient)
 	serverlessApiService := serverless.NewApiServiceWithClient(defaultClient)
 }
 ```
