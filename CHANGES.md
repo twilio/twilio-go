@@ -1,5 +1,10 @@
 twilio-go changelog
 ====================
+[2022-06-15] Version 1.0.0-rc.0
+---------------------------
+- Release Candidate prep
+
+
 [2022-05-18] Version 0.26.0
 ---------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2022-05-18-025x-to-026x) for detailed migration notes.
@@ -775,4 +780,3 @@ twilio-go changelog
 
 [2021-02-11] Version 0.1.0
 --------------------------
-
