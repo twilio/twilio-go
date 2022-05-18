@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Duration** | Pointer to **string** | The length of the recording in seconds. |
 **EncryptionDetails** | Pointer to **interface{}** | How to decrypt the recording. |
 **ErrorCode** | Pointer to **int** | More information about why the recording is missing, if status is `absent`. |
+**MediaUrl** | Pointer to **string** | The URL of the media file. |
 **Price** | Pointer to **string** | The one-time cost of creating the recording. |
 **PriceUnit** | Pointer to **string** | The currency used in the price property. |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |

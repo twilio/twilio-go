@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.29.0
+ * API version: 1.29.1
  * Contact: support@twilio.com
  */
 
@@ -33,6 +33,8 @@ type ApiV2010Recording struct {
 	EncryptionDetails *interface{} `json:"encryption_details,omitempty"`
 	// More information about why the recording is missing, if status is `absent`.
 	ErrorCode *int `json:"error_code,omitempty"`
+	// The URL of the media file.
+	MediaUrl *string `json:"media_url,omitempty"`
 	// The one-time cost of creating the recording.
 	Price *string `json:"price,omitempty"`
 	// The currency used in the price property.

@@ -1,5 +1,19 @@
 twilio-go changelog
 ====================
+[2022-05-18] Version 0.26.0
+---------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2022-05-18-025x-to-026x) for detailed migration notes.
+
+**Library - Chore**
+- [PR #164](https://github.com/twilio/twilio-go/pull/164): rename ApiV2010 to Api. Thanks to [@JenniferMah](https://github.com/JenniferMah)! **(breaking change)**
+
+**Api**
+- Add property `media_url` to the recording resources
+
+**Verify**
+- Include `silent` as a channel type in the verifications API.
+
+
 [2022-05-04] Version 0.25.0
 ---------------------------
 **Library - Feature**
