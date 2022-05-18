@@ -2,7 +2,7 @@
 
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
-[2022-05-18] 0.2.x to 1.x.xrc
+[2022-05-18] 0.25.x to 0.26.0
 -----------------------------
 ### CHANGED - Renammed ApiV2010 to Api.
 ApiV2010 has now been renamed to Api. This has caused a breaking change for all endpoints located under `rest/api/2010`.
