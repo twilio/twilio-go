@@ -7,7 +7,6 @@ import (
 	"crypto/subtle"
 	"encoding/base64"
 	"fmt"
-	"log"
 	urllib "net/url"
 	"sort"
 	"strings"
@@ -41,11 +40,6 @@ func (rv *RequestValidator) Validate(url string, params map[string]string, expec
 	// check signature of testURL with and without port, since sig generation on back-end is inconsistent
 	signatureWithPort := rv.getValidationSignature(addPort(url), paramSlc)
 	signatureWithoutPort := rv.getValidationSignature(removePort(url), paramSlc)
-
-	if !compare(signatureWithPort, expectedSignature) || !compare(signatureWithoutPort, expectedSignature) {
-		log.Println("Got", signatureWithPort, "Wanted", expectedSignature)
-		log.Println("Got", signatureWithoutPort, "Wanted", expectedSignature)
-	}
 
 	return compare(signatureWithPort, expectedSignature) ||
 		compare(signatureWithoutPort, expectedSignature)
