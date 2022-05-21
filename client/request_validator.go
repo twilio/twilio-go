@@ -7,6 +7,7 @@ import (
 	"crypto/subtle"
 	"encoding/base64"
 	"fmt"
+	"log"
 	urllib "net/url"
 	"sort"
 	"strings"
@@ -40,26 +41,47 @@ func (rv *RequestValidator) Validate(url string, params map[string]string, expec
 	// check signature of testURL with and without port, since sig generation on back-end is inconsistent
 	signatureWithPort := rv.getValidationSignature(addPort(url), paramSlc)
 	signatureWithoutPort := rv.getValidationSignature(removePort(url), paramSlc)
+
+	if !compare(signatureWithPort, expectedSignature) || !compare(signatureWithoutPort, expectedSignature) {
+		log.Println("Got", signatureWithPort, "Wanted", expectedSignature)
+		log.Println("Got", signatureWithoutPort, "Wanted", expectedSignature)
+	}
+
 	return compare(signatureWithPort, expectedSignature) ||
 		compare(signatureWithoutPort, expectedSignature)
 }
 
-// ValidateBody can be used for Twilio Signatures sent with webhooks configured for POST calls. It returns true
-// if the computed signature matches the expectedSignature. Body is the HTTP request body from the webhook call
-// as a slice of bytes.
+// ValidateBody can be used to verify request signatures included with Twilio webhook requests configured to be sent as POST requests.
+// url is the full URL you are receiving webhook requests at
+// body is a byte slice of the body of the incoming webhook request
+// expectedSignature is the value of the X-Twilio-Signature header
 func (rv *RequestValidator) ValidateBody(url string, body []byte, expectedSignature string) bool {
 	parsed, err := urllib.Parse(url)
 	if err != nil {
 		return false
 	}
 
-	bodySHA256 := parsed.Query().Get("bodySHA256")
-	if len(bodySHA256) == 0 {
-		return false
-	}
+	if parsed.Query().Has("bodySHA256") {
+		bodySHA256 := parsed.Query().Get("bodySHA256")
+		if len(bodySHA256) == 0 {
+			return false
+		}
+		return rv.Validate(url, map[string]string{}, expectedSignature) &&
+			rv.validateBody(body, bodySHA256)
+	} else {
+		params := make(map[string]string)
 
-	return rv.Validate(url, map[string]string{}, expectedSignature) &&
-		rv.validateBody(body, bodySHA256)
+		parsedBody, err := urllib.ParseQuery(string(body))
+		if err != nil {
+			return false
+		}
+
+		for k, v := range parsedBody {
+			params[k] = v[0]
+		}
+
+		return rv.Validate(url, params, expectedSignature)
+	}
 }
 
 func compare(x, y string) bool {
