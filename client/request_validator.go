@@ -55,6 +55,7 @@ func (rv *RequestValidator) ValidateBody(url string, body []byte, expectedSignat
 		return false
 	}
 
+	// we can expect this query paramter on requests made with json bodies
 	if parsed.Query().Has("bodySHA256") {
 		bodySHA256 := parsed.Query().Get("bodySHA256")
 		if len(bodySHA256) == 0 {
@@ -63,13 +64,16 @@ func (rv *RequestValidator) ValidateBody(url string, body []byte, expectedSignat
 		return rv.Validate(url, map[string]string{}, expectedSignature) &&
 			rv.validateBody(body, bodySHA256)
 	} else {
+		// however if that parameter is not present, we assume the request body is x-www-form-urlencoded, e.g "property=value&boolean=true" (quotes added for clarity)
 		parsedBody, err := urllib.ParseQuery(string(body))
 		if err != nil {
 			return false
 		}
 
+		// url.Values is a map[string][]string, therefore we need to create a new map to store the values we will pass to rv.Validate below
 		params := make(map[string]string)
 		for k, v := range parsedBody {
+			// we only care about the first value held by each key. all other values under a key will be ignored.
 			params[k] = v[0]
 		}
 
