@@ -63,13 +63,12 @@ func (rv *RequestValidator) ValidateBody(url string, body []byte, expectedSignat
 		return rv.Validate(url, map[string]string{}, expectedSignature) &&
 			rv.validateBody(body, bodySHA256)
 	} else {
-		params := make(map[string]string)
-
 		parsedBody, err := urllib.ParseQuery(string(body))
 		if err != nil {
 			return false
 		}
 
+		params := make(map[string]string)
 		for k, v := range parsedBody {
 			params[k] = v[0]
 		}
