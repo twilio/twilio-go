@@ -25,16 +25,17 @@ golint: govet
 	golangci-lint run
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
+CURRENT_TAG=$(shell [[ "${GITHUB_TAG}" == *"-rc"* ]] && echo "rc" || echo "latest")
 docker-build:
 	docker build -t twilio/twilio-go .
 	docker tag twilio/twilio-go twilio/twilio-go:${GITHUB_TAG}
 	docker tag twilio/twilio-go twilio/twilio-go:apidefs-${API_DEFINITIONS_SHA}
-	docker tag twilio/twilio-go twilio/twilio-go:latest
+	docker tag twilio/twilio-go twilio/twilio-go:${CURRENT_TAG}
 
 docker-push:
 	docker push twilio/twilio-go:${GITHUB_TAG}
 	docker push twilio/twilio-go:apidefs-${API_DEFINITIONS_SHA}
-	docker push twilio/twilio-go:latest
+	docker push twilio/twilio-go:${CURRENT_TAG}
 
 GO_DIRS = $(shell go list ./... | grep -v /rest/ | grep -v /form )
 cover:
