@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.29.1
+ * API version: 1.29.2
  * Contact: support@twilio.com
  */
 
@@ -13,9 +13,13 @@ package openapi
 
 // FlexV1InteractionChannelInvite struct for FlexV1InteractionChannelInvite
 type FlexV1InteractionChannelInvite struct {
-	ChannelSid     *string      `json:"channel_sid,omitempty"`
-	InteractionSid *string      `json:"interaction_sid,omitempty"`
-	Routing        *interface{} `json:"routing,omitempty"`
-	Sid            *string      `json:"sid,omitempty"`
-	Url            *string      `json:"url,omitempty"`
+	// The Channel SID for this Invite
+	ChannelSid *string `json:"channel_sid,omitempty"`
+	// The Interaction SID for this Channel
+	InteractionSid *string `json:"interaction_sid,omitempty"`
+	// A JSON object representing the routing rules for the Interaction Channel
+	Routing *interface{} `json:"routing,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

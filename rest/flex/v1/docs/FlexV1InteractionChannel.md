@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InteractionSid** | Pointer to **string** | The Interaction Sid for this channel. |
+**InteractionSid** | Pointer to **string** | The unique string that identifies the resource |
 **Links** | Pointer to **map[string]interface{}** |  |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Type** | Pointer to **string** | The Interaction Channel's type. |

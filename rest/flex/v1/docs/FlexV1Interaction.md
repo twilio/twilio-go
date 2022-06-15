@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Channel** | Pointer to **interface{}** | The Interaction's channel |
 **Links** | Pointer to **map[string]interface{}** |  |
-**Routing** | Pointer to **interface{}** | The Interaction's routing logic |
+**Routing** | Pointer to **interface{}** | A JSON Object representing the routing rules for the Interaction Channel |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Url** | Pointer to **string** |  |
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.29.1
+ * API version: 1.29.2
  * Contact: support@twilio.com
  */
 
@@ -184,9 +184,9 @@ func (c *ApiService) getNextListInteractionChannelResponse(nextPageUrl string) (
 
 // Optional parameters for the method 'UpdateInteractionChannel'
 type UpdateInteractionChannelParams struct {
-	// The Interaction Channel's routing parameters.  Optional, may contain `status` to set the agent's Reservation state to either `closed` or `wrapup`.  Default is `wrapup` if unspecified.
+	// Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
 	Routing *interface{} `json:"Routing,omitempty"`
-	// The Interaction Channel's status. Can be: `closed` or `wrapup`.
+	// Required. Indicates the Interaction channel's status. When a channel is set to `closed`, all tasks are put in the `wrapping` state by default unless the Routing status is set to `closed` in which case the tasks will be `completed`. Value: `closed`.
 	Status *string `json:"Status,omitempty"`
 }
 

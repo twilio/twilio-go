@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.29.1
+ * API version: 1.29.2
  * Contact: support@twilio.com
  */
 
@@ -26,7 +26,7 @@ type CreatePaymentsParams struct {
 	BankAccountType *string `json:"BankAccountType,omitempty"`
 	// A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
 	ChargeAmount *float32 `json:"ChargeAmount,omitempty"`
-	// The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the <Pay> Connector are accepted.
+	// The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
 	Currency *string `json:"Currency,omitempty"`
 	// The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
 	Description *string `json:"Description,omitempty"`
@@ -38,7 +38,7 @@ type CreatePaymentsParams struct {
 	MinPostalCodeLength *int `json:"MinPostalCodeLength,omitempty"`
 	// A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
 	Parameter *interface{} `json:"Parameter,omitempty"`
-	// This is the unique name corresponding to the Payment Gateway Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
+	// This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
 	PaymentConnector *string `json:"PaymentConnector,omitempty"`
 	// Type of payment being captured. One of `credit-card` or `ach-debit`. The default value is `credit-card`.
 	PaymentMethod *string `json:"PaymentMethod,omitempty"`
@@ -216,7 +216,7 @@ type UpdatePaymentsParams struct {
 	Capture *string `json:"Capture,omitempty"`
 	// A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
 	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
-	// Indicates whether the current payment session should be cancelled or completed. When `cancel` the payment session is cancelled. When `complete`, Twilio sends the payment information to the selected <Pay> connector for processing.
+	// Indicates whether the current payment session should be cancelled or completed. When `cancel` the payment session is cancelled. When `complete`, Twilio sends the payment information to the selected Pay Connector for processing.
 	Status *string `json:"Status,omitempty"`
 	// Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
 	StatusCallback *string `json:"StatusCallback,omitempty"`

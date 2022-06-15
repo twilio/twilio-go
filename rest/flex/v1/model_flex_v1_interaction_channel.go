@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.29.1
+ * API version: 1.29.2
  * Contact: support@twilio.com
  */
 
@@ -13,7 +13,7 @@ package openapi
 
 // FlexV1InteractionChannel struct for FlexV1InteractionChannel
 type FlexV1InteractionChannel struct {
-	// The Interaction Sid for this channel.
+	// The unique string that identifies the resource
 	InteractionSid *string                 `json:"interaction_sid,omitempty"`
 	Links          *map[string]interface{} `json:"links,omitempty"`
 	// The unique string that identifies the resource

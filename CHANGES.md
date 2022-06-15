@@ -1,5 +1,14 @@
 twilio-go changelog
 ====================
+[2022-06-15] Version 1.0.0-rc.1
+-------------------------------
+**Lookups**
+- Adding support for Lookup V2 API
+
+**Studio**
+- Corrected PII labels to be 30 days and added context to be PII
+
+
 [2022-06-15] Version 1.0.0-rc.0
 ---------------------------
 - Release Candidate prep

@@ -15,13 +15,13 @@ import (
 	ChatV3 "github.com/twilio/twilio-go/rest/chat/v3"
 	ConversationsV1 "github.com/twilio/twilio-go/rest/conversations/v1"
 	EventsV1 "github.com/twilio/twilio-go/rest/events/v1"
-	FaxV1 "github.com/twilio/twilio-go/rest/fax/v1"
 	FlexV1 "github.com/twilio/twilio-go/rest/flex/v1"
 	FrontlineV1 "github.com/twilio/twilio-go/rest/frontline/v1"
 	InsightsV1 "github.com/twilio/twilio-go/rest/insights/v1"
 	IpMessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
 	IpMessagingV2 "github.com/twilio/twilio-go/rest/ip_messaging/v2"
 	LookupsV1 "github.com/twilio/twilio-go/rest/lookups/v1"
+	LookupsV2 "github.com/twilio/twilio-go/rest/lookups/v2"
 	MediaV1 "github.com/twilio/twilio-go/rest/media/v1"
 	MessagingV1 "github.com/twilio/twilio-go/rest/messaging/v1"
 	MonitorV1 "github.com/twilio/twilio-go/rest/monitor/v1"
@@ -56,7 +56,6 @@ type RestClient struct {
 	ChatV3          *ChatV3.ApiService
 	ConversationsV1 *ConversationsV1.ApiService
 	EventsV1        *EventsV1.ApiService
-	FaxV1           *FaxV1.ApiService
 	FlexV1          *FlexV1.ApiService
 	FrontlineV1     *FrontlineV1.ApiService
 	InsightsV1      *InsightsV1.ApiService
@@ -83,6 +82,7 @@ type RestClient struct {
 	VideoV1         *VideoV1.ApiService
 	VoiceV1         *VoiceV1.ApiService
 	WirelessV1      *WirelessV1.ApiService
+	LookupsV2       *LookupsV2.ApiService
 }
 
 // Meta holds relevant pagination resources.
@@ -144,7 +144,6 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.ChatV3 = ChatV3.NewApiService(c.RequestHandler)
 	c.ConversationsV1 = ConversationsV1.NewApiService(c.RequestHandler)
 	c.EventsV1 = EventsV1.NewApiService(c.RequestHandler)
-	c.FaxV1 = FaxV1.NewApiService(c.RequestHandler)
 	c.FlexV1 = FlexV1.NewApiService(c.RequestHandler)
 	c.FrontlineV1 = FrontlineV1.NewApiService(c.RequestHandler)
 	c.InsightsV1 = InsightsV1.NewApiService(c.RequestHandler)
@@ -171,6 +170,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.VideoV1 = VideoV1.NewApiService(c.RequestHandler)
 	c.VoiceV1 = VoiceV1.NewApiService(c.RequestHandler)
 	c.WirelessV1 = WirelessV1.NewApiService(c.RequestHandler)
+	c.LookupsV2 = LookupsV2.NewApiService(c.RequestHandler)
 
 	return c
 }

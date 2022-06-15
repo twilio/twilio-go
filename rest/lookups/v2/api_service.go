@@ -1,9 +1,9 @@
 /*
- * Twilio - Fax
+ * Twilio - Lookups
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.29.1
+ * API version: 1.29.2
  * Contact: support@twilio.com
  */
 
@@ -23,7 +23,7 @@ type ApiService struct {
 func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
 	return &ApiService{
 		requestHandler: requestHandler,
-		baseURL:        "https://fax.twilio.com",
+		baseURL:        "https://lookups.twilio.com",
 	}
 }
 

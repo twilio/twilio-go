@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.29.1
+ * API version: 1.29.2
  * Contact: support@twilio.com
  */
 
@@ -31,14 +31,14 @@ type MediaV1MediaRecording struct {
 	Format *string `json:"format,omitempty"`
 	// The URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// The size of the recording media
+	MediaSize *int `json:"media_size,omitempty"`
 	// The SID of the MediaProcessor
 	ProcessorSid *string `json:"processor_sid,omitempty"`
 	// The dimensions of the video image in pixels
 	Resolution *string `json:"resolution,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
-	// The size of the recording
-	Size *int `json:"size,omitempty"`
 	// The SID of the resource that generated the original media
 	SourceSid *string `json:"source_sid,omitempty"`
 	// The status of the MediaRecording

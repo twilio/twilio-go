@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.29.1
+ * API version: 1.29.2
  * Contact: support@twilio.com
  */
 
@@ -22,7 +22,7 @@ import (
 
 // Optional parameters for the method 'CreateInteractionChannelInvite'
 type CreateInteractionChannelInviteParams struct {
-	//
+	// The Interaction's routing logic.
 	Routing *interface{} `json:"Routing,omitempty"`
 }
 
@@ -31,6 +31,7 @@ func (params *CreateInteractionChannelInviteParams) SetRouting(Routing interface
 	return params
 }
 
+// Invite an Agent or a TaskQueue to a Channel.
 func (c *ApiService) CreateInteractionChannelInvite(InteractionSid string, ChannelSid string, params *CreateInteractionChannelInviteParams) (*FlexV1InteractionChannelInvite, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)

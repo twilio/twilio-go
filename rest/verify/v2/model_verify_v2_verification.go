@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.29.1
+ * API version: 1.29.2
  * Contact: support@twilio.com
  */
 
@@ -37,6 +37,8 @@ type VerifyV2Verification struct {
 	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
+	// The set of fields used for a silent network auth (`sna`) verification
+	Sna *interface{} `json:"sna,omitempty"`
 	// The status of the verification resource
 	Status *string `json:"status,omitempty"`
 	// The phone number or email being verified
