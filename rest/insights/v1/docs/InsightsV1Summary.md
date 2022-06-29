@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** |  |
+**Annotation** | Pointer to **interface{}** |  |
 **Attributes** | Pointer to **interface{}** |  |
 **CallSid** | Pointer to **string** |  |
 **CallState** | Pointer to **string** |  |
