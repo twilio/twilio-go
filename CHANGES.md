@@ -1,5 +1,36 @@
 twilio-go changelog
 ====================
+[2022-06-29] Version 1.0.0-rc.2
+-------------------------------
+**Library - Test**
+- [PR #169](https://github.com/twilio/twilio-go/pull/169): edit regex for rc naming for useragent tests. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Api**
+- Added `amazon-polly` to `usage_record` API.
+
+**Insights**
+- Added `annotation` field in call summary
+- Added new endpoint to fetch/create/update Call Annotations
+
+**Verify**
+- Remove `api.verify.totp` beta flag and set maturity to `beta` for Verify TOTP properties and parameters. **(breaking change)**
+- Changed summary param `verify_service_sid` to `service_sid` to be consistent with list attempts API **(breaking change)**
+
+
+[2022-06-15] Version 1.0.0-rc.1
+-------------------------------
+**Lookups**
+- Adding support for Lookup V2 API
+
+**Studio**
+- Corrected PII labels to be 30 days and added context to be PII
+
+
+[2022-06-15] Version 1.0.0-rc.0
+---------------------------
+- Release Candidate prep
+
+
 [2022-05-18] Version 0.26.0
 ---------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2022-05-18-025x-to-026x) for detailed migration notes.
@@ -775,4 +806,3 @@ twilio-go changelog
 
 [2021-02-11] Version 0.1.0
 --------------------------
-

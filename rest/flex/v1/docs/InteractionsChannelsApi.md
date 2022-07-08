@@ -24,8 +24,8 @@ Fetch a Channel for an Interaction.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**InteractionSid** | **string** | The Interaction Sid for this channel.
-**Sid** | **string** | The Channel Sid for this Participant.
+**InteractionSid** | **string** | The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
+**Sid** | **string** | The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
 
 ### Other Parameters
 
@@ -67,7 +67,7 @@ List all Channels for an Interaction.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**InteractionSid** | **string** | The Interaction Sid for this channel.
+**InteractionSid** | **string** | The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
 
 ### Other Parameters
 
@@ -111,8 +111,8 @@ Update an existing Interaction.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**InteractionSid** | **string** | The Interaction Sid for this channel.
-**Sid** | **string** | The unique string created by Twilio to identify an Interaction Channel resource.
+**InteractionSid** | **string** | The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
+**Sid** | **string** | The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
 
 ### Other Parameters
 
@@ -121,8 +121,8 @@ Other parameters are passed through a pointer to a UpdateInteractionChannelParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Routing** | [**interface{}**](interface{}.md) | The Interaction Channel&#39;s routing parameters.  Optional, may contain &#x60;status&#x60; to set the agent&#39;s Reservation state to either &#x60;closed&#x60; or &#x60;wrapup&#x60;.  Default is &#x60;wrapup&#x60; if unspecified.
-**Status** | **string** | The Interaction Channel&#39;s status. Can be: &#x60;closed&#x60; or &#x60;wrapup&#x60;.
+**Routing** | [**interface{}**](interface{}.md) | Optional. The state of associated tasks. If not specified, all tasks will be set to &#x60;wrapping&#x60;.
+**Status** | **string** | Required. Indicates the Interaction channel&#39;s status. When a channel is set to &#x60;closed&#x60;, all tasks are put in the &#x60;wrapping&#x60; state by default unless the Routing status is set to &#x60;closed&#x60; in which case the tasks will be &#x60;completed&#x60;. Value: &#x60;closed&#x60;.
 
 ### Return type
 

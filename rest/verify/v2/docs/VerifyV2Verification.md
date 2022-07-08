@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **SendCodeAttempts** | Pointer to **[]interface{}** | An array of verification attempt objects. |
 **ServiceSid** | Pointer to **string** | The SID of the Service that the resource is associated with |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
+**Sna** | Pointer to **interface{}** | The set of fields used for a silent network auth (`sna`) verification |
 **Status** | Pointer to **string** | The status of the verification resource |
 **To** | Pointer to **string** | The phone number or email being verified |
 **Url** | Pointer to **string** | The absolute URL of the Verification resource |

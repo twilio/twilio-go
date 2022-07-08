@@ -15,14 +15,16 @@ Method | HTTP request | Description
 
 
 
+Invite an Agent or a TaskQueue to a Channel.
+
 ### Path Parameters
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**InteractionSid** | **string** | 
-**ChannelSid** | **string** | 
+**InteractionSid** | **string** | The Interaction SID for this Channel.
+**ChannelSid** | **string** | The Channel SID for this Invite.
 
 ### Other Parameters
 
@@ -31,7 +33,7 @@ Other parameters are passed through a pointer to a CreateInteractionChannelInvit
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Routing** | [**interface{}**](interface{}.md) | 
+**Routing** | [**interface{}**](interface{}.md) | The Interaction&#39;s routing logic.
 
 ### Return type
 
@@ -57,14 +59,16 @@ Name | Type | Description
 
 
 
+List all Invites for a Channel.
+
 ### Path Parameters
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**InteractionSid** | **string** | 
-**ChannelSid** | **string** | 
+**InteractionSid** | **string** | The Interaction SID for this Channel.
+**ChannelSid** | **string** | The Channel SID for this Participant.
 
 ### Other Parameters
 
