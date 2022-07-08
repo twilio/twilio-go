@@ -44,9 +44,6 @@ func (rv *RequestValidator) Validate(url string, params map[string]string, expec
 	// check signature of testURL with and without port, since sig generation on back-end is inconsistent
 	signatureWithPort := rv.getValidationSignature(addPort(url), paramSlc)
 	signatureWithoutPort := rv.getValidationSignature(removePort(url), paramSlc)
-	fmt.Println(signatureWithoutPort)
-	fmt.Println(signatureWithPort)
-
 	return compare(signatureWithPort, expectedSignature) ||
 		compare(signatureWithoutPort, expectedSignature)
 }
