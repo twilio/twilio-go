@@ -40,45 +40,26 @@ func (rv *RequestValidator) Validate(url string, params map[string]string, expec
 	// check signature of testURL with and without port, since sig generation on back-end is inconsistent
 	signatureWithPort := rv.getValidationSignature(addPort(url), paramSlc)
 	signatureWithoutPort := rv.getValidationSignature(removePort(url), paramSlc)
-
 	return compare(signatureWithPort, expectedSignature) ||
 		compare(signatureWithoutPort, expectedSignature)
 }
 
-// ValidateBody can be used to verify request signatures included with Twilio webhook requests configured to be sent as POST requests.
-// url is the full URL you are receiving webhook requests at
-// body is a byte slice of the body of the incoming webhook request
-// expectedSignature is the value of the X-Twilio-Signature header
+// ValidateBody can be used for Twilio Signatures sent with webhooks configured for POST calls. It returns true
+// if the computed signature matches the expectedSignature. Body is the HTTP request body from the webhook call
+// as a slice of bytes.
 func (rv *RequestValidator) ValidateBody(url string, body []byte, expectedSignature string) bool {
 	parsed, err := urllib.Parse(url)
 	if err != nil {
 		return false
 	}
 
-	// we can expect this query paramter on requests made with json bodies
-	if parsed.Query().Has("bodySHA256") {
-		bodySHA256 := parsed.Query().Get("bodySHA256")
-		if len(bodySHA256) == 0 {
-			return false
-		}
-		return rv.Validate(url, map[string]string{}, expectedSignature) &&
-			rv.validateBody(body, bodySHA256)
-	} else {
-		// however if that parameter is not present, we assume the request body is x-www-form-urlencoded, e.g "property=value&boolean=true" (quotes added for clarity)
-		parsedBody, err := urllib.ParseQuery(string(body))
-		if err != nil {
-			return false
-		}
-
-		// url.Values is a map[string][]string, therefore we need to create a new map to store the values we will pass to rv.Validate below
-		params := make(map[string]string)
-		for k, v := range parsedBody {
-			// we only care about the first value held by each key. all other values under a key will be ignored.
-			params[k] = v[0]
-		}
-
-		return rv.Validate(url, params, expectedSignature)
+	bodySHA256 := parsed.Query().Get("bodySHA256")
+	if len(bodySHA256) == 0 {
+		return false
 	}
+
+	return rv.Validate(url, map[string]string{}, expectedSignature) &&
+		rv.validateBody(body, bodySHA256)
 }
 
 func compare(x, y string) bool {
