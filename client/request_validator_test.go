@@ -22,7 +22,8 @@ var (
 		"Caller":  "+14158675309",
 		"From":    "+14158675309",
 	}
-	body = []byte(`{"property": "value", "boolean": true}`)
+	jsonBody = []byte(`{"property": "value", "boolean": true}`)
+	formBody = []byte(`property=value&boolean=true`)
 )
 
 func TestRequestValidator_Validate(t *testing.T) {
@@ -64,19 +65,24 @@ func TestRequestValidator_Validate(t *testing.T) {
 func TestRequestValidator_ValidateBody(t *testing.T) {
 	t.Parallel()
 
-	t.Run("returns true when validation succeeds", func(t *testing.T) {
+	t.Run("returns true when validation succeeds with json body", func(t *testing.T) {
 		theURL := testURL + "&bodySHA256=" + bodyHash
 		signatureWithBodyHash := "a9nBmqA0ju/hNViExpshrM61xv4="
-		assert.True(t, validator.ValidateBody(theURL, body, signatureWithBodyHash))
+		assert.True(t, validator.ValidateBody(theURL, jsonBody, signatureWithBodyHash))
+	})
+
+	t.Run("returns true when validation succeeds with form body", func(t *testing.T) {
+		expectedSignature := "NBdBDr/T/lgjI+tlgpXjKZQZs/k="
+		assert.True(t, validator.ValidateBody(testURL, formBody, expectedSignature))
 	})
 
 	t.Run("returns false when validation fails", func(t *testing.T) {
-		assert.False(t, validator.ValidateBody(testURL, body, signature))
+		assert.False(t, validator.ValidateBody(testURL, jsonBody, signature))
 	})
 
 	t.Run("returns true when there's no other parameters and the signature is right", func(t *testing.T) {
 		theURL := "https://mycompany.com/myapp.php?bodySHA256=" + bodyHash
 		signatureForURL := "y77kIzt2vzLz71DgmJGsen2scGs="
-		assert.True(t, validator.ValidateBody(theURL, body, signatureForURL))
+		assert.True(t, validator.ValidateBody(theURL, jsonBody, signatureForURL))
 	})
 }
