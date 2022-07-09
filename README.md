@@ -447,7 +447,7 @@ func main() {
 	
 	requestValidator := client.NewRequestValidator(authToken)
 
-	// Twilio Request URL
+	// Twilio's request URL
 	url := "https://mycompany.com/myapp.php?foo=1&bar=2"
 	
 	// Post variables in Twilio's request
@@ -462,15 +462,15 @@ func main() {
 	// X-Twilio-Signature header attached to the request
 	signature := "0/KCTR6DLpKmkAf8muzZqo1nDgQ="
     
-	// Validate GET Request
+	// Validate GET request
 	fmt.Println(requestValidator.Validate(url, params, signature))
 
-	// Example of the POST Request
+	// Example of the POST request
 	Body := []byte(`{"property": "value", "boolean": true}`)
 	theUrl := "https://mycompany.com/myapp.php?bodySHA256=0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
 	theSignature := "y77kIzt2vzLz71DgmJGsen2scGs="
     
-	// Validate POST Request
+	// Validate POST request
 	fmt.Println(requestValidator.ValidateBody(theUrl, Body, theSignature))
 }
 ```
