@@ -442,7 +442,8 @@ import (
 )
 
 func main() {
-	// For this example: TWILIO_AUTH_TOKEN := "12345"
+	// You can find your Auth Token at twilio.com/console
+	// For this example: authToken := "12345"
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 	
 	requestValidator := client.NewRequestValidator(authToken)
