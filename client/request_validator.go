@@ -57,13 +57,26 @@ func (rv *RequestValidator) ValidateBody(url string, body []byte, expectedSignat
 		return false
 	}
 
-	bodySHA256 := parsed.Query().Get("bodySHA256")
-	if len(bodySHA256) == 0 {
-		return false
+	if parsed.Query().Has("bodySHA256") {
+		bodySHA256 := parsed.Query().Get("bodySHA256")
+		if len(bodySHA256) == 0 {
+			return false
+		}
+		return rv.Validate(url, map[string]string{}, expectedSignature) &&
+			rv.validateBody(body, bodySHA256)
+	} else {
+		// For x-www-form-urlencoded Request body
+		parsedBody, err := urllib.ParseQuery(string(body))
+		if err != nil {
+			return false
+		}
+		params := make(map[string]string)
+		for k, v := range parsedBody {
+			//validate with first value of each key
+			params[k] = v[0]
+		}
+		return rv.Validate(url, params, expectedSignature)
 	}
-
-	return rv.Validate(url, map[string]string{}, expectedSignature) &&
-		rv.validateBody(body, bodySHA256)
 }
 
 func compare(x, y string) bool {
