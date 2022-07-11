@@ -428,6 +428,54 @@ the [Twilio documentation](https://www.twilio.com/docs/libraries/go/usage-guide#
 
 ## Advanced Usage
 
+### Using Request Validator
+
+Validating GET/POST Requests are coming from Twilio:
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/twilio/twilio-go/client"
+)
+
+func main() {
+	// You can find your Auth Token at twilio.com/console
+	// For this example: authToken := "12345"
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	
+	requestValidator := client.NewRequestValidator(authToken)
+
+	// Twilio's request URL
+	url := "https://mycompany.com/myapp.php?foo=1&bar=2"
+	
+	// Post variables in Twilio's request
+	params := map[string]string{
+		"CallSid": "CA1234567890ABCDE",
+		"Caller":  "+12349013030",
+		"Digits":  "1234",
+		"From":    "+12349013030",
+		"To":      "+18005551212",
+	}
+	
+	// X-Twilio-Signature header attached to the request
+	signature := "0/KCTR6DLpKmkAf8muzZqo1nDgQ="
+    
+	// Validate GET request
+	fmt.Println(requestValidator.Validate(url, params, signature))
+
+	// Example of the POST request
+	Body := []byte(`{"property": "value", "boolean": true}`)
+	theUrl := "https://mycompany.com/myapp.php?bodySHA256=0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
+	theSignature := "y77kIzt2vzLz71DgmJGsen2scGs="
+    
+	// Validate POST request
+	fmt.Println(requestValidator.ValidateBody(theUrl, Body, theSignature))
+}
+```
+
 ### Using Standalone Products
 
 Don't want to import the top-level Twilio RestClient with access to the full suite of Twilio products? Use standalone
