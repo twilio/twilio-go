@@ -35,6 +35,8 @@ jobs:
     steps:
       - name: Setup Go environment
         uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
 
       - name: Checkout twilio-go
         uses: actions/checkout@v2
