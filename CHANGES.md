@@ -1,5 +1,11 @@
 twilio-go changelog
 ====================
+[2022-07-13] Version 1.0.0-rc.4
+-------------------------------
+**Library - Fix**
+- [PR #176](https://github.com/twilio/twilio-go/pull/176): Support older Go version. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+
 [2022-07-13] Version 1.0.0-rc.3
 -------------------------------
 **Library - Fix**
