@@ -83,6 +83,7 @@ func (params *CreateCompositionParams) SetVideoLayout(VideoLayout interface{}) *
 	return params
 }
 
+//
 func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV1Composition, error) {
 	path := "/v1/Compositions"
 

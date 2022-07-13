@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -62,6 +64,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -100,6 +104,8 @@ Name | Type | Description
 ## FetchChannel
 
 > ChatV1Channel FetchChannel(ctx, ServiceSidSid)
+
+
 
 
 
@@ -144,6 +150,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -184,6 +192,8 @@ Name | Type | Description
 ## UpdateChannel
 
 > ChatV1Channel UpdateChannel(ctx, ServiceSidSidoptional)
+
+
 
 
 

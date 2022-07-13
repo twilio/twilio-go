@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -63,6 +65,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 ## FetchOriginationUrl
 
 > TrunkingV1OriginationUrl FetchOriginationUrl(ctx, TrunkSidSid)
+
+
 
 
 
@@ -145,6 +151,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -184,6 +192,8 @@ Name | Type | Description
 ## UpdateOriginationUrl
 
 > TrunkingV1OriginationUrl UpdateOriginationUrl(ctx, TrunkSidSidoptional)
+
+
 
 
 

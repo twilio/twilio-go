@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -57,6 +59,8 @@ Name | Type | Description
 ## DeleteActivity
 
 > DeleteActivity(ctx, WorkspaceSidSid)
+
+
 
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -139,6 +145,8 @@ Name | Type | Description
 ## ListActivity
 
 > []TaskrouterV1Activity ListActivity(ctx, WorkspaceSidoptional)
+
+
 
 
 
@@ -183,6 +191,8 @@ Name | Type | Description
 ## UpdateActivity
 
 > TaskrouterV1Activity UpdateActivity(ctx, WorkspaceSidSidoptional)
+
+
 
 
 

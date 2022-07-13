@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -61,6 +63,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -98,6 +102,8 @@ Name | Type | Description
 ## FetchAssistant
 
 > AutopilotV1Assistant FetchAssistant(ctx, Sid)
+
+
 
 
 
@@ -141,6 +147,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -176,6 +184,8 @@ Name | Type | Description
 ## UpdateAssistant
 
 > AutopilotV1Assistant UpdateAssistant(ctx, Sidoptional)
+
+
 
 
 

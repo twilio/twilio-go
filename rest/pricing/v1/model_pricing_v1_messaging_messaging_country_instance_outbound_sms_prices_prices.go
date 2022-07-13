@@ -20,14 +20,14 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// PricingV1MessagingMessagingCountryInstancePrices struct for PricingV1MessagingMessagingCountryInstancePrices
-type PricingV1MessagingMessagingCountryInstancePrices struct {
+// PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices struct for PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices
+type PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices struct {
 	BasePrice    float32 `json:"base_price,omitempty"`
 	CurrentPrice float32 `json:"current_price,omitempty"`
 	NumberType   string  `json:"number_type,omitempty"`
 }
 
-func (response *PricingV1MessagingMessagingCountryInstancePrices) UnmarshalJSON(bytes []byte) (err error) {
+func (response *PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
 		BasePrice    interface{} `json:"base_price"`
 		CurrentPrice interface{} `json:"current_price"`
@@ -38,7 +38,7 @@ func (response *PricingV1MessagingMessagingCountryInstancePrices) UnmarshalJSON(
 		return err
 	}
 
-	*response = PricingV1MessagingMessagingCountryInstancePrices{
+	*response = PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices{
 		NumberType: raw.NumberType,
 	}
 

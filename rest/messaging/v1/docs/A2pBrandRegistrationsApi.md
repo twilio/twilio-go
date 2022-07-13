@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -55,6 +57,8 @@ Name | Type | Description
 ## FetchBrandRegistrations
 
 > MessagingV1BrandRegistrations FetchBrandRegistrations(ctx, Sid)
+
+
 
 
 
@@ -98,6 +102,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -133,6 +139,8 @@ Name | Type | Description
 ## UpdateBrandRegistrations
 
 > MessagingV1BrandRegistrations UpdateBrandRegistrations(ctx, Sid)
+
+
 
 
 

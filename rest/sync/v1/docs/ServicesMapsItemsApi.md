@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -64,6 +66,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -107,6 +111,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -146,6 +152,8 @@ Name | Type | Description
 ## ListSyncMapItem
 
 > []SyncV1SyncMapItem ListSyncMapItem(ctx, ServiceSidMapSidoptional)
+
+
 
 
 
@@ -192,6 +200,8 @@ Name | Type | Description
 ## UpdateSyncMapItem
 
 > SyncV1SyncMapItem UpdateSyncMapItem(ctx, ServiceSidMapSidKeyoptional)
+
+
 
 
 

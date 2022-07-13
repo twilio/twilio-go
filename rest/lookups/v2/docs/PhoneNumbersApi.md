@@ -14,6 +14,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -29,7 +31,7 @@ Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Fields** | **string** | A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, enhanced_line_type or line_type_intelligence.
+**Fields** | **string** | A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence.
 **CountryCode** | **string** | The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
 
 ### Return type

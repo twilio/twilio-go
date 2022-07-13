@@ -34,6 +34,7 @@ func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateS
 	return params
 }
 
+//
 func (c *ApiService) CreateService(params *CreateServiceParams) (*IpMessagingV2Service, error) {
 	path := "/v2/Services"
 
@@ -59,6 +60,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*IpMessagingV2S
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -76,6 +78,7 @@ func (c *ApiService) DeleteService(Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchService(Sid string) (*IpMessagingV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -425,6 +428,7 @@ func (params *UpdateServiceParams) SetWebhookMethod(WebhookMethod string) *Updat
 	return params
 }
 
+//
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*IpMessagingV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

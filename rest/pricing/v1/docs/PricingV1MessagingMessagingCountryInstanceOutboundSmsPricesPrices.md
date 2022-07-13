@@ -1,4 +1,4 @@
-# PricingV1MessagingMessagingCountryInstancePrices
+# PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices
 
 ## Properties
 

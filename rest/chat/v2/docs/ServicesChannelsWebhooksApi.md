@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -66,6 +68,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -105,6 +109,8 @@ Name | Type | Description
 ## FetchChannelWebhook
 
 > ChatV2ChannelWebhook FetchChannelWebhook(ctx, ServiceSidChannelSidSid)
+
+
 
 
 
@@ -150,6 +156,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -190,6 +198,8 @@ Name | Type | Description
 ## UpdateChannelWebhook
 
 > ChatV2ChannelWebhook UpdateChannelWebhook(ctx, ServiceSidChannelSidSidoptional)
+
+
 
 
 

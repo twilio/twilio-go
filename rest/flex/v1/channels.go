@@ -88,6 +88,7 @@ func (params *CreateChannelParams) SetTaskSid(TaskSid string) *CreateChannelPara
 	return params
 }
 
+//
 func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel, error) {
 	path := "/v1/Channels"
 
@@ -140,6 +141,7 @@ func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel,
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteChannel(Sid string) error {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -157,6 +159,7 @@ func (c *ApiService) DeleteChannel(Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

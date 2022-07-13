@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteRole
 
 > DeleteRole(ctx, ServiceSidSid)
+
+
 
 
 
@@ -102,6 +106,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -140,6 +146,8 @@ Name | Type | Description
 ## ListRole
 
 > []IpMessagingV2Role ListRole(ctx, ServiceSidoptional)
+
+
 
 
 
@@ -182,6 +190,8 @@ Name | Type | Description
 ## UpdateRole
 
 > IpMessagingV2Role UpdateRole(ctx, ServiceSidSidoptional)
+
+
 
 
 

@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -64,6 +66,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 ## FetchByocTrunk
 
 > VoiceV1ByocTrunk FetchByocTrunk(ctx, Sid)
+
+
 
 
 
@@ -144,6 +150,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -179,6 +187,8 @@ Name | Type | Description
 ## UpdateByocTrunk
 
 > VoiceV1ByocTrunk UpdateByocTrunk(ctx, Sidoptional)
+
+
 
 
 

@@ -25,8 +25,6 @@ type LookupsV2PhoneNumber struct {
 	// Phone number's ISO country code
 	CountryCode *string `json:"country_code,omitempty"`
 	// An object that contains line type information
-	EnhancedLineType *interface{} `json:"enhanced_line_type,omitempty"`
-	// An object that contains line type information
 	LineTypeIntelligence *interface{} `json:"line_type_intelligence,omitempty"`
 	// An object that contains live activity information
 	LiveActivity *interface{} `json:"live_activity,omitempty"`

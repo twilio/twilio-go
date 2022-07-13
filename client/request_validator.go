@@ -57,15 +57,10 @@ func (rv *RequestValidator) ValidateBody(url string, body []byte, expectedSignat
 		return false
 	}
 
-	if parsed.Query().Has("bodySHA256") {
-		bodySHA256 := parsed.Query().Get("bodySHA256")
-		if len(bodySHA256) == 0 {
-			return false
-		}
-		return rv.Validate(url, map[string]string{}, expectedSignature) &&
-			rv.validateBody(body, bodySHA256)
-	} else {
-		// For x-www-form-urlencoded Request body
+	bodySHA256 := parsed.Query().Get("bodySHA256")
+
+	// For x-www-form-urlencoded Request body
+	if len(bodySHA256) == 0 {
 		parsedBody, err := urllib.ParseQuery(string(body))
 		if err != nil {
 			return false
@@ -77,6 +72,9 @@ func (rv *RequestValidator) ValidateBody(url string, body []byte, expectedSignat
 		}
 		return rv.Validate(url, params, expectedSignature)
 	}
+
+	return rv.Validate(url, map[string]string{}, expectedSignature) &&
+		rv.validateBody(body, bodySHA256)
 }
 
 func compare(x, y string) bool {
@@ -84,10 +82,6 @@ func compare(x, y string) bool {
 }
 
 func (rv *RequestValidator) validateBody(body []byte, expectedSHA string) bool {
-	if len(expectedSHA) == 0 {
-		return true
-	}
-
 	hasher := sha256.New()
 	_, err := hasher.Write(body)
 	if err != nil {

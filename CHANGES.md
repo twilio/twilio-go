@@ -1,5 +1,31 @@
 twilio-go changelog
 ====================
+[2022-07-13] Version 1.0.0-rc.4
+-------------------------------
+**Library - Fix**
+- [PR #176](https://github.com/twilio/twilio-go/pull/176): Support older Go version. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+
+[2022-07-13] Version 1.0.0-rc.3
+-------------------------------
+**Library - Fix**
+- [PR #175](https://github.com/twilio/twilio-go/pull/175): useragent regrex unit test for RC branch. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #173](https://github.com/twilio/twilio-go/pull/173): request validator logic. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+**Conversations**
+- Allowed to use `identity` as part of Participant's resource **(breaking change)**
+
+**Lookups**
+- Remove `enhanced_line_type` from the lookup response **(breaking change)**
+
+**Supersim**
+- Add support for `sim_ip_addresses` resource to helper libraries
+
+**Verify**
+- Changed summary param `service_sid` to `verify_service_sid` to be consistent with list attempts API **(breaking change)**
+- Make `code` optional on Verification check to support `sna` attempts.
+
+
 [2022-06-29] Version 1.0.0-rc.2
 -------------------------------
 **Library - Test**
