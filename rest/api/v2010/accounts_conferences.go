@@ -311,6 +311,7 @@ func (params *UpdateConferenceParams) SetStatus(Status string) *UpdateConference
 	return params
 }
 
+//
 func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams) (*ApiV2010Conference, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

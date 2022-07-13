@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteWorker
 
 > DeleteWorker(ctx, WorkspaceSidSidoptional)
+
+
 
 
 
@@ -103,6 +107,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -141,6 +147,8 @@ Name | Type | Description
 ## ListWorker
 
 > []TaskrouterV1Worker ListWorker(ctx, WorkspaceSidoptional)
+
+
 
 
 
@@ -190,6 +198,8 @@ Name | Type | Description
 ## UpdateWorker
 
 > TaskrouterV1Worker UpdateWorker(ctx, WorkspaceSidSidoptional)
+
+
 
 
 

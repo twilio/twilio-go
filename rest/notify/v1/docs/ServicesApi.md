@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -68,6 +70,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -105,6 +109,8 @@ Name | Type | Description
 ## FetchService
 
 > NotifyV1Service FetchService(ctx, Sid)
+
+
 
 
 
@@ -148,6 +154,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -184,6 +192,8 @@ Name | Type | Description
 ## UpdateService
 
 > NotifyV1Service UpdateService(ctx, Sidoptional)
+
+
 
 
 

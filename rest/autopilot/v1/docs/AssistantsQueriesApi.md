@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -62,6 +64,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -103,6 +107,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -141,6 +147,8 @@ Name | Type | Description
 ## ListQuery
 
 > []AutopilotV1Query ListQuery(ctx, AssistantSidoptional)
+
+
 
 
 
@@ -187,6 +195,8 @@ Name | Type | Description
 ## UpdateQuery
 
 > AutopilotV1Query UpdateQuery(ctx, AssistantSidSidoptional)
+
+
 
 
 

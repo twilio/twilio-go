@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -63,6 +65,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 ## FetchConnectionPolicyTarget
 
 > VoiceV1ConnectionPolicyTarget FetchConnectionPolicyTarget(ctx, ConnectionPolicySidSid)
+
+
 
 
 
@@ -145,6 +151,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -184,6 +192,8 @@ Name | Type | Description
 ## UpdateConnectionPolicyTarget
 
 > VoiceV1ConnectionPolicyTarget UpdateConnectionPolicyTarget(ctx, ConnectionPolicySidSidoptional)
+
+
 
 
 

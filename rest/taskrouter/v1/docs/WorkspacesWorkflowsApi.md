@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -63,6 +65,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 ## FetchWorkflow
 
 > TaskrouterV1Workflow FetchWorkflow(ctx, WorkspaceSidSid)
+
+
 
 
 
@@ -145,6 +151,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -185,6 +193,8 @@ Name | Type | Description
 ## UpdateWorkflow
 
 > TaskrouterV1Workflow UpdateWorkflow(ctx, WorkspaceSidSidoptional)
+
+
 
 
 

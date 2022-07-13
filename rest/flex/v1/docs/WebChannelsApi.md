@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -57,6 +59,8 @@ Name | Type | Description
 ## DeleteWebChannel
 
 > DeleteWebChannel(ctx, Sid)
+
+
 
 
 
@@ -100,6 +104,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -140,6 +146,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -175,6 +183,8 @@ Name | Type | Description
 ## UpdateWebChannel
 
 > FlexV1WebChannel UpdateWebChannel(ctx, Sidoptional)
+
+
 
 
 

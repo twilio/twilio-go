@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -57,6 +59,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -95,6 +99,8 @@ Name | Type | Description
 ## ListBinding
 
 > []ChatV2Binding ListBinding(ctx, ServiceSidoptional)
+
+
 
 
 

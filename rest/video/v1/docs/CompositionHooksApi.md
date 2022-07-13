@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -189,6 +191,8 @@ Name | Type | Description
 ## UpdateCompositionHook
 
 > VideoV1CompositionHook UpdateCompositionHook(ctx, Sidoptional)
+
+
 
 
 

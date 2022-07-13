@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -55,6 +57,8 @@ Name | Type | Description
 ## DeleteAlphaSender
 
 > DeleteAlphaSender(ctx, ServiceSidSid)
+
+
 
 
 
@@ -99,6 +103,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -137,6 +143,8 @@ Name | Type | Description
 ## ListAlphaSender
 
 > []MessagingV1AlphaSender ListAlphaSender(ctx, ServiceSidoptional)
+
+
 
 
 

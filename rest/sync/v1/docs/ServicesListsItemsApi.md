@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -60,6 +62,8 @@ Name | Type | Description
 ## DeleteSyncListItem
 
 > DeleteSyncListItem(ctx, ServiceSidListSidIndexoptional)
+
+
 
 
 
@@ -106,6 +110,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -145,6 +151,8 @@ Name | Type | Description
 ## ListSyncListItem
 
 > []SyncV1SyncListItem ListSyncListItem(ctx, ServiceSidListSidoptional)
+
+
 
 
 
@@ -191,6 +199,8 @@ Name | Type | Description
 ## UpdateSyncListItem
 
 > SyncV1SyncListItem UpdateSyncListItem(ctx, ServiceSidListSidIndexoptional)
+
+
 
 
 

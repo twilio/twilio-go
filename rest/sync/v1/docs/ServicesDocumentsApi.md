@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteDocument
 
 > DeleteDocument(ctx, ServiceSidSid)
+
+
 
 
 
@@ -102,6 +106,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -140,6 +146,8 @@ Name | Type | Description
 ## ListDocument
 
 > []SyncV1Document ListDocument(ctx, ServiceSidoptional)
+
+
 
 
 
@@ -182,6 +190,8 @@ Name | Type | Description
 ## UpdateDocument
 
 > SyncV1Document UpdateDocument(ctx, ServiceSidSidoptional)
+
+
 
 
 

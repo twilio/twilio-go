@@ -24,7 +24,7 @@ import (
 // Optional parameters for the method 'FetchVerificationAttemptsSummary'
 type FetchVerificationAttemptsSummaryParams struct {
 	// Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	VerifyServiceSid *string `json:"VerifyServiceSid,omitempty"`
 	// Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
 	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
 	// Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
@@ -37,8 +37,8 @@ type FetchVerificationAttemptsSummaryParams struct {
 	DestinationPrefix *string `json:"DestinationPrefix,omitempty"`
 }
 
-func (params *FetchVerificationAttemptsSummaryParams) SetServiceSid(ServiceSid string) *FetchVerificationAttemptsSummaryParams {
-	params.ServiceSid = &ServiceSid
+func (params *FetchVerificationAttemptsSummaryParams) SetVerifyServiceSid(VerifyServiceSid string) *FetchVerificationAttemptsSummaryParams {
+	params.VerifyServiceSid = &VerifyServiceSid
 	return params
 }
 func (params *FetchVerificationAttemptsSummaryParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *FetchVerificationAttemptsSummaryParams {
@@ -69,8 +69,8 @@ func (c *ApiService) FetchVerificationAttemptsSummary(params *FetchVerificationA
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ServiceSid != nil {
-		data.Set("ServiceSid", *params.ServiceSid)
+	if params != nil && params.VerifyServiceSid != nil {
+		data.Set("VerifyServiceSid", *params.VerifyServiceSid)
 	}
 	if params != nil && params.DateCreatedAfter != nil {
 		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))

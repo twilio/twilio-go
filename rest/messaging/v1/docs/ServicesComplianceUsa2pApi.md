@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -63,6 +65,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -104,6 +108,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -142,6 +148,8 @@ Name | Type | Description
 ## ListUsAppToPerson
 
 > []MessagingV1UsAppToPerson ListUsAppToPerson(ctx, MessagingServiceSidoptional)
+
+
 
 
 

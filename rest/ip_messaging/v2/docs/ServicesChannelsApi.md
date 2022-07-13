@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -66,6 +68,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -105,6 +109,8 @@ Name | Type | Description
 ## FetchChannel
 
 > IpMessagingV2Channel FetchChannel(ctx, ServiceSidSid)
+
+
 
 
 
@@ -149,6 +155,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -189,6 +197,8 @@ Name | Type | Description
 ## UpdateChannel
 
 > IpMessagingV2Channel UpdateChannel(ctx, ServiceSidSidoptional)
+
+
 
 
 

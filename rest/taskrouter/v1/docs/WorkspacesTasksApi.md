@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -63,6 +65,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -105,6 +109,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -143,6 +149,8 @@ Name | Type | Description
 ## ListTask
 
 > []TaskrouterV1Task ListTask(ctx, WorkspaceSidoptional)
+
+
 
 
 
@@ -194,6 +202,8 @@ Name | Type | Description
 ## UpdateTask
 
 > TaskrouterV1Task UpdateTask(ctx, WorkspaceSidSidoptional)
+
+
 
 
 

@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -45,6 +47,8 @@ Other parameters are passed through a pointer to a FetchConfigurationWebhookPara
 ## UpdateConfigurationWebhook
 
 > ConversationsV1ConfigurationWebhook UpdateConfigurationWebhook(ctx, optional)
+
+
 
 
 

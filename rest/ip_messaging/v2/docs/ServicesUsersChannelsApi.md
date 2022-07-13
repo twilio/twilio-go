@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -56,6 +58,8 @@ Name | Type | Description
 ## FetchUserChannel
 
 > IpMessagingV2UserChannel FetchUserChannel(ctx, ServiceSidUserSidChannelSid)
+
+
 
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -141,6 +147,8 @@ Name | Type | Description
 ## UpdateUserChannel
 
 > IpMessagingV2UserChannel UpdateUserChannel(ctx, ServiceSidUserSidChannelSidoptional)
+
+
 
 
 

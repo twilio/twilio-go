@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -55,6 +57,8 @@ Name | Type | Description
 ## ListWorkerReservation
 
 > []TaskrouterV1WorkerReservation ListWorkerReservation(ctx, WorkspaceSidWorkerSidoptional)
+
+
 
 
 
@@ -99,6 +103,8 @@ Name | Type | Description
 ## UpdateWorkerReservation
 
 > TaskrouterV1WorkerReservation UpdateWorkerReservation(ctx, WorkspaceSidWorkerSidSidoptional)
+
+
 
 
 
