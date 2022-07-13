@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -54,6 +56,8 @@ Name | Type | Description
 ## FetchCompositionSettings
 
 > VideoV1CompositionSettings FetchCompositionSettings(ctx, )
+
+
 
 
 

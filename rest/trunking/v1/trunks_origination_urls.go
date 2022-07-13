@@ -58,6 +58,7 @@ func (params *CreateOriginationUrlParams) SetWeight(Weight int) *CreateOriginati
 	return params
 }
 
+//
 func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -96,6 +97,7 @@ func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOrigina
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -114,6 +116,7 @@ func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -310,6 +313,7 @@ func (params *UpdateOriginationUrlParams) SetWeight(Weight int) *UpdateOriginati
 	return params
 }
 
+//
 func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *UpdateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)

@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -58,6 +60,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -96,6 +100,8 @@ Name | Type | Description
 ## ListBrandVetting
 
 > []MessagingV1BrandVetting ListBrandVetting(ctx, BrandSidoptional)
+
+
 
 
 

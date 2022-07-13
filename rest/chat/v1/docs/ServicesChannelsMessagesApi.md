@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -59,6 +61,8 @@ Name | Type | Description
 ## DeleteMessage
 
 > DeleteMessage(ctx, ServiceSidChannelSidSid)
+
+
 
 
 
@@ -104,6 +108,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -143,6 +149,8 @@ Name | Type | Description
 ## ListMessage
 
 > []ChatV1Message ListMessage(ctx, ServiceSidChannelSidoptional)
+
+
 
 
 
@@ -187,6 +195,8 @@ Name | Type | Description
 ## UpdateMessage
 
 > ChatV1Message UpdateMessage(ctx, ServiceSidChannelSidSidoptional)
+
+
 
 
 

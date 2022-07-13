@@ -62,6 +62,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -146,6 +148,8 @@ Name | Type | Description
 ## UpdateUserChannel
 
 > ChatV2UserChannel UpdateUserChannel(ctx, ServiceSidUserSidChannelSidoptional)
+
+
 
 
 

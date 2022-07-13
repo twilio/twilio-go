@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -57,6 +59,8 @@ Name | Type | Description
 ## DeleteWorkspace
 
 > DeleteWorkspace(ctx, Sid)
+
+
 
 
 
@@ -100,6 +104,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -140,6 +146,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -176,6 +184,8 @@ Name | Type | Description
 ## UpdateWorkspace
 
 > TaskrouterV1Workspace UpdateWorkspace(ctx, Sidoptional)
+
+
 
 
 

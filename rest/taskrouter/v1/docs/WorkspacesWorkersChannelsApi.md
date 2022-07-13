@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -55,6 +57,8 @@ Name | Type | Description
 ## ListWorkerChannel
 
 > []TaskrouterV1WorkerChannel ListWorkerChannel(ctx, WorkspaceSidWorkerSidoptional)
+
+
 
 
 
@@ -98,6 +102,8 @@ Name | Type | Description
 ## UpdateWorkerChannel
 
 > TaskrouterV1WorkerChannel UpdateWorkerChannel(ctx, WorkspaceSidWorkerSidSidoptional)
+
+
 
 
 

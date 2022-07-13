@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteTaskChannel
 
 > DeleteTaskChannel(ctx, WorkspaceSidSid)
+
+
 
 
 
@@ -102,6 +106,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -140,6 +146,8 @@ Name | Type | Description
 ## ListTaskChannel
 
 > []TaskrouterV1TaskChannel ListTaskChannel(ctx, WorkspaceSidoptional)
+
+
 
 
 
@@ -182,6 +190,8 @@ Name | Type | Description
 ## UpdateTaskChannel
 
 > TaskrouterV1TaskChannel UpdateTaskChannel(ctx, WorkspaceSidSidoptional)
+
+
 
 
 

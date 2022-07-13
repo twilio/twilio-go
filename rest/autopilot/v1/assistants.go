@@ -70,6 +70,7 @@ func (params *CreateAssistantParams) SetUniqueName(UniqueName string) *CreateAss
 	return params
 }
 
+//
 func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants"
 
@@ -125,6 +126,7 @@ func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteAssistant(Sid string) error {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -142,6 +144,7 @@ func (c *ApiService) DeleteAssistant(Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchAssistant(Sid string) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -353,6 +356,7 @@ func (params *UpdateAssistantParams) SetUniqueName(UniqueName string) *UpdateAss
 	return params
 }
 
+//
 func (c *ApiService) UpdateAssistant(Sid string, params *UpdateAssistantParams) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

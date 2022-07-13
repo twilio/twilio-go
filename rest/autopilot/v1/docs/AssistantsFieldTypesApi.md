@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -57,6 +59,8 @@ Name | Type | Description
 ## DeleteFieldType
 
 > DeleteFieldType(ctx, AssistantSidSid)
+
+
 
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -139,6 +145,8 @@ Name | Type | Description
 ## ListFieldType
 
 > []AutopilotV1FieldType ListFieldType(ctx, AssistantSidoptional)
+
+
 
 
 
@@ -181,6 +189,8 @@ Name | Type | Description
 ## UpdateFieldType
 
 > AutopilotV1FieldType UpdateFieldType(ctx, AssistantSidSidoptional)
+
+
 
 
 

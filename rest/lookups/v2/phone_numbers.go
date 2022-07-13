@@ -22,7 +22,7 @@ import (
 
 // Optional parameters for the method 'FetchPhoneNumber'
 type FetchPhoneNumberParams struct {
-	// A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, enhanced_line_type or line_type_intelligence.
+	// A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence.
 	Fields *string `json:"Fields,omitempty"`
 	// The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
 	CountryCode *string `json:"CountryCode,omitempty"`
@@ -37,6 +37,7 @@ func (params *FetchPhoneNumberParams) SetCountryCode(CountryCode string) *FetchP
 	return params
 }
 
+//
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV2PhoneNumber, error) {
 	path := "/v2/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)

@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -62,6 +64,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -99,6 +103,8 @@ Name | Type | Description
 ## FetchTrunk
 
 > TrunkingV1Trunk FetchTrunk(ctx, Sid)
+
+
 
 
 
@@ -142,6 +148,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -177,6 +185,8 @@ Name | Type | Description
 ## UpdateTrunk
 
 > TrunkingV1Trunk UpdateTrunk(ctx, Sidoptional)
+
+
 
 
 

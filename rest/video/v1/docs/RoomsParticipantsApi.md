@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -54,6 +56,8 @@ Name | Type | Description
 ## ListRoomParticipant
 
 > []VideoV1RoomParticipant ListRoomParticipant(ctx, RoomSidoptional)
+
+
 
 
 
@@ -100,6 +104,8 @@ Name | Type | Description
 ## UpdateRoomParticipant
 
 > VideoV1RoomParticipant UpdateRoomParticipant(ctx, RoomSidSidoptional)
+
+
 
 
 

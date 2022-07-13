@@ -27,7 +27,7 @@ Other parameters are passed through a pointer to a FetchVerificationAttemptsSumm
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ServiceSid** | **string** | Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+**VerifyServiceSid** | **string** | Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
 **DateCreatedAfter** | **time.Time** | Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
 **DateCreatedBefore** | **time.Time** | Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
 **Country** | **string** | Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.

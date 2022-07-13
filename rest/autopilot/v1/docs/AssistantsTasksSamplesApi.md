@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -59,6 +61,8 @@ Name | Type | Description
 ## DeleteSample
 
 > DeleteSample(ctx, AssistantSidTaskSidSid)
+
+
 
 
 
@@ -104,6 +108,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -143,6 +149,8 @@ Name | Type | Description
 ## ListSample
 
 > []AutopilotV1Sample ListSample(ctx, AssistantSidTaskSidoptional)
+
+
 
 
 
@@ -187,6 +195,8 @@ Name | Type | Description
 ## UpdateSample
 
 > AutopilotV1Sample UpdateSample(ctx, AssistantSidTaskSidSidoptional)
+
+
 
 
 

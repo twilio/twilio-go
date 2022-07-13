@@ -70,6 +70,7 @@ func (params *CreateServiceParams) SetWebhooksFromRestEnabled(WebhooksFromRestEn
 	return params
 }
 
+//
 func (c *ApiService) CreateService(params *CreateServiceParams) (*SyncV1Service, error) {
 	path := "/v1/Services"
 
@@ -113,6 +114,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*SyncV1Service,
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -130,6 +132,7 @@ func (c *ApiService) DeleteService(Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchService(Sid string) (*SyncV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -335,6 +338,7 @@ func (params *UpdateServiceParams) SetWebhooksFromRestEnabled(WebhooksFromRestEn
 	return params
 }
 
+//
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*SyncV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

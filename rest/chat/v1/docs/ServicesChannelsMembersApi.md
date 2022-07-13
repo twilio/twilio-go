@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteMember
 
 > DeleteMember(ctx, ServiceSidChannelSidSid)
+
+
 
 
 
@@ -103,6 +107,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -142,6 +148,8 @@ Name | Type | Description
 ## ListMember
 
 > []ChatV1Member ListMember(ctx, ServiceSidChannelSidoptional)
+
+
 
 
 
@@ -186,6 +194,8 @@ Name | Type | Description
 ## UpdateMember
 
 > ChatV1Member UpdateMember(ctx, ServiceSidChannelSidSidoptional)
+
+
 
 
 

@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -62,6 +64,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -100,6 +104,8 @@ Name | Type | Description
 ## FetchWebhook
 
 > AutopilotV1Webhook FetchWebhook(ctx, AssistantSidSid)
+
+
 
 
 
@@ -144,6 +150,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -183,6 +191,8 @@ Name | Type | Description
 ## UpdateWebhook
 
 > AutopilotV1Webhook UpdateWebhook(ctx, AssistantSidSidoptional)
+
+
 
 
 

@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -65,6 +67,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -102,6 +106,8 @@ Name | Type | Description
 ## FetchRatePlan
 
 > WirelessV1RatePlan FetchRatePlan(ctx, Sid)
+
+
 
 
 
@@ -145,6 +151,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -180,6 +188,8 @@ Name | Type | Description
 ## UpdateRatePlan
 
 > WirelessV1RatePlan UpdateRatePlan(ctx, Sidoptional)
+
+
 
 
 

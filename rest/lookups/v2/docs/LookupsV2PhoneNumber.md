@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **CallerName** | Pointer to **interface{}** | An object that contains caller name information |
 **CallingCountryCode** | Pointer to **string** | International dialing prefix |
 **CountryCode** | Pointer to **string** | Phone number's ISO country code |
-**EnhancedLineType** | Pointer to **interface{}** | An object that contains line type information |
 **LineTypeIntelligence** | Pointer to **interface{}** | An object that contains line type information |
 **LiveActivity** | Pointer to **interface{}** | An object that contains live activity information |
 **NationalFormat** | Pointer to **string** | Phone number in national format |

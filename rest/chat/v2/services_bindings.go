@@ -23,6 +23,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+//
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -41,6 +42,7 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*ChatV2Binding, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

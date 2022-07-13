@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -62,6 +64,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -100,6 +104,8 @@ Name | Type | Description
 ## FetchUser
 
 > IpMessagingV1User FetchUser(ctx, ServiceSidSid)
+
+
 
 
 
@@ -144,6 +150,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -183,6 +191,8 @@ Name | Type | Description
 ## UpdateUser
 
 > IpMessagingV1User UpdateUser(ctx, ServiceSidSidoptional)
+
+
 
 
 

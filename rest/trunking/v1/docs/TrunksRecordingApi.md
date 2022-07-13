@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -52,6 +54,8 @@ Name | Type | Description
 ## UpdateRecording
 
 > TrunkingV1Recording UpdateRecording(ctx, TrunkSidoptional)
+
+
 
 
 
