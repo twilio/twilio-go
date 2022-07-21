@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateWorker'
 type CreateWorkerParams struct {
+	// A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
 	ActivitySid *string `json:"ActivitySid,omitempty"`
 	// A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
 	Attributes *string `json:"Attributes,omitempty"`
-	// A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateWorkerParams) SetFriendlyName(FriendlyName string) *CreateWorkerParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
 func (params *CreateWorkerParams) SetActivitySid(ActivitySid string) *CreateWorkerParams {
 	params.ActivitySid = &ActivitySid
 	return params
 }
 func (params *CreateWorkerParams) SetAttributes(Attributes string) *CreateWorkerParams {
 	params.Attributes = &Attributes
-	return params
-}
-func (params *CreateWorkerParams) SetFriendlyName(FriendlyName string) *CreateWorkerParams {
-	params.FriendlyName = &FriendlyName
 	return params
 }
 
@@ -54,14 +54,14 @@ func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParam
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 	if params != nil && params.ActivitySid != nil {
 		data.Set("ActivitySid", *params.ActivitySid)
 	}
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

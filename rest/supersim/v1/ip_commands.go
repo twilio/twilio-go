@@ -25,42 +25,42 @@ import (
 
 // Optional parameters for the method 'CreateIpCommand'
 type CreateIpCommandParams struct {
-	// The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
-	CallbackMethod *string `json:"CallbackMethod,omitempty"`
-	// The URL we should call using the `callback_method` after we have sent the IP Command.
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	// The device port to which the IP Command will be sent.
-	DevicePort *int `json:"DevicePort,omitempty"`
-	// The payload to be delivered to the device.
-	Payload *string `json:"Payload,omitempty"`
-	// Indicates how the payload is encoded. Either `text` or `binary`. Defaults to `text`.
-	PayloadType *string `json:"PayloadType,omitempty"`
 	// The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
 	Sim *string `json:"Sim,omitempty"`
+	// The payload to be delivered to the device.
+	Payload *string `json:"Payload,omitempty"`
+	// The device port to which the IP Command will be sent.
+	DevicePort *int `json:"DevicePort,omitempty"`
+	//
+	PayloadType *string `json:"PayloadType,omitempty"`
+	// The URL we should call using the `callback_method` after we have sent the IP Command.
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
 }
 
-func (params *CreateIpCommandParams) SetCallbackMethod(CallbackMethod string) *CreateIpCommandParams {
-	params.CallbackMethod = &CallbackMethod
-	return params
-}
-func (params *CreateIpCommandParams) SetCallbackUrl(CallbackUrl string) *CreateIpCommandParams {
-	params.CallbackUrl = &CallbackUrl
-	return params
-}
-func (params *CreateIpCommandParams) SetDevicePort(DevicePort int) *CreateIpCommandParams {
-	params.DevicePort = &DevicePort
+func (params *CreateIpCommandParams) SetSim(Sim string) *CreateIpCommandParams {
+	params.Sim = &Sim
 	return params
 }
 func (params *CreateIpCommandParams) SetPayload(Payload string) *CreateIpCommandParams {
 	params.Payload = &Payload
 	return params
 }
+func (params *CreateIpCommandParams) SetDevicePort(DevicePort int) *CreateIpCommandParams {
+	params.DevicePort = &DevicePort
+	return params
+}
 func (params *CreateIpCommandParams) SetPayloadType(PayloadType string) *CreateIpCommandParams {
 	params.PayloadType = &PayloadType
 	return params
 }
-func (params *CreateIpCommandParams) SetSim(Sim string) *CreateIpCommandParams {
-	params.Sim = &Sim
+func (params *CreateIpCommandParams) SetCallbackUrl(CallbackUrl string) *CreateIpCommandParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *CreateIpCommandParams) SetCallbackMethod(CallbackMethod string) *CreateIpCommandParams {
+	params.CallbackMethod = &CallbackMethod
 	return params
 }
 
@@ -71,23 +71,23 @@ func (c *ApiService) CreateIpCommand(params *CreateIpCommandParams) (*SupersimV1
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
-	}
-	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
-	}
-	if params != nil && params.DevicePort != nil {
-		data.Set("DevicePort", fmt.Sprint(*params.DevicePort))
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
 	}
 	if params != nil && params.Payload != nil {
 		data.Set("Payload", *params.Payload)
 	}
+	if params != nil && params.DevicePort != nil {
+		data.Set("DevicePort", fmt.Sprint(*params.DevicePort))
+	}
 	if params != nil && params.PayloadType != nil {
 		data.Set("PayloadType", *params.PayloadType)
 	}
-	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

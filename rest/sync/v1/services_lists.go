@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateSyncList'
 type CreateSyncListParams struct {
-	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-	CollectionTtl *int `json:"CollectionTtl,omitempty"`
-	// Alias for collection_ttl. If both are provided, this value is ignored.
-	Ttl *int `json:"Ttl,omitempty"`
 	// An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// Alias for collection_ttl. If both are provided, this value is ignored.
+	Ttl *int `json:"Ttl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 }
 
-func (params *CreateSyncListParams) SetCollectionTtl(CollectionTtl int) *CreateSyncListParams {
-	params.CollectionTtl = &CollectionTtl
+func (params *CreateSyncListParams) SetUniqueName(UniqueName string) *CreateSyncListParams {
+	params.UniqueName = &UniqueName
 	return params
 }
 func (params *CreateSyncListParams) SetTtl(Ttl int) *CreateSyncListParams {
 	params.Ttl = &Ttl
 	return params
 }
-func (params *CreateSyncListParams) SetUniqueName(UniqueName string) *CreateSyncListParams {
-	params.UniqueName = &UniqueName
+func (params *CreateSyncListParams) SetCollectionTtl(CollectionTtl int) *CreateSyncListParams {
+	params.CollectionTtl = &CollectionTtl
 	return params
 }
 
@@ -54,14 +54,14 @@ func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListPar
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CollectionTtl != nil {
-		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -262,18 +262,18 @@ func (c *ApiService) getNextListSyncListResponse(nextPageUrl string) (interface{
 
 // Optional parameters for the method 'UpdateSyncList'
 type UpdateSyncListParams struct {
-	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// An alias for `collection_ttl`. If both are provided, this value is ignored.
 	Ttl *int `json:"Ttl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 }
 
-func (params *UpdateSyncListParams) SetCollectionTtl(CollectionTtl int) *UpdateSyncListParams {
-	params.CollectionTtl = &CollectionTtl
-	return params
-}
 func (params *UpdateSyncListParams) SetTtl(Ttl int) *UpdateSyncListParams {
 	params.Ttl = &Ttl
+	return params
+}
+func (params *UpdateSyncListParams) SetCollectionTtl(CollectionTtl int) *UpdateSyncListParams {
+	params.CollectionTtl = &CollectionTtl
 	return params
 }
 
@@ -286,11 +286,11 @@ func (c *ApiService) UpdateSyncList(ServiceSid string, Sid string, params *Updat
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CollectionTtl != nil {
-		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
-	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

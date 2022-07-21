@@ -16,10 +16,10 @@ package openapi
 
 // ListCallNotificationResponse struct for ListCallNotificationResponse
 type ListCallNotificationResponse struct {
+	Notifications   []ApiV2010CallNotification `json:"notifications,omitempty"`
 	End             int                        `json:"end,omitempty"`
 	FirstPageUri    string                     `json:"first_page_uri,omitempty"`
 	NextPageUri     string                     `json:"next_page_uri,omitempty"`
-	Notifications   []ApiV2010CallNotification `json:"notifications,omitempty"`
 	Page            int                        `json:"page,omitempty"`
 	PageSize        int                        `json:"page_size,omitempty"`
 	PreviousPageUri string                     `json:"previous_page_uri,omitempty"`

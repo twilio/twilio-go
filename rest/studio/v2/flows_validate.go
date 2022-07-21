@@ -21,30 +21,30 @@ import (
 
 // Optional parameters for the method 'UpdateFlowValidate'
 type UpdateFlowValidateParams struct {
-	// Description of change made in the revision.
-	CommitMessage *string `json:"CommitMessage,omitempty"`
-	// JSON representation of flow definition.
-	Definition *interface{} `json:"Definition,omitempty"`
 	// The string that you assigned to describe the Flow.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The status of the Flow. Can be: `draft` or `published`.
+	//
 	Status *string `json:"Status,omitempty"`
+	// JSON representation of flow definition.
+	Definition *interface{} `json:"Definition,omitempty"`
+	// Description of change made in the revision.
+	CommitMessage *string `json:"CommitMessage,omitempty"`
 }
 
-func (params *UpdateFlowValidateParams) SetCommitMessage(CommitMessage string) *UpdateFlowValidateParams {
-	params.CommitMessage = &CommitMessage
-	return params
-}
-func (params *UpdateFlowValidateParams) SetDefinition(Definition interface{}) *UpdateFlowValidateParams {
-	params.Definition = &Definition
-	return params
-}
 func (params *UpdateFlowValidateParams) SetFriendlyName(FriendlyName string) *UpdateFlowValidateParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
 func (params *UpdateFlowValidateParams) SetStatus(Status string) *UpdateFlowValidateParams {
 	params.Status = &Status
+	return params
+}
+func (params *UpdateFlowValidateParams) SetDefinition(Definition interface{}) *UpdateFlowValidateParams {
+	params.Definition = &Definition
+	return params
+}
+func (params *UpdateFlowValidateParams) SetCommitMessage(CommitMessage string) *UpdateFlowValidateParams {
+	params.CommitMessage = &CommitMessage
 	return params
 }
 
@@ -55,8 +55,11 @@ func (c *ApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*Stud
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CommitMessage != nil {
-		data.Set("CommitMessage", *params.CommitMessage)
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.Definition != nil {
 		v, err := json.Marshal(params.Definition)
@@ -67,11 +70,8 @@ func (c *ApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*Stud
 
 		data.Set("Definition", string(v))
 	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+	if params != nil && params.CommitMessage != nil {
+		data.Set("CommitMessage", *params.CommitMessage)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -35,9 +35,9 @@ Other parameters are passed through a pointer to a CreateSyncListParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-**Ttl** | **int** | Alias for collection_ttl. If both are provided, this value is ignored.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The &#x60;unique_name&#x60; value can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
+**Ttl** | **int** | Alias for collection_ttl. If both are provided, this value is ignored.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
 
 ### Return type
 
@@ -211,8 +211,8 @@ Other parameters are passed through a pointer to a UpdateSyncListParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
 **Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both are provided, this value is ignored.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
 
 ### Return type
 

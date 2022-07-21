@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateSupportingDocument'
 type CreateSupportingDocumentParams struct {
-	// The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
-	Attributes *interface{} `json:"Attributes,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The type of the Supporting Document.
 	Type *string `json:"Type,omitempty"`
+	// The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
+	Attributes *interface{} `json:"Attributes,omitempty"`
 }
 
-func (params *CreateSupportingDocumentParams) SetAttributes(Attributes interface{}) *CreateSupportingDocumentParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *CreateSupportingDocumentParams) SetFriendlyName(FriendlyName string) *CreateSupportingDocumentParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
 func (params *CreateSupportingDocumentParams) SetType(Type string) *CreateSupportingDocumentParams {
 	params.Type = &Type
+	return params
+}
+func (params *CreateSupportingDocumentParams) SetAttributes(Attributes interface{}) *CreateSupportingDocumentParams {
+	params.Attributes = &Attributes
 	return params
 }
 
@@ -53,6 +53,12 @@ func (c *ApiService) CreateSupportingDocument(params *CreateSupportingDocumentPa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
 
@@ -61,12 +67,6 @@ func (c *ApiService) CreateSupportingDocument(params *CreateSupportingDocumentPa
 		}
 
 		data.Set("Attributes", string(v))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -263,18 +263,18 @@ func (c *ApiService) getNextListSupportingDocumentResponse(nextPageUrl string) (
 
 // Optional parameters for the method 'UpdateSupportingDocument'
 type UpdateSupportingDocumentParams struct {
-	// The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
-	Attributes *interface{} `json:"Attributes,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
+	Attributes *interface{} `json:"Attributes,omitempty"`
 }
 
-func (params *UpdateSupportingDocumentParams) SetAttributes(Attributes interface{}) *UpdateSupportingDocumentParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *UpdateSupportingDocumentParams) SetFriendlyName(FriendlyName string) *UpdateSupportingDocumentParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateSupportingDocumentParams) SetAttributes(Attributes interface{}) *UpdateSupportingDocumentParams {
+	params.Attributes = &Attributes
 	return params
 }
 
@@ -286,6 +286,9 @@ func (c *ApiService) UpdateSupportingDocument(Sid string, params *UpdateSupporti
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
 
@@ -294,9 +297,6 @@ func (c *ApiService) UpdateSupportingDocument(Sid string, params *UpdateSupporti
 		}
 
 		data.Set("Attributes", string(v))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

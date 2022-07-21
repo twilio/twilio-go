@@ -27,88 +27,88 @@ import (
 type CreateSipDomainParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
 	// The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
 	DomainName *string `json:"DomainName,omitempty"`
-	// Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
-	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
-	// Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
 	// A descriptive string that you created to describe the resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-	Secure *bool `json:"Secure,omitempty"`
-	// Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-	SipRegistration *bool `json:"SipRegistration,omitempty"`
-	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-	// The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
-	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-	// The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-	VoiceMethod *string `json:"VoiceMethod,omitempty"`
-	// The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
-	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
-	// The URL that we should call to pass status parameters (such as call ended) to your application.
-	VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
 	// The URL we should when the domain receives a call.
 	VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	// The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL that we should call to pass status parameters (such as call ended) to your application.
+	VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
+	// The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
+	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
+	// Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+	SipRegistration *bool `json:"SipRegistration,omitempty"`
+	// Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
+	// Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+	Secure *bool `json:"Secure,omitempty"`
+	// The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
+	// Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
 }
 
 func (params *CreateSipDomainParams) SetPathAccountSid(PathAccountSid string) *CreateSipDomainParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *CreateSipDomainParams) SetByocTrunkSid(ByocTrunkSid string) *CreateSipDomainParams {
-	params.ByocTrunkSid = &ByocTrunkSid
-	return params
-}
 func (params *CreateSipDomainParams) SetDomainName(DomainName string) *CreateSipDomainParams {
 	params.DomainName = &DomainName
-	return params
-}
-func (params *CreateSipDomainParams) SetEmergencyCallerSid(EmergencyCallerSid string) *CreateSipDomainParams {
-	params.EmergencyCallerSid = &EmergencyCallerSid
-	return params
-}
-func (params *CreateSipDomainParams) SetEmergencyCallingEnabled(EmergencyCallingEnabled bool) *CreateSipDomainParams {
-	params.EmergencyCallingEnabled = &EmergencyCallingEnabled
 	return params
 }
 func (params *CreateSipDomainParams) SetFriendlyName(FriendlyName string) *CreateSipDomainParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateSipDomainParams) SetSecure(Secure bool) *CreateSipDomainParams {
-	params.Secure = &Secure
-	return params
-}
-func (params *CreateSipDomainParams) SetSipRegistration(SipRegistration bool) *CreateSipDomainParams {
-	params.SipRegistration = &SipRegistration
-	return params
-}
-func (params *CreateSipDomainParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateSipDomainParams {
-	params.VoiceFallbackMethod = &VoiceFallbackMethod
-	return params
-}
-func (params *CreateSipDomainParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateSipDomainParams {
-	params.VoiceFallbackUrl = &VoiceFallbackUrl
+func (params *CreateSipDomainParams) SetVoiceUrl(VoiceUrl string) *CreateSipDomainParams {
+	params.VoiceUrl = &VoiceUrl
 	return params
 }
 func (params *CreateSipDomainParams) SetVoiceMethod(VoiceMethod string) *CreateSipDomainParams {
 	params.VoiceMethod = &VoiceMethod
 	return params
 }
-func (params *CreateSipDomainParams) SetVoiceStatusCallbackMethod(VoiceStatusCallbackMethod string) *CreateSipDomainParams {
-	params.VoiceStatusCallbackMethod = &VoiceStatusCallbackMethod
+func (params *CreateSipDomainParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateSipDomainParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *CreateSipDomainParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateSipDomainParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
 	return params
 }
 func (params *CreateSipDomainParams) SetVoiceStatusCallbackUrl(VoiceStatusCallbackUrl string) *CreateSipDomainParams {
 	params.VoiceStatusCallbackUrl = &VoiceStatusCallbackUrl
 	return params
 }
-func (params *CreateSipDomainParams) SetVoiceUrl(VoiceUrl string) *CreateSipDomainParams {
-	params.VoiceUrl = &VoiceUrl
+func (params *CreateSipDomainParams) SetVoiceStatusCallbackMethod(VoiceStatusCallbackMethod string) *CreateSipDomainParams {
+	params.VoiceStatusCallbackMethod = &VoiceStatusCallbackMethod
+	return params
+}
+func (params *CreateSipDomainParams) SetSipRegistration(SipRegistration bool) *CreateSipDomainParams {
+	params.SipRegistration = &SipRegistration
+	return params
+}
+func (params *CreateSipDomainParams) SetEmergencyCallingEnabled(EmergencyCallingEnabled bool) *CreateSipDomainParams {
+	params.EmergencyCallingEnabled = &EmergencyCallingEnabled
+	return params
+}
+func (params *CreateSipDomainParams) SetSecure(Secure bool) *CreateSipDomainParams {
+	params.Secure = &Secure
+	return params
+}
+func (params *CreateSipDomainParams) SetByocTrunkSid(ByocTrunkSid string) *CreateSipDomainParams {
+	params.ByocTrunkSid = &ByocTrunkSid
+	return params
+}
+func (params *CreateSipDomainParams) SetEmergencyCallerSid(EmergencyCallerSid string) *CreateSipDomainParams {
+	params.EmergencyCallerSid = &EmergencyCallerSid
 	return params
 }
 
@@ -124,44 +124,44 @@ func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010Si
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ByocTrunkSid != nil {
-		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
-	}
 	if params != nil && params.DomainName != nil {
 		data.Set("DomainName", *params.DomainName)
-	}
-	if params != nil && params.EmergencyCallerSid != nil {
-		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
-	}
-	if params != nil && params.EmergencyCallingEnabled != nil {
-		data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.Secure != nil {
-		data.Set("Secure", fmt.Sprint(*params.Secure))
-	}
-	if params != nil && params.SipRegistration != nil {
-		data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
-	}
-	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-	}
-	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 	if params != nil && params.VoiceMethod != nil {
 		data.Set("VoiceMethod", *params.VoiceMethod)
 	}
-	if params != nil && params.VoiceStatusCallbackMethod != nil {
-		data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
 	}
 	if params != nil && params.VoiceStatusCallbackUrl != nil {
 		data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
 	}
-	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+	if params != nil && params.VoiceStatusCallbackMethod != nil {
+		data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
+	}
+	if params != nil && params.SipRegistration != nil {
+		data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
+	}
+	if params != nil && params.EmergencyCallingEnabled != nil {
+		data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
+	}
+	if params != nil && params.Secure != nil {
+		data.Set("Secure", fmt.Sprint(*params.Secure))
+	}
+	if params != nil && params.ByocTrunkSid != nil {
+		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
+	}
+	if params != nil && params.EmergencyCallerSid != nil {
+		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -404,20 +404,8 @@ func (c *ApiService) getNextListSipDomainResponse(nextPageUrl string) (interface
 type UpdateSipDomainParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
-	// The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
-	DomainName *string `json:"DomainName,omitempty"`
-	// Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
-	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
-	// Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
 	// A descriptive string that you created to describe the resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-	Secure *bool `json:"Secure,omitempty"`
-	// Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-	SipRegistration *bool `json:"SipRegistration,omitempty"`
 	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
 	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
 	// The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
@@ -430,38 +418,26 @@ type UpdateSipDomainParams struct {
 	VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
 	// The URL we should call when the domain receives a call.
 	VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	// Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+	SipRegistration *bool `json:"SipRegistration,omitempty"`
+	// The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+	DomainName *string `json:"DomainName,omitempty"`
+	// Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
+	// Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+	Secure *bool `json:"Secure,omitempty"`
+	// The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
+	// Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
 }
 
 func (params *UpdateSipDomainParams) SetPathAccountSid(PathAccountSid string) *UpdateSipDomainParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *UpdateSipDomainParams) SetByocTrunkSid(ByocTrunkSid string) *UpdateSipDomainParams {
-	params.ByocTrunkSid = &ByocTrunkSid
-	return params
-}
-func (params *UpdateSipDomainParams) SetDomainName(DomainName string) *UpdateSipDomainParams {
-	params.DomainName = &DomainName
-	return params
-}
-func (params *UpdateSipDomainParams) SetEmergencyCallerSid(EmergencyCallerSid string) *UpdateSipDomainParams {
-	params.EmergencyCallerSid = &EmergencyCallerSid
-	return params
-}
-func (params *UpdateSipDomainParams) SetEmergencyCallingEnabled(EmergencyCallingEnabled bool) *UpdateSipDomainParams {
-	params.EmergencyCallingEnabled = &EmergencyCallingEnabled
-	return params
-}
 func (params *UpdateSipDomainParams) SetFriendlyName(FriendlyName string) *UpdateSipDomainParams {
 	params.FriendlyName = &FriendlyName
-	return params
-}
-func (params *UpdateSipDomainParams) SetSecure(Secure bool) *UpdateSipDomainParams {
-	params.Secure = &Secure
-	return params
-}
-func (params *UpdateSipDomainParams) SetSipRegistration(SipRegistration bool) *UpdateSipDomainParams {
-	params.SipRegistration = &SipRegistration
 	return params
 }
 func (params *UpdateSipDomainParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *UpdateSipDomainParams {
@@ -488,6 +464,30 @@ func (params *UpdateSipDomainParams) SetVoiceUrl(VoiceUrl string) *UpdateSipDoma
 	params.VoiceUrl = &VoiceUrl
 	return params
 }
+func (params *UpdateSipDomainParams) SetSipRegistration(SipRegistration bool) *UpdateSipDomainParams {
+	params.SipRegistration = &SipRegistration
+	return params
+}
+func (params *UpdateSipDomainParams) SetDomainName(DomainName string) *UpdateSipDomainParams {
+	params.DomainName = &DomainName
+	return params
+}
+func (params *UpdateSipDomainParams) SetEmergencyCallingEnabled(EmergencyCallingEnabled bool) *UpdateSipDomainParams {
+	params.EmergencyCallingEnabled = &EmergencyCallingEnabled
+	return params
+}
+func (params *UpdateSipDomainParams) SetSecure(Secure bool) *UpdateSipDomainParams {
+	params.Secure = &Secure
+	return params
+}
+func (params *UpdateSipDomainParams) SetByocTrunkSid(ByocTrunkSid string) *UpdateSipDomainParams {
+	params.ByocTrunkSid = &ByocTrunkSid
+	return params
+}
+func (params *UpdateSipDomainParams) SetEmergencyCallerSid(EmergencyCallerSid string) *UpdateSipDomainParams {
+	params.EmergencyCallerSid = &EmergencyCallerSid
+	return params
+}
 
 // Update the attributes of a domain
 func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) (*ApiV2010SipDomain, error) {
@@ -502,26 +502,8 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ByocTrunkSid != nil {
-		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
-	}
-	if params != nil && params.DomainName != nil {
-		data.Set("DomainName", *params.DomainName)
-	}
-	if params != nil && params.EmergencyCallerSid != nil {
-		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
-	}
-	if params != nil && params.EmergencyCallingEnabled != nil {
-		data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Secure != nil {
-		data.Set("Secure", fmt.Sprint(*params.Secure))
-	}
-	if params != nil && params.SipRegistration != nil {
-		data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
 		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
@@ -540,6 +522,24 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 	}
 	if params != nil && params.VoiceUrl != nil {
 		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
+	if params != nil && params.SipRegistration != nil {
+		data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
+	}
+	if params != nil && params.DomainName != nil {
+		data.Set("DomainName", *params.DomainName)
+	}
+	if params != nil && params.EmergencyCallingEnabled != nil {
+		data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
+	}
+	if params != nil && params.Secure != nil {
+		data.Set("Secure", fmt.Sprint(*params.Secure))
+	}
+	if params != nil && params.ByocTrunkSid != nil {
+		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
+	}
+	if params != nil && params.EmergencyCallerSid != nil {
+		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

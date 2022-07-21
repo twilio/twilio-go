@@ -16,6 +16,6 @@ package openapi
 
 // ListSyncListResponse struct for ListSyncListResponse
 type ListSyncListResponse struct {
-	Lists []SyncV1SyncList        `json:"lists,omitempty"`
-	Meta  ListServiceResponseMeta `json:"meta,omitempty"`
+	Lists []SyncV1SyncList         `json:"lists,omitempty"`
+	Meta  ListDocumentResponseMeta `json:"meta,omitempty"`
 }

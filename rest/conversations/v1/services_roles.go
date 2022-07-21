@@ -27,22 +27,22 @@ import (
 type CreateServiceRoleParams struct {
 	// A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	//
+	Type *string `json:"Type,omitempty"`
 	// A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
 	Permission *[]string `json:"Permission,omitempty"`
-	// The type of role. Can be: `conversation` for [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) roles or `service` for [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) roles.
-	Type *string `json:"Type,omitempty"`
 }
 
 func (params *CreateServiceRoleParams) SetFriendlyName(FriendlyName string) *CreateServiceRoleParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateServiceRoleParams) SetPermission(Permission []string) *CreateServiceRoleParams {
-	params.Permission = &Permission
-	return params
-}
 func (params *CreateServiceRoleParams) SetType(Type string) *CreateServiceRoleParams {
 	params.Type = &Type
+	return params
+}
+func (params *CreateServiceRoleParams) SetPermission(Permission []string) *CreateServiceRoleParams {
+	params.Permission = &Permission
 	return params
 }
 
@@ -57,13 +57,13 @@ func (c *ApiService) CreateServiceRole(ChatServiceSid string, params *CreateServ
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 	if params != nil && params.Permission != nil {
 		for _, item := range *params.Permission {
 			data.Add("Permission", item)
 		}
-	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

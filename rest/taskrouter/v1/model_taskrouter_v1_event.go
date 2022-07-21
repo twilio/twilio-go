@@ -35,7 +35,7 @@ type TaskrouterV1Event struct {
 	// The time the event was sent
 	EventDate *time.Time `json:"event_date,omitempty"`
 	// The time the event was sent in milliseconds
-	EventDateMs *int `json:"event_date_ms,omitempty"`
+	EventDateMs *int64 `json:"event_date_ms,omitempty"`
 	// The identifier for the event
 	EventType *string `json:"event_type,omitempty"`
 	// The SID of the object the event is most relevant to

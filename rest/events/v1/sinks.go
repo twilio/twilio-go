@@ -29,7 +29,7 @@ type CreateSinkParams struct {
 	Description *string `json:"Description,omitempty"`
 	// The information required for Twilio to connect to the provided Sink encoded as JSON.
 	SinkConfiguration *interface{} `json:"SinkConfiguration,omitempty"`
-	// The Sink type. Can only be \\\"kinesis\\\" or \\\"webhook\\\" currently.
+	//
 	SinkType *string `json:"SinkType,omitempty"`
 }
 

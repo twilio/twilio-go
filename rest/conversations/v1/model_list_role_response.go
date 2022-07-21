@@ -16,6 +16,6 @@ package openapi
 
 // ListRoleResponse struct for ListRoleResponse
 type ListRoleResponse struct {
-	Meta  ListConfigurationAddressResponseMeta `json:"meta,omitempty"`
 	Roles []ConversationsV1Role                `json:"roles,omitempty"`
+	Meta  ListConfigurationAddressResponseMeta `json:"meta,omitempty"`
 }

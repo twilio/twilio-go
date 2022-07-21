@@ -16,6 +16,6 @@ package openapi
 
 // ListMessageResponse struct for ListMessageResponse
 type ListMessageResponse struct {
-	Messages []IpMessagingV2Message     `json:"messages,omitempty"`
-	Meta     ListCredentialResponseMeta `json:"meta,omitempty"`
+	Messages []IpMessagingV2Message  `json:"messages,omitempty"`
+	Meta     ListBindingResponseMeta `json:"meta,omitempty"`
 }

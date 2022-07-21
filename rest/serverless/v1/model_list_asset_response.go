@@ -16,6 +16,6 @@ package openapi
 
 // ListAssetResponse struct for ListAssetResponse
 type ListAssetResponse struct {
-	Assets []ServerlessV1Asset     `json:"assets,omitempty"`
-	Meta   ListServiceResponseMeta `json:"meta,omitempty"`
+	Assets []ServerlessV1Asset   `json:"assets,omitempty"`
+	Meta   ListAssetResponseMeta `json:"meta,omitempty"`
 }

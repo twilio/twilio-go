@@ -62,21 +62,21 @@ type UpdateAccountSettingsParams struct {
 	//
 	AdvancedFeatures *bool `json:"AdvancedFeatures,omitempty"`
 	//
-	SubaccountSid *string `json:"SubaccountSid,omitempty"`
-	//
 	VoiceTrace *bool `json:"VoiceTrace,omitempty"`
+	//
+	SubaccountSid *string `json:"SubaccountSid,omitempty"`
 }
 
 func (params *UpdateAccountSettingsParams) SetAdvancedFeatures(AdvancedFeatures bool) *UpdateAccountSettingsParams {
 	params.AdvancedFeatures = &AdvancedFeatures
 	return params
 }
-func (params *UpdateAccountSettingsParams) SetSubaccountSid(SubaccountSid string) *UpdateAccountSettingsParams {
-	params.SubaccountSid = &SubaccountSid
-	return params
-}
 func (params *UpdateAccountSettingsParams) SetVoiceTrace(VoiceTrace bool) *UpdateAccountSettingsParams {
 	params.VoiceTrace = &VoiceTrace
+	return params
+}
+func (params *UpdateAccountSettingsParams) SetSubaccountSid(SubaccountSid string) *UpdateAccountSettingsParams {
+	params.SubaccountSid = &SubaccountSid
 	return params
 }
 
@@ -90,11 +90,11 @@ func (c *ApiService) UpdateAccountSettings(params *UpdateAccountSettingsParams) 
 	if params != nil && params.AdvancedFeatures != nil {
 		data.Set("AdvancedFeatures", fmt.Sprint(*params.AdvancedFeatures))
 	}
-	if params != nil && params.SubaccountSid != nil {
-		data.Set("SubaccountSid", *params.SubaccountSid)
-	}
 	if params != nil && params.VoiceTrace != nil {
 		data.Set("VoiceTrace", fmt.Sprint(*params.VoiceTrace))
+	}
+	if params != nil && params.SubaccountSid != nil {
+		data.Set("SubaccountSid", *params.SubaccountSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

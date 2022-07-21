@@ -16,6 +16,7 @@ package openapi
 
 // ListUsageTriggerResponse struct for ListUsageTriggerResponse
 type ListUsageTriggerResponse struct {
+	UsageTriggers   []ApiV2010UsageTrigger `json:"usage_triggers,omitempty"`
 	End             int                    `json:"end,omitempty"`
 	FirstPageUri    string                 `json:"first_page_uri,omitempty"`
 	NextPageUri     string                 `json:"next_page_uri,omitempty"`
@@ -24,5 +25,4 @@ type ListUsageTriggerResponse struct {
 	PreviousPageUri string                 `json:"previous_page_uri,omitempty"`
 	Start           int                    `json:"start,omitempty"`
 	Uri             string                 `json:"uri,omitempty"`
-	UsageTriggers   []ApiV2010UsageTrigger `json:"usage_triggers,omitempty"`
 }

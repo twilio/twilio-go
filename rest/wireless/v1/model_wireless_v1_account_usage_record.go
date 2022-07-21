@@ -18,10 +18,10 @@ package openapi
 type WirelessV1AccountUsageRecord struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
+	// The time period for which usage is reported
+	Period *interface{} `json:"period,omitempty"`
 	// An object that describes the aggregated Commands usage for all SIMs during the specified period
 	Commands *interface{} `json:"commands,omitempty"`
 	// An object that describes the aggregated Data usage for all SIMs over the period
 	Data *interface{} `json:"data,omitempty"`
-	// The time period for which usage is reported
-	Period *interface{} `json:"period,omitempty"`
 }

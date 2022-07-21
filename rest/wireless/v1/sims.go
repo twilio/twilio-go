@@ -247,22 +247,22 @@ func (c *ApiService) getNextListSimResponse(nextPageUrl string) (interface{}, er
 
 // Optional parameters for the method 'UpdateSim'
 type UpdateSimParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
-	AccountSid *string `json:"AccountSid,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
+	UniqueName *string `json:"UniqueName,omitempty"`
 	// The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
 	// The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	// The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
-	CommandsCallbackMethod *string `json:"CommandsCallbackMethod,omitempty"`
-	// The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
-	CommandsCallbackUrl *string `json:"CommandsCallbackUrl,omitempty"`
 	// A descriptive string that you create to describe the Sim resource. It does not need to be unique.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
 	RatePlan *string `json:"RatePlan,omitempty"`
-	// Initiate a connectivity reset on the SIM. Set to `resetting` to initiate a connectivity reset on the SIM. No other value is valid.
-	ResetStatus *string `json:"ResetStatus,omitempty"`
+	//
+	Status *string `json:"Status,omitempty"`
+	// The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
+	CommandsCallbackMethod *string `json:"CommandsCallbackMethod,omitempty"`
+	// The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
+	CommandsCallbackUrl *string `json:"CommandsCallbackUrl,omitempty"`
 	// The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
 	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
 	// The URL we should call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `sms_url`.
@@ -271,10 +271,6 @@ type UpdateSimParams struct {
 	SmsMethod *string `json:"SmsMethod,omitempty"`
 	// The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
 	SmsUrl *string `json:"SmsUrl,omitempty"`
-	// The new status of the Sim resource. Can be: `ready`, `active`, `suspended`, or `deactivated`.
-	Status *string `json:"Status,omitempty"`
-	// An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
-	UniqueName *string `json:"UniqueName,omitempty"`
 	// Deprecated.
 	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
 	// Deprecated.
@@ -283,10 +279,14 @@ type UpdateSimParams struct {
 	VoiceMethod *string `json:"VoiceMethod,omitempty"`
 	// Deprecated.
 	VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	//
+	ResetStatus *string `json:"ResetStatus,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
-func (params *UpdateSimParams) SetAccountSid(AccountSid string) *UpdateSimParams {
-	params.AccountSid = &AccountSid
+func (params *UpdateSimParams) SetUniqueName(UniqueName string) *UpdateSimParams {
+	params.UniqueName = &UniqueName
 	return params
 }
 func (params *UpdateSimParams) SetCallbackMethod(CallbackMethod string) *UpdateSimParams {
@@ -297,14 +297,6 @@ func (params *UpdateSimParams) SetCallbackUrl(CallbackUrl string) *UpdateSimPara
 	params.CallbackUrl = &CallbackUrl
 	return params
 }
-func (params *UpdateSimParams) SetCommandsCallbackMethod(CommandsCallbackMethod string) *UpdateSimParams {
-	params.CommandsCallbackMethod = &CommandsCallbackMethod
-	return params
-}
-func (params *UpdateSimParams) SetCommandsCallbackUrl(CommandsCallbackUrl string) *UpdateSimParams {
-	params.CommandsCallbackUrl = &CommandsCallbackUrl
-	return params
-}
 func (params *UpdateSimParams) SetFriendlyName(FriendlyName string) *UpdateSimParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -313,8 +305,16 @@ func (params *UpdateSimParams) SetRatePlan(RatePlan string) *UpdateSimParams {
 	params.RatePlan = &RatePlan
 	return params
 }
-func (params *UpdateSimParams) SetResetStatus(ResetStatus string) *UpdateSimParams {
-	params.ResetStatus = &ResetStatus
+func (params *UpdateSimParams) SetStatus(Status string) *UpdateSimParams {
+	params.Status = &Status
+	return params
+}
+func (params *UpdateSimParams) SetCommandsCallbackMethod(CommandsCallbackMethod string) *UpdateSimParams {
+	params.CommandsCallbackMethod = &CommandsCallbackMethod
+	return params
+}
+func (params *UpdateSimParams) SetCommandsCallbackUrl(CommandsCallbackUrl string) *UpdateSimParams {
+	params.CommandsCallbackUrl = &CommandsCallbackUrl
 	return params
 }
 func (params *UpdateSimParams) SetSmsFallbackMethod(SmsFallbackMethod string) *UpdateSimParams {
@@ -333,14 +333,6 @@ func (params *UpdateSimParams) SetSmsUrl(SmsUrl string) *UpdateSimParams {
 	params.SmsUrl = &SmsUrl
 	return params
 }
-func (params *UpdateSimParams) SetStatus(Status string) *UpdateSimParams {
-	params.Status = &Status
-	return params
-}
-func (params *UpdateSimParams) SetUniqueName(UniqueName string) *UpdateSimParams {
-	params.UniqueName = &UniqueName
-	return params
-}
 func (params *UpdateSimParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *UpdateSimParams {
 	params.VoiceFallbackMethod = &VoiceFallbackMethod
 	return params
@@ -357,6 +349,14 @@ func (params *UpdateSimParams) SetVoiceUrl(VoiceUrl string) *UpdateSimParams {
 	params.VoiceUrl = &VoiceUrl
 	return params
 }
+func (params *UpdateSimParams) SetResetStatus(ResetStatus string) *UpdateSimParams {
+	params.ResetStatus = &ResetStatus
+	return params
+}
+func (params *UpdateSimParams) SetAccountSid(AccountSid string) *UpdateSimParams {
+	params.AccountSid = &AccountSid
+	return params
+}
 
 // Updates the given properties of a Sim resource on your Account.
 func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1Sim, error) {
@@ -366,8 +366,8 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid)
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
@@ -375,20 +375,20 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
-	if params != nil && params.CommandsCallbackMethod != nil {
-		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
-	}
-	if params != nil && params.CommandsCallbackUrl != nil {
-		data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.RatePlan != nil {
 		data.Set("RatePlan", *params.RatePlan)
 	}
-	if params != nil && params.ResetStatus != nil {
-		data.Set("ResetStatus", *params.ResetStatus)
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.CommandsCallbackMethod != nil {
+		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
+	}
+	if params != nil && params.CommandsCallbackUrl != nil {
+		data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
 		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
@@ -402,12 +402,6 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1
 	if params != nil && params.SmsUrl != nil {
 		data.Set("SmsUrl", *params.SmsUrl)
 	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
-	}
 	if params != nil && params.VoiceFallbackMethod != nil {
 		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
 	}
@@ -419,6 +413,12 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1
 	}
 	if params != nil && params.VoiceUrl != nil {
 		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
+	if params != nil && params.ResetStatus != nil {
+		data.Set("ResetStatus", *params.ResetStatus)
+	}
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -38,8 +38,6 @@ type MonitorV1AlertInstance struct {
 	LogLevel *string `json:"log_level,omitempty"`
 	// The URL of the page in our Error Dictionary with more information about the error condition
 	MoreInfo *string `json:"more_info,omitempty"`
-	// The request headers of the request that generated the alert
-	RequestHeaders *string `json:"request_headers,omitempty"`
 	// The method used by the request that generated the alert
 	RequestMethod *string `json:"request_method,omitempty"`
 	// The URL of the request that generated the alert
@@ -52,10 +50,12 @@ type MonitorV1AlertInstance struct {
 	ResponseBody *string `json:"response_body,omitempty"`
 	// The response headers of the request that generated the alert
 	ResponseHeaders *string `json:"response_headers,omitempty"`
-	// The SID of the service or resource that generated the alert
-	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Alert resource
 	Url *string `json:"url,omitempty"`
+	// The request headers of the request that generated the alert
+	RequestHeaders *string `json:"request_headers,omitempty"`
+	// The SID of the service or resource that generated the alert
+	ServiceSid *string `json:"service_sid,omitempty"`
 }

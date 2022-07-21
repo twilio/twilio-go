@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateDocument'
 type CreateDocumentParams struct {
+	// An application-defined string that uniquely identifies the Sync Document
+	UniqueName *string `json:"UniqueName,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
 	Data *interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
 	Ttl *int `json:"Ttl,omitempty"`
-	// An application-defined string that uniquely identifies the Sync Document
-	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateDocumentParams) SetUniqueName(UniqueName string) *CreateDocumentParams {
+	params.UniqueName = &UniqueName
+	return params
+}
 func (params *CreateDocumentParams) SetData(Data interface{}) *CreateDocumentParams {
 	params.Data = &Data
 	return params
 }
 func (params *CreateDocumentParams) SetTtl(Ttl int) *CreateDocumentParams {
 	params.Ttl = &Ttl
-	return params
-}
-func (params *CreateDocumentParams) SetUniqueName(UniqueName string) *CreateDocumentParams {
-	params.UniqueName = &UniqueName
 	return params
 }
 
@@ -54,6 +54,9 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)
 
@@ -65,9 +68,6 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
-	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

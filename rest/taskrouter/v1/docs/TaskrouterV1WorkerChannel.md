@@ -14,9 +14,9 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **TaskChannelSid** | Pointer to **string** | The SID of the TaskChannel |
 **TaskChannelUniqueName** | Pointer to **string** | The unique name of the TaskChannel, such as 'voice' or 'sms' |
-**Url** | Pointer to **string** | The absolute URL of the WorkerChannel resource |
 **WorkerSid** | Pointer to **string** | The SID of the Worker that contains the WorkerChannel |
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the WorkerChannel |
+**Url** | Pointer to **string** | The absolute URL of the WorkerChannel resource |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

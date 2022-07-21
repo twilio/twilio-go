@@ -25,28 +25,36 @@ import (
 
 // Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-	// Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
-	AclEnabled *bool `json:"AclEnabled,omitempty"`
 	// A string that you assign to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The URL we should call when Sync objects are manipulated.
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	// Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
+	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
+	// Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
+	AclEnabled *bool `json:"AclEnabled,omitempty"`
 	// Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
 	ReachabilityDebouncingEnabled *bool `json:"ReachabilityDebouncingEnabled,omitempty"`
 	// The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the `webhook_url` is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the call to `webhook_url`.
 	ReachabilityDebouncingWindow *int `json:"ReachabilityDebouncingWindow,omitempty"`
-	// Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
-	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
-	// The URL we should call when Sync objects are manipulated.
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 	// Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
 	WebhooksFromRestEnabled *bool `json:"WebhooksFromRestEnabled,omitempty"`
 }
 
-func (params *CreateServiceParams) SetAclEnabled(AclEnabled bool) *CreateServiceParams {
-	params.AclEnabled = &AclEnabled
-	return params
-}
 func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateServiceParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateServiceParams) SetWebhookUrl(WebhookUrl string) *CreateServiceParams {
+	params.WebhookUrl = &WebhookUrl
+	return params
+}
+func (params *CreateServiceParams) SetReachabilityWebhooksEnabled(ReachabilityWebhooksEnabled bool) *CreateServiceParams {
+	params.ReachabilityWebhooksEnabled = &ReachabilityWebhooksEnabled
+	return params
+}
+func (params *CreateServiceParams) SetAclEnabled(AclEnabled bool) *CreateServiceParams {
+	params.AclEnabled = &AclEnabled
 	return params
 }
 func (params *CreateServiceParams) SetReachabilityDebouncingEnabled(ReachabilityDebouncingEnabled bool) *CreateServiceParams {
@@ -55,14 +63,6 @@ func (params *CreateServiceParams) SetReachabilityDebouncingEnabled(Reachability
 }
 func (params *CreateServiceParams) SetReachabilityDebouncingWindow(ReachabilityDebouncingWindow int) *CreateServiceParams {
 	params.ReachabilityDebouncingWindow = &ReachabilityDebouncingWindow
-	return params
-}
-func (params *CreateServiceParams) SetReachabilityWebhooksEnabled(ReachabilityWebhooksEnabled bool) *CreateServiceParams {
-	params.ReachabilityWebhooksEnabled = &ReachabilityWebhooksEnabled
-	return params
-}
-func (params *CreateServiceParams) SetWebhookUrl(WebhookUrl string) *CreateServiceParams {
-	params.WebhookUrl = &WebhookUrl
 	return params
 }
 func (params *CreateServiceParams) SetWebhooksFromRestEnabled(WebhooksFromRestEnabled bool) *CreateServiceParams {
@@ -77,23 +77,23 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*SyncV1Service,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AclEnabled != nil {
-		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
+	if params != nil && params.ReachabilityWebhooksEnabled != nil {
+		data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled))
+	}
+	if params != nil && params.AclEnabled != nil {
+		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
 	}
 	if params != nil && params.ReachabilityDebouncingEnabled != nil {
 		data.Set("ReachabilityDebouncingEnabled", fmt.Sprint(*params.ReachabilityDebouncingEnabled))
 	}
 	if params != nil && params.ReachabilityDebouncingWindow != nil {
 		data.Set("ReachabilityDebouncingWindow", fmt.Sprint(*params.ReachabilityDebouncingWindow))
-	}
-	if params != nil && params.ReachabilityWebhooksEnabled != nil {
-		data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled))
-	}
-	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 	if params != nil && params.WebhooksFromRestEnabled != nil {
 		data.Set("WebhooksFromRestEnabled", fmt.Sprint(*params.WebhooksFromRestEnabled))
@@ -293,28 +293,36 @@ func (c *ApiService) getNextListServiceResponse(nextPageUrl string) (interface{}
 
 // Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	// Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
-	AclEnabled *bool `json:"AclEnabled,omitempty"`
+	// The URL we should call when Sync objects are manipulated.
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 	// A string that you assign to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
+	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
+	// Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
+	AclEnabled *bool `json:"AclEnabled,omitempty"`
 	// Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
 	ReachabilityDebouncingEnabled *bool `json:"ReachabilityDebouncingEnabled,omitempty"`
 	// The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called.
 	ReachabilityDebouncingWindow *int `json:"ReachabilityDebouncingWindow,omitempty"`
-	// Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
-	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
-	// The URL we should call when Sync objects are manipulated.
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 	// Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
 	WebhooksFromRestEnabled *bool `json:"WebhooksFromRestEnabled,omitempty"`
 }
 
-func (params *UpdateServiceParams) SetAclEnabled(AclEnabled bool) *UpdateServiceParams {
-	params.AclEnabled = &AclEnabled
+func (params *UpdateServiceParams) SetWebhookUrl(WebhookUrl string) *UpdateServiceParams {
+	params.WebhookUrl = &WebhookUrl
 	return params
 }
 func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateServiceParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateServiceParams) SetReachabilityWebhooksEnabled(ReachabilityWebhooksEnabled bool) *UpdateServiceParams {
+	params.ReachabilityWebhooksEnabled = &ReachabilityWebhooksEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetAclEnabled(AclEnabled bool) *UpdateServiceParams {
+	params.AclEnabled = &AclEnabled
 	return params
 }
 func (params *UpdateServiceParams) SetReachabilityDebouncingEnabled(ReachabilityDebouncingEnabled bool) *UpdateServiceParams {
@@ -323,14 +331,6 @@ func (params *UpdateServiceParams) SetReachabilityDebouncingEnabled(Reachability
 }
 func (params *UpdateServiceParams) SetReachabilityDebouncingWindow(ReachabilityDebouncingWindow int) *UpdateServiceParams {
 	params.ReachabilityDebouncingWindow = &ReachabilityDebouncingWindow
-	return params
-}
-func (params *UpdateServiceParams) SetReachabilityWebhooksEnabled(ReachabilityWebhooksEnabled bool) *UpdateServiceParams {
-	params.ReachabilityWebhooksEnabled = &ReachabilityWebhooksEnabled
-	return params
-}
-func (params *UpdateServiceParams) SetWebhookUrl(WebhookUrl string) *UpdateServiceParams {
-	params.WebhookUrl = &WebhookUrl
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksFromRestEnabled(WebhooksFromRestEnabled bool) *UpdateServiceParams {
@@ -346,23 +346,23 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Sy
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AclEnabled != nil {
-		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ReachabilityWebhooksEnabled != nil {
+		data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled))
+	}
+	if params != nil && params.AclEnabled != nil {
+		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
 	}
 	if params != nil && params.ReachabilityDebouncingEnabled != nil {
 		data.Set("ReachabilityDebouncingEnabled", fmt.Sprint(*params.ReachabilityDebouncingEnabled))
 	}
 	if params != nil && params.ReachabilityDebouncingWindow != nil {
 		data.Set("ReachabilityDebouncingWindow", fmt.Sprint(*params.ReachabilityDebouncingWindow))
-	}
-	if params != nil && params.ReachabilityWebhooksEnabled != nil {
-		data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled))
-	}
-	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 	if params != nil && params.WebhooksFromRestEnabled != nil {
 		data.Set("WebhooksFromRestEnabled", fmt.Sprint(*params.WebhooksFromRestEnabled))

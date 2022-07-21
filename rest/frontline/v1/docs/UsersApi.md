@@ -74,10 +74,10 @@ Other parameters are passed through a pointer to a UpdateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Avatar** | **string** | The avatar URL which will be shown in Frontline application.
 **FriendlyName** | **string** | The string that you assigned to describe the User.
+**Avatar** | **string** | The avatar URL which will be shown in Frontline application.
+**State** | **string** | 
 **IsAvailable** | **bool** | Whether the User is available for new conversations. Set to &#x60;false&#x60; to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
-**State** | **string** | Current state of this user. Can be either &#x60;active&#x60; or &#x60;deactivated&#x60;.
 
 ### Return type
 

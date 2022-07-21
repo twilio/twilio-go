@@ -26,8 +26,6 @@ type ApiV2010Address struct {
 	DateCreated *string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// Whether emergency calling has been enabled on this number
-	EmergencyEnabled *bool `json:"emergency_enabled,omitempty"`
 	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The ISO country code of the address
@@ -42,6 +40,8 @@ type ApiV2010Address struct {
 	Street *string `json:"street,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
 	Uri *string `json:"uri,omitempty"`
+	// Whether emergency calling has been enabled on this number
+	EmergencyEnabled *bool `json:"emergency_enabled,omitempty"`
 	// Whether the address has been validated to comply with local regulation
 	Validated *bool `json:"validated,omitempty"`
 	// Whether the address has been verified to comply with regulation

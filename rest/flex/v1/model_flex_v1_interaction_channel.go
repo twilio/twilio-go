@@ -17,11 +17,15 @@ package openapi
 // FlexV1InteractionChannel struct for FlexV1InteractionChannel
 type FlexV1InteractionChannel struct {
 	// The unique string that identifies the resource
-	InteractionSid *string                 `json:"interaction_sid,omitempty"`
-	Links          *map[string]interface{} `json:"links,omitempty"`
-	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
-	// The Interaction Channel's type.
-	Type *string `json:"type,omitempty"`
-	Url  *string `json:"url,omitempty"`
+	// The unique string that identifies the resource.
+	InteractionSid *string `json:"interaction_sid,omitempty"`
+	Type           *string `json:"type,omitempty"`
+	Status         *string `json:"status,omitempty"`
+	// The Twilio error code for a failed channel.
+	ErrorCode *int `json:"error_code,omitempty"`
+	// The error message for a failed channel.
+	ErrorMessage *string                 `json:"error_message,omitempty"`
+	Url          *string                 `json:"url,omitempty"`
+	Links        *map[string]interface{} `json:"links,omitempty"`
 }

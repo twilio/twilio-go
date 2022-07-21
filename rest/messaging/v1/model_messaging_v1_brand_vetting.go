@@ -26,18 +26,17 @@ type MessagingV1BrandVetting struct {
 	BrandSid *string `json:"brand_sid,omitempty"`
 	// SID for third-party vetting record
 	BrandVettingSid *string `json:"brand_vetting_sid,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the Brand Vetting
-	Url *string `json:"url,omitempty"`
-	// The type of vetting
-	VettingClass *string `json:"vetting_class,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The unique ID of the vetting
 	VettingId *string `json:"vetting_id,omitempty"`
-	// Third-party provider that has conducted the vetting
-	VettingProvider *string `json:"vetting_provider,omitempty"`
+	// The type of vetting
+	VettingClass *string `json:"vetting_class,omitempty"`
 	// Status of vetting attempt
-	VettingStatus *string `json:"vetting_status,omitempty"`
+	VettingStatus   *string `json:"vetting_status,omitempty"`
+	VettingProvider *string `json:"vetting_provider,omitempty"`
+	// The absolute URL of the Brand Vetting
+	Url *string `json:"url,omitempty"`
 }

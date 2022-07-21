@@ -45,30 +45,30 @@ func (c *ApiService) FetchServiceWebhookConfiguration(ChatServiceSid string) (*C
 
 // Optional parameters for the method 'UpdateServiceWebhookConfiguration'
 type UpdateServiceWebhookConfigurationParams struct {
+	// The absolute url the pre-event webhook request should be sent to.
+	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
+	// The absolute url the post-event webhook request should be sent to.
+	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
 	// The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
 	Filters *[]string `json:"Filters,omitempty"`
 	// The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
 	Method *string `json:"Method,omitempty"`
-	// The absolute url the post-event webhook request should be sent to.
-	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
-	// The absolute url the pre-event webhook request should be sent to.
-	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
 }
 
-func (params *UpdateServiceWebhookConfigurationParams) SetFilters(Filters []string) *UpdateServiceWebhookConfigurationParams {
-	params.Filters = &Filters
-	return params
-}
-func (params *UpdateServiceWebhookConfigurationParams) SetMethod(Method string) *UpdateServiceWebhookConfigurationParams {
-	params.Method = &Method
+func (params *UpdateServiceWebhookConfigurationParams) SetPreWebhookUrl(PreWebhookUrl string) *UpdateServiceWebhookConfigurationParams {
+	params.PreWebhookUrl = &PreWebhookUrl
 	return params
 }
 func (params *UpdateServiceWebhookConfigurationParams) SetPostWebhookUrl(PostWebhookUrl string) *UpdateServiceWebhookConfigurationParams {
 	params.PostWebhookUrl = &PostWebhookUrl
 	return params
 }
-func (params *UpdateServiceWebhookConfigurationParams) SetPreWebhookUrl(PreWebhookUrl string) *UpdateServiceWebhookConfigurationParams {
-	params.PreWebhookUrl = &PreWebhookUrl
+func (params *UpdateServiceWebhookConfigurationParams) SetFilters(Filters []string) *UpdateServiceWebhookConfigurationParams {
+	params.Filters = &Filters
+	return params
+}
+func (params *UpdateServiceWebhookConfigurationParams) SetMethod(Method string) *UpdateServiceWebhookConfigurationParams {
+	params.Method = &Method
 	return params
 }
 
@@ -80,6 +80,12 @@ func (c *ApiService) UpdateServiceWebhookConfiguration(ChatServiceSid string, pa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.PreWebhookUrl != nil {
+		data.Set("PreWebhookUrl", *params.PreWebhookUrl)
+	}
+	if params != nil && params.PostWebhookUrl != nil {
+		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+	}
 	if params != nil && params.Filters != nil {
 		for _, item := range *params.Filters {
 			data.Add("Filters", item)
@@ -87,12 +93,6 @@ func (c *ApiService) UpdateServiceWebhookConfiguration(ChatServiceSid string, pa
 	}
 	if params != nil && params.Method != nil {
 		data.Set("Method", *params.Method)
-	}
-	if params != nil && params.PostWebhookUrl != nil {
-		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
-	}
-	if params != nil && params.PreWebhookUrl != nil {
-		data.Set("PreWebhookUrl", *params.PreWebhookUrl)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

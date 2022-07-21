@@ -16,6 +16,6 @@ package openapi
 
 // ListTaskQueueResponse struct for ListTaskQueueResponse
 type ListTaskQueueResponse struct {
-	Meta       ListWorkspaceResponseMeta `json:"meta,omitempty"`
-	TaskQueues []TaskrouterV1TaskQueue   `json:"task_queues,omitempty"`
+	TaskQueues []TaskrouterV1TaskQueue  `json:"task_queues,omitempty"`
+	Meta       ListActivityResponseMeta `json:"meta,omitempty"`
 }

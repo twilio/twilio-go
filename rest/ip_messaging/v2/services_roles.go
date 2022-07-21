@@ -28,21 +28,21 @@ type CreateRoleParams struct {
 	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	//
-	Permission *[]string `json:"Permission,omitempty"`
-	//
 	Type *string `json:"Type,omitempty"`
+	//
+	Permission *[]string `json:"Permission,omitempty"`
 }
 
 func (params *CreateRoleParams) SetFriendlyName(FriendlyName string) *CreateRoleParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRoleParams {
-	params.Permission = &Permission
-	return params
-}
 func (params *CreateRoleParams) SetType(Type string) *CreateRoleParams {
 	params.Type = &Type
+	return params
+}
+func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRoleParams {
+	params.Permission = &Permission
 	return params
 }
 
@@ -57,13 +57,13 @@ func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*I
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 	if params != nil && params.Permission != nil {
 		for _, item := range *params.Permission {
 			data.Add("Permission", item)
 		}
-	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

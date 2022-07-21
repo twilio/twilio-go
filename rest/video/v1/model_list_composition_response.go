@@ -16,6 +16,6 @@ package openapi
 
 // ListCompositionResponse struct for ListCompositionResponse
 type ListCompositionResponse struct {
-	Compositions []VideoV1Composition            `json:"compositions,omitempty"`
-	Meta         ListCompositionHookResponseMeta `json:"meta,omitempty"`
+	Compositions []VideoV1Composition        `json:"compositions,omitempty"`
+	Meta         ListCompositionResponseMeta `json:"meta,omitempty"`
 }

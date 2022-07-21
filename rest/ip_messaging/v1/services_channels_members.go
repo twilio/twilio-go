@@ -269,17 +269,17 @@ func (c *ApiService) getNextListMemberResponse(nextPageUrl string) (interface{},
 // Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
 	//
-	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
-	//
 	RoleSid *string `json:"RoleSid,omitempty"`
+	//
+	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 }
 
-func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateMemberParams {
-	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
-	return params
-}
 func (params *UpdateMemberParams) SetRoleSid(RoleSid string) *UpdateMemberParams {
 	params.RoleSid = &RoleSid
+	return params
+}
+func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateMemberParams {
+	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
 	return params
 }
 
@@ -293,11 +293,11 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.LastConsumedMessageIndex != nil {
-		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
-	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
+	}
+	if params != nil && params.LastConsumedMessageIndex != nil {
+		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

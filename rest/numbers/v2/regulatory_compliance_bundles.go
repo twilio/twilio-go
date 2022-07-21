@@ -26,48 +26,48 @@ import (
 
 // Optional parameters for the method 'CreateBundle'
 type CreateBundleParams struct {
-	// The email address that will receive updates when the Bundle resource changes status.
-	Email *string `json:"Email,omitempty"`
-	// The [type of End User](https://www.twilio.com/docs/phone-numbers/regulatory/api/end-user-types) of the Bundle resource.
-	EndUserType *string `json:"EndUserType,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-	IsoCountry *string `json:"IsoCountry,omitempty"`
-	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
-	NumberType *string `json:"NumberType,omitempty"`
-	// The unique string of a regulation that is associated to the Bundle resource.
-	RegulationSid *string `json:"RegulationSid,omitempty"`
+	// The email address that will receive updates when the Bundle resource changes status.
+	Email *string `json:"Email,omitempty"`
 	// The URL we call to inform your application of status changes.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The unique string of a regulation that is associated to the Bundle resource.
+	RegulationSid *string `json:"RegulationSid,omitempty"`
+	// The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	//
+	EndUserType *string `json:"EndUserType,omitempty"`
+	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+	NumberType *string `json:"NumberType,omitempty"`
 }
 
-func (params *CreateBundleParams) SetEmail(Email string) *CreateBundleParams {
-	params.Email = &Email
-	return params
-}
-func (params *CreateBundleParams) SetEndUserType(EndUserType string) *CreateBundleParams {
-	params.EndUserType = &EndUserType
-	return params
-}
 func (params *CreateBundleParams) SetFriendlyName(FriendlyName string) *CreateBundleParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateBundleParams) SetIsoCountry(IsoCountry string) *CreateBundleParams {
-	params.IsoCountry = &IsoCountry
+func (params *CreateBundleParams) SetEmail(Email string) *CreateBundleParams {
+	params.Email = &Email
 	return params
 }
-func (params *CreateBundleParams) SetNumberType(NumberType string) *CreateBundleParams {
-	params.NumberType = &NumberType
+func (params *CreateBundleParams) SetStatusCallback(StatusCallback string) *CreateBundleParams {
+	params.StatusCallback = &StatusCallback
 	return params
 }
 func (params *CreateBundleParams) SetRegulationSid(RegulationSid string) *CreateBundleParams {
 	params.RegulationSid = &RegulationSid
 	return params
 }
-func (params *CreateBundleParams) SetStatusCallback(StatusCallback string) *CreateBundleParams {
-	params.StatusCallback = &StatusCallback
+func (params *CreateBundleParams) SetIsoCountry(IsoCountry string) *CreateBundleParams {
+	params.IsoCountry = &IsoCountry
+	return params
+}
+func (params *CreateBundleParams) SetEndUserType(EndUserType string) *CreateBundleParams {
+	params.EndUserType = &EndUserType
+	return params
+}
+func (params *CreateBundleParams) SetNumberType(NumberType string) *CreateBundleParams {
+	params.NumberType = &NumberType
 	return params
 }
 
@@ -78,26 +78,26 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
-	}
-	if params != nil && params.EndUserType != nil {
-		data.Set("EndUserType", *params.EndUserType)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
 	}
-	if params != nil && params.NumberType != nil {
-		data.Set("NumberType", *params.NumberType)
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.RegulationSid != nil {
 		data.Set("RegulationSid", *params.RegulationSid)
 	}
-	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.EndUserType != nil {
+		data.Set("EndUserType", *params.EndUserType)
+	}
+	if params != nil && params.NumberType != nil {
+		data.Set("NumberType", *params.NumberType)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -393,30 +393,30 @@ func (c *ApiService) getNextListBundleResponse(nextPageUrl string) (interface{},
 
 // Optional parameters for the method 'UpdateBundle'
 type UpdateBundleParams struct {
-	// The email address that will receive updates when the Bundle resource changes status.
-	Email *string `json:"Email,omitempty"`
-	// The string that you assigned to describe the resource.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The verification status of the Bundle resource.
+	//
 	Status *string `json:"Status,omitempty"`
 	// The URL we call to inform your application of status changes.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The string that you assigned to describe the resource.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The email address that will receive updates when the Bundle resource changes status.
+	Email *string `json:"Email,omitempty"`
 }
 
-func (params *UpdateBundleParams) SetEmail(Email string) *UpdateBundleParams {
-	params.Email = &Email
-	return params
-}
-func (params *UpdateBundleParams) SetFriendlyName(FriendlyName string) *UpdateBundleParams {
-	params.FriendlyName = &FriendlyName
-	return params
-}
 func (params *UpdateBundleParams) SetStatus(Status string) *UpdateBundleParams {
 	params.Status = &Status
 	return params
 }
 func (params *UpdateBundleParams) SetStatusCallback(StatusCallback string) *UpdateBundleParams {
 	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *UpdateBundleParams) SetFriendlyName(FriendlyName string) *UpdateBundleParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateBundleParams) SetEmail(Email string) *UpdateBundleParams {
+	params.Email = &Email
 	return params
 }
 
@@ -428,17 +428,17 @@ func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*Numb
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

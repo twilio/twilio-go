@@ -31,13 +31,13 @@ Other parameters are passed through a pointer to a CreateCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ApiKey** | **string** | 
-**Certificate** | **string** | 
+**Type** | **string** | 
 **FriendlyName** | **string** | 
+**Certificate** | **string** | 
 **PrivateKey** | **string** | 
 **Sandbox** | **bool** | 
+**ApiKey** | **string** | 
 **Secret** | **string** | 
-**Type** | **string** | 
 
 ### Return type
 
@@ -204,11 +204,11 @@ Other parameters are passed through a pointer to a UpdateCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ApiKey** | **string** | 
-**Certificate** | **string** | 
 **FriendlyName** | **string** | 
+**Certificate** | **string** | 
 **PrivateKey** | **string** | 
 **Sandbox** | **bool** | 
+**ApiKey** | **string** | 
 **Secret** | **string** | 
 
 ### Return type

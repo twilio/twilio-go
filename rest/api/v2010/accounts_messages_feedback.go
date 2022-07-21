@@ -24,7 +24,7 @@ import (
 type CreateMessageFeedbackParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// Whether the feedback has arrived. Can be: `unconfirmed` or `confirmed`. If `provide_feedback`=`true` in [the initial HTTP POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is `unconfirmed`. After the message arrives, update the value to `confirmed`.
+	//
 	Outcome *string `json:"Outcome,omitempty"`
 }
 

@@ -44,10 +44,10 @@ type MonitorV1Alert struct {
 	RequestUrl *string `json:"request_url,omitempty"`
 	// The SID of the resource for which the alert was generated
 	ResourceSid *string `json:"resource_sid,omitempty"`
-	// The SID of the service or resource that generated the alert
-	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Alert resource
 	Url *string `json:"url,omitempty"`
+	// The SID of the service or resource that generated the alert
+	ServiceSid *string `json:"service_sid,omitempty"`
 }

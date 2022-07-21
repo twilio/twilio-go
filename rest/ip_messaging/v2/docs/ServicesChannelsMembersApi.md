@@ -37,13 +37,13 @@ Other parameters are passed through a pointer to a CreateMemberParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Attributes** | **string** | 
-**DateCreated** | **time.Time** | 
-**DateUpdated** | **time.Time** | 
 **Identity** | **string** | 
+**RoleSid** | **string** | 
 **LastConsumedMessageIndex** | **int** | 
 **LastConsumptionTimestamp** | **time.Time** | 
-**RoleSid** | **string** | 
+**DateCreated** | **time.Time** | 
+**DateUpdated** | **time.Time** | 
+**Attributes** | **string** | 
 
 ### Return type
 
@@ -224,12 +224,12 @@ Other parameters are passed through a pointer to a UpdateMemberParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Attributes** | **string** | 
-**DateCreated** | **time.Time** | 
-**DateUpdated** | **time.Time** | 
+**RoleSid** | **string** | 
 **LastConsumedMessageIndex** | **int** | 
 **LastConsumptionTimestamp** | **time.Time** | 
-**RoleSid** | **string** | 
+**DateCreated** | **time.Time** | 
+**DateUpdated** | **time.Time** | 
+**Attributes** | **string** | 
 
 ### Return type
 

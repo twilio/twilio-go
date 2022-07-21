@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateMessage'
 type CreateMessageParams struct {
-	// A valid JSON string that contains application-specific data.
-	Attributes *string `json:"Attributes,omitempty"`
 	// The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
 	Body *string `json:"Body,omitempty"`
 	// The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the new message's author. The default value is `system`.
 	From *string `json:"From,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
 }
 
-func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessageParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *CreateMessageParams) SetBody(Body string) *CreateMessageParams {
 	params.Body = &Body
 	return params
 }
 func (params *CreateMessageParams) SetFrom(From string) *CreateMessageParams {
 	params.From = &From
+	return params
+}
+func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessageParams {
+	params.Attributes = &Attributes
 	return params
 }
 
@@ -55,14 +55,14 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -275,18 +275,18 @@ func (c *ApiService) getNextListMessageResponse(nextPageUrl string) (interface{}
 
 // Optional parameters for the method 'UpdateMessage'
 type UpdateMessageParams struct {
-	// A valid JSON string that contains application-specific data.
-	Attributes *string `json:"Attributes,omitempty"`
 	// The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
 	Body *string `json:"Body,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
 }
 
-func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessageParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *UpdateMessageParams) SetBody(Body string) *UpdateMessageParams {
 	params.Body = &Body
+	return params
+}
+func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessageParams {
+	params.Attributes = &Attributes
 	return params
 }
 
@@ -300,11 +300,11 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

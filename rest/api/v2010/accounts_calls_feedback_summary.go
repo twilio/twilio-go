@@ -25,12 +25,12 @@ import (
 type CreateCallFeedbackSummaryParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
+	StartDate *string `json:"StartDate,omitempty"`
 	// Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
 	EndDate *string `json:"EndDate,omitempty"`
 	// Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-	// Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
-	StartDate *string `json:"StartDate,omitempty"`
 	// The URL that we will request when the feedback summary is complete.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
@@ -41,16 +41,16 @@ func (params *CreateCallFeedbackSummaryParams) SetPathAccountSid(PathAccountSid 
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
+func (params *CreateCallFeedbackSummaryParams) SetStartDate(StartDate string) *CreateCallFeedbackSummaryParams {
+	params.StartDate = &StartDate
+	return params
+}
 func (params *CreateCallFeedbackSummaryParams) SetEndDate(EndDate string) *CreateCallFeedbackSummaryParams {
 	params.EndDate = &EndDate
 	return params
 }
 func (params *CreateCallFeedbackSummaryParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *CreateCallFeedbackSummaryParams {
 	params.IncludeSubaccounts = &IncludeSubaccounts
-	return params
-}
-func (params *CreateCallFeedbackSummaryParams) SetStartDate(StartDate string) *CreateCallFeedbackSummaryParams {
-	params.StartDate = &StartDate
 	return params
 }
 func (params *CreateCallFeedbackSummaryParams) SetStatusCallback(StatusCallback string) *CreateCallFeedbackSummaryParams {
@@ -74,14 +74,14 @@ func (c *ApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummary
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+	}
 	if params != nil && params.EndDate != nil {
 		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)

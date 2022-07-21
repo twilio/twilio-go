@@ -21,8 +21,7 @@ import (
 // TrunkingV1PhoneNumber struct for TrunkingV1PhoneNumber
 type TrunkingV1PhoneNumber struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// Whether the phone number requires an Address registered with Twilio
+	AccountSid          *string `json:"account_sid,omitempty"`
 	AddressRequirements *string `json:"address_requirements,omitempty"`
 	// The API version used to start a new TwiML session
 	ApiVersion *string `json:"api_version,omitempty"`

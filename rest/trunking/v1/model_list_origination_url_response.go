@@ -16,6 +16,6 @@ package openapi
 
 // ListOriginationUrlResponse struct for ListOriginationUrlResponse
 type ListOriginationUrlResponse struct {
-	Meta            ListTrunkResponseMeta      `json:"meta,omitempty"`
-	OriginationUrls []TrunkingV1OriginationUrl `json:"origination_urls,omitempty"`
+	OriginationUrls []TrunkingV1OriginationUrl     `json:"origination_urls,omitempty"`
+	Meta            ListCredentialListResponseMeta `json:"meta,omitempty"`
 }

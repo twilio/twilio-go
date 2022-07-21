@@ -16,12 +16,12 @@ package openapi
 
 // VerifyV2VerificationTemplate struct for VerifyV2VerificationTemplate
 type VerifyV2VerificationTemplate struct {
+	// A string that uniquely identifies this Template
+	Sid *string `json:"sid,omitempty"`
 	// Account Sid
 	AccountSid *string `json:"account_sid,omitempty"`
 	// A string to describe the verification template
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// A string that uniquely identifies this Template
-	Sid *string `json:"sid,omitempty"`
 	// Object with the template translations.
 	Translations *interface{} `json:"translations,omitempty"`
 }

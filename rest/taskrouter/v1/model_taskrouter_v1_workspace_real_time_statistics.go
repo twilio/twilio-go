@@ -32,8 +32,8 @@ type TaskrouterV1WorkspaceRealTimeStatistics struct {
 	TotalTasks *int `json:"total_tasks,omitempty"`
 	// The total number of Workers in the Workspace
 	TotalWorkers *int `json:"total_workers,omitempty"`
-	// The absolute URL of the Workspace statistics resource
-	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	// The absolute URL of the Workspace statistics resource
+	Url *string `json:"url,omitempty"`
 }

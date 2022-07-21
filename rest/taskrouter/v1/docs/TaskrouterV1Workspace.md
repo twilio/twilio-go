@@ -12,13 +12,13 @@ Name | Type | Description | Notes
 **EventCallbackUrl** | Pointer to **string** | The URL we call when an event occurs |
 **EventsFilter** | Pointer to **string** | The list of Workspace events for which to call event_callback_url |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the Workspace resource |
-**Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
 **MultiTaskEnabled** | Pointer to **bool** | Whether multi-tasking is enabled |
-**PrioritizeQueueOrder** | Pointer to **string** | The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **TimeoutActivityName** | Pointer to **string** | The name of the timeout activity |
 **TimeoutActivitySid** | Pointer to **string** | The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response |
+**PrioritizeQueueOrder** | Pointer to [**string**](WorkspaceEnumQueueOrder.md) |  |
 **Url** | Pointer to **string** | The absolute URL of the Workspace resource |
+**Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

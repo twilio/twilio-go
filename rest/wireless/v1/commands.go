@@ -25,22 +25,30 @@ import (
 
 // Optional parameters for the method 'CreateCommand'
 type CreateCommandParams struct {
+	// The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
+	Command *string `json:"Command,omitempty"`
+	// The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+	Sim *string `json:"Sim,omitempty"`
 	// The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
 	// The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	// The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
-	Command *string `json:"Command,omitempty"`
-	// The mode to use when sending the SMS message. Can be: `text` or `binary`. The default SMS mode is `text`.
+	//
 	CommandMode *string `json:"CommandMode,omitempty"`
-	// Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
-	DeliveryReceiptRequested *bool `json:"DeliveryReceiptRequested,omitempty"`
 	// Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
 	IncludeSid *string `json:"IncludeSid,omitempty"`
-	// The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
-	Sim *string `json:"Sim,omitempty"`
+	// Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
+	DeliveryReceiptRequested *bool `json:"DeliveryReceiptRequested,omitempty"`
 }
 
+func (params *CreateCommandParams) SetCommand(Command string) *CreateCommandParams {
+	params.Command = &Command
+	return params
+}
+func (params *CreateCommandParams) SetSim(Sim string) *CreateCommandParams {
+	params.Sim = &Sim
+	return params
+}
 func (params *CreateCommandParams) SetCallbackMethod(CallbackMethod string) *CreateCommandParams {
 	params.CallbackMethod = &CallbackMethod
 	return params
@@ -49,24 +57,16 @@ func (params *CreateCommandParams) SetCallbackUrl(CallbackUrl string) *CreateCom
 	params.CallbackUrl = &CallbackUrl
 	return params
 }
-func (params *CreateCommandParams) SetCommand(Command string) *CreateCommandParams {
-	params.Command = &Command
-	return params
-}
 func (params *CreateCommandParams) SetCommandMode(CommandMode string) *CreateCommandParams {
 	params.CommandMode = &CommandMode
-	return params
-}
-func (params *CreateCommandParams) SetDeliveryReceiptRequested(DeliveryReceiptRequested bool) *CreateCommandParams {
-	params.DeliveryReceiptRequested = &DeliveryReceiptRequested
 	return params
 }
 func (params *CreateCommandParams) SetIncludeSid(IncludeSid string) *CreateCommandParams {
 	params.IncludeSid = &IncludeSid
 	return params
 }
-func (params *CreateCommandParams) SetSim(Sim string) *CreateCommandParams {
-	params.Sim = &Sim
+func (params *CreateCommandParams) SetDeliveryReceiptRequested(DeliveryReceiptRequested bool) *CreateCommandParams {
+	params.DeliveryReceiptRequested = &DeliveryReceiptRequested
 	return params
 }
 
@@ -77,26 +77,26 @@ func (c *ApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Comm
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.Command != nil {
+		data.Set("Command", *params.Command)
+	}
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
-	if params != nil && params.Command != nil {
-		data.Set("Command", *params.Command)
-	}
 	if params != nil && params.CommandMode != nil {
 		data.Set("CommandMode", *params.CommandMode)
-	}
-	if params != nil && params.DeliveryReceiptRequested != nil {
-		data.Set("DeliveryReceiptRequested", fmt.Sprint(*params.DeliveryReceiptRequested))
 	}
 	if params != nil && params.IncludeSid != nil {
 		data.Set("IncludeSid", *params.IncludeSid)
 	}
-	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+	if params != nil && params.DeliveryReceiptRequested != nil {
+		data.Set("DeliveryReceiptRequested", fmt.Sprint(*params.DeliveryReceiptRequested))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

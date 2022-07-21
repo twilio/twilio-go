@@ -16,6 +16,6 @@ package openapi
 
 // ListUsAppToPersonResponse struct for ListUsAppToPersonResponse
 type ListUsAppToPersonResponse struct {
-	Compliance []MessagingV1UsAppToPerson `json:"compliance,omitempty"`
-	Meta       ListServiceResponseMeta    `json:"meta,omitempty"`
+	Compliance []MessagingV1UsAppToPerson  `json:"compliance,omitempty"`
+	Meta       ListAlphaSenderResponseMeta `json:"meta,omitempty"`
 }

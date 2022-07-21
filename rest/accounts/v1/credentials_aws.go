@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateCredentialAws'
 type CreateCredentialAwsParams struct {
-	// The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
-	AccountSid *string `json:"AccountSid,omitempty"`
 	// A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
 	Credentials *string `json:"Credentials,omitempty"`
 	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
-func (params *CreateCredentialAwsParams) SetAccountSid(AccountSid string) *CreateCredentialAwsParams {
-	params.AccountSid = &AccountSid
-	return params
-}
 func (params *CreateCredentialAwsParams) SetCredentials(Credentials string) *CreateCredentialAwsParams {
 	params.Credentials = &Credentials
 	return params
 }
 func (params *CreateCredentialAwsParams) SetFriendlyName(FriendlyName string) *CreateCredentialAwsParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateCredentialAwsParams) SetAccountSid(AccountSid string) *CreateCredentialAwsParams {
+	params.AccountSid = &AccountSid
 	return params
 }
 
@@ -53,14 +53,14 @@ func (c *ApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*Ac
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid)
-	}
 	if params != nil && params.Credentials != nil {
 		data.Set("Credentials", *params.Credentials)
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

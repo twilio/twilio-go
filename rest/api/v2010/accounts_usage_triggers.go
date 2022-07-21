@@ -27,32 +27,40 @@ import (
 type CreateUsageTriggerParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
-	CallbackMethod *string `json:"CallbackMethod,omitempty"`
 	// The URL we should call using `callback_method` when the trigger fires.
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The frequency of a recurring UsageTrigger.  Can be: `daily`, `monthly`, or `yearly` for recurring triggers or empty for non-recurring triggers. A trigger will only fire once during each period. Recurring times are in GMT.
-	Recurring *string `json:"Recurring,omitempty"`
-	// The field in the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource that should fire the trigger.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).  The default is `usage`.
-	TriggerBy *string `json:"TriggerBy,omitempty"`
 	// The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
 	TriggerValue *string `json:"TriggerValue,omitempty"`
-	// The usage category that the trigger should watch.  Use one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) for this value.
+	//
 	UsageCategory *string `json:"UsageCategory,omitempty"`
+	// The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	//
+	Recurring *string `json:"Recurring,omitempty"`
+	//
+	TriggerBy *string `json:"TriggerBy,omitempty"`
 }
 
 func (params *CreateUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *CreateUsageTriggerParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *CreateUsageTriggerParams) SetCallbackMethod(CallbackMethod string) *CreateUsageTriggerParams {
-	params.CallbackMethod = &CallbackMethod
-	return params
-}
 func (params *CreateUsageTriggerParams) SetCallbackUrl(CallbackUrl string) *CreateUsageTriggerParams {
 	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *CreateUsageTriggerParams) SetTriggerValue(TriggerValue string) *CreateUsageTriggerParams {
+	params.TriggerValue = &TriggerValue
+	return params
+}
+func (params *CreateUsageTriggerParams) SetUsageCategory(UsageCategory string) *CreateUsageTriggerParams {
+	params.UsageCategory = &UsageCategory
+	return params
+}
+func (params *CreateUsageTriggerParams) SetCallbackMethod(CallbackMethod string) *CreateUsageTriggerParams {
+	params.CallbackMethod = &CallbackMethod
 	return params
 }
 func (params *CreateUsageTriggerParams) SetFriendlyName(FriendlyName string) *CreateUsageTriggerParams {
@@ -65,14 +73,6 @@ func (params *CreateUsageTriggerParams) SetRecurring(Recurring string) *CreateUs
 }
 func (params *CreateUsageTriggerParams) SetTriggerBy(TriggerBy string) *CreateUsageTriggerParams {
 	params.TriggerBy = &TriggerBy
-	return params
-}
-func (params *CreateUsageTriggerParams) SetTriggerValue(TriggerValue string) *CreateUsageTriggerParams {
-	params.TriggerValue = &TriggerValue
-	return params
-}
-func (params *CreateUsageTriggerParams) SetUsageCategory(UsageCategory string) *CreateUsageTriggerParams {
-	params.UsageCategory = &UsageCategory
 	return params
 }
 
@@ -88,11 +88,17 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
-	}
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.TriggerValue != nil {
+		data.Set("TriggerValue", *params.TriggerValue)
+	}
+	if params != nil && params.UsageCategory != nil {
+		data.Set("UsageCategory", *params.UsageCategory)
+	}
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -102,12 +108,6 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 	}
 	if params != nil && params.TriggerBy != nil {
 		data.Set("TriggerBy", *params.TriggerBy)
-	}
-	if params != nil && params.TriggerValue != nil {
-		data.Set("TriggerValue", *params.TriggerValue)
-	}
-	if params != nil && params.UsageCategory != nil {
-		data.Set("UsageCategory", *params.UsageCategory)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

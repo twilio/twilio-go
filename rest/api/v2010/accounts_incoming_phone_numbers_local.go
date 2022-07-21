@@ -27,22 +27,12 @@ import (
 type CreateIncomingPhoneNumberLocalParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-	AddressSid *string `json:"AddressSid,omitempty"`
-	// The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
-	ApiVersion *string `json:"ApiVersion,omitempty"`
-	// The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
-	BundleSid *string `json:"BundleSid,omitempty"`
-	// The SID of the emergency address configuration to use for emergency calling from the new phone number.
-	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-	// The parameter displays if emergency calling is enabled for this number. Active numbers may place emergency calls by dialing valid emergency numbers for the country.
-	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-	// A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
-	IdentitySid *string `json:"IdentitySid,omitempty"`
 	// The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
 	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
 	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
 	// The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
@@ -57,8 +47,6 @@ type CreateIncomingPhoneNumberLocalParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	// The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-	TrunkSid *string `json:"TrunkSid,omitempty"`
 	// The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
 	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
 	// Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
@@ -69,46 +57,38 @@ type CreateIncomingPhoneNumberLocalParams struct {
 	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
 	// The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
 	VoiceMethod *string `json:"VoiceMethod,omitempty"`
-	// The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
-	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
 	// The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
 	VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	// The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	// The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
+	AddressSid *string `json:"AddressSid,omitempty"`
+	//
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	// The SID of the emergency address configuration to use for emergency calling from the new phone number.
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	// The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	//
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	// The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+	BundleSid *string `json:"BundleSid,omitempty"`
 }
 
 func (params *CreateIncomingPhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberLocalParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *CreateIncomingPhoneNumberLocalParams) SetAddressSid(AddressSid string) *CreateIncomingPhoneNumberLocalParams {
-	params.AddressSid = &AddressSid
+func (params *CreateIncomingPhoneNumberLocalParams) SetPhoneNumber(PhoneNumber string) *CreateIncomingPhoneNumberLocalParams {
+	params.PhoneNumber = &PhoneNumber
 	return params
 }
 func (params *CreateIncomingPhoneNumberLocalParams) SetApiVersion(ApiVersion string) *CreateIncomingPhoneNumberLocalParams {
 	params.ApiVersion = &ApiVersion
 	return params
 }
-func (params *CreateIncomingPhoneNumberLocalParams) SetBundleSid(BundleSid string) *CreateIncomingPhoneNumberLocalParams {
-	params.BundleSid = &BundleSid
-	return params
-}
-func (params *CreateIncomingPhoneNumberLocalParams) SetEmergencyAddressSid(EmergencyAddressSid string) *CreateIncomingPhoneNumberLocalParams {
-	params.EmergencyAddressSid = &EmergencyAddressSid
-	return params
-}
-func (params *CreateIncomingPhoneNumberLocalParams) SetEmergencyStatus(EmergencyStatus string) *CreateIncomingPhoneNumberLocalParams {
-	params.EmergencyStatus = &EmergencyStatus
-	return params
-}
 func (params *CreateIncomingPhoneNumberLocalParams) SetFriendlyName(FriendlyName string) *CreateIncomingPhoneNumberLocalParams {
 	params.FriendlyName = &FriendlyName
-	return params
-}
-func (params *CreateIncomingPhoneNumberLocalParams) SetIdentitySid(IdentitySid string) *CreateIncomingPhoneNumberLocalParams {
-	params.IdentitySid = &IdentitySid
-	return params
-}
-func (params *CreateIncomingPhoneNumberLocalParams) SetPhoneNumber(PhoneNumber string) *CreateIncomingPhoneNumberLocalParams {
-	params.PhoneNumber = &PhoneNumber
 	return params
 }
 func (params *CreateIncomingPhoneNumberLocalParams) SetSmsApplicationSid(SmsApplicationSid string) *CreateIncomingPhoneNumberLocalParams {
@@ -139,10 +119,6 @@ func (params *CreateIncomingPhoneNumberLocalParams) SetStatusCallbackMethod(Stat
 	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
-func (params *CreateIncomingPhoneNumberLocalParams) SetTrunkSid(TrunkSid string) *CreateIncomingPhoneNumberLocalParams {
-	params.TrunkSid = &TrunkSid
-	return params
-}
 func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceApplicationSid(VoiceApplicationSid string) *CreateIncomingPhoneNumberLocalParams {
 	params.VoiceApplicationSid = &VoiceApplicationSid
 	return params
@@ -163,12 +139,36 @@ func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceMethod(VoiceMethod s
 	params.VoiceMethod = &VoiceMethod
 	return params
 }
+func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceUrl(VoiceUrl string) *CreateIncomingPhoneNumberLocalParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetIdentitySid(IdentitySid string) *CreateIncomingPhoneNumberLocalParams {
+	params.IdentitySid = &IdentitySid
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetAddressSid(AddressSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.AddressSid = &AddressSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetEmergencyStatus(EmergencyStatus string) *CreateIncomingPhoneNumberLocalParams {
+	params.EmergencyStatus = &EmergencyStatus
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetEmergencyAddressSid(EmergencyAddressSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.EmergencyAddressSid = &EmergencyAddressSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetTrunkSid(TrunkSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.TrunkSid = &TrunkSid
+	return params
+}
 func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceReceiveMode(VoiceReceiveMode string) *CreateIncomingPhoneNumberLocalParams {
 	params.VoiceReceiveMode = &VoiceReceiveMode
 	return params
 }
-func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceUrl(VoiceUrl string) *CreateIncomingPhoneNumberLocalParams {
-	params.VoiceUrl = &VoiceUrl
+func (params *CreateIncomingPhoneNumberLocalParams) SetBundleSid(BundleSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.BundleSid = &BundleSid
 	return params
 }
 
@@ -184,29 +184,14 @@ func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneN
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid)
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
 	}
-	if params != nil && params.BundleSid != nil {
-		data.Set("BundleSid", *params.BundleSid)
-	}
-	if params != nil && params.EmergencyAddressSid != nil {
-		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
-	}
-	if params != nil && params.EmergencyStatus != nil {
-		data.Set("EmergencyStatus", *params.EmergencyStatus)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.IdentitySid != nil {
-		data.Set("IdentitySid", *params.IdentitySid)
-	}
-	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 	if params != nil && params.SmsApplicationSid != nil {
 		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
@@ -229,9 +214,6 @@ func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneN
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
-	if params != nil && params.TrunkSid != nil {
-		data.Set("TrunkSid", *params.TrunkSid)
-	}
 	if params != nil && params.VoiceApplicationSid != nil {
 		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
 	}
@@ -247,11 +229,29 @@ func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneN
 	if params != nil && params.VoiceMethod != nil {
 		data.Set("VoiceMethod", *params.VoiceMethod)
 	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
+	if params != nil && params.IdentitySid != nil {
+		data.Set("IdentitySid", *params.IdentitySid)
+	}
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.EmergencyStatus != nil {
+		data.Set("EmergencyStatus", *params.EmergencyStatus)
+	}
+	if params != nil && params.EmergencyAddressSid != nil {
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+	}
+	if params != nil && params.TrunkSid != nil {
+		data.Set("TrunkSid", *params.TrunkSid)
+	}
 	if params != nil && params.VoiceReceiveMode != nil {
 		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
 	}
-	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+	if params != nil && params.BundleSid != nil {
+		data.Set("BundleSid", *params.BundleSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

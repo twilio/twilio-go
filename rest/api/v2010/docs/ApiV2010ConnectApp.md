@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | The description of the Connect App |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
 **HomepageUrl** | Pointer to **string** | The URL users can obtain more information |
-**Permissions** | Pointer to **[]string** | The set of permissions that your ConnectApp requests |
+**Permissions** | Pointer to [**[]string**](ConnectAppEnumPermission.md) | The set of permissions that your ConnectApp requests |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com` |
 

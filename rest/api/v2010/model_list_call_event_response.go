@@ -16,8 +16,8 @@ package openapi
 
 // ListCallEventResponse struct for ListCallEventResponse
 type ListCallEventResponse struct {
-	End             int                 `json:"end,omitempty"`
 	Events          []ApiV2010CallEvent `json:"events,omitempty"`
+	End             int                 `json:"end,omitempty"`
 	FirstPageUri    string              `json:"first_page_uri,omitempty"`
 	NextPageUri     string              `json:"next_page_uri,omitempty"`
 	Page            int                 `json:"page,omitempty"`

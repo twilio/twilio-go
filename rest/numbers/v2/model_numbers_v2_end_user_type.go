@@ -16,14 +16,14 @@ package openapi
 
 // NumbersV2EndUserType struct for NumbersV2EndUserType
 type NumbersV2EndUserType struct {
-	// The required information for creating an End-User.
-	Fields *[]interface{} `json:"fields,omitempty"`
+	// The unique string that identifies the End-User Type resource
+	Sid *string `json:"sid,omitempty"`
 	// A human-readable description of the End-User Type resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// A machine-readable description of the End-User Type resource
 	MachineName *string `json:"machine_name,omitempty"`
-	// The unique string that identifies the End-User Type resource
-	Sid *string `json:"sid,omitempty"`
+	// The required information for creating an End-User.
+	Fields *[]interface{} `json:"fields,omitempty"`
 	// The absolute URL of the End-User Type resource
 	Url *string `json:"url,omitempty"`
 }

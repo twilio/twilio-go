@@ -31,17 +31,17 @@ Other parameters are passed through a pointer to a CreateConfigurationAddressPar
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**Type** | **string** | 
 **Address** | **string** | The unique address to be configured. The address can be a whatsapp address or phone number
-**AutoCreationConversationServiceSid** | **string** | Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+**FriendlyName** | **string** | The human-readable name of this configuration, limited to 256 characters. Optional.
 **AutoCreationEnabled** | **bool** | Enable/Disable auto-creating conversations for messages to this address
+**AutoCreationType** | **string** | 
+**AutoCreationConversationServiceSid** | **string** | Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+**AutoCreationWebhookUrl** | **string** | For type &#x60;webhook&#x60;, the url for the webhook request.
+**AutoCreationWebhookMethod** | **string** | 
+**AutoCreationWebhookFilters** | **[]string** | The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
 **AutoCreationStudioFlowSid** | **string** | For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
 **AutoCreationStudioRetryCount** | **int** | For type &#x60;studio&#x60;, number of times to retry the webhook request
-**AutoCreationType** | **string** | Type of Auto Creation. Value can be one of &#x60;webhook&#x60;, &#x60;studio&#x60; or &#x60;default&#x60;.
-**AutoCreationWebhookFilters** | **[]string** | The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
-**AutoCreationWebhookMethod** | **string** | For type &#x60;webhook&#x60;, the HTTP method to be used when sending a webhook request.
-**AutoCreationWebhookUrl** | **string** | For type &#x60;webhook&#x60;, the url for the webhook request.
-**FriendlyName** | **string** | The human-readable name of this configuration, limited to 256 characters. Optional.
-**Type** | **string** | Type of Address. Value can be &#x60;whatsapp&#x60; or &#x60;sms&#x60;.
 
 ### Return type
 
@@ -209,15 +209,15 @@ Other parameters are passed through a pointer to a UpdateConfigurationAddressPar
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AutoCreationConversationServiceSid** | **string** | Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+**FriendlyName** | **string** | The human-readable name of this configuration, limited to 256 characters. Optional.
 **AutoCreationEnabled** | **bool** | Enable/Disable auto-creating conversations for messages to this address
+**AutoCreationType** | **string** | 
+**AutoCreationConversationServiceSid** | **string** | Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+**AutoCreationWebhookUrl** | **string** | For type &#x60;webhook&#x60;, the url for the webhook request.
+**AutoCreationWebhookMethod** | **string** | 
+**AutoCreationWebhookFilters** | **[]string** | The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
 **AutoCreationStudioFlowSid** | **string** | For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
 **AutoCreationStudioRetryCount** | **int** | For type &#x60;studio&#x60;, number of times to retry the webhook request
-**AutoCreationType** | **string** | Type of Auto Creation. Value can be one of &#x60;webhook&#x60;, &#x60;studio&#x60; or &#x60;default&#x60;.
-**AutoCreationWebhookFilters** | **[]string** | The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
-**AutoCreationWebhookMethod** | **string** | For type &#x60;webhook&#x60;, the HTTP method to be used when sending a webhook request.
-**AutoCreationWebhookUrl** | **string** | For type &#x60;webhook&#x60;, the url for the webhook request.
-**FriendlyName** | **string** | The human-readable name of this configuration, limited to 256 characters. Optional.
 
 ### Return type
 

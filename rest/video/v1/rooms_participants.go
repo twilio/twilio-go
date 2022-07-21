@@ -224,7 +224,7 @@ func (c *ApiService) getNextListRoomParticipantResponse(nextPageUrl string) (int
 
 // Optional parameters for the method 'UpdateRoomParticipant'
 type UpdateRoomParticipantParams struct {
-	// The new status of the resource. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+	//
 	Status *string `json:"Status,omitempty"`
 }
 

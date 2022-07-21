@@ -268,18 +268,18 @@ func (c *ApiService) getNextListMemberResponse(nextPageUrl string) (interface{},
 
 // Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
-	// The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
-	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 	// The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
 	RoleSid *string `json:"RoleSid,omitempty"`
+	// The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
+	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 }
 
-func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateMemberParams {
-	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
-	return params
-}
 func (params *UpdateMemberParams) SetRoleSid(RoleSid string) *UpdateMemberParams {
 	params.RoleSid = &RoleSid
+	return params
+}
+func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateMemberParams {
+	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
 	return params
 }
 
@@ -293,11 +293,11 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.LastConsumedMessageIndex != nil {
-		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
-	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
+	}
+	if params != nil && params.LastConsumedMessageIndex != nil {
+		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

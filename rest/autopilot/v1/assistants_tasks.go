@@ -25,30 +25,30 @@ import (
 
 // Optional parameters for the method 'CreateTask'
 type CreateTaskParams struct {
+	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task. It is optional and not unique.
 	Actions *interface{} `json:"Actions,omitempty"`
 	// The URL from which the Assistant can fetch actions.
 	ActionsUrl *string `json:"ActionsUrl,omitempty"`
-	// A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
-	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
-func (params *CreateTaskParams) SetActions(Actions interface{}) *CreateTaskParams {
-	params.Actions = &Actions
-	return params
-}
-func (params *CreateTaskParams) SetActionsUrl(ActionsUrl string) *CreateTaskParams {
-	params.ActionsUrl = &ActionsUrl
+func (params *CreateTaskParams) SetUniqueName(UniqueName string) *CreateTaskParams {
+	params.UniqueName = &UniqueName
 	return params
 }
 func (params *CreateTaskParams) SetFriendlyName(FriendlyName string) *CreateTaskParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateTaskParams) SetUniqueName(UniqueName string) *CreateTaskParams {
-	params.UniqueName = &UniqueName
+func (params *CreateTaskParams) SetActions(Actions interface{}) *CreateTaskParams {
+	params.Actions = &Actions
+	return params
+}
+func (params *CreateTaskParams) SetActionsUrl(ActionsUrl string) *CreateTaskParams {
+	params.ActionsUrl = &ActionsUrl
 	return params
 }
 
@@ -60,6 +60,12 @@ func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 	if params != nil && params.Actions != nil {
 		v, err := json.Marshal(params.Actions)
 
@@ -71,12 +77,6 @@ func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (
 	}
 	if params != nil && params.ActionsUrl != nil {
 		data.Set("ActionsUrl", *params.ActionsUrl)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -277,30 +277,30 @@ func (c *ApiService) getNextListTaskResponse(nextPageUrl string) (interface{}, e
 
 // Optional parameters for the method 'UpdateTask'
 type UpdateTaskParams struct {
-	// The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
-	Actions *interface{} `json:"Actions,omitempty"`
-	// The URL from which the Assistant can fetch actions.
-	ActionsUrl *string `json:"ActionsUrl,omitempty"`
 	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An application-defined string that uniquely identifies the resource. This value must be 64 characters or less in length and be unique. It can be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
+	Actions *interface{} `json:"Actions,omitempty"`
+	// The URL from which the Assistant can fetch actions.
+	ActionsUrl *string `json:"ActionsUrl,omitempty"`
 }
 
-func (params *UpdateTaskParams) SetActions(Actions interface{}) *UpdateTaskParams {
-	params.Actions = &Actions
-	return params
-}
-func (params *UpdateTaskParams) SetActionsUrl(ActionsUrl string) *UpdateTaskParams {
-	params.ActionsUrl = &ActionsUrl
-	return params
-}
 func (params *UpdateTaskParams) SetFriendlyName(FriendlyName string) *UpdateTaskParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
 func (params *UpdateTaskParams) SetUniqueName(UniqueName string) *UpdateTaskParams {
 	params.UniqueName = &UniqueName
+	return params
+}
+func (params *UpdateTaskParams) SetActions(Actions interface{}) *UpdateTaskParams {
+	params.Actions = &Actions
+	return params
+}
+func (params *UpdateTaskParams) SetActionsUrl(ActionsUrl string) *UpdateTaskParams {
+	params.ActionsUrl = &ActionsUrl
 	return params
 }
 
@@ -313,6 +313,12 @@ func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateT
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 	if params != nil && params.Actions != nil {
 		v, err := json.Marshal(params.Actions)
 
@@ -324,12 +330,6 @@ func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateT
 	}
 	if params != nil && params.ActionsUrl != nil {
 		data.Set("ActionsUrl", *params.ActionsUrl)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -16,6 +16,6 @@ package openapi
 
 // ListVerificationAttemptResponse struct for ListVerificationAttemptResponse
 type ListVerificationAttemptResponse struct {
-	Attempts []VerifyV2VerificationAttempt       `json:"attempts,omitempty"`
-	Meta     ListVerificationAttemptResponseMeta `json:"meta,omitempty"`
+	Attempts []VerifyV2VerificationAttempt `json:"attempts,omitempty"`
+	Meta     ListBucketResponseMeta        `json:"meta,omitempty"`
 }

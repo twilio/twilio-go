@@ -25,18 +25,18 @@ import (
 
 // Optional parameters for the method 'CreateInteractionChannelParticipant'
 type CreateInteractionChannelParticipantParams struct {
+	//
+	Type *string `json:"Type,omitempty"`
 	// JSON representing the Media Properties for the new Participant.
 	MediaProperties *interface{} `json:"MediaProperties,omitempty"`
-	// Participant type.  Can be: `agent`, `customer`, `supervisor`, `external` or `unknown`.
-	Type *string `json:"Type,omitempty"`
 }
 
-func (params *CreateInteractionChannelParticipantParams) SetMediaProperties(MediaProperties interface{}) *CreateInteractionChannelParticipantParams {
-	params.MediaProperties = &MediaProperties
-	return params
-}
 func (params *CreateInteractionChannelParticipantParams) SetType(Type string) *CreateInteractionChannelParticipantParams {
 	params.Type = &Type
+	return params
+}
+func (params *CreateInteractionChannelParticipantParams) SetMediaProperties(MediaProperties interface{}) *CreateInteractionChannelParticipantParams {
+	params.MediaProperties = &MediaProperties
 	return params
 }
 
@@ -49,6 +49,9 @@ func (c *ApiService) CreateInteractionChannelParticipant(InteractionSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 	if params != nil && params.MediaProperties != nil {
 		v, err := json.Marshal(params.MediaProperties)
 
@@ -57,9 +60,6 @@ func (c *ApiService) CreateInteractionChannelParticipant(InteractionSid string, 
 		}
 
 		data.Set("MediaProperties", string(v))
-	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -218,7 +218,7 @@ func (c *ApiService) getNextListInteractionChannelParticipantResponse(nextPageUr
 
 // Optional parameters for the method 'UpdateInteractionChannelParticipant'
 type UpdateInteractionChannelParticipantParams struct {
-	// The Participant's status. Can be: `closed` or `wrapup`.  Participant must be an agent.
+	//
 	Status *string `json:"Status,omitempty"`
 }
 

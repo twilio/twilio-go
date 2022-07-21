@@ -24,12 +24,52 @@ import (
 type CreateStreamParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Relative or absolute url where WebSocket connection will be established.
+	Url *string `json:"Url,omitempty"`
 	// The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
 	Name *string `json:"Name,omitempty"`
+	//
+	Track *string `json:"Track,omitempty"`
+	// Absolute URL of the status callback.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The http method for the status_callback (one of GET, POST).
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 	// Parameter name
 	Parameter1Name *string `json:"Parameter1.Name,omitempty"`
 	// Parameter value
 	Parameter1Value *string `json:"Parameter1.Value,omitempty"`
+	// Parameter name
+	Parameter2Name *string `json:"Parameter2.Name,omitempty"`
+	// Parameter value
+	Parameter2Value *string `json:"Parameter2.Value,omitempty"`
+	// Parameter name
+	Parameter3Name *string `json:"Parameter3.Name,omitempty"`
+	// Parameter value
+	Parameter3Value *string `json:"Parameter3.Value,omitempty"`
+	// Parameter name
+	Parameter4Name *string `json:"Parameter4.Name,omitempty"`
+	// Parameter value
+	Parameter4Value *string `json:"Parameter4.Value,omitempty"`
+	// Parameter name
+	Parameter5Name *string `json:"Parameter5.Name,omitempty"`
+	// Parameter value
+	Parameter5Value *string `json:"Parameter5.Value,omitempty"`
+	// Parameter name
+	Parameter6Name *string `json:"Parameter6.Name,omitempty"`
+	// Parameter value
+	Parameter6Value *string `json:"Parameter6.Value,omitempty"`
+	// Parameter name
+	Parameter7Name *string `json:"Parameter7.Name,omitempty"`
+	// Parameter value
+	Parameter7Value *string `json:"Parameter7.Value,omitempty"`
+	// Parameter name
+	Parameter8Name *string `json:"Parameter8.Name,omitempty"`
+	// Parameter value
+	Parameter8Value *string `json:"Parameter8.Value,omitempty"`
+	// Parameter name
+	Parameter9Name *string `json:"Parameter9.Name,omitempty"`
+	// Parameter value
+	Parameter9Value *string `json:"Parameter9.Value,omitempty"`
 	// Parameter name
 	Parameter10Name *string `json:"Parameter10.Name,omitempty"`
 	// Parameter value
@@ -71,10 +111,6 @@ type CreateStreamParams struct {
 	// Parameter value
 	Parameter19Value *string `json:"Parameter19.Value,omitempty"`
 	// Parameter name
-	Parameter2Name *string `json:"Parameter2.Name,omitempty"`
-	// Parameter value
-	Parameter2Value *string `json:"Parameter2.Value,omitempty"`
-	// Parameter name
 	Parameter20Name *string `json:"Parameter20.Name,omitempty"`
 	// Parameter value
 	Parameter20Value *string `json:"Parameter20.Value,omitempty"`
@@ -114,10 +150,6 @@ type CreateStreamParams struct {
 	Parameter29Name *string `json:"Parameter29.Name,omitempty"`
 	// Parameter value
 	Parameter29Value *string `json:"Parameter29.Value,omitempty"`
-	// Parameter name
-	Parameter3Name *string `json:"Parameter3.Name,omitempty"`
-	// Parameter value
-	Parameter3Value *string `json:"Parameter3.Value,omitempty"`
 	// Parameter name
 	Parameter30Name *string `json:"Parameter30.Name,omitempty"`
 	// Parameter value
@@ -159,10 +191,6 @@ type CreateStreamParams struct {
 	// Parameter value
 	Parameter39Value *string `json:"Parameter39.Value,omitempty"`
 	// Parameter name
-	Parameter4Name *string `json:"Parameter4.Name,omitempty"`
-	// Parameter value
-	Parameter4Value *string `json:"Parameter4.Value,omitempty"`
-	// Parameter name
 	Parameter40Name *string `json:"Parameter40.Name,omitempty"`
 	// Parameter value
 	Parameter40Value *string `json:"Parameter40.Value,omitempty"`
@@ -202,10 +230,6 @@ type CreateStreamParams struct {
 	Parameter49Name *string `json:"Parameter49.Name,omitempty"`
 	// Parameter value
 	Parameter49Value *string `json:"Parameter49.Value,omitempty"`
-	// Parameter name
-	Parameter5Name *string `json:"Parameter5.Name,omitempty"`
-	// Parameter value
-	Parameter5Value *string `json:"Parameter5.Value,omitempty"`
 	// Parameter name
 	Parameter50Name *string `json:"Parameter50.Name,omitempty"`
 	// Parameter value
@@ -247,10 +271,6 @@ type CreateStreamParams struct {
 	// Parameter value
 	Parameter59Value *string `json:"Parameter59.Value,omitempty"`
 	// Parameter name
-	Parameter6Name *string `json:"Parameter6.Name,omitempty"`
-	// Parameter value
-	Parameter6Value *string `json:"Parameter6.Value,omitempty"`
-	// Parameter name
 	Parameter60Name *string `json:"Parameter60.Name,omitempty"`
 	// Parameter value
 	Parameter60Value *string `json:"Parameter60.Value,omitempty"`
@@ -290,10 +310,6 @@ type CreateStreamParams struct {
 	Parameter69Name *string `json:"Parameter69.Name,omitempty"`
 	// Parameter value
 	Parameter69Value *string `json:"Parameter69.Value,omitempty"`
-	// Parameter name
-	Parameter7Name *string `json:"Parameter7.Name,omitempty"`
-	// Parameter value
-	Parameter7Value *string `json:"Parameter7.Value,omitempty"`
 	// Parameter name
 	Parameter70Name *string `json:"Parameter70.Name,omitempty"`
 	// Parameter value
@@ -335,10 +351,6 @@ type CreateStreamParams struct {
 	// Parameter value
 	Parameter79Value *string `json:"Parameter79.Value,omitempty"`
 	// Parameter name
-	Parameter8Name *string `json:"Parameter8.Name,omitempty"`
-	// Parameter value
-	Parameter8Value *string `json:"Parameter8.Value,omitempty"`
-	// Parameter name
 	Parameter80Name *string `json:"Parameter80.Name,omitempty"`
 	// Parameter value
 	Parameter80Value *string `json:"Parameter80.Value,omitempty"`
@@ -379,10 +391,6 @@ type CreateStreamParams struct {
 	// Parameter value
 	Parameter89Value *string `json:"Parameter89.Value,omitempty"`
 	// Parameter name
-	Parameter9Name *string `json:"Parameter9.Name,omitempty"`
-	// Parameter value
-	Parameter9Value *string `json:"Parameter9.Value,omitempty"`
-	// Parameter name
 	Parameter90Name *string `json:"Parameter90.Name,omitempty"`
 	// Parameter value
 	Parameter90Value *string `json:"Parameter90.Value,omitempty"`
@@ -422,22 +430,30 @@ type CreateStreamParams struct {
 	Parameter99Name *string `json:"Parameter99.Name,omitempty"`
 	// Parameter value
 	Parameter99Value *string `json:"Parameter99.Value,omitempty"`
-	// Absolute URL of the status callback.
-	StatusCallback *string `json:"StatusCallback,omitempty"`
-	// The http method for the status_callback (one of GET, POST).
-	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	// One of `inbound_track`, `outbound_track`, `both_tracks`.
-	Track *string `json:"Track,omitempty"`
-	// Relative or absolute url where WebSocket connection will be established.
-	Url *string `json:"Url,omitempty"`
 }
 
 func (params *CreateStreamParams) SetPathAccountSid(PathAccountSid string) *CreateStreamParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
+func (params *CreateStreamParams) SetUrl(Url string) *CreateStreamParams {
+	params.Url = &Url
+	return params
+}
 func (params *CreateStreamParams) SetName(Name string) *CreateStreamParams {
 	params.Name = &Name
+	return params
+}
+func (params *CreateStreamParams) SetTrack(Track string) *CreateStreamParams {
+	params.Track = &Track
+	return params
+}
+func (params *CreateStreamParams) SetStatusCallback(StatusCallback string) *CreateStreamParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateStreamParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateStreamParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
 func (params *CreateStreamParams) SetParameter1Name(Parameter1Name string) *CreateStreamParams {
@@ -446,6 +462,70 @@ func (params *CreateStreamParams) SetParameter1Name(Parameter1Name string) *Crea
 }
 func (params *CreateStreamParams) SetParameter1Value(Parameter1Value string) *CreateStreamParams {
 	params.Parameter1Value = &Parameter1Value
+	return params
+}
+func (params *CreateStreamParams) SetParameter2Name(Parameter2Name string) *CreateStreamParams {
+	params.Parameter2Name = &Parameter2Name
+	return params
+}
+func (params *CreateStreamParams) SetParameter2Value(Parameter2Value string) *CreateStreamParams {
+	params.Parameter2Value = &Parameter2Value
+	return params
+}
+func (params *CreateStreamParams) SetParameter3Name(Parameter3Name string) *CreateStreamParams {
+	params.Parameter3Name = &Parameter3Name
+	return params
+}
+func (params *CreateStreamParams) SetParameter3Value(Parameter3Value string) *CreateStreamParams {
+	params.Parameter3Value = &Parameter3Value
+	return params
+}
+func (params *CreateStreamParams) SetParameter4Name(Parameter4Name string) *CreateStreamParams {
+	params.Parameter4Name = &Parameter4Name
+	return params
+}
+func (params *CreateStreamParams) SetParameter4Value(Parameter4Value string) *CreateStreamParams {
+	params.Parameter4Value = &Parameter4Value
+	return params
+}
+func (params *CreateStreamParams) SetParameter5Name(Parameter5Name string) *CreateStreamParams {
+	params.Parameter5Name = &Parameter5Name
+	return params
+}
+func (params *CreateStreamParams) SetParameter5Value(Parameter5Value string) *CreateStreamParams {
+	params.Parameter5Value = &Parameter5Value
+	return params
+}
+func (params *CreateStreamParams) SetParameter6Name(Parameter6Name string) *CreateStreamParams {
+	params.Parameter6Name = &Parameter6Name
+	return params
+}
+func (params *CreateStreamParams) SetParameter6Value(Parameter6Value string) *CreateStreamParams {
+	params.Parameter6Value = &Parameter6Value
+	return params
+}
+func (params *CreateStreamParams) SetParameter7Name(Parameter7Name string) *CreateStreamParams {
+	params.Parameter7Name = &Parameter7Name
+	return params
+}
+func (params *CreateStreamParams) SetParameter7Value(Parameter7Value string) *CreateStreamParams {
+	params.Parameter7Value = &Parameter7Value
+	return params
+}
+func (params *CreateStreamParams) SetParameter8Name(Parameter8Name string) *CreateStreamParams {
+	params.Parameter8Name = &Parameter8Name
+	return params
+}
+func (params *CreateStreamParams) SetParameter8Value(Parameter8Value string) *CreateStreamParams {
+	params.Parameter8Value = &Parameter8Value
+	return params
+}
+func (params *CreateStreamParams) SetParameter9Name(Parameter9Name string) *CreateStreamParams {
+	params.Parameter9Name = &Parameter9Name
+	return params
+}
+func (params *CreateStreamParams) SetParameter9Value(Parameter9Value string) *CreateStreamParams {
+	params.Parameter9Value = &Parameter9Value
 	return params
 }
 func (params *CreateStreamParams) SetParameter10Name(Parameter10Name string) *CreateStreamParams {
@@ -528,14 +608,6 @@ func (params *CreateStreamParams) SetParameter19Value(Parameter19Value string) *
 	params.Parameter19Value = &Parameter19Value
 	return params
 }
-func (params *CreateStreamParams) SetParameter2Name(Parameter2Name string) *CreateStreamParams {
-	params.Parameter2Name = &Parameter2Name
-	return params
-}
-func (params *CreateStreamParams) SetParameter2Value(Parameter2Value string) *CreateStreamParams {
-	params.Parameter2Value = &Parameter2Value
-	return params
-}
 func (params *CreateStreamParams) SetParameter20Name(Parameter20Name string) *CreateStreamParams {
 	params.Parameter20Name = &Parameter20Name
 	return params
@@ -614,14 +686,6 @@ func (params *CreateStreamParams) SetParameter29Name(Parameter29Name string) *Cr
 }
 func (params *CreateStreamParams) SetParameter29Value(Parameter29Value string) *CreateStreamParams {
 	params.Parameter29Value = &Parameter29Value
-	return params
-}
-func (params *CreateStreamParams) SetParameter3Name(Parameter3Name string) *CreateStreamParams {
-	params.Parameter3Name = &Parameter3Name
-	return params
-}
-func (params *CreateStreamParams) SetParameter3Value(Parameter3Value string) *CreateStreamParams {
-	params.Parameter3Value = &Parameter3Value
 	return params
 }
 func (params *CreateStreamParams) SetParameter30Name(Parameter30Name string) *CreateStreamParams {
@@ -704,14 +768,6 @@ func (params *CreateStreamParams) SetParameter39Value(Parameter39Value string) *
 	params.Parameter39Value = &Parameter39Value
 	return params
 }
-func (params *CreateStreamParams) SetParameter4Name(Parameter4Name string) *CreateStreamParams {
-	params.Parameter4Name = &Parameter4Name
-	return params
-}
-func (params *CreateStreamParams) SetParameter4Value(Parameter4Value string) *CreateStreamParams {
-	params.Parameter4Value = &Parameter4Value
-	return params
-}
 func (params *CreateStreamParams) SetParameter40Name(Parameter40Name string) *CreateStreamParams {
 	params.Parameter40Name = &Parameter40Name
 	return params
@@ -790,14 +846,6 @@ func (params *CreateStreamParams) SetParameter49Name(Parameter49Name string) *Cr
 }
 func (params *CreateStreamParams) SetParameter49Value(Parameter49Value string) *CreateStreamParams {
 	params.Parameter49Value = &Parameter49Value
-	return params
-}
-func (params *CreateStreamParams) SetParameter5Name(Parameter5Name string) *CreateStreamParams {
-	params.Parameter5Name = &Parameter5Name
-	return params
-}
-func (params *CreateStreamParams) SetParameter5Value(Parameter5Value string) *CreateStreamParams {
-	params.Parameter5Value = &Parameter5Value
 	return params
 }
 func (params *CreateStreamParams) SetParameter50Name(Parameter50Name string) *CreateStreamParams {
@@ -880,14 +928,6 @@ func (params *CreateStreamParams) SetParameter59Value(Parameter59Value string) *
 	params.Parameter59Value = &Parameter59Value
 	return params
 }
-func (params *CreateStreamParams) SetParameter6Name(Parameter6Name string) *CreateStreamParams {
-	params.Parameter6Name = &Parameter6Name
-	return params
-}
-func (params *CreateStreamParams) SetParameter6Value(Parameter6Value string) *CreateStreamParams {
-	params.Parameter6Value = &Parameter6Value
-	return params
-}
 func (params *CreateStreamParams) SetParameter60Name(Parameter60Name string) *CreateStreamParams {
 	params.Parameter60Name = &Parameter60Name
 	return params
@@ -966,14 +1006,6 @@ func (params *CreateStreamParams) SetParameter69Name(Parameter69Name string) *Cr
 }
 func (params *CreateStreamParams) SetParameter69Value(Parameter69Value string) *CreateStreamParams {
 	params.Parameter69Value = &Parameter69Value
-	return params
-}
-func (params *CreateStreamParams) SetParameter7Name(Parameter7Name string) *CreateStreamParams {
-	params.Parameter7Name = &Parameter7Name
-	return params
-}
-func (params *CreateStreamParams) SetParameter7Value(Parameter7Value string) *CreateStreamParams {
-	params.Parameter7Value = &Parameter7Value
 	return params
 }
 func (params *CreateStreamParams) SetParameter70Name(Parameter70Name string) *CreateStreamParams {
@@ -1056,14 +1088,6 @@ func (params *CreateStreamParams) SetParameter79Value(Parameter79Value string) *
 	params.Parameter79Value = &Parameter79Value
 	return params
 }
-func (params *CreateStreamParams) SetParameter8Name(Parameter8Name string) *CreateStreamParams {
-	params.Parameter8Name = &Parameter8Name
-	return params
-}
-func (params *CreateStreamParams) SetParameter8Value(Parameter8Value string) *CreateStreamParams {
-	params.Parameter8Value = &Parameter8Value
-	return params
-}
 func (params *CreateStreamParams) SetParameter80Name(Parameter80Name string) *CreateStreamParams {
 	params.Parameter80Name = &Parameter80Name
 	return params
@@ -1142,14 +1166,6 @@ func (params *CreateStreamParams) SetParameter89Name(Parameter89Name string) *Cr
 }
 func (params *CreateStreamParams) SetParameter89Value(Parameter89Value string) *CreateStreamParams {
 	params.Parameter89Value = &Parameter89Value
-	return params
-}
-func (params *CreateStreamParams) SetParameter9Name(Parameter9Name string) *CreateStreamParams {
-	params.Parameter9Name = &Parameter9Name
-	return params
-}
-func (params *CreateStreamParams) SetParameter9Value(Parameter9Value string) *CreateStreamParams {
-	params.Parameter9Value = &Parameter9Value
 	return params
 }
 func (params *CreateStreamParams) SetParameter90Name(Parameter90Name string) *CreateStreamParams {
@@ -1232,22 +1248,6 @@ func (params *CreateStreamParams) SetParameter99Value(Parameter99Value string) *
 	params.Parameter99Value = &Parameter99Value
 	return params
 }
-func (params *CreateStreamParams) SetStatusCallback(StatusCallback string) *CreateStreamParams {
-	params.StatusCallback = &StatusCallback
-	return params
-}
-func (params *CreateStreamParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateStreamParams {
-	params.StatusCallbackMethod = &StatusCallbackMethod
-	return params
-}
-func (params *CreateStreamParams) SetTrack(Track string) *CreateStreamParams {
-	params.Track = &Track
-	return params
-}
-func (params *CreateStreamParams) SetUrl(Url string) *CreateStreamParams {
-	params.Url = &Url
-	return params
-}
 
 // Create a Stream
 func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*ApiV2010Stream, error) {
@@ -1262,14 +1262,74 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.Url != nil {
+		data.Set("Url", *params.Url)
+	}
 	if params != nil && params.Name != nil {
 		data.Set("Name", *params.Name)
+	}
+	if params != nil && params.Track != nil {
+		data.Set("Track", *params.Track)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 	if params != nil && params.Parameter1Name != nil {
 		data.Set("Parameter1.Name", *params.Parameter1Name)
 	}
 	if params != nil && params.Parameter1Value != nil {
 		data.Set("Parameter1.Value", *params.Parameter1Value)
+	}
+	if params != nil && params.Parameter2Name != nil {
+		data.Set("Parameter2.Name", *params.Parameter2Name)
+	}
+	if params != nil && params.Parameter2Value != nil {
+		data.Set("Parameter2.Value", *params.Parameter2Value)
+	}
+	if params != nil && params.Parameter3Name != nil {
+		data.Set("Parameter3.Name", *params.Parameter3Name)
+	}
+	if params != nil && params.Parameter3Value != nil {
+		data.Set("Parameter3.Value", *params.Parameter3Value)
+	}
+	if params != nil && params.Parameter4Name != nil {
+		data.Set("Parameter4.Name", *params.Parameter4Name)
+	}
+	if params != nil && params.Parameter4Value != nil {
+		data.Set("Parameter4.Value", *params.Parameter4Value)
+	}
+	if params != nil && params.Parameter5Name != nil {
+		data.Set("Parameter5.Name", *params.Parameter5Name)
+	}
+	if params != nil && params.Parameter5Value != nil {
+		data.Set("Parameter5.Value", *params.Parameter5Value)
+	}
+	if params != nil && params.Parameter6Name != nil {
+		data.Set("Parameter6.Name", *params.Parameter6Name)
+	}
+	if params != nil && params.Parameter6Value != nil {
+		data.Set("Parameter6.Value", *params.Parameter6Value)
+	}
+	if params != nil && params.Parameter7Name != nil {
+		data.Set("Parameter7.Name", *params.Parameter7Name)
+	}
+	if params != nil && params.Parameter7Value != nil {
+		data.Set("Parameter7.Value", *params.Parameter7Value)
+	}
+	if params != nil && params.Parameter8Name != nil {
+		data.Set("Parameter8.Name", *params.Parameter8Name)
+	}
+	if params != nil && params.Parameter8Value != nil {
+		data.Set("Parameter8.Value", *params.Parameter8Value)
+	}
+	if params != nil && params.Parameter9Name != nil {
+		data.Set("Parameter9.Name", *params.Parameter9Name)
+	}
+	if params != nil && params.Parameter9Value != nil {
+		data.Set("Parameter9.Value", *params.Parameter9Value)
 	}
 	if params != nil && params.Parameter10Name != nil {
 		data.Set("Parameter10.Name", *params.Parameter10Name)
@@ -1331,12 +1391,6 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	if params != nil && params.Parameter19Value != nil {
 		data.Set("Parameter19.Value", *params.Parameter19Value)
 	}
-	if params != nil && params.Parameter2Name != nil {
-		data.Set("Parameter2.Name", *params.Parameter2Name)
-	}
-	if params != nil && params.Parameter2Value != nil {
-		data.Set("Parameter2.Value", *params.Parameter2Value)
-	}
 	if params != nil && params.Parameter20Name != nil {
 		data.Set("Parameter20.Name", *params.Parameter20Name)
 	}
@@ -1396,12 +1450,6 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	}
 	if params != nil && params.Parameter29Value != nil {
 		data.Set("Parameter29.Value", *params.Parameter29Value)
-	}
-	if params != nil && params.Parameter3Name != nil {
-		data.Set("Parameter3.Name", *params.Parameter3Name)
-	}
-	if params != nil && params.Parameter3Value != nil {
-		data.Set("Parameter3.Value", *params.Parameter3Value)
 	}
 	if params != nil && params.Parameter30Name != nil {
 		data.Set("Parameter30.Name", *params.Parameter30Name)
@@ -1463,12 +1511,6 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	if params != nil && params.Parameter39Value != nil {
 		data.Set("Parameter39.Value", *params.Parameter39Value)
 	}
-	if params != nil && params.Parameter4Name != nil {
-		data.Set("Parameter4.Name", *params.Parameter4Name)
-	}
-	if params != nil && params.Parameter4Value != nil {
-		data.Set("Parameter4.Value", *params.Parameter4Value)
-	}
 	if params != nil && params.Parameter40Name != nil {
 		data.Set("Parameter40.Name", *params.Parameter40Name)
 	}
@@ -1528,12 +1570,6 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	}
 	if params != nil && params.Parameter49Value != nil {
 		data.Set("Parameter49.Value", *params.Parameter49Value)
-	}
-	if params != nil && params.Parameter5Name != nil {
-		data.Set("Parameter5.Name", *params.Parameter5Name)
-	}
-	if params != nil && params.Parameter5Value != nil {
-		data.Set("Parameter5.Value", *params.Parameter5Value)
 	}
 	if params != nil && params.Parameter50Name != nil {
 		data.Set("Parameter50.Name", *params.Parameter50Name)
@@ -1595,12 +1631,6 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	if params != nil && params.Parameter59Value != nil {
 		data.Set("Parameter59.Value", *params.Parameter59Value)
 	}
-	if params != nil && params.Parameter6Name != nil {
-		data.Set("Parameter6.Name", *params.Parameter6Name)
-	}
-	if params != nil && params.Parameter6Value != nil {
-		data.Set("Parameter6.Value", *params.Parameter6Value)
-	}
 	if params != nil && params.Parameter60Name != nil {
 		data.Set("Parameter60.Name", *params.Parameter60Name)
 	}
@@ -1660,12 +1690,6 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	}
 	if params != nil && params.Parameter69Value != nil {
 		data.Set("Parameter69.Value", *params.Parameter69Value)
-	}
-	if params != nil && params.Parameter7Name != nil {
-		data.Set("Parameter7.Name", *params.Parameter7Name)
-	}
-	if params != nil && params.Parameter7Value != nil {
-		data.Set("Parameter7.Value", *params.Parameter7Value)
 	}
 	if params != nil && params.Parameter70Name != nil {
 		data.Set("Parameter70.Name", *params.Parameter70Name)
@@ -1727,12 +1751,6 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	if params != nil && params.Parameter79Value != nil {
 		data.Set("Parameter79.Value", *params.Parameter79Value)
 	}
-	if params != nil && params.Parameter8Name != nil {
-		data.Set("Parameter8.Name", *params.Parameter8Name)
-	}
-	if params != nil && params.Parameter8Value != nil {
-		data.Set("Parameter8.Value", *params.Parameter8Value)
-	}
 	if params != nil && params.Parameter80Name != nil {
 		data.Set("Parameter80.Name", *params.Parameter80Name)
 	}
@@ -1792,12 +1810,6 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	}
 	if params != nil && params.Parameter89Value != nil {
 		data.Set("Parameter89.Value", *params.Parameter89Value)
-	}
-	if params != nil && params.Parameter9Name != nil {
-		data.Set("Parameter9.Name", *params.Parameter9Name)
-	}
-	if params != nil && params.Parameter9Value != nil {
-		data.Set("Parameter9.Value", *params.Parameter9Value)
 	}
 	if params != nil && params.Parameter90Name != nil {
 		data.Set("Parameter90.Name", *params.Parameter90Name)
@@ -1859,18 +1871,6 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	if params != nil && params.Parameter99Value != nil {
 		data.Set("Parameter99.Value", *params.Parameter99Value)
 	}
-	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
-	}
-	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-	}
-	if params != nil && params.Track != nil {
-		data.Set("Track", *params.Track)
-	}
-	if params != nil && params.Url != nil {
-		data.Set("Url", *params.Url)
-	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1891,7 +1891,7 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 type UpdateStreamParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The status. Must have the value `stopped`
+	//
 	Status *string `json:"Status,omitempty"`
 }
 

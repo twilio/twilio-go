@@ -16,6 +16,6 @@ package openapi
 
 // ListSimResponse struct for ListSimResponse
 type ListSimResponse struct {
-	Meta ListEsimProfileResponseMeta `json:"meta,omitempty"`
-	Sims []SupersimV1Sim             `json:"sims,omitempty"`
+	Sims []SupersimV1Sim               `json:"sims,omitempty"`
+	Meta ListBillingPeriodResponseMeta `json:"meta,omitempty"`
 }

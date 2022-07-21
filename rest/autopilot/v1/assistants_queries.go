@@ -27,20 +27,16 @@ import (
 type CreateQueryParams struct {
 	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
 	Language *string `json:"Language,omitempty"`
-	// The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-	ModelBuild *string `json:"ModelBuild,omitempty"`
 	// The end-user's natural language input. It can be up to 2048 characters long.
 	Query *string `json:"Query,omitempty"`
 	// The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
 	Tasks *string `json:"Tasks,omitempty"`
+	// The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+	ModelBuild *string `json:"ModelBuild,omitempty"`
 }
 
 func (params *CreateQueryParams) SetLanguage(Language string) *CreateQueryParams {
 	params.Language = &Language
-	return params
-}
-func (params *CreateQueryParams) SetModelBuild(ModelBuild string) *CreateQueryParams {
-	params.ModelBuild = &ModelBuild
 	return params
 }
 func (params *CreateQueryParams) SetQuery(Query string) *CreateQueryParams {
@@ -49,6 +45,10 @@ func (params *CreateQueryParams) SetQuery(Query string) *CreateQueryParams {
 }
 func (params *CreateQueryParams) SetTasks(Tasks string) *CreateQueryParams {
 	params.Tasks = &Tasks
+	return params
+}
+func (params *CreateQueryParams) SetModelBuild(ModelBuild string) *CreateQueryParams {
+	params.ModelBuild = &ModelBuild
 	return params
 }
 
@@ -63,14 +63,14 @@ func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams)
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
-	if params != nil && params.ModelBuild != nil {
-		data.Set("ModelBuild", *params.ModelBuild)
-	}
 	if params != nil && params.Query != nil {
 		data.Set("Query", *params.Query)
 	}
 	if params != nil && params.Tasks != nil {
 		data.Set("Tasks", *params.Tasks)
+	}
+	if params != nil && params.ModelBuild != nil {
+		data.Set("ModelBuild", *params.ModelBuild)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

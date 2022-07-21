@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateEngagement'
 type CreateEngagementParams struct {
+	// The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
+	To *string `json:"To,omitempty"`
 	// The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
 	From *string `json:"From,omitempty"`
 	// A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
 	Parameters *interface{} `json:"Parameters,omitempty"`
-	// The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
-	To *string `json:"To,omitempty"`
 }
 
+func (params *CreateEngagementParams) SetTo(To string) *CreateEngagementParams {
+	params.To = &To
+	return params
+}
 func (params *CreateEngagementParams) SetFrom(From string) *CreateEngagementParams {
 	params.From = &From
 	return params
 }
 func (params *CreateEngagementParams) SetParameters(Parameters interface{}) *CreateEngagementParams {
 	params.Parameters = &Parameters
-	return params
-}
-func (params *CreateEngagementParams) SetTo(To string) *CreateEngagementParams {
-	params.To = &To
 	return params
 }
 
@@ -54,6 +54,9 @@ func (c *ApiService) CreateEngagement(FlowSid string, params *CreateEngagementPa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
 	}
@@ -65,9 +68,6 @@ func (c *ApiService) CreateEngagement(FlowSid string, params *CreateEngagementPa
 		}
 
 		data.Set("Parameters", string(v))
-	}
-	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

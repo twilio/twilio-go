@@ -198,37 +198,37 @@ Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ConsumptionReportInterval** | **int** | 
-**DefaultChannelCreatorRoleSid** | **string** | 
-**DefaultChannelRoleSid** | **string** | 
-**DefaultServiceRoleSid** | **string** | 
 **FriendlyName** | **string** | 
+**DefaultServiceRoleSid** | **string** | 
+**DefaultChannelRoleSid** | **string** | 
+**DefaultChannelCreatorRoleSid** | **string** | 
+**ReadStatusEnabled** | **bool** | 
+**ReachabilityEnabled** | **bool** | 
+**TypingIndicatorTimeout** | **int** | 
+**ConsumptionReportInterval** | **int** | 
+**NotificationsNewMessageEnabled** | **bool** | 
+**NotificationsNewMessageTemplate** | **string** | 
+**NotificationsNewMessageSound** | **string** | 
+**NotificationsNewMessageBadgeCountEnabled** | **bool** | 
+**NotificationsAddedToChannelEnabled** | **bool** | 
+**NotificationsAddedToChannelTemplate** | **string** | 
+**NotificationsAddedToChannelSound** | **string** | 
+**NotificationsRemovedFromChannelEnabled** | **bool** | 
+**NotificationsRemovedFromChannelTemplate** | **string** | 
+**NotificationsRemovedFromChannelSound** | **string** | 
+**NotificationsInvitedToChannelEnabled** | **bool** | 
+**NotificationsInvitedToChannelTemplate** | **string** | 
+**NotificationsInvitedToChannelSound** | **string** | 
+**PreWebhookUrl** | **string** | 
+**PostWebhookUrl** | **string** | 
+**WebhookMethod** | **string** | 
+**WebhookFilters** | **[]string** | 
 **LimitsChannelMembers** | **int** | 
 **LimitsUserChannels** | **int** | 
 **MediaCompatibilityMessage** | **string** | 
-**NotificationsAddedToChannelEnabled** | **bool** | 
-**NotificationsAddedToChannelSound** | **string** | 
-**NotificationsAddedToChannelTemplate** | **string** | 
-**NotificationsInvitedToChannelEnabled** | **bool** | 
-**NotificationsInvitedToChannelSound** | **string** | 
-**NotificationsInvitedToChannelTemplate** | **string** | 
-**NotificationsLogEnabled** | **bool** | 
-**NotificationsNewMessageBadgeCountEnabled** | **bool** | 
-**NotificationsNewMessageEnabled** | **bool** | 
-**NotificationsNewMessageSound** | **string** | 
-**NotificationsNewMessageTemplate** | **string** | 
-**NotificationsRemovedFromChannelEnabled** | **bool** | 
-**NotificationsRemovedFromChannelSound** | **string** | 
-**NotificationsRemovedFromChannelTemplate** | **string** | 
-**PostWebhookRetryCount** | **int** | 
-**PostWebhookUrl** | **string** | 
 **PreWebhookRetryCount** | **int** | 
-**PreWebhookUrl** | **string** | 
-**ReachabilityEnabled** | **bool** | 
-**ReadStatusEnabled** | **bool** | 
-**TypingIndicatorTimeout** | **int** | 
-**WebhookFilters** | **[]string** | 
-**WebhookMethod** | **string** | 
+**PostWebhookRetryCount** | **int** | 
+**NotificationsLogEnabled** | **bool** | 
 
 ### Return type
 

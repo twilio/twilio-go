@@ -16,24 +16,22 @@ package openapi
 
 // InsightsV1Annotation struct for InsightsV1Annotation
 type InsightsV1Annotation struct {
-	// Account SID.
-	AccountSid *string `json:"account_sid,omitempty"`
-	// Indicates the answering entity as determined by Answering Machine Detection.
-	AnsweredBy *string `json:"answered_by,omitempty"`
-	// Call Score
-	CallScore *int `json:"call_score,omitempty"`
 	// Call SID.
 	CallSid *string `json:"call_sid,omitempty"`
-	// User comments
-	Comment *string `json:"comment,omitempty"`
-	// Indicates if the call had any connectivity issue
+	// Account SID.
+	AccountSid        *string `json:"account_sid,omitempty"`
+	AnsweredBy        *string `json:"answered_by,omitempty"`
 	ConnectivityIssue *string `json:"connectivity_issue,omitempty"`
-	// Call tag for incidents or support ticket
-	Incident *string `json:"incident,omitempty"`
 	// Indicates if the call had audio quality issues.
 	QualityIssues *[]string `json:"quality_issues,omitempty"`
 	// Call spam indicator
 	Spam *bool `json:"spam,omitempty"`
+	// Call Score
+	CallScore *int `json:"call_score,omitempty"`
+	// User comments
+	Comment *string `json:"comment,omitempty"`
+	// Call tag for incidents or support ticket
+	Incident *string `json:"incident,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }

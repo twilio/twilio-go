@@ -22,10 +22,10 @@ type TaskrouterV1WorkflowStatistics struct {
 	Cumulative *interface{} `json:"cumulative,omitempty"`
 	// An object that contains the real-time statistics for the Workflow
 	Realtime *interface{} `json:"realtime,omitempty"`
-	// The absolute URL of the Workflow statistics resource
-	Url *string `json:"url,omitempty"`
 	// Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
 	WorkflowSid *string `json:"workflow_sid,omitempty"`
 	// The SID of the Workspace that contains the Workflow
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	// The absolute URL of the Workflow statistics resource
+	Url *string `json:"url,omitempty"`
 }

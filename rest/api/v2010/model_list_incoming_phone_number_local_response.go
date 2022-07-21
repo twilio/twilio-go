@@ -16,9 +16,9 @@ package openapi
 
 // ListIncomingPhoneNumberLocalResponse struct for ListIncomingPhoneNumberLocalResponse
 type ListIncomingPhoneNumberLocalResponse struct {
+	IncomingPhoneNumbers []ApiV2010IncomingPhoneNumberLocal `json:"incoming_phone_numbers,omitempty"`
 	End                  int                                `json:"end,omitempty"`
 	FirstPageUri         string                             `json:"first_page_uri,omitempty"`
-	IncomingPhoneNumbers []ApiV2010IncomingPhoneNumberLocal `json:"incoming_phone_numbers,omitempty"`
 	NextPageUri          string                             `json:"next_page_uri,omitempty"`
 	Page                 int                                `json:"page,omitempty"`
 	PageSize             int                                `json:"page_size,omitempty"`

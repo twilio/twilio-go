@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateIpRecord'
 type CreateIpRecordParams struct {
-	// An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
-	CidrPrefixLength *int `json:"CidrPrefixLength,omitempty"`
-	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An IP address in dotted decimal notation, IPv4 only.
 	IpAddress *string `json:"IpAddress,omitempty"`
+	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
+	CidrPrefixLength *int `json:"CidrPrefixLength,omitempty"`
 }
 
-func (params *CreateIpRecordParams) SetCidrPrefixLength(CidrPrefixLength int) *CreateIpRecordParams {
-	params.CidrPrefixLength = &CidrPrefixLength
+func (params *CreateIpRecordParams) SetIpAddress(IpAddress string) *CreateIpRecordParams {
+	params.IpAddress = &IpAddress
 	return params
 }
 func (params *CreateIpRecordParams) SetFriendlyName(FriendlyName string) *CreateIpRecordParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateIpRecordParams) SetIpAddress(IpAddress string) *CreateIpRecordParams {
-	params.IpAddress = &IpAddress
+func (params *CreateIpRecordParams) SetCidrPrefixLength(CidrPrefixLength int) *CreateIpRecordParams {
+	params.CidrPrefixLength = &CidrPrefixLength
 	return params
 }
 
@@ -53,14 +53,14 @@ func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRec
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CidrPrefixLength != nil {
-		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
+	if params != nil && params.IpAddress != nil {
+		data.Set("IpAddress", *params.IpAddress)
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.IpAddress != nil {
-		data.Set("IpAddress", *params.IpAddress)
+	if params != nil && params.CidrPrefixLength != nil {
+		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

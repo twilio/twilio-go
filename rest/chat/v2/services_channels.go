@@ -28,32 +28,40 @@ import (
 type CreateChannelParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	// A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
+	UniqueName *string `json:"UniqueName,omitempty"`
 	// A valid JSON string that contains application-specific data.
 	Attributes *string `json:"Attributes,omitempty"`
-	// The `identity` of the User that created the channel. Default is: `system`.
-	CreatedBy *string `json:"CreatedBy,omitempty"`
+	//
+	Type *string `json:"Type,omitempty"`
 	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-	// A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The visibility of the channel. Can be: `public` or `private` and defaults to `public`.
-	Type *string `json:"Type,omitempty"`
-	// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
-	UniqueName *string `json:"UniqueName,omitempty"`
+	// The `identity` of the User that created the channel. Default is: `system`.
+	CreatedBy *string `json:"CreatedBy,omitempty"`
 }
 
 func (params *CreateChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateChannelParams {
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
 	return params
 }
+func (params *CreateChannelParams) SetFriendlyName(FriendlyName string) *CreateChannelParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateChannelParams) SetUniqueName(UniqueName string) *CreateChannelParams {
+	params.UniqueName = &UniqueName
+	return params
+}
 func (params *CreateChannelParams) SetAttributes(Attributes string) *CreateChannelParams {
 	params.Attributes = &Attributes
 	return params
 }
-func (params *CreateChannelParams) SetCreatedBy(CreatedBy string) *CreateChannelParams {
-	params.CreatedBy = &CreatedBy
+func (params *CreateChannelParams) SetType(Type string) *CreateChannelParams {
+	params.Type = &Type
 	return params
 }
 func (params *CreateChannelParams) SetDateCreated(DateCreated time.Time) *CreateChannelParams {
@@ -64,16 +72,8 @@ func (params *CreateChannelParams) SetDateUpdated(DateUpdated time.Time) *Create
 	params.DateUpdated = &DateUpdated
 	return params
 }
-func (params *CreateChannelParams) SetFriendlyName(FriendlyName string) *CreateChannelParams {
-	params.FriendlyName = &FriendlyName
-	return params
-}
-func (params *CreateChannelParams) SetType(Type string) *CreateChannelParams {
-	params.Type = &Type
-	return params
-}
-func (params *CreateChannelParams) SetUniqueName(UniqueName string) *CreateChannelParams {
-	params.UniqueName = &UniqueName
+func (params *CreateChannelParams) SetCreatedBy(CreatedBy string) *CreateChannelParams {
+	params.CreatedBy = &CreatedBy
 	return params
 }
 
@@ -85,11 +85,17 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
-	if params != nil && params.CreatedBy != nil {
-		data.Set("CreatedBy", *params.CreatedBy)
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
 	}
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
@@ -97,14 +103,8 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 	if params != nil && params.DateUpdated != nil {
 		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
-	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+	if params != nil && params.CreatedBy != nil {
+		data.Set("CreatedBy", *params.CreatedBy)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -337,30 +337,34 @@ func (c *ApiService) getNextListChannelResponse(nextPageUrl string) (interface{}
 type UpdateChannelParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	// A valid JSON string that contains application-specific data.
-	Attributes *string `json:"Attributes,omitempty"`
-	// The `identity` of the User that created the channel. Default is: `system`.
-	CreatedBy *string `json:"CreatedBy,omitempty"`
-	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
-	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	// A descriptive string that you create to describe the resource. It can be up to 256 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The `identity` of the User that created the channel. Default is: `system`.
+	CreatedBy *string `json:"CreatedBy,omitempty"`
 }
 
 func (params *UpdateChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateChannelParams {
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
 	return params
 }
-func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChannelParams {
-	params.Attributes = &Attributes
+func (params *UpdateChannelParams) SetFriendlyName(FriendlyName string) *UpdateChannelParams {
+	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateChannelParams) SetCreatedBy(CreatedBy string) *UpdateChannelParams {
-	params.CreatedBy = &CreatedBy
+func (params *UpdateChannelParams) SetUniqueName(UniqueName string) *UpdateChannelParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChannelParams {
+	params.Attributes = &Attributes
 	return params
 }
 func (params *UpdateChannelParams) SetDateCreated(DateCreated time.Time) *UpdateChannelParams {
@@ -371,12 +375,8 @@ func (params *UpdateChannelParams) SetDateUpdated(DateUpdated time.Time) *Update
 	params.DateUpdated = &DateUpdated
 	return params
 }
-func (params *UpdateChannelParams) SetFriendlyName(FriendlyName string) *UpdateChannelParams {
-	params.FriendlyName = &FriendlyName
-	return params
-}
-func (params *UpdateChannelParams) SetUniqueName(UniqueName string) *UpdateChannelParams {
-	params.UniqueName = &UniqueName
+func (params *UpdateChannelParams) SetCreatedBy(CreatedBy string) *UpdateChannelParams {
+	params.CreatedBy = &CreatedBy
 	return params
 }
 
@@ -389,11 +389,14 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
-	}
-	if params != nil && params.CreatedBy != nil {
-		data.Set("CreatedBy", *params.CreatedBy)
 	}
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
@@ -401,11 +404,8 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 	if params != nil && params.DateUpdated != nil {
 		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+	if params != nil && params.CreatedBy != nil {
+		data.Set("CreatedBy", *params.CreatedBy)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

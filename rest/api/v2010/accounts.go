@@ -241,7 +241,7 @@ func (c *ApiService) getNextListAccountResponse(nextPageUrl string) (interface{}
 type UpdateAccountParams struct {
 	// Update the human-readable description of this Account
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// Alter the status of this account: use `closed` to irreversibly close this account, `suspended` to temporarily suspend it, or `active` to reactivate it.
+	//
 	Status *string `json:"Status,omitempty"`
 }
 

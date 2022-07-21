@@ -27,8 +27,7 @@ type ApiV2010UsageRecordMonthly struct {
 	// The API version used to create the resource
 	ApiVersion *string `json:"api_version,omitempty"`
 	// Usage records up to date as of this timestamp
-	AsOf *string `json:"as_of,omitempty"`
-	// The category of usage
+	AsOf     *string `json:"as_of,omitempty"`
 	Category *string `json:"category,omitempty"`
 	// The number of usage events
 	Count *string `json:"count,omitempty"`

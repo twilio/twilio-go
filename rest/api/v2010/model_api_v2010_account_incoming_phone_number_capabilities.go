@@ -16,8 +16,8 @@ package openapi
 
 // ApiV2010AccountIncomingPhoneNumberCapabilities Indicate if a phone can receive calls or messages
 type ApiV2010AccountIncomingPhoneNumberCapabilities struct {
-	Fax   bool `json:"fax,omitempty"`
 	Mms   bool `json:"mms,omitempty"`
 	Sms   bool `json:"sms,omitempty"`
 	Voice bool `json:"voice,omitempty"`
+	Fax   bool `json:"fax,omitempty"`
 }

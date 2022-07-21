@@ -25,24 +25,28 @@ import (
 
 // Optional parameters for the method 'CreateWebhook'
 type CreateWebhookParams struct {
-	// The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
-	EventTypes *[]string `json:"EventTypes,omitempty"`
 	// The string that you assigned to describe the webhook. **This value should not contain PII.**
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The webhook status. Default value is `enabled`. One of: `enabled` or `disabled`
-	Status *string `json:"Status,omitempty"`
-	// The webhook version. Default value is `v2` which includes all the latest fields. Version `v1` is legacy and may be removed in the future.
-	Version *string `json:"Version,omitempty"`
+	// The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+	EventTypes *[]string `json:"EventTypes,omitempty"`
 	// The URL associated with this Webhook.
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	//
+	Status *string `json:"Status,omitempty"`
+	//
+	Version *string `json:"Version,omitempty"`
 }
 
+func (params *CreateWebhookParams) SetFriendlyName(FriendlyName string) *CreateWebhookParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
 func (params *CreateWebhookParams) SetEventTypes(EventTypes []string) *CreateWebhookParams {
 	params.EventTypes = &EventTypes
 	return params
 }
-func (params *CreateWebhookParams) SetFriendlyName(FriendlyName string) *CreateWebhookParams {
-	params.FriendlyName = &FriendlyName
+func (params *CreateWebhookParams) SetWebhookUrl(WebhookUrl string) *CreateWebhookParams {
+	params.WebhookUrl = &WebhookUrl
 	return params
 }
 func (params *CreateWebhookParams) SetStatus(Status string) *CreateWebhookParams {
@@ -51,10 +55,6 @@ func (params *CreateWebhookParams) SetStatus(Status string) *CreateWebhookParams
 }
 func (params *CreateWebhookParams) SetVersion(Version string) *CreateWebhookParams {
 	params.Version = &Version
-	return params
-}
-func (params *CreateWebhookParams) SetWebhookUrl(WebhookUrl string) *CreateWebhookParams {
-	params.WebhookUrl = &WebhookUrl
 	return params
 }
 
@@ -66,22 +66,22 @@ func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParam
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 	if params != nil && params.EventTypes != nil {
 		for _, item := range *params.EventTypes {
 			data.Add("EventTypes", item)
 		}
 	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.Version != nil {
 		data.Set("Version", *params.Version)
-	}
-	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -282,24 +282,28 @@ func (c *ApiService) getNextListWebhookResponse(nextPageUrl string) (interface{}
 
 // Optional parameters for the method 'UpdateWebhook'
 type UpdateWebhookParams struct {
-	// The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
-	EventTypes *[]string `json:"EventTypes,omitempty"`
 	// The string that you assigned to describe the webhook. **This value should not contain PII.**
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The webhook status. Default value is `enabled`. One of: `enabled` or `disabled`
-	Status *string `json:"Status,omitempty"`
-	// The webhook version. Default value is `v2` which includes all the latest fields. Version `v1` is legacy and may be removed in the future.
-	Version *string `json:"Version,omitempty"`
+	// The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+	EventTypes *[]string `json:"EventTypes,omitempty"`
 	// The URL associated with this Webhook.
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	//
+	Status *string `json:"Status,omitempty"`
+	//
+	Version *string `json:"Version,omitempty"`
 }
 
+func (params *UpdateWebhookParams) SetFriendlyName(FriendlyName string) *UpdateWebhookParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
 func (params *UpdateWebhookParams) SetEventTypes(EventTypes []string) *UpdateWebhookParams {
 	params.EventTypes = &EventTypes
 	return params
 }
-func (params *UpdateWebhookParams) SetFriendlyName(FriendlyName string) *UpdateWebhookParams {
-	params.FriendlyName = &FriendlyName
+func (params *UpdateWebhookParams) SetWebhookUrl(WebhookUrl string) *UpdateWebhookParams {
+	params.WebhookUrl = &WebhookUrl
 	return params
 }
 func (params *UpdateWebhookParams) SetStatus(Status string) *UpdateWebhookParams {
@@ -308,10 +312,6 @@ func (params *UpdateWebhookParams) SetStatus(Status string) *UpdateWebhookParams
 }
 func (params *UpdateWebhookParams) SetVersion(Version string) *UpdateWebhookParams {
 	params.Version = &Version
-	return params
-}
-func (params *UpdateWebhookParams) SetWebhookUrl(WebhookUrl string) *UpdateWebhookParams {
-	params.WebhookUrl = &WebhookUrl
 	return params
 }
 
@@ -324,22 +324,22 @@ func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *Update
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 	if params != nil && params.EventTypes != nil {
 		for _, item := range *params.EventTypes {
 			data.Add("EventTypes", item)
 		}
 	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.Version != nil {
 		data.Set("Version", *params.Version)
-	}
-	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

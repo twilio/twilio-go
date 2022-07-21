@@ -16,6 +16,6 @@ package openapi
 
 // ListCredentialResponse struct for ListCredentialResponse
 type ListCredentialResponse struct {
-	Credentials []ChatV2Credential         `json:"credentials,omitempty"`
-	Meta        ListCredentialResponseMeta `json:"meta,omitempty"`
+	Credentials []ChatV2Credential      `json:"credentials,omitempty"`
+	Meta        ListBindingResponseMeta `json:"meta,omitempty"`
 }

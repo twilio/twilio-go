@@ -35,11 +35,11 @@ Other parameters are passed through a pointer to a CreateWebhookParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
 **FriendlyName** | **string** | The string that you assigned to describe the webhook. **This value should not contain PII.**
-**Status** | **string** | The webhook status. Default value is &#x60;enabled&#x60;. One of: &#x60;enabled&#x60; or &#x60;disabled&#x60;
-**Version** | **string** | The webhook version. Default value is &#x60;v2&#x60; which includes all the latest fields. Version &#x60;v1&#x60; is legacy and may be removed in the future.
+**EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
 **WebhookUrl** | **string** | The URL associated with this Webhook.
+**Status** | **string** | 
+**Version** | **string** | 
 
 ### Return type
 
@@ -213,11 +213,11 @@ Other parameters are passed through a pointer to a UpdateWebhookParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
 **FriendlyName** | **string** | The string that you assigned to describe the webhook. **This value should not contain PII.**
-**Status** | **string** | The webhook status. Default value is &#x60;enabled&#x60;. One of: &#x60;enabled&#x60; or &#x60;disabled&#x60;
-**Version** | **string** | The webhook version. Default value is &#x60;v2&#x60; which includes all the latest fields. Version &#x60;v1&#x60; is legacy and may be removed in the future.
+**EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
 **WebhookUrl** | **string** | The URL associated with this Webhook.
+**Status** | **string** | 
+**Version** | **string** | 
 
 ### Return type
 

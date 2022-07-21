@@ -31,9 +31,9 @@ Other parameters are passed through a pointer to a CreateCredentialAwsParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
 **Credentials** | **string** | A string that contains the AWS access credentials in the format &#x60;&lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;&#x60;. For example, &#x60;AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#x60;
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+**AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
 
 ### Return type
 

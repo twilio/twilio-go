@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateSyncMap'
 type CreateSyncMapParams struct {
-	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
-	CollectionTtl *int `json:"CollectionTtl,omitempty"`
-	// An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
-	Ttl *int `json:"Ttl,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
+	Ttl *int `json:"Ttl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 }
 
-func (params *CreateSyncMapParams) SetCollectionTtl(CollectionTtl int) *CreateSyncMapParams {
-	params.CollectionTtl = &CollectionTtl
+func (params *CreateSyncMapParams) SetUniqueName(UniqueName string) *CreateSyncMapParams {
+	params.UniqueName = &UniqueName
 	return params
 }
 func (params *CreateSyncMapParams) SetTtl(Ttl int) *CreateSyncMapParams {
 	params.Ttl = &Ttl
 	return params
 }
-func (params *CreateSyncMapParams) SetUniqueName(UniqueName string) *CreateSyncMapParams {
-	params.UniqueName = &UniqueName
+func (params *CreateSyncMapParams) SetCollectionTtl(CollectionTtl int) *CreateSyncMapParams {
+	params.CollectionTtl = &CollectionTtl
 	return params
 }
 
@@ -54,14 +54,14 @@ func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParam
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CollectionTtl != nil {
-		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -262,18 +262,18 @@ func (c *ApiService) getNextListSyncMapResponse(nextPageUrl string) (interface{}
 
 // Optional parameters for the method 'UpdateSyncMap'
 type UpdateSyncMapParams struct {
-	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
-	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
 	Ttl *int `json:"Ttl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 }
 
-func (params *UpdateSyncMapParams) SetCollectionTtl(CollectionTtl int) *UpdateSyncMapParams {
-	params.CollectionTtl = &CollectionTtl
-	return params
-}
 func (params *UpdateSyncMapParams) SetTtl(Ttl int) *UpdateSyncMapParams {
 	params.Ttl = &Ttl
+	return params
+}
+func (params *UpdateSyncMapParams) SetCollectionTtl(CollectionTtl int) *UpdateSyncMapParams {
+	params.CollectionTtl = &CollectionTtl
 	return params
 }
 
@@ -286,11 +286,11 @@ func (c *ApiService) UpdateSyncMap(ServiceSid string, Sid string, params *Update
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CollectionTtl != nil {
-		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
-	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

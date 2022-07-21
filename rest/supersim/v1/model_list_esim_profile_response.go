@@ -16,6 +16,6 @@ package openapi
 
 // ListEsimProfileResponse struct for ListEsimProfileResponse
 type ListEsimProfileResponse struct {
-	EsimProfiles []SupersimV1EsimProfile     `json:"esim_profiles,omitempty"`
-	Meta         ListEsimProfileResponseMeta `json:"meta,omitempty"`
+	EsimProfiles []SupersimV1EsimProfile       `json:"esim_profiles,omitempty"`
+	Meta         ListBillingPeriodResponseMeta `json:"meta,omitempty"`
 }

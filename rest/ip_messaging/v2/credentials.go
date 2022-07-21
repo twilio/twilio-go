@@ -26,31 +26,31 @@ import (
 // Optional parameters for the method 'CreateCredential'
 type CreateCredentialParams struct {
 	//
-	ApiKey *string `json:"ApiKey,omitempty"`
-	//
-	Certificate *string `json:"Certificate,omitempty"`
+	Type *string `json:"Type,omitempty"`
 	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	//
+	Certificate *string `json:"Certificate,omitempty"`
 	//
 	PrivateKey *string `json:"PrivateKey,omitempty"`
 	//
 	Sandbox *bool `json:"Sandbox,omitempty"`
 	//
-	Secret *string `json:"Secret,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
 	//
-	Type *string `json:"Type,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
 }
 
-func (params *CreateCredentialParams) SetApiKey(ApiKey string) *CreateCredentialParams {
-	params.ApiKey = &ApiKey
-	return params
-}
-func (params *CreateCredentialParams) SetCertificate(Certificate string) *CreateCredentialParams {
-	params.Certificate = &Certificate
+func (params *CreateCredentialParams) SetType(Type string) *CreateCredentialParams {
+	params.Type = &Type
 	return params
 }
 func (params *CreateCredentialParams) SetFriendlyName(FriendlyName string) *CreateCredentialParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateCredentialParams) SetCertificate(Certificate string) *CreateCredentialParams {
+	params.Certificate = &Certificate
 	return params
 }
 func (params *CreateCredentialParams) SetPrivateKey(PrivateKey string) *CreateCredentialParams {
@@ -61,12 +61,12 @@ func (params *CreateCredentialParams) SetSandbox(Sandbox bool) *CreateCredential
 	params.Sandbox = &Sandbox
 	return params
 }
-func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredentialParams {
-	params.Secret = &Secret
+func (params *CreateCredentialParams) SetApiKey(ApiKey string) *CreateCredentialParams {
+	params.ApiKey = &ApiKey
 	return params
 }
-func (params *CreateCredentialParams) SetType(Type string) *CreateCredentialParams {
-	params.Type = &Type
+func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredentialParams {
+	params.Secret = &Secret
 	return params
 }
 
@@ -77,14 +77,14 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*IpMessag
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ApiKey != nil {
-		data.Set("ApiKey", *params.ApiKey)
-	}
-	if params != nil && params.Certificate != nil {
-		data.Set("Certificate", *params.Certificate)
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
 	}
 	if params != nil && params.PrivateKey != nil {
 		data.Set("PrivateKey", *params.PrivateKey)
@@ -92,11 +92,11 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*IpMessag
 	if params != nil && params.Sandbox != nil {
 		data.Set("Sandbox", fmt.Sprint(*params.Sandbox))
 	}
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
 	if params != nil && params.Secret != nil {
 		data.Set("Secret", *params.Secret)
-	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -294,29 +294,25 @@ func (c *ApiService) getNextListCredentialResponse(nextPageUrl string) (interfac
 // Optional parameters for the method 'UpdateCredential'
 type UpdateCredentialParams struct {
 	//
-	ApiKey *string `json:"ApiKey,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 	//
 	Certificate *string `json:"Certificate,omitempty"`
-	//
-	FriendlyName *string `json:"FriendlyName,omitempty"`
 	//
 	PrivateKey *string `json:"PrivateKey,omitempty"`
 	//
 	Sandbox *bool `json:"Sandbox,omitempty"`
 	//
+	ApiKey *string `json:"ApiKey,omitempty"`
+	//
 	Secret *string `json:"Secret,omitempty"`
 }
 
-func (params *UpdateCredentialParams) SetApiKey(ApiKey string) *UpdateCredentialParams {
-	params.ApiKey = &ApiKey
+func (params *UpdateCredentialParams) SetFriendlyName(FriendlyName string) *UpdateCredentialParams {
+	params.FriendlyName = &FriendlyName
 	return params
 }
 func (params *UpdateCredentialParams) SetCertificate(Certificate string) *UpdateCredentialParams {
 	params.Certificate = &Certificate
-	return params
-}
-func (params *UpdateCredentialParams) SetFriendlyName(FriendlyName string) *UpdateCredentialParams {
-	params.FriendlyName = &FriendlyName
 	return params
 }
 func (params *UpdateCredentialParams) SetPrivateKey(PrivateKey string) *UpdateCredentialParams {
@@ -325,6 +321,10 @@ func (params *UpdateCredentialParams) SetPrivateKey(PrivateKey string) *UpdateCr
 }
 func (params *UpdateCredentialParams) SetSandbox(Sandbox bool) *UpdateCredentialParams {
 	params.Sandbox = &Sandbox
+	return params
+}
+func (params *UpdateCredentialParams) SetApiKey(ApiKey string) *UpdateCredentialParams {
+	params.ApiKey = &ApiKey
 	return params
 }
 func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredentialParams {
@@ -340,20 +340,20 @@ func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ApiKey != nil {
-		data.Set("ApiKey", *params.ApiKey)
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Certificate != nil {
 		data.Set("Certificate", *params.Certificate)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PrivateKey != nil {
 		data.Set("PrivateKey", *params.PrivateKey)
 	}
 	if params != nil && params.Sandbox != nil {
 		data.Set("Sandbox", fmt.Sprint(*params.Sandbox))
+	}
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
 	}
 	if params != nil && params.Secret != nil {
 		data.Set("Secret", *params.Secret)

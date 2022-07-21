@@ -26,80 +26,40 @@ import (
 
 // Optional parameters for the method 'CreateRoom'
 type CreateRoomParams struct {
-	// When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
-	AudioOnly *bool `json:"AudioOnly,omitempty"`
-	// Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
-	EmptyRoomTimeout *int `json:"EmptyRoomTimeout,omitempty"`
 	// Deprecated, now always considered to be true.
 	EnableTurn *bool `json:"EnableTurn,omitempty"`
-	// When set to true, indicated that this is the large room.
-	LargeRoom *bool `json:"LargeRoom,omitempty"`
-	// The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
-	MaxParticipantDuration *int `json:"MaxParticipantDuration,omitempty"`
-	// The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
-	MaxParticipants *int `json:"MaxParticipants,omitempty"`
-	// The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
-	MediaRegion *string `json:"MediaRegion,omitempty"`
-	// Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-	RecordParticipantsOnConnect *bool `json:"RecordParticipantsOnConnect,omitempty"`
-	// A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-	RecordingRules *interface{} `json:"RecordingRules,omitempty"`
+	//
+	Type *string `json:"Type,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+	UniqueName *string `json:"UniqueName,omitempty"`
 	// The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	// The type of room. Can be: `go`, `peer-to-peer`, `group-small`, or `group`. The default value is `group`.
-	Type *string `json:"Type,omitempty"`
-	// An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-	UniqueName *string `json:"UniqueName,omitempty"`
-	// Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
-	UnusedRoomTimeout *int `json:"UnusedRoomTimeout,omitempty"`
+	// The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
+	MaxParticipants *int `json:"MaxParticipants,omitempty"`
+	// Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
+	RecordParticipantsOnConnect *bool `json:"RecordParticipantsOnConnect,omitempty"`
 	// An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
 	VideoCodecs *[]string `json:"VideoCodecs,omitempty"`
+	// The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+	MediaRegion *string `json:"MediaRegion,omitempty"`
+	// A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+	RecordingRules *interface{} `json:"RecordingRules,omitempty"`
+	// When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+	AudioOnly *bool `json:"AudioOnly,omitempty"`
+	// The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
+	MaxParticipantDuration *int `json:"MaxParticipantDuration,omitempty"`
+	// Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
+	EmptyRoomTimeout *int `json:"EmptyRoomTimeout,omitempty"`
+	// Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
+	UnusedRoomTimeout *int `json:"UnusedRoomTimeout,omitempty"`
+	// When set to true, indicated that this is the large room.
+	LargeRoom *bool `json:"LargeRoom,omitempty"`
 }
 
-func (params *CreateRoomParams) SetAudioOnly(AudioOnly bool) *CreateRoomParams {
-	params.AudioOnly = &AudioOnly
-	return params
-}
-func (params *CreateRoomParams) SetEmptyRoomTimeout(EmptyRoomTimeout int) *CreateRoomParams {
-	params.EmptyRoomTimeout = &EmptyRoomTimeout
-	return params
-}
 func (params *CreateRoomParams) SetEnableTurn(EnableTurn bool) *CreateRoomParams {
 	params.EnableTurn = &EnableTurn
-	return params
-}
-func (params *CreateRoomParams) SetLargeRoom(LargeRoom bool) *CreateRoomParams {
-	params.LargeRoom = &LargeRoom
-	return params
-}
-func (params *CreateRoomParams) SetMaxParticipantDuration(MaxParticipantDuration int) *CreateRoomParams {
-	params.MaxParticipantDuration = &MaxParticipantDuration
-	return params
-}
-func (params *CreateRoomParams) SetMaxParticipants(MaxParticipants int) *CreateRoomParams {
-	params.MaxParticipants = &MaxParticipants
-	return params
-}
-func (params *CreateRoomParams) SetMediaRegion(MediaRegion string) *CreateRoomParams {
-	params.MediaRegion = &MediaRegion
-	return params
-}
-func (params *CreateRoomParams) SetRecordParticipantsOnConnect(RecordParticipantsOnConnect bool) *CreateRoomParams {
-	params.RecordParticipantsOnConnect = &RecordParticipantsOnConnect
-	return params
-}
-func (params *CreateRoomParams) SetRecordingRules(RecordingRules interface{}) *CreateRoomParams {
-	params.RecordingRules = &RecordingRules
-	return params
-}
-func (params *CreateRoomParams) SetStatusCallback(StatusCallback string) *CreateRoomParams {
-	params.StatusCallback = &StatusCallback
-	return params
-}
-func (params *CreateRoomParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateRoomParams {
-	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
 func (params *CreateRoomParams) SetType(Type string) *CreateRoomParams {
@@ -110,12 +70,52 @@ func (params *CreateRoomParams) SetUniqueName(UniqueName string) *CreateRoomPara
 	params.UniqueName = &UniqueName
 	return params
 }
-func (params *CreateRoomParams) SetUnusedRoomTimeout(UnusedRoomTimeout int) *CreateRoomParams {
-	params.UnusedRoomTimeout = &UnusedRoomTimeout
+func (params *CreateRoomParams) SetStatusCallback(StatusCallback string) *CreateRoomParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateRoomParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateRoomParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateRoomParams) SetMaxParticipants(MaxParticipants int) *CreateRoomParams {
+	params.MaxParticipants = &MaxParticipants
+	return params
+}
+func (params *CreateRoomParams) SetRecordParticipantsOnConnect(RecordParticipantsOnConnect bool) *CreateRoomParams {
+	params.RecordParticipantsOnConnect = &RecordParticipantsOnConnect
 	return params
 }
 func (params *CreateRoomParams) SetVideoCodecs(VideoCodecs []string) *CreateRoomParams {
 	params.VideoCodecs = &VideoCodecs
+	return params
+}
+func (params *CreateRoomParams) SetMediaRegion(MediaRegion string) *CreateRoomParams {
+	params.MediaRegion = &MediaRegion
+	return params
+}
+func (params *CreateRoomParams) SetRecordingRules(RecordingRules interface{}) *CreateRoomParams {
+	params.RecordingRules = &RecordingRules
+	return params
+}
+func (params *CreateRoomParams) SetAudioOnly(AudioOnly bool) *CreateRoomParams {
+	params.AudioOnly = &AudioOnly
+	return params
+}
+func (params *CreateRoomParams) SetMaxParticipantDuration(MaxParticipantDuration int) *CreateRoomParams {
+	params.MaxParticipantDuration = &MaxParticipantDuration
+	return params
+}
+func (params *CreateRoomParams) SetEmptyRoomTimeout(EmptyRoomTimeout int) *CreateRoomParams {
+	params.EmptyRoomTimeout = &EmptyRoomTimeout
+	return params
+}
+func (params *CreateRoomParams) SetUnusedRoomTimeout(UnusedRoomTimeout int) *CreateRoomParams {
+	params.UnusedRoomTimeout = &UnusedRoomTimeout
+	return params
+}
+func (params *CreateRoomParams) SetLargeRoom(LargeRoom bool) *CreateRoomParams {
+	params.LargeRoom = &LargeRoom
 	return params
 }
 
@@ -126,29 +126,34 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AudioOnly != nil {
-		data.Set("AudioOnly", fmt.Sprint(*params.AudioOnly))
-	}
-	if params != nil && params.EmptyRoomTimeout != nil {
-		data.Set("EmptyRoomTimeout", fmt.Sprint(*params.EmptyRoomTimeout))
-	}
 	if params != nil && params.EnableTurn != nil {
 		data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn))
 	}
-	if params != nil && params.LargeRoom != nil {
-		data.Set("LargeRoom", fmt.Sprint(*params.LargeRoom))
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
 	}
-	if params != nil && params.MaxParticipantDuration != nil {
-		data.Set("MaxParticipantDuration", fmt.Sprint(*params.MaxParticipantDuration))
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 	if params != nil && params.MaxParticipants != nil {
 		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants))
 	}
-	if params != nil && params.MediaRegion != nil {
-		data.Set("MediaRegion", *params.MediaRegion)
-	}
 	if params != nil && params.RecordParticipantsOnConnect != nil {
 		data.Set("RecordParticipantsOnConnect", fmt.Sprint(*params.RecordParticipantsOnConnect))
+	}
+	if params != nil && params.VideoCodecs != nil {
+		for _, item := range *params.VideoCodecs {
+			data.Add("VideoCodecs", item)
+		}
+	}
+	if params != nil && params.MediaRegion != nil {
+		data.Set("MediaRegion", *params.MediaRegion)
 	}
 	if params != nil && params.RecordingRules != nil {
 		v, err := json.Marshal(params.RecordingRules)
@@ -159,25 +164,20 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 
 		data.Set("RecordingRules", string(v))
 	}
-	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+	if params != nil && params.AudioOnly != nil {
+		data.Set("AudioOnly", fmt.Sprint(*params.AudioOnly))
 	}
-	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	if params != nil && params.MaxParticipantDuration != nil {
+		data.Set("MaxParticipantDuration", fmt.Sprint(*params.MaxParticipantDuration))
 	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
-	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+	if params != nil && params.EmptyRoomTimeout != nil {
+		data.Set("EmptyRoomTimeout", fmt.Sprint(*params.EmptyRoomTimeout))
 	}
 	if params != nil && params.UnusedRoomTimeout != nil {
 		data.Set("UnusedRoomTimeout", fmt.Sprint(*params.UnusedRoomTimeout))
 	}
-	if params != nil && params.VideoCodecs != nil {
-		for _, item := range *params.VideoCodecs {
-			data.Add("VideoCodecs", item)
-		}
+	if params != nil && params.LargeRoom != nil {
+		data.Set("LargeRoom", fmt.Sprint(*params.LargeRoom))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -392,7 +392,7 @@ func (c *ApiService) getNextListRoomResponse(nextPageUrl string) (interface{}, e
 
 // Optional parameters for the method 'UpdateRoom'
 type UpdateRoomParams struct {
-	// The new status of the resource. Set to `completed` to end the room.
+	//
 	Status *string `json:"Status,omitempty"`
 }
 

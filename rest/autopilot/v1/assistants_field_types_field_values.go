@@ -27,22 +27,22 @@ import (
 type CreateFieldValueParams struct {
 	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
 	Language *string `json:"Language,omitempty"`
-	// The string value that indicates which word the field value is a synonym of.
-	SynonymOf *string `json:"SynonymOf,omitempty"`
 	// The Field Value data.
 	Value *string `json:"Value,omitempty"`
+	// The string value that indicates which word the field value is a synonym of.
+	SynonymOf *string `json:"SynonymOf,omitempty"`
 }
 
 func (params *CreateFieldValueParams) SetLanguage(Language string) *CreateFieldValueParams {
 	params.Language = &Language
 	return params
 }
-func (params *CreateFieldValueParams) SetSynonymOf(SynonymOf string) *CreateFieldValueParams {
-	params.SynonymOf = &SynonymOf
-	return params
-}
 func (params *CreateFieldValueParams) SetValue(Value string) *CreateFieldValueParams {
 	params.Value = &Value
+	return params
+}
+func (params *CreateFieldValueParams) SetSynonymOf(SynonymOf string) *CreateFieldValueParams {
+	params.SynonymOf = &SynonymOf
 	return params
 }
 
@@ -58,11 +58,11 @@ func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, 
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
-	if params != nil && params.SynonymOf != nil {
-		data.Set("SynonymOf", *params.SynonymOf)
-	}
 	if params != nil && params.Value != nil {
 		data.Set("Value", *params.Value)
+	}
+	if params != nil && params.SynonymOf != nil {
+		data.Set("SynonymOf", *params.SynonymOf)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

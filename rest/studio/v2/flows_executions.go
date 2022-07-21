@@ -26,24 +26,24 @@ import (
 
 // Optional parameters for the method 'CreateExecution'
 type CreateExecutionParams struct {
+	// The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
+	To *string `json:"To,omitempty"`
 	// The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
 	From *string `json:"From,omitempty"`
 	// JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
 	Parameters *interface{} `json:"Parameters,omitempty"`
-	// The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
-	To *string `json:"To,omitempty"`
 }
 
+func (params *CreateExecutionParams) SetTo(To string) *CreateExecutionParams {
+	params.To = &To
+	return params
+}
 func (params *CreateExecutionParams) SetFrom(From string) *CreateExecutionParams {
 	params.From = &From
 	return params
 }
 func (params *CreateExecutionParams) SetParameters(Parameters interface{}) *CreateExecutionParams {
 	params.Parameters = &Parameters
-	return params
-}
-func (params *CreateExecutionParams) SetTo(To string) *CreateExecutionParams {
-	params.To = &To
 	return params
 }
 
@@ -55,6 +55,9 @@ func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionPara
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
 	}
@@ -66,9 +69,6 @@ func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionPara
 		}
 
 		data.Set("Parameters", string(v))
-	}
-	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -287,7 +287,7 @@ func (c *ApiService) getNextListExecutionResponse(nextPageUrl string) (interface
 
 // Optional parameters for the method 'UpdateExecution'
 type UpdateExecutionParams struct {
-	// The status of the Execution. Can only be `ended`.
+	//
 	Status *string `json:"Status,omitempty"`
 }
 

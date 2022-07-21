@@ -189,18 +189,18 @@ func (c *ApiService) getNextListWorkerChannelResponse(nextPageUrl string) (inter
 
 // Optional parameters for the method 'UpdateWorkerChannel'
 type UpdateWorkerChannelParams struct {
-	// Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
-	Available *bool `json:"Available,omitempty"`
 	// The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
 	Capacity *int `json:"Capacity,omitempty"`
+	// Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+	Available *bool `json:"Available,omitempty"`
 }
 
-func (params *UpdateWorkerChannelParams) SetAvailable(Available bool) *UpdateWorkerChannelParams {
-	params.Available = &Available
-	return params
-}
 func (params *UpdateWorkerChannelParams) SetCapacity(Capacity int) *UpdateWorkerChannelParams {
 	params.Capacity = &Capacity
+	return params
+}
+func (params *UpdateWorkerChannelParams) SetAvailable(Available bool) *UpdateWorkerChannelParams {
+	params.Available = &Available
 	return params
 }
 
@@ -214,11 +214,11 @@ func (c *ApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Available != nil {
-		data.Set("Available", fmt.Sprint(*params.Available))
-	}
 	if params != nil && params.Capacity != nil {
 		data.Set("Capacity", fmt.Sprint(*params.Capacity))
+	}
+	if params != nil && params.Available != nil {
+		data.Set("Available", fmt.Sprint(*params.Available))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -27,64 +27,64 @@ import (
 type CreateAddressParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Address resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
-	// The city of the new address.
-	City *string `json:"City,omitempty"`
 	// The name to associate with the new address.
 	CustomerName *string `json:"CustomerName,omitempty"`
-	// Whether to enable emergency calling on the new address. Can be: `true` or `false`.
-	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
-	// A descriptive string that you create to describe the new address. It can be up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The ISO country code of the new address.
-	IsoCountry *string `json:"IsoCountry,omitempty"`
-	// The postal code of the new address.
-	PostalCode *string `json:"PostalCode,omitempty"`
-	// The state or region of the new address.
-	Region *string `json:"Region,omitempty"`
 	// The number and street address of the new address.
 	Street *string `json:"Street,omitempty"`
+	// The city of the new address.
+	City *string `json:"City,omitempty"`
+	// The state or region of the new address.
+	Region *string `json:"Region,omitempty"`
+	// The postal code of the new address.
+	PostalCode *string `json:"PostalCode,omitempty"`
+	// The ISO country code of the new address.
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	// A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
+	// Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
 }
 
 func (params *CreateAddressParams) SetPathAccountSid(PathAccountSid string) *CreateAddressParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *CreateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool) *CreateAddressParams {
-	params.AutoCorrectAddress = &AutoCorrectAddress
+func (params *CreateAddressParams) SetCustomerName(CustomerName string) *CreateAddressParams {
+	params.CustomerName = &CustomerName
+	return params
+}
+func (params *CreateAddressParams) SetStreet(Street string) *CreateAddressParams {
+	params.Street = &Street
 	return params
 }
 func (params *CreateAddressParams) SetCity(City string) *CreateAddressParams {
 	params.City = &City
 	return params
 }
-func (params *CreateAddressParams) SetCustomerName(CustomerName string) *CreateAddressParams {
-	params.CustomerName = &CustomerName
-	return params
-}
-func (params *CreateAddressParams) SetEmergencyEnabled(EmergencyEnabled bool) *CreateAddressParams {
-	params.EmergencyEnabled = &EmergencyEnabled
-	return params
-}
-func (params *CreateAddressParams) SetFriendlyName(FriendlyName string) *CreateAddressParams {
-	params.FriendlyName = &FriendlyName
-	return params
-}
-func (params *CreateAddressParams) SetIsoCountry(IsoCountry string) *CreateAddressParams {
-	params.IsoCountry = &IsoCountry
+func (params *CreateAddressParams) SetRegion(Region string) *CreateAddressParams {
+	params.Region = &Region
 	return params
 }
 func (params *CreateAddressParams) SetPostalCode(PostalCode string) *CreateAddressParams {
 	params.PostalCode = &PostalCode
 	return params
 }
-func (params *CreateAddressParams) SetRegion(Region string) *CreateAddressParams {
-	params.Region = &Region
+func (params *CreateAddressParams) SetIsoCountry(IsoCountry string) *CreateAddressParams {
+	params.IsoCountry = &IsoCountry
 	return params
 }
-func (params *CreateAddressParams) SetStreet(Street string) *CreateAddressParams {
-	params.Street = &Street
+func (params *CreateAddressParams) SetFriendlyName(FriendlyName string) *CreateAddressParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateAddressParams) SetEmergencyEnabled(EmergencyEnabled bool) *CreateAddressParams {
+	params.EmergencyEnabled = &EmergencyEnabled
+	return params
+}
+func (params *CreateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool) *CreateAddressParams {
+	params.AutoCorrectAddress = &AutoCorrectAddress
 	return params
 }
 
@@ -100,32 +100,32 @@ func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Addres
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AutoCorrectAddress != nil {
-		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
+	if params != nil && params.CustomerName != nil {
+		data.Set("CustomerName", *params.CustomerName)
+	}
+	if params != nil && params.Street != nil {
+		data.Set("Street", *params.Street)
 	}
 	if params != nil && params.City != nil {
 		data.Set("City", *params.City)
 	}
-	if params != nil && params.CustomerName != nil {
-		data.Set("CustomerName", *params.CustomerName)
-	}
-	if params != nil && params.EmergencyEnabled != nil {
-		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+	if params != nil && params.Region != nil {
+		data.Set("Region", *params.Region)
 	}
 	if params != nil && params.PostalCode != nil {
 		data.Set("PostalCode", *params.PostalCode)
 	}
-	if params != nil && params.Region != nil {
-		data.Set("Region", *params.Region)
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
 	}
-	if params != nil && params.Street != nil {
-		data.Set("Street", *params.Street)
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.EmergencyEnabled != nil {
+		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled))
+	}
+	if params != nil && params.AutoCorrectAddress != nil {
+		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -395,58 +395,58 @@ func (c *ApiService) getNextListAddressResponse(nextPageUrl string) (interface{}
 type UpdateAddressParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
-	// The city of the address.
-	City *string `json:"City,omitempty"`
-	// The name to associate with the address.
-	CustomerName *string `json:"CustomerName,omitempty"`
-	// Whether to enable emergency calling on the address. Can be: `true` or `false`.
-	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
 	// A descriptive string that you create to describe the address. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The postal code of the address.
-	PostalCode *string `json:"PostalCode,omitempty"`
-	// The state or region of the address.
-	Region *string `json:"Region,omitempty"`
+	// The name to associate with the address.
+	CustomerName *string `json:"CustomerName,omitempty"`
 	// The number and street address of the address.
 	Street *string `json:"Street,omitempty"`
+	// The city of the address.
+	City *string `json:"City,omitempty"`
+	// The state or region of the address.
+	Region *string `json:"Region,omitempty"`
+	// The postal code of the address.
+	PostalCode *string `json:"PostalCode,omitempty"`
+	// Whether to enable emergency calling on the address. Can be: `true` or `false`.
+	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
+	// Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
 }
 
 func (params *UpdateAddressParams) SetPathAccountSid(PathAccountSid string) *UpdateAddressParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *UpdateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool) *UpdateAddressParams {
-	params.AutoCorrectAddress = &AutoCorrectAddress
-	return params
-}
-func (params *UpdateAddressParams) SetCity(City string) *UpdateAddressParams {
-	params.City = &City
+func (params *UpdateAddressParams) SetFriendlyName(FriendlyName string) *UpdateAddressParams {
+	params.FriendlyName = &FriendlyName
 	return params
 }
 func (params *UpdateAddressParams) SetCustomerName(CustomerName string) *UpdateAddressParams {
 	params.CustomerName = &CustomerName
 	return params
 }
-func (params *UpdateAddressParams) SetEmergencyEnabled(EmergencyEnabled bool) *UpdateAddressParams {
-	params.EmergencyEnabled = &EmergencyEnabled
+func (params *UpdateAddressParams) SetStreet(Street string) *UpdateAddressParams {
+	params.Street = &Street
 	return params
 }
-func (params *UpdateAddressParams) SetFriendlyName(FriendlyName string) *UpdateAddressParams {
-	params.FriendlyName = &FriendlyName
-	return params
-}
-func (params *UpdateAddressParams) SetPostalCode(PostalCode string) *UpdateAddressParams {
-	params.PostalCode = &PostalCode
+func (params *UpdateAddressParams) SetCity(City string) *UpdateAddressParams {
+	params.City = &City
 	return params
 }
 func (params *UpdateAddressParams) SetRegion(Region string) *UpdateAddressParams {
 	params.Region = &Region
 	return params
 }
-func (params *UpdateAddressParams) SetStreet(Street string) *UpdateAddressParams {
-	params.Street = &Street
+func (params *UpdateAddressParams) SetPostalCode(PostalCode string) *UpdateAddressParams {
+	params.PostalCode = &PostalCode
+	return params
+}
+func (params *UpdateAddressParams) SetEmergencyEnabled(EmergencyEnabled bool) *UpdateAddressParams {
+	params.EmergencyEnabled = &EmergencyEnabled
+	return params
+}
+func (params *UpdateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool) *UpdateAddressParams {
+	params.AutoCorrectAddress = &AutoCorrectAddress
 	return params
 }
 
@@ -463,29 +463,29 @@ func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*Ap
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AutoCorrectAddress != nil {
-		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
-	}
-	if params != nil && params.City != nil {
-		data.Set("City", *params.City)
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.CustomerName != nil {
 		data.Set("CustomerName", *params.CustomerName)
 	}
-	if params != nil && params.EmergencyEnabled != nil {
-		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled))
+	if params != nil && params.Street != nil {
+		data.Set("Street", *params.Street)
 	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.PostalCode != nil {
-		data.Set("PostalCode", *params.PostalCode)
+	if params != nil && params.City != nil {
+		data.Set("City", *params.City)
 	}
 	if params != nil && params.Region != nil {
 		data.Set("Region", *params.Region)
 	}
-	if params != nil && params.Street != nil {
-		data.Set("Street", *params.Street)
+	if params != nil && params.PostalCode != nil {
+		data.Set("PostalCode", *params.PostalCode)
+	}
+	if params != nil && params.EmergencyEnabled != nil {
+		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled))
+	}
+	if params != nil && params.AutoCorrectAddress != nil {
+		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

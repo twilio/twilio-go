@@ -25,18 +25,18 @@ import (
 
 // Optional parameters for the method 'CreateFieldType'
 type CreateFieldTypeParams struct {
-	// A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *CreateFieldTypeParams) SetFriendlyName(FriendlyName string) *CreateFieldTypeParams {
-	params.FriendlyName = &FriendlyName
-	return params
-}
 func (params *CreateFieldTypeParams) SetUniqueName(UniqueName string) *CreateFieldTypeParams {
 	params.UniqueName = &UniqueName
+	return params
+}
+func (params *CreateFieldTypeParams) SetFriendlyName(FriendlyName string) *CreateFieldTypeParams {
+	params.FriendlyName = &FriendlyName
 	return params
 }
 
@@ -48,11 +48,11 @@ func (c *ApiService) CreateFieldType(AssistantSid string, params *CreateFieldTyp
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

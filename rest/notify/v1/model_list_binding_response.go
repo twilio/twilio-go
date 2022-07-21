@@ -16,6 +16,6 @@ package openapi
 
 // ListBindingResponse struct for ListBindingResponse
 type ListBindingResponse struct {
-	Bindings []NotifyV1Binding          `json:"bindings,omitempty"`
-	Meta     ListCredentialResponseMeta `json:"meta,omitempty"`
+	Bindings []NotifyV1Binding       `json:"bindings,omitempty"`
+	Meta     ListBindingResponseMeta `json:"meta,omitempty"`
 }

@@ -20,16 +20,16 @@ import (
 
 // TrusthubV1CustomerProfileEntityAssignment struct for TrusthubV1CustomerProfileEntityAssignment
 type TrusthubV1CustomerProfileEntityAssignment struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique string that identifies the CustomerProfile resource.
-	CustomerProfileSid *string `json:"customer_profile_sid,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The sid of an object bag
-	ObjectSid *string `json:"object_sid,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
+	// The unique string that identifies the CustomerProfile resource.
+	CustomerProfileSid *string `json:"customer_profile_sid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The sid of an object bag
+	ObjectSid *string `json:"object_sid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The absolute URL of the Identity resource
 	Url *string `json:"url,omitempty"`
 }

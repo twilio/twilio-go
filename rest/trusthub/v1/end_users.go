@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateEndUser'
 type CreateEndUserParams struct {
-	// The set of parameters that are the attributes of the End User resource which are derived End User Types.
-	Attributes *interface{} `json:"Attributes,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The type of end user of the Bundle resource - can be `individual` or `business`.
 	Type *string `json:"Type,omitempty"`
+	// The set of parameters that are the attributes of the End User resource which are derived End User Types.
+	Attributes *interface{} `json:"Attributes,omitempty"`
 }
 
-func (params *CreateEndUserParams) SetAttributes(Attributes interface{}) *CreateEndUserParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *CreateEndUserParams) SetFriendlyName(FriendlyName string) *CreateEndUserParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
 func (params *CreateEndUserParams) SetType(Type string) *CreateEndUserParams {
 	params.Type = &Type
+	return params
+}
+func (params *CreateEndUserParams) SetAttributes(Attributes interface{}) *CreateEndUserParams {
+	params.Attributes = &Attributes
 	return params
 }
 
@@ -53,6 +53,12 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*TrusthubV1EndU
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
 
@@ -61,12 +67,6 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*TrusthubV1EndU
 		}
 
 		data.Set("Attributes", string(v))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -263,18 +263,18 @@ func (c *ApiService) getNextListEndUserResponse(nextPageUrl string) (interface{}
 
 // Optional parameters for the method 'UpdateEndUser'
 type UpdateEndUserParams struct {
-	// The set of parameters that are the attributes of the End User resource which are derived End User Types.
-	Attributes *interface{} `json:"Attributes,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The set of parameters that are the attributes of the End User resource which are derived End User Types.
+	Attributes *interface{} `json:"Attributes,omitempty"`
 }
 
-func (params *UpdateEndUserParams) SetAttributes(Attributes interface{}) *UpdateEndUserParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *UpdateEndUserParams) SetFriendlyName(FriendlyName string) *UpdateEndUserParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateEndUserParams) SetAttributes(Attributes interface{}) *UpdateEndUserParams {
+	params.Attributes = &Attributes
 	return params
 }
 
@@ -286,6 +286,9 @@ func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*Tr
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
 
@@ -294,9 +297,6 @@ func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*Tr
 		}
 
 		data.Set("Attributes", string(v))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

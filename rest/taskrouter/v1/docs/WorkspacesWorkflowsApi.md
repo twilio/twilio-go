@@ -35,10 +35,10 @@ Other parameters are passed through a pointer to a CreateWorkflowParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AssignmentCallbackUrl** | **string** | The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
-**Configuration** | **string** | A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
-**FallbackAssignmentCallbackUrl** | **string** | The URL that we should call when a call to the &#x60;assignment_callback_url&#x60; fails.
 **FriendlyName** | **string** | A descriptive string that you create to describe the Workflow resource. For example, &#x60;Inbound Call Workflow&#x60; or &#x60;2014 Outbound Campaign&#x60;.
+**Configuration** | **string** | A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
+**AssignmentCallbackUrl** | **string** | The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
+**FallbackAssignmentCallbackUrl** | **string** | The URL that we should call when a call to the &#x60;assignment_callback_url&#x60; fails.
 **TaskReservationTimeout** | **int** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to &#x60;86,400&#x60; (24 hours) and the default is &#x60;120&#x60;.
 
 ### Return type
@@ -214,12 +214,12 @@ Other parameters are passed through a pointer to a UpdateWorkflowParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AssignmentCallbackUrl** | **string** | The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
-**Configuration** | **string** | A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
-**FallbackAssignmentCallbackUrl** | **string** | The URL that we should call when a call to the &#x60;assignment_callback_url&#x60; fails.
 **FriendlyName** | **string** | A descriptive string that you create to describe the Workflow resource. For example, &#x60;Inbound Call Workflow&#x60; or &#x60;2014 Outbound Campaign&#x60;.
-**ReEvaluateTasks** | **string** | Whether or not to re-evaluate Tasks. The default is &#x60;false&#x60;, which means Tasks in the Workflow will not be processed through the assignment loop again.
+**AssignmentCallbackUrl** | **string** | The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
+**FallbackAssignmentCallbackUrl** | **string** | The URL that we should call when a call to the &#x60;assignment_callback_url&#x60; fails.
+**Configuration** | **string** | A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
 **TaskReservationTimeout** | **int** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to &#x60;86,400&#x60; (24 hours) and the default is &#x60;120&#x60;.
+**ReEvaluateTasks** | **string** | Whether or not to re-evaluate Tasks. The default is &#x60;false&#x60;, which means Tasks in the Workflow will not be processed through the assignment loop again.
 
 ### Return type
 

@@ -25,18 +25,18 @@ import (
 
 // Optional parameters for the method 'CreateBucket'
 type CreateBucketParams struct {
-	// Number of seconds that the rate limit will be enforced over.
-	Interval *int `json:"Interval,omitempty"`
 	// Maximum number of requests permitted in during the interval.
 	Max *int `json:"Max,omitempty"`
+	// Number of seconds that the rate limit will be enforced over.
+	Interval *int `json:"Interval,omitempty"`
 }
 
-func (params *CreateBucketParams) SetInterval(Interval int) *CreateBucketParams {
-	params.Interval = &Interval
-	return params
-}
 func (params *CreateBucketParams) SetMax(Max int) *CreateBucketParams {
 	params.Max = &Max
+	return params
+}
+func (params *CreateBucketParams) SetInterval(Interval int) *CreateBucketParams {
+	params.Interval = &Interval
 	return params
 }
 
@@ -49,11 +49,11 @@ func (c *ApiService) CreateBucket(ServiceSid string, RateLimitSid string, params
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Interval != nil {
-		data.Set("Interval", fmt.Sprint(*params.Interval))
-	}
 	if params != nil && params.Max != nil {
 		data.Set("Max", fmt.Sprint(*params.Max))
+	}
+	if params != nil && params.Interval != nil {
+		data.Set("Interval", fmt.Sprint(*params.Interval))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -257,18 +257,18 @@ func (c *ApiService) getNextListBucketResponse(nextPageUrl string) (interface{},
 
 // Optional parameters for the method 'UpdateBucket'
 type UpdateBucketParams struct {
-	// Number of seconds that the rate limit will be enforced over.
-	Interval *int `json:"Interval,omitempty"`
 	// Maximum number of requests permitted in during the interval.
 	Max *int `json:"Max,omitempty"`
+	// Number of seconds that the rate limit will be enforced over.
+	Interval *int `json:"Interval,omitempty"`
 }
 
-func (params *UpdateBucketParams) SetInterval(Interval int) *UpdateBucketParams {
-	params.Interval = &Interval
-	return params
-}
 func (params *UpdateBucketParams) SetMax(Max int) *UpdateBucketParams {
 	params.Max = &Max
+	return params
+}
+func (params *UpdateBucketParams) SetInterval(Interval int) *UpdateBucketParams {
+	params.Interval = &Interval
 	return params
 }
 
@@ -282,11 +282,11 @@ func (c *ApiService) UpdateBucket(ServiceSid string, RateLimitSid string, Sid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Interval != nil {
-		data.Set("Interval", fmt.Sprint(*params.Interval))
-	}
 	if params != nil && params.Max != nil {
 		data.Set("Max", fmt.Sprint(*params.Max))
+	}
+	if params != nil && params.Interval != nil {
+		data.Set("Interval", fmt.Sprint(*params.Interval))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -34,8 +34,6 @@ type MonitorV1Event struct {
 	EventDate *time.Time `json:"event_date,omitempty"`
 	// The event's type
 	EventType *string `json:"event_type,omitempty"`
-	// The absolute URLs of related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
 	// The SID of the resource that was affected
 	ResourceSid *string `json:"resource_sid,omitempty"`
 	// The type of resource that was affected
@@ -48,4 +46,6 @@ type MonitorV1Event struct {
 	SourceIpAddress *string `json:"source_ip_address,omitempty"`
 	// The absolute URL of the resource that was affected
 	Url *string `json:"url,omitempty"`
+	// The absolute URLs of related resources
+	Links *map[string]interface{} `json:"links,omitempty"`
 }

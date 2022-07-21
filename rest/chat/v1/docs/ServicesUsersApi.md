@@ -35,10 +35,10 @@ Other parameters are passed through a pointer to a CreateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | A valid JSON string that contains application-specific data.
-**FriendlyName** | **string** | A descriptive string that you create to describe the new resource. This value is often used for display purposes.
 **Identity** | **string** | The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). This value is often a username or email address. See the Identity documentation for more details.
 **RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new User.
+**Attributes** | **string** | A valid JSON string that contains application-specific data.
+**FriendlyName** | **string** | A descriptive string that you create to describe the new resource. This value is often used for display purposes.
 
 ### Return type
 
@@ -212,9 +212,9 @@ Other parameters are passed through a pointer to a UpdateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is often used for display purposes.
-**RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
 
 ### Return type
 

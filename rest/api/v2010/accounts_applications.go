@@ -29,34 +29,34 @@ type CreateApplicationParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
 	ApiVersion *string `json:"ApiVersion,omitempty"`
-	// A descriptive string that you create to describe the new application. It can be up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The URL we should call using a POST method to send message status information to your application.
-	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
-	// The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-	// The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-	// The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-	SmsMethod *string `json:"SmsMethod,omitempty"`
-	// The URL we should call using a POST method to send status information about SMS messages sent by the application.
-	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
-	// The URL we should call when the phone number receives an incoming SMS message.
-	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The URL we should call when the phone number assigned to this application receives a call.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	// The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
 	// The URL we should call using the `status_callback_method` to send status information to your application.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 	// Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
 	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-	// The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-	VoiceMethod *string `json:"VoiceMethod,omitempty"`
-	// The URL we should call when the phone number assigned to this application receives a call.
-	VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	// The URL we should call when the phone number receives an incoming SMS message.
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL we should call using a POST method to send status information about SMS messages sent by the application.
+	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
+	// The URL we should call using a POST method to send message status information to your application.
+	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
+	// A descriptive string that you create to describe the new application. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *CreateApplicationParams) SetPathAccountSid(PathAccountSid string) *CreateApplicationParams {
@@ -67,32 +67,20 @@ func (params *CreateApplicationParams) SetApiVersion(ApiVersion string) *CreateA
 	params.ApiVersion = &ApiVersion
 	return params
 }
-func (params *CreateApplicationParams) SetFriendlyName(FriendlyName string) *CreateApplicationParams {
-	params.FriendlyName = &FriendlyName
+func (params *CreateApplicationParams) SetVoiceUrl(VoiceUrl string) *CreateApplicationParams {
+	params.VoiceUrl = &VoiceUrl
 	return params
 }
-func (params *CreateApplicationParams) SetMessageStatusCallback(MessageStatusCallback string) *CreateApplicationParams {
-	params.MessageStatusCallback = &MessageStatusCallback
+func (params *CreateApplicationParams) SetVoiceMethod(VoiceMethod string) *CreateApplicationParams {
+	params.VoiceMethod = &VoiceMethod
 	return params
 }
-func (params *CreateApplicationParams) SetSmsFallbackMethod(SmsFallbackMethod string) *CreateApplicationParams {
-	params.SmsFallbackMethod = &SmsFallbackMethod
+func (params *CreateApplicationParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateApplicationParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
 	return params
 }
-func (params *CreateApplicationParams) SetSmsFallbackUrl(SmsFallbackUrl string) *CreateApplicationParams {
-	params.SmsFallbackUrl = &SmsFallbackUrl
-	return params
-}
-func (params *CreateApplicationParams) SetSmsMethod(SmsMethod string) *CreateApplicationParams {
-	params.SmsMethod = &SmsMethod
-	return params
-}
-func (params *CreateApplicationParams) SetSmsStatusCallback(SmsStatusCallback string) *CreateApplicationParams {
-	params.SmsStatusCallback = &SmsStatusCallback
-	return params
-}
-func (params *CreateApplicationParams) SetSmsUrl(SmsUrl string) *CreateApplicationParams {
-	params.SmsUrl = &SmsUrl
+func (params *CreateApplicationParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateApplicationParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
 	return params
 }
 func (params *CreateApplicationParams) SetStatusCallback(StatusCallback string) *CreateApplicationParams {
@@ -107,20 +95,32 @@ func (params *CreateApplicationParams) SetVoiceCallerIdLookup(VoiceCallerIdLooku
 	params.VoiceCallerIdLookup = &VoiceCallerIdLookup
 	return params
 }
-func (params *CreateApplicationParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateApplicationParams {
-	params.VoiceFallbackMethod = &VoiceFallbackMethod
+func (params *CreateApplicationParams) SetSmsUrl(SmsUrl string) *CreateApplicationParams {
+	params.SmsUrl = &SmsUrl
 	return params
 }
-func (params *CreateApplicationParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateApplicationParams {
-	params.VoiceFallbackUrl = &VoiceFallbackUrl
+func (params *CreateApplicationParams) SetSmsMethod(SmsMethod string) *CreateApplicationParams {
+	params.SmsMethod = &SmsMethod
 	return params
 }
-func (params *CreateApplicationParams) SetVoiceMethod(VoiceMethod string) *CreateApplicationParams {
-	params.VoiceMethod = &VoiceMethod
+func (params *CreateApplicationParams) SetSmsFallbackUrl(SmsFallbackUrl string) *CreateApplicationParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
 	return params
 }
-func (params *CreateApplicationParams) SetVoiceUrl(VoiceUrl string) *CreateApplicationParams {
-	params.VoiceUrl = &VoiceUrl
+func (params *CreateApplicationParams) SetSmsFallbackMethod(SmsFallbackMethod string) *CreateApplicationParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *CreateApplicationParams) SetSmsStatusCallback(SmsStatusCallback string) *CreateApplicationParams {
+	params.SmsStatusCallback = &SmsStatusCallback
+	return params
+}
+func (params *CreateApplicationParams) SetMessageStatusCallback(MessageStatusCallback string) *CreateApplicationParams {
+	params.MessageStatusCallback = &MessageStatusCallback
+	return params
+}
+func (params *CreateApplicationParams) SetFriendlyName(FriendlyName string) *CreateApplicationParams {
+	params.FriendlyName = &FriendlyName
 	return params
 }
 
@@ -139,26 +139,17 @@ func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV20
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
 	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
-	if params != nil && params.MessageStatusCallback != nil {
-		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
 	}
-	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
 	}
-	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-	}
-	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
-	}
-	if params != nil && params.SmsStatusCallback != nil {
-		data.Set("SmsStatusCallback", *params.SmsStatusCallback)
-	}
-	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -169,17 +160,26 @@ func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV20
 	if params != nil && params.VoiceCallerIdLookup != nil {
 		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
 	}
-	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
 	}
-	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
 	}
-	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
 	}
-	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsStatusCallback != nil {
+		data.Set("SmsStatusCallback", *params.SmsStatusCallback)
+	}
+	if params != nil && params.MessageStatusCallback != nil {
+		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -431,72 +431,64 @@ func (c *ApiService) getNextListApplicationResponse(nextPageUrl string) (interfa
 type UpdateApplicationParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
-	ApiVersion *string `json:"ApiVersion,omitempty"`
 	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The URL we should call using a POST method to send message status information to your application.
-	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
-	// The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-	// The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-	// The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-	SmsMethod *string `json:"SmsMethod,omitempty"`
-	// Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
-	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
-	// The URL we should call when the phone number receives an incoming SMS message.
-	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The URL we should call when the phone number assigned to this application receives a call.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	// The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
 	// The URL we should call using the `status_callback_method` to send status information to your application.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 	// Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
 	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-	// The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-	VoiceMethod *string `json:"VoiceMethod,omitempty"`
-	// The URL we should call when the phone number assigned to this application receives a call.
-	VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	// The URL we should call when the phone number receives an incoming SMS message.
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
+	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
+	// The URL we should call using a POST method to send message status information to your application.
+	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
 }
 
 func (params *UpdateApplicationParams) SetPathAccountSid(PathAccountSid string) *UpdateApplicationParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *UpdateApplicationParams) SetApiVersion(ApiVersion string) *UpdateApplicationParams {
-	params.ApiVersion = &ApiVersion
-	return params
-}
 func (params *UpdateApplicationParams) SetFriendlyName(FriendlyName string) *UpdateApplicationParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateApplicationParams) SetMessageStatusCallback(MessageStatusCallback string) *UpdateApplicationParams {
-	params.MessageStatusCallback = &MessageStatusCallback
+func (params *UpdateApplicationParams) SetApiVersion(ApiVersion string) *UpdateApplicationParams {
+	params.ApiVersion = &ApiVersion
 	return params
 }
-func (params *UpdateApplicationParams) SetSmsFallbackMethod(SmsFallbackMethod string) *UpdateApplicationParams {
-	params.SmsFallbackMethod = &SmsFallbackMethod
+func (params *UpdateApplicationParams) SetVoiceUrl(VoiceUrl string) *UpdateApplicationParams {
+	params.VoiceUrl = &VoiceUrl
 	return params
 }
-func (params *UpdateApplicationParams) SetSmsFallbackUrl(SmsFallbackUrl string) *UpdateApplicationParams {
-	params.SmsFallbackUrl = &SmsFallbackUrl
+func (params *UpdateApplicationParams) SetVoiceMethod(VoiceMethod string) *UpdateApplicationParams {
+	params.VoiceMethod = &VoiceMethod
 	return params
 }
-func (params *UpdateApplicationParams) SetSmsMethod(SmsMethod string) *UpdateApplicationParams {
-	params.SmsMethod = &SmsMethod
+func (params *UpdateApplicationParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *UpdateApplicationParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
 	return params
 }
-func (params *UpdateApplicationParams) SetSmsStatusCallback(SmsStatusCallback string) *UpdateApplicationParams {
-	params.SmsStatusCallback = &SmsStatusCallback
-	return params
-}
-func (params *UpdateApplicationParams) SetSmsUrl(SmsUrl string) *UpdateApplicationParams {
-	params.SmsUrl = &SmsUrl
+func (params *UpdateApplicationParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *UpdateApplicationParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
 	return params
 }
 func (params *UpdateApplicationParams) SetStatusCallback(StatusCallback string) *UpdateApplicationParams {
@@ -511,20 +503,28 @@ func (params *UpdateApplicationParams) SetVoiceCallerIdLookup(VoiceCallerIdLooku
 	params.VoiceCallerIdLookup = &VoiceCallerIdLookup
 	return params
 }
-func (params *UpdateApplicationParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *UpdateApplicationParams {
-	params.VoiceFallbackMethod = &VoiceFallbackMethod
+func (params *UpdateApplicationParams) SetSmsUrl(SmsUrl string) *UpdateApplicationParams {
+	params.SmsUrl = &SmsUrl
 	return params
 }
-func (params *UpdateApplicationParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *UpdateApplicationParams {
-	params.VoiceFallbackUrl = &VoiceFallbackUrl
+func (params *UpdateApplicationParams) SetSmsMethod(SmsMethod string) *UpdateApplicationParams {
+	params.SmsMethod = &SmsMethod
 	return params
 }
-func (params *UpdateApplicationParams) SetVoiceMethod(VoiceMethod string) *UpdateApplicationParams {
-	params.VoiceMethod = &VoiceMethod
+func (params *UpdateApplicationParams) SetSmsFallbackUrl(SmsFallbackUrl string) *UpdateApplicationParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
 	return params
 }
-func (params *UpdateApplicationParams) SetVoiceUrl(VoiceUrl string) *UpdateApplicationParams {
-	params.VoiceUrl = &VoiceUrl
+func (params *UpdateApplicationParams) SetSmsFallbackMethod(SmsFallbackMethod string) *UpdateApplicationParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *UpdateApplicationParams) SetSmsStatusCallback(SmsStatusCallback string) *UpdateApplicationParams {
+	params.SmsStatusCallback = &SmsStatusCallback
+	return params
+}
+func (params *UpdateApplicationParams) SetMessageStatusCallback(MessageStatusCallback string) *UpdateApplicationParams {
+	params.MessageStatusCallback = &MessageStatusCallback
 	return params
 }
 
@@ -541,29 +541,23 @@ func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationPara
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ApiVersion != nil {
-		data.Set("ApiVersion", *params.ApiVersion)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.MessageStatusCallback != nil {
-		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
 	}
-	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
-	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
 	}
-	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
 	}
-	if params != nil && params.SmsStatusCallback != nil {
-		data.Set("SmsStatusCallback", *params.SmsStatusCallback)
-	}
-	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -574,17 +568,23 @@ func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationPara
 	if params != nil && params.VoiceCallerIdLookup != nil {
 		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
 	}
-	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
 	}
-	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
 	}
-	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
 	}
-	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsStatusCallback != nil {
+		data.Set("SmsStatusCallback", *params.SmsStatusCallback)
+	}
+	if params != nil && params.MessageStatusCallback != nil {
+		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

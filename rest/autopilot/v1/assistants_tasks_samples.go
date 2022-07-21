@@ -27,22 +27,22 @@ import (
 type CreateSampleParams struct {
 	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
 	Language *string `json:"Language,omitempty"`
-	// The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
-	SourceChannel *string `json:"SourceChannel,omitempty"`
 	// The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
 	TaggedText *string `json:"TaggedText,omitempty"`
+	// The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
+	SourceChannel *string `json:"SourceChannel,omitempty"`
 }
 
 func (params *CreateSampleParams) SetLanguage(Language string) *CreateSampleParams {
 	params.Language = &Language
 	return params
 }
-func (params *CreateSampleParams) SetSourceChannel(SourceChannel string) *CreateSampleParams {
-	params.SourceChannel = &SourceChannel
-	return params
-}
 func (params *CreateSampleParams) SetTaggedText(TaggedText string) *CreateSampleParams {
 	params.TaggedText = &TaggedText
+	return params
+}
+func (params *CreateSampleParams) SetSourceChannel(SourceChannel string) *CreateSampleParams {
+	params.SourceChannel = &SourceChannel
 	return params
 }
 
@@ -58,11 +58,11 @@ func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *C
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
-	if params != nil && params.SourceChannel != nil {
-		data.Set("SourceChannel", *params.SourceChannel)
-	}
 	if params != nil && params.TaggedText != nil {
 		data.Set("TaggedText", *params.TaggedText)
+	}
+	if params != nil && params.SourceChannel != nil {
+		data.Set("SourceChannel", *params.SourceChannel)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -277,22 +277,22 @@ func (c *ApiService) getNextListSampleResponse(nextPageUrl string) (interface{},
 type UpdateSampleParams struct {
 	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
 	Language *string `json:"Language,omitempty"`
-	// The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
-	SourceChannel *string `json:"SourceChannel,omitempty"`
 	// The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
 	TaggedText *string `json:"TaggedText,omitempty"`
+	// The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
+	SourceChannel *string `json:"SourceChannel,omitempty"`
 }
 
 func (params *UpdateSampleParams) SetLanguage(Language string) *UpdateSampleParams {
 	params.Language = &Language
 	return params
 }
-func (params *UpdateSampleParams) SetSourceChannel(SourceChannel string) *UpdateSampleParams {
-	params.SourceChannel = &SourceChannel
-	return params
-}
 func (params *UpdateSampleParams) SetTaggedText(TaggedText string) *UpdateSampleParams {
 	params.TaggedText = &TaggedText
+	return params
+}
+func (params *UpdateSampleParams) SetSourceChannel(SourceChannel string) *UpdateSampleParams {
+	params.SourceChannel = &SourceChannel
 	return params
 }
 
@@ -309,11 +309,11 @@ func (c *ApiService) UpdateSample(AssistantSid string, TaskSid string, Sid strin
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
-	if params != nil && params.SourceChannel != nil {
-		data.Set("SourceChannel", *params.SourceChannel)
-	}
 	if params != nil && params.TaggedText != nil {
 		data.Set("TaggedText", *params.TaggedText)
+	}
+	if params != nil && params.SourceChannel != nil {
+		data.Set("SourceChannel", *params.SourceChannel)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

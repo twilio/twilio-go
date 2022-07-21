@@ -211,23 +211,23 @@ func (c *ApiService) getNextListUserChannelResponse(nextPageUrl string) (interfa
 // Optional parameters for the method 'UpdateUserChannel'
 type UpdateUserChannelParams struct {
 	//
+	NotificationLevel *string `json:"NotificationLevel,omitempty"`
+	//
 	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 	//
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-	//
-	NotificationLevel *string `json:"NotificationLevel,omitempty"`
 }
 
+func (params *UpdateUserChannelParams) SetNotificationLevel(NotificationLevel string) *UpdateUserChannelParams {
+	params.NotificationLevel = &NotificationLevel
+	return params
+}
 func (params *UpdateUserChannelParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateUserChannelParams {
 	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
 	return params
 }
 func (params *UpdateUserChannelParams) SetLastConsumptionTimestamp(LastConsumptionTimestamp time.Time) *UpdateUserChannelParams {
 	params.LastConsumptionTimestamp = &LastConsumptionTimestamp
-	return params
-}
-func (params *UpdateUserChannelParams) SetNotificationLevel(NotificationLevel string) *UpdateUserChannelParams {
-	params.NotificationLevel = &NotificationLevel
 	return params
 }
 
@@ -241,14 +241,14 @@ func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, Channe
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.NotificationLevel != nil {
+		data.Set("NotificationLevel", *params.NotificationLevel)
+	}
 	if params != nil && params.LastConsumedMessageIndex != nil {
 		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
 	}
 	if params != nil && params.LastConsumptionTimestamp != nil {
 		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
-	}
-	if params != nil && params.NotificationLevel != nil {
-		data.Set("NotificationLevel", *params.NotificationLevel)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

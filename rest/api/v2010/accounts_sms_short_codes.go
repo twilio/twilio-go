@@ -232,46 +232,46 @@ func (c *ApiService) getNextListShortCodeResponse(nextPageUrl string) (interface
 type UpdateShortCodeParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
-	ApiVersion *string `json:"ApiVersion,omitempty"`
 	// A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
-	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-	// The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
-	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-	// The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
-	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
 	// The URL we should call when receiving an incoming SMS message to this short code.
 	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
 }
 
 func (params *UpdateShortCodeParams) SetPathAccountSid(PathAccountSid string) *UpdateShortCodeParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *UpdateShortCodeParams) SetApiVersion(ApiVersion string) *UpdateShortCodeParams {
-	params.ApiVersion = &ApiVersion
-	return params
-}
 func (params *UpdateShortCodeParams) SetFriendlyName(FriendlyName string) *UpdateShortCodeParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateShortCodeParams) SetSmsFallbackMethod(SmsFallbackMethod string) *UpdateShortCodeParams {
-	params.SmsFallbackMethod = &SmsFallbackMethod
+func (params *UpdateShortCodeParams) SetApiVersion(ApiVersion string) *UpdateShortCodeParams {
+	params.ApiVersion = &ApiVersion
 	return params
 }
-func (params *UpdateShortCodeParams) SetSmsFallbackUrl(SmsFallbackUrl string) *UpdateShortCodeParams {
-	params.SmsFallbackUrl = &SmsFallbackUrl
+func (params *UpdateShortCodeParams) SetSmsUrl(SmsUrl string) *UpdateShortCodeParams {
+	params.SmsUrl = &SmsUrl
 	return params
 }
 func (params *UpdateShortCodeParams) SetSmsMethod(SmsMethod string) *UpdateShortCodeParams {
 	params.SmsMethod = &SmsMethod
 	return params
 }
-func (params *UpdateShortCodeParams) SetSmsUrl(SmsUrl string) *UpdateShortCodeParams {
-	params.SmsUrl = &SmsUrl
+func (params *UpdateShortCodeParams) SetSmsFallbackUrl(SmsFallbackUrl string) *UpdateShortCodeParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
+	return params
+}
+func (params *UpdateShortCodeParams) SetSmsFallbackMethod(SmsFallbackMethod string) *UpdateShortCodeParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
 	return params
 }
 
@@ -288,23 +288,23 @@ func (c *ApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ApiVersion != nil {
-		data.Set("ApiVersion", *params.ApiVersion)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
 	}
-	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
 	}
 	if params != nil && params.SmsMethod != nil {
 		data.Set("SmsMethod", *params.SmsMethod)
 	}
-	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

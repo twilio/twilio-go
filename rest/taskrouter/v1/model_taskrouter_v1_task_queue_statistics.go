@@ -24,8 +24,8 @@ type TaskrouterV1TaskQueueStatistics struct {
 	Realtime *interface{} `json:"realtime,omitempty"`
 	// The SID of the TaskQueue from which these statistics were calculated
 	TaskQueueSid *string `json:"task_queue_sid,omitempty"`
-	// The absolute URL of the TaskQueue statistics resource
-	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the TaskQueue
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	// The absolute URL of the TaskQueue statistics resource
+	Url *string `json:"url,omitempty"`
 }

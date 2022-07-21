@@ -16,6 +16,6 @@ package openapi
 
 // ListIpCommandResponse struct for ListIpCommandResponse
 type ListIpCommandResponse struct {
-	IpCommands []SupersimV1IpCommand       `json:"ip_commands,omitempty"`
-	Meta       ListEsimProfileResponseMeta `json:"meta,omitempty"`
+	IpCommands []SupersimV1IpCommand         `json:"ip_commands,omitempty"`
+	Meta       ListBillingPeriodResponseMeta `json:"meta,omitempty"`
 }

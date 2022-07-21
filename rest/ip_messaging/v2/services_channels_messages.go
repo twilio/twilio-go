@@ -29,17 +29,17 @@ type CreateMessageParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	//
-	Attributes *string `json:"Attributes,omitempty"`
+	From *string `json:"From,omitempty"`
 	//
-	Body *string `json:"Body,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
 	//
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	//
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	//
-	From *string `json:"From,omitempty"`
-	//
 	LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
+	//
+	Body *string `json:"Body,omitempty"`
 	//
 	MediaSid *string `json:"MediaSid,omitempty"`
 }
@@ -48,12 +48,12 @@ func (params *CreateMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnable
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
 	return params
 }
-func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessageParams {
-	params.Attributes = &Attributes
+func (params *CreateMessageParams) SetFrom(From string) *CreateMessageParams {
+	params.From = &From
 	return params
 }
-func (params *CreateMessageParams) SetBody(Body string) *CreateMessageParams {
-	params.Body = &Body
+func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessageParams {
+	params.Attributes = &Attributes
 	return params
 }
 func (params *CreateMessageParams) SetDateCreated(DateCreated time.Time) *CreateMessageParams {
@@ -64,12 +64,12 @@ func (params *CreateMessageParams) SetDateUpdated(DateUpdated time.Time) *Create
 	params.DateUpdated = &DateUpdated
 	return params
 }
-func (params *CreateMessageParams) SetFrom(From string) *CreateMessageParams {
-	params.From = &From
-	return params
-}
 func (params *CreateMessageParams) SetLastUpdatedBy(LastUpdatedBy string) *CreateMessageParams {
 	params.LastUpdatedBy = &LastUpdatedBy
+	return params
+}
+func (params *CreateMessageParams) SetBody(Body string) *CreateMessageParams {
+	params.Body = &Body
 	return params
 }
 func (params *CreateMessageParams) SetMediaSid(MediaSid string) *CreateMessageParams {
@@ -86,11 +86,11 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
-	}
-	if params != nil && params.Body != nil {
-		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
@@ -98,11 +98,11 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 	if params != nil && params.DateUpdated != nil {
 		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
-	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
-	}
 	if params != nil && params.LastUpdatedBy != nil {
 		data.Set("LastUpdatedBy", *params.LastUpdatedBy)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.MediaSid != nil {
 		data.Set("MediaSid", *params.MediaSid)
@@ -340,29 +340,29 @@ type UpdateMessageParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	//
-	Attributes *string `json:"Attributes,omitempty"`
-	//
 	Body *string `json:"Body,omitempty"`
+	//
+	Attributes *string `json:"Attributes,omitempty"`
 	//
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	//
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	//
-	From *string `json:"From,omitempty"`
-	//
 	LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
+	//
+	From *string `json:"From,omitempty"`
 }
 
 func (params *UpdateMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateMessageParams {
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
 	return params
 }
-func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessageParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *UpdateMessageParams) SetBody(Body string) *UpdateMessageParams {
 	params.Body = &Body
+	return params
+}
+func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessageParams {
+	params.Attributes = &Attributes
 	return params
 }
 func (params *UpdateMessageParams) SetDateCreated(DateCreated time.Time) *UpdateMessageParams {
@@ -373,12 +373,12 @@ func (params *UpdateMessageParams) SetDateUpdated(DateUpdated time.Time) *Update
 	params.DateUpdated = &DateUpdated
 	return params
 }
-func (params *UpdateMessageParams) SetFrom(From string) *UpdateMessageParams {
-	params.From = &From
-	return params
-}
 func (params *UpdateMessageParams) SetLastUpdatedBy(LastUpdatedBy string) *UpdateMessageParams {
 	params.LastUpdatedBy = &LastUpdatedBy
+	return params
+}
+func (params *UpdateMessageParams) SetFrom(From string) *UpdateMessageParams {
+	params.From = &From
 	return params
 }
 
@@ -392,11 +392,11 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
@@ -404,11 +404,11 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 	if params != nil && params.DateUpdated != nil {
 		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
-	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
-	}
 	if params != nil && params.LastUpdatedBy != nil {
 		data.Set("LastUpdatedBy", *params.LastUpdatedBy)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

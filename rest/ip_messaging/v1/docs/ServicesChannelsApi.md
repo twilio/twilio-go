@@ -35,10 +35,10 @@ Other parameters are passed through a pointer to a CreateChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | 
 **FriendlyName** | **string** | 
-**Type** | **string** | 
 **UniqueName** | **string** | 
+**Attributes** | **string** | 
+**Type** | **string** | 
 
 ### Return type
 
@@ -167,7 +167,7 @@ Other parameters are passed through a pointer to a ListChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Type** | **[]string** | 
+**Type** | [**[]ChannelEnumChannelType**](ChannelEnumChannelType.md) | 
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -213,9 +213,9 @@ Other parameters are passed through a pointer to a UpdateChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | 
 **FriendlyName** | **string** | 
 **UniqueName** | **string** | 
+**Attributes** | **string** | 
 
 ### Return type
 

@@ -169,9 +169,9 @@ Other parameters are passed through a pointer to a UpdateSyncMapPermissionParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Manage** | **bool** | Whether the identity can delete the Sync Map. Default value is &#x60;false&#x60;.
 **Read** | **bool** | Whether the identity can read the Sync Map and its Items. Default value is &#x60;false&#x60;.
 **Write** | **bool** | Whether the identity can create, update, and delete Items in the Sync Map. Default value is &#x60;false&#x60;.
+**Manage** | **bool** | Whether the identity can delete the Sync Map. Default value is &#x60;false&#x60;.
 
 ### Return type
 

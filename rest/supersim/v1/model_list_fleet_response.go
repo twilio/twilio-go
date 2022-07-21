@@ -16,6 +16,6 @@ package openapi
 
 // ListFleetResponse struct for ListFleetResponse
 type ListFleetResponse struct {
-	Fleets []SupersimV1Fleet           `json:"fleets,omitempty"`
-	Meta   ListEsimProfileResponseMeta `json:"meta,omitempty"`
+	Fleets []SupersimV1Fleet             `json:"fleets,omitempty"`
+	Meta   ListBillingPeriodResponseMeta `json:"meta,omitempty"`
 }

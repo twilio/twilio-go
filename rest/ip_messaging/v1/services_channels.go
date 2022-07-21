@@ -26,29 +26,29 @@ import (
 // Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
 	//
-	Attributes *string `json:"Attributes,omitempty"`
-	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	//
-	Type *string `json:"Type,omitempty"`
-	//
 	UniqueName *string `json:"UniqueName,omitempty"`
+	//
+	Attributes *string `json:"Attributes,omitempty"`
+	//
+	Type *string `json:"Type,omitempty"`
 }
 
-func (params *CreateChannelParams) SetAttributes(Attributes string) *CreateChannelParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *CreateChannelParams) SetFriendlyName(FriendlyName string) *CreateChannelParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateChannelParams) SetType(Type string) *CreateChannelParams {
-	params.Type = &Type
-	return params
-}
 func (params *CreateChannelParams) SetUniqueName(UniqueName string) *CreateChannelParams {
 	params.UniqueName = &UniqueName
+	return params
+}
+func (params *CreateChannelParams) SetAttributes(Attributes string) *CreateChannelParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateChannelParams) SetType(Type string) *CreateChannelParams {
+	params.Type = &Type
 	return params
 }
 
@@ -60,17 +60,17 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
-	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -283,23 +283,23 @@ func (c *ApiService) getNextListChannelResponse(nextPageUrl string) (interface{}
 // Optional parameters for the method 'UpdateChannel'
 type UpdateChannelParams struct {
 	//
-	Attributes *string `json:"Attributes,omitempty"`
-	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	//
 	UniqueName *string `json:"UniqueName,omitempty"`
+	//
+	Attributes *string `json:"Attributes,omitempty"`
 }
 
-func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChannelParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *UpdateChannelParams) SetFriendlyName(FriendlyName string) *UpdateChannelParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
 func (params *UpdateChannelParams) SetUniqueName(UniqueName string) *UpdateChannelParams {
 	params.UniqueName = &UniqueName
+	return params
+}
+func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChannelParams {
+	params.Attributes = &Attributes
 	return params
 }
 
@@ -312,14 +312,14 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

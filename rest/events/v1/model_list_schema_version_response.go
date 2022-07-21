@@ -16,6 +16,6 @@ package openapi
 
 // ListSchemaVersionResponse struct for ListSchemaVersionResponse
 type ListSchemaVersionResponse struct {
-	Meta           ListSchemaVersionResponseMeta `json:"meta,omitempty"`
-	SchemaVersions []EventsV1SchemaVersion       `json:"schema_versions,omitempty"`
+	SchemaVersions []EventsV1SchemaVersion   `json:"schema_versions,omitempty"`
+	Meta           ListEventTypeResponseMeta `json:"meta,omitempty"`
 }
