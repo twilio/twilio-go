@@ -29,14 +29,14 @@ type CreateUsAppToPersonParams struct {
 	BrandRegistrationSid *string `json:"BrandRegistrationSid,omitempty"`
 	// A short description of what this SMS campaign does.
 	Description *string `json:"Description,omitempty"`
-	// Indicates that this SMS campaign will send messages that contain links.
-	HasEmbeddedLinks *bool `json:"HasEmbeddedLinks,omitempty"`
-	// Indicates that this SMS campaign will send messages that contain phone numbers.
-	HasEmbeddedPhone *bool `json:"HasEmbeddedPhone,omitempty"`
 	// Message samples, at least 2 and up to 5 sample messages, <=1024 chars each.
 	MessageSamples *[]string `json:"MessageSamples,omitempty"`
 	// A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
 	UsAppToPersonUsecase *string `json:"UsAppToPersonUsecase,omitempty"`
+	// Indicates that this SMS campaign will send messages that contain links.
+	HasEmbeddedLinks *bool `json:"HasEmbeddedLinks,omitempty"`
+	// Indicates that this SMS campaign will send messages that contain phone numbers.
+	HasEmbeddedPhone *bool `json:"HasEmbeddedPhone,omitempty"`
 }
 
 func (params *CreateUsAppToPersonParams) SetBrandRegistrationSid(BrandRegistrationSid string) *CreateUsAppToPersonParams {
@@ -47,20 +47,20 @@ func (params *CreateUsAppToPersonParams) SetDescription(Description string) *Cre
 	params.Description = &Description
 	return params
 }
-func (params *CreateUsAppToPersonParams) SetHasEmbeddedLinks(HasEmbeddedLinks bool) *CreateUsAppToPersonParams {
-	params.HasEmbeddedLinks = &HasEmbeddedLinks
-	return params
-}
-func (params *CreateUsAppToPersonParams) SetHasEmbeddedPhone(HasEmbeddedPhone bool) *CreateUsAppToPersonParams {
-	params.HasEmbeddedPhone = &HasEmbeddedPhone
-	return params
-}
 func (params *CreateUsAppToPersonParams) SetMessageSamples(MessageSamples []string) *CreateUsAppToPersonParams {
 	params.MessageSamples = &MessageSamples
 	return params
 }
 func (params *CreateUsAppToPersonParams) SetUsAppToPersonUsecase(UsAppToPersonUsecase string) *CreateUsAppToPersonParams {
 	params.UsAppToPersonUsecase = &UsAppToPersonUsecase
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetHasEmbeddedLinks(HasEmbeddedLinks bool) *CreateUsAppToPersonParams {
+	params.HasEmbeddedLinks = &HasEmbeddedLinks
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetHasEmbeddedPhone(HasEmbeddedPhone bool) *CreateUsAppToPersonParams {
+	params.HasEmbeddedPhone = &HasEmbeddedPhone
 	return params
 }
 
@@ -78,12 +78,6 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
 	}
-	if params != nil && params.HasEmbeddedLinks != nil {
-		data.Set("HasEmbeddedLinks", fmt.Sprint(*params.HasEmbeddedLinks))
-	}
-	if params != nil && params.HasEmbeddedPhone != nil {
-		data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
-	}
 	if params != nil && params.MessageSamples != nil {
 		for _, item := range *params.MessageSamples {
 			data.Add("MessageSamples", item)
@@ -91,6 +85,12 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	}
 	if params != nil && params.UsAppToPersonUsecase != nil {
 		data.Set("UsAppToPersonUsecase", *params.UsAppToPersonUsecase)
+	}
+	if params != nil && params.HasEmbeddedLinks != nil {
+		data.Set("HasEmbeddedLinks", fmt.Sprint(*params.HasEmbeddedLinks))
+	}
+	if params != nil && params.HasEmbeddedPhone != nil {
+		data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

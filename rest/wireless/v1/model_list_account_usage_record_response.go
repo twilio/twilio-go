@@ -16,6 +16,6 @@ package openapi
 
 // ListAccountUsageRecordResponse struct for ListAccountUsageRecordResponse
 type ListAccountUsageRecordResponse struct {
-	Meta         ListCommandResponseMeta        `json:"meta,omitempty"`
-	UsageRecords []WirelessV1AccountUsageRecord `json:"usage_records,omitempty"`
+	UsageRecords []WirelessV1AccountUsageRecord     `json:"usage_records,omitempty"`
+	Meta         ListAccountUsageRecordResponseMeta `json:"meta,omitempty"`
 }

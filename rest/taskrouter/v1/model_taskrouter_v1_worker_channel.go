@@ -40,10 +40,10 @@ type TaskrouterV1WorkerChannel struct {
 	TaskChannelSid *string `json:"task_channel_sid,omitempty"`
 	// The unique name of the TaskChannel, such as 'voice' or 'sms'
 	TaskChannelUniqueName *string `json:"task_channel_unique_name,omitempty"`
-	// The absolute URL of the WorkerChannel resource
-	Url *string `json:"url,omitempty"`
 	// The SID of the Worker that contains the WorkerChannel
 	WorkerSid *string `json:"worker_sid,omitempty"`
 	// The SID of the Workspace that contains the WorkerChannel
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	// The absolute URL of the WorkerChannel resource
+	Url *string `json:"url,omitempty"`
 }

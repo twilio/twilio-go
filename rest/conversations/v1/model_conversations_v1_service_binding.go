@@ -20,10 +20,10 @@ import (
 
 // ConversationsV1ServiceBinding struct for ConversationsV1ServiceBinding
 type ConversationsV1ServiceBinding struct {
+	// A 34 character string that uniquely identifies this resource.
+	Sid *string `json:"sid,omitempty"`
 	// The unique ID of the Account responsible for this binding.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The push technology to use for the binding.
-	BindingType *string `json:"binding_type,omitempty"`
 	// The SID of the Conversation Service that the resource is associated with.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
 	// The SID of the Credential for the binding.
@@ -35,11 +35,10 @@ type ConversationsV1ServiceBinding struct {
 	// The unique endpoint identifier for the Binding.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// The identity of Conversation User associated with this binding.
-	Identity *string `json:"identity,omitempty"`
+	Identity    *string `json:"identity,omitempty"`
+	BindingType *string `json:"binding_type,omitempty"`
 	// The Conversation message types the binding is subscribed to.
 	MessageTypes *[]string `json:"message_types,omitempty"`
-	// A 34 character string that uniquely identifies this resource.
-	Sid *string `json:"sid,omitempty"`
 	// An absolute URL for this binding.
 	Url *string `json:"url,omitempty"`
 }

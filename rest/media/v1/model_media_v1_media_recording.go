@@ -27,23 +27,21 @@ type MediaV1MediaRecording struct {
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The duration of the MediaRecording
-	Duration *int `json:"duration,omitempty"`
-	// The format of the MediaRecording
-	Format *string `json:"format,omitempty"`
+	Duration *int    `json:"duration,omitempty"`
+	Format   *string `json:"format,omitempty"`
 	// The URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
-	// The size of the recording media
-	MediaSize *int `json:"media_size,omitempty"`
 	// The SID of the MediaProcessor
 	ProcessorSid *string `json:"processor_sid,omitempty"`
 	// The dimensions of the video image in pixels
 	Resolution *string `json:"resolution,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
 	// The SID of the resource that generated the original media
 	SourceSid *string `json:"source_sid,omitempty"`
-	// The status of the MediaRecording
-	Status *string `json:"status,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The size of the recording media
+	MediaSize *int64  `json:"media_size,omitempty"`
+	Status    *string `json:"status,omitempty"`
 	// The URL to which Twilio will send MediaRecording event updates
 	StatusCallback *string `json:"status_callback,omitempty"`
 	// The HTTP method Twilio should use to call the `status_callback` URL

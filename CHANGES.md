@@ -1,5 +1,19 @@
 twilio-go changelog
 ====================
+[2022-07-21] Version 1.0.0-rc.5
+-------------------------------
+**Flex**
+- Add `status`, `error_code`, and `error_message` fields to Interaction `Channel`
+- Adding `messenger` and `gbm` as supported channels for Interactions API
+
+**Messaging**
+- Update alpha_sender docs with new valid characters
+
+**Verify**
+- Reorder Verification Check parameters so `code` stays as the first parameter **(breaking change)**
+- Rollback List Attempts API V2 back to pilot stage.
+
+
 [2022-07-13] Version 1.0.0-rc.4
 -------------------------------
 **Library - Fix**
@@ -23,7 +37,7 @@ twilio-go changelog
 
 **Verify**
 - Changed summary param `service_sid` to `verify_service_sid` to be consistent with list attempts API **(breaking change)**
-- Make `code` optional on Verification check to support `sna` attempts.
+- Make `code` optional on Verification check to support `sna` attempts. **(breaking change)**
 
 
 [2022-06-29] Version 1.0.0-rc.2

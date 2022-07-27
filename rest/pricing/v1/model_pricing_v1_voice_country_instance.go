@@ -18,12 +18,12 @@ package openapi
 type PricingV1VoiceCountryInstance struct {
 	// The name of the country
 	Country *string `json:"country,omitempty"`
-	// The list of InboundCallPrice records
-	InboundCallPrices *[]PricingV1VoiceVoiceCountryInstanceInboundCallPrices `json:"inbound_call_prices,omitempty"`
 	// The ISO country code
 	IsoCountry *string `json:"iso_country,omitempty"`
 	// The list of OutboundPrefixPrice records
 	OutboundPrefixPrices *[]PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices `json:"outbound_prefix_prices,omitempty"`
+	// The list of InboundCallPrice records
+	InboundCallPrices *[]PricingV1VoiceVoiceCountryInstanceInboundCallPrices `json:"inbound_call_prices,omitempty"`
 	// The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
 	PriceUnit *string `json:"price_unit,omitempty"`
 	// The absolute URL of the resource

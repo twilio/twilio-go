@@ -36,18 +36,17 @@ type TaskrouterV1Workspace struct {
 	EventsFilter *string `json:"events_filter,omitempty"`
 	// The string that you assigned to describe the Workspace resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The URLs of related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
 	// Whether multi-tasking is enabled
 	MultiTaskEnabled *bool `json:"multi_task_enabled,omitempty"`
-	// The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues
-	PrioritizeQueueOrder *string `json:"prioritize_queue_order,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The name of the timeout activity
 	TimeoutActivityName *string `json:"timeout_activity_name,omitempty"`
 	// The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response
-	TimeoutActivitySid *string `json:"timeout_activity_sid,omitempty"`
+	TimeoutActivitySid   *string `json:"timeout_activity_sid,omitempty"`
+	PrioritizeQueueOrder *string `json:"prioritize_queue_order,omitempty"`
 	// The absolute URL of the Workspace resource
 	Url *string `json:"url,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"links,omitempty"`
 }

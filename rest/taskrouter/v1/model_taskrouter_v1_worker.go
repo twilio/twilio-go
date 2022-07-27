@@ -38,12 +38,12 @@ type TaskrouterV1Worker struct {
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The URLs of related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
-	// The absolute URL of the Worker resource
-	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the Worker
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	// The absolute URL of the Worker resource
+	Url *string `json:"url,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"links,omitempty"`
 }

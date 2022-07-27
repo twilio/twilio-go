@@ -27,22 +27,22 @@ import (
 type CreateSipCredentialParams struct {
 	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
-	Password *string `json:"Password,omitempty"`
 	// The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio's challenge of the initial INVITE. It can be up to 32 characters long.
 	Username *string `json:"Username,omitempty"`
+	// The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
+	Password *string `json:"Password,omitempty"`
 }
 
 func (params *CreateSipCredentialParams) SetPathAccountSid(PathAccountSid string) *CreateSipCredentialParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *CreateSipCredentialParams) SetPassword(Password string) *CreateSipCredentialParams {
-	params.Password = &Password
-	return params
-}
 func (params *CreateSipCredentialParams) SetUsername(Username string) *CreateSipCredentialParams {
 	params.Username = &Username
+	return params
+}
+func (params *CreateSipCredentialParams) SetPassword(Password string) *CreateSipCredentialParams {
+	params.Password = &Password
 	return params
 }
 
@@ -59,11 +59,11 @@ func (c *ApiService) CreateSipCredential(CredentialListSid string, params *Creat
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Password != nil {
-		data.Set("Password", *params.Password)
-	}
 	if params != nil && params.Username != nil {
 		data.Set("Username", *params.Username)
+	}
+	if params != nil && params.Password != nil {
+		data.Set("Password", *params.Password)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

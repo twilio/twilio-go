@@ -27,10 +27,10 @@ import (
 type CreateBuildParams struct {
 	// The list of Asset Version resource SIDs to include in the Build.
 	AssetVersions *[]string `json:"AssetVersions,omitempty"`
-	// A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
-	Dependencies *string `json:"Dependencies,omitempty"`
 	// The list of the Function Version resource SIDs to include in the Build.
 	FunctionVersions *[]string `json:"FunctionVersions,omitempty"`
+	// A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
+	Dependencies *string `json:"Dependencies,omitempty"`
 	// The Runtime version that will be used to run the Build resource when it is deployed.
 	Runtime *string `json:"Runtime,omitempty"`
 }
@@ -39,12 +39,12 @@ func (params *CreateBuildParams) SetAssetVersions(AssetVersions []string) *Creat
 	params.AssetVersions = &AssetVersions
 	return params
 }
-func (params *CreateBuildParams) SetDependencies(Dependencies string) *CreateBuildParams {
-	params.Dependencies = &Dependencies
-	return params
-}
 func (params *CreateBuildParams) SetFunctionVersions(FunctionVersions []string) *CreateBuildParams {
 	params.FunctionVersions = &FunctionVersions
+	return params
+}
+func (params *CreateBuildParams) SetDependencies(Dependencies string) *CreateBuildParams {
+	params.Dependencies = &Dependencies
 	return params
 }
 func (params *CreateBuildParams) SetRuntime(Runtime string) *CreateBuildParams {
@@ -65,13 +65,13 @@ func (c *ApiService) CreateBuild(ServiceSid string, params *CreateBuildParams) (
 			data.Add("AssetVersions", item)
 		}
 	}
-	if params != nil && params.Dependencies != nil {
-		data.Set("Dependencies", *params.Dependencies)
-	}
 	if params != nil && params.FunctionVersions != nil {
 		for _, item := range *params.FunctionVersions {
 			data.Add("FunctionVersions", item)
 		}
+	}
+	if params != nil && params.Dependencies != nil {
+		data.Set("Dependencies", *params.Dependencies)
 	}
 	if params != nil && params.Runtime != nil {
 		data.Set("Runtime", *params.Runtime)

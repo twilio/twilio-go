@@ -169,9 +169,9 @@ Other parameters are passed through a pointer to a UpdateDocumentPermissionParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Manage** | **bool** | Whether the identity can delete the Sync Document. Default value is &#x60;false&#x60;.
 **Read** | **bool** | Whether the identity can read the Sync Document. Default value is &#x60;false&#x60;.
 **Write** | **bool** | Whether the identity can update the Sync Document. Default value is &#x60;false&#x60;.
+**Manage** | **bool** | Whether the identity can delete the Sync Document. Default value is &#x60;false&#x60;.
 
 ### Return type
 

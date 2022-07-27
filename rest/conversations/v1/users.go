@@ -27,12 +27,12 @@ import (
 type CreateUserParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	// The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-	Attributes *string `json:"Attributes,omitempty"`
-	// The string that you assigned to describe the resource.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
 	Identity *string `json:"Identity,omitempty"`
+	// The string that you assigned to describe the resource.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+	Attributes *string `json:"Attributes,omitempty"`
 	// The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
@@ -41,16 +41,16 @@ func (params *CreateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled s
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
 	return params
 }
-func (params *CreateUserParams) SetAttributes(Attributes string) *CreateUserParams {
-	params.Attributes = &Attributes
+func (params *CreateUserParams) SetIdentity(Identity string) *CreateUserParams {
+	params.Identity = &Identity
 	return params
 }
 func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUserParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateUserParams) SetIdentity(Identity string) *CreateUserParams {
-	params.Identity = &Identity
+func (params *CreateUserParams) SetAttributes(Attributes string) *CreateUserParams {
+	params.Attributes = &Attributes
 	return params
 }
 func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
@@ -65,14 +65,14 @@ func (c *ApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
@@ -293,10 +293,10 @@ func (c *ApiService) getNextListUserResponse(nextPageUrl string) (interface{}, e
 type UpdateUserParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	// The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-	Attributes *string `json:"Attributes,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+	Attributes *string `json:"Attributes,omitempty"`
 	// The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
@@ -305,12 +305,12 @@ func (params *UpdateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled s
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
 	return params
 }
-func (params *UpdateUserParams) SetAttributes(Attributes string) *UpdateUserParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUserParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateUserParams) SetAttributes(Attributes string) *UpdateUserParams {
+	params.Attributes = &Attributes
 	return params
 }
 func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
@@ -326,11 +326,11 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Conversa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)

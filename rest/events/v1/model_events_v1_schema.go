@@ -22,12 +22,12 @@ import (
 type EventsV1Schema struct {
 	// Schema Identifier.
 	Id *string `json:"id,omitempty"`
-	// Latest schema version.
-	LatestVersion *int `json:"latest_version,omitempty"`
-	// The date that the latest schema version was created.
-	LatestVersionDateCreated *time.Time `json:"latest_version_date_created,omitempty"`
-	// Nested resource URLs.
-	Links *map[string]interface{} `json:"links,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
+	// Nested resource URLs.
+	Links *map[string]interface{} `json:"links,omitempty"`
+	// The date that the latest schema version was created.
+	LatestVersionDateCreated *time.Time `json:"latest_version_date_created,omitempty"`
+	// Latest schema version.
+	LatestVersion *int `json:"latest_version,omitempty"`
 }

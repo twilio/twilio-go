@@ -18,35 +18,26 @@ package openapi
 type ApiV2010IncomingPhoneNumberTollFree struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Whether the phone number requires an Address registered with Twilio.
-	AddressRequirements *string `json:"address_requirements,omitempty"`
 	// The SID of the Address resource associated with the phone number
-	AddressSid *string `json:"address_sid,omitempty"`
+	AddressSid          *string `json:"address_sid,omitempty"`
+	AddressRequirements *string `json:"address_requirements,omitempty"`
 	// The API version used to start a new TwiML session
 	ApiVersion *string `json:"api_version,omitempty"`
 	// Whether the phone number is new to the Twilio platform
-	Beta *bool `json:"beta,omitempty"`
-	// The SID of the Bundle resource associated with number
-	BundleSid    *string                                         `json:"bundle_sid,omitempty"`
+	Beta         *bool                                           `json:"beta,omitempty"`
 	Capabilities *ApiV2010AccountIncomingPhoneNumberCapabilities `json:"capabilities,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
 	DateCreated *string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The emergency address configuration to use for emergency calling
-	EmergencyAddressSid *string `json:"emergency_address_sid,omitempty"`
-	// State of the emergency address configuration for the phone number
-	EmergencyAddressStatus *string `json:"emergency_address_status,omitempty"`
-	// Displays if emergency calling is enabled for this number.
-	EmergencyStatus *string `json:"emergency_status,omitempty"`
 	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The SID of the Identity resource associated with number
 	IdentitySid *string `json:"identity_sid,omitempty"`
-	// The phone number's origin. Can be twilio or hosted.
-	Origin *string `json:"origin,omitempty"`
 	// The phone number in E.164 format
 	PhoneNumber *string `json:"phone_number,omitempty"`
+	// The phone number's origin. Can be twilio or hosted.
+	Origin *string `json:"origin,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The SID of the application that handles SMS messages sent to the phone number
@@ -59,7 +50,6 @@ type ApiV2010IncomingPhoneNumberTollFree struct {
 	SmsMethod *string `json:"sms_method,omitempty"`
 	// The URL we call when the phone number receives an incoming SMS message
 	SmsUrl *string `json:"sms_url,omitempty"`
-	Status *string `json:"status,omitempty"`
 	// The URL to send status information to your application
 	StatusCallback *string `json:"status_callback,omitempty"`
 	// The HTTP method we use to call status_callback
@@ -67,7 +57,8 @@ type ApiV2010IncomingPhoneNumberTollFree struct {
 	// The SID of the Trunk that handles calls to the phone number
 	TrunkSid *string `json:"trunk_sid,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
-	Uri *string `json:"uri,omitempty"`
+	Uri              *string `json:"uri,omitempty"`
+	VoiceReceiveMode *string `json:"voice_receive_mode,omitempty"`
 	// The SID of the application that handles calls to the phone number
 	VoiceApplicationSid *string `json:"voice_application_sid,omitempty"`
 	// Whether to lookup the caller's name
@@ -77,8 +68,14 @@ type ApiV2010IncomingPhoneNumberTollFree struct {
 	// The URL we call when an error occurs in TwiML
 	VoiceFallbackUrl *string `json:"voice_fallback_url,omitempty"`
 	// The HTTP method used with the voice_url
-	VoiceMethod      *string `json:"voice_method,omitempty"`
-	VoiceReceiveMode *string `json:"voice_receive_mode,omitempty"`
+	VoiceMethod *string `json:"voice_method,omitempty"`
 	// The URL we call when the phone number receives a call
-	VoiceUrl *string `json:"voice_url,omitempty"`
+	VoiceUrl        *string `json:"voice_url,omitempty"`
+	EmergencyStatus *string `json:"emergency_status,omitempty"`
+	// The emergency address configuration to use for emergency calling
+	EmergencyAddressSid    *string `json:"emergency_address_sid,omitempty"`
+	EmergencyAddressStatus *string `json:"emergency_address_status,omitempty"`
+	// The SID of the Bundle resource associated with number
+	BundleSid *string `json:"bundle_sid,omitempty"`
+	Status    *string `json:"status,omitempty"`
 }

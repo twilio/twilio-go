@@ -16,6 +16,6 @@ package openapi
 
 // ListFlowResponse struct for ListFlowResponse
 type ListFlowResponse struct {
-	Flows []StudioV1Flow       `json:"flows,omitempty"`
-	Meta  ListFlowResponseMeta `json:"meta,omitempty"`
+	Flows []StudioV1Flow             `json:"flows,omitempty"`
+	Meta  ListEngagementResponseMeta `json:"meta,omitempty"`
 }

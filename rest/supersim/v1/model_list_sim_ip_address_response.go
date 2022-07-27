@@ -16,6 +16,6 @@ package openapi
 
 // ListSimIpAddressResponse struct for ListSimIpAddressResponse
 type ListSimIpAddressResponse struct {
-	IpAddresses []SupersimV1SimIpAddress    `json:"ip_addresses,omitempty"`
-	Meta        ListEsimProfileResponseMeta `json:"meta,omitempty"`
+	IpAddresses []SupersimV1SimIpAddress      `json:"ip_addresses,omitempty"`
+	Meta        ListBillingPeriodResponseMeta `json:"meta,omitempty"`
 }

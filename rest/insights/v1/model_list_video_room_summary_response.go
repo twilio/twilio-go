@@ -16,6 +16,6 @@ package openapi
 
 // ListVideoRoomSummaryResponse struct for ListVideoRoomSummaryResponse
 type ListVideoRoomSummaryResponse struct {
-	Meta  ListConferenceResponseMeta   `json:"meta,omitempty"`
-	Rooms []InsightsV1VideoRoomSummary `json:"rooms,omitempty"`
+	Rooms []InsightsV1VideoRoomSummary  `json:"rooms,omitempty"`
+	Meta  ListCallSummariesResponseMeta `json:"meta,omitempty"`
 }

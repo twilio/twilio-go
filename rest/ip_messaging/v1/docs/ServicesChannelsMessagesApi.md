@@ -36,9 +36,9 @@ Other parameters are passed through a pointer to a CreateMessageParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | 
 **Body** | **string** | 
 **From** | **string** | 
+**Attributes** | **string** | 
 
 ### Return type
 
@@ -217,8 +217,8 @@ Other parameters are passed through a pointer to a UpdateMessageParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | 
 **Body** | **string** | 
+**Attributes** | **string** | 
 
 ### Return type
 

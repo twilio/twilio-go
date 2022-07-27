@@ -16,6 +16,6 @@ package openapi
 
 // ListTrustProductEntityAssignmentResponse struct for ListTrustProductEntityAssignmentResponse
 type ListTrustProductEntityAssignmentResponse struct {
-	Meta    ListCustomerProfileResponseMeta          `json:"meta,omitempty"`
 	Results []TrusthubV1TrustProductEntityAssignment `json:"results,omitempty"`
+	Meta    ListCustomerProfileResponseMeta          `json:"meta,omitempty"`
 }

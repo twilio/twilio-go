@@ -23,18 +23,18 @@ import (
 
 // Optional parameters for the method 'CreatePlayerStreamerPlaybackGrant'
 type CreatePlayerStreamerPlaybackGrantParams struct {
-	// The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
-	AccessControlAllowOrigin *string `json:"AccessControlAllowOrigin,omitempty"`
 	// The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
 	Ttl *int `json:"Ttl,omitempty"`
+	// The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
+	AccessControlAllowOrigin *string `json:"AccessControlAllowOrigin,omitempty"`
 }
 
-func (params *CreatePlayerStreamerPlaybackGrantParams) SetAccessControlAllowOrigin(AccessControlAllowOrigin string) *CreatePlayerStreamerPlaybackGrantParams {
-	params.AccessControlAllowOrigin = &AccessControlAllowOrigin
-	return params
-}
 func (params *CreatePlayerStreamerPlaybackGrantParams) SetTtl(Ttl int) *CreatePlayerStreamerPlaybackGrantParams {
 	params.Ttl = &Ttl
+	return params
+}
+func (params *CreatePlayerStreamerPlaybackGrantParams) SetAccessControlAllowOrigin(AccessControlAllowOrigin string) *CreatePlayerStreamerPlaybackGrantParams {
+	params.AccessControlAllowOrigin = &AccessControlAllowOrigin
 	return params
 }
 
@@ -46,11 +46,11 @@ func (c *ApiService) CreatePlayerStreamerPlaybackGrant(Sid string, params *Creat
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AccessControlAllowOrigin != nil {
-		data.Set("AccessControlAllowOrigin", *params.AccessControlAllowOrigin)
-	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+	if params != nil && params.AccessControlAllowOrigin != nil {
+		data.Set("AccessControlAllowOrigin", *params.AccessControlAllowOrigin)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

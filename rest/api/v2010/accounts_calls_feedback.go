@@ -64,22 +64,22 @@ func (c *ApiService) FetchCallFeedback(CallSid string, params *FetchCallFeedback
 type UpdateCallFeedbackParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
-	Issue *[]string `json:"Issue,omitempty"`
 	// The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
 	QualityScore *int `json:"QualityScore,omitempty"`
+	// One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+	Issue *[]string `json:"Issue,omitempty"`
 }
 
 func (params *UpdateCallFeedbackParams) SetPathAccountSid(PathAccountSid string) *UpdateCallFeedbackParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *UpdateCallFeedbackParams) SetIssue(Issue []string) *UpdateCallFeedbackParams {
-	params.Issue = &Issue
-	return params
-}
 func (params *UpdateCallFeedbackParams) SetQualityScore(QualityScore int) *UpdateCallFeedbackParams {
 	params.QualityScore = &QualityScore
+	return params
+}
+func (params *UpdateCallFeedbackParams) SetIssue(Issue []string) *UpdateCallFeedbackParams {
+	params.Issue = &Issue
 	return params
 }
 
@@ -96,13 +96,13 @@ func (c *ApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedba
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.QualityScore != nil {
+		data.Set("QualityScore", fmt.Sprint(*params.QualityScore))
+	}
 	if params != nil && params.Issue != nil {
 		for _, item := range *params.Issue {
 			data.Add("Issue", item)
 		}
-	}
-	if params != nil && params.QualityScore != nil {
-		data.Set("QualityScore", fmt.Sprint(*params.QualityScore))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

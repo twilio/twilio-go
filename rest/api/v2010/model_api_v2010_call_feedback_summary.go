@@ -48,8 +48,7 @@ type ApiV2010CallFeedbackSummary struct {
 	Sid *string `json:"sid,omitempty"`
 	// The earliest feedback entry date in the summary
 	StartDate *string `json:"start_date,omitempty"`
-	// The status of the feedback summary
-	Status *string `json:"status,omitempty"`
+	Status    *string `json:"status,omitempty"`
 }
 
 func (response *ApiV2010CallFeedbackSummary) UnmarshalJSON(bytes []byte) (err error) {

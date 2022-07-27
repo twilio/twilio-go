@@ -45,9 +45,9 @@ func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, erro
 
 // Optional parameters for the method 'UpdateRecording'
 type UpdateRecordingParams struct {
-	// The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.
+	//
 	Mode *string `json:"Mode,omitempty"`
-	// The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence.
+	//
 	Trim *string `json:"Trim,omitempty"`
 }
 

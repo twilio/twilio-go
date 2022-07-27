@@ -17,5 +17,5 @@ package openapi
 // ListUserBindingResponse struct for ListUserBindingResponse
 type ListUserBindingResponse struct {
 	Bindings []IpMessagingV2UserBinding `json:"bindings,omitempty"`
-	Meta     ListCredentialResponseMeta `json:"meta,omitempty"`
+	Meta     ListBindingResponseMeta    `json:"meta,omitempty"`
 }

@@ -25,18 +25,18 @@ import (
 
 // Optional parameters for the method 'CreateRateLimit'
 type CreateRateLimitParams struct {
-	// Description of this Rate Limit
-	Description *string `json:"Description,omitempty"`
 	// Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// Description of this Rate Limit
+	Description *string `json:"Description,omitempty"`
 }
 
-func (params *CreateRateLimitParams) SetDescription(Description string) *CreateRateLimitParams {
-	params.Description = &Description
-	return params
-}
 func (params *CreateRateLimitParams) SetUniqueName(UniqueName string) *CreateRateLimitParams {
 	params.UniqueName = &UniqueName
+	return params
+}
+func (params *CreateRateLimitParams) SetDescription(Description string) *CreateRateLimitParams {
+	params.Description = &Description
 	return params
 }
 
@@ -48,11 +48,11 @@ func (c *ApiService) CreateRateLimit(ServiceSid string, params *CreateRateLimitP
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Description != nil {
-		data.Set("Description", *params.Description)
-	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

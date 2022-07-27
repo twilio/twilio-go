@@ -35,9 +35,9 @@ Other parameters are passed through a pointer to a CreateTaskChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ChannelOptimizedRouting** | **bool** | Whether the Task Channel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
 **FriendlyName** | **string** | A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the Task Channel, such as &#x60;voice&#x60; or &#x60;sms&#x60;.
+**ChannelOptimizedRouting** | **bool** | Whether the Task Channel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
 
 ### Return type
 
@@ -211,8 +211,8 @@ Other parameters are passed through a pointer to a UpdateTaskChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ChannelOptimizedRouting** | **bool** | Whether the TaskChannel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
 **FriendlyName** | **string** | A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+**ChannelOptimizedRouting** | **bool** | Whether the TaskChannel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
 
 ### Return type
 

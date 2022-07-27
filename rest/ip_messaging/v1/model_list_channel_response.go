@@ -16,6 +16,6 @@ package openapi
 
 // ListChannelResponse struct for ListChannelResponse
 type ListChannelResponse struct {
-	Channels []IpMessagingV1Channel     `json:"channels,omitempty"`
-	Meta     ListCredentialResponseMeta `json:"meta,omitempty"`
+	Channels []IpMessagingV1Channel  `json:"channels,omitempty"`
+	Meta     ListChannelResponseMeta `json:"meta,omitempty"`
 }

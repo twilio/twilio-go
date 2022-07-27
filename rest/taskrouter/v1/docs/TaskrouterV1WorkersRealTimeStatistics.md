@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **ActivityStatistics** | Pointer to **[]interface{}** | The number of current Workers by Activity |
 **TotalWorkers** | Pointer to **int** | The total number of Workers |
-**Url** | Pointer to **string** | The absolute URL of the Workers statistics resource |
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the Workers |
+**Url** | Pointer to **string** | The absolute URL of the Workers statistics resource |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

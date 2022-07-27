@@ -16,6 +16,6 @@ package openapi
 
 // ListLogResponse struct for ListLogResponse
 type ListLogResponse struct {
-	Logs []ServerlessV1Log       `json:"logs,omitempty"`
-	Meta ListServiceResponseMeta `json:"meta,omitempty"`
+	Logs []ServerlessV1Log     `json:"logs,omitempty"`
+	Meta ListAssetResponseMeta `json:"meta,omitempty"`
 }

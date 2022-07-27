@@ -36,14 +36,14 @@ type TaskrouterV1Workflow struct {
 	FallbackAssignmentCallbackUrl *string `json:"fallback_assignment_callback_url,omitempty"`
 	// The string that you assigned to describe the Workflow resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The URLs of related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker
 	TaskReservationTimeout *int `json:"task_reservation_timeout,omitempty"`
-	// The absolute URL of the Workflow resource
-	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the Workflow
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	// The absolute URL of the Workflow resource
+	Url *string `json:"url,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"links,omitempty"`
 }

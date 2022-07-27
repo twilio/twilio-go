@@ -16,7 +16,7 @@ package openapi
 
 // InsightsV1Call struct for InsightsV1Call
 type InsightsV1Call struct {
-	Links *map[string]interface{} `json:"links,omitempty"`
 	Sid   *string                 `json:"sid,omitempty"`
 	Url   *string                 `json:"url,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 }

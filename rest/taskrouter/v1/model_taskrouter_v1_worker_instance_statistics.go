@@ -20,10 +20,10 @@ type TaskrouterV1WorkerInstanceStatistics struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// An object that contains the cumulative statistics for the Worker
 	Cumulative *interface{} `json:"cumulative,omitempty"`
-	// The absolute URL of the WorkerChannel statistics resource
-	Url *string `json:"url,omitempty"`
 	// The SID of the Worker that contains the WorkerChannel
 	WorkerSid *string `json:"worker_sid,omitempty"`
 	// The SID of the Workspace that contains the WorkerChannel
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	// The absolute URL of the WorkerChannel statistics resource
+	Url *string `json:"url,omitempty"`
 }

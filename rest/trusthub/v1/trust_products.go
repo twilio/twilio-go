@@ -25,22 +25,22 @@ import (
 
 // Optional parameters for the method 'CreateTrustProduct'
 type CreateTrustProductParams struct {
-	// The email address that will receive updates when the Customer-Profile resource changes status.
-	Email *string `json:"Email,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The email address that will receive updates when the Customer-Profile resource changes status.
+	Email *string `json:"Email,omitempty"`
 	// The unique string of a policy that is associated to the Customer-Profile resource.
 	PolicySid *string `json:"PolicySid,omitempty"`
 	// The URL we call to inform your application of status changes.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
-func (params *CreateTrustProductParams) SetEmail(Email string) *CreateTrustProductParams {
-	params.Email = &Email
-	return params
-}
 func (params *CreateTrustProductParams) SetFriendlyName(FriendlyName string) *CreateTrustProductParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateTrustProductParams) SetEmail(Email string) *CreateTrustProductParams {
+	params.Email = &Email
 	return params
 }
 func (params *CreateTrustProductParams) SetPolicySid(PolicySid string) *CreateTrustProductParams {
@@ -59,11 +59,11 @@ func (c *ApiService) CreateTrustProduct(params *CreateTrustProductParams) (*Trus
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.PolicySid != nil {
 		data.Set("PolicySid", *params.PolicySid)
@@ -293,30 +293,30 @@ func (c *ApiService) getNextListTrustProductResponse(nextPageUrl string) (interf
 
 // Optional parameters for the method 'UpdateTrustProduct'
 type UpdateTrustProductParams struct {
-	// The email address that will receive updates when the Customer-Profile resource changes status.
-	Email *string `json:"Email,omitempty"`
-	// The string that you assigned to describe the resource.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The verification status of the Customer-Profile resource.
+	//
 	Status *string `json:"Status,omitempty"`
 	// The URL we call to inform your application of status changes.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The string that you assigned to describe the resource.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The email address that will receive updates when the Customer-Profile resource changes status.
+	Email *string `json:"Email,omitempty"`
 }
 
-func (params *UpdateTrustProductParams) SetEmail(Email string) *UpdateTrustProductParams {
-	params.Email = &Email
-	return params
-}
-func (params *UpdateTrustProductParams) SetFriendlyName(FriendlyName string) *UpdateTrustProductParams {
-	params.FriendlyName = &FriendlyName
-	return params
-}
 func (params *UpdateTrustProductParams) SetStatus(Status string) *UpdateTrustProductParams {
 	params.Status = &Status
 	return params
 }
 func (params *UpdateTrustProductParams) SetStatusCallback(StatusCallback string) *UpdateTrustProductParams {
 	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *UpdateTrustProductParams) SetFriendlyName(FriendlyName string) *UpdateTrustProductParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateTrustProductParams) SetEmail(Email string) *UpdateTrustProductParams {
+	params.Email = &Email
 	return params
 }
 
@@ -328,17 +328,17 @@ func (c *ApiService) UpdateTrustProduct(Sid string, params *UpdateTrustProductPa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

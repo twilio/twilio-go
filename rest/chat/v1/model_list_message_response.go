@@ -16,6 +16,6 @@ package openapi
 
 // ListMessageResponse struct for ListMessageResponse
 type ListMessageResponse struct {
-	Messages []ChatV1Message            `json:"messages,omitempty"`
-	Meta     ListCredentialResponseMeta `json:"meta,omitempty"`
+	Messages []ChatV1Message         `json:"messages,omitempty"`
+	Meta     ListChannelResponseMeta `json:"meta,omitempty"`
 }

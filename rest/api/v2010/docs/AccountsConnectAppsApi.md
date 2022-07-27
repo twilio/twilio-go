@@ -169,7 +169,7 @@ Name | Type | Description
 **Description** | **string** | A description of the Connect App.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 **HomepageUrl** | **string** | A public URL where users can obtain more information about this Connect App.
-**Permissions** | **[]string** | A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
+**Permissions** | [**[]ConnectAppEnumPermission**](ConnectAppEnumPermission.md) | A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
 
 ### Return type
 

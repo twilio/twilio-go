@@ -35,10 +35,10 @@ Other parameters are passed through a pointer to a CreateTaskParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**UniqueName** | **string** | An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+**FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
 **Actions** | [**interface{}**](interface{}.md) | The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task. It is optional and not unique.
 **ActionsUrl** | **string** | The URL from which the Assistant can fetch actions.
-**FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
-**UniqueName** | **string** | An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. This value must be unique and 64 characters or less in length.
 
 ### Return type
 
@@ -212,10 +212,10 @@ Other parameters are passed through a pointer to a UpdateTaskParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Actions** | [**interface{}**](interface{}.md) | The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
-**ActionsUrl** | **string** | The URL from which the Assistant can fetch actions.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be 64 characters or less in length and be unique. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
+**Actions** | [**interface{}**](interface{}.md) | The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
+**ActionsUrl** | **string** | The URL from which the Assistant can fetch actions.
 
 ### Return type
 

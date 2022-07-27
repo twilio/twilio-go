@@ -16,9 +16,9 @@ package openapi
 
 // ListMediaResponse struct for ListMediaResponse
 type ListMediaResponse struct {
+	MediaList       []ApiV2010Media `json:"media_list,omitempty"`
 	End             int             `json:"end,omitempty"`
 	FirstPageUri    string          `json:"first_page_uri,omitempty"`
-	MediaList       []ApiV2010Media `json:"media_list,omitempty"`
 	NextPageUri     string          `json:"next_page_uri,omitempty"`
 	Page            int             `json:"page,omitempty"`
 	PageSize        int             `json:"page_size,omitempty"`

@@ -16,6 +16,6 @@ package openapi
 
 // ListRecordingResponse struct for ListRecordingResponse
 type ListRecordingResponse struct {
-	Meta       ListCompositionHookResponseMeta `json:"meta,omitempty"`
-	Recordings []VideoV1Recording              `json:"recordings,omitempty"`
+	Recordings []VideoV1Recording          `json:"recordings,omitempty"`
+	Meta       ListCompositionResponseMeta `json:"meta,omitempty"`
 }

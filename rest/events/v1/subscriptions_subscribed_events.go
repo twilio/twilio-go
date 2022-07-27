@@ -25,18 +25,18 @@ import (
 
 // Optional parameters for the method 'CreateSubscribedEvent'
 type CreateSubscribedEventParams struct {
-	// The schema version that the subscription should use.
-	SchemaVersion *int `json:"SchemaVersion,omitempty"`
 	// Type of event being subscribed to.
 	Type *string `json:"Type,omitempty"`
+	// The schema version that the subscription should use.
+	SchemaVersion *int `json:"SchemaVersion,omitempty"`
 }
 
-func (params *CreateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *CreateSubscribedEventParams {
-	params.SchemaVersion = &SchemaVersion
-	return params
-}
 func (params *CreateSubscribedEventParams) SetType(Type string) *CreateSubscribedEventParams {
 	params.Type = &Type
+	return params
+}
+func (params *CreateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *CreateSubscribedEventParams {
+	params.SchemaVersion = &SchemaVersion
 	return params
 }
 
@@ -48,11 +48,11 @@ func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *Creat
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.SchemaVersion != nil {
-		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
-	}
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
+	}
+	if params != nil && params.SchemaVersion != nil {
+		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

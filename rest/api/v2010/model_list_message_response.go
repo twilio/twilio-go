@@ -16,9 +16,9 @@ package openapi
 
 // ListMessageResponse struct for ListMessageResponse
 type ListMessageResponse struct {
+	Messages        []ApiV2010Message `json:"messages,omitempty"`
 	End             int               `json:"end,omitempty"`
 	FirstPageUri    string            `json:"first_page_uri,omitempty"`
-	Messages        []ApiV2010Message `json:"messages,omitempty"`
 	NextPageUri     string            `json:"next_page_uri,omitempty"`
 	Page            int               `json:"page,omitempty"`
 	PageSize        int               `json:"page_size,omitempty"`

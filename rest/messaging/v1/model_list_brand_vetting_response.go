@@ -16,6 +16,6 @@ package openapi
 
 // ListBrandVettingResponse struct for ListBrandVettingResponse
 type ListBrandVettingResponse struct {
-	Data []MessagingV1BrandVetting `json:"data,omitempty"`
-	Meta ListServiceResponseMeta   `json:"meta,omitempty"`
+	Data []MessagingV1BrandVetting   `json:"data,omitempty"`
+	Meta ListAlphaSenderResponseMeta `json:"meta,omitempty"`
 }

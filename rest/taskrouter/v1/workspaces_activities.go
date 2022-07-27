@@ -25,18 +25,18 @@ import (
 
 // Optional parameters for the method 'CreateActivity'
 type CreateActivityParams struct {
-	// Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
-	Available *bool `json:"Available,omitempty"`
 	// A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
+	Available *bool `json:"Available,omitempty"`
 }
 
-func (params *CreateActivityParams) SetAvailable(Available bool) *CreateActivityParams {
-	params.Available = &Available
-	return params
-}
 func (params *CreateActivityParams) SetFriendlyName(FriendlyName string) *CreateActivityParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateActivityParams) SetAvailable(Available bool) *CreateActivityParams {
+	params.Available = &Available
 	return params
 }
 
@@ -48,11 +48,11 @@ func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityP
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Available != nil {
-		data.Set("Available", fmt.Sprint(*params.Available))
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Available != nil {
+		data.Set("Available", fmt.Sprint(*params.Available))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

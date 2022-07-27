@@ -18,18 +18,18 @@ package openapi
 type SyncV1DocumentPermission struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
+	// The SID of the Sync Service that the resource is associated with
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// The Sync Document SID
 	DocumentSid *string `json:"document_sid,omitempty"`
 	// The identity of the user to whom the Sync Document Permission applies
 	Identity *string `json:"identity,omitempty"`
-	// Manage access
-	Manage *bool `json:"manage,omitempty"`
 	// Read access
 	Read *bool `json:"read,omitempty"`
-	// The SID of the Sync Service that the resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
-	// The absolute URL of the Sync Document Permission resource
-	Url *string `json:"url,omitempty"`
 	// Write access
 	Write *bool `json:"write,omitempty"`
+	// Manage access
+	Manage *bool `json:"manage,omitempty"`
+	// The absolute URL of the Sync Document Permission resource
+	Url *string `json:"url,omitempty"`
 }

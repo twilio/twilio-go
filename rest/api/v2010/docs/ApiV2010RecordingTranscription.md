@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **PriceUnit** | Pointer to **string** | The currency in which price is measured |
 **RecordingSid** | Pointer to **string** | The SID that identifies the transcription's recording |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
-**Status** | Pointer to **string** | The status of the transcription |
+**Status** | Pointer to [**string**](RecordingTranscriptionEnumStatus.md) |  |
 **TranscriptionText** | Pointer to **string** | The text content of the transcription. |
 **Type** | Pointer to **string** | The transcription type |
 **Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com` |

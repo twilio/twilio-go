@@ -25,18 +25,18 @@ import (
 
 // Optional parameters for the method 'CreatePlayerStreamer'
 type CreatePlayerStreamerParams struct {
-	// The maximum time, in seconds, that the PlayerStreamer can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
-	MaxDuration *int `json:"MaxDuration,omitempty"`
+	// Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
+	Video *bool `json:"Video,omitempty"`
 	// The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	// Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
-	Video *bool `json:"Video,omitempty"`
+	// The maximum time, in seconds, that the PlayerStreamer can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming. **Note: this feature has not yet been enabled but customers are advised to explicitly set it on all their new PlayerStreamer resources.**
+	MaxDuration *int `json:"MaxDuration,omitempty"`
 }
 
-func (params *CreatePlayerStreamerParams) SetMaxDuration(MaxDuration int) *CreatePlayerStreamerParams {
-	params.MaxDuration = &MaxDuration
+func (params *CreatePlayerStreamerParams) SetVideo(Video bool) *CreatePlayerStreamerParams {
+	params.Video = &Video
 	return params
 }
 func (params *CreatePlayerStreamerParams) SetStatusCallback(StatusCallback string) *CreatePlayerStreamerParams {
@@ -47,8 +47,8 @@ func (params *CreatePlayerStreamerParams) SetStatusCallbackMethod(StatusCallback
 	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
-func (params *CreatePlayerStreamerParams) SetVideo(Video bool) *CreatePlayerStreamerParams {
-	params.Video = &Video
+func (params *CreatePlayerStreamerParams) SetMaxDuration(MaxDuration int) *CreatePlayerStreamerParams {
+	params.MaxDuration = &MaxDuration
 	return params
 }
 
@@ -59,8 +59,8 @@ func (c *ApiService) CreatePlayerStreamer(params *CreatePlayerStreamerParams) (*
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.MaxDuration != nil {
-		data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
+	if params != nil && params.Video != nil {
+		data.Set("Video", fmt.Sprint(*params.Video))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -68,8 +68,8 @@ func (c *ApiService) CreatePlayerStreamer(params *CreatePlayerStreamerParams) (*
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
-	if params != nil && params.Video != nil {
-		data.Set("Video", fmt.Sprint(*params.Video))
+	if params != nil && params.MaxDuration != nil {
+		data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -266,7 +266,7 @@ func (c *ApiService) getNextListPlayerStreamerResponse(nextPageUrl string) (inte
 
 // Optional parameters for the method 'UpdatePlayerStreamer'
 type UpdatePlayerStreamerParams struct {
-	// The status the PlayerStreamer should be transitioned to. Can be: `ended`.
+	//
 	Status *string `json:"Status,omitempty"`
 }
 

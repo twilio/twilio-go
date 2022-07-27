@@ -25,22 +25,22 @@ import (
 
 // Optional parameters for the method 'CreateExportCustomJob'
 type CreateExportCustomJobParams struct {
-	// The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job's status.
-	Email *string `json:"Email,omitempty"`
+	// The start day for the custom export specified as a string in the format of yyyy-mm-dd
+	StartDay *string `json:"StartDay,omitempty"`
 	// The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
 	EndDay *string `json:"EndDay,omitempty"`
 	// The friendly name specified when creating the job
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The start day for the custom export specified as a string in the format of yyyy-mm-dd
-	StartDay *string `json:"StartDay,omitempty"`
-	// This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
-	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 	// The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job's status manually.
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	// This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	// The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job's status.
+	Email *string `json:"Email,omitempty"`
 }
 
-func (params *CreateExportCustomJobParams) SetEmail(Email string) *CreateExportCustomJobParams {
-	params.Email = &Email
+func (params *CreateExportCustomJobParams) SetStartDay(StartDay string) *CreateExportCustomJobParams {
+	params.StartDay = &StartDay
 	return params
 }
 func (params *CreateExportCustomJobParams) SetEndDay(EndDay string) *CreateExportCustomJobParams {
@@ -51,16 +51,16 @@ func (params *CreateExportCustomJobParams) SetFriendlyName(FriendlyName string) 
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateExportCustomJobParams) SetStartDay(StartDay string) *CreateExportCustomJobParams {
-	params.StartDay = &StartDay
+func (params *CreateExportCustomJobParams) SetWebhookUrl(WebhookUrl string) *CreateExportCustomJobParams {
+	params.WebhookUrl = &WebhookUrl
 	return params
 }
 func (params *CreateExportCustomJobParams) SetWebhookMethod(WebhookMethod string) *CreateExportCustomJobParams {
 	params.WebhookMethod = &WebhookMethod
 	return params
 }
-func (params *CreateExportCustomJobParams) SetWebhookUrl(WebhookUrl string) *CreateExportCustomJobParams {
-	params.WebhookUrl = &WebhookUrl
+func (params *CreateExportCustomJobParams) SetEmail(Email string) *CreateExportCustomJobParams {
+	params.Email = &Email
 	return params
 }
 
@@ -72,8 +72,8 @@ func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateEx
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
+	if params != nil && params.StartDay != nil {
+		data.Set("StartDay", *params.StartDay)
 	}
 	if params != nil && params.EndDay != nil {
 		data.Set("EndDay", *params.EndDay)
@@ -81,14 +81,14 @@ func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateEx
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.StartDay != nil {
-		data.Set("StartDay", *params.StartDay)
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 	if params != nil && params.WebhookMethod != nil {
 		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
-	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl)
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -16,6 +16,6 @@ package openapi
 
 // ListTaskResponse struct for ListTaskResponse
 type ListTaskResponse struct {
-	Meta  ListWorkspaceResponseMeta `json:"meta,omitempty"`
-	Tasks []TaskrouterV1Task        `json:"tasks,omitempty"`
+	Tasks []TaskrouterV1Task       `json:"tasks,omitempty"`
+	Meta  ListActivityResponseMeta `json:"meta,omitempty"`
 }

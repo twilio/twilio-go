@@ -36,11 +36,11 @@ Other parameters are passed through a pointer to a CreateConversationMessagePara
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
 **Author** | **string** | The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;.
 **Body** | **string** | The content of the message, can be up to 1,600 characters long.
 **DateCreated** | **time.Time** | The date that this resource was created.
 **DateUpdated** | **time.Time** | The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited.
+**Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
 **MediaSid** | **string** | The Media SID to be attached to the new Message.
 
 ### Return type
@@ -218,11 +218,11 @@ Other parameters are passed through a pointer to a UpdateConversationMessagePara
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
 **Author** | **string** | The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;.
 **Body** | **string** | The content of the message, can be up to 1,600 characters long.
 **DateCreated** | **time.Time** | The date that this resource was created.
 **DateUpdated** | **time.Time** | The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited.
+**Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
 
 ### Return type
 

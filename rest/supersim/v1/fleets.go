@@ -25,26 +25,34 @@ import (
 
 // Optional parameters for the method 'CreateFleet'
 type CreateFleetParams struct {
+	// The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+	UniqueName *string `json:"UniqueName,omitempty"`
 	// Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
 	DataEnabled *bool `json:"DataEnabled,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 	DataLimit *int `json:"DataLimit,omitempty"`
-	// A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-	IpCommandsMethod *string `json:"IpCommandsMethod,omitempty"`
 	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
 	IpCommandsUrl *string `json:"IpCommandsUrl,omitempty"`
-	// The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
+	// A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+	IpCommandsMethod *string `json:"IpCommandsMethod,omitempty"`
 	// Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
 	SmsCommandsEnabled *bool `json:"SmsCommandsEnabled,omitempty"`
-	// A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-	SmsCommandsMethod *string `json:"SmsCommandsMethod,omitempty"`
 	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
 	SmsCommandsUrl *string `json:"SmsCommandsUrl,omitempty"`
-	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-	UniqueName *string `json:"UniqueName,omitempty"`
+	// A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+	SmsCommandsMethod *string `json:"SmsCommandsMethod,omitempty"`
 }
 
+func (params *CreateFleetParams) SetNetworkAccessProfile(NetworkAccessProfile string) *CreateFleetParams {
+	params.NetworkAccessProfile = &NetworkAccessProfile
+	return params
+}
+func (params *CreateFleetParams) SetUniqueName(UniqueName string) *CreateFleetParams {
+	params.UniqueName = &UniqueName
+	return params
+}
 func (params *CreateFleetParams) SetDataEnabled(DataEnabled bool) *CreateFleetParams {
 	params.DataEnabled = &DataEnabled
 	return params
@@ -53,32 +61,24 @@ func (params *CreateFleetParams) SetDataLimit(DataLimit int) *CreateFleetParams 
 	params.DataLimit = &DataLimit
 	return params
 }
-func (params *CreateFleetParams) SetIpCommandsMethod(IpCommandsMethod string) *CreateFleetParams {
-	params.IpCommandsMethod = &IpCommandsMethod
-	return params
-}
 func (params *CreateFleetParams) SetIpCommandsUrl(IpCommandsUrl string) *CreateFleetParams {
 	params.IpCommandsUrl = &IpCommandsUrl
 	return params
 }
-func (params *CreateFleetParams) SetNetworkAccessProfile(NetworkAccessProfile string) *CreateFleetParams {
-	params.NetworkAccessProfile = &NetworkAccessProfile
+func (params *CreateFleetParams) SetIpCommandsMethod(IpCommandsMethod string) *CreateFleetParams {
+	params.IpCommandsMethod = &IpCommandsMethod
 	return params
 }
 func (params *CreateFleetParams) SetSmsCommandsEnabled(SmsCommandsEnabled bool) *CreateFleetParams {
 	params.SmsCommandsEnabled = &SmsCommandsEnabled
 	return params
 }
-func (params *CreateFleetParams) SetSmsCommandsMethod(SmsCommandsMethod string) *CreateFleetParams {
-	params.SmsCommandsMethod = &SmsCommandsMethod
-	return params
-}
 func (params *CreateFleetParams) SetSmsCommandsUrl(SmsCommandsUrl string) *CreateFleetParams {
 	params.SmsCommandsUrl = &SmsCommandsUrl
 	return params
 }
-func (params *CreateFleetParams) SetUniqueName(UniqueName string) *CreateFleetParams {
-	params.UniqueName = &UniqueName
+func (params *CreateFleetParams) SetSmsCommandsMethod(SmsCommandsMethod string) *CreateFleetParams {
+	params.SmsCommandsMethod = &SmsCommandsMethod
 	return params
 }
 
@@ -89,32 +89,32 @@ func (c *ApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, e
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.NetworkAccessProfile != nil {
+		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 	if params != nil && params.DataEnabled != nil {
 		data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled))
 	}
 	if params != nil && params.DataLimit != nil {
 		data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
 	}
-	if params != nil && params.IpCommandsMethod != nil {
-		data.Set("IpCommandsMethod", *params.IpCommandsMethod)
-	}
 	if params != nil && params.IpCommandsUrl != nil {
 		data.Set("IpCommandsUrl", *params.IpCommandsUrl)
 	}
-	if params != nil && params.NetworkAccessProfile != nil {
-		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+	if params != nil && params.IpCommandsMethod != nil {
+		data.Set("IpCommandsMethod", *params.IpCommandsMethod)
 	}
 	if params != nil && params.SmsCommandsEnabled != nil {
 		data.Set("SmsCommandsEnabled", fmt.Sprint(*params.SmsCommandsEnabled))
 	}
-	if params != nil && params.SmsCommandsMethod != nil {
-		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
-	}
 	if params != nil && params.SmsCommandsUrl != nil {
 		data.Set("SmsCommandsUrl", *params.SmsCommandsUrl)
 	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+	if params != nil && params.SmsCommandsMethod != nil {
+		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -302,42 +302,42 @@ func (c *ApiService) getNextListFleetResponse(nextPageUrl string) (interface{}, 
 
 // Optional parameters for the method 'UpdateFleet'
 type UpdateFleetParams struct {
-	// A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-	IpCommandsMethod *string `json:"IpCommandsMethod,omitempty"`
-	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-	IpCommandsUrl *string `json:"IpCommandsUrl,omitempty"`
-	// The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
-	// A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-	SmsCommandsMethod *string `json:"SmsCommandsMethod,omitempty"`
-	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-	SmsCommandsUrl *string `json:"SmsCommandsUrl,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
+	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+	IpCommandsUrl *string `json:"IpCommandsUrl,omitempty"`
+	// A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+	IpCommandsMethod *string `json:"IpCommandsMethod,omitempty"`
+	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+	SmsCommandsUrl *string `json:"SmsCommandsUrl,omitempty"`
+	// A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+	SmsCommandsMethod *string `json:"SmsCommandsMethod,omitempty"`
 }
 
-func (params *UpdateFleetParams) SetIpCommandsMethod(IpCommandsMethod string) *UpdateFleetParams {
-	params.IpCommandsMethod = &IpCommandsMethod
-	return params
-}
-func (params *UpdateFleetParams) SetIpCommandsUrl(IpCommandsUrl string) *UpdateFleetParams {
-	params.IpCommandsUrl = &IpCommandsUrl
+func (params *UpdateFleetParams) SetUniqueName(UniqueName string) *UpdateFleetParams {
+	params.UniqueName = &UniqueName
 	return params
 }
 func (params *UpdateFleetParams) SetNetworkAccessProfile(NetworkAccessProfile string) *UpdateFleetParams {
 	params.NetworkAccessProfile = &NetworkAccessProfile
 	return params
 }
-func (params *UpdateFleetParams) SetSmsCommandsMethod(SmsCommandsMethod string) *UpdateFleetParams {
-	params.SmsCommandsMethod = &SmsCommandsMethod
+func (params *UpdateFleetParams) SetIpCommandsUrl(IpCommandsUrl string) *UpdateFleetParams {
+	params.IpCommandsUrl = &IpCommandsUrl
+	return params
+}
+func (params *UpdateFleetParams) SetIpCommandsMethod(IpCommandsMethod string) *UpdateFleetParams {
+	params.IpCommandsMethod = &IpCommandsMethod
 	return params
 }
 func (params *UpdateFleetParams) SetSmsCommandsUrl(SmsCommandsUrl string) *UpdateFleetParams {
 	params.SmsCommandsUrl = &SmsCommandsUrl
 	return params
 }
-func (params *UpdateFleetParams) SetUniqueName(UniqueName string) *UpdateFleetParams {
-	params.UniqueName = &UniqueName
+func (params *UpdateFleetParams) SetSmsCommandsMethod(SmsCommandsMethod string) *UpdateFleetParams {
+	params.SmsCommandsMethod = &SmsCommandsMethod
 	return params
 }
 
@@ -349,23 +349,23 @@ func (c *ApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*Supers
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.IpCommandsMethod != nil {
-		data.Set("IpCommandsMethod", *params.IpCommandsMethod)
-	}
-	if params != nil && params.IpCommandsUrl != nil {
-		data.Set("IpCommandsUrl", *params.IpCommandsUrl)
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.NetworkAccessProfile != nil {
 		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
 	}
-	if params != nil && params.SmsCommandsMethod != nil {
-		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
+	if params != nil && params.IpCommandsUrl != nil {
+		data.Set("IpCommandsUrl", *params.IpCommandsUrl)
+	}
+	if params != nil && params.IpCommandsMethod != nil {
+		data.Set("IpCommandsMethod", *params.IpCommandsMethod)
 	}
 	if params != nil && params.SmsCommandsUrl != nil {
 		data.Set("SmsCommandsUrl", *params.SmsCommandsUrl)
 	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+	if params != nil && params.SmsCommandsMethod != nil {
+		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

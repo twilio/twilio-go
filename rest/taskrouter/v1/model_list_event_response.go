@@ -16,6 +16,6 @@ package openapi
 
 // ListEventResponse struct for ListEventResponse
 type ListEventResponse struct {
-	Events []TaskrouterV1Event       `json:"events,omitempty"`
-	Meta   ListWorkspaceResponseMeta `json:"meta,omitempty"`
+	Events []TaskrouterV1Event      `json:"events,omitempty"`
+	Meta   ListActivityResponseMeta `json:"meta,omitempty"`
 }

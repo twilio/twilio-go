@@ -25,18 +25,18 @@ import (
 
 // Optional parameters for the method 'CreateBrandVetting'
 type CreateBrandVettingParams struct {
+	//
+	VettingProvider *string `json:"VettingProvider,omitempty"`
 	// The unique ID of the vetting
 	VettingId *string `json:"VettingId,omitempty"`
-	// The third-party provider of the vettings to create .
-	VettingProvider *string `json:"VettingProvider,omitempty"`
 }
 
-func (params *CreateBrandVettingParams) SetVettingId(VettingId string) *CreateBrandVettingParams {
-	params.VettingId = &VettingId
-	return params
-}
 func (params *CreateBrandVettingParams) SetVettingProvider(VettingProvider string) *CreateBrandVettingParams {
 	params.VettingProvider = &VettingProvider
+	return params
+}
+func (params *CreateBrandVettingParams) SetVettingId(VettingId string) *CreateBrandVettingParams {
+	params.VettingId = &VettingId
 	return params
 }
 
@@ -48,11 +48,11 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.VettingId != nil {
-		data.Set("VettingId", *params.VettingId)
-	}
 	if params != nil && params.VettingProvider != nil {
 		data.Set("VettingProvider", *params.VettingProvider)
+	}
+	if params != nil && params.VettingId != nil {
+		data.Set("VettingId", *params.VettingId)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

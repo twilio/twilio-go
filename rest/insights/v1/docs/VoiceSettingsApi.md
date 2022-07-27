@@ -68,8 +68,8 @@ Other parameters are passed through a pointer to a UpdateAccountSettingsParams s
 Name | Type | Description
 ------------- | ------------- | -------------
 **AdvancedFeatures** | **bool** | 
-**SubaccountSid** | **string** | 
 **VoiceTrace** | **bool** | 
+**SubaccountSid** | **string** | 
 
 ### Return type
 

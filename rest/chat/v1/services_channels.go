@@ -25,30 +25,30 @@ import (
 
 // Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
-	// A valid JSON string that contains application-specific data.
-	Attributes *string `json:"Attributes,omitempty"`
 	// A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The visibility of the channel. Can be: `public` or `private` and defaults to `public`.
-	Type *string `json:"Type,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
+	//
+	Type *string `json:"Type,omitempty"`
 }
 
-func (params *CreateChannelParams) SetAttributes(Attributes string) *CreateChannelParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *CreateChannelParams) SetFriendlyName(FriendlyName string) *CreateChannelParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateChannelParams) SetType(Type string) *CreateChannelParams {
-	params.Type = &Type
-	return params
-}
 func (params *CreateChannelParams) SetUniqueName(UniqueName string) *CreateChannelParams {
 	params.UniqueName = &UniqueName
+	return params
+}
+func (params *CreateChannelParams) SetAttributes(Attributes string) *CreateChannelParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateChannelParams) SetType(Type string) *CreateChannelParams {
+	params.Type = &Type
 	return params
 }
 
@@ -60,17 +60,17 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
-	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -282,24 +282,24 @@ func (c *ApiService) getNextListChannelResponse(nextPageUrl string) (interface{}
 
 // Optional parameters for the method 'UpdateChannel'
 type UpdateChannelParams struct {
-	// A valid JSON string that contains application-specific data.
-	Attributes *string `json:"Attributes,omitempty"`
 	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
 }
 
-func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChannelParams {
-	params.Attributes = &Attributes
-	return params
-}
 func (params *UpdateChannelParams) SetFriendlyName(FriendlyName string) *UpdateChannelParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
 func (params *UpdateChannelParams) SetUniqueName(UniqueName string) *UpdateChannelParams {
 	params.UniqueName = &UniqueName
+	return params
+}
+func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChannelParams {
+	params.Attributes = &Attributes
 	return params
 }
 
@@ -312,14 +312,14 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

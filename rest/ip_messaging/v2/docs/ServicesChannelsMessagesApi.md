@@ -37,12 +37,12 @@ Other parameters are passed through a pointer to a CreateMessageParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**From** | **string** | 
 **Attributes** | **string** | 
-**Body** | **string** | 
 **DateCreated** | **time.Time** | 
 **DateUpdated** | **time.Time** | 
-**From** | **string** | 
 **LastUpdatedBy** | **string** | 
+**Body** | **string** | 
 **MediaSid** | **string** | 
 
 ### Return type
@@ -224,12 +224,12 @@ Other parameters are passed through a pointer to a UpdateMessageParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Attributes** | **string** | 
 **Body** | **string** | 
+**Attributes** | **string** | 
 **DateCreated** | **time.Time** | 
 **DateUpdated** | **time.Time** | 
-**From** | **string** | 
 **LastUpdatedBy** | **string** | 
+**From** | **string** | 
 
 ### Return type
 

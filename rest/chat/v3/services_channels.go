@@ -24,22 +24,22 @@ import (
 type UpdateChannelParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	//
+	Type *string `json:"Type,omitempty"`
 	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
-	// TThe Type for this Channel to migrate to. Can only be `private`. Migration to 'public' is not allowed.
-	Type *string `json:"Type,omitempty"`
 }
 
 func (params *UpdateChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateChannelParams {
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
 	return params
 }
-func (params *UpdateChannelParams) SetMessagingServiceSid(MessagingServiceSid string) *UpdateChannelParams {
-	params.MessagingServiceSid = &MessagingServiceSid
-	return params
-}
 func (params *UpdateChannelParams) SetType(Type string) *UpdateChannelParams {
 	params.Type = &Type
+	return params
+}
+func (params *UpdateChannelParams) SetMessagingServiceSid(MessagingServiceSid string) *UpdateChannelParams {
+	params.MessagingServiceSid = &MessagingServiceSid
 	return params
 }
 
@@ -52,11 +52,11 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.MessagingServiceSid != nil {
-		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-	}
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

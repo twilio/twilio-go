@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **QualityScoreStandardDeviation** | Pointer to **float32** | The standard deviation of the quality scores |
 **Sid** | Pointer to **string** | A string that uniquely identifies this feedback entry |
 **StartDate** | Pointer to **string** | The earliest feedback entry date in the summary |
-**Status** | Pointer to **string** | The status of the feedback summary |
+**Status** | Pointer to [**string**](CallFeedbackSummaryEnumStatus.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

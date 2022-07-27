@@ -29,12 +29,12 @@ type TaskrouterV1Activity struct {
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The string that you assigned to describe the Activity resource
-	FriendlyName *string                 `json:"friendly_name,omitempty"`
-	Links        *map[string]interface{} `json:"links,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
-	// The absolute URL of the Activity resource
-	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the Activity
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	// The absolute URL of the Activity resource
+	Url   *string                 `json:"url,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 }

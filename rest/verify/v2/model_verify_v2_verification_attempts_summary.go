@@ -22,23 +22,23 @@ import (
 
 // VerifyV2VerificationAttemptsSummary struct for VerifyV2VerificationAttemptsSummary
 type VerifyV2VerificationAttemptsSummary struct {
-	// Percentage of the confirmed messages over the total.
-	ConversionRatePercentage *float32 `json:"conversion_rate_percentage,omitempty"`
 	// Total of attempts made.
 	TotalAttempts *int `json:"total_attempts,omitempty"`
 	// Total of attempts confirmed by the end user.
 	TotalConverted *int `json:"total_converted,omitempty"`
 	// Total of attempts made that were not confirmed by the end user.
-	TotalUnconverted *int    `json:"total_unconverted,omitempty"`
-	Url              *string `json:"url,omitempty"`
+	TotalUnconverted *int `json:"total_unconverted,omitempty"`
+	// Percentage of the confirmed messages over the total.
+	ConversionRatePercentage *float32 `json:"conversion_rate_percentage,omitempty"`
+	Url                      *string  `json:"url,omitempty"`
 }
 
 func (response *VerifyV2VerificationAttemptsSummary) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		ConversionRatePercentage *interface{} `json:"conversion_rate_percentage"`
 		TotalAttempts            *int         `json:"total_attempts"`
 		TotalConverted           *int         `json:"total_converted"`
 		TotalUnconverted         *int         `json:"total_unconverted"`
+		ConversionRatePercentage *interface{} `json:"conversion_rate_percentage"`
 		Url                      *string      `json:"url"`
 	}{}
 

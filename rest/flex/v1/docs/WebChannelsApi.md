@@ -31,11 +31,11 @@ Other parameters are passed through a pointer to a CreateWebChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ChatFriendlyName** | **string** | The chat channel&#39;s friendly name.
-**ChatUniqueName** | **string** | The chat channel&#39;s unique name.
-**CustomerFriendlyName** | **string** | The chat participant&#39;s friendly name.
 **FlexFlowSid** | **string** | The SID of the Flex Flow.
 **Identity** | **string** | The chat identity.
+**CustomerFriendlyName** | **string** | The chat participant&#39;s friendly name.
+**ChatFriendlyName** | **string** | The chat channel&#39;s friendly name.
+**ChatUniqueName** | **string** | The chat channel&#39;s unique name.
 **PreEngagementData** | **string** | The pre-engagement data.
 
 ### Return type
@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a UpdateWebChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ChatStatus** | **string** | The chat status. Can only be &#x60;inactive&#x60;.
+**ChatStatus** | **string** | 
 **PostEngagementData** | **string** | The post-engagement data.
 
 ### Return type

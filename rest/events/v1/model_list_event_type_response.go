@@ -16,6 +16,6 @@ package openapi
 
 // ListEventTypeResponse struct for ListEventTypeResponse
 type ListEventTypeResponse struct {
-	Meta  ListSchemaVersionResponseMeta `json:"meta,omitempty"`
-	Types []EventsV1EventType           `json:"types,omitempty"`
+	Types []EventsV1EventType       `json:"types,omitempty"`
+	Meta  ListEventTypeResponseMeta `json:"meta,omitempty"`
 }

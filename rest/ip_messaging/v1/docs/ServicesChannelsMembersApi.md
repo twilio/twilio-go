@@ -216,8 +216,8 @@ Other parameters are passed through a pointer to a UpdateMemberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**LastConsumedMessageIndex** | **int** | 
 **RoleSid** | **string** | 
+**LastConsumedMessageIndex** | **int** | 
 
 ### Return type
 

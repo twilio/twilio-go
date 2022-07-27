@@ -46,24 +46,36 @@ func (c *ApiService) FetchAnnotation(CallSid string) (*InsightsV1Annotation, err
 
 // Optional parameters for the method 'UpdateAnnotation'
 type UpdateAnnotationParams struct {
-	// Which entity answered the call as determined by Answering Machine Detection. Use this to provide feedback on Answering Machine Detection accuracy. Possible enumerated values, one of: human, machine. human indicates the call was answered by a person. machine indicates the call was answered by an answering machine.
+	//
 	AnsweredBy *string `json:"AnsweredBy,omitempty"`
-	// Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
-	CallScore *int `json:"CallScore,omitempty"`
-	// Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
-	Comment *string `json:"Comment,omitempty"`
-	// Specify if the call had any connectivity issues. Possible enumerated values, one : no_connectivity_issue, invalid_number, caller_id, dropped_call, number_reachability.
+	//
 	ConnectivityIssue *string `json:"ConnectivityIssue,omitempty"`
-	// Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
-	Incident *string `json:"Incident,omitempty"`
 	// Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
 	QualityIssues *string `json:"QualityIssues,omitempty"`
 	// Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
 	Spam *bool `json:"Spam,omitempty"`
+	// Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+	CallScore *int `json:"CallScore,omitempty"`
+	// Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
+	Comment *string `json:"Comment,omitempty"`
+	// Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
+	Incident *string `json:"Incident,omitempty"`
 }
 
 func (params *UpdateAnnotationParams) SetAnsweredBy(AnsweredBy string) *UpdateAnnotationParams {
 	params.AnsweredBy = &AnsweredBy
+	return params
+}
+func (params *UpdateAnnotationParams) SetConnectivityIssue(ConnectivityIssue string) *UpdateAnnotationParams {
+	params.ConnectivityIssue = &ConnectivityIssue
+	return params
+}
+func (params *UpdateAnnotationParams) SetQualityIssues(QualityIssues string) *UpdateAnnotationParams {
+	params.QualityIssues = &QualityIssues
+	return params
+}
+func (params *UpdateAnnotationParams) SetSpam(Spam bool) *UpdateAnnotationParams {
+	params.Spam = &Spam
 	return params
 }
 func (params *UpdateAnnotationParams) SetCallScore(CallScore int) *UpdateAnnotationParams {
@@ -74,20 +86,8 @@ func (params *UpdateAnnotationParams) SetComment(Comment string) *UpdateAnnotati
 	params.Comment = &Comment
 	return params
 }
-func (params *UpdateAnnotationParams) SetConnectivityIssue(ConnectivityIssue string) *UpdateAnnotationParams {
-	params.ConnectivityIssue = &ConnectivityIssue
-	return params
-}
 func (params *UpdateAnnotationParams) SetIncident(Incident string) *UpdateAnnotationParams {
 	params.Incident = &Incident
-	return params
-}
-func (params *UpdateAnnotationParams) SetQualityIssues(QualityIssues string) *UpdateAnnotationParams {
-	params.QualityIssues = &QualityIssues
-	return params
-}
-func (params *UpdateAnnotationParams) SetSpam(Spam bool) *UpdateAnnotationParams {
-	params.Spam = &Spam
 	return params
 }
 
@@ -102,23 +102,23 @@ func (c *ApiService) UpdateAnnotation(CallSid string, params *UpdateAnnotationPa
 	if params != nil && params.AnsweredBy != nil {
 		data.Set("AnsweredBy", *params.AnsweredBy)
 	}
-	if params != nil && params.CallScore != nil {
-		data.Set("CallScore", fmt.Sprint(*params.CallScore))
-	}
-	if params != nil && params.Comment != nil {
-		data.Set("Comment", *params.Comment)
-	}
 	if params != nil && params.ConnectivityIssue != nil {
 		data.Set("ConnectivityIssue", *params.ConnectivityIssue)
-	}
-	if params != nil && params.Incident != nil {
-		data.Set("Incident", *params.Incident)
 	}
 	if params != nil && params.QualityIssues != nil {
 		data.Set("QualityIssues", *params.QualityIssues)
 	}
 	if params != nil && params.Spam != nil {
 		data.Set("Spam", fmt.Sprint(*params.Spam))
+	}
+	if params != nil && params.CallScore != nil {
+		data.Set("CallScore", fmt.Sprint(*params.CallScore))
+	}
+	if params != nil && params.Comment != nil {
+		data.Set("Comment", *params.Comment)
+	}
+	if params != nil && params.Incident != nil {
+		data.Set("Incident", *params.Incident)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

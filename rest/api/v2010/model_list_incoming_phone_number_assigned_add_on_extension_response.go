@@ -16,8 +16,8 @@ package openapi
 
 // ListIncomingPhoneNumberAssignedAddOnExtensionResponse struct for ListIncomingPhoneNumberAssignedAddOnExtensionResponse
 type ListIncomingPhoneNumberAssignedAddOnExtensionResponse struct {
-	End             int                                                 `json:"end,omitempty"`
 	Extensions      []ApiV2010IncomingPhoneNumberAssignedAddOnExtension `json:"extensions,omitempty"`
+	End             int                                                 `json:"end,omitempty"`
 	FirstPageUri    string                                              `json:"first_page_uri,omitempty"`
 	NextPageUri     string                                              `json:"next_page_uri,omitempty"`
 	Page            int                                                 `json:"page,omitempty"`

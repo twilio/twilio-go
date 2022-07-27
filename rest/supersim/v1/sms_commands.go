@@ -25,30 +25,30 @@ import (
 
 // Optional parameters for the method 'CreateSmsCommand'
 type CreateSmsCommandParams struct {
+	// The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
+	Sim *string `json:"Sim,omitempty"`
+	// The message body of the SMS Command.
+	Payload *string `json:"Payload,omitempty"`
 	// The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
 	// The URL we should call using the `callback_method` after we have sent the command.
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	// The message body of the SMS Command.
-	Payload *string `json:"Payload,omitempty"`
-	// The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
-	Sim *string `json:"Sim,omitempty"`
 }
 
-func (params *CreateSmsCommandParams) SetCallbackMethod(CallbackMethod string) *CreateSmsCommandParams {
-	params.CallbackMethod = &CallbackMethod
-	return params
-}
-func (params *CreateSmsCommandParams) SetCallbackUrl(CallbackUrl string) *CreateSmsCommandParams {
-	params.CallbackUrl = &CallbackUrl
+func (params *CreateSmsCommandParams) SetSim(Sim string) *CreateSmsCommandParams {
+	params.Sim = &Sim
 	return params
 }
 func (params *CreateSmsCommandParams) SetPayload(Payload string) *CreateSmsCommandParams {
 	params.Payload = &Payload
 	return params
 }
-func (params *CreateSmsCommandParams) SetSim(Sim string) *CreateSmsCommandParams {
-	params.Sim = &Sim
+func (params *CreateSmsCommandParams) SetCallbackMethod(CallbackMethod string) *CreateSmsCommandParams {
+	params.CallbackMethod = &CallbackMethod
+	return params
+}
+func (params *CreateSmsCommandParams) SetCallbackUrl(CallbackUrl string) *CreateSmsCommandParams {
+	params.CallbackUrl = &CallbackUrl
 	return params
 }
 
@@ -59,17 +59,17 @@ func (c *ApiService) CreateSmsCommand(params *CreateSmsCommandParams) (*Supersim
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Payload != nil {
+		data.Set("Payload", *params.Payload)
+	}
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
-	}
-	if params != nil && params.Payload != nil {
-		data.Set("Payload", *params.Payload)
-	}
-	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -35,8 +35,8 @@ Other parameters are passed through a pointer to a CreateSubscribedEventParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**SchemaVersion** | **int** | The schema version that the subscription should use.
 **Type** | **string** | Type of event being subscribed to.
+**SchemaVersion** | **int** | The schema version that the subscription should use.
 
 ### Return type
 

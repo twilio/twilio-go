@@ -25,18 +25,18 @@ import (
 
 // Optional parameters for the method 'CreateTrustProductChannelEndpointAssignment'
 type CreateTrustProductChannelEndpointAssignmentParams struct {
-	// The SID of an channel endpoint
-	ChannelEndpointSid *string `json:"ChannelEndpointSid,omitempty"`
 	// The type of channel endpoint. eg: phone-number
 	ChannelEndpointType *string `json:"ChannelEndpointType,omitempty"`
+	// The SID of an channel endpoint
+	ChannelEndpointSid *string `json:"ChannelEndpointSid,omitempty"`
 }
 
-func (params *CreateTrustProductChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *CreateTrustProductChannelEndpointAssignmentParams {
-	params.ChannelEndpointSid = &ChannelEndpointSid
-	return params
-}
 func (params *CreateTrustProductChannelEndpointAssignmentParams) SetChannelEndpointType(ChannelEndpointType string) *CreateTrustProductChannelEndpointAssignmentParams {
 	params.ChannelEndpointType = &ChannelEndpointType
+	return params
+}
+func (params *CreateTrustProductChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *CreateTrustProductChannelEndpointAssignmentParams {
+	params.ChannelEndpointSid = &ChannelEndpointSid
 	return params
 }
 
@@ -48,11 +48,11 @@ func (c *ApiService) CreateTrustProductChannelEndpointAssignment(TrustProductSid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ChannelEndpointSid != nil {
-		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
-	}
 	if params != nil && params.ChannelEndpointType != nil {
 		data.Set("ChannelEndpointType", *params.ChannelEndpointType)
+	}
+	if params != nil && params.ChannelEndpointSid != nil {
+		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

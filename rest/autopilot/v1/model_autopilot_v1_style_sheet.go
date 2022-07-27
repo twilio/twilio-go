@@ -20,8 +20,8 @@ type AutopilotV1StyleSheet struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the Assistant that is the parent of the resource
 	AssistantSid *string `json:"assistant_sid,omitempty"`
-	// The JSON string that describes the style sheet object
-	Data *interface{} `json:"data,omitempty"`
 	// The absolute URL of the StyleSheet resource
 	Url *string `json:"url,omitempty"`
+	// The JSON string that describes the style sheet object
+	Data *interface{} `json:"data,omitempty"`
 }

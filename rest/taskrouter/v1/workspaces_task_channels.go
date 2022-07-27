@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreateTaskChannel'
 type CreateTaskChannelParams struct {
-	// Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
-	ChannelOptimizedRouting *bool `json:"ChannelOptimizedRouting,omitempty"`
 	// A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+	ChannelOptimizedRouting *bool `json:"ChannelOptimizedRouting,omitempty"`
 }
 
-func (params *CreateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimizedRouting bool) *CreateTaskChannelParams {
-	params.ChannelOptimizedRouting = &ChannelOptimizedRouting
-	return params
-}
 func (params *CreateTaskChannelParams) SetFriendlyName(FriendlyName string) *CreateTaskChannelParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
 func (params *CreateTaskChannelParams) SetUniqueName(UniqueName string) *CreateTaskChannelParams {
 	params.UniqueName = &UniqueName
+	return params
+}
+func (params *CreateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimizedRouting bool) *CreateTaskChannelParams {
+	params.ChannelOptimizedRouting = &ChannelOptimizedRouting
 	return params
 }
 
@@ -54,14 +54,14 @@ func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskCh
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ChannelOptimizedRouting != nil {
-		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.ChannelOptimizedRouting != nil {
+		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -262,18 +262,18 @@ func (c *ApiService) getNextListTaskChannelResponse(nextPageUrl string) (interfa
 
 // Optional parameters for the method 'UpdateTaskChannel'
 type UpdateTaskChannelParams struct {
-	// Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
-	ChannelOptimizedRouting *bool `json:"ChannelOptimizedRouting,omitempty"`
 	// A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+	ChannelOptimizedRouting *bool `json:"ChannelOptimizedRouting,omitempty"`
 }
 
-func (params *UpdateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimizedRouting bool) *UpdateTaskChannelParams {
-	params.ChannelOptimizedRouting = &ChannelOptimizedRouting
-	return params
-}
 func (params *UpdateTaskChannelParams) SetFriendlyName(FriendlyName string) *UpdateTaskChannelParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimizedRouting bool) *UpdateTaskChannelParams {
+	params.ChannelOptimizedRouting = &ChannelOptimizedRouting
 	return params
 }
 
@@ -286,11 +286,11 @@ func (c *ApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ChannelOptimizedRouting != nil {
-		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ChannelOptimizedRouting != nil {
+		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -28,10 +28,10 @@ type TaskrouterV1WorkflowRealTimeStatistics struct {
 	TasksByStatus *interface{} `json:"tasks_by_status,omitempty"`
 	// The total number of Tasks
 	TotalTasks *int `json:"total_tasks,omitempty"`
-	// The absolute URL of the Workflow statistics resource
-	Url *string `json:"url,omitempty"`
 	// Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
 	WorkflowSid *string `json:"workflow_sid,omitempty"`
 	// The SID of the Workspace that contains the Workflow.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	// The absolute URL of the Workflow statistics resource
+	Url *string `json:"url,omitempty"`
 }

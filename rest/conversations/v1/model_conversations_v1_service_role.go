@@ -20,22 +20,21 @@ import (
 
 // ConversationsV1ServiceRole struct for ConversationsV1ServiceRole
 type ConversationsV1ServiceRole struct {
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the Conversation Service that the resource is associated with
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	Type         *string `json:"type,omitempty"`
+	// An array of the permissions the role has been granted
+	Permissions *[]string `json:"permissions,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
-	// An array of the permissions the role has been granted
-	Permissions *[]string `json:"permissions,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// The type of role
-	Type *string `json:"type,omitempty"`
 	// An absolute URL for this user role.
 	Url *string `json:"url,omitempty"`
 }

@@ -16,9 +16,9 @@ package openapi
 
 // ListSipIpAccessControlListResponse struct for ListSipIpAccessControlListResponse
 type ListSipIpAccessControlListResponse struct {
+	IpAccessControlLists []ApiV2010SipIpAccessControlList `json:"ip_access_control_lists,omitempty"`
 	End                  int                              `json:"end,omitempty"`
 	FirstPageUri         string                           `json:"first_page_uri,omitempty"`
-	IpAccessControlLists []ApiV2010SipIpAccessControlList `json:"ip_access_control_lists,omitempty"`
 	NextPageUri          string                           `json:"next_page_uri,omitempty"`
 	Page                 int                              `json:"page,omitempty"`
 	PageSize             int                              `json:"page_size,omitempty"`

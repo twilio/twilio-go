@@ -16,6 +16,6 @@ package openapi
 
 // ListPlayerStreamerResponse struct for ListPlayerStreamerResponse
 type ListPlayerStreamerResponse struct {
-	Meta            ListMediaProcessorResponseMeta `json:"meta,omitempty"`
 	PlayerStreamers []MediaV1PlayerStreamer        `json:"player_streamers,omitempty"`
+	Meta            ListMediaProcessorResponseMeta `json:"meta,omitempty"`
 }

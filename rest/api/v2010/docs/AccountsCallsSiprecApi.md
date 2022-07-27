@@ -33,10 +33,29 @@ Other parameters are passed through a pointer to a CreateSiprecParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
-**ConnectorName** | **string** | Unique name used when configuring the connector via Marketplace Add-on.
 **Name** | **string** | The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
+**ConnectorName** | **string** | Unique name used when configuring the connector via Marketplace Add-on.
+**Track** | **string** | 
+**StatusCallback** | **string** | Absolute URL of the status callback.
+**StatusCallbackMethod** | **string** | The http method for the status_callback (one of GET, POST).
 **Parameter1Name** | **string** | Parameter name
 **Parameter1Value** | **string** | Parameter value
+**Parameter2Name** | **string** | Parameter name
+**Parameter2Value** | **string** | Parameter value
+**Parameter3Name** | **string** | Parameter name
+**Parameter3Value** | **string** | Parameter value
+**Parameter4Name** | **string** | Parameter name
+**Parameter4Value** | **string** | Parameter value
+**Parameter5Name** | **string** | Parameter name
+**Parameter5Value** | **string** | Parameter value
+**Parameter6Name** | **string** | Parameter name
+**Parameter6Value** | **string** | Parameter value
+**Parameter7Name** | **string** | Parameter name
+**Parameter7Value** | **string** | Parameter value
+**Parameter8Name** | **string** | Parameter name
+**Parameter8Value** | **string** | Parameter value
+**Parameter9Name** | **string** | Parameter name
+**Parameter9Value** | **string** | Parameter value
 **Parameter10Name** | **string** | Parameter name
 **Parameter10Value** | **string** | Parameter value
 **Parameter11Name** | **string** | Parameter name
@@ -57,8 +76,6 @@ Name | Type | Description
 **Parameter18Value** | **string** | Parameter value
 **Parameter19Name** | **string** | Parameter name
 **Parameter19Value** | **string** | Parameter value
-**Parameter2Name** | **string** | Parameter name
-**Parameter2Value** | **string** | Parameter value
 **Parameter20Name** | **string** | Parameter name
 **Parameter20Value** | **string** | Parameter value
 **Parameter21Name** | **string** | Parameter name
@@ -79,8 +96,6 @@ Name | Type | Description
 **Parameter28Value** | **string** | Parameter value
 **Parameter29Name** | **string** | Parameter name
 **Parameter29Value** | **string** | Parameter value
-**Parameter3Name** | **string** | Parameter name
-**Parameter3Value** | **string** | Parameter value
 **Parameter30Name** | **string** | Parameter name
 **Parameter30Value** | **string** | Parameter value
 **Parameter31Name** | **string** | Parameter name
@@ -101,8 +116,6 @@ Name | Type | Description
 **Parameter38Value** | **string** | Parameter value
 **Parameter39Name** | **string** | Parameter name
 **Parameter39Value** | **string** | Parameter value
-**Parameter4Name** | **string** | Parameter name
-**Parameter4Value** | **string** | Parameter value
 **Parameter40Name** | **string** | Parameter name
 **Parameter40Value** | **string** | Parameter value
 **Parameter41Name** | **string** | Parameter name
@@ -123,8 +136,6 @@ Name | Type | Description
 **Parameter48Value** | **string** | Parameter value
 **Parameter49Name** | **string** | Parameter name
 **Parameter49Value** | **string** | Parameter value
-**Parameter5Name** | **string** | Parameter name
-**Parameter5Value** | **string** | Parameter value
 **Parameter50Name** | **string** | Parameter name
 **Parameter50Value** | **string** | Parameter value
 **Parameter51Name** | **string** | Parameter name
@@ -145,8 +156,6 @@ Name | Type | Description
 **Parameter58Value** | **string** | Parameter value
 **Parameter59Name** | **string** | Parameter name
 **Parameter59Value** | **string** | Parameter value
-**Parameter6Name** | **string** | Parameter name
-**Parameter6Value** | **string** | Parameter value
 **Parameter60Name** | **string** | Parameter name
 **Parameter60Value** | **string** | Parameter value
 **Parameter61Name** | **string** | Parameter name
@@ -167,8 +176,6 @@ Name | Type | Description
 **Parameter68Value** | **string** | Parameter value
 **Parameter69Name** | **string** | Parameter name
 **Parameter69Value** | **string** | Parameter value
-**Parameter7Name** | **string** | Parameter name
-**Parameter7Value** | **string** | Parameter value
 **Parameter70Name** | **string** | Parameter name
 **Parameter70Value** | **string** | Parameter value
 **Parameter71Name** | **string** | Parameter name
@@ -189,8 +196,6 @@ Name | Type | Description
 **Parameter78Value** | **string** | Parameter value
 **Parameter79Name** | **string** | Parameter name
 **Parameter79Value** | **string** | Parameter value
-**Parameter8Name** | **string** | Parameter name
-**Parameter8Value** | **string** | Parameter value
 **Parameter80Name** | **string** | Parameter name
 **Parameter80Value** | **string** | Parameter value
 **Parameter81Name** | **string** | Parameter name
@@ -211,8 +216,6 @@ Name | Type | Description
 **Parameter88Value** | **string** | Parameter value
 **Parameter89Name** | **string** | Parameter name
 **Parameter89Value** | **string** | Parameter value
-**Parameter9Name** | **string** | Parameter name
-**Parameter9Value** | **string** | Parameter value
 **Parameter90Name** | **string** | Parameter name
 **Parameter90Value** | **string** | Parameter value
 **Parameter91Name** | **string** | Parameter name
@@ -233,9 +236,6 @@ Name | Type | Description
 **Parameter98Value** | **string** | Parameter value
 **Parameter99Name** | **string** | Parameter name
 **Parameter99Value** | **string** | Parameter value
-**StatusCallback** | **string** | Absolute URL of the status callback.
-**StatusCallbackMethod** | **string** | The http method for the status_callback (one of GET, POST).
-**Track** | **string** | One of &#x60;inbound_track&#x60;, &#x60;outbound_track&#x60;, &#x60;both_tracks&#x60;.
 
 ### Return type
 
@@ -280,7 +280,7 @@ Other parameters are passed through a pointer to a UpdateSiprecParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
-**Status** | **string** | The status. Must have the value &#x60;stopped&#x60;
+**Status** | **string** | 
 
 ### Return type
 

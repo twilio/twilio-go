@@ -22,20 +22,20 @@ import (
 
 // PricingV2TrunkingCountryInstanceTerminatingPrefixPrices struct for PricingV2TrunkingCountryInstanceTerminatingPrefixPrices
 type PricingV2TrunkingCountryInstanceTerminatingPrefixPrices struct {
+	OriginationPrefixes []string `json:"origination_prefixes,omitempty"`
+	DestinationPrefixes []string `json:"destination_prefixes,omitempty"`
 	BasePrice           float32  `json:"base_price,omitempty"`
 	CurrentPrice        float32  `json:"current_price,omitempty"`
-	DestinationPrefixes []string `json:"destination_prefixes,omitempty"`
 	FriendlyName        string   `json:"friendly_name,omitempty"`
-	OriginationPrefixes []string `json:"origination_prefixes,omitempty"`
 }
 
 func (response *PricingV2TrunkingCountryInstanceTerminatingPrefixPrices) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
+		OriginationPrefixes []string    `json:"origination_prefixes"`
+		DestinationPrefixes []string    `json:"destination_prefixes"`
 		BasePrice           interface{} `json:"base_price"`
 		CurrentPrice        interface{} `json:"current_price"`
-		DestinationPrefixes []string    `json:"destination_prefixes"`
 		FriendlyName        string      `json:"friendly_name"`
-		OriginationPrefixes []string    `json:"origination_prefixes"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -43,9 +43,9 @@ func (response *PricingV2TrunkingCountryInstanceTerminatingPrefixPrices) Unmarsh
 	}
 
 	*response = PricingV2TrunkingCountryInstanceTerminatingPrefixPrices{
+		OriginationPrefixes: raw.OriginationPrefixes,
 		DestinationPrefixes: raw.DestinationPrefixes,
 		FriendlyName:        raw.FriendlyName,
-		OriginationPrefixes: raw.OriginationPrefixes,
 	}
 
 	responseBasePrice, err := client.UnmarshalFloat32(&raw.BasePrice)

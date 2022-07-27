@@ -27,20 +27,16 @@ import (
 type CreateSipIpAddressParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-	CidrPrefixLength *int `json:"CidrPrefixLength,omitempty"`
 	// A human readable descriptive text for this resource, up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
 	IpAddress *string `json:"IpAddress,omitempty"`
+	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+	CidrPrefixLength *int `json:"CidrPrefixLength,omitempty"`
 }
 
 func (params *CreateSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *CreateSipIpAddressParams {
 	params.PathAccountSid = &PathAccountSid
-	return params
-}
-func (params *CreateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int) *CreateSipIpAddressParams {
-	params.CidrPrefixLength = &CidrPrefixLength
 	return params
 }
 func (params *CreateSipIpAddressParams) SetFriendlyName(FriendlyName string) *CreateSipIpAddressParams {
@@ -49,6 +45,10 @@ func (params *CreateSipIpAddressParams) SetFriendlyName(FriendlyName string) *Cr
 }
 func (params *CreateSipIpAddressParams) SetIpAddress(IpAddress string) *CreateSipIpAddressParams {
 	params.IpAddress = &IpAddress
+	return params
+}
+func (params *CreateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int) *CreateSipIpAddressParams {
+	params.CidrPrefixLength = &CidrPrefixLength
 	return params
 }
 
@@ -65,14 +65,14 @@ func (c *ApiService) CreateSipIpAddress(IpAccessControlListSid string, params *C
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CidrPrefixLength != nil {
-		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.IpAddress != nil {
 		data.Set("IpAddress", *params.IpAddress)
+	}
+	if params != nil && params.CidrPrefixLength != nil {
+		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -318,28 +318,28 @@ func (c *ApiService) getNextListSipIpAddressResponse(nextPageUrl string) (interf
 type UpdateSipIpAddressParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-	CidrPrefixLength *int `json:"CidrPrefixLength,omitempty"`
-	// A human readable descriptive text for this resource, up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
 	IpAddress *string `json:"IpAddress,omitempty"`
+	// A human readable descriptive text for this resource, up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+	CidrPrefixLength *int `json:"CidrPrefixLength,omitempty"`
 }
 
 func (params *UpdateSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *UpdateSipIpAddressParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *UpdateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int) *UpdateSipIpAddressParams {
-	params.CidrPrefixLength = &CidrPrefixLength
+func (params *UpdateSipIpAddressParams) SetIpAddress(IpAddress string) *UpdateSipIpAddressParams {
+	params.IpAddress = &IpAddress
 	return params
 }
 func (params *UpdateSipIpAddressParams) SetFriendlyName(FriendlyName string) *UpdateSipIpAddressParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateSipIpAddressParams) SetIpAddress(IpAddress string) *UpdateSipIpAddressParams {
-	params.IpAddress = &IpAddress
+func (params *UpdateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int) *UpdateSipIpAddressParams {
+	params.CidrPrefixLength = &CidrPrefixLength
 	return params
 }
 
@@ -357,14 +357,14 @@ func (c *ApiService) UpdateSipIpAddress(IpAccessControlListSid string, Sid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CidrPrefixLength != nil {
-		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
+	if params != nil && params.IpAddress != nil {
+		data.Set("IpAddress", *params.IpAddress)
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.IpAddress != nil {
-		data.Set("IpAddress", *params.IpAddress)
+	if params != nil && params.CidrPrefixLength != nil {
+		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

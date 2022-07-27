@@ -16,6 +16,6 @@ package openapi
 
 // ListStepResponse struct for ListStepResponse
 type ListStepResponse struct {
-	Meta  ListFlowResponseMeta `json:"meta,omitempty"`
-	Steps []StudioV1Step       `json:"steps,omitempty"`
+	Steps []StudioV1Step             `json:"steps,omitempty"`
+	Meta  ListEngagementResponseMeta `json:"meta,omitempty"`
 }

@@ -26,29 +26,29 @@ import (
 // Optional parameters for the method 'CreateUser'
 type CreateUserParams struct {
 	//
-	Attributes *string `json:"Attributes,omitempty"`
-	//
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	//
 	Identity *string `json:"Identity,omitempty"`
 	//
 	RoleSid *string `json:"RoleSid,omitempty"`
+	//
+	Attributes *string `json:"Attributes,omitempty"`
+	//
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *CreateUserParams) SetAttributes(Attributes string) *CreateUserParams {
-	params.Attributes = &Attributes
-	return params
-}
-func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUserParams {
-	params.FriendlyName = &FriendlyName
-	return params
-}
 func (params *CreateUserParams) SetIdentity(Identity string) *CreateUserParams {
 	params.Identity = &Identity
 	return params
 }
 func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
 	params.RoleSid = &RoleSid
+	return params
+}
+func (params *CreateUserParams) SetAttributes(Attributes string) *CreateUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUserParams {
+	params.FriendlyName = &FriendlyName
 	return params
 }
 
@@ -60,17 +60,17 @@ func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*I
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
 	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -272,23 +272,23 @@ func (c *ApiService) getNextListUserResponse(nextPageUrl string) (interface{}, e
 // Optional parameters for the method 'UpdateUser'
 type UpdateUserParams struct {
 	//
+	RoleSid *string `json:"RoleSid,omitempty"`
+	//
 	Attributes *string `json:"Attributes,omitempty"`
 	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	//
-	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
+func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
+	params.RoleSid = &RoleSid
+	return params
+}
 func (params *UpdateUserParams) SetAttributes(Attributes string) *UpdateUserParams {
 	params.Attributes = &Attributes
 	return params
 }
 func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUserParams {
 	params.FriendlyName = &FriendlyName
-	return params
-}
-func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
-	params.RoleSid = &RoleSid
 	return params
 }
 
@@ -301,14 +301,14 @@ func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUse
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

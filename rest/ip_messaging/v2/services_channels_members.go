@@ -29,39 +29,31 @@ type CreateMemberParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	//
-	Attributes *string `json:"Attributes,omitempty"`
-	//
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
-	//
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-	//
 	Identity *string `json:"Identity,omitempty"`
+	//
+	RoleSid *string `json:"RoleSid,omitempty"`
 	//
 	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 	//
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
 	//
-	RoleSid *string `json:"RoleSid,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	//
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	//
+	Attributes *string `json:"Attributes,omitempty"`
 }
 
 func (params *CreateMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateMemberParams {
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
 	return params
 }
-func (params *CreateMemberParams) SetAttributes(Attributes string) *CreateMemberParams {
-	params.Attributes = &Attributes
-	return params
-}
-func (params *CreateMemberParams) SetDateCreated(DateCreated time.Time) *CreateMemberParams {
-	params.DateCreated = &DateCreated
-	return params
-}
-func (params *CreateMemberParams) SetDateUpdated(DateUpdated time.Time) *CreateMemberParams {
-	params.DateUpdated = &DateUpdated
-	return params
-}
 func (params *CreateMemberParams) SetIdentity(Identity string) *CreateMemberParams {
 	params.Identity = &Identity
+	return params
+}
+func (params *CreateMemberParams) SetRoleSid(RoleSid string) *CreateMemberParams {
+	params.RoleSid = &RoleSid
 	return params
 }
 func (params *CreateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *CreateMemberParams {
@@ -72,8 +64,16 @@ func (params *CreateMemberParams) SetLastConsumptionTimestamp(LastConsumptionTim
 	params.LastConsumptionTimestamp = &LastConsumptionTimestamp
 	return params
 }
-func (params *CreateMemberParams) SetRoleSid(RoleSid string) *CreateMemberParams {
-	params.RoleSid = &RoleSid
+func (params *CreateMemberParams) SetDateCreated(DateCreated time.Time) *CreateMemberParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *CreateMemberParams) SetDateUpdated(DateUpdated time.Time) *CreateMemberParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *CreateMemberParams) SetAttributes(Attributes string) *CreateMemberParams {
+	params.Attributes = &Attributes
 	return params
 }
 
@@ -86,17 +86,11 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
-	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
-	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
 	}
 	if params != nil && params.LastConsumedMessageIndex != nil {
 		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
@@ -104,8 +98,14 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 	if params != nil && params.LastConsumptionTimestamp != nil {
 		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
 	}
-	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -342,33 +342,25 @@ type UpdateMemberParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	//
-	Attributes *string `json:"Attributes,omitempty"`
-	//
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
-	//
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 	//
 	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 	//
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
 	//
-	RoleSid *string `json:"RoleSid,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	//
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	//
+	Attributes *string `json:"Attributes,omitempty"`
 }
 
 func (params *UpdateMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateMemberParams {
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
 	return params
 }
-func (params *UpdateMemberParams) SetAttributes(Attributes string) *UpdateMemberParams {
-	params.Attributes = &Attributes
-	return params
-}
-func (params *UpdateMemberParams) SetDateCreated(DateCreated time.Time) *UpdateMemberParams {
-	params.DateCreated = &DateCreated
-	return params
-}
-func (params *UpdateMemberParams) SetDateUpdated(DateUpdated time.Time) *UpdateMemberParams {
-	params.DateUpdated = &DateUpdated
+func (params *UpdateMemberParams) SetRoleSid(RoleSid string) *UpdateMemberParams {
+	params.RoleSid = &RoleSid
 	return params
 }
 func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateMemberParams {
@@ -379,8 +371,16 @@ func (params *UpdateMemberParams) SetLastConsumptionTimestamp(LastConsumptionTim
 	params.LastConsumptionTimestamp = &LastConsumptionTimestamp
 	return params
 }
-func (params *UpdateMemberParams) SetRoleSid(RoleSid string) *UpdateMemberParams {
-	params.RoleSid = &RoleSid
+func (params *UpdateMemberParams) SetDateCreated(DateCreated time.Time) *UpdateMemberParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *UpdateMemberParams) SetDateUpdated(DateUpdated time.Time) *UpdateMemberParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *UpdateMemberParams) SetAttributes(Attributes string) *UpdateMemberParams {
+	params.Attributes = &Attributes
 	return params
 }
 
@@ -394,14 +394,8 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
-	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
 	}
 	if params != nil && params.LastConsumedMessageIndex != nil {
 		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
@@ -409,8 +403,14 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 	if params != nil && params.LastConsumptionTimestamp != nil {
 		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
 	}
-	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

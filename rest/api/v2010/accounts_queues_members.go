@@ -216,22 +216,22 @@ func (c *ApiService) getNextListMemberResponse(nextPageUrl string) (interface{},
 type UpdateMemberParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
-	Method *string `json:"Method,omitempty"`
 	// The absolute URL of the Queue resource.
 	Url *string `json:"Url,omitempty"`
+	// How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
+	Method *string `json:"Method,omitempty"`
 }
 
 func (params *UpdateMemberParams) SetPathAccountSid(PathAccountSid string) *UpdateMemberParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *UpdateMemberParams) SetMethod(Method string) *UpdateMemberParams {
-	params.Method = &Method
-	return params
-}
 func (params *UpdateMemberParams) SetUrl(Url string) *UpdateMemberParams {
 	params.Url = &Url
+	return params
+}
+func (params *UpdateMemberParams) SetMethod(Method string) *UpdateMemberParams {
+	params.Method = &Method
 	return params
 }
 
@@ -249,11 +249,11 @@ func (c *ApiService) UpdateMember(QueueSid string, CallSid string, params *Updat
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Method != nil {
-		data.Set("Method", *params.Method)
-	}
 	if params != nil && params.Url != nil {
 		data.Set("Url", *params.Url)
+	}
+	if params != nil && params.Method != nil {
+		data.Set("Method", *params.Method)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

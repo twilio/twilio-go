@@ -126,59 +126,59 @@ Other parameters are passed through a pointer to a UpdateTaskReservationParams s
 Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | The If-Match HTTP request header
-**Beep** | **string** | Whether to play a notification beep when the participant joins or when to play a beep. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;onEnter&#x60;, or &#x60;onExit&#x60;. The default value is &#x60;true&#x60;.
-**BeepOnCustomerEntrance** | **bool** | Whether to play a notification beep when the customer joins.
-**CallAccept** | **bool** | Whether to accept a reservation when executing a Call instruction.
+**ReservationStatus** | **string** | 
+**WorkerActivitySid** | **string** | The new worker activity SID if rejecting a reservation.
+**Instruction** | **string** | The assignment instruction for reservation.
+**DequeuePostWorkActivitySid** | **string** | The SID of the Activity resource to start after executing a Dequeue instruction.
+**DequeueFrom** | **string** | The Caller ID of the call to the worker when executing a Dequeue instruction.
+**DequeueRecord** | **string** | Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
+**DequeueTimeout** | **int** | Timeout for call when executing a Dequeue instruction.
+**DequeueTo** | **string** | The Contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+**DequeueStatusCallbackUrl** | **string** | The Callback URL for completed call event when executing a Dequeue instruction.
 **CallFrom** | **string** | The Caller ID of the outbound call when executing a Call instruction.
 **CallRecord** | **string** | Whether to record both legs of a call when executing a Call instruction or which leg to record.
-**CallStatusCallbackUrl** | **string** | The URL to call  for the completed call event when executing a Call instruction.
 **CallTimeout** | **int** | Timeout for call when executing a Call instruction.
 **CallTo** | **string** | The Contact URI of the worker when executing a Call instruction.  Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
 **CallUrl** | **string** | TwiML URI executed on answering the worker&#39;s leg as a result of the Call instruction.
-**ConferenceRecord** | **string** | Whether to record the conference the participant is joining or when to record the conference. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;record-from-start&#x60;, and &#x60;do-not-record&#x60;. The default value is &#x60;false&#x60;.
-**ConferenceRecordingStatusCallback** | **string** | The URL we should call using the &#x60;conference_recording_status_callback_method&#x60; when the conference recording is available.
-**ConferenceRecordingStatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;conference_recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
-**ConferenceStatusCallback** | **string** | The URL we should call using the &#x60;conference_status_callback_method&#x60; when the conference events in &#x60;conference_status_callback_event&#x60; occur. Only the value set by the first participant to join the conference is used. Subsequent &#x60;conference_status_callback&#x60; values are ignored.
-**ConferenceStatusCallbackEvent** | **[]string** | The conference status events that we will send to &#x60;conference_status_callback&#x60;. Can be: &#x60;start&#x60;, &#x60;end&#x60;, &#x60;join&#x60;, &#x60;leave&#x60;, &#x60;mute&#x60;, &#x60;hold&#x60;, &#x60;speaker&#x60;.
-**ConferenceStatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;conference_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
-**ConferenceTrim** | **string** | How to trim the leading and trailing silence from your recorded conference audio files. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and defaults to &#x60;trim-silence&#x60;.
-**DequeueFrom** | **string** | The Caller ID of the call to the worker when executing a Dequeue instruction.
-**DequeuePostWorkActivitySid** | **string** | The SID of the Activity resource to start after executing a Dequeue instruction.
-**DequeueRecord** | **string** | Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
-**DequeueStatusCallbackEvent** | **[]string** | The Call progress events sent via webhooks as a result of a Dequeue instruction.
-**DequeueStatusCallbackUrl** | **string** | The Callback URL for completed call event when executing a Dequeue instruction.
-**DequeueTimeout** | **int** | Timeout for call when executing a Dequeue instruction.
-**DequeueTo** | **string** | The Contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
-**EarlyMedia** | **bool** | Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is &#x60;true&#x60;.
-**EndConferenceOnCustomerExit** | **bool** | Whether to end the conference when the customer leaves.
-**EndConferenceOnExit** | **bool** | Whether to end the conference when the agent leaves.
+**CallStatusCallbackUrl** | **string** | The URL to call  for the completed call event when executing a Call instruction.
+**CallAccept** | **bool** | Whether to accept a reservation when executing a Call instruction.
+**RedirectCallSid** | **string** | The Call SID of the call parked in the queue when executing a Redirect instruction.
+**RedirectAccept** | **bool** | Whether the reservation should be accepted when executing a Redirect instruction.
+**RedirectUrl** | **string** | TwiML URI to redirect the call to when executing the Redirect instruction.
+**To** | **string** | The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
 **From** | **string** | The Caller ID of the call to the worker when executing a Conference instruction.
-**Instruction** | **string** | The assignment instruction for reservation.
-**MaxParticipants** | **int** | The maximum number of participants in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;.
-**Muted** | **bool** | Whether the agent is muted in the conference. The default is &#x60;false&#x60;.
-**PostWorkActivitySid** | **string** | The new worker activity SID after executing a Conference instruction.
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application.
+**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
+**StatusCallbackEvent** | [**[]TaskReservationEnumCallStatus**](TaskReservationEnumCallStatus.md) | The call progress events that we will send to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, or &#x60;completed&#x60;.
+**Timeout** | **int** | Timeout for call when executing a Conference instruction.
 **Record** | **bool** | Whether to record the participant and their conferences, including the time between conferences. The default is &#x60;false&#x60;.
+**Muted** | **bool** | Whether the agent is muted in the conference. The default is &#x60;false&#x60;.
+**Beep** | **string** | Whether to play a notification beep when the participant joins or when to play a beep. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;onEnter&#x60;, or &#x60;onExit&#x60;. The default value is &#x60;true&#x60;.
+**StartConferenceOnEnter** | **bool** | Whether to start the conference when the participant joins, if it has not already started. The default is &#x60;true&#x60;. If &#x60;false&#x60; and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+**EndConferenceOnExit** | **bool** | Whether to end the conference when the agent leaves.
+**WaitUrl** | **string** | The URL we should call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+**WaitMethod** | **string** | The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file.
+**EarlyMedia** | **bool** | Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is &#x60;true&#x60;.
+**MaxParticipants** | **int** | The maximum number of participants in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;.
+**ConferenceStatusCallback** | **string** | The URL we should call using the &#x60;conference_status_callback_method&#x60; when the conference events in &#x60;conference_status_callback_event&#x60; occur. Only the value set by the first participant to join the conference is used. Subsequent &#x60;conference_status_callback&#x60; values are ignored.
+**ConferenceStatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;conference_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
+**ConferenceStatusCallbackEvent** | [**[]TaskReservationEnumConferenceEvent**](TaskReservationEnumConferenceEvent.md) | The conference status events that we will send to &#x60;conference_status_callback&#x60;. Can be: &#x60;start&#x60;, &#x60;end&#x60;, &#x60;join&#x60;, &#x60;leave&#x60;, &#x60;mute&#x60;, &#x60;hold&#x60;, &#x60;speaker&#x60;.
+**ConferenceRecord** | **string** | Whether to record the conference the participant is joining or when to record the conference. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;record-from-start&#x60;, and &#x60;do-not-record&#x60;. The default value is &#x60;false&#x60;.
+**ConferenceTrim** | **string** | How to trim the leading and trailing silence from your recorded conference audio files. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and defaults to &#x60;trim-silence&#x60;.
 **RecordingChannels** | **string** | The recording channels for the final recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60; and the default is &#x60;mono&#x60;.
 **RecordingStatusCallback** | **string** | The URL that we should call using the &#x60;recording_status_callback_method&#x60; when the recording status changes.
 **RecordingStatusCallbackMethod** | **string** | The HTTP method we should use when we call &#x60;recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
-**RedirectAccept** | **bool** | Whether the reservation should be accepted when executing a Redirect instruction.
-**RedirectCallSid** | **string** | The Call SID of the call parked in the queue when executing a Redirect instruction.
-**RedirectUrl** | **string** | TwiML URI to redirect the call to when executing the Redirect instruction.
+**ConferenceRecordingStatusCallback** | **string** | The URL we should call using the &#x60;conference_recording_status_callback_method&#x60; when the conference recording is available.
+**ConferenceRecordingStatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;conference_recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
 **Region** | **string** | The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:&#x60;us1&#x60;, &#x60;ie1&#x60;, &#x60;de1&#x60;, &#x60;sg1&#x60;, &#x60;br1&#x60;, &#x60;au1&#x60;, or &#x60;jp1&#x60;.
-**ReservationStatus** | **string** | The new status of the reservation. Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
-**SipAuthPassword** | **string** | The SIP password for authentication.
 **SipAuthUsername** | **string** | The SIP username used for authentication.
-**StartConferenceOnEnter** | **bool** | Whether to start the conference when the participant joins, if it has not already started. The default is &#x60;true&#x60;. If &#x60;false&#x60; and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
-**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application.
-**StatusCallbackEvent** | **[]string** | The call progress events that we will send to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, or &#x60;completed&#x60;.
-**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
+**SipAuthPassword** | **string** | The SIP password for authentication.
+**DequeueStatusCallbackEvent** | **[]string** | The Call progress events sent via webhooks as a result of a Dequeue instruction.
+**PostWorkActivitySid** | **string** | The new worker activity SID after executing a Conference instruction.
+**SupervisorMode** | **string** | 
 **Supervisor** | **string** | The Supervisor SID/URI when executing the Supervise instruction.
-**SupervisorMode** | **string** | The Supervisor mode when executing the Supervise instruction.
-**Timeout** | **int** | Timeout for call when executing a Conference instruction.
-**To** | **string** | The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
-**WaitMethod** | **string** | The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file.
-**WaitUrl** | **string** | The URL we should call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-**WorkerActivitySid** | **string** | The new worker activity SID if rejecting a reservation.
+**EndConferenceOnCustomerExit** | **bool** | Whether to end the conference when the customer leaves.
+**BeepOnCustomerEntrance** | **bool** | Whether to play a notification beep when the customer joins.
 
 ### Return type
 

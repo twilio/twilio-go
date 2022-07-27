@@ -35,10 +35,10 @@ Other parameters are passed through a pointer to a CreateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | 
-**FriendlyName** | **string** | 
 **Identity** | **string** | 
 **RoleSid** | **string** | 
+**Attributes** | **string** | 
+**FriendlyName** | **string** | 
 
 ### Return type
 
@@ -212,9 +212,9 @@ Other parameters are passed through a pointer to a UpdateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**RoleSid** | **string** | 
 **Attributes** | **string** | 
 **FriendlyName** | **string** | 
-**RoleSid** | **string** | 
 
 ### Return type
 

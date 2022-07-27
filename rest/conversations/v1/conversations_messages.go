@@ -28,8 +28,6 @@ import (
 type CreateConversationMessageParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	// A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-	Attributes *string `json:"Attributes,omitempty"`
 	// The channel specific identifier of the message's author. Defaults to `system`.
 	Author *string `json:"Author,omitempty"`
 	// The content of the message, can be up to 1,600 characters long.
@@ -38,16 +36,14 @@ type CreateConversationMessageParams struct {
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	// The date that this resource was last updated. `null` if the message has not been edited.
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+	Attributes *string `json:"Attributes,omitempty"`
 	// The Media SID to be attached to the new Message.
 	MediaSid *string `json:"MediaSid,omitempty"`
 }
 
 func (params *CreateConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateConversationMessageParams {
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
-	return params
-}
-func (params *CreateConversationMessageParams) SetAttributes(Attributes string) *CreateConversationMessageParams {
-	params.Attributes = &Attributes
 	return params
 }
 func (params *CreateConversationMessageParams) SetAuthor(Author string) *CreateConversationMessageParams {
@@ -66,6 +62,10 @@ func (params *CreateConversationMessageParams) SetDateUpdated(DateUpdated time.T
 	params.DateUpdated = &DateUpdated
 	return params
 }
+func (params *CreateConversationMessageParams) SetAttributes(Attributes string) *CreateConversationMessageParams {
+	params.Attributes = &Attributes
+	return params
+}
 func (params *CreateConversationMessageParams) SetMediaSid(MediaSid string) *CreateConversationMessageParams {
 	params.MediaSid = &MediaSid
 	return params
@@ -79,9 +79,6 @@ func (c *ApiService) CreateConversationMessage(ConversationSid string, params *C
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
 	if params != nil && params.Author != nil {
 		data.Set("Author", *params.Author)
 	}
@@ -93,6 +90,9 @@ func (c *ApiService) CreateConversationMessage(ConversationSid string, params *C
 	}
 	if params != nil && params.DateUpdated != nil {
 		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.MediaSid != nil {
 		data.Set("MediaSid", *params.MediaSid)
@@ -326,8 +326,6 @@ func (c *ApiService) getNextListConversationMessageResponse(nextPageUrl string) 
 type UpdateConversationMessageParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	// A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-	Attributes *string `json:"Attributes,omitempty"`
 	// The channel specific identifier of the message's author. Defaults to `system`.
 	Author *string `json:"Author,omitempty"`
 	// The content of the message, can be up to 1,600 characters long.
@@ -336,14 +334,12 @@ type UpdateConversationMessageParams struct {
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	// The date that this resource was last updated. `null` if the message has not been edited.
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+	Attributes *string `json:"Attributes,omitempty"`
 }
 
 func (params *UpdateConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateConversationMessageParams {
 	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
-	return params
-}
-func (params *UpdateConversationMessageParams) SetAttributes(Attributes string) *UpdateConversationMessageParams {
-	params.Attributes = &Attributes
 	return params
 }
 func (params *UpdateConversationMessageParams) SetAuthor(Author string) *UpdateConversationMessageParams {
@@ -362,6 +358,10 @@ func (params *UpdateConversationMessageParams) SetDateUpdated(DateUpdated time.T
 	params.DateUpdated = &DateUpdated
 	return params
 }
+func (params *UpdateConversationMessageParams) SetAttributes(Attributes string) *UpdateConversationMessageParams {
+	params.Attributes = &Attributes
+	return params
+}
 
 // Update an existing message in the conversation
 func (c *ApiService) UpdateConversationMessage(ConversationSid string, Sid string, params *UpdateConversationMessageParams) (*ConversationsV1ConversationMessage, error) {
@@ -372,9 +372,6 @@ func (c *ApiService) UpdateConversationMessage(ConversationSid string, Sid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
 	if params != nil && params.Author != nil {
 		data.Set("Author", *params.Author)
 	}
@@ -386,6 +383,9 @@ func (c *ApiService) UpdateConversationMessage(ConversationSid string, Sid strin
 	}
 	if params != nil && params.DateUpdated != nil {
 		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

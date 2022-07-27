@@ -37,12 +37,12 @@ Other parameters are passed through a pointer to a CreateMessageParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**From** | **string** | The [Identity](https://www.twilio.com/docs/chat/identity) of the new message&#39;s author. The default value is &#x60;system&#x60;.
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
-**Body** | **string** | The message to send to the channel. Can be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
 **DateCreated** | **time.Time** | The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat&#39;s history is being recreated from a backup/separate source.
 **DateUpdated** | **time.Time** | The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-**From** | **string** | The [Identity](https://www.twilio.com/docs/chat/identity) of the new message&#39;s author. The default value is &#x60;system&#x60;.
 **LastUpdatedBy** | **string** | The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
+**Body** | **string** | The message to send to the channel. Can be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
 **MediaSid** | **string** | The SID of the [Media](https://www.twilio.com/docs/chat/rest/media) to attach to the new Message.
 
 ### Return type
@@ -224,12 +224,12 @@ Other parameters are passed through a pointer to a UpdateMessageParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Attributes** | **string** | A valid JSON string that contains application-specific data.
 **Body** | **string** | The message to send to the channel. Can be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
+**Attributes** | **string** | A valid JSON string that contains application-specific data.
 **DateCreated** | **time.Time** | The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat&#39;s history is being recreated from a backup/separate source.
 **DateUpdated** | **time.Time** | The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-**From** | **string** | The [Identity](https://www.twilio.com/docs/chat/identity) of the message&#39;s author.
 **LastUpdatedBy** | **string** | The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
+**From** | **string** | The [Identity](https://www.twilio.com/docs/chat/identity) of the message&#39;s author.
 
 ### Return type
 

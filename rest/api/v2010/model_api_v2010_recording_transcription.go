@@ -39,8 +39,7 @@ type ApiV2010RecordingTranscription struct {
 	// The SID that identifies the transcription's recording
 	RecordingSid *string `json:"recording_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// The status of the transcription
+	Sid    *string `json:"sid,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// The text content of the transcription.
 	TranscriptionText *string `json:"transcription_text,omitempty"`

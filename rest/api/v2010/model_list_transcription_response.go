@@ -16,6 +16,7 @@ package openapi
 
 // ListTranscriptionResponse struct for ListTranscriptionResponse
 type ListTranscriptionResponse struct {
+	Transcriptions  []ApiV2010Transcription `json:"transcriptions,omitempty"`
 	End             int                     `json:"end,omitempty"`
 	FirstPageUri    string                  `json:"first_page_uri,omitempty"`
 	NextPageUri     string                  `json:"next_page_uri,omitempty"`
@@ -23,6 +24,5 @@ type ListTranscriptionResponse struct {
 	PageSize        int                     `json:"page_size,omitempty"`
 	PreviousPageUri string                  `json:"previous_page_uri,omitempty"`
 	Start           int                     `json:"start,omitempty"`
-	Transcriptions  []ApiV2010Transcription `json:"transcriptions,omitempty"`
 	Uri             string                  `json:"uri,omitempty"`
 }

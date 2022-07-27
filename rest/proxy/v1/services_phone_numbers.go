@@ -25,24 +25,24 @@ import (
 
 // Optional parameters for the method 'CreatePhoneNumber'
 type CreatePhoneNumberParams struct {
-	// Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
-	IsReserved *bool `json:"IsReserved,omitempty"`
-	// The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
-	PhoneNumber *string `json:"PhoneNumber,omitempty"`
 	// The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service.
 	Sid *string `json:"Sid,omitempty"`
+	// The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
+	IsReserved *bool `json:"IsReserved,omitempty"`
 }
 
-func (params *CreatePhoneNumberParams) SetIsReserved(IsReserved bool) *CreatePhoneNumberParams {
-	params.IsReserved = &IsReserved
+func (params *CreatePhoneNumberParams) SetSid(Sid string) *CreatePhoneNumberParams {
+	params.Sid = &Sid
 	return params
 }
 func (params *CreatePhoneNumberParams) SetPhoneNumber(PhoneNumber string) *CreatePhoneNumberParams {
 	params.PhoneNumber = &PhoneNumber
 	return params
 }
-func (params *CreatePhoneNumberParams) SetSid(Sid string) *CreatePhoneNumberParams {
-	params.Sid = &Sid
+func (params *CreatePhoneNumberParams) SetIsReserved(IsReserved bool) *CreatePhoneNumberParams {
+	params.IsReserved = &IsReserved
 	return params
 }
 
@@ -54,14 +54,14 @@ func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNum
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.IsReserved != nil {
-		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
+	if params != nil && params.Sid != nil {
+		data.Set("Sid", *params.Sid)
 	}
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
-	if params != nil && params.Sid != nil {
-		data.Set("Sid", *params.Sid)
+	if params != nil && params.IsReserved != nil {
+		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

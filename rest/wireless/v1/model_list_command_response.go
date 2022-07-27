@@ -16,6 +16,6 @@ package openapi
 
 // ListCommandResponse struct for ListCommandResponse
 type ListCommandResponse struct {
-	Commands []WirelessV1Command     `json:"commands,omitempty"`
-	Meta     ListCommandResponseMeta `json:"meta,omitempty"`
+	Commands []WirelessV1Command                `json:"commands,omitempty"`
+	Meta     ListAccountUsageRecordResponseMeta `json:"meta,omitempty"`
 }

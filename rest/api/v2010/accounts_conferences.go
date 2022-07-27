@@ -286,28 +286,28 @@ func (c *ApiService) getNextListConferenceResponse(nextPageUrl string) (interfac
 type UpdateConferenceParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
-	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
+	//
+	Status *string `json:"Status,omitempty"`
 	// The URL we should call to announce something into the conference. The URL can return an MP3, a WAV, or a TwiML document with `<Play>` or `<Say>`.
 	AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
-	// The new status of the resource. Can be:  Can be: `init`, `in-progress`, or `completed`. Specifying `completed` will end the conference and hang up all participants
-	Status *string `json:"Status,omitempty"`
+	// The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
 }
 
 func (params *UpdateConferenceParams) SetPathAccountSid(PathAccountSid string) *UpdateConferenceParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *UpdateConferenceParams) SetAnnounceMethod(AnnounceMethod string) *UpdateConferenceParams {
-	params.AnnounceMethod = &AnnounceMethod
+func (params *UpdateConferenceParams) SetStatus(Status string) *UpdateConferenceParams {
+	params.Status = &Status
 	return params
 }
 func (params *UpdateConferenceParams) SetAnnounceUrl(AnnounceUrl string) *UpdateConferenceParams {
 	params.AnnounceUrl = &AnnounceUrl
 	return params
 }
-func (params *UpdateConferenceParams) SetStatus(Status string) *UpdateConferenceParams {
-	params.Status = &Status
+func (params *UpdateConferenceParams) SetAnnounceMethod(AnnounceMethod string) *UpdateConferenceParams {
+	params.AnnounceMethod = &AnnounceMethod
 	return params
 }
 
@@ -324,14 +324,14 @@ func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AnnounceMethod != nil {
-		data.Set("AnnounceMethod", *params.AnnounceMethod)
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.AnnounceUrl != nil {
 		data.Set("AnnounceUrl", *params.AnnounceUrl)
 	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+	if params != nil && params.AnnounceMethod != nil {
+		data.Set("AnnounceMethod", *params.AnnounceMethod)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

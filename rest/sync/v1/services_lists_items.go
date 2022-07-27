@@ -25,30 +25,30 @@ import (
 
 // Optional parameters for the method 'CreateSyncListItem'
 type CreateSyncListItemParams struct {
-	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted.
-	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
 	Data *interface{} `json:"Data,omitempty"`
-	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
-	ItemTtl *int `json:"ItemTtl,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 	Ttl *int `json:"Ttl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+	ItemTtl *int `json:"ItemTtl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted.
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 }
 
-func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *CreateSyncListItemParams {
-	params.CollectionTtl = &CollectionTtl
-	return params
-}
 func (params *CreateSyncListItemParams) SetData(Data interface{}) *CreateSyncListItemParams {
 	params.Data = &Data
+	return params
+}
+func (params *CreateSyncListItemParams) SetTtl(Ttl int) *CreateSyncListItemParams {
+	params.Ttl = &Ttl
 	return params
 }
 func (params *CreateSyncListItemParams) SetItemTtl(ItemTtl int) *CreateSyncListItemParams {
 	params.ItemTtl = &ItemTtl
 	return params
 }
-func (params *CreateSyncListItemParams) SetTtl(Ttl int) *CreateSyncListItemParams {
-	params.Ttl = &Ttl
+func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *CreateSyncListItemParams {
+	params.CollectionTtl = &CollectionTtl
 	return params
 }
 
@@ -61,9 +61,6 @@ func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, param
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CollectionTtl != nil {
-		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
-	}
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)
 
@@ -73,11 +70,14 @@ func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, param
 
 		data.Set("Data", string(v))
 	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
 	if params != nil && params.ItemTtl != nil {
 		data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
 	}
-	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -325,34 +325,34 @@ func (c *ApiService) getNextListSyncListItemResponse(nextPageUrl string) (interf
 type UpdateSyncListItemParams struct {
 	// If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 	IfMatch *string `json:"If-Match,omitempty"`
-	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
-	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
 	Data *interface{} `json:"Data,omitempty"`
-	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
-	ItemTtl *int `json:"ItemTtl,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 	Ttl *int `json:"Ttl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+	ItemTtl *int `json:"ItemTtl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 }
 
 func (params *UpdateSyncListItemParams) SetIfMatch(IfMatch string) *UpdateSyncListItemParams {
 	params.IfMatch = &IfMatch
 	return params
 }
-func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *UpdateSyncListItemParams {
-	params.CollectionTtl = &CollectionTtl
-	return params
-}
 func (params *UpdateSyncListItemParams) SetData(Data interface{}) *UpdateSyncListItemParams {
 	params.Data = &Data
+	return params
+}
+func (params *UpdateSyncListItemParams) SetTtl(Ttl int) *UpdateSyncListItemParams {
+	params.Ttl = &Ttl
 	return params
 }
 func (params *UpdateSyncListItemParams) SetItemTtl(ItemTtl int) *UpdateSyncListItemParams {
 	params.ItemTtl = &ItemTtl
 	return params
 }
-func (params *UpdateSyncListItemParams) SetTtl(Ttl int) *UpdateSyncListItemParams {
-	params.Ttl = &Ttl
+func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *UpdateSyncListItemParams {
+	params.CollectionTtl = &CollectionTtl
 	return params
 }
 
@@ -366,9 +366,6 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CollectionTtl != nil {
-		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
-	}
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)
 
@@ -378,11 +375,14 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 
 		data.Set("Data", string(v))
 	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
 	if params != nil && params.ItemTtl != nil {
 		data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
 	}
-	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
 	if params != nil && params.IfMatch != nil {

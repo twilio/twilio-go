@@ -16,6 +16,6 @@ package openapi
 
 // ListItemAssignmentResponse struct for ListItemAssignmentResponse
 type ListItemAssignmentResponse struct {
-	Meta    ListBundleResponseMeta    `json:"meta,omitempty"`
 	Results []NumbersV2ItemAssignment `json:"results,omitempty"`
+	Meta    ListBundleResponseMeta    `json:"meta,omitempty"`
 }

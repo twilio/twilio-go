@@ -25,18 +25,18 @@ import (
 
 // Optional parameters for the method 'CreateSyncStream'
 type CreateSyncStreamParams struct {
-	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
-	Ttl *int `json:"Ttl,omitempty"`
 	// An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
-func (params *CreateSyncStreamParams) SetTtl(Ttl int) *CreateSyncStreamParams {
-	params.Ttl = &Ttl
-	return params
-}
 func (params *CreateSyncStreamParams) SetUniqueName(UniqueName string) *CreateSyncStreamParams {
 	params.UniqueName = &UniqueName
+	return params
+}
+func (params *CreateSyncStreamParams) SetTtl(Ttl int) *CreateSyncStreamParams {
+	params.Ttl = &Ttl
 	return params
 }
 
@@ -48,11 +48,11 @@ func (c *ApiService) CreateSyncStream(ServiceSid string, params *CreateSyncStrea
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", fmt.Sprint(*params.Ttl))
-	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

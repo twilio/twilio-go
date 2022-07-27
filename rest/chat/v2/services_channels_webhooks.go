@@ -25,48 +25,48 @@ import (
 
 // Optional parameters for the method 'CreateChannelWebhook'
 type CreateChannelWebhookParams struct {
-	// The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
-	// The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
-	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
-	// The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and the default is `POST`.
-	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
-	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
-	ConfigurationRetryCount *int `json:"Configuration.RetryCount,omitempty"`
-	// A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	//
+	Type *string `json:"Type,omitempty"`
 	// The URL of the webhook to call using the `configuration.method`.
 	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
-	// The type of webhook. Can be: `webhook`, `studio`, or `trigger`.
-	Type *string `json:"Type,omitempty"`
+	//
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	// The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	// A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	// The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+	ConfigurationRetryCount *int `json:"Configuration.RetryCount,omitempty"`
 }
 
-func (params *CreateChannelWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *CreateChannelWebhookParams {
-	params.ConfigurationFilters = &ConfigurationFilters
-	return params
-}
-func (params *CreateChannelWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *CreateChannelWebhookParams {
-	params.ConfigurationFlowSid = &ConfigurationFlowSid
-	return params
-}
-func (params *CreateChannelWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *CreateChannelWebhookParams {
-	params.ConfigurationMethod = &ConfigurationMethod
-	return params
-}
-func (params *CreateChannelWebhookParams) SetConfigurationRetryCount(ConfigurationRetryCount int) *CreateChannelWebhookParams {
-	params.ConfigurationRetryCount = &ConfigurationRetryCount
-	return params
-}
-func (params *CreateChannelWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *CreateChannelWebhookParams {
-	params.ConfigurationTriggers = &ConfigurationTriggers
+func (params *CreateChannelWebhookParams) SetType(Type string) *CreateChannelWebhookParams {
+	params.Type = &Type
 	return params
 }
 func (params *CreateChannelWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *CreateChannelWebhookParams {
 	params.ConfigurationUrl = &ConfigurationUrl
 	return params
 }
-func (params *CreateChannelWebhookParams) SetType(Type string) *CreateChannelWebhookParams {
-	params.Type = &Type
+func (params *CreateChannelWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *CreateChannelWebhookParams {
+	params.ConfigurationMethod = &ConfigurationMethod
+	return params
+}
+func (params *CreateChannelWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *CreateChannelWebhookParams {
+	params.ConfigurationFilters = &ConfigurationFilters
+	return params
+}
+func (params *CreateChannelWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *CreateChannelWebhookParams {
+	params.ConfigurationTriggers = &ConfigurationTriggers
+	return params
+}
+func (params *CreateChannelWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *CreateChannelWebhookParams {
+	params.ConfigurationFlowSid = &ConfigurationFlowSid
+	return params
+}
+func (params *CreateChannelWebhookParams) SetConfigurationRetryCount(ConfigurationRetryCount int) *CreateChannelWebhookParams {
+	params.ConfigurationRetryCount = &ConfigurationRetryCount
 	return params
 }
 
@@ -79,30 +79,30 @@ func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ConfigurationFilters != nil {
-		for _, item := range *params.ConfigurationFilters {
-			data.Add("Configuration.Filters", item)
-		}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
 	}
-	if params != nil && params.ConfigurationFlowSid != nil {
-		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
 		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
-	if params != nil && params.ConfigurationRetryCount != nil {
-		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
+	if params != nil && params.ConfigurationFilters != nil {
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
 		for _, item := range *params.ConfigurationTriggers {
 			data.Add("Configuration.Triggers", item)
 		}
 	}
-	if params != nil && params.ConfigurationUrl != nil {
-		data.Set("Configuration.Url", *params.ConfigurationUrl)
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+	if params != nil && params.ConfigurationRetryCount != nil {
+		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -306,42 +306,42 @@ func (c *ApiService) getNextListChannelWebhookResponse(nextPageUrl string) (inte
 
 // Optional parameters for the method 'UpdateChannelWebhook'
 type UpdateChannelWebhookParams struct {
-	// The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
-	// The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
-	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
-	// The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and the default is `POST`.
-	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
-	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
-	ConfigurationRetryCount *int `json:"Configuration.RetryCount,omitempty"`
-	// A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
 	// The URL of the webhook to call using the `configuration.method`.
 	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
+	//
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	// The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	// A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	// The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+	ConfigurationRetryCount *int `json:"Configuration.RetryCount,omitempty"`
 }
 
-func (params *UpdateChannelWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *UpdateChannelWebhookParams {
-	params.ConfigurationFilters = &ConfigurationFilters
-	return params
-}
-func (params *UpdateChannelWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *UpdateChannelWebhookParams {
-	params.ConfigurationFlowSid = &ConfigurationFlowSid
+func (params *UpdateChannelWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *UpdateChannelWebhookParams {
+	params.ConfigurationUrl = &ConfigurationUrl
 	return params
 }
 func (params *UpdateChannelWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *UpdateChannelWebhookParams {
 	params.ConfigurationMethod = &ConfigurationMethod
 	return params
 }
-func (params *UpdateChannelWebhookParams) SetConfigurationRetryCount(ConfigurationRetryCount int) *UpdateChannelWebhookParams {
-	params.ConfigurationRetryCount = &ConfigurationRetryCount
+func (params *UpdateChannelWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *UpdateChannelWebhookParams {
+	params.ConfigurationFilters = &ConfigurationFilters
 	return params
 }
 func (params *UpdateChannelWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *UpdateChannelWebhookParams {
 	params.ConfigurationTriggers = &ConfigurationTriggers
 	return params
 }
-func (params *UpdateChannelWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *UpdateChannelWebhookParams {
-	params.ConfigurationUrl = &ConfigurationUrl
+func (params *UpdateChannelWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *UpdateChannelWebhookParams {
+	params.ConfigurationFlowSid = &ConfigurationFlowSid
+	return params
+}
+func (params *UpdateChannelWebhookParams) SetConfigurationRetryCount(ConfigurationRetryCount int) *UpdateChannelWebhookParams {
+	params.ConfigurationRetryCount = &ConfigurationRetryCount
 	return params
 }
 
@@ -355,27 +355,27 @@ func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ConfigurationFilters != nil {
-		for _, item := range *params.ConfigurationFilters {
-			data.Add("Configuration.Filters", item)
-		}
-	}
-	if params != nil && params.ConfigurationFlowSid != nil {
-		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
 		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
-	if params != nil && params.ConfigurationRetryCount != nil {
-		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
+	if params != nil && params.ConfigurationFilters != nil {
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
 		for _, item := range *params.ConfigurationTriggers {
 			data.Add("Configuration.Triggers", item)
 		}
 	}
-	if params != nil && params.ConfigurationUrl != nil {
-		data.Set("Configuration.Url", *params.ConfigurationUrl)
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+	}
+	if params != nil && params.ConfigurationRetryCount != nil {
+		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

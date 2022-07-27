@@ -36,10 +36,10 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **BrandRegistrationSid** | **string** | A2P Brand Registration SID
 **Description** | **string** | A short description of what this SMS campaign does.
-**HasEmbeddedLinks** | **bool** | Indicates that this SMS campaign will send messages that contain links.
-**HasEmbeddedPhone** | **bool** | Indicates that this SMS campaign will send messages that contain phone numbers.
 **MessageSamples** | **[]string** | Message samples, at least 2 and up to 5 sample messages, &lt;&#x3D;1024 chars each.
 **UsAppToPersonUsecase** | **string** | A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
+**HasEmbeddedLinks** | **bool** | Indicates that this SMS campaign will send messages that contain links.
+**HasEmbeddedPhone** | **bool** | Indicates that this SMS campaign will send messages that contain phone numbers.
 
 ### Return type
 

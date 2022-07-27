@@ -16,10 +16,10 @@ package openapi
 
 // ListOutgoingCallerIdResponse struct for ListOutgoingCallerIdResponse
 type ListOutgoingCallerIdResponse struct {
+	OutgoingCallerIds []ApiV2010OutgoingCallerId `json:"outgoing_caller_ids,omitempty"`
 	End               int                        `json:"end,omitempty"`
 	FirstPageUri      string                     `json:"first_page_uri,omitempty"`
 	NextPageUri       string                     `json:"next_page_uri,omitempty"`
-	OutgoingCallerIds []ApiV2010OutgoingCallerId `json:"outgoing_caller_ids,omitempty"`
 	Page              int                        `json:"page,omitempty"`
 	PageSize          int                        `json:"page_size,omitempty"`
 	PreviousPageUri   string                     `json:"previous_page_uri,omitempty"`

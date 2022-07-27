@@ -16,12 +16,11 @@ package openapi
 
 // VerifyV2Form struct for VerifyV2Form
 type VerifyV2Form struct {
-	// Additional information for the available forms for this type.
-	FormMeta *interface{} `json:"form_meta,omitempty"`
-	// The Type of this Form
 	FormType *string `json:"form_type,omitempty"`
 	// Object that contains the available forms for this type.
 	Forms *interface{} `json:"forms,omitempty"`
+	// Additional information for the available forms for this type.
+	FormMeta *interface{} `json:"form_meta,omitempty"`
 	// The URL to access the forms for this type.
 	Url *string `json:"url,omitempty"`
 }

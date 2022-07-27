@@ -35,12 +35,12 @@ Other parameters are passed through a pointer to a CreateTaskQueueParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned to them.
 **FriendlyName** | **string** | A descriptive string that you create to describe the TaskQueue. For example &#x60;Support-Tier 1&#x60;, &#x60;Sales&#x60;, or &#x60;Escalation&#x60;.
-**MaxReservedWorkers** | **int** | The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-**ReservationActivitySid** | **string** | The SID of the Activity to assign Workers when a task is reserved for them.
 **TargetWorkers** | **string** | A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, &#x60;&#39;\\\&quot;language\\\&quot; &#x3D;&#x3D; \\\&quot;spanish\\\&quot;&#39;&#x60;. The default value is &#x60;1&#x3D;&#x3D;1&#x60;. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
-**TaskOrder** | **string** | How Tasks will be assigned to Workers. Set this parameter to &#x60;LIFO&#x60; to assign most recently created Task first or FIFO to assign the oldest Task first. Default is &#x60;FIFO&#x60;. [Click here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more.
+**MaxReservedWorkers** | **int** | The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+**TaskOrder** | **string** | 
+**ReservationActivitySid** | **string** | The SID of the Activity to assign Workers when a task is reserved for them.
+**AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned to them.
 
 ### Return type
 
@@ -217,12 +217,12 @@ Other parameters are passed through a pointer to a UpdateTaskQueueParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned for them.
 **FriendlyName** | **string** | A descriptive string that you create to describe the TaskQueue. For example &#x60;Support-Tier 1&#x60;, &#x60;Sales&#x60;, or &#x60;Escalation&#x60;.
-**MaxReservedWorkers** | **int** | The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-**ReservationActivitySid** | **string** | The SID of the Activity to assign Workers when a task is reserved for them.
 **TargetWorkers** | **string** | A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example &#39;\\\&quot;language\\\&quot; &#x3D;&#x3D; \\\&quot;spanish\\\&quot;&#39; If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
-**TaskOrder** | **string** | How Tasks will be assigned to Workers. Can be: &#x60;FIFO&#x60; or &#x60;LIFO&#x60; and the default is &#x60;FIFO&#x60;. Use &#x60;FIFO&#x60; to assign the oldest task first and &#x60;LIFO&#x60; to assign the most recent task first. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
+**ReservationActivitySid** | **string** | The SID of the Activity to assign Workers when a task is reserved for them.
+**AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned for them.
+**MaxReservedWorkers** | **int** | The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+**TaskOrder** | **string** | 
 
 ### Return type
 

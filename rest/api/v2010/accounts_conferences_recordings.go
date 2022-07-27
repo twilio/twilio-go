@@ -278,22 +278,22 @@ func (c *ApiService) getNextListConferenceRecordingResponse(nextPageUrl string) 
 type UpdateConferenceRecordingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	//
+	Status *string `json:"Status,omitempty"`
 	// Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 	PauseBehavior *string `json:"PauseBehavior,omitempty"`
-	// The new status of the recording. Can be: `stopped`, `paused`, `in-progress`.
-	Status *string `json:"Status,omitempty"`
 }
 
 func (params *UpdateConferenceRecordingParams) SetPathAccountSid(PathAccountSid string) *UpdateConferenceRecordingParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *UpdateConferenceRecordingParams) SetPauseBehavior(PauseBehavior string) *UpdateConferenceRecordingParams {
-	params.PauseBehavior = &PauseBehavior
-	return params
-}
 func (params *UpdateConferenceRecordingParams) SetStatus(Status string) *UpdateConferenceRecordingParams {
 	params.Status = &Status
+	return params
+}
+func (params *UpdateConferenceRecordingParams) SetPauseBehavior(PauseBehavior string) *UpdateConferenceRecordingParams {
+	params.PauseBehavior = &PauseBehavior
 	return params
 }
 
@@ -311,11 +311,11 @@ func (c *ApiService) UpdateConferenceRecording(ConferenceSid string, Sid string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.PauseBehavior != nil {
-		data.Set("PauseBehavior", *params.PauseBehavior)
-	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PauseBehavior != nil {
+		data.Set("PauseBehavior", *params.PauseBehavior)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -225,24 +225,24 @@ func (c *ApiService) getNextListUserChannelResponse(nextPageUrl string) (interfa
 
 // Optional parameters for the method 'UpdateUserChannel'
 type UpdateUserChannelParams struct {
+	//
+	NotificationLevel *string `json:"NotificationLevel,omitempty"`
 	// The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
 	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-	// The push notification level to assign to the User Channel. Can be: `default` or `muted`.
-	NotificationLevel *string `json:"NotificationLevel,omitempty"`
 }
 
+func (params *UpdateUserChannelParams) SetNotificationLevel(NotificationLevel string) *UpdateUserChannelParams {
+	params.NotificationLevel = &NotificationLevel
+	return params
+}
 func (params *UpdateUserChannelParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateUserChannelParams {
 	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
 	return params
 }
 func (params *UpdateUserChannelParams) SetLastConsumptionTimestamp(LastConsumptionTimestamp time.Time) *UpdateUserChannelParams {
 	params.LastConsumptionTimestamp = &LastConsumptionTimestamp
-	return params
-}
-func (params *UpdateUserChannelParams) SetNotificationLevel(NotificationLevel string) *UpdateUserChannelParams {
-	params.NotificationLevel = &NotificationLevel
 	return params
 }
 
@@ -256,14 +256,14 @@ func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, Channe
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.NotificationLevel != nil {
+		data.Set("NotificationLevel", *params.NotificationLevel)
+	}
 	if params != nil && params.LastConsumedMessageIndex != nil {
 		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
 	}
 	if params != nil && params.LastConsumptionTimestamp != nil {
 		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
-	}
-	if params != nil && params.NotificationLevel != nil {
-		data.Set("NotificationLevel", *params.NotificationLevel)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

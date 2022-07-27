@@ -25,30 +25,30 @@ import (
 
 // Optional parameters for the method 'CreateWebhook'
 type CreateWebhookParams struct {
-	// The list of space-separated events that this Webhook will subscribe to.
-	Events *string `json:"Events,omitempty"`
 	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
 	UniqueName *string `json:"UniqueName,omitempty"`
-	// The method to be used when calling the webhook's URL.
-	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	// The list of space-separated events that this Webhook will subscribe to.
+	Events *string `json:"Events,omitempty"`
 	// The URL associated with this Webhook.
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	// The method to be used when calling the webhook's URL.
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 }
 
-func (params *CreateWebhookParams) SetEvents(Events string) *CreateWebhookParams {
-	params.Events = &Events
-	return params
-}
 func (params *CreateWebhookParams) SetUniqueName(UniqueName string) *CreateWebhookParams {
 	params.UniqueName = &UniqueName
 	return params
 }
-func (params *CreateWebhookParams) SetWebhookMethod(WebhookMethod string) *CreateWebhookParams {
-	params.WebhookMethod = &WebhookMethod
+func (params *CreateWebhookParams) SetEvents(Events string) *CreateWebhookParams {
+	params.Events = &Events
 	return params
 }
 func (params *CreateWebhookParams) SetWebhookUrl(WebhookUrl string) *CreateWebhookParams {
 	params.WebhookUrl = &WebhookUrl
+	return params
+}
+func (params *CreateWebhookParams) SetWebhookMethod(WebhookMethod string) *CreateWebhookParams {
+	params.WebhookMethod = &WebhookMethod
 	return params
 }
 
@@ -60,17 +60,17 @@ func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookPar
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Events != nil {
-		data.Set("Events", *params.Events)
-	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
-	if params != nil && params.WebhookMethod != nil {
-		data.Set("WebhookMethod", *params.WebhookMethod)
+	if params != nil && params.Events != nil {
+		data.Set("Events", *params.Events)
 	}
 	if params != nil && params.WebhookUrl != nil {
 		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -271,30 +271,30 @@ func (c *ApiService) getNextListWebhookResponse(nextPageUrl string) (interface{}
 
 // Optional parameters for the method 'UpdateWebhook'
 type UpdateWebhookParams struct {
-	// The list of space-separated events that this Webhook will subscribe to.
-	Events *string `json:"Events,omitempty"`
 	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
 	UniqueName *string `json:"UniqueName,omitempty"`
-	// The method to be used when calling the webhook's URL.
-	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	// The list of space-separated events that this Webhook will subscribe to.
+	Events *string `json:"Events,omitempty"`
 	// The URL associated with this Webhook.
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	// The method to be used when calling the webhook's URL.
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 }
 
-func (params *UpdateWebhookParams) SetEvents(Events string) *UpdateWebhookParams {
-	params.Events = &Events
-	return params
-}
 func (params *UpdateWebhookParams) SetUniqueName(UniqueName string) *UpdateWebhookParams {
 	params.UniqueName = &UniqueName
 	return params
 }
-func (params *UpdateWebhookParams) SetWebhookMethod(WebhookMethod string) *UpdateWebhookParams {
-	params.WebhookMethod = &WebhookMethod
+func (params *UpdateWebhookParams) SetEvents(Events string) *UpdateWebhookParams {
+	params.Events = &Events
 	return params
 }
 func (params *UpdateWebhookParams) SetWebhookUrl(WebhookUrl string) *UpdateWebhookParams {
 	params.WebhookUrl = &WebhookUrl
+	return params
+}
+func (params *UpdateWebhookParams) SetWebhookMethod(WebhookMethod string) *UpdateWebhookParams {
+	params.WebhookMethod = &WebhookMethod
 	return params
 }
 
@@ -307,17 +307,17 @@ func (c *ApiService) UpdateWebhook(AssistantSid string, Sid string, params *Upda
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Events != nil {
-		data.Set("Events", *params.Events)
-	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
-	if params != nil && params.WebhookMethod != nil {
-		data.Set("WebhookMethod", *params.WebhookMethod)
+	if params != nil && params.Events != nil {
+		data.Set("Events", *params.Events)
 	}
 	if params != nil && params.WebhookUrl != nil {
 		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

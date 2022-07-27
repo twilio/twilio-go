@@ -187,22 +187,22 @@ func (c *ApiService) getNextListInteractionChannelResponse(nextPageUrl string) (
 
 // Optional parameters for the method 'UpdateInteractionChannel'
 type UpdateInteractionChannelParams struct {
+	//
+	Status *string `json:"Status,omitempty"`
 	// Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
 	Routing *interface{} `json:"Routing,omitempty"`
-	// Required. Indicates the Interaction channel's status. When a channel is set to `closed`, all tasks are put in the `wrapping` state by default unless the Routing status is set to `closed` in which case the tasks will be `completed`. Value: `closed`.
-	Status *string `json:"Status,omitempty"`
 }
 
-func (params *UpdateInteractionChannelParams) SetRouting(Routing interface{}) *UpdateInteractionChannelParams {
-	params.Routing = &Routing
-	return params
-}
 func (params *UpdateInteractionChannelParams) SetStatus(Status string) *UpdateInteractionChannelParams {
 	params.Status = &Status
 	return params
 }
+func (params *UpdateInteractionChannelParams) SetRouting(Routing interface{}) *UpdateInteractionChannelParams {
+	params.Routing = &Routing
+	return params
+}
 
-// Update an existing Interaction.
+// Update an existing Interaction Channel.
 func (c *ApiService) UpdateInteractionChannel(InteractionSid string, Sid string, params *UpdateInteractionChannelParams) (*FlexV1InteractionChannel, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
@@ -211,6 +211,9 @@ func (c *ApiService) UpdateInteractionChannel(InteractionSid string, Sid string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 	if params != nil && params.Routing != nil {
 		v, err := json.Marshal(params.Routing)
 
@@ -219,9 +222,6 @@ func (c *ApiService) UpdateInteractionChannel(InteractionSid string, Sid string,
 		}
 
 		data.Set("Routing", string(v))
-	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

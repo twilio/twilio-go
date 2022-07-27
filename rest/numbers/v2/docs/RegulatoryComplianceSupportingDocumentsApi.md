@@ -31,9 +31,9 @@ Other parameters are passed through a pointer to a CreateSupportingDocumentParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **Type** | **string** | The type of the Supporting Document.
+**Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
 
 ### Return type
 
@@ -200,8 +200,8 @@ Other parameters are passed through a pointer to a UpdateSupportingDocumentParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
+**Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
 
 ### Return type
 

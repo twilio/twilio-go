@@ -25,34 +25,22 @@ import (
 
 // Optional parameters for the method 'CreateAssistant'
 type CreateAssistantParams struct {
-	// Reserved.
-	CallbackEvents *string `json:"CallbackEvents,omitempty"`
-	// Reserved.
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	// A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-	Defaults *interface{} `json:"Defaults,omitempty"`
 	// A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
 	LogQueries *bool `json:"LogQueries,omitempty"`
-	// The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-	StyleSheet *interface{} `json:"StyleSheet,omitempty"`
 	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// Reserved.
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// Reserved.
+	CallbackEvents *string `json:"CallbackEvents,omitempty"`
+	// The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+	StyleSheet *interface{} `json:"StyleSheet,omitempty"`
+	// A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+	Defaults *interface{} `json:"Defaults,omitempty"`
 }
 
-func (params *CreateAssistantParams) SetCallbackEvents(CallbackEvents string) *CreateAssistantParams {
-	params.CallbackEvents = &CallbackEvents
-	return params
-}
-func (params *CreateAssistantParams) SetCallbackUrl(CallbackUrl string) *CreateAssistantParams {
-	params.CallbackUrl = &CallbackUrl
-	return params
-}
-func (params *CreateAssistantParams) SetDefaults(Defaults interface{}) *CreateAssistantParams {
-	params.Defaults = &Defaults
-	return params
-}
 func (params *CreateAssistantParams) SetFriendlyName(FriendlyName string) *CreateAssistantParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -61,12 +49,24 @@ func (params *CreateAssistantParams) SetLogQueries(LogQueries bool) *CreateAssis
 	params.LogQueries = &LogQueries
 	return params
 }
+func (params *CreateAssistantParams) SetUniqueName(UniqueName string) *CreateAssistantParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+func (params *CreateAssistantParams) SetCallbackUrl(CallbackUrl string) *CreateAssistantParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *CreateAssistantParams) SetCallbackEvents(CallbackEvents string) *CreateAssistantParams {
+	params.CallbackEvents = &CallbackEvents
+	return params
+}
 func (params *CreateAssistantParams) SetStyleSheet(StyleSheet interface{}) *CreateAssistantParams {
 	params.StyleSheet = &StyleSheet
 	return params
 }
-func (params *CreateAssistantParams) SetUniqueName(UniqueName string) *CreateAssistantParams {
-	params.UniqueName = &UniqueName
+func (params *CreateAssistantParams) SetDefaults(Defaults interface{}) *CreateAssistantParams {
+	params.Defaults = &Defaults
 	return params
 }
 
@@ -77,26 +77,20 @@ func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CallbackEvents != nil {
-		data.Set("CallbackEvents", *params.CallbackEvents)
-	}
-	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
-	}
-	if params != nil && params.Defaults != nil {
-		v, err := json.Marshal(params.Defaults)
-
-		if err != nil {
-			return nil, err
-		}
-
-		data.Set("Defaults", string(v))
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.LogQueries != nil {
 		data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.CallbackEvents != nil {
+		data.Set("CallbackEvents", *params.CallbackEvents)
 	}
 	if params != nil && params.StyleSheet != nil {
 		v, err := json.Marshal(params.StyleSheet)
@@ -107,8 +101,14 @@ func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV
 
 		data.Set("StyleSheet", string(v))
 	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+	if params != nil && params.Defaults != nil {
+		v, err := json.Marshal(params.Defaults)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Defaults", string(v))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -305,40 +305,24 @@ func (c *ApiService) getNextListAssistantResponse(nextPageUrl string) (interface
 
 // Optional parameters for the method 'UpdateAssistant'
 type UpdateAssistantParams struct {
-	// Reserved.
-	CallbackEvents *string `json:"CallbackEvents,omitempty"`
-	// Reserved.
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	// A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-	Defaults *interface{} `json:"Defaults,omitempty"`
-	// A string describing the state of the assistant.
-	DevelopmentStage *string `json:"DevelopmentStage,omitempty"`
 	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
 	LogQueries *bool `json:"LogQueries,omitempty"`
-	// The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-	StyleSheet *interface{} `json:"StyleSheet,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// Reserved.
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// Reserved.
+	CallbackEvents *string `json:"CallbackEvents,omitempty"`
+	// The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+	StyleSheet *interface{} `json:"StyleSheet,omitempty"`
+	// A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+	Defaults *interface{} `json:"Defaults,omitempty"`
+	// A string describing the state of the assistant.
+	DevelopmentStage *string `json:"DevelopmentStage,omitempty"`
 }
 
-func (params *UpdateAssistantParams) SetCallbackEvents(CallbackEvents string) *UpdateAssistantParams {
-	params.CallbackEvents = &CallbackEvents
-	return params
-}
-func (params *UpdateAssistantParams) SetCallbackUrl(CallbackUrl string) *UpdateAssistantParams {
-	params.CallbackUrl = &CallbackUrl
-	return params
-}
-func (params *UpdateAssistantParams) SetDefaults(Defaults interface{}) *UpdateAssistantParams {
-	params.Defaults = &Defaults
-	return params
-}
-func (params *UpdateAssistantParams) SetDevelopmentStage(DevelopmentStage string) *UpdateAssistantParams {
-	params.DevelopmentStage = &DevelopmentStage
-	return params
-}
 func (params *UpdateAssistantParams) SetFriendlyName(FriendlyName string) *UpdateAssistantParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -347,12 +331,28 @@ func (params *UpdateAssistantParams) SetLogQueries(LogQueries bool) *UpdateAssis
 	params.LogQueries = &LogQueries
 	return params
 }
+func (params *UpdateAssistantParams) SetUniqueName(UniqueName string) *UpdateAssistantParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+func (params *UpdateAssistantParams) SetCallbackUrl(CallbackUrl string) *UpdateAssistantParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *UpdateAssistantParams) SetCallbackEvents(CallbackEvents string) *UpdateAssistantParams {
+	params.CallbackEvents = &CallbackEvents
+	return params
+}
 func (params *UpdateAssistantParams) SetStyleSheet(StyleSheet interface{}) *UpdateAssistantParams {
 	params.StyleSheet = &StyleSheet
 	return params
 }
-func (params *UpdateAssistantParams) SetUniqueName(UniqueName string) *UpdateAssistantParams {
-	params.UniqueName = &UniqueName
+func (params *UpdateAssistantParams) SetDefaults(Defaults interface{}) *UpdateAssistantParams {
+	params.Defaults = &Defaults
+	return params
+}
+func (params *UpdateAssistantParams) SetDevelopmentStage(DevelopmentStage string) *UpdateAssistantParams {
+	params.DevelopmentStage = &DevelopmentStage
 	return params
 }
 
@@ -364,11 +364,29 @@ func (c *ApiService) UpdateAssistant(Sid string, params *UpdateAssistantParams) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CallbackEvents != nil {
-		data.Set("CallbackEvents", *params.CallbackEvents)
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.LogQueries != nil {
+		data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.CallbackEvents != nil {
+		data.Set("CallbackEvents", *params.CallbackEvents)
+	}
+	if params != nil && params.StyleSheet != nil {
+		v, err := json.Marshal(params.StyleSheet)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("StyleSheet", string(v))
 	}
 	if params != nil && params.Defaults != nil {
 		v, err := json.Marshal(params.Defaults)
@@ -381,24 +399,6 @@ func (c *ApiService) UpdateAssistant(Sid string, params *UpdateAssistantParams) 
 	}
 	if params != nil && params.DevelopmentStage != nil {
 		data.Set("DevelopmentStage", *params.DevelopmentStage)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.LogQueries != nil {
-		data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
-	}
-	if params != nil && params.StyleSheet != nil {
-		v, err := json.Marshal(params.StyleSheet)
-
-		if err != nil {
-			return nil, err
-		}
-
-		data.Set("StyleSheet", string(v))
-	}
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

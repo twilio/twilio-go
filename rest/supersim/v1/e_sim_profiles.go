@@ -25,20 +25,20 @@ import (
 
 // Optional parameters for the method 'CreateEsimProfile'
 type CreateEsimProfileParams struct {
-	// The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-	CallbackMethod *string `json:"CallbackMethod,omitempty"`
 	// The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
 	// Identifier of the eUICC that will claim the eSIM Profile.
 	Eid *string `json:"Eid,omitempty"`
 }
 
-func (params *CreateEsimProfileParams) SetCallbackMethod(CallbackMethod string) *CreateEsimProfileParams {
-	params.CallbackMethod = &CallbackMethod
-	return params
-}
 func (params *CreateEsimProfileParams) SetCallbackUrl(CallbackUrl string) *CreateEsimProfileParams {
 	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *CreateEsimProfileParams) SetCallbackMethod(CallbackMethod string) *CreateEsimProfileParams {
+	params.CallbackMethod = &CallbackMethod
 	return params
 }
 func (params *CreateEsimProfileParams) SetEid(Eid string) *CreateEsimProfileParams {
@@ -53,11 +53,11 @@ func (c *ApiService) CreateEsimProfile(params *CreateEsimProfileParams) (*Supers
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
-	}
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
 	if params != nil && params.Eid != nil {
 		data.Set("Eid", *params.Eid)

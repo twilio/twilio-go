@@ -25,48 +25,48 @@ import (
 
 // Optional parameters for the method 'CreateConversationScopedWebhook'
 type CreateConversationScopedWebhookParams struct {
-	// The list of events, firing webhook event for this Conversation.
-	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
-	// The studio flow SID, where the webhook should be sent to.
-	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
-	// The HTTP method to be used when sending a webhook request.
-	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
-	// The message index for which and it's successors the webhook will be replayed. Not set by default
-	ConfigurationReplayAfter *int `json:"Configuration.ReplayAfter,omitempty"`
-	// The list of keywords, firing webhook event for this Conversation.
-	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	//
+	Target *string `json:"Target,omitempty"`
 	// The absolute url the webhook request should be sent to.
 	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
-	// The target of this webhook: `webhook`, `studio`, `trigger`
-	Target *string `json:"Target,omitempty"`
+	//
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	// The list of events, firing webhook event for this Conversation.
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	// The list of keywords, firing webhook event for this Conversation.
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	// The studio flow SID, where the webhook should be sent to.
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	// The message index for which and it's successors the webhook will be replayed. Not set by default
+	ConfigurationReplayAfter *int `json:"Configuration.ReplayAfter,omitempty"`
 }
 
-func (params *CreateConversationScopedWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *CreateConversationScopedWebhookParams {
-	params.ConfigurationFilters = &ConfigurationFilters
-	return params
-}
-func (params *CreateConversationScopedWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *CreateConversationScopedWebhookParams {
-	params.ConfigurationFlowSid = &ConfigurationFlowSid
-	return params
-}
-func (params *CreateConversationScopedWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *CreateConversationScopedWebhookParams {
-	params.ConfigurationMethod = &ConfigurationMethod
-	return params
-}
-func (params *CreateConversationScopedWebhookParams) SetConfigurationReplayAfter(ConfigurationReplayAfter int) *CreateConversationScopedWebhookParams {
-	params.ConfigurationReplayAfter = &ConfigurationReplayAfter
-	return params
-}
-func (params *CreateConversationScopedWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *CreateConversationScopedWebhookParams {
-	params.ConfigurationTriggers = &ConfigurationTriggers
+func (params *CreateConversationScopedWebhookParams) SetTarget(Target string) *CreateConversationScopedWebhookParams {
+	params.Target = &Target
 	return params
 }
 func (params *CreateConversationScopedWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *CreateConversationScopedWebhookParams {
 	params.ConfigurationUrl = &ConfigurationUrl
 	return params
 }
-func (params *CreateConversationScopedWebhookParams) SetTarget(Target string) *CreateConversationScopedWebhookParams {
-	params.Target = &Target
+func (params *CreateConversationScopedWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *CreateConversationScopedWebhookParams {
+	params.ConfigurationMethod = &ConfigurationMethod
+	return params
+}
+func (params *CreateConversationScopedWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *CreateConversationScopedWebhookParams {
+	params.ConfigurationFilters = &ConfigurationFilters
+	return params
+}
+func (params *CreateConversationScopedWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *CreateConversationScopedWebhookParams {
+	params.ConfigurationTriggers = &ConfigurationTriggers
+	return params
+}
+func (params *CreateConversationScopedWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *CreateConversationScopedWebhookParams {
+	params.ConfigurationFlowSid = &ConfigurationFlowSid
+	return params
+}
+func (params *CreateConversationScopedWebhookParams) SetConfigurationReplayAfter(ConfigurationReplayAfter int) *CreateConversationScopedWebhookParams {
+	params.ConfigurationReplayAfter = &ConfigurationReplayAfter
 	return params
 }
 
@@ -78,30 +78,30 @@ func (c *ApiService) CreateConversationScopedWebhook(ConversationSid string, par
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ConfigurationFilters != nil {
-		for _, item := range *params.ConfigurationFilters {
-			data.Add("Configuration.Filters", item)
-		}
+	if params != nil && params.Target != nil {
+		data.Set("Target", *params.Target)
 	}
-	if params != nil && params.ConfigurationFlowSid != nil {
-		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
 		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
-	if params != nil && params.ConfigurationReplayAfter != nil {
-		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
+	if params != nil && params.ConfigurationFilters != nil {
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
 		for _, item := range *params.ConfigurationTriggers {
 			data.Add("Configuration.Triggers", item)
 		}
 	}
-	if params != nil && params.ConfigurationUrl != nil {
-		data.Set("Configuration.Url", *params.ConfigurationUrl)
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
-	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+	if params != nil && params.ConfigurationReplayAfter != nil {
+		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -302,36 +302,36 @@ func (c *ApiService) getNextListConversationScopedWebhookResponse(nextPageUrl st
 
 // Optional parameters for the method 'UpdateConversationScopedWebhook'
 type UpdateConversationScopedWebhookParams struct {
-	// The list of events, firing webhook event for this Conversation.
-	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
-	// The studio flow SID, where the webhook should be sent to.
-	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
-	// The HTTP method to be used when sending a webhook request.
-	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
-	// The list of keywords, firing webhook event for this Conversation.
-	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
 	// The absolute url the webhook request should be sent to.
 	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
+	//
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	// The list of events, firing webhook event for this Conversation.
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	// The list of keywords, firing webhook event for this Conversation.
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	// The studio flow SID, where the webhook should be sent to.
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
 }
 
-func (params *UpdateConversationScopedWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *UpdateConversationScopedWebhookParams {
-	params.ConfigurationFilters = &ConfigurationFilters
-	return params
-}
-func (params *UpdateConversationScopedWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *UpdateConversationScopedWebhookParams {
-	params.ConfigurationFlowSid = &ConfigurationFlowSid
+func (params *UpdateConversationScopedWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *UpdateConversationScopedWebhookParams {
+	params.ConfigurationUrl = &ConfigurationUrl
 	return params
 }
 func (params *UpdateConversationScopedWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *UpdateConversationScopedWebhookParams {
 	params.ConfigurationMethod = &ConfigurationMethod
 	return params
 }
+func (params *UpdateConversationScopedWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *UpdateConversationScopedWebhookParams {
+	params.ConfigurationFilters = &ConfigurationFilters
+	return params
+}
 func (params *UpdateConversationScopedWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *UpdateConversationScopedWebhookParams {
 	params.ConfigurationTriggers = &ConfigurationTriggers
 	return params
 }
-func (params *UpdateConversationScopedWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *UpdateConversationScopedWebhookParams {
-	params.ConfigurationUrl = &ConfigurationUrl
+func (params *UpdateConversationScopedWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *UpdateConversationScopedWebhookParams {
+	params.ConfigurationFlowSid = &ConfigurationFlowSid
 	return params
 }
 
@@ -344,24 +344,24 @@ func (c *ApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
+	}
+	if params != nil && params.ConfigurationMethod != nil {
+		data.Set("Configuration.Method", *params.ConfigurationMethod)
+	}
 	if params != nil && params.ConfigurationFilters != nil {
 		for _, item := range *params.ConfigurationFilters {
 			data.Add("Configuration.Filters", item)
 		}
-	}
-	if params != nil && params.ConfigurationFlowSid != nil {
-		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
-	}
-	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
 		for _, item := range *params.ConfigurationTriggers {
 			data.Add("Configuration.Triggers", item)
 		}
 	}
-	if params != nil && params.ConfigurationUrl != nil {
-		data.Set("Configuration.Url", *params.ConfigurationUrl)
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

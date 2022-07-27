@@ -25,28 +25,28 @@ import (
 
 // Optional parameters for the method 'CreateBrandRegistrations'
 type CreateBrandRegistrationsParams struct {
+	// Customer Profile Bundle Sid.
+	CustomerProfileBundleSid *string `json:"CustomerProfileBundleSid,omitempty"`
 	// A2P Messaging Profile Bundle Sid.
 	A2PProfileBundleSid *string `json:"A2PProfileBundleSid,omitempty"`
 	// Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
 	BrandType *string `json:"BrandType,omitempty"`
-	// Customer Profile Bundle Sid.
-	CustomerProfileBundleSid *string `json:"CustomerProfileBundleSid,omitempty"`
 	// A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
 	Mock *bool `json:"Mock,omitempty"`
 	// A flag to disable automatic secondary vetting for brands which it would otherwise be done.
 	SkipAutomaticSecVet *bool `json:"SkipAutomaticSecVet,omitempty"`
 }
 
+func (params *CreateBrandRegistrationsParams) SetCustomerProfileBundleSid(CustomerProfileBundleSid string) *CreateBrandRegistrationsParams {
+	params.CustomerProfileBundleSid = &CustomerProfileBundleSid
+	return params
+}
 func (params *CreateBrandRegistrationsParams) SetA2PProfileBundleSid(A2PProfileBundleSid string) *CreateBrandRegistrationsParams {
 	params.A2PProfileBundleSid = &A2PProfileBundleSid
 	return params
 }
 func (params *CreateBrandRegistrationsParams) SetBrandType(BrandType string) *CreateBrandRegistrationsParams {
 	params.BrandType = &BrandType
-	return params
-}
-func (params *CreateBrandRegistrationsParams) SetCustomerProfileBundleSid(CustomerProfileBundleSid string) *CreateBrandRegistrationsParams {
-	params.CustomerProfileBundleSid = &CustomerProfileBundleSid
 	return params
 }
 func (params *CreateBrandRegistrationsParams) SetMock(Mock bool) *CreateBrandRegistrationsParams {
@@ -65,14 +65,14 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.CustomerProfileBundleSid != nil {
+		data.Set("CustomerProfileBundleSid", *params.CustomerProfileBundleSid)
+	}
 	if params != nil && params.A2PProfileBundleSid != nil {
 		data.Set("A2PProfileBundleSid", *params.A2PProfileBundleSid)
 	}
 	if params != nil && params.BrandType != nil {
 		data.Set("BrandType", *params.BrandType)
-	}
-	if params != nil && params.CustomerProfileBundleSid != nil {
-		data.Set("CustomerProfileBundleSid", *params.CustomerProfileBundleSid)
 	}
 	if params != nil && params.Mock != nil {
 		data.Set("Mock", fmt.Sprint(*params.Mock))

@@ -29,8 +29,8 @@ Other parameters are passed through a pointer to a CreateEsimProfileParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is POST.
 **CallbackUrl** | **string** | The URL we should call using the &#x60;callback_method&#x60; when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from &#x60;reserving&#x60; to &#x60;available&#x60;.
+**CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is POST.
 **Eid** | **string** | Identifier of the eUICC that will claim the eSIM Profile.
 
 ### Return type

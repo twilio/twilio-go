@@ -209,24 +209,24 @@ func (c *ApiService) getNextListDocumentPermissionResponse(nextPageUrl string) (
 
 // Optional parameters for the method 'UpdateDocumentPermission'
 type UpdateDocumentPermissionParams struct {
-	// Whether the identity can delete the Sync Document. Default value is `false`.
-	Manage *bool `json:"Manage,omitempty"`
 	// Whether the identity can read the Sync Document. Default value is `false`.
 	Read *bool `json:"Read,omitempty"`
 	// Whether the identity can update the Sync Document. Default value is `false`.
 	Write *bool `json:"Write,omitempty"`
+	// Whether the identity can delete the Sync Document. Default value is `false`.
+	Manage *bool `json:"Manage,omitempty"`
 }
 
-func (params *UpdateDocumentPermissionParams) SetManage(Manage bool) *UpdateDocumentPermissionParams {
-	params.Manage = &Manage
-	return params
-}
 func (params *UpdateDocumentPermissionParams) SetRead(Read bool) *UpdateDocumentPermissionParams {
 	params.Read = &Read
 	return params
 }
 func (params *UpdateDocumentPermissionParams) SetWrite(Write bool) *UpdateDocumentPermissionParams {
 	params.Write = &Write
+	return params
+}
+func (params *UpdateDocumentPermissionParams) SetManage(Manage bool) *UpdateDocumentPermissionParams {
+	params.Manage = &Manage
 	return params
 }
 
@@ -240,14 +240,14 @@ func (c *ApiService) UpdateDocumentPermission(ServiceSid string, DocumentSid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Manage != nil {
-		data.Set("Manage", fmt.Sprint(*params.Manage))
-	}
 	if params != nil && params.Read != nil {
 		data.Set("Read", fmt.Sprint(*params.Read))
 	}
 	if params != nil && params.Write != nil {
 		data.Set("Write", fmt.Sprint(*params.Write))
+	}
+	if params != nil && params.Manage != nil {
+		data.Set("Manage", fmt.Sprint(*params.Manage))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -32,15 +32,15 @@ Other parameters are passed through a pointer to a CreateAddressParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Address resource.
-**AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide.
-**City** | **string** | The city of the new address.
 **CustomerName** | **string** | The name to associate with the new address.
-**EmergencyEnabled** | **bool** | Whether to enable emergency calling on the new address. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
-**FriendlyName** | **string** | A descriptive string that you create to describe the new address. It can be up to 64 characters long.
-**IsoCountry** | **string** | The ISO country code of the new address.
-**PostalCode** | **string** | The postal code of the new address.
-**Region** | **string** | The state or region of the new address.
 **Street** | **string** | The number and street address of the new address.
+**City** | **string** | The city of the new address.
+**Region** | **string** | The state or region of the new address.
+**PostalCode** | **string** | The postal code of the new address.
+**IsoCountry** | **string** | The ISO country code of the new address.
+**FriendlyName** | **string** | A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+**EmergencyEnabled** | **bool** | Whether to enable emergency calling on the new address. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
+**AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide.
 
 ### Return type
 
@@ -214,14 +214,14 @@ Other parameters are passed through a pointer to a UpdateAddressParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
-**AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide.
-**City** | **string** | The city of the address.
-**CustomerName** | **string** | The name to associate with the address.
-**EmergencyEnabled** | **bool** | Whether to enable emergency calling on the address. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
 **FriendlyName** | **string** | A descriptive string that you create to describe the address. It can be up to 64 characters long.
-**PostalCode** | **string** | The postal code of the address.
-**Region** | **string** | The state or region of the address.
+**CustomerName** | **string** | The name to associate with the address.
 **Street** | **string** | The number and street address of the address.
+**City** | **string** | The city of the address.
+**Region** | **string** | The state or region of the address.
+**PostalCode** | **string** | The postal code of the address.
+**EmergencyEnabled** | **bool** | Whether to enable emergency calling on the address. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
+**AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide.
 
 ### Return type
 

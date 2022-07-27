@@ -25,38 +25,38 @@ import (
 
 // Optional parameters for the method 'CreateWebChannel'
 type CreateWebChannelParams struct {
-	// The chat channel's friendly name.
-	ChatFriendlyName *string `json:"ChatFriendlyName,omitempty"`
-	// The chat channel's unique name.
-	ChatUniqueName *string `json:"ChatUniqueName,omitempty"`
-	// The chat participant's friendly name.
-	CustomerFriendlyName *string `json:"CustomerFriendlyName,omitempty"`
 	// The SID of the Flex Flow.
 	FlexFlowSid *string `json:"FlexFlowSid,omitempty"`
 	// The chat identity.
 	Identity *string `json:"Identity,omitempty"`
+	// The chat participant's friendly name.
+	CustomerFriendlyName *string `json:"CustomerFriendlyName,omitempty"`
+	// The chat channel's friendly name.
+	ChatFriendlyName *string `json:"ChatFriendlyName,omitempty"`
+	// The chat channel's unique name.
+	ChatUniqueName *string `json:"ChatUniqueName,omitempty"`
 	// The pre-engagement data.
 	PreEngagementData *string `json:"PreEngagementData,omitempty"`
 }
 
-func (params *CreateWebChannelParams) SetChatFriendlyName(ChatFriendlyName string) *CreateWebChannelParams {
-	params.ChatFriendlyName = &ChatFriendlyName
-	return params
-}
-func (params *CreateWebChannelParams) SetChatUniqueName(ChatUniqueName string) *CreateWebChannelParams {
-	params.ChatUniqueName = &ChatUniqueName
-	return params
-}
-func (params *CreateWebChannelParams) SetCustomerFriendlyName(CustomerFriendlyName string) *CreateWebChannelParams {
-	params.CustomerFriendlyName = &CustomerFriendlyName
-	return params
-}
 func (params *CreateWebChannelParams) SetFlexFlowSid(FlexFlowSid string) *CreateWebChannelParams {
 	params.FlexFlowSid = &FlexFlowSid
 	return params
 }
 func (params *CreateWebChannelParams) SetIdentity(Identity string) *CreateWebChannelParams {
 	params.Identity = &Identity
+	return params
+}
+func (params *CreateWebChannelParams) SetCustomerFriendlyName(CustomerFriendlyName string) *CreateWebChannelParams {
+	params.CustomerFriendlyName = &CustomerFriendlyName
+	return params
+}
+func (params *CreateWebChannelParams) SetChatFriendlyName(ChatFriendlyName string) *CreateWebChannelParams {
+	params.ChatFriendlyName = &ChatFriendlyName
+	return params
+}
+func (params *CreateWebChannelParams) SetChatUniqueName(ChatUniqueName string) *CreateWebChannelParams {
+	params.ChatUniqueName = &ChatUniqueName
 	return params
 }
 func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData string) *CreateWebChannelParams {
@@ -71,20 +71,20 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1We
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.ChatFriendlyName != nil {
-		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
-	}
-	if params != nil && params.ChatUniqueName != nil {
-		data.Set("ChatUniqueName", *params.ChatUniqueName)
-	}
-	if params != nil && params.CustomerFriendlyName != nil {
-		data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
-	}
 	if params != nil && params.FlexFlowSid != nil {
 		data.Set("FlexFlowSid", *params.FlexFlowSid)
 	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.CustomerFriendlyName != nil {
+		data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
+	}
+	if params != nil && params.ChatFriendlyName != nil {
+		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+	}
+	if params != nil && params.ChatUniqueName != nil {
+		data.Set("ChatUniqueName", *params.ChatUniqueName)
 	}
 	if params != nil && params.PreEngagementData != nil {
 		data.Set("PreEngagementData", *params.PreEngagementData)
@@ -284,7 +284,7 @@ func (c *ApiService) getNextListWebChannelResponse(nextPageUrl string) (interfac
 
 // Optional parameters for the method 'UpdateWebChannel'
 type UpdateWebChannelParams struct {
-	// The chat status. Can only be `inactive`.
+	//
 	ChatStatus *string `json:"ChatStatus,omitempty"`
 	// The post-engagement data.
 	PostEngagementData *string `json:"PostEngagementData,omitempty"`

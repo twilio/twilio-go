@@ -25,42 +25,42 @@ import (
 
 // Optional parameters for the method 'CreateTaskQueue'
 type CreateTaskQueueParams struct {
-	// The SID of the Activity to assign Workers when a task is assigned to them.
-	AssignmentActivitySid *string `json:"AssignmentActivitySid,omitempty"`
 	// A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-	MaxReservedWorkers *int `json:"MaxReservedWorkers,omitempty"`
-	// The SID of the Activity to assign Workers when a task is reserved for them.
-	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
 	// A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
 	TargetWorkers *string `json:"TargetWorkers,omitempty"`
-	// How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign most recently created Task first or FIFO to assign the oldest Task first. Default is `FIFO`. [Click here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more.
+	// The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+	MaxReservedWorkers *int `json:"MaxReservedWorkers,omitempty"`
+	//
 	TaskOrder *string `json:"TaskOrder,omitempty"`
+	// The SID of the Activity to assign Workers when a task is reserved for them.
+	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
+	// The SID of the Activity to assign Workers when a task is assigned to them.
+	AssignmentActivitySid *string `json:"AssignmentActivitySid,omitempty"`
 }
 
-func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivitySid string) *CreateTaskQueueParams {
-	params.AssignmentActivitySid = &AssignmentActivitySid
-	return params
-}
 func (params *CreateTaskQueueParams) SetFriendlyName(FriendlyName string) *CreateTaskQueueParams {
 	params.FriendlyName = &FriendlyName
-	return params
-}
-func (params *CreateTaskQueueParams) SetMaxReservedWorkers(MaxReservedWorkers int) *CreateTaskQueueParams {
-	params.MaxReservedWorkers = &MaxReservedWorkers
-	return params
-}
-func (params *CreateTaskQueueParams) SetReservationActivitySid(ReservationActivitySid string) *CreateTaskQueueParams {
-	params.ReservationActivitySid = &ReservationActivitySid
 	return params
 }
 func (params *CreateTaskQueueParams) SetTargetWorkers(TargetWorkers string) *CreateTaskQueueParams {
 	params.TargetWorkers = &TargetWorkers
 	return params
 }
+func (params *CreateTaskQueueParams) SetMaxReservedWorkers(MaxReservedWorkers int) *CreateTaskQueueParams {
+	params.MaxReservedWorkers = &MaxReservedWorkers
+	return params
+}
 func (params *CreateTaskQueueParams) SetTaskOrder(TaskOrder string) *CreateTaskQueueParams {
 	params.TaskOrder = &TaskOrder
+	return params
+}
+func (params *CreateTaskQueueParams) SetReservationActivitySid(ReservationActivitySid string) *CreateTaskQueueParams {
+	params.ReservationActivitySid = &ReservationActivitySid
+	return params
+}
+func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivitySid string) *CreateTaskQueueParams {
+	params.AssignmentActivitySid = &AssignmentActivitySid
 	return params
 }
 
@@ -72,23 +72,23 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AssignmentActivitySid != nil {
-		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.MaxReservedWorkers != nil {
-		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
-	}
-	if params != nil && params.ReservationActivitySid != nil {
-		data.Set("ReservationActivitySid", *params.ReservationActivitySid)
 	}
 	if params != nil && params.TargetWorkers != nil {
 		data.Set("TargetWorkers", *params.TargetWorkers)
 	}
+	if params != nil && params.MaxReservedWorkers != nil {
+		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
+	}
 	if params != nil && params.TaskOrder != nil {
 		data.Set("TaskOrder", *params.TaskOrder)
+	}
+	if params != nil && params.ReservationActivitySid != nil {
+		data.Set("ReservationActivitySid", *params.ReservationActivitySid)
+	}
+	if params != nil && params.AssignmentActivitySid != nil {
+		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -316,38 +316,38 @@ func (c *ApiService) getNextListTaskQueueResponse(nextPageUrl string) (interface
 
 // Optional parameters for the method 'UpdateTaskQueue'
 type UpdateTaskQueueParams struct {
-	// The SID of the Activity to assign Workers when a task is assigned for them.
-	AssignmentActivitySid *string `json:"AssignmentActivitySid,omitempty"`
 	// A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-	MaxReservedWorkers *int `json:"MaxReservedWorkers,omitempty"`
-	// The SID of the Activity to assign Workers when a task is reserved for them.
-	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
 	// A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
 	TargetWorkers *string `json:"TargetWorkers,omitempty"`
-	// How Tasks will be assigned to Workers. Can be: `FIFO` or `LIFO` and the default is `FIFO`. Use `FIFO` to assign the oldest task first and `LIFO` to assign the most recent task first. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
+	// The SID of the Activity to assign Workers when a task is reserved for them.
+	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
+	// The SID of the Activity to assign Workers when a task is assigned for them.
+	AssignmentActivitySid *string `json:"AssignmentActivitySid,omitempty"`
+	// The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+	MaxReservedWorkers *int `json:"MaxReservedWorkers,omitempty"`
+	//
 	TaskOrder *string `json:"TaskOrder,omitempty"`
 }
 
-func (params *UpdateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivitySid string) *UpdateTaskQueueParams {
-	params.AssignmentActivitySid = &AssignmentActivitySid
-	return params
-}
 func (params *UpdateTaskQueueParams) SetFriendlyName(FriendlyName string) *UpdateTaskQueueParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateTaskQueueParams) SetMaxReservedWorkers(MaxReservedWorkers int) *UpdateTaskQueueParams {
-	params.MaxReservedWorkers = &MaxReservedWorkers
+func (params *UpdateTaskQueueParams) SetTargetWorkers(TargetWorkers string) *UpdateTaskQueueParams {
+	params.TargetWorkers = &TargetWorkers
 	return params
 }
 func (params *UpdateTaskQueueParams) SetReservationActivitySid(ReservationActivitySid string) *UpdateTaskQueueParams {
 	params.ReservationActivitySid = &ReservationActivitySid
 	return params
 }
-func (params *UpdateTaskQueueParams) SetTargetWorkers(TargetWorkers string) *UpdateTaskQueueParams {
-	params.TargetWorkers = &TargetWorkers
+func (params *UpdateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivitySid string) *UpdateTaskQueueParams {
+	params.AssignmentActivitySid = &AssignmentActivitySid
+	return params
+}
+func (params *UpdateTaskQueueParams) SetMaxReservedWorkers(MaxReservedWorkers int) *UpdateTaskQueueParams {
+	params.MaxReservedWorkers = &MaxReservedWorkers
 	return params
 }
 func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQueueParams {
@@ -364,20 +364,20 @@ func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *Up
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AssignmentActivitySid != nil {
-		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
-	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
-	if params != nil && params.MaxReservedWorkers != nil {
-		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
+	if params != nil && params.TargetWorkers != nil {
+		data.Set("TargetWorkers", *params.TargetWorkers)
 	}
 	if params != nil && params.ReservationActivitySid != nil {
 		data.Set("ReservationActivitySid", *params.ReservationActivitySid)
 	}
-	if params != nil && params.TargetWorkers != nil {
-		data.Set("TargetWorkers", *params.TargetWorkers)
+	if params != nil && params.AssignmentActivitySid != nil {
+		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
+	}
+	if params != nil && params.MaxReservedWorkers != nil {
+		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
 	}
 	if params != nil && params.TaskOrder != nil {
 		data.Set("TaskOrder", *params.TaskOrder)

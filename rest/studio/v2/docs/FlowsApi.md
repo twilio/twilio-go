@@ -31,10 +31,10 @@ Other parameters are passed through a pointer to a CreateFlowParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CommitMessage** | **string** | Description of change made in the revision.
-**Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
-**Status** | **string** | The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;.
+**Status** | **string** | 
+**Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
+**CommitMessage** | **string** | Description of change made in the revision.
 
 ### Return type
 
@@ -201,10 +201,10 @@ Other parameters are passed through a pointer to a UpdateFlowParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CommitMessage** | **string** | Description of change made in the revision.
-**Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
+**Status** | **string** | 
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
-**Status** | **string** | The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;.
+**Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
+**CommitMessage** | **string** | Description of change made in the revision.
 
 ### Return type
 

@@ -35,8 +35,8 @@ Other parameters are passed through a pointer to a CreateRateLimitParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Description** | **string** | Description of this Rate Limit
 **UniqueName** | **string** | Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
+**Description** | **string** | Description of this Rate Limit
 
 ### Return type
 

@@ -16,28 +16,28 @@ package openapi
 
 // LookupsV2PhoneNumber struct for LookupsV2PhoneNumber
 type LookupsV2PhoneNumber struct {
-	// An object that contains call forwarding status information
-	CallForwarding *interface{} `json:"call_forwarding,omitempty"`
-	// An object that contains caller name information
-	CallerName *interface{} `json:"caller_name,omitempty"`
 	// International dialing prefix
 	CallingCountryCode *string `json:"calling_country_code,omitempty"`
 	// Phone number's ISO country code
 	CountryCode *string `json:"country_code,omitempty"`
-	// An object that contains line type information
-	LineTypeIntelligence *interface{} `json:"line_type_intelligence,omitempty"`
-	// An object that contains live activity information
-	LiveActivity *interface{} `json:"live_activity,omitempty"`
-	// Phone number in national format
-	NationalFormat *string `json:"national_format,omitempty"`
 	// Phone number in E.164 format
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// An object that contains SIM swap information
-	SimSwap *interface{} `json:"sim_swap,omitempty"`
-	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	// Phone number in national format
+	NationalFormat *string `json:"national_format,omitempty"`
 	// Boolean which indicates if the phone number is valid
 	Valid *bool `json:"valid,omitempty"`
 	// Contains reasons why a phone number is invalid
 	ValidationErrors *[]string `json:"validation_errors,omitempty"`
+	// An object that contains caller name information
+	CallerName *interface{} `json:"caller_name,omitempty"`
+	// An object that contains SIM swap information
+	SimSwap *interface{} `json:"sim_swap,omitempty"`
+	// An object that contains call forwarding status information
+	CallForwarding *interface{} `json:"call_forwarding,omitempty"`
+	// An object that contains live activity information
+	LiveActivity *interface{} `json:"live_activity,omitempty"`
+	// An object that contains line type information
+	LineTypeIntelligence *interface{} `json:"line_type_intelligence,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"url,omitempty"`
 }

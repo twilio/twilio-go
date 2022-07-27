@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **TasksByStatus** | Pointer to **interface{}** | The number of Tasks by their current status |
 **TotalTasks** | Pointer to **int** | The total number of Tasks |
 **TotalWorkers** | Pointer to **int** | The total number of Workers in the Workspace |
-**Url** | Pointer to **string** | The absolute URL of the Workspace statistics resource |
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace |
+**Url** | Pointer to **string** | The absolute URL of the Workspace statistics resource |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

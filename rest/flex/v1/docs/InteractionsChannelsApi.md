@@ -103,7 +103,7 @@ Name | Type | Description
 
 
 
-Update an existing Interaction.
+Update an existing Interaction Channel.
 
 ### Path Parameters
 
@@ -121,8 +121,8 @@ Other parameters are passed through a pointer to a UpdateInteractionChannelParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**Status** | **string** | 
 **Routing** | [**interface{}**](interface{}.md) | Optional. The state of associated tasks. If not specified, all tasks will be set to &#x60;wrapping&#x60;.
-**Status** | **string** | Required. Indicates the Interaction channel&#39;s status. When a channel is set to &#x60;closed&#x60;, all tasks are put in the &#x60;wrapping&#x60; state by default unless the Routing status is set to &#x60;closed&#x60; in which case the tasks will be &#x60;completed&#x60;. Value: &#x60;closed&#x60;.
 
 ### Return type
 
