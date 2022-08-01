@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/localtunnel/go-localtunnel"
 	"github.com/stretchr/testify/assert"
@@ -211,6 +212,9 @@ func TestRequestValidation_GETMethod(t *testing.T) {
 	server := createValidationServer(channel)
 	go server.Serve(listener)
 
+	//Extra time for server to set up
+	time.Sleep(1 * time.Second)
+
 	//Create Studio Flow
 	params := createStudioFlowParams(listener.URL(), "GET")
 	resp, flowErr := testClient.StudioV2.CreateFlow(params)
@@ -235,6 +239,9 @@ func TestRequestValidation_POSTMethod(t *testing.T) {
 	channel := make(chan bool)
 	server := createValidationServer(channel)
 	go server.Serve(listener)
+
+	//Extra time for server to set up
+	time.Sleep(1 * time.Second)
 
 	//Create Studio Flow
 	params := createStudioFlowParams(listener.URL(), "POST")
