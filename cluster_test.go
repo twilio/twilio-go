@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"os"
 	"testing"
-	"time"
 
 	"github.com/localtunnel/go-localtunnel"
 	"github.com/stretchr/testify/assert"
@@ -131,8 +130,6 @@ func createValidationServer(channel chan bool) *http.Server {
 	server := &http.Server{}
 	server.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		url := r.Header["X-Forwarded-Proto"][0] + "://" + r.Header["X-Forwarded-Host"][0] + r.URL.RequestURI()
-
-		//Converting url.Values to map for POST Request Params
 		r.ParseForm()
 		params := make(map[string]string)
 		for k, v := range r.PostForm {
@@ -145,7 +142,7 @@ func createValidationServer(channel chan bool) *http.Server {
 	return server
 }
 
-func createStudioFlowParams(url string) *StudioV2.CreateFlowParams {
+func createStudioFlowParams(url string, method string) *StudioV2.CreateFlowParams {
 	jsonStr := fmt.Sprintf(`{
 		"description": "Studio Flow",
 		"states": [
@@ -166,7 +163,7 @@ func createStudioFlowParams(url string) *StudioV2.CreateFlowParams {
 			"type": "make-http-request",
 			"transitions": [],
 			"properties": {
-			  "method": "GET",
+			  "method": "%s",
 			  "content_type": "application/x-www-form-urlencoded;charset=utf-8",
 			  "url": "%s"
 			}
@@ -176,7 +173,7 @@ func createStudioFlowParams(url string) *StudioV2.CreateFlowParams {
 		"flags": {
 		  "allow_concurrent_calls": true
 		}
-	  }`, url)
+	  }`, method, url)
 
 	var definition interface{}
 	_ = json.Unmarshal([]byte(jsonStr), &definition)
@@ -196,33 +193,57 @@ func createStudioExecutionParams() *StudioV2.CreateExecutionParams {
 	return executionParams
 }
 
-func TestRequestValidation(t *testing.T) {
+func executeFlow(t *testing.T, flowSid string) {
+	_, exeErr := testClient.StudioV2.CreateExecution(flowSid, createStudioExecutionParams())
+	if exeErr != nil {
+		t.Fatal("Error with Studio Execution Creation: ", exeErr)
+	}
+}
+
+func TestRequestValidation_GETMethod(t *testing.T) {
 	//Invoke Localtunnel
 	listener, ltErr := localtunnel.Listen(localtunnel.Options{})
 	if ltErr != nil {
 		t.Fatal("Error with Localtunnel: ", ltErr)
 	}
+	//Create Validation Server & Listen
+	channel := make(chan bool)
+	server := createValidationServer(channel)
+	go server.Serve(listener)
+
 	//Create Studio Flow
-	params := createStudioFlowParams(listener.URL())
+	params := createStudioFlowParams(listener.URL(), "GET")
 	resp, flowErr := testClient.StudioV2.CreateFlow(params)
 	if flowErr != nil {
 		t.Fatal("Error with Studio Flow Creation: ", flowErr)
 	}
 	flowSid := *resp.Sid
-	channel := make(chan bool)
+	executeFlow(t, flowSid)
 
+	//Await for Request Validation
+	assert.True(t, <-channel)
+	defer testClient.StudioV2.DeleteFlow(flowSid)
+}
+
+func TestRequestValidation_POSTMethod(t *testing.T) {
+	//Invoke Localtunnel
+	listener, ltErr := localtunnel.Listen(localtunnel.Options{})
+	if ltErr != nil {
+		t.Fatal("Error with Localtunnel: ", ltErr)
+	}
 	//Create Validation Server & Listen
+	channel := make(chan bool)
 	server := createValidationServer(channel)
 	go server.Serve(listener)
 
-	//Extra time for Server to set up
-	time.Sleep(1 * time.Second)
-
-	//Trigger Studio Flow
-	_, exeErr := testClient.StudioV2.CreateExecution(flowSid, createStudioExecutionParams())
-	if exeErr != nil {
-		t.Fatal("Error with Studio Execution Creation: ", exeErr)
+	//Create Studio Flow
+	params := createStudioFlowParams(listener.URL(), "POST")
+	resp, flowErr := testClient.StudioV2.CreateFlow(params)
+	if flowErr != nil {
+		t.Fatal("Error with Studio Flow Creation: ", flowErr)
 	}
+	flowSid := *resp.Sid
+	executeFlow(t, flowSid)
 
 	//Await for Request Validation
 	assert.True(t, <-channel)
