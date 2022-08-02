@@ -285,7 +285,7 @@ func main() {
 		]
 	}`
 
-	definition := make(map[string]interface{})
+	var definition interface{}
 	_ = json.Unmarshal([]byte(jsonStr), &definition)
 
 	client := twilio.NewRestClient()
