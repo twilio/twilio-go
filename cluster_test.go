@@ -131,14 +131,18 @@ func createValidationServer(channel chan bool) *http.Server {
 	server := &http.Server{}
 	server.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		url := r.Header["X-Forwarded-Proto"][0] + "://" + r.Header["X-Forwarded-Host"][0] + r.URL.RequestURI()
+		signatureHeader := r.Header["X-Twilio-Signature"]
 		r.ParseForm()
 		params := make(map[string]string)
 		for k, v := range r.PostForm {
 			params[k] = v[0]
 		}
 		requestValidator := twilio.NewRequestValidator(os.Getenv("TWILIO_AUTH_TOKEN"))
-		channel <- requestValidator.Validate(url, params, r.Header["X-Twilio-Signature"][0])
-		defer server.Close()
+		if len(signatureHeader) != 0 {
+			channel <- requestValidator.Validate(url, params, r.Header["X-Twilio-Signature"][0])
+		} else {
+			channel <- false
+		}
 	})
 	return server
 }
@@ -189,8 +193,8 @@ func createStudioFlowParams(url string, method string) *StudioV2.CreateFlowParam
 
 func createStudioExecutionParams() *StudioV2.CreateExecutionParams {
 	executionParams := &StudioV2.CreateExecutionParams{}
-	executionParams.SetTo(to)
-	executionParams.SetFrom(from)
+	executionParams.SetTo("To")
+	executionParams.SetFrom("From")
 	return executionParams
 }
 
@@ -201,7 +205,7 @@ func executeFlow(t *testing.T, flowSid string) {
 	}
 }
 
-func TestRequestValidation_GETMethod(t *testing.T) {
+func requestValidation(t *testing.T, method string) {
 	//Invoke Localtunnel
 	listener, ltErr := localtunnel.Listen(localtunnel.Options{})
 	if ltErr != nil {
@@ -216,7 +220,7 @@ func TestRequestValidation_GETMethod(t *testing.T) {
 	time.Sleep(1 * time.Second)
 
 	//Create Studio Flow
-	params := createStudioFlowParams(listener.URL(), "GET")
+	params := createStudioFlowParams(listener.URL(), method)
 	resp, flowErr := testClient.StudioV2.CreateFlow(params)
 	if flowErr != nil {
 		t.Fatal("Error with Studio Flow Creation: ", flowErr)
@@ -225,34 +229,21 @@ func TestRequestValidation_GETMethod(t *testing.T) {
 	executeFlow(t, flowSid)
 
 	//Await for Request Validation
-	assert.True(t, <-channel)
+	afterCh := time.After(5 * time.Second)
+	select {
+	case validate := <-channel:
+		assert.True(t, validate)
+	case <-afterCh:
+		t.Fatal("No request was sent to validation server")
+	}
 	defer testClient.StudioV2.DeleteFlow(flowSid)
+	defer server.Close()
+}
+
+func TestRequestValidation_GETMethod(t *testing.T) {
+	requestValidation(t, "GET")
 }
 
 func TestRequestValidation_POSTMethod(t *testing.T) {
-	//Invoke Localtunnel
-	listener, ltErr := localtunnel.Listen(localtunnel.Options{})
-	if ltErr != nil {
-		t.Fatal("Error with Localtunnel: ", ltErr)
-	}
-	//Create Validation Server & Listen
-	channel := make(chan bool)
-	server := createValidationServer(channel)
-	go server.Serve(listener)
-
-	//Extra time for server to set up
-	time.Sleep(1 * time.Second)
-
-	//Create Studio Flow
-	params := createStudioFlowParams(listener.URL(), "POST")
-	resp, flowErr := testClient.StudioV2.CreateFlow(params)
-	if flowErr != nil {
-		t.Fatal("Error with Studio Flow Creation: ", flowErr)
-	}
-	flowSid := *resp.Sid
-	executeFlow(t, flowSid)
-
-	//Await for Request Validation
-	assert.True(t, <-channel)
-	defer testClient.StudioV2.DeleteFlow(flowSid)
+	requestValidation(t, "POST")
 }
