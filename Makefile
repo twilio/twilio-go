@@ -7,10 +7,10 @@ install:
 	go build -v ./...
 
 test:
-	go test ./...
+	go test -race ./...
 
 cluster-test:
-	go test --tags=cluster
+	go test -race --tags=cluster
 
 goimports:
 	go install golang.org/x/tools/cmd/goimports@latest
