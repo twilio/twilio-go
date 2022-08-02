@@ -247,3 +247,13 @@ func TestRequestValidation_GETMethod(t *testing.T) {
 func TestRequestValidation_POSTMethod(t *testing.T) {
 	requestValidation(t, "POST")
 }
+
+func TestListingAvailableNumber(t *testing.T) {
+	params := &Api.ListAvailablePhoneNumberTollFreeParams{}
+	params.SetLimit(2)
+
+	resp, err := testClient.Api.ListAvailablePhoneNumberTollFree("US", params)
+	assert.Nil(t, err)
+	assert.NotNil(t, resp)
+	assert.Equal(t, 2, len(resp))
+}
