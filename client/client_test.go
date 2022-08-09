@@ -2,7 +2,7 @@ package client_test
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -259,7 +259,7 @@ func TestClient_UnicodeResponse(t *testing.T) {
 	c := NewClient("user", "pass")
 	resp, _ := c.SendRequest("GET", unicodeServer.URL, nil, nil) //nolint:bodyclose
 	assert.Equal(t, 200, resp.StatusCode)
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	assert.Equal(t, "{\"testing-unicode\":\"Ω≈ç√, 💩\"}\n", string(body))
 }
 
@@ -272,7 +272,7 @@ func TestClient_SetAccountSid(t *testing.T) {
 func TestClient_DefaultUserAgentHeaders(t *testing.T) {
 	headerServer := httptest.NewServer(http.HandlerFunc(
 		func(writer http.ResponseWriter, request *http.Request) {
-			assert.Regexp(t, regexp.MustCompile(`^twilio-go/[0-9.]+\s\(\w+\s\w+\)\sgo/[^\s]+$`), request.Header.Get("User-Agent"))
+			assert.Regexp(t, regexp.MustCompile(`^twilio-go/[0-9.]+\s\(\w+\s\w+\)\sgo/\S+$`), request.Header.Get("User-Agent"))
 		}))
 
 	resp, _ := testClient.SendRequest("GET", headerServer.URL, nil, nil)
