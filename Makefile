@@ -11,7 +11,7 @@ test:
 
 test-docker:
 	docker build -t twilio/twilio-go .
-	docker run twilio/twilio-go go test ./...
+	docker run twilio/twilio-go go test -race ./...
 
 cluster-test:
 	go test -race --tags=cluster
