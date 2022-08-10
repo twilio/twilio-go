@@ -1,4 +1,4 @@
-.PHONY: githooks install test goimports govet golint docker-build docker-push cover
+.PHONY: githooks install test test-docker goimports govet golint docker-build docker-push cover
 
 githooks:
 	ln -sf ../../githooks/pre-commit .git/hooks/pre-commit
@@ -8,6 +8,10 @@ install:
 
 test:
 	go test -race ./...
+
+test-docker:
+	docker build -t twilio/twilio-go .
+	docker run twilio/twilio-go go test ./...
 
 cluster-test:
 	go test -race --tags=cluster
