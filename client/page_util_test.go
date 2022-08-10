@@ -3,7 +3,7 @@ package client
 import (
 	"bytes"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"testing"
@@ -107,7 +107,7 @@ func getTestClient(t *testing.T) *MockBaseClient {
 			resp, _ := json.Marshal(response)
 
 			return &http.Response{
-				Body: ioutil.NopCloser(bytes.NewReader(resp)),
+				Body: io.NopCloser(bytes.NewReader(resp)),
 			}, nil
 		},
 		)
