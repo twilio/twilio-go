@@ -27,7 +27,7 @@ import (
 type CreateSipIpAccessControlListParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.
+	// A human readable descriptive text that describes the IpAccessControlList, up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -296,7 +296,7 @@ func (c *ApiService) getNextListSipIpAccessControlListResponse(nextPageUrl strin
 type UpdateSipIpAccessControlListParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// A human readable descriptive text, up to 64 characters long.
+	// A human readable descriptive text, up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 

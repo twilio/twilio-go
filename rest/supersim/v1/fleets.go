@@ -31,7 +31,7 @@ type CreateFleetParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 	// Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
 	DataEnabled *bool `json:"DataEnabled,omitempty"`
-	// The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+	// The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 	DataLimit *int `json:"DataLimit,omitempty"`
 	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
 	IpCommandsUrl *string `json:"IpCommandsUrl,omitempty"`
@@ -314,6 +314,8 @@ type UpdateFleetParams struct {
 	SmsCommandsUrl *string `json:"SmsCommandsUrl,omitempty"`
 	// A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
 	SmsCommandsMethod *string `json:"SmsCommandsMethod,omitempty"`
+	// The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+	DataLimit *int `json:"DataLimit,omitempty"`
 }
 
 func (params *UpdateFleetParams) SetUniqueName(UniqueName string) *UpdateFleetParams {
@@ -338,6 +340,10 @@ func (params *UpdateFleetParams) SetSmsCommandsUrl(SmsCommandsUrl string) *Updat
 }
 func (params *UpdateFleetParams) SetSmsCommandsMethod(SmsCommandsMethod string) *UpdateFleetParams {
 	params.SmsCommandsMethod = &SmsCommandsMethod
+	return params
+}
+func (params *UpdateFleetParams) SetDataLimit(DataLimit int) *UpdateFleetParams {
+	params.DataLimit = &DataLimit
 	return params
 }
 
@@ -366,6 +372,9 @@ func (c *ApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*Supers
 	}
 	if params != nil && params.SmsCommandsMethod != nil {
 		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
+	}
+	if params != nil && params.DataLimit != nil {
+		data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

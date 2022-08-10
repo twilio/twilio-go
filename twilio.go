@@ -34,12 +34,14 @@ import (
 	LookupsV2 "github.com/twilio/twilio-go/rest/lookups/v2"
 	MediaV1 "github.com/twilio/twilio-go/rest/media/v1"
 	MessagingV1 "github.com/twilio/twilio-go/rest/messaging/v1"
+	MicrovisorV1 "github.com/twilio/twilio-go/rest/microvisor/v1"
 	MonitorV1 "github.com/twilio/twilio-go/rest/monitor/v1"
 	NotifyV1 "github.com/twilio/twilio-go/rest/notify/v1"
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
+	RoutesV2 "github.com/twilio/twilio-go/rest/routes/v2"
 	ServerlessV1 "github.com/twilio/twilio-go/rest/serverless/v1"
 	StudioV1 "github.com/twilio/twilio-go/rest/studio/v1"
 	StudioV2 "github.com/twilio/twilio-go/rest/studio/v2"
@@ -75,12 +77,14 @@ type RestClient struct {
 	LookupsV2       *LookupsV2.ApiService
 	MediaV1         *MediaV1.ApiService
 	MessagingV1     *MessagingV1.ApiService
+	MicrovisorV1    *MicrovisorV1.ApiService
 	MonitorV1       *MonitorV1.ApiService
 	NotifyV1        *NotifyV1.ApiService
 	NumbersV2       *NumbersV2.ApiService
 	PricingV1       *PricingV1.ApiService
 	PricingV2       *PricingV2.ApiService
 	ProxyV1         *ProxyV1.ApiService
+	RoutesV2        *RoutesV2.ApiService
 	ServerlessV1    *ServerlessV1.ApiService
 	StudioV1        *StudioV1.ApiService
 	StudioV2        *StudioV2.ApiService
@@ -163,12 +167,14 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.LookupsV2 = LookupsV2.NewApiService(c.RequestHandler)
 	c.MediaV1 = MediaV1.NewApiService(c.RequestHandler)
 	c.MessagingV1 = MessagingV1.NewApiService(c.RequestHandler)
+	c.MicrovisorV1 = MicrovisorV1.NewApiService(c.RequestHandler)
 	c.MonitorV1 = MonitorV1.NewApiService(c.RequestHandler)
 	c.NotifyV1 = NotifyV1.NewApiService(c.RequestHandler)
 	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
 	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
 	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
 	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)
+	c.RoutesV2 = RoutesV2.NewApiService(c.RequestHandler)
 	c.ServerlessV1 = ServerlessV1.NewApiService(c.RequestHandler)
 	c.StudioV1 = StudioV1.NewApiService(c.RequestHandler)
 	c.StudioV2 = StudioV2.NewApiService(c.RequestHandler)

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **Url** | Pointer to **string** | The absolute URL of the Fleet resource |
 **DataEnabled** | Pointer to **bool** | Defines whether SIMs in the Fleet are capable of using data connectivity |
-**DataLimit** | Pointer to **int** | The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume |
+**DataLimit** | Pointer to **int** | The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume |
 **DataMetering** | Pointer to [**string**](FleetEnumDataMetering.md) |  |
 **SmsCommandsEnabled** | Pointer to **bool** | Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands |
 **SmsCommandsUrl** | Pointer to **string** | The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number |

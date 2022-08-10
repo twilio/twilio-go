@@ -1,5 +1,19 @@
 twilio-go changelog
 ====================
+[2022-08-10] Version 1.0.0-rc.6
+-------------------------------
+**Library - Test**
+- [PR #180](https://github.com/twilio/twilio-go/pull/180): fix for linting failures and using the proper PR branch. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #178](https://github.com/twilio/twilio-go/pull/178): Include a cluster test for Request Validator. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #179](https://github.com/twilio/twilio-go/pull/179): add datarace detection for go. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Routes**
+- Inbound Proccessing Region API - Public GA
+
+**Supersim**
+- Allow updating `DataLimit` on a Fleet
+
+
 [2022-07-21] Version 1.0.0-rc.5
 -------------------------------
 **Flex**

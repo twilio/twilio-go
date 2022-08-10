@@ -24,7 +24,7 @@ import (
 type CreateVerificationParams struct {
 	// The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 	To *string `json:"To,omitempty"`
-	// The verification method to use. Can be: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp` or `call`.
+	// The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, or `sna`.
 	Channel *string `json:"Channel,omitempty"`
 	// A custom user defined friendly name that overwrites the existing one in the verification message
 	CustomFriendlyName *string `json:"CustomFriendlyName,omitempty"`

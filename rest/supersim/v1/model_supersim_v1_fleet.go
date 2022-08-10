@@ -34,7 +34,7 @@ type SupersimV1Fleet struct {
 	Url *string `json:"url,omitempty"`
 	// Defines whether SIMs in the Fleet are capable of using data connectivity
 	DataEnabled *bool `json:"data_enabled,omitempty"`
-	// The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
+	// The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
 	DataLimit    *int    `json:"data_limit,omitempty"`
 	DataMetering *string `json:"data_metering,omitempty"`
 	// Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands

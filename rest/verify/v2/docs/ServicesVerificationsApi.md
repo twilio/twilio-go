@@ -34,7 +34,7 @@ Other parameters are passed through a pointer to a CreateVerificationParams stru
 Name | Type | Description
 ------------- | ------------- | -------------
 **To** | **string** | The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-**Channel** | **string** | The verification method to use. Can be: [&#x60;email&#x60;](https://www.twilio.com/docs/verify/email), &#x60;sms&#x60;, &#x60;whatsapp&#x60; or &#x60;call&#x60;.
+**Channel** | **string** | The verification method to use. One of: [&#x60;email&#x60;](https://www.twilio.com/docs/verify/email), &#x60;sms&#x60;, &#x60;whatsapp&#x60;, &#x60;call&#x60;, or &#x60;sna&#x60;.
 **CustomFriendlyName** | **string** | A custom user defined friendly name that overwrites the existing one in the verification message
 **CustomMessage** | **string** | The text of a custom message to use for the verification.
 **SendDigits** | **string** | The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).

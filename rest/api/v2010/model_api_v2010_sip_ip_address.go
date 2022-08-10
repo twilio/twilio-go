@@ -20,7 +20,7 @@ type ApiV2010SipIpAddress struct {
 	Sid *string `json:"sid,omitempty"`
 	// The unique id of the Account that is responsible for this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A human readable descriptive text for this resource, up to 64 characters long.
+	// A human readable descriptive text for this resource, up to 255 characters long.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
 	IpAddress *string `json:"ip_address,omitempty"`
