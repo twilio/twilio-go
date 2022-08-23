@@ -58,7 +58,7 @@ The Twilio `RestClient` needs your Twilio credentials. We recommend storing them
 ```go
 package main
 
-import "github.com/twilio/twilio-go"
+import twilio "github.com/twilio/twilio-go"
 
 func main() {
 	// This will look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables inside the current environment to initialize the constructor
@@ -73,7 +73,7 @@ If you don't want to use environment variables, you can also pass the credential
 ```go
 package main
 
-import "github.com/twilio/twilio-go"
+import twilio "github.com/twilio/twilio-go"
 
 func main() {
 	accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -94,7 +94,7 @@ If you wish to make API calls with a Subaccount, you can do so by setting the `A
 ```go
 package main
 
-import "github.com/twilio/twilio-go"
+import twilio "github.com/twilio/twilio-go"
 
 func main() {
 	// subaccountSid should also be in format "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -111,7 +111,7 @@ func main() {
 package main
 
 import (
-	"github.com/twilio/twilio-go"
+	twilio "github.com/twilio/twilio-go"
 )
 
 func main() {
@@ -133,7 +133,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/twilio/twilio-go"
+	twilio "github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
@@ -162,7 +162,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/twilio/twilio-go"
+	twilio "github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
@@ -195,7 +195,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/twilio/twilio-go"
+	twilio "github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
@@ -229,7 +229,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/twilio/twilio-go"
+	twilio "github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/serverless/v1"
 )
 
@@ -260,7 +260,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/twilio/twilio-go"
+	twilio "github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/studio/v2"
 )
 
@@ -322,7 +322,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/twilio/twilio-go"
+	twilio "github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
@@ -354,7 +354,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/twilio/twilio-go"
+	twilio "github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 	"net/url"
 	"os"
@@ -402,7 +402,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/twilio/twilio-go"
+	twilio "github.com/twilio/twilio-go"
 	twilioclient "github.com/twilio/twilio-go/client"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
@@ -470,7 +470,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/twilio/twilio-go"
+	twilio "github.com/twilio/twilio-go"
 	"github.com/twilio/twilio-go/client"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
