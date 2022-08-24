@@ -1,5 +1,20 @@
 twilio-go changelog
 ====================
+[2022-08-24] Version 1.0.0-rc.7
+-------------------------------
+**Library - Feature**
+- [PR #185](https://github.com/twilio/twilio-go/pull/185): Adding support for go 1.19. Thanks to [@rakatyal](https://github.com/rakatyal)!
+
+**Library - Test**
+- [PR #182](https://github.com/twilio/twilio-go/pull/182): add test-docker rule. Thanks to [@beebzz](https://github.com/beebzz)!
+
+**Api**
+- Remove `beta feature` from scheduling params and remove optimize parameters. **(breaking change)**
+
+**Routes**
+- Remove Duplicate Create Method - Update Method will work even if Inbound Processing Region is currently empty/404. **(breaking change)**
+
+
 [2022-08-10] Version 1.0.0-rc.6
 -------------------------------
 **Library - Test**
