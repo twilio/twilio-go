@@ -20,29 +20,29 @@ type Verb interface {
 
 func AddAllVerbs(response *etree.Element, verbs []Verb) {
 	for _, verb := range verbs {
-		verbEl := CreateVerbElement(verb)
+		verbEl := createVerbElement(verb)
 		response.AddChild(verbEl)
 	}
 }
 
-func CreateVerbElement(verb Verb) *etree.Element {
+func createVerbElement(verb Verb) *etree.Element {
 	el := etree.NewElement(verb.GetName())
 	optAttr, paramAttr := verb.GetAttr()
-	AddPropertyToElement(el, verb.GetText(), optAttr, paramAttr)
+	addPropertyToElement(el, verb.GetText(), optAttr, paramAttr)
 	//Loop through all Nouns
 	if len(verb.GetNouns()) != 0 {
 		for _, noun := range verb.GetNouns() {
-			child := CreateNounElement(noun)
+			child := createNounElement(noun)
 			el.AddChild(child)
 		}
 	}
 	return el
 }
 
-func CreateNounElement(noun Noun) *etree.Element {
+func createNounElement(noun Noun) *etree.Element {
 	el := etree.NewElement(noun.GetName())
 	optAttr, paramAttr := noun.GetAttr()
-	AddPropertyToElement(el, noun.GetText(), optAttr, paramAttr)
+	addPropertyToElement(el, noun.GetText(), optAttr, paramAttr)
 	return el
 }
 
@@ -62,20 +62,20 @@ func ToXML(document *etree.Document) string {
 	return err.Error()
 }
 
-func AddPropertyToElement(treeElement *etree.Element, text string, optAttr map[string]string, paramAttr map[string]string) {
+func addPropertyToElement(treeElement *etree.Element, text string, optAttr map[string]string, paramAttr map[string]string) {
 	if text != "" {
 		treeElement.SetText(text)
 	}
 	for k, v := range paramAttr {
 		if v != "" {
-			treeElement.CreateAttr(FormatAttrKey(k), v)
+			treeElement.CreateAttr(formatAttrKey(k), v)
 		}
 	}
 	for k, v := range optAttr {
-		treeElement.CreateAttr(FormatAttrKey(k), v)
+		treeElement.CreateAttr(formatAttrKey(k), v)
 	}
 }
 
-func FormatAttrKey(s string) string {
+func formatAttrKey(s string) string {
 	return strings.ToLower(string(s[0])) + s[1:]
 }
