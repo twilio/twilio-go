@@ -54,7 +54,6 @@ func CreateDocument() (*etree.Document, *etree.Element) {
 }
 
 func ToXML(document *etree.Document) string {
-	document.Indent(2)
 	xml, err := document.WriteToString()
 	if err == nil {
 		return xml
