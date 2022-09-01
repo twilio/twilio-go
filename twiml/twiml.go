@@ -14,19 +14,19 @@ type Element interface {
 
 func AddAllVerbs(response *etree.Element, verbs []Element) {
 	for _, verb := range verbs {
-		verbEl := createTagElement(verb)
+		verbEl := createElement(verb)
 		response.AddChild(verbEl)
 	}
 }
 
-func createTagElement(tag Element) *etree.Element {
+func createElement(tag Element) *etree.Element {
 	el := etree.NewElement(tag.GetName())
 	optAttr, paramAttr := tag.GetAttr()
 	addPropertyToElement(el, tag.GetText(), optAttr, paramAttr)
 	//Loop through all Nouns
 	if len(tag.GetNouns()) != 0 {
 		for _, noun := range tag.GetNouns() {
-			child := createTagElement(noun)
+			child := createElement(noun)
 			el.AddChild(child)
 		}
 	}
