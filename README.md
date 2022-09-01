@@ -458,10 +458,10 @@ func main() {
 		Url: "www.twilio.com",
 	}
 	//Adding Queue to Dial
-	dial.Nouns = []twiml.Tag{queue}
+	dial.Nouns = []twiml.Element{queue}
 
 	//Adding all Verbs to twiml.Voice
-	verbList := []twiml.Tag{dial, say, pause}
+	verbList := []twiml.Element{dial, say, pause}
 	twimlResult := twiml.Voice(verbList)
 	fmt.Println(twimlResult)
 }

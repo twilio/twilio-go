@@ -5,7 +5,7 @@
 
 package twiml
 
-func Messages(verbs []Tag)(TwimlXml string){
+func Messages(verbs []Element)(TwimlXml string){
     doc, response := CreateDocument()
     if verbs != nil {
         AddAllVerbs(response, verbs)
@@ -20,7 +20,7 @@ type MessagingRedirect struct {
     // OptionalAttributes: additional attributes
     Url string
     Method string
-    Nouns []Tag
+    Nouns []Element
     OptionalAttributes map[string]string
 }
 
@@ -39,7 +39,7 @@ func (m MessagingRedirect) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m MessagingRedirect) GetNouns() []Tag {
+func (m MessagingRedirect) GetNouns() []Element {
     return m.Nouns
 }
 //MessagingMessage <Message> TwiML Verb
@@ -57,7 +57,7 @@ type MessagingMessage struct {
     Action string
     Method string
     StatusCallback string
-    Nouns []Tag
+    Nouns []Element
     OptionalAttributes map[string]string
 }
 
@@ -80,7 +80,7 @@ func (m MessagingMessage) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m MessagingMessage) GetNouns() []Tag {
+func (m MessagingMessage) GetNouns() []Element {
     return m.Nouns
 }
 //MessagingMedia <Media> TwiML Noun
@@ -88,7 +88,7 @@ type MessagingMedia struct {
     // url: Media URL
     // OptionalAttributes: additional attributes
     Url string
-    Nouns []Tag
+    Nouns []Element
     OptionalAttributes map[string]string
 }
 
@@ -104,7 +104,7 @@ func (m MessagingMedia) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m MessagingMedia) GetNouns() []Tag {
+func (m MessagingMedia) GetNouns() []Element {
     return m.Nouns
 }
 //MessagingBody <Body> TwiML Noun
@@ -112,7 +112,7 @@ type MessagingBody struct {
     // message: Message Body
     // OptionalAttributes: additional attributes
     Message string
-    Nouns []Tag
+    Nouns []Element
     OptionalAttributes map[string]string
 }
 
@@ -128,6 +128,6 @@ func (m MessagingBody) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m MessagingBody) GetNouns() []Tag {
+func (m MessagingBody) GetNouns() []Element {
     return m.Nouns
 }

@@ -5,21 +5,21 @@ import (
 	"strings"
 )
 
-type Tag interface {
+type Element interface {
 	GetName() string
 	GetText() string
 	GetAttr() (map[string]string, map[string]string)
-	GetNouns() []Tag
+	GetNouns() []Element
 }
 
-func AddAllVerbs(response *etree.Element, verbs []Tag) {
+func AddAllVerbs(response *etree.Element, verbs []Element) {
 	for _, verb := range verbs {
 		verbEl := createTagElement(verb)
 		response.AddChild(verbEl)
 	}
 }
 
-func createTagElement(tag Tag) *etree.Element {
+func createTagElement(tag Element) *etree.Element {
 	el := etree.NewElement(tag.GetName())
 	optAttr, paramAttr := tag.GetAttr()
 	addPropertyToElement(el, tag.GetText(), optAttr, paramAttr)
