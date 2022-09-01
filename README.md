@@ -443,25 +443,25 @@ import (
 
 func main() {
 	//Construct Verbs
-	dial := &twiml.VoiceDialVerb{}
-	say := &twiml.VoiceSayVerb{
+	dial := &twiml.VoiceDial{}
+	say := &twiml.VoiceSay{
 		Message:            "Welcome to Twilio!",
 		Voice:              "woman",
 		Language:           "en-gb",
 		OptionalAttributes: map[string]string{"input": "test"},
 	}
-	pause := &twiml.VoicePauseVerb{
+	pause := &twiml.VoicePause{
 		Length: "10",
 	}
 	//Construct Noun
-	queueNoun := &twiml.VoiceQueueNoun{
+	queue := &twiml.VoiceQueue{
 		Url: "www.twilio.com",
 	}
-	//Adding Queue Noun to Dial Verb
-	dial.Nouns = []twiml.Noun{queueNoun}
+	//Adding Queue to Dial
+	dial.Nouns = []twiml.Tag{queue}
 
 	//Adding all Verbs to twiml.Voice
-	verbList := []twiml.Verb{dial, say, pause}
+	verbList := []twiml.Tag{dial, say, pause}
 	twimlResult := twiml.Voice(verbList)
 	fmt.Println(twimlResult)
 }

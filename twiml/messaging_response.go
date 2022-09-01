@@ -5,7 +5,7 @@
 
 package twiml
 
-func Messages(verbs []Verb)(TwimlXml string){
+func Messages(verbs []Tag)(TwimlXml string){
     doc, response := CreateDocument()
     if verbs != nil {
         AddAllVerbs(response, verbs)
@@ -13,37 +13,37 @@ func Messages(verbs []Verb)(TwimlXml string){
     return ToXML(doc)
 }
 
-//MessagingRedirectVerb <Redirect> TwiML Verb
-type MessagingRedirectVerb struct {
+//MessagingRedirect <Redirect> TwiML Verb
+type MessagingRedirect struct {
     // url: Redirect URL
     // method: Redirect URL method
     // OptionalAttributes: additional attributes
     Url string
     Method string
-    Nouns []Noun
+    Nouns []Tag
     OptionalAttributes map[string]string
 }
 
-func (m MessagingRedirectVerb) GetName() string {
+func (m MessagingRedirect) GetName() string {
     return "Redirect"
 }
 
-func (m MessagingRedirectVerb) GetText() string {
+func (m MessagingRedirect) GetText() string {
     return m.Url
 }
 
-func (m MessagingRedirectVerb) GetAttr() (map[string]string, map[string]string) {
+func (m MessagingRedirect) GetAttr() (map[string]string, map[string]string) {
     paramsAttr := map[string]string{
     	"Method": m.Method,
     }
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m MessagingRedirectVerb) GetNouns() []Noun {
+func (m MessagingRedirect) GetNouns() []Tag {
     return m.Nouns
 }
-//MessagingMessageVerb <Message> TwiML Verb
-type MessagingMessageVerb struct {
+//MessagingMessage <Message> TwiML Verb
+type MessagingMessage struct {
     // body: Message Body
     // to: Phone Number to send Message to
     // from: Phone Number to send Message from
@@ -57,19 +57,19 @@ type MessagingMessageVerb struct {
     Action string
     Method string
     StatusCallback string
-    Nouns []Noun
+    Nouns []Tag
     OptionalAttributes map[string]string
 }
 
-func (m MessagingMessageVerb) GetName() string {
+func (m MessagingMessage) GetName() string {
     return "Message"
 }
 
-func (m MessagingMessageVerb) GetText() string {
+func (m MessagingMessage) GetText() string {
     return m.Body
 }
 
-func (m MessagingMessageVerb) GetAttr() (map[string]string, map[string]string) {
+func (m MessagingMessage) GetAttr() (map[string]string, map[string]string) {
     paramsAttr := map[string]string{
     	"To": m.To,
     	"From": m.From,
@@ -80,44 +80,54 @@ func (m MessagingMessageVerb) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m MessagingMessageVerb) GetNouns() []Noun {
+func (m MessagingMessage) GetNouns() []Tag {
     return m.Nouns
 }
-//MessagingMediaNoun <Media> TwiML Noun
-type MessagingMediaNoun struct {
+//MessagingMedia <Media> TwiML Noun
+type MessagingMedia struct {
     // url: Media URL
     // OptionalAttributes: additional attributes
     Url string
+    Nouns []Tag
     OptionalAttributes map[string]string
 }
 
-func (m MessagingMediaNoun) GetName() string {
+func (m MessagingMedia) GetName() string {
     return "Media"
 }
 
-func (m MessagingMediaNoun) GetText() string {
+func (m MessagingMedia) GetText() string {
     return m.Url
 }
 
-func (m MessagingMediaNoun) GetAttr() (map[string]string, map[string]string) {
+func (m MessagingMedia) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
-//MessagingBodyNoun <Body> TwiML Noun
-type MessagingBodyNoun struct {
+
+func (m MessagingMedia) GetNouns() []Tag {
+    return m.Nouns
+}
+//MessagingBody <Body> TwiML Noun
+type MessagingBody struct {
     // message: Message Body
     // OptionalAttributes: additional attributes
     Message string
+    Nouns []Tag
     OptionalAttributes map[string]string
 }
 
-func (m MessagingBodyNoun) GetName() string {
+func (m MessagingBody) GetName() string {
     return "Body"
 }
 
-func (m MessagingBodyNoun) GetText() string {
+func (m MessagingBody) GetText() string {
     return m.Message
 }
 
-func (m MessagingBodyNoun) GetAttr() (map[string]string, map[string]string) {
+func (m MessagingBody) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
+}
+
+func (m MessagingBody) GetNouns() []Tag {
+    return m.Nouns
 }
