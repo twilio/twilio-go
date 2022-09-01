@@ -69,7 +69,7 @@ func main() {
 }
 ```
 
-If you don't want to use environment variables, you can also pass the credentials directly to the constructor as below. 
+If you don't want to use environment variables, you can also pass the credentials directly to the constructor as below.
 
 ```go
 package main
@@ -427,6 +427,56 @@ func main() {
 For more descriptive exception types, please see
 the [Twilio documentation](https://www.twilio.com/docs/libraries/go/usage-guide#exceptions).
 
+### Generating TwiML
+
+To control phone calls, your application needs to output [TwiML](https://www.twilio.com/docs/voice/twiml).
+
+Use the `twiml` package to easily create such responses.
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/twilio/twilio-go/twiml"
+)
+
+func main() {
+	//Construct Verbs
+	dial := &twiml.VoiceDial{}
+	say := &twiml.VoiceSay{
+		Message:            "Welcome to Twilio!",
+		Voice:              "woman",
+		Language:           "en-gb",
+		OptionalAttributes: map[string]string{"input": "test"},
+	}
+	pause := &twiml.VoicePause{
+		Length: "10",
+	}
+	//Construct Noun
+	queue := &twiml.VoiceQueue{
+		Url: "www.twilio.com",
+	}
+	//Adding Queue to Dial
+	dial.Nouns = []twiml.Element{queue}
+
+	//Adding all Verbs to twiml.Voice
+	verbList := []twiml.Element{dial, say, pause}
+	twimlResult := twiml.Voice(verbList)
+	fmt.Println(twimlResult)
+}
+```
+This will print the following:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Dial>
+        <Queue url="www.twilio.com"/>
+    </Dial>
+    <Say voice="woman" language="en-gb" input="test">Welcome to Twilio!</Say>
+    <Pause length="10"/>
+</Response>
+```
 ## Advanced Usage
 
 ### Using Request Validator
@@ -555,7 +605,7 @@ func main() {
 ```
 
 ## Building Access Tokens
-This library supports [access token](https://www.twilio.com/docs/iam/access-tokens) generation for use in the Twilio Client SDKs. 
+This library supports [access token](https://www.twilio.com/docs/iam/access-tokens) generation for use in the Twilio Client SDKs.
 
 Here's how you would generate a token for the Voice SDK:
 ```go
@@ -615,7 +665,6 @@ Params = taskrouter.CapabilityTokenParams{
 capabilityToken := taskrouter.CreateCapabilityToken(Params)
 token, err := capabilityToken.ToJwt()
 ```
-
 
 ## Local Usage
 
