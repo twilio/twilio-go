@@ -458,12 +458,16 @@ func main() {
 		Url: "www.twilio.com",
 	}
 	//Adding Queue to Dial
-	dial.Nouns = []twiml.Element{queue}
+	dial.InnerElements = []twiml.Element{queue}
 
 	//Adding all Verbs to twiml.Voice
 	verbList := []twiml.Element{dial, say, pause}
-	twimlResult := twiml.Voice(verbList)
-	fmt.Println(twimlResult)
+	twimlResult, err := twiml.Voice(verbList)
+	if err == nil {
+		fmt.Println(twimlResult)
+	} else {
+		fmt.Println(err)
+	}
 }
 ```
 This will print the following:

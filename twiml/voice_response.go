@@ -5,7 +5,7 @@
 
 package twiml
 
-func Voice(verbs []Element)(TwimlXml string){
+func Voice(verbs []Element) (string, error) {
     doc, response := CreateDocument()
     if verbs != nil {
         AddAllVerbs(response, verbs)
@@ -20,7 +20,7 @@ type VoiceRefer struct {
     // OptionalAttributes: additional attributes
     Action string
     Method string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -40,15 +40,15 @@ func (m VoiceRefer) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceRefer) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceRefer) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceReferSip <Sip> TwiML Noun used in <Refer>
 type VoiceReferSip struct {
     // sip_url: SIP URL
     // OptionalAttributes: additional attributes
     SipUrl string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -64,13 +64,13 @@ func (m VoiceReferSip) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m VoiceReferSip) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceReferSip) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceStop <Stop> TwiML Verb
 type VoiceStop struct {
     // OptionalAttributes: additional attributes
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -86,8 +86,8 @@ func (m VoiceStop) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m VoiceStop) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceStop) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceSipRec <Siprec> TwiML Noun
 type VoiceSipRec struct {
@@ -98,7 +98,7 @@ type VoiceSipRec struct {
     Name string
     ConnectorName string
     Track string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -119,8 +119,8 @@ func (m VoiceSipRec) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceSipRec) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceSipRec) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceParameter <Parameter> TwiML Noun
 type VoiceParameter struct {
@@ -129,7 +129,7 @@ type VoiceParameter struct {
     // OptionalAttributes: additional attributes
     Name string
     Value string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -149,8 +149,8 @@ func (m VoiceParameter) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceParameter) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceParameter) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceStream <Stream> TwiML Noun
 type VoiceStream struct {
@@ -167,7 +167,7 @@ type VoiceStream struct {
     Track string
     StatusCallback string
     StatusCallbackMethod string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -191,8 +191,8 @@ func (m VoiceStream) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceStream) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceStream) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceStart <Start> TwiML Verb
 type VoiceStart struct {
@@ -201,7 +201,7 @@ type VoiceStart struct {
     // OptionalAttributes: additional attributes
     Action string
     Method string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -221,8 +221,8 @@ func (m VoiceStart) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceStart) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceStart) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoicePrompt <Prompt> Twiml Verb
 type VoicePrompt struct {
@@ -235,7 +235,7 @@ type VoicePrompt struct {
     ErrorType string
     CardType string
     Attempt string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -257,15 +257,15 @@ func (m VoicePrompt) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoicePrompt) GetNouns() []Element {
-    return m.Nouns
+func (m VoicePrompt) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoicePause <Pause> TwiML Verb
 type VoicePause struct {
     // length: Length in seconds to pause
     // OptionalAttributes: additional attributes
     Length string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -284,8 +284,8 @@ func (m VoicePause) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoicePause) GetNouns() []Element {
-    return m.Nouns
+func (m VoicePause) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoicePlay <Play> TwiML Verb
 type VoicePlay struct {
@@ -296,7 +296,7 @@ type VoicePlay struct {
     Url string
     Loop string
     Digits string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -316,8 +316,8 @@ func (m VoicePlay) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoicePlay) GetNouns() []Element {
-    return m.Nouns
+func (m VoicePlay) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceSay <Say> TwiML Verb
 type VoiceSay struct {
@@ -330,7 +330,7 @@ type VoiceSay struct {
     Voice string
     Loop string
     Language string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -351,8 +351,8 @@ func (m VoiceSay) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceSay) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceSay) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceW Improving Pronunciation by Specifying Parts of Speech in <Say>
 type VoiceW struct {
@@ -361,7 +361,7 @@ type VoiceW struct {
     // OptionalAttributes: additional attributes
     Words string
     Role string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -380,8 +380,8 @@ func (m VoiceW) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceW) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceW) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceSub Pronouncing Acronyms and Abbreviations in <Say>
 type VoiceSub struct {
@@ -390,7 +390,7 @@ type VoiceSub struct {
     // OptionalAttributes: additional attributes
     Words string
     Alias string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -409,8 +409,8 @@ func (m VoiceSub) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceSub) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceSub) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceSayAs Controlling How Special Types of Words Are Spoken in <Say>
 type VoiceSayAs struct {
@@ -421,7 +421,7 @@ type VoiceSayAs struct {
     Words string
     InterpretAs string
     Role string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -441,8 +441,8 @@ func (m VoiceSayAs) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceSayAs) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceSayAs) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceProsody Controling Volume, Speaking Rate, and Pitch in <Say>
 type VoiceProsody struct {
@@ -455,7 +455,7 @@ type VoiceProsody struct {
     Volume string
     Rate string
     Pitch string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -476,15 +476,15 @@ func (m VoiceProsody) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceProsody) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceProsody) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceS Adding A Pause Between Sentences in <Say>
 type VoiceS struct {
     // words: Words to speak
     // OptionalAttributes: additional attributes
     Words string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -500,8 +500,8 @@ func (m VoiceS) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m VoiceS) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceS) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoicePhoneme Using Phonetic Pronunciation in <Say>
 type VoicePhoneme struct {
@@ -512,7 +512,7 @@ type VoicePhoneme struct {
     Words string
     Alphabet string
     Ph string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -532,8 +532,8 @@ func (m VoicePhoneme) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoicePhoneme) GetNouns() []Element {
-    return m.Nouns
+func (m VoicePhoneme) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceLang Specifying Another Language for Specific Words in <Say>
 type VoiceLang struct {
@@ -542,7 +542,7 @@ type VoiceLang struct {
     // OptionalAttributes: additional attributes
     Words string
     XmlLang string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -561,15 +561,15 @@ func (m VoiceLang) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceLang) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceLang) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceP Adding a Pause Between Paragraphs in <Say>
 type VoiceP struct {
     // words: Words to speak
     // OptionalAttributes: additional attributes
     Words string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -585,8 +585,8 @@ func (m VoiceP) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m VoiceP) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceP) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceEmphasis Emphasizing Words in <Say>
 type VoiceEmphasis struct {
@@ -595,7 +595,7 @@ type VoiceEmphasis struct {
     // OptionalAttributes: additional attributes
     Words string
     Level string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -614,8 +614,8 @@ func (m VoiceEmphasis) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceEmphasis) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceEmphasis) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceBreak Adding a Pause in <Say>
 type VoiceBreak struct {
@@ -624,7 +624,7 @@ type VoiceBreak struct {
     // OptionalAttributes: additional attributes
     Strength string
     Time string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -644,8 +644,8 @@ func (m VoiceBreak) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceBreak) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceBreak) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoicePay <Pay> Twiml Verb
 type VoicePay struct {
@@ -686,7 +686,7 @@ type VoicePay struct {
     Description string
     ValidCardTypes string
     Language string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -722,8 +722,8 @@ func (m VoicePay) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoicePay) GetNouns() []Element {
-    return m.Nouns
+func (m VoicePay) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceSms <Sms> TwiML Noun
 type VoiceSms struct {
@@ -740,7 +740,7 @@ type VoiceSms struct {
     Action string
     Method string
     StatusCallback string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -763,15 +763,15 @@ func (m VoiceSms) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceSms) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceSms) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceReject <Reject> TwiML Verb
 type VoiceReject struct {
     // reason: Rejection reason
     // OptionalAttributes: additional attributes
     Reason string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -790,8 +790,8 @@ func (m VoiceReject) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceReject) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceReject) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceRedirect <Redirect> TwiML Verb
 type VoiceRedirect struct {
@@ -800,7 +800,7 @@ type VoiceRedirect struct {
     // OptionalAttributes: additional attributes
     Url string
     Method string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -819,8 +819,8 @@ func (m VoiceRedirect) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceRedirect) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceRedirect) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceRecord <Record> TwiML Verb
 type VoiceRecord struct {
@@ -849,7 +849,7 @@ type VoiceRecord struct {
     RecordingStatusCallbackEvent string
     Transcribe string
     TranscribeCallback string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -879,8 +879,8 @@ func (m VoiceRecord) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceRecord) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceRecord) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceQueue <Queue> TwiML Noun
 type VoiceQueue struct {
@@ -895,7 +895,7 @@ type VoiceQueue struct {
     Method string
     ReservationSid string
     PostWorkActivitySid string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -917,13 +917,13 @@ func (m VoiceQueue) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceQueue) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceQueue) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceLeave <Leave> TwiML Verb
 type VoiceLeave struct {
     // OptionalAttributes: additional attributes
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -939,13 +939,13 @@ func (m VoiceLeave) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m VoiceLeave) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceLeave) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceHangup <Hangup> TwiML Verb
 type VoiceHangup struct {
     // OptionalAttributes: additional attributes
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -961,8 +961,8 @@ func (m VoiceHangup) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m VoiceHangup) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceHangup) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceGather <Gather> TwiML Verb
 type VoiceGather struct {
@@ -1003,7 +1003,7 @@ type VoiceGather struct {
     ActionOnEmptyResult string
     SpeechModel string
     Enhanced string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1039,8 +1039,8 @@ func (m VoiceGather) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceGather) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceGather) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceEnqueue <Enqueue> TwiML Noun
 type VoiceEnqueue struct {
@@ -1059,7 +1059,7 @@ type VoiceEnqueue struct {
     WaitUrl string
     WaitUrlMethod string
     WorkflowSid string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1083,8 +1083,8 @@ func (m VoiceEnqueue) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceEnqueue) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceEnqueue) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceTask <Task> TwiML Noun
 type VoiceTask struct {
@@ -1095,7 +1095,7 @@ type VoiceTask struct {
     Body string
     Priority string
     Timeout string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1115,13 +1115,13 @@ func (m VoiceTask) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceTask) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceTask) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceEcho <Echo> TwiML Verb
 type VoiceEcho struct {
     // OptionalAttributes: additional attributes
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1137,8 +1137,8 @@ func (m VoiceEcho) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m VoiceEcho) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceEcho) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceDial <Dial> TwiML Verb
 type VoiceDial struct {
@@ -1179,7 +1179,7 @@ type VoiceDial struct {
     Sequential string
     ReferUrl string
     ReferMethod string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1214,8 +1214,8 @@ func (m VoiceDial) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceDial) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceDial) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceSip <Sip> TwiML Noun
 type VoiceSip struct {
@@ -1236,7 +1236,7 @@ type VoiceSip struct {
     StatusCallbackEvent string
     StatusCallback string
     StatusCallbackMethod string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1261,15 +1261,15 @@ func (m VoiceSip) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceSip) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceSip) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceSim <Sim> TwiML Noun
 type VoiceSim struct {
     // sim_sid: SIM SID
     // OptionalAttributes: additional attributes
     SimSid string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1285,8 +1285,8 @@ func (m VoiceSim) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m VoiceSim) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceSim) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceNumber <Number> TwiML Noun
 type VoiceNumber struct {
@@ -1307,7 +1307,7 @@ type VoiceNumber struct {
     StatusCallback string
     StatusCallbackMethod string
     Byoc string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1332,8 +1332,8 @@ func (m VoiceNumber) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceNumber) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceNumber) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceConference <Conference> TwiML Noun
 type VoiceConference struct {
@@ -1380,7 +1380,7 @@ type VoiceConference struct {
     EventCallbackUrl string
     JitterBufferSize string
     ParticipantLabel string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1418,8 +1418,8 @@ func (m VoiceConference) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceConference) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceConference) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceClient <Client> TwiML Noun
 type VoiceClient struct {
@@ -1436,7 +1436,7 @@ type VoiceClient struct {
     StatusCallbackEvent string
     StatusCallback string
     StatusCallbackMethod string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1459,15 +1459,15 @@ func (m VoiceClient) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceClient) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceClient) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceIdentity <Identity> TwiML Noun
 type VoiceIdentity struct {
     // client_identity: Identity of the client to dial
     // OptionalAttributes: additional attributes
     ClientIdentity string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1483,8 +1483,8 @@ func (m VoiceIdentity) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m VoiceIdentity) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceIdentity) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceConnect <Connect> TwiML Verb
 type VoiceConnect struct {
@@ -1493,7 +1493,7 @@ type VoiceConnect struct {
     // OptionalAttributes: additional attributes
     Action string
     Method string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1513,8 +1513,8 @@ func (m VoiceConnect) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceConnect) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceConnect) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceConversation <Conversation> TwiML Noun
 type VoiceConversation struct {
@@ -1543,7 +1543,7 @@ type VoiceConversation struct {
     StatusCallback string
     StatusCallbackMethod string
     StatusCallbackEvent string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1573,8 +1573,8 @@ func (m VoiceConversation) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceConversation) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceConversation) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceVirtualAgent <VirtualAgent> TwiML Noun
 type VoiceVirtualAgent struct {
@@ -1589,7 +1589,7 @@ type VoiceVirtualAgent struct {
     SentimentAnalysis string
     StatusCallback string
     StatusCallbackMethod string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1612,8 +1612,8 @@ func (m VoiceVirtualAgent) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceVirtualAgent) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceVirtualAgent) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceConfig <Config> TwiML Noun
 type VoiceConfig struct {
@@ -1622,7 +1622,7 @@ type VoiceConfig struct {
     // OptionalAttributes: additional attributes
     Name string
     Value string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1642,15 +1642,15 @@ func (m VoiceConfig) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceConfig) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceConfig) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceAutopilot <Autopilot> TwiML Noun
 type VoiceAutopilot struct {
     // name: Autopilot assistant sid or unique name
     // OptionalAttributes: additional attributes
     Name string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1666,8 +1666,8 @@ func (m VoiceAutopilot) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m VoiceAutopilot) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceAutopilot) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //VoiceRoom <Room> TwiML Noun
 type VoiceRoom struct {
@@ -1676,7 +1676,7 @@ type VoiceRoom struct {
     // OptionalAttributes: additional attributes
     Name string
     ParticipantIdentity string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -1695,6 +1695,6 @@ func (m VoiceRoom) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceRoom) GetNouns() []Element {
-    return m.Nouns
+func (m VoiceRoom) GetInnerElements() []Element {
+    return m.InnerElements
 }
