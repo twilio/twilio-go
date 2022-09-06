@@ -25,8 +25,8 @@ func createElement(element Element) *etree.Element {
 	addPropertyToElement(el, element.GetText(), optAttr, paramAttr)
 	//Loop through all Inner Elements
 	if len(element.GetInnerElements()) != 0 {
-		for _, innerElements := range element.GetInnerElements() {
-			child := createElement(innerElements)
+		for _, innerElement := range element.GetInnerElements() {
+			child := createElement(innerElement)
 			el.AddChild(child)
 		}
 	}
