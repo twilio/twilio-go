@@ -10,11 +10,11 @@ import (
 )
 
 type MockElement struct {
-	name       string
-	text       string
-	optAttrs   map[string]string
-	paramAttrs map[string]string
-	nouns      []twiml.Element
+	name          string
+	text          string
+	optAttrs      map[string]string
+	paramAttrs    map[string]string
+	innerElements []twiml.Element
 }
 
 func (e MockElement) GetName() string {
@@ -29,8 +29,8 @@ func (e MockElement) GetAttr() (map[string]string, map[string]string) {
 	return e.optAttrs, e.paramAttrs
 }
 
-func (e MockElement) GetNouns() []twiml.Element {
-	return e.nouns
+func (e MockElement) GetInnerElements() []twiml.Element {
+	return e.innerElements
 }
 
 // Tests
@@ -179,7 +179,7 @@ func assertDefinesTwiMLXMLElements(t *testing.T, el *etree.Element, elements []t
 		assertHasVerbNounAttributes(t, xmlEl, paramAttrs)
 
 		// Nouns
-		assertDefinesTwiMLXMLElements(t, xmlEl, element.GetNouns())
+		assertDefinesTwiMLXMLElements(t, xmlEl, element.GetInnerElements())
 	}
 }
 
