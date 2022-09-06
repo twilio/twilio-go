@@ -5,7 +5,7 @@
 
 package twiml
 
-func Voice(verbs []Element)(TwimlXml string){
+func Voice(verbs []Element) (string, error) {
     doc, response := CreateDocument()
     if verbs != nil {
         AddAllVerbs(response, verbs)

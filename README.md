@@ -462,8 +462,12 @@ func main() {
 
 	//Adding all Verbs to twiml.Voice
 	verbList := []twiml.Element{dial, say, pause}
-	twimlResult := twiml.Voice(verbList)
-	fmt.Println(twimlResult)
+	twimlResult, err := twiml.Voice(verbList)
+	if err == nil {
+		fmt.Println(twimlResult)
+	} else {
+		fmt.Println(err)
+	}
 }
 ```
 This will print the following:

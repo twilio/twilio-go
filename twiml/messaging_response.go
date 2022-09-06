@@ -5,7 +5,7 @@
 
 package twiml
 
-func Messages(verbs []Element)(TwimlXml string){
+func Messages(verbs []Element) (string, error) {
     doc, response := CreateDocument()
     if verbs != nil {
         AddAllVerbs(response, verbs)

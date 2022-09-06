@@ -40,12 +40,8 @@ func CreateDocument() (*etree.Document, *etree.Element) {
 	return doc, element
 }
 
-func ToXML(document *etree.Document) string {
-	xml, err := document.WriteToString()
-	if err == nil {
-		return xml
-	}
-	return err.Error()
+func ToXML(document *etree.Document) (string, error) {
+	return document.WriteToString()
 }
 
 func addPropertyToElement(treeElement *etree.Element, text string, optAttr map[string]string, paramAttr map[string]string) {
