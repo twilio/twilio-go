@@ -20,7 +20,7 @@ type MessagingRedirect struct {
     // OptionalAttributes: additional attributes
     Url string
     Method string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -39,8 +39,8 @@ func (m MessagingRedirect) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m MessagingRedirect) GetNouns() []Element {
-    return m.Nouns
+func (m MessagingRedirect) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //MessagingMessage <Message> TwiML Verb
 type MessagingMessage struct {
@@ -57,7 +57,7 @@ type MessagingMessage struct {
     Action string
     Method string
     StatusCallback string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -80,15 +80,15 @@ func (m MessagingMessage) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, paramsAttr
 }
 
-func (m MessagingMessage) GetNouns() []Element {
-    return m.Nouns
+func (m MessagingMessage) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //MessagingMedia <Media> TwiML Noun
 type MessagingMedia struct {
     // url: Media URL
     // OptionalAttributes: additional attributes
     Url string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -104,15 +104,15 @@ func (m MessagingMedia) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m MessagingMedia) GetNouns() []Element {
-    return m.Nouns
+func (m MessagingMedia) GetInnerElements() []Element {
+    return m.InnerElements
 }
 //MessagingBody <Body> TwiML Noun
 type MessagingBody struct {
     // message: Message Body
     // OptionalAttributes: additional attributes
     Message string
-    Nouns []Element
+    InnerElements []Element
     OptionalAttributes map[string]string
 }
 
@@ -128,6 +128,6 @@ func (m MessagingBody) GetAttr() (map[string]string, map[string]string) {
     return m.OptionalAttributes, nil
 }
 
-func (m MessagingBody) GetNouns() []Element {
-    return m.Nouns
+func (m MessagingBody) GetInnerElements() []Element {
+    return m.InnerElements
 }

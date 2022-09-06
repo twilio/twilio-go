@@ -9,7 +9,7 @@ type Element interface {
 	GetName() string
 	GetText() string
 	GetAttr() (map[string]string, map[string]string)
-	GetNouns() []Element
+	GetInnerElements() []Element
 }
 
 func AddAllVerbs(response *etree.Element, verbs []Element) {
@@ -19,13 +19,13 @@ func AddAllVerbs(response *etree.Element, verbs []Element) {
 	}
 }
 
-func createElement(tag Element) *etree.Element {
-	el := etree.NewElement(tag.GetName())
-	optAttr, paramAttr := tag.GetAttr()
-	addPropertyToElement(el, tag.GetText(), optAttr, paramAttr)
-	//Loop through all Nouns
-	if len(tag.GetNouns()) != 0 {
-		for _, noun := range tag.GetNouns() {
+func createElement(element Element) *etree.Element {
+	el := etree.NewElement(element.GetName())
+	optAttr, paramAttr := element.GetAttr()
+	addPropertyToElement(el, element.GetText(), optAttr, paramAttr)
+	//Loop through all Inner Elements
+	if len(element.GetInnerElements()) != 0 {
+		for _, noun := range element.GetInnerElements() {
 			child := createElement(noun)
 			el.AddChild(child)
 		}
