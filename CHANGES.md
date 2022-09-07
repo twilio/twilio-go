@@ -1,5 +1,27 @@
 twilio-go changelog
 ====================
+[2022-09-07] Version 1.0.0-rc.8
+-------------------------------
+**Library - Chore**
+- [PR #187](https://github.com/twilio/twilio-go/pull/187): Changes to TwiML. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+**Library - Feature**
+- [PR #186](https://github.com/twilio/twilio-go/pull/186): add twiml support. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Flex**
+- Removed redundant `close` status from Flex Interactions flow **(breaking change)**
+- Adding `debugger_integration` and `flex_ui_status_report` to Flex Configuration
+
+**Messaging**
+- Add create, list and get tollfree verification API
+
+**Verify**
+- Verify SafeList API endpoints added.
+
+**Video**
+- Add `Anonymize` API
+
+
 [2022-08-24] Version 1.0.0-rc.7
 -------------------------------
 **Library - Feature**
