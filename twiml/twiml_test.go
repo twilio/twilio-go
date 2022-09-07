@@ -87,7 +87,7 @@ func TestAddAllVerbs_ManyVerbList(t *testing.T) {
 func TestAddAllVerbs_VerbWithManyNouns(t *testing.T) {
 	n1 := MockElement{
 		"Autopilot",
-		"Javis",
+		"Jarvis",
 		map[string]string{"Foo": "Bar"},
 		map[string]string{"Action": "https://demo.twilio.com", "Method": "GET"},
 		make([]twiml.Element, 0),

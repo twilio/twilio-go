@@ -59,7 +59,7 @@ func TestVoice_SayVerbWithOptionalAttributes(t *testing.T) {
 	assert.Contains(t, resp, `playbackURL="https://demo.twilio.com"`)
 }
 
-func TestVoice_GatherVerbWithNestedPlayNoun(t *testing.T) {
+func TestVoice_GatherVerbWithNestedPlayVerb(t *testing.T) {
 	play := twiml.VoicePlay{
 		Url: "https://demo.twilio.com",
 	}
