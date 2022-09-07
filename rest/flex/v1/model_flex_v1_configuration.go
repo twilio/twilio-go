@@ -105,4 +105,8 @@ type FlexV1Configuration struct {
 	FlexUrl *string `json:"flex_url,omitempty"`
 	// Flex Conversations channels' attachments configurations
 	ChannelConfigs *[]interface{} `json:"channel_configs,omitempty"`
+	// Configurable parameters for Debugger Integration
+	DebuggerIntegration *interface{} `json:"debugger_integration,omitempty"`
+	// Configurable parameters for Flex UI Status report
+	FlexUiStatusReport *interface{} `json:"flex_ui_status_report,omitempty"`
 }

@@ -47,6 +47,8 @@ Name | Type | Description | Notes
 **FlexInsightsDrilldown** | Pointer to **bool** | Setting to enable Flex UI redirection |
 **FlexUrl** | Pointer to **string** | URL to redirect to in case drilldown is enabled. |
 **ChannelConfigs** | Pointer to **[]interface{}** | Flex Conversations channels' attachments configurations |
+**DebuggerIntegration** | Pointer to **interface{}** | Configurable parameters for Debugger Integration |
+**FlexUiStatusReport** | Pointer to **interface{}** | Configurable parameters for Flex UI Status report |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

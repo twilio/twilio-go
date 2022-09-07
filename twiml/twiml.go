@@ -1,8 +1,9 @@
 package twiml
 
 import (
-	"github.com/beevik/etree"
 	"strings"
+
+	"github.com/beevik/etree"
 )
 
 type Element interface {
