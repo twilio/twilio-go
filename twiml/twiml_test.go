@@ -190,7 +190,7 @@ pairs.
 */
 func assertHasVerbNounAttributes(t *testing.T, el *etree.Element, attrs map[string]string) {
 	for k, v := range attrs {
-		name := toLowerCamelCase(k)
+		name := toFirstCharacterLowerCase(k) // TwiML XML attribute names are lower camelcase
 		attr := el.SelectAttr(name)
 		assert.NotNil(t, attr, "Element should define the verb attribute.")
 		assert.Equal(t, v, attr.Value, "Element attribute value should match verb attribute value.")
@@ -198,9 +198,9 @@ func assertHasVerbNounAttributes(t *testing.T, el *etree.Element, attrs map[stri
 }
 
 /*
-Converts a given string to lower camelcase and returns the
-value as a new string.
+Makes the first character of the given string lower case and returns the value
+as a new string.
 */
-func toLowerCamelCase(s string) string {
+func toFirstCharacterLowerCase(s string) string {
 	return strings.ToLower(string(s[0])) + s[1:]
 }
