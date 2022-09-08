@@ -135,7 +135,7 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 func main() {
@@ -143,7 +143,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.CreateIncomingPhoneNumberParams{}
+	params := &twilioApi.CreateIncomingPhoneNumberParams{}
 	params.SetPhoneNumber(phoneNumber)
 
 	resp, err := client.Api.CreateIncomingPhoneNumber(params)
@@ -164,7 +164,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
 
@@ -174,7 +174,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.CreateMessageParams{}
+	params := &twilioApi.CreateMessageParams{}
 	params.SetTo(to)
 	params.SetFrom(from)
 	params.SetBody("Hello there")
@@ -197,7 +197,7 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
 
@@ -207,7 +207,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.CreateCallParams{}
+	params := &twilioApi.CreateCallParams{}
 	params.SetTo(to)
 	params.SetFrom(from)
 	params.SetUrl("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
@@ -231,7 +231,7 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/serverless/v1"
+	twilioApi "github.com/twilio/twilio-go/rest/serverless/v1"
 )
 
 func main() {
@@ -240,7 +240,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.CreateFunctionParams{}
+	params := &twilioApi.CreateFunctionParams{}
 	params.SetFriendlyName("My Serverless func")
 
 	resp, err := client.ServerlessV1.CreateFunction(serviceSid, params)
@@ -262,7 +262,7 @@ import (
 	"fmt"
 
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/studio/v2"
+	twilioApi "github.com/twilio/twilio-go/rest/studio/v2"
 )
 
 func main() {
@@ -290,7 +290,7 @@ func main() {
 	_ = json.Unmarshal([]byte(jsonStr), &definition)
 
 	client := twilio.NewRestClient()
-	params := &openapi.CreateFlowParams{
+	params := &twilioApi.CreateFlowParams{
 		Definition: &definition,
 	}
 	params.SetCommitMessage("commit")
@@ -324,7 +324,7 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
 
@@ -333,7 +333,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.ListMessageParams{}
+	params := &twilioApi.ListMessageParams{}
 	params.SetFrom(from)
 	params.SetPageSize(20)
 	params.SetLimit(100)
@@ -356,7 +356,7 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 	"net/url"
 	"os"
 )
@@ -366,7 +366,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.ListMessageParams{}
+	params := &twilioApi.ListMessageParams{}
 	params.SetFrom(from)
 	params.SetPageSize(20)
 
@@ -405,7 +405,7 @@ import (
 
 	"github.com/twilio/twilio-go"
 	twilioclient "github.com/twilio/twilio-go/client"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 func main() {
@@ -413,7 +413,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.CreateIncomingPhoneNumberParams{}
+	params := &twilioApi.CreateIncomingPhoneNumberParams{}
 	params.SetPhoneNumber(phoneNumber)
 
 	resp, err := client.Api.CreateIncomingPhoneNumber(params)
@@ -541,7 +541,7 @@ package main
 
 import (
 	"github.com/twilio/twilio-go/client"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 	serverless "github.com/twilio/twilio-go/rest/serverless/v1"
 	"os"
 )
@@ -557,7 +557,7 @@ func main() {
 	}
 	defaultClient.SetAccountSid(accountSid)
 
-	coreApiService := openapi.NewApiServiceWithClient(defaultClient)
+	coreApiService := twilioApi.NewApiServiceWithClient(defaultClient)
 	serverlessApiService := serverless.NewApiServiceWithClient(defaultClient)
 }
 ```
@@ -575,7 +575,7 @@ import (
 
 	"github.com/twilio/twilio-go"
 	"github.com/twilio/twilio-go/client"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 type MyClient struct {
@@ -604,7 +604,7 @@ func main() {
 	twilioClient := twilio.NewRestClientWithParams(twilio.ClientParams{Client: customClient})
 
 	// You may also use custom clients with standalone product services
-	twilioApiV2010 := openapi.NewApiServiceWithClient(customClient)
+	twilioApiV2010 := twilioApi.NewApiServiceWithClient(customClient)
 }
 ```
 
