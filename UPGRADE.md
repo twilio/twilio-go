@@ -2,7 +2,7 @@
 
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
-[2022-09-21] 0.26.x to 1.x.x
+[2022-10-05] 0.26.x to 1.x.x
 -----------------------------
 ### NEW FEATURE - Added Support for Twiml Building
 The twilio-go library now supports building Twiml elements for applications.
