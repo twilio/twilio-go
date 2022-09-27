@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateSipIpAccessControlListP
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-**FriendlyName** | **string** | A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.
+**FriendlyName** | **string** | A human readable descriptive text that describes the IpAccessControlList, up to 255 characters long.
 
 ### Return type
 
@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a UpdateSipIpAccessControlListP
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-**FriendlyName** | **string** | A human readable descriptive text, up to 64 characters long.
+**FriendlyName** | **string** | A human readable descriptive text, up to 255 characters long.
 
 ### Return type
 

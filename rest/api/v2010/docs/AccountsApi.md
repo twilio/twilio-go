@@ -158,7 +158,7 @@ Other parameters are passed through a pointer to a UpdateAccountParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | Update the human-readable description of this Account
-**Status** | **string** | Alter the status of this account: use &#x60;closed&#x60; to irreversibly close this account, &#x60;suspended&#x60; to temporarily suspend it, or &#x60;active&#x60; to reactivate it.
+**Status** | **string** | 
 
 ### Return type
 

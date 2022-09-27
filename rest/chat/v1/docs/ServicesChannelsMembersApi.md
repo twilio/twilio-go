@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteMember
 
 > DeleteMember(ctx, ServiceSidChannelSidSid)
+
+
 
 
 
@@ -103,6 +107,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -142,6 +148,8 @@ Name | Type | Description
 ## ListMember
 
 > []ChatV1Member ListMember(ctx, ServiceSidChannelSidoptional)
+
+
 
 
 
@@ -189,6 +197,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -206,8 +216,8 @@ Other parameters are passed through a pointer to a UpdateMemberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**LastConsumedMessageIndex** | **int** | The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
 **RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
+**LastConsumedMessageIndex** | **int** | The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
 
 ### Return type
 

@@ -31,13 +31,13 @@ Other parameters are passed through a pointer to a CreateBundleParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Email** | **string** | The email address that will receive updates when the Bundle resource changes status.
-**EndUserType** | **string** | The [type of End User](https://www.twilio.com/docs/phone-numbers/regulatory/api/end-user-types) of the Bundle resource.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**IsoCountry** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle&#39;s phone number country ownership request.
-**NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;toll free&#x60;.
-**RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
+**Email** | **string** | The email address that will receive updates when the Bundle resource changes status.
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
+**RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
+**IsoCountry** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle&#39;s phone number country ownership request.
+**EndUserType** | **string** | 
+**NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;toll free&#x60;.
 
 ### Return type
 
@@ -215,10 +215,10 @@ Other parameters are passed through a pointer to a UpdateBundleParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Email** | **string** | The email address that will receive updates when the Bundle resource changes status.
-**FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Status** | **string** | The verification status of the Bundle resource.
+**Status** | **string** | 
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
+**Email** | **string** | The email address that will receive updates when the Bundle resource changes status.
 
 ### Return type
 

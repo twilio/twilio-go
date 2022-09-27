@@ -29,12 +29,12 @@ Other parameters are passed through a pointer to a CreateIpCommandParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60;, and the default is &#x60;POST&#x60;.
-**CallbackUrl** | **string** | The URL we should call using the &#x60;callback_method&#x60; after we have sent the IP Command.
-**DevicePort** | **int** | The device port to which the IP Command will be sent.
-**Payload** | **string** | The payload to be delivered to the device.
-**PayloadType** | **string** | Indicates how the payload is encoded. Either &#x60;text&#x60; or &#x60;binary&#x60;. Defaults to &#x60;text&#x60;.
 **Sim** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
+**Payload** | **string** | The payload to be delivered to the device.
+**DevicePort** | **int** | The device port to which the IP Command will be sent.
+**PayloadType** | **string** | 
+**CallbackUrl** | **string** | The URL we should call using the &#x60;callback_method&#x60; after we have sent the IP Command.
+**CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60;, and the default is &#x60;POST&#x60;.
 
 ### Return type
 

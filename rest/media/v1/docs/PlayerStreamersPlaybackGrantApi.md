@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -30,8 +32,8 @@ Other parameters are passed through a pointer to a CreatePlayerStreamerPlaybackG
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AccessControlAllowOrigin** | **string** | The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
 **Ttl** | **int** | The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
+**AccessControlAllowOrigin** | **string** | The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
 
 ### Return type
 

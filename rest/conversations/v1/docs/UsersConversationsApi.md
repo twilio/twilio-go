@@ -165,9 +165,9 @@ Other parameters are passed through a pointer to a UpdateUserConversationParams 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**LastReadMessageIndex** | **int** | The index of the last Message in the Conversation that the Participant has read.
+**NotificationLevel** | **string** | 
 **LastReadTimestamp** | **time.Time** | The date of the last message read in conversation by the user, given in ISO 8601 format.
-**NotificationLevel** | **string** | The Notification Level of this User Conversation. One of &#x60;default&#x60; or &#x60;muted&#x60;.
+**LastReadMessageIndex** | **int** | The index of the last Message in the Conversation that the Participant has read.
 
 ### Return type
 

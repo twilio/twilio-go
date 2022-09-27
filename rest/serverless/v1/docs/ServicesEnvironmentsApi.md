@@ -34,8 +34,8 @@ Other parameters are passed through a pointer to a CreateEnvironmentParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**DomainSuffix** | **string** | A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
 **UniqueName** | **string** | A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
+**DomainSuffix** | **string** | A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
 
 ### Return type
 

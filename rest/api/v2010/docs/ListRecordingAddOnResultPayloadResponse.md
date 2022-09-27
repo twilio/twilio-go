@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Payloads** | [**[]ApiV2010RecordingAddOnResultPayload**](ApiV2010RecordingAddOnResultPayload.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
-**Payloads** | [**[]ApiV2010RecordingAddOnResultPayload**](ApiV2010RecordingAddOnResultPayload.md) |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 

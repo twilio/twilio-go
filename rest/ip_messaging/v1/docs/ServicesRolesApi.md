@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -34,8 +36,8 @@ Other parameters are passed through a pointer to a CreateRoleParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | 
-**Permission** | **[]string** | 
 **Type** | **string** | 
+**Permission** | **[]string** | 
 
 ### Return type
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteRole
 
 > DeleteRole(ctx, ServiceSidSid)
+
+
 
 
 
@@ -102,6 +106,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -140,6 +146,8 @@ Name | Type | Description
 ## ListRole
 
 > []IpMessagingV1Role ListRole(ctx, ServiceSidoptional)
+
+
 
 
 
@@ -182,6 +190,8 @@ Name | Type | Description
 ## UpdateRole
 
 > IpMessagingV1Role UpdateRole(ctx, ServiceSidSidoptional)
+
+
 
 
 

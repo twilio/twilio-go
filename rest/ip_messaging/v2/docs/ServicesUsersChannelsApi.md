@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -59,6 +61,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -98,6 +102,8 @@ Name | Type | Description
 ## ListUserChannel
 
 > []IpMessagingV2UserChannel ListUserChannel(ctx, ServiceSidUserSidoptional)
+
+
 
 
 
@@ -144,6 +150,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -161,9 +169,9 @@ Other parameters are passed through a pointer to a UpdateUserChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**NotificationLevel** | **string** | 
 **LastConsumedMessageIndex** | **int** | 
 **LastConsumptionTimestamp** | **time.Time** | 
-**NotificationLevel** | **string** | 
 
 ### Return type
 

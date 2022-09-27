@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -28,9 +30,9 @@ Other parameters are passed through a pointer to a CreateBrandRegistrationsParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**CustomerProfileBundleSid** | **string** | Customer Profile Bundle Sid.
 **A2PProfileBundleSid** | **string** | A2P Messaging Profile Bundle Sid.
 **BrandType** | **string** | Type of brand being created. One of: \\\&quot;STANDARD\\\&quot;, \\\&quot;STARTER\\\&quot;. STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
-**CustomerProfileBundleSid** | **string** | Customer Profile Bundle Sid.
 **Mock** | **bool** | A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
 **SkipAutomaticSecVet** | **bool** | A flag to disable automatic secondary vetting for brands which it would otherwise be done.
 
@@ -55,6 +57,8 @@ Name | Type | Description
 ## FetchBrandRegistrations
 
 > MessagingV1BrandRegistrations FetchBrandRegistrations(ctx, Sid)
+
+
 
 
 
@@ -98,6 +102,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -133,6 +139,8 @@ Name | Type | Description
 ## UpdateBrandRegistrations
 
 > MessagingV1BrandRegistrations UpdateBrandRegistrations(ctx, Sid)
+
+
 
 
 

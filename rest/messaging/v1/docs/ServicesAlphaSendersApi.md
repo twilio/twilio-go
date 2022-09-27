@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -32,7 +34,7 @@ Other parameters are passed through a pointer to a CreateAlphaSenderParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AlphaSender** | **string** | The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, and hyphen &#x60;-&#x60;. This value cannot contain only numbers.
+**AlphaSender** | **string** | The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen &#x60;-&#x60;, plus &#x60;+&#x60;, underscore &#x60;_&#x60; and ampersand &#x60;&amp;&#x60;. This value cannot contain only numbers.
 
 ### Return type
 
@@ -55,6 +57,8 @@ Name | Type | Description
 ## DeleteAlphaSender
 
 > DeleteAlphaSender(ctx, ServiceSidSid)
+
+
 
 
 
@@ -99,6 +103,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -137,6 +143,8 @@ Name | Type | Description
 ## ListAlphaSender
 
 > []MessagingV1AlphaSender ListAlphaSender(ctx, ServiceSidoptional)
+
+
 
 
 

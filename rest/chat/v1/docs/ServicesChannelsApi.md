@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -33,10 +35,10 @@ Other parameters are passed through a pointer to a CreateChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | A valid JSON string that contains application-specific data.
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-**Type** | **string** | The visibility of the channel. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service.
+**Attributes** | **string** | A valid JSON string that contains application-specific data.
+**Type** | **string** | 
 
 ### Return type
 
@@ -59,6 +61,8 @@ Name | Type | Description
 ## DeleteChannel
 
 > DeleteChannel(ctx, ServiceSidSid)
+
+
 
 
 
@@ -103,6 +107,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -144,6 +150,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -159,7 +167,7 @@ Other parameters are passed through a pointer to a ListChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Type** | **[]string** | The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+**Type** | [**[]ChannelEnumChannelType**](ChannelEnumChannelType.md) | The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -187,6 +195,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -203,9 +213,9 @@ Other parameters are passed through a pointer to a UpdateChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | A valid JSON string that contains application-specific data.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service.
+**Attributes** | **string** | A valid JSON string that contains application-specific data.
 
 ### Return type
 

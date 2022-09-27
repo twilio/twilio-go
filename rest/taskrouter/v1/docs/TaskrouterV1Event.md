@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | A description of the event |
 **EventData** | Pointer to **interface{}** | Data about the event |
 **EventDate** | Pointer to [**time.Time**](time.Time.md) | The time the event was sent |
-**EventDateMs** | Pointer to **int** | The time the event was sent in milliseconds |
+**EventDateMs** | Pointer to **int64** | The time the event was sent in milliseconds |
 **EventType** | Pointer to **string** | The identifier for the event |
 **ResourceSid** | Pointer to **string** | The SID of the object the event is most relevant to |
 **ResourceType** | Pointer to **string** | The type of object the event is most relevant to |

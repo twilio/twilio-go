@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -52,6 +54,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -64,8 +68,8 @@ Other parameters are passed through a pointer to a UpdateAccountSettingsParams s
 Name | Type | Description
 ------------- | ------------- | -------------
 **AdvancedFeatures** | **bool** | 
-**SubaccountSid** | **string** | 
 **VoiceTrace** | **bool** | 
+**SubaccountSid** | **string** | 
 
 ### Return type
 

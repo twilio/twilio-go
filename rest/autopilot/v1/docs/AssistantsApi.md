@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -29,13 +31,13 @@ Other parameters are passed through a pointer to a CreateAssistantParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CallbackEvents** | **string** | Reserved.
-**CallbackUrl** | **string** | Reserved.
-**Defaults** | [**interface{}**](interface{}.md) | A JSON object that defines the Assistant&#39;s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
 **LogQueries** | **bool** | Whether queries should be logged and kept after training. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;true&#x60;. If &#x60;true&#x60;, queries are stored for 30 days, and then deleted. If &#x60;false&#x60;, no queries are stored.
-**StyleSheet** | [**interface{}**](interface{}.md) | The JSON string that defines the Assistant&#39;s [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
 **UniqueName** | **string** | An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. The first 64 characters must be unique.
+**CallbackUrl** | **string** | Reserved.
+**CallbackEvents** | **string** | Reserved.
+**StyleSheet** | [**interface{}**](interface{}.md) | The JSON string that defines the Assistant&#39;s [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+**Defaults** | [**interface{}**](interface{}.md) | A JSON object that defines the Assistant&#39;s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
 
 ### Return type
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteAssistant
 
 > DeleteAssistant(ctx, Sid)
+
+
 
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -138,6 +144,8 @@ Name | Type | Description
 ## ListAssistant
 
 > []AutopilotV1Assistant ListAssistant(ctx, optional)
+
+
 
 
 
@@ -179,6 +187,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -194,14 +204,14 @@ Other parameters are passed through a pointer to a UpdateAssistantParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CallbackEvents** | **string** | Reserved.
-**CallbackUrl** | **string** | Reserved.
-**Defaults** | [**interface{}**](interface{}.md) | A JSON object that defines the Assistant&#39;s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-**DevelopmentStage** | **string** | A string describing the state of the assistant.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 **LogQueries** | **bool** | Whether queries should be logged and kept after training. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;true&#x60;. If &#x60;true&#x60;, queries are stored for 30 days, and then deleted. If &#x60;false&#x60;, no queries are stored.
-**StyleSheet** | [**interface{}**](interface{}.md) | The JSON string that defines the Assistant&#39;s [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. The first 64 characters must be unique.
+**CallbackUrl** | **string** | Reserved.
+**CallbackEvents** | **string** | Reserved.
+**StyleSheet** | [**interface{}**](interface{}.md) | The JSON string that defines the Assistant&#39;s [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+**Defaults** | [**interface{}**](interface{}.md) | A JSON object that defines the Assistant&#39;s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+**DevelopmentStage** | **string** | A string describing the state of the assistant.
 
 ### Return type
 

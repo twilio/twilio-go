@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -54,6 +56,8 @@ Name | Type | Description
 ## FetchBinding
 
 > IpMessagingV2Binding FetchBinding(ctx, ServiceSidSid)
+
+
 
 
 
@@ -98,6 +102,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -113,7 +119,7 @@ Other parameters are passed through a pointer to a ListBindingParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**BindingType** | **[]string** | 
+**BindingType** | [**[]BindingEnumBindingType**](BindingEnumBindingType.md) | 
 **Identity** | **[]string** | 
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.

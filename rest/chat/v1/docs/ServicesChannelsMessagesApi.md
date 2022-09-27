@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -34,9 +36,9 @@ Other parameters are passed through a pointer to a CreateMessageParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | A valid JSON string that contains application-specific data.
 **Body** | **string** | The message to send to the channel. Can also be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
 **From** | **string** | The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the new message&#39;s author. The default value is &#x60;system&#x60;.
+**Attributes** | **string** | A valid JSON string that contains application-specific data.
 
 ### Return type
 
@@ -59,6 +61,8 @@ Name | Type | Description
 ## DeleteMessage
 
 > DeleteMessage(ctx, ServiceSidChannelSidSid)
+
+
 
 
 
@@ -104,6 +108,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -143,6 +149,8 @@ Name | Type | Description
 ## ListMessage
 
 > []ChatV1Message ListMessage(ctx, ServiceSidChannelSidoptional)
+
+
 
 
 
@@ -190,6 +198,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -207,8 +217,8 @@ Other parameters are passed through a pointer to a UpdateMessageParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | A valid JSON string that contains application-specific data.
 **Body** | **string** | The message to send to the channel. Can also be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
+**Attributes** | **string** | A valid JSON string that contains application-specific data.
 
 ### Return type
 

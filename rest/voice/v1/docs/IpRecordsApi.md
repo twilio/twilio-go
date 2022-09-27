@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -29,9 +31,9 @@ Other parameters are passed through a pointer to a CreateIpRecordParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CidrPrefixLength** | **int** | An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 **IpAddress** | **string** | An IP address in dotted decimal notation, IPv4 only.
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+**CidrPrefixLength** | **int** | An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
 
 ### Return type
 
@@ -54,6 +56,8 @@ Name | Type | Description
 ## DeleteIpRecord
 
 > DeleteIpRecord(ctx, Sid)
+
+
 
 
 
@@ -97,6 +101,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -137,6 +143,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -172,6 +180,8 @@ Name | Type | Description
 ## UpdateIpRecord
 
 > VoiceV1IpRecord UpdateIpRecord(ctx, Sidoptional)
+
+
 
 
 

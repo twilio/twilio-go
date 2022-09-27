@@ -13,12 +13,12 @@ Name | Type | Description | Notes
 **DateFired** | Pointer to **string** | The RFC 2822 date and time in GMT that the trigger was last fired |
 **DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was last updated |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the trigger |
-**Recurring** | Pointer to **string** | The frequency of a recurring UsageTrigger |
+**Recurring** | Pointer to [**string**](UsageTriggerEnumRecurring.md) |  |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
-**TriggerBy** | Pointer to **string** | The field in the UsageRecord resource that fires the trigger |
+**TriggerBy** | Pointer to [**string**](UsageTriggerEnumTriggerField.md) |  |
 **TriggerValue** | Pointer to **string** | The value at which the trigger will fire |
 **Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com` |
-**UsageCategory** | Pointer to **string** | The usage category the trigger watches |
+**UsageCategory** | Pointer to [**string**](UsageTriggerEnumUsageCategory.md) |  |
 **UsageRecordUri** | Pointer to **string** | The URI of the UsageRecord resource this trigger watches |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

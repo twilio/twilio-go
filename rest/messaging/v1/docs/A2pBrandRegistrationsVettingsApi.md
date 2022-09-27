@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -31,8 +33,8 @@ Other parameters are passed through a pointer to a CreateBrandVettingParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**VettingProvider** | **string** | 
 **VettingId** | **string** | The unique ID of the vetting
-**VettingProvider** | **string** | The third-party provider of the vettings to create .
 
 ### Return type
 
@@ -55,6 +57,8 @@ Name | Type | Description
 ## FetchBrandVetting
 
 > MessagingV1BrandVetting FetchBrandVetting(ctx, BrandSidBrandVettingSid)
+
+
 
 
 
@@ -96,6 +100,8 @@ Name | Type | Description
 ## ListBrandVetting
 
 > []MessagingV1BrandVetting ListBrandVetting(ctx, BrandSidoptional)
+
+
 
 
 

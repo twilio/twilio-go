@@ -31,8 +31,8 @@ Other parameters are passed through a pointer to a CreateCustomerProfileParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
+**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
 **PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource.
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
 
@@ -204,10 +204,10 @@ Other parameters are passed through a pointer to a UpdateCustomerProfileParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
-**FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Status** | **string** | The verification status of the Customer-Profile resource.
+**Status** | **string** | 
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
+**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
 
 ### Return type
 

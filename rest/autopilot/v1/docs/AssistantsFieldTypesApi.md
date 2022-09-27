@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -33,8 +35,8 @@ Other parameters are passed through a pointer to a CreateFieldTypeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. The first 64 characters must be unique.
+**FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
 
 ### Return type
 
@@ -57,6 +59,8 @@ Name | Type | Description
 ## DeleteFieldType
 
 > DeleteFieldType(ctx, AssistantSidSid)
+
+
 
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -139,6 +145,8 @@ Name | Type | Description
 ## ListFieldType
 
 > []AutopilotV1FieldType ListFieldType(ctx, AssistantSidoptional)
+
+
 
 
 
@@ -181,6 +189,8 @@ Name | Type | Description
 ## UpdateFieldType
 
 > AutopilotV1FieldType UpdateFieldType(ctx, AssistantSidSidoptional)
+
+
 
 
 

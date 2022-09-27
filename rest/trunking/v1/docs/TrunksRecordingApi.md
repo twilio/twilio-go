@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -55,6 +57,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -70,8 +74,8 @@ Other parameters are passed through a pointer to a UpdateRecordingParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Mode** | **string** | The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.
-**Trim** | **string** | The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence.
+**Mode** | **string** | 
+**Trim** | **string** | 
 
 ### Return type
 

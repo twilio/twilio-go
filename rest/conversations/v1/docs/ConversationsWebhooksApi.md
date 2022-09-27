@@ -35,13 +35,13 @@ Other parameters are passed through a pointer to a CreateConversationScopedWebho
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
-**ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.
-**ConfigurationMethod** | **string** | The HTTP method to be used when sending a webhook request.
-**ConfigurationReplayAfter** | **int** | The message index for which and it&#39;s successors the webhook will be replayed. Not set by default
-**ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
+**Target** | **string** | 
 **ConfigurationUrl** | **string** | The absolute url the webhook request should be sent to.
-**Target** | **string** | The target of this webhook: &#x60;webhook&#x60;, &#x60;studio&#x60;, &#x60;trigger&#x60;
+**ConfigurationMethod** | **string** | 
+**ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
+**ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
+**ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.
+**ConfigurationReplayAfter** | **int** | The message index for which and it&#39;s successors the webhook will be replayed. Not set by default
 
 ### Return type
 
@@ -215,11 +215,11 @@ Other parameters are passed through a pointer to a UpdateConversationScopedWebho
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
-**ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.
-**ConfigurationMethod** | **string** | The HTTP method to be used when sending a webhook request.
-**ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
 **ConfigurationUrl** | **string** | The absolute url the webhook request should be sent to.
+**ConfigurationMethod** | **string** | 
+**ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
+**ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
+**ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.
 
 ### Return type
 

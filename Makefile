@@ -7,14 +7,18 @@ install:
 	go build -v ./...
 
 test:
-	go test ./...
+	go test -race ./...
+
+test-docker:
+	docker build -t twilio/twilio-go .
+	docker run twilio/twilio-go go test -race ./...
 
 test-docker:
 	docker build -t twilio/twilio-go .
 	docker run twilio/twilio-go go test ./...
 
 cluster-test:
-	go test --tags=cluster
+	go test -race --tags=cluster
 
 goimports:
 	go install golang.org/x/tools/cmd/goimports@latest
