@@ -35,12 +35,12 @@ Other parameters are passed through a pointer to a CreateChallengeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AuthPayload** | **string** | Optional payload used to verify the Challenge upon creation. Only used with a Factor of type &#x60;totp&#x60; to carry the TOTP code that needs to be verified. For &#x60;TOTP&#x60; this value must be between 3 and 8 characters long.
-**DetailsFields** | **[]interface{}** | A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when &#x60;factor_type&#x60; is &#x60;push&#x60;. There can be up to 20 details fields.
-**DetailsMessage** | **string** | Shown to the user when the push notification arrives. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. Can be up to 256 characters in length
-**ExpirationDate** | **time.Time** | The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
 **FactorSid** | **string** | The unique SID identifier of the Factor.
+**ExpirationDate** | **time.Time** | The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
+**DetailsMessage** | **string** | Shown to the user when the push notification arrives. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. Can be up to 256 characters in length
+**DetailsFields** | **[]interface{}** | A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when &#x60;factor_type&#x60; is &#x60;push&#x60;. There can be up to 20 details fields.
 **HiddenDetails** | [**interface{}**](interface{}.md) | Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. &#x60;{\\\&quot;ip\\\&quot;: \\\&quot;172.168.1.234\\\&quot;}&#x60;. Can be up to 1024 characters in length
+**AuthPayload** | **string** | Optional payload used to verify the Challenge upon creation. Only used with a Factor of type &#x60;totp&#x60; to carry the TOTP code that needs to be verified. For &#x60;TOTP&#x60; this value must be between 3 and 8 characters long.
 
 ### Return type
 

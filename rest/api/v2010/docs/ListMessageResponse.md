@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Messages** | [**[]ApiV2010Message**](ApiV2010Message.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**Messages** | [**[]ApiV2010Message**](ApiV2010Message.md) |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 

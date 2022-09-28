@@ -5,26 +5,26 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** |  |
-**Attributes** | Pointer to **interface{}** |  |
 **CallSid** | Pointer to **string** |  |
-**CallState** | Pointer to **string** |  |
-**CallType** | Pointer to **string** |  |
+**CallType** | Pointer to [**string**](CallSummariesEnumCallType.md) |  |
+**CallState** | Pointer to [**string**](CallSummariesEnumCallState.md) |  |
+**ProcessingState** | Pointer to [**string**](CallSummariesEnumProcessingState.md) |  |
+**CreatedTime** | Pointer to [**time.Time**](time.Time.md) |  |
+**StartTime** | Pointer to [**time.Time**](time.Time.md) |  |
+**EndTime** | Pointer to [**time.Time**](time.Time.md) |  |
+**Duration** | Pointer to **int** |  |
+**ConnectDuration** | Pointer to **int** |  |
+**From** | Pointer to **interface{}** |  |
+**To** | Pointer to **interface{}** |  |
 **CarrierEdge** | Pointer to **interface{}** |  |
 **ClientEdge** | Pointer to **interface{}** |  |
-**ConnectDuration** | Pointer to **int** |  |
-**CreatedTime** | Pointer to [**time.Time**](time.Time.md) |  |
-**Duration** | Pointer to **int** |  |
-**EndTime** | Pointer to [**time.Time**](time.Time.md) |  |
-**From** | Pointer to **interface{}** |  |
-**ProcessingState** | Pointer to **string** |  |
-**Properties** | Pointer to **interface{}** |  |
 **SdkEdge** | Pointer to **interface{}** |  |
 **SipEdge** | Pointer to **interface{}** |  |
-**StartTime** | Pointer to [**time.Time**](time.Time.md) |  |
 **Tags** | Pointer to **[]string** |  |
-**To** | Pointer to **interface{}** |  |
-**Trust** | Pointer to **interface{}** |  |
 **Url** | Pointer to **string** |  |
+**Attributes** | Pointer to **interface{}** |  |
+**Properties** | Pointer to **interface{}** |  |
+**Trust** | Pointer to **interface{}** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

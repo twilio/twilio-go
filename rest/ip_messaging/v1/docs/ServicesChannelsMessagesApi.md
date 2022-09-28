@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -34,9 +36,9 @@ Other parameters are passed through a pointer to a CreateMessageParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | 
 **Body** | **string** | 
 **From** | **string** | 
+**Attributes** | **string** | 
 
 ### Return type
 
@@ -59,6 +61,8 @@ Name | Type | Description
 ## DeleteMessage
 
 > DeleteMessage(ctx, ServiceSidChannelSidSid)
+
+
 
 
 
@@ -104,6 +108,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -143,6 +149,8 @@ Name | Type | Description
 ## ListMessage
 
 > []IpMessagingV1Message ListMessage(ctx, ServiceSidChannelSidoptional)
+
+
 
 
 
@@ -190,6 +198,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -207,8 +217,8 @@ Other parameters are passed through a pointer to a UpdateMessageParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | 
 **Body** | **string** | 
+**Attributes** | **string** | 
 
 ### Return type
 

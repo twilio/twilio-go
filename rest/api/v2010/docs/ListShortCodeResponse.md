@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ShortCodes** | [**[]ApiV2010ShortCode**](ApiV2010ShortCode.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
-**ShortCodes** | [**[]ApiV2010ShortCode**](ApiV2010ShortCode.md) |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 

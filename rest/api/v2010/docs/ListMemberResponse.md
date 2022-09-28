@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**QueueMembers** | [**[]ApiV2010Member**](ApiV2010Member.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
-**QueueMembers** | [**[]ApiV2010Member**](ApiV2010Member.md) |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 

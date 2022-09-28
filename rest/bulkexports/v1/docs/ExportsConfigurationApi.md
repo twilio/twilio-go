@@ -75,8 +75,8 @@ Other parameters are passed through a pointer to a UpdateExportConfigurationPara
 Name | Type | Description
 ------------- | ------------- | -------------
 **Enabled** | **bool** | If true, Twilio will automatically generate every day&#39;s file when the day is over.
-**WebhookMethod** | **string** | Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
 **WebhookUrl** | **string** | Stores the URL destination for the method specified in webhook_method.
+**WebhookMethod** | **string** | Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
 
 ### Return type
 

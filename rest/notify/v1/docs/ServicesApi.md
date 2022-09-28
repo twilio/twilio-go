@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -29,20 +31,20 @@ Other parameters are passed through a pointer to a CreateServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AlexaSkillId** | **string** | Deprecated.
-**ApnCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-**DefaultAlexaNotificationProtocolVersion** | **string** | Deprecated.
-**DefaultApnNotificationProtocolVersion** | **string** | The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DefaultFcmNotificationProtocolVersion** | **string** | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DefaultGcmNotificationProtocolVersion** | **string** | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DeliveryCallbackEnabled** | **bool** | Callback configuration that enables delivery callbacks, default false
-**DeliveryCallbackUrl** | **string** | URL to send delivery status callback.
-**FacebookMessengerPageId** | **string** | Deprecated.
-**FcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+**ApnCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
 **GcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-**LogEnabled** | **bool** | Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
 **MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+**FacebookMessengerPageId** | **string** | Deprecated.
+**DefaultApnNotificationProtocolVersion** | **string** | The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+**DefaultGcmNotificationProtocolVersion** | **string** | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+**FcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+**DefaultFcmNotificationProtocolVersion** | **string** | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+**LogEnabled** | **bool** | Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
+**AlexaSkillId** | **string** | Deprecated.
+**DefaultAlexaNotificationProtocolVersion** | **string** | Deprecated.
+**DeliveryCallbackUrl** | **string** | URL to send delivery status callback.
+**DeliveryCallbackEnabled** | **bool** | Callback configuration that enables delivery callbacks, default false
 
 ### Return type
 
@@ -65,6 +67,8 @@ Name | Type | Description
 ## DeleteService
 
 > DeleteService(ctx, Sid)
+
+
 
 
 
@@ -108,6 +112,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -145,6 +151,8 @@ Name | Type | Description
 ## ListService
 
 > []NotifyV1Service ListService(ctx, optional)
+
+
 
 
 
@@ -187,6 +195,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -202,20 +212,20 @@ Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AlexaSkillId** | **string** | Deprecated.
-**ApnCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-**DefaultAlexaNotificationProtocolVersion** | **string** | Deprecated.
-**DefaultApnNotificationProtocolVersion** | **string** | The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DefaultFcmNotificationProtocolVersion** | **string** | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DefaultGcmNotificationProtocolVersion** | **string** | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DeliveryCallbackEnabled** | **bool** | Callback configuration that enables delivery callbacks, default false
-**DeliveryCallbackUrl** | **string** | URL to send delivery status callback.
-**FacebookMessengerPageId** | **string** | Deprecated.
-**FcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+**ApnCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
 **GcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-**LogEnabled** | **bool** | Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
 **MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+**FacebookMessengerPageId** | **string** | Deprecated.
+**DefaultApnNotificationProtocolVersion** | **string** | The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+**DefaultGcmNotificationProtocolVersion** | **string** | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+**FcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+**DefaultFcmNotificationProtocolVersion** | **string** | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+**LogEnabled** | **bool** | Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
+**AlexaSkillId** | **string** | Deprecated.
+**DefaultAlexaNotificationProtocolVersion** | **string** | Deprecated.
+**DeliveryCallbackUrl** | **string** | URL to send delivery status callback.
+**DeliveryCallbackEnabled** | **bool** | Callback configuration that enables delivery callbacks, default false
 
 ### Return type
 

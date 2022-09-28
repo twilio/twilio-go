@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**OutgoingCallerIds** | [**[]ApiV2010OutgoingCallerId**](ApiV2010OutgoingCallerId.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
-**OutgoingCallerIds** | [**[]ApiV2010OutgoingCallerId**](ApiV2010OutgoingCallerId.md) |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 

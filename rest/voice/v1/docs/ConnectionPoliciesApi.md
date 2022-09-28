@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -52,6 +54,8 @@ Name | Type | Description
 ## DeleteConnectionPolicy
 
 > DeleteConnectionPolicy(ctx, Sid)
+
+
 
 
 
@@ -95,6 +99,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -135,6 +141,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -170,6 +178,8 @@ Name | Type | Description
 ## UpdateConnectionPolicy
 
 > VoiceV1ConnectionPolicy UpdateConnectionPolicy(ctx, Sidoptional)
+
+
 
 
 

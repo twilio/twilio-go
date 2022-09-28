@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -33,9 +35,9 @@ Other parameters are passed through a pointer to a CreateSyncMapParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
-**Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
+**Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
 
 ### Return type
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteSyncMap
 
 > DeleteSyncMap(ctx, ServiceSidSid)
+
+
 
 
 
@@ -102,6 +106,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -140,6 +146,8 @@ Name | Type | Description
 ## ListSyncMap
 
 > []SyncV1SyncMap ListSyncMap(ctx, ServiceSidoptional)
+
+
 
 
 
@@ -185,6 +193,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -201,8 +211,8 @@ Other parameters are passed through a pointer to a UpdateSyncMapParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
 **Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
 
 ### Return type
 

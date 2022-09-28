@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Participants** | [**[]ApiV2010Participant**](ApiV2010Participant.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
-**Participants** | [**[]ApiV2010Participant**](ApiV2010Participant.md) |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 

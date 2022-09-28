@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -57,6 +59,8 @@ Name | Type | Description
 ## DeleteModelBuild
 
 > DeleteModelBuild(ctx, AssistantSidSid)
+
+
 
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -139,6 +145,8 @@ Name | Type | Description
 ## ListModelBuild
 
 > []AutopilotV1ModelBuild ListModelBuild(ctx, AssistantSidoptional)
+
+
 
 
 
@@ -181,6 +189,8 @@ Name | Type | Description
 ## UpdateModelBuild
 
 > AutopilotV1ModelBuild UpdateModelBuild(ctx, AssistantSidSidoptional)
+
+
 
 
 

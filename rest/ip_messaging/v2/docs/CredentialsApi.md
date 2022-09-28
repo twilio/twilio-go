@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -29,13 +31,13 @@ Other parameters are passed through a pointer to a CreateCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ApiKey** | **string** | 
-**Certificate** | **string** | 
+**Type** | **string** | 
 **FriendlyName** | **string** | 
+**Certificate** | **string** | 
 **PrivateKey** | **string** | 
 **Sandbox** | **bool** | 
+**ApiKey** | **string** | 
 **Secret** | **string** | 
-**Type** | **string** | 
 
 ### Return type
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteCredential
 
 > DeleteCredential(ctx, Sid)
+
+
 
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -138,6 +144,8 @@ Name | Type | Description
 ## ListCredential
 
 > []IpMessagingV2Credential ListCredential(ctx, optional)
+
+
 
 
 
@@ -179,6 +187,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -194,11 +204,11 @@ Other parameters are passed through a pointer to a UpdateCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ApiKey** | **string** | 
-**Certificate** | **string** | 
 **FriendlyName** | **string** | 
+**Certificate** | **string** | 
 **PrivateKey** | **string** | 
 **Sandbox** | **bool** | 
+**ApiKey** | **string** | 
 **Secret** | **string** | 
 
 ### Return type

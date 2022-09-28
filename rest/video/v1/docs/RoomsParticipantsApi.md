@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -54,6 +56,8 @@ Name | Type | Description
 ## ListRoomParticipant
 
 > []VideoV1RoomParticipant ListRoomParticipant(ctx, RoomSidoptional)
+
+
 
 
 
@@ -103,6 +107,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -119,7 +125,7 @@ Other parameters are passed through a pointer to a UpdateRoomParticipantParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The new status of the resource. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
+**Status** | **string** | 
 
 ### Return type
 

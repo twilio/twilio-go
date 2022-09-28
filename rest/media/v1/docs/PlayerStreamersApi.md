@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -28,10 +30,10 @@ Other parameters are passed through a pointer to a CreatePlayerStreamerParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**MaxDuration** | **int** | The maximum time, in seconds, that the PlayerStreamer can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
+**Video** | **bool** | Specifies whether the PlayerStreamer is configured to stream video. Defaults to &#x60;true&#x60;.
 **StatusCallback** | **string** | The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
 **StatusCallbackMethod** | **string** | The HTTP method Twilio should use to call the &#x60;status_callback&#x60; URL. Can be &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
-**Video** | **bool** | Specifies whether the PlayerStreamer is configured to stream video. Defaults to &#x60;true&#x60;.
+**MaxDuration** | **int** | The maximum time, in seconds, that the PlayerStreamer is active (&#x60;created&#x60; or &#x60;started&#x60;) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
 
 ### Return type
 
@@ -158,7 +160,7 @@ Other parameters are passed through a pointer to a UpdatePlayerStreamerParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The status the PlayerStreamer should be transitioned to. Can be: &#x60;ended&#x60;.
+**Status** | **string** | 
 
 ### Return type
 

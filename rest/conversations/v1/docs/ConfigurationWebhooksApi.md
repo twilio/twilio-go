@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -48,6 +50,8 @@ Other parameters are passed through a pointer to a FetchConfigurationWebhookPara
 
 
 
+
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -59,11 +63,11 @@ Other parameters are passed through a pointer to a UpdateConfigurationWebhookPar
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Filters** | **[]string** | The list of webhook event triggers that are enabled for this Service: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;
 **Method** | **string** | The HTTP method to be used when sending a webhook request.
-**PostWebhookUrl** | **string** | The absolute url the post-event webhook request should be sent to.
+**Filters** | **[]string** | The list of webhook event triggers that are enabled for this Service: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;
 **PreWebhookUrl** | **string** | The absolute url the pre-event webhook request should be sent to.
-**Target** | **string** | The routing target of the webhook.
+**PostWebhookUrl** | **string** | The absolute url the post-event webhook request should be sent to.
+**Target** | **string** | 
 
 ### Return type
 

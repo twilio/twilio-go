@@ -36,8 +36,8 @@ Other parameters are passed through a pointer to a CreateBucketParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Interval** | **int** | Number of seconds that the rate limit will be enforced over.
 **Max** | **int** | Maximum number of requests permitted in during the interval.
+**Interval** | **int** | Number of seconds that the rate limit will be enforced over.
 
 ### Return type
 
@@ -215,8 +215,8 @@ Other parameters are passed through a pointer to a UpdateBucketParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Interval** | **int** | Number of seconds that the rate limit will be enforced over.
 **Max** | **int** | Maximum number of requests permitted in during the interval.
+**Interval** | **int** | Number of seconds that the rate limit will be enforced over.
 
 ### Return type
 

@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -33,9 +35,9 @@ Other parameters are passed through a pointer to a CreateDocumentParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**UniqueName** | **string** | An application-defined string that uniquely identifies the Sync Document
 **Data** | [**interface{}**](interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
 **Ttl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document&#39;s time-to-live).
-**UniqueName** | **string** | An application-defined string that uniquely identifies the Sync Document
 
 ### Return type
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteDocument
 
 > DeleteDocument(ctx, ServiceSidSid)
+
+
 
 
 
@@ -102,6 +106,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -140,6 +146,8 @@ Name | Type | Description
 ## ListDocument
 
 > []SyncV1Document ListDocument(ctx, ServiceSidoptional)
+
+
 
 
 
@@ -182,6 +190,8 @@ Name | Type | Description
 ## UpdateDocument
 
 > SyncV1Document UpdateDocument(ctx, ServiceSidSidoptional)
+
+
 
 
 

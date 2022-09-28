@@ -34,8 +34,8 @@ Other parameters are passed through a pointer to a CreateCustomerProfileChannelE
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ChannelEndpointSid** | **string** | The SID of an channel endpoint
 **ChannelEndpointType** | **string** | The type of channel endpoint. eg: phone-number
+**ChannelEndpointSid** | **string** | The SID of an channel endpoint
 
 ### Return type
 

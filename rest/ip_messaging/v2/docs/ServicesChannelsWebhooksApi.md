@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -34,13 +36,13 @@ Other parameters are passed through a pointer to a CreateChannelWebhookParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ConfigurationFilters** | **[]string** | 
-**ConfigurationFlowSid** | **string** | 
-**ConfigurationMethod** | **string** | 
-**ConfigurationRetryCount** | **int** | 
-**ConfigurationTriggers** | **[]string** | 
-**ConfigurationUrl** | **string** | 
 **Type** | **string** | 
+**ConfigurationUrl** | **string** | 
+**ConfigurationMethod** | **string** | 
+**ConfigurationFilters** | **[]string** | 
+**ConfigurationTriggers** | **[]string** | 
+**ConfigurationFlowSid** | **string** | 
+**ConfigurationRetryCount** | **int** | 
 
 ### Return type
 
@@ -63,6 +65,8 @@ Name | Type | Description
 ## DeleteChannelWebhook
 
 > DeleteChannelWebhook(ctx, ServiceSidChannelSidSid)
+
+
 
 
 
@@ -108,6 +112,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -147,6 +153,8 @@ Name | Type | Description
 ## ListChannelWebhook
 
 > []IpMessagingV2ChannelWebhook ListChannelWebhook(ctx, ServiceSidChannelSidoptional)
+
+
 
 
 
@@ -193,6 +201,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -210,12 +220,12 @@ Other parameters are passed through a pointer to a UpdateChannelWebhookParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ConfigurationFilters** | **[]string** | 
-**ConfigurationFlowSid** | **string** | 
-**ConfigurationMethod** | **string** | 
-**ConfigurationRetryCount** | **int** | 
-**ConfigurationTriggers** | **[]string** | 
 **ConfigurationUrl** | **string** | 
+**ConfigurationMethod** | **string** | 
+**ConfigurationFilters** | **[]string** | 
+**ConfigurationTriggers** | **[]string** | 
+**ConfigurationFlowSid** | **string** | 
+**ConfigurationRetryCount** | **int** | 
 
 ### Return type
 

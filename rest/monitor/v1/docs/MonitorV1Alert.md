@@ -16,9 +16,9 @@ Name | Type | Description | Notes
 **RequestMethod** | Pointer to **string** | The method used by the request that generated the alert |
 **RequestUrl** | Pointer to **string** | The URL of the request that generated the alert |
 **ResourceSid** | Pointer to **string** | The SID of the resource for which the alert was generated |
-**ServiceSid** | Pointer to **string** | The SID of the service or resource that generated the alert |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Url** | Pointer to **string** | The absolute URL of the Alert resource |
+**ServiceSid** | Pointer to **string** | The SID of the service or resource that generated the alert |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

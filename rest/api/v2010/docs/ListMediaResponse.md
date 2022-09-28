@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**MediaList** | [**[]ApiV2010Media**](ApiV2010Media.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**MediaList** | [**[]ApiV2010Media**](ApiV2010Media.md) |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 

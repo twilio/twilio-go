@@ -12,11 +12,11 @@ Name | Type | Description | Notes
 **DocumentContentType** | Pointer to **string** | The MIME type of the document |
 **FallbackAssignmentCallbackUrl** | Pointer to **string** | The URL that we call when a call to the `assignment_callback_url` fails |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the Workflow resource |
-**Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **TaskReservationTimeout** | Pointer to **int** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker |
-**Url** | Pointer to **string** | The absolute URL of the Workflow resource |
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the Workflow |
+**Url** | Pointer to **string** | The absolute URL of the Workflow resource |
+**Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Transcriptions** | [**[]ApiV2010RecordingTranscription**](ApiV2010RecordingTranscription.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
@@ -11,7 +12,6 @@ Name | Type | Description | Notes
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
 **Start** | **int** |  |[optional] 
-**Transcriptions** | [**[]ApiV2010RecordingTranscription**](ApiV2010RecordingTranscription.md) |  |[optional] 
 **Uri** | **string** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

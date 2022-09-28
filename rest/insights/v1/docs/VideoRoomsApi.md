@@ -70,8 +70,8 @@ Other parameters are passed through a pointer to a ListVideoRoomSummaryParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**RoomType** | **[]string** | Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
-**Codec** | **[]string** | Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
+**RoomType** | [**[]VideoRoomSummaryEnumRoomType**](VideoRoomSummaryEnumRoomType.md) | Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
+**Codec** | [**[]VideoRoomSummaryEnumCodec**](VideoRoomSummaryEnumCodec.md) | Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
 **RoomName** | **string** | Room friendly name.
 **CreatedAfter** | **time.Time** | Only read rooms that started on or after this ISO 8601 timestamp.
 **CreatedBefore** | **time.Time** | Only read rooms that started before this ISO 8601 timestamp.

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the Account accrued the usage |
 **ApiVersion** | Pointer to **string** | The API version used to create the resource |
 **AsOf** | Pointer to **string** | Usage records up to date as of this timestamp |
-**Category** | Pointer to **string** | The category of usage |
+**Category** | Pointer to [**string**](UsageRecordLastMonthEnumCategory.md) |  |
 **Count** | Pointer to **string** | The number of usage events |
 **CountUnit** | Pointer to **string** | The units in which count is measured |
 **Description** | Pointer to **string** | A plain-language description of the usage category |

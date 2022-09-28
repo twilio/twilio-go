@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -58,6 +60,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -97,6 +101,8 @@ Name | Type | Description
 ## ListRecordingTranscription
 
 > []ApiV2010RecordingTranscription ListRecordingTranscription(ctx, RecordingSidoptional)
+
+
 
 
 

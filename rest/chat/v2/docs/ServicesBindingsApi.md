@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -54,6 +56,8 @@ Name | Type | Description
 ## FetchBinding
 
 > ChatV2Binding FetchBinding(ctx, ServiceSidSid)
+
+
 
 
 
@@ -98,6 +102,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -113,7 +119,7 @@ Other parameters are passed through a pointer to a ListBindingParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**BindingType** | **[]string** | The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+**BindingType** | [**[]BindingEnumBindingType**](BindingEnumBindingType.md) | The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 **Identity** | **[]string** | The [User](https://www.twilio.com/docs/chat/rest/user-resource)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**IncomingPhoneNumbers** | [**[]ApiV2010IncomingPhoneNumber**](ApiV2010IncomingPhoneNumber.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**IncomingPhoneNumbers** | [**[]ApiV2010IncomingPhoneNumber**](ApiV2010IncomingPhoneNumber.md) |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 

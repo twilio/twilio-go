@@ -16,6 +16,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -55,6 +57,8 @@ Name | Type | Description
 ## ListWorkerChannel
 
 > []TaskrouterV1WorkerChannel ListWorkerChannel(ctx, WorkspaceSidWorkerSidoptional)
+
+
 
 
 
@@ -101,6 +105,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -118,8 +124,8 @@ Other parameters are passed through a pointer to a UpdateWorkerChannelParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Available** | **bool** | Whether the WorkerChannel is available. Set to &#x60;false&#x60; to prevent the Worker from receiving any new Tasks of this TaskChannel type.
 **Capacity** | **int** | The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
+**Available** | **bool** | Whether the WorkerChannel is available. Set to &#x60;false&#x60; to prevent the Worker from receiving any new Tasks of this TaskChannel type.
 
 ### Return type
 

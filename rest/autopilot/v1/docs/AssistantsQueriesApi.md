@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -34,9 +36,9 @@ Other parameters are passed through a pointer to a CreateQueryParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: &#x60;en-US&#x60;.
-**ModelBuild** | **string** | The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
 **Query** | **string** | The end-user&#39;s natural language input. It can be up to 2048 characters long.
 **Tasks** | **string** | The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task &#x60;unique_name&#x60; values. For example, &#x60;task-unique_name-1, task-unique_name-2&#x60;. Listing specific tasks is useful to constrain the paths that a user can take.
+**ModelBuild** | **string** | The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
 
 ### Return type
 
@@ -59,6 +61,8 @@ Name | Type | Description
 ## DeleteQuery
 
 > DeleteQuery(ctx, AssistantSidSid)
+
+
 
 
 
@@ -103,6 +107,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -141,6 +147,8 @@ Name | Type | Description
 ## ListQuery
 
 > []AutopilotV1Query ListQuery(ctx, AssistantSidoptional)
+
+
 
 
 
@@ -187,6 +195,8 @@ Name | Type | Description
 ## UpdateQuery
 
 > AutopilotV1Query UpdateQuery(ctx, AssistantSidSidoptional)
+
+
 
 
 

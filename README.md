@@ -29,6 +29,7 @@ This library supports the following Go implementations:
 * Go 1.16
 * Go 1.17
 * Go 1.18
+* Go 1.19
 
 ## Installation
 
@@ -36,14 +37,6 @@ To use twilio-go in your project initialize go modules then run:
 
 ```bash
 go get github.com/twilio/twilio-go
-```
-
-## Installing release candidates
-
-To use twilio-go release candidates initialize go modules then run:
-
-```bash
-go get github.com/twilio/twilio-go@1.x.x-rc.x
 ```
 
 ## Getting Started
@@ -68,7 +61,7 @@ func main() {
 }
 ```
 
-If you don't want to use environment variables, you can also pass the credentials directly to the constructor as below. 
+If you don't want to use environment variables, you can also pass the credentials directly to the constructor as below.
 
 ```go
 package main
@@ -134,7 +127,7 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 func main() {
@@ -142,7 +135,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.CreateIncomingPhoneNumberParams{}
+	params := &twilioApi.CreateIncomingPhoneNumberParams{}
 	params.SetPhoneNumber(phoneNumber)
 
 	resp, err := client.Api.CreateIncomingPhoneNumber(params)
@@ -163,7 +156,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
 
@@ -173,7 +166,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.CreateMessageParams{}
+	params := &twilioApi.CreateMessageParams{}
 	params.SetTo(to)
 	params.SetFrom(from)
 	params.SetBody("Hello there")
@@ -196,7 +189,7 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
 
@@ -206,7 +199,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.CreateCallParams{}
+	params := &twilioApi.CreateCallParams{}
 	params.SetTo(to)
 	params.SetFrom(from)
 	params.SetUrl("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
@@ -230,7 +223,7 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/serverless/v1"
+	twilioApi "github.com/twilio/twilio-go/rest/serverless/v1"
 )
 
 func main() {
@@ -239,7 +232,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.CreateFunctionParams{}
+	params := &twilioApi.CreateFunctionParams{}
 	params.SetFriendlyName("My Serverless func")
 
 	resp, err := client.ServerlessV1.CreateFunction(serviceSid, params)
@@ -261,7 +254,7 @@ import (
 	"fmt"
 
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/studio/v2"
+	twilioApi "github.com/twilio/twilio-go/rest/studio/v2"
 )
 
 func main() {
@@ -285,11 +278,11 @@ func main() {
 		]
 	}`
 
-	definition := make(map[string]interface{})
+	var definition interface{}
 	_ = json.Unmarshal([]byte(jsonStr), &definition)
 
 	client := twilio.NewRestClient()
-	params := &openapi.CreateFlowParams{
+	params := &twilioApi.CreateFlowParams{
 		Definition: &definition,
 	}
 	params.SetCommitMessage("commit")
@@ -323,7 +316,7 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
 
@@ -332,7 +325,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.ListMessageParams{}
+	params := &twilioApi.ListMessageParams{}
 	params.SetFrom(from)
 	params.SetPageSize(20)
 	params.SetLimit(100)
@@ -355,7 +348,7 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 	"net/url"
 	"os"
 )
@@ -365,7 +358,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.ListMessageParams{}
+	params := &twilioApi.ListMessageParams{}
 	params.SetFrom(from)
 	params.SetPageSize(20)
 
@@ -404,7 +397,7 @@ import (
 
 	"github.com/twilio/twilio-go"
 	twilioclient "github.com/twilio/twilio-go/client"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 func main() {
@@ -412,7 +405,7 @@ func main() {
 
 	client := twilio.NewRestClient()
 
-	params := &openapi.CreateIncomingPhoneNumberParams{}
+	params := &twilioApi.CreateIncomingPhoneNumberParams{}
 	params.SetPhoneNumber(phoneNumber)
 
 	resp, err := client.Api.CreateIncomingPhoneNumber(params)
@@ -426,7 +419,109 @@ func main() {
 For more descriptive exception types, please see
 the [Twilio documentation](https://www.twilio.com/docs/libraries/go/usage-guide#exceptions).
 
+### Generating TwiML
+
+To control phone calls, your application needs to output [TwiML](https://www.twilio.com/docs/voice/twiml).
+
+Use the `twiml` package to easily create such responses.
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/twilio/twilio-go/twiml"
+)
+
+func main() {
+	//Construct Verbs
+	dial := &twiml.VoiceDial{}
+	say := &twiml.VoiceSay{
+		Message:            "Welcome to Twilio!",
+		Voice:              "woman",
+		Language:           "en-gb",
+		OptionalAttributes: map[string]string{"input": "test"},
+	}
+	pause := &twiml.VoicePause{
+		Length: "10",
+	}
+	//Construct Noun
+	queue := &twiml.VoiceQueue{
+		Url: "www.twilio.com",
+	}
+	//Adding Queue to Dial
+	dial.InnerElements = []twiml.Element{queue}
+
+	//Adding all Verbs to twiml.Voice
+	verbList := []twiml.Element{dial, say, pause}
+	twimlResult, err := twiml.Voice(verbList)
+	if err == nil {
+		fmt.Println(twimlResult)
+	} else {
+		fmt.Println(err)
+	}
+}
+```
+This will print the following:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Dial>
+        <Queue url="www.twilio.com"/>
+    </Dial>
+    <Say voice="woman" language="en-gb" input="test">Welcome to Twilio!</Say>
+    <Pause length="10"/>
+</Response>
+```
 ## Advanced Usage
+
+### Using Request Validator
+
+Validating GET/POST Requests are coming from Twilio:
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/twilio/twilio-go/client"
+)
+
+func main() {
+	// You can find your Auth Token at twilio.com/console
+	// For this example: authToken := "12345"
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	
+	requestValidator := client.NewRequestValidator(authToken)
+
+	// Twilio's request URL
+	url := "https://mycompany.com/myapp.php?foo=1&bar=2"
+	
+	// Post variables in Twilio's request
+	params := map[string]string{
+		"CallSid": "CA1234567890ABCDE",
+		"Caller":  "+12349013030",
+		"Digits":  "1234",
+		"From":    "+12349013030",
+		"To":      "+18005551212",
+	}
+	
+	// X-Twilio-Signature header attached to the request
+	signature := "0/KCTR6DLpKmkAf8muzZqo1nDgQ="
+    
+	// Validate GET request
+	fmt.Println(requestValidator.Validate(url, params, signature))
+
+	// Example of the POST request
+	Body := []byte(`{"property": "value", "boolean": true}`)
+	theUrl := "https://mycompany.com/myapp.php?bodySHA256=0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
+	theSignature := "y77kIzt2vzLz71DgmJGsen2scGs="
+    
+	// Validate POST request
+	fmt.Println(requestValidator.ValidateBody(theUrl, Body, theSignature))
+}
+```
 
 ### Using Standalone Products
 
@@ -438,7 +533,7 @@ package main
 
 import (
 	"github.com/twilio/twilio-go/client"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 	serverless "github.com/twilio/twilio-go/rest/serverless/v1"
 	"os"
 )
@@ -454,7 +549,7 @@ func main() {
 	}
 	defaultClient.SetAccountSid(accountSid)
 
-	coreApiService := openapi.NewApiServiceWithClient(defaultClient)
+	coreApiService := twilioApi.NewApiServiceWithClient(defaultClient)
 	serverlessApiService := serverless.NewApiServiceWithClient(defaultClient)
 }
 ```
@@ -472,7 +567,7 @@ import (
 
 	"github.com/twilio/twilio-go"
 	"github.com/twilio/twilio-go/client"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 type MyClient struct {
@@ -501,12 +596,12 @@ func main() {
 	twilioClient := twilio.NewRestClientWithParams(twilio.ClientParams{Client: customClient})
 
 	// You may also use custom clients with standalone product services
-	twilioApiV2010 := openapi.NewApiServiceWithClient(customClient)
+	twilioApiV2010 := twilioApi.NewApiServiceWithClient(customClient)
 }
 ```
 
 ## Building Access Tokens
-This library supports [access token](https://www.twilio.com/docs/iam/access-tokens) generation for use in the Twilio Client SDKs. 
+This library supports [access token](https://www.twilio.com/docs/iam/access-tokens) generation for use in the Twilio Client SDKs.
 
 Here's how you would generate a token for the Voice SDK:
 ```go
@@ -566,7 +661,6 @@ Params = taskrouter.CapabilityTokenParams{
 capabilityToken := taskrouter.CreateCapabilityToken(Params)
 token, err := capabilityToken.ToJwt()
 ```
-
 
 ## Local Usage
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**AddressRequirements** | Pointer to **string** | Whether the phone number requires an Address registered with Twilio |
+**AddressRequirements** | Pointer to [**string**](PhoneNumberEnumAddressRequirement.md) |  |
 **ApiVersion** | Pointer to **string** | The API version used to start a new TwiML session |
 **Beta** | Pointer to **bool** | Whether the phone number is new to the Twilio platform |
 **Capabilities** | Pointer to **map[string]interface{}** | Indicate if a phone can receive calls or messages |

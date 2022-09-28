@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -33,10 +35,10 @@ Other parameters are passed through a pointer to a CreateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | **string** | 
-**FriendlyName** | **string** | 
 **Identity** | **string** | 
 **RoleSid** | **string** | 
+**Attributes** | **string** | 
+**FriendlyName** | **string** | 
 
 ### Return type
 
@@ -59,6 +61,8 @@ Name | Type | Description
 ## DeleteUser
 
 > DeleteUser(ctx, ServiceSidSid)
+
+
 
 
 
@@ -103,6 +107,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -141,6 +147,8 @@ Name | Type | Description
 ## ListUser
 
 > []IpMessagingV1User ListUser(ctx, ServiceSidoptional)
+
+
 
 
 
@@ -186,6 +194,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -202,9 +212,9 @@ Other parameters are passed through a pointer to a UpdateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**RoleSid** | **string** | 
 **Attributes** | **string** | 
 **FriendlyName** | **string** | 
-**RoleSid** | **string** | 
 
 ### Return type
 

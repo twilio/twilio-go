@@ -62,6 +62,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -149,6 +151,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -166,9 +170,9 @@ Other parameters are passed through a pointer to a UpdateUserChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**NotificationLevel** | **string** | 
 **LastConsumedMessageIndex** | **int** | The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
 **LastConsumptionTimestamp** | **time.Time** | The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
-**NotificationLevel** | **string** | The push notification level to assign to the User Channel. Can be: &#x60;default&#x60; or &#x60;muted&#x60;.
 
 ### Return type
 

@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -58,6 +60,8 @@ Name | Type | Description
 ## DeleteMember
 
 > DeleteMember(ctx, ServiceSidChannelSidSid)
+
+
 
 
 
@@ -103,6 +107,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -142,6 +148,8 @@ Name | Type | Description
 ## ListMember
 
 > []IpMessagingV1Member ListMember(ctx, ServiceSidChannelSidoptional)
+
+
 
 
 
@@ -189,6 +197,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -206,8 +216,8 @@ Other parameters are passed through a pointer to a UpdateMemberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**LastConsumedMessageIndex** | **int** | 
 **RoleSid** | **string** | 
+**LastConsumedMessageIndex** | **int** | 
 
 ### Return type
 

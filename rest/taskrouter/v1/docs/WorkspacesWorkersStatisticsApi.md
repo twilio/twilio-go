@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -57,6 +59,8 @@ Name | Type | Description
 ## FetchWorkerStatistics
 
 > TaskrouterV1WorkerStatistics FetchWorkerStatistics(ctx, WorkspaceSidoptional)
+
+
 
 
 

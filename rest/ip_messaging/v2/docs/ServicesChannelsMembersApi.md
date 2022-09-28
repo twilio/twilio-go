@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -35,13 +37,13 @@ Other parameters are passed through a pointer to a CreateMemberParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Attributes** | **string** | 
-**DateCreated** | **time.Time** | 
-**DateUpdated** | **time.Time** | 
 **Identity** | **string** | 
+**RoleSid** | **string** | 
 **LastConsumedMessageIndex** | **int** | 
 **LastConsumptionTimestamp** | **time.Time** | 
-**RoleSid** | **string** | 
+**DateCreated** | **time.Time** | 
+**DateUpdated** | **time.Time** | 
+**Attributes** | **string** | 
 
 ### Return type
 
@@ -64,6 +66,8 @@ Name | Type | Description
 ## DeleteMember
 
 > DeleteMember(ctx, ServiceSidChannelSidSidoptional)
+
+
 
 
 
@@ -110,6 +114,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -149,6 +155,8 @@ Name | Type | Description
 ## ListMember
 
 > []IpMessagingV2Member ListMember(ctx, ServiceSidChannelSidoptional)
+
+
 
 
 
@@ -196,6 +204,8 @@ Name | Type | Description
 
 
 
+
+
 ### Path Parameters
 
 
@@ -214,12 +224,12 @@ Other parameters are passed through a pointer to a UpdateMemberParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Attributes** | **string** | 
-**DateCreated** | **time.Time** | 
-**DateUpdated** | **time.Time** | 
+**RoleSid** | **string** | 
 **LastConsumedMessageIndex** | **int** | 
 **LastConsumptionTimestamp** | **time.Time** | 
-**RoleSid** | **string** | 
+**DateCreated** | **time.Time** | 
+**DateUpdated** | **time.Time** | 
+**Attributes** | **string** | 
 
 ### Return type
 
