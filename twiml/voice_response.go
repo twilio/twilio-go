@@ -1261,17 +1261,31 @@ type VoiceSip struct {
 	// status_callback_event: Status callback events
 	// status_callback: Status callback URL
 	// status_callback_method: Status callback URL method
+	// machine_detection: Enable machine detection or end of greeting detection
+	// amd_status_callback_method: HTTP Method to use with amd_status_callback
+	// amd_status_callback: The URL we should call to send amd status information to your application
+	// machine_detection_timeout: Number of seconds to wait for machine detection
+	// machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity
+	// machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity
+	// machine_detection_silence_timeout: Number of milliseconds of initial silence
 	// OptionalAttributes: additional attributes
-	SipUrl               string
-	Username             string
-	Password             string
-	Url                  string
-	Method               string
-	StatusCallbackEvent  string
-	StatusCallback       string
-	StatusCallbackMethod string
-	InnerElements        []Element
-	OptionalAttributes   map[string]string
+	SipUrl                             string
+	Username                           string
+	Password                           string
+	Url                                string
+	Method                             string
+	StatusCallbackEvent                string
+	StatusCallback                     string
+	StatusCallbackMethod               string
+	MachineDetection                   string
+	AmdStatusCallbackMethod            string
+	AmdStatusCallback                  string
+	MachineDetectionTimeout            string
+	MachineDetectionSpeechThreshold    string
+	MachineDetectionSpeechEndThreshold string
+	MachineDetectionSilenceTimeout     string
+	InnerElements                      []Element
+	OptionalAttributes                 map[string]string
 }
 
 func (m VoiceSip) GetName() string {
@@ -1284,13 +1298,20 @@ func (m VoiceSip) GetText() string {
 
 func (m VoiceSip) GetAttr() (map[string]string, map[string]string) {
 	paramsAttr := map[string]string{
-		"Username":             m.Username,
-		"Password":             m.Password,
-		"Url":                  m.Url,
-		"Method":               m.Method,
-		"StatusCallbackEvent":  m.StatusCallbackEvent,
-		"StatusCallback":       m.StatusCallback,
-		"StatusCallbackMethod": m.StatusCallbackMethod,
+		"Username":                           m.Username,
+		"Password":                           m.Password,
+		"Url":                                m.Url,
+		"Method":                             m.Method,
+		"StatusCallbackEvent":                m.StatusCallbackEvent,
+		"StatusCallback":                     m.StatusCallback,
+		"StatusCallbackMethod":               m.StatusCallbackMethod,
+		"MachineDetection":                   m.MachineDetection,
+		"AmdStatusCallbackMethod":            m.AmdStatusCallbackMethod,
+		"AmdStatusCallback":                  m.AmdStatusCallback,
+		"MachineDetectionTimeout":            m.MachineDetectionTimeout,
+		"MachineDetectionSpeechThreshold":    m.MachineDetectionSpeechThreshold,
+		"MachineDetectionSpeechEndThreshold": m.MachineDetectionSpeechEndThreshold,
+		"MachineDetectionSilenceTimeout":     m.MachineDetectionSilenceTimeout,
 	}
 	return m.OptionalAttributes, paramsAttr
 }
@@ -1334,17 +1355,31 @@ type VoiceNumber struct {
 	// status_callback: Status callback URL
 	// status_callback_method: Status callback URL method
 	// byoc: BYOC trunk SID (Beta)
+	// machine_detection: Enable machine detection or end of greeting detection
+	// amd_status_callback_method: HTTP Method to use with amd_status_callback
+	// amd_status_callback: The URL we should call to send amd status information to your application
+	// machine_detection_timeout: Number of seconds to wait for machine detection
+	// machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity
+	// machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity
+	// machine_detection_silence_timeout: Number of milliseconds of initial silence
 	// OptionalAttributes: additional attributes
-	PhoneNumber          string
-	SendDigits           string
-	Url                  string
-	Method               string
-	StatusCallbackEvent  string
-	StatusCallback       string
-	StatusCallbackMethod string
-	Byoc                 string
-	InnerElements        []Element
-	OptionalAttributes   map[string]string
+	PhoneNumber                        string
+	SendDigits                         string
+	Url                                string
+	Method                             string
+	StatusCallbackEvent                string
+	StatusCallback                     string
+	StatusCallbackMethod               string
+	Byoc                               string
+	MachineDetection                   string
+	AmdStatusCallbackMethod            string
+	AmdStatusCallback                  string
+	MachineDetectionTimeout            string
+	MachineDetectionSpeechThreshold    string
+	MachineDetectionSpeechEndThreshold string
+	MachineDetectionSilenceTimeout     string
+	InnerElements                      []Element
+	OptionalAttributes                 map[string]string
 }
 
 func (m VoiceNumber) GetName() string {
@@ -1357,13 +1392,20 @@ func (m VoiceNumber) GetText() string {
 
 func (m VoiceNumber) GetAttr() (map[string]string, map[string]string) {
 	paramsAttr := map[string]string{
-		"SendDigits":           m.SendDigits,
-		"Url":                  m.Url,
-		"Method":               m.Method,
-		"StatusCallbackEvent":  m.StatusCallbackEvent,
-		"StatusCallback":       m.StatusCallback,
-		"StatusCallbackMethod": m.StatusCallbackMethod,
-		"Byoc":                 m.Byoc,
+		"SendDigits":                         m.SendDigits,
+		"Url":                                m.Url,
+		"Method":                             m.Method,
+		"StatusCallbackEvent":                m.StatusCallbackEvent,
+		"StatusCallback":                     m.StatusCallback,
+		"StatusCallbackMethod":               m.StatusCallbackMethod,
+		"Byoc":                               m.Byoc,
+		"MachineDetection":                   m.MachineDetection,
+		"AmdStatusCallbackMethod":            m.AmdStatusCallbackMethod,
+		"AmdStatusCallback":                  m.AmdStatusCallback,
+		"MachineDetectionTimeout":            m.MachineDetectionTimeout,
+		"MachineDetectionSpeechThreshold":    m.MachineDetectionSpeechThreshold,
+		"MachineDetectionSpeechEndThreshold": m.MachineDetectionSpeechEndThreshold,
+		"MachineDetectionSilenceTimeout":     m.MachineDetectionSilenceTimeout,
 	}
 	return m.OptionalAttributes, paramsAttr
 }

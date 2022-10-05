@@ -1,5 +1,74 @@
 twilio-go changelog
 ====================
+[2022-10-05] Version 1.0.0
+--------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2022-10-05-026x-to-1xx) for detailed migration notes.
+
+**Library - Feature**
+- [PR #191](https://github.com/twilio/twilio-go/pull/191): Merge 1.0.0 RC branch to main. Thanks to [@rakatyal](https://github.com/rakatyal)! **(breaking change)**
+- [PR #165](https://github.com/twilio/twilio-go/pull/165): Add support for x-www-form-urlencoded requests to rv.ValidateBody. Thanks to [@heyztb](https://github.com/heyztb)!
+
+**Library - Test**
+- [PR #181](https://github.com/twilio/twilio-go/pull/181): add test-docker rule. Thanks to [@beebzz](https://github.com/beebzz)!
+- [PR #172](https://github.com/twilio/twilio-go/pull/172): Adding misc as PR type. Thanks to [@rakatyal](https://github.com/rakatyal)!
+
+**Library - Fix**
+- [PR #174](https://github.com/twilio/twilio-go/pull/174): Revert "feat: Add support for x-www-form-urlencoded requests to rv.ValidateBody". Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+**Library - Chore**
+- [PR #168](https://github.com/twilio/twilio-go/pull/168): use Docker 'rc' tag for release candidate images. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Added `virtual-agent` to `usage_record` API.
+- Add AMD attributes to participant create request
+- Remove `beta feature` from scheduling params and remove optimize parameters. **(breaking change)**
+- Added `amazon-polly` to `usage_record` API.
+
+**Conversations**
+- Allowed to use `identity` as part of Participant's resource **(breaking change)**
+
+**Flex**
+- Removed redundant `close` status from Flex Interactions flow **(breaking change)**
+- Adding `debugger_integration` and `flex_ui_status_report` to Flex Configuration
+- Add `status`, `error_code`, and `error_message` fields to Interaction `Channel`
+- Adding `messenger` and `gbm` as supported channels for Interactions API
+
+**Insights**
+- Added `annotation` field in call summary
+- Added new endpoint to fetch/create/update Call Annotations
+
+**Lookups**
+- Remove `enhanced_line_type` from the lookup response **(breaking change)**
+- Adding support for Lookup V2 API
+
+**Messaging**
+- Add create, list and get tollfree verification API
+- Update alpha_sender docs with new valid characters
+
+**Routes**
+- Remove Duplicate Create Method - Update Method will work even if Inbound Processing Region is currently empty/404. **(breaking change)**
+- Inbound Proccessing Region API - Public GA
+
+**Studio**
+- Corrected PII labels to be 30 days and added context to be PII
+
+**Supersim**
+- Allow updating `DataLimit` on a Fleet
+- Add support for `sim_ip_addresses` resource to helper libraries
+
+**Verify**
+- Verify SafeList API endpoints added.
+- Reorder Verification Check parameters so `code` stays as the first parameter **(breaking change)**
+- Rollback List Attempts API V2 back to pilot stage.
+- Changed summary param `service_sid` to `verify_service_sid` to be consistent with list attempts API **(breaking change)**
+- Make `code` optional on Verification check to support `sna` attempts.
+- Remove `api.verify.totp` beta flag and set maturity to `beta` for Verify TOTP properties and parameters. **(breaking change)**
+- Changed summary param `verify_service_sid` to `service_sid` to be consistent with list attempts API **(breaking change)**
+
+**Video**
+- Add `Anonymize` API
+
+
 [2022-05-18] Version 0.26.0
 ---------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2022-05-18-025x-to-026x) for detailed migration notes.

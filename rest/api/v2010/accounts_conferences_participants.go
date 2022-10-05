@@ -105,6 +105,20 @@ type CreateParticipantParams struct {
 	RecordingTrack *string `json:"RecordingTrack,omitempty"`
 	// The maximum duration of the call in seconds. Constraints depend on account and configuration.
 	TimeLimit *int `json:"TimeLimit,omitempty"`
+	// Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
+	MachineDetection *string `json:"MachineDetection,omitempty"`
+	// The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
+	MachineDetectionTimeout *int `json:"MachineDetectionTimeout,omitempty"`
+	// The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
+	MachineDetectionSpeechThreshold *int `json:"MachineDetectionSpeechThreshold,omitempty"`
+	// The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
+	MachineDetectionSpeechEndThreshold *int `json:"MachineDetectionSpeechEndThreshold,omitempty"`
+	// The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
+	MachineDetectionSilenceTimeout *int `json:"MachineDetectionSilenceTimeout,omitempty"`
+	// The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
+	AmdStatusCallback *string `json:"AmdStatusCallback,omitempty"`
+	// The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+	AmdStatusCallbackMethod *string `json:"AmdStatusCallbackMethod,omitempty"`
 }
 
 func (params *CreateParticipantParams) SetPathAccountSid(PathAccountSid string) *CreateParticipantParams {
@@ -267,6 +281,34 @@ func (params *CreateParticipantParams) SetTimeLimit(TimeLimit int) *CreatePartic
 	params.TimeLimit = &TimeLimit
 	return params
 }
+func (params *CreateParticipantParams) SetMachineDetection(MachineDetection string) *CreateParticipantParams {
+	params.MachineDetection = &MachineDetection
+	return params
+}
+func (params *CreateParticipantParams) SetMachineDetectionTimeout(MachineDetectionTimeout int) *CreateParticipantParams {
+	params.MachineDetectionTimeout = &MachineDetectionTimeout
+	return params
+}
+func (params *CreateParticipantParams) SetMachineDetectionSpeechThreshold(MachineDetectionSpeechThreshold int) *CreateParticipantParams {
+	params.MachineDetectionSpeechThreshold = &MachineDetectionSpeechThreshold
+	return params
+}
+func (params *CreateParticipantParams) SetMachineDetectionSpeechEndThreshold(MachineDetectionSpeechEndThreshold int) *CreateParticipantParams {
+	params.MachineDetectionSpeechEndThreshold = &MachineDetectionSpeechEndThreshold
+	return params
+}
+func (params *CreateParticipantParams) SetMachineDetectionSilenceTimeout(MachineDetectionSilenceTimeout int) *CreateParticipantParams {
+	params.MachineDetectionSilenceTimeout = &MachineDetectionSilenceTimeout
+	return params
+}
+func (params *CreateParticipantParams) SetAmdStatusCallback(AmdStatusCallback string) *CreateParticipantParams {
+	params.AmdStatusCallback = &AmdStatusCallback
+	return params
+}
+func (params *CreateParticipantParams) SetAmdStatusCallbackMethod(AmdStatusCallbackMethod string) *CreateParticipantParams {
+	params.AmdStatusCallbackMethod = &AmdStatusCallbackMethod
+	return params
+}
 
 //
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
@@ -405,6 +447,27 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	}
 	if params != nil && params.TimeLimit != nil {
 		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+	}
+	if params != nil && params.MachineDetection != nil {
+		data.Set("MachineDetection", *params.MachineDetection)
+	}
+	if params != nil && params.MachineDetectionTimeout != nil {
+		data.Set("MachineDetectionTimeout", fmt.Sprint(*params.MachineDetectionTimeout))
+	}
+	if params != nil && params.MachineDetectionSpeechThreshold != nil {
+		data.Set("MachineDetectionSpeechThreshold", fmt.Sprint(*params.MachineDetectionSpeechThreshold))
+	}
+	if params != nil && params.MachineDetectionSpeechEndThreshold != nil {
+		data.Set("MachineDetectionSpeechEndThreshold", fmt.Sprint(*params.MachineDetectionSpeechEndThreshold))
+	}
+	if params != nil && params.MachineDetectionSilenceTimeout != nil {
+		data.Set("MachineDetectionSilenceTimeout", fmt.Sprint(*params.MachineDetectionSilenceTimeout))
+	}
+	if params != nil && params.AmdStatusCallback != nil {
+		data.Set("AmdStatusCallback", *params.AmdStatusCallback)
+	}
+	if params != nil && params.AmdStatusCallbackMethod != nil {
+		data.Set("AmdStatusCallbackMethod", *params.AmdStatusCallbackMethod)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
