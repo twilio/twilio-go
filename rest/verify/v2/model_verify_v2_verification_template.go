@@ -21,7 +21,8 @@ type VerifyV2VerificationTemplate struct {
 	// Account Sid
 	AccountSid *string `json:"account_sid,omitempty"`
 	// A string to describe the verification template
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName *string   `json:"friendly_name,omitempty"`
+	Channels     *[]string `json:"channels,omitempty"`
 	// Object with the template translations.
 	Translations *interface{} `json:"translations,omitempty"`
 }

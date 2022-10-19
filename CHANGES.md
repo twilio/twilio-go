@@ -1,5 +1,27 @@
 twilio-go changelog
 ====================
+[2022-10-19] Version 1.1.0
+--------------------------
+**Library - Docs**
+- [PR #192](https://github.com/twilio/twilio-go/pull/192): Update readme to remove pilot warning. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Api**
+- Make link shortening parameters public **(breaking change)**
+
+**Oauth**
+- added oauth JWKS endpoint
+- Get userinfo resource
+- OpenID discovery resource
+- Add new API for token endpoint
+
+**Supersim**
+- Add SettingsUpdates resource
+
+**Verify**
+- Update Verify Push endpoints to `ga` maturity
+- Verify BYOT add Channels property to the Get Templates response
+
+
 [2022-10-05] Version 1.0.0
 --------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2022-10-05-026x-to-1xx) for detailed migration notes.

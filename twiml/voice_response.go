@@ -237,13 +237,15 @@ type VoicePrompt struct {
 	// error_type: Type of error
 	// card_type: Type of the credit card
 	// attempt: Current attempt count
+	// require_matching_inputs: Require customer to input requested information twice and verify matching.
 	// OptionalAttributes: additional attributes
-	For_               string
-	ErrorType          string
-	CardType           string
-	Attempt            string
-	InnerElements      []Element
-	OptionalAttributes map[string]string
+	For_                  string
+	ErrorType             string
+	CardType              string
+	Attempt               string
+	RequireMatchingInputs string
+	InnerElements         []Element
+	OptionalAttributes    map[string]string
 }
 
 func (m VoicePrompt) GetName() string {
@@ -256,10 +258,11 @@ func (m VoicePrompt) GetText() string {
 
 func (m VoicePrompt) GetAttr() (map[string]string, map[string]string) {
 	paramsAttr := map[string]string{
-		"For_":      m.For_,
-		"ErrorType": m.ErrorType,
-		"CardType":  m.CardType,
-		"Attempt":   m.Attempt,
+		"For_":                  m.For_,
+		"ErrorType":             m.ErrorType,
+		"CardType":              m.CardType,
+		"Attempt":               m.Attempt,
+		"RequireMatchingInputs": m.RequireMatchingInputs,
 	}
 	return m.OptionalAttributes, paramsAttr
 }

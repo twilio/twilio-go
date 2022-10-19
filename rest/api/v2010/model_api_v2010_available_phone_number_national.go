@@ -14,6 +14,12 @@
 
 package openapi
 
+import (
+	"encoding/json"
+
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010AvailablePhoneNumberNational struct for ApiV2010AvailablePhoneNumberNational
 type ApiV2010AvailablePhoneNumberNational struct {
 	// A formatted version of the phone number
@@ -27,9 +33,9 @@ type ApiV2010AvailablePhoneNumberNational struct {
 	// The rate center of this phone number
 	RateCenter *string `json:"rate_center,omitempty"`
 	// The latitude of this phone number's location
-	Latitude *string `json:"latitude,omitempty"`
+	Latitude *float32 `json:"latitude,omitempty"`
 	// The longitude of this phone number's location
-	Longitude *string `json:"longitude,omitempty"`
+	Longitude *float32 `json:"longitude,omitempty"`
 	// The two-letter state or province abbreviation of this phone number's location
 	Region *string `json:"region,omitempty"`
 	// The postal or ZIP code of this phone number's location
@@ -41,4 +47,54 @@ type ApiV2010AvailablePhoneNumberNational struct {
 	// Whether the phone number is new to the Twilio platform
 	Beta         *bool                                                                            `json:"beta,omitempty"`
 	Capabilities *ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities `json:"capabilities,omitempty"`
+}
+
+func (response *ApiV2010AvailablePhoneNumberNational) UnmarshalJSON(bytes []byte) (err error) {
+	raw := struct {
+		FriendlyName        *string                                                                          `json:"friendly_name"`
+		PhoneNumber         *string                                                                          `json:"phone_number"`
+		Lata                *string                                                                          `json:"lata"`
+		Locality            *string                                                                          `json:"locality"`
+		RateCenter          *string                                                                          `json:"rate_center"`
+		Latitude            *interface{}                                                                     `json:"latitude"`
+		Longitude           *interface{}                                                                     `json:"longitude"`
+		Region              *string                                                                          `json:"region"`
+		PostalCode          *string                                                                          `json:"postal_code"`
+		IsoCountry          *string                                                                          `json:"iso_country"`
+		AddressRequirements *string                                                                          `json:"address_requirements"`
+		Beta                *bool                                                                            `json:"beta"`
+		Capabilities        *ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities `json:"capabilities"`
+	}{}
+
+	if err = json.Unmarshal(bytes, &raw); err != nil {
+		return err
+	}
+
+	*response = ApiV2010AvailablePhoneNumberNational{
+		FriendlyName:        raw.FriendlyName,
+		PhoneNumber:         raw.PhoneNumber,
+		Lata:                raw.Lata,
+		Locality:            raw.Locality,
+		RateCenter:          raw.RateCenter,
+		Region:              raw.Region,
+		PostalCode:          raw.PostalCode,
+		IsoCountry:          raw.IsoCountry,
+		AddressRequirements: raw.AddressRequirements,
+		Beta:                raw.Beta,
+		Capabilities:        raw.Capabilities,
+	}
+
+	responseLatitude, err := client.UnmarshalFloat32(raw.Latitude)
+	if err != nil {
+		return err
+	}
+	response.Latitude = responseLatitude
+
+	responseLongitude, err := client.UnmarshalFloat32(raw.Longitude)
+	if err != nil {
+		return err
+	}
+	response.Longitude = responseLongitude
+
+	return
 }

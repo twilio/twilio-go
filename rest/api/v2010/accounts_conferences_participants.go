@@ -744,15 +744,15 @@ type UpdateParticipantParams struct {
 	Muted *bool `json:"Muted,omitempty"`
 	// Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
 	Hold *bool `json:"Hold,omitempty"`
-	// The URL we call using the `hold_method` for  music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains the `<Play>`, `<Say>` or `<Redirect>` commands.
+	// The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
 	HoldUrl *string `json:"HoldUrl,omitempty"`
 	// The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
 	HoldMethod *string `json:"HoldMethod,omitempty"`
-	// The URL we call using the `announce_method` for an announcement to the participant. The URL must return an MP3 file, a WAV file, or a TwiML document that contains `<Play>` or `<Say>` commands.
+	// The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
 	AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
 	// The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
 	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
-	// The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+	// The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
 	WaitUrl *string `json:"WaitUrl,omitempty"`
 	// The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
 	WaitMethod *string `json:"WaitMethod,omitempty"`

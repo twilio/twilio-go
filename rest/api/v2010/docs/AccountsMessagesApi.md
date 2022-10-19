@@ -44,6 +44,7 @@ Name | Type | Description
 **AddressRetention** | **string** | 
 **SmartEncoded** | **bool** | Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
 **PersistentAction** | **[]string** | Rich actions for Channels Messages.
+**ShortenUrls** | **bool** | Determines the usage of Click Tracking. Setting it to &#x60;true&#x60; will instruct Twilio to replace all links in the Message with a shortened version based on the associated Domain Sid and track clicks on them. If this parameter is not set on an API call, we will use the value set on the Messaging Service. If this parameter is not set and the value is not configured on the Messaging Service used this will default to &#x60;false&#x60;.
 **ScheduleType** | **string** | 
 **SendAt** | **time.Time** | The time that Twilio will send the message. Must be in ISO 8601 format.
 **SendAsMms** | **bool** | If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.

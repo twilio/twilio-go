@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **Lata** | Pointer to **string** | The LATA of this phone number |
 **Locality** | Pointer to **string** | The locality or city of this phone number's location |
 **RateCenter** | Pointer to **string** | The rate center of this phone number |
-**Latitude** | Pointer to **string** | The latitude of this phone number's location |
-**Longitude** | Pointer to **string** | The longitude of this phone number's location |
+**Latitude** | Pointer to **float32** | The latitude of this phone number's location |
+**Longitude** | Pointer to **float32** | The longitude of this phone number's location |
 **Region** | Pointer to **string** | The two-letter state or province abbreviation of this phone number's location |
 **PostalCode** | Pointer to **string** | The postal or ZIP code of this phone number's location |
 **IsoCountry** | Pointer to **string** | The ISO country code of this phone number |

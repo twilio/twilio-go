@@ -52,6 +52,8 @@ type CreateMessageParams struct {
 	SmartEncoded *bool `json:"SmartEncoded,omitempty"`
 	// Rich actions for Channels Messages.
 	PersistentAction *[]string `json:"PersistentAction,omitempty"`
+	// Determines the usage of Click Tracking. Setting it to `true` will instruct Twilio to replace all links in the Message with a shortened version based on the associated Domain Sid and track clicks on them. If this parameter is not set on an API call, we will use the value set on the Messaging Service. If this parameter is not set and the value is not configured on the Messaging Service used this will default to `false`.
+	ShortenUrls *bool `json:"ShortenUrls,omitempty"`
 	//
 	ScheduleType *string `json:"ScheduleType,omitempty"`
 	// The time that Twilio will send the message. Must be in ISO 8601 format.
@@ -118,6 +120,10 @@ func (params *CreateMessageParams) SetSmartEncoded(SmartEncoded bool) *CreateMes
 }
 func (params *CreateMessageParams) SetPersistentAction(PersistentAction []string) *CreateMessageParams {
 	params.PersistentAction = &PersistentAction
+	return params
+}
+func (params *CreateMessageParams) SetShortenUrls(ShortenUrls bool) *CreateMessageParams {
+	params.ShortenUrls = &ShortenUrls
 	return params
 }
 func (params *CreateMessageParams) SetScheduleType(ScheduleType string) *CreateMessageParams {
@@ -198,6 +204,9 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 		for _, item := range *params.PersistentAction {
 			data.Add("PersistentAction", item)
 		}
+	}
+	if params != nil && params.ShortenUrls != nil {
+		data.Set("ShortenUrls", fmt.Sprint(*params.ShortenUrls))
 	}
 	if params != nil && params.ScheduleType != nil {
 		data.Set("ScheduleType", *params.ScheduleType)

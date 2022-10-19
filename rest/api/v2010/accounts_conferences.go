@@ -288,7 +288,7 @@ type UpdateConferenceParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	//
 	Status *string `json:"Status,omitempty"`
-	// The URL we should call to announce something into the conference. The URL can return an MP3, a WAV, or a TwiML document with `<Play>` or `<Say>`.
+	// The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
 	AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
 	// The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
