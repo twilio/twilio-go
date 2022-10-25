@@ -20,6 +20,9 @@ test-docker:
 cluster-test:
 	go test -race --tags=cluster
 
+webhook-cluster-test:
+	go test -race --tags=webhook_cluster
+
 goimports:
 	go install golang.org/x/tools/cmd/goimports@latest
 	goimports -w .
