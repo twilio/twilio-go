@@ -13,12 +13,11 @@ test-docker:
 	docker build -t twilio/twilio-go .
 	docker run twilio/twilio-go go test -race ./...
 
-test-docker:
-	docker build -t twilio/twilio-go .
-	docker run twilio/twilio-go go test ./...
-
 cluster-test:
 	go test -race --tags=cluster
+
+webhook-cluster-test:
+	go test -race --tags=webhook_cluster
 
 goimports:
 	go install golang.org/x/tools/cmd/goimports@latest
