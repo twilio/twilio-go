@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *CreateCustomerProfileChannelEndpointAssignmentParams) SetChannelEn
 
 // Create a new Assigned Item.
 func (c *ApiService) CreateCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *CreateCustomerProfileChannelEndpointAssignmentParams) (*TrusthubV1CustomerProfileChannelEndpointAssignment, error) {
+	return c.CreateCustomerProfileChannelEndpointAssignmentWithCtx(context.TODO(), CustomerProfileSid, params)
+}
+
+// Create a new Assigned Item.
+func (c *ApiService) CreateCustomerProfileChannelEndpointAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, params *CreateCustomerProfileChannelEndpointAssignmentParams) (*TrusthubV1CustomerProfileChannelEndpointAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
@@ -55,7 +61,7 @@ func (c *ApiService) CreateCustomerProfileChannelEndpointAssignment(CustomerProf
 		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -72,6 +78,11 @@ func (c *ApiService) CreateCustomerProfileChannelEndpointAssignment(CustomerProf
 
 // Remove an Assignment Item Instance.
 func (c *ApiService) DeleteCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, Sid string) error {
+	return c.DeleteCustomerProfileChannelEndpointAssignmentWithCtx(context.TODO(), CustomerProfileSid, Sid)
+}
+
+// Remove an Assignment Item Instance.
+func (c *ApiService) DeleteCustomerProfileChannelEndpointAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, Sid string) error {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -79,7 +90,7 @@ func (c *ApiService) DeleteCustomerProfileChannelEndpointAssignment(CustomerProf
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -91,6 +102,11 @@ func (c *ApiService) DeleteCustomerProfileChannelEndpointAssignment(CustomerProf
 
 // Fetch specific Assigned Item Instance.
 func (c *ApiService) FetchCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileChannelEndpointAssignment, error) {
+	return c.FetchCustomerProfileChannelEndpointAssignmentWithCtx(context.TODO(), CustomerProfileSid, Sid)
+}
+
+// Fetch specific Assigned Item Instance.
+func (c *ApiService) FetchCustomerProfileChannelEndpointAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileChannelEndpointAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -98,7 +114,7 @@ func (c *ApiService) FetchCustomerProfileChannelEndpointAssignment(CustomerProfi
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -144,6 +160,11 @@ func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetLimit(Limit
 
 // Retrieve a single page of CustomerProfileChannelEndpointAssignment records from the API. Request is executed immediately.
 func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, pageToken, pageNumber string) (*ListCustomerProfileChannelEndpointAssignmentResponse, error) {
+	return c.PageCustomerProfileChannelEndpointAssignmentWithCtx(context.TODO(), CustomerProfileSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of CustomerProfileChannelEndpointAssignment records from the API. Request is executed immediately.
+func (c *ApiService) PageCustomerProfileChannelEndpointAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, pageToken, pageNumber string) (*ListCustomerProfileChannelEndpointAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments"
 
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -168,7 +189,7 @@ func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfil
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -185,7 +206,12 @@ func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfil
 
 // Lists CustomerProfileChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams) ([]TrusthubV1CustomerProfileChannelEndpointAssignment, error) {
-	response, errors := c.StreamCustomerProfileChannelEndpointAssignment(CustomerProfileSid, params)
+	return c.ListCustomerProfileChannelEndpointAssignmentWithCtx(context.TODO(), CustomerProfileSid, params)
+}
+
+// Lists CustomerProfileChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomerProfileChannelEndpointAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams) ([]TrusthubV1CustomerProfileChannelEndpointAssignment, error) {
+	response, errors := c.StreamCustomerProfileChannelEndpointAssignmentWithCtx(ctx, CustomerProfileSid, params)
 
 	records := make([]TrusthubV1CustomerProfileChannelEndpointAssignment, 0)
 	for record := range response {
@@ -201,6 +227,11 @@ func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfil
 
 // Streams CustomerProfileChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams) (chan TrusthubV1CustomerProfileChannelEndpointAssignment, chan error) {
+	return c.StreamCustomerProfileChannelEndpointAssignmentWithCtx(context.TODO(), CustomerProfileSid, params)
+}
+
+// Streams CustomerProfileChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomerProfileChannelEndpointAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams) (chan TrusthubV1CustomerProfileChannelEndpointAssignment, chan error) {
 	if params == nil {
 		params = &ListCustomerProfileChannelEndpointAssignmentParams{}
 	}
@@ -209,19 +240,19 @@ func (c *ApiService) StreamCustomerProfileChannelEndpointAssignment(CustomerProf
 	recordChannel := make(chan TrusthubV1CustomerProfileChannelEndpointAssignment, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid, params, "", "")
+	response, err := c.PageCustomerProfileChannelEndpointAssignmentWithCtx(ctx, CustomerProfileSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCustomerProfileChannelEndpointAssignment(response, params, recordChannel, errorChannel)
+		go c.streamCustomerProfileChannelEndpointAssignment(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCustomerProfileChannelEndpointAssignment(response *ListCustomerProfileChannelEndpointAssignmentResponse, params *ListCustomerProfileChannelEndpointAssignmentParams, recordChannel chan TrusthubV1CustomerProfileChannelEndpointAssignment, errorChannel chan error) {
+func (c *ApiService) streamCustomerProfileChannelEndpointAssignment(ctx context.Context, response *ListCustomerProfileChannelEndpointAssignmentResponse, params *ListCustomerProfileChannelEndpointAssignmentParams, recordChannel chan TrusthubV1CustomerProfileChannelEndpointAssignment, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -236,7 +267,7 @@ func (c *ApiService) streamCustomerProfileChannelEndpointAssignment(response *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCustomerProfileChannelEndpointAssignmentResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCustomerProfileChannelEndpointAssignmentResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -251,11 +282,11 @@ func (c *ApiService) streamCustomerProfileChannelEndpointAssignment(response *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCustomerProfileChannelEndpointAssignmentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCustomerProfileChannelEndpointAssignmentResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -33,6 +34,11 @@ func (params *FetchDeactivationParams) SetDate(Date string) *FetchDeactivationPa
 
 // Fetch a list of all United States numbers that have been deactivated on a specific date.
 func (c *ApiService) FetchDeactivation(params *FetchDeactivationParams) (*MessagingV1Deactivation, error) {
+	return c.FetchDeactivationWithCtx(context.TODO(), params)
+}
+
+// Fetch a list of all United States numbers that have been deactivated on a specific date.
+func (c *ApiService) FetchDeactivationWithCtx(ctx context.Context, params *FetchDeactivationParams) (*MessagingV1Deactivation, error) {
 	path := "/v1/Deactivations"
 
 	data := url.Values{}
@@ -42,7 +48,7 @@ func (c *ApiService) FetchDeactivation(params *FetchDeactivationParams) (*Messag
 		data.Set("Date", fmt.Sprint(*params.Date))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

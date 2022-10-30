@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -66,6 +67,11 @@ func (params *CreateUsAppToPersonParams) SetHasEmbeddedPhone(HasEmbeddedPhone bo
 
 //
 func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
+	return c.CreateUsAppToPersonWithCtx(context.TODO(), MessagingServiceSid, params)
+}
+
+//
+func (c *ApiService) CreateUsAppToPersonWithCtx(ctx context.Context, MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
@@ -93,7 +99,7 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 		data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -110,6 +116,11 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 
 //
 func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string) error {
+	return c.DeleteUsAppToPersonWithCtx(context.TODO(), MessagingServiceSid, Sid)
+}
+
+//
+func (c *ApiService) DeleteUsAppToPersonWithCtx(ctx context.Context, MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -117,7 +128,7 @@ func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string)
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -129,6 +140,11 @@ func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string)
 
 //
 func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) (*MessagingV1UsAppToPerson, error) {
+	return c.FetchUsAppToPersonWithCtx(context.TODO(), MessagingServiceSid, Sid)
+}
+
+//
+func (c *ApiService) FetchUsAppToPersonWithCtx(ctx context.Context, MessagingServiceSid string, Sid string) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -136,7 +152,7 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -170,6 +186,11 @@ func (params *ListUsAppToPersonParams) SetLimit(Limit int) *ListUsAppToPersonPar
 
 // Retrieve a single page of UsAppToPerson records from the API. Request is executed immediately.
 func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, pageToken, pageNumber string) (*ListUsAppToPersonResponse, error) {
+	return c.PageUsAppToPersonWithCtx(context.TODO(), MessagingServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of UsAppToPerson records from the API. Request is executed immediately.
+func (c *ApiService) PageUsAppToPersonWithCtx(ctx context.Context, MessagingServiceSid string, params *ListUsAppToPersonParams, pageToken, pageNumber string) (*ListUsAppToPersonResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -188,7 +209,7 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -205,7 +226,12 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 
 // Lists UsAppToPerson records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) ([]MessagingV1UsAppToPerson, error) {
-	response, errors := c.StreamUsAppToPerson(MessagingServiceSid, params)
+	return c.ListUsAppToPersonWithCtx(context.TODO(), MessagingServiceSid, params)
+}
+
+// Lists UsAppToPerson records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsAppToPersonWithCtx(ctx context.Context, MessagingServiceSid string, params *ListUsAppToPersonParams) ([]MessagingV1UsAppToPerson, error) {
+	response, errors := c.StreamUsAppToPersonWithCtx(ctx, MessagingServiceSid, params)
 
 	records := make([]MessagingV1UsAppToPerson, 0)
 	for record := range response {
@@ -221,6 +247,11 @@ func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListU
 
 // Streams UsAppToPerson records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) (chan MessagingV1UsAppToPerson, chan error) {
+	return c.StreamUsAppToPersonWithCtx(context.TODO(), MessagingServiceSid, params)
+}
+
+// Streams UsAppToPerson records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsAppToPersonWithCtx(ctx context.Context, MessagingServiceSid string, params *ListUsAppToPersonParams) (chan MessagingV1UsAppToPerson, chan error) {
 	if params == nil {
 		params = &ListUsAppToPersonParams{}
 	}
@@ -229,19 +260,19 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 	recordChannel := make(chan MessagingV1UsAppToPerson, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUsAppToPerson(MessagingServiceSid, params, "", "")
+	response, err := c.PageUsAppToPersonWithCtx(ctx, MessagingServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUsAppToPerson(response, params, recordChannel, errorChannel)
+		go c.streamUsAppToPerson(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsAppToPerson(response *ListUsAppToPersonResponse, params *ListUsAppToPersonParams, recordChannel chan MessagingV1UsAppToPerson, errorChannel chan error) {
+func (c *ApiService) streamUsAppToPerson(ctx context.Context, response *ListUsAppToPersonResponse, params *ListUsAppToPersonParams, recordChannel chan MessagingV1UsAppToPerson, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -256,7 +287,7 @@ func (c *ApiService) streamUsAppToPerson(response *ListUsAppToPersonResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsAppToPersonResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListUsAppToPersonResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -271,11 +302,11 @@ func (c *ApiService) streamUsAppToPerson(response *ListUsAppToPersonResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsAppToPersonResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsAppToPersonResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

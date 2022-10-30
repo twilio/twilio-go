@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -39,6 +40,11 @@ func (params *CreateInteractionParams) SetRouting(Routing interface{}) *CreateIn
 
 // Create a new Interaction.
 func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1Interaction, error) {
+	return c.CreateInteractionWithCtx(context.TODO(), params)
+}
+
+// Create a new Interaction.
+func (c *ApiService) CreateInteractionWithCtx(ctx context.Context, params *CreateInteractionParams) (*FlexV1Interaction, error) {
 	path := "/v1/Interactions"
 
 	data := url.Values{}
@@ -63,7 +69,7 @@ func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1
 		data.Set("Routing", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -80,13 +86,18 @@ func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1
 
 //
 func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
+	return c.FetchInteractionWithCtx(context.TODO(), Sid)
+}
+
+//
+func (c *ApiService) FetchInteractionWithCtx(ctx context.Context, Sid string) (*FlexV1Interaction, error) {
 	path := "/v1/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

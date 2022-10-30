@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *FetchCallNotificationParams) SetPathAccountSid(PathAccountSid stri
 
 //
 func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *FetchCallNotificationParams) (*ApiV2010CallNotificationInstance, error) {
+	return c.FetchCallNotificationWithCtx(context.TODO(), CallSid, Sid, params)
+}
+
+//
+func (c *ApiService) FetchCallNotificationWithCtx(ctx context.Context, CallSid string, Sid string, params *FetchCallNotificationParams) (*ApiV2010CallNotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -48,7 +54,7 @@ func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *F
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -112,6 +118,11 @@ func (params *ListCallNotificationParams) SetLimit(Limit int) *ListCallNotificat
 
 // Retrieve a single page of CallNotification records from the API. Request is executed immediately.
 func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotificationParams, pageToken, pageNumber string) (*ListCallNotificationResponse, error) {
+	return c.PageCallNotificationWithCtx(context.TODO(), CallSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of CallNotification records from the API. Request is executed immediately.
+func (c *ApiService) PageCallNotificationWithCtx(ctx context.Context, CallSid string, params *ListCallNotificationParams, pageToken, pageNumber string) (*ListCallNotificationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -147,7 +158,7 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -164,7 +175,12 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 
 // Lists CallNotification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams) ([]ApiV2010CallNotification, error) {
-	response, errors := c.StreamCallNotification(CallSid, params)
+	return c.ListCallNotificationWithCtx(context.TODO(), CallSid, params)
+}
+
+// Lists CallNotification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCallNotificationWithCtx(ctx context.Context, CallSid string, params *ListCallNotificationParams) ([]ApiV2010CallNotification, error) {
+	response, errors := c.StreamCallNotificationWithCtx(ctx, CallSid, params)
 
 	records := make([]ApiV2010CallNotification, 0)
 	for record := range response {
@@ -180,6 +196,11 @@ func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotifi
 
 // Streams CallNotification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNotificationParams) (chan ApiV2010CallNotification, chan error) {
+	return c.StreamCallNotificationWithCtx(context.TODO(), CallSid, params)
+}
+
+// Streams CallNotification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCallNotificationWithCtx(ctx context.Context, CallSid string, params *ListCallNotificationParams) (chan ApiV2010CallNotification, chan error) {
 	if params == nil {
 		params = &ListCallNotificationParams{}
 	}
@@ -188,19 +209,19 @@ func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNoti
 	recordChannel := make(chan ApiV2010CallNotification, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCallNotification(CallSid, params, "", "")
+	response, err := c.PageCallNotificationWithCtx(ctx, CallSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCallNotification(response, params, recordChannel, errorChannel)
+		go c.streamCallNotification(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCallNotification(response *ListCallNotificationResponse, params *ListCallNotificationParams, recordChannel chan ApiV2010CallNotification, errorChannel chan error) {
+func (c *ApiService) streamCallNotification(ctx context.Context, response *ListCallNotificationResponse, params *ListCallNotificationParams, recordChannel chan ApiV2010CallNotification, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -215,7 +236,7 @@ func (c *ApiService) streamCallNotification(response *ListCallNotificationRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCallNotificationResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCallNotificationResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -230,11 +251,11 @@ func (c *ApiService) streamCallNotification(response *ListCallNotificationRespon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCallNotificationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCallNotificationResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

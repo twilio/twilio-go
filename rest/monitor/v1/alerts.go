@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,13 +27,18 @@ import (
 
 //
 func (c *ApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, error) {
+	return c.FetchAlertWithCtx(context.TODO(), Sid)
+}
+
+//
+func (c *ApiService) FetchAlertWithCtx(ctx context.Context, Sid string) (*MonitorV1AlertInstance, error) {
 	path := "/v1/Alerts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -84,6 +90,11 @@ func (params *ListAlertParams) SetLimit(Limit int) *ListAlertParams {
 
 // Retrieve a single page of Alert records from the API. Request is executed immediately.
 func (c *ApiService) PageAlert(params *ListAlertParams, pageToken, pageNumber string) (*ListAlertResponse, error) {
+	return c.PageAlertWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Alert records from the API. Request is executed immediately.
+func (c *ApiService) PageAlertWithCtx(ctx context.Context, params *ListAlertParams, pageToken, pageNumber string) (*ListAlertResponse, error) {
 	path := "/v1/Alerts"
 
 	data := url.Values{}
@@ -109,7 +120,7 @@ func (c *ApiService) PageAlert(params *ListAlertParams, pageToken, pageNumber st
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +137,12 @@ func (c *ApiService) PageAlert(params *ListAlertParams, pageToken, pageNumber st
 
 // Lists Alert records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAlert(params *ListAlertParams) ([]MonitorV1Alert, error) {
-	response, errors := c.StreamAlert(params)
+	return c.ListAlertWithCtx(context.TODO(), params)
+}
+
+// Lists Alert records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAlertWithCtx(ctx context.Context, params *ListAlertParams) ([]MonitorV1Alert, error) {
+	response, errors := c.StreamAlertWithCtx(ctx, params)
 
 	records := make([]MonitorV1Alert, 0)
 	for record := range response {
@@ -142,6 +158,11 @@ func (c *ApiService) ListAlert(params *ListAlertParams) ([]MonitorV1Alert, error
 
 // Streams Alert records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAlert(params *ListAlertParams) (chan MonitorV1Alert, chan error) {
+	return c.StreamAlertWithCtx(context.TODO(), params)
+}
+
+// Streams Alert records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAlertWithCtx(ctx context.Context, params *ListAlertParams) (chan MonitorV1Alert, chan error) {
 	if params == nil {
 		params = &ListAlertParams{}
 	}
@@ -150,19 +171,19 @@ func (c *ApiService) StreamAlert(params *ListAlertParams) (chan MonitorV1Alert, 
 	recordChannel := make(chan MonitorV1Alert, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAlert(params, "", "")
+	response, err := c.PageAlertWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAlert(response, params, recordChannel, errorChannel)
+		go c.streamAlert(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAlert(response *ListAlertResponse, params *ListAlertParams, recordChannel chan MonitorV1Alert, errorChannel chan error) {
+func (c *ApiService) streamAlert(ctx context.Context, response *ListAlertResponse, params *ListAlertParams, recordChannel chan MonitorV1Alert, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -177,7 +198,7 @@ func (c *ApiService) streamAlert(response *ListAlertResponse, params *ListAlertP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAlertResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListAlertResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -192,11 +213,11 @@ func (c *ApiService) streamAlert(response *ListAlertResponse, params *ListAlertP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAlertResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAlertResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

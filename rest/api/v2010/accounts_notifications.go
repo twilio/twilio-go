@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *FetchNotificationParams) SetPathAccountSid(PathAccountSid string) 
 
 // Fetch a notification belonging to the account used to make the request
 func (c *ApiService) FetchNotification(Sid string, params *FetchNotificationParams) (*ApiV2010NotificationInstance, error) {
+	return c.FetchNotificationWithCtx(context.TODO(), Sid, params)
+}
+
+// Fetch a notification belonging to the account used to make the request
+func (c *ApiService) FetchNotificationWithCtx(ctx context.Context, Sid string, params *FetchNotificationParams) (*ApiV2010NotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -47,7 +53,7 @@ func (c *ApiService) FetchNotification(Sid string, params *FetchNotificationPara
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -111,6 +117,11 @@ func (params *ListNotificationParams) SetLimit(Limit int) *ListNotificationParam
 
 // Retrieve a single page of Notification records from the API. Request is executed immediately.
 func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken, pageNumber string) (*ListNotificationResponse, error) {
+	return c.PageNotificationWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Notification records from the API. Request is executed immediately.
+func (c *ApiService) PageNotificationWithCtx(ctx context.Context, params *ListNotificationParams, pageToken, pageNumber string) (*ListNotificationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Notifications.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -145,7 +156,7 @@ func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +173,12 @@ func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken,
 
 // Lists Notification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNotification(params *ListNotificationParams) ([]ApiV2010Notification, error) {
-	response, errors := c.StreamNotification(params)
+	return c.ListNotificationWithCtx(context.TODO(), params)
+}
+
+// Lists Notification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListNotificationWithCtx(ctx context.Context, params *ListNotificationParams) ([]ApiV2010Notification, error) {
+	response, errors := c.StreamNotificationWithCtx(ctx, params)
 
 	records := make([]ApiV2010Notification, 0)
 	for record := range response {
@@ -178,6 +194,11 @@ func (c *ApiService) ListNotification(params *ListNotificationParams) ([]ApiV201
 
 // Streams Notification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamNotification(params *ListNotificationParams) (chan ApiV2010Notification, chan error) {
+	return c.StreamNotificationWithCtx(context.TODO(), params)
+}
+
+// Streams Notification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamNotificationWithCtx(ctx context.Context, params *ListNotificationParams) (chan ApiV2010Notification, chan error) {
 	if params == nil {
 		params = &ListNotificationParams{}
 	}
@@ -186,19 +207,19 @@ func (c *ApiService) StreamNotification(params *ListNotificationParams) (chan Ap
 	recordChannel := make(chan ApiV2010Notification, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageNotification(params, "", "")
+	response, err := c.PageNotificationWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamNotification(response, params, recordChannel, errorChannel)
+		go c.streamNotification(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamNotification(response *ListNotificationResponse, params *ListNotificationParams, recordChannel chan ApiV2010Notification, errorChannel chan error) {
+func (c *ApiService) streamNotification(ctx context.Context, response *ListNotificationResponse, params *ListNotificationParams, recordChannel chan ApiV2010Notification, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -213,7 +234,7 @@ func (c *ApiService) streamNotification(response *ListNotificationResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListNotificationResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListNotificationResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -228,11 +249,11 @@ func (c *ApiService) streamNotification(response *ListNotificationResponse, para
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListNotificationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListNotificationResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

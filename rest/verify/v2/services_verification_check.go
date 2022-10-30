@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -57,6 +58,11 @@ func (params *CreateVerificationCheckParams) SetPayee(Payee string) *CreateVerif
 
 // challenge a specific Verification Check.
 func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVerificationCheckParams) (*VerifyV2VerificationCheck, error) {
+	return c.CreateVerificationCheckWithCtx(context.TODO(), ServiceSid, params)
+}
+
+// challenge a specific Verification Check.
+func (c *ApiService) CreateVerificationCheckWithCtx(ctx context.Context, ServiceSid string, params *CreateVerificationCheckParams) (*VerifyV2VerificationCheck, error) {
 	path := "/v2/Services/{ServiceSid}/VerificationCheck"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -79,7 +85,7 @@ func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVe
 		data.Set("Payee", *params.Payee)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

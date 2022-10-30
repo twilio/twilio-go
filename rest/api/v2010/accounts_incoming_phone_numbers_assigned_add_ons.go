@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *CreateIncomingPhoneNumberAssignedAddOnParams) SetInstalledAddOnSid
 
 // Assign an Add-on installation to the Number specified.
 func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *CreateIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
+	return c.CreateIncomingPhoneNumberAssignedAddOnWithCtx(context.TODO(), ResourceSid, params)
+}
+
+// Assign an Add-on installation to the Number specified.
+func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOnWithCtx(ctx context.Context, ResourceSid string, params *CreateIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -57,7 +63,7 @@ func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -85,6 +91,11 @@ func (params *DeleteIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(Pa
 
 // Remove the assignment of an Add-on installation from the Number specified.
 func (c *ApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *DeleteIncomingPhoneNumberAssignedAddOnParams) error {
+	return c.DeleteIncomingPhoneNumberAssignedAddOnWithCtx(context.TODO(), ResourceSid, Sid, params)
+}
+
+// Remove the assignment of an Add-on installation from the Number specified.
+func (c *ApiService) DeleteIncomingPhoneNumberAssignedAddOnWithCtx(ctx context.Context, ResourceSid string, Sid string, params *DeleteIncomingPhoneNumberAssignedAddOnParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -97,7 +108,7 @@ func (c *ApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -120,6 +131,11 @@ func (params *FetchIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(Pat
 
 // Fetch an instance of an Add-on installation currently assigned to this Number.
 func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *FetchIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
+	return c.FetchIncomingPhoneNumberAssignedAddOnWithCtx(context.TODO(), ResourceSid, Sid, params)
+}
+
+// Fetch an instance of an Add-on installation currently assigned to this Number.
+func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOnWithCtx(ctx context.Context, ResourceSid string, Sid string, params *FetchIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -132,7 +148,7 @@ func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, S
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -172,6 +188,11 @@ func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetLimit(Limit int) *L
 
 // Retrieve a single page of IncomingPhoneNumberAssignedAddOn records from the API. Request is executed immediately.
 func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
+	return c.PageIncomingPhoneNumberAssignedAddOnWithCtx(context.TODO(), ResourceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of IncomingPhoneNumberAssignedAddOn records from the API. Request is executed immediately.
+func (c *ApiService) PageIncomingPhoneNumberAssignedAddOnWithCtx(ctx context.Context, ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -195,7 +216,7 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -212,7 +233,12 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 
 // Lists IncomingPhoneNumberAssignedAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) ([]ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
-	response, errors := c.StreamIncomingPhoneNumberAssignedAddOn(ResourceSid, params)
+	return c.ListIncomingPhoneNumberAssignedAddOnWithCtx(context.TODO(), ResourceSid, params)
+}
+
+// Lists IncomingPhoneNumberAssignedAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIncomingPhoneNumberAssignedAddOnWithCtx(ctx context.Context, ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) ([]ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
+	response, errors := c.StreamIncomingPhoneNumberAssignedAddOnWithCtx(ctx, ResourceSid, params)
 
 	records := make([]ApiV2010IncomingPhoneNumberAssignedAddOn, 0)
 	for record := range response {
@@ -228,6 +254,11 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 
 // Streams IncomingPhoneNumberAssignedAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (chan ApiV2010IncomingPhoneNumberAssignedAddOn, chan error) {
+	return c.StreamIncomingPhoneNumberAssignedAddOnWithCtx(context.TODO(), ResourceSid, params)
+}
+
+// Streams IncomingPhoneNumberAssignedAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOnWithCtx(ctx context.Context, ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (chan ApiV2010IncomingPhoneNumberAssignedAddOn, chan error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberAssignedAddOnParams{}
 	}
@@ -236,19 +267,19 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 	recordChannel := make(chan ApiV2010IncomingPhoneNumberAssignedAddOn, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageIncomingPhoneNumberAssignedAddOn(ResourceSid, params, "", "")
+	response, err := c.PageIncomingPhoneNumberAssignedAddOnWithCtx(ctx, ResourceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamIncomingPhoneNumberAssignedAddOn(response, params, recordChannel, errorChannel)
+		go c.streamIncomingPhoneNumberAssignedAddOn(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIncomingPhoneNumberAssignedAddOn(response *ListIncomingPhoneNumberAssignedAddOnResponse, params *ListIncomingPhoneNumberAssignedAddOnParams, recordChannel chan ApiV2010IncomingPhoneNumberAssignedAddOn, errorChannel chan error) {
+func (c *ApiService) streamIncomingPhoneNumberAssignedAddOn(ctx context.Context, response *ListIncomingPhoneNumberAssignedAddOnResponse, params *ListIncomingPhoneNumberAssignedAddOnParams, recordChannel chan ApiV2010IncomingPhoneNumberAssignedAddOn, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -263,7 +294,7 @@ func (c *ApiService) streamIncomingPhoneNumberAssignedAddOn(response *ListIncomi
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberAssignedAddOnResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListIncomingPhoneNumberAssignedAddOnResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -278,11 +309,11 @@ func (c *ApiService) streamIncomingPhoneNumberAssignedAddOn(response *ListIncomi
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

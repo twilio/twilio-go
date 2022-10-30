@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *DeleteConferenceRecordingParams) SetPathAccountSid(PathAccountSid 
 
 // Delete a recording from your account
 func (c *ApiService) DeleteConferenceRecording(ConferenceSid string, Sid string, params *DeleteConferenceRecordingParams) error {
+	return c.DeleteConferenceRecordingWithCtx(context.TODO(), ConferenceSid, Sid, params)
+}
+
+// Delete a recording from your account
+func (c *ApiService) DeleteConferenceRecordingWithCtx(ctx context.Context, ConferenceSid string, Sid string, params *DeleteConferenceRecordingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -48,7 +54,7 @@ func (c *ApiService) DeleteConferenceRecording(ConferenceSid string, Sid string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -71,6 +77,11 @@ func (params *FetchConferenceRecordingParams) SetPathAccountSid(PathAccountSid s
 
 // Fetch an instance of a recording for a call
 func (c *ApiService) FetchConferenceRecording(ConferenceSid string, Sid string, params *FetchConferenceRecordingParams) (*ApiV2010ConferenceRecording, error) {
+	return c.FetchConferenceRecordingWithCtx(context.TODO(), ConferenceSid, Sid, params)
+}
+
+// Fetch an instance of a recording for a call
+func (c *ApiService) FetchConferenceRecordingWithCtx(ctx context.Context, ConferenceSid string, Sid string, params *FetchConferenceRecordingParams) (*ApiV2010ConferenceRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -83,7 +94,7 @@ func (c *ApiService) FetchConferenceRecording(ConferenceSid string, Sid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -141,6 +152,11 @@ func (params *ListConferenceRecordingParams) SetLimit(Limit int) *ListConference
 
 // Retrieve a single page of ConferenceRecording records from the API. Request is executed immediately.
 func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams, pageToken, pageNumber string) (*ListConferenceRecordingResponse, error) {
+	return c.PageConferenceRecordingWithCtx(context.TODO(), ConferenceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ConferenceRecording records from the API. Request is executed immediately.
+func (c *ApiService) PageConferenceRecordingWithCtx(ctx context.Context, ConferenceSid string, params *ListConferenceRecordingParams, pageToken, pageNumber string) (*ListConferenceRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -173,7 +189,7 @@ func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListC
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -190,7 +206,12 @@ func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListC
 
 // Lists ConferenceRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) ([]ApiV2010ConferenceRecording, error) {
-	response, errors := c.StreamConferenceRecording(ConferenceSid, params)
+	return c.ListConferenceRecordingWithCtx(context.TODO(), ConferenceSid, params)
+}
+
+// Lists ConferenceRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConferenceRecordingWithCtx(ctx context.Context, ConferenceSid string, params *ListConferenceRecordingParams) ([]ApiV2010ConferenceRecording, error) {
+	response, errors := c.StreamConferenceRecordingWithCtx(ctx, ConferenceSid, params)
 
 	records := make([]ApiV2010ConferenceRecording, 0)
 	for record := range response {
@@ -206,6 +227,11 @@ func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListC
 
 // Streams ConferenceRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) (chan ApiV2010ConferenceRecording, chan error) {
+	return c.StreamConferenceRecordingWithCtx(context.TODO(), ConferenceSid, params)
+}
+
+// Streams ConferenceRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConferenceRecordingWithCtx(ctx context.Context, ConferenceSid string, params *ListConferenceRecordingParams) (chan ApiV2010ConferenceRecording, chan error) {
 	if params == nil {
 		params = &ListConferenceRecordingParams{}
 	}
@@ -214,19 +240,19 @@ func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *Lis
 	recordChannel := make(chan ApiV2010ConferenceRecording, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageConferenceRecording(ConferenceSid, params, "", "")
+	response, err := c.PageConferenceRecordingWithCtx(ctx, ConferenceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConferenceRecording(response, params, recordChannel, errorChannel)
+		go c.streamConferenceRecording(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConferenceRecording(response *ListConferenceRecordingResponse, params *ListConferenceRecordingParams, recordChannel chan ApiV2010ConferenceRecording, errorChannel chan error) {
+func (c *ApiService) streamConferenceRecording(ctx context.Context, response *ListConferenceRecordingResponse, params *ListConferenceRecordingParams, recordChannel chan ApiV2010ConferenceRecording, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -241,7 +267,7 @@ func (c *ApiService) streamConferenceRecording(response *ListConferenceRecording
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListConferenceRecordingResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListConferenceRecordingResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -256,11 +282,11 @@ func (c *ApiService) streamConferenceRecording(response *ListConferenceRecording
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListConferenceRecordingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListConferenceRecordingResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -299,6 +325,11 @@ func (params *UpdateConferenceRecordingParams) SetPauseBehavior(PauseBehavior st
 
 // Changes the status of the recording to paused, stopped, or in-progress. Note: To use &#x60;Twilio.CURRENT&#x60;, pass it as recording sid.
 func (c *ApiService) UpdateConferenceRecording(ConferenceSid string, Sid string, params *UpdateConferenceRecordingParams) (*ApiV2010ConferenceRecording, error) {
+	return c.UpdateConferenceRecordingWithCtx(context.TODO(), ConferenceSid, Sid, params)
+}
+
+// Changes the status of the recording to paused, stopped, or in-progress. Note: To use &#x60;Twilio.CURRENT&#x60;, pass it as recording sid.
+func (c *ApiService) UpdateConferenceRecordingWithCtx(ctx context.Context, ConferenceSid string, Sid string, params *UpdateConferenceRecordingParams) (*ApiV2010ConferenceRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -318,7 +349,7 @@ func (c *ApiService) UpdateConferenceRecording(ConferenceSid string, Sid string,
 		data.Set("PauseBehavior", *params.PauseBehavior)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

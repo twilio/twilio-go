@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *CreateCustomerProfileEntityAssignmentParams) SetObjectSid(ObjectSi
 
 // Create a new Assigned Item.
 func (c *ApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid string, params *CreateCustomerProfileEntityAssignmentParams) (*TrusthubV1CustomerProfileEntityAssignment, error) {
+	return c.CreateCustomerProfileEntityAssignmentWithCtx(context.TODO(), CustomerProfileSid, params)
+}
+
+// Create a new Assigned Item.
+func (c *ApiService) CreateCustomerProfileEntityAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, params *CreateCustomerProfileEntityAssignmentParams) (*TrusthubV1CustomerProfileEntityAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
@@ -46,7 +52,7 @@ func (c *ApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid st
 		data.Set("ObjectSid", *params.ObjectSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -63,6 +69,11 @@ func (c *ApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid st
 
 // Remove an Assignment Item Instance.
 func (c *ApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) error {
+	return c.DeleteCustomerProfileEntityAssignmentWithCtx(context.TODO(), CustomerProfileSid, Sid)
+}
+
+// Remove an Assignment Item Instance.
+func (c *ApiService) DeleteCustomerProfileEntityAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, Sid string) error {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -70,7 +81,7 @@ func (c *ApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -82,6 +93,11 @@ func (c *ApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid st
 
 // Fetch specific Assigned Item Instance.
 func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileEntityAssignment, error) {
+	return c.FetchCustomerProfileEntityAssignmentWithCtx(context.TODO(), CustomerProfileSid, Sid)
+}
+
+// Fetch specific Assigned Item Instance.
+func (c *ApiService) FetchCustomerProfileEntityAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileEntityAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -89,7 +105,7 @@ func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -123,6 +139,11 @@ func (params *ListCustomerProfileEntityAssignmentParams) SetLimit(Limit int) *Li
 
 // Retrieve a single page of CustomerProfileEntityAssignment records from the API. Request is executed immediately.
 func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken, pageNumber string) (*ListCustomerProfileEntityAssignmentResponse, error) {
+	return c.PageCustomerProfileEntityAssignmentWithCtx(context.TODO(), CustomerProfileSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of CustomerProfileEntityAssignment records from the API. Request is executed immediately.
+func (c *ApiService) PageCustomerProfileEntityAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken, pageNumber string) (*ListCustomerProfileEntityAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -141,7 +162,7 @@ func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +179,12 @@ func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid stri
 
 // Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) ([]TrusthubV1CustomerProfileEntityAssignment, error) {
-	response, errors := c.StreamCustomerProfileEntityAssignment(CustomerProfileSid, params)
+	return c.ListCustomerProfileEntityAssignmentWithCtx(context.TODO(), CustomerProfileSid, params)
+}
+
+// Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomerProfileEntityAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) ([]TrusthubV1CustomerProfileEntityAssignment, error) {
+	response, errors := c.StreamCustomerProfileEntityAssignmentWithCtx(ctx, CustomerProfileSid, params)
 
 	records := make([]TrusthubV1CustomerProfileEntityAssignment, 0)
 	for record := range response {
@@ -174,6 +200,11 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 
 // Streams CustomerProfileEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) (chan TrusthubV1CustomerProfileEntityAssignment, chan error) {
+	return c.StreamCustomerProfileEntityAssignmentWithCtx(context.TODO(), CustomerProfileSid, params)
+}
+
+// Streams CustomerProfileEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomerProfileEntityAssignmentWithCtx(ctx context.Context, CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) (chan TrusthubV1CustomerProfileEntityAssignment, chan error) {
 	if params == nil {
 		params = &ListCustomerProfileEntityAssignmentParams{}
 	}
@@ -182,19 +213,19 @@ func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid st
 	recordChannel := make(chan TrusthubV1CustomerProfileEntityAssignment, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCustomerProfileEntityAssignment(CustomerProfileSid, params, "", "")
+	response, err := c.PageCustomerProfileEntityAssignmentWithCtx(ctx, CustomerProfileSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCustomerProfileEntityAssignment(response, params, recordChannel, errorChannel)
+		go c.streamCustomerProfileEntityAssignment(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCustomerProfileEntityAssignment(response *ListCustomerProfileEntityAssignmentResponse, params *ListCustomerProfileEntityAssignmentParams, recordChannel chan TrusthubV1CustomerProfileEntityAssignment, errorChannel chan error) {
+func (c *ApiService) streamCustomerProfileEntityAssignment(ctx context.Context, response *ListCustomerProfileEntityAssignmentResponse, params *ListCustomerProfileEntityAssignmentParams, recordChannel chan TrusthubV1CustomerProfileEntityAssignment, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -209,7 +240,7 @@ func (c *ApiService) streamCustomerProfileEntityAssignment(response *ListCustome
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCustomerProfileEntityAssignmentResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCustomerProfileEntityAssignmentResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -224,11 +255,11 @@ func (c *ApiService) streamCustomerProfileEntityAssignment(response *ListCustome
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCustomerProfileEntityAssignmentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCustomerProfileEntityAssignmentResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

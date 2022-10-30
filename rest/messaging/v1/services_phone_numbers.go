@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *CreatePhoneNumberParams) SetPhoneNumberSid(PhoneNumberSid string) 
 
 //
 func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNumberParams) (*MessagingV1PhoneNumber, error) {
+	return c.CreatePhoneNumberWithCtx(context.TODO(), ServiceSid, params)
+}
+
+//
+func (c *ApiService) CreatePhoneNumberWithCtx(ctx context.Context, ServiceSid string, params *CreatePhoneNumberParams) (*MessagingV1PhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -46,7 +52,7 @@ func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNum
 		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -63,6 +69,11 @@ func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNum
 
 //
 func (c *ApiService) DeletePhoneNumber(ServiceSid string, Sid string) error {
+	return c.DeletePhoneNumberWithCtx(context.TODO(), ServiceSid, Sid)
+}
+
+//
+func (c *ApiService) DeletePhoneNumberWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -70,7 +81,7 @@ func (c *ApiService) DeletePhoneNumber(ServiceSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -82,6 +93,11 @@ func (c *ApiService) DeletePhoneNumber(ServiceSid string, Sid string) error {
 
 //
 func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*MessagingV1PhoneNumber, error) {
+	return c.FetchPhoneNumberWithCtx(context.TODO(), ServiceSid, Sid)
+}
+
+//
+func (c *ApiService) FetchPhoneNumberWithCtx(ctx context.Context, ServiceSid string, Sid string) (*MessagingV1PhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -89,7 +105,7 @@ func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*Messaging
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -123,6 +139,11 @@ func (params *ListPhoneNumberParams) SetLimit(Limit int) *ListPhoneNumberParams 
 
 // Retrieve a single page of PhoneNumber records from the API. Request is executed immediately.
 func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberParams, pageToken, pageNumber string) (*ListPhoneNumberResponse, error) {
+	return c.PagePhoneNumberWithCtx(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of PhoneNumber records from the API. Request is executed immediately.
+func (c *ApiService) PagePhoneNumberWithCtx(ctx context.Context, ServiceSid string, params *ListPhoneNumberParams, pageToken, pageNumber string) (*ListPhoneNumberResponse, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -141,7 +162,7 @@ func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +179,12 @@ func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberP
 
 // Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) ([]MessagingV1PhoneNumber, error) {
-	response, errors := c.StreamPhoneNumber(ServiceSid, params)
+	return c.ListPhoneNumberWithCtx(context.TODO(), ServiceSid, params)
+}
+
+// Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPhoneNumberWithCtx(ctx context.Context, ServiceSid string, params *ListPhoneNumberParams) ([]MessagingV1PhoneNumber, error) {
+	response, errors := c.StreamPhoneNumberWithCtx(ctx, ServiceSid, params)
 
 	records := make([]MessagingV1PhoneNumber, 0)
 	for record := range response {
@@ -174,6 +200,11 @@ func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberP
 
 // Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) (chan MessagingV1PhoneNumber, chan error) {
+	return c.StreamPhoneNumberWithCtx(context.TODO(), ServiceSid, params)
+}
+
+// Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamPhoneNumberWithCtx(ctx context.Context, ServiceSid string, params *ListPhoneNumberParams) (chan MessagingV1PhoneNumber, chan error) {
 	if params == nil {
 		params = &ListPhoneNumberParams{}
 	}
@@ -182,19 +213,19 @@ func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumbe
 	recordChannel := make(chan MessagingV1PhoneNumber, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PagePhoneNumber(ServiceSid, params, "", "")
+	response, err := c.PagePhoneNumberWithCtx(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamPhoneNumber(response, params, recordChannel, errorChannel)
+		go c.streamPhoneNumber(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPhoneNumber(response *ListPhoneNumberResponse, params *ListPhoneNumberParams, recordChannel chan MessagingV1PhoneNumber, errorChannel chan error) {
+func (c *ApiService) streamPhoneNumber(ctx context.Context, response *ListPhoneNumberResponse, params *ListPhoneNumberParams, recordChannel chan MessagingV1PhoneNumber, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -209,7 +240,7 @@ func (c *ApiService) streamPhoneNumber(response *ListPhoneNumberResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListPhoneNumberResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListPhoneNumberResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -224,11 +255,11 @@ func (c *ApiService) streamPhoneNumber(response *ListPhoneNumberResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListPhoneNumberResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListPhoneNumberResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

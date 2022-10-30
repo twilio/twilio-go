@@ -15,18 +15,24 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
 
 // Fetches public JWKs
 func (c *ApiService) FetchCerts() (*OauthV1Certs, error) {
+	return c.FetchCertsWithCtx(context.TODO())
+}
+
+// Fetches public JWKs
+func (c *ApiService) FetchCertsWithCtx(ctx context.Context) (*OauthV1Certs, error) {
 	path := "/v1/certs"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

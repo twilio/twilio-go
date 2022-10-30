@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *CreateTrustProductEntityAssignmentParams) SetObjectSid(ObjectSid s
 
 // Create a new Assigned Item.
 func (c *ApiService) CreateTrustProductEntityAssignment(TrustProductSid string, params *CreateTrustProductEntityAssignmentParams) (*TrusthubV1TrustProductEntityAssignment, error) {
+	return c.CreateTrustProductEntityAssignmentWithCtx(context.TODO(), TrustProductSid, params)
+}
+
+// Create a new Assigned Item.
+func (c *ApiService) CreateTrustProductEntityAssignmentWithCtx(ctx context.Context, TrustProductSid string, params *CreateTrustProductEntityAssignmentParams) (*TrusthubV1TrustProductEntityAssignment, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
@@ -46,7 +52,7 @@ func (c *ApiService) CreateTrustProductEntityAssignment(TrustProductSid string, 
 		data.Set("ObjectSid", *params.ObjectSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -63,6 +69,11 @@ func (c *ApiService) CreateTrustProductEntityAssignment(TrustProductSid string, 
 
 // Remove an Assignment Item Instance.
 func (c *ApiService) DeleteTrustProductEntityAssignment(TrustProductSid string, Sid string) error {
+	return c.DeleteTrustProductEntityAssignmentWithCtx(context.TODO(), TrustProductSid, Sid)
+}
+
+// Remove an Assignment Item Instance.
+func (c *ApiService) DeleteTrustProductEntityAssignmentWithCtx(ctx context.Context, TrustProductSid string, Sid string) error {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -70,7 +81,7 @@ func (c *ApiService) DeleteTrustProductEntityAssignment(TrustProductSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -82,6 +93,11 @@ func (c *ApiService) DeleteTrustProductEntityAssignment(TrustProductSid string, 
 
 // Fetch specific Assigned Item Instance.
 func (c *ApiService) FetchTrustProductEntityAssignment(TrustProductSid string, Sid string) (*TrusthubV1TrustProductEntityAssignment, error) {
+	return c.FetchTrustProductEntityAssignmentWithCtx(context.TODO(), TrustProductSid, Sid)
+}
+
+// Fetch specific Assigned Item Instance.
+func (c *ApiService) FetchTrustProductEntityAssignmentWithCtx(ctx context.Context, TrustProductSid string, Sid string) (*TrusthubV1TrustProductEntityAssignment, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -89,7 +105,7 @@ func (c *ApiService) FetchTrustProductEntityAssignment(TrustProductSid string, S
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -123,6 +139,11 @@ func (params *ListTrustProductEntityAssignmentParams) SetLimit(Limit int) *ListT
 
 // Retrieve a single page of TrustProductEntityAssignment records from the API. Request is executed immediately.
 func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, pageToken, pageNumber string) (*ListTrustProductEntityAssignmentResponse, error) {
+	return c.PageTrustProductEntityAssignmentWithCtx(context.TODO(), TrustProductSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of TrustProductEntityAssignment records from the API. Request is executed immediately.
+func (c *ApiService) PageTrustProductEntityAssignmentWithCtx(ctx context.Context, TrustProductSid string, params *ListTrustProductEntityAssignmentParams, pageToken, pageNumber string) (*ListTrustProductEntityAssignmentResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
 
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -141,7 +162,7 @@ func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +179,12 @@ func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, pa
 
 // Lists TrustProductEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) ([]TrusthubV1TrustProductEntityAssignment, error) {
-	response, errors := c.StreamTrustProductEntityAssignment(TrustProductSid, params)
+	return c.ListTrustProductEntityAssignmentWithCtx(context.TODO(), TrustProductSid, params)
+}
+
+// Lists TrustProductEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTrustProductEntityAssignmentWithCtx(ctx context.Context, TrustProductSid string, params *ListTrustProductEntityAssignmentParams) ([]TrusthubV1TrustProductEntityAssignment, error) {
+	response, errors := c.StreamTrustProductEntityAssignmentWithCtx(ctx, TrustProductSid, params)
 
 	records := make([]TrusthubV1TrustProductEntityAssignment, 0)
 	for record := range response {
@@ -174,6 +200,11 @@ func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, pa
 
 // Streams TrustProductEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) (chan TrusthubV1TrustProductEntityAssignment, chan error) {
+	return c.StreamTrustProductEntityAssignmentWithCtx(context.TODO(), TrustProductSid, params)
+}
+
+// Streams TrustProductEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTrustProductEntityAssignmentWithCtx(ctx context.Context, TrustProductSid string, params *ListTrustProductEntityAssignmentParams) (chan TrusthubV1TrustProductEntityAssignment, chan error) {
 	if params == nil {
 		params = &ListTrustProductEntityAssignmentParams{}
 	}
@@ -182,19 +213,19 @@ func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, 
 	recordChannel := make(chan TrusthubV1TrustProductEntityAssignment, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTrustProductEntityAssignment(TrustProductSid, params, "", "")
+	response, err := c.PageTrustProductEntityAssignmentWithCtx(ctx, TrustProductSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTrustProductEntityAssignment(response, params, recordChannel, errorChannel)
+		go c.streamTrustProductEntityAssignment(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTrustProductEntityAssignment(response *ListTrustProductEntityAssignmentResponse, params *ListTrustProductEntityAssignmentParams, recordChannel chan TrusthubV1TrustProductEntityAssignment, errorChannel chan error) {
+func (c *ApiService) streamTrustProductEntityAssignment(ctx context.Context, response *ListTrustProductEntityAssignmentResponse, params *ListTrustProductEntityAssignmentParams, recordChannel chan TrusthubV1TrustProductEntityAssignment, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -209,7 +240,7 @@ func (c *ApiService) streamTrustProductEntityAssignment(response *ListTrustProdu
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListTrustProductEntityAssignmentResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListTrustProductEntityAssignmentResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -224,11 +255,11 @@ func (c *ApiService) streamTrustProductEntityAssignment(response *ListTrustProdu
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTrustProductEntityAssignmentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTrustProductEntityAssignmentResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

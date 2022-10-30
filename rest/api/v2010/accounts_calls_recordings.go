@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -72,6 +73,11 @@ func (params *CreateCallRecordingParams) SetRecordingTrack(RecordingTrack string
 
 // Create a recording for the call
 func (c *ApiService) CreateCallRecording(CallSid string, params *CreateCallRecordingParams) (*ApiV2010CallRecording, error) {
+	return c.CreateCallRecordingWithCtx(context.TODO(), CallSid, params)
+}
+
+// Create a recording for the call
+func (c *ApiService) CreateCallRecordingWithCtx(ctx context.Context, CallSid string, params *CreateCallRecordingParams) (*ApiV2010CallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -104,7 +110,7 @@ func (c *ApiService) CreateCallRecording(CallSid string, params *CreateCallRecor
 		data.Set("RecordingTrack", *params.RecordingTrack)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -132,6 +138,11 @@ func (params *DeleteCallRecordingParams) SetPathAccountSid(PathAccountSid string
 
 // Delete a recording from your account
 func (c *ApiService) DeleteCallRecording(CallSid string, Sid string, params *DeleteCallRecordingParams) error {
+	return c.DeleteCallRecordingWithCtx(context.TODO(), CallSid, Sid, params)
+}
+
+// Delete a recording from your account
+func (c *ApiService) DeleteCallRecordingWithCtx(ctx context.Context, CallSid string, Sid string, params *DeleteCallRecordingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -144,7 +155,7 @@ func (c *ApiService) DeleteCallRecording(CallSid string, Sid string, params *Del
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -167,6 +178,11 @@ func (params *FetchCallRecordingParams) SetPathAccountSid(PathAccountSid string)
 
 // Fetch an instance of a recording for a call
 func (c *ApiService) FetchCallRecording(CallSid string, Sid string, params *FetchCallRecordingParams) (*ApiV2010CallRecording, error) {
+	return c.FetchCallRecordingWithCtx(context.TODO(), CallSid, Sid, params)
+}
+
+// Fetch an instance of a recording for a call
+func (c *ApiService) FetchCallRecordingWithCtx(ctx context.Context, CallSid string, Sid string, params *FetchCallRecordingParams) (*ApiV2010CallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -179,7 +195,7 @@ func (c *ApiService) FetchCallRecording(CallSid string, Sid string, params *Fetc
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -237,6 +253,11 @@ func (params *ListCallRecordingParams) SetLimit(Limit int) *ListCallRecordingPar
 
 // Retrieve a single page of CallRecording records from the API. Request is executed immediately.
 func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecordingParams, pageToken, pageNumber string) (*ListCallRecordingResponse, error) {
+	return c.PageCallRecordingWithCtx(context.TODO(), CallSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of CallRecording records from the API. Request is executed immediately.
+func (c *ApiService) PageCallRecordingWithCtx(ctx context.Context, CallSid string, params *ListCallRecordingParams, pageToken, pageNumber string) (*ListCallRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -269,7 +290,7 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -286,7 +307,12 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 
 // Lists CallRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams) ([]ApiV2010CallRecording, error) {
-	response, errors := c.StreamCallRecording(CallSid, params)
+	return c.ListCallRecordingWithCtx(context.TODO(), CallSid, params)
+}
+
+// Lists CallRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCallRecordingWithCtx(ctx context.Context, CallSid string, params *ListCallRecordingParams) ([]ApiV2010CallRecording, error) {
+	response, errors := c.StreamCallRecordingWithCtx(ctx, CallSid, params)
 
 	records := make([]ApiV2010CallRecording, 0)
 	for record := range response {
@@ -302,6 +328,11 @@ func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecording
 
 // Streams CallRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordingParams) (chan ApiV2010CallRecording, chan error) {
+	return c.StreamCallRecordingWithCtx(context.TODO(), CallSid, params)
+}
+
+// Streams CallRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCallRecordingWithCtx(ctx context.Context, CallSid string, params *ListCallRecordingParams) (chan ApiV2010CallRecording, chan error) {
 	if params == nil {
 		params = &ListCallRecordingParams{}
 	}
@@ -310,19 +341,19 @@ func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordi
 	recordChannel := make(chan ApiV2010CallRecording, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCallRecording(CallSid, params, "", "")
+	response, err := c.PageCallRecordingWithCtx(ctx, CallSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCallRecording(response, params, recordChannel, errorChannel)
+		go c.streamCallRecording(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCallRecording(response *ListCallRecordingResponse, params *ListCallRecordingParams, recordChannel chan ApiV2010CallRecording, errorChannel chan error) {
+func (c *ApiService) streamCallRecording(ctx context.Context, response *ListCallRecordingResponse, params *ListCallRecordingParams, recordChannel chan ApiV2010CallRecording, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -337,7 +368,7 @@ func (c *ApiService) streamCallRecording(response *ListCallRecordingResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCallRecordingResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCallRecordingResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -352,11 +383,11 @@ func (c *ApiService) streamCallRecording(response *ListCallRecordingResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCallRecordingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCallRecordingResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -395,6 +426,11 @@ func (params *UpdateCallRecordingParams) SetPauseBehavior(PauseBehavior string) 
 
 // Changes the status of the recording to paused, stopped, or in-progress. Note: Pass &#x60;Twilio.CURRENT&#x60; instead of recording sid to reference current active recording.
 func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *UpdateCallRecordingParams) (*ApiV2010CallRecording, error) {
+	return c.UpdateCallRecordingWithCtx(context.TODO(), CallSid, Sid, params)
+}
+
+// Changes the status of the recording to paused, stopped, or in-progress. Note: Pass &#x60;Twilio.CURRENT&#x60; instead of recording sid to reference current active recording.
+func (c *ApiService) UpdateCallRecordingWithCtx(ctx context.Context, CallSid string, Sid string, params *UpdateCallRecordingParams) (*ApiV2010CallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -414,7 +450,7 @@ func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *Upd
 		data.Set("PauseBehavior", *params.PauseBehavior)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

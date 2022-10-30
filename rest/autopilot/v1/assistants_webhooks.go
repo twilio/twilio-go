@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -54,6 +55,11 @@ func (params *CreateWebhookParams) SetWebhookMethod(WebhookMethod string) *Creat
 
 //
 func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookParams) (*AutopilotV1Webhook, error) {
+	return c.CreateWebhookWithCtx(context.TODO(), AssistantSid, params)
+}
+
+//
+func (c *ApiService) CreateWebhookWithCtx(ctx context.Context, AssistantSid string, params *CreateWebhookParams) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -73,7 +79,7 @@ func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookPar
 		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -90,6 +96,11 @@ func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookPar
 
 //
 func (c *ApiService) DeleteWebhook(AssistantSid string, Sid string) error {
+	return c.DeleteWebhookWithCtx(context.TODO(), AssistantSid, Sid)
+}
+
+//
+func (c *ApiService) DeleteWebhookWithCtx(ctx context.Context, AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -97,7 +108,7 @@ func (c *ApiService) DeleteWebhook(AssistantSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -109,6 +120,11 @@ func (c *ApiService) DeleteWebhook(AssistantSid string, Sid string) error {
 
 //
 func (c *ApiService) FetchWebhook(AssistantSid string, Sid string) (*AutopilotV1Webhook, error) {
+	return c.FetchWebhookWithCtx(context.TODO(), AssistantSid, Sid)
+}
+
+//
+func (c *ApiService) FetchWebhookWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -116,7 +132,7 @@ func (c *ApiService) FetchWebhook(AssistantSid string, Sid string) (*AutopilotV1
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -150,6 +166,11 @@ func (params *ListWebhookParams) SetLimit(Limit int) *ListWebhookParams {
 
 // Retrieve a single page of Webhook records from the API. Request is executed immediately.
 func (c *ApiService) PageWebhook(AssistantSid string, params *ListWebhookParams, pageToken, pageNumber string) (*ListWebhookResponse, error) {
+	return c.PageWebhookWithCtx(context.TODO(), AssistantSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Webhook records from the API. Request is executed immediately.
+func (c *ApiService) PageWebhookWithCtx(ctx context.Context, AssistantSid string, params *ListWebhookParams, pageToken, pageNumber string) (*ListWebhookResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -168,7 +189,7 @@ func (c *ApiService) PageWebhook(AssistantSid string, params *ListWebhookParams,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -185,7 +206,12 @@ func (c *ApiService) PageWebhook(AssistantSid string, params *ListWebhookParams,
 
 // Lists Webhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWebhook(AssistantSid string, params *ListWebhookParams) ([]AutopilotV1Webhook, error) {
-	response, errors := c.StreamWebhook(AssistantSid, params)
+	return c.ListWebhookWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Lists Webhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWebhookWithCtx(ctx context.Context, AssistantSid string, params *ListWebhookParams) ([]AutopilotV1Webhook, error) {
+	response, errors := c.StreamWebhookWithCtx(ctx, AssistantSid, params)
 
 	records := make([]AutopilotV1Webhook, 0)
 	for record := range response {
@@ -201,6 +227,11 @@ func (c *ApiService) ListWebhook(AssistantSid string, params *ListWebhookParams)
 
 // Streams Webhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWebhook(AssistantSid string, params *ListWebhookParams) (chan AutopilotV1Webhook, chan error) {
+	return c.StreamWebhookWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Streams Webhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWebhookWithCtx(ctx context.Context, AssistantSid string, params *ListWebhookParams) (chan AutopilotV1Webhook, chan error) {
 	if params == nil {
 		params = &ListWebhookParams{}
 	}
@@ -209,19 +240,19 @@ func (c *ApiService) StreamWebhook(AssistantSid string, params *ListWebhookParam
 	recordChannel := make(chan AutopilotV1Webhook, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageWebhook(AssistantSid, params, "", "")
+	response, err := c.PageWebhookWithCtx(ctx, AssistantSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamWebhook(response, params, recordChannel, errorChannel)
+		go c.streamWebhook(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamWebhook(response *ListWebhookResponse, params *ListWebhookParams, recordChannel chan AutopilotV1Webhook, errorChannel chan error) {
+func (c *ApiService) streamWebhook(ctx context.Context, response *ListWebhookResponse, params *ListWebhookParams, recordChannel chan AutopilotV1Webhook, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -236,7 +267,7 @@ func (c *ApiService) streamWebhook(response *ListWebhookResponse, params *ListWe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListWebhookResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListWebhookResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -251,11 +282,11 @@ func (c *ApiService) streamWebhook(response *ListWebhookResponse, params *ListWe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListWebhookResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListWebhookResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -300,6 +331,11 @@ func (params *UpdateWebhookParams) SetWebhookMethod(WebhookMethod string) *Updat
 
 //
 func (c *ApiService) UpdateWebhook(AssistantSid string, Sid string, params *UpdateWebhookParams) (*AutopilotV1Webhook, error) {
+	return c.UpdateWebhookWithCtx(context.TODO(), AssistantSid, Sid, params)
+}
+
+//
+func (c *ApiService) UpdateWebhookWithCtx(ctx context.Context, AssistantSid string, Sid string, params *UpdateWebhookParams) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -320,7 +356,7 @@ func (c *ApiService) UpdateWebhook(AssistantSid string, Sid string, params *Upda
 		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

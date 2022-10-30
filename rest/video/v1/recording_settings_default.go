@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -63,6 +64,11 @@ func (params *CreateRecordingSettingsParams) SetEncryptionEnabled(EncryptionEnab
 
 //
 func (c *ApiService) CreateRecordingSettings(params *CreateRecordingSettingsParams) (*VideoV1RecordingSettings, error) {
+	return c.CreateRecordingSettingsWithCtx(context.TODO(), params)
+}
+
+//
+func (c *ApiService) CreateRecordingSettingsWithCtx(ctx context.Context, params *CreateRecordingSettingsParams) (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
 	data := url.Values{}
@@ -87,7 +93,7 @@ func (c *ApiService) CreateRecordingSettings(params *CreateRecordingSettingsPara
 		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -104,12 +110,17 @@ func (c *ApiService) CreateRecordingSettings(params *CreateRecordingSettingsPara
 
 //
 func (c *ApiService) FetchRecordingSettings() (*VideoV1RecordingSettings, error) {
+	return c.FetchRecordingSettingsWithCtx(context.TODO())
+}
+
+//
+func (c *ApiService) FetchRecordingSettingsWithCtx(ctx context.Context) (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

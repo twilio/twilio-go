@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,13 +27,18 @@ import (
 
 // Delete a Recording resource identified by a Recording SID.
 func (c *ApiService) DeleteRecording(Sid string) error {
+	return c.DeleteRecordingWithCtx(context.TODO(), Sid)
+}
+
+// Delete a Recording resource identified by a Recording SID.
+func (c *ApiService) DeleteRecordingWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -44,13 +50,18 @@ func (c *ApiService) DeleteRecording(Sid string) error {
 
 // Returns a single Recording resource identified by a Recording SID.
 func (c *ApiService) FetchRecording(Sid string) (*VideoV1Recording, error) {
+	return c.FetchRecordingWithCtx(context.TODO(), Sid)
+}
+
+// Returns a single Recording resource identified by a Recording SID.
+func (c *ApiService) FetchRecordingWithCtx(ctx context.Context, Sid string) (*VideoV1Recording, error) {
 	path := "/v1/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -120,6 +131,11 @@ func (params *ListRecordingParams) SetLimit(Limit int) *ListRecordingParams {
 
 // Retrieve a single page of Recording records from the API. Request is executed immediately.
 func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageNumber string) (*ListRecordingResponse, error) {
+	return c.PageRecordingWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Recording records from the API. Request is executed immediately.
+func (c *ApiService) PageRecordingWithCtx(ctx context.Context, params *ListRecordingParams, pageToken, pageNumber string) (*ListRecordingResponse, error) {
 	path := "/v1/Recordings"
 
 	data := url.Values{}
@@ -156,7 +172,7 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -173,7 +189,12 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageN
 
 // Lists Recording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRecording(params *ListRecordingParams) ([]VideoV1Recording, error) {
-	response, errors := c.StreamRecording(params)
+	return c.ListRecordingWithCtx(context.TODO(), params)
+}
+
+// Lists Recording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRecordingWithCtx(ctx context.Context, params *ListRecordingParams) ([]VideoV1Recording, error) {
+	response, errors := c.StreamRecordingWithCtx(ctx, params)
 
 	records := make([]VideoV1Recording, 0)
 	for record := range response {
@@ -189,6 +210,11 @@ func (c *ApiService) ListRecording(params *ListRecordingParams) ([]VideoV1Record
 
 // Streams Recording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan VideoV1Recording, chan error) {
+	return c.StreamRecordingWithCtx(context.TODO(), params)
+}
+
+// Streams Recording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRecordingWithCtx(ctx context.Context, params *ListRecordingParams) (chan VideoV1Recording, chan error) {
 	if params == nil {
 		params = &ListRecordingParams{}
 	}
@@ -197,19 +223,19 @@ func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan VideoV1R
 	recordChannel := make(chan VideoV1Recording, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRecording(params, "", "")
+	response, err := c.PageRecordingWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRecording(response, params, recordChannel, errorChannel)
+		go c.streamRecording(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRecording(response *ListRecordingResponse, params *ListRecordingParams, recordChannel chan VideoV1Recording, errorChannel chan error) {
+func (c *ApiService) streamRecording(ctx context.Context, response *ListRecordingResponse, params *ListRecordingParams, recordChannel chan VideoV1Recording, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -224,7 +250,7 @@ func (c *ApiService) streamRecording(response *ListRecordingResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRecordingResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListRecordingResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -239,11 +265,11 @@ func (c *ApiService) streamRecording(response *ListRecordingResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRecordingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRecordingResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

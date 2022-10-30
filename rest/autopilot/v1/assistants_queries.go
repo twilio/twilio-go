@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -54,6 +55,11 @@ func (params *CreateQueryParams) SetModelBuild(ModelBuild string) *CreateQueryPa
 
 //
 func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams) (*AutopilotV1Query, error) {
+	return c.CreateQueryWithCtx(context.TODO(), AssistantSid, params)
+}
+
+//
+func (c *ApiService) CreateQueryWithCtx(ctx context.Context, AssistantSid string, params *CreateQueryParams) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -73,7 +79,7 @@ func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams)
 		data.Set("ModelBuild", *params.ModelBuild)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -90,6 +96,11 @@ func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams)
 
 //
 func (c *ApiService) DeleteQuery(AssistantSid string, Sid string) error {
+	return c.DeleteQueryWithCtx(context.TODO(), AssistantSid, Sid)
+}
+
+//
+func (c *ApiService) DeleteQueryWithCtx(ctx context.Context, AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -97,7 +108,7 @@ func (c *ApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -109,6 +120,11 @@ func (c *ApiService) DeleteQuery(AssistantSid string, Sid string) error {
 
 //
 func (c *ApiService) FetchQuery(AssistantSid string, Sid string) (*AutopilotV1Query, error) {
+	return c.FetchQueryWithCtx(context.TODO(), AssistantSid, Sid)
+}
+
+//
+func (c *ApiService) FetchQueryWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -116,7 +132,7 @@ func (c *ApiService) FetchQuery(AssistantSid string, Sid string) (*AutopilotV1Qu
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -174,6 +190,11 @@ func (params *ListQueryParams) SetLimit(Limit int) *ListQueryParams {
 
 // Retrieve a single page of Query records from the API. Request is executed immediately.
 func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pageToken, pageNumber string) (*ListQueryResponse, error) {
+	return c.PageQueryWithCtx(context.TODO(), AssistantSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Query records from the API. Request is executed immediately.
+func (c *ApiService) PageQueryWithCtx(ctx context.Context, AssistantSid string, params *ListQueryParams, pageToken, pageNumber string) (*ListQueryResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -204,7 +225,7 @@ func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +242,12 @@ func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pag
 
 // Lists Query records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) ([]AutopilotV1Query, error) {
-	response, errors := c.StreamQuery(AssistantSid, params)
+	return c.ListQueryWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Lists Query records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListQueryWithCtx(ctx context.Context, AssistantSid string, params *ListQueryParams) ([]AutopilotV1Query, error) {
+	response, errors := c.StreamQueryWithCtx(ctx, AssistantSid, params)
 
 	records := make([]AutopilotV1Query, 0)
 	for record := range response {
@@ -237,6 +263,11 @@ func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) ([]
 
 // Streams Query records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams) (chan AutopilotV1Query, chan error) {
+	return c.StreamQueryWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Streams Query records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamQueryWithCtx(ctx context.Context, AssistantSid string, params *ListQueryParams) (chan AutopilotV1Query, chan error) {
 	if params == nil {
 		params = &ListQueryParams{}
 	}
@@ -245,19 +276,19 @@ func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams) (
 	recordChannel := make(chan AutopilotV1Query, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageQuery(AssistantSid, params, "", "")
+	response, err := c.PageQueryWithCtx(ctx, AssistantSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamQuery(response, params, recordChannel, errorChannel)
+		go c.streamQuery(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamQuery(response *ListQueryResponse, params *ListQueryParams, recordChannel chan AutopilotV1Query, errorChannel chan error) {
+func (c *ApiService) streamQuery(ctx context.Context, response *ListQueryResponse, params *ListQueryParams, recordChannel chan AutopilotV1Query, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -272,7 +303,7 @@ func (c *ApiService) streamQuery(response *ListQueryResponse, params *ListQueryP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListQueryResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListQueryResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -287,11 +318,11 @@ func (c *ApiService) streamQuery(response *ListQueryResponse, params *ListQueryP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListQueryResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListQueryResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -324,6 +355,11 @@ func (params *UpdateQueryParams) SetStatus(Status string) *UpdateQueryParams {
 
 //
 func (c *ApiService) UpdateQuery(AssistantSid string, Sid string, params *UpdateQueryParams) (*AutopilotV1Query, error) {
+	return c.UpdateQueryWithCtx(context.TODO(), AssistantSid, Sid, params)
+}
+
+//
+func (c *ApiService) UpdateQueryWithCtx(ctx context.Context, AssistantSid string, Sid string, params *UpdateQueryParams) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -338,7 +374,7 @@ func (c *ApiService) UpdateQuery(AssistantSid string, Sid string, params *Update
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

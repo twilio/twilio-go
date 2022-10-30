@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,11 @@ func (params *FetchUsAppToPersonUsecaseParams) SetBrandRegistrationSid(BrandRegi
 
 //
 func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string, params *FetchUsAppToPersonUsecaseParams) (*MessagingV1UsAppToPersonUsecase, error) {
+	return c.FetchUsAppToPersonUsecaseWithCtx(context.TODO(), MessagingServiceSid, params)
+}
+
+//
+func (c *ApiService) FetchUsAppToPersonUsecaseWithCtx(ctx context.Context, MessagingServiceSid string, params *FetchUsAppToPersonUsecaseParams) (*MessagingV1UsAppToPersonUsecase, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
@@ -43,7 +49,7 @@ func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string, param
 		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

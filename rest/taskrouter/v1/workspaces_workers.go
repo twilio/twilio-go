@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,11 @@ func (params *CreateWorkerParams) SetAttributes(Attributes string) *CreateWorker
 
 //
 func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParams) (*TaskrouterV1Worker, error) {
+	return c.CreateWorkerWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+//
+func (c *ApiService) CreateWorkerWithCtx(ctx context.Context, WorkspaceSid string, params *CreateWorkerParams) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -64,7 +70,7 @@ func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParam
 		data.Set("Attributes", *params.Attributes)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -92,6 +98,11 @@ func (params *DeleteWorkerParams) SetIfMatch(IfMatch string) *DeleteWorkerParams
 
 //
 func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *DeleteWorkerParams) error {
+	return c.DeleteWorkerWithCtx(context.TODO(), WorkspaceSid, Sid, params)
+}
+
+//
+func (c *ApiService) DeleteWorkerWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *DeleteWorkerParams) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -103,7 +114,7 @@ func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *Delet
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -115,6 +126,11 @@ func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *Delet
 
 //
 func (c *ApiService) FetchWorker(WorkspaceSid string, Sid string) (*TaskrouterV1Worker, error) {
+	return c.FetchWorkerWithCtx(context.TODO(), WorkspaceSid, Sid)
+}
+
+//
+func (c *ApiService) FetchWorkerWithCtx(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -122,7 +138,7 @@ func (c *ApiService) FetchWorker(WorkspaceSid string, Sid string) (*TaskrouterV1
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -204,6 +220,11 @@ func (params *ListWorkerParams) SetLimit(Limit int) *ListWorkerParams {
 
 // Retrieve a single page of Worker records from the API. Request is executed immediately.
 func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, pageToken, pageNumber string) (*ListWorkerResponse, error) {
+	return c.PageWorkerWithCtx(context.TODO(), WorkspaceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Worker records from the API. Request is executed immediately.
+func (c *ApiService) PageWorkerWithCtx(ctx context.Context, WorkspaceSid string, params *ListWorkerParams, pageToken, pageNumber string) (*ListWorkerResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -246,7 +267,7 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -263,7 +284,12 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 
 // Lists Worker records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams) ([]TaskrouterV1Worker, error) {
-	response, errors := c.StreamWorker(WorkspaceSid, params)
+	return c.ListWorkerWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+// Lists Worker records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWorkerWithCtx(ctx context.Context, WorkspaceSid string, params *ListWorkerParams) ([]TaskrouterV1Worker, error) {
+	response, errors := c.StreamWorkerWithCtx(ctx, WorkspaceSid, params)
 
 	records := make([]TaskrouterV1Worker, 0)
 	for record := range response {
@@ -279,6 +305,11 @@ func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams) (
 
 // Streams Worker records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWorker(WorkspaceSid string, params *ListWorkerParams) (chan TaskrouterV1Worker, chan error) {
+	return c.StreamWorkerWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+// Streams Worker records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWorkerWithCtx(ctx context.Context, WorkspaceSid string, params *ListWorkerParams) (chan TaskrouterV1Worker, chan error) {
 	if params == nil {
 		params = &ListWorkerParams{}
 	}
@@ -287,19 +318,19 @@ func (c *ApiService) StreamWorker(WorkspaceSid string, params *ListWorkerParams)
 	recordChannel := make(chan TaskrouterV1Worker, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageWorker(WorkspaceSid, params, "", "")
+	response, err := c.PageWorkerWithCtx(ctx, WorkspaceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamWorker(response, params, recordChannel, errorChannel)
+		go c.streamWorker(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamWorker(response *ListWorkerResponse, params *ListWorkerParams, recordChannel chan TaskrouterV1Worker, errorChannel chan error) {
+func (c *ApiService) streamWorker(ctx context.Context, response *ListWorkerResponse, params *ListWorkerParams, recordChannel chan TaskrouterV1Worker, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -314,7 +345,7 @@ func (c *ApiService) streamWorker(response *ListWorkerResponse, params *ListWork
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListWorkerResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListWorkerResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -329,11 +360,11 @@ func (c *ApiService) streamWorker(response *ListWorkerResponse, params *ListWork
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListWorkerResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListWorkerResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -384,6 +415,11 @@ func (params *UpdateWorkerParams) SetRejectPendingReservations(RejectPendingRese
 
 //
 func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *UpdateWorkerParams) (*TaskrouterV1Worker, error) {
+	return c.UpdateWorkerWithCtx(context.TODO(), WorkspaceSid, Sid, params)
+}
+
+//
+func (c *ApiService) UpdateWorkerWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *UpdateWorkerParams) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -408,7 +444,7 @@ func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *Updat
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

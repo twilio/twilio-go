@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -90,6 +91,11 @@ func (params *CreateChannelParams) SetLongLived(LongLived bool) *CreateChannelPa
 
 //
 func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel, error) {
+	return c.CreateChannelWithCtx(context.TODO(), params)
+}
+
+//
+func (c *ApiService) CreateChannelWithCtx(ctx context.Context, params *CreateChannelParams) (*FlexV1Channel, error) {
 	path := "/v1/Channels"
 
 	data := url.Values{}
@@ -126,7 +132,7 @@ func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel,
 		data.Set("LongLived", fmt.Sprint(*params.LongLived))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -143,13 +149,18 @@ func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel,
 
 //
 func (c *ApiService) DeleteChannel(Sid string) error {
+	return c.DeleteChannelWithCtx(context.TODO(), Sid)
+}
+
+//
+func (c *ApiService) DeleteChannelWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -161,13 +172,18 @@ func (c *ApiService) DeleteChannel(Sid string) error {
 
 //
 func (c *ApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
+	return c.FetchChannelWithCtx(context.TODO(), Sid)
+}
+
+//
+func (c *ApiService) FetchChannelWithCtx(ctx context.Context, Sid string) (*FlexV1Channel, error) {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -201,6 +217,11 @@ func (params *ListChannelParams) SetLimit(Limit int) *ListChannelParams {
 
 // Retrieve a single page of Channel records from the API. Request is executed immediately.
 func (c *ApiService) PageChannel(params *ListChannelParams, pageToken, pageNumber string) (*ListChannelResponse, error) {
+	return c.PageChannelWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Channel records from the API. Request is executed immediately.
+func (c *ApiService) PageChannelWithCtx(ctx context.Context, params *ListChannelParams, pageToken, pageNumber string) (*ListChannelResponse, error) {
 	path := "/v1/Channels"
 
 	data := url.Values{}
@@ -217,7 +238,7 @@ func (c *ApiService) PageChannel(params *ListChannelParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -234,7 +255,12 @@ func (c *ApiService) PageChannel(params *ListChannelParams, pageToken, pageNumbe
 
 // Lists Channel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListChannel(params *ListChannelParams) ([]FlexV1Channel, error) {
-	response, errors := c.StreamChannel(params)
+	return c.ListChannelWithCtx(context.TODO(), params)
+}
+
+// Lists Channel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListChannelWithCtx(ctx context.Context, params *ListChannelParams) ([]FlexV1Channel, error) {
+	response, errors := c.StreamChannelWithCtx(ctx, params)
 
 	records := make([]FlexV1Channel, 0)
 	for record := range response {
@@ -250,6 +276,11 @@ func (c *ApiService) ListChannel(params *ListChannelParams) ([]FlexV1Channel, er
 
 // Streams Channel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamChannel(params *ListChannelParams) (chan FlexV1Channel, chan error) {
+	return c.StreamChannelWithCtx(context.TODO(), params)
+}
+
+// Streams Channel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamChannelWithCtx(ctx context.Context, params *ListChannelParams) (chan FlexV1Channel, chan error) {
 	if params == nil {
 		params = &ListChannelParams{}
 	}
@@ -258,19 +289,19 @@ func (c *ApiService) StreamChannel(params *ListChannelParams) (chan FlexV1Channe
 	recordChannel := make(chan FlexV1Channel, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageChannel(params, "", "")
+	response, err := c.PageChannelWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamChannel(response, params, recordChannel, errorChannel)
+		go c.streamChannel(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamChannel(response *ListChannelResponse, params *ListChannelParams, recordChannel chan FlexV1Channel, errorChannel chan error) {
+func (c *ApiService) streamChannel(ctx context.Context, response *ListChannelResponse, params *ListChannelParams, recordChannel chan FlexV1Channel, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -285,7 +316,7 @@ func (c *ApiService) streamChannel(response *ListChannelResponse, params *ListCh
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListChannelResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListChannelResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -300,11 +331,11 @@ func (c *ApiService) streamChannel(response *ListChannelResponse, params *ListCh
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListChannelResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListChannelResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

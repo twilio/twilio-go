@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *CreateNewSigningKeyParams) SetFriendlyName(FriendlyName string) *C
 
 // Create a new Signing Key for the account making the request.
 func (c *ApiService) CreateNewSigningKey(params *CreateNewSigningKeyParams) (*ApiV2010NewSigningKey, error) {
+	return c.CreateNewSigningKeyWithCtx(context.TODO(), params)
+}
+
+// Create a new Signing Key for the account making the request.
+func (c *ApiService) CreateNewSigningKeyWithCtx(ctx context.Context, params *CreateNewSigningKeyParams) (*ApiV2010NewSigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -56,7 +62,7 @@ func (c *ApiService) CreateNewSigningKey(params *CreateNewSigningKeyParams) (*Ap
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -84,6 +90,11 @@ func (params *DeleteSigningKeyParams) SetPathAccountSid(PathAccountSid string) *
 
 //
 func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams) error {
+	return c.DeleteSigningKeyWithCtx(context.TODO(), Sid, params)
+}
+
+//
+func (c *ApiService) DeleteSigningKeyWithCtx(ctx context.Context, Sid string, params *DeleteSigningKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -95,7 +106,7 @@ func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -118,6 +129,11 @@ func (params *FetchSigningKeyParams) SetPathAccountSid(PathAccountSid string) *F
 
 //
 func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) (*ApiV2010SigningKey, error) {
+	return c.FetchSigningKeyWithCtx(context.TODO(), Sid, params)
+}
+
+//
+func (c *ApiService) FetchSigningKeyWithCtx(ctx context.Context, Sid string, params *FetchSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -129,7 +145,7 @@ func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -169,6 +185,11 @@ func (params *ListSigningKeyParams) SetLimit(Limit int) *ListSigningKeyParams {
 
 // Retrieve a single page of SigningKey records from the API. Request is executed immediately.
 func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pageNumber string) (*ListSigningKeyResponse, error) {
+	return c.PageSigningKeyWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SigningKey records from the API. Request is executed immediately.
+func (c *ApiService) PageSigningKeyWithCtx(ctx context.Context, params *ListSigningKeyParams, pageToken, pageNumber string) (*ListSigningKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -191,7 +212,7 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +229,12 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pag
 
 // Lists SigningKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) ([]ApiV2010SigningKey, error) {
-	response, errors := c.StreamSigningKey(params)
+	return c.ListSigningKeyWithCtx(context.TODO(), params)
+}
+
+// Lists SigningKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSigningKeyWithCtx(ctx context.Context, params *ListSigningKeyParams) ([]ApiV2010SigningKey, error) {
+	response, errors := c.StreamSigningKeyWithCtx(ctx, params)
 
 	records := make([]ApiV2010SigningKey, 0)
 	for record := range response {
@@ -224,6 +250,11 @@ func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) ([]ApiV2010Sig
 
 // Streams SigningKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV2010SigningKey, chan error) {
+	return c.StreamSigningKeyWithCtx(context.TODO(), params)
+}
+
+// Streams SigningKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSigningKeyWithCtx(ctx context.Context, params *ListSigningKeyParams) (chan ApiV2010SigningKey, chan error) {
 	if params == nil {
 		params = &ListSigningKeyParams{}
 	}
@@ -232,19 +263,19 @@ func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV20
 	recordChannel := make(chan ApiV2010SigningKey, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSigningKey(params, "", "")
+	response, err := c.PageSigningKeyWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSigningKey(response, params, recordChannel, errorChannel)
+		go c.streamSigningKey(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *ListSigningKeyParams, recordChannel chan ApiV2010SigningKey, errorChannel chan error) {
+func (c *ApiService) streamSigningKey(ctx context.Context, response *ListSigningKeyResponse, params *ListSigningKeyParams, recordChannel chan ApiV2010SigningKey, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -259,7 +290,7 @@ func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSigningKeyResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSigningKeyResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -274,11 +305,11 @@ func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSigningKeyResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSigningKeyResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -311,6 +342,11 @@ func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) *Upda
 
 //
 func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams) (*ApiV2010SigningKey, error) {
+	return c.UpdateSigningKeyWithCtx(context.TODO(), Sid, params)
+}
+
+//
+func (c *ApiService) UpdateSigningKeyWithCtx(ctx context.Context, Sid string, params *UpdateSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -326,7 +362,7 @@ func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

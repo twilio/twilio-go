@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -114,6 +115,11 @@ func (params *CreateNewFactorParams) SetMetadata(Metadata interface{}) *CreateNe
 
 // Create a new Factor for the Entity
 func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params *CreateNewFactorParams) (*VerifyV2NewFactor, error) {
+	return c.CreateNewFactorWithCtx(context.TODO(), ServiceSid, Identity, params)
+}
+
+// Create a new Factor for the Entity
+func (c *ApiService) CreateNewFactorWithCtx(ctx context.Context, ServiceSid string, Identity string, params *CreateNewFactorParams) (*VerifyV2NewFactor, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -170,7 +176,7 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 		data.Set("Metadata", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -187,6 +193,11 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 
 // Delete a specific Factor.
 func (c *ApiService) DeleteFactor(ServiceSid string, Identity string, Sid string) error {
+	return c.DeleteFactorWithCtx(context.TODO(), ServiceSid, Identity, Sid)
+}
+
+// Delete a specific Factor.
+func (c *ApiService) DeleteFactorWithCtx(ctx context.Context, ServiceSid string, Identity string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -195,7 +206,7 @@ func (c *ApiService) DeleteFactor(ServiceSid string, Identity string, Sid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -207,6 +218,11 @@ func (c *ApiService) DeleteFactor(ServiceSid string, Identity string, Sid string
 
 // Fetch a specific Factor.
 func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string) (*VerifyV2Factor, error) {
+	return c.FetchFactorWithCtx(context.TODO(), ServiceSid, Identity, Sid)
+}
+
+// Fetch a specific Factor.
+func (c *ApiService) FetchFactorWithCtx(ctx context.Context, ServiceSid string, Identity string, Sid string) (*VerifyV2Factor, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -215,7 +231,7 @@ func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string)
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -249,6 +265,11 @@ func (params *ListFactorParams) SetLimit(Limit int) *ListFactorParams {
 
 // Retrieve a single page of Factor records from the API. Request is executed immediately.
 func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *ListFactorParams, pageToken, pageNumber string) (*ListFactorResponse, error) {
+	return c.PageFactorWithCtx(context.TODO(), ServiceSid, Identity, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Factor records from the API. Request is executed immediately.
+func (c *ApiService) PageFactorWithCtx(ctx context.Context, ServiceSid string, Identity string, params *ListFactorParams, pageToken, pageNumber string) (*ListFactorResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -268,7 +289,7 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -285,7 +306,12 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 
 // Lists Factor records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *ListFactorParams) ([]VerifyV2Factor, error) {
-	response, errors := c.StreamFactor(ServiceSid, Identity, params)
+	return c.ListFactorWithCtx(context.TODO(), ServiceSid, Identity, params)
+}
+
+// Lists Factor records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFactorWithCtx(ctx context.Context, ServiceSid string, Identity string, params *ListFactorParams) ([]VerifyV2Factor, error) {
+	response, errors := c.StreamFactorWithCtx(ctx, ServiceSid, Identity, params)
 
 	records := make([]VerifyV2Factor, 0)
 	for record := range response {
@@ -301,6 +327,11 @@ func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *List
 
 // Streams Factor records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *ListFactorParams) (chan VerifyV2Factor, chan error) {
+	return c.StreamFactorWithCtx(context.TODO(), ServiceSid, Identity, params)
+}
+
+// Streams Factor records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFactorWithCtx(ctx context.Context, ServiceSid string, Identity string, params *ListFactorParams) (chan VerifyV2Factor, chan error) {
 	if params == nil {
 		params = &ListFactorParams{}
 	}
@@ -309,19 +340,19 @@ func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *Li
 	recordChannel := make(chan VerifyV2Factor, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageFactor(ServiceSid, Identity, params, "", "")
+	response, err := c.PageFactorWithCtx(ctx, ServiceSid, Identity, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamFactor(response, params, recordChannel, errorChannel)
+		go c.streamFactor(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFactor(response *ListFactorResponse, params *ListFactorParams, recordChannel chan VerifyV2Factor, errorChannel chan error) {
+func (c *ApiService) streamFactor(ctx context.Context, response *ListFactorResponse, params *ListFactorParams, recordChannel chan VerifyV2Factor, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -336,7 +367,7 @@ func (c *ApiService) streamFactor(response *ListFactorResponse, params *ListFact
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListFactorResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListFactorResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -351,11 +382,11 @@ func (c *ApiService) streamFactor(response *ListFactorResponse, params *ListFact
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFactorResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFactorResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -430,6 +461,11 @@ func (params *UpdateFactorParams) SetConfigNotificationPlatform(ConfigNotificati
 
 // Update a specific Factor. This endpoint can be used to Verify a Factor if passed an &#x60;AuthPayload&#x60; param.
 func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string, params *UpdateFactorParams) (*VerifyV2Factor, error) {
+	return c.UpdateFactorWithCtx(context.TODO(), ServiceSid, Identity, Sid, params)
+}
+
+// Update a specific Factor. This endpoint can be used to Verify a Factor if passed an &#x60;AuthPayload&#x60; param.
+func (c *ApiService) UpdateFactorWithCtx(ctx context.Context, ServiceSid string, Identity string, Sid string, params *UpdateFactorParams) (*VerifyV2Factor, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -466,7 +502,7 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 		data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *CreateFieldTypeParams) SetFriendlyName(FriendlyName string) *Creat
 
 //
 func (c *ApiService) CreateFieldType(AssistantSid string, params *CreateFieldTypeParams) (*AutopilotV1FieldType, error) {
+	return c.CreateFieldTypeWithCtx(context.TODO(), AssistantSid, params)
+}
+
+//
+func (c *ApiService) CreateFieldTypeWithCtx(ctx context.Context, AssistantSid string, params *CreateFieldTypeParams) (*AutopilotV1FieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -55,7 +61,7 @@ func (c *ApiService) CreateFieldType(AssistantSid string, params *CreateFieldTyp
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -72,6 +78,11 @@ func (c *ApiService) CreateFieldType(AssistantSid string, params *CreateFieldTyp
 
 //
 func (c *ApiService) DeleteFieldType(AssistantSid string, Sid string) error {
+	return c.DeleteFieldTypeWithCtx(context.TODO(), AssistantSid, Sid)
+}
+
+//
+func (c *ApiService) DeleteFieldTypeWithCtx(ctx context.Context, AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -79,7 +90,7 @@ func (c *ApiService) DeleteFieldType(AssistantSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -91,6 +102,11 @@ func (c *ApiService) DeleteFieldType(AssistantSid string, Sid string) error {
 
 //
 func (c *ApiService) FetchFieldType(AssistantSid string, Sid string) (*AutopilotV1FieldType, error) {
+	return c.FetchFieldTypeWithCtx(context.TODO(), AssistantSid, Sid)
+}
+
+//
+func (c *ApiService) FetchFieldTypeWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1FieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -98,7 +114,7 @@ func (c *ApiService) FetchFieldType(AssistantSid string, Sid string) (*Autopilot
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -132,6 +148,11 @@ func (params *ListFieldTypeParams) SetLimit(Limit int) *ListFieldTypeParams {
 
 // Retrieve a single page of FieldType records from the API. Request is executed immediately.
 func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypeParams, pageToken, pageNumber string) (*ListFieldTypeResponse, error) {
+	return c.PageFieldTypeWithCtx(context.TODO(), AssistantSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of FieldType records from the API. Request is executed immediately.
+func (c *ApiService) PageFieldTypeWithCtx(ctx context.Context, AssistantSid string, params *ListFieldTypeParams, pageToken, pageNumber string) (*ListFieldTypeResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -150,7 +171,7 @@ func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypePar
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +188,12 @@ func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypePar
 
 // Lists FieldType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams) ([]AutopilotV1FieldType, error) {
-	response, errors := c.StreamFieldType(AssistantSid, params)
+	return c.ListFieldTypeWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Lists FieldType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFieldTypeWithCtx(ctx context.Context, AssistantSid string, params *ListFieldTypeParams) ([]AutopilotV1FieldType, error) {
+	response, errors := c.StreamFieldTypeWithCtx(ctx, AssistantSid, params)
 
 	records := make([]AutopilotV1FieldType, 0)
 	for record := range response {
@@ -183,6 +209,11 @@ func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypePar
 
 // Streams FieldType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeParams) (chan AutopilotV1FieldType, chan error) {
+	return c.StreamFieldTypeWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Streams FieldType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFieldTypeWithCtx(ctx context.Context, AssistantSid string, params *ListFieldTypeParams) (chan AutopilotV1FieldType, chan error) {
 	if params == nil {
 		params = &ListFieldTypeParams{}
 	}
@@ -191,19 +222,19 @@ func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeP
 	recordChannel := make(chan AutopilotV1FieldType, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageFieldType(AssistantSid, params, "", "")
+	response, err := c.PageFieldTypeWithCtx(ctx, AssistantSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamFieldType(response, params, recordChannel, errorChannel)
+		go c.streamFieldType(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFieldType(response *ListFieldTypeResponse, params *ListFieldTypeParams, recordChannel chan AutopilotV1FieldType, errorChannel chan error) {
+func (c *ApiService) streamFieldType(ctx context.Context, response *ListFieldTypeResponse, params *ListFieldTypeParams, recordChannel chan AutopilotV1FieldType, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -218,7 +249,7 @@ func (c *ApiService) streamFieldType(response *ListFieldTypeResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListFieldTypeResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListFieldTypeResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -233,11 +264,11 @@ func (c *ApiService) streamFieldType(response *ListFieldTypeResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFieldTypeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFieldTypeResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -270,6 +301,11 @@ func (params *UpdateFieldTypeParams) SetUniqueName(UniqueName string) *UpdateFie
 
 //
 func (c *ApiService) UpdateFieldType(AssistantSid string, Sid string, params *UpdateFieldTypeParams) (*AutopilotV1FieldType, error) {
+	return c.UpdateFieldTypeWithCtx(context.TODO(), AssistantSid, Sid, params)
+}
+
+//
+func (c *ApiService) UpdateFieldTypeWithCtx(ctx context.Context, AssistantSid string, Sid string, params *UpdateFieldTypeParams) (*AutopilotV1FieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -284,7 +320,7 @@ func (c *ApiService) UpdateFieldType(AssistantSid string, Sid string, params *Up
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

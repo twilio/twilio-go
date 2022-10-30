@@ -20,10 +20,14 @@ import (
 
 type ApiService struct {
 	baseURL        string
-	requestHandler *twilio.RequestHandler
+	requestHandler *twilio.RequestHandlerWithCtx
 }
 
 func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
+	return NewApiServiceWithCtx(twilio.UpgradeRequestHandler(requestHandler))
+}
+
+func NewApiServiceWithCtx(requestHandler *twilio.RequestHandlerWithCtx) *ApiService {
 	return &ApiService{
 		requestHandler: requestHandler,
 		baseURL:        "https://flex-api.twilio.com",
@@ -32,4 +36,8 @@ func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
 
 func NewApiServiceWithClient(client twilio.BaseClient) *ApiService {
 	return NewApiService(twilio.NewRequestHandler(client))
+}
+
+func NewApiServiceWithClientWithCtx(client twilio.BaseClientWithCtx) *ApiService {
+	return NewApiServiceWithCtx(twilio.NewRequestHandlerWithCtx(client))
 }

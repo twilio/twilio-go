@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,13 +26,18 @@ import (
 
 // Deletes a MediaRecording resource identified by a SID.
 func (c *ApiService) DeleteMediaRecording(Sid string) error {
+	return c.DeleteMediaRecordingWithCtx(context.TODO(), Sid)
+}
+
+// Deletes a MediaRecording resource identified by a SID.
+func (c *ApiService) DeleteMediaRecordingWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/MediaRecordings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -43,13 +49,18 @@ func (c *ApiService) DeleteMediaRecording(Sid string) error {
 
 // Returns a single MediaRecording resource identified by a SID.
 func (c *ApiService) FetchMediaRecording(Sid string) (*MediaV1MediaRecording, error) {
+	return c.FetchMediaRecordingWithCtx(context.TODO(), Sid)
+}
+
+// Returns a single MediaRecording resource identified by a SID.
+func (c *ApiService) FetchMediaRecordingWithCtx(ctx context.Context, Sid string) (*MediaV1MediaRecording, error) {
 	path := "/v1/MediaRecordings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -107,6 +118,11 @@ func (params *ListMediaRecordingParams) SetLimit(Limit int) *ListMediaRecordingP
 
 // Retrieve a single page of MediaRecording records from the API. Request is executed immediately.
 func (c *ApiService) PageMediaRecording(params *ListMediaRecordingParams, pageToken, pageNumber string) (*ListMediaRecordingResponse, error) {
+	return c.PageMediaRecordingWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of MediaRecording records from the API. Request is executed immediately.
+func (c *ApiService) PageMediaRecordingWithCtx(ctx context.Context, params *ListMediaRecordingParams, pageToken, pageNumber string) (*ListMediaRecordingResponse, error) {
 	path := "/v1/MediaRecordings"
 
 	data := url.Values{}
@@ -135,7 +151,7 @@ func (c *ApiService) PageMediaRecording(params *ListMediaRecordingParams, pageTo
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -152,7 +168,12 @@ func (c *ApiService) PageMediaRecording(params *ListMediaRecordingParams, pageTo
 
 // Lists MediaRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMediaRecording(params *ListMediaRecordingParams) ([]MediaV1MediaRecording, error) {
-	response, errors := c.StreamMediaRecording(params)
+	return c.ListMediaRecordingWithCtx(context.TODO(), params)
+}
+
+// Lists MediaRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMediaRecordingWithCtx(ctx context.Context, params *ListMediaRecordingParams) ([]MediaV1MediaRecording, error) {
+	response, errors := c.StreamMediaRecordingWithCtx(ctx, params)
 
 	records := make([]MediaV1MediaRecording, 0)
 	for record := range response {
@@ -168,6 +189,11 @@ func (c *ApiService) ListMediaRecording(params *ListMediaRecordingParams) ([]Med
 
 // Streams MediaRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMediaRecording(params *ListMediaRecordingParams) (chan MediaV1MediaRecording, chan error) {
+	return c.StreamMediaRecordingWithCtx(context.TODO(), params)
+}
+
+// Streams MediaRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMediaRecordingWithCtx(ctx context.Context, params *ListMediaRecordingParams) (chan MediaV1MediaRecording, chan error) {
 	if params == nil {
 		params = &ListMediaRecordingParams{}
 	}
@@ -176,19 +202,19 @@ func (c *ApiService) StreamMediaRecording(params *ListMediaRecordingParams) (cha
 	recordChannel := make(chan MediaV1MediaRecording, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMediaRecording(params, "", "")
+	response, err := c.PageMediaRecordingWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMediaRecording(response, params, recordChannel, errorChannel)
+		go c.streamMediaRecording(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMediaRecording(response *ListMediaRecordingResponse, params *ListMediaRecordingParams, recordChannel chan MediaV1MediaRecording, errorChannel chan error) {
+func (c *ApiService) streamMediaRecording(ctx context.Context, response *ListMediaRecordingResponse, params *ListMediaRecordingParams, recordChannel chan MediaV1MediaRecording, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -203,7 +229,7 @@ func (c *ApiService) streamMediaRecording(response *ListMediaRecordingResponse, 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMediaRecordingResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListMediaRecordingResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -218,11 +244,11 @@ func (c *ApiService) streamMediaRecording(response *ListMediaRecordingResponse, 
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMediaRecordingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMediaRecordingResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

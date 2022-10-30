@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,13 +23,18 @@ import (
 
 // Fetch a specific service webhook configuration.
 func (c *ApiService) FetchServiceWebhookConfiguration(ChatServiceSid string) (*ConversationsV1ServiceWebhookConfiguration, error) {
+	return c.FetchServiceWebhookConfigurationWithCtx(context.TODO(), ChatServiceSid)
+}
+
+// Fetch a specific service webhook configuration.
+func (c *ApiService) FetchServiceWebhookConfigurationWithCtx(ctx context.Context, ChatServiceSid string) (*ConversationsV1ServiceWebhookConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Webhooks"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -74,6 +80,11 @@ func (params *UpdateServiceWebhookConfigurationParams) SetMethod(Method string) 
 
 // Update a specific Webhook.
 func (c *ApiService) UpdateServiceWebhookConfiguration(ChatServiceSid string, params *UpdateServiceWebhookConfigurationParams) (*ConversationsV1ServiceWebhookConfiguration, error) {
+	return c.UpdateServiceWebhookConfigurationWithCtx(context.TODO(), ChatServiceSid, params)
+}
+
+// Update a specific Webhook.
+func (c *ApiService) UpdateServiceWebhookConfigurationWithCtx(ctx context.Context, ChatServiceSid string, params *UpdateServiceWebhookConfigurationParams) (*ConversationsV1ServiceWebhookConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Webhooks"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -95,7 +106,7 @@ func (c *ApiService) UpdateServiceWebhookConfiguration(ChatServiceSid string, pa
 		data.Set("Method", *params.Method)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

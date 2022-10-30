@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -33,6 +34,11 @@ func (params *FetchAccountSettingsParams) SetSubaccountSid(SubaccountSid string)
 
 //
 func (c *ApiService) FetchAccountSettings(params *FetchAccountSettingsParams) (*InsightsV1AccountSettings, error) {
+	return c.FetchAccountSettingsWithCtx(context.TODO(), params)
+}
+
+//
+func (c *ApiService) FetchAccountSettingsWithCtx(ctx context.Context, params *FetchAccountSettingsParams) (*InsightsV1AccountSettings, error) {
 	path := "/v1/Voice/Settings"
 
 	data := url.Values{}
@@ -42,7 +48,7 @@ func (c *ApiService) FetchAccountSettings(params *FetchAccountSettingsParams) (*
 		data.Set("SubaccountSid", *params.SubaccountSid)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -82,6 +88,11 @@ func (params *UpdateAccountSettingsParams) SetSubaccountSid(SubaccountSid string
 
 //
 func (c *ApiService) UpdateAccountSettings(params *UpdateAccountSettingsParams) (*InsightsV1AccountSettings, error) {
+	return c.UpdateAccountSettingsWithCtx(context.TODO(), params)
+}
+
+//
+func (c *ApiService) UpdateAccountSettingsWithCtx(ctx context.Context, params *UpdateAccountSettingsParams) (*InsightsV1AccountSettings, error) {
 	path := "/v1/Voice/Settings"
 
 	data := url.Values{}
@@ -97,7 +108,7 @@ func (c *ApiService) UpdateAccountSettings(params *UpdateAccountSettingsParams) 
 		data.Set("SubaccountSid", *params.SubaccountSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

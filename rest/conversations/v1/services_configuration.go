@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -23,13 +24,18 @@ import (
 
 // Fetch the configuration of a conversation service
 func (c *ApiService) FetchServiceConfiguration(ChatServiceSid string) (*ConversationsV1ServiceConfiguration, error) {
+	return c.FetchServiceConfigurationWithCtx(context.TODO(), ChatServiceSid)
+}
+
+// Fetch the configuration of a conversation service
+func (c *ApiService) FetchServiceConfigurationWithCtx(ctx context.Context, ChatServiceSid string) (*ConversationsV1ServiceConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -75,6 +81,11 @@ func (params *UpdateServiceConfigurationParams) SetReachabilityEnabled(Reachabil
 
 // Update configuration settings of a conversation service
 func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *UpdateServiceConfigurationParams) (*ConversationsV1ServiceConfiguration, error) {
+	return c.UpdateServiceConfigurationWithCtx(context.TODO(), ChatServiceSid, params)
+}
+
+// Update configuration settings of a conversation service
+func (c *ApiService) UpdateServiceConfigurationWithCtx(ctx context.Context, ChatServiceSid string, params *UpdateServiceConfigurationParams) (*ConversationsV1ServiceConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -94,7 +105,7 @@ func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *U
 		data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

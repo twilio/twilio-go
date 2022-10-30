@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *CreateCustomerProfileEvaluationParams) SetPolicySid(PolicySid stri
 
 // Create a new Evaluation
 func (c *ApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, params *CreateCustomerProfileEvaluationParams) (*TrusthubV1CustomerProfileEvaluation, error) {
+	return c.CreateCustomerProfileEvaluationWithCtx(context.TODO(), CustomerProfileSid, params)
+}
+
+// Create a new Evaluation
+func (c *ApiService) CreateCustomerProfileEvaluationWithCtx(ctx context.Context, CustomerProfileSid string, params *CreateCustomerProfileEvaluationParams) (*TrusthubV1CustomerProfileEvaluation, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
@@ -46,7 +52,7 @@ func (c *ApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, 
 		data.Set("PolicySid", *params.PolicySid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -63,6 +69,11 @@ func (c *ApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, 
 
 // Fetch specific Evaluation Instance.
 func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileEvaluation, error) {
+	return c.FetchCustomerProfileEvaluationWithCtx(context.TODO(), CustomerProfileSid, Sid)
+}
+
+// Fetch specific Evaluation Instance.
+func (c *ApiService) FetchCustomerProfileEvaluationWithCtx(ctx context.Context, CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileEvaluation, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -70,7 +81,7 @@ func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, S
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -104,6 +115,11 @@ func (params *ListCustomerProfileEvaluationParams) SetLimit(Limit int) *ListCust
 
 // Retrieve a single page of CustomerProfileEvaluation records from the API. Request is executed immediately.
 func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, pageToken, pageNumber string) (*ListCustomerProfileEvaluationResponse, error) {
+	return c.PageCustomerProfileEvaluationWithCtx(context.TODO(), CustomerProfileSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of CustomerProfileEvaluation records from the API. Request is executed immediately.
+func (c *ApiService) PageCustomerProfileEvaluationWithCtx(ctx context.Context, CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, pageToken, pageNumber string) (*ListCustomerProfileEvaluationResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
 
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -122,7 +138,7 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -139,7 +155,12 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 
 // Lists CustomerProfileEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) ([]TrusthubV1CustomerProfileEvaluation, error) {
-	response, errors := c.StreamCustomerProfileEvaluation(CustomerProfileSid, params)
+	return c.ListCustomerProfileEvaluationWithCtx(context.TODO(), CustomerProfileSid, params)
+}
+
+// Lists CustomerProfileEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomerProfileEvaluationWithCtx(ctx context.Context, CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) ([]TrusthubV1CustomerProfileEvaluation, error) {
+	response, errors := c.StreamCustomerProfileEvaluationWithCtx(ctx, CustomerProfileSid, params)
 
 	records := make([]TrusthubV1CustomerProfileEvaluation, 0)
 	for record := range response {
@@ -155,6 +176,11 @@ func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, pa
 
 // Streams CustomerProfileEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) (chan TrusthubV1CustomerProfileEvaluation, chan error) {
+	return c.StreamCustomerProfileEvaluationWithCtx(context.TODO(), CustomerProfileSid, params)
+}
+
+// Streams CustomerProfileEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomerProfileEvaluationWithCtx(ctx context.Context, CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) (chan TrusthubV1CustomerProfileEvaluation, chan error) {
 	if params == nil {
 		params = &ListCustomerProfileEvaluationParams{}
 	}
@@ -163,19 +189,19 @@ func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, 
 	recordChannel := make(chan TrusthubV1CustomerProfileEvaluation, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCustomerProfileEvaluation(CustomerProfileSid, params, "", "")
+	response, err := c.PageCustomerProfileEvaluationWithCtx(ctx, CustomerProfileSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCustomerProfileEvaluation(response, params, recordChannel, errorChannel)
+		go c.streamCustomerProfileEvaluation(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCustomerProfileEvaluation(response *ListCustomerProfileEvaluationResponse, params *ListCustomerProfileEvaluationParams, recordChannel chan TrusthubV1CustomerProfileEvaluation, errorChannel chan error) {
+func (c *ApiService) streamCustomerProfileEvaluation(ctx context.Context, response *ListCustomerProfileEvaluationResponse, params *ListCustomerProfileEvaluationParams, recordChannel chan TrusthubV1CustomerProfileEvaluation, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -190,7 +216,7 @@ func (c *ApiService) streamCustomerProfileEvaluation(response *ListCustomerProfi
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCustomerProfileEvaluationResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCustomerProfileEvaluationResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -205,11 +231,11 @@ func (c *ApiService) streamCustomerProfileEvaluation(response *ListCustomerProfi
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCustomerProfileEvaluationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCustomerProfileEvaluationResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

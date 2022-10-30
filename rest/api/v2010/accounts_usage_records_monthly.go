@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -72,6 +73,11 @@ func (params *ListUsageRecordMonthlyParams) SetLimit(Limit int) *ListUsageRecord
 
 // Retrieve a single page of UsageRecordMonthly records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecordMonthly(params *ListUsageRecordMonthlyParams, pageToken, pageNumber string) (*ListUsageRecordMonthlyResponse, error) {
+	return c.PageUsageRecordMonthlyWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of UsageRecordMonthly records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecordMonthlyWithCtx(ctx context.Context, params *ListUsageRecordMonthlyParams, pageToken, pageNumber string) (*ListUsageRecordMonthlyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -106,7 +112,7 @@ func (c *ApiService) PageUsageRecordMonthly(params *ListUsageRecordMonthlyParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +129,12 @@ func (c *ApiService) PageUsageRecordMonthly(params *ListUsageRecordMonthlyParams
 
 // Lists UsageRecordMonthly records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthlyParams) ([]ApiV2010UsageRecordMonthly, error) {
-	response, errors := c.StreamUsageRecordMonthly(params)
+	return c.ListUsageRecordMonthlyWithCtx(context.TODO(), params)
+}
+
+// Lists UsageRecordMonthly records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordMonthlyWithCtx(ctx context.Context, params *ListUsageRecordMonthlyParams) ([]ApiV2010UsageRecordMonthly, error) {
+	response, errors := c.StreamUsageRecordMonthlyWithCtx(ctx, params)
 
 	records := make([]ApiV2010UsageRecordMonthly, 0)
 	for record := range response {
@@ -139,6 +150,11 @@ func (c *ApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthlyParams
 
 // Streams UsageRecordMonthly records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecordMonthly(params *ListUsageRecordMonthlyParams) (chan ApiV2010UsageRecordMonthly, chan error) {
+	return c.StreamUsageRecordMonthlyWithCtx(context.TODO(), params)
+}
+
+// Streams UsageRecordMonthly records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordMonthlyWithCtx(ctx context.Context, params *ListUsageRecordMonthlyParams) (chan ApiV2010UsageRecordMonthly, chan error) {
 	if params == nil {
 		params = &ListUsageRecordMonthlyParams{}
 	}
@@ -147,19 +163,19 @@ func (c *ApiService) StreamUsageRecordMonthly(params *ListUsageRecordMonthlyPara
 	recordChannel := make(chan ApiV2010UsageRecordMonthly, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUsageRecordMonthly(params, "", "")
+	response, err := c.PageUsageRecordMonthlyWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUsageRecordMonthly(response, params, recordChannel, errorChannel)
+		go c.streamUsageRecordMonthly(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordMonthly(response *ListUsageRecordMonthlyResponse, params *ListUsageRecordMonthlyParams, recordChannel chan ApiV2010UsageRecordMonthly, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordMonthly(ctx context.Context, response *ListUsageRecordMonthlyResponse, params *ListUsageRecordMonthlyParams, recordChannel chan ApiV2010UsageRecordMonthly, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -174,7 +190,7 @@ func (c *ApiService) streamUsageRecordMonthly(response *ListUsageRecordMonthlyRe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordMonthlyResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListUsageRecordMonthlyResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -189,11 +205,11 @@ func (c *ApiService) streamUsageRecordMonthly(response *ListUsageRecordMonthlyRe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordMonthlyResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordMonthlyResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

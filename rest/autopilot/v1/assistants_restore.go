@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -32,6 +33,11 @@ func (params *UpdateRestoreAssistantParams) SetAssistant(Assistant string) *Upda
 
 //
 func (c *ApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistantParams) (*AutopilotV1RestoreAssistant, error) {
+	return c.UpdateRestoreAssistantWithCtx(context.TODO(), params)
+}
+
+//
+func (c *ApiService) UpdateRestoreAssistantWithCtx(ctx context.Context, params *UpdateRestoreAssistantParams) (*AutopilotV1RestoreAssistant, error) {
 	path := "/v1/Assistants/Restore"
 
 	data := url.Values{}
@@ -41,7 +47,7 @@ func (c *ApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistantParams
 		data.Set("Assistant", *params.Assistant)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

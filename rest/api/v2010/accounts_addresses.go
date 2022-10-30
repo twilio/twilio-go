@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -90,6 +91,11 @@ func (params *CreateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool
 
 //
 func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Address, error) {
+	return c.CreateAddressWithCtx(context.TODO(), params)
+}
+
+//
+func (c *ApiService) CreateAddressWithCtx(ctx context.Context, params *CreateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -128,7 +134,7 @@ func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Addres
 		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -156,6 +162,11 @@ func (params *DeleteAddressParams) SetPathAccountSid(PathAccountSid string) *Del
 
 //
 func (c *ApiService) DeleteAddress(Sid string, params *DeleteAddressParams) error {
+	return c.DeleteAddressWithCtx(context.TODO(), Sid, params)
+}
+
+//
+func (c *ApiService) DeleteAddressWithCtx(ctx context.Context, Sid string, params *DeleteAddressParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -167,7 +178,7 @@ func (c *ApiService) DeleteAddress(Sid string, params *DeleteAddressParams) erro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -190,6 +201,11 @@ func (params *FetchAddressParams) SetPathAccountSid(PathAccountSid string) *Fetc
 
 //
 func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV2010Address, error) {
+	return c.FetchAddressWithCtx(context.TODO(), Sid, params)
+}
+
+//
+func (c *ApiService) FetchAddressWithCtx(ctx context.Context, Sid string, params *FetchAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -201,7 +217,7 @@ func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -259,6 +275,11 @@ func (params *ListAddressParams) SetLimit(Limit int) *ListAddressParams {
 
 // Retrieve a single page of Address records from the API. Request is executed immediately.
 func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumber string) (*ListAddressResponse, error) {
+	return c.PageAddressWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Address records from the API. Request is executed immediately.
+func (c *ApiService) PageAddressWithCtx(ctx context.Context, params *ListAddressParams, pageToken, pageNumber string) (*ListAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -290,7 +311,7 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -307,7 +328,12 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumbe
 
 // Lists Address records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAddress(params *ListAddressParams) ([]ApiV2010Address, error) {
-	response, errors := c.StreamAddress(params)
+	return c.ListAddressWithCtx(context.TODO(), params)
+}
+
+// Lists Address records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAddressWithCtx(ctx context.Context, params *ListAddressParams) ([]ApiV2010Address, error) {
+	response, errors := c.StreamAddressWithCtx(ctx, params)
 
 	records := make([]ApiV2010Address, 0)
 	for record := range response {
@@ -323,6 +349,11 @@ func (c *ApiService) ListAddress(params *ListAddressParams) ([]ApiV2010Address, 
 
 // Streams Address records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Address, chan error) {
+	return c.StreamAddressWithCtx(context.TODO(), params)
+}
+
+// Streams Address records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAddressWithCtx(ctx context.Context, params *ListAddressParams) (chan ApiV2010Address, chan error) {
 	if params == nil {
 		params = &ListAddressParams{}
 	}
@@ -331,19 +362,19 @@ func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Addr
 	recordChannel := make(chan ApiV2010Address, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAddress(params, "", "")
+	response, err := c.PageAddressWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAddress(response, params, recordChannel, errorChannel)
+		go c.streamAddress(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAddress(response *ListAddressResponse, params *ListAddressParams, recordChannel chan ApiV2010Address, errorChannel chan error) {
+func (c *ApiService) streamAddress(ctx context.Context, response *ListAddressResponse, params *ListAddressParams, recordChannel chan ApiV2010Address, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -358,7 +389,7 @@ func (c *ApiService) streamAddress(response *ListAddressResponse, params *ListAd
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAddressResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListAddressResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -373,11 +404,11 @@ func (c *ApiService) streamAddress(response *ListAddressResponse, params *ListAd
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAddressResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAddressResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -452,6 +483,11 @@ func (params *UpdateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool
 
 //
 func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*ApiV2010Address, error) {
+	return c.UpdateAddressWithCtx(context.TODO(), Sid, params)
+}
+
+//
+func (c *ApiService) UpdateAddressWithCtx(ctx context.Context, Sid string, params *UpdateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -488,7 +524,7 @@ func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*Ap
 		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

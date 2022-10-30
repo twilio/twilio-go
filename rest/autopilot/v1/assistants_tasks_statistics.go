@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,11 @@ import (
 
 //
 func (c *ApiService) FetchTaskStatistics(AssistantSid string, TaskSid string) (*AutopilotV1TaskStatistics, error) {
+	return c.FetchTaskStatisticsWithCtx(context.TODO(), AssistantSid, TaskSid)
+}
+
+//
+func (c *ApiService) FetchTaskStatisticsWithCtx(ctx context.Context, AssistantSid string, TaskSid string) (*AutopilotV1TaskStatistics, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -29,7 +35,7 @@ func (c *ApiService) FetchTaskStatistics(AssistantSid string, TaskSid string) (*
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

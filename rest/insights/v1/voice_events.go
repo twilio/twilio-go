@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,11 @@ func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
 
 // Retrieve a single page of Event records from the API. Request is executed immediately.
 func (c *ApiService) PageEvent(CallSid string, params *ListEventParams, pageToken, pageNumber string) (*ListEventResponse, error) {
+	return c.PageEventWithCtx(context.TODO(), CallSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Event records from the API. Request is executed immediately.
+func (c *ApiService) PageEventWithCtx(ctx context.Context, CallSid string, params *ListEventParams, pageToken, pageNumber string) (*ListEventResponse, error) {
 	path := "/v1/Voice/{CallSid}/Events"
 
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -69,7 +75,7 @@ func (c *ApiService) PageEvent(CallSid string, params *ListEventParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +92,12 @@ func (c *ApiService) PageEvent(CallSid string, params *ListEventParams, pageToke
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvent(CallSid string, params *ListEventParams) ([]InsightsV1Event, error) {
-	response, errors := c.StreamEvent(CallSid, params)
+	return c.ListEventWithCtx(context.TODO(), CallSid, params)
+}
+
+// Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEventWithCtx(ctx context.Context, CallSid string, params *ListEventParams) ([]InsightsV1Event, error) {
+	response, errors := c.StreamEventWithCtx(ctx, CallSid, params)
 
 	records := make([]InsightsV1Event, 0)
 	for record := range response {
@@ -102,6 +113,11 @@ func (c *ApiService) ListEvent(CallSid string, params *ListEventParams) ([]Insig
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan InsightsV1Event, chan error) {
+	return c.StreamEventWithCtx(context.TODO(), CallSid, params)
+}
+
+// Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEventWithCtx(ctx context.Context, CallSid string, params *ListEventParams) (chan InsightsV1Event, chan error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
@@ -110,19 +126,19 @@ func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan 
 	recordChannel := make(chan InsightsV1Event, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEvent(CallSid, params, "", "")
+	response, err := c.PageEventWithCtx(ctx, CallSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEvent(response, params, recordChannel, errorChannel)
+		go c.streamEvent(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventParams, recordChannel chan InsightsV1Event, errorChannel chan error) {
+func (c *ApiService) streamEvent(ctx context.Context, response *ListEventResponse, params *ListEventParams, recordChannel chan InsightsV1Event, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -137,7 +153,7 @@ func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListEventResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListEventResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -152,11 +168,11 @@ func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEventResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEventResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -34,6 +35,11 @@ func (params *FetchCallFeedbackParams) SetPathAccountSid(PathAccountSid string) 
 
 // Fetch a Feedback resource from a call
 func (c *ApiService) FetchCallFeedback(CallSid string, params *FetchCallFeedbackParams) (*ApiV2010CallFeedback, error) {
+	return c.FetchCallFeedbackWithCtx(context.TODO(), CallSid, params)
+}
+
+// Fetch a Feedback resource from a call
+func (c *ApiService) FetchCallFeedbackWithCtx(ctx context.Context, CallSid string, params *FetchCallFeedbackParams) (*ApiV2010CallFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -45,7 +51,7 @@ func (c *ApiService) FetchCallFeedback(CallSid string, params *FetchCallFeedback
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -85,6 +91,11 @@ func (params *UpdateCallFeedbackParams) SetIssue(Issue []string) *UpdateCallFeed
 
 // Update a Feedback resource for a call
 func (c *ApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedbackParams) (*ApiV2010CallFeedback, error) {
+	return c.UpdateCallFeedbackWithCtx(context.TODO(), CallSid, params)
+}
+
+// Update a Feedback resource for a call
+func (c *ApiService) UpdateCallFeedbackWithCtx(ctx context.Context, CallSid string, params *UpdateCallFeedbackParams) (*ApiV2010CallFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -105,7 +116,7 @@ func (c *ApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedba
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

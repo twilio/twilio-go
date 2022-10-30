@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *CreateActivityParams) SetAvailable(Available bool) *CreateActivity
 
 //
 func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityParams) (*TaskrouterV1Activity, error) {
+	return c.CreateActivityWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+//
+func (c *ApiService) CreateActivityWithCtx(ctx context.Context, WorkspaceSid string, params *CreateActivityParams) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -55,7 +61,7 @@ func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityP
 		data.Set("Available", fmt.Sprint(*params.Available))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -72,6 +78,11 @@ func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityP
 
 //
 func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
+	return c.DeleteActivityWithCtx(context.TODO(), WorkspaceSid, Sid)
+}
+
+//
+func (c *ApiService) DeleteActivityWithCtx(ctx context.Context, WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -79,7 +90,7 @@ func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -91,6 +102,11 @@ func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 
 //
 func (c *ApiService) FetchActivity(WorkspaceSid string, Sid string) (*TaskrouterV1Activity, error) {
+	return c.FetchActivityWithCtx(context.TODO(), WorkspaceSid, Sid)
+}
+
+//
+func (c *ApiService) FetchActivityWithCtx(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -98,7 +114,7 @@ func (c *ApiService) FetchActivity(WorkspaceSid string, Sid string) (*Taskrouter
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -144,6 +160,11 @@ func (params *ListActivityParams) SetLimit(Limit int) *ListActivityParams {
 
 // Retrieve a single page of Activity records from the API. Request is executed immediately.
 func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParams, pageToken, pageNumber string) (*ListActivityResponse, error) {
+	return c.PageActivityWithCtx(context.TODO(), WorkspaceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Activity records from the API. Request is executed immediately.
+func (c *ApiService) PageActivityWithCtx(ctx context.Context, WorkspaceSid string, params *ListActivityParams, pageToken, pageNumber string) (*ListActivityResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -168,7 +189,7 @@ func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParam
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -185,7 +206,12 @@ func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParam
 
 // Lists Activity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParams) ([]TaskrouterV1Activity, error) {
-	response, errors := c.StreamActivity(WorkspaceSid, params)
+	return c.ListActivityWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+// Lists Activity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListActivityWithCtx(ctx context.Context, WorkspaceSid string, params *ListActivityParams) ([]TaskrouterV1Activity, error) {
+	response, errors := c.StreamActivityWithCtx(ctx, WorkspaceSid, params)
 
 	records := make([]TaskrouterV1Activity, 0)
 	for record := range response {
@@ -201,6 +227,11 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 
 // Streams Activity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityParams) (chan TaskrouterV1Activity, chan error) {
+	return c.StreamActivityWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+// Streams Activity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamActivityWithCtx(ctx context.Context, WorkspaceSid string, params *ListActivityParams) (chan TaskrouterV1Activity, chan error) {
 	if params == nil {
 		params = &ListActivityParams{}
 	}
@@ -209,19 +240,19 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 	recordChannel := make(chan TaskrouterV1Activity, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageActivity(WorkspaceSid, params, "", "")
+	response, err := c.PageActivityWithCtx(ctx, WorkspaceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamActivity(response, params, recordChannel, errorChannel)
+		go c.streamActivity(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamActivity(response *ListActivityResponse, params *ListActivityParams, recordChannel chan TaskrouterV1Activity, errorChannel chan error) {
+func (c *ApiService) streamActivity(ctx context.Context, response *ListActivityResponse, params *ListActivityParams, recordChannel chan TaskrouterV1Activity, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -236,7 +267,7 @@ func (c *ApiService) streamActivity(response *ListActivityResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListActivityResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListActivityResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -251,11 +282,11 @@ func (c *ApiService) streamActivity(response *ListActivityResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListActivityResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListActivityResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -282,6 +313,11 @@ func (params *UpdateActivityParams) SetFriendlyName(FriendlyName string) *Update
 
 //
 func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1Activity, error) {
+	return c.UpdateActivityWithCtx(context.TODO(), WorkspaceSid, Sid, params)
+}
+
+//
+func (c *ApiService) UpdateActivityWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -293,7 +329,7 @@ func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *Upd
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,11 @@ func (params *CreateCredentialAwsParams) SetAccountSid(AccountSid string) *Creat
 
 // Create a new AWS Credential
 func (c *ApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*AccountsV1CredentialAws, error) {
+	return c.CreateCredentialAwsWithCtx(context.TODO(), params)
+}
+
+// Create a new AWS Credential
+func (c *ApiService) CreateCredentialAwsWithCtx(ctx context.Context, params *CreateCredentialAwsParams) (*AccountsV1CredentialAws, error) {
 	path := "/v1/Credentials/AWS"
 
 	data := url.Values{}
@@ -63,7 +69,7 @@ func (c *ApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*Ac
 		data.Set("AccountSid", *params.AccountSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -80,13 +86,18 @@ func (c *ApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*Ac
 
 // Delete a Credential from your account
 func (c *ApiService) DeleteCredentialAws(Sid string) error {
+	return c.DeleteCredentialAwsWithCtx(context.TODO(), Sid)
+}
+
+// Delete a Credential from your account
+func (c *ApiService) DeleteCredentialAwsWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -98,13 +109,18 @@ func (c *ApiService) DeleteCredentialAws(Sid string) error {
 
 // Fetch the AWS credentials specified by the provided Credential Sid
 func (c *ApiService) FetchCredentialAws(Sid string) (*AccountsV1CredentialAws, error) {
+	return c.FetchCredentialAwsWithCtx(context.TODO(), Sid)
+}
+
+// Fetch the AWS credentials specified by the provided Credential Sid
+func (c *ApiService) FetchCredentialAwsWithCtx(ctx context.Context, Sid string) (*AccountsV1CredentialAws, error) {
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +154,11 @@ func (params *ListCredentialAwsParams) SetLimit(Limit int) *ListCredentialAwsPar
 
 // Retrieve a single page of CredentialAws records from the API. Request is executed immediately.
 func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToken, pageNumber string) (*ListCredentialAwsResponse, error) {
+	return c.PageCredentialAwsWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of CredentialAws records from the API. Request is executed immediately.
+func (c *ApiService) PageCredentialAwsWithCtx(ctx context.Context, params *ListCredentialAwsParams, pageToken, pageNumber string) (*ListCredentialAwsResponse, error) {
 	path := "/v1/Credentials/AWS"
 
 	data := url.Values{}
@@ -154,7 +175,7 @@ func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +192,12 @@ func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToke
 
 // Lists CredentialAws records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams) ([]AccountsV1CredentialAws, error) {
-	response, errors := c.StreamCredentialAws(params)
+	return c.ListCredentialAwsWithCtx(context.TODO(), params)
+}
+
+// Lists CredentialAws records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCredentialAwsWithCtx(ctx context.Context, params *ListCredentialAwsParams) ([]AccountsV1CredentialAws, error) {
+	response, errors := c.StreamCredentialAwsWithCtx(ctx, params)
 
 	records := make([]AccountsV1CredentialAws, 0)
 	for record := range response {
@@ -187,6 +213,11 @@ func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams) ([]Accou
 
 // Streams CredentialAws records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams) (chan AccountsV1CredentialAws, chan error) {
+	return c.StreamCredentialAwsWithCtx(context.TODO(), params)
+}
+
+// Streams CredentialAws records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCredentialAwsWithCtx(ctx context.Context, params *ListCredentialAwsParams) (chan AccountsV1CredentialAws, chan error) {
 	if params == nil {
 		params = &ListCredentialAwsParams{}
 	}
@@ -195,19 +226,19 @@ func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams) (chan 
 	recordChannel := make(chan AccountsV1CredentialAws, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCredentialAws(params, "", "")
+	response, err := c.PageCredentialAwsWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCredentialAws(response, params, recordChannel, errorChannel)
+		go c.streamCredentialAws(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCredentialAws(response *ListCredentialAwsResponse, params *ListCredentialAwsParams, recordChannel chan AccountsV1CredentialAws, errorChannel chan error) {
+func (c *ApiService) streamCredentialAws(ctx context.Context, response *ListCredentialAwsResponse, params *ListCredentialAwsParams, recordChannel chan AccountsV1CredentialAws, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -222,7 +253,7 @@ func (c *ApiService) streamCredentialAws(response *ListCredentialAwsResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCredentialAwsResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCredentialAwsResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -237,11 +268,11 @@ func (c *ApiService) streamCredentialAws(response *ListCredentialAwsResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCredentialAwsResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCredentialAwsResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -268,6 +299,11 @@ func (params *UpdateCredentialAwsParams) SetFriendlyName(FriendlyName string) *U
 
 // Modify the properties of a given Account
 func (c *ApiService) UpdateCredentialAws(Sid string, params *UpdateCredentialAwsParams) (*AccountsV1CredentialAws, error) {
+	return c.UpdateCredentialAwsWithCtx(context.TODO(), Sid, params)
+}
+
+// Modify the properties of a given Account
+func (c *ApiService) UpdateCredentialAwsWithCtx(ctx context.Context, Sid string, params *UpdateCredentialAwsParams) (*AccountsV1CredentialAws, error) {
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -278,7 +314,7 @@ func (c *ApiService) UpdateCredentialAws(Sid string, params *UpdateCredentialAws
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -54,6 +55,11 @@ func (params *CreateTaskParams) SetActionsUrl(ActionsUrl string) *CreateTaskPara
 
 //
 func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (*AutopilotV1Task, error) {
+	return c.CreateTaskWithCtx(context.TODO(), AssistantSid, params)
+}
+
+//
+func (c *ApiService) CreateTaskWithCtx(ctx context.Context, AssistantSid string, params *CreateTaskParams) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -79,7 +85,7 @@ func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (
 		data.Set("ActionsUrl", *params.ActionsUrl)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -96,6 +102,11 @@ func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (
 
 //
 func (c *ApiService) DeleteTask(AssistantSid string, Sid string) error {
+	return c.DeleteTaskWithCtx(context.TODO(), AssistantSid, Sid)
+}
+
+//
+func (c *ApiService) DeleteTaskWithCtx(ctx context.Context, AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -103,7 +114,7 @@ func (c *ApiService) DeleteTask(AssistantSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -115,6 +126,11 @@ func (c *ApiService) DeleteTask(AssistantSid string, Sid string) error {
 
 //
 func (c *ApiService) FetchTask(AssistantSid string, Sid string) (*AutopilotV1Task, error) {
+	return c.FetchTaskWithCtx(context.TODO(), AssistantSid, Sid)
+}
+
+//
+func (c *ApiService) FetchTaskWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -122,7 +138,7 @@ func (c *ApiService) FetchTask(AssistantSid string, Sid string) (*AutopilotV1Tas
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -156,6 +172,11 @@ func (params *ListTaskParams) SetLimit(Limit int) *ListTaskParams {
 
 // Retrieve a single page of Task records from the API. Request is executed immediately.
 func (c *ApiService) PageTask(AssistantSid string, params *ListTaskParams, pageToken, pageNumber string) (*ListTaskResponse, error) {
+	return c.PageTaskWithCtx(context.TODO(), AssistantSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Task records from the API. Request is executed immediately.
+func (c *ApiService) PageTaskWithCtx(ctx context.Context, AssistantSid string, params *ListTaskParams, pageToken, pageNumber string) (*ListTaskResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -174,7 +195,7 @@ func (c *ApiService) PageTask(AssistantSid string, params *ListTaskParams, pageT
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -191,7 +212,12 @@ func (c *ApiService) PageTask(AssistantSid string, params *ListTaskParams, pageT
 
 // Lists Task records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) ([]AutopilotV1Task, error) {
-	response, errors := c.StreamTask(AssistantSid, params)
+	return c.ListTaskWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Lists Task records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTaskWithCtx(ctx context.Context, AssistantSid string, params *ListTaskParams) ([]AutopilotV1Task, error) {
+	response, errors := c.StreamTaskWithCtx(ctx, AssistantSid, params)
 
 	records := make([]AutopilotV1Task, 0)
 	for record := range response {
@@ -207,6 +233,11 @@ func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) ([]Au
 
 // Streams Task records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTask(AssistantSid string, params *ListTaskParams) (chan AutopilotV1Task, chan error) {
+	return c.StreamTaskWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Streams Task records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTaskWithCtx(ctx context.Context, AssistantSid string, params *ListTaskParams) (chan AutopilotV1Task, chan error) {
 	if params == nil {
 		params = &ListTaskParams{}
 	}
@@ -215,19 +246,19 @@ func (c *ApiService) StreamTask(AssistantSid string, params *ListTaskParams) (ch
 	recordChannel := make(chan AutopilotV1Task, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTask(AssistantSid, params, "", "")
+	response, err := c.PageTaskWithCtx(ctx, AssistantSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTask(response, params, recordChannel, errorChannel)
+		go c.streamTask(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTask(response *ListTaskResponse, params *ListTaskParams, recordChannel chan AutopilotV1Task, errorChannel chan error) {
+func (c *ApiService) streamTask(ctx context.Context, response *ListTaskResponse, params *ListTaskParams, recordChannel chan AutopilotV1Task, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -242,7 +273,7 @@ func (c *ApiService) streamTask(response *ListTaskResponse, params *ListTaskPara
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListTaskResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListTaskResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -257,11 +288,11 @@ func (c *ApiService) streamTask(response *ListTaskResponse, params *ListTaskPara
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTaskResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTaskResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -306,6 +337,11 @@ func (params *UpdateTaskParams) SetActionsUrl(ActionsUrl string) *UpdateTaskPara
 
 //
 func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateTaskParams) (*AutopilotV1Task, error) {
+	return c.UpdateTaskWithCtx(context.TODO(), AssistantSid, Sid, params)
+}
+
+//
+func (c *ApiService) UpdateTaskWithCtx(ctx context.Context, AssistantSid string, Sid string, params *UpdateTaskParams) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -332,7 +368,7 @@ func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateT
 		data.Set("ActionsUrl", *params.ActionsUrl)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

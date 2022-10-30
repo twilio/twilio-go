@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,11 @@ import (
 
 // Retrieve the context for an Engagement Step.
 func (c *ApiService) FetchStepContext(FlowSid string, EngagementSid string, StepSid string) (*StudioV1StepContext, error) {
+	return c.FetchStepContextWithCtx(context.TODO(), FlowSid, EngagementSid, StepSid)
+}
+
+// Retrieve the context for an Engagement Step.
+func (c *ApiService) FetchStepContextWithCtx(ctx context.Context, FlowSid string, EngagementSid string, StepSid string) (*StudioV1StepContext, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
@@ -30,7 +36,7 @@ func (c *ApiService) FetchStepContext(FlowSid string, EngagementSid string, Step
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

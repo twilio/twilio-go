@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -156,6 +157,11 @@ func (params *ListAvailablePhoneNumberSharedCostParams) SetLimit(Limit int) *Lis
 
 // Retrieve a single page of AvailablePhoneNumberSharedCost records from the API. Request is executed immediately.
 func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberSharedCostResponse, error) {
+	return c.PageAvailablePhoneNumberSharedCostWithCtx(context.TODO(), CountryCode, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of AvailablePhoneNumberSharedCost records from the API. Request is executed immediately.
+func (c *ApiService) PageAvailablePhoneNumberSharedCostWithCtx(ctx context.Context, CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberSharedCostResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -233,7 +239,7 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -250,7 +256,12 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 
 // Lists AvailablePhoneNumberSharedCost records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) ([]ApiV2010AvailablePhoneNumberSharedCost, error) {
-	response, errors := c.StreamAvailablePhoneNumberSharedCost(CountryCode, params)
+	return c.ListAvailablePhoneNumberSharedCostWithCtx(context.TODO(), CountryCode, params)
+}
+
+// Lists AvailablePhoneNumberSharedCost records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailablePhoneNumberSharedCostWithCtx(ctx context.Context, CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) ([]ApiV2010AvailablePhoneNumberSharedCost, error) {
+	response, errors := c.StreamAvailablePhoneNumberSharedCostWithCtx(ctx, CountryCode, params)
 
 	records := make([]ApiV2010AvailablePhoneNumberSharedCost, 0)
 	for record := range response {
@@ -266,6 +277,11 @@ func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, para
 
 // Streams AvailablePhoneNumberSharedCost records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) (chan ApiV2010AvailablePhoneNumberSharedCost, chan error) {
+	return c.StreamAvailablePhoneNumberSharedCostWithCtx(context.TODO(), CountryCode, params)
+}
+
+// Streams AvailablePhoneNumberSharedCost records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailablePhoneNumberSharedCostWithCtx(ctx context.Context, CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) (chan ApiV2010AvailablePhoneNumberSharedCost, chan error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberSharedCostParams{}
 	}
@@ -274,19 +290,19 @@ func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, pa
 	recordChannel := make(chan ApiV2010AvailablePhoneNumberSharedCost, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAvailablePhoneNumberSharedCost(CountryCode, params, "", "")
+	response, err := c.PageAvailablePhoneNumberSharedCostWithCtx(ctx, CountryCode, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAvailablePhoneNumberSharedCost(response, params, recordChannel, errorChannel)
+		go c.streamAvailablePhoneNumberSharedCost(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberSharedCost(response *ListAvailablePhoneNumberSharedCostResponse, params *ListAvailablePhoneNumberSharedCostParams, recordChannel chan ApiV2010AvailablePhoneNumberSharedCost, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberSharedCost(ctx context.Context, response *ListAvailablePhoneNumberSharedCostResponse, params *ListAvailablePhoneNumberSharedCostParams, recordChannel chan ApiV2010AvailablePhoneNumberSharedCost, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -301,7 +317,7 @@ func (c *ApiService) streamAvailablePhoneNumberSharedCost(response *ListAvailabl
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberSharedCostResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListAvailablePhoneNumberSharedCostResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -316,11 +332,11 @@ func (c *ApiService) streamAvailablePhoneNumberSharedCost(response *ListAvailabl
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberSharedCostResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailablePhoneNumberSharedCostResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

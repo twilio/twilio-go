@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -22,12 +23,17 @@ import (
 
 // Retrieve voice dialing permissions inheritance for the sub-account
 func (c *ApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPermissionsSettings, error) {
+	return c.FetchDialingPermissionsSettingsWithCtx(context.TODO())
+}
+
+// Retrieve voice dialing permissions inheritance for the sub-account
+func (c *ApiService) FetchDialingPermissionsSettingsWithCtx(ctx context.Context) (*VoiceV1DialingPermissionsSettings, error) {
 	path := "/v1/Settings"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -55,6 +61,11 @@ func (params *UpdateDialingPermissionsSettingsParams) SetDialingPermissionsInher
 
 // Update voice dialing permissions inheritance for the sub-account
 func (c *ApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermissionsSettingsParams) (*VoiceV1DialingPermissionsSettings, error) {
+	return c.UpdateDialingPermissionsSettingsWithCtx(context.TODO(), params)
+}
+
+// Update voice dialing permissions inheritance for the sub-account
+func (c *ApiService) UpdateDialingPermissionsSettingsWithCtx(ctx context.Context, params *UpdateDialingPermissionsSettingsParams) (*VoiceV1DialingPermissionsSettings, error) {
 	path := "/v1/Settings"
 
 	data := url.Values{}
@@ -64,7 +75,7 @@ func (c *ApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermi
 		data.Set("DialingPermissionsInheritance", fmt.Sprint(*params.DialingPermissionsInheritance))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

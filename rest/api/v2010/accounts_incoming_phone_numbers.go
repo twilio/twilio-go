@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -180,6 +181,11 @@ func (params *CreateIncomingPhoneNumberParams) SetAreaCode(AreaCode string) *Cre
 
 // Purchase a phone-number for the account.
 func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
+	return c.CreateIncomingPhoneNumberWithCtx(context.TODO(), params)
+}
+
+// Purchase a phone-number for the account.
+func (c *ApiService) CreateIncomingPhoneNumberWithCtx(ctx context.Context, params *CreateIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -263,7 +269,7 @@ func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumber
 		data.Set("AreaCode", *params.AreaCode)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -291,6 +297,11 @@ func (params *DeleteIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid 
 
 // Delete a phone-numbers belonging to the account used to make the request.
 func (c *ApiService) DeleteIncomingPhoneNumber(Sid string, params *DeleteIncomingPhoneNumberParams) error {
+	return c.DeleteIncomingPhoneNumberWithCtx(context.TODO(), Sid, params)
+}
+
+// Delete a phone-numbers belonging to the account used to make the request.
+func (c *ApiService) DeleteIncomingPhoneNumberWithCtx(ctx context.Context, Sid string, params *DeleteIncomingPhoneNumberParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -302,7 +313,7 @@ func (c *ApiService) DeleteIncomingPhoneNumber(Sid string, params *DeleteIncomin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -325,6 +336,11 @@ func (params *FetchIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid s
 
 // Fetch an incoming-phone-number belonging to the account used to make the request.
 func (c *ApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
+	return c.FetchIncomingPhoneNumberWithCtx(context.TODO(), Sid, params)
+}
+
+// Fetch an incoming-phone-number belonging to the account used to make the request.
+func (c *ApiService) FetchIncomingPhoneNumberWithCtx(ctx context.Context, Sid string, params *FetchIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -336,7 +352,7 @@ func (c *ApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIncomingP
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -400,6 +416,11 @@ func (params *ListIncomingPhoneNumberParams) SetLimit(Limit int) *ListIncomingPh
 
 // Retrieve a single page of IncomingPhoneNumber records from the API. Request is executed immediately.
 func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberResponse, error) {
+	return c.PageIncomingPhoneNumberWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of IncomingPhoneNumber records from the API. Request is executed immediately.
+func (c *ApiService) PageIncomingPhoneNumberWithCtx(ctx context.Context, params *ListIncomingPhoneNumberParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -434,7 +455,7 @@ func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -451,7 +472,12 @@ func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 
 // Lists IncomingPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberParams) ([]ApiV2010IncomingPhoneNumber, error) {
-	response, errors := c.StreamIncomingPhoneNumber(params)
+	return c.ListIncomingPhoneNumberWithCtx(context.TODO(), params)
+}
+
+// Lists IncomingPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIncomingPhoneNumberWithCtx(ctx context.Context, params *ListIncomingPhoneNumberParams) ([]ApiV2010IncomingPhoneNumber, error) {
+	response, errors := c.StreamIncomingPhoneNumberWithCtx(ctx, params)
 
 	records := make([]ApiV2010IncomingPhoneNumber, 0)
 	for record := range response {
@@ -467,6 +493,11 @@ func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 
 // Streams IncomingPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberParams) (chan ApiV2010IncomingPhoneNumber, chan error) {
+	return c.StreamIncomingPhoneNumberWithCtx(context.TODO(), params)
+}
+
+// Streams IncomingPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIncomingPhoneNumberWithCtx(ctx context.Context, params *ListIncomingPhoneNumberParams) (chan ApiV2010IncomingPhoneNumber, chan error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberParams{}
 	}
@@ -475,19 +506,19 @@ func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberPa
 	recordChannel := make(chan ApiV2010IncomingPhoneNumber, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageIncomingPhoneNumber(params, "", "")
+	response, err := c.PageIncomingPhoneNumberWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamIncomingPhoneNumber(response, params, recordChannel, errorChannel)
+		go c.streamIncomingPhoneNumber(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIncomingPhoneNumber(response *ListIncomingPhoneNumberResponse, params *ListIncomingPhoneNumberParams, recordChannel chan ApiV2010IncomingPhoneNumber, errorChannel chan error) {
+func (c *ApiService) streamIncomingPhoneNumber(ctx context.Context, response *ListIncomingPhoneNumberResponse, params *ListIncomingPhoneNumberParams, recordChannel chan ApiV2010IncomingPhoneNumber, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -502,7 +533,7 @@ func (c *ApiService) streamIncomingPhoneNumber(response *ListIncomingPhoneNumber
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListIncomingPhoneNumberResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -517,11 +548,11 @@ func (c *ApiService) streamIncomingPhoneNumber(response *ListIncomingPhoneNumber
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumberResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListIncomingPhoneNumberResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -686,6 +717,11 @@ func (params *UpdateIncomingPhoneNumberParams) SetBundleSid(BundleSid string) *U
 
 // Update an incoming-phone-number instance.
 func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
+	return c.UpdateIncomingPhoneNumberWithCtx(context.TODO(), Sid, params)
+}
+
+// Update an incoming-phone-number instance.
+func (c *ApiService) UpdateIncomingPhoneNumberWithCtx(ctx context.Context, Sid string, params *UpdateIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -767,7 +803,7 @@ func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomin
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

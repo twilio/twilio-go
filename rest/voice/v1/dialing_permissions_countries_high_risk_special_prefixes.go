@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *ListDialingPermissionsHrsPrefixesParams) SetLimit(Limit int) *List
 
 // Retrieve a single page of DialingPermissionsHrsPrefixes records from the API. Request is executed immediately.
 func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, pageToken, pageNumber string) (*ListDialingPermissionsHrsPrefixesResponse, error) {
+	return c.PageDialingPermissionsHrsPrefixesWithCtx(context.TODO(), IsoCode, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of DialingPermissionsHrsPrefixes records from the API. Request is executed immediately.
+func (c *ApiService) PageDialingPermissionsHrsPrefixesWithCtx(ctx context.Context, IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, pageToken, pageNumber string) (*ListDialingPermissionsHrsPrefixesResponse, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes"
 
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
@@ -60,7 +66,7 @@ func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *L
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +83,12 @@ func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *L
 
 // Lists DialingPermissionsHrsPrefixes records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) ([]VoiceV1DialingPermissionsHrsPrefixes, error) {
-	response, errors := c.StreamDialingPermissionsHrsPrefixes(IsoCode, params)
+	return c.ListDialingPermissionsHrsPrefixesWithCtx(context.TODO(), IsoCode, params)
+}
+
+// Lists DialingPermissionsHrsPrefixes records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDialingPermissionsHrsPrefixesWithCtx(ctx context.Context, IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) ([]VoiceV1DialingPermissionsHrsPrefixes, error) {
+	response, errors := c.StreamDialingPermissionsHrsPrefixesWithCtx(ctx, IsoCode, params)
 
 	records := make([]VoiceV1DialingPermissionsHrsPrefixes, 0)
 	for record := range response {
@@ -93,6 +104,11 @@ func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *L
 
 // Streams DialingPermissionsHrsPrefixes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) (chan VoiceV1DialingPermissionsHrsPrefixes, chan error) {
+	return c.StreamDialingPermissionsHrsPrefixesWithCtx(context.TODO(), IsoCode, params)
+}
+
+// Streams DialingPermissionsHrsPrefixes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDialingPermissionsHrsPrefixesWithCtx(ctx context.Context, IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) (chan VoiceV1DialingPermissionsHrsPrefixes, chan error) {
 	if params == nil {
 		params = &ListDialingPermissionsHrsPrefixesParams{}
 	}
@@ -101,19 +117,19 @@ func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params 
 	recordChannel := make(chan VoiceV1DialingPermissionsHrsPrefixes, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDialingPermissionsHrsPrefixes(IsoCode, params, "", "")
+	response, err := c.PageDialingPermissionsHrsPrefixesWithCtx(ctx, IsoCode, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDialingPermissionsHrsPrefixes(response, params, recordChannel, errorChannel)
+		go c.streamDialingPermissionsHrsPrefixes(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDialingPermissionsHrsPrefixes(response *ListDialingPermissionsHrsPrefixesResponse, params *ListDialingPermissionsHrsPrefixesParams, recordChannel chan VoiceV1DialingPermissionsHrsPrefixes, errorChannel chan error) {
+func (c *ApiService) streamDialingPermissionsHrsPrefixes(ctx context.Context, response *ListDialingPermissionsHrsPrefixesResponse, params *ListDialingPermissionsHrsPrefixesParams, recordChannel chan VoiceV1DialingPermissionsHrsPrefixes, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -128,7 +144,7 @@ func (c *ApiService) streamDialingPermissionsHrsPrefixes(response *ListDialingPe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDialingPermissionsHrsPrefixesResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListDialingPermissionsHrsPrefixesResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -143,11 +159,11 @@ func (c *ApiService) streamDialingPermissionsHrsPrefixes(response *ListDialingPe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDialingPermissionsHrsPrefixesResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDialingPermissionsHrsPrefixesResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

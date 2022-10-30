@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,11 @@ import (
 
 // Fetch a Channel for an Interaction.
 func (c *ApiService) FetchInteractionChannel(InteractionSid string, Sid string) (*FlexV1InteractionChannel, error) {
+	return c.FetchInteractionChannelWithCtx(context.TODO(), InteractionSid, Sid)
+}
+
+// Fetch a Channel for an Interaction.
+func (c *ApiService) FetchInteractionChannelWithCtx(ctx context.Context, InteractionSid string, Sid string) (*FlexV1InteractionChannel, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -32,7 +38,7 @@ func (c *ApiService) FetchInteractionChannel(InteractionSid string, Sid string) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -66,6 +72,11 @@ func (params *ListInteractionChannelParams) SetLimit(Limit int) *ListInteraction
 
 // Retrieve a single page of InteractionChannel records from the API. Request is executed immediately.
 func (c *ApiService) PageInteractionChannel(InteractionSid string, params *ListInteractionChannelParams, pageToken, pageNumber string) (*ListInteractionChannelResponse, error) {
+	return c.PageInteractionChannelWithCtx(context.TODO(), InteractionSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of InteractionChannel records from the API. Request is executed immediately.
+func (c *ApiService) PageInteractionChannelWithCtx(ctx context.Context, InteractionSid string, params *ListInteractionChannelParams, pageToken, pageNumber string) (*ListInteractionChannelResponse, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels"
 
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
@@ -84,7 +95,7 @@ func (c *ApiService) PageInteractionChannel(InteractionSid string, params *ListI
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +112,12 @@ func (c *ApiService) PageInteractionChannel(InteractionSid string, params *ListI
 
 // Lists InteractionChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInteractionChannel(InteractionSid string, params *ListInteractionChannelParams) ([]FlexV1InteractionChannel, error) {
-	response, errors := c.StreamInteractionChannel(InteractionSid, params)
+	return c.ListInteractionChannelWithCtx(context.TODO(), InteractionSid, params)
+}
+
+// Lists InteractionChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInteractionChannelWithCtx(ctx context.Context, InteractionSid string, params *ListInteractionChannelParams) ([]FlexV1InteractionChannel, error) {
+	response, errors := c.StreamInteractionChannelWithCtx(ctx, InteractionSid, params)
 
 	records := make([]FlexV1InteractionChannel, 0)
 	for record := range response {
@@ -117,6 +133,11 @@ func (c *ApiService) ListInteractionChannel(InteractionSid string, params *ListI
 
 // Streams InteractionChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInteractionChannel(InteractionSid string, params *ListInteractionChannelParams) (chan FlexV1InteractionChannel, chan error) {
+	return c.StreamInteractionChannelWithCtx(context.TODO(), InteractionSid, params)
+}
+
+// Streams InteractionChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInteractionChannelWithCtx(ctx context.Context, InteractionSid string, params *ListInteractionChannelParams) (chan FlexV1InteractionChannel, chan error) {
 	if params == nil {
 		params = &ListInteractionChannelParams{}
 	}
@@ -125,19 +146,19 @@ func (c *ApiService) StreamInteractionChannel(InteractionSid string, params *Lis
 	recordChannel := make(chan FlexV1InteractionChannel, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInteractionChannel(InteractionSid, params, "", "")
+	response, err := c.PageInteractionChannelWithCtx(ctx, InteractionSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInteractionChannel(response, params, recordChannel, errorChannel)
+		go c.streamInteractionChannel(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInteractionChannel(response *ListInteractionChannelResponse, params *ListInteractionChannelParams, recordChannel chan FlexV1InteractionChannel, errorChannel chan error) {
+func (c *ApiService) streamInteractionChannel(ctx context.Context, response *ListInteractionChannelResponse, params *ListInteractionChannelParams, recordChannel chan FlexV1InteractionChannel, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -152,7 +173,7 @@ func (c *ApiService) streamInteractionChannel(response *ListInteractionChannelRe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListInteractionChannelResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListInteractionChannelResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -167,11 +188,11 @@ func (c *ApiService) streamInteractionChannel(response *ListInteractionChannelRe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInteractionChannelResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInteractionChannelResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -204,6 +225,11 @@ func (params *UpdateInteractionChannelParams) SetRouting(Routing interface{}) *U
 
 // Update an existing Interaction Channel.
 func (c *ApiService) UpdateInteractionChannel(InteractionSid string, Sid string, params *UpdateInteractionChannelParams) (*FlexV1InteractionChannel, error) {
+	return c.UpdateInteractionChannelWithCtx(context.TODO(), InteractionSid, Sid, params)
+}
+
+// Update an existing Interaction Channel.
+func (c *ApiService) UpdateInteractionChannelWithCtx(ctx context.Context, InteractionSid string, Sid string, params *UpdateInteractionChannelParams) (*FlexV1InteractionChannel, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -224,7 +250,7 @@ func (c *ApiService) UpdateInteractionChannel(InteractionSid string, Sid string,
 		data.Set("Routing", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

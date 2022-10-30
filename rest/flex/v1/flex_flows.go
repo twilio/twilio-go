@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -132,6 +133,11 @@ func (params *CreateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCou
 
 //
 func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
+	return c.CreateFlexFlowWithCtx(context.TODO(), params)
+}
+
+//
+func (c *ApiService) CreateFlexFlowWithCtx(ctx context.Context, params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
@@ -189,7 +195,7 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 		data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -206,13 +212,18 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 
 //
 func (c *ApiService) DeleteFlexFlow(Sid string) error {
+	return c.DeleteFlexFlowWithCtx(context.TODO(), Sid)
+}
+
+//
+func (c *ApiService) DeleteFlexFlowWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -224,13 +235,18 @@ func (c *ApiService) DeleteFlexFlow(Sid string) error {
 
 //
 func (c *ApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
+	return c.FetchFlexFlowWithCtx(context.TODO(), Sid)
+}
+
+//
+func (c *ApiService) FetchFlexFlowWithCtx(ctx context.Context, Sid string) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -270,6 +286,11 @@ func (params *ListFlexFlowParams) SetLimit(Limit int) *ListFlexFlowParams {
 
 // Retrieve a single page of FlexFlow records from the API. Request is executed immediately.
 func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken, pageNumber string) (*ListFlexFlowResponse, error) {
+	return c.PageFlexFlowWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of FlexFlow records from the API. Request is executed immediately.
+func (c *ApiService) PageFlexFlowWithCtx(ctx context.Context, params *ListFlexFlowParams, pageToken, pageNumber string) (*ListFlexFlowResponse, error) {
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
@@ -289,7 +310,7 @@ func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken, pageNum
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -306,7 +327,12 @@ func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken, pageNum
 
 // Lists FlexFlow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams) ([]FlexV1FlexFlow, error) {
-	response, errors := c.StreamFlexFlow(params)
+	return c.ListFlexFlowWithCtx(context.TODO(), params)
+}
+
+// Lists FlexFlow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFlexFlowWithCtx(ctx context.Context, params *ListFlexFlowParams) ([]FlexV1FlexFlow, error) {
+	response, errors := c.StreamFlexFlowWithCtx(ctx, params)
 
 	records := make([]FlexV1FlexFlow, 0)
 	for record := range response {
@@ -322,6 +348,11 @@ func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams) ([]FlexV1FlexFlow,
 
 // Streams FlexFlow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams) (chan FlexV1FlexFlow, chan error) {
+	return c.StreamFlexFlowWithCtx(context.TODO(), params)
+}
+
+// Streams FlexFlow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFlexFlowWithCtx(ctx context.Context, params *ListFlexFlowParams) (chan FlexV1FlexFlow, chan error) {
 	if params == nil {
 		params = &ListFlexFlowParams{}
 	}
@@ -330,19 +361,19 @@ func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams) (chan FlexV1Flex
 	recordChannel := make(chan FlexV1FlexFlow, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageFlexFlow(params, "", "")
+	response, err := c.PageFlexFlowWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamFlexFlow(response, params, recordChannel, errorChannel)
+		go c.streamFlexFlow(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFlexFlow(response *ListFlexFlowResponse, params *ListFlexFlowParams, recordChannel chan FlexV1FlexFlow, errorChannel chan error) {
+func (c *ApiService) streamFlexFlow(ctx context.Context, response *ListFlexFlowResponse, params *ListFlexFlowParams, recordChannel chan FlexV1FlexFlow, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -357,7 +388,7 @@ func (c *ApiService) streamFlexFlow(response *ListFlexFlowResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListFlexFlowResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListFlexFlowResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -372,11 +403,11 @@ func (c *ApiService) streamFlexFlow(response *ListFlexFlowResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFlexFlowResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFlexFlowResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -499,6 +530,11 @@ func (params *UpdateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCou
 
 //
 func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
+	return c.UpdateFlexFlowWithCtx(context.TODO(), Sid, params)
+}
+
+//
+func (c *ApiService) UpdateFlexFlowWithCtx(ctx context.Context, Sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -557,7 +593,7 @@ func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*
 		data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

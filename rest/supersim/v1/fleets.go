@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -84,6 +85,11 @@ func (params *CreateFleetParams) SetSmsCommandsMethod(SmsCommandsMethod string) 
 
 // Create a Fleet
 func (c *ApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, error) {
+	return c.CreateFleetWithCtx(context.TODO(), params)
+}
+
+// Create a Fleet
+func (c *ApiService) CreateFleetWithCtx(ctx context.Context, params *CreateFleetParams) (*SupersimV1Fleet, error) {
 	path := "/v1/Fleets"
 
 	data := url.Values{}
@@ -117,7 +123,7 @@ func (c *ApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, e
 		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -134,13 +140,18 @@ func (c *ApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, e
 
 // Fetch a Fleet instance from your account.
 func (c *ApiService) FetchFleet(Sid string) (*SupersimV1Fleet, error) {
+	return c.FetchFleetWithCtx(context.TODO(), Sid)
+}
+
+// Fetch a Fleet instance from your account.
+func (c *ApiService) FetchFleetWithCtx(ctx context.Context, Sid string) (*SupersimV1Fleet, error) {
 	path := "/v1/Fleets/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -180,6 +191,11 @@ func (params *ListFleetParams) SetLimit(Limit int) *ListFleetParams {
 
 // Retrieve a single page of Fleet records from the API. Request is executed immediately.
 func (c *ApiService) PageFleet(params *ListFleetParams, pageToken, pageNumber string) (*ListFleetResponse, error) {
+	return c.PageFleetWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Fleet records from the API. Request is executed immediately.
+func (c *ApiService) PageFleetWithCtx(ctx context.Context, params *ListFleetParams, pageToken, pageNumber string) (*ListFleetResponse, error) {
 	path := "/v1/Fleets"
 
 	data := url.Values{}
@@ -199,7 +215,7 @@ func (c *ApiService) PageFleet(params *ListFleetParams, pageToken, pageNumber st
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -216,7 +232,12 @@ func (c *ApiService) PageFleet(params *ListFleetParams, pageToken, pageNumber st
 
 // Lists Fleet records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFleet(params *ListFleetParams) ([]SupersimV1Fleet, error) {
-	response, errors := c.StreamFleet(params)
+	return c.ListFleetWithCtx(context.TODO(), params)
+}
+
+// Lists Fleet records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFleetWithCtx(ctx context.Context, params *ListFleetParams) ([]SupersimV1Fleet, error) {
+	response, errors := c.StreamFleetWithCtx(ctx, params)
 
 	records := make([]SupersimV1Fleet, 0)
 	for record := range response {
@@ -232,6 +253,11 @@ func (c *ApiService) ListFleet(params *ListFleetParams) ([]SupersimV1Fleet, erro
 
 // Streams Fleet records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFleet(params *ListFleetParams) (chan SupersimV1Fleet, chan error) {
+	return c.StreamFleetWithCtx(context.TODO(), params)
+}
+
+// Streams Fleet records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFleetWithCtx(ctx context.Context, params *ListFleetParams) (chan SupersimV1Fleet, chan error) {
 	if params == nil {
 		params = &ListFleetParams{}
 	}
@@ -240,19 +266,19 @@ func (c *ApiService) StreamFleet(params *ListFleetParams) (chan SupersimV1Fleet,
 	recordChannel := make(chan SupersimV1Fleet, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageFleet(params, "", "")
+	response, err := c.PageFleetWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamFleet(response, params, recordChannel, errorChannel)
+		go c.streamFleet(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFleet(response *ListFleetResponse, params *ListFleetParams, recordChannel chan SupersimV1Fleet, errorChannel chan error) {
+func (c *ApiService) streamFleet(ctx context.Context, response *ListFleetResponse, params *ListFleetParams, recordChannel chan SupersimV1Fleet, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -267,7 +293,7 @@ func (c *ApiService) streamFleet(response *ListFleetResponse, params *ListFleetP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListFleetResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListFleetResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -282,11 +308,11 @@ func (c *ApiService) streamFleet(response *ListFleetResponse, params *ListFleetP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFleetResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFleetResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -349,6 +375,11 @@ func (params *UpdateFleetParams) SetDataLimit(DataLimit int) *UpdateFleetParams 
 
 // Updates the given properties of a Super SIM Fleet instance from your account.
 func (c *ApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*SupersimV1Fleet, error) {
+	return c.UpdateFleetWithCtx(context.TODO(), Sid, params)
+}
+
+// Updates the given properties of a Super SIM Fleet instance from your account.
+func (c *ApiService) UpdateFleetWithCtx(ctx context.Context, Sid string, params *UpdateFleetParams) (*SupersimV1Fleet, error) {
 	path := "/v1/Fleets/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -377,7 +408,7 @@ func (c *ApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*Supers
 		data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

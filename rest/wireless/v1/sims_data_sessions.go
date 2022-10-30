@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *ListDataSessionParams) SetLimit(Limit int) *ListDataSessionParams 
 
 // Retrieve a single page of DataSession records from the API. Request is executed immediately.
 func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParams, pageToken, pageNumber string) (*ListDataSessionResponse, error) {
+	return c.PageDataSessionWithCtx(context.TODO(), SimSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of DataSession records from the API. Request is executed immediately.
+func (c *ApiService) PageDataSessionWithCtx(ctx context.Context, SimSid string, params *ListDataSessionParams, pageToken, pageNumber string) (*ListDataSessionResponse, error) {
 	path := "/v1/Sims/{SimSid}/DataSessions"
 
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
@@ -60,7 +66,7 @@ func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParam
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +83,12 @@ func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParam
 
 // Lists DataSession records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams) ([]WirelessV1DataSession, error) {
-	response, errors := c.StreamDataSession(SimSid, params)
+	return c.ListDataSessionWithCtx(context.TODO(), SimSid, params)
+}
+
+// Lists DataSession records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDataSessionWithCtx(ctx context.Context, SimSid string, params *ListDataSessionParams) ([]WirelessV1DataSession, error) {
+	response, errors := c.StreamDataSessionWithCtx(ctx, SimSid, params)
 
 	records := make([]WirelessV1DataSession, 0)
 	for record := range response {
@@ -93,6 +104,11 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 
 // Streams DataSession records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionParams) (chan WirelessV1DataSession, chan error) {
+	return c.StreamDataSessionWithCtx(context.TODO(), SimSid, params)
+}
+
+// Streams DataSession records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDataSessionWithCtx(ctx context.Context, SimSid string, params *ListDataSessionParams) (chan WirelessV1DataSession, chan error) {
 	if params == nil {
 		params = &ListDataSessionParams{}
 	}
@@ -101,19 +117,19 @@ func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionPar
 	recordChannel := make(chan WirelessV1DataSession, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDataSession(SimSid, params, "", "")
+	response, err := c.PageDataSessionWithCtx(ctx, SimSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDataSession(response, params, recordChannel, errorChannel)
+		go c.streamDataSession(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDataSession(response *ListDataSessionResponse, params *ListDataSessionParams, recordChannel chan WirelessV1DataSession, errorChannel chan error) {
+func (c *ApiService) streamDataSession(ctx context.Context, response *ListDataSessionResponse, params *ListDataSessionParams, recordChannel chan WirelessV1DataSession, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -128,7 +144,7 @@ func (c *ApiService) streamDataSession(response *ListDataSessionResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDataSessionResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListDataSessionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -143,11 +159,11 @@ func (c *ApiService) streamDataSession(response *ListDataSessionResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDataSessionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDataSessionResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

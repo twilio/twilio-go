@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -53,6 +54,11 @@ func (params *FetchWorkerInstanceStatisticsParams) SetTaskChannel(TaskChannel st
 
 //
 func (c *ApiService) FetchWorkerInstanceStatistics(WorkspaceSid string, WorkerSid string, params *FetchWorkerInstanceStatisticsParams) (*TaskrouterV1WorkerInstanceStatistics, error) {
+	return c.FetchWorkerInstanceStatisticsWithCtx(context.TODO(), WorkspaceSid, WorkerSid, params)
+}
+
+//
+func (c *ApiService) FetchWorkerInstanceStatisticsWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, params *FetchWorkerInstanceStatisticsParams) (*TaskrouterV1WorkerInstanceStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
@@ -73,7 +79,7 @@ func (c *ApiService) FetchWorkerInstanceStatistics(WorkspaceSid string, WorkerSi
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -137,6 +143,11 @@ func (params *FetchWorkerStatisticsParams) SetTaskChannel(TaskChannel string) *F
 
 //
 func (c *ApiService) FetchWorkerStatistics(WorkspaceSid string, params *FetchWorkerStatisticsParams) (*TaskrouterV1WorkerStatistics, error) {
+	return c.FetchWorkerStatisticsWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+//
+func (c *ApiService) FetchWorkerStatisticsWithCtx(ctx context.Context, WorkspaceSid string, params *FetchWorkerStatisticsParams) (*TaskrouterV1WorkerStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -165,7 +176,7 @@ func (c *ApiService) FetchWorkerStatistics(WorkspaceSid string, params *FetchWor
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

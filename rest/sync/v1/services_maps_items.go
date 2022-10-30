@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -60,6 +61,11 @@ func (params *CreateSyncMapItemParams) SetCollectionTtl(CollectionTtl int) *Crea
 
 //
 func (c *ApiService) CreateSyncMapItem(ServiceSid string, MapSid string, params *CreateSyncMapItemParams) (*SyncV1SyncMapItem, error) {
+	return c.CreateSyncMapItemWithCtx(context.TODO(), ServiceSid, MapSid, params)
+}
+
+//
+func (c *ApiService) CreateSyncMapItemWithCtx(ctx context.Context, ServiceSid string, MapSid string, params *CreateSyncMapItemParams) (*SyncV1SyncMapItem, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
@@ -89,7 +95,7 @@ func (c *ApiService) CreateSyncMapItem(ServiceSid string, MapSid string, params 
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -117,6 +123,11 @@ func (params *DeleteSyncMapItemParams) SetIfMatch(IfMatch string) *DeleteSyncMap
 
 //
 func (c *ApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key string, params *DeleteSyncMapItemParams) error {
+	return c.DeleteSyncMapItemWithCtx(context.TODO(), ServiceSid, MapSid, Key, params)
+}
+
+//
+func (c *ApiService) DeleteSyncMapItemWithCtx(ctx context.Context, ServiceSid string, MapSid string, Key string, params *DeleteSyncMapItemParams) error {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
@@ -129,7 +140,7 @@ func (c *ApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key str
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -141,6 +152,11 @@ func (c *ApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key str
 
 //
 func (c *ApiService) FetchSyncMapItem(ServiceSid string, MapSid string, Key string) (*SyncV1SyncMapItem, error) {
+	return c.FetchSyncMapItemWithCtx(context.TODO(), ServiceSid, MapSid, Key)
+}
+
+//
+func (c *ApiService) FetchSyncMapItemWithCtx(ctx context.Context, ServiceSid string, MapSid string, Key string) (*SyncV1SyncMapItem, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
@@ -149,7 +165,7 @@ func (c *ApiService) FetchSyncMapItem(ServiceSid string, MapSid string, Key stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -201,6 +217,11 @@ func (params *ListSyncMapItemParams) SetLimit(Limit int) *ListSyncMapItemParams 
 
 // Retrieve a single page of SyncMapItem records from the API. Request is executed immediately.
 func (c *ApiService) PageSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams, pageToken, pageNumber string) (*ListSyncMapItemResponse, error) {
+	return c.PageSyncMapItemWithCtx(context.TODO(), ServiceSid, MapSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SyncMapItem records from the API. Request is executed immediately.
+func (c *ApiService) PageSyncMapItemWithCtx(ctx context.Context, ServiceSid string, MapSid string, params *ListSyncMapItemParams, pageToken, pageNumber string) (*ListSyncMapItemResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -229,7 +250,7 @@ func (c *ApiService) PageSyncMapItem(ServiceSid string, MapSid string, params *L
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -246,7 +267,12 @@ func (c *ApiService) PageSyncMapItem(ServiceSid string, MapSid string, params *L
 
 // Lists SyncMapItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) ([]SyncV1SyncMapItem, error) {
-	response, errors := c.StreamSyncMapItem(ServiceSid, MapSid, params)
+	return c.ListSyncMapItemWithCtx(context.TODO(), ServiceSid, MapSid, params)
+}
+
+// Lists SyncMapItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncMapItemWithCtx(ctx context.Context, ServiceSid string, MapSid string, params *ListSyncMapItemParams) ([]SyncV1SyncMapItem, error) {
+	response, errors := c.StreamSyncMapItemWithCtx(ctx, ServiceSid, MapSid, params)
 
 	records := make([]SyncV1SyncMapItem, 0)
 	for record := range response {
@@ -262,6 +288,11 @@ func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *L
 
 // Streams SyncMapItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) (chan SyncV1SyncMapItem, chan error) {
+	return c.StreamSyncMapItemWithCtx(context.TODO(), ServiceSid, MapSid, params)
+}
+
+// Streams SyncMapItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncMapItemWithCtx(ctx context.Context, ServiceSid string, MapSid string, params *ListSyncMapItemParams) (chan SyncV1SyncMapItem, chan error) {
 	if params == nil {
 		params = &ListSyncMapItemParams{}
 	}
@@ -270,19 +301,19 @@ func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params 
 	recordChannel := make(chan SyncV1SyncMapItem, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSyncMapItem(ServiceSid, MapSid, params, "", "")
+	response, err := c.PageSyncMapItemWithCtx(ctx, ServiceSid, MapSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSyncMapItem(response, params, recordChannel, errorChannel)
+		go c.streamSyncMapItem(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSyncMapItem(response *ListSyncMapItemResponse, params *ListSyncMapItemParams, recordChannel chan SyncV1SyncMapItem, errorChannel chan error) {
+func (c *ApiService) streamSyncMapItem(ctx context.Context, response *ListSyncMapItemResponse, params *ListSyncMapItemParams, recordChannel chan SyncV1SyncMapItem, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -297,7 +328,7 @@ func (c *ApiService) streamSyncMapItem(response *ListSyncMapItemResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSyncMapItemResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSyncMapItemResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -312,11 +343,11 @@ func (c *ApiService) streamSyncMapItem(response *ListSyncMapItemResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSyncMapItemResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSyncMapItemResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -367,6 +398,11 @@ func (params *UpdateSyncMapItemParams) SetCollectionTtl(CollectionTtl int) *Upda
 
 //
 func (c *ApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key string, params *UpdateSyncMapItemParams) (*SyncV1SyncMapItem, error) {
+	return c.UpdateSyncMapItemWithCtx(context.TODO(), ServiceSid, MapSid, Key, params)
+}
+
+//
+func (c *ApiService) UpdateSyncMapItemWithCtx(ctx context.Context, ServiceSid string, MapSid string, Key string, params *UpdateSyncMapItemParams) (*SyncV1SyncMapItem, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
@@ -398,7 +434,7 @@ func (c *ApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key str
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

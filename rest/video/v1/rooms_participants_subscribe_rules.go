@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,11 @@ import (
 
 // Returns a list of Subscribe Rules for the Participant.
 func (c *ApiService) FetchRoomParticipantSubscribeRule(RoomSid string, ParticipantSid string) (*VideoV1RoomParticipantSubscribeRule, error) {
+	return c.FetchRoomParticipantSubscribeRuleWithCtx(context.TODO(), RoomSid, ParticipantSid)
+}
+
+// Returns a list of Subscribe Rules for the Participant.
+func (c *ApiService) FetchRoomParticipantSubscribeRuleWithCtx(ctx context.Context, RoomSid string, ParticipantSid string) (*VideoV1RoomParticipantSubscribeRule, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -29,7 +35,7 @@ func (c *ApiService) FetchRoomParticipantSubscribeRule(RoomSid string, Participa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -57,6 +63,11 @@ func (params *UpdateRoomParticipantSubscribeRuleParams) SetRules(Rules interface
 
 // Update the Subscribe Rules for the Participant
 func (c *ApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, ParticipantSid string, params *UpdateRoomParticipantSubscribeRuleParams) (*VideoV1RoomParticipantSubscribeRule, error) {
+	return c.UpdateRoomParticipantSubscribeRuleWithCtx(context.TODO(), RoomSid, ParticipantSid, params)
+}
+
+// Update the Subscribe Rules for the Participant
+func (c *ApiService) UpdateRoomParticipantSubscribeRuleWithCtx(ctx context.Context, RoomSid string, ParticipantSid string, params *UpdateRoomParticipantSubscribeRuleParams) (*VideoV1RoomParticipantSubscribeRule, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -74,7 +85,7 @@ func (c *ApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, Particip
 		data.Set("Rules", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

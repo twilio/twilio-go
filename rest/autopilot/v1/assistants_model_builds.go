@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *CreateModelBuildParams) SetUniqueName(UniqueName string) *CreateMo
 
 //
 func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBuildParams) (*AutopilotV1ModelBuild, error) {
+	return c.CreateModelBuildWithCtx(context.TODO(), AssistantSid, params)
+}
+
+//
+func (c *ApiService) CreateModelBuildWithCtx(ctx context.Context, AssistantSid string, params *CreateModelBuildParams) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -55,7 +61,7 @@ func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBu
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -72,6 +78,11 @@ func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBu
 
 //
 func (c *ApiService) DeleteModelBuild(AssistantSid string, Sid string) error {
+	return c.DeleteModelBuildWithCtx(context.TODO(), AssistantSid, Sid)
+}
+
+//
+func (c *ApiService) DeleteModelBuildWithCtx(ctx context.Context, AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -79,7 +90,7 @@ func (c *ApiService) DeleteModelBuild(AssistantSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -91,6 +102,11 @@ func (c *ApiService) DeleteModelBuild(AssistantSid string, Sid string) error {
 
 //
 func (c *ApiService) FetchModelBuild(AssistantSid string, Sid string) (*AutopilotV1ModelBuild, error) {
+	return c.FetchModelBuildWithCtx(context.TODO(), AssistantSid, Sid)
+}
+
+//
+func (c *ApiService) FetchModelBuildWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -98,7 +114,7 @@ func (c *ApiService) FetchModelBuild(AssistantSid string, Sid string) (*Autopilo
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -132,6 +148,11 @@ func (params *ListModelBuildParams) SetLimit(Limit int) *ListModelBuildParams {
 
 // Retrieve a single page of ModelBuild records from the API. Request is executed immediately.
 func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildParams, pageToken, pageNumber string) (*ListModelBuildResponse, error) {
+	return c.PageModelBuildWithCtx(context.TODO(), AssistantSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ModelBuild records from the API. Request is executed immediately.
+func (c *ApiService) PageModelBuildWithCtx(ctx context.Context, AssistantSid string, params *ListModelBuildParams, pageToken, pageNumber string) (*ListModelBuildResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -150,7 +171,7 @@ func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +188,12 @@ func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildP
 
 // Lists ModelBuild records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams) ([]AutopilotV1ModelBuild, error) {
-	response, errors := c.StreamModelBuild(AssistantSid, params)
+	return c.ListModelBuildWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Lists ModelBuild records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListModelBuildWithCtx(ctx context.Context, AssistantSid string, params *ListModelBuildParams) ([]AutopilotV1ModelBuild, error) {
+	response, errors := c.StreamModelBuildWithCtx(ctx, AssistantSid, params)
 
 	records := make([]AutopilotV1ModelBuild, 0)
 	for record := range response {
@@ -183,6 +209,11 @@ func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildP
 
 // Streams ModelBuild records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuildParams) (chan AutopilotV1ModelBuild, chan error) {
+	return c.StreamModelBuildWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Streams ModelBuild records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamModelBuildWithCtx(ctx context.Context, AssistantSid string, params *ListModelBuildParams) (chan AutopilotV1ModelBuild, chan error) {
 	if params == nil {
 		params = &ListModelBuildParams{}
 	}
@@ -191,19 +222,19 @@ func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuil
 	recordChannel := make(chan AutopilotV1ModelBuild, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageModelBuild(AssistantSid, params, "", "")
+	response, err := c.PageModelBuildWithCtx(ctx, AssistantSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamModelBuild(response, params, recordChannel, errorChannel)
+		go c.streamModelBuild(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamModelBuild(response *ListModelBuildResponse, params *ListModelBuildParams, recordChannel chan AutopilotV1ModelBuild, errorChannel chan error) {
+func (c *ApiService) streamModelBuild(ctx context.Context, response *ListModelBuildResponse, params *ListModelBuildParams, recordChannel chan AutopilotV1ModelBuild, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -218,7 +249,7 @@ func (c *ApiService) streamModelBuild(response *ListModelBuildResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListModelBuildResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListModelBuildResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -233,11 +264,11 @@ func (c *ApiService) streamModelBuild(response *ListModelBuildResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListModelBuildResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListModelBuildResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -264,6 +295,11 @@ func (params *UpdateModelBuildParams) SetUniqueName(UniqueName string) *UpdateMo
 
 //
 func (c *ApiService) UpdateModelBuild(AssistantSid string, Sid string, params *UpdateModelBuildParams) (*AutopilotV1ModelBuild, error) {
+	return c.UpdateModelBuildWithCtx(context.TODO(), AssistantSid, Sid, params)
+}
+
+//
+func (c *ApiService) UpdateModelBuildWithCtx(ctx context.Context, AssistantSid string, Sid string, params *UpdateModelBuildParams) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -275,7 +311,7 @@ func (c *ApiService) UpdateModelBuild(AssistantSid string, Sid string, params *U
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

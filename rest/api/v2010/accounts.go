@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *CreateAccountParams) SetFriendlyName(FriendlyName string) *CreateA
 
 // Create a new Twilio Subaccount from the account making the request
 func (c *ApiService) CreateAccount(params *CreateAccountParams) (*ApiV2010Account, error) {
+	return c.CreateAccountWithCtx(context.TODO(), params)
+}
+
+// Create a new Twilio Subaccount from the account making the request
+func (c *ApiService) CreateAccountWithCtx(ctx context.Context, params *CreateAccountParams) (*ApiV2010Account, error) {
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
@@ -45,7 +51,7 @@ func (c *ApiService) CreateAccount(params *CreateAccountParams) (*ApiV2010Accoun
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -62,13 +68,18 @@ func (c *ApiService) CreateAccount(params *CreateAccountParams) (*ApiV2010Accoun
 
 // Fetch the account specified by the provided Account Sid
 func (c *ApiService) FetchAccount(Sid string) (*ApiV2010Account, error) {
+	return c.FetchAccountWithCtx(context.TODO(), Sid)
+}
+
+// Fetch the account specified by the provided Account Sid
+func (c *ApiService) FetchAccountWithCtx(ctx context.Context, Sid string) (*ApiV2010Account, error) {
 	path := "/2010-04-01/Accounts/{Sid}.json"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -114,6 +125,11 @@ func (params *ListAccountParams) SetLimit(Limit int) *ListAccountParams {
 
 // Retrieve a single page of Account records from the API. Request is executed immediately.
 func (c *ApiService) PageAccount(params *ListAccountParams, pageToken, pageNumber string) (*ListAccountResponse, error) {
+	return c.PageAccountWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Account records from the API. Request is executed immediately.
+func (c *ApiService) PageAccountWithCtx(ctx context.Context, params *ListAccountParams, pageToken, pageNumber string) (*ListAccountResponse, error) {
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
@@ -136,7 +152,7 @@ func (c *ApiService) PageAccount(params *ListAccountParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +169,12 @@ func (c *ApiService) PageAccount(params *ListAccountParams, pageToken, pageNumbe
 
 // Lists Account records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAccount(params *ListAccountParams) ([]ApiV2010Account, error) {
-	response, errors := c.StreamAccount(params)
+	return c.ListAccountWithCtx(context.TODO(), params)
+}
+
+// Lists Account records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAccountWithCtx(ctx context.Context, params *ListAccountParams) ([]ApiV2010Account, error) {
+	response, errors := c.StreamAccountWithCtx(ctx, params)
 
 	records := make([]ApiV2010Account, 0)
 	for record := range response {
@@ -169,6 +190,11 @@ func (c *ApiService) ListAccount(params *ListAccountParams) ([]ApiV2010Account, 
 
 // Streams Account records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAccount(params *ListAccountParams) (chan ApiV2010Account, chan error) {
+	return c.StreamAccountWithCtx(context.TODO(), params)
+}
+
+// Streams Account records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAccountWithCtx(ctx context.Context, params *ListAccountParams) (chan ApiV2010Account, chan error) {
 	if params == nil {
 		params = &ListAccountParams{}
 	}
@@ -177,19 +203,19 @@ func (c *ApiService) StreamAccount(params *ListAccountParams) (chan ApiV2010Acco
 	recordChannel := make(chan ApiV2010Account, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAccount(params, "", "")
+	response, err := c.PageAccountWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAccount(response, params, recordChannel, errorChannel)
+		go c.streamAccount(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAccount(response *ListAccountResponse, params *ListAccountParams, recordChannel chan ApiV2010Account, errorChannel chan error) {
+func (c *ApiService) streamAccount(ctx context.Context, response *ListAccountResponse, params *ListAccountParams, recordChannel chan ApiV2010Account, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -204,7 +230,7 @@ func (c *ApiService) streamAccount(response *ListAccountResponse, params *ListAc
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAccountResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListAccountResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -219,11 +245,11 @@ func (c *ApiService) streamAccount(response *ListAccountResponse, params *ListAc
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAccountResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAccountResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -256,6 +282,11 @@ func (params *UpdateAccountParams) SetStatus(Status string) *UpdateAccountParams
 
 // Modify the properties of a given Account
 func (c *ApiService) UpdateAccount(Sid string, params *UpdateAccountParams) (*ApiV2010Account, error) {
+	return c.UpdateAccountWithCtx(context.TODO(), Sid, params)
+}
+
+// Modify the properties of a given Account
+func (c *ApiService) UpdateAccountWithCtx(ctx context.Context, Sid string, params *UpdateAccountParams) (*ApiV2010Account, error) {
 	path := "/2010-04-01/Accounts/{Sid}.json"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -269,7 +300,7 @@ func (c *ApiService) UpdateAccount(Sid string, params *UpdateAccountParams) (*Ap
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

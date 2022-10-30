@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *CreateFunctionParams) SetFriendlyName(FriendlyName string) *Create
 
 // Create a new Function resource.
 func (c *ApiService) CreateFunction(ServiceSid string, params *CreateFunctionParams) (*ServerlessV1Function, error) {
+	return c.CreateFunctionWithCtx(context.TODO(), ServiceSid, params)
+}
+
+// Create a new Function resource.
+func (c *ApiService) CreateFunctionWithCtx(ctx context.Context, ServiceSid string, params *CreateFunctionParams) (*ServerlessV1Function, error) {
 	path := "/v1/Services/{ServiceSid}/Functions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -46,7 +52,7 @@ func (c *ApiService) CreateFunction(ServiceSid string, params *CreateFunctionPar
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -63,6 +69,11 @@ func (c *ApiService) CreateFunction(ServiceSid string, params *CreateFunctionPar
 
 // Delete a Function resource.
 func (c *ApiService) DeleteFunction(ServiceSid string, Sid string) error {
+	return c.DeleteFunctionWithCtx(context.TODO(), ServiceSid, Sid)
+}
+
+// Delete a Function resource.
+func (c *ApiService) DeleteFunctionWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -70,7 +81,7 @@ func (c *ApiService) DeleteFunction(ServiceSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -82,6 +93,11 @@ func (c *ApiService) DeleteFunction(ServiceSid string, Sid string) error {
 
 // Retrieve a specific Function resource.
 func (c *ApiService) FetchFunction(ServiceSid string, Sid string) (*ServerlessV1Function, error) {
+	return c.FetchFunctionWithCtx(context.TODO(), ServiceSid, Sid)
+}
+
+// Retrieve a specific Function resource.
+func (c *ApiService) FetchFunctionWithCtx(ctx context.Context, ServiceSid string, Sid string) (*ServerlessV1Function, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -89,7 +105,7 @@ func (c *ApiService) FetchFunction(ServiceSid string, Sid string) (*ServerlessV1
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -123,6 +139,11 @@ func (params *ListFunctionParams) SetLimit(Limit int) *ListFunctionParams {
 
 // Retrieve a single page of Function records from the API. Request is executed immediately.
 func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams, pageToken, pageNumber string) (*ListFunctionResponse, error) {
+	return c.PageFunctionWithCtx(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Function records from the API. Request is executed immediately.
+func (c *ApiService) PageFunctionWithCtx(ctx context.Context, ServiceSid string, params *ListFunctionParams, pageToken, pageNumber string) (*ListFunctionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Functions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -141,7 +162,7 @@ func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +179,12 @@ func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams,
 
 // Lists Function records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams) ([]ServerlessV1Function, error) {
-	response, errors := c.StreamFunction(ServiceSid, params)
+	return c.ListFunctionWithCtx(context.TODO(), ServiceSid, params)
+}
+
+// Lists Function records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFunctionWithCtx(ctx context.Context, ServiceSid string, params *ListFunctionParams) ([]ServerlessV1Function, error) {
+	response, errors := c.StreamFunctionWithCtx(ctx, ServiceSid, params)
 
 	records := make([]ServerlessV1Function, 0)
 	for record := range response {
@@ -174,6 +200,11 @@ func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams)
 
 // Streams Function records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParams) (chan ServerlessV1Function, chan error) {
+	return c.StreamFunctionWithCtx(context.TODO(), ServiceSid, params)
+}
+
+// Streams Function records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFunctionWithCtx(ctx context.Context, ServiceSid string, params *ListFunctionParams) (chan ServerlessV1Function, chan error) {
 	if params == nil {
 		params = &ListFunctionParams{}
 	}
@@ -182,19 +213,19 @@ func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParam
 	recordChannel := make(chan ServerlessV1Function, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageFunction(ServiceSid, params, "", "")
+	response, err := c.PageFunctionWithCtx(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamFunction(response, params, recordChannel, errorChannel)
+		go c.streamFunction(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFunction(response *ListFunctionResponse, params *ListFunctionParams, recordChannel chan ServerlessV1Function, errorChannel chan error) {
+func (c *ApiService) streamFunction(ctx context.Context, response *ListFunctionResponse, params *ListFunctionParams, recordChannel chan ServerlessV1Function, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -209,7 +240,7 @@ func (c *ApiService) streamFunction(response *ListFunctionResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListFunctionResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListFunctionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -224,11 +255,11 @@ func (c *ApiService) streamFunction(response *ListFunctionResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFunctionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFunctionResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -255,6 +286,11 @@ func (params *UpdateFunctionParams) SetFriendlyName(FriendlyName string) *Update
 
 // Update a specific Function resource.
 func (c *ApiService) UpdateFunction(ServiceSid string, Sid string, params *UpdateFunctionParams) (*ServerlessV1Function, error) {
+	return c.UpdateFunctionWithCtx(context.TODO(), ServiceSid, Sid, params)
+}
+
+// Update a specific Function resource.
+func (c *ApiService) UpdateFunctionWithCtx(ctx context.Context, ServiceSid string, Sid string, params *UpdateFunctionParams) (*ServerlessV1Function, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -266,7 +302,7 @@ func (c *ApiService) UpdateFunction(ServiceSid string, Sid string, params *Updat
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

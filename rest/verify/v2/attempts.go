@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,13 +27,18 @@ import (
 
 // Fetch a specific verification attempt.
 func (c *ApiService) FetchVerificationAttempt(Sid string) (*VerifyV2VerificationAttempt, error) {
+	return c.FetchVerificationAttemptWithCtx(context.TODO(), Sid)
+}
+
+// Fetch a specific verification attempt.
+func (c *ApiService) FetchVerificationAttemptWithCtx(ctx context.Context, Sid string) (*VerifyV2VerificationAttempt, error) {
 	path := "/v2/Attempts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -114,6 +120,11 @@ func (params *ListVerificationAttemptParams) SetLimit(Limit int) *ListVerificati
 
 // Retrieve a single page of VerificationAttempt records from the API. Request is executed immediately.
 func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptParams, pageToken, pageNumber string) (*ListVerificationAttemptResponse, error) {
+	return c.PageVerificationAttemptWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of VerificationAttempt records from the API. Request is executed immediately.
+func (c *ApiService) PageVerificationAttemptWithCtx(ctx context.Context, params *ListVerificationAttemptParams, pageToken, pageNumber string) (*ListVerificationAttemptResponse, error) {
 	path := "/v2/Attempts"
 
 	data := url.Values{}
@@ -154,7 +165,7 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +182,12 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 
 // Lists VerificationAttempt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptParams) ([]VerifyV2VerificationAttempt, error) {
-	response, errors := c.StreamVerificationAttempt(params)
+	return c.ListVerificationAttemptWithCtx(context.TODO(), params)
+}
+
+// Lists VerificationAttempt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListVerificationAttemptWithCtx(ctx context.Context, params *ListVerificationAttemptParams) ([]VerifyV2VerificationAttempt, error) {
+	response, errors := c.StreamVerificationAttemptWithCtx(ctx, params)
 
 	records := make([]VerifyV2VerificationAttempt, 0)
 	for record := range response {
@@ -187,6 +203,11 @@ func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptPara
 
 // Streams VerificationAttempt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptParams) (chan VerifyV2VerificationAttempt, chan error) {
+	return c.StreamVerificationAttemptWithCtx(context.TODO(), params)
+}
+
+// Streams VerificationAttempt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamVerificationAttemptWithCtx(ctx context.Context, params *ListVerificationAttemptParams) (chan VerifyV2VerificationAttempt, chan error) {
 	if params == nil {
 		params = &ListVerificationAttemptParams{}
 	}
@@ -195,19 +216,19 @@ func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptPa
 	recordChannel := make(chan VerifyV2VerificationAttempt, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageVerificationAttempt(params, "", "")
+	response, err := c.PageVerificationAttemptWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamVerificationAttempt(response, params, recordChannel, errorChannel)
+		go c.streamVerificationAttempt(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamVerificationAttempt(response *ListVerificationAttemptResponse, params *ListVerificationAttemptParams, recordChannel chan VerifyV2VerificationAttempt, errorChannel chan error) {
+func (c *ApiService) streamVerificationAttempt(ctx context.Context, response *ListVerificationAttemptResponse, params *ListVerificationAttemptParams, recordChannel chan VerifyV2VerificationAttempt, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -222,7 +243,7 @@ func (c *ApiService) streamVerificationAttempt(response *ListVerificationAttempt
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListVerificationAttemptResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListVerificationAttemptResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -237,11 +258,11 @@ func (c *ApiService) streamVerificationAttempt(response *ListVerificationAttempt
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListVerificationAttemptResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListVerificationAttemptResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

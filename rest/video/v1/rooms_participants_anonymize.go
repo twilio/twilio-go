@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,11 @@ import (
 
 //
 func (c *ApiService) UpdateRoomParticipantAnonymize(RoomSid string, Sid string) (*VideoV1RoomParticipantAnonymize, error) {
+	return c.UpdateRoomParticipantAnonymizeWithCtx(context.TODO(), RoomSid, Sid)
+}
+
+//
+func (c *ApiService) UpdateRoomParticipantAnonymizeWithCtx(ctx context.Context, RoomSid string, Sid string) (*VideoV1RoomParticipantAnonymize, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}/Anonymize"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -29,7 +35,7 @@ func (c *ApiService) UpdateRoomParticipantAnonymize(RoomSid string, Sid string) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

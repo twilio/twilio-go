@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *CreateIpAccessControlListParams) SetIpAccessControlListSid(IpAcces
 
 // Associate an IP Access Control List with a Trunk
 func (c *ApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIpAccessControlListParams) (*TrunkingV1IpAccessControlList, error) {
+	return c.CreateIpAccessControlListWithCtx(context.TODO(), TrunkSid, params)
+}
+
+// Associate an IP Access Control List with a Trunk
+func (c *ApiService) CreateIpAccessControlListWithCtx(ctx context.Context, TrunkSid string, params *CreateIpAccessControlListParams) (*TrunkingV1IpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -46,7 +52,7 @@ func (c *ApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIp
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -63,6 +69,11 @@ func (c *ApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIp
 
 // Remove an associated IP Access Control List from a Trunk
 func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) error {
+	return c.DeleteIpAccessControlListWithCtx(context.TODO(), TrunkSid, Sid)
+}
+
+// Remove an associated IP Access Control List from a Trunk
+func (c *ApiService) DeleteIpAccessControlListWithCtx(ctx context.Context, TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -70,7 +81,7 @@ func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) erro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -82,6 +93,11 @@ func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) erro
 
 //
 func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*TrunkingV1IpAccessControlList, error) {
+	return c.FetchIpAccessControlListWithCtx(context.TODO(), TrunkSid, Sid)
+}
+
+//
+func (c *ApiService) FetchIpAccessControlListWithCtx(ctx context.Context, TrunkSid string, Sid string) (*TrunkingV1IpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -89,7 +105,7 @@ func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*Tru
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -123,6 +139,11 @@ func (params *ListIpAccessControlListParams) SetLimit(Limit int) *ListIpAccessCo
 
 // Retrieve a single page of IpAccessControlList records from the API. Request is executed immediately.
 func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams, pageToken, pageNumber string) (*ListIpAccessControlListResponse, error) {
+	return c.PageIpAccessControlListWithCtx(context.TODO(), TrunkSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of IpAccessControlList records from the API. Request is executed immediately.
+func (c *ApiService) PageIpAccessControlListWithCtx(ctx context.Context, TrunkSid string, params *ListIpAccessControlListParams, pageToken, pageNumber string) (*ListIpAccessControlListResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
 
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -141,7 +162,7 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +179,12 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 
 // Lists IpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) ([]TrunkingV1IpAccessControlList, error) {
-	response, errors := c.StreamIpAccessControlList(TrunkSid, params)
+	return c.ListIpAccessControlListWithCtx(context.TODO(), TrunkSid, params)
+}
+
+// Lists IpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIpAccessControlListWithCtx(ctx context.Context, TrunkSid string, params *ListIpAccessControlListParams) ([]TrunkingV1IpAccessControlList, error) {
+	response, errors := c.StreamIpAccessControlListWithCtx(ctx, TrunkSid, params)
 
 	records := make([]TrunkingV1IpAccessControlList, 0)
 	for record := range response {
@@ -174,6 +200,11 @@ func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAcce
 
 // Streams IpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) (chan TrunkingV1IpAccessControlList, chan error) {
+	return c.StreamIpAccessControlListWithCtx(context.TODO(), TrunkSid, params)
+}
+
+// Streams IpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIpAccessControlListWithCtx(ctx context.Context, TrunkSid string, params *ListIpAccessControlListParams) (chan TrunkingV1IpAccessControlList, chan error) {
 	if params == nil {
 		params = &ListIpAccessControlListParams{}
 	}
@@ -182,19 +213,19 @@ func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAc
 	recordChannel := make(chan TrunkingV1IpAccessControlList, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageIpAccessControlList(TrunkSid, params, "", "")
+	response, err := c.PageIpAccessControlListWithCtx(ctx, TrunkSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamIpAccessControlList(response, params, recordChannel, errorChannel)
+		go c.streamIpAccessControlList(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIpAccessControlList(response *ListIpAccessControlListResponse, params *ListIpAccessControlListParams, recordChannel chan TrunkingV1IpAccessControlList, errorChannel chan error) {
+func (c *ApiService) streamIpAccessControlList(ctx context.Context, response *ListIpAccessControlListResponse, params *ListIpAccessControlListParams, recordChannel chan TrunkingV1IpAccessControlList, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -209,7 +240,7 @@ func (c *ApiService) streamIpAccessControlList(response *ListIpAccessControlList
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListIpAccessControlListResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListIpAccessControlListResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -224,11 +255,11 @@ func (c *ApiService) streamIpAccessControlList(response *ListIpAccessControlList
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListIpAccessControlListResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListIpAccessControlListResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

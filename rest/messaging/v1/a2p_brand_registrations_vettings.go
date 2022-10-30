@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *CreateBrandVettingParams) SetVettingId(VettingId string) *CreateBr
 
 //
 func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVettingParams) (*MessagingV1BrandVetting, error) {
+	return c.CreateBrandVettingWithCtx(context.TODO(), BrandSid, params)
+}
+
+//
+func (c *ApiService) CreateBrandVettingWithCtx(ctx context.Context, BrandSid string, params *CreateBrandVettingParams) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
 
@@ -55,7 +61,7 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 		data.Set("VettingId", *params.VettingId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -72,6 +78,11 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 
 //
 func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
+	return c.FetchBrandVettingWithCtx(context.TODO(), BrandSid, BrandVettingSid)
+}
+
+//
+func (c *ApiService) FetchBrandVettingWithCtx(ctx context.Context, BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
 	path = strings.Replace(path, "{"+"BrandVettingSid"+"}", BrandVettingSid, -1)
@@ -79,7 +90,7 @@ func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -119,6 +130,11 @@ func (params *ListBrandVettingParams) SetLimit(Limit int) *ListBrandVettingParam
 
 // Retrieve a single page of BrandVetting records from the API. Request is executed immediately.
 func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingParams, pageToken, pageNumber string) (*ListBrandVettingResponse, error) {
+	return c.PageBrandVettingWithCtx(context.TODO(), BrandSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of BrandVetting records from the API. Request is executed immediately.
+func (c *ApiService) PageBrandVettingWithCtx(ctx context.Context, BrandSid string, params *ListBrandVettingParams, pageToken, pageNumber string) (*ListBrandVettingResponse, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
 
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
@@ -140,7 +156,7 @@ func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -157,7 +173,12 @@ func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingP
 
 // Lists BrandVetting records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBrandVetting(BrandSid string, params *ListBrandVettingParams) ([]MessagingV1BrandVetting, error) {
-	response, errors := c.StreamBrandVetting(BrandSid, params)
+	return c.ListBrandVettingWithCtx(context.TODO(), BrandSid, params)
+}
+
+// Lists BrandVetting records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBrandVettingWithCtx(ctx context.Context, BrandSid string, params *ListBrandVettingParams) ([]MessagingV1BrandVetting, error) {
+	response, errors := c.StreamBrandVettingWithCtx(ctx, BrandSid, params)
 
 	records := make([]MessagingV1BrandVetting, 0)
 	for record := range response {
@@ -173,6 +194,11 @@ func (c *ApiService) ListBrandVetting(BrandSid string, params *ListBrandVettingP
 
 // Streams BrandVetting records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBrandVetting(BrandSid string, params *ListBrandVettingParams) (chan MessagingV1BrandVetting, chan error) {
+	return c.StreamBrandVettingWithCtx(context.TODO(), BrandSid, params)
+}
+
+// Streams BrandVetting records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBrandVettingWithCtx(ctx context.Context, BrandSid string, params *ListBrandVettingParams) (chan MessagingV1BrandVetting, chan error) {
 	if params == nil {
 		params = &ListBrandVettingParams{}
 	}
@@ -181,19 +207,19 @@ func (c *ApiService) StreamBrandVetting(BrandSid string, params *ListBrandVettin
 	recordChannel := make(chan MessagingV1BrandVetting, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageBrandVetting(BrandSid, params, "", "")
+	response, err := c.PageBrandVettingWithCtx(ctx, BrandSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamBrandVetting(response, params, recordChannel, errorChannel)
+		go c.streamBrandVetting(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBrandVetting(response *ListBrandVettingResponse, params *ListBrandVettingParams, recordChannel chan MessagingV1BrandVetting, errorChannel chan error) {
+func (c *ApiService) streamBrandVetting(ctx context.Context, response *ListBrandVettingResponse, params *ListBrandVettingParams, recordChannel chan MessagingV1BrandVetting, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -208,7 +234,7 @@ func (c *ApiService) streamBrandVetting(response *ListBrandVettingResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListBrandVettingResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListBrandVettingResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -223,11 +249,11 @@ func (c *ApiService) streamBrandVetting(response *ListBrandVettingResponse, para
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListBrandVettingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListBrandVettingResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

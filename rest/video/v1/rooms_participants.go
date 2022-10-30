@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,6 +27,11 @@ import (
 
 //
 func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1RoomParticipant, error) {
+	return c.FetchRoomParticipantWithCtx(context.TODO(), RoomSid, Sid)
+}
+
+//
+func (c *ApiService) FetchRoomParticipantWithCtx(ctx context.Context, RoomSid string, Sid string) (*VideoV1RoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -33,7 +39,7 @@ func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1R
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -91,6 +97,11 @@ func (params *ListRoomParticipantParams) SetLimit(Limit int) *ListRoomParticipan
 
 // Retrieve a single page of RoomParticipant records from the API. Request is executed immediately.
 func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomParticipantParams, pageToken, pageNumber string) (*ListRoomParticipantResponse, error) {
+	return c.PageRoomParticipantWithCtx(context.TODO(), RoomSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of RoomParticipant records from the API. Request is executed immediately.
+func (c *ApiService) PageRoomParticipantWithCtx(ctx context.Context, RoomSid string, params *ListRoomParticipantParams, pageToken, pageNumber string) (*ListRoomParticipantResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -121,7 +132,7 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +149,12 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 
 // Lists RoomParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomParticipantParams) ([]VideoV1RoomParticipant, error) {
-	response, errors := c.StreamRoomParticipant(RoomSid, params)
+	return c.ListRoomParticipantWithCtx(context.TODO(), RoomSid, params)
+}
+
+// Lists RoomParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoomParticipantWithCtx(ctx context.Context, RoomSid string, params *ListRoomParticipantParams) ([]VideoV1RoomParticipant, error) {
+	response, errors := c.StreamRoomParticipantWithCtx(ctx, RoomSid, params)
 
 	records := make([]VideoV1RoomParticipant, 0)
 	for record := range response {
@@ -154,6 +170,11 @@ func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomPartici
 
 // Streams RoomParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParticipantParams) (chan VideoV1RoomParticipant, chan error) {
+	return c.StreamRoomParticipantWithCtx(context.TODO(), RoomSid, params)
+}
+
+// Streams RoomParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoomParticipantWithCtx(ctx context.Context, RoomSid string, params *ListRoomParticipantParams) (chan VideoV1RoomParticipant, chan error) {
 	if params == nil {
 		params = &ListRoomParticipantParams{}
 	}
@@ -162,19 +183,19 @@ func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParti
 	recordChannel := make(chan VideoV1RoomParticipant, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRoomParticipant(RoomSid, params, "", "")
+	response, err := c.PageRoomParticipantWithCtx(ctx, RoomSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRoomParticipant(response, params, recordChannel, errorChannel)
+		go c.streamRoomParticipant(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRoomParticipant(response *ListRoomParticipantResponse, params *ListRoomParticipantParams, recordChannel chan VideoV1RoomParticipant, errorChannel chan error) {
+func (c *ApiService) streamRoomParticipant(ctx context.Context, response *ListRoomParticipantResponse, params *ListRoomParticipantParams, recordChannel chan VideoV1RoomParticipant, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -189,7 +210,7 @@ func (c *ApiService) streamRoomParticipant(response *ListRoomParticipantResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRoomParticipantResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListRoomParticipantResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -204,11 +225,11 @@ func (c *ApiService) streamRoomParticipant(response *ListRoomParticipantResponse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRoomParticipantResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRoomParticipantResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -235,6 +256,11 @@ func (params *UpdateRoomParticipantParams) SetStatus(Status string) *UpdateRoomP
 
 //
 func (c *ApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomParticipant, error) {
+	return c.UpdateRoomParticipantWithCtx(context.TODO(), RoomSid, Sid, params)
+}
+
+//
+func (c *ApiService) UpdateRoomParticipantWithCtx(ctx context.Context, RoomSid string, Sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -246,7 +272,7 @@ func (c *ApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *U
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

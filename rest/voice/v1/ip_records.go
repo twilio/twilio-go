@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,11 @@ func (params *CreateIpRecordParams) SetCidrPrefixLength(CidrPrefixLength int) *C
 
 //
 func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRecord, error) {
+	return c.CreateIpRecordWithCtx(context.TODO(), params)
+}
+
+//
+func (c *ApiService) CreateIpRecordWithCtx(ctx context.Context, params *CreateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords"
 
 	data := url.Values{}
@@ -63,7 +69,7 @@ func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRec
 		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -80,13 +86,18 @@ func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRec
 
 //
 func (c *ApiService) DeleteIpRecord(Sid string) error {
+	return c.DeleteIpRecordWithCtx(context.TODO(), Sid)
+}
+
+//
+func (c *ApiService) DeleteIpRecordWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -98,13 +109,18 @@ func (c *ApiService) DeleteIpRecord(Sid string) error {
 
 //
 func (c *ApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) {
+	return c.FetchIpRecordWithCtx(context.TODO(), Sid)
+}
+
+//
+func (c *ApiService) FetchIpRecordWithCtx(ctx context.Context, Sid string) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +154,11 @@ func (params *ListIpRecordParams) SetLimit(Limit int) *ListIpRecordParams {
 
 // Retrieve a single page of IpRecord records from the API. Request is executed immediately.
 func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken, pageNumber string) (*ListIpRecordResponse, error) {
+	return c.PageIpRecordWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of IpRecord records from the API. Request is executed immediately.
+func (c *ApiService) PageIpRecordWithCtx(ctx context.Context, params *ListIpRecordParams, pageToken, pageNumber string) (*ListIpRecordResponse, error) {
 	path := "/v1/IpRecords"
 
 	data := url.Values{}
@@ -154,7 +175,7 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken, pageNum
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +192,12 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken, pageNum
 
 // Lists IpRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIpRecord(params *ListIpRecordParams) ([]VoiceV1IpRecord, error) {
-	response, errors := c.StreamIpRecord(params)
+	return c.ListIpRecordWithCtx(context.TODO(), params)
+}
+
+// Lists IpRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIpRecordWithCtx(ctx context.Context, params *ListIpRecordParams) ([]VoiceV1IpRecord, error) {
+	response, errors := c.StreamIpRecordWithCtx(ctx, params)
 
 	records := make([]VoiceV1IpRecord, 0)
 	for record := range response {
@@ -187,6 +213,11 @@ func (c *ApiService) ListIpRecord(params *ListIpRecordParams) ([]VoiceV1IpRecord
 
 // Streams IpRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIpRecord(params *ListIpRecordParams) (chan VoiceV1IpRecord, chan error) {
+	return c.StreamIpRecordWithCtx(context.TODO(), params)
+}
+
+// Streams IpRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIpRecordWithCtx(ctx context.Context, params *ListIpRecordParams) (chan VoiceV1IpRecord, chan error) {
 	if params == nil {
 		params = &ListIpRecordParams{}
 	}
@@ -195,19 +226,19 @@ func (c *ApiService) StreamIpRecord(params *ListIpRecordParams) (chan VoiceV1IpR
 	recordChannel := make(chan VoiceV1IpRecord, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageIpRecord(params, "", "")
+	response, err := c.PageIpRecordWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamIpRecord(response, params, recordChannel, errorChannel)
+		go c.streamIpRecord(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIpRecord(response *ListIpRecordResponse, params *ListIpRecordParams, recordChannel chan VoiceV1IpRecord, errorChannel chan error) {
+func (c *ApiService) streamIpRecord(ctx context.Context, response *ListIpRecordResponse, params *ListIpRecordParams, recordChannel chan VoiceV1IpRecord, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -222,7 +253,7 @@ func (c *ApiService) streamIpRecord(response *ListIpRecordResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListIpRecordResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListIpRecordResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -237,11 +268,11 @@ func (c *ApiService) streamIpRecord(response *ListIpRecordResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListIpRecordResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListIpRecordResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -268,6 +299,11 @@ func (params *UpdateIpRecordParams) SetFriendlyName(FriendlyName string) *Update
 
 //
 func (c *ApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
+	return c.UpdateIpRecordWithCtx(context.TODO(), Sid, params)
+}
+
+//
+func (c *ApiService) UpdateIpRecordWithCtx(ctx context.Context, Sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -278,7 +314,7 @@ func (c *ApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

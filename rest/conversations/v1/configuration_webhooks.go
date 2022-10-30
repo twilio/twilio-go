@@ -15,18 +15,24 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
 
 //
 func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationWebhook, error) {
+	return c.FetchConfigurationWebhookWithCtx(context.TODO())
+}
+
+//
+func (c *ApiService) FetchConfigurationWebhookWithCtx(ctx context.Context) (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -78,6 +84,11 @@ func (params *UpdateConfigurationWebhookParams) SetTarget(Target string) *Update
 
 //
 func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationWebhook, error) {
+	return c.UpdateConfigurationWebhookWithCtx(context.TODO(), params)
+}
+
+//
+func (c *ApiService) UpdateConfigurationWebhookWithCtx(ctx context.Context, params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
@@ -101,7 +112,7 @@ func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebho
 		data.Set("Target", *params.Target)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

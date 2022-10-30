@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,11 @@ func (params *CreateEngagementParams) SetParameters(Parameters interface{}) *Cre
 
 // Triggers a new Engagement for the Flow
 func (c *ApiService) CreateEngagement(FlowSid string, params *CreateEngagementParams) (*StudioV1Engagement, error) {
+	return c.CreateEngagementWithCtx(context.TODO(), FlowSid, params)
+}
+
+// Triggers a new Engagement for the Flow
+func (c *ApiService) CreateEngagementWithCtx(ctx context.Context, FlowSid string, params *CreateEngagementParams) (*StudioV1Engagement, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
@@ -70,7 +76,7 @@ func (c *ApiService) CreateEngagement(FlowSid string, params *CreateEngagementPa
 		data.Set("Parameters", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -87,6 +93,11 @@ func (c *ApiService) CreateEngagement(FlowSid string, params *CreateEngagementPa
 
 // Delete this Engagement and all Steps relating to it.
 func (c *ApiService) DeleteEngagement(FlowSid string, Sid string) error {
+	return c.DeleteEngagementWithCtx(context.TODO(), FlowSid, Sid)
+}
+
+// Delete this Engagement and all Steps relating to it.
+func (c *ApiService) DeleteEngagementWithCtx(ctx context.Context, FlowSid string, Sid string) error {
 	path := "/v1/Flows/{FlowSid}/Engagements/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -94,7 +105,7 @@ func (c *ApiService) DeleteEngagement(FlowSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -106,6 +117,11 @@ func (c *ApiService) DeleteEngagement(FlowSid string, Sid string) error {
 
 // Retrieve an Engagement
 func (c *ApiService) FetchEngagement(FlowSid string, Sid string) (*StudioV1Engagement, error) {
+	return c.FetchEngagementWithCtx(context.TODO(), FlowSid, Sid)
+}
+
+// Retrieve an Engagement
+func (c *ApiService) FetchEngagementWithCtx(ctx context.Context, FlowSid string, Sid string) (*StudioV1Engagement, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -113,7 +129,7 @@ func (c *ApiService) FetchEngagement(FlowSid string, Sid string) (*StudioV1Engag
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -147,6 +163,11 @@ func (params *ListEngagementParams) SetLimit(Limit int) *ListEngagementParams {
 
 // Retrieve a single page of Engagement records from the API. Request is executed immediately.
 func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams, pageToken, pageNumber string) (*ListEngagementResponse, error) {
+	return c.PageEngagementWithCtx(context.TODO(), FlowSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Engagement records from the API. Request is executed immediately.
+func (c *ApiService) PageEngagementWithCtx(ctx context.Context, FlowSid string, params *ListEngagementParams, pageToken, pageNumber string) (*ListEngagementResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements"
 
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -165,7 +186,7 @@ func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +203,12 @@ func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams
 
 // Lists Engagement records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams) ([]StudioV1Engagement, error) {
-	response, errors := c.StreamEngagement(FlowSid, params)
+	return c.ListEngagementWithCtx(context.TODO(), FlowSid, params)
+}
+
+// Lists Engagement records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEngagementWithCtx(ctx context.Context, FlowSid string, params *ListEngagementParams) ([]StudioV1Engagement, error) {
+	response, errors := c.StreamEngagementWithCtx(ctx, FlowSid, params)
 
 	records := make([]StudioV1Engagement, 0)
 	for record := range response {
@@ -198,6 +224,11 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 
 // Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams) (chan StudioV1Engagement, chan error) {
+	return c.StreamEngagementWithCtx(context.TODO(), FlowSid, params)
+}
+
+// Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEngagementWithCtx(ctx context.Context, FlowSid string, params *ListEngagementParams) (chan StudioV1Engagement, chan error) {
 	if params == nil {
 		params = &ListEngagementParams{}
 	}
@@ -206,19 +237,19 @@ func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementPara
 	recordChannel := make(chan StudioV1Engagement, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEngagement(FlowSid, params, "", "")
+	response, err := c.PageEngagementWithCtx(ctx, FlowSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEngagement(response, params, recordChannel, errorChannel)
+		go c.streamEngagement(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEngagement(response *ListEngagementResponse, params *ListEngagementParams, recordChannel chan StudioV1Engagement, errorChannel chan error) {
+func (c *ApiService) streamEngagement(ctx context.Context, response *ListEngagementResponse, params *ListEngagementParams, recordChannel chan StudioV1Engagement, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -233,7 +264,7 @@ func (c *ApiService) streamEngagement(response *ListEngagementResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListEngagementResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListEngagementResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -248,11 +279,11 @@ func (c *ApiService) streamEngagement(response *ListEngagementResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEngagementResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEngagementResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

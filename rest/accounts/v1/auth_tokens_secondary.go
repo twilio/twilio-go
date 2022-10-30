@@ -15,18 +15,24 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
 
 // Create a new secondary Auth Token
 func (c *ApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, error) {
+	return c.CreateSecondaryAuthTokenWithCtx(context.TODO())
+}
+
+// Create a new secondary Auth Token
+func (c *ApiService) CreateSecondaryAuthTokenWithCtx(ctx context.Context) (*AccountsV1SecondaryAuthToken, error) {
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -43,12 +49,17 @@ func (c *ApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, 
 
 // Delete the secondary Auth Token from your account
 func (c *ApiService) DeleteSecondaryAuthToken() error {
+	return c.DeleteSecondaryAuthTokenWithCtx(context.TODO())
+}
+
+// Delete the secondary Auth Token from your account
+func (c *ApiService) DeleteSecondaryAuthTokenWithCtx(ctx context.Context) error {
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
