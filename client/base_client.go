@@ -35,5 +35,9 @@ func (w wrapperClient) SendRequestWithCtx(ctx context.Context, method string, ra
 // wrapBaseClientWithNoopCtx "upgrades" a BaseClient to BaseClientWithCtx so that requests can be
 // send with a request context.
 func wrapBaseClientWithNoopCtx(c BaseClient) BaseClientWithCtx {
+	// the default library client has SendRequestWithCtx, use it if available.
+	if typedClient, ok := c.(BaseClientWithCtx); ok {
+		return typedClient
+	}
 	return wrapperClient{BaseClient: c}
 }
