@@ -33,8 +33,6 @@ type CreateParticipantParams struct {
 	ProxyIdentifier *string `json:"ProxyIdentifier,omitempty"`
 	// The SID of the Proxy Identifier to assign to the Participant.
 	ProxyIdentifierSid *string `json:"ProxyIdentifierSid,omitempty"`
-	// [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Participant create request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
-	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
 }
 
 func (params *CreateParticipantParams) SetIdentifier(Identifier string) *CreateParticipantParams {
@@ -51,10 +49,6 @@ func (params *CreateParticipantParams) SetProxyIdentifier(ProxyIdentifier string
 }
 func (params *CreateParticipantParams) SetProxyIdentifierSid(ProxyIdentifierSid string) *CreateParticipantParams {
 	params.ProxyIdentifierSid = &ProxyIdentifierSid
-	return params
-}
-func (params *CreateParticipantParams) SetFailOnParticipantConflict(FailOnParticipantConflict bool) *CreateParticipantParams {
-	params.FailOnParticipantConflict = &FailOnParticipantConflict
 	return params
 }
 
@@ -78,9 +72,6 @@ func (c *ApiService) CreateParticipant(ServiceSid string, SessionSid string, par
 	}
 	if params != nil && params.ProxyIdentifierSid != nil {
 		data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid)
-	}
-	if params != nil && params.FailOnParticipantConflict != nil {
-		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

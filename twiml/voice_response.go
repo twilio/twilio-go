@@ -1608,6 +1608,8 @@ type VoiceConversation struct {
 	// inbound_autocreation: Inbound autocreation
 	// routing_assignment_timeout: Routing assignment timeout
 	// inbound_timeout: Inbound timeout
+	// url: TwiML URL
+	// method: TwiML URL method
 	// record: Record
 	// trim: Trim
 	// recording_status_callback: Recording status callback URL
@@ -1621,6 +1623,8 @@ type VoiceConversation struct {
 	InboundAutocreation           string
 	RoutingAssignmentTimeout      string
 	InboundTimeout                string
+	Url                           string
+	Method                        string
 	Record                        string
 	Trim                          string
 	RecordingStatusCallback       string
@@ -1647,6 +1651,8 @@ func (m VoiceConversation) GetAttr() (map[string]string, map[string]string) {
 		"InboundAutocreation":           m.InboundAutocreation,
 		"RoutingAssignmentTimeout":      m.RoutingAssignmentTimeout,
 		"InboundTimeout":                m.InboundTimeout,
+		"Url":                           m.Url,
+		"Method":                        m.Method,
 		"Record":                        m.Record,
 		"Trim":                          m.Trim,
 		"RecordingStatusCallback":       m.RecordingStatusCallback,

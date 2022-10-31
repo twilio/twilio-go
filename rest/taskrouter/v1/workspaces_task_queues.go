@@ -157,6 +157,8 @@ type ListTaskQueueParams struct {
 	EvaluateWorkerAttributes *string `json:"EvaluateWorkerAttributes,omitempty"`
 	// The SID of the Worker with the TaskQueue resources to read.
 	WorkerSid *string `json:"WorkerSid,omitempty"`
+	// Sorting parameter for TaskQueues
+	Ordering *string `json:"Ordering,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -173,6 +175,10 @@ func (params *ListTaskQueueParams) SetEvaluateWorkerAttributes(EvaluateWorkerAtt
 }
 func (params *ListTaskQueueParams) SetWorkerSid(WorkerSid string) *ListTaskQueueParams {
 	params.WorkerSid = &WorkerSid
+	return params
+}
+func (params *ListTaskQueueParams) SetOrdering(Ordering string) *ListTaskQueueParams {
+	params.Ordering = &Ordering
 	return params
 }
 func (params *ListTaskQueueParams) SetPageSize(PageSize int) *ListTaskQueueParams {
@@ -201,6 +207,9 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 	}
 	if params != nil && params.WorkerSid != nil {
 		data.Set("WorkerSid", *params.WorkerSid)
+	}
+	if params != nil && params.Ordering != nil {
+		data.Set("Ordering", *params.Ordering)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

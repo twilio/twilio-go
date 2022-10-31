@@ -174,6 +174,7 @@ Name | Type | Description
 **TargetWorkersExpression** | **string** | Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
 **TaskQueueName** | **string** | The &#x60;friendly_name&#x60; of the TaskQueue that the Workers to read are eligible for.
 **TaskQueueSid** | **string** | The SID of the TaskQueue that the Workers to read are eligible for.
+**Ordering** | **string** | Sorting parameter for Workers
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

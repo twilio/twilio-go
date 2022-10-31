@@ -79,6 +79,7 @@ Other parameters are passed through a pointer to a ListTaskReservationParams str
 Name | Type | Description
 ------------- | ------------- | -------------
 **ReservationStatus** | **string** | Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+**WorkerSid** | **string** | The SID of the reserved Worker resource to read.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

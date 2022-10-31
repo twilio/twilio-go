@@ -52,6 +52,8 @@ func (c *ApiService) FetchTaskReservation(WorkspaceSid string, TaskSid string, S
 type ListTaskReservationParams struct {
 	// Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
 	ReservationStatus *string `json:"ReservationStatus,omitempty"`
+	// The SID of the reserved Worker resource to read.
+	WorkerSid *string `json:"WorkerSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -60,6 +62,10 @@ type ListTaskReservationParams struct {
 
 func (params *ListTaskReservationParams) SetReservationStatus(ReservationStatus string) *ListTaskReservationParams {
 	params.ReservationStatus = &ReservationStatus
+	return params
+}
+func (params *ListTaskReservationParams) SetWorkerSid(WorkerSid string) *ListTaskReservationParams {
+	params.WorkerSid = &WorkerSid
 	return params
 }
 func (params *ListTaskReservationParams) SetPageSize(PageSize int) *ListTaskReservationParams {
@@ -83,6 +89,9 @@ func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, pa
 
 	if params != nil && params.ReservationStatus != nil {
 		data.Set("ReservationStatus", *params.ReservationStatus)
+	}
+	if params != nil && params.WorkerSid != nil {
+		data.Set("WorkerSid", *params.WorkerSid)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

@@ -60,6 +60,10 @@ type CreateMessageParams struct {
 	SendAt *time.Time `json:"SendAt,omitempty"`
 	// If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
 	SendAsMms *bool `json:"SendAsMms,omitempty"`
+	// The SID of the Content object returned at Content API content create time (https://www.twilio.com/docs/content-api/create-and-send-your-first-content-api-template#create-a-template). If this parameter is not specified, then the Content API will not be utilized.
+	ContentSid *string `json:"ContentSid,omitempty"`
+	// Key-value pairs of variable names to substitution values, used alongside a content_sid. If not specified, Content API will default to the default variables defined at create time.
+	ContentVariables *string `json:"ContentVariables,omitempty"`
 	// A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty.
 	From *string `json:"From,omitempty"`
 	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the `from` parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the `from` phone number for delivery.
@@ -136,6 +140,14 @@ func (params *CreateMessageParams) SetSendAt(SendAt time.Time) *CreateMessagePar
 }
 func (params *CreateMessageParams) SetSendAsMms(SendAsMms bool) *CreateMessageParams {
 	params.SendAsMms = &SendAsMms
+	return params
+}
+func (params *CreateMessageParams) SetContentSid(ContentSid string) *CreateMessageParams {
+	params.ContentSid = &ContentSid
+	return params
+}
+func (params *CreateMessageParams) SetContentVariables(ContentVariables string) *CreateMessageParams {
+	params.ContentVariables = &ContentVariables
 	return params
 }
 func (params *CreateMessageParams) SetFrom(From string) *CreateMessageParams {
@@ -216,6 +228,12 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 	}
 	if params != nil && params.SendAsMms != nil {
 		data.Set("SendAsMms", fmt.Sprint(*params.SendAsMms))
+	}
+	if params != nil && params.ContentSid != nil {
+		data.Set("ContentSid", *params.ContentSid)
+	}
+	if params != nil && params.ContentVariables != nil {
+		data.Set("ContentVariables", *params.ContentVariables)
 	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)

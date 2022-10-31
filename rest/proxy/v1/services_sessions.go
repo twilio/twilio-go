@@ -38,8 +38,6 @@ type CreateSessionParams struct {
 	Status *string `json:"Status,omitempty"`
 	// The Participant objects to include in the new session.
 	Participants *[]interface{} `json:"Participants,omitempty"`
-	// [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Session create (with Participants) request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
-	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
 }
 
 func (params *CreateSessionParams) SetUniqueName(UniqueName string) *CreateSessionParams {
@@ -64,10 +62,6 @@ func (params *CreateSessionParams) SetStatus(Status string) *CreateSessionParams
 }
 func (params *CreateSessionParams) SetParticipants(Participants []interface{}) *CreateSessionParams {
 	params.Participants = &Participants
-	return params
-}
-func (params *CreateSessionParams) SetFailOnParticipantConflict(FailOnParticipantConflict bool) *CreateSessionParams {
-	params.FailOnParticipantConflict = &FailOnParticipantConflict
 	return params
 }
 
@@ -104,9 +98,6 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 
 			data.Add("Participants", string(v))
 		}
-	}
-	if params != nil && params.FailOnParticipantConflict != nil {
-		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -313,8 +304,6 @@ type UpdateSessionParams struct {
 	Ttl *int `json:"Ttl,omitempty"`
 	//
 	Status *string `json:"Status,omitempty"`
-	// [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to return a 400 error (Twilio error code 80604) when a request to set a Session to in-progress would cause Participants with the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not provided, requests will be allowed to succeed, and a Debugger notification (80801) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
-	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
 }
 
 func (params *UpdateSessionParams) SetDateExpiry(DateExpiry time.Time) *UpdateSessionParams {
@@ -327,10 +316,6 @@ func (params *UpdateSessionParams) SetTtl(Ttl int) *UpdateSessionParams {
 }
 func (params *UpdateSessionParams) SetStatus(Status string) *UpdateSessionParams {
 	params.Status = &Status
-	return params
-}
-func (params *UpdateSessionParams) SetFailOnParticipantConflict(FailOnParticipantConflict bool) *UpdateSessionParams {
-	params.FailOnParticipantConflict = &FailOnParticipantConflict
 	return params
 }
 
@@ -351,9 +336,6 @@ func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *Update
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.FailOnParticipantConflict != nil {
-		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
