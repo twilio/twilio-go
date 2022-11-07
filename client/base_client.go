@@ -22,11 +22,17 @@ type BaseClientWithCtx interface {
 		headers map[string]interface{}) (*http.Response, error)
 }
 
+// wrapperClient wraps the lower level BaseClient to fulfill the BaseClientWithCtx interface. This
+// allows the SDK to utilize the BaseClientWithCtx method throughout the codebase.
+//
+// All *WithCtx methods of a wrapped client will not actually use their context.Context argument.
 type wrapperClient struct {
 	// embed the BaseClient so the functions remain accessible
 	BaseClient
 }
 
+// SendRequestWithCtx passes the request through to the underlying BaseClient. The context.Context
+// argument is not utilized.
 func (w wrapperClient) SendRequestWithCtx(ctx context.Context, method string, rawURL string, data url.Values,
 	headers map[string]interface{}) (*http.Response, error) {
 	return w.SendRequest(method, rawURL, data, headers)
