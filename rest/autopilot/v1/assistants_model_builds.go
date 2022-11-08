@@ -41,12 +41,10 @@ func (params *CreateModelBuildParams) SetUniqueName(UniqueName string) *CreateMo
 	return params
 }
 
-//
 func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBuildParams) (*AutopilotV1ModelBuild, error) {
 	return c.CreateModelBuildWithCtx(context.TODO(), AssistantSid, params)
 }
 
-//
 func (c *ApiService) CreateModelBuildWithCtx(ctx context.Context, AssistantSid string, params *CreateModelBuildParams) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -76,12 +74,10 @@ func (c *ApiService) CreateModelBuildWithCtx(ctx context.Context, AssistantSid s
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteModelBuild(AssistantSid string, Sid string) error {
 	return c.DeleteModelBuildWithCtx(context.TODO(), AssistantSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteModelBuildWithCtx(ctx context.Context, AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -100,12 +96,10 @@ func (c *ApiService) DeleteModelBuildWithCtx(ctx context.Context, AssistantSid s
 	return nil
 }
 
-//
 func (c *ApiService) FetchModelBuild(AssistantSid string, Sid string) (*AutopilotV1ModelBuild, error) {
 	return c.FetchModelBuildWithCtx(context.TODO(), AssistantSid, Sid)
 }
 
-//
 func (c *ApiService) FetchModelBuildWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -293,12 +287,10 @@ func (params *UpdateModelBuildParams) SetUniqueName(UniqueName string) *UpdateMo
 	return params
 }
 
-//
 func (c *ApiService) UpdateModelBuild(AssistantSid string, Sid string, params *UpdateModelBuildParams) (*AutopilotV1ModelBuild, error) {
 	return c.UpdateModelBuildWithCtx(context.TODO(), AssistantSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateModelBuildWithCtx(ctx context.Context, AssistantSid string, Sid string, params *UpdateModelBuildParams) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

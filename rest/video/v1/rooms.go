@@ -120,12 +120,10 @@ func (params *CreateRoomParams) SetLargeRoom(LargeRoom bool) *CreateRoomParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) {
 	return c.CreateRoomWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateRoomWithCtx(ctx context.Context, params *CreateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms"
 
@@ -201,12 +199,10 @@ func (c *ApiService) CreateRoomWithCtx(ctx context.Context, params *CreateRoomPa
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchRoom(Sid string) (*VideoV1Room, error) {
 	return c.FetchRoomWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchRoomWithCtx(ctx context.Context, Sid string) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -427,12 +423,10 @@ func (params *UpdateRoomParams) SetStatus(Status string) *UpdateRoomParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*VideoV1Room, error) {
 	return c.UpdateRoomWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateRoomWithCtx(ctx context.Context, Sid string, params *UpdateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

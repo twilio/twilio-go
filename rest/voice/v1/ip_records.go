@@ -47,12 +47,10 @@ func (params *CreateIpRecordParams) SetCidrPrefixLength(CidrPrefixLength int) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRecord, error) {
 	return c.CreateIpRecordWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateIpRecordWithCtx(ctx context.Context, params *CreateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords"
 
@@ -84,12 +82,10 @@ func (c *ApiService) CreateIpRecordWithCtx(ctx context.Context, params *CreateIp
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteIpRecord(Sid string) error {
 	return c.DeleteIpRecordWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteIpRecordWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -107,12 +103,10 @@ func (c *ApiService) DeleteIpRecordWithCtx(ctx context.Context, Sid string) erro
 	return nil
 }
 
-//
 func (c *ApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) {
 	return c.FetchIpRecordWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchIpRecordWithCtx(ctx context.Context, Sid string) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -297,12 +291,10 @@ func (params *UpdateIpRecordParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
 	return c.UpdateIpRecordWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateIpRecordWithCtx(ctx context.Context, Sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -59,12 +59,10 @@ func (params *CreateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *Crea
 	return params
 }
 
-//
 func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	return c.CreateConnectionPolicyTargetWithCtx(context.TODO(), ConnectionPolicySid, params)
 }
 
-//
 func (c *ApiService) CreateConnectionPolicyTargetWithCtx(ctx context.Context, ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -103,12 +101,10 @@ func (c *ApiService) CreateConnectionPolicyTargetWithCtx(ctx context.Context, Co
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Sid string) error {
 	return c.DeleteConnectionPolicyTargetWithCtx(context.TODO(), ConnectionPolicySid, Sid)
 }
 
-//
 func (c *ApiService) DeleteConnectionPolicyTargetWithCtx(ctx context.Context, ConnectionPolicySid string, Sid string) error {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -127,12 +123,10 @@ func (c *ApiService) DeleteConnectionPolicyTargetWithCtx(ctx context.Context, Co
 	return nil
 }
 
-//
 func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyTarget, error) {
 	return c.FetchConnectionPolicyTargetWithCtx(context.TODO(), ConnectionPolicySid, Sid)
 }
 
-//
 func (c *ApiService) FetchConnectionPolicyTargetWithCtx(ctx context.Context, ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -344,12 +338,10 @@ func (params *UpdateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	return c.UpdateConnectionPolicyTargetWithCtx(context.TODO(), ConnectionPolicySid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateConnectionPolicyTargetWithCtx(ctx context.Context, ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)

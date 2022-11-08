@@ -24,12 +24,10 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1PhoneNumberCountryInstance, error) {
 	return c.FetchPhoneNumberCountryWithCtx(context.TODO(), IsoCountry)
 }
 
-//
 func (c *ApiService) FetchPhoneNumberCountryWithCtx(ctx context.Context, IsoCountry string) (*PricingV1PhoneNumberCountryInstance, error) {
 	path := "/v1/PhoneNumbers/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)

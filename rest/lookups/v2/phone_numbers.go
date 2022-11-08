@@ -38,12 +38,10 @@ func (params *FetchPhoneNumberParams) SetCountryCode(CountryCode string) *FetchP
 	return params
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV2PhoneNumber, error) {
 	return c.FetchPhoneNumberWithCtx(context.TODO(), PhoneNumber, params)
 }
 
-//
 func (c *ApiService) FetchPhoneNumberWithCtx(ctx context.Context, PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV2PhoneNumber, error) {
 	path := "/v2/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)

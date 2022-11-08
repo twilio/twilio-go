@@ -37,12 +37,10 @@ func (params *CreateExternalCampaignParams) SetMessagingServiceSid(MessagingServ
 	return params
 }
 
-//
 func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
 	return c.CreateExternalCampaignWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateExternalCampaignWithCtx(ctx context.Context, params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
 	path := "/v1/Services/PreregisteredUsa2p"
 

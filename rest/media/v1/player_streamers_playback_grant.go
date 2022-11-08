@@ -39,12 +39,10 @@ func (params *CreatePlayerStreamerPlaybackGrantParams) SetAccessControlAllowOrig
 	return params
 }
 
-//
 func (c *ApiService) CreatePlayerStreamerPlaybackGrant(Sid string, params *CreatePlayerStreamerPlaybackGrantParams) (*MediaV1PlayerStreamerPlaybackGrant, error) {
 	return c.CreatePlayerStreamerPlaybackGrantWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) CreatePlayerStreamerPlaybackGrantWithCtx(ctx context.Context, Sid string, params *CreatePlayerStreamerPlaybackGrantParams) (*MediaV1PlayerStreamerPlaybackGrant, error) {
 	path := "/v1/PlayerStreamers/{Sid}/PlaybackGrant"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -35,12 +35,10 @@ func (params *CreatePhoneNumberParams) SetPhoneNumberSid(PhoneNumberSid string) 
 	return params
 }
 
-//
 func (c *ApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumberParams) (*TrunkingV1PhoneNumber, error) {
 	return c.CreatePhoneNumberWithCtx(context.TODO(), TrunkSid, params)
 }
 
-//
 func (c *ApiService) CreatePhoneNumberWithCtx(ctx context.Context, TrunkSid string, params *CreatePhoneNumberParams) (*TrunkingV1PhoneNumber, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -67,12 +65,10 @@ func (c *ApiService) CreatePhoneNumberWithCtx(ctx context.Context, TrunkSid stri
 	return ps, err
 }
 
-//
 func (c *ApiService) DeletePhoneNumber(TrunkSid string, Sid string) error {
 	return c.DeletePhoneNumberWithCtx(context.TODO(), TrunkSid, Sid)
 }
 
-//
 func (c *ApiService) DeletePhoneNumberWithCtx(ctx context.Context, TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -91,12 +87,10 @@ func (c *ApiService) DeletePhoneNumberWithCtx(ctx context.Context, TrunkSid stri
 	return nil
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*TrunkingV1PhoneNumber, error) {
 	return c.FetchPhoneNumberWithCtx(context.TODO(), TrunkSid, Sid)
 }
 
-//
 func (c *ApiService) FetchPhoneNumberWithCtx(ctx context.Context, TrunkSid string, Sid string) (*TrunkingV1PhoneNumber, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)

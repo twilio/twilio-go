@@ -84,12 +84,10 @@ func (c *ApiService) CreateInteractionWithCtx(ctx context.Context, params *Creat
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
 	return c.FetchInteractionWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchInteractionWithCtx(ctx context.Context, Sid string) (*FlexV1Interaction, error) {
 	path := "/v1/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

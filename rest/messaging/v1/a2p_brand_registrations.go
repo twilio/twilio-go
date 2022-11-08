@@ -59,12 +59,10 @@ func (params *CreateBrandRegistrationsParams) SetSkipAutomaticSecVet(SkipAutomat
 	return params
 }
 
-//
 func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsParams) (*MessagingV1BrandRegistrations, error) {
 	return c.CreateBrandRegistrationsWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateBrandRegistrationsWithCtx(ctx context.Context, params *CreateBrandRegistrationsParams) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
@@ -102,12 +100,10 @@ func (c *ApiService) CreateBrandRegistrationsWithCtx(ctx context.Context, params
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	return c.FetchBrandRegistrationsWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchBrandRegistrationsWithCtx(ctx context.Context, Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -281,12 +277,10 @@ func (c *ApiService) getNextListBrandRegistrationsResponse(ctx context.Context, 
 	return ps, nil
 }
 
-//
 func (c *ApiService) UpdateBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	return c.UpdateBrandRegistrationsWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) UpdateBrandRegistrationsWithCtx(ctx context.Context, Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

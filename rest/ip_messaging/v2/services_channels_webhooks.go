@@ -71,12 +71,10 @@ func (params *CreateChannelWebhookParams) SetConfigurationRetryCount(Configurati
 	return params
 }
 
-//
 func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*IpMessagingV2ChannelWebhook, error) {
 	return c.CreateChannelWebhookWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
 }
 
-//
 func (c *ApiService) CreateChannelWebhookWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*IpMessagingV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -126,12 +124,10 @@ func (c *ApiService) CreateChannelWebhookWithCtx(ctx context.Context, ServiceSid
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, Sid string) error {
 	return c.DeleteChannelWebhookWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteChannelWebhookWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -151,12 +147,10 @@ func (c *ApiService) DeleteChannelWebhookWithCtx(ctx context.Context, ServiceSid
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2ChannelWebhook, error) {
 	return c.FetchChannelWebhookWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
 }
 
-//
 func (c *ApiService) FetchChannelWebhookWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -376,12 +370,10 @@ func (params *UpdateChannelWebhookParams) SetConfigurationRetryCount(Configurati
 	return params
 }
 
-//
 func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*IpMessagingV2ChannelWebhook, error) {
 	return c.UpdateChannelWebhookWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateChannelWebhookWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*IpMessagingV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

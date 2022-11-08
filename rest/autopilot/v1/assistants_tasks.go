@@ -53,12 +53,10 @@ func (params *CreateTaskParams) SetActionsUrl(ActionsUrl string) *CreateTaskPara
 	return params
 }
 
-//
 func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (*AutopilotV1Task, error) {
 	return c.CreateTaskWithCtx(context.TODO(), AssistantSid, params)
 }
 
-//
 func (c *ApiService) CreateTaskWithCtx(ctx context.Context, AssistantSid string, params *CreateTaskParams) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -100,12 +98,10 @@ func (c *ApiService) CreateTaskWithCtx(ctx context.Context, AssistantSid string,
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTask(AssistantSid string, Sid string) error {
 	return c.DeleteTaskWithCtx(context.TODO(), AssistantSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteTaskWithCtx(ctx context.Context, AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -124,12 +120,10 @@ func (c *ApiService) DeleteTaskWithCtx(ctx context.Context, AssistantSid string,
 	return nil
 }
 
-//
 func (c *ApiService) FetchTask(AssistantSid string, Sid string) (*AutopilotV1Task, error) {
 	return c.FetchTaskWithCtx(context.TODO(), AssistantSid, Sid)
 }
 
-//
 func (c *ApiService) FetchTaskWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -335,12 +329,10 @@ func (params *UpdateTaskParams) SetActionsUrl(ActionsUrl string) *UpdateTaskPara
 	return params
 }
 
-//
 func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateTaskParams) (*AutopilotV1Task, error) {
 	return c.UpdateTaskWithCtx(context.TODO(), AssistantSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateTaskWithCtx(ctx context.Context, AssistantSid string, Sid string, params *UpdateTaskParams) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

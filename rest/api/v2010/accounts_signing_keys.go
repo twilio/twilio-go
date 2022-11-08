@@ -88,12 +88,10 @@ func (params *DeleteSigningKeyParams) SetPathAccountSid(PathAccountSid string) *
 	return params
 }
 
-//
 func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams) error {
 	return c.DeleteSigningKeyWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) DeleteSigningKeyWithCtx(ctx context.Context, Sid string, params *DeleteSigningKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -127,12 +125,10 @@ func (params *FetchSigningKeyParams) SetPathAccountSid(PathAccountSid string) *F
 	return params
 }
 
-//
 func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) (*ApiV2010SigningKey, error) {
 	return c.FetchSigningKeyWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) FetchSigningKeyWithCtx(ctx context.Context, Sid string, params *FetchSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -340,12 +336,10 @@ func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams) (*ApiV2010SigningKey, error) {
 	return c.UpdateSigningKeyWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateSigningKeyWithCtx(ctx context.Context, Sid string, params *UpdateSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

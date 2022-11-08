@@ -53,12 +53,10 @@ func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Cre
 	return params
 }
 
-//
 func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	return c.CreateSyncListItemWithCtx(context.TODO(), ServiceSid, ListSid, params)
 }
 
-//
 func (c *ApiService) CreateSyncListItemWithCtx(ctx context.Context, ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -112,12 +110,10 @@ func (params *DeleteSyncListItemParams) SetIfMatch(IfMatch string) *DeleteSyncLi
 	return params
 }
 
-//
 func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int, params *DeleteSyncListItemParams) error {
 	return c.DeleteSyncListItemWithCtx(context.TODO(), ServiceSid, ListSid, Index, params)
 }
 
-//
 func (c *ApiService) DeleteSyncListItemWithCtx(ctx context.Context, ServiceSid string, ListSid string, Index int, params *DeleteSyncListItemParams) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -141,12 +137,10 @@ func (c *ApiService) DeleteSyncListItemWithCtx(ctx context.Context, ServiceSid s
 	return nil
 }
 
-//
 func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int) (*SyncV1SyncListItem, error) {
 	return c.FetchSyncListItemWithCtx(context.TODO(), ServiceSid, ListSid, Index)
 }
 
-//
 func (c *ApiService) FetchSyncListItemWithCtx(ctx context.Context, ServiceSid string, ListSid string, Index int) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -387,12 +381,10 @@ func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Upd
 	return params
 }
 
-//
 func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	return c.UpdateSyncListItemWithCtx(context.TODO(), ServiceSid, ListSid, Index, params)
 }
 
-//
 func (c *ApiService) UpdateSyncListItemWithCtx(ctx context.Context, ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

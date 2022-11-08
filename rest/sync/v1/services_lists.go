@@ -47,12 +47,10 @@ func (params *CreateSyncListParams) SetCollectionTtl(CollectionTtl int) *CreateS
 	return params
 }
 
-//
 func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListParams) (*SyncV1SyncList, error) {
 	return c.CreateSyncListWithCtx(context.TODO(), ServiceSid, params)
 }
 
-//
 func (c *ApiService) CreateSyncListWithCtx(ctx context.Context, ServiceSid string, params *CreateSyncListParams) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -85,12 +83,10 @@ func (c *ApiService) CreateSyncListWithCtx(ctx context.Context, ServiceSid strin
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteSyncList(ServiceSid string, Sid string) error {
 	return c.DeleteSyncListWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteSyncListWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -109,12 +105,10 @@ func (c *ApiService) DeleteSyncListWithCtx(ctx context.Context, ServiceSid strin
 	return nil
 }
 
-//
 func (c *ApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1SyncList, error) {
 	return c.FetchSyncListWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchSyncListWithCtx(ctx context.Context, ServiceSid string, Sid string) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -308,12 +302,10 @@ func (params *UpdateSyncListParams) SetCollectionTtl(CollectionTtl int) *UpdateS
 	return params
 }
 
-//
 func (c *ApiService) UpdateSyncList(ServiceSid string, Sid string, params *UpdateSyncListParams) (*SyncV1SyncList, error) {
 	return c.UpdateSyncListWithCtx(context.TODO(), ServiceSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateSyncListWithCtx(ctx context.Context, ServiceSid string, Sid string, params *UpdateSyncListParams) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

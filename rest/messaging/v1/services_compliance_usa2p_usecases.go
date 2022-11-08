@@ -32,12 +32,10 @@ func (params *FetchUsAppToPersonUsecaseParams) SetBrandRegistrationSid(BrandRegi
 	return params
 }
 
-//
 func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string, params *FetchUsAppToPersonUsecaseParams) (*MessagingV1UsAppToPersonUsecase, error) {
 	return c.FetchUsAppToPersonUsecaseWithCtx(context.TODO(), MessagingServiceSid, params)
 }
 
-//
 func (c *ApiService) FetchUsAppToPersonUsecaseWithCtx(ctx context.Context, MessagingServiceSid string, params *FetchUsAppToPersonUsecaseParams) (*MessagingV1UsAppToPersonUsecase, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)

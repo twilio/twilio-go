@@ -65,12 +65,10 @@ func (params *CreateExportCustomJobParams) SetEmail(Email string) *CreateExportC
 	return params
 }
 
-//
 func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateExportCustomJobParams) (*BulkexportsV1ExportCustomJob, error) {
 	return c.CreateExportCustomJobWithCtx(context.TODO(), ResourceType, params)
 }
 
-//
 func (c *ApiService) CreateExportCustomJobWithCtx(ctx context.Context, ResourceType string, params *CreateExportCustomJobParams) (*BulkexportsV1ExportCustomJob, error) {
 	path := "/v1/Exports/{ResourceType}/Jobs"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
@@ -112,12 +110,10 @@ func (c *ApiService) CreateExportCustomJobWithCtx(ctx context.Context, ResourceT
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteJob(JobSid string) error {
 	return c.DeleteJobWithCtx(context.TODO(), JobSid)
 }
 
-//
 func (c *ApiService) DeleteJobWithCtx(ctx context.Context, JobSid string) error {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
@@ -135,12 +131,10 @@ func (c *ApiService) DeleteJobWithCtx(ctx context.Context, JobSid string) error 
 	return nil
 }
 
-//
 func (c *ApiService) FetchJob(JobSid string) (*BulkexportsV1Job, error) {
 	return c.FetchJobWithCtx(context.TODO(), JobSid)
 }
 
-//
 func (c *ApiService) FetchJobWithCtx(ctx context.Context, JobSid string) (*BulkexportsV1Job, error) {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)

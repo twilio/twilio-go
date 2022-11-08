@@ -78,12 +78,10 @@ func (params *CreateMessageParams) SetMediaSid(MediaSid string) *CreateMessagePa
 	return params
 }
 
-//
 func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*IpMessagingV2Message, error) {
 	return c.CreateMessageWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
 }
 
-//
 func (c *ApiService) CreateMessageWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *CreateMessageParams) (*IpMessagingV2Message, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -144,12 +142,10 @@ func (params *DeleteMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnable
 	return params
 }
 
-//
 func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid string, params *DeleteMessageParams) error {
 	return c.DeleteMessageWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid, params)
 }
 
-//
 func (c *ApiService) DeleteMessageWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string, params *DeleteMessageParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -173,12 +169,10 @@ func (c *ApiService) DeleteMessageWithCtx(ctx context.Context, ServiceSid string
 	return nil
 }
 
-//
 func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2Message, error) {
 	return c.FetchMessageWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
 }
 
-//
 func (c *ApiService) FetchMessageWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2Message, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -413,12 +407,10 @@ func (params *UpdateMessageParams) SetFrom(From string) *UpdateMessageParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*IpMessagingV2Message, error) {
 	return c.UpdateMessageWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateMessageWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*IpMessagingV2Message, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

@@ -47,12 +47,10 @@ func (params *CreateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimiz
 	return params
 }
 
-//
 func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
 	return c.CreateTaskChannelWithCtx(context.TODO(), WorkspaceSid, params)
 }
 
-//
 func (c *ApiService) CreateTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, params *CreateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -85,12 +83,10 @@ func (c *ApiService) CreateTaskChannelWithCtx(ctx context.Context, WorkspaceSid 
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
 	return c.DeleteTaskChannelWithCtx(context.TODO(), WorkspaceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -109,12 +105,10 @@ func (c *ApiService) DeleteTaskChannelWithCtx(ctx context.Context, WorkspaceSid 
 	return nil
 }
 
-//
 func (c *ApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*TaskrouterV1TaskChannel, error) {
 	return c.FetchTaskChannelWithCtx(context.TODO(), WorkspaceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -308,12 +302,10 @@ func (params *UpdateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimiz
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *UpdateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
 	return c.UpdateTaskChannelWithCtx(context.TODO(), WorkspaceSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *UpdateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

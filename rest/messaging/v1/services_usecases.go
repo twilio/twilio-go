@@ -20,12 +20,10 @@ import (
 	"net/url"
 )
 
-//
 func (c *ApiService) FetchUsecase() (*MessagingV1Usecase, error) {
 	return c.FetchUsecaseWithCtx(context.TODO())
 }
 
-//
 func (c *ApiService) FetchUsecaseWithCtx(ctx context.Context) (*MessagingV1Usecase, error) {
 	path := "/v1/Services/Usecases"
 

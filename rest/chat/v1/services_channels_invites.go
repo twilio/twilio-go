@@ -41,12 +41,10 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 	return params
 }
 
-//
 func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*ChatV1Invite, error) {
 	return c.CreateInviteWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
 }
 
-//
 func (c *ApiService) CreateInviteWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *CreateInviteParams) (*ChatV1Invite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -77,12 +75,10 @@ func (c *ApiService) CreateInviteWithCtx(ctx context.Context, ServiceSid string,
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
 	return c.DeleteInviteWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteInviteWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -102,12 +98,10 @@ func (c *ApiService) DeleteInviteWithCtx(ctx context.Context, ServiceSid string,
 	return nil
 }
 
-//
 func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*ChatV1Invite, error) {
 	return c.FetchInviteWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
 }
 
-//
 func (c *ApiService) FetchInviteWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) (*ChatV1Invite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

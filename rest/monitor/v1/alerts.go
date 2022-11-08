@@ -25,12 +25,10 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, error) {
 	return c.FetchAlertWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchAlertWithCtx(ctx context.Context, Sid string) (*MonitorV1AlertInstance, error) {
 	path := "/v1/Alerts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

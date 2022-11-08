@@ -89,12 +89,10 @@ func (params *CreateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool
 	return params
 }
 
-//
 func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Address, error) {
 	return c.CreateAddressWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateAddressWithCtx(ctx context.Context, params *CreateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -160,12 +158,10 @@ func (params *DeleteAddressParams) SetPathAccountSid(PathAccountSid string) *Del
 	return params
 }
 
-//
 func (c *ApiService) DeleteAddress(Sid string, params *DeleteAddressParams) error {
 	return c.DeleteAddressWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) DeleteAddressWithCtx(ctx context.Context, Sid string, params *DeleteAddressParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -199,12 +195,10 @@ func (params *FetchAddressParams) SetPathAccountSid(PathAccountSid string) *Fetc
 	return params
 }
 
-//
 func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV2010Address, error) {
 	return c.FetchAddressWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) FetchAddressWithCtx(ctx context.Context, Sid string, params *FetchAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -481,12 +475,10 @@ func (params *UpdateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool
 	return params
 }
 
-//
 func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*ApiV2010Address, error) {
 	return c.UpdateAddressWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateAddressWithCtx(ctx context.Context, Sid string, params *UpdateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

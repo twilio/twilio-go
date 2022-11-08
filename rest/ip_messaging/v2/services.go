@@ -35,12 +35,10 @@ func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateS
 	return params
 }
 
-//
 func (c *ApiService) CreateService(params *CreateServiceParams) (*IpMessagingV2Service, error) {
 	return c.CreateServiceWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateServiceWithCtx(ctx context.Context, params *CreateServiceParams) (*IpMessagingV2Service, error) {
 	path := "/v2/Services"
 
@@ -66,12 +64,10 @@ func (c *ApiService) CreateServiceWithCtx(ctx context.Context, params *CreateSer
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteService(Sid string) error {
 	return c.DeleteServiceWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteServiceWithCtx(ctx context.Context, Sid string) error {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -89,12 +85,10 @@ func (c *ApiService) DeleteServiceWithCtx(ctx context.Context, Sid string) error
 	return nil
 }
 
-//
 func (c *ApiService) FetchService(Sid string) (*IpMessagingV2Service, error) {
 	return c.FetchServiceWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchServiceWithCtx(ctx context.Context, Sid string) (*IpMessagingV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -459,12 +453,10 @@ func (params *UpdateServiceParams) SetNotificationsLogEnabled(NotificationsLogEn
 	return params
 }
 
-//
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*IpMessagingV2Service, error) {
 	return c.UpdateServiceWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateServiceWithCtx(ctx context.Context, Sid string, params *UpdateServiceParams) (*IpMessagingV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

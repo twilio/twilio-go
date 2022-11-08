@@ -35,12 +35,10 @@ func (params *CreateAlphaSenderParams) SetAlphaSender(AlphaSender string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSenderParams) (*MessagingV1AlphaSender, error) {
 	return c.CreateAlphaSenderWithCtx(context.TODO(), ServiceSid, params)
 }
 
-//
 func (c *ApiService) CreateAlphaSenderWithCtx(ctx context.Context, ServiceSid string, params *CreateAlphaSenderParams) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -67,12 +65,10 @@ func (c *ApiService) CreateAlphaSenderWithCtx(ctx context.Context, ServiceSid st
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteAlphaSender(ServiceSid string, Sid string) error {
 	return c.DeleteAlphaSenderWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteAlphaSenderWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -91,12 +87,10 @@ func (c *ApiService) DeleteAlphaSenderWithCtx(ctx context.Context, ServiceSid st
 	return nil
 }
 
-//
 func (c *ApiService) FetchAlphaSender(ServiceSid string, Sid string) (*MessagingV1AlphaSender, error) {
 	return c.FetchAlphaSenderWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchAlphaSenderWithCtx(ctx context.Context, ServiceSid string, Sid string) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

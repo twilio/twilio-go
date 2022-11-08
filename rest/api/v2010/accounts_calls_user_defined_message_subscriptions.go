@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -51,6 +52,11 @@ func (params *CreateUserDefinedMessageSubscriptionParams) SetIdempotencyKey(Idem
 
 // Subscribe to User Defined Messages for a given call sid.
 func (c *ApiService) CreateUserDefinedMessageSubscription(CallSid string, params *CreateUserDefinedMessageSubscriptionParams) (*ApiV2010UserDefinedMessageSubscription, error) {
+	return c.CreateUserDefinedMessageSubscriptionWithCtx(context.TODO(), CallSid, params)
+}
+
+// Subscribe to User Defined Messages for a given call sid.
+func (c *ApiService) CreateUserDefinedMessageSubscriptionWithCtx(ctx context.Context, CallSid string, params *CreateUserDefinedMessageSubscriptionParams) (*ApiV2010UserDefinedMessageSubscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -72,7 +78,7 @@ func (c *ApiService) CreateUserDefinedMessageSubscription(CallSid string, params
 		data.Set("IdempotencyKey", *params.IdempotencyKey)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -100,6 +106,11 @@ func (params *DeleteUserDefinedMessageSubscriptionParams) SetPathAccountSid(Path
 
 // Delete a specific User Defined Message Subscription.
 func (c *ApiService) DeleteUserDefinedMessageSubscription(CallSid string, Sid string, params *DeleteUserDefinedMessageSubscriptionParams) error {
+	return c.DeleteUserDefinedMessageSubscriptionWithCtx(context.TODO(), CallSid, Sid, params)
+}
+
+// Delete a specific User Defined Message Subscription.
+func (c *ApiService) DeleteUserDefinedMessageSubscriptionWithCtx(ctx context.Context, CallSid string, Sid string, params *DeleteUserDefinedMessageSubscriptionParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -112,7 +123,7 @@ func (c *ApiService) DeleteUserDefinedMessageSubscription(CallSid string, Sid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}

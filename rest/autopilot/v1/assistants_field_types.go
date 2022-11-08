@@ -41,12 +41,10 @@ func (params *CreateFieldTypeParams) SetFriendlyName(FriendlyName string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateFieldType(AssistantSid string, params *CreateFieldTypeParams) (*AutopilotV1FieldType, error) {
 	return c.CreateFieldTypeWithCtx(context.TODO(), AssistantSid, params)
 }
 
-//
 func (c *ApiService) CreateFieldTypeWithCtx(ctx context.Context, AssistantSid string, params *CreateFieldTypeParams) (*AutopilotV1FieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -76,12 +74,10 @@ func (c *ApiService) CreateFieldTypeWithCtx(ctx context.Context, AssistantSid st
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteFieldType(AssistantSid string, Sid string) error {
 	return c.DeleteFieldTypeWithCtx(context.TODO(), AssistantSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteFieldTypeWithCtx(ctx context.Context, AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -100,12 +96,10 @@ func (c *ApiService) DeleteFieldTypeWithCtx(ctx context.Context, AssistantSid st
 	return nil
 }
 
-//
 func (c *ApiService) FetchFieldType(AssistantSid string, Sid string) (*AutopilotV1FieldType, error) {
 	return c.FetchFieldTypeWithCtx(context.TODO(), AssistantSid, Sid)
 }
 
-//
 func (c *ApiService) FetchFieldTypeWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1FieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -299,12 +293,10 @@ func (params *UpdateFieldTypeParams) SetUniqueName(UniqueName string) *UpdateFie
 	return params
 }
 
-//
 func (c *ApiService) UpdateFieldType(AssistantSid string, Sid string, params *UpdateFieldTypeParams) (*AutopilotV1FieldType, error) {
 	return c.UpdateFieldTypeWithCtx(context.TODO(), AssistantSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateFieldTypeWithCtx(ctx context.Context, AssistantSid string, Sid string, params *UpdateFieldTypeParams) (*AutopilotV1FieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

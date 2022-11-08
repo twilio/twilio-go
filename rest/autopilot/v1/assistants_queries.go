@@ -53,12 +53,10 @@ func (params *CreateQueryParams) SetModelBuild(ModelBuild string) *CreateQueryPa
 	return params
 }
 
-//
 func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams) (*AutopilotV1Query, error) {
 	return c.CreateQueryWithCtx(context.TODO(), AssistantSid, params)
 }
 
-//
 func (c *ApiService) CreateQueryWithCtx(ctx context.Context, AssistantSid string, params *CreateQueryParams) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -94,12 +92,10 @@ func (c *ApiService) CreateQueryWithCtx(ctx context.Context, AssistantSid string
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	return c.DeleteQueryWithCtx(context.TODO(), AssistantSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteQueryWithCtx(ctx context.Context, AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -118,12 +114,10 @@ func (c *ApiService) DeleteQueryWithCtx(ctx context.Context, AssistantSid string
 	return nil
 }
 
-//
 func (c *ApiService) FetchQuery(AssistantSid string, Sid string) (*AutopilotV1Query, error) {
 	return c.FetchQueryWithCtx(context.TODO(), AssistantSid, Sid)
 }
 
-//
 func (c *ApiService) FetchQueryWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -353,12 +347,10 @@ func (params *UpdateQueryParams) SetStatus(Status string) *UpdateQueryParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateQuery(AssistantSid string, Sid string, params *UpdateQueryParams) (*AutopilotV1Query, error) {
 	return c.UpdateQueryWithCtx(context.TODO(), AssistantSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateQueryWithCtx(ctx context.Context, AssistantSid string, Sid string, params *UpdateQueryParams) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

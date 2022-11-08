@@ -41,12 +41,10 @@ func (params *CreateFieldParams) SetUniqueName(UniqueName string) *CreateFieldPa
 	return params
 }
 
-//
 func (c *ApiService) CreateField(AssistantSid string, TaskSid string, params *CreateFieldParams) (*AutopilotV1Field, error) {
 	return c.CreateFieldWithCtx(context.TODO(), AssistantSid, TaskSid, params)
 }
 
-//
 func (c *ApiService) CreateFieldWithCtx(ctx context.Context, AssistantSid string, TaskSid string, params *CreateFieldParams) (*AutopilotV1Field, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -77,12 +75,10 @@ func (c *ApiService) CreateFieldWithCtx(ctx context.Context, AssistantSid string
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteField(AssistantSid string, TaskSid string, Sid string) error {
 	return c.DeleteFieldWithCtx(context.TODO(), AssistantSid, TaskSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteFieldWithCtx(ctx context.Context, AssistantSid string, TaskSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -102,12 +98,10 @@ func (c *ApiService) DeleteFieldWithCtx(ctx context.Context, AssistantSid string
 	return nil
 }
 
-//
 func (c *ApiService) FetchField(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1Field, error) {
 	return c.FetchFieldWithCtx(context.TODO(), AssistantSid, TaskSid, Sid)
 }
 
-//
 func (c *ApiService) FetchFieldWithCtx(ctx context.Context, AssistantSid string, TaskSid string, Sid string) (*AutopilotV1Field, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

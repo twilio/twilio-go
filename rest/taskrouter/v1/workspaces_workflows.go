@@ -59,12 +59,10 @@ func (params *CreateWorkflowParams) SetTaskReservationTimeout(TaskReservationTim
 	return params
 }
 
-//
 func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	return c.CreateWorkflowWithCtx(context.TODO(), WorkspaceSid, params)
 }
 
-//
 func (c *ApiService) CreateWorkflowWithCtx(ctx context.Context, WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -103,12 +101,10 @@ func (c *ApiService) CreateWorkflowWithCtx(ctx context.Context, WorkspaceSid str
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	return c.DeleteWorkflowWithCtx(context.TODO(), WorkspaceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteWorkflowWithCtx(ctx context.Context, WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -127,12 +123,10 @@ func (c *ApiService) DeleteWorkflowWithCtx(ctx context.Context, WorkspaceSid str
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*TaskrouterV1Workflow, error) {
 	return c.FetchWorkflowWithCtx(context.TODO(), WorkspaceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchWorkflowWithCtx(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -359,12 +353,10 @@ func (params *UpdateWorkflowParams) SetReEvaluateTasks(ReEvaluateTasks string) *
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	return c.UpdateWorkflowWithCtx(context.TODO(), WorkspaceSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateWorkflowWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

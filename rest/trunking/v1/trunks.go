@@ -77,12 +77,10 @@ func (params *CreateTrunkParams) SetTransferCallerId(TransferCallerId string) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, error) {
 	return c.CreateTrunkWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateTrunkWithCtx(ctx context.Context, params *CreateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks"
 
@@ -129,12 +127,10 @@ func (c *ApiService) CreateTrunkWithCtx(ctx context.Context, params *CreateTrunk
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTrunk(Sid string) error {
 	return c.DeleteTrunkWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteTrunkWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -152,12 +148,10 @@ func (c *ApiService) DeleteTrunkWithCtx(ctx context.Context, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 	return c.FetchTrunkWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchTrunkWithCtx(ctx context.Context, Sid string) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -384,12 +378,10 @@ func (params *UpdateTrunkParams) SetTransferCallerId(TransferCallerId string) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*TrunkingV1Trunk, error) {
 	return c.UpdateTrunkWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateTrunkWithCtx(ctx context.Context, Sid string, params *UpdateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

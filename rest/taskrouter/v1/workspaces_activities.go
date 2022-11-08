@@ -41,12 +41,10 @@ func (params *CreateActivityParams) SetAvailable(Available bool) *CreateActivity
 	return params
 }
 
-//
 func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityParams) (*TaskrouterV1Activity, error) {
 	return c.CreateActivityWithCtx(context.TODO(), WorkspaceSid, params)
 }
 
-//
 func (c *ApiService) CreateActivityWithCtx(ctx context.Context, WorkspaceSid string, params *CreateActivityParams) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -76,12 +74,10 @@ func (c *ApiService) CreateActivityWithCtx(ctx context.Context, WorkspaceSid str
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	return c.DeleteActivityWithCtx(context.TODO(), WorkspaceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteActivityWithCtx(ctx context.Context, WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -100,12 +96,10 @@ func (c *ApiService) DeleteActivityWithCtx(ctx context.Context, WorkspaceSid str
 	return nil
 }
 
-//
 func (c *ApiService) FetchActivity(WorkspaceSid string, Sid string) (*TaskrouterV1Activity, error) {
 	return c.FetchActivityWithCtx(context.TODO(), WorkspaceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchActivityWithCtx(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -311,12 +305,10 @@ func (params *UpdateActivityParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1Activity, error) {
 	return c.UpdateActivityWithCtx(context.TODO(), WorkspaceSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateActivityWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

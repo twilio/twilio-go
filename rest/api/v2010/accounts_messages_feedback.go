@@ -38,12 +38,10 @@ func (params *CreateMessageFeedbackParams) SetOutcome(Outcome string) *CreateMes
 	return params
 }
 
-//
 func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMessageFeedbackParams) (*ApiV2010MessageFeedback, error) {
 	return c.CreateMessageFeedbackWithCtx(context.TODO(), MessageSid, params)
 }
 
-//
 func (c *ApiService) CreateMessageFeedbackWithCtx(ctx context.Context, MessageSid string, params *CreateMessageFeedbackParams) (*ApiV2010MessageFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {

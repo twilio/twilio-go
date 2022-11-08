@@ -91,12 +91,10 @@ func (c *ApiService) DeleteIpAccessControlListWithCtx(ctx context.Context, Trunk
 	return nil
 }
 
-//
 func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*TrunkingV1IpAccessControlList, error) {
 	return c.FetchIpAccessControlListWithCtx(context.TODO(), TrunkSid, Sid)
 }
 
-//
 func (c *ApiService) FetchIpAccessControlListWithCtx(ctx context.Context, TrunkSid string, Sid string) (*TrunkingV1IpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)

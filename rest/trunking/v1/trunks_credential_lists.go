@@ -35,12 +35,10 @@ func (params *CreateCredentialListParams) SetCredentialListSid(CredentialListSid
 	return params
 }
 
-//
 func (c *ApiService) CreateCredentialList(TrunkSid string, params *CreateCredentialListParams) (*TrunkingV1CredentialList, error) {
 	return c.CreateCredentialListWithCtx(context.TODO(), TrunkSid, params)
 }
 
-//
 func (c *ApiService) CreateCredentialListWithCtx(ctx context.Context, TrunkSid string, params *CreateCredentialListParams) (*TrunkingV1CredentialList, error) {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -67,12 +65,10 @@ func (c *ApiService) CreateCredentialListWithCtx(ctx context.Context, TrunkSid s
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteCredentialList(TrunkSid string, Sid string) error {
 	return c.DeleteCredentialListWithCtx(context.TODO(), TrunkSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteCredentialListWithCtx(ctx context.Context, TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -91,12 +87,10 @@ func (c *ApiService) DeleteCredentialListWithCtx(ctx context.Context, TrunkSid s
 	return nil
 }
 
-//
 func (c *ApiService) FetchCredentialList(TrunkSid string, Sid string) (*TrunkingV1CredentialList, error) {
 	return c.FetchCredentialListWithCtx(context.TODO(), TrunkSid, Sid)
 }
 
-//
 func (c *ApiService) FetchCredentialListWithCtx(ctx context.Context, TrunkSid string, Sid string) (*TrunkingV1CredentialList, error) {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)

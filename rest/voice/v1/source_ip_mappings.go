@@ -41,12 +41,10 @@ func (params *CreateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) 
 	return params
 }
 
-//
 func (c *ApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	return c.CreateSourceIpMappingWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateSourceIpMappingWithCtx(ctx context.Context, params *CreateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings"
 
@@ -75,12 +73,10 @@ func (c *ApiService) CreateSourceIpMappingWithCtx(ctx context.Context, params *C
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteSourceIpMapping(Sid string) error {
 	return c.DeleteSourceIpMappingWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteSourceIpMappingWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -98,12 +94,10 @@ func (c *ApiService) DeleteSourceIpMappingWithCtx(ctx context.Context, Sid strin
 	return nil
 }
 
-//
 func (c *ApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMapping, error) {
 	return c.FetchSourceIpMappingWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchSourceIpMappingWithCtx(ctx context.Context, Sid string) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -288,12 +282,10 @@ func (params *UpdateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) 
 	return params
 }
 
-//
 func (c *ApiService) UpdateSourceIpMapping(Sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	return c.UpdateSourceIpMappingWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateSourceIpMappingWithCtx(ctx context.Context, Sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

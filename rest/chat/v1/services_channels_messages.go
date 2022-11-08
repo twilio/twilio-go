@@ -47,12 +47,10 @@ func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessa
 	return params
 }
 
-//
 func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*ChatV1Message, error) {
 	return c.CreateMessageWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
 }
 
-//
 func (c *ApiService) CreateMessageWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *CreateMessageParams) (*ChatV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -86,12 +84,10 @@ func (c *ApiService) CreateMessageWithCtx(ctx context.Context, ServiceSid string
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid string) error {
 	return c.DeleteMessageWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteMessageWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -111,12 +107,10 @@ func (c *ApiService) DeleteMessageWithCtx(ctx context.Context, ServiceSid string
 	return nil
 }
 
-//
 func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*ChatV1Message, error) {
 	return c.FetchMessageWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
 }
 
-//
 func (c *ApiService) FetchMessageWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) (*ChatV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -321,12 +315,10 @@ func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessa
 	return params
 }
 
-//
 func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*ChatV1Message, error) {
 	return c.UpdateMessageWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateMessageWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*ChatV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

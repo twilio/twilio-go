@@ -20,12 +20,10 @@ import (
 	"net/url"
 )
 
-//
 func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationWebhook, error) {
 	return c.FetchConfigurationWebhookWithCtx(context.TODO())
 }
 
-//
 func (c *ApiService) FetchConfigurationWebhookWithCtx(ctx context.Context) (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
@@ -82,12 +80,10 @@ func (params *UpdateConfigurationWebhookParams) SetTarget(Target string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationWebhook, error) {
 	return c.UpdateConfigurationWebhookWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) UpdateConfigurationWebhookWithCtx(ctx context.Context, params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 

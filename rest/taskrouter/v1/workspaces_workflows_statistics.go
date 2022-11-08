@@ -58,12 +58,10 @@ func (params *FetchWorkflowStatisticsParams) SetSplitByWaitTime(SplitByWaitTime 
 	return params
 }
 
-//
 func (c *ApiService) FetchWorkflowStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowStatisticsParams) (*TaskrouterV1WorkflowStatistics, error) {
 	return c.FetchWorkflowStatisticsWithCtx(context.TODO(), WorkspaceSid, WorkflowSid, params)
 }
 
-//
 func (c *ApiService) FetchWorkflowStatisticsWithCtx(ctx context.Context, WorkspaceSid string, WorkflowSid string, params *FetchWorkflowStatisticsParams) (*TaskrouterV1WorkflowStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

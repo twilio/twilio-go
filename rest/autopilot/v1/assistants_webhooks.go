@@ -53,12 +53,10 @@ func (params *CreateWebhookParams) SetWebhookMethod(WebhookMethod string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookParams) (*AutopilotV1Webhook, error) {
 	return c.CreateWebhookWithCtx(context.TODO(), AssistantSid, params)
 }
 
-//
 func (c *ApiService) CreateWebhookWithCtx(ctx context.Context, AssistantSid string, params *CreateWebhookParams) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -94,12 +92,10 @@ func (c *ApiService) CreateWebhookWithCtx(ctx context.Context, AssistantSid stri
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWebhook(AssistantSid string, Sid string) error {
 	return c.DeleteWebhookWithCtx(context.TODO(), AssistantSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteWebhookWithCtx(ctx context.Context, AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -118,12 +114,10 @@ func (c *ApiService) DeleteWebhookWithCtx(ctx context.Context, AssistantSid stri
 	return nil
 }
 
-//
 func (c *ApiService) FetchWebhook(AssistantSid string, Sid string) (*AutopilotV1Webhook, error) {
 	return c.FetchWebhookWithCtx(context.TODO(), AssistantSid, Sid)
 }
 
-//
 func (c *ApiService) FetchWebhookWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -329,12 +323,10 @@ func (params *UpdateWebhookParams) SetWebhookMethod(WebhookMethod string) *Updat
 	return params
 }
 
-//
 func (c *ApiService) UpdateWebhook(AssistantSid string, Sid string, params *UpdateWebhookParams) (*AutopilotV1Webhook, error) {
 	return c.UpdateWebhookWithCtx(context.TODO(), AssistantSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateWebhookWithCtx(ctx context.Context, AssistantSid string, Sid string, params *UpdateWebhookParams) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

@@ -71,12 +71,10 @@ func (params *CreateBindingParams) SetEndpoint(Endpoint string) *CreateBindingPa
 	return params
 }
 
-//
 func (c *ApiService) CreateBinding(ServiceSid string, params *CreateBindingParams) (*NotifyV1Binding, error) {
 	return c.CreateBindingWithCtx(context.TODO(), ServiceSid, params)
 }
 
-//
 func (c *ApiService) CreateBindingWithCtx(ctx context.Context, ServiceSid string, params *CreateBindingParams) (*NotifyV1Binding, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -123,12 +121,10 @@ func (c *ApiService) CreateBindingWithCtx(ctx context.Context, ServiceSid string
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return c.DeleteBindingWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteBindingWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -147,12 +143,10 @@ func (c *ApiService) DeleteBindingWithCtx(ctx context.Context, ServiceSid string
 	return nil
 }
 
-//
 func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*NotifyV1Binding, error) {
 	return c.FetchBindingWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchBindingWithCtx(ctx context.Context, ServiceSid string, Sid string) (*NotifyV1Binding, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

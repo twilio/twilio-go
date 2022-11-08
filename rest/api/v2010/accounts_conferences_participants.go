@@ -311,12 +311,10 @@ func (params *CreateParticipantParams) SetAmdStatusCallbackMethod(AmdStatusCallb
 	return params
 }
 
-//
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
 	return c.CreateParticipantWithCtx(context.TODO(), ConferenceSid, params)
 }
 
-//
 func (c *ApiService) CreateParticipantWithCtx(ctx context.Context, ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 	if params != nil && params.PathAccountSid != nil {

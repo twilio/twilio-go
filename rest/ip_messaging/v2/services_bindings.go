@@ -24,12 +24,10 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return c.DeleteBindingWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteBindingWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -48,12 +46,10 @@ func (c *ApiService) DeleteBindingWithCtx(ctx context.Context, ServiceSid string
 	return nil
 }
 
-//
 func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*IpMessagingV2Binding, error) {
 	return c.FetchBindingWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchBindingWithCtx(ctx context.Context, ServiceSid string, Sid string) (*IpMessagingV2Binding, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

@@ -47,12 +47,10 @@ func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRolePa
 	return params
 }
 
-//
 func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*IpMessagingV1Role, error) {
 	return c.CreateRoleWithCtx(context.TODO(), ServiceSid, params)
 }
 
-//
 func (c *ApiService) CreateRoleWithCtx(ctx context.Context, ServiceSid string, params *CreateRoleParams) (*IpMessagingV1Role, error) {
 	path := "/v1/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -87,12 +85,10 @@ func (c *ApiService) CreateRoleWithCtx(ctx context.Context, ServiceSid string, p
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 	return c.DeleteRoleWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteRoleWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -111,12 +107,10 @@ func (c *ApiService) DeleteRoleWithCtx(ctx context.Context, ServiceSid string, S
 	return nil
 }
 
-//
 func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV1Role, error) {
 	return c.FetchRoleWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchRoleWithCtx(ctx context.Context, ServiceSid string, Sid string) (*IpMessagingV1Role, error) {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -304,12 +298,10 @@ func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRolePa
 	return params
 }
 
-//
 func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*IpMessagingV1Role, error) {
 	return c.UpdateRoleWithCtx(context.TODO(), ServiceSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateRoleWithCtx(ctx context.Context, ServiceSid string, Sid string, params *UpdateRoleParams) (*IpMessagingV1Role, error) {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

@@ -71,12 +71,10 @@ func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredential
 	return params
 }
 
-//
 func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*IpMessagingV1Credential, error) {
 	return c.CreateCredentialWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateCredentialWithCtx(ctx context.Context, params *CreateCredentialParams) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials"
 
@@ -120,12 +118,10 @@ func (c *ApiService) CreateCredentialWithCtx(ctx context.Context, params *Create
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteCredential(Sid string) error {
 	return c.DeleteCredentialWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteCredentialWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -143,12 +139,10 @@ func (c *ApiService) DeleteCredentialWithCtx(ctx context.Context, Sid string) er
 	return nil
 }
 
-//
 func (c *ApiService) FetchCredential(Sid string) (*IpMessagingV1Credential, error) {
 	return c.FetchCredentialWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchCredentialWithCtx(ctx context.Context, Sid string) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -363,12 +357,10 @@ func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredential
 	return params
 }
 
-//
 func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*IpMessagingV1Credential, error) {
 	return c.UpdateCredentialWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateCredentialWithCtx(ctx context.Context, Sid string, params *UpdateCredentialParams) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

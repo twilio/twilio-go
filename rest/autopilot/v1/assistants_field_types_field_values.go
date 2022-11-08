@@ -47,12 +47,10 @@ func (params *CreateFieldValueParams) SetSynonymOf(SynonymOf string) *CreateFiel
 	return params
 }
 
-//
 func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, params *CreateFieldValueParams) (*AutopilotV1FieldValue, error) {
 	return c.CreateFieldValueWithCtx(context.TODO(), AssistantSid, FieldTypeSid, params)
 }
 
-//
 func (c *ApiService) CreateFieldValueWithCtx(ctx context.Context, AssistantSid string, FieldTypeSid string, params *CreateFieldValueParams) (*AutopilotV1FieldValue, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -86,12 +84,10 @@ func (c *ApiService) CreateFieldValueWithCtx(ctx context.Context, AssistantSid s
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, Sid string) error {
 	return c.DeleteFieldValueWithCtx(context.TODO(), AssistantSid, FieldTypeSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteFieldValueWithCtx(ctx context.Context, AssistantSid string, FieldTypeSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -111,12 +107,10 @@ func (c *ApiService) DeleteFieldValueWithCtx(ctx context.Context, AssistantSid s
 	return nil
 }
 
-//
 func (c *ApiService) FetchFieldValue(AssistantSid string, FieldTypeSid string, Sid string) (*AutopilotV1FieldValue, error) {
 	return c.FetchFieldValueWithCtx(context.TODO(), AssistantSid, FieldTypeSid, Sid)
 }
 
-//
 func (c *ApiService) FetchFieldValueWithCtx(ctx context.Context, AssistantSid string, FieldTypeSid string, Sid string) (*AutopilotV1FieldValue, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

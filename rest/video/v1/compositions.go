@@ -84,12 +84,10 @@ func (params *CreateCompositionParams) SetTrim(Trim bool) *CreateCompositionPara
 	return params
 }
 
-//
 func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV1Composition, error) {
 	return c.CreateCompositionWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateCompositionWithCtx(ctx context.Context, params *CreateCompositionParams) (*VideoV1Composition, error) {
 	path := "/v1/Compositions"
 

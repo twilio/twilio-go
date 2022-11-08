@@ -131,12 +131,10 @@ func (params *CreateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCou
 	return params
 }
 
-//
 func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	return c.CreateFlexFlowWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateFlexFlowWithCtx(ctx context.Context, params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows"
 
@@ -210,12 +208,10 @@ func (c *ApiService) CreateFlexFlowWithCtx(ctx context.Context, params *CreateFl
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteFlexFlow(Sid string) error {
 	return c.DeleteFlexFlowWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteFlexFlowWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -233,12 +229,10 @@ func (c *ApiService) DeleteFlexFlowWithCtx(ctx context.Context, Sid string) erro
 	return nil
 }
 
-//
 func (c *ApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	return c.FetchFlexFlowWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchFlexFlowWithCtx(ctx context.Context, Sid string) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -528,12 +522,10 @@ func (params *UpdateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCou
 	return params
 }
 
-//
 func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	return c.UpdateFlexFlowWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateFlexFlowWithCtx(ctx context.Context, Sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

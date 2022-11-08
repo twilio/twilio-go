@@ -41,12 +41,10 @@ func (params *CreateNewKeyParams) SetFriendlyName(FriendlyName string) *CreateNe
 	return params
 }
 
-//
 func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010NewKey, error) {
 	return c.CreateNewKeyWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateNewKeyWithCtx(ctx context.Context, params *CreateNewKeyParams) (*ApiV2010NewKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -88,12 +86,10 @@ func (params *DeleteKeyParams) SetPathAccountSid(PathAccountSid string) *DeleteK
 	return params
 }
 
-//
 func (c *ApiService) DeleteKey(Sid string, params *DeleteKeyParams) error {
 	return c.DeleteKeyWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) DeleteKeyWithCtx(ctx context.Context, Sid string, params *DeleteKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -127,12 +123,10 @@ func (params *FetchKeyParams) SetPathAccountSid(PathAccountSid string) *FetchKey
 	return params
 }
 
-//
 func (c *ApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010Key, error) {
 	return c.FetchKeyWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) FetchKeyWithCtx(ctx context.Context, Sid string, params *FetchKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -340,12 +334,10 @@ func (params *UpdateKeyParams) SetFriendlyName(FriendlyName string) *UpdateKeyPa
 	return params
 }
 
-//
 func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010Key, error) {
 	return c.UpdateKeyWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateKeyWithCtx(ctx context.Context, Sid string, params *UpdateKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

@@ -32,12 +32,10 @@ func (params *FetchTaskQueueRealTimeStatisticsParams) SetTaskChannel(TaskChannel
 	return params
 }
 
-//
 func (c *ApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueRealTimeStatisticsParams) (*TaskrouterV1TaskQueueRealTimeStatistics, error) {
 	return c.FetchTaskQueueRealTimeStatisticsWithCtx(context.TODO(), WorkspaceSid, TaskQueueSid, params)
 }
 
-//
 func (c *ApiService) FetchTaskQueueRealTimeStatisticsWithCtx(ctx context.Context, WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueRealTimeStatisticsParams) (*TaskrouterV1TaskQueueRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

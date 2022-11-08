@@ -71,12 +71,10 @@ func (params *CreateAssistantParams) SetDefaults(Defaults interface{}) *CreateAs
 	return params
 }
 
-//
 func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV1Assistant, error) {
 	return c.CreateAssistantWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateAssistantWithCtx(ctx context.Context, params *CreateAssistantParams) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants"
 
@@ -132,12 +130,10 @@ func (c *ApiService) CreateAssistantWithCtx(ctx context.Context, params *CreateA
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteAssistant(Sid string) error {
 	return c.DeleteAssistantWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteAssistantWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -155,12 +151,10 @@ func (c *ApiService) DeleteAssistantWithCtx(ctx context.Context, Sid string) err
 	return nil
 }
 
-//
 func (c *ApiService) FetchAssistant(Sid string) (*AutopilotV1Assistant, error) {
 	return c.FetchAssistantWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchAssistantWithCtx(ctx context.Context, Sid string) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -387,12 +381,10 @@ func (params *UpdateAssistantParams) SetDevelopmentStage(DevelopmentStage string
 	return params
 }
 
-//
 func (c *ApiService) UpdateAssistant(Sid string, params *UpdateAssistantParams) (*AutopilotV1Assistant, error) {
 	return c.UpdateAssistantWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateAssistantWithCtx(ctx context.Context, Sid string, params *UpdateAssistantParams) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -21,12 +21,10 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, error) {
 	return c.FetchRecordingWithCtx(context.TODO(), TrunkSid)
 }
 
-//
 func (c *ApiService) FetchRecordingWithCtx(ctx context.Context, TrunkSid string) (*TrunkingV1Recording, error) {
 	path := "/v1/Trunks/{TrunkSid}/Recording"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -66,12 +64,10 @@ func (params *UpdateRecordingParams) SetTrim(Trim string) *UpdateRecordingParams
 	return params
 }
 
-//
 func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingParams) (*TrunkingV1Recording, error) {
 	return c.UpdateRecordingWithCtx(context.TODO(), TrunkSid, params)
 }
 
-//
 func (c *ApiService) UpdateRecordingWithCtx(ctx context.Context, TrunkSid string, params *UpdateRecordingParams) (*TrunkingV1Recording, error) {
 	path := "/v1/Trunks/{TrunkSid}/Recording"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)

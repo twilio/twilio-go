@@ -21,12 +21,10 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) FetchCall(Sid string) (*InsightsV1Call, error) {
 	return c.FetchCallWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchCallWithCtx(ctx context.Context, Sid string) (*InsightsV1Call, error) {
 	path := "/v1/Voice/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

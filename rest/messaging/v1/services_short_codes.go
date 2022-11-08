@@ -35,12 +35,10 @@ func (params *CreateShortCodeParams) SetShortCodeSid(ShortCodeSid string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ShortCode, error) {
 	return c.CreateShortCodeWithCtx(context.TODO(), ServiceSid, params)
 }
 
-//
 func (c *ApiService) CreateShortCodeWithCtx(ctx context.Context, ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -67,12 +65,10 @@ func (c *ApiService) CreateShortCodeWithCtx(ctx context.Context, ServiceSid stri
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	return c.DeleteShortCodeWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteShortCodeWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -91,12 +87,10 @@ func (c *ApiService) DeleteShortCodeWithCtx(ctx context.Context, ServiceSid stri
 	return nil
 }
 
-//
 func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1ShortCode, error) {
 	return c.FetchShortCodeWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchShortCodeWithCtx(ctx context.Context, ServiceSid string, Sid string) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

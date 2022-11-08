@@ -25,12 +25,10 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1Event, error) {
 	return c.FetchEventWithCtx(context.TODO(), WorkspaceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchEventWithCtx(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1Event, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Events/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

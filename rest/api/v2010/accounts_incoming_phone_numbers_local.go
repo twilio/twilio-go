@@ -173,12 +173,10 @@ func (params *CreateIncomingPhoneNumberLocalParams) SetBundleSid(BundleSid strin
 	return params
 }
 
-//
 func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneNumberLocalParams) (*ApiV2010IncomingPhoneNumberLocal, error) {
 	return c.CreateIncomingPhoneNumberLocalWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateIncomingPhoneNumberLocalWithCtx(ctx context.Context, params *CreateIncomingPhoneNumberLocalParams) (*ApiV2010IncomingPhoneNumberLocal, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
 	if params != nil && params.PathAccountSid != nil {

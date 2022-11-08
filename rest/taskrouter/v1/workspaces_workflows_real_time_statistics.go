@@ -32,12 +32,10 @@ func (params *FetchWorkflowRealTimeStatisticsParams) SetTaskChannel(TaskChannel 
 	return params
 }
 
-//
 func (c *ApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowRealTimeStatisticsParams) (*TaskrouterV1WorkflowRealTimeStatistics, error) {
 	return c.FetchWorkflowRealTimeStatisticsWithCtx(context.TODO(), WorkspaceSid, WorkflowSid, params)
 }
 
-//
 func (c *ApiService) FetchWorkflowRealTimeStatisticsWithCtx(ctx context.Context, WorkspaceSid string, WorkflowSid string, params *FetchWorkflowRealTimeStatisticsParams) (*TaskrouterV1WorkflowRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

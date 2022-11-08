@@ -65,12 +65,10 @@ func (params *CreateWorkspaceParams) SetPrioritizeQueueOrder(PrioritizeQueueOrde
 	return params
 }
 
-//
 func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	return c.CreateWorkspaceWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateWorkspaceWithCtx(ctx context.Context, params *CreateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces"
 
@@ -111,12 +109,10 @@ func (c *ApiService) CreateWorkspaceWithCtx(ctx context.Context, params *CreateW
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWorkspace(Sid string) error {
 	return c.DeleteWorkspaceWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteWorkspaceWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -134,12 +130,10 @@ func (c *ApiService) DeleteWorkspaceWithCtx(ctx context.Context, Sid string) err
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, error) {
 	return c.FetchWorkspaceWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchWorkspaceWithCtx(ctx context.Context, Sid string) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -369,12 +363,10 @@ func (params *UpdateWorkspaceParams) SetPrioritizeQueueOrder(PrioritizeQueueOrde
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	return c.UpdateWorkspaceWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateWorkspaceWithCtx(ctx context.Context, Sid string, params *UpdateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

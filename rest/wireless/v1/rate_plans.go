@@ -95,12 +95,10 @@ func (params *CreateRatePlanParams) SetInternationalRoamingDataLimit(Internation
 	return params
 }
 
-//
 func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
 	return c.CreateRatePlanWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateRatePlanWithCtx(ctx context.Context, params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans"
 
@@ -158,12 +156,10 @@ func (c *ApiService) CreateRatePlanWithCtx(ctx context.Context, params *CreateRa
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteRatePlan(Sid string) error {
 	return c.DeleteRatePlanWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteRatePlanWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -181,12 +177,10 @@ func (c *ApiService) DeleteRatePlanWithCtx(ctx context.Context, Sid string) erro
 	return nil
 }
 
-//
 func (c *ApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, error) {
 	return c.FetchRatePlanWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchRatePlanWithCtx(ctx context.Context, Sid string) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -377,12 +371,10 @@ func (params *UpdateRatePlanParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
 	return c.UpdateRatePlanWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateRatePlanWithCtx(ctx context.Context, Sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

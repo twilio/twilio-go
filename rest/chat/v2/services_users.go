@@ -59,12 +59,10 @@ func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUser
 	return params
 }
 
-//
 func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*ChatV2User, error) {
 	return c.CreateUserWithCtx(context.TODO(), ServiceSid, params)
 }
 
-//
 func (c *ApiService) CreateUserWithCtx(ctx context.Context, ServiceSid string, params *CreateUserParams) (*ChatV2User, error) {
 	path := "/v2/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -104,12 +102,10 @@ func (c *ApiService) CreateUserWithCtx(ctx context.Context, ServiceSid string, p
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteUser(ServiceSid string, Sid string) error {
 	return c.DeleteUserWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteUserWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -128,12 +124,10 @@ func (c *ApiService) DeleteUserWithCtx(ctx context.Context, ServiceSid string, S
 	return nil
 }
 
-//
 func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*ChatV2User, error) {
 	return c.FetchUserWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchUserWithCtx(ctx context.Context, ServiceSid string, Sid string) (*ChatV2User, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -339,12 +333,10 @@ func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUser
 	return params
 }
 
-//
 func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUserParams) (*ChatV2User, error) {
 	return c.UpdateUserWithCtx(context.TODO(), ServiceSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateUserWithCtx(ctx context.Context, ServiceSid string, Sid string, params *UpdateUserParams) (*ChatV2User, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

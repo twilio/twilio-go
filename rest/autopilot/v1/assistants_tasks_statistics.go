@@ -21,12 +21,10 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) FetchTaskStatistics(AssistantSid string, TaskSid string) (*AutopilotV1TaskStatistics, error) {
 	return c.FetchTaskStatisticsWithCtx(context.TODO(), AssistantSid, TaskSid)
 }
 
-//
 func (c *ApiService) FetchTaskStatisticsWithCtx(ctx context.Context, AssistantSid string, TaskSid string) (*AutopilotV1TaskStatistics, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

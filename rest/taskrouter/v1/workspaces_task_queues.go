@@ -65,12 +65,10 @@ func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivity
 	return params
 }
 
-//
 func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	return c.CreateTaskQueueWithCtx(context.TODO(), WorkspaceSid, params)
 }
 
-//
 func (c *ApiService) CreateTaskQueueWithCtx(ctx context.Context, WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -112,12 +110,10 @@ func (c *ApiService) CreateTaskQueueWithCtx(ctx context.Context, WorkspaceSid st
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	return c.DeleteTaskQueueWithCtx(context.TODO(), WorkspaceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteTaskQueueWithCtx(ctx context.Context, WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -136,12 +132,10 @@ func (c *ApiService) DeleteTaskQueueWithCtx(ctx context.Context, WorkspaceSid st
 	return nil
 }
 
-//
 func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*TaskrouterV1TaskQueue, error) {
 	return c.FetchTaskQueueWithCtx(context.TODO(), WorkspaceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchTaskQueueWithCtx(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -395,12 +389,10 @@ func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQ
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	return c.UpdateTaskQueueWithCtx(context.TODO(), WorkspaceSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateTaskQueueWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

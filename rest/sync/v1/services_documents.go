@@ -47,12 +47,10 @@ func (params *CreateDocumentParams) SetTtl(Ttl int) *CreateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*SyncV1Document, error) {
 	return c.CreateDocumentWithCtx(context.TODO(), ServiceSid, params)
 }
 
-//
 func (c *ApiService) CreateDocumentWithCtx(ctx context.Context, ServiceSid string, params *CreateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -91,12 +89,10 @@ func (c *ApiService) CreateDocumentWithCtx(ctx context.Context, ServiceSid strin
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	return c.DeleteDocumentWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteDocumentWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -115,12 +111,10 @@ func (c *ApiService) DeleteDocumentWithCtx(ctx context.Context, ServiceSid strin
 	return nil
 }
 
-//
 func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Document, error) {
 	return c.FetchDocumentWithCtx(context.TODO(), ServiceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchDocumentWithCtx(ctx context.Context, ServiceSid string, Sid string) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -320,12 +314,10 @@ func (params *UpdateDocumentParams) SetTtl(Ttl int) *UpdateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1Document, error) {
 	return c.UpdateDocumentWithCtx(context.TODO(), ServiceSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateDocumentWithCtx(ctx context.Context, ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

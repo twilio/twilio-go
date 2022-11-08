@@ -65,12 +65,10 @@ func (params *CreateUsAppToPersonParams) SetHasEmbeddedPhone(HasEmbeddedPhone bo
 	return params
 }
 
-//
 func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
 	return c.CreateUsAppToPersonWithCtx(context.TODO(), MessagingServiceSid, params)
 }
 
-//
 func (c *ApiService) CreateUsAppToPersonWithCtx(ctx context.Context, MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -114,12 +112,10 @@ func (c *ApiService) CreateUsAppToPersonWithCtx(ctx context.Context, MessagingSe
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string) error {
 	return c.DeleteUsAppToPersonWithCtx(context.TODO(), MessagingServiceSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteUsAppToPersonWithCtx(ctx context.Context, MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -138,12 +134,10 @@ func (c *ApiService) DeleteUsAppToPersonWithCtx(ctx context.Context, MessagingSe
 	return nil
 }
 
-//
 func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) (*MessagingV1UsAppToPerson, error) {
 	return c.FetchUsAppToPersonWithCtx(context.TODO(), MessagingServiceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchUsAppToPersonWithCtx(ctx context.Context, MessagingServiceSid string, Sid string) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)

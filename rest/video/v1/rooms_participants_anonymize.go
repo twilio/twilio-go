@@ -21,12 +21,10 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) UpdateRoomParticipantAnonymize(RoomSid string, Sid string) (*VideoV1RoomParticipantAnonymize, error) {
 	return c.UpdateRoomParticipantAnonymizeWithCtx(context.TODO(), RoomSid, Sid)
 }
 
-//
 func (c *ApiService) UpdateRoomParticipantAnonymizeWithCtx(ctx context.Context, RoomSid string, Sid string) (*VideoV1RoomParticipantAnonymize, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}/Anonymize"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)

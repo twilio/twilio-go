@@ -78,12 +78,10 @@ func (params *CreateMemberParams) SetAttributes(Attributes string) *CreateMember
 	return params
 }
 
-//
 func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*IpMessagingV2Member, error) {
 	return c.CreateMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
 }
 
-//
 func (c *ApiService) CreateMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *CreateMemberParams) (*IpMessagingV2Member, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -144,12 +142,10 @@ func (params *DeleteMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled
 	return params
 }
 
-//
 func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid string, params *DeleteMemberParams) error {
 	return c.DeleteMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid, params)
 }
 
-//
 func (c *ApiService) DeleteMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string, params *DeleteMemberParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -173,12 +169,10 @@ func (c *ApiService) DeleteMemberWithCtx(ctx context.Context, ServiceSid string,
 	return nil
 }
 
-//
 func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2Member, error) {
 	return c.FetchMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
 }
 
-//
 func (c *ApiService) FetchMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2Member, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -415,12 +409,10 @@ func (params *UpdateMemberParams) SetAttributes(Attributes string) *UpdateMember
 	return params
 }
 
-//
 func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*IpMessagingV2Member, error) {
 	return c.UpdateMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*IpMessagingV2Member, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

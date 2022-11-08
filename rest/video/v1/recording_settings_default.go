@@ -62,12 +62,10 @@ func (params *CreateRecordingSettingsParams) SetEncryptionEnabled(EncryptionEnab
 	return params
 }
 
-//
 func (c *ApiService) CreateRecordingSettings(params *CreateRecordingSettingsParams) (*VideoV1RecordingSettings, error) {
 	return c.CreateRecordingSettingsWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateRecordingSettingsWithCtx(ctx context.Context, params *CreateRecordingSettingsParams) (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
@@ -108,12 +106,10 @@ func (c *ApiService) CreateRecordingSettingsWithCtx(ctx context.Context, params 
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchRecordingSettings() (*VideoV1RecordingSettings, error) {
 	return c.FetchRecordingSettingsWithCtx(context.TODO())
 }
 
-//
 func (c *ApiService) FetchRecordingSettingsWithCtx(ctx context.Context) (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 

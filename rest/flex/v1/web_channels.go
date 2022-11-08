@@ -65,12 +65,10 @@ func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData str
 	return params
 }
 
-//
 func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
 	return c.CreateWebChannelWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateWebChannelWithCtx(ctx context.Context, params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels"
 
@@ -111,12 +109,10 @@ func (c *ApiService) CreateWebChannelWithCtx(ctx context.Context, params *Create
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWebChannel(Sid string) error {
 	return c.DeleteWebChannelWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteWebChannelWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -134,12 +130,10 @@ func (c *ApiService) DeleteWebChannelWithCtx(ctx context.Context, Sid string) er
 	return nil
 }
 
-//
 func (c *ApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 	return c.FetchWebChannelWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchWebChannelWithCtx(ctx context.Context, Sid string) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -330,12 +324,10 @@ func (params *UpdateWebChannelParams) SetPostEngagementData(PostEngagementData s
 	return params
 }
 
-//
 func (c *ApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
 	return c.UpdateWebChannelWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateWebChannelWithCtx(ctx context.Context, Sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

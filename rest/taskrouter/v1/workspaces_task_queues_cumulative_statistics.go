@@ -58,12 +58,10 @@ func (params *FetchTaskQueueCumulativeStatisticsParams) SetSplitByWaitTime(Split
 	return params
 }
 
-//
 func (c *ApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueCumulativeStatisticsParams) (*TaskrouterV1TaskQueueCumulativeStatistics, error) {
 	return c.FetchTaskQueueCumulativeStatisticsWithCtx(context.TODO(), WorkspaceSid, TaskQueueSid, params)
 }
 
-//
 func (c *ApiService) FetchTaskQueueCumulativeStatisticsWithCtx(ctx context.Context, WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueCumulativeStatisticsParams) (*TaskrouterV1TaskQueueCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

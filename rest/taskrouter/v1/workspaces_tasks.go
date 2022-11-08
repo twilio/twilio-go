@@ -59,12 +59,10 @@ func (params *CreateTaskParams) SetAttributes(Attributes string) *CreateTaskPara
 	return params
 }
 
-//
 func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (*TaskrouterV1Task, error) {
 	return c.CreateTaskWithCtx(context.TODO(), WorkspaceSid, params)
 }
 
-//
 func (c *ApiService) CreateTaskWithCtx(ctx context.Context, WorkspaceSid string, params *CreateTaskParams) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -114,12 +112,10 @@ func (params *DeleteTaskParams) SetIfMatch(IfMatch string) *DeleteTaskParams {
 	return params
 }
 
-//
 func (c *ApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteTaskParams) error {
 	return c.DeleteTaskWithCtx(context.TODO(), WorkspaceSid, Sid, params)
 }
 
-//
 func (c *ApiService) DeleteTaskWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *DeleteTaskParams) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -142,12 +138,10 @@ func (c *ApiService) DeleteTaskWithCtx(ctx context.Context, WorkspaceSid string,
 	return nil
 }
 
-//
 func (c *ApiService) FetchTask(WorkspaceSid string, Sid string) (*TaskrouterV1Task, error) {
 	return c.FetchTaskWithCtx(context.TODO(), WorkspaceSid, Sid)
 }
 
-//
 func (c *ApiService) FetchTaskWithCtx(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -448,12 +442,10 @@ func (params *UpdateTaskParams) SetTaskChannel(TaskChannel string) *UpdateTaskPa
 	return params
 }
 
-//
 func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateTaskParams) (*TaskrouterV1Task, error) {
 	return c.UpdateTaskWithCtx(context.TODO(), WorkspaceSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateTaskWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *UpdateTaskParams) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

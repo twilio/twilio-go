@@ -35,12 +35,10 @@ func (params *FetchCallNotificationParams) SetPathAccountSid(PathAccountSid stri
 	return params
 }
 
-//
 func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *FetchCallNotificationParams) (*ApiV2010CallNotificationInstance, error) {
 	return c.FetchCallNotificationWithCtx(context.TODO(), CallSid, Sid, params)
 }
 
-//
 func (c *ApiService) FetchCallNotificationWithCtx(ctx context.Context, CallSid string, Sid string, params *FetchCallNotificationParams) (*ApiV2010CallNotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

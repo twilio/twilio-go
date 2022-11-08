@@ -59,12 +59,10 @@ func (params *CreateOriginationUrlParams) SetSipUrl(SipUrl string) *CreateOrigin
 	return params
 }
 
-//
 func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	return c.CreateOriginationUrlWithCtx(context.TODO(), TrunkSid, params)
 }
 
-//
 func (c *ApiService) CreateOriginationUrlWithCtx(ctx context.Context, TrunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -103,12 +101,10 @@ func (c *ApiService) CreateOriginationUrlWithCtx(ctx context.Context, TrunkSid s
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
 	return c.DeleteOriginationUrlWithCtx(context.TODO(), TrunkSid, Sid)
 }
 
-//
 func (c *ApiService) DeleteOriginationUrlWithCtx(ctx context.Context, TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -127,12 +123,10 @@ func (c *ApiService) DeleteOriginationUrlWithCtx(ctx context.Context, TrunkSid s
 	return nil
 }
 
-//
 func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*TrunkingV1OriginationUrl, error) {
 	return c.FetchOriginationUrlWithCtx(context.TODO(), TrunkSid, Sid)
 }
 
-//
 func (c *ApiService) FetchOriginationUrlWithCtx(ctx context.Context, TrunkSid string, Sid string) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -344,12 +338,10 @@ func (params *UpdateOriginationUrlParams) SetSipUrl(SipUrl string) *UpdateOrigin
 	return params
 }
 
-//
 func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *UpdateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	return c.UpdateOriginationUrlWithCtx(context.TODO(), TrunkSid, Sid, params)
 }
 
-//
 func (c *ApiService) UpdateOriginationUrlWithCtx(ctx context.Context, TrunkSid string, Sid string, params *UpdateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)

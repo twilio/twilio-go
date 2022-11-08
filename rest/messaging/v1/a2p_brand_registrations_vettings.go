@@ -41,12 +41,10 @@ func (params *CreateBrandVettingParams) SetVettingId(VettingId string) *CreateBr
 	return params
 }
 
-//
 func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVettingParams) (*MessagingV1BrandVetting, error) {
 	return c.CreateBrandVettingWithCtx(context.TODO(), BrandSid, params)
 }
 
-//
 func (c *ApiService) CreateBrandVettingWithCtx(ctx context.Context, BrandSid string, params *CreateBrandVettingParams) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
@@ -76,12 +74,10 @@ func (c *ApiService) CreateBrandVettingWithCtx(ctx context.Context, BrandSid str
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
 	return c.FetchBrandVettingWithCtx(context.TODO(), BrandSid, BrandVettingSid)
 }
 
-//
 func (c *ApiService) FetchBrandVettingWithCtx(ctx context.Context, BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)

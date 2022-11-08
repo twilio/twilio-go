@@ -53,12 +53,10 @@ func (params *CreatePlayerStreamerParams) SetMaxDuration(MaxDuration int) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreatePlayerStreamer(params *CreatePlayerStreamerParams) (*MediaV1PlayerStreamer, error) {
 	return c.CreatePlayerStreamerWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreatePlayerStreamerWithCtx(ctx context.Context, params *CreatePlayerStreamerParams) (*MediaV1PlayerStreamer, error) {
 	path := "/v1/PlayerStreamers"
 

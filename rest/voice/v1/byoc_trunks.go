@@ -89,12 +89,10 @@ func (params *CreateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *Cre
 	return params
 }
 
-//
 func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	return c.CreateByocTrunkWithCtx(context.TODO(), params)
 }
 
-//
 func (c *ApiService) CreateByocTrunkWithCtx(ctx context.Context, params *CreateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks"
 
@@ -147,12 +145,10 @@ func (c *ApiService) CreateByocTrunkWithCtx(ctx context.Context, params *CreateB
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteByocTrunk(Sid string) error {
 	return c.DeleteByocTrunkWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) DeleteByocTrunkWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -170,12 +166,10 @@ func (c *ApiService) DeleteByocTrunkWithCtx(ctx context.Context, Sid string) err
 	return nil
 }
 
-//
 func (c *ApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 	return c.FetchByocTrunkWithCtx(context.TODO(), Sid)
 }
 
-//
 func (c *ApiService) FetchByocTrunkWithCtx(ctx context.Context, Sid string) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -414,12 +408,10 @@ func (params *UpdateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *Upd
 	return params
 }
 
-//
 func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	return c.UpdateByocTrunkWithCtx(context.TODO(), Sid, params)
 }
 
-//
 func (c *ApiService) UpdateByocTrunkWithCtx(ctx context.Context, Sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
