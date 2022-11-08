@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -45,6 +46,11 @@ func (params *CreateUserDefinedMessageParams) SetIdempotencyKey(IdempotencyKey s
 
 // Create a new User Defined Message for the given call sid.
 func (c *ApiService) CreateUserDefinedMessage(CallSid string, params *CreateUserDefinedMessageParams) (*ApiV2010UserDefinedMessage, error) {
+	return c.CreateUserDefinedMessageWithCtx(context.TODO(), CallSid, params)
+}
+
+// Create a new User Defined Message for the given call sid.
+func (c *ApiService) CreateUserDefinedMessageWithCtx(ctx context.Context, CallSid string, params *CreateUserDefinedMessageParams) (*ApiV2010UserDefinedMessage, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -63,7 +69,7 @@ func (c *ApiService) CreateUserDefinedMessage(CallSid string, params *CreateUser
 		data.Set("IdempotencyKey", *params.IdempotencyKey)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

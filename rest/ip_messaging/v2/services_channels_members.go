@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -77,8 +78,11 @@ func (params *CreateMemberParams) SetAttributes(Attributes string) *CreateMember
 	return params
 }
 
-//
 func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*IpMessagingV2Member, error) {
+	return c.CreateMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
+}
+
+func (c *ApiService) CreateMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *CreateMemberParams) (*IpMessagingV2Member, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -112,7 +116,7 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,8 +142,11 @@ func (params *DeleteMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled
 	return params
 }
 
-//
 func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid string, params *DeleteMemberParams) error {
+	return c.DeleteMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid, params)
+}
+
+func (c *ApiService) DeleteMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string, params *DeleteMemberParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -152,7 +159,7 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -162,8 +169,11 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 	return nil
 }
 
-//
 func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2Member, error) {
+	return c.FetchMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
+}
+
+func (c *ApiService) FetchMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2Member, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -172,7 +182,7 @@ func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -212,6 +222,11 @@ func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
 
 // Retrieve a single page of Member records from the API. Request is executed immediately.
 func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMemberResponse, error) {
+	return c.PageMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Member records from the API. Request is executed immediately.
+func (c *ApiService) PageMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMemberResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -236,7 +251,7 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -253,7 +268,12 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) ([]IpMessagingV2Member, error) {
-	response, errors := c.StreamMember(ServiceSid, ChannelSid, params)
+	return c.ListMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
+}
+
+// Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *ListMemberParams) ([]IpMessagingV2Member, error) {
+	response, errors := c.StreamMemberWithCtx(ctx, ServiceSid, ChannelSid, params)
 
 	records := make([]IpMessagingV2Member, 0)
 	for record := range response {
@@ -269,6 +289,11 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 
 // Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (chan IpMessagingV2Member, chan error) {
+	return c.StreamMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
+}
+
+// Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *ListMemberParams) (chan IpMessagingV2Member, chan error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
@@ -277,19 +302,19 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 	recordChannel := make(chan IpMessagingV2Member, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")
+	response, err := c.PageMemberWithCtx(ctx, ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMember(response, params, recordChannel, errorChannel)
+		go c.streamMember(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemberParams, recordChannel chan IpMessagingV2Member, errorChannel chan error) {
+func (c *ApiService) streamMember(ctx context.Context, response *ListMemberResponse, params *ListMemberParams, recordChannel chan IpMessagingV2Member, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -304,7 +329,7 @@ func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemb
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMemberResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListMemberResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -319,11 +344,11 @@ func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemb
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMemberResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMemberResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -384,8 +409,11 @@ func (params *UpdateMemberParams) SetAttributes(Attributes string) *UpdateMember
 	return params
 }
 
-//
 func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*IpMessagingV2Member, error) {
+	return c.UpdateMemberWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid, params)
+}
+
+func (c *ApiService) UpdateMemberWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*IpMessagingV2Member, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -417,7 +445,7 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

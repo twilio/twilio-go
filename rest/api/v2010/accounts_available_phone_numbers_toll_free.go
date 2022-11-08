@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -156,6 +157,11 @@ func (params *ListAvailablePhoneNumberTollFreeParams) SetLimit(Limit int) *ListA
 
 // Retrieve a single page of AvailablePhoneNumberTollFree records from the API. Request is executed immediately.
 func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberTollFreeResponse, error) {
+	return c.PageAvailablePhoneNumberTollFreeWithCtx(context.TODO(), CountryCode, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of AvailablePhoneNumberTollFree records from the API. Request is executed immediately.
+func (c *ApiService) PageAvailablePhoneNumberTollFreeWithCtx(ctx context.Context, CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -233,7 +239,7 @@ func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -250,7 +256,12 @@ func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params
 
 // Lists AvailablePhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) ([]ApiV2010AvailablePhoneNumberTollFree, error) {
-	response, errors := c.StreamAvailablePhoneNumberTollFree(CountryCode, params)
+	return c.ListAvailablePhoneNumberTollFreeWithCtx(context.TODO(), CountryCode, params)
+}
+
+// Lists AvailablePhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailablePhoneNumberTollFreeWithCtx(ctx context.Context, CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) ([]ApiV2010AvailablePhoneNumberTollFree, error) {
+	response, errors := c.StreamAvailablePhoneNumberTollFreeWithCtx(ctx, CountryCode, params)
 
 	records := make([]ApiV2010AvailablePhoneNumberTollFree, 0)
 	for record := range response {
@@ -266,6 +277,11 @@ func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params
 
 // Streams AvailablePhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) (chan ApiV2010AvailablePhoneNumberTollFree, chan error) {
+	return c.StreamAvailablePhoneNumberTollFreeWithCtx(context.TODO(), CountryCode, params)
+}
+
+// Streams AvailablePhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailablePhoneNumberTollFreeWithCtx(ctx context.Context, CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) (chan ApiV2010AvailablePhoneNumberTollFree, chan error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberTollFreeParams{}
 	}
@@ -274,19 +290,19 @@ func (c *ApiService) StreamAvailablePhoneNumberTollFree(CountryCode string, para
 	recordChannel := make(chan ApiV2010AvailablePhoneNumberTollFree, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAvailablePhoneNumberTollFree(CountryCode, params, "", "")
+	response, err := c.PageAvailablePhoneNumberTollFreeWithCtx(ctx, CountryCode, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAvailablePhoneNumberTollFree(response, params, recordChannel, errorChannel)
+		go c.streamAvailablePhoneNumberTollFree(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberTollFree(response *ListAvailablePhoneNumberTollFreeResponse, params *ListAvailablePhoneNumberTollFreeParams, recordChannel chan ApiV2010AvailablePhoneNumberTollFree, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberTollFree(ctx context.Context, response *ListAvailablePhoneNumberTollFreeResponse, params *ListAvailablePhoneNumberTollFreeParams, recordChannel chan ApiV2010AvailablePhoneNumberTollFree, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -301,7 +317,7 @@ func (c *ApiService) streamAvailablePhoneNumberTollFree(response *ListAvailableP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberTollFreeResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListAvailablePhoneNumberTollFreeResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -316,11 +332,11 @@ func (c *ApiService) streamAvailablePhoneNumberTollFree(response *ListAvailableP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberTollFreeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailablePhoneNumberTollFreeResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

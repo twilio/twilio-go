@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -58,8 +59,11 @@ func (params *CreateWorkflowParams) SetTaskReservationTimeout(TaskReservationTim
 	return params
 }
 
-//
 func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1Workflow, error) {
+	return c.CreateWorkflowWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+func (c *ApiService) CreateWorkflowWithCtx(ctx context.Context, WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -82,7 +86,7 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +101,11 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
+	return c.DeleteWorkflowWithCtx(context.TODO(), WorkspaceSid, Sid)
+}
+
+func (c *ApiService) DeleteWorkflowWithCtx(ctx context.Context, WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -106,7 +113,7 @@ func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -116,8 +123,11 @@ func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*TaskrouterV1Workflow, error) {
+	return c.FetchWorkflowWithCtx(context.TODO(), WorkspaceSid, Sid)
+}
+
+func (c *ApiService) FetchWorkflowWithCtx(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -125,7 +135,7 @@ func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*Taskrouter
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -165,6 +175,11 @@ func (params *ListWorkflowParams) SetLimit(Limit int) *ListWorkflowParams {
 
 // Retrieve a single page of Workflow records from the API. Request is executed immediately.
 func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParams, pageToken, pageNumber string) (*ListWorkflowResponse, error) {
+	return c.PageWorkflowWithCtx(context.TODO(), WorkspaceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Workflow records from the API. Request is executed immediately.
+func (c *ApiService) PageWorkflowWithCtx(ctx context.Context, WorkspaceSid string, params *ListWorkflowParams, pageToken, pageNumber string) (*ListWorkflowResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -186,7 +201,7 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +218,12 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 
 // Lists Workflow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams) ([]TaskrouterV1Workflow, error) {
-	response, errors := c.StreamWorkflow(WorkspaceSid, params)
+	return c.ListWorkflowWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+// Lists Workflow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWorkflowWithCtx(ctx context.Context, WorkspaceSid string, params *ListWorkflowParams) ([]TaskrouterV1Workflow, error) {
+	response, errors := c.StreamWorkflowWithCtx(ctx, WorkspaceSid, params)
 
 	records := make([]TaskrouterV1Workflow, 0)
 	for record := range response {
@@ -219,6 +239,11 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 
 // Streams Workflow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowParams) (chan TaskrouterV1Workflow, chan error) {
+	return c.StreamWorkflowWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+// Streams Workflow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWorkflowWithCtx(ctx context.Context, WorkspaceSid string, params *ListWorkflowParams) (chan TaskrouterV1Workflow, chan error) {
 	if params == nil {
 		params = &ListWorkflowParams{}
 	}
@@ -227,19 +252,19 @@ func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowPar
 	recordChannel := make(chan TaskrouterV1Workflow, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageWorkflow(WorkspaceSid, params, "", "")
+	response, err := c.PageWorkflowWithCtx(ctx, WorkspaceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamWorkflow(response, params, recordChannel, errorChannel)
+		go c.streamWorkflow(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamWorkflow(response *ListWorkflowResponse, params *ListWorkflowParams, recordChannel chan TaskrouterV1Workflow, errorChannel chan error) {
+func (c *ApiService) streamWorkflow(ctx context.Context, response *ListWorkflowResponse, params *ListWorkflowParams, recordChannel chan TaskrouterV1Workflow, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -254,7 +279,7 @@ func (c *ApiService) streamWorkflow(response *ListWorkflowResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListWorkflowResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListWorkflowResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -269,11 +294,11 @@ func (c *ApiService) streamWorkflow(response *ListWorkflowResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListWorkflowResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListWorkflowResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -328,8 +353,11 @@ func (params *UpdateWorkflowParams) SetReEvaluateTasks(ReEvaluateTasks string) *
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1Workflow, error) {
+	return c.UpdateWorkflowWithCtx(context.TODO(), WorkspaceSid, Sid, params)
+}
+
+func (c *ApiService) UpdateWorkflowWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -356,7 +384,7 @@ func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *Upd
 		data.Set("ReEvaluateTasks", *params.ReEvaluateTasks)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

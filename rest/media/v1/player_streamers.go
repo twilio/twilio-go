@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -52,8 +53,11 @@ func (params *CreatePlayerStreamerParams) SetMaxDuration(MaxDuration int) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreatePlayerStreamer(params *CreatePlayerStreamerParams) (*MediaV1PlayerStreamer, error) {
+	return c.CreatePlayerStreamerWithCtx(context.TODO(), params)
+}
+
+func (c *ApiService) CreatePlayerStreamerWithCtx(ctx context.Context, params *CreatePlayerStreamerParams) (*MediaV1PlayerStreamer, error) {
 	path := "/v1/PlayerStreamers"
 
 	data := url.Values{}
@@ -72,7 +76,7 @@ func (c *ApiService) CreatePlayerStreamer(params *CreatePlayerStreamerParams) (*
 		data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -89,13 +93,18 @@ func (c *ApiService) CreatePlayerStreamer(params *CreatePlayerStreamerParams) (*
 
 // Returns a single PlayerStreamer resource identified by a SID.
 func (c *ApiService) FetchPlayerStreamer(Sid string) (*MediaV1PlayerStreamer, error) {
+	return c.FetchPlayerStreamerWithCtx(context.TODO(), Sid)
+}
+
+// Returns a single PlayerStreamer resource identified by a SID.
+func (c *ApiService) FetchPlayerStreamerWithCtx(ctx context.Context, Sid string) (*MediaV1PlayerStreamer, error) {
 	path := "/v1/PlayerStreamers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -141,6 +150,11 @@ func (params *ListPlayerStreamerParams) SetLimit(Limit int) *ListPlayerStreamerP
 
 // Retrieve a single page of PlayerStreamer records from the API. Request is executed immediately.
 func (c *ApiService) PagePlayerStreamer(params *ListPlayerStreamerParams, pageToken, pageNumber string) (*ListPlayerStreamerResponse, error) {
+	return c.PagePlayerStreamerWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of PlayerStreamer records from the API. Request is executed immediately.
+func (c *ApiService) PagePlayerStreamerWithCtx(ctx context.Context, params *ListPlayerStreamerParams, pageToken, pageNumber string) (*ListPlayerStreamerResponse, error) {
 	path := "/v1/PlayerStreamers"
 
 	data := url.Values{}
@@ -163,7 +177,7 @@ func (c *ApiService) PagePlayerStreamer(params *ListPlayerStreamerParams, pageTo
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -180,7 +194,12 @@ func (c *ApiService) PagePlayerStreamer(params *ListPlayerStreamerParams, pageTo
 
 // Lists PlayerStreamer records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPlayerStreamer(params *ListPlayerStreamerParams) ([]MediaV1PlayerStreamer, error) {
-	response, errors := c.StreamPlayerStreamer(params)
+	return c.ListPlayerStreamerWithCtx(context.TODO(), params)
+}
+
+// Lists PlayerStreamer records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPlayerStreamerWithCtx(ctx context.Context, params *ListPlayerStreamerParams) ([]MediaV1PlayerStreamer, error) {
+	response, errors := c.StreamPlayerStreamerWithCtx(ctx, params)
 
 	records := make([]MediaV1PlayerStreamer, 0)
 	for record := range response {
@@ -196,6 +215,11 @@ func (c *ApiService) ListPlayerStreamer(params *ListPlayerStreamerParams) ([]Med
 
 // Streams PlayerStreamer records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamPlayerStreamer(params *ListPlayerStreamerParams) (chan MediaV1PlayerStreamer, chan error) {
+	return c.StreamPlayerStreamerWithCtx(context.TODO(), params)
+}
+
+// Streams PlayerStreamer records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamPlayerStreamerWithCtx(ctx context.Context, params *ListPlayerStreamerParams) (chan MediaV1PlayerStreamer, chan error) {
 	if params == nil {
 		params = &ListPlayerStreamerParams{}
 	}
@@ -204,19 +228,19 @@ func (c *ApiService) StreamPlayerStreamer(params *ListPlayerStreamerParams) (cha
 	recordChannel := make(chan MediaV1PlayerStreamer, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PagePlayerStreamer(params, "", "")
+	response, err := c.PagePlayerStreamerWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamPlayerStreamer(response, params, recordChannel, errorChannel)
+		go c.streamPlayerStreamer(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPlayerStreamer(response *ListPlayerStreamerResponse, params *ListPlayerStreamerParams, recordChannel chan MediaV1PlayerStreamer, errorChannel chan error) {
+func (c *ApiService) streamPlayerStreamer(ctx context.Context, response *ListPlayerStreamerResponse, params *ListPlayerStreamerParams, recordChannel chan MediaV1PlayerStreamer, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -231,7 +255,7 @@ func (c *ApiService) streamPlayerStreamer(response *ListPlayerStreamerResponse, 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListPlayerStreamerResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListPlayerStreamerResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -246,11 +270,11 @@ func (c *ApiService) streamPlayerStreamer(response *ListPlayerStreamerResponse, 
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListPlayerStreamerResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListPlayerStreamerResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -277,6 +301,11 @@ func (params *UpdatePlayerStreamerParams) SetStatus(Status string) *UpdatePlayer
 
 // Updates a PlayerStreamer resource identified by a SID.
 func (c *ApiService) UpdatePlayerStreamer(Sid string, params *UpdatePlayerStreamerParams) (*MediaV1PlayerStreamer, error) {
+	return c.UpdatePlayerStreamerWithCtx(context.TODO(), Sid, params)
+}
+
+// Updates a PlayerStreamer resource identified by a SID.
+func (c *ApiService) UpdatePlayerStreamerWithCtx(ctx context.Context, Sid string, params *UpdatePlayerStreamerParams) (*MediaV1PlayerStreamer, error) {
 	path := "/v1/PlayerStreamers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -287,7 +316,7 @@ func (c *ApiService) UpdatePlayerStreamer(Sid string, params *UpdatePlayerStream
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

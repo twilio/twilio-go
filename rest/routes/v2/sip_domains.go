@@ -15,20 +15,24 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) FetchSipDomain(SipDomain string) (*RoutesV2SipDomain, error) {
+	return c.FetchSipDomainWithCtx(context.TODO(), SipDomain)
+}
+
+func (c *ApiService) FetchSipDomainWithCtx(ctx context.Context, SipDomain string) (*RoutesV2SipDomain, error) {
 	path := "/v2/SipDomains/{SipDomain}"
 	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -60,8 +64,11 @@ func (params *UpdateSipDomainParams) SetFriendlyName(FriendlyName string) *Updat
 	return params
 }
 
-//
 func (c *ApiService) UpdateSipDomain(SipDomain string, params *UpdateSipDomainParams) (*RoutesV2SipDomain, error) {
+	return c.UpdateSipDomainWithCtx(context.TODO(), SipDomain, params)
+}
+
+func (c *ApiService) UpdateSipDomainWithCtx(ctx context.Context, SipDomain string, params *UpdateSipDomainParams) (*RoutesV2SipDomain, error) {
 	path := "/v2/SipDomains/{SipDomain}"
 	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
 
@@ -75,7 +82,7 @@ func (c *ApiService) UpdateSipDomain(SipDomain string, params *UpdateSipDomainPa
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

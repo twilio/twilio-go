@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,13 +23,18 @@ import (
 
 // Returns Style sheet JSON object for the Assistant
 func (c *ApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1StyleSheet, error) {
+	return c.FetchStyleSheetWithCtx(context.TODO(), AssistantSid)
+}
+
+// Returns Style sheet JSON object for the Assistant
+func (c *ApiService) FetchStyleSheetWithCtx(ctx context.Context, AssistantSid string) (*AutopilotV1StyleSheet, error) {
 	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -56,6 +62,11 @@ func (params *UpdateStyleSheetParams) SetStyleSheet(StyleSheet interface{}) *Upd
 
 // Updates the style sheet for an Assistant identified by &#x60;assistant_sid&#x60;.
 func (c *ApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSheetParams) (*AutopilotV1StyleSheet, error) {
+	return c.UpdateStyleSheetWithCtx(context.TODO(), AssistantSid, params)
+}
+
+// Updates the style sheet for an Assistant identified by &#x60;assistant_sid&#x60;.
+func (c *ApiService) UpdateStyleSheetWithCtx(ctx context.Context, AssistantSid string, params *UpdateStyleSheetParams) (*AutopilotV1StyleSheet, error) {
 	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -72,7 +83,7 @@ func (c *ApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSh
 		data.Set("StyleSheet", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

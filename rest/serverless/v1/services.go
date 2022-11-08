@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -54,6 +55,11 @@ func (params *CreateServiceParams) SetUiEditable(UiEditable bool) *CreateService
 
 // Create a new Service resource.
 func (c *ApiService) CreateService(params *CreateServiceParams) (*ServerlessV1Service, error) {
+	return c.CreateServiceWithCtx(context.TODO(), params)
+}
+
+// Create a new Service resource.
+func (c *ApiService) CreateServiceWithCtx(ctx context.Context, params *CreateServiceParams) (*ServerlessV1Service, error) {
 	path := "/v1/Services"
 
 	data := url.Values{}
@@ -72,7 +78,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ServerlessV1Se
 		data.Set("UiEditable", fmt.Sprint(*params.UiEditable))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -89,13 +95,18 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ServerlessV1Se
 
 // Delete a Service resource.
 func (c *ApiService) DeleteService(Sid string) error {
+	return c.DeleteServiceWithCtx(context.TODO(), Sid)
+}
+
+// Delete a Service resource.
+func (c *ApiService) DeleteServiceWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -107,13 +118,18 @@ func (c *ApiService) DeleteService(Sid string) error {
 
 // Retrieve a specific Service resource.
 func (c *ApiService) FetchService(Sid string) (*ServerlessV1Service, error) {
+	return c.FetchServiceWithCtx(context.TODO(), Sid)
+}
+
+// Retrieve a specific Service resource.
+func (c *ApiService) FetchServiceWithCtx(ctx context.Context, Sid string) (*ServerlessV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -147,6 +163,11 @@ func (params *ListServiceParams) SetLimit(Limit int) *ListServiceParams {
 
 // Retrieve a single page of Service records from the API. Request is executed immediately.
 func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumber string) (*ListServiceResponse, error) {
+	return c.PageServiceWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Service records from the API. Request is executed immediately.
+func (c *ApiService) PageServiceWithCtx(ctx context.Context, params *ListServiceParams, pageToken, pageNumber string) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
 	data := url.Values{}
@@ -163,7 +184,7 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -180,7 +201,12 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 
 // Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListService(params *ListServiceParams) ([]ServerlessV1Service, error) {
-	response, errors := c.StreamService(params)
+	return c.ListServiceWithCtx(context.TODO(), params)
+}
+
+// Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceWithCtx(ctx context.Context, params *ListServiceParams) ([]ServerlessV1Service, error) {
+	response, errors := c.StreamServiceWithCtx(ctx, params)
 
 	records := make([]ServerlessV1Service, 0)
 	for record := range response {
@@ -196,6 +222,11 @@ func (c *ApiService) ListService(params *ListServiceParams) ([]ServerlessV1Servi
 
 // Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamService(params *ListServiceParams) (chan ServerlessV1Service, chan error) {
+	return c.StreamServiceWithCtx(context.TODO(), params)
+}
+
+// Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceWithCtx(ctx context.Context, params *ListServiceParams) (chan ServerlessV1Service, chan error) {
 	if params == nil {
 		params = &ListServiceParams{}
 	}
@@ -204,19 +235,19 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan ServerlessV1
 	recordChannel := make(chan ServerlessV1Service, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageService(params, "", "")
+	response, err := c.PageServiceWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamService(response, params, recordChannel, errorChannel)
+		go c.streamService(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan ServerlessV1Service, errorChannel chan error) {
+func (c *ApiService) streamService(ctx context.Context, response *ListServiceResponse, params *ListServiceParams, recordChannel chan ServerlessV1Service, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -231,7 +262,7 @@ func (c *ApiService) streamService(response *ListServiceResponse, params *ListSe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListServiceResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListServiceResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -246,11 +277,11 @@ func (c *ApiService) streamService(response *ListServiceResponse, params *ListSe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListServiceResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListServiceResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -289,6 +320,11 @@ func (params *UpdateServiceParams) SetUiEditable(UiEditable bool) *UpdateService
 
 // Update a specific Service resource.
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*ServerlessV1Service, error) {
+	return c.UpdateServiceWithCtx(context.TODO(), Sid, params)
+}
+
+// Update a specific Service resource.
+func (c *ApiService) UpdateServiceWithCtx(ctx context.Context, Sid string, params *UpdateServiceParams) (*ServerlessV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -305,7 +341,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Se
 		data.Set("UiEditable", fmt.Sprint(*params.UiEditable))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

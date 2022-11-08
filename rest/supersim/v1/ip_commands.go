@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -66,6 +67,11 @@ func (params *CreateIpCommandParams) SetCallbackMethod(CallbackMethod string) *C
 
 // Send an IP Command to a Super SIM.
 func (c *ApiService) CreateIpCommand(params *CreateIpCommandParams) (*SupersimV1IpCommand, error) {
+	return c.CreateIpCommandWithCtx(context.TODO(), params)
+}
+
+// Send an IP Command to a Super SIM.
+func (c *ApiService) CreateIpCommandWithCtx(ctx context.Context, params *CreateIpCommandParams) (*SupersimV1IpCommand, error) {
 	path := "/v1/IpCommands"
 
 	data := url.Values{}
@@ -90,7 +96,7 @@ func (c *ApiService) CreateIpCommand(params *CreateIpCommandParams) (*SupersimV1
 		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -107,13 +113,18 @@ func (c *ApiService) CreateIpCommand(params *CreateIpCommandParams) (*SupersimV1
 
 // Fetch IP Command instance from your account.
 func (c *ApiService) FetchIpCommand(Sid string) (*SupersimV1IpCommand, error) {
+	return c.FetchIpCommandWithCtx(context.TODO(), Sid)
+}
+
+// Fetch IP Command instance from your account.
+func (c *ApiService) FetchIpCommandWithCtx(ctx context.Context, Sid string) (*SupersimV1IpCommand, error) {
 	path := "/v1/IpCommands/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -171,6 +182,11 @@ func (params *ListIpCommandParams) SetLimit(Limit int) *ListIpCommandParams {
 
 // Retrieve a single page of IpCommand records from the API. Request is executed immediately.
 func (c *ApiService) PageIpCommand(params *ListIpCommandParams, pageToken, pageNumber string) (*ListIpCommandResponse, error) {
+	return c.PageIpCommandWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of IpCommand records from the API. Request is executed immediately.
+func (c *ApiService) PageIpCommandWithCtx(ctx context.Context, params *ListIpCommandParams, pageToken, pageNumber string) (*ListIpCommandResponse, error) {
 	path := "/v1/IpCommands"
 
 	data := url.Values{}
@@ -199,7 +215,7 @@ func (c *ApiService) PageIpCommand(params *ListIpCommandParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -216,7 +232,12 @@ func (c *ApiService) PageIpCommand(params *ListIpCommandParams, pageToken, pageN
 
 // Lists IpCommand records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIpCommand(params *ListIpCommandParams) ([]SupersimV1IpCommand, error) {
-	response, errors := c.StreamIpCommand(params)
+	return c.ListIpCommandWithCtx(context.TODO(), params)
+}
+
+// Lists IpCommand records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIpCommandWithCtx(ctx context.Context, params *ListIpCommandParams) ([]SupersimV1IpCommand, error) {
+	response, errors := c.StreamIpCommandWithCtx(ctx, params)
 
 	records := make([]SupersimV1IpCommand, 0)
 	for record := range response {
@@ -232,6 +253,11 @@ func (c *ApiService) ListIpCommand(params *ListIpCommandParams) ([]SupersimV1IpC
 
 // Streams IpCommand records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIpCommand(params *ListIpCommandParams) (chan SupersimV1IpCommand, chan error) {
+	return c.StreamIpCommandWithCtx(context.TODO(), params)
+}
+
+// Streams IpCommand records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIpCommandWithCtx(ctx context.Context, params *ListIpCommandParams) (chan SupersimV1IpCommand, chan error) {
 	if params == nil {
 		params = &ListIpCommandParams{}
 	}
@@ -240,19 +266,19 @@ func (c *ApiService) StreamIpCommand(params *ListIpCommandParams) (chan Supersim
 	recordChannel := make(chan SupersimV1IpCommand, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageIpCommand(params, "", "")
+	response, err := c.PageIpCommandWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamIpCommand(response, params, recordChannel, errorChannel)
+		go c.streamIpCommand(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIpCommand(response *ListIpCommandResponse, params *ListIpCommandParams, recordChannel chan SupersimV1IpCommand, errorChannel chan error) {
+func (c *ApiService) streamIpCommand(ctx context.Context, response *ListIpCommandResponse, params *ListIpCommandParams, recordChannel chan SupersimV1IpCommand, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -267,7 +293,7 @@ func (c *ApiService) streamIpCommand(response *ListIpCommandResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListIpCommandResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListIpCommandResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -282,11 +308,11 @@ func (c *ApiService) streamIpCommand(response *ListIpCommandResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListIpCommandResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListIpCommandResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,20 +15,24 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) FetchDefaults(AssistantSid string) (*AutopilotV1Defaults, error) {
+	return c.FetchDefaultsWithCtx(context.TODO(), AssistantSid)
+}
+
+func (c *ApiService) FetchDefaultsWithCtx(ctx context.Context, AssistantSid string) (*AutopilotV1Defaults, error) {
 	path := "/v1/Assistants/{AssistantSid}/Defaults"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -54,8 +58,11 @@ func (params *UpdateDefaultsParams) SetDefaults(Defaults interface{}) *UpdateDef
 	return params
 }
 
-//
 func (c *ApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsParams) (*AutopilotV1Defaults, error) {
+	return c.UpdateDefaultsWithCtx(context.TODO(), AssistantSid, params)
+}
+
+func (c *ApiService) UpdateDefaultsWithCtx(ctx context.Context, AssistantSid string, params *UpdateDefaultsParams) (*AutopilotV1Defaults, error) {
 	path := "/v1/Assistants/{AssistantSid}/Defaults"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -72,7 +79,7 @@ func (c *ApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsP
 		data.Set("Defaults", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *CreateSipAuthCallsCredentialListMappingParams) SetCredentialListSi
 
 // Create a new credential list mapping resource
 func (c *ApiService) CreateSipAuthCallsCredentialListMapping(DomainSid string, params *CreateSipAuthCallsCredentialListMappingParams) (*ApiV2010SipAuthCallsCredentialListMapping, error) {
+	return c.CreateSipAuthCallsCredentialListMappingWithCtx(context.TODO(), DomainSid, params)
+}
+
+// Create a new credential list mapping resource
+func (c *ApiService) CreateSipAuthCallsCredentialListMappingWithCtx(ctx context.Context, DomainSid string, params *CreateSipAuthCallsCredentialListMappingParams) (*ApiV2010SipAuthCallsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -57,7 +63,7 @@ func (c *ApiService) CreateSipAuthCallsCredentialListMapping(DomainSid string, p
 		data.Set("CredentialListSid", *params.CredentialListSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -85,6 +91,11 @@ func (params *DeleteSipAuthCallsCredentialListMappingParams) SetPathAccountSid(P
 
 // Delete a credential list mapping from the requested domain
 func (c *ApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid string, Sid string, params *DeleteSipAuthCallsCredentialListMappingParams) error {
+	return c.DeleteSipAuthCallsCredentialListMappingWithCtx(context.TODO(), DomainSid, Sid, params)
+}
+
+// Delete a credential list mapping from the requested domain
+func (c *ApiService) DeleteSipAuthCallsCredentialListMappingWithCtx(ctx context.Context, DomainSid string, Sid string, params *DeleteSipAuthCallsCredentialListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -97,7 +108,7 @@ func (c *ApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid string, S
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -120,6 +131,11 @@ func (params *FetchSipAuthCallsCredentialListMappingParams) SetPathAccountSid(Pa
 
 // Fetch a specific instance of a credential list mapping
 func (c *ApiService) FetchSipAuthCallsCredentialListMapping(DomainSid string, Sid string, params *FetchSipAuthCallsCredentialListMappingParams) (*ApiV2010SipAuthCallsCredentialListMapping, error) {
+	return c.FetchSipAuthCallsCredentialListMappingWithCtx(context.TODO(), DomainSid, Sid, params)
+}
+
+// Fetch a specific instance of a credential list mapping
+func (c *ApiService) FetchSipAuthCallsCredentialListMappingWithCtx(ctx context.Context, DomainSid string, Sid string, params *FetchSipAuthCallsCredentialListMappingParams) (*ApiV2010SipAuthCallsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -132,7 +148,7 @@ func (c *ApiService) FetchSipAuthCallsCredentialListMapping(DomainSid string, Si
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -172,6 +188,11 @@ func (params *ListSipAuthCallsCredentialListMappingParams) SetLimit(Limit int) *
 
 // Retrieve a single page of SipAuthCallsCredentialListMapping records from the API. Request is executed immediately.
 func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, pageToken, pageNumber string) (*ListSipAuthCallsCredentialListMappingResponse, error) {
+	return c.PageSipAuthCallsCredentialListMappingWithCtx(context.TODO(), DomainSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SipAuthCallsCredentialListMapping records from the API. Request is executed immediately.
+func (c *ApiService) PageSipAuthCallsCredentialListMappingWithCtx(ctx context.Context, DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, pageToken, pageNumber string) (*ListSipAuthCallsCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -195,7 +216,7 @@ func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, par
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -212,7 +233,12 @@ func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, par
 
 // Lists SipAuthCallsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) ([]ApiV2010SipAuthCallsCredentialListMapping, error) {
-	response, errors := c.StreamSipAuthCallsCredentialListMapping(DomainSid, params)
+	return c.ListSipAuthCallsCredentialListMappingWithCtx(context.TODO(), DomainSid, params)
+}
+
+// Lists SipAuthCallsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSipAuthCallsCredentialListMappingWithCtx(ctx context.Context, DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) ([]ApiV2010SipAuthCallsCredentialListMapping, error) {
+	response, errors := c.StreamSipAuthCallsCredentialListMappingWithCtx(ctx, DomainSid, params)
 
 	records := make([]ApiV2010SipAuthCallsCredentialListMapping, 0)
 	for record := range response {
@@ -228,6 +254,11 @@ func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, par
 
 // Streams SipAuthCallsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (chan ApiV2010SipAuthCallsCredentialListMapping, chan error) {
+	return c.StreamSipAuthCallsCredentialListMappingWithCtx(context.TODO(), DomainSid, params)
+}
+
+// Streams SipAuthCallsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSipAuthCallsCredentialListMappingWithCtx(ctx context.Context, DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (chan ApiV2010SipAuthCallsCredentialListMapping, chan error) {
 	if params == nil {
 		params = &ListSipAuthCallsCredentialListMappingParams{}
 	}
@@ -236,19 +267,19 @@ func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, p
 	recordChannel := make(chan ApiV2010SipAuthCallsCredentialListMapping, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSipAuthCallsCredentialListMapping(DomainSid, params, "", "")
+	response, err := c.PageSipAuthCallsCredentialListMappingWithCtx(ctx, DomainSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSipAuthCallsCredentialListMapping(response, params, recordChannel, errorChannel)
+		go c.streamSipAuthCallsCredentialListMapping(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipAuthCallsCredentialListMapping(response *ListSipAuthCallsCredentialListMappingResponse, params *ListSipAuthCallsCredentialListMappingParams, recordChannel chan ApiV2010SipAuthCallsCredentialListMapping, errorChannel chan error) {
+func (c *ApiService) streamSipAuthCallsCredentialListMapping(ctx context.Context, response *ListSipAuthCallsCredentialListMappingResponse, params *ListSipAuthCallsCredentialListMappingParams, recordChannel chan ApiV2010SipAuthCallsCredentialListMapping, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -263,7 +294,7 @@ func (c *ApiService) streamSipAuthCallsCredentialListMapping(response *ListSipAu
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSipAuthCallsCredentialListMappingResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSipAuthCallsCredentialListMappingResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -278,11 +309,11 @@ func (c *ApiService) streamSipAuthCallsCredentialListMapping(response *ListSipAu
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipAuthCallsCredentialListMappingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSipAuthCallsCredentialListMappingResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

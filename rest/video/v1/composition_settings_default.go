@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -61,8 +62,11 @@ func (params *CreateCompositionSettingsParams) SetEncryptionEnabled(EncryptionEn
 	return params
 }
 
-//
 func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettingsParams) (*VideoV1CompositionSettings, error) {
+	return c.CreateCompositionSettingsWithCtx(context.TODO(), params)
+}
+
+func (c *ApiService) CreateCompositionSettingsWithCtx(ctx context.Context, params *CreateCompositionSettingsParams) (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
 	data := url.Values{}
@@ -87,7 +91,7 @@ func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettings
 		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -102,14 +106,17 @@ func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettings
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, error) {
+	return c.FetchCompositionSettingsWithCtx(context.TODO())
+}
+
+func (c *ApiService) FetchCompositionSettingsWithCtx(ctx context.Context) (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

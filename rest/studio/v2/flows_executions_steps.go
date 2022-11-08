@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,11 @@ import (
 
 // Retrieve a Step.
 func (c *ApiService) FetchExecutionStep(FlowSid string, ExecutionSid string, Sid string) (*StudioV2ExecutionStep, error) {
+	return c.FetchExecutionStepWithCtx(context.TODO(), FlowSid, ExecutionSid, Sid)
+}
+
+// Retrieve a Step.
+func (c *ApiService) FetchExecutionStepWithCtx(ctx context.Context, FlowSid string, ExecutionSid string, Sid string) (*StudioV2ExecutionStep, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
@@ -33,7 +39,7 @@ func (c *ApiService) FetchExecutionStep(FlowSid string, ExecutionSid string, Sid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +73,11 @@ func (params *ListExecutionStepParams) SetLimit(Limit int) *ListExecutionStepPar
 
 // Retrieve a single page of ExecutionStep records from the API. Request is executed immediately.
 func (c *ApiService) PageExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams, pageToken, pageNumber string) (*ListExecutionStepResponse, error) {
+	return c.PageExecutionStepWithCtx(context.TODO(), FlowSid, ExecutionSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ExecutionStep records from the API. Request is executed immediately.
+func (c *ApiService) PageExecutionStepWithCtx(ctx context.Context, FlowSid string, ExecutionSid string, params *ListExecutionStepParams, pageToken, pageNumber string) (*ListExecutionStepResponse, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps"
 
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -86,7 +97,7 @@ func (c *ApiService) PageExecutionStep(FlowSid string, ExecutionSid string, para
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +114,12 @@ func (c *ApiService) PageExecutionStep(FlowSid string, ExecutionSid string, para
 
 // Lists ExecutionStep records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) ([]StudioV2ExecutionStep, error) {
-	response, errors := c.StreamExecutionStep(FlowSid, ExecutionSid, params)
+	return c.ListExecutionStepWithCtx(context.TODO(), FlowSid, ExecutionSid, params)
+}
+
+// Lists ExecutionStep records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListExecutionStepWithCtx(ctx context.Context, FlowSid string, ExecutionSid string, params *ListExecutionStepParams) ([]StudioV2ExecutionStep, error) {
+	response, errors := c.StreamExecutionStepWithCtx(ctx, FlowSid, ExecutionSid, params)
 
 	records := make([]StudioV2ExecutionStep, 0)
 	for record := range response {
@@ -119,6 +135,11 @@ func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, para
 
 // Streams ExecutionStep records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) (chan StudioV2ExecutionStep, chan error) {
+	return c.StreamExecutionStepWithCtx(context.TODO(), FlowSid, ExecutionSid, params)
+}
+
+// Streams ExecutionStep records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamExecutionStepWithCtx(ctx context.Context, FlowSid string, ExecutionSid string, params *ListExecutionStepParams) (chan StudioV2ExecutionStep, chan error) {
 	if params == nil {
 		params = &ListExecutionStepParams{}
 	}
@@ -127,19 +148,19 @@ func (c *ApiService) StreamExecutionStep(FlowSid string, ExecutionSid string, pa
 	recordChannel := make(chan StudioV2ExecutionStep, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageExecutionStep(FlowSid, ExecutionSid, params, "", "")
+	response, err := c.PageExecutionStepWithCtx(ctx, FlowSid, ExecutionSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamExecutionStep(response, params, recordChannel, errorChannel)
+		go c.streamExecutionStep(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamExecutionStep(response *ListExecutionStepResponse, params *ListExecutionStepParams, recordChannel chan StudioV2ExecutionStep, errorChannel chan error) {
+func (c *ApiService) streamExecutionStep(ctx context.Context, response *ListExecutionStepResponse, params *ListExecutionStepParams, recordChannel chan StudioV2ExecutionStep, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -154,7 +175,7 @@ func (c *ApiService) streamExecutionStep(response *ListExecutionStepResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListExecutionStepResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListExecutionStepResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -169,11 +190,11 @@ func (c *ApiService) streamExecutionStep(response *ListExecutionStepResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListExecutionStepResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListExecutionStepResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

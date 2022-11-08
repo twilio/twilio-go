@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -37,6 +38,11 @@ func (params *DeleteMediaParams) SetPathAccountSid(PathAccountSid string) *Delet
 
 // Delete media from your account. Once delete, you will no longer be billed
 func (c *ApiService) DeleteMedia(MessageSid string, Sid string, params *DeleteMediaParams) error {
+	return c.DeleteMediaWithCtx(context.TODO(), MessageSid, Sid, params)
+}
+
+// Delete media from your account. Once delete, you will no longer be billed
+func (c *ApiService) DeleteMediaWithCtx(ctx context.Context, MessageSid string, Sid string, params *DeleteMediaParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -49,7 +55,7 @@ func (c *ApiService) DeleteMedia(MessageSid string, Sid string, params *DeleteMe
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -72,6 +78,11 @@ func (params *FetchMediaParams) SetPathAccountSid(PathAccountSid string) *FetchM
 
 // Fetch a single media instance belonging to the account used to make the request
 func (c *ApiService) FetchMedia(MessageSid string, Sid string, params *FetchMediaParams) (*ApiV2010Media, error) {
+	return c.FetchMediaWithCtx(context.TODO(), MessageSid, Sid, params)
+}
+
+// Fetch a single media instance belonging to the account used to make the request
+func (c *ApiService) FetchMediaWithCtx(ctx context.Context, MessageSid string, Sid string, params *FetchMediaParams) (*ApiV2010Media, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -84,7 +95,7 @@ func (c *ApiService) FetchMedia(MessageSid string, Sid string, params *FetchMedi
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -142,6 +153,11 @@ func (params *ListMediaParams) SetLimit(Limit int) *ListMediaParams {
 
 // Retrieve a single page of Media records from the API. Request is executed immediately.
 func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageToken, pageNumber string) (*ListMediaResponse, error) {
+	return c.PageMediaWithCtx(context.TODO(), MessageSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Media records from the API. Request is executed immediately.
+func (c *ApiService) PageMediaWithCtx(ctx context.Context, MessageSid string, params *ListMediaParams, pageToken, pageNumber string) (*ListMediaResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -174,7 +190,7 @@ func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageT
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -191,7 +207,12 @@ func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageT
 
 // Lists Media records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) ([]ApiV2010Media, error) {
-	response, errors := c.StreamMedia(MessageSid, params)
+	return c.ListMediaWithCtx(context.TODO(), MessageSid, params)
+}
+
+// Lists Media records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMediaWithCtx(ctx context.Context, MessageSid string, params *ListMediaParams) ([]ApiV2010Media, error) {
+	response, errors := c.StreamMediaWithCtx(ctx, MessageSid, params)
 
 	records := make([]ApiV2010Media, 0)
 	for record := range response {
@@ -207,6 +228,11 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) ([]Ap
 
 // Streams Media records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (chan ApiV2010Media, chan error) {
+	return c.StreamMediaWithCtx(context.TODO(), MessageSid, params)
+}
+
+// Streams Media records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMediaWithCtx(ctx context.Context, MessageSid string, params *ListMediaParams) (chan ApiV2010Media, chan error) {
 	if params == nil {
 		params = &ListMediaParams{}
 	}
@@ -215,19 +241,19 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (ch
 	recordChannel := make(chan ApiV2010Media, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMedia(MessageSid, params, "", "")
+	response, err := c.PageMediaWithCtx(ctx, MessageSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMedia(response, params, recordChannel, errorChannel)
+		go c.streamMedia(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMedia(response *ListMediaResponse, params *ListMediaParams, recordChannel chan ApiV2010Media, errorChannel chan error) {
+func (c *ApiService) streamMedia(ctx context.Context, response *ListMediaResponse, params *ListMediaParams, recordChannel chan ApiV2010Media, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -242,7 +268,7 @@ func (c *ApiService) streamMedia(response *ListMediaResponse, params *ListMediaP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMediaResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListMediaResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -257,11 +283,11 @@ func (c *ApiService) streamMedia(response *ListMediaResponse, params *ListMediaP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMediaResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMediaResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

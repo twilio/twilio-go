@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,13 +26,18 @@ import (
 
 // Fetch a specific Device.
 func (c *ApiService) FetchDevice(Sid string) (*MicrovisorV1Device, error) {
+	return c.FetchDeviceWithCtx(context.TODO(), Sid)
+}
+
+// Fetch a specific Device.
+func (c *ApiService) FetchDeviceWithCtx(ctx context.Context, Sid string) (*MicrovisorV1Device, error) {
 	path := "/v1/Devices/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -65,6 +71,11 @@ func (params *ListDeviceParams) SetLimit(Limit int) *ListDeviceParams {
 
 // Retrieve a single page of Device records from the API. Request is executed immediately.
 func (c *ApiService) PageDevice(params *ListDeviceParams, pageToken, pageNumber string) (*ListDeviceResponse, error) {
+	return c.PageDeviceWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Device records from the API. Request is executed immediately.
+func (c *ApiService) PageDeviceWithCtx(ctx context.Context, params *ListDeviceParams, pageToken, pageNumber string) (*ListDeviceResponse, error) {
 	path := "/v1/Devices"
 
 	data := url.Values{}
@@ -81,7 +92,7 @@ func (c *ApiService) PageDevice(params *ListDeviceParams, pageToken, pageNumber 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +109,12 @@ func (c *ApiService) PageDevice(params *ListDeviceParams, pageToken, pageNumber 
 
 // Lists Device records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDevice(params *ListDeviceParams) ([]MicrovisorV1Device, error) {
-	response, errors := c.StreamDevice(params)
+	return c.ListDeviceWithCtx(context.TODO(), params)
+}
+
+// Lists Device records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDeviceWithCtx(ctx context.Context, params *ListDeviceParams) ([]MicrovisorV1Device, error) {
+	response, errors := c.StreamDeviceWithCtx(ctx, params)
 
 	records := make([]MicrovisorV1Device, 0)
 	for record := range response {
@@ -114,6 +130,11 @@ func (c *ApiService) ListDevice(params *ListDeviceParams) ([]MicrovisorV1Device,
 
 // Streams Device records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDevice(params *ListDeviceParams) (chan MicrovisorV1Device, chan error) {
+	return c.StreamDeviceWithCtx(context.TODO(), params)
+}
+
+// Streams Device records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDeviceWithCtx(ctx context.Context, params *ListDeviceParams) (chan MicrovisorV1Device, chan error) {
 	if params == nil {
 		params = &ListDeviceParams{}
 	}
@@ -122,19 +143,19 @@ func (c *ApiService) StreamDevice(params *ListDeviceParams) (chan MicrovisorV1De
 	recordChannel := make(chan MicrovisorV1Device, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDevice(params, "", "")
+	response, err := c.PageDeviceWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDevice(response, params, recordChannel, errorChannel)
+		go c.streamDevice(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDevice(response *ListDeviceResponse, params *ListDeviceParams, recordChannel chan MicrovisorV1Device, errorChannel chan error) {
+func (c *ApiService) streamDevice(ctx context.Context, response *ListDeviceResponse, params *ListDeviceParams, recordChannel chan MicrovisorV1Device, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -149,7 +170,7 @@ func (c *ApiService) streamDevice(response *ListDeviceResponse, params *ListDevi
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDeviceResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListDeviceResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -164,11 +185,11 @@ func (c *ApiService) streamDevice(response *ListDeviceResponse, params *ListDevi
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDeviceResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDeviceResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -207,6 +228,11 @@ func (params *UpdateDeviceParams) SetLoggingEnabled(LoggingEnabled bool) *Update
 
 // Update a specific Device.
 func (c *ApiService) UpdateDevice(Sid string, params *UpdateDeviceParams) (*MicrovisorV1Device, error) {
+	return c.UpdateDeviceWithCtx(context.TODO(), Sid, params)
+}
+
+// Update a specific Device.
+func (c *ApiService) UpdateDeviceWithCtx(ctx context.Context, Sid string, params *UpdateDeviceParams) (*MicrovisorV1Device, error) {
 	path := "/v1/Devices/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -223,7 +249,7 @@ func (c *ApiService) UpdateDevice(Sid string, params *UpdateDeviceParams) (*Micr
 		data.Set("LoggingEnabled", fmt.Sprint(*params.LoggingEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

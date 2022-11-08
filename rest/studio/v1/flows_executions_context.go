@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,11 @@ import (
 
 // Retrieve the most recent context for an Execution.
 func (c *ApiService) FetchExecutionContext(FlowSid string, ExecutionSid string) (*StudioV1ExecutionContext, error) {
+	return c.FetchExecutionContextWithCtx(context.TODO(), FlowSid, ExecutionSid)
+}
+
+// Retrieve the most recent context for an Execution.
+func (c *ApiService) FetchExecutionContextWithCtx(ctx context.Context, FlowSid string, ExecutionSid string) (*StudioV1ExecutionContext, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
@@ -29,7 +35,7 @@ func (c *ApiService) FetchExecutionContext(FlowSid string, ExecutionSid string) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

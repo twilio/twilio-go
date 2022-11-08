@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,11 @@ import (
 
 // Retrieve a specific Asset Version.
 func (c *ApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid string) (*ServerlessV1AssetVersion, error) {
+	return c.FetchAssetVersionWithCtx(context.TODO(), ServiceSid, AssetSid, Sid)
+}
+
+// Retrieve a specific Asset Version.
+func (c *ApiService) FetchAssetVersionWithCtx(ctx context.Context, ServiceSid string, AssetSid string, Sid string) (*ServerlessV1AssetVersion, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"AssetSid"+"}", AssetSid, -1)
@@ -33,7 +39,7 @@ func (c *ApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +73,11 @@ func (params *ListAssetVersionParams) SetLimit(Limit int) *ListAssetVersionParam
 
 // Retrieve a single page of AssetVersion records from the API. Request is executed immediately.
 func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, pageToken, pageNumber string) (*ListAssetVersionResponse, error) {
+	return c.PageAssetVersionWithCtx(context.TODO(), ServiceSid, AssetSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of AssetVersion records from the API. Request is executed immediately.
+func (c *ApiService) PageAssetVersionWithCtx(ctx context.Context, ServiceSid string, AssetSid string, params *ListAssetVersionParams, pageToken, pageNumber string) (*ListAssetVersionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -86,7 +97,7 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +114,12 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 
 // Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) ([]ServerlessV1AssetVersion, error) {
-	response, errors := c.StreamAssetVersion(ServiceSid, AssetSid, params)
+	return c.ListAssetVersionWithCtx(context.TODO(), ServiceSid, AssetSid, params)
+}
+
+// Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAssetVersionWithCtx(ctx context.Context, ServiceSid string, AssetSid string, params *ListAssetVersionParams) ([]ServerlessV1AssetVersion, error) {
+	response, errors := c.StreamAssetVersionWithCtx(ctx, ServiceSid, AssetSid, params)
 
 	records := make([]ServerlessV1AssetVersion, 0)
 	for record := range response {
@@ -119,6 +135,11 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 
 // Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) (chan ServerlessV1AssetVersion, chan error) {
+	return c.StreamAssetVersionWithCtx(context.TODO(), ServiceSid, AssetSid, params)
+}
+
+// Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAssetVersionWithCtx(ctx context.Context, ServiceSid string, AssetSid string, params *ListAssetVersionParams) (chan ServerlessV1AssetVersion, chan error) {
 	if params == nil {
 		params = &ListAssetVersionParams{}
 	}
@@ -127,19 +148,19 @@ func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, para
 	recordChannel := make(chan ServerlessV1AssetVersion, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAssetVersion(ServiceSid, AssetSid, params, "", "")
+	response, err := c.PageAssetVersionWithCtx(ctx, ServiceSid, AssetSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAssetVersion(response, params, recordChannel, errorChannel)
+		go c.streamAssetVersion(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAssetVersion(response *ListAssetVersionResponse, params *ListAssetVersionParams, recordChannel chan ServerlessV1AssetVersion, errorChannel chan error) {
+func (c *ApiService) streamAssetVersion(ctx context.Context, response *ListAssetVersionResponse, params *ListAssetVersionParams, recordChannel chan ServerlessV1AssetVersion, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -154,7 +175,7 @@ func (c *ApiService) streamAssetVersion(response *ListAssetVersionResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAssetVersionResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListAssetVersionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -169,11 +190,11 @@ func (c *ApiService) streamAssetVersion(response *ListAssetVersionResponse, para
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAssetVersionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAssetVersionResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

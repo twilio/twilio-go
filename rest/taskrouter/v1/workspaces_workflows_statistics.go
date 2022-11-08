@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -57,8 +58,11 @@ func (params *FetchWorkflowStatisticsParams) SetSplitByWaitTime(SplitByWaitTime 
 	return params
 }
 
-//
 func (c *ApiService) FetchWorkflowStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowStatisticsParams) (*TaskrouterV1WorkflowStatistics, error) {
+	return c.FetchWorkflowStatisticsWithCtx(context.TODO(), WorkspaceSid, WorkflowSid, params)
+}
+
+func (c *ApiService) FetchWorkflowStatisticsWithCtx(ctx context.Context, WorkspaceSid string, WorkflowSid string, params *FetchWorkflowStatisticsParams) (*TaskrouterV1WorkflowStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
@@ -82,7 +86,7 @@ func (c *ApiService) FetchWorkflowStatistics(WorkspaceSid string, WorkflowSid st
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

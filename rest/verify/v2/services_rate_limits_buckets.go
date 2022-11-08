@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *CreateBucketParams) SetInterval(Interval int) *CreateBucketParams 
 
 // Create a new Bucket for a Rate Limit
 func (c *ApiService) CreateBucket(ServiceSid string, RateLimitSid string, params *CreateBucketParams) (*VerifyV2Bucket, error) {
+	return c.CreateBucketWithCtx(context.TODO(), ServiceSid, RateLimitSid, params)
+}
+
+// Create a new Bucket for a Rate Limit
+func (c *ApiService) CreateBucketWithCtx(ctx context.Context, ServiceSid string, RateLimitSid string, params *CreateBucketParams) (*VerifyV2Bucket, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
@@ -56,7 +62,7 @@ func (c *ApiService) CreateBucket(ServiceSid string, RateLimitSid string, params
 		data.Set("Interval", fmt.Sprint(*params.Interval))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -73,6 +79,11 @@ func (c *ApiService) CreateBucket(ServiceSid string, RateLimitSid string, params
 
 // Delete a specific Bucket.
 func (c *ApiService) DeleteBucket(ServiceSid string, RateLimitSid string, Sid string) error {
+	return c.DeleteBucketWithCtx(context.TODO(), ServiceSid, RateLimitSid, Sid)
+}
+
+// Delete a specific Bucket.
+func (c *ApiService) DeleteBucketWithCtx(ctx context.Context, ServiceSid string, RateLimitSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
@@ -81,7 +92,7 @@ func (c *ApiService) DeleteBucket(ServiceSid string, RateLimitSid string, Sid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -93,6 +104,11 @@ func (c *ApiService) DeleteBucket(ServiceSid string, RateLimitSid string, Sid st
 
 // Fetch a specific Bucket.
 func (c *ApiService) FetchBucket(ServiceSid string, RateLimitSid string, Sid string) (*VerifyV2Bucket, error) {
+	return c.FetchBucketWithCtx(context.TODO(), ServiceSid, RateLimitSid, Sid)
+}
+
+// Fetch a specific Bucket.
+func (c *ApiService) FetchBucketWithCtx(ctx context.Context, ServiceSid string, RateLimitSid string, Sid string) (*VerifyV2Bucket, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
@@ -101,7 +117,7 @@ func (c *ApiService) FetchBucket(ServiceSid string, RateLimitSid string, Sid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -135,6 +151,11 @@ func (params *ListBucketParams) SetLimit(Limit int) *ListBucketParams {
 
 // Retrieve a single page of Bucket records from the API. Request is executed immediately.
 func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams, pageToken, pageNumber string) (*ListBucketResponse, error) {
+	return c.PageBucketWithCtx(context.TODO(), ServiceSid, RateLimitSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Bucket records from the API. Request is executed immediately.
+func (c *ApiService) PageBucketWithCtx(ctx context.Context, ServiceSid string, RateLimitSid string, params *ListBucketParams, pageToken, pageNumber string) (*ListBucketResponse, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -154,7 +175,7 @@ func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +192,12 @@ func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *
 
 // Lists Bucket records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) ([]VerifyV2Bucket, error) {
-	response, errors := c.StreamBucket(ServiceSid, RateLimitSid, params)
+	return c.ListBucketWithCtx(context.TODO(), ServiceSid, RateLimitSid, params)
+}
+
+// Lists Bucket records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBucketWithCtx(ctx context.Context, ServiceSid string, RateLimitSid string, params *ListBucketParams) ([]VerifyV2Bucket, error) {
+	response, errors := c.StreamBucketWithCtx(ctx, ServiceSid, RateLimitSid, params)
 
 	records := make([]VerifyV2Bucket, 0)
 	for record := range response {
@@ -187,6 +213,11 @@ func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *
 
 // Streams Bucket records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) (chan VerifyV2Bucket, chan error) {
+	return c.StreamBucketWithCtx(context.TODO(), ServiceSid, RateLimitSid, params)
+}
+
+// Streams Bucket records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBucketWithCtx(ctx context.Context, ServiceSid string, RateLimitSid string, params *ListBucketParams) (chan VerifyV2Bucket, chan error) {
 	if params == nil {
 		params = &ListBucketParams{}
 	}
@@ -195,19 +226,19 @@ func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params
 	recordChannel := make(chan VerifyV2Bucket, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageBucket(ServiceSid, RateLimitSid, params, "", "")
+	response, err := c.PageBucketWithCtx(ctx, ServiceSid, RateLimitSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamBucket(response, params, recordChannel, errorChannel)
+		go c.streamBucket(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBucket(response *ListBucketResponse, params *ListBucketParams, recordChannel chan VerifyV2Bucket, errorChannel chan error) {
+func (c *ApiService) streamBucket(ctx context.Context, response *ListBucketResponse, params *ListBucketParams, recordChannel chan VerifyV2Bucket, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -222,7 +253,7 @@ func (c *ApiService) streamBucket(response *ListBucketResponse, params *ListBuck
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListBucketResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListBucketResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -237,11 +268,11 @@ func (c *ApiService) streamBucket(response *ListBucketResponse, params *ListBuck
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListBucketResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListBucketResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -274,6 +305,11 @@ func (params *UpdateBucketParams) SetInterval(Interval int) *UpdateBucketParams 
 
 // Update a specific Bucket.
 func (c *ApiService) UpdateBucket(ServiceSid string, RateLimitSid string, Sid string, params *UpdateBucketParams) (*VerifyV2Bucket, error) {
+	return c.UpdateBucketWithCtx(context.TODO(), ServiceSid, RateLimitSid, Sid, params)
+}
+
+// Update a specific Bucket.
+func (c *ApiService) UpdateBucketWithCtx(ctx context.Context, ServiceSid string, RateLimitSid string, Sid string, params *UpdateBucketParams) (*VerifyV2Bucket, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
@@ -289,7 +325,7 @@ func (c *ApiService) UpdateBucket(ServiceSid string, RateLimitSid string, Sid st
 		data.Set("Interval", fmt.Sprint(*params.Interval))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

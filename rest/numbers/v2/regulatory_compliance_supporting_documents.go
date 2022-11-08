@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,11 @@ func (params *CreateSupportingDocumentParams) SetAttributes(Attributes interface
 
 // Create a new Supporting Document.
 func (c *ApiService) CreateSupportingDocument(params *CreateSupportingDocumentParams) (*NumbersV2SupportingDocument, error) {
+	return c.CreateSupportingDocumentWithCtx(context.TODO(), params)
+}
+
+// Create a new Supporting Document.
+func (c *ApiService) CreateSupportingDocumentWithCtx(ctx context.Context, params *CreateSupportingDocumentParams) (*NumbersV2SupportingDocument, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
 	data := url.Values{}
@@ -69,7 +75,7 @@ func (c *ApiService) CreateSupportingDocument(params *CreateSupportingDocumentPa
 		data.Set("Attributes", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -86,13 +92,18 @@ func (c *ApiService) CreateSupportingDocument(params *CreateSupportingDocumentPa
 
 // Delete a specific Supporting Document.
 func (c *ApiService) DeleteSupportingDocument(Sid string) error {
+	return c.DeleteSupportingDocumentWithCtx(context.TODO(), Sid)
+}
+
+// Delete a specific Supporting Document.
+func (c *ApiService) DeleteSupportingDocumentWithCtx(ctx context.Context, Sid string) error {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -104,13 +115,18 @@ func (c *ApiService) DeleteSupportingDocument(Sid string) error {
 
 // Fetch specific Supporting Document Instance.
 func (c *ApiService) FetchSupportingDocument(Sid string) (*NumbersV2SupportingDocument, error) {
+	return c.FetchSupportingDocumentWithCtx(context.TODO(), Sid)
+}
+
+// Fetch specific Supporting Document Instance.
+func (c *ApiService) FetchSupportingDocumentWithCtx(ctx context.Context, Sid string) (*NumbersV2SupportingDocument, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -144,6 +160,11 @@ func (params *ListSupportingDocumentParams) SetLimit(Limit int) *ListSupportingD
 
 // Retrieve a single page of SupportingDocument records from the API. Request is executed immediately.
 func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams, pageToken, pageNumber string) (*ListSupportingDocumentResponse, error) {
+	return c.PageSupportingDocumentWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SupportingDocument records from the API. Request is executed immediately.
+func (c *ApiService) PageSupportingDocumentWithCtx(ctx context.Context, params *ListSupportingDocumentParams, pageToken, pageNumber string) (*ListSupportingDocumentResponse, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
 	data := url.Values{}
@@ -160,7 +181,7 @@ func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +198,12 @@ func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams
 
 // Lists SupportingDocument records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams) ([]NumbersV2SupportingDocument, error) {
-	response, errors := c.StreamSupportingDocument(params)
+	return c.ListSupportingDocumentWithCtx(context.TODO(), params)
+}
+
+// Lists SupportingDocument records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSupportingDocumentWithCtx(ctx context.Context, params *ListSupportingDocumentParams) ([]NumbersV2SupportingDocument, error) {
+	response, errors := c.StreamSupportingDocumentWithCtx(ctx, params)
 
 	records := make([]NumbersV2SupportingDocument, 0)
 	for record := range response {
@@ -193,6 +219,11 @@ func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams
 
 // Streams SupportingDocument records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentParams) (chan NumbersV2SupportingDocument, chan error) {
+	return c.StreamSupportingDocumentWithCtx(context.TODO(), params)
+}
+
+// Streams SupportingDocument records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSupportingDocumentWithCtx(ctx context.Context, params *ListSupportingDocumentParams) (chan NumbersV2SupportingDocument, chan error) {
 	if params == nil {
 		params = &ListSupportingDocumentParams{}
 	}
@@ -201,19 +232,19 @@ func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentPara
 	recordChannel := make(chan NumbersV2SupportingDocument, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSupportingDocument(params, "", "")
+	response, err := c.PageSupportingDocumentWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSupportingDocument(response, params, recordChannel, errorChannel)
+		go c.streamSupportingDocument(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSupportingDocument(response *ListSupportingDocumentResponse, params *ListSupportingDocumentParams, recordChannel chan NumbersV2SupportingDocument, errorChannel chan error) {
+func (c *ApiService) streamSupportingDocument(ctx context.Context, response *ListSupportingDocumentResponse, params *ListSupportingDocumentParams, recordChannel chan NumbersV2SupportingDocument, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -228,7 +259,7 @@ func (c *ApiService) streamSupportingDocument(response *ListSupportingDocumentRe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSupportingDocumentResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSupportingDocumentResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -243,11 +274,11 @@ func (c *ApiService) streamSupportingDocument(response *ListSupportingDocumentRe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSupportingDocumentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSupportingDocumentResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -280,6 +311,11 @@ func (params *UpdateSupportingDocumentParams) SetAttributes(Attributes interface
 
 // Update an existing Supporting Document.
 func (c *ApiService) UpdateSupportingDocument(Sid string, params *UpdateSupportingDocumentParams) (*NumbersV2SupportingDocument, error) {
+	return c.UpdateSupportingDocumentWithCtx(context.TODO(), Sid, params)
+}
+
+// Update an existing Supporting Document.
+func (c *ApiService) UpdateSupportingDocumentWithCtx(ctx context.Context, Sid string, params *UpdateSupportingDocumentParams) (*NumbersV2SupportingDocument, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -299,7 +335,7 @@ func (c *ApiService) UpdateSupportingDocument(Sid string, params *UpdateSupporti
 		data.Set("Attributes", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

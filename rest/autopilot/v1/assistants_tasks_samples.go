@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -46,8 +47,11 @@ func (params *CreateSampleParams) SetSourceChannel(SourceChannel string) *Create
 	return params
 }
 
-//
 func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *CreateSampleParams) (*AutopilotV1Sample, error) {
+	return c.CreateSampleWithCtx(context.TODO(), AssistantSid, TaskSid, params)
+}
+
+func (c *ApiService) CreateSampleWithCtx(ctx context.Context, AssistantSid string, TaskSid string, params *CreateSampleParams) (*AutopilotV1Sample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -65,7 +69,7 @@ func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *C
 		data.Set("SourceChannel", *params.SourceChannel)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -80,8 +84,11 @@ func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *C
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteSample(AssistantSid string, TaskSid string, Sid string) error {
+	return c.DeleteSampleWithCtx(context.TODO(), AssistantSid, TaskSid, Sid)
+}
+
+func (c *ApiService) DeleteSampleWithCtx(ctx context.Context, AssistantSid string, TaskSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -90,7 +97,7 @@ func (c *ApiService) DeleteSample(AssistantSid string, TaskSid string, Sid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -100,8 +107,11 @@ func (c *ApiService) DeleteSample(AssistantSid string, TaskSid string, Sid strin
 	return nil
 }
 
-//
 func (c *ApiService) FetchSample(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1Sample, error) {
+	return c.FetchSampleWithCtx(context.TODO(), AssistantSid, TaskSid, Sid)
+}
+
+func (c *ApiService) FetchSampleWithCtx(ctx context.Context, AssistantSid string, TaskSid string, Sid string) (*AutopilotV1Sample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -110,7 +120,7 @@ func (c *ApiService) FetchSample(AssistantSid string, TaskSid string, Sid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -150,6 +160,11 @@ func (params *ListSampleParams) SetLimit(Limit int) *ListSampleParams {
 
 // Retrieve a single page of Sample records from the API. Request is executed immediately.
 func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *ListSampleParams, pageToken, pageNumber string) (*ListSampleResponse, error) {
+	return c.PageSampleWithCtx(context.TODO(), AssistantSid, TaskSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Sample records from the API. Request is executed immediately.
+func (c *ApiService) PageSampleWithCtx(ctx context.Context, AssistantSid string, TaskSid string, params *ListSampleParams, pageToken, pageNumber string) (*ListSampleResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -172,7 +187,7 @@ func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *Lis
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -189,7 +204,12 @@ func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *Lis
 
 // Lists Sample records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *ListSampleParams) ([]AutopilotV1Sample, error) {
-	response, errors := c.StreamSample(AssistantSid, TaskSid, params)
+	return c.ListSampleWithCtx(context.TODO(), AssistantSid, TaskSid, params)
+}
+
+// Lists Sample records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSampleWithCtx(ctx context.Context, AssistantSid string, TaskSid string, params *ListSampleParams) ([]AutopilotV1Sample, error) {
+	response, errors := c.StreamSampleWithCtx(ctx, AssistantSid, TaskSid, params)
 
 	records := make([]AutopilotV1Sample, 0)
 	for record := range response {
@@ -205,6 +225,11 @@ func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *Lis
 
 // Streams Sample records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *ListSampleParams) (chan AutopilotV1Sample, chan error) {
+	return c.StreamSampleWithCtx(context.TODO(), AssistantSid, TaskSid, params)
+}
+
+// Streams Sample records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSampleWithCtx(ctx context.Context, AssistantSid string, TaskSid string, params *ListSampleParams) (chan AutopilotV1Sample, chan error) {
 	if params == nil {
 		params = &ListSampleParams{}
 	}
@@ -213,19 +238,19 @@ func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *L
 	recordChannel := make(chan AutopilotV1Sample, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSample(AssistantSid, TaskSid, params, "", "")
+	response, err := c.PageSampleWithCtx(ctx, AssistantSid, TaskSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSample(response, params, recordChannel, errorChannel)
+		go c.streamSample(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSample(response *ListSampleResponse, params *ListSampleParams, recordChannel chan AutopilotV1Sample, errorChannel chan error) {
+func (c *ApiService) streamSample(ctx context.Context, response *ListSampleResponse, params *ListSampleParams, recordChannel chan AutopilotV1Sample, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -240,7 +265,7 @@ func (c *ApiService) streamSample(response *ListSampleResponse, params *ListSamp
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSampleResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSampleResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -255,11 +280,11 @@ func (c *ApiService) streamSample(response *ListSampleResponse, params *ListSamp
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSampleResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSampleResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -296,8 +321,11 @@ func (params *UpdateSampleParams) SetSourceChannel(SourceChannel string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateSample(AssistantSid string, TaskSid string, Sid string, params *UpdateSampleParams) (*AutopilotV1Sample, error) {
+	return c.UpdateSampleWithCtx(context.TODO(), AssistantSid, TaskSid, Sid, params)
+}
+
+func (c *ApiService) UpdateSampleWithCtx(ctx context.Context, AssistantSid string, TaskSid string, Sid string, params *UpdateSampleParams) (*AutopilotV1Sample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -316,7 +344,7 @@ func (c *ApiService) UpdateSample(AssistantSid string, TaskSid string, Sid strin
 		data.Set("SourceChannel", *params.SourceChannel)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,18 +15,22 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
 
-//
 func (c *ApiService) FetchUsecase() (*MessagingV1Usecase, error) {
+	return c.FetchUsecaseWithCtx(context.TODO())
+}
+
+func (c *ApiService) FetchUsecaseWithCtx(ctx context.Context) (*MessagingV1Usecase, error) {
 	path := "/v1/Services/Usecases"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

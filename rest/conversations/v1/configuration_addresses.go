@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -96,6 +97,11 @@ func (params *CreateConfigurationAddressParams) SetAutoCreationStudioRetryCount(
 
 // Create a new address configuration
 func (c *ApiService) CreateConfigurationAddress(params *CreateConfigurationAddressParams) (*ConversationsV1ConfigurationAddress, error) {
+	return c.CreateConfigurationAddressWithCtx(context.TODO(), params)
+}
+
+// Create a new address configuration
+func (c *ApiService) CreateConfigurationAddressWithCtx(ctx context.Context, params *CreateConfigurationAddressParams) (*ConversationsV1ConfigurationAddress, error) {
 	path := "/v1/Configuration/Addresses"
 
 	data := url.Values{}
@@ -137,7 +143,7 @@ func (c *ApiService) CreateConfigurationAddress(params *CreateConfigurationAddre
 		data.Set("AutoCreation.StudioRetryCount", fmt.Sprint(*params.AutoCreationStudioRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -154,13 +160,18 @@ func (c *ApiService) CreateConfigurationAddress(params *CreateConfigurationAddre
 
 // Remove an existing address configuration
 func (c *ApiService) DeleteConfigurationAddress(Sid string) error {
+	return c.DeleteConfigurationAddressWithCtx(context.TODO(), Sid)
+}
+
+// Remove an existing address configuration
+func (c *ApiService) DeleteConfigurationAddressWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Configuration/Addresses/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -172,13 +183,18 @@ func (c *ApiService) DeleteConfigurationAddress(Sid string) error {
 
 // Fetch an address configuration
 func (c *ApiService) FetchConfigurationAddress(Sid string) (*ConversationsV1ConfigurationAddress, error) {
+	return c.FetchConfigurationAddressWithCtx(context.TODO(), Sid)
+}
+
+// Fetch an address configuration
+func (c *ApiService) FetchConfigurationAddressWithCtx(ctx context.Context, Sid string) (*ConversationsV1ConfigurationAddress, error) {
 	path := "/v1/Configuration/Addresses/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -218,6 +234,11 @@ func (params *ListConfigurationAddressParams) SetLimit(Limit int) *ListConfigura
 
 // Retrieve a single page of ConfigurationAddress records from the API. Request is executed immediately.
 func (c *ApiService) PageConfigurationAddress(params *ListConfigurationAddressParams, pageToken, pageNumber string) (*ListConfigurationAddressResponse, error) {
+	return c.PageConfigurationAddressWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ConfigurationAddress records from the API. Request is executed immediately.
+func (c *ApiService) PageConfigurationAddressWithCtx(ctx context.Context, params *ListConfigurationAddressParams, pageToken, pageNumber string) (*ListConfigurationAddressResponse, error) {
 	path := "/v1/Configuration/Addresses"
 
 	data := url.Values{}
@@ -237,7 +258,7 @@ func (c *ApiService) PageConfigurationAddress(params *ListConfigurationAddressPa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +275,12 @@ func (c *ApiService) PageConfigurationAddress(params *ListConfigurationAddressPa
 
 // Lists ConfigurationAddress records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConfigurationAddress(params *ListConfigurationAddressParams) ([]ConversationsV1ConfigurationAddress, error) {
-	response, errors := c.StreamConfigurationAddress(params)
+	return c.ListConfigurationAddressWithCtx(context.TODO(), params)
+}
+
+// Lists ConfigurationAddress records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConfigurationAddressWithCtx(ctx context.Context, params *ListConfigurationAddressParams) ([]ConversationsV1ConfigurationAddress, error) {
+	response, errors := c.StreamConfigurationAddressWithCtx(ctx, params)
 
 	records := make([]ConversationsV1ConfigurationAddress, 0)
 	for record := range response {
@@ -270,6 +296,11 @@ func (c *ApiService) ListConfigurationAddress(params *ListConfigurationAddressPa
 
 // Streams ConfigurationAddress records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConfigurationAddress(params *ListConfigurationAddressParams) (chan ConversationsV1ConfigurationAddress, chan error) {
+	return c.StreamConfigurationAddressWithCtx(context.TODO(), params)
+}
+
+// Streams ConfigurationAddress records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConfigurationAddressWithCtx(ctx context.Context, params *ListConfigurationAddressParams) (chan ConversationsV1ConfigurationAddress, chan error) {
 	if params == nil {
 		params = &ListConfigurationAddressParams{}
 	}
@@ -278,19 +309,19 @@ func (c *ApiService) StreamConfigurationAddress(params *ListConfigurationAddress
 	recordChannel := make(chan ConversationsV1ConfigurationAddress, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageConfigurationAddress(params, "", "")
+	response, err := c.PageConfigurationAddressWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConfigurationAddress(response, params, recordChannel, errorChannel)
+		go c.streamConfigurationAddress(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConfigurationAddress(response *ListConfigurationAddressResponse, params *ListConfigurationAddressParams, recordChannel chan ConversationsV1ConfigurationAddress, errorChannel chan error) {
+func (c *ApiService) streamConfigurationAddress(ctx context.Context, response *ListConfigurationAddressResponse, params *ListConfigurationAddressParams, recordChannel chan ConversationsV1ConfigurationAddress, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -305,7 +336,7 @@ func (c *ApiService) streamConfigurationAddress(response *ListConfigurationAddre
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListConfigurationAddressResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListConfigurationAddressResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -320,11 +351,11 @@ func (c *ApiService) streamConfigurationAddress(response *ListConfigurationAddre
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListConfigurationAddressResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListConfigurationAddressResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -399,6 +430,11 @@ func (params *UpdateConfigurationAddressParams) SetAutoCreationStudioRetryCount(
 
 // Update an existing address configuration
 func (c *ApiService) UpdateConfigurationAddress(Sid string, params *UpdateConfigurationAddressParams) (*ConversationsV1ConfigurationAddress, error) {
+	return c.UpdateConfigurationAddressWithCtx(context.TODO(), Sid, params)
+}
+
+// Update an existing address configuration
+func (c *ApiService) UpdateConfigurationAddressWithCtx(ctx context.Context, Sid string, params *UpdateConfigurationAddressParams) (*ConversationsV1ConfigurationAddress, error) {
 	path := "/v1/Configuration/Addresses/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -435,7 +471,7 @@ func (c *ApiService) UpdateConfigurationAddress(Sid string, params *UpdateConfig
 		data.Set("AutoCreation.StudioRetryCount", fmt.Sprint(*params.AutoCreationStudioRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

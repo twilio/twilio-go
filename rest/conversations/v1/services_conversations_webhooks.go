@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -72,6 +73,11 @@ func (params *CreateServiceConversationScopedWebhookParams) SetConfigurationRepl
 
 // Create a new webhook scoped to the conversation in a specific service
 func (c *ApiService) CreateServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceConversationScopedWebhook, error) {
+	return c.CreateServiceConversationScopedWebhookWithCtx(context.TODO(), ChatServiceSid, ConversationSid, params)
+}
+
+// Create a new webhook scoped to the conversation in a specific service
+func (c *ApiService) CreateServiceConversationScopedWebhookWithCtx(ctx context.Context, ChatServiceSid string, ConversationSid string, params *CreateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceConversationScopedWebhook, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -105,7 +111,7 @@ func (c *ApiService) CreateServiceConversationScopedWebhook(ChatServiceSid strin
 		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -122,6 +128,11 @@ func (c *ApiService) CreateServiceConversationScopedWebhook(ChatServiceSid strin
 
 // Remove an existing webhook scoped to the conversation
 func (c *ApiService) DeleteServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string) error {
+	return c.DeleteServiceConversationScopedWebhookWithCtx(context.TODO(), ChatServiceSid, ConversationSid, Sid)
+}
+
+// Remove an existing webhook scoped to the conversation
+func (c *ApiService) DeleteServiceConversationScopedWebhookWithCtx(ctx context.Context, ChatServiceSid string, ConversationSid string, Sid string) error {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -130,7 +141,7 @@ func (c *ApiService) DeleteServiceConversationScopedWebhook(ChatServiceSid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -142,6 +153,11 @@ func (c *ApiService) DeleteServiceConversationScopedWebhook(ChatServiceSid strin
 
 // Fetch the configuration of a conversation-scoped webhook
 func (c *ApiService) FetchServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string) (*ConversationsV1ServiceConversationScopedWebhook, error) {
+	return c.FetchServiceConversationScopedWebhookWithCtx(context.TODO(), ChatServiceSid, ConversationSid, Sid)
+}
+
+// Fetch the configuration of a conversation-scoped webhook
+func (c *ApiService) FetchServiceConversationScopedWebhookWithCtx(ctx context.Context, ChatServiceSid string, ConversationSid string, Sid string) (*ConversationsV1ServiceConversationScopedWebhook, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -150,7 +166,7 @@ func (c *ApiService) FetchServiceConversationScopedWebhook(ChatServiceSid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -184,6 +200,11 @@ func (params *ListServiceConversationScopedWebhookParams) SetLimit(Limit int) *L
 
 // Retrieve a single page of ServiceConversationScopedWebhook records from the API. Request is executed immediately.
 func (c *ApiService) PageServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams, pageToken, pageNumber string) (*ListServiceConversationScopedWebhookResponse, error) {
+	return c.PageServiceConversationScopedWebhookWithCtx(context.TODO(), ChatServiceSid, ConversationSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ServiceConversationScopedWebhook records from the API. Request is executed immediately.
+func (c *ApiService) PageServiceConversationScopedWebhookWithCtx(ctx context.Context, ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams, pageToken, pageNumber string) (*ListServiceConversationScopedWebhookResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -203,7 +224,7 @@ func (c *ApiService) PageServiceConversationScopedWebhook(ChatServiceSid string,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -220,7 +241,12 @@ func (c *ApiService) PageServiceConversationScopedWebhook(ChatServiceSid string,
 
 // Lists ServiceConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) ([]ConversationsV1ServiceConversationScopedWebhook, error) {
-	response, errors := c.StreamServiceConversationScopedWebhook(ChatServiceSid, ConversationSid, params)
+	return c.ListServiceConversationScopedWebhookWithCtx(context.TODO(), ChatServiceSid, ConversationSid, params)
+}
+
+// Lists ServiceConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceConversationScopedWebhookWithCtx(ctx context.Context, ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) ([]ConversationsV1ServiceConversationScopedWebhook, error) {
+	response, errors := c.StreamServiceConversationScopedWebhookWithCtx(ctx, ChatServiceSid, ConversationSid, params)
 
 	records := make([]ConversationsV1ServiceConversationScopedWebhook, 0)
 	for record := range response {
@@ -236,6 +262,11 @@ func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string,
 
 // Streams ServiceConversationScopedWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) (chan ConversationsV1ServiceConversationScopedWebhook, chan error) {
+	return c.StreamServiceConversationScopedWebhookWithCtx(context.TODO(), ChatServiceSid, ConversationSid, params)
+}
+
+// Streams ServiceConversationScopedWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceConversationScopedWebhookWithCtx(ctx context.Context, ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) (chan ConversationsV1ServiceConversationScopedWebhook, chan error) {
 	if params == nil {
 		params = &ListServiceConversationScopedWebhookParams{}
 	}
@@ -244,19 +275,19 @@ func (c *ApiService) StreamServiceConversationScopedWebhook(ChatServiceSid strin
 	recordChannel := make(chan ConversationsV1ServiceConversationScopedWebhook, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageServiceConversationScopedWebhook(ChatServiceSid, ConversationSid, params, "", "")
+	response, err := c.PageServiceConversationScopedWebhookWithCtx(ctx, ChatServiceSid, ConversationSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamServiceConversationScopedWebhook(response, params, recordChannel, errorChannel)
+		go c.streamServiceConversationScopedWebhook(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamServiceConversationScopedWebhook(response *ListServiceConversationScopedWebhookResponse, params *ListServiceConversationScopedWebhookParams, recordChannel chan ConversationsV1ServiceConversationScopedWebhook, errorChannel chan error) {
+func (c *ApiService) streamServiceConversationScopedWebhook(ctx context.Context, response *ListServiceConversationScopedWebhookResponse, params *ListServiceConversationScopedWebhookParams, recordChannel chan ConversationsV1ServiceConversationScopedWebhook, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -271,7 +302,7 @@ func (c *ApiService) streamServiceConversationScopedWebhook(response *ListServic
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListServiceConversationScopedWebhookResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListServiceConversationScopedWebhookResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -286,11 +317,11 @@ func (c *ApiService) streamServiceConversationScopedWebhook(response *ListServic
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListServiceConversationScopedWebhookResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListServiceConversationScopedWebhookResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -341,6 +372,11 @@ func (params *UpdateServiceConversationScopedWebhookParams) SetConfigurationFlow
 
 // Update an existing conversation-scoped webhook
 func (c *ApiService) UpdateServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceConversationScopedWebhook, error) {
+	return c.UpdateServiceConversationScopedWebhookWithCtx(context.TODO(), ChatServiceSid, ConversationSid, Sid, params)
+}
+
+// Update an existing conversation-scoped webhook
+func (c *ApiService) UpdateServiceConversationScopedWebhookWithCtx(ctx context.Context, ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceConversationScopedWebhook, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -369,7 +405,7 @@ func (c *ApiService) UpdateServiceConversationScopedWebhook(ChatServiceSid strin
 		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

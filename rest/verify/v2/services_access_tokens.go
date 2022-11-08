@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -52,6 +53,11 @@ func (params *CreateAccessTokenParams) SetTtl(Ttl int) *CreateAccessTokenParams 
 
 // Create a new enrollment Access Token for the Entity
 func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTokenParams) (*VerifyV2AccessToken, error) {
+	return c.CreateAccessTokenWithCtx(context.TODO(), ServiceSid, params)
+}
+
+// Create a new enrollment Access Token for the Entity
+func (c *ApiService) CreateAccessTokenWithCtx(ctx context.Context, ServiceSid string, params *CreateAccessTokenParams) (*VerifyV2AccessToken, error) {
 	path := "/v2/Services/{ServiceSid}/AccessTokens"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -71,7 +77,7 @@ func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTo
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -88,6 +94,11 @@ func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTo
 
 // Fetch an Access Token for the Entity
 func (c *ApiService) FetchAccessToken(ServiceSid string, Sid string) (*VerifyV2AccessToken, error) {
+	return c.FetchAccessTokenWithCtx(context.TODO(), ServiceSid, Sid)
+}
+
+// Fetch an Access Token for the Entity
+func (c *ApiService) FetchAccessTokenWithCtx(ctx context.Context, ServiceSid string, Sid string) (*VerifyV2AccessToken, error) {
 	path := "/v2/Services/{ServiceSid}/AccessTokens/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -95,7 +106,7 @@ func (c *ApiService) FetchAccessToken(ServiceSid string, Sid string) (*VerifyV2A
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

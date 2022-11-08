@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,11 @@ func (params *CreateBundleCopyParams) SetFriendlyName(FriendlyName string) *Crea
 
 // Creates a new copy of a Bundle. It will internally create copies of all the bundle items (identities and documents) of the original bundle
 func (c *ApiService) CreateBundleCopy(BundleSid string, params *CreateBundleCopyParams) (*NumbersV2BundleCopy, error) {
+	return c.CreateBundleCopyWithCtx(context.TODO(), BundleSid, params)
+}
+
+// Creates a new copy of a Bundle. It will internally create copies of all the bundle items (identities and documents) of the original bundle
+func (c *ApiService) CreateBundleCopyWithCtx(ctx context.Context, BundleSid string, params *CreateBundleCopyParams) (*NumbersV2BundleCopy, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
@@ -46,7 +52,7 @@ func (c *ApiService) CreateBundleCopy(BundleSid string, params *CreateBundleCopy
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -80,6 +86,11 @@ func (params *ListBundleCopyParams) SetLimit(Limit int) *ListBundleCopyParams {
 
 // Retrieve a single page of BundleCopy records from the API. Request is executed immediately.
 func (c *ApiService) PageBundleCopy(BundleSid string, params *ListBundleCopyParams, pageToken, pageNumber string) (*ListBundleCopyResponse, error) {
+	return c.PageBundleCopyWithCtx(context.TODO(), BundleSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of BundleCopy records from the API. Request is executed immediately.
+func (c *ApiService) PageBundleCopyWithCtx(ctx context.Context, BundleSid string, params *ListBundleCopyParams, pageToken, pageNumber string) (*ListBundleCopyResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies"
 
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
@@ -98,7 +109,7 @@ func (c *ApiService) PageBundleCopy(BundleSid string, params *ListBundleCopyPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +126,12 @@ func (c *ApiService) PageBundleCopy(BundleSid string, params *ListBundleCopyPara
 
 // Lists BundleCopy records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBundleCopy(BundleSid string, params *ListBundleCopyParams) ([]NumbersV2BundleCopy, error) {
-	response, errors := c.StreamBundleCopy(BundleSid, params)
+	return c.ListBundleCopyWithCtx(context.TODO(), BundleSid, params)
+}
+
+// Lists BundleCopy records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBundleCopyWithCtx(ctx context.Context, BundleSid string, params *ListBundleCopyParams) ([]NumbersV2BundleCopy, error) {
+	response, errors := c.StreamBundleCopyWithCtx(ctx, BundleSid, params)
 
 	records := make([]NumbersV2BundleCopy, 0)
 	for record := range response {
@@ -131,6 +147,11 @@ func (c *ApiService) ListBundleCopy(BundleSid string, params *ListBundleCopyPara
 
 // Streams BundleCopy records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBundleCopy(BundleSid string, params *ListBundleCopyParams) (chan NumbersV2BundleCopy, chan error) {
+	return c.StreamBundleCopyWithCtx(context.TODO(), BundleSid, params)
+}
+
+// Streams BundleCopy records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBundleCopyWithCtx(ctx context.Context, BundleSid string, params *ListBundleCopyParams) (chan NumbersV2BundleCopy, chan error) {
 	if params == nil {
 		params = &ListBundleCopyParams{}
 	}
@@ -139,19 +160,19 @@ func (c *ApiService) StreamBundleCopy(BundleSid string, params *ListBundleCopyPa
 	recordChannel := make(chan NumbersV2BundleCopy, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageBundleCopy(BundleSid, params, "", "")
+	response, err := c.PageBundleCopyWithCtx(ctx, BundleSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamBundleCopy(response, params, recordChannel, errorChannel)
+		go c.streamBundleCopy(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBundleCopy(response *ListBundleCopyResponse, params *ListBundleCopyParams, recordChannel chan NumbersV2BundleCopy, errorChannel chan error) {
+func (c *ApiService) streamBundleCopy(ctx context.Context, response *ListBundleCopyResponse, params *ListBundleCopyParams, recordChannel chan NumbersV2BundleCopy, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -166,7 +187,7 @@ func (c *ApiService) streamBundleCopy(response *ListBundleCopyResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListBundleCopyResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListBundleCopyResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -181,11 +202,11 @@ func (c *ApiService) streamBundleCopy(response *ListBundleCopyResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListBundleCopyResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListBundleCopyResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

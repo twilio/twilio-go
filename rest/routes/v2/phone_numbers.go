@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,13 +23,18 @@ import (
 
 // Fetch the Inbound Processing Region assigned to a phone number.
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string) (*RoutesV2PhoneNumber, error) {
+	return c.FetchPhoneNumberWithCtx(context.TODO(), PhoneNumber)
+}
+
+// Fetch the Inbound Processing Region assigned to a phone number.
+func (c *ApiService) FetchPhoneNumberWithCtx(ctx context.Context, PhoneNumber string) (*RoutesV2PhoneNumber, error) {
 	path := "/v2/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -62,6 +68,11 @@ func (params *UpdatePhoneNumberParams) SetFriendlyName(FriendlyName string) *Upd
 
 // Assign an Inbound Processing Region to a phone number.
 func (c *ApiService) UpdatePhoneNumber(PhoneNumber string, params *UpdatePhoneNumberParams) (*RoutesV2PhoneNumber, error) {
+	return c.UpdatePhoneNumberWithCtx(context.TODO(), PhoneNumber, params)
+}
+
+// Assign an Inbound Processing Region to a phone number.
+func (c *ApiService) UpdatePhoneNumberWithCtx(ctx context.Context, PhoneNumber string, params *UpdatePhoneNumberParams) (*RoutesV2PhoneNumber, error) {
 	path := "/v2/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
@@ -75,7 +86,7 @@ func (c *ApiService) UpdatePhoneNumber(PhoneNumber string, params *UpdatePhoneNu
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

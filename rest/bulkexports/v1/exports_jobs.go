@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -64,8 +65,11 @@ func (params *CreateExportCustomJobParams) SetEmail(Email string) *CreateExportC
 	return params
 }
 
-//
 func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateExportCustomJobParams) (*BulkexportsV1ExportCustomJob, error) {
+	return c.CreateExportCustomJobWithCtx(context.TODO(), ResourceType, params)
+}
+
+func (c *ApiService) CreateExportCustomJobWithCtx(ctx context.Context, ResourceType string, params *CreateExportCustomJobParams) (*BulkexportsV1ExportCustomJob, error) {
 	path := "/v1/Exports/{ResourceType}/Jobs"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
@@ -91,7 +95,7 @@ func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateEx
 		data.Set("Email", *params.Email)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -106,15 +110,18 @@ func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateEx
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteJob(JobSid string) error {
+	return c.DeleteJobWithCtx(context.TODO(), JobSid)
+}
+
+func (c *ApiService) DeleteJobWithCtx(ctx context.Context, JobSid string) error {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -124,15 +131,18 @@ func (c *ApiService) DeleteJob(JobSid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchJob(JobSid string) (*BulkexportsV1Job, error) {
+	return c.FetchJobWithCtx(context.TODO(), JobSid)
+}
+
+func (c *ApiService) FetchJobWithCtx(ctx context.Context, JobSid string) (*BulkexportsV1Job, error) {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,6 +176,11 @@ func (params *ListExportCustomJobParams) SetLimit(Limit int) *ListExportCustomJo
 
 // Retrieve a single page of ExportCustomJob records from the API. Request is executed immediately.
 func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExportCustomJobParams, pageToken, pageNumber string) (*ListExportCustomJobResponse, error) {
+	return c.PageExportCustomJobWithCtx(context.TODO(), ResourceType, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ExportCustomJob records from the API. Request is executed immediately.
+func (c *ApiService) PageExportCustomJobWithCtx(ctx context.Context, ResourceType string, params *ListExportCustomJobParams, pageToken, pageNumber string) (*ListExportCustomJobResponse, error) {
 	path := "/v1/Exports/{ResourceType}/Jobs"
 
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
@@ -184,7 +199,7 @@ func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExport
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -201,7 +216,12 @@ func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExport
 
 // Lists ExportCustomJob records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExportCustomJobParams) ([]BulkexportsV1ExportCustomJob, error) {
-	response, errors := c.StreamExportCustomJob(ResourceType, params)
+	return c.ListExportCustomJobWithCtx(context.TODO(), ResourceType, params)
+}
+
+// Lists ExportCustomJob records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListExportCustomJobWithCtx(ctx context.Context, ResourceType string, params *ListExportCustomJobParams) ([]BulkexportsV1ExportCustomJob, error) {
+	response, errors := c.StreamExportCustomJobWithCtx(ctx, ResourceType, params)
 
 	records := make([]BulkexportsV1ExportCustomJob, 0)
 	for record := range response {
@@ -217,6 +237,11 @@ func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExport
 
 // Streams ExportCustomJob records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamExportCustomJob(ResourceType string, params *ListExportCustomJobParams) (chan BulkexportsV1ExportCustomJob, chan error) {
+	return c.StreamExportCustomJobWithCtx(context.TODO(), ResourceType, params)
+}
+
+// Streams ExportCustomJob records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamExportCustomJobWithCtx(ctx context.Context, ResourceType string, params *ListExportCustomJobParams) (chan BulkexportsV1ExportCustomJob, chan error) {
 	if params == nil {
 		params = &ListExportCustomJobParams{}
 	}
@@ -225,19 +250,19 @@ func (c *ApiService) StreamExportCustomJob(ResourceType string, params *ListExpo
 	recordChannel := make(chan BulkexportsV1ExportCustomJob, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageExportCustomJob(ResourceType, params, "", "")
+	response, err := c.PageExportCustomJobWithCtx(ctx, ResourceType, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamExportCustomJob(response, params, recordChannel, errorChannel)
+		go c.streamExportCustomJob(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamExportCustomJob(response *ListExportCustomJobResponse, params *ListExportCustomJobParams, recordChannel chan BulkexportsV1ExportCustomJob, errorChannel chan error) {
+func (c *ApiService) streamExportCustomJob(ctx context.Context, response *ListExportCustomJobResponse, params *ListExportCustomJobParams, recordChannel chan BulkexportsV1ExportCustomJob, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -252,7 +277,7 @@ func (c *ApiService) streamExportCustomJob(response *ListExportCustomJobResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListExportCustomJobResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListExportCustomJobResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -267,11 +292,11 @@ func (c *ApiService) streamExportCustomJob(response *ListExportCustomJobResponse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListExportCustomJobResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListExportCustomJobResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

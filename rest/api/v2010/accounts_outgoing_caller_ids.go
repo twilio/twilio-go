@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -70,8 +71,11 @@ func (params *CreateValidationRequestParams) SetStatusCallbackMethod(StatusCallb
 	return params
 }
 
-//
 func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestParams) (*ApiV2010ValidationRequest, error) {
+	return c.CreateValidationRequestWithCtx(context.TODO(), params)
+}
+
+func (c *ApiService) CreateValidationRequestWithCtx(ctx context.Context, params *CreateValidationRequestParams) (*ApiV2010ValidationRequest, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -101,7 +105,7 @@ func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestPara
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -129,6 +133,11 @@ func (params *DeleteOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid str
 
 // Delete the caller-id specified from the account
 func (c *ApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOutgoingCallerIdParams) error {
+	return c.DeleteOutgoingCallerIdWithCtx(context.TODO(), Sid, params)
+}
+
+// Delete the caller-id specified from the account
+func (c *ApiService) DeleteOutgoingCallerIdWithCtx(ctx context.Context, Sid string, params *DeleteOutgoingCallerIdParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -140,7 +149,7 @@ func (c *ApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOutgoingCa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -163,6 +172,11 @@ func (params *FetchOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid stri
 
 // Fetch an outgoing-caller-id belonging to the account used to make the request
 func (c *ApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgoingCallerIdParams) (*ApiV2010OutgoingCallerId, error) {
+	return c.FetchOutgoingCallerIdWithCtx(context.TODO(), Sid, params)
+}
+
+// Fetch an outgoing-caller-id belonging to the account used to make the request
+func (c *ApiService) FetchOutgoingCallerIdWithCtx(ctx context.Context, Sid string, params *FetchOutgoingCallerIdParams) (*ApiV2010OutgoingCallerId, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -174,7 +188,7 @@ func (c *ApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgoingCall
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -226,6 +240,11 @@ func (params *ListOutgoingCallerIdParams) SetLimit(Limit int) *ListOutgoingCalle
 
 // Retrieve a single page of OutgoingCallerId records from the API. Request is executed immediately.
 func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pageToken, pageNumber string) (*ListOutgoingCallerIdResponse, error) {
+	return c.PageOutgoingCallerIdWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of OutgoingCallerId records from the API. Request is executed immediately.
+func (c *ApiService) PageOutgoingCallerIdWithCtx(ctx context.Context, params *ListOutgoingCallerIdParams, pageToken, pageNumber string) (*ListOutgoingCallerIdResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -254,7 +273,7 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -271,7 +290,12 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 
 // Lists OutgoingCallerId records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) ([]ApiV2010OutgoingCallerId, error) {
-	response, errors := c.StreamOutgoingCallerId(params)
+	return c.ListOutgoingCallerIdWithCtx(context.TODO(), params)
+}
+
+// Lists OutgoingCallerId records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListOutgoingCallerIdWithCtx(ctx context.Context, params *ListOutgoingCallerIdParams) ([]ApiV2010OutgoingCallerId, error) {
+	response, errors := c.StreamOutgoingCallerIdWithCtx(ctx, params)
 
 	records := make([]ApiV2010OutgoingCallerId, 0)
 	for record := range response {
@@ -287,6 +311,11 @@ func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) ([
 
 // Streams OutgoingCallerId records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) (chan ApiV2010OutgoingCallerId, chan error) {
+	return c.StreamOutgoingCallerIdWithCtx(context.TODO(), params)
+}
+
+// Streams OutgoingCallerId records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamOutgoingCallerIdWithCtx(ctx context.Context, params *ListOutgoingCallerIdParams) (chan ApiV2010OutgoingCallerId, chan error) {
 	if params == nil {
 		params = &ListOutgoingCallerIdParams{}
 	}
@@ -295,19 +324,19 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) 
 	recordChannel := make(chan ApiV2010OutgoingCallerId, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageOutgoingCallerId(params, "", "")
+	response, err := c.PageOutgoingCallerIdWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamOutgoingCallerId(response, params, recordChannel, errorChannel)
+		go c.streamOutgoingCallerId(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamOutgoingCallerId(response *ListOutgoingCallerIdResponse, params *ListOutgoingCallerIdParams, recordChannel chan ApiV2010OutgoingCallerId, errorChannel chan error) {
+func (c *ApiService) streamOutgoingCallerId(ctx context.Context, response *ListOutgoingCallerIdResponse, params *ListOutgoingCallerIdParams, recordChannel chan ApiV2010OutgoingCallerId, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -322,7 +351,7 @@ func (c *ApiService) streamOutgoingCallerId(response *ListOutgoingCallerIdRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListOutgoingCallerIdResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListOutgoingCallerIdResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -337,11 +366,11 @@ func (c *ApiService) streamOutgoingCallerId(response *ListOutgoingCallerIdRespon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListOutgoingCallerIdResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListOutgoingCallerIdResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -374,6 +403,11 @@ func (params *UpdateOutgoingCallerIdParams) SetFriendlyName(FriendlyName string)
 
 // Updates the caller-id
 func (c *ApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOutgoingCallerIdParams) (*ApiV2010OutgoingCallerId, error) {
+	return c.UpdateOutgoingCallerIdWithCtx(context.TODO(), Sid, params)
+}
+
+// Updates the caller-id
+func (c *ApiService) UpdateOutgoingCallerIdWithCtx(ctx context.Context, Sid string, params *UpdateOutgoingCallerIdParams) (*ApiV2010OutgoingCallerId, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -389,7 +423,7 @@ func (c *ApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOutgoingCa
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

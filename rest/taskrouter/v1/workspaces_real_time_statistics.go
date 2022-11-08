@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -31,8 +32,11 @@ func (params *FetchWorkspaceRealTimeStatisticsParams) SetTaskChannel(TaskChannel
 	return params
 }
 
-//
 func (c *ApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string, params *FetchWorkspaceRealTimeStatisticsParams) (*TaskrouterV1WorkspaceRealTimeStatistics, error) {
+	return c.FetchWorkspaceRealTimeStatisticsWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+func (c *ApiService) FetchWorkspaceRealTimeStatisticsWithCtx(ctx context.Context, WorkspaceSid string, params *FetchWorkspaceRealTimeStatisticsParams) (*TaskrouterV1WorkspaceRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -43,7 +47,7 @@ func (c *ApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string, param
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,11 @@ import (
 
 // Returns a single Track resource represented by &#x60;track_sid&#x60;.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
 func (c *ApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomParticipantSubscribedTrack, error) {
+	return c.FetchRoomParticipantSubscribedTrackWithCtx(context.TODO(), RoomSid, ParticipantSid, Sid)
+}
+
+// Returns a single Track resource represented by &#x60;track_sid&#x60;.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
+func (c *ApiService) FetchRoomParticipantSubscribedTrackWithCtx(ctx context.Context, RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomParticipantSubscribedTrack, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -33,7 +39,7 @@ func (c *ApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, Partici
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +73,11 @@ func (params *ListRoomParticipantSubscribedTrackParams) SetLimit(Limit int) *Lis
 
 // Retrieve a single page of RoomParticipantSubscribedTrack records from the API. Request is executed immediately.
 func (c *ApiService) PageRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams, pageToken, pageNumber string) (*ListRoomParticipantSubscribedTrackResponse, error) {
+	return c.PageRoomParticipantSubscribedTrackWithCtx(context.TODO(), RoomSid, ParticipantSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of RoomParticipantSubscribedTrack records from the API. Request is executed immediately.
+func (c *ApiService) PageRoomParticipantSubscribedTrackWithCtx(ctx context.Context, RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams, pageToken, pageNumber string) (*ListRoomParticipantSubscribedTrackResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -86,7 +97,7 @@ func (c *ApiService) PageRoomParticipantSubscribedTrack(RoomSid string, Particip
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +114,12 @@ func (c *ApiService) PageRoomParticipantSubscribedTrack(RoomSid string, Particip
 
 // Lists RoomParticipantSubscribedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) ([]VideoV1RoomParticipantSubscribedTrack, error) {
-	response, errors := c.StreamRoomParticipantSubscribedTrack(RoomSid, ParticipantSid, params)
+	return c.ListRoomParticipantSubscribedTrackWithCtx(context.TODO(), RoomSid, ParticipantSid, params)
+}
+
+// Lists RoomParticipantSubscribedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoomParticipantSubscribedTrackWithCtx(ctx context.Context, RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) ([]VideoV1RoomParticipantSubscribedTrack, error) {
+	response, errors := c.StreamRoomParticipantSubscribedTrackWithCtx(ctx, RoomSid, ParticipantSid, params)
 
 	records := make([]VideoV1RoomParticipantSubscribedTrack, 0)
 	for record := range response {
@@ -119,6 +135,11 @@ func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, Particip
 
 // Streams RoomParticipantSubscribedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) (chan VideoV1RoomParticipantSubscribedTrack, chan error) {
+	return c.StreamRoomParticipantSubscribedTrackWithCtx(context.TODO(), RoomSid, ParticipantSid, params)
+}
+
+// Streams RoomParticipantSubscribedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoomParticipantSubscribedTrackWithCtx(ctx context.Context, RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) (chan VideoV1RoomParticipantSubscribedTrack, chan error) {
 	if params == nil {
 		params = &ListRoomParticipantSubscribedTrackParams{}
 	}
@@ -127,19 +148,19 @@ func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, Partic
 	recordChannel := make(chan VideoV1RoomParticipantSubscribedTrack, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRoomParticipantSubscribedTrack(RoomSid, ParticipantSid, params, "", "")
+	response, err := c.PageRoomParticipantSubscribedTrackWithCtx(ctx, RoomSid, ParticipantSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRoomParticipantSubscribedTrack(response, params, recordChannel, errorChannel)
+		go c.streamRoomParticipantSubscribedTrack(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRoomParticipantSubscribedTrack(response *ListRoomParticipantSubscribedTrackResponse, params *ListRoomParticipantSubscribedTrackParams, recordChannel chan VideoV1RoomParticipantSubscribedTrack, errorChannel chan error) {
+func (c *ApiService) streamRoomParticipantSubscribedTrack(ctx context.Context, response *ListRoomParticipantSubscribedTrackResponse, params *ListRoomParticipantSubscribedTrackParams, recordChannel chan VideoV1RoomParticipantSubscribedTrack, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -154,7 +175,7 @@ func (c *ApiService) streamRoomParticipantSubscribedTrack(response *ListRoomPart
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRoomParticipantSubscribedTrackResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListRoomParticipantSubscribedTrackResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -169,11 +190,11 @@ func (c *ApiService) streamRoomParticipantSubscribedTrack(response *ListRoomPart
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRoomParticipantSubscribedTrackResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRoomParticipantSubscribedTrackResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

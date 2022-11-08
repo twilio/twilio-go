@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -46,8 +47,11 @@ func (params *CreateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimiz
 	return params
 }
 
-//
 func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
+	return c.CreateTaskChannelWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+func (c *ApiService) CreateTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, params *CreateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -64,7 +68,7 @@ func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskCh
 		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -79,8 +83,11 @@ func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskCh
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
+	return c.DeleteTaskChannelWithCtx(context.TODO(), WorkspaceSid, Sid)
+}
+
+func (c *ApiService) DeleteTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -88,7 +95,7 @@ func (c *ApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -98,8 +105,11 @@ func (c *ApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*TaskrouterV1TaskChannel, error) {
+	return c.FetchTaskChannelWithCtx(context.TODO(), WorkspaceSid, Sid)
+}
+
+func (c *ApiService) FetchTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -107,7 +117,7 @@ func (c *ApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*Taskrou
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -141,6 +151,11 @@ func (params *ListTaskChannelParams) SetLimit(Limit int) *ListTaskChannelParams 
 
 // Retrieve a single page of TaskChannel records from the API. Request is executed immediately.
 func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, pageToken, pageNumber string) (*ListTaskChannelResponse, error) {
+	return c.PageTaskChannelWithCtx(context.TODO(), WorkspaceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of TaskChannel records from the API. Request is executed immediately.
+func (c *ApiService) PageTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, params *ListTaskChannelParams, pageToken, pageNumber string) (*ListTaskChannelResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -159,7 +174,7 @@ func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChanne
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -176,7 +191,12 @@ func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChanne
 
 // Lists TaskChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) ([]TaskrouterV1TaskChannel, error) {
-	response, errors := c.StreamTaskChannel(WorkspaceSid, params)
+	return c.ListTaskChannelWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+// Lists TaskChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, params *ListTaskChannelParams) ([]TaskrouterV1TaskChannel, error) {
+	response, errors := c.StreamTaskChannelWithCtx(ctx, WorkspaceSid, params)
 
 	records := make([]TaskrouterV1TaskChannel, 0)
 	for record := range response {
@@ -192,6 +212,11 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 
 // Streams TaskChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) (chan TaskrouterV1TaskChannel, chan error) {
+	return c.StreamTaskChannelWithCtx(context.TODO(), WorkspaceSid, params)
+}
+
+// Streams TaskChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, params *ListTaskChannelParams) (chan TaskrouterV1TaskChannel, chan error) {
 	if params == nil {
 		params = &ListTaskChannelParams{}
 	}
@@ -200,19 +225,19 @@ func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChan
 	recordChannel := make(chan TaskrouterV1TaskChannel, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTaskChannel(WorkspaceSid, params, "", "")
+	response, err := c.PageTaskChannelWithCtx(ctx, WorkspaceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTaskChannel(response, params, recordChannel, errorChannel)
+		go c.streamTaskChannel(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTaskChannel(response *ListTaskChannelResponse, params *ListTaskChannelParams, recordChannel chan TaskrouterV1TaskChannel, errorChannel chan error) {
+func (c *ApiService) streamTaskChannel(ctx context.Context, response *ListTaskChannelResponse, params *ListTaskChannelParams, recordChannel chan TaskrouterV1TaskChannel, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -227,7 +252,7 @@ func (c *ApiService) streamTaskChannel(response *ListTaskChannelResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListTaskChannelResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListTaskChannelResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -242,11 +267,11 @@ func (c *ApiService) streamTaskChannel(response *ListTaskChannelResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTaskChannelResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTaskChannelResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -277,8 +302,11 @@ func (params *UpdateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimiz
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *UpdateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
+	return c.UpdateTaskChannelWithCtx(context.TODO(), WorkspaceSid, Sid, params)
+}
+
+func (c *ApiService) UpdateTaskChannelWithCtx(ctx context.Context, WorkspaceSid string, Sid string, params *UpdateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -293,7 +321,7 @@ func (c *ApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *
 		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

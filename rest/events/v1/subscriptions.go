@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,11 @@ func (params *CreateSubscriptionParams) SetTypes(Types []interface{}) *CreateSub
 
 // Create a new Subscription.
 func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*EventsV1Subscription, error) {
+	return c.CreateSubscriptionWithCtx(context.TODO(), params)
+}
+
+// Create a new Subscription.
+func (c *ApiService) CreateSubscriptionWithCtx(ctx context.Context, params *CreateSubscriptionParams) (*EventsV1Subscription, error) {
 	path := "/v1/Subscriptions"
 
 	data := url.Values{}
@@ -71,7 +77,7 @@ func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*Even
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -88,13 +94,18 @@ func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*Even
 
 // Delete a specific Subscription.
 func (c *ApiService) DeleteSubscription(Sid string) error {
+	return c.DeleteSubscriptionWithCtx(context.TODO(), Sid)
+}
+
+// Delete a specific Subscription.
+func (c *ApiService) DeleteSubscriptionWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Subscriptions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -106,13 +117,18 @@ func (c *ApiService) DeleteSubscription(Sid string) error {
 
 // Fetch a specific Subscription.
 func (c *ApiService) FetchSubscription(Sid string) (*EventsV1Subscription, error) {
+	return c.FetchSubscriptionWithCtx(context.TODO(), Sid)
+}
+
+// Fetch a specific Subscription.
+func (c *ApiService) FetchSubscriptionWithCtx(ctx context.Context, Sid string) (*EventsV1Subscription, error) {
 	path := "/v1/Subscriptions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -152,6 +168,11 @@ func (params *ListSubscriptionParams) SetLimit(Limit int) *ListSubscriptionParam
 
 // Retrieve a single page of Subscription records from the API. Request is executed immediately.
 func (c *ApiService) PageSubscription(params *ListSubscriptionParams, pageToken, pageNumber string) (*ListSubscriptionResponse, error) {
+	return c.PageSubscriptionWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Subscription records from the API. Request is executed immediately.
+func (c *ApiService) PageSubscriptionWithCtx(ctx context.Context, params *ListSubscriptionParams, pageToken, pageNumber string) (*ListSubscriptionResponse, error) {
 	path := "/v1/Subscriptions"
 
 	data := url.Values{}
@@ -171,7 +192,7 @@ func (c *ApiService) PageSubscription(params *ListSubscriptionParams, pageToken,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +209,12 @@ func (c *ApiService) PageSubscription(params *ListSubscriptionParams, pageToken,
 
 // Lists Subscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSubscription(params *ListSubscriptionParams) ([]EventsV1Subscription, error) {
-	response, errors := c.StreamSubscription(params)
+	return c.ListSubscriptionWithCtx(context.TODO(), params)
+}
+
+// Lists Subscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSubscriptionWithCtx(ctx context.Context, params *ListSubscriptionParams) ([]EventsV1Subscription, error) {
+	response, errors := c.StreamSubscriptionWithCtx(ctx, params)
 
 	records := make([]EventsV1Subscription, 0)
 	for record := range response {
@@ -204,6 +230,11 @@ func (c *ApiService) ListSubscription(params *ListSubscriptionParams) ([]EventsV
 
 // Streams Subscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSubscription(params *ListSubscriptionParams) (chan EventsV1Subscription, chan error) {
+	return c.StreamSubscriptionWithCtx(context.TODO(), params)
+}
+
+// Streams Subscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSubscriptionWithCtx(ctx context.Context, params *ListSubscriptionParams) (chan EventsV1Subscription, chan error) {
 	if params == nil {
 		params = &ListSubscriptionParams{}
 	}
@@ -212,19 +243,19 @@ func (c *ApiService) StreamSubscription(params *ListSubscriptionParams) (chan Ev
 	recordChannel := make(chan EventsV1Subscription, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSubscription(params, "", "")
+	response, err := c.PageSubscriptionWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSubscription(response, params, recordChannel, errorChannel)
+		go c.streamSubscription(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSubscription(response *ListSubscriptionResponse, params *ListSubscriptionParams, recordChannel chan EventsV1Subscription, errorChannel chan error) {
+func (c *ApiService) streamSubscription(ctx context.Context, response *ListSubscriptionResponse, params *ListSubscriptionParams, recordChannel chan EventsV1Subscription, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -239,7 +270,7 @@ func (c *ApiService) streamSubscription(response *ListSubscriptionResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSubscriptionResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSubscriptionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -254,11 +285,11 @@ func (c *ApiService) streamSubscription(response *ListSubscriptionResponse, para
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSubscriptionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSubscriptionResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -291,6 +322,11 @@ func (params *UpdateSubscriptionParams) SetSinkSid(SinkSid string) *UpdateSubscr
 
 // Update a Subscription.
 func (c *ApiService) UpdateSubscription(Sid string, params *UpdateSubscriptionParams) (*EventsV1Subscription, error) {
+	return c.UpdateSubscriptionWithCtx(context.TODO(), Sid, params)
+}
+
+// Update a Subscription.
+func (c *ApiService) UpdateSubscriptionWithCtx(ctx context.Context, Sid string, params *UpdateSubscriptionParams) (*EventsV1Subscription, error) {
 	path := "/v1/Subscriptions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -304,7 +340,7 @@ func (c *ApiService) UpdateSubscription(Sid string, params *UpdateSubscriptionPa
 		data.Set("SinkSid", *params.SinkSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

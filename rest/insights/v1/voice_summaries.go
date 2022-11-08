@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -149,6 +150,11 @@ func (params *ListCallSummariesParams) SetLimit(Limit int) *ListCallSummariesPar
 
 // Retrieve a single page of CallSummaries records from the API. Request is executed immediately.
 func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToken, pageNumber string) (*ListCallSummariesResponse, error) {
+	return c.PageCallSummariesWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of CallSummaries records from the API. Request is executed immediately.
+func (c *ApiService) PageCallSummariesWithCtx(ctx context.Context, params *ListCallSummariesParams, pageToken, pageNumber string) (*ListCallSummariesResponse, error) {
 	path := "/v1/Voice/Summaries"
 
 	data := url.Values{}
@@ -219,7 +225,7 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -236,7 +242,12 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 
 // Lists CallSummaries records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallSummaries(params *ListCallSummariesParams) ([]InsightsV1CallSummaries, error) {
-	response, errors := c.StreamCallSummaries(params)
+	return c.ListCallSummariesWithCtx(context.TODO(), params)
+}
+
+// Lists CallSummaries records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCallSummariesWithCtx(ctx context.Context, params *ListCallSummariesParams) ([]InsightsV1CallSummaries, error) {
+	response, errors := c.StreamCallSummariesWithCtx(ctx, params)
 
 	records := make([]InsightsV1CallSummaries, 0)
 	for record := range response {
@@ -252,6 +263,11 @@ func (c *ApiService) ListCallSummaries(params *ListCallSummariesParams) ([]Insig
 
 // Streams CallSummaries records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCallSummaries(params *ListCallSummariesParams) (chan InsightsV1CallSummaries, chan error) {
+	return c.StreamCallSummariesWithCtx(context.TODO(), params)
+}
+
+// Streams CallSummaries records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCallSummariesWithCtx(ctx context.Context, params *ListCallSummariesParams) (chan InsightsV1CallSummaries, chan error) {
 	if params == nil {
 		params = &ListCallSummariesParams{}
 	}
@@ -260,19 +276,19 @@ func (c *ApiService) StreamCallSummaries(params *ListCallSummariesParams) (chan 
 	recordChannel := make(chan InsightsV1CallSummaries, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCallSummaries(params, "", "")
+	response, err := c.PageCallSummariesWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCallSummaries(response, params, recordChannel, errorChannel)
+		go c.streamCallSummaries(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCallSummaries(response *ListCallSummariesResponse, params *ListCallSummariesParams, recordChannel chan InsightsV1CallSummaries, errorChannel chan error) {
+func (c *ApiService) streamCallSummaries(ctx context.Context, response *ListCallSummariesResponse, params *ListCallSummariesParams, recordChannel chan InsightsV1CallSummaries, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -287,7 +303,7 @@ func (c *ApiService) streamCallSummaries(response *ListCallSummariesResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCallSummariesResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCallSummariesResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -302,11 +318,11 @@ func (c *ApiService) streamCallSummaries(response *ListCallSummariesResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCallSummariesResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCallSummariesResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -89,8 +90,11 @@ func (params *CreateCompositionHookParams) SetTrim(Trim bool) *CreateComposition
 	return params
 }
 
-//
 func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) (*VideoV1CompositionHook, error) {
+	return c.CreateCompositionHookWithCtx(context.TODO(), params)
+}
+
+func (c *ApiService) CreateCompositionHookWithCtx(ctx context.Context, params *CreateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
@@ -137,7 +141,7 @@ func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) 
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -154,13 +158,18 @@ func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) 
 
 // Delete a Recording CompositionHook resource identified by a &#x60;CompositionHook SID&#x60;.
 func (c *ApiService) DeleteCompositionHook(Sid string) error {
+	return c.DeleteCompositionHookWithCtx(context.TODO(), Sid)
+}
+
+// Delete a Recording CompositionHook resource identified by a &#x60;CompositionHook SID&#x60;.
+func (c *ApiService) DeleteCompositionHookWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/CompositionHooks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -172,13 +181,18 @@ func (c *ApiService) DeleteCompositionHook(Sid string) error {
 
 // Returns a single CompositionHook resource identified by a CompositionHook SID.
 func (c *ApiService) FetchCompositionHook(Sid string) (*VideoV1CompositionHook, error) {
+	return c.FetchCompositionHookWithCtx(context.TODO(), Sid)
+}
+
+// Returns a single CompositionHook resource identified by a CompositionHook SID.
+func (c *ApiService) FetchCompositionHookWithCtx(ctx context.Context, Sid string) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -236,6 +250,11 @@ func (params *ListCompositionHookParams) SetLimit(Limit int) *ListCompositionHoo
 
 // Retrieve a single page of CompositionHook records from the API. Request is executed immediately.
 func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, pageToken, pageNumber string) (*ListCompositionHookResponse, error) {
+	return c.PageCompositionHookWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of CompositionHook records from the API. Request is executed immediately.
+func (c *ApiService) PageCompositionHookWithCtx(ctx context.Context, params *ListCompositionHookParams, pageToken, pageNumber string) (*ListCompositionHookResponse, error) {
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
@@ -264,7 +283,7 @@ func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, page
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +300,12 @@ func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, page
 
 // Lists CompositionHook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) ([]VideoV1CompositionHook, error) {
-	response, errors := c.StreamCompositionHook(params)
+	return c.ListCompositionHookWithCtx(context.TODO(), params)
+}
+
+// Lists CompositionHook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCompositionHookWithCtx(ctx context.Context, params *ListCompositionHookParams) ([]VideoV1CompositionHook, error) {
+	response, errors := c.StreamCompositionHookWithCtx(ctx, params)
 
 	records := make([]VideoV1CompositionHook, 0)
 	for record := range response {
@@ -297,6 +321,11 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) ([]V
 
 // Streams CompositionHook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCompositionHook(params *ListCompositionHookParams) (chan VideoV1CompositionHook, chan error) {
+	return c.StreamCompositionHookWithCtx(context.TODO(), params)
+}
+
+// Streams CompositionHook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCompositionHookWithCtx(ctx context.Context, params *ListCompositionHookParams) (chan VideoV1CompositionHook, chan error) {
 	if params == nil {
 		params = &ListCompositionHookParams{}
 	}
@@ -305,19 +334,19 @@ func (c *ApiService) StreamCompositionHook(params *ListCompositionHookParams) (c
 	recordChannel := make(chan VideoV1CompositionHook, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCompositionHook(params, "", "")
+	response, err := c.PageCompositionHookWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCompositionHook(response, params, recordChannel, errorChannel)
+		go c.streamCompositionHook(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCompositionHook(response *ListCompositionHookResponse, params *ListCompositionHookParams, recordChannel chan VideoV1CompositionHook, errorChannel chan error) {
+func (c *ApiService) streamCompositionHook(ctx context.Context, response *ListCompositionHookResponse, params *ListCompositionHookParams, recordChannel chan VideoV1CompositionHook, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -332,7 +361,7 @@ func (c *ApiService) streamCompositionHook(response *ListCompositionHookResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCompositionHookResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCompositionHookResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -347,11 +376,11 @@ func (c *ApiService) streamCompositionHook(response *ListCompositionHookResponse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCompositionHookResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCompositionHookResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -430,8 +459,11 @@ func (params *UpdateCompositionHookParams) SetStatusCallbackMethod(StatusCallbac
 	return params
 }
 
-//
 func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateCompositionHookParams) (*VideoV1CompositionHook, error) {
+	return c.UpdateCompositionHookWithCtx(context.TODO(), Sid, params)
+}
+
+func (c *ApiService) UpdateCompositionHookWithCtx(ctx context.Context, Sid string, params *UpdateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -479,7 +511,7 @@ func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateComposition
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

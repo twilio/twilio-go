@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,6 +27,11 @@ import (
 
 // Retrieve a specific log.
 func (c *ApiService) FetchLog(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Log, error) {
+	return c.FetchLogWithCtx(context.TODO(), ServiceSid, EnvironmentSid, Sid)
+}
+
+// Retrieve a specific log.
+func (c *ApiService) FetchLogWithCtx(ctx context.Context, ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Log, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -34,7 +40,7 @@ func (c *ApiService) FetchLog(ServiceSid string, EnvironmentSid string, Sid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -86,6 +92,11 @@ func (params *ListLogParams) SetLimit(Limit int) *ListLogParams {
 
 // Retrieve a single page of Log records from the API. Request is executed immediately.
 func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, pageToken, pageNumber string) (*ListLogResponse, error) {
+	return c.PageLogWithCtx(context.TODO(), ServiceSid, EnvironmentSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Log records from the API. Request is executed immediately.
+func (c *ApiService) PageLogWithCtx(ctx context.Context, ServiceSid string, EnvironmentSid string, params *ListLogParams, pageToken, pageNumber string) (*ListLogResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -114,7 +125,7 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +142,12 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 
 // Lists Log records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) ([]ServerlessV1Log, error) {
-	response, errors := c.StreamLog(ServiceSid, EnvironmentSid, params)
+	return c.ListLogWithCtx(context.TODO(), ServiceSid, EnvironmentSid, params)
+}
+
+// Lists Log records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListLogWithCtx(ctx context.Context, ServiceSid string, EnvironmentSid string, params *ListLogParams) ([]ServerlessV1Log, error) {
+	response, errors := c.StreamLogWithCtx(ctx, ServiceSid, EnvironmentSid, params)
 
 	records := make([]ServerlessV1Log, 0)
 	for record := range response {
@@ -147,6 +163,11 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 
 // Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) (chan ServerlessV1Log, chan error) {
+	return c.StreamLogWithCtx(context.TODO(), ServiceSid, EnvironmentSid, params)
+}
+
+// Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamLogWithCtx(ctx context.Context, ServiceSid string, EnvironmentSid string, params *ListLogParams) (chan ServerlessV1Log, chan error) {
 	if params == nil {
 		params = &ListLogParams{}
 	}
@@ -155,19 +176,19 @@ func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params 
 	recordChannel := make(chan ServerlessV1Log, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")
+	response, err := c.PageLogWithCtx(ctx, ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamLog(response, params, recordChannel, errorChannel)
+		go c.streamLog(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamLog(response *ListLogResponse, params *ListLogParams, recordChannel chan ServerlessV1Log, errorChannel chan error) {
+func (c *ApiService) streamLog(ctx context.Context, response *ListLogResponse, params *ListLogParams, recordChannel chan ServerlessV1Log, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -182,7 +203,7 @@ func (c *ApiService) streamLog(response *ListLogResponse, params *ListLogParams,
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListLogResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListLogResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -197,11 +218,11 @@ func (c *ApiService) streamLog(response *ListLogResponse, params *ListLogParams,
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListLogResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListLogResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

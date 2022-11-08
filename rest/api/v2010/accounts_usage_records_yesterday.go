@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -72,6 +73,11 @@ func (params *ListUsageRecordYesterdayParams) SetLimit(Limit int) *ListUsageReco
 
 // Retrieve a single page of UsageRecordYesterday records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayParams, pageToken, pageNumber string) (*ListUsageRecordYesterdayResponse, error) {
+	return c.PageUsageRecordYesterdayWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of UsageRecordYesterday records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecordYesterdayWithCtx(ctx context.Context, params *ListUsageRecordYesterdayParams, pageToken, pageNumber string) (*ListUsageRecordYesterdayResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -106,7 +112,7 @@ func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +129,12 @@ func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 
 // Lists UsageRecordYesterday records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayParams) ([]ApiV2010UsageRecordYesterday, error) {
-	response, errors := c.StreamUsageRecordYesterday(params)
+	return c.ListUsageRecordYesterdayWithCtx(context.TODO(), params)
+}
+
+// Lists UsageRecordYesterday records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordYesterdayWithCtx(ctx context.Context, params *ListUsageRecordYesterdayParams) ([]ApiV2010UsageRecordYesterday, error) {
+	response, errors := c.StreamUsageRecordYesterdayWithCtx(ctx, params)
 
 	records := make([]ApiV2010UsageRecordYesterday, 0)
 	for record := range response {
@@ -139,6 +150,11 @@ func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 
 // Streams UsageRecordYesterday records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecordYesterday(params *ListUsageRecordYesterdayParams) (chan ApiV2010UsageRecordYesterday, chan error) {
+	return c.StreamUsageRecordYesterdayWithCtx(context.TODO(), params)
+}
+
+// Streams UsageRecordYesterday records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordYesterdayWithCtx(ctx context.Context, params *ListUsageRecordYesterdayParams) (chan ApiV2010UsageRecordYesterday, chan error) {
 	if params == nil {
 		params = &ListUsageRecordYesterdayParams{}
 	}
@@ -147,19 +163,19 @@ func (c *ApiService) StreamUsageRecordYesterday(params *ListUsageRecordYesterday
 	recordChannel := make(chan ApiV2010UsageRecordYesterday, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUsageRecordYesterday(params, "", "")
+	response, err := c.PageUsageRecordYesterdayWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUsageRecordYesterday(response, params, recordChannel, errorChannel)
+		go c.streamUsageRecordYesterday(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordYesterday(response *ListUsageRecordYesterdayResponse, params *ListUsageRecordYesterdayParams, recordChannel chan ApiV2010UsageRecordYesterday, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordYesterday(ctx context.Context, response *ListUsageRecordYesterdayResponse, params *ListUsageRecordYesterdayParams, recordChannel chan ApiV2010UsageRecordYesterday, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -174,7 +190,7 @@ func (c *ApiService) streamUsageRecordYesterday(response *ListUsageRecordYesterd
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordYesterdayResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListUsageRecordYesterdayResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -189,11 +205,11 @@ func (c *ApiService) streamUsageRecordYesterday(response *ListUsageRecordYesterd
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordYesterdayResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordYesterdayResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

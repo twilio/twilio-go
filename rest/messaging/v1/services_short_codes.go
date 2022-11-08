@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -34,8 +35,11 @@ func (params *CreateShortCodeParams) SetShortCodeSid(ShortCodeSid string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ShortCode, error) {
+	return c.CreateShortCodeWithCtx(context.TODO(), ServiceSid, params)
+}
+
+func (c *ApiService) CreateShortCodeWithCtx(ctx context.Context, ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -46,7 +50,7 @@ func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeP
 		data.Set("ShortCodeSid", *params.ShortCodeSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -61,8 +65,11 @@ func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeP
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
+	return c.DeleteShortCodeWithCtx(context.TODO(), ServiceSid, Sid)
+}
+
+func (c *ApiService) DeleteShortCodeWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -70,7 +77,7 @@ func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -80,8 +87,11 @@ func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1ShortCode, error) {
+	return c.FetchShortCodeWithCtx(context.TODO(), ServiceSid, Sid)
+}
+
+func (c *ApiService) FetchShortCodeWithCtx(ctx context.Context, ServiceSid string, Sid string) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -89,7 +99,7 @@ func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -123,6 +133,11 @@ func (params *ListShortCodeParams) SetLimit(Limit int) *ListShortCodeParams {
 
 // Retrieve a single page of ShortCode records from the API. Request is executed immediately.
 func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParams, pageToken, pageNumber string) (*ListShortCodeResponse, error) {
+	return c.PageShortCodeWithCtx(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ShortCode records from the API. Request is executed immediately.
+func (c *ApiService) PageShortCodeWithCtx(ctx context.Context, ServiceSid string, params *ListShortCodeParams, pageToken, pageNumber string) (*ListShortCodeResponse, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -141,7 +156,7 @@ func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParam
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +173,12 @@ func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParam
 
 // Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) ([]MessagingV1ShortCode, error) {
-	response, errors := c.StreamShortCode(ServiceSid, params)
+	return c.ListShortCodeWithCtx(context.TODO(), ServiceSid, params)
+}
+
+// Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListShortCodeWithCtx(ctx context.Context, ServiceSid string, params *ListShortCodeParams) ([]MessagingV1ShortCode, error) {
+	response, errors := c.StreamShortCodeWithCtx(ctx, ServiceSid, params)
 
 	records := make([]MessagingV1ShortCode, 0)
 	for record := range response {
@@ -174,6 +194,11 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 
 // Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodeParams) (chan MessagingV1ShortCode, chan error) {
+	return c.StreamShortCodeWithCtx(context.TODO(), ServiceSid, params)
+}
+
+// Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamShortCodeWithCtx(ctx context.Context, ServiceSid string, params *ListShortCodeParams) (chan MessagingV1ShortCode, chan error) {
 	if params == nil {
 		params = &ListShortCodeParams{}
 	}
@@ -182,19 +207,19 @@ func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodePar
 	recordChannel := make(chan MessagingV1ShortCode, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageShortCode(ServiceSid, params, "", "")
+	response, err := c.PageShortCodeWithCtx(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamShortCode(response, params, recordChannel, errorChannel)
+		go c.streamShortCode(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamShortCode(response *ListShortCodeResponse, params *ListShortCodeParams, recordChannel chan MessagingV1ShortCode, errorChannel chan error) {
+func (c *ApiService) streamShortCode(ctx context.Context, response *ListShortCodeResponse, params *ListShortCodeParams, recordChannel chan MessagingV1ShortCode, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -209,7 +234,7 @@ func (c *ApiService) streamShortCode(response *ListShortCodeResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListShortCodeResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListShortCodeResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -224,11 +249,11 @@ func (c *ApiService) streamShortCode(response *ListShortCodeResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListShortCodeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListShortCodeResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

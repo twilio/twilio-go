@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,11 @@ func (params *CreateQueueParams) SetMaxSize(MaxSize int) *CreateQueueParams {
 
 // Create a queue
 func (c *ApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010Queue, error) {
+	return c.CreateQueueWithCtx(context.TODO(), params)
+}
+
+// Create a queue
+func (c *ApiService) CreateQueueWithCtx(ctx context.Context, params *CreateQueueParams) (*ApiV2010Queue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -65,7 +71,7 @@ func (c *ApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010Queue, err
 		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -93,6 +99,11 @@ func (params *DeleteQueueParams) SetPathAccountSid(PathAccountSid string) *Delet
 
 // Remove an empty queue
 func (c *ApiService) DeleteQueue(Sid string, params *DeleteQueueParams) error {
+	return c.DeleteQueueWithCtx(context.TODO(), Sid, params)
+}
+
+// Remove an empty queue
+func (c *ApiService) DeleteQueueWithCtx(ctx context.Context, Sid string, params *DeleteQueueParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -104,7 +115,7 @@ func (c *ApiService) DeleteQueue(Sid string, params *DeleteQueueParams) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -127,6 +138,11 @@ func (params *FetchQueueParams) SetPathAccountSid(PathAccountSid string) *FetchQ
 
 // Fetch an instance of a queue identified by the QueueSid
 func (c *ApiService) FetchQueue(Sid string, params *FetchQueueParams) (*ApiV2010Queue, error) {
+	return c.FetchQueueWithCtx(context.TODO(), Sid, params)
+}
+
+// Fetch an instance of a queue identified by the QueueSid
+func (c *ApiService) FetchQueueWithCtx(ctx context.Context, Sid string, params *FetchQueueParams) (*ApiV2010Queue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -138,7 +154,7 @@ func (c *ApiService) FetchQueue(Sid string, params *FetchQueueParams) (*ApiV2010
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -178,6 +194,11 @@ func (params *ListQueueParams) SetLimit(Limit int) *ListQueueParams {
 
 // Retrieve a single page of Queue records from the API. Request is executed immediately.
 func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber string) (*ListQueueResponse, error) {
+	return c.PageQueueWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Queue records from the API. Request is executed immediately.
+func (c *ApiService) PageQueueWithCtx(ctx context.Context, params *ListQueueParams, pageToken, pageNumber string) (*ListQueueResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -200,7 +221,7 @@ func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber st
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -217,7 +238,12 @@ func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber st
 
 // Lists Queue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListQueue(params *ListQueueParams) ([]ApiV2010Queue, error) {
-	response, errors := c.StreamQueue(params)
+	return c.ListQueueWithCtx(context.TODO(), params)
+}
+
+// Lists Queue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListQueueWithCtx(ctx context.Context, params *ListQueueParams) ([]ApiV2010Queue, error) {
+	response, errors := c.StreamQueueWithCtx(ctx, params)
 
 	records := make([]ApiV2010Queue, 0)
 	for record := range response {
@@ -233,6 +259,11 @@ func (c *ApiService) ListQueue(params *ListQueueParams) ([]ApiV2010Queue, error)
 
 // Streams Queue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamQueue(params *ListQueueParams) (chan ApiV2010Queue, chan error) {
+	return c.StreamQueueWithCtx(context.TODO(), params)
+}
+
+// Streams Queue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamQueueWithCtx(ctx context.Context, params *ListQueueParams) (chan ApiV2010Queue, chan error) {
 	if params == nil {
 		params = &ListQueueParams{}
 	}
@@ -241,19 +272,19 @@ func (c *ApiService) StreamQueue(params *ListQueueParams) (chan ApiV2010Queue, c
 	recordChannel := make(chan ApiV2010Queue, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageQueue(params, "", "")
+	response, err := c.PageQueueWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamQueue(response, params, recordChannel, errorChannel)
+		go c.streamQueue(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamQueue(response *ListQueueResponse, params *ListQueueParams, recordChannel chan ApiV2010Queue, errorChannel chan error) {
+func (c *ApiService) streamQueue(ctx context.Context, response *ListQueueResponse, params *ListQueueParams, recordChannel chan ApiV2010Queue, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -268,7 +299,7 @@ func (c *ApiService) streamQueue(response *ListQueueResponse, params *ListQueueP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListQueueResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListQueueResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -283,11 +314,11 @@ func (c *ApiService) streamQueue(response *ListQueueResponse, params *ListQueueP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListQueueResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListQueueResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -326,6 +357,11 @@ func (params *UpdateQueueParams) SetMaxSize(MaxSize int) *UpdateQueueParams {
 
 // Update the queue with the new parameters
 func (c *ApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (*ApiV2010Queue, error) {
+	return c.UpdateQueueWithCtx(context.TODO(), Sid, params)
+}
+
+// Update the queue with the new parameters
+func (c *ApiService) UpdateQueueWithCtx(ctx context.Context, Sid string, params *UpdateQueueParams) (*ApiV2010Queue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -344,7 +380,7 @@ func (c *ApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (*ApiV20
 		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

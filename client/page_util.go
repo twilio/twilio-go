@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-//Takes a limit on the max number of records to read and a max pageSize and calculates the max number of pages to read.
+// Takes a limit on the max number of records to read and a max pageSize and calculates the max number of pages to read.
 func ReadLimits(pageSize *int, limit *int) int {
 	//don't care about pageSize
 	if pageSize == nil {

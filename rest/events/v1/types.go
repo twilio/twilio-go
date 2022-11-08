@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,13 +26,18 @@ import (
 
 // Fetch a specific Event Type.
 func (c *ApiService) FetchEventType(Type string) (*EventsV1EventType, error) {
+	return c.FetchEventTypeWithCtx(context.TODO(), Type)
+}
+
+// Fetch a specific Event Type.
+func (c *ApiService) FetchEventTypeWithCtx(ctx context.Context, Type string) (*EventsV1EventType, error) {
 	path := "/v1/Types/{Type}"
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -71,6 +77,11 @@ func (params *ListEventTypeParams) SetLimit(Limit int) *ListEventTypeParams {
 
 // Retrieve a single page of EventType records from the API. Request is executed immediately.
 func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken, pageNumber string) (*ListEventTypeResponse, error) {
+	return c.PageEventTypeWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of EventType records from the API. Request is executed immediately.
+func (c *ApiService) PageEventTypeWithCtx(ctx context.Context, params *ListEventTypeParams, pageToken, pageNumber string) (*ListEventTypeResponse, error) {
 	path := "/v1/Types"
 
 	data := url.Values{}
@@ -90,7 +101,7 @@ func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +118,12 @@ func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken, pageN
 
 // Lists EventType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEventType(params *ListEventTypeParams) ([]EventsV1EventType, error) {
-	response, errors := c.StreamEventType(params)
+	return c.ListEventTypeWithCtx(context.TODO(), params)
+}
+
+// Lists EventType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEventTypeWithCtx(ctx context.Context, params *ListEventTypeParams) ([]EventsV1EventType, error) {
+	response, errors := c.StreamEventTypeWithCtx(ctx, params)
 
 	records := make([]EventsV1EventType, 0)
 	for record := range response {
@@ -123,6 +139,11 @@ func (c *ApiService) ListEventType(params *ListEventTypeParams) ([]EventsV1Event
 
 // Streams EventType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEventType(params *ListEventTypeParams) (chan EventsV1EventType, chan error) {
+	return c.StreamEventTypeWithCtx(context.TODO(), params)
+}
+
+// Streams EventType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEventTypeWithCtx(ctx context.Context, params *ListEventTypeParams) (chan EventsV1EventType, chan error) {
 	if params == nil {
 		params = &ListEventTypeParams{}
 	}
@@ -131,19 +152,19 @@ func (c *ApiService) StreamEventType(params *ListEventTypeParams) (chan EventsV1
 	recordChannel := make(chan EventsV1EventType, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEventType(params, "", "")
+	response, err := c.PageEventTypeWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEventType(response, params, recordChannel, errorChannel)
+		go c.streamEventType(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEventType(response *ListEventTypeResponse, params *ListEventTypeParams, recordChannel chan EventsV1EventType, errorChannel chan error) {
+func (c *ApiService) streamEventType(ctx context.Context, response *ListEventTypeResponse, params *ListEventTypeParams, recordChannel chan EventsV1EventType, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -158,7 +179,7 @@ func (c *ApiService) streamEventType(response *ListEventTypeResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListEventTypeResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListEventTypeResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -173,11 +194,11 @@ func (c *ApiService) streamEventType(response *ListEventTypeResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEventTypeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEventTypeResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

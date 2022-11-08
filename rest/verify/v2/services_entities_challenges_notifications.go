@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -34,6 +35,11 @@ func (params *CreateNotificationParams) SetTtl(Ttl int) *CreateNotificationParam
 
 // Create a new Notification for the corresponding Challenge
 func (c *ApiService) CreateNotification(ServiceSid string, Identity string, ChallengeSid string, params *CreateNotificationParams) (*VerifyV2Notification, error) {
+	return c.CreateNotificationWithCtx(context.TODO(), ServiceSid, Identity, ChallengeSid, params)
+}
+
+// Create a new Notification for the corresponding Challenge
+func (c *ApiService) CreateNotificationWithCtx(ctx context.Context, ServiceSid string, Identity string, ChallengeSid string, params *CreateNotificationParams) (*VerifyV2Notification, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -46,7 +52,7 @@ func (c *ApiService) CreateNotification(ServiceSid string, Identity string, Chal
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

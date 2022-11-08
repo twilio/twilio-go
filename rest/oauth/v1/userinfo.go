@@ -15,18 +15,24 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
 
 // Retrieves the consented UserInfo and other claims about the logged-in subject (end-user).
 func (c *ApiService) FetchUserInfo() (*OauthV1UserInfo, error) {
+	return c.FetchUserInfoWithCtx(context.TODO())
+}
+
+// Retrieves the consented UserInfo and other claims about the logged-in subject (end-user).
+func (c *ApiService) FetchUserInfoWithCtx(ctx context.Context) (*OauthV1UserInfo, error) {
 	path := "/v1/userinfo"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

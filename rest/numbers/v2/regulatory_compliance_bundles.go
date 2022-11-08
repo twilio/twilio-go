@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -73,6 +74,11 @@ func (params *CreateBundleParams) SetNumberType(NumberType string) *CreateBundle
 
 // Create a new Bundle.
 func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle, error) {
+	return c.CreateBundleWithCtx(context.TODO(), params)
+}
+
+// Create a new Bundle.
+func (c *ApiService) CreateBundleWithCtx(ctx context.Context, params *CreateBundleParams) (*NumbersV2Bundle, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
@@ -100,7 +106,7 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle,
 		data.Set("NumberType", *params.NumberType)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -117,13 +123,18 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle,
 
 // Delete a specific Bundle.
 func (c *ApiService) DeleteBundle(Sid string) error {
+	return c.DeleteBundleWithCtx(context.TODO(), Sid)
+}
+
+// Delete a specific Bundle.
+func (c *ApiService) DeleteBundleWithCtx(ctx context.Context, Sid string) error {
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -135,13 +146,18 @@ func (c *ApiService) DeleteBundle(Sid string) error {
 
 // Fetch a specific Bundle instance.
 func (c *ApiService) FetchBundle(Sid string) (*NumbersV2Bundle, error) {
+	return c.FetchBundleWithCtx(context.TODO(), Sid)
+}
+
+// Fetch a specific Bundle instance.
+func (c *ApiService) FetchBundleWithCtx(ctx context.Context, Sid string) (*NumbersV2Bundle, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -241,6 +257,11 @@ func (params *ListBundleParams) SetLimit(Limit int) *ListBundleParams {
 
 // Retrieve a single page of Bundle records from the API. Request is executed immediately.
 func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber string) (*ListBundleResponse, error) {
+	return c.PageBundleWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Bundle records from the API. Request is executed immediately.
+func (c *ApiService) PageBundleWithCtx(ctx context.Context, params *ListBundleParams, pageToken, pageNumber string) (*ListBundleResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
@@ -290,7 +311,7 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -307,7 +328,12 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 
 // Lists Bundle records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBundle(params *ListBundleParams) ([]NumbersV2Bundle, error) {
-	response, errors := c.StreamBundle(params)
+	return c.ListBundleWithCtx(context.TODO(), params)
+}
+
+// Lists Bundle records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBundleWithCtx(ctx context.Context, params *ListBundleParams) ([]NumbersV2Bundle, error) {
+	response, errors := c.StreamBundleWithCtx(ctx, params)
 
 	records := make([]NumbersV2Bundle, 0)
 	for record := range response {
@@ -323,6 +349,11 @@ func (c *ApiService) ListBundle(params *ListBundleParams) ([]NumbersV2Bundle, er
 
 // Streams Bundle records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2Bundle, chan error) {
+	return c.StreamBundleWithCtx(context.TODO(), params)
+}
+
+// Streams Bundle records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBundleWithCtx(ctx context.Context, params *ListBundleParams) (chan NumbersV2Bundle, chan error) {
 	if params == nil {
 		params = &ListBundleParams{}
 	}
@@ -331,19 +362,19 @@ func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2Bundl
 	recordChannel := make(chan NumbersV2Bundle, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageBundle(params, "", "")
+	response, err := c.PageBundleWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamBundle(response, params, recordChannel, errorChannel)
+		go c.streamBundle(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBundle(response *ListBundleResponse, params *ListBundleParams, recordChannel chan NumbersV2Bundle, errorChannel chan error) {
+func (c *ApiService) streamBundle(ctx context.Context, response *ListBundleResponse, params *ListBundleParams, recordChannel chan NumbersV2Bundle, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -358,7 +389,7 @@ func (c *ApiService) streamBundle(response *ListBundleResponse, params *ListBund
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListBundleResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListBundleResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -373,11 +404,11 @@ func (c *ApiService) streamBundle(response *ListBundleResponse, params *ListBund
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListBundleResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListBundleResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -422,6 +453,11 @@ func (params *UpdateBundleParams) SetEmail(Email string) *UpdateBundleParams {
 
 // Updates a Bundle in an account.
 func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*NumbersV2Bundle, error) {
+	return c.UpdateBundleWithCtx(context.TODO(), Sid, params)
+}
+
+// Updates a Bundle in an account.
+func (c *ApiService) UpdateBundleWithCtx(ctx context.Context, Sid string, params *UpdateBundleParams) (*NumbersV2Bundle, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -441,7 +477,7 @@ func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*Numb
 		data.Set("Email", *params.Email)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

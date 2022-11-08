@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -94,8 +95,11 @@ func (params *CreateRatePlanParams) SetInternationalRoamingDataLimit(Internation
 	return params
 }
 
-//
 func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
+	return c.CreateRatePlanWithCtx(context.TODO(), params)
+}
+
+func (c *ApiService) CreateRatePlanWithCtx(ctx context.Context, params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans"
 
 	data := url.Values{}
@@ -137,7 +141,7 @@ func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1Ra
 		data.Set("InternationalRoamingDataLimit", fmt.Sprint(*params.InternationalRoamingDataLimit))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -152,15 +156,18 @@ func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1Ra
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteRatePlan(Sid string) error {
+	return c.DeleteRatePlanWithCtx(context.TODO(), Sid)
+}
+
+func (c *ApiService) DeleteRatePlanWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -170,15 +177,18 @@ func (c *ApiService) DeleteRatePlan(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, error) {
+	return c.FetchRatePlanWithCtx(context.TODO(), Sid)
+}
+
+func (c *ApiService) FetchRatePlanWithCtx(ctx context.Context, Sid string) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -212,6 +222,11 @@ func (params *ListRatePlanParams) SetLimit(Limit int) *ListRatePlanParams {
 
 // Retrieve a single page of RatePlan records from the API. Request is executed immediately.
 func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken, pageNumber string) (*ListRatePlanResponse, error) {
+	return c.PageRatePlanWithCtx(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of RatePlan records from the API. Request is executed immediately.
+func (c *ApiService) PageRatePlanWithCtx(ctx context.Context, params *ListRatePlanParams, pageToken, pageNumber string) (*ListRatePlanResponse, error) {
 	path := "/v1/RatePlans"
 
 	data := url.Values{}
@@ -228,7 +243,7 @@ func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken, pageNum
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -245,7 +260,12 @@ func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken, pageNum
 
 // Lists RatePlan records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRatePlan(params *ListRatePlanParams) ([]WirelessV1RatePlan, error) {
-	response, errors := c.StreamRatePlan(params)
+	return c.ListRatePlanWithCtx(context.TODO(), params)
+}
+
+// Lists RatePlan records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRatePlanWithCtx(ctx context.Context, params *ListRatePlanParams) ([]WirelessV1RatePlan, error) {
+	response, errors := c.StreamRatePlanWithCtx(ctx, params)
 
 	records := make([]WirelessV1RatePlan, 0)
 	for record := range response {
@@ -261,6 +281,11 @@ func (c *ApiService) ListRatePlan(params *ListRatePlanParams) ([]WirelessV1RateP
 
 // Streams RatePlan records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRatePlan(params *ListRatePlanParams) (chan WirelessV1RatePlan, chan error) {
+	return c.StreamRatePlanWithCtx(context.TODO(), params)
+}
+
+// Streams RatePlan records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRatePlanWithCtx(ctx context.Context, params *ListRatePlanParams) (chan WirelessV1RatePlan, chan error) {
 	if params == nil {
 		params = &ListRatePlanParams{}
 	}
@@ -269,19 +294,19 @@ func (c *ApiService) StreamRatePlan(params *ListRatePlanParams) (chan WirelessV1
 	recordChannel := make(chan WirelessV1RatePlan, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRatePlan(params, "", "")
+	response, err := c.PageRatePlanWithCtx(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRatePlan(response, params, recordChannel, errorChannel)
+		go c.streamRatePlan(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRatePlan(response *ListRatePlanResponse, params *ListRatePlanParams, recordChannel chan WirelessV1RatePlan, errorChannel chan error) {
+func (c *ApiService) streamRatePlan(ctx context.Context, response *ListRatePlanResponse, params *ListRatePlanParams, recordChannel chan WirelessV1RatePlan, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -296,7 +321,7 @@ func (c *ApiService) streamRatePlan(response *ListRatePlanResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRatePlanResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListRatePlanResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -311,11 +336,11 @@ func (c *ApiService) streamRatePlan(response *ListRatePlanResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRatePlanResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRatePlanResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -346,8 +371,11 @@ func (params *UpdateRatePlanParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
+	return c.UpdateRatePlanWithCtx(context.TODO(), Sid, params)
+}
+
+func (c *ApiService) UpdateRatePlanWithCtx(ctx context.Context, Sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -361,7 +389,7 @@ func (c *ApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

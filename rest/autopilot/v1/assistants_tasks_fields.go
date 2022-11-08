@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -40,8 +41,11 @@ func (params *CreateFieldParams) SetUniqueName(UniqueName string) *CreateFieldPa
 	return params
 }
 
-//
 func (c *ApiService) CreateField(AssistantSid string, TaskSid string, params *CreateFieldParams) (*AutopilotV1Field, error) {
+	return c.CreateFieldWithCtx(context.TODO(), AssistantSid, TaskSid, params)
+}
+
+func (c *ApiService) CreateFieldWithCtx(ctx context.Context, AssistantSid string, TaskSid string, params *CreateFieldParams) (*AutopilotV1Field, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -56,7 +60,7 @@ func (c *ApiService) CreateField(AssistantSid string, TaskSid string, params *Cr
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -71,8 +75,11 @@ func (c *ApiService) CreateField(AssistantSid string, TaskSid string, params *Cr
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteField(AssistantSid string, TaskSid string, Sid string) error {
+	return c.DeleteFieldWithCtx(context.TODO(), AssistantSid, TaskSid, Sid)
+}
+
+func (c *ApiService) DeleteFieldWithCtx(ctx context.Context, AssistantSid string, TaskSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -81,7 +88,7 @@ func (c *ApiService) DeleteField(AssistantSid string, TaskSid string, Sid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -91,8 +98,11 @@ func (c *ApiService) DeleteField(AssistantSid string, TaskSid string, Sid string
 	return nil
 }
 
-//
 func (c *ApiService) FetchField(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1Field, error) {
+	return c.FetchFieldWithCtx(context.TODO(), AssistantSid, TaskSid, Sid)
+}
+
+func (c *ApiService) FetchFieldWithCtx(ctx context.Context, AssistantSid string, TaskSid string, Sid string) (*AutopilotV1Field, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -101,7 +111,7 @@ func (c *ApiService) FetchField(AssistantSid string, TaskSid string, Sid string)
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -135,6 +145,11 @@ func (params *ListFieldParams) SetLimit(Limit int) *ListFieldParams {
 
 // Retrieve a single page of Field records from the API. Request is executed immediately.
 func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *ListFieldParams, pageToken, pageNumber string) (*ListFieldResponse, error) {
+	return c.PageFieldWithCtx(context.TODO(), AssistantSid, TaskSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Field records from the API. Request is executed immediately.
+func (c *ApiService) PageFieldWithCtx(ctx context.Context, AssistantSid string, TaskSid string, params *ListFieldParams, pageToken, pageNumber string) (*ListFieldResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -154,7 +169,7 @@ func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *List
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +186,12 @@ func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *List
 
 // Lists Field records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *ListFieldParams) ([]AutopilotV1Field, error) {
-	response, errors := c.StreamField(AssistantSid, TaskSid, params)
+	return c.ListFieldWithCtx(context.TODO(), AssistantSid, TaskSid, params)
+}
+
+// Lists Field records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFieldWithCtx(ctx context.Context, AssistantSid string, TaskSid string, params *ListFieldParams) ([]AutopilotV1Field, error) {
+	response, errors := c.StreamFieldWithCtx(ctx, AssistantSid, TaskSid, params)
 
 	records := make([]AutopilotV1Field, 0)
 	for record := range response {
@@ -187,6 +207,11 @@ func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *List
 
 // Streams Field records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamField(AssistantSid string, TaskSid string, params *ListFieldParams) (chan AutopilotV1Field, chan error) {
+	return c.StreamFieldWithCtx(context.TODO(), AssistantSid, TaskSid, params)
+}
+
+// Streams Field records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFieldWithCtx(ctx context.Context, AssistantSid string, TaskSid string, params *ListFieldParams) (chan AutopilotV1Field, chan error) {
 	if params == nil {
 		params = &ListFieldParams{}
 	}
@@ -195,19 +220,19 @@ func (c *ApiService) StreamField(AssistantSid string, TaskSid string, params *Li
 	recordChannel := make(chan AutopilotV1Field, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageField(AssistantSid, TaskSid, params, "", "")
+	response, err := c.PageFieldWithCtx(ctx, AssistantSid, TaskSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamField(response, params, recordChannel, errorChannel)
+		go c.streamField(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamField(response *ListFieldResponse, params *ListFieldParams, recordChannel chan AutopilotV1Field, errorChannel chan error) {
+func (c *ApiService) streamField(ctx context.Context, response *ListFieldResponse, params *ListFieldParams, recordChannel chan AutopilotV1Field, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -222,7 +247,7 @@ func (c *ApiService) streamField(response *ListFieldResponse, params *ListFieldP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListFieldResponse)
+		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListFieldResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -237,11 +262,11 @@ func (c *ApiService) streamField(response *ListFieldResponse, params *ListFieldP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFieldResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFieldResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
