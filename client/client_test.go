@@ -1,7 +1,6 @@
 package client_test
 
 import (
-	"context"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -208,33 +207,6 @@ func TestClient_SetTimeoutTimesOut(t *testing.T) {
 	c := NewClient("user", "pass")
 	c.SetTimeout(10 * time.Microsecond)
 	_, err := c.SendRequest("GET", timeoutServer.URL, nil, nil) //nolint:bodyclose
-	assert.Error(t, err)
-}
-
-func TestClient_SetTimeoutTimesOutViaContext(t *testing.T) {
-	handlerDelay := 100 * time.Microsecond
-	clientTimeout := 10 * time.Microsecond
-	assert.True(t, clientTimeout < handlerDelay)
-
-	timeoutServer := httptest.NewServer(http.HandlerFunc(
-		func(writer http.ResponseWriter, _ *http.Request) {
-			d := map[string]interface{}{
-				"response": "ok",
-			}
-			time.Sleep(100 * time.Microsecond)
-			encoder := json.NewEncoder(writer)
-			err := encoder.Encode(&d)
-			if err != nil {
-				t.Error(err)
-			}
-			writer.WriteHeader(http.StatusOK)
-		}))
-	defer timeoutServer.Close()
-
-	c := NewClient("user", "pass")
-	ctx, cancel := context.WithTimeout(context.TODO(), 10*time.Microsecond)
-	defer cancel()
-	_, err := c.SendRequestWithCtx(ctx, "GET", timeoutServer.URL, nil, nil) //nolint:bodyclose
 	assert.Error(t, err)
 }
 

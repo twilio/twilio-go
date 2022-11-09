@@ -2,7 +2,6 @@
 package client
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -45,7 +44,7 @@ func defaultHTTPClient() *http.Client {
 	}
 }
 
-func (c *Client) basicAuth() (username, password string) {
+func (c *Client) basicAuth() (string, string) {
 	return c.Credentials.Username, c.Credentials.Password
 }
 
@@ -91,12 +90,6 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 // SendRequest verifies, constructs, and authorizes an HTTP request.
 func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}) (*http.Response, error) {
-	return c.SendRequestWithCtx(context.TODO(), method, rawURL, data, headers)
-}
-
-// SendRequestWithCtx verifies, constructs, and authorizes an HTTP request.
-func (c *Client) SendRequestWithCtx(ctx context.Context, method string, rawURL string, data url.Values,
-	headers map[string]interface{}) (*http.Response, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
 		return nil, err
@@ -119,7 +112,7 @@ func (c *Client) SendRequestWithCtx(ctx context.Context, method string, rawURL s
 		valueReader = strings.NewReader(data.Encode())
 	}
 
-	req, err := http.NewRequestWithContext(ctx, method, u.String(), valueReader)
+	req, err := http.NewRequest(method, u.String(), valueReader)
 	if err != nil {
 		return nil, err
 	}
