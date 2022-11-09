@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -37,11 +36,6 @@ func (params *CreateItemAssignmentParams) SetObjectSid(ObjectSid string) *Create
 
 // Create a new Assigned Item.
 func (c *ApiService) CreateItemAssignment(BundleSid string, params *CreateItemAssignmentParams) (*NumbersV2ItemAssignment, error) {
-	return c.CreateItemAssignmentWithCtx(context.TODO(), BundleSid, params)
-}
-
-// Create a new Assigned Item.
-func (c *ApiService) CreateItemAssignmentWithCtx(ctx context.Context, BundleSid string, params *CreateItemAssignmentParams) (*NumbersV2ItemAssignment, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
@@ -52,7 +46,7 @@ func (c *ApiService) CreateItemAssignmentWithCtx(ctx context.Context, BundleSid 
 		data.Set("ObjectSid", *params.ObjectSid)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -69,11 +63,6 @@ func (c *ApiService) CreateItemAssignmentWithCtx(ctx context.Context, BundleSid 
 
 // Remove an Assignment Item Instance.
 func (c *ApiService) DeleteItemAssignment(BundleSid string, Sid string) error {
-	return c.DeleteItemAssignmentWithCtx(context.TODO(), BundleSid, Sid)
-}
-
-// Remove an Assignment Item Instance.
-func (c *ApiService) DeleteItemAssignmentWithCtx(ctx context.Context, BundleSid string, Sid string) error {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -81,7 +70,7 @@ func (c *ApiService) DeleteItemAssignmentWithCtx(ctx context.Context, BundleSid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -93,11 +82,6 @@ func (c *ApiService) DeleteItemAssignmentWithCtx(ctx context.Context, BundleSid 
 
 // Fetch specific Assigned Item Instance.
 func (c *ApiService) FetchItemAssignment(BundleSid string, Sid string) (*NumbersV2ItemAssignment, error) {
-	return c.FetchItemAssignmentWithCtx(context.TODO(), BundleSid, Sid)
-}
-
-// Fetch specific Assigned Item Instance.
-func (c *ApiService) FetchItemAssignmentWithCtx(ctx context.Context, BundleSid string, Sid string) (*NumbersV2ItemAssignment, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -105,7 +89,7 @@ func (c *ApiService) FetchItemAssignmentWithCtx(ctx context.Context, BundleSid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -139,11 +123,6 @@ func (params *ListItemAssignmentParams) SetLimit(Limit int) *ListItemAssignmentP
 
 // Retrieve a single page of ItemAssignment records from the API. Request is executed immediately.
 func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssignmentParams, pageToken, pageNumber string) (*ListItemAssignmentResponse, error) {
-	return c.PageItemAssignmentWithCtx(context.TODO(), BundleSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of ItemAssignment records from the API. Request is executed immediately.
-func (c *ApiService) PageItemAssignmentWithCtx(ctx context.Context, BundleSid string, params *ListItemAssignmentParams, pageToken, pageNumber string) (*ListItemAssignmentResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
 
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
@@ -162,7 +141,7 @@ func (c *ApiService) PageItemAssignmentWithCtx(ctx context.Context, BundleSid st
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -179,12 +158,7 @@ func (c *ApiService) PageItemAssignmentWithCtx(ctx context.Context, BundleSid st
 
 // Lists ItemAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssignmentParams) ([]NumbersV2ItemAssignment, error) {
-	return c.ListItemAssignmentWithCtx(context.TODO(), BundleSid, params)
-}
-
-// Lists ItemAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListItemAssignmentWithCtx(ctx context.Context, BundleSid string, params *ListItemAssignmentParams) ([]NumbersV2ItemAssignment, error) {
-	response, errors := c.StreamItemAssignmentWithCtx(ctx, BundleSid, params)
+	response, errors := c.StreamItemAssignment(BundleSid, params)
 
 	records := make([]NumbersV2ItemAssignment, 0)
 	for record := range response {
@@ -200,11 +174,6 @@ func (c *ApiService) ListItemAssignmentWithCtx(ctx context.Context, BundleSid st
 
 // Streams ItemAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssignmentParams) (chan NumbersV2ItemAssignment, chan error) {
-	return c.StreamItemAssignmentWithCtx(context.TODO(), BundleSid, params)
-}
-
-// Streams ItemAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamItemAssignmentWithCtx(ctx context.Context, BundleSid string, params *ListItemAssignmentParams) (chan NumbersV2ItemAssignment, chan error) {
 	if params == nil {
 		params = &ListItemAssignmentParams{}
 	}
@@ -213,19 +182,19 @@ func (c *ApiService) StreamItemAssignmentWithCtx(ctx context.Context, BundleSid 
 	recordChannel := make(chan NumbersV2ItemAssignment, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageItemAssignmentWithCtx(ctx, BundleSid, params, "", "")
+	response, err := c.PageItemAssignment(BundleSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamItemAssignment(ctx, response, params, recordChannel, errorChannel)
+		go c.streamItemAssignment(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamItemAssignment(ctx context.Context, response *ListItemAssignmentResponse, params *ListItemAssignmentParams, recordChannel chan NumbersV2ItemAssignment, errorChannel chan error) {
+func (c *ApiService) streamItemAssignment(response *ListItemAssignmentResponse, params *ListItemAssignmentParams, recordChannel chan NumbersV2ItemAssignment, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -240,7 +209,7 @@ func (c *ApiService) streamItemAssignment(ctx context.Context, response *ListIte
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListItemAssignmentResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListItemAssignmentResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -255,11 +224,11 @@ func (c *ApiService) streamItemAssignment(ctx context.Context, response *ListIte
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListItemAssignmentResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListItemAssignmentResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

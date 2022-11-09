@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,18 +25,13 @@ import (
 
 // Fetch specific Policy Instance.
 func (c *ApiService) FetchPolicies(Sid string) (*TrusthubV1Policies, error) {
-	return c.FetchPoliciesWithCtx(context.TODO(), Sid)
-}
-
-// Fetch specific Policy Instance.
-func (c *ApiService) FetchPoliciesWithCtx(ctx context.Context, Sid string) (*TrusthubV1Policies, error) {
 	path := "/v1/Policies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -71,11 +65,6 @@ func (params *ListPoliciesParams) SetLimit(Limit int) *ListPoliciesParams {
 
 // Retrieve a single page of Policies records from the API. Request is executed immediately.
 func (c *ApiService) PagePolicies(params *ListPoliciesParams, pageToken, pageNumber string) (*ListPoliciesResponse, error) {
-	return c.PagePoliciesWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Policies records from the API. Request is executed immediately.
-func (c *ApiService) PagePoliciesWithCtx(ctx context.Context, params *ListPoliciesParams, pageToken, pageNumber string) (*ListPoliciesResponse, error) {
 	path := "/v1/Policies"
 
 	data := url.Values{}
@@ -92,7 +81,7 @@ func (c *ApiService) PagePoliciesWithCtx(ctx context.Context, params *ListPolici
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -109,12 +98,7 @@ func (c *ApiService) PagePoliciesWithCtx(ctx context.Context, params *ListPolici
 
 // Lists Policies records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPolicies(params *ListPoliciesParams) ([]TrusthubV1Policies, error) {
-	return c.ListPoliciesWithCtx(context.TODO(), params)
-}
-
-// Lists Policies records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListPoliciesWithCtx(ctx context.Context, params *ListPoliciesParams) ([]TrusthubV1Policies, error) {
-	response, errors := c.StreamPoliciesWithCtx(ctx, params)
+	response, errors := c.StreamPolicies(params)
 
 	records := make([]TrusthubV1Policies, 0)
 	for record := range response {
@@ -130,11 +114,6 @@ func (c *ApiService) ListPoliciesWithCtx(ctx context.Context, params *ListPolici
 
 // Streams Policies records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamPolicies(params *ListPoliciesParams) (chan TrusthubV1Policies, chan error) {
-	return c.StreamPoliciesWithCtx(context.TODO(), params)
-}
-
-// Streams Policies records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPoliciesWithCtx(ctx context.Context, params *ListPoliciesParams) (chan TrusthubV1Policies, chan error) {
 	if params == nil {
 		params = &ListPoliciesParams{}
 	}
@@ -143,19 +122,19 @@ func (c *ApiService) StreamPoliciesWithCtx(ctx context.Context, params *ListPoli
 	recordChannel := make(chan TrusthubV1Policies, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PagePoliciesWithCtx(ctx, params, "", "")
+	response, err := c.PagePolicies(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamPolicies(ctx, response, params, recordChannel, errorChannel)
+		go c.streamPolicies(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPolicies(ctx context.Context, response *ListPoliciesResponse, params *ListPoliciesParams, recordChannel chan TrusthubV1Policies, errorChannel chan error) {
+func (c *ApiService) streamPolicies(response *ListPoliciesResponse, params *ListPoliciesParams, recordChannel chan TrusthubV1Policies, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -170,7 +149,7 @@ func (c *ApiService) streamPolicies(ctx context.Context, response *ListPoliciesR
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListPoliciesResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListPoliciesResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -185,11 +164,11 @@ func (c *ApiService) streamPolicies(ctx context.Context, response *ListPoliciesR
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListPoliciesResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListPoliciesResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

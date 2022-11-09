@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -33,11 +32,6 @@ func (params *CreateDialingPermissionsCountryBulkUpdateParams) SetUpdateRequest(
 
 // Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 func (c *ApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDialingPermissionsCountryBulkUpdateParams) (*VoiceV1DialingPermissionsCountryBulkUpdate, error) {
-	return c.CreateDialingPermissionsCountryBulkUpdateWithCtx(context.TODO(), params)
-}
-
-// Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-func (c *ApiService) CreateDialingPermissionsCountryBulkUpdateWithCtx(ctx context.Context, params *CreateDialingPermissionsCountryBulkUpdateParams) (*VoiceV1DialingPermissionsCountryBulkUpdate, error) {
 	path := "/v1/DialingPermissions/BulkCountryUpdates"
 
 	data := url.Values{}
@@ -47,7 +41,7 @@ func (c *ApiService) CreateDialingPermissionsCountryBulkUpdateWithCtx(ctx contex
 		data.Set("UpdateRequest", *params.UpdateRequest)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

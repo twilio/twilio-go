@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,18 +25,13 @@ import (
 
 // Fetch a specific Supporting Document Type Instance.
 func (c *ApiService) FetchSupportingDocumentType(Sid string) (*NumbersV2SupportingDocumentType, error) {
-	return c.FetchSupportingDocumentTypeWithCtx(context.TODO(), Sid)
-}
-
-// Fetch a specific Supporting Document Type Instance.
-func (c *ApiService) FetchSupportingDocumentTypeWithCtx(ctx context.Context, Sid string) (*NumbersV2SupportingDocumentType, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -71,11 +65,6 @@ func (params *ListSupportingDocumentTypeParams) SetLimit(Limit int) *ListSupport
 
 // Retrieve a single page of SupportingDocumentType records from the API. Request is executed immediately.
 func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTypeParams, pageToken, pageNumber string) (*ListSupportingDocumentTypeResponse, error) {
-	return c.PageSupportingDocumentTypeWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of SupportingDocumentType records from the API. Request is executed immediately.
-func (c *ApiService) PageSupportingDocumentTypeWithCtx(ctx context.Context, params *ListSupportingDocumentTypeParams, pageToken, pageNumber string) (*ListSupportingDocumentTypeResponse, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes"
 
 	data := url.Values{}
@@ -92,7 +81,7 @@ func (c *ApiService) PageSupportingDocumentTypeWithCtx(ctx context.Context, para
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -109,12 +98,7 @@ func (c *ApiService) PageSupportingDocumentTypeWithCtx(ctx context.Context, para
 
 // Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) ([]NumbersV2SupportingDocumentType, error) {
-	return c.ListSupportingDocumentTypeWithCtx(context.TODO(), params)
-}
-
-// Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSupportingDocumentTypeWithCtx(ctx context.Context, params *ListSupportingDocumentTypeParams) ([]NumbersV2SupportingDocumentType, error) {
-	response, errors := c.StreamSupportingDocumentTypeWithCtx(ctx, params)
+	response, errors := c.StreamSupportingDocumentType(params)
 
 	records := make([]NumbersV2SupportingDocumentType, 0)
 	for record := range response {
@@ -130,11 +114,6 @@ func (c *ApiService) ListSupportingDocumentTypeWithCtx(ctx context.Context, para
 
 // Streams SupportingDocumentType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocumentTypeParams) (chan NumbersV2SupportingDocumentType, chan error) {
-	return c.StreamSupportingDocumentTypeWithCtx(context.TODO(), params)
-}
-
-// Streams SupportingDocumentType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSupportingDocumentTypeWithCtx(ctx context.Context, params *ListSupportingDocumentTypeParams) (chan NumbersV2SupportingDocumentType, chan error) {
 	if params == nil {
 		params = &ListSupportingDocumentTypeParams{}
 	}
@@ -143,19 +122,19 @@ func (c *ApiService) StreamSupportingDocumentTypeWithCtx(ctx context.Context, pa
 	recordChannel := make(chan NumbersV2SupportingDocumentType, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSupportingDocumentTypeWithCtx(ctx, params, "", "")
+	response, err := c.PageSupportingDocumentType(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSupportingDocumentType(ctx, response, params, recordChannel, errorChannel)
+		go c.streamSupportingDocumentType(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSupportingDocumentType(ctx context.Context, response *ListSupportingDocumentTypeResponse, params *ListSupportingDocumentTypeParams, recordChannel chan NumbersV2SupportingDocumentType, errorChannel chan error) {
+func (c *ApiService) streamSupportingDocumentType(response *ListSupportingDocumentTypeResponse, params *ListSupportingDocumentTypeParams, recordChannel chan NumbersV2SupportingDocumentType, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -170,7 +149,7 @@ func (c *ApiService) streamSupportingDocumentType(ctx context.Context, response 
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSupportingDocumentTypeResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSupportingDocumentTypeResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -185,11 +164,11 @@ func (c *ApiService) streamSupportingDocumentType(ctx context.Context, response 
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSupportingDocumentTypeResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSupportingDocumentTypeResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

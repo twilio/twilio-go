@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -84,11 +83,8 @@ func (params *CreateCompositionParams) SetTrim(Trim bool) *CreateCompositionPara
 	return params
 }
 
+//
 func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV1Composition, error) {
-	return c.CreateCompositionWithCtx(context.TODO(), params)
-}
-
-func (c *ApiService) CreateCompositionWithCtx(ctx context.Context, params *CreateCompositionParams) (*VideoV1Composition, error) {
 	path := "/v1/Compositions"
 
 	data := url.Values{}
@@ -132,7 +128,7 @@ func (c *ApiService) CreateCompositionWithCtx(ctx context.Context, params *Creat
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -149,18 +145,13 @@ func (c *ApiService) CreateCompositionWithCtx(ctx context.Context, params *Creat
 
 // Delete a Recording Composition resource identified by a Composition SID.
 func (c *ApiService) DeleteComposition(Sid string) error {
-	return c.DeleteCompositionWithCtx(context.TODO(), Sid)
-}
-
-// Delete a Recording Composition resource identified by a Composition SID.
-func (c *ApiService) DeleteCompositionWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Compositions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -172,18 +163,13 @@ func (c *ApiService) DeleteCompositionWithCtx(ctx context.Context, Sid string) e
 
 // Returns a single Composition resource identified by a Composition SID.
 func (c *ApiService) FetchComposition(Sid string) (*VideoV1Composition, error) {
-	return c.FetchCompositionWithCtx(context.TODO(), Sid)
-}
-
-// Returns a single Composition resource identified by a Composition SID.
-func (c *ApiService) FetchCompositionWithCtx(ctx context.Context, Sid string) (*VideoV1Composition, error) {
 	path := "/v1/Compositions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -241,11 +227,6 @@ func (params *ListCompositionParams) SetLimit(Limit int) *ListCompositionParams 
 
 // Retrieve a single page of Composition records from the API. Request is executed immediately.
 func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken, pageNumber string) (*ListCompositionResponse, error) {
-	return c.PageCompositionWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Composition records from the API. Request is executed immediately.
-func (c *ApiService) PageCompositionWithCtx(ctx context.Context, params *ListCompositionParams, pageToken, pageNumber string) (*ListCompositionResponse, error) {
 	path := "/v1/Compositions"
 
 	data := url.Values{}
@@ -274,7 +255,7 @@ func (c *ApiService) PageCompositionWithCtx(ctx context.Context, params *ListCom
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -291,12 +272,7 @@ func (c *ApiService) PageCompositionWithCtx(ctx context.Context, params *ListCom
 
 // Lists Composition records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListComposition(params *ListCompositionParams) ([]VideoV1Composition, error) {
-	return c.ListCompositionWithCtx(context.TODO(), params)
-}
-
-// Lists Composition records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCompositionWithCtx(ctx context.Context, params *ListCompositionParams) ([]VideoV1Composition, error) {
-	response, errors := c.StreamCompositionWithCtx(ctx, params)
+	response, errors := c.StreamComposition(params)
 
 	records := make([]VideoV1Composition, 0)
 	for record := range response {
@@ -312,11 +288,6 @@ func (c *ApiService) ListCompositionWithCtx(ctx context.Context, params *ListCom
 
 // Streams Composition records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamComposition(params *ListCompositionParams) (chan VideoV1Composition, chan error) {
-	return c.StreamCompositionWithCtx(context.TODO(), params)
-}
-
-// Streams Composition records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCompositionWithCtx(ctx context.Context, params *ListCompositionParams) (chan VideoV1Composition, chan error) {
 	if params == nil {
 		params = &ListCompositionParams{}
 	}
@@ -325,19 +296,19 @@ func (c *ApiService) StreamCompositionWithCtx(ctx context.Context, params *ListC
 	recordChannel := make(chan VideoV1Composition, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCompositionWithCtx(ctx, params, "", "")
+	response, err := c.PageComposition(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamComposition(ctx, response, params, recordChannel, errorChannel)
+		go c.streamComposition(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamComposition(ctx context.Context, response *ListCompositionResponse, params *ListCompositionParams, recordChannel chan VideoV1Composition, errorChannel chan error) {
+func (c *ApiService) streamComposition(response *ListCompositionResponse, params *ListCompositionParams, recordChannel chan VideoV1Composition, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -352,7 +323,7 @@ func (c *ApiService) streamComposition(ctx context.Context, response *ListCompos
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCompositionResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCompositionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -367,11 +338,11 @@ func (c *ApiService) streamComposition(ctx context.Context, response *ListCompos
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCompositionResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCompositionResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

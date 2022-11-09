@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -27,11 +26,6 @@ import (
 
 // Delete a specific User Conversation.
 func (c *ApiService) DeleteServiceUserConversation(ChatServiceSid string, UserSid string, ConversationSid string) error {
-	return c.DeleteServiceUserConversationWithCtx(context.TODO(), ChatServiceSid, UserSid, ConversationSid)
-}
-
-// Delete a specific User Conversation.
-func (c *ApiService) DeleteServiceUserConversationWithCtx(ctx context.Context, ChatServiceSid string, UserSid string, ConversationSid string) error {
 	path := "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -40,7 +34,7 @@ func (c *ApiService) DeleteServiceUserConversationWithCtx(ctx context.Context, C
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -52,11 +46,6 @@ func (c *ApiService) DeleteServiceUserConversationWithCtx(ctx context.Context, C
 
 // Fetch a specific User Conversation.
 func (c *ApiService) FetchServiceUserConversation(ChatServiceSid string, UserSid string, ConversationSid string) (*ConversationsV1ServiceUserConversation, error) {
-	return c.FetchServiceUserConversationWithCtx(context.TODO(), ChatServiceSid, UserSid, ConversationSid)
-}
-
-// Fetch a specific User Conversation.
-func (c *ApiService) FetchServiceUserConversationWithCtx(ctx context.Context, ChatServiceSid string, UserSid string, ConversationSid string) (*ConversationsV1ServiceUserConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -65,7 +54,7 @@ func (c *ApiService) FetchServiceUserConversationWithCtx(ctx context.Context, Ch
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -99,11 +88,6 @@ func (params *ListServiceUserConversationParams) SetLimit(Limit int) *ListServic
 
 // Retrieve a single page of ServiceUserConversation records from the API. Request is executed immediately.
 func (c *ApiService) PageServiceUserConversation(ChatServiceSid string, UserSid string, params *ListServiceUserConversationParams, pageToken, pageNumber string) (*ListServiceUserConversationResponse, error) {
-	return c.PageServiceUserConversationWithCtx(context.TODO(), ChatServiceSid, UserSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of ServiceUserConversation records from the API. Request is executed immediately.
-func (c *ApiService) PageServiceUserConversationWithCtx(ctx context.Context, ChatServiceSid string, UserSid string, params *ListServiceUserConversationParams, pageToken, pageNumber string) (*ListServiceUserConversationResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -123,7 +107,7 @@ func (c *ApiService) PageServiceUserConversationWithCtx(ctx context.Context, Cha
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -140,12 +124,7 @@ func (c *ApiService) PageServiceUserConversationWithCtx(ctx context.Context, Cha
 
 // Lists ServiceUserConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceUserConversation(ChatServiceSid string, UserSid string, params *ListServiceUserConversationParams) ([]ConversationsV1ServiceUserConversation, error) {
-	return c.ListServiceUserConversationWithCtx(context.TODO(), ChatServiceSid, UserSid, params)
-}
-
-// Lists ServiceUserConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceUserConversationWithCtx(ctx context.Context, ChatServiceSid string, UserSid string, params *ListServiceUserConversationParams) ([]ConversationsV1ServiceUserConversation, error) {
-	response, errors := c.StreamServiceUserConversationWithCtx(ctx, ChatServiceSid, UserSid, params)
+	response, errors := c.StreamServiceUserConversation(ChatServiceSid, UserSid, params)
 
 	records := make([]ConversationsV1ServiceUserConversation, 0)
 	for record := range response {
@@ -161,11 +140,6 @@ func (c *ApiService) ListServiceUserConversationWithCtx(ctx context.Context, Cha
 
 // Streams ServiceUserConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamServiceUserConversation(ChatServiceSid string, UserSid string, params *ListServiceUserConversationParams) (chan ConversationsV1ServiceUserConversation, chan error) {
-	return c.StreamServiceUserConversationWithCtx(context.TODO(), ChatServiceSid, UserSid, params)
-}
-
-// Streams ServiceUserConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceUserConversationWithCtx(ctx context.Context, ChatServiceSid string, UserSid string, params *ListServiceUserConversationParams) (chan ConversationsV1ServiceUserConversation, chan error) {
 	if params == nil {
 		params = &ListServiceUserConversationParams{}
 	}
@@ -174,19 +148,19 @@ func (c *ApiService) StreamServiceUserConversationWithCtx(ctx context.Context, C
 	recordChannel := make(chan ConversationsV1ServiceUserConversation, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageServiceUserConversationWithCtx(ctx, ChatServiceSid, UserSid, params, "", "")
+	response, err := c.PageServiceUserConversation(ChatServiceSid, UserSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamServiceUserConversation(ctx, response, params, recordChannel, errorChannel)
+		go c.streamServiceUserConversation(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamServiceUserConversation(ctx context.Context, response *ListServiceUserConversationResponse, params *ListServiceUserConversationParams, recordChannel chan ConversationsV1ServiceUserConversation, errorChannel chan error) {
+func (c *ApiService) streamServiceUserConversation(response *ListServiceUserConversationResponse, params *ListServiceUserConversationParams, recordChannel chan ConversationsV1ServiceUserConversation, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -201,7 +175,7 @@ func (c *ApiService) streamServiceUserConversation(ctx context.Context, response
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListServiceUserConversationResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListServiceUserConversationResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -216,11 +190,11 @@ func (c *ApiService) streamServiceUserConversation(ctx context.Context, response
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListServiceUserConversationResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListServiceUserConversationResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -259,11 +233,6 @@ func (params *UpdateServiceUserConversationParams) SetLastReadMessageIndex(LastR
 
 // Update a specific User Conversation.
 func (c *ApiService) UpdateServiceUserConversation(ChatServiceSid string, UserSid string, ConversationSid string, params *UpdateServiceUserConversationParams) (*ConversationsV1ServiceUserConversation, error) {
-	return c.UpdateServiceUserConversationWithCtx(context.TODO(), ChatServiceSid, UserSid, ConversationSid, params)
-}
-
-// Update a specific User Conversation.
-func (c *ApiService) UpdateServiceUserConversationWithCtx(ctx context.Context, ChatServiceSid string, UserSid string, ConversationSid string, params *UpdateServiceUserConversationParams) (*ConversationsV1ServiceUserConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -282,7 +251,7 @@ func (c *ApiService) UpdateServiceUserConversationWithCtx(ctx context.Context, C
 		data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

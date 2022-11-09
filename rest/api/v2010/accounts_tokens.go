@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -41,11 +40,6 @@ func (params *CreateTokenParams) SetTtl(Ttl int) *CreateTokenParams {
 
 // Create a new token for ICE servers
 func (c *ApiService) CreateToken(params *CreateTokenParams) (*ApiV2010Token, error) {
-	return c.CreateTokenWithCtx(context.TODO(), params)
-}
-
-// Create a new token for ICE servers
-func (c *ApiService) CreateTokenWithCtx(ctx context.Context, params *CreateTokenParams) (*ApiV2010Token, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Tokens.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -60,7 +54,7 @@ func (c *ApiService) CreateTokenWithCtx(ctx context.Context, params *CreateToken
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

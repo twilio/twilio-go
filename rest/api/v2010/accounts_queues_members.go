@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -37,11 +36,6 @@ func (params *FetchMemberParams) SetPathAccountSid(PathAccountSid string) *Fetch
 
 // Fetch a specific member from the queue
 func (c *ApiService) FetchMember(QueueSid string, CallSid string, params *FetchMemberParams) (*ApiV2010Member, error) {
-	return c.FetchMemberWithCtx(context.TODO(), QueueSid, CallSid, params)
-}
-
-// Fetch a specific member from the queue
-func (c *ApiService) FetchMemberWithCtx(ctx context.Context, QueueSid string, CallSid string, params *FetchMemberParams) (*ApiV2010Member, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -54,7 +48,7 @@ func (c *ApiService) FetchMemberWithCtx(ctx context.Context, QueueSid string, Ca
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -94,11 +88,6 @@ func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
 
 // Retrieve a single page of Member records from the API. Request is executed immediately.
 func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMemberResponse, error) {
-	return c.PageMemberWithCtx(context.TODO(), QueueSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Member records from the API. Request is executed immediately.
-func (c *ApiService) PageMemberWithCtx(ctx context.Context, QueueSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMemberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -122,7 +111,7 @@ func (c *ApiService) PageMemberWithCtx(ctx context.Context, QueueSid string, par
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -139,12 +128,7 @@ func (c *ApiService) PageMemberWithCtx(ctx context.Context, QueueSid string, par
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams) ([]ApiV2010Member, error) {
-	return c.ListMemberWithCtx(context.TODO(), QueueSid, params)
-}
-
-// Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMemberWithCtx(ctx context.Context, QueueSid string, params *ListMemberParams) ([]ApiV2010Member, error) {
-	response, errors := c.StreamMemberWithCtx(ctx, QueueSid, params)
+	response, errors := c.StreamMember(QueueSid, params)
 
 	records := make([]ApiV2010Member, 0)
 	for record := range response {
@@ -160,11 +144,6 @@ func (c *ApiService) ListMemberWithCtx(ctx context.Context, QueueSid string, par
 
 // Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMember(QueueSid string, params *ListMemberParams) (chan ApiV2010Member, chan error) {
-	return c.StreamMemberWithCtx(context.TODO(), QueueSid, params)
-}
-
-// Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMemberWithCtx(ctx context.Context, QueueSid string, params *ListMemberParams) (chan ApiV2010Member, chan error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
@@ -173,19 +152,19 @@ func (c *ApiService) StreamMemberWithCtx(ctx context.Context, QueueSid string, p
 	recordChannel := make(chan ApiV2010Member, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMemberWithCtx(ctx, QueueSid, params, "", "")
+	response, err := c.PageMember(QueueSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMember(ctx, response, params, recordChannel, errorChannel)
+		go c.streamMember(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMember(ctx context.Context, response *ListMemberResponse, params *ListMemberParams, recordChannel chan ApiV2010Member, errorChannel chan error) {
+func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemberParams, recordChannel chan ApiV2010Member, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -200,7 +179,7 @@ func (c *ApiService) streamMember(ctx context.Context, response *ListMemberRespo
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListMemberResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListMemberResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -215,11 +194,11 @@ func (c *ApiService) streamMember(ctx context.Context, response *ListMemberRespo
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMemberResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMemberResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -258,11 +237,6 @@ func (params *UpdateMemberParams) SetMethod(Method string) *UpdateMemberParams {
 
 // Dequeue a member from a queue and have the member&#39;s call begin executing the TwiML document at that URL
 func (c *ApiService) UpdateMember(QueueSid string, CallSid string, params *UpdateMemberParams) (*ApiV2010Member, error) {
-	return c.UpdateMemberWithCtx(context.TODO(), QueueSid, CallSid, params)
-}
-
-// Dequeue a member from a queue and have the member&#39;s call begin executing the TwiML document at that URL
-func (c *ApiService) UpdateMemberWithCtx(ctx context.Context, QueueSid string, CallSid string, params *UpdateMemberParams) (*ApiV2010Member, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -282,7 +256,7 @@ func (c *ApiService) UpdateMemberWithCtx(ctx context.Context, QueueSid string, C
 		data.Set("Method", *params.Method)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

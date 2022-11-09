@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -23,18 +22,13 @@ import (
 
 // Fetch a specific schema with its nested versions.
 func (c *ApiService) FetchSchema(Id string) (*EventsV1Schema, error) {
-	return c.FetchSchemaWithCtx(context.TODO(), Id)
-}
-
-// Fetch a specific schema with its nested versions.
-func (c *ApiService) FetchSchemaWithCtx(ctx context.Context, Id string) (*EventsV1Schema, error) {
 	path := "/v1/Schemas/{Id}"
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -34,11 +33,6 @@ func (params *FetchBalanceParams) SetPathAccountSid(PathAccountSid string) *Fetc
 
 // Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information
 func (c *ApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010Balance, error) {
-	return c.FetchBalanceWithCtx(context.TODO(), params)
-}
-
-// Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information
-func (c *ApiService) FetchBalanceWithCtx(ctx context.Context, params *FetchBalanceParams) (*ApiV2010Balance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Balance.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -49,7 +43,7 @@ func (c *ApiService) FetchBalanceWithCtx(ctx context.Context, params *FetchBalan
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

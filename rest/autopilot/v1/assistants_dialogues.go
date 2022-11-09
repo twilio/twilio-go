@@ -15,17 +15,13 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
+//
 func (c *ApiService) FetchDialogue(AssistantSid string, Sid string) (*AutopilotV1Dialogue, error) {
-	return c.FetchDialogueWithCtx(context.TODO(), AssistantSid, Sid)
-}
-
-func (c *ApiService) FetchDialogueWithCtx(ctx context.Context, AssistantSid string, Sid string) (*AutopilotV1Dialogue, error) {
 	path := "/v1/Assistants/{AssistantSid}/Dialogues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -33,7 +29,7 @@ func (c *ApiService) FetchDialogueWithCtx(ctx context.Context, AssistantSid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

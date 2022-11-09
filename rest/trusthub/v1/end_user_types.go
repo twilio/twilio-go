@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,18 +25,13 @@ import (
 
 // Fetch a specific End-User Type Instance.
 func (c *ApiService) FetchEndUserType(Sid string) (*TrusthubV1EndUserType, error) {
-	return c.FetchEndUserTypeWithCtx(context.TODO(), Sid)
-}
-
-// Fetch a specific End-User Type Instance.
-func (c *ApiService) FetchEndUserTypeWithCtx(ctx context.Context, Sid string) (*TrusthubV1EndUserType, error) {
 	path := "/v1/EndUserTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -71,11 +65,6 @@ func (params *ListEndUserTypeParams) SetLimit(Limit int) *ListEndUserTypeParams 
 
 // Retrieve a single page of EndUserType records from the API. Request is executed immediately.
 func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken, pageNumber string) (*ListEndUserTypeResponse, error) {
-	return c.PageEndUserTypeWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of EndUserType records from the API. Request is executed immediately.
-func (c *ApiService) PageEndUserTypeWithCtx(ctx context.Context, params *ListEndUserTypeParams, pageToken, pageNumber string) (*ListEndUserTypeResponse, error) {
 	path := "/v1/EndUserTypes"
 
 	data := url.Values{}
@@ -92,7 +81,7 @@ func (c *ApiService) PageEndUserTypeWithCtx(ctx context.Context, params *ListEnd
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -109,12 +98,7 @@ func (c *ApiService) PageEndUserTypeWithCtx(ctx context.Context, params *ListEnd
 
 // Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) ([]TrusthubV1EndUserType, error) {
-	return c.ListEndUserTypeWithCtx(context.TODO(), params)
-}
-
-// Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEndUserTypeWithCtx(ctx context.Context, params *ListEndUserTypeParams) ([]TrusthubV1EndUserType, error) {
-	response, errors := c.StreamEndUserTypeWithCtx(ctx, params)
+	response, errors := c.StreamEndUserType(params)
 
 	records := make([]TrusthubV1EndUserType, 0)
 	for record := range response {
@@ -130,11 +114,6 @@ func (c *ApiService) ListEndUserTypeWithCtx(ctx context.Context, params *ListEnd
 
 // Streams EndUserType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan TrusthubV1EndUserType, chan error) {
-	return c.StreamEndUserTypeWithCtx(context.TODO(), params)
-}
-
-// Streams EndUserType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEndUserTypeWithCtx(ctx context.Context, params *ListEndUserTypeParams) (chan TrusthubV1EndUserType, chan error) {
 	if params == nil {
 		params = &ListEndUserTypeParams{}
 	}
@@ -143,19 +122,19 @@ func (c *ApiService) StreamEndUserTypeWithCtx(ctx context.Context, params *ListE
 	recordChannel := make(chan TrusthubV1EndUserType, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEndUserTypeWithCtx(ctx, params, "", "")
+	response, err := c.PageEndUserType(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEndUserType(ctx, response, params, recordChannel, errorChannel)
+		go c.streamEndUserType(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEndUserType(ctx context.Context, response *ListEndUserTypeResponse, params *ListEndUserTypeParams, recordChannel chan TrusthubV1EndUserType, errorChannel chan error) {
+func (c *ApiService) streamEndUserType(response *ListEndUserTypeResponse, params *ListEndUserTypeParams, recordChannel chan TrusthubV1EndUserType, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -170,7 +149,7 @@ func (c *ApiService) streamEndUserType(ctx context.Context, response *ListEndUse
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListEndUserTypeResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListEndUserTypeResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -185,11 +164,11 @@ func (c *ApiService) streamEndUserType(ctx context.Context, response *ListEndUse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEndUserTypeResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEndUserTypeResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

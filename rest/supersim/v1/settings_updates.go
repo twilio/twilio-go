@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,11 +47,6 @@ func (params *ListSettingsUpdateParams) SetLimit(Limit int) *ListSettingsUpdateP
 
 // Retrieve a single page of SettingsUpdate records from the API. Request is executed immediately.
 func (c *ApiService) PageSettingsUpdate(params *ListSettingsUpdateParams, pageToken, pageNumber string) (*ListSettingsUpdateResponse, error) {
-	return c.PageSettingsUpdateWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of SettingsUpdate records from the API. Request is executed immediately.
-func (c *ApiService) PageSettingsUpdateWithCtx(ctx context.Context, params *ListSettingsUpdateParams, pageToken, pageNumber string) (*ListSettingsUpdateResponse, error) {
 	path := "/v1/SettingsUpdates"
 
 	data := url.Values{}
@@ -72,7 +66,7 @@ func (c *ApiService) PageSettingsUpdateWithCtx(ctx context.Context, params *List
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -89,12 +83,7 @@ func (c *ApiService) PageSettingsUpdateWithCtx(ctx context.Context, params *List
 
 // Lists SettingsUpdate records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSettingsUpdate(params *ListSettingsUpdateParams) ([]SupersimV1SettingsUpdate, error) {
-	return c.ListSettingsUpdateWithCtx(context.TODO(), params)
-}
-
-// Lists SettingsUpdate records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSettingsUpdateWithCtx(ctx context.Context, params *ListSettingsUpdateParams) ([]SupersimV1SettingsUpdate, error) {
-	response, errors := c.StreamSettingsUpdateWithCtx(ctx, params)
+	response, errors := c.StreamSettingsUpdate(params)
 
 	records := make([]SupersimV1SettingsUpdate, 0)
 	for record := range response {
@@ -110,11 +99,6 @@ func (c *ApiService) ListSettingsUpdateWithCtx(ctx context.Context, params *List
 
 // Streams SettingsUpdate records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSettingsUpdate(params *ListSettingsUpdateParams) (chan SupersimV1SettingsUpdate, chan error) {
-	return c.StreamSettingsUpdateWithCtx(context.TODO(), params)
-}
-
-// Streams SettingsUpdate records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSettingsUpdateWithCtx(ctx context.Context, params *ListSettingsUpdateParams) (chan SupersimV1SettingsUpdate, chan error) {
 	if params == nil {
 		params = &ListSettingsUpdateParams{}
 	}
@@ -123,19 +107,19 @@ func (c *ApiService) StreamSettingsUpdateWithCtx(ctx context.Context, params *Li
 	recordChannel := make(chan SupersimV1SettingsUpdate, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSettingsUpdateWithCtx(ctx, params, "", "")
+	response, err := c.PageSettingsUpdate(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSettingsUpdate(ctx, response, params, recordChannel, errorChannel)
+		go c.streamSettingsUpdate(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSettingsUpdate(ctx context.Context, response *ListSettingsUpdateResponse, params *ListSettingsUpdateParams, recordChannel chan SupersimV1SettingsUpdate, errorChannel chan error) {
+func (c *ApiService) streamSettingsUpdate(response *ListSettingsUpdateResponse, params *ListSettingsUpdateParams, recordChannel chan SupersimV1SettingsUpdate, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -150,7 +134,7 @@ func (c *ApiService) streamSettingsUpdate(ctx context.Context, response *ListSet
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSettingsUpdateResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSettingsUpdateResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -165,11 +149,11 @@ func (c *ApiService) streamSettingsUpdate(ctx context.Context, response *ListSet
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSettingsUpdateResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSettingsUpdateResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

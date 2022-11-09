@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -37,11 +36,6 @@ func (params *CreateTrustProductEvaluationParams) SetPolicySid(PolicySid string)
 
 // Create a new Evaluation
 func (c *ApiService) CreateTrustProductEvaluation(TrustProductSid string, params *CreateTrustProductEvaluationParams) (*TrusthubV1TrustProductEvaluation, error) {
-	return c.CreateTrustProductEvaluationWithCtx(context.TODO(), TrustProductSid, params)
-}
-
-// Create a new Evaluation
-func (c *ApiService) CreateTrustProductEvaluationWithCtx(ctx context.Context, TrustProductSid string, params *CreateTrustProductEvaluationParams) (*TrusthubV1TrustProductEvaluation, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
@@ -52,7 +46,7 @@ func (c *ApiService) CreateTrustProductEvaluationWithCtx(ctx context.Context, Tr
 		data.Set("PolicySid", *params.PolicySid)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -69,11 +63,6 @@ func (c *ApiService) CreateTrustProductEvaluationWithCtx(ctx context.Context, Tr
 
 // Fetch specific Evaluation Instance.
 func (c *ApiService) FetchTrustProductEvaluation(TrustProductSid string, Sid string) (*TrusthubV1TrustProductEvaluation, error) {
-	return c.FetchTrustProductEvaluationWithCtx(context.TODO(), TrustProductSid, Sid)
-}
-
-// Fetch specific Evaluation Instance.
-func (c *ApiService) FetchTrustProductEvaluationWithCtx(ctx context.Context, TrustProductSid string, Sid string) (*TrusthubV1TrustProductEvaluation, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -81,7 +70,7 @@ func (c *ApiService) FetchTrustProductEvaluationWithCtx(ctx context.Context, Tru
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -115,11 +104,6 @@ func (params *ListTrustProductEvaluationParams) SetLimit(Limit int) *ListTrustPr
 
 // Retrieve a single page of TrustProductEvaluation records from the API. Request is executed immediately.
 func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, pageToken, pageNumber string) (*ListTrustProductEvaluationResponse, error) {
-	return c.PageTrustProductEvaluationWithCtx(context.TODO(), TrustProductSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of TrustProductEvaluation records from the API. Request is executed immediately.
-func (c *ApiService) PageTrustProductEvaluationWithCtx(ctx context.Context, TrustProductSid string, params *ListTrustProductEvaluationParams, pageToken, pageNumber string) (*ListTrustProductEvaluationResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -138,7 +122,7 @@ func (c *ApiService) PageTrustProductEvaluationWithCtx(ctx context.Context, Trus
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -155,12 +139,7 @@ func (c *ApiService) PageTrustProductEvaluationWithCtx(ctx context.Context, Trus
 
 // Lists TrustProductEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) ([]TrusthubV1TrustProductEvaluation, error) {
-	return c.ListTrustProductEvaluationWithCtx(context.TODO(), TrustProductSid, params)
-}
-
-// Lists TrustProductEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrustProductEvaluationWithCtx(ctx context.Context, TrustProductSid string, params *ListTrustProductEvaluationParams) ([]TrusthubV1TrustProductEvaluation, error) {
-	response, errors := c.StreamTrustProductEvaluationWithCtx(ctx, TrustProductSid, params)
+	response, errors := c.StreamTrustProductEvaluation(TrustProductSid, params)
 
 	records := make([]TrusthubV1TrustProductEvaluation, 0)
 	for record := range response {
@@ -176,11 +155,6 @@ func (c *ApiService) ListTrustProductEvaluationWithCtx(ctx context.Context, Trus
 
 // Streams TrustProductEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) (chan TrusthubV1TrustProductEvaluation, chan error) {
-	return c.StreamTrustProductEvaluationWithCtx(context.TODO(), TrustProductSid, params)
-}
-
-// Streams TrustProductEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrustProductEvaluationWithCtx(ctx context.Context, TrustProductSid string, params *ListTrustProductEvaluationParams) (chan TrusthubV1TrustProductEvaluation, chan error) {
 	if params == nil {
 		params = &ListTrustProductEvaluationParams{}
 	}
@@ -189,19 +163,19 @@ func (c *ApiService) StreamTrustProductEvaluationWithCtx(ctx context.Context, Tr
 	recordChannel := make(chan TrusthubV1TrustProductEvaluation, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTrustProductEvaluationWithCtx(ctx, TrustProductSid, params, "", "")
+	response, err := c.PageTrustProductEvaluation(TrustProductSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTrustProductEvaluation(ctx, response, params, recordChannel, errorChannel)
+		go c.streamTrustProductEvaluation(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTrustProductEvaluation(ctx context.Context, response *ListTrustProductEvaluationResponse, params *ListTrustProductEvaluationParams, recordChannel chan TrusthubV1TrustProductEvaluation, errorChannel chan error) {
+func (c *ApiService) streamTrustProductEvaluation(response *ListTrustProductEvaluationResponse, params *ListTrustProductEvaluationParams, recordChannel chan TrusthubV1TrustProductEvaluation, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -216,7 +190,7 @@ func (c *ApiService) streamTrustProductEvaluation(ctx context.Context, response 
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListTrustProductEvaluationResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListTrustProductEvaluationResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -231,11 +205,11 @@ func (c *ApiService) streamTrustProductEvaluation(ctx context.Context, response 
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTrustProductEvaluationResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTrustProductEvaluationResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

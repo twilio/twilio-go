@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -49,11 +48,6 @@ func (params *CreateCredentialPublicKeyParams) SetAccountSid(AccountSid string) 
 
 // Create a new Public Key Credential
 func (c *ApiService) CreateCredentialPublicKey(params *CreateCredentialPublicKeyParams) (*AccountsV1CredentialPublicKey, error) {
-	return c.CreateCredentialPublicKeyWithCtx(context.TODO(), params)
-}
-
-// Create a new Public Key Credential
-func (c *ApiService) CreateCredentialPublicKeyWithCtx(ctx context.Context, params *CreateCredentialPublicKeyParams) (*AccountsV1CredentialPublicKey, error) {
 	path := "/v1/Credentials/PublicKeys"
 
 	data := url.Values{}
@@ -69,7 +63,7 @@ func (c *ApiService) CreateCredentialPublicKeyWithCtx(ctx context.Context, param
 		data.Set("AccountSid", *params.AccountSid)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -86,18 +80,13 @@ func (c *ApiService) CreateCredentialPublicKeyWithCtx(ctx context.Context, param
 
 // Delete a Credential from your account
 func (c *ApiService) DeleteCredentialPublicKey(Sid string) error {
-	return c.DeleteCredentialPublicKeyWithCtx(context.TODO(), Sid)
-}
-
-// Delete a Credential from your account
-func (c *ApiService) DeleteCredentialPublicKeyWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -109,18 +98,13 @@ func (c *ApiService) DeleteCredentialPublicKeyWithCtx(ctx context.Context, Sid s
 
 // Fetch the public key specified by the provided Credential Sid
 func (c *ApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1CredentialPublicKey, error) {
-	return c.FetchCredentialPublicKeyWithCtx(context.TODO(), Sid)
-}
-
-// Fetch the public key specified by the provided Credential Sid
-func (c *ApiService) FetchCredentialPublicKeyWithCtx(ctx context.Context, Sid string) (*AccountsV1CredentialPublicKey, error) {
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -154,11 +138,6 @@ func (params *ListCredentialPublicKeyParams) SetLimit(Limit int) *ListCredential
 
 // Retrieve a single page of CredentialPublicKey records from the API. Request is executed immediately.
 func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyParams, pageToken, pageNumber string) (*ListCredentialPublicKeyResponse, error) {
-	return c.PageCredentialPublicKeyWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of CredentialPublicKey records from the API. Request is executed immediately.
-func (c *ApiService) PageCredentialPublicKeyWithCtx(ctx context.Context, params *ListCredentialPublicKeyParams, pageToken, pageNumber string) (*ListCredentialPublicKeyResponse, error) {
 	path := "/v1/Credentials/PublicKeys"
 
 	data := url.Values{}
@@ -175,7 +154,7 @@ func (c *ApiService) PageCredentialPublicKeyWithCtx(ctx context.Context, params 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -192,12 +171,7 @@ func (c *ApiService) PageCredentialPublicKeyWithCtx(ctx context.Context, params 
 
 // Lists CredentialPublicKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams) ([]AccountsV1CredentialPublicKey, error) {
-	return c.ListCredentialPublicKeyWithCtx(context.TODO(), params)
-}
-
-// Lists CredentialPublicKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCredentialPublicKeyWithCtx(ctx context.Context, params *ListCredentialPublicKeyParams) ([]AccountsV1CredentialPublicKey, error) {
-	response, errors := c.StreamCredentialPublicKeyWithCtx(ctx, params)
+	response, errors := c.StreamCredentialPublicKey(params)
 
 	records := make([]AccountsV1CredentialPublicKey, 0)
 	for record := range response {
@@ -213,11 +187,6 @@ func (c *ApiService) ListCredentialPublicKeyWithCtx(ctx context.Context, params 
 
 // Streams CredentialPublicKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyParams) (chan AccountsV1CredentialPublicKey, chan error) {
-	return c.StreamCredentialPublicKeyWithCtx(context.TODO(), params)
-}
-
-// Streams CredentialPublicKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredentialPublicKeyWithCtx(ctx context.Context, params *ListCredentialPublicKeyParams) (chan AccountsV1CredentialPublicKey, chan error) {
 	if params == nil {
 		params = &ListCredentialPublicKeyParams{}
 	}
@@ -226,19 +195,19 @@ func (c *ApiService) StreamCredentialPublicKeyWithCtx(ctx context.Context, param
 	recordChannel := make(chan AccountsV1CredentialPublicKey, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCredentialPublicKeyWithCtx(ctx, params, "", "")
+	response, err := c.PageCredentialPublicKey(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCredentialPublicKey(ctx, response, params, recordChannel, errorChannel)
+		go c.streamCredentialPublicKey(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCredentialPublicKey(ctx context.Context, response *ListCredentialPublicKeyResponse, params *ListCredentialPublicKeyParams, recordChannel chan AccountsV1CredentialPublicKey, errorChannel chan error) {
+func (c *ApiService) streamCredentialPublicKey(response *ListCredentialPublicKeyResponse, params *ListCredentialPublicKeyParams, recordChannel chan AccountsV1CredentialPublicKey, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -253,7 +222,7 @@ func (c *ApiService) streamCredentialPublicKey(ctx context.Context, response *Li
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCredentialPublicKeyResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCredentialPublicKeyResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -268,11 +237,11 @@ func (c *ApiService) streamCredentialPublicKey(ctx context.Context, response *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCredentialPublicKeyResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCredentialPublicKeyResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -299,11 +268,6 @@ func (params *UpdateCredentialPublicKeyParams) SetFriendlyName(FriendlyName stri
 
 // Modify the properties of a given Account
 func (c *ApiService) UpdateCredentialPublicKey(Sid string, params *UpdateCredentialPublicKeyParams) (*AccountsV1CredentialPublicKey, error) {
-	return c.UpdateCredentialPublicKeyWithCtx(context.TODO(), Sid, params)
-}
-
-// Modify the properties of a given Account
-func (c *ApiService) UpdateCredentialPublicKeyWithCtx(ctx context.Context, Sid string, params *UpdateCredentialPublicKeyParams) (*AccountsV1CredentialPublicKey, error) {
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -314,7 +278,7 @@ func (c *ApiService) UpdateCredentialPublicKeyWithCtx(ctx context.Context, Sid s
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

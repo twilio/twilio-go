@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -37,11 +36,6 @@ func (params *FetchAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid 
 
 // Fetch an instance of an authorized-connect-app
 func (c *ApiService) FetchAuthorizedConnectApp(ConnectAppSid string, params *FetchAuthorizedConnectAppParams) (*ApiV2010AuthorizedConnectApp, error) {
-	return c.FetchAuthorizedConnectAppWithCtx(context.TODO(), ConnectAppSid, params)
-}
-
-// Fetch an instance of an authorized-connect-app
-func (c *ApiService) FetchAuthorizedConnectAppWithCtx(ctx context.Context, ConnectAppSid string, params *FetchAuthorizedConnectAppParams) (*ApiV2010AuthorizedConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -53,7 +47,7 @@ func (c *ApiService) FetchAuthorizedConnectAppWithCtx(ctx context.Context, Conne
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -93,11 +87,6 @@ func (params *ListAuthorizedConnectAppParams) SetLimit(Limit int) *ListAuthorize
 
 // Retrieve a single page of AuthorizedConnectApp records from the API. Request is executed immediately.
 func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, pageToken, pageNumber string) (*ListAuthorizedConnectAppResponse, error) {
-	return c.PageAuthorizedConnectAppWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of AuthorizedConnectApp records from the API. Request is executed immediately.
-func (c *ApiService) PageAuthorizedConnectAppWithCtx(ctx context.Context, params *ListAuthorizedConnectAppParams, pageToken, pageNumber string) (*ListAuthorizedConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -120,7 +109,7 @@ func (c *ApiService) PageAuthorizedConnectAppWithCtx(ctx context.Context, params
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -137,12 +126,7 @@ func (c *ApiService) PageAuthorizedConnectAppWithCtx(ctx context.Context, params
 
 // Lists AuthorizedConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) ([]ApiV2010AuthorizedConnectApp, error) {
-	return c.ListAuthorizedConnectAppWithCtx(context.TODO(), params)
-}
-
-// Lists AuthorizedConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAuthorizedConnectAppWithCtx(ctx context.Context, params *ListAuthorizedConnectAppParams) ([]ApiV2010AuthorizedConnectApp, error) {
-	response, errors := c.StreamAuthorizedConnectAppWithCtx(ctx, params)
+	response, errors := c.StreamAuthorizedConnectApp(params)
 
 	records := make([]ApiV2010AuthorizedConnectApp, 0)
 	for record := range response {
@@ -158,11 +142,6 @@ func (c *ApiService) ListAuthorizedConnectAppWithCtx(ctx context.Context, params
 
 // Streams AuthorizedConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) (chan ApiV2010AuthorizedConnectApp, chan error) {
-	return c.StreamAuthorizedConnectAppWithCtx(context.TODO(), params)
-}
-
-// Streams AuthorizedConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAuthorizedConnectAppWithCtx(ctx context.Context, params *ListAuthorizedConnectAppParams) (chan ApiV2010AuthorizedConnectApp, chan error) {
 	if params == nil {
 		params = &ListAuthorizedConnectAppParams{}
 	}
@@ -171,19 +150,19 @@ func (c *ApiService) StreamAuthorizedConnectAppWithCtx(ctx context.Context, para
 	recordChannel := make(chan ApiV2010AuthorizedConnectApp, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAuthorizedConnectAppWithCtx(ctx, params, "", "")
+	response, err := c.PageAuthorizedConnectApp(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAuthorizedConnectApp(ctx, response, params, recordChannel, errorChannel)
+		go c.streamAuthorizedConnectApp(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAuthorizedConnectApp(ctx context.Context, response *ListAuthorizedConnectAppResponse, params *ListAuthorizedConnectAppParams, recordChannel chan ApiV2010AuthorizedConnectApp, errorChannel chan error) {
+func (c *ApiService) streamAuthorizedConnectApp(response *ListAuthorizedConnectAppResponse, params *ListAuthorizedConnectAppParams, recordChannel chan ApiV2010AuthorizedConnectApp, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -198,7 +177,7 @@ func (c *ApiService) streamAuthorizedConnectApp(ctx context.Context, response *L
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListAuthorizedConnectAppResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAuthorizedConnectAppResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -213,11 +192,11 @@ func (c *ApiService) streamAuthorizedConnectApp(ctx context.Context, response *L
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAuthorizedConnectAppResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAuthorizedConnectAppResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

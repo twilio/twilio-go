@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -37,11 +36,6 @@ func (params *CreateEntityParams) SetIdentity(Identity string) *CreateEntityPara
 
 // Create a new Entity for the Service
 func (c *ApiService) CreateEntity(ServiceSid string, params *CreateEntityParams) (*VerifyV2Entity, error) {
-	return c.CreateEntityWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Create a new Entity for the Service
-func (c *ApiService) CreateEntityWithCtx(ctx context.Context, ServiceSid string, params *CreateEntityParams) (*VerifyV2Entity, error) {
 	path := "/v2/Services/{ServiceSid}/Entities"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -52,7 +46,7 @@ func (c *ApiService) CreateEntityWithCtx(ctx context.Context, ServiceSid string,
 		data.Set("Identity", *params.Identity)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -69,11 +63,6 @@ func (c *ApiService) CreateEntityWithCtx(ctx context.Context, ServiceSid string,
 
 // Delete a specific Entity.
 func (c *ApiService) DeleteEntity(ServiceSid string, Identity string) error {
-	return c.DeleteEntityWithCtx(context.TODO(), ServiceSid, Identity)
-}
-
-// Delete a specific Entity.
-func (c *ApiService) DeleteEntityWithCtx(ctx context.Context, ServiceSid string, Identity string) error {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -81,7 +70,7 @@ func (c *ApiService) DeleteEntityWithCtx(ctx context.Context, ServiceSid string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -93,11 +82,6 @@ func (c *ApiService) DeleteEntityWithCtx(ctx context.Context, ServiceSid string,
 
 // Fetch a specific Entity.
 func (c *ApiService) FetchEntity(ServiceSid string, Identity string) (*VerifyV2Entity, error) {
-	return c.FetchEntityWithCtx(context.TODO(), ServiceSid, Identity)
-}
-
-// Fetch a specific Entity.
-func (c *ApiService) FetchEntityWithCtx(ctx context.Context, ServiceSid string, Identity string) (*VerifyV2Entity, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -105,7 +89,7 @@ func (c *ApiService) FetchEntityWithCtx(ctx context.Context, ServiceSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -139,11 +123,6 @@ func (params *ListEntityParams) SetLimit(Limit int) *ListEntityParams {
 
 // Retrieve a single page of Entity records from the API. Request is executed immediately.
 func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pageToken, pageNumber string) (*ListEntityResponse, error) {
-	return c.PageEntityWithCtx(context.TODO(), ServiceSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Entity records from the API. Request is executed immediately.
-func (c *ApiService) PageEntityWithCtx(ctx context.Context, ServiceSid string, params *ListEntityParams, pageToken, pageNumber string) (*ListEntityResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -162,7 +141,7 @@ func (c *ApiService) PageEntityWithCtx(ctx context.Context, ServiceSid string, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -179,12 +158,7 @@ func (c *ApiService) PageEntityWithCtx(ctx context.Context, ServiceSid string, p
 
 // Lists Entity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) ([]VerifyV2Entity, error) {
-	return c.ListEntityWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Lists Entity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEntityWithCtx(ctx context.Context, ServiceSid string, params *ListEntityParams) ([]VerifyV2Entity, error) {
-	response, errors := c.StreamEntityWithCtx(ctx, ServiceSid, params)
+	response, errors := c.StreamEntity(ServiceSid, params)
 
 	records := make([]VerifyV2Entity, 0)
 	for record := range response {
@@ -200,11 +174,6 @@ func (c *ApiService) ListEntityWithCtx(ctx context.Context, ServiceSid string, p
 
 // Streams Entity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (chan VerifyV2Entity, chan error) {
-	return c.StreamEntityWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Streams Entity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEntityWithCtx(ctx context.Context, ServiceSid string, params *ListEntityParams) (chan VerifyV2Entity, chan error) {
 	if params == nil {
 		params = &ListEntityParams{}
 	}
@@ -213,19 +182,19 @@ func (c *ApiService) StreamEntityWithCtx(ctx context.Context, ServiceSid string,
 	recordChannel := make(chan VerifyV2Entity, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEntityWithCtx(ctx, ServiceSid, params, "", "")
+	response, err := c.PageEntity(ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEntity(ctx, response, params, recordChannel, errorChannel)
+		go c.streamEntity(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEntity(ctx context.Context, response *ListEntityResponse, params *ListEntityParams, recordChannel chan VerifyV2Entity, errorChannel chan error) {
+func (c *ApiService) streamEntity(response *ListEntityResponse, params *ListEntityParams, recordChannel chan VerifyV2Entity, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -240,7 +209,7 @@ func (c *ApiService) streamEntity(ctx context.Context, response *ListEntityRespo
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListEntityResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListEntityResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -255,11 +224,11 @@ func (c *ApiService) streamEntity(ctx context.Context, response *ListEntityRespo
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEntityResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEntityResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

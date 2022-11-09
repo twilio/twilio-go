@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -34,11 +33,6 @@ func (params *CreateSafelistParams) SetPhoneNumber(PhoneNumber string) *CreateSa
 
 // Add a new phone number to SafeList.
 func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*VerifyV2Safelist, error) {
-	return c.CreateSafelistWithCtx(context.TODO(), params)
-}
-
-// Add a new phone number to SafeList.
-func (c *ApiService) CreateSafelistWithCtx(ctx context.Context, params *CreateSafelistParams) (*VerifyV2Safelist, error) {
 	path := "/v2/SafeList/Numbers"
 
 	data := url.Values{}
@@ -48,7 +42,7 @@ func (c *ApiService) CreateSafelistWithCtx(ctx context.Context, params *CreateSa
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -65,18 +59,13 @@ func (c *ApiService) CreateSafelistWithCtx(ctx context.Context, params *CreateSa
 
 // Remove a phone number from SafeList.
 func (c *ApiService) DeleteSafelist(PhoneNumber string) error {
-	return c.DeleteSafelistWithCtx(context.TODO(), PhoneNumber)
-}
-
-// Remove a phone number from SafeList.
-func (c *ApiService) DeleteSafelistWithCtx(ctx context.Context, PhoneNumber string) error {
 	path := "/v2/SafeList/Numbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -88,18 +77,13 @@ func (c *ApiService) DeleteSafelistWithCtx(ctx context.Context, PhoneNumber stri
 
 // Check if a phone number exists in SafeList.
 func (c *ApiService) FetchSafelist(PhoneNumber string) (*VerifyV2Safelist, error) {
-	return c.FetchSafelistWithCtx(context.TODO(), PhoneNumber)
-}
-
-// Check if a phone number exists in SafeList.
-func (c *ApiService) FetchSafelistWithCtx(ctx context.Context, PhoneNumber string) (*VerifyV2Safelist, error) {
 	path := "/v2/SafeList/Numbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

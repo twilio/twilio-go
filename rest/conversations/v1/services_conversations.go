@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -92,11 +91,6 @@ func (params *CreateServiceConversationParams) SetTimersClosed(TimersClosed stri
 
 // Create a new conversation in your service
 func (c *ApiService) CreateServiceConversation(ChatServiceSid string, params *CreateServiceConversationParams) (*ConversationsV1ServiceConversation, error) {
-	return c.CreateServiceConversationWithCtx(context.TODO(), ChatServiceSid, params)
-}
-
-// Create a new conversation in your service
-func (c *ApiService) CreateServiceConversationWithCtx(ctx context.Context, ChatServiceSid string, params *CreateServiceConversationParams) (*ConversationsV1ServiceConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -135,7 +129,7 @@ func (c *ApiService) CreateServiceConversationWithCtx(ctx context.Context, ChatS
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -163,11 +157,6 @@ func (params *DeleteServiceConversationParams) SetXTwilioWebhookEnabled(XTwilioW
 
 // Remove a conversation from your service
 func (c *ApiService) DeleteServiceConversation(ChatServiceSid string, Sid string, params *DeleteServiceConversationParams) error {
-	return c.DeleteServiceConversationWithCtx(context.TODO(), ChatServiceSid, Sid, params)
-}
-
-// Remove a conversation from your service
-func (c *ApiService) DeleteServiceConversationWithCtx(ctx context.Context, ChatServiceSid string, Sid string, params *DeleteServiceConversationParams) error {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -179,7 +168,7 @@ func (c *ApiService) DeleteServiceConversationWithCtx(ctx context.Context, ChatS
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -191,11 +180,6 @@ func (c *ApiService) DeleteServiceConversationWithCtx(ctx context.Context, ChatS
 
 // Fetch a conversation from your service
 func (c *ApiService) FetchServiceConversation(ChatServiceSid string, Sid string) (*ConversationsV1ServiceConversation, error) {
-	return c.FetchServiceConversationWithCtx(context.TODO(), ChatServiceSid, Sid)
-}
-
-// Fetch a conversation from your service
-func (c *ApiService) FetchServiceConversationWithCtx(ctx context.Context, ChatServiceSid string, Sid string) (*ConversationsV1ServiceConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -203,7 +187,7 @@ func (c *ApiService) FetchServiceConversationWithCtx(ctx context.Context, ChatSe
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -237,11 +221,6 @@ func (params *ListServiceConversationParams) SetLimit(Limit int) *ListServiceCon
 
 // Retrieve a single page of ServiceConversation records from the API. Request is executed immediately.
 func (c *ApiService) PageServiceConversation(ChatServiceSid string, params *ListServiceConversationParams, pageToken, pageNumber string) (*ListServiceConversationResponse, error) {
-	return c.PageServiceConversationWithCtx(context.TODO(), ChatServiceSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of ServiceConversation records from the API. Request is executed immediately.
-func (c *ApiService) PageServiceConversationWithCtx(ctx context.Context, ChatServiceSid string, params *ListServiceConversationParams, pageToken, pageNumber string) (*ListServiceConversationResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -260,7 +239,7 @@ func (c *ApiService) PageServiceConversationWithCtx(ctx context.Context, ChatSer
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -277,12 +256,7 @@ func (c *ApiService) PageServiceConversationWithCtx(ctx context.Context, ChatSer
 
 // Lists ServiceConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceConversation(ChatServiceSid string, params *ListServiceConversationParams) ([]ConversationsV1ServiceConversation, error) {
-	return c.ListServiceConversationWithCtx(context.TODO(), ChatServiceSid, params)
-}
-
-// Lists ServiceConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceConversationWithCtx(ctx context.Context, ChatServiceSid string, params *ListServiceConversationParams) ([]ConversationsV1ServiceConversation, error) {
-	response, errors := c.StreamServiceConversationWithCtx(ctx, ChatServiceSid, params)
+	response, errors := c.StreamServiceConversation(ChatServiceSid, params)
 
 	records := make([]ConversationsV1ServiceConversation, 0)
 	for record := range response {
@@ -298,11 +272,6 @@ func (c *ApiService) ListServiceConversationWithCtx(ctx context.Context, ChatSer
 
 // Streams ServiceConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamServiceConversation(ChatServiceSid string, params *ListServiceConversationParams) (chan ConversationsV1ServiceConversation, chan error) {
-	return c.StreamServiceConversationWithCtx(context.TODO(), ChatServiceSid, params)
-}
-
-// Streams ServiceConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceConversationWithCtx(ctx context.Context, ChatServiceSid string, params *ListServiceConversationParams) (chan ConversationsV1ServiceConversation, chan error) {
 	if params == nil {
 		params = &ListServiceConversationParams{}
 	}
@@ -311,19 +280,19 @@ func (c *ApiService) StreamServiceConversationWithCtx(ctx context.Context, ChatS
 	recordChannel := make(chan ConversationsV1ServiceConversation, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageServiceConversationWithCtx(ctx, ChatServiceSid, params, "", "")
+	response, err := c.PageServiceConversation(ChatServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamServiceConversation(ctx, response, params, recordChannel, errorChannel)
+		go c.streamServiceConversation(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamServiceConversation(ctx context.Context, response *ListServiceConversationResponse, params *ListServiceConversationParams, recordChannel chan ConversationsV1ServiceConversation, errorChannel chan error) {
+func (c *ApiService) streamServiceConversation(response *ListServiceConversationResponse, params *ListServiceConversationParams, recordChannel chan ConversationsV1ServiceConversation, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -338,7 +307,7 @@ func (c *ApiService) streamServiceConversation(ctx context.Context, response *Li
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListServiceConversationResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListServiceConversationResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -353,11 +322,11 @@ func (c *ApiService) streamServiceConversation(ctx context.Context, response *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListServiceConversationResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListServiceConversationResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -438,11 +407,6 @@ func (params *UpdateServiceConversationParams) SetUniqueName(UniqueName string) 
 
 // Update an existing conversation in your service
 func (c *ApiService) UpdateServiceConversation(ChatServiceSid string, Sid string, params *UpdateServiceConversationParams) (*ConversationsV1ServiceConversation, error) {
-	return c.UpdateServiceConversationWithCtx(context.TODO(), ChatServiceSid, Sid, params)
-}
-
-// Update an existing conversation in your service
-func (c *ApiService) UpdateServiceConversationWithCtx(ctx context.Context, ChatServiceSid string, Sid string, params *UpdateServiceConversationParams) (*ConversationsV1ServiceConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -482,7 +446,7 @@ func (c *ApiService) UpdateServiceConversationWithCtx(ctx context.Context, ChatS
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

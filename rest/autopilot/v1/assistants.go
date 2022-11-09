@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -71,11 +70,8 @@ func (params *CreateAssistantParams) SetDefaults(Defaults interface{}) *CreateAs
 	return params
 }
 
+//
 func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV1Assistant, error) {
-	return c.CreateAssistantWithCtx(context.TODO(), params)
-}
-
-func (c *ApiService) CreateAssistantWithCtx(ctx context.Context, params *CreateAssistantParams) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants"
 
 	data := url.Values{}
@@ -115,7 +111,7 @@ func (c *ApiService) CreateAssistantWithCtx(ctx context.Context, params *CreateA
 		data.Set("Defaults", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -130,18 +126,15 @@ func (c *ApiService) CreateAssistantWithCtx(ctx context.Context, params *CreateA
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteAssistant(Sid string) error {
-	return c.DeleteAssistantWithCtx(context.TODO(), Sid)
-}
-
-func (c *ApiService) DeleteAssistantWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -151,18 +144,15 @@ func (c *ApiService) DeleteAssistantWithCtx(ctx context.Context, Sid string) err
 	return nil
 }
 
+//
 func (c *ApiService) FetchAssistant(Sid string) (*AutopilotV1Assistant, error) {
-	return c.FetchAssistantWithCtx(context.TODO(), Sid)
-}
-
-func (c *ApiService) FetchAssistantWithCtx(ctx context.Context, Sid string) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -196,11 +186,6 @@ func (params *ListAssistantParams) SetLimit(Limit int) *ListAssistantParams {
 
 // Retrieve a single page of Assistant records from the API. Request is executed immediately.
 func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken, pageNumber string) (*ListAssistantResponse, error) {
-	return c.PageAssistantWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Assistant records from the API. Request is executed immediately.
-func (c *ApiService) PageAssistantWithCtx(ctx context.Context, params *ListAssistantParams, pageToken, pageNumber string) (*ListAssistantResponse, error) {
 	path := "/v1/Assistants"
 
 	data := url.Values{}
@@ -217,7 +202,7 @@ func (c *ApiService) PageAssistantWithCtx(ctx context.Context, params *ListAssis
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -234,12 +219,7 @@ func (c *ApiService) PageAssistantWithCtx(ctx context.Context, params *ListAssis
 
 // Lists Assistant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAssistant(params *ListAssistantParams) ([]AutopilotV1Assistant, error) {
-	return c.ListAssistantWithCtx(context.TODO(), params)
-}
-
-// Lists Assistant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAssistantWithCtx(ctx context.Context, params *ListAssistantParams) ([]AutopilotV1Assistant, error) {
-	response, errors := c.StreamAssistantWithCtx(ctx, params)
+	response, errors := c.StreamAssistant(params)
 
 	records := make([]AutopilotV1Assistant, 0)
 	for record := range response {
@@ -255,11 +235,6 @@ func (c *ApiService) ListAssistantWithCtx(ctx context.Context, params *ListAssis
 
 // Streams Assistant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAssistant(params *ListAssistantParams) (chan AutopilotV1Assistant, chan error) {
-	return c.StreamAssistantWithCtx(context.TODO(), params)
-}
-
-// Streams Assistant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAssistantWithCtx(ctx context.Context, params *ListAssistantParams) (chan AutopilotV1Assistant, chan error) {
 	if params == nil {
 		params = &ListAssistantParams{}
 	}
@@ -268,19 +243,19 @@ func (c *ApiService) StreamAssistantWithCtx(ctx context.Context, params *ListAss
 	recordChannel := make(chan AutopilotV1Assistant, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAssistantWithCtx(ctx, params, "", "")
+	response, err := c.PageAssistant(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAssistant(ctx, response, params, recordChannel, errorChannel)
+		go c.streamAssistant(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAssistant(ctx context.Context, response *ListAssistantResponse, params *ListAssistantParams, recordChannel chan AutopilotV1Assistant, errorChannel chan error) {
+func (c *ApiService) streamAssistant(response *ListAssistantResponse, params *ListAssistantParams, recordChannel chan AutopilotV1Assistant, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -295,7 +270,7 @@ func (c *ApiService) streamAssistant(ctx context.Context, response *ListAssistan
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListAssistantResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAssistantResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -310,11 +285,11 @@ func (c *ApiService) streamAssistant(ctx context.Context, response *ListAssistan
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAssistantResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAssistantResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -381,11 +356,8 @@ func (params *UpdateAssistantParams) SetDevelopmentStage(DevelopmentStage string
 	return params
 }
 
+//
 func (c *ApiService) UpdateAssistant(Sid string, params *UpdateAssistantParams) (*AutopilotV1Assistant, error) {
-	return c.UpdateAssistantWithCtx(context.TODO(), Sid, params)
-}
-
-func (c *ApiService) UpdateAssistantWithCtx(ctx context.Context, Sid string, params *UpdateAssistantParams) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -429,7 +401,7 @@ func (c *ApiService) UpdateAssistantWithCtx(ctx context.Context, Sid string, par
 		data.Set("DevelopmentStage", *params.DevelopmentStage)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

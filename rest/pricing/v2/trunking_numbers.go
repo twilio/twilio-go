@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -34,11 +33,6 @@ func (params *FetchTrunkingNumberParams) SetOriginationNumber(OriginationNumber 
 
 // Fetch pricing information for a specific destination and, optionally, origination phone number.
 func (c *ApiService) FetchTrunkingNumber(DestinationNumber string, params *FetchTrunkingNumberParams) (*PricingV2TrunkingNumber, error) {
-	return c.FetchTrunkingNumberWithCtx(context.TODO(), DestinationNumber, params)
-}
-
-// Fetch pricing information for a specific destination and, optionally, origination phone number.
-func (c *ApiService) FetchTrunkingNumberWithCtx(ctx context.Context, DestinationNumber string, params *FetchTrunkingNumberParams) (*PricingV2TrunkingNumber, error) {
 	path := "/v2/Trunking/Numbers/{DestinationNumber}"
 	path = strings.Replace(path, "{"+"DestinationNumber"+"}", DestinationNumber, -1)
 
@@ -49,7 +43,7 @@ func (c *ApiService) FetchTrunkingNumberWithCtx(ctx context.Context, Destination
 		data.Set("OriginationNumber", *params.OriginationNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

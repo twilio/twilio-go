@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -43,11 +42,6 @@ func (params *CreateRateLimitParams) SetDescription(Description string) *CreateR
 
 // Create a new Rate Limit for a Service
 func (c *ApiService) CreateRateLimit(ServiceSid string, params *CreateRateLimitParams) (*VerifyV2RateLimit, error) {
-	return c.CreateRateLimitWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Create a new Rate Limit for a Service
-func (c *ApiService) CreateRateLimitWithCtx(ctx context.Context, ServiceSid string, params *CreateRateLimitParams) (*VerifyV2RateLimit, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -61,7 +55,7 @@ func (c *ApiService) CreateRateLimitWithCtx(ctx context.Context, ServiceSid stri
 		data.Set("Description", *params.Description)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -78,11 +72,6 @@ func (c *ApiService) CreateRateLimitWithCtx(ctx context.Context, ServiceSid stri
 
 // Delete a specific Rate Limit.
 func (c *ApiService) DeleteRateLimit(ServiceSid string, Sid string) error {
-	return c.DeleteRateLimitWithCtx(context.TODO(), ServiceSid, Sid)
-}
-
-// Delete a specific Rate Limit.
-func (c *ApiService) DeleteRateLimitWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -90,7 +79,7 @@ func (c *ApiService) DeleteRateLimitWithCtx(ctx context.Context, ServiceSid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -102,11 +91,6 @@ func (c *ApiService) DeleteRateLimitWithCtx(ctx context.Context, ServiceSid stri
 
 // Fetch a specific Rate Limit.
 func (c *ApiService) FetchRateLimit(ServiceSid string, Sid string) (*VerifyV2RateLimit, error) {
-	return c.FetchRateLimitWithCtx(context.TODO(), ServiceSid, Sid)
-}
-
-// Fetch a specific Rate Limit.
-func (c *ApiService) FetchRateLimitWithCtx(ctx context.Context, ServiceSid string, Sid string) (*VerifyV2RateLimit, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -114,7 +98,7 @@ func (c *ApiService) FetchRateLimitWithCtx(ctx context.Context, ServiceSid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -148,11 +132,6 @@ func (params *ListRateLimitParams) SetLimit(Limit int) *ListRateLimitParams {
 
 // Retrieve a single page of RateLimit records from the API. Request is executed immediately.
 func (c *ApiService) PageRateLimit(ServiceSid string, params *ListRateLimitParams, pageToken, pageNumber string) (*ListRateLimitResponse, error) {
-	return c.PageRateLimitWithCtx(context.TODO(), ServiceSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of RateLimit records from the API. Request is executed immediately.
-func (c *ApiService) PageRateLimitWithCtx(ctx context.Context, ServiceSid string, params *ListRateLimitParams, pageToken, pageNumber string) (*ListRateLimitResponse, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -171,7 +150,7 @@ func (c *ApiService) PageRateLimitWithCtx(ctx context.Context, ServiceSid string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -188,12 +167,7 @@ func (c *ApiService) PageRateLimitWithCtx(ctx context.Context, ServiceSid string
 
 // Lists RateLimit records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParams) ([]VerifyV2RateLimit, error) {
-	return c.ListRateLimitWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Lists RateLimit records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRateLimitWithCtx(ctx context.Context, ServiceSid string, params *ListRateLimitParams) ([]VerifyV2RateLimit, error) {
-	response, errors := c.StreamRateLimitWithCtx(ctx, ServiceSid, params)
+	response, errors := c.StreamRateLimit(ServiceSid, params)
 
 	records := make([]VerifyV2RateLimit, 0)
 	for record := range response {
@@ -209,11 +183,6 @@ func (c *ApiService) ListRateLimitWithCtx(ctx context.Context, ServiceSid string
 
 // Streams RateLimit records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitParams) (chan VerifyV2RateLimit, chan error) {
-	return c.StreamRateLimitWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Streams RateLimit records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRateLimitWithCtx(ctx context.Context, ServiceSid string, params *ListRateLimitParams) (chan VerifyV2RateLimit, chan error) {
 	if params == nil {
 		params = &ListRateLimitParams{}
 	}
@@ -222,19 +191,19 @@ func (c *ApiService) StreamRateLimitWithCtx(ctx context.Context, ServiceSid stri
 	recordChannel := make(chan VerifyV2RateLimit, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRateLimitWithCtx(ctx, ServiceSid, params, "", "")
+	response, err := c.PageRateLimit(ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRateLimit(ctx, response, params, recordChannel, errorChannel)
+		go c.streamRateLimit(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRateLimit(ctx context.Context, response *ListRateLimitResponse, params *ListRateLimitParams, recordChannel chan VerifyV2RateLimit, errorChannel chan error) {
+func (c *ApiService) streamRateLimit(response *ListRateLimitResponse, params *ListRateLimitParams, recordChannel chan VerifyV2RateLimit, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -249,7 +218,7 @@ func (c *ApiService) streamRateLimit(ctx context.Context, response *ListRateLimi
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListRateLimitResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListRateLimitResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -264,11 +233,11 @@ func (c *ApiService) streamRateLimit(ctx context.Context, response *ListRateLimi
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRateLimitResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRateLimitResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -295,11 +264,6 @@ func (params *UpdateRateLimitParams) SetDescription(Description string) *UpdateR
 
 // Update a specific Rate Limit.
 func (c *ApiService) UpdateRateLimit(ServiceSid string, Sid string, params *UpdateRateLimitParams) (*VerifyV2RateLimit, error) {
-	return c.UpdateRateLimitWithCtx(context.TODO(), ServiceSid, Sid, params)
-}
-
-// Update a specific Rate Limit.
-func (c *ApiService) UpdateRateLimitWithCtx(ctx context.Context, ServiceSid string, Sid string, params *UpdateRateLimitParams) (*VerifyV2RateLimit, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -311,7 +275,7 @@ func (c *ApiService) UpdateRateLimitWithCtx(ctx context.Context, ServiceSid stri
 		data.Set("Description", *params.Description)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

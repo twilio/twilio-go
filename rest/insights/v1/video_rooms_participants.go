@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,11 +25,6 @@ import (
 
 // Get Video Log Analyzer data for a Room Participant.
 func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid string) (*InsightsV1VideoParticipantSummary, error) {
-	return c.FetchVideoParticipantSummaryWithCtx(context.TODO(), RoomSid, ParticipantSid)
-}
-
-// Get Video Log Analyzer data for a Room Participant.
-func (c *ApiService) FetchVideoParticipantSummaryWithCtx(ctx context.Context, RoomSid string, ParticipantSid string) (*InsightsV1VideoParticipantSummary, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -38,7 +32,7 @@ func (c *ApiService) FetchVideoParticipantSummaryWithCtx(ctx context.Context, Ro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -72,11 +66,6 @@ func (params *ListVideoParticipantSummaryParams) SetLimit(Limit int) *ListVideoP
 
 // Retrieve a single page of VideoParticipantSummary records from the API. Request is executed immediately.
 func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams, pageToken, pageNumber string) (*ListVideoParticipantSummaryResponse, error) {
-	return c.PageVideoParticipantSummaryWithCtx(context.TODO(), RoomSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of VideoParticipantSummary records from the API. Request is executed immediately.
-func (c *ApiService) PageVideoParticipantSummaryWithCtx(ctx context.Context, RoomSid string, params *ListVideoParticipantSummaryParams, pageToken, pageNumber string) (*ListVideoParticipantSummaryResponse, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -95,7 +84,7 @@ func (c *ApiService) PageVideoParticipantSummaryWithCtx(ctx context.Context, Roo
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -112,12 +101,7 @@ func (c *ApiService) PageVideoParticipantSummaryWithCtx(ctx context.Context, Roo
 
 // Lists VideoParticipantSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) ([]InsightsV1VideoParticipantSummary, error) {
-	return c.ListVideoParticipantSummaryWithCtx(context.TODO(), RoomSid, params)
-}
-
-// Lists VideoParticipantSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVideoParticipantSummaryWithCtx(ctx context.Context, RoomSid string, params *ListVideoParticipantSummaryParams) ([]InsightsV1VideoParticipantSummary, error) {
-	response, errors := c.StreamVideoParticipantSummaryWithCtx(ctx, RoomSid, params)
+	response, errors := c.StreamVideoParticipantSummary(RoomSid, params)
 
 	records := make([]InsightsV1VideoParticipantSummary, 0)
 	for record := range response {
@@ -133,11 +117,6 @@ func (c *ApiService) ListVideoParticipantSummaryWithCtx(ctx context.Context, Roo
 
 // Streams VideoParticipantSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) (chan InsightsV1VideoParticipantSummary, chan error) {
-	return c.StreamVideoParticipantSummaryWithCtx(context.TODO(), RoomSid, params)
-}
-
-// Streams VideoParticipantSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVideoParticipantSummaryWithCtx(ctx context.Context, RoomSid string, params *ListVideoParticipantSummaryParams) (chan InsightsV1VideoParticipantSummary, chan error) {
 	if params == nil {
 		params = &ListVideoParticipantSummaryParams{}
 	}
@@ -146,19 +125,19 @@ func (c *ApiService) StreamVideoParticipantSummaryWithCtx(ctx context.Context, R
 	recordChannel := make(chan InsightsV1VideoParticipantSummary, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageVideoParticipantSummaryWithCtx(ctx, RoomSid, params, "", "")
+	response, err := c.PageVideoParticipantSummary(RoomSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamVideoParticipantSummary(ctx, response, params, recordChannel, errorChannel)
+		go c.streamVideoParticipantSummary(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamVideoParticipantSummary(ctx context.Context, response *ListVideoParticipantSummaryResponse, params *ListVideoParticipantSummaryParams, recordChannel chan InsightsV1VideoParticipantSummary, errorChannel chan error) {
+func (c *ApiService) streamVideoParticipantSummary(response *ListVideoParticipantSummaryResponse, params *ListVideoParticipantSummaryParams, recordChannel chan InsightsV1VideoParticipantSummary, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -173,7 +152,7 @@ func (c *ApiService) streamVideoParticipantSummary(ctx context.Context, response
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListVideoParticipantSummaryResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListVideoParticipantSummaryResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -188,11 +167,11 @@ func (c *ApiService) streamVideoParticipantSummary(ctx context.Context, response
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListVideoParticipantSummaryResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListVideoParticipantSummaryResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

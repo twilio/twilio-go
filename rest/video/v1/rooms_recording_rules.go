@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -23,18 +22,13 @@ import (
 
 // Returns a list of Recording Rules for the Room.
 func (c *ApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRecordingRule, error) {
-	return c.FetchRoomRecordingRuleWithCtx(context.TODO(), RoomSid)
-}
-
-// Returns a list of Recording Rules for the Room.
-func (c *ApiService) FetchRoomRecordingRuleWithCtx(ctx context.Context, RoomSid string) (*VideoV1RoomRecordingRule, error) {
 	path := "/v1/Rooms/{RoomSid}/RecordingRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -62,11 +56,6 @@ func (params *UpdateRoomRecordingRuleParams) SetRules(Rules interface{}) *Update
 
 // Update the Recording Rules for the Room
 func (c *ApiService) UpdateRoomRecordingRule(RoomSid string, params *UpdateRoomRecordingRuleParams) (*VideoV1RoomRecordingRule, error) {
-	return c.UpdateRoomRecordingRuleWithCtx(context.TODO(), RoomSid, params)
-}
-
-// Update the Recording Rules for the Room
-func (c *ApiService) UpdateRoomRecordingRuleWithCtx(ctx context.Context, RoomSid string, params *UpdateRoomRecordingRuleParams) (*VideoV1RoomRecordingRule, error) {
 	path := "/v1/Rooms/{RoomSid}/RecordingRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
@@ -83,7 +72,7 @@ func (c *ApiService) UpdateRoomRecordingRuleWithCtx(ctx context.Context, RoomSid
 		data.Set("Rules", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

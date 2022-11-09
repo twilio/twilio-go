@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -49,11 +48,6 @@ func (params *ListDependentPhoneNumberParams) SetLimit(Limit int) *ListDependent
 
 // Retrieve a single page of DependentPhoneNumber records from the API. Request is executed immediately.
 func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams, pageToken, pageNumber string) (*ListDependentPhoneNumberResponse, error) {
-	return c.PageDependentPhoneNumberWithCtx(context.TODO(), AddressSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of DependentPhoneNumber records from the API. Request is executed immediately.
-func (c *ApiService) PageDependentPhoneNumberWithCtx(ctx context.Context, AddressSid string, params *ListDependentPhoneNumberParams, pageToken, pageNumber string) (*ListDependentPhoneNumberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -77,7 +71,7 @@ func (c *ApiService) PageDependentPhoneNumberWithCtx(ctx context.Context, Addres
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -94,12 +88,7 @@ func (c *ApiService) PageDependentPhoneNumberWithCtx(ctx context.Context, Addres
 
 // Lists DependentPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) ([]ApiV2010DependentPhoneNumber, error) {
-	return c.ListDependentPhoneNumberWithCtx(context.TODO(), AddressSid, params)
-}
-
-// Lists DependentPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDependentPhoneNumberWithCtx(ctx context.Context, AddressSid string, params *ListDependentPhoneNumberParams) ([]ApiV2010DependentPhoneNumber, error) {
-	response, errors := c.StreamDependentPhoneNumberWithCtx(ctx, AddressSid, params)
+	response, errors := c.StreamDependentPhoneNumber(AddressSid, params)
 
 	records := make([]ApiV2010DependentPhoneNumber, 0)
 	for record := range response {
@@ -115,11 +104,6 @@ func (c *ApiService) ListDependentPhoneNumberWithCtx(ctx context.Context, Addres
 
 // Streams DependentPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) (chan ApiV2010DependentPhoneNumber, chan error) {
-	return c.StreamDependentPhoneNumberWithCtx(context.TODO(), AddressSid, params)
-}
-
-// Streams DependentPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDependentPhoneNumberWithCtx(ctx context.Context, AddressSid string, params *ListDependentPhoneNumberParams) (chan ApiV2010DependentPhoneNumber, chan error) {
 	if params == nil {
 		params = &ListDependentPhoneNumberParams{}
 	}
@@ -128,19 +112,19 @@ func (c *ApiService) StreamDependentPhoneNumberWithCtx(ctx context.Context, Addr
 	recordChannel := make(chan ApiV2010DependentPhoneNumber, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDependentPhoneNumberWithCtx(ctx, AddressSid, params, "", "")
+	response, err := c.PageDependentPhoneNumber(AddressSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDependentPhoneNumber(ctx, response, params, recordChannel, errorChannel)
+		go c.streamDependentPhoneNumber(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDependentPhoneNumber(ctx context.Context, response *ListDependentPhoneNumberResponse, params *ListDependentPhoneNumberParams, recordChannel chan ApiV2010DependentPhoneNumber, errorChannel chan error) {
+func (c *ApiService) streamDependentPhoneNumber(response *ListDependentPhoneNumberResponse, params *ListDependentPhoneNumberParams, recordChannel chan ApiV2010DependentPhoneNumber, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -155,7 +139,7 @@ func (c *ApiService) streamDependentPhoneNumber(ctx context.Context, response *L
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListDependentPhoneNumberResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListDependentPhoneNumberResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -170,11 +154,11 @@ func (c *ApiService) streamDependentPhoneNumber(ctx context.Context, response *L
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDependentPhoneNumberResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDependentPhoneNumberResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

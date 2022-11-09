@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -24,11 +23,8 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+//
 func (c *ApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkerChannel, error) {
-	return c.FetchWorkerChannelWithCtx(context.TODO(), WorkspaceSid, WorkerSid, Sid)
-}
-
-func (c *ApiService) FetchWorkerChannelWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
@@ -37,7 +33,7 @@ func (c *ApiService) FetchWorkerChannelWithCtx(ctx context.Context, WorkspaceSid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -71,11 +67,6 @@ func (params *ListWorkerChannelParams) SetLimit(Limit int) *ListWorkerChannelPar
 
 // Retrieve a single page of WorkerChannel records from the API. Request is executed immediately.
 func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, pageToken, pageNumber string) (*ListWorkerChannelResponse, error) {
-	return c.PageWorkerChannelWithCtx(context.TODO(), WorkspaceSid, WorkerSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of WorkerChannel records from the API. Request is executed immediately.
-func (c *ApiService) PageWorkerChannelWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, pageToken, pageNumber string) (*ListWorkerChannelResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -95,7 +86,7 @@ func (c *ApiService) PageWorkerChannelWithCtx(ctx context.Context, WorkspaceSid 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -112,12 +103,7 @@ func (c *ApiService) PageWorkerChannelWithCtx(ctx context.Context, WorkspaceSid 
 
 // Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) ([]TaskrouterV1WorkerChannel, error) {
-	return c.ListWorkerChannelWithCtx(context.TODO(), WorkspaceSid, WorkerSid, params)
-}
-
-// Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWorkerChannelWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) ([]TaskrouterV1WorkerChannel, error) {
-	response, errors := c.StreamWorkerChannelWithCtx(ctx, WorkspaceSid, WorkerSid, params)
+	response, errors := c.StreamWorkerChannel(WorkspaceSid, WorkerSid, params)
 
 	records := make([]TaskrouterV1WorkerChannel, 0)
 	for record := range response {
@@ -133,11 +119,6 @@ func (c *ApiService) ListWorkerChannelWithCtx(ctx context.Context, WorkspaceSid 
 
 // Streams WorkerChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (chan TaskrouterV1WorkerChannel, chan error) {
-	return c.StreamWorkerChannelWithCtx(context.TODO(), WorkspaceSid, WorkerSid, params)
-}
-
-// Streams WorkerChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorkerChannelWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (chan TaskrouterV1WorkerChannel, chan error) {
 	if params == nil {
 		params = &ListWorkerChannelParams{}
 	}
@@ -146,19 +127,19 @@ func (c *ApiService) StreamWorkerChannelWithCtx(ctx context.Context, WorkspaceSi
 	recordChannel := make(chan TaskrouterV1WorkerChannel, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageWorkerChannelWithCtx(ctx, WorkspaceSid, WorkerSid, params, "", "")
+	response, err := c.PageWorkerChannel(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamWorkerChannel(ctx, response, params, recordChannel, errorChannel)
+		go c.streamWorkerChannel(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamWorkerChannel(ctx context.Context, response *ListWorkerChannelResponse, params *ListWorkerChannelParams, recordChannel chan TaskrouterV1WorkerChannel, errorChannel chan error) {
+func (c *ApiService) streamWorkerChannel(response *ListWorkerChannelResponse, params *ListWorkerChannelParams, recordChannel chan TaskrouterV1WorkerChannel, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -173,7 +154,7 @@ func (c *ApiService) streamWorkerChannel(ctx context.Context, response *ListWork
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListWorkerChannelResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListWorkerChannelResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -188,11 +169,11 @@ func (c *ApiService) streamWorkerChannel(ctx context.Context, response *ListWork
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListWorkerChannelResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListWorkerChannelResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -223,11 +204,8 @@ func (params *UpdateWorkerChannelParams) SetAvailable(Available bool) *UpdateWor
 	return params
 }
 
+//
 func (c *ApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerChannelParams) (*TaskrouterV1WorkerChannel, error) {
-	return c.UpdateWorkerChannelWithCtx(context.TODO(), WorkspaceSid, WorkerSid, Sid, params)
-}
-
-func (c *ApiService) UpdateWorkerChannelWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerChannelParams) (*TaskrouterV1WorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
@@ -243,7 +221,7 @@ func (c *ApiService) UpdateWorkerChannelWithCtx(ctx context.Context, WorkspaceSi
 		data.Set("Available", fmt.Sprint(*params.Available))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

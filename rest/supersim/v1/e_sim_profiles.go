@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -49,11 +48,6 @@ func (params *CreateEsimProfileParams) SetEid(Eid string) *CreateEsimProfilePara
 
 // Order an eSIM Profile.
 func (c *ApiService) CreateEsimProfile(params *CreateEsimProfileParams) (*SupersimV1EsimProfile, error) {
-	return c.CreateEsimProfileWithCtx(context.TODO(), params)
-}
-
-// Order an eSIM Profile.
-func (c *ApiService) CreateEsimProfileWithCtx(ctx context.Context, params *CreateEsimProfileParams) (*SupersimV1EsimProfile, error) {
 	path := "/v1/ESimProfiles"
 
 	data := url.Values{}
@@ -69,7 +63,7 @@ func (c *ApiService) CreateEsimProfileWithCtx(ctx context.Context, params *Creat
 		data.Set("Eid", *params.Eid)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -86,18 +80,13 @@ func (c *ApiService) CreateEsimProfileWithCtx(ctx context.Context, params *Creat
 
 // Fetch an eSIM Profile.
 func (c *ApiService) FetchEsimProfile(Sid string) (*SupersimV1EsimProfile, error) {
-	return c.FetchEsimProfileWithCtx(context.TODO(), Sid)
-}
-
-// Fetch an eSIM Profile.
-func (c *ApiService) FetchEsimProfileWithCtx(ctx context.Context, Sid string) (*SupersimV1EsimProfile, error) {
 	path := "/v1/ESimProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -149,11 +138,6 @@ func (params *ListEsimProfileParams) SetLimit(Limit int) *ListEsimProfileParams 
 
 // Retrieve a single page of EsimProfile records from the API. Request is executed immediately.
 func (c *ApiService) PageEsimProfile(params *ListEsimProfileParams, pageToken, pageNumber string) (*ListEsimProfileResponse, error) {
-	return c.PageEsimProfileWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of EsimProfile records from the API. Request is executed immediately.
-func (c *ApiService) PageEsimProfileWithCtx(ctx context.Context, params *ListEsimProfileParams, pageToken, pageNumber string) (*ListEsimProfileResponse, error) {
 	path := "/v1/ESimProfiles"
 
 	data := url.Values{}
@@ -179,7 +163,7 @@ func (c *ApiService) PageEsimProfileWithCtx(ctx context.Context, params *ListEsi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -196,12 +180,7 @@ func (c *ApiService) PageEsimProfileWithCtx(ctx context.Context, params *ListEsi
 
 // Lists EsimProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEsimProfile(params *ListEsimProfileParams) ([]SupersimV1EsimProfile, error) {
-	return c.ListEsimProfileWithCtx(context.TODO(), params)
-}
-
-// Lists EsimProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEsimProfileWithCtx(ctx context.Context, params *ListEsimProfileParams) ([]SupersimV1EsimProfile, error) {
-	response, errors := c.StreamEsimProfileWithCtx(ctx, params)
+	response, errors := c.StreamEsimProfile(params)
 
 	records := make([]SupersimV1EsimProfile, 0)
 	for record := range response {
@@ -217,11 +196,6 @@ func (c *ApiService) ListEsimProfileWithCtx(ctx context.Context, params *ListEsi
 
 // Streams EsimProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEsimProfile(params *ListEsimProfileParams) (chan SupersimV1EsimProfile, chan error) {
-	return c.StreamEsimProfileWithCtx(context.TODO(), params)
-}
-
-// Streams EsimProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEsimProfileWithCtx(ctx context.Context, params *ListEsimProfileParams) (chan SupersimV1EsimProfile, chan error) {
 	if params == nil {
 		params = &ListEsimProfileParams{}
 	}
@@ -230,19 +204,19 @@ func (c *ApiService) StreamEsimProfileWithCtx(ctx context.Context, params *ListE
 	recordChannel := make(chan SupersimV1EsimProfile, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEsimProfileWithCtx(ctx, params, "", "")
+	response, err := c.PageEsimProfile(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEsimProfile(ctx, response, params, recordChannel, errorChannel)
+		go c.streamEsimProfile(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEsimProfile(ctx context.Context, response *ListEsimProfileResponse, params *ListEsimProfileParams, recordChannel chan SupersimV1EsimProfile, errorChannel chan error) {
+func (c *ApiService) streamEsimProfile(response *ListEsimProfileResponse, params *ListEsimProfileParams, recordChannel chan SupersimV1EsimProfile, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -257,7 +231,7 @@ func (c *ApiService) streamEsimProfile(ctx context.Context, response *ListEsimPr
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListEsimProfileResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListEsimProfileResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -272,11 +246,11 @@ func (c *ApiService) streamEsimProfile(ctx context.Context, response *ListEsimPr
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEsimProfileResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEsimProfileResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

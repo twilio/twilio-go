@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -55,11 +54,6 @@ func (params *CreateBuildParams) SetRuntime(Runtime string) *CreateBuildParams {
 
 // Create a new Build resource. At least one function version or asset version is required.
 func (c *ApiService) CreateBuild(ServiceSid string, params *CreateBuildParams) (*ServerlessV1Build, error) {
-	return c.CreateBuildWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Create a new Build resource. At least one function version or asset version is required.
-func (c *ApiService) CreateBuildWithCtx(ctx context.Context, ServiceSid string, params *CreateBuildParams) (*ServerlessV1Build, error) {
 	path := "/v1/Services/{ServiceSid}/Builds"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -83,7 +77,7 @@ func (c *ApiService) CreateBuildWithCtx(ctx context.Context, ServiceSid string, 
 		data.Set("Runtime", *params.Runtime)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -100,11 +94,6 @@ func (c *ApiService) CreateBuildWithCtx(ctx context.Context, ServiceSid string, 
 
 // Delete a Build resource.
 func (c *ApiService) DeleteBuild(ServiceSid string, Sid string) error {
-	return c.DeleteBuildWithCtx(context.TODO(), ServiceSid, Sid)
-}
-
-// Delete a Build resource.
-func (c *ApiService) DeleteBuildWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Builds/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -112,7 +101,7 @@ func (c *ApiService) DeleteBuildWithCtx(ctx context.Context, ServiceSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -124,11 +113,6 @@ func (c *ApiService) DeleteBuildWithCtx(ctx context.Context, ServiceSid string, 
 
 // Retrieve a specific Build resource.
 func (c *ApiService) FetchBuild(ServiceSid string, Sid string) (*ServerlessV1Build, error) {
-	return c.FetchBuildWithCtx(context.TODO(), ServiceSid, Sid)
-}
-
-// Retrieve a specific Build resource.
-func (c *ApiService) FetchBuildWithCtx(ctx context.Context, ServiceSid string, Sid string) (*ServerlessV1Build, error) {
 	path := "/v1/Services/{ServiceSid}/Builds/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -136,7 +120,7 @@ func (c *ApiService) FetchBuildWithCtx(ctx context.Context, ServiceSid string, S
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -170,11 +154,6 @@ func (params *ListBuildParams) SetLimit(Limit int) *ListBuildParams {
 
 // Retrieve a single page of Build records from the API. Request is executed immediately.
 func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageToken, pageNumber string) (*ListBuildResponse, error) {
-	return c.PageBuildWithCtx(context.TODO(), ServiceSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Build records from the API. Request is executed immediately.
-func (c *ApiService) PageBuildWithCtx(ctx context.Context, ServiceSid string, params *ListBuildParams, pageToken, pageNumber string) (*ListBuildResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Builds"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -193,7 +172,7 @@ func (c *ApiService) PageBuildWithCtx(ctx context.Context, ServiceSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -210,12 +189,7 @@ func (c *ApiService) PageBuildWithCtx(ctx context.Context, ServiceSid string, pa
 
 // Lists Build records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) ([]ServerlessV1Build, error) {
-	return c.ListBuildWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Lists Build records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBuildWithCtx(ctx context.Context, ServiceSid string, params *ListBuildParams) ([]ServerlessV1Build, error) {
-	response, errors := c.StreamBuildWithCtx(ctx, ServiceSid, params)
+	response, errors := c.StreamBuild(ServiceSid, params)
 
 	records := make([]ServerlessV1Build, 0)
 	for record := range response {
@@ -231,11 +205,6 @@ func (c *ApiService) ListBuildWithCtx(ctx context.Context, ServiceSid string, pa
 
 // Streams Build records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams) (chan ServerlessV1Build, chan error) {
-	return c.StreamBuildWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Streams Build records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBuildWithCtx(ctx context.Context, ServiceSid string, params *ListBuildParams) (chan ServerlessV1Build, chan error) {
 	if params == nil {
 		params = &ListBuildParams{}
 	}
@@ -244,19 +213,19 @@ func (c *ApiService) StreamBuildWithCtx(ctx context.Context, ServiceSid string, 
 	recordChannel := make(chan ServerlessV1Build, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageBuildWithCtx(ctx, ServiceSid, params, "", "")
+	response, err := c.PageBuild(ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamBuild(ctx, response, params, recordChannel, errorChannel)
+		go c.streamBuild(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBuild(ctx context.Context, response *ListBuildResponse, params *ListBuildParams, recordChannel chan ServerlessV1Build, errorChannel chan error) {
+func (c *ApiService) streamBuild(response *ListBuildResponse, params *ListBuildParams, recordChannel chan ServerlessV1Build, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -271,7 +240,7 @@ func (c *ApiService) streamBuild(ctx context.Context, response *ListBuildRespons
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListBuildResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListBuildResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -286,11 +255,11 @@ func (c *ApiService) streamBuild(ctx context.Context, response *ListBuildRespons
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListBuildResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListBuildResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

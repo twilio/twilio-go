@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -311,11 +310,8 @@ func (params *CreateParticipantParams) SetAmdStatusCallbackMethod(AmdStatusCallb
 	return params
 }
 
+//
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
-	return c.CreateParticipantWithCtx(context.TODO(), ConferenceSid, params)
-}
-
-func (c *ApiService) CreateParticipantWithCtx(ctx context.Context, ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -474,7 +470,7 @@ func (c *ApiService) CreateParticipantWithCtx(ctx context.Context, ConferenceSid
 		data.Set("AmdStatusCallbackMethod", *params.AmdStatusCallbackMethod)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -502,11 +498,6 @@ func (params *DeleteParticipantParams) SetPathAccountSid(PathAccountSid string) 
 
 // Kick a participant from a given conference
 func (c *ApiService) DeleteParticipant(ConferenceSid string, CallSid string, params *DeleteParticipantParams) error {
-	return c.DeleteParticipantWithCtx(context.TODO(), ConferenceSid, CallSid, params)
-}
-
-// Kick a participant from a given conference
-func (c *ApiService) DeleteParticipantWithCtx(ctx context.Context, ConferenceSid string, CallSid string, params *DeleteParticipantParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -519,7 +510,7 @@ func (c *ApiService) DeleteParticipantWithCtx(ctx context.Context, ConferenceSid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -542,11 +533,6 @@ func (params *FetchParticipantParams) SetPathAccountSid(PathAccountSid string) *
 
 // Fetch an instance of a participant
 func (c *ApiService) FetchParticipant(ConferenceSid string, CallSid string, params *FetchParticipantParams) (*ApiV2010Participant, error) {
-	return c.FetchParticipantWithCtx(context.TODO(), ConferenceSid, CallSid, params)
-}
-
-// Fetch an instance of a participant
-func (c *ApiService) FetchParticipantWithCtx(ctx context.Context, ConferenceSid string, CallSid string, params *FetchParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -559,7 +545,7 @@ func (c *ApiService) FetchParticipantWithCtx(ctx context.Context, ConferenceSid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -617,11 +603,6 @@ func (params *ListParticipantParams) SetLimit(Limit int) *ListParticipantParams 
 
 // Retrieve a single page of Participant records from the API. Request is executed immediately.
 func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipantParams, pageToken, pageNumber string) (*ListParticipantResponse, error) {
-	return c.PageParticipantWithCtx(context.TODO(), ConferenceSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Participant records from the API. Request is executed immediately.
-func (c *ApiService) PageParticipantWithCtx(ctx context.Context, ConferenceSid string, params *ListParticipantParams, pageToken, pageNumber string) (*ListParticipantResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -654,7 +635,7 @@ func (c *ApiService) PageParticipantWithCtx(ctx context.Context, ConferenceSid s
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -671,12 +652,7 @@ func (c *ApiService) PageParticipantWithCtx(ctx context.Context, ConferenceSid s
 
 // Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipantParams) ([]ApiV2010Participant, error) {
-	return c.ListParticipantWithCtx(context.TODO(), ConferenceSid, params)
-}
-
-// Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListParticipantWithCtx(ctx context.Context, ConferenceSid string, params *ListParticipantParams) ([]ApiV2010Participant, error) {
-	response, errors := c.StreamParticipantWithCtx(ctx, ConferenceSid, params)
+	response, errors := c.StreamParticipant(ConferenceSid, params)
 
 	records := make([]ApiV2010Participant, 0)
 	for record := range response {
@@ -692,11 +668,6 @@ func (c *ApiService) ListParticipantWithCtx(ctx context.Context, ConferenceSid s
 
 // Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListParticipantParams) (chan ApiV2010Participant, chan error) {
-	return c.StreamParticipantWithCtx(context.TODO(), ConferenceSid, params)
-}
-
-// Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamParticipantWithCtx(ctx context.Context, ConferenceSid string, params *ListParticipantParams) (chan ApiV2010Participant, chan error) {
 	if params == nil {
 		params = &ListParticipantParams{}
 	}
@@ -705,19 +676,19 @@ func (c *ApiService) StreamParticipantWithCtx(ctx context.Context, ConferenceSid
 	recordChannel := make(chan ApiV2010Participant, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageParticipantWithCtx(ctx, ConferenceSid, params, "", "")
+	response, err := c.PageParticipant(ConferenceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamParticipant(ctx, response, params, recordChannel, errorChannel)
+		go c.streamParticipant(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamParticipant(ctx context.Context, response *ListParticipantResponse, params *ListParticipantParams, recordChannel chan ApiV2010Participant, errorChannel chan error) {
+func (c *ApiService) streamParticipant(response *ListParticipantResponse, params *ListParticipantParams, recordChannel chan ApiV2010Participant, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -732,7 +703,7 @@ func (c *ApiService) streamParticipant(ctx context.Context, response *ListPartic
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListParticipantResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListParticipantResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -747,11 +718,11 @@ func (c *ApiService) streamParticipant(ctx context.Context, response *ListPartic
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListParticipantResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListParticipantResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -850,11 +821,6 @@ func (params *UpdateParticipantParams) SetCallSidToCoach(CallSidToCoach string) 
 
 // Update the properties of the participant
 func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, params *UpdateParticipantParams) (*ApiV2010Participant, error) {
-	return c.UpdateParticipantWithCtx(context.TODO(), ConferenceSid, CallSid, params)
-}
-
-// Update the properties of the participant
-func (c *ApiService) UpdateParticipantWithCtx(ctx context.Context, ConferenceSid string, CallSid string, params *UpdateParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -904,7 +870,7 @@ func (c *ApiService) UpdateParticipantWithCtx(ctx context.Context, ConferenceSid
 		data.Set("CallSidToCoach", *params.CallSidToCoach)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

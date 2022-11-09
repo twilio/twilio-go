@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -59,11 +58,8 @@ func (params *CreateBrandRegistrationsParams) SetSkipAutomaticSecVet(SkipAutomat
 	return params
 }
 
+//
 func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsParams) (*MessagingV1BrandRegistrations, error) {
-	return c.CreateBrandRegistrationsWithCtx(context.TODO(), params)
-}
-
-func (c *ApiService) CreateBrandRegistrationsWithCtx(ctx context.Context, params *CreateBrandRegistrationsParams) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
 	data := url.Values{}
@@ -85,7 +81,7 @@ func (c *ApiService) CreateBrandRegistrationsWithCtx(ctx context.Context, params
 		data.Set("SkipAutomaticSecVet", fmt.Sprint(*params.SkipAutomaticSecVet))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -100,18 +96,15 @@ func (c *ApiService) CreateBrandRegistrationsWithCtx(ctx context.Context, params
 	return ps, err
 }
 
+//
 func (c *ApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
-	return c.FetchBrandRegistrationsWithCtx(context.TODO(), Sid)
-}
-
-func (c *ApiService) FetchBrandRegistrationsWithCtx(ctx context.Context, Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -145,11 +138,6 @@ func (params *ListBrandRegistrationsParams) SetLimit(Limit int) *ListBrandRegist
 
 // Retrieve a single page of BrandRegistrations records from the API. Request is executed immediately.
 func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams, pageToken, pageNumber string) (*ListBrandRegistrationsResponse, error) {
-	return c.PageBrandRegistrationsWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of BrandRegistrations records from the API. Request is executed immediately.
-func (c *ApiService) PageBrandRegistrationsWithCtx(ctx context.Context, params *ListBrandRegistrationsParams, pageToken, pageNumber string) (*ListBrandRegistrationsResponse, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
 	data := url.Values{}
@@ -166,7 +154,7 @@ func (c *ApiService) PageBrandRegistrationsWithCtx(ctx context.Context, params *
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -183,12 +171,7 @@ func (c *ApiService) PageBrandRegistrationsWithCtx(ctx context.Context, params *
 
 // Lists BrandRegistrations records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBrandRegistrations(params *ListBrandRegistrationsParams) ([]MessagingV1BrandRegistrations, error) {
-	return c.ListBrandRegistrationsWithCtx(context.TODO(), params)
-}
-
-// Lists BrandRegistrations records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBrandRegistrationsWithCtx(ctx context.Context, params *ListBrandRegistrationsParams) ([]MessagingV1BrandRegistrations, error) {
-	response, errors := c.StreamBrandRegistrationsWithCtx(ctx, params)
+	response, errors := c.StreamBrandRegistrations(params)
 
 	records := make([]MessagingV1BrandRegistrations, 0)
 	for record := range response {
@@ -204,11 +187,6 @@ func (c *ApiService) ListBrandRegistrationsWithCtx(ctx context.Context, params *
 
 // Streams BrandRegistrations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBrandRegistrations(params *ListBrandRegistrationsParams) (chan MessagingV1BrandRegistrations, chan error) {
-	return c.StreamBrandRegistrationsWithCtx(context.TODO(), params)
-}
-
-// Streams BrandRegistrations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBrandRegistrationsWithCtx(ctx context.Context, params *ListBrandRegistrationsParams) (chan MessagingV1BrandRegistrations, chan error) {
 	if params == nil {
 		params = &ListBrandRegistrationsParams{}
 	}
@@ -217,19 +195,19 @@ func (c *ApiService) StreamBrandRegistrationsWithCtx(ctx context.Context, params
 	recordChannel := make(chan MessagingV1BrandRegistrations, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageBrandRegistrationsWithCtx(ctx, params, "", "")
+	response, err := c.PageBrandRegistrations(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamBrandRegistrations(ctx, response, params, recordChannel, errorChannel)
+		go c.streamBrandRegistrations(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBrandRegistrations(ctx context.Context, response *ListBrandRegistrationsResponse, params *ListBrandRegistrationsParams, recordChannel chan MessagingV1BrandRegistrations, errorChannel chan error) {
+func (c *ApiService) streamBrandRegistrations(response *ListBrandRegistrationsResponse, params *ListBrandRegistrationsParams, recordChannel chan MessagingV1BrandRegistrations, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -244,7 +222,7 @@ func (c *ApiService) streamBrandRegistrations(ctx context.Context, response *Lis
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListBrandRegistrationsResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListBrandRegistrationsResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -259,11 +237,11 @@ func (c *ApiService) streamBrandRegistrations(ctx context.Context, response *Lis
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListBrandRegistrationsResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListBrandRegistrationsResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -277,18 +255,15 @@ func (c *ApiService) getNextListBrandRegistrationsResponse(ctx context.Context, 
 	return ps, nil
 }
 
+//
 func (c *ApiService) UpdateBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
-	return c.UpdateBrandRegistrationsWithCtx(context.TODO(), Sid)
-}
-
-func (c *ApiService) UpdateBrandRegistrationsWithCtx(ctx context.Context, Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

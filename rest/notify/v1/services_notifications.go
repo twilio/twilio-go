@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -135,11 +134,8 @@ func (params *CreateNotificationParams) SetTag(Tag []string) *CreateNotification
 	return params
 }
 
+//
 func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotificationParams) (*NotifyV1Notification, error) {
-	return c.CreateNotificationWithCtx(context.TODO(), ServiceSid, params)
-}
-
-func (c *ApiService) CreateNotificationWithCtx(ctx context.Context, ServiceSid string, params *CreateNotificationParams) (*NotifyV1Notification, error) {
 	path := "/v1/Services/{ServiceSid}/Notifications"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -251,7 +247,7 @@ func (c *ApiService) CreateNotificationWithCtx(ctx context.Context, ServiceSid s
 		}
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

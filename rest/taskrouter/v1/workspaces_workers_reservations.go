@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -24,11 +23,8 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+//
 func (c *ApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkerReservation, error) {
-	return c.FetchWorkerReservationWithCtx(context.TODO(), WorkspaceSid, WorkerSid, Sid)
-}
-
-func (c *ApiService) FetchWorkerReservationWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkerReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
@@ -37,7 +33,7 @@ func (c *ApiService) FetchWorkerReservationWithCtx(ctx context.Context, Workspac
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -77,11 +73,6 @@ func (params *ListWorkerReservationParams) SetLimit(Limit int) *ListWorkerReserv
 
 // Retrieve a single page of WorkerReservation records from the API. Request is executed immediately.
 func (c *ApiService) PageWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, pageToken, pageNumber string) (*ListWorkerReservationResponse, error) {
-	return c.PageWorkerReservationWithCtx(context.TODO(), WorkspaceSid, WorkerSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of WorkerReservation records from the API. Request is executed immediately.
-func (c *ApiService) PageWorkerReservationWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, pageToken, pageNumber string) (*ListWorkerReservationResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -104,7 +95,7 @@ func (c *ApiService) PageWorkerReservationWithCtx(ctx context.Context, Workspace
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -121,12 +112,7 @@ func (c *ApiService) PageWorkerReservationWithCtx(ctx context.Context, Workspace
 
 // Lists WorkerReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) ([]TaskrouterV1WorkerReservation, error) {
-	return c.ListWorkerReservationWithCtx(context.TODO(), WorkspaceSid, WorkerSid, params)
-}
-
-// Lists WorkerReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWorkerReservationWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) ([]TaskrouterV1WorkerReservation, error) {
-	response, errors := c.StreamWorkerReservationWithCtx(ctx, WorkspaceSid, WorkerSid, params)
+	response, errors := c.StreamWorkerReservation(WorkspaceSid, WorkerSid, params)
 
 	records := make([]TaskrouterV1WorkerReservation, 0)
 	for record := range response {
@@ -142,11 +128,6 @@ func (c *ApiService) ListWorkerReservationWithCtx(ctx context.Context, Workspace
 
 // Streams WorkerReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) (chan TaskrouterV1WorkerReservation, chan error) {
-	return c.StreamWorkerReservationWithCtx(context.TODO(), WorkspaceSid, WorkerSid, params)
-}
-
-// Streams WorkerReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorkerReservationWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) (chan TaskrouterV1WorkerReservation, chan error) {
 	if params == nil {
 		params = &ListWorkerReservationParams{}
 	}
@@ -155,19 +136,19 @@ func (c *ApiService) StreamWorkerReservationWithCtx(ctx context.Context, Workspa
 	recordChannel := make(chan TaskrouterV1WorkerReservation, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageWorkerReservationWithCtx(ctx, WorkspaceSid, WorkerSid, params, "", "")
+	response, err := c.PageWorkerReservation(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamWorkerReservation(ctx, response, params, recordChannel, errorChannel)
+		go c.streamWorkerReservation(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamWorkerReservation(ctx context.Context, response *ListWorkerReservationResponse, params *ListWorkerReservationParams, recordChannel chan TaskrouterV1WorkerReservation, errorChannel chan error) {
+func (c *ApiService) streamWorkerReservation(response *ListWorkerReservationResponse, params *ListWorkerReservationParams, recordChannel chan TaskrouterV1WorkerReservation, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -182,7 +163,7 @@ func (c *ApiService) streamWorkerReservation(ctx context.Context, response *List
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListWorkerReservationResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListWorkerReservationResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -197,11 +178,11 @@ func (c *ApiService) streamWorkerReservation(ctx context.Context, response *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListWorkerReservationResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListWorkerReservationResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -532,11 +513,8 @@ func (params *UpdateWorkerReservationParams) SetBeepOnCustomerEntrance(BeepOnCus
 	return params
 }
 
+//
 func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerReservationParams) (*TaskrouterV1WorkerReservation, error) {
-	return c.UpdateWorkerReservationWithCtx(context.TODO(), WorkspaceSid, WorkerSid, Sid, params)
-}
-
-func (c *ApiService) UpdateWorkerReservationWithCtx(ctx context.Context, WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerReservationParams) (*TaskrouterV1WorkerReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
@@ -709,7 +687,7 @@ func (c *ApiService) UpdateWorkerReservationWithCtx(ctx context.Context, Workspa
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

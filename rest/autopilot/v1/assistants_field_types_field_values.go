@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -47,11 +46,8 @@ func (params *CreateFieldValueParams) SetSynonymOf(SynonymOf string) *CreateFiel
 	return params
 }
 
+//
 func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, params *CreateFieldValueParams) (*AutopilotV1FieldValue, error) {
-	return c.CreateFieldValueWithCtx(context.TODO(), AssistantSid, FieldTypeSid, params)
-}
-
-func (c *ApiService) CreateFieldValueWithCtx(ctx context.Context, AssistantSid string, FieldTypeSid string, params *CreateFieldValueParams) (*AutopilotV1FieldValue, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
@@ -69,7 +65,7 @@ func (c *ApiService) CreateFieldValueWithCtx(ctx context.Context, AssistantSid s
 		data.Set("SynonymOf", *params.SynonymOf)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -84,11 +80,8 @@ func (c *ApiService) CreateFieldValueWithCtx(ctx context.Context, AssistantSid s
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, Sid string) error {
-	return c.DeleteFieldValueWithCtx(context.TODO(), AssistantSid, FieldTypeSid, Sid)
-}
-
-func (c *ApiService) DeleteFieldValueWithCtx(ctx context.Context, AssistantSid string, FieldTypeSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
@@ -97,7 +90,7 @@ func (c *ApiService) DeleteFieldValueWithCtx(ctx context.Context, AssistantSid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -107,11 +100,8 @@ func (c *ApiService) DeleteFieldValueWithCtx(ctx context.Context, AssistantSid s
 	return nil
 }
 
+//
 func (c *ApiService) FetchFieldValue(AssistantSid string, FieldTypeSid string, Sid string) (*AutopilotV1FieldValue, error) {
-	return c.FetchFieldValueWithCtx(context.TODO(), AssistantSid, FieldTypeSid, Sid)
-}
-
-func (c *ApiService) FetchFieldValueWithCtx(ctx context.Context, AssistantSid string, FieldTypeSid string, Sid string) (*AutopilotV1FieldValue, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
@@ -120,7 +110,7 @@ func (c *ApiService) FetchFieldValueWithCtx(ctx context.Context, AssistantSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -160,11 +150,6 @@ func (params *ListFieldValueParams) SetLimit(Limit int) *ListFieldValueParams {
 
 // Retrieve a single page of FieldValue records from the API. Request is executed immediately.
 func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, pageToken, pageNumber string) (*ListFieldValueResponse, error) {
-	return c.PageFieldValueWithCtx(context.TODO(), AssistantSid, FieldTypeSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of FieldValue records from the API. Request is executed immediately.
-func (c *ApiService) PageFieldValueWithCtx(ctx context.Context, AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, pageToken, pageNumber string) (*ListFieldValueResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -187,7 +172,7 @@ func (c *ApiService) PageFieldValueWithCtx(ctx context.Context, AssistantSid str
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -204,12 +189,7 @@ func (c *ApiService) PageFieldValueWithCtx(ctx context.Context, AssistantSid str
 
 // Lists FieldValue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) ([]AutopilotV1FieldValue, error) {
-	return c.ListFieldValueWithCtx(context.TODO(), AssistantSid, FieldTypeSid, params)
-}
-
-// Lists FieldValue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFieldValueWithCtx(ctx context.Context, AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) ([]AutopilotV1FieldValue, error) {
-	response, errors := c.StreamFieldValueWithCtx(ctx, AssistantSid, FieldTypeSid, params)
+	response, errors := c.StreamFieldValue(AssistantSid, FieldTypeSid, params)
 
 	records := make([]AutopilotV1FieldValue, 0)
 	for record := range response {
@@ -225,11 +205,6 @@ func (c *ApiService) ListFieldValueWithCtx(ctx context.Context, AssistantSid str
 
 // Streams FieldValue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) (chan AutopilotV1FieldValue, chan error) {
-	return c.StreamFieldValueWithCtx(context.TODO(), AssistantSid, FieldTypeSid, params)
-}
-
-// Streams FieldValue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFieldValueWithCtx(ctx context.Context, AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) (chan AutopilotV1FieldValue, chan error) {
 	if params == nil {
 		params = &ListFieldValueParams{}
 	}
@@ -238,19 +213,19 @@ func (c *ApiService) StreamFieldValueWithCtx(ctx context.Context, AssistantSid s
 	recordChannel := make(chan AutopilotV1FieldValue, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageFieldValueWithCtx(ctx, AssistantSid, FieldTypeSid, params, "", "")
+	response, err := c.PageFieldValue(AssistantSid, FieldTypeSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamFieldValue(ctx, response, params, recordChannel, errorChannel)
+		go c.streamFieldValue(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFieldValue(ctx context.Context, response *ListFieldValueResponse, params *ListFieldValueParams, recordChannel chan AutopilotV1FieldValue, errorChannel chan error) {
+func (c *ApiService) streamFieldValue(response *ListFieldValueResponse, params *ListFieldValueParams, recordChannel chan AutopilotV1FieldValue, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -265,7 +240,7 @@ func (c *ApiService) streamFieldValue(ctx context.Context, response *ListFieldVa
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListFieldValueResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListFieldValueResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -280,11 +255,11 @@ func (c *ApiService) streamFieldValue(ctx context.Context, response *ListFieldVa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFieldValueResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFieldValueResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

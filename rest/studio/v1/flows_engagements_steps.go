@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,11 +25,6 @@ import (
 
 // Retrieve a Step.
 func (c *ApiService) FetchStep(FlowSid string, EngagementSid string, Sid string) (*StudioV1Step, error) {
-	return c.FetchStepWithCtx(context.TODO(), FlowSid, EngagementSid, Sid)
-}
-
-// Retrieve a Step.
-func (c *ApiService) FetchStepWithCtx(ctx context.Context, FlowSid string, EngagementSid string, Sid string) (*StudioV1Step, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
@@ -39,7 +33,7 @@ func (c *ApiService) FetchStepWithCtx(ctx context.Context, FlowSid string, Engag
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -73,11 +67,6 @@ func (params *ListStepParams) SetLimit(Limit int) *ListStepParams {
 
 // Retrieve a single page of Step records from the API. Request is executed immediately.
 func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *ListStepParams, pageToken, pageNumber string) (*ListStepResponse, error) {
-	return c.PageStepWithCtx(context.TODO(), FlowSid, EngagementSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Step records from the API. Request is executed immediately.
-func (c *ApiService) PageStepWithCtx(ctx context.Context, FlowSid string, EngagementSid string, params *ListStepParams, pageToken, pageNumber string) (*ListStepResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps"
 
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -97,7 +86,7 @@ func (c *ApiService) PageStepWithCtx(ctx context.Context, FlowSid string, Engage
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -114,12 +103,7 @@ func (c *ApiService) PageStepWithCtx(ctx context.Context, FlowSid string, Engage
 
 // Lists Step records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams) ([]StudioV1Step, error) {
-	return c.ListStepWithCtx(context.TODO(), FlowSid, EngagementSid, params)
-}
-
-// Lists Step records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListStepWithCtx(ctx context.Context, FlowSid string, EngagementSid string, params *ListStepParams) ([]StudioV1Step, error) {
-	response, errors := c.StreamStepWithCtx(ctx, FlowSid, EngagementSid, params)
+	response, errors := c.StreamStep(FlowSid, EngagementSid, params)
 
 	records := make([]StudioV1Step, 0)
 	for record := range response {
@@ -135,11 +119,6 @@ func (c *ApiService) ListStepWithCtx(ctx context.Context, FlowSid string, Engage
 
 // Streams Step records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *ListStepParams) (chan StudioV1Step, chan error) {
-	return c.StreamStepWithCtx(context.TODO(), FlowSid, EngagementSid, params)
-}
-
-// Streams Step records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamStepWithCtx(ctx context.Context, FlowSid string, EngagementSid string, params *ListStepParams) (chan StudioV1Step, chan error) {
 	if params == nil {
 		params = &ListStepParams{}
 	}
@@ -148,19 +127,19 @@ func (c *ApiService) StreamStepWithCtx(ctx context.Context, FlowSid string, Enga
 	recordChannel := make(chan StudioV1Step, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageStepWithCtx(ctx, FlowSid, EngagementSid, params, "", "")
+	response, err := c.PageStep(FlowSid, EngagementSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamStep(ctx, response, params, recordChannel, errorChannel)
+		go c.streamStep(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamStep(ctx context.Context, response *ListStepResponse, params *ListStepParams, recordChannel chan StudioV1Step, errorChannel chan error) {
+func (c *ApiService) streamStep(response *ListStepResponse, params *ListStepParams, recordChannel chan StudioV1Step, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -175,7 +154,7 @@ func (c *ApiService) streamStep(ctx context.Context, response *ListStepResponse,
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListStepResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListStepResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -190,11 +169,11 @@ func (c *ApiService) streamStep(ctx context.Context, response *ListStepResponse,
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListStepResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListStepResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

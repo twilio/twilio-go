@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -23,18 +22,13 @@ import (
 
 // Create a new Sink Test Event for the given Sink.
 func (c *ApiService) CreateSinkTest(Sid string) (*EventsV1SinkTest, error) {
-	return c.CreateSinkTestWithCtx(context.TODO(), Sid)
-}
-
-// Create a new Sink Test Event for the given Sink.
-func (c *ApiService) CreateSinkTestWithCtx(ctx context.Context, Sid string) (*EventsV1SinkTest, error) {
 	path := "/v1/Sinks/{Sid}/Test"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

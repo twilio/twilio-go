@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,11 +25,6 @@ import (
 
 // Fetch a specific schema and version.
 func (c *ApiService) FetchSchemaVersion(Id string, SchemaVersion int) (*EventsV1SchemaVersion, error) {
-	return c.FetchSchemaVersionWithCtx(context.TODO(), Id, SchemaVersion)
-}
-
-// Fetch a specific schema and version.
-func (c *ApiService) FetchSchemaVersionWithCtx(ctx context.Context, Id string, SchemaVersion int) (*EventsV1SchemaVersion, error) {
 	path := "/v1/Schemas/{Id}/Versions/{SchemaVersion}"
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 	path = strings.Replace(path, "{"+"SchemaVersion"+"}", fmt.Sprint(SchemaVersion), -1)
@@ -38,7 +32,7 @@ func (c *ApiService) FetchSchemaVersionWithCtx(ctx context.Context, Id string, S
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -72,11 +66,6 @@ func (params *ListSchemaVersionParams) SetLimit(Limit int) *ListSchemaVersionPar
 
 // Retrieve a single page of SchemaVersion records from the API. Request is executed immediately.
 func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParams, pageToken, pageNumber string) (*ListSchemaVersionResponse, error) {
-	return c.PageSchemaVersionWithCtx(context.TODO(), Id, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of SchemaVersion records from the API. Request is executed immediately.
-func (c *ApiService) PageSchemaVersionWithCtx(ctx context.Context, Id string, params *ListSchemaVersionParams, pageToken, pageNumber string) (*ListSchemaVersionResponse, error) {
 	path := "/v1/Schemas/{Id}/Versions"
 
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
@@ -95,7 +84,7 @@ func (c *ApiService) PageSchemaVersionWithCtx(ctx context.Context, Id string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -112,12 +101,7 @@ func (c *ApiService) PageSchemaVersionWithCtx(ctx context.Context, Id string, pa
 
 // Lists SchemaVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParams) ([]EventsV1SchemaVersion, error) {
-	return c.ListSchemaVersionWithCtx(context.TODO(), Id, params)
-}
-
-// Lists SchemaVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSchemaVersionWithCtx(ctx context.Context, Id string, params *ListSchemaVersionParams) ([]EventsV1SchemaVersion, error) {
-	response, errors := c.StreamSchemaVersionWithCtx(ctx, Id, params)
+	response, errors := c.StreamSchemaVersion(Id, params)
 
 	records := make([]EventsV1SchemaVersion, 0)
 	for record := range response {
@@ -133,11 +117,6 @@ func (c *ApiService) ListSchemaVersionWithCtx(ctx context.Context, Id string, pa
 
 // Streams SchemaVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionParams) (chan EventsV1SchemaVersion, chan error) {
-	return c.StreamSchemaVersionWithCtx(context.TODO(), Id, params)
-}
-
-// Streams SchemaVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSchemaVersionWithCtx(ctx context.Context, Id string, params *ListSchemaVersionParams) (chan EventsV1SchemaVersion, chan error) {
 	if params == nil {
 		params = &ListSchemaVersionParams{}
 	}
@@ -146,19 +125,19 @@ func (c *ApiService) StreamSchemaVersionWithCtx(ctx context.Context, Id string, 
 	recordChannel := make(chan EventsV1SchemaVersion, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSchemaVersionWithCtx(ctx, Id, params, "", "")
+	response, err := c.PageSchemaVersion(Id, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSchemaVersion(ctx, response, params, recordChannel, errorChannel)
+		go c.streamSchemaVersion(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSchemaVersion(ctx context.Context, response *ListSchemaVersionResponse, params *ListSchemaVersionParams, recordChannel chan EventsV1SchemaVersion, errorChannel chan error) {
+func (c *ApiService) streamSchemaVersion(response *ListSchemaVersionResponse, params *ListSchemaVersionParams, recordChannel chan EventsV1SchemaVersion, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -173,7 +152,7 @@ func (c *ApiService) streamSchemaVersion(ctx context.Context, response *ListSche
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSchemaVersionResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSchemaVersionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -188,11 +167,11 @@ func (c *ApiService) streamSchemaVersion(ctx context.Context, response *ListSche
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSchemaVersionResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSchemaVersionResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

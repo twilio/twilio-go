@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -35,11 +34,8 @@ func (params *FetchAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAcco
 	return params
 }
 
+//
 func (c *ApiService) FetchAvailablePhoneNumberCountry(CountryCode string, params *FetchAvailablePhoneNumberCountryParams) (*ApiV2010AvailablePhoneNumberCountry, error) {
-	return c.FetchAvailablePhoneNumberCountryWithCtx(context.TODO(), CountryCode, params)
-}
-
-func (c *ApiService) FetchAvailablePhoneNumberCountryWithCtx(ctx context.Context, CountryCode string, params *FetchAvailablePhoneNumberCountryParams) (*ApiV2010AvailablePhoneNumberCountry, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -51,7 +47,7 @@ func (c *ApiService) FetchAvailablePhoneNumberCountryWithCtx(ctx context.Context
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -91,11 +87,6 @@ func (params *ListAvailablePhoneNumberCountryParams) SetLimit(Limit int) *ListAv
 
 // Retrieve a single page of AvailablePhoneNumberCountry records from the API. Request is executed immediately.
 func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberCountryResponse, error) {
-	return c.PageAvailablePhoneNumberCountryWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of AvailablePhoneNumberCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberCountryWithCtx(ctx context.Context, params *ListAvailablePhoneNumberCountryParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberCountryResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -118,7 +109,7 @@ func (c *ApiService) PageAvailablePhoneNumberCountryWithCtx(ctx context.Context,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -135,12 +126,7 @@ func (c *ApiService) PageAvailablePhoneNumberCountryWithCtx(ctx context.Context,
 
 // Lists AvailablePhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams) ([]ApiV2010AvailablePhoneNumberCountry, error) {
-	return c.ListAvailablePhoneNumberCountryWithCtx(context.TODO(), params)
-}
-
-// Lists AvailablePhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberCountryWithCtx(ctx context.Context, params *ListAvailablePhoneNumberCountryParams) ([]ApiV2010AvailablePhoneNumberCountry, error) {
-	response, errors := c.StreamAvailablePhoneNumberCountryWithCtx(ctx, params)
+	response, errors := c.StreamAvailablePhoneNumberCountry(params)
 
 	records := make([]ApiV2010AvailablePhoneNumberCountry, 0)
 	for record := range response {
@@ -156,11 +142,6 @@ func (c *ApiService) ListAvailablePhoneNumberCountryWithCtx(ctx context.Context,
 
 // Streams AvailablePhoneNumberCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams) (chan ApiV2010AvailablePhoneNumberCountry, chan error) {
-	return c.StreamAvailablePhoneNumberCountryWithCtx(context.TODO(), params)
-}
-
-// Streams AvailablePhoneNumberCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberCountryWithCtx(ctx context.Context, params *ListAvailablePhoneNumberCountryParams) (chan ApiV2010AvailablePhoneNumberCountry, chan error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberCountryParams{}
 	}
@@ -169,19 +150,19 @@ func (c *ApiService) StreamAvailablePhoneNumberCountryWithCtx(ctx context.Contex
 	recordChannel := make(chan ApiV2010AvailablePhoneNumberCountry, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAvailablePhoneNumberCountryWithCtx(ctx, params, "", "")
+	response, err := c.PageAvailablePhoneNumberCountry(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAvailablePhoneNumberCountry(ctx, response, params, recordChannel, errorChannel)
+		go c.streamAvailablePhoneNumberCountry(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberCountry(ctx context.Context, response *ListAvailablePhoneNumberCountryResponse, params *ListAvailablePhoneNumberCountryParams, recordChannel chan ApiV2010AvailablePhoneNumberCountry, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberCountry(response *ListAvailablePhoneNumberCountryResponse, params *ListAvailablePhoneNumberCountryParams, recordChannel chan ApiV2010AvailablePhoneNumberCountry, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -196,7 +177,7 @@ func (c *ApiService) streamAvailablePhoneNumberCountry(ctx context.Context, resp
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListAvailablePhoneNumberCountryResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberCountryResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -211,11 +192,11 @@ func (c *ApiService) streamAvailablePhoneNumberCountry(ctx context.Context, resp
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberCountryResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailablePhoneNumberCountryResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

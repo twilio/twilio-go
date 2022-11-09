@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -24,18 +23,13 @@ import (
 
 // Fetch a specific Export Configuration.
 func (c *ApiService) FetchExportConfiguration(ResourceType string) (*BulkexportsV1ExportConfiguration, error) {
-	return c.FetchExportConfigurationWithCtx(context.TODO(), ResourceType)
-}
-
-// Fetch a specific Export Configuration.
-func (c *ApiService) FetchExportConfigurationWithCtx(ctx context.Context, ResourceType string) (*BulkexportsV1ExportConfiguration, error) {
 	path := "/v1/Exports/{ResourceType}/Configuration"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -75,11 +69,6 @@ func (params *UpdateExportConfigurationParams) SetWebhookMethod(WebhookMethod st
 
 // Update a specific Export Configuration.
 func (c *ApiService) UpdateExportConfiguration(ResourceType string, params *UpdateExportConfigurationParams) (*BulkexportsV1ExportConfiguration, error) {
-	return c.UpdateExportConfigurationWithCtx(context.TODO(), ResourceType, params)
-}
-
-// Update a specific Export Configuration.
-func (c *ApiService) UpdateExportConfigurationWithCtx(ctx context.Context, ResourceType string, params *UpdateExportConfigurationParams) (*BulkexportsV1ExportConfiguration, error) {
 	path := "/v1/Exports/{ResourceType}/Configuration"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
@@ -96,7 +85,7 @@ func (c *ApiService) UpdateExportConfigurationWithCtx(ctx context.Context, Resou
 		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

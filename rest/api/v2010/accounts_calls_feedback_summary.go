@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -65,11 +64,6 @@ func (params *CreateCallFeedbackSummaryParams) SetStatusCallbackMethod(StatusCal
 
 // Create a FeedbackSummary resource for a call
 func (c *ApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummaryParams) (*ApiV2010CallFeedbackSummary, error) {
-	return c.CreateCallFeedbackSummaryWithCtx(context.TODO(), params)
-}
-
-// Create a FeedbackSummary resource for a call
-func (c *ApiService) CreateCallFeedbackSummaryWithCtx(ctx context.Context, params *CreateCallFeedbackSummaryParams) (*ApiV2010CallFeedbackSummary, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -96,7 +90,7 @@ func (c *ApiService) CreateCallFeedbackSummaryWithCtx(ctx context.Context, param
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -124,11 +118,6 @@ func (params *DeleteCallFeedbackSummaryParams) SetPathAccountSid(PathAccountSid 
 
 // Delete a FeedbackSummary resource from a call
 func (c *ApiService) DeleteCallFeedbackSummary(Sid string, params *DeleteCallFeedbackSummaryParams) error {
-	return c.DeleteCallFeedbackSummaryWithCtx(context.TODO(), Sid, params)
-}
-
-// Delete a FeedbackSummary resource from a call
-func (c *ApiService) DeleteCallFeedbackSummaryWithCtx(ctx context.Context, Sid string, params *DeleteCallFeedbackSummaryParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -140,7 +129,7 @@ func (c *ApiService) DeleteCallFeedbackSummaryWithCtx(ctx context.Context, Sid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -163,11 +152,6 @@ func (params *FetchCallFeedbackSummaryParams) SetPathAccountSid(PathAccountSid s
 
 // Fetch a FeedbackSummary resource from a call
 func (c *ApiService) FetchCallFeedbackSummary(Sid string, params *FetchCallFeedbackSummaryParams) (*ApiV2010CallFeedbackSummary, error) {
-	return c.FetchCallFeedbackSummaryWithCtx(context.TODO(), Sid, params)
-}
-
-// Fetch a FeedbackSummary resource from a call
-func (c *ApiService) FetchCallFeedbackSummaryWithCtx(ctx context.Context, Sid string, params *FetchCallFeedbackSummaryParams) (*ApiV2010CallFeedbackSummary, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -179,7 +163,7 @@ func (c *ApiService) FetchCallFeedbackSummaryWithCtx(ctx context.Context, Sid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

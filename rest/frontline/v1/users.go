@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -24,18 +23,13 @@ import (
 
 // Fetch a frontline user
 func (c *ApiService) FetchUser(Sid string) (*FrontlineV1User, error) {
-	return c.FetchUserWithCtx(context.TODO(), Sid)
-}
-
-// Fetch a frontline user
-func (c *ApiService) FetchUserWithCtx(ctx context.Context, Sid string) (*FrontlineV1User, error) {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -81,11 +75,6 @@ func (params *UpdateUserParams) SetIsAvailable(IsAvailable bool) *UpdateUserPara
 
 // Update an existing frontline user
 func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*FrontlineV1User, error) {
-	return c.UpdateUserWithCtx(context.TODO(), Sid, params)
-}
-
-// Update an existing frontline user
-func (c *ApiService) UpdateUserWithCtx(ctx context.Context, Sid string, params *UpdateUserParams) (*FrontlineV1User, error) {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -105,7 +94,7 @@ func (c *ApiService) UpdateUserWithCtx(ctx context.Context, Sid string, params *
 		data.Set("IsAvailable", fmt.Sprint(*params.IsAvailable))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

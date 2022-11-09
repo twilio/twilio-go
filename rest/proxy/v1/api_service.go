@@ -20,14 +20,10 @@ import (
 
 type ApiService struct {
 	baseURL        string
-	requestHandler *twilio.RequestHandlerWithCtx
+	requestHandler *twilio.RequestHandler
 }
 
 func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
-	return NewApiServiceWithCtx(twilio.UpgradeRequestHandler(requestHandler))
-}
-
-func NewApiServiceWithCtx(requestHandler *twilio.RequestHandlerWithCtx) *ApiService {
 	return &ApiService{
 		requestHandler: requestHandler,
 		baseURL:        "https://proxy.twilio.com",
@@ -36,8 +32,4 @@ func NewApiServiceWithCtx(requestHandler *twilio.RequestHandlerWithCtx) *ApiServ
 
 func NewApiServiceWithClient(client twilio.BaseClient) *ApiService {
 	return NewApiService(twilio.NewRequestHandler(client))
-}
-
-func NewApiServiceWithClientWithCtx(client twilio.BaseClientWithCtx) *ApiService {
-	return NewApiServiceWithCtx(twilio.NewRequestHandlerWithCtx(client))
 }

@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -1252,11 +1251,6 @@ func (params *CreateStreamParams) SetParameter99Value(Parameter99Value string) *
 
 // Create a Stream
 func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*ApiV2010Stream, error) {
-	return c.CreateStreamWithCtx(context.TODO(), CallSid, params)
-}
-
-// Create a Stream
-func (c *ApiService) CreateStreamWithCtx(ctx context.Context, CallSid string, params *CreateStreamParams) (*ApiV2010Stream, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -1878,7 +1872,7 @@ func (c *ApiService) CreateStreamWithCtx(ctx context.Context, CallSid string, pa
 		data.Set("Parameter99.Value", *params.Parameter99Value)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1912,11 +1906,6 @@ func (params *UpdateStreamParams) SetStatus(Status string) *UpdateStreamParams {
 
 // Stop a Stream using either the SID of the Stream resource or the &#x60;name&#x60; used when creating the resource
 func (c *ApiService) UpdateStream(CallSid string, Sid string, params *UpdateStreamParams) (*ApiV2010Stream, error) {
-	return c.UpdateStreamWithCtx(context.TODO(), CallSid, Sid, params)
-}
-
-// Stop a Stream using either the SID of the Stream resource or the &#x60;name&#x60; used when creating the resource
-func (c *ApiService) UpdateStreamWithCtx(ctx context.Context, CallSid string, Sid string, params *UpdateStreamParams) (*ApiV2010Stream, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -1933,7 +1922,7 @@ func (c *ApiService) UpdateStreamWithCtx(ctx context.Context, CallSid string, Si
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

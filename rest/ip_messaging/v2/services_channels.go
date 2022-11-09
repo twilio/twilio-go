@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -78,11 +77,8 @@ func (params *CreateChannelParams) SetCreatedBy(CreatedBy string) *CreateChannel
 	return params
 }
 
+//
 func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*IpMessagingV2Channel, error) {
-	return c.CreateChannelWithCtx(context.TODO(), ServiceSid, params)
-}
-
-func (c *ApiService) CreateChannelWithCtx(ctx context.Context, ServiceSid string, params *CreateChannelParams) (*IpMessagingV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -115,7 +111,7 @@ func (c *ApiService) CreateChannelWithCtx(ctx context.Context, ServiceSid string
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -141,11 +137,8 @@ func (params *DeleteChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnable
 	return params
 }
 
+//
 func (c *ApiService) DeleteChannel(ServiceSid string, Sid string, params *DeleteChannelParams) error {
-	return c.DeleteChannelWithCtx(context.TODO(), ServiceSid, Sid, params)
-}
-
-func (c *ApiService) DeleteChannelWithCtx(ctx context.Context, ServiceSid string, Sid string, params *DeleteChannelParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -157,7 +150,7 @@ func (c *ApiService) DeleteChannelWithCtx(ctx context.Context, ServiceSid string
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -167,11 +160,8 @@ func (c *ApiService) DeleteChannelWithCtx(ctx context.Context, ServiceSid string
 	return nil
 }
 
+//
 func (c *ApiService) FetchChannel(ServiceSid string, Sid string) (*IpMessagingV2Channel, error) {
-	return c.FetchChannelWithCtx(context.TODO(), ServiceSid, Sid)
-}
-
-func (c *ApiService) FetchChannelWithCtx(ctx context.Context, ServiceSid string, Sid string) (*IpMessagingV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -179,7 +169,7 @@ func (c *ApiService) FetchChannelWithCtx(ctx context.Context, ServiceSid string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -219,11 +209,6 @@ func (params *ListChannelParams) SetLimit(Limit int) *ListChannelParams {
 
 // Retrieve a single page of Channel records from the API. Request is executed immediately.
 func (c *ApiService) PageChannel(ServiceSid string, params *ListChannelParams, pageToken, pageNumber string) (*ListChannelResponse, error) {
-	return c.PageChannelWithCtx(context.TODO(), ServiceSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Channel records from the API. Request is executed immediately.
-func (c *ApiService) PageChannelWithCtx(ctx context.Context, ServiceSid string, params *ListChannelParams, pageToken, pageNumber string) (*ListChannelResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -247,7 +232,7 @@ func (c *ApiService) PageChannelWithCtx(ctx context.Context, ServiceSid string, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -264,12 +249,7 @@ func (c *ApiService) PageChannelWithCtx(ctx context.Context, ServiceSid string, 
 
 // Lists Channel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListChannel(ServiceSid string, params *ListChannelParams) ([]IpMessagingV2Channel, error) {
-	return c.ListChannelWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Lists Channel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChannelWithCtx(ctx context.Context, ServiceSid string, params *ListChannelParams) ([]IpMessagingV2Channel, error) {
-	response, errors := c.StreamChannelWithCtx(ctx, ServiceSid, params)
+	response, errors := c.StreamChannel(ServiceSid, params)
 
 	records := make([]IpMessagingV2Channel, 0)
 	for record := range response {
@@ -285,11 +265,6 @@ func (c *ApiService) ListChannelWithCtx(ctx context.Context, ServiceSid string, 
 
 // Streams Channel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamChannel(ServiceSid string, params *ListChannelParams) (chan IpMessagingV2Channel, chan error) {
-	return c.StreamChannelWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Streams Channel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChannelWithCtx(ctx context.Context, ServiceSid string, params *ListChannelParams) (chan IpMessagingV2Channel, chan error) {
 	if params == nil {
 		params = &ListChannelParams{}
 	}
@@ -298,19 +273,19 @@ func (c *ApiService) StreamChannelWithCtx(ctx context.Context, ServiceSid string
 	recordChannel := make(chan IpMessagingV2Channel, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageChannelWithCtx(ctx, ServiceSid, params, "", "")
+	response, err := c.PageChannel(ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamChannel(ctx, response, params, recordChannel, errorChannel)
+		go c.streamChannel(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamChannel(ctx context.Context, response *ListChannelResponse, params *ListChannelParams, recordChannel chan IpMessagingV2Channel, errorChannel chan error) {
+func (c *ApiService) streamChannel(response *ListChannelResponse, params *ListChannelParams, recordChannel chan IpMessagingV2Channel, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -325,7 +300,7 @@ func (c *ApiService) streamChannel(ctx context.Context, response *ListChannelRes
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListChannelResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListChannelResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -340,11 +315,11 @@ func (c *ApiService) streamChannel(ctx context.Context, response *ListChannelRes
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListChannelResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListChannelResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -405,11 +380,8 @@ func (params *UpdateChannelParams) SetCreatedBy(CreatedBy string) *UpdateChannel
 	return params
 }
 
+//
 func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*IpMessagingV2Channel, error) {
-	return c.UpdateChannelWithCtx(context.TODO(), ServiceSid, Sid, params)
-}
-
-func (c *ApiService) UpdateChannelWithCtx(ctx context.Context, ServiceSid string, Sid string, params *UpdateChannelParams) (*IpMessagingV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -440,7 +412,7 @@ func (c *ApiService) UpdateChannelWithCtx(ctx context.Context, ServiceSid string
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

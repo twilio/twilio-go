@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -23,11 +22,6 @@ import (
 
 // Retrieve a the content of a specific Function Version resource.
 func (c *ApiService) FetchFunctionVersionContent(ServiceSid string, FunctionSid string, Sid string) (*ServerlessV1FunctionVersionContent, error) {
-	return c.FetchFunctionVersionContentWithCtx(context.TODO(), ServiceSid, FunctionSid, Sid)
-}
-
-// Retrieve a the content of a specific Function Version resource.
-func (c *ApiService) FetchFunctionVersionContentWithCtx(ctx context.Context, ServiceSid string, FunctionSid string, Sid string) (*ServerlessV1FunctionVersionContent, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}/Content"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
@@ -36,7 +30,7 @@ func (c *ApiService) FetchFunctionVersionContentWithCtx(ctx context.Context, Ser
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

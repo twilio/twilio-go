@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -31,11 +30,8 @@ func (params *FetchConfigurationParams) SetUiVersion(UiVersion string) *FetchCon
 	return params
 }
 
+//
 func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*FlexV1Configuration, error) {
-	return c.FetchConfigurationWithCtx(context.TODO(), params)
-}
-
-func (c *ApiService) FetchConfigurationWithCtx(ctx context.Context, params *FetchConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
 	data := url.Values{}
@@ -45,7 +41,7 @@ func (c *ApiService) FetchConfigurationWithCtx(ctx context.Context, params *Fetc
 		data.Set("UiVersion", *params.UiVersion)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

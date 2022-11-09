@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -75,11 +74,6 @@ func (params *CreateTokenParams) SetDeviceId(DeviceId string) *CreateTokenParams
 
 // Issues a new Access token (optionally identity_token &amp; refresh_token) in exchange of Oauth grant
 func (c *ApiService) CreateToken(params *CreateTokenParams) (*OauthV1Token, error) {
-	return c.CreateTokenWithCtx(context.TODO(), params)
-}
-
-// Issues a new Access token (optionally identity_token &amp; refresh_token) in exchange of Oauth grant
-func (c *ApiService) CreateTokenWithCtx(ctx context.Context, params *CreateTokenParams) (*OauthV1Token, error) {
 	path := "/v1/token"
 
 	data := url.Values{}
@@ -110,7 +104,7 @@ func (c *ApiService) CreateTokenWithCtx(ctx context.Context, params *CreateToken
 		data.Set("DeviceId", *params.DeviceId)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"fmt"
 	"net/url"
 	"strings"
@@ -23,11 +22,6 @@ import (
 
 // Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API.
 func (c *ApiService) DeleteArchivedCall(Date string, Sid string) error {
-	return c.DeleteArchivedCallWithCtx(context.TODO(), Date, Sid)
-}
-
-// Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API.
-func (c *ApiService) DeleteArchivedCallWithCtx(ctx context.Context, Date string, Sid string) error {
 	path := "/v1/Archives/{Date}/Calls/{Sid}"
 	path = strings.Replace(path, "{"+"Date"+"}", fmt.Sprint(Date), -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -35,7 +29,7 @@ func (c *ApiService) DeleteArchivedCallWithCtx(ctx context.Context, Date string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}

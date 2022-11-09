@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,11 +25,6 @@ import (
 
 // Delete a specific Sync List Permission.
 func (c *ApiService) DeleteSyncListPermission(ServiceSid string, ListSid string, Identity string) error {
-	return c.DeleteSyncListPermissionWithCtx(context.TODO(), ServiceSid, ListSid, Identity)
-}
-
-// Delete a specific Sync List Permission.
-func (c *ApiService) DeleteSyncListPermissionWithCtx(ctx context.Context, ServiceSid string, ListSid string, Identity string) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -39,7 +33,7 @@ func (c *ApiService) DeleteSyncListPermissionWithCtx(ctx context.Context, Servic
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -51,11 +45,6 @@ func (c *ApiService) DeleteSyncListPermissionWithCtx(ctx context.Context, Servic
 
 // Fetch a specific Sync List Permission.
 func (c *ApiService) FetchSyncListPermission(ServiceSid string, ListSid string, Identity string) (*SyncV1SyncListPermission, error) {
-	return c.FetchSyncListPermissionWithCtx(context.TODO(), ServiceSid, ListSid, Identity)
-}
-
-// Fetch a specific Sync List Permission.
-func (c *ApiService) FetchSyncListPermissionWithCtx(ctx context.Context, ServiceSid string, ListSid string, Identity string) (*SyncV1SyncListPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -64,7 +53,7 @@ func (c *ApiService) FetchSyncListPermissionWithCtx(ctx context.Context, Service
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -98,11 +87,6 @@ func (params *ListSyncListPermissionParams) SetLimit(Limit int) *ListSyncListPer
 
 // Retrieve a single page of SyncListPermission records from the API. Request is executed immediately.
 func (c *ApiService) PageSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams, pageToken, pageNumber string) (*ListSyncListPermissionResponse, error) {
-	return c.PageSyncListPermissionWithCtx(context.TODO(), ServiceSid, ListSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of SyncListPermission records from the API. Request is executed immediately.
-func (c *ApiService) PageSyncListPermissionWithCtx(ctx context.Context, ServiceSid string, ListSid string, params *ListSyncListPermissionParams, pageToken, pageNumber string) (*ListSyncListPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -122,7 +106,7 @@ func (c *ApiService) PageSyncListPermissionWithCtx(ctx context.Context, ServiceS
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -139,12 +123,7 @@ func (c *ApiService) PageSyncListPermissionWithCtx(ctx context.Context, ServiceS
 
 // Lists SyncListPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams) ([]SyncV1SyncListPermission, error) {
-	return c.ListSyncListPermissionWithCtx(context.TODO(), ServiceSid, ListSid, params)
-}
-
-// Lists SyncListPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncListPermissionWithCtx(ctx context.Context, ServiceSid string, ListSid string, params *ListSyncListPermissionParams) ([]SyncV1SyncListPermission, error) {
-	response, errors := c.StreamSyncListPermissionWithCtx(ctx, ServiceSid, ListSid, params)
+	response, errors := c.StreamSyncListPermission(ServiceSid, ListSid, params)
 
 	records := make([]SyncV1SyncListPermission, 0)
 	for record := range response {
@@ -160,11 +139,6 @@ func (c *ApiService) ListSyncListPermissionWithCtx(ctx context.Context, ServiceS
 
 // Streams SyncListPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams) (chan SyncV1SyncListPermission, chan error) {
-	return c.StreamSyncListPermissionWithCtx(context.TODO(), ServiceSid, ListSid, params)
-}
-
-// Streams SyncListPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncListPermissionWithCtx(ctx context.Context, ServiceSid string, ListSid string, params *ListSyncListPermissionParams) (chan SyncV1SyncListPermission, chan error) {
 	if params == nil {
 		params = &ListSyncListPermissionParams{}
 	}
@@ -173,19 +147,19 @@ func (c *ApiService) StreamSyncListPermissionWithCtx(ctx context.Context, Servic
 	recordChannel := make(chan SyncV1SyncListPermission, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSyncListPermissionWithCtx(ctx, ServiceSid, ListSid, params, "", "")
+	response, err := c.PageSyncListPermission(ServiceSid, ListSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSyncListPermission(ctx, response, params, recordChannel, errorChannel)
+		go c.streamSyncListPermission(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSyncListPermission(ctx context.Context, response *ListSyncListPermissionResponse, params *ListSyncListPermissionParams, recordChannel chan SyncV1SyncListPermission, errorChannel chan error) {
+func (c *ApiService) streamSyncListPermission(response *ListSyncListPermissionResponse, params *ListSyncListPermissionParams, recordChannel chan SyncV1SyncListPermission, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -200,7 +174,7 @@ func (c *ApiService) streamSyncListPermission(ctx context.Context, response *Lis
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSyncListPermissionResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSyncListPermissionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -215,11 +189,11 @@ func (c *ApiService) streamSyncListPermission(ctx context.Context, response *Lis
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSyncListPermissionResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSyncListPermissionResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -258,11 +232,6 @@ func (params *UpdateSyncListPermissionParams) SetManage(Manage bool) *UpdateSync
 
 // Update an identity&#39;s access to a specific Sync List.
 func (c *ApiService) UpdateSyncListPermission(ServiceSid string, ListSid string, Identity string, params *UpdateSyncListPermissionParams) (*SyncV1SyncListPermission, error) {
-	return c.UpdateSyncListPermissionWithCtx(context.TODO(), ServiceSid, ListSid, Identity, params)
-}
-
-// Update an identity&#39;s access to a specific Sync List.
-func (c *ApiService) UpdateSyncListPermissionWithCtx(ctx context.Context, ServiceSid string, ListSid string, Identity string, params *UpdateSyncListPermissionParams) (*SyncV1SyncListPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -281,7 +250,7 @@ func (c *ApiService) UpdateSyncListPermissionWithCtx(ctx context.Context, Servic
 		data.Set("Manage", fmt.Sprint(*params.Manage))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

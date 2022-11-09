@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -49,11 +48,6 @@ func (params *CreateSipCredentialParams) SetPassword(Password string) *CreateSip
 
 // Create a new credential resource.
 func (c *ApiService) CreateSipCredential(CredentialListSid string, params *CreateSipCredentialParams) (*ApiV2010SipCredential, error) {
-	return c.CreateSipCredentialWithCtx(context.TODO(), CredentialListSid, params)
-}
-
-// Create a new credential resource.
-func (c *ApiService) CreateSipCredentialWithCtx(ctx context.Context, CredentialListSid string, params *CreateSipCredentialParams) (*ApiV2010SipCredential, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -72,7 +66,7 @@ func (c *ApiService) CreateSipCredentialWithCtx(ctx context.Context, CredentialL
 		data.Set("Password", *params.Password)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -100,11 +94,6 @@ func (params *DeleteSipCredentialParams) SetPathAccountSid(PathAccountSid string
 
 // Delete a credential resource.
 func (c *ApiService) DeleteSipCredential(CredentialListSid string, Sid string, params *DeleteSipCredentialParams) error {
-	return c.DeleteSipCredentialWithCtx(context.TODO(), CredentialListSid, Sid, params)
-}
-
-// Delete a credential resource.
-func (c *ApiService) DeleteSipCredentialWithCtx(ctx context.Context, CredentialListSid string, Sid string, params *DeleteSipCredentialParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -117,7 +106,7 @@ func (c *ApiService) DeleteSipCredentialWithCtx(ctx context.Context, CredentialL
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -140,11 +129,6 @@ func (params *FetchSipCredentialParams) SetPathAccountSid(PathAccountSid string)
 
 // Fetch a single credential.
 func (c *ApiService) FetchSipCredential(CredentialListSid string, Sid string, params *FetchSipCredentialParams) (*ApiV2010SipCredential, error) {
-	return c.FetchSipCredentialWithCtx(context.TODO(), CredentialListSid, Sid, params)
-}
-
-// Fetch a single credential.
-func (c *ApiService) FetchSipCredentialWithCtx(ctx context.Context, CredentialListSid string, Sid string, params *FetchSipCredentialParams) (*ApiV2010SipCredential, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -157,7 +141,7 @@ func (c *ApiService) FetchSipCredentialWithCtx(ctx context.Context, CredentialLi
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -197,11 +181,6 @@ func (params *ListSipCredentialParams) SetLimit(Limit int) *ListSipCredentialPar
 
 // Retrieve a single page of SipCredential records from the API. Request is executed immediately.
 func (c *ApiService) PageSipCredential(CredentialListSid string, params *ListSipCredentialParams, pageToken, pageNumber string) (*ListSipCredentialResponse, error) {
-	return c.PageSipCredentialWithCtx(context.TODO(), CredentialListSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of SipCredential records from the API. Request is executed immediately.
-func (c *ApiService) PageSipCredentialWithCtx(ctx context.Context, CredentialListSid string, params *ListSipCredentialParams, pageToken, pageNumber string) (*ListSipCredentialResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -225,7 +204,7 @@ func (c *ApiService) PageSipCredentialWithCtx(ctx context.Context, CredentialLis
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -242,12 +221,7 @@ func (c *ApiService) PageSipCredentialWithCtx(ctx context.Context, CredentialLis
 
 // Lists SipCredential records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipCredential(CredentialListSid string, params *ListSipCredentialParams) ([]ApiV2010SipCredential, error) {
-	return c.ListSipCredentialWithCtx(context.TODO(), CredentialListSid, params)
-}
-
-// Lists SipCredential records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipCredentialWithCtx(ctx context.Context, CredentialListSid string, params *ListSipCredentialParams) ([]ApiV2010SipCredential, error) {
-	response, errors := c.StreamSipCredentialWithCtx(ctx, CredentialListSid, params)
+	response, errors := c.StreamSipCredential(CredentialListSid, params)
 
 	records := make([]ApiV2010SipCredential, 0)
 	for record := range response {
@@ -263,11 +237,6 @@ func (c *ApiService) ListSipCredentialWithCtx(ctx context.Context, CredentialLis
 
 // Streams SipCredential records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSipCredential(CredentialListSid string, params *ListSipCredentialParams) (chan ApiV2010SipCredential, chan error) {
-	return c.StreamSipCredentialWithCtx(context.TODO(), CredentialListSid, params)
-}
-
-// Streams SipCredential records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipCredentialWithCtx(ctx context.Context, CredentialListSid string, params *ListSipCredentialParams) (chan ApiV2010SipCredential, chan error) {
 	if params == nil {
 		params = &ListSipCredentialParams{}
 	}
@@ -276,19 +245,19 @@ func (c *ApiService) StreamSipCredentialWithCtx(ctx context.Context, CredentialL
 	recordChannel := make(chan ApiV2010SipCredential, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSipCredentialWithCtx(ctx, CredentialListSid, params, "", "")
+	response, err := c.PageSipCredential(CredentialListSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSipCredential(ctx, response, params, recordChannel, errorChannel)
+		go c.streamSipCredential(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipCredential(ctx context.Context, response *ListSipCredentialResponse, params *ListSipCredentialParams, recordChannel chan ApiV2010SipCredential, errorChannel chan error) {
+func (c *ApiService) streamSipCredential(response *ListSipCredentialResponse, params *ListSipCredentialParams, recordChannel chan ApiV2010SipCredential, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -303,7 +272,7 @@ func (c *ApiService) streamSipCredential(ctx context.Context, response *ListSipC
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSipCredentialResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSipCredentialResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -318,11 +287,11 @@ func (c *ApiService) streamSipCredential(ctx context.Context, response *ListSipC
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipCredentialResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSipCredentialResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -355,11 +324,6 @@ func (params *UpdateSipCredentialParams) SetPassword(Password string) *UpdateSip
 
 // Update a credential resource.
 func (c *ApiService) UpdateSipCredential(CredentialListSid string, Sid string, params *UpdateSipCredentialParams) (*ApiV2010SipCredential, error) {
-	return c.UpdateSipCredentialWithCtx(context.TODO(), CredentialListSid, Sid, params)
-}
-
-// Update a credential resource.
-func (c *ApiService) UpdateSipCredentialWithCtx(ctx context.Context, CredentialListSid string, Sid string, params *UpdateSipCredentialParams) (*ApiV2010SipCredential, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -376,7 +340,7 @@ func (c *ApiService) UpdateSipCredentialWithCtx(ctx context.Context, CredentialL
 		data.Set("Password", *params.Password)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

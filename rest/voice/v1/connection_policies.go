@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -35,11 +34,8 @@ func (params *CreateConnectionPolicyParams) SetFriendlyName(FriendlyName string)
 	return params
 }
 
+//
 func (c *ApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
-	return c.CreateConnectionPolicyWithCtx(context.TODO(), params)
-}
-
-func (c *ApiService) CreateConnectionPolicyWithCtx(ctx context.Context, params *CreateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies"
 
 	data := url.Values{}
@@ -49,7 +45,7 @@ func (c *ApiService) CreateConnectionPolicyWithCtx(ctx context.Context, params *
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -64,18 +60,15 @@ func (c *ApiService) CreateConnectionPolicyWithCtx(ctx context.Context, params *
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteConnectionPolicy(Sid string) error {
-	return c.DeleteConnectionPolicyWithCtx(context.TODO(), Sid)
-}
-
-func (c *ApiService) DeleteConnectionPolicyWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -85,18 +78,15 @@ func (c *ApiService) DeleteConnectionPolicyWithCtx(ctx context.Context, Sid stri
 	return nil
 }
 
+//
 func (c *ApiService) FetchConnectionPolicy(Sid string) (*VoiceV1ConnectionPolicy, error) {
-	return c.FetchConnectionPolicyWithCtx(context.TODO(), Sid)
-}
-
-func (c *ApiService) FetchConnectionPolicyWithCtx(ctx context.Context, Sid string) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -130,11 +120,6 @@ func (params *ListConnectionPolicyParams) SetLimit(Limit int) *ListConnectionPol
 
 // Retrieve a single page of ConnectionPolicy records from the API. Request is executed immediately.
 func (c *ApiService) PageConnectionPolicy(params *ListConnectionPolicyParams, pageToken, pageNumber string) (*ListConnectionPolicyResponse, error) {
-	return c.PageConnectionPolicyWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of ConnectionPolicy records from the API. Request is executed immediately.
-func (c *ApiService) PageConnectionPolicyWithCtx(ctx context.Context, params *ListConnectionPolicyParams, pageToken, pageNumber string) (*ListConnectionPolicyResponse, error) {
 	path := "/v1/ConnectionPolicies"
 
 	data := url.Values{}
@@ -151,7 +136,7 @@ func (c *ApiService) PageConnectionPolicyWithCtx(ctx context.Context, params *Li
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -168,12 +153,7 @@ func (c *ApiService) PageConnectionPolicyWithCtx(ctx context.Context, params *Li
 
 // Lists ConnectionPolicy records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConnectionPolicy(params *ListConnectionPolicyParams) ([]VoiceV1ConnectionPolicy, error) {
-	return c.ListConnectionPolicyWithCtx(context.TODO(), params)
-}
-
-// Lists ConnectionPolicy records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConnectionPolicyWithCtx(ctx context.Context, params *ListConnectionPolicyParams) ([]VoiceV1ConnectionPolicy, error) {
-	response, errors := c.StreamConnectionPolicyWithCtx(ctx, params)
+	response, errors := c.StreamConnectionPolicy(params)
 
 	records := make([]VoiceV1ConnectionPolicy, 0)
 	for record := range response {
@@ -189,11 +169,6 @@ func (c *ApiService) ListConnectionPolicyWithCtx(ctx context.Context, params *Li
 
 // Streams ConnectionPolicy records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConnectionPolicy(params *ListConnectionPolicyParams) (chan VoiceV1ConnectionPolicy, chan error) {
-	return c.StreamConnectionPolicyWithCtx(context.TODO(), params)
-}
-
-// Streams ConnectionPolicy records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConnectionPolicyWithCtx(ctx context.Context, params *ListConnectionPolicyParams) (chan VoiceV1ConnectionPolicy, chan error) {
 	if params == nil {
 		params = &ListConnectionPolicyParams{}
 	}
@@ -202,19 +177,19 @@ func (c *ApiService) StreamConnectionPolicyWithCtx(ctx context.Context, params *
 	recordChannel := make(chan VoiceV1ConnectionPolicy, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageConnectionPolicyWithCtx(ctx, params, "", "")
+	response, err := c.PageConnectionPolicy(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConnectionPolicy(ctx, response, params, recordChannel, errorChannel)
+		go c.streamConnectionPolicy(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConnectionPolicy(ctx context.Context, response *ListConnectionPolicyResponse, params *ListConnectionPolicyParams, recordChannel chan VoiceV1ConnectionPolicy, errorChannel chan error) {
+func (c *ApiService) streamConnectionPolicy(response *ListConnectionPolicyResponse, params *ListConnectionPolicyParams, recordChannel chan VoiceV1ConnectionPolicy, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -229,7 +204,7 @@ func (c *ApiService) streamConnectionPolicy(ctx context.Context, response *ListC
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListConnectionPolicyResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListConnectionPolicyResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -244,11 +219,11 @@ func (c *ApiService) streamConnectionPolicy(ctx context.Context, response *ListC
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListConnectionPolicyResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListConnectionPolicyResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -273,11 +248,8 @@ func (params *UpdateConnectionPolicyParams) SetFriendlyName(FriendlyName string)
 	return params
 }
 
+//
 func (c *ApiService) UpdateConnectionPolicy(Sid string, params *UpdateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
-	return c.UpdateConnectionPolicyWithCtx(context.TODO(), Sid, params)
-}
-
-func (c *ApiService) UpdateConnectionPolicyWithCtx(ctx context.Context, Sid string, params *UpdateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -288,7 +260,7 @@ func (c *ApiService) UpdateConnectionPolicyWithCtx(ctx context.Context, Sid stri
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

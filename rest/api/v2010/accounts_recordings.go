@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -38,11 +37,6 @@ func (params *DeleteRecordingParams) SetPathAccountSid(PathAccountSid string) *D
 
 // Delete a recording from your account
 func (c *ApiService) DeleteRecording(Sid string, params *DeleteRecordingParams) error {
-	return c.DeleteRecordingWithCtx(context.TODO(), Sid, params)
-}
-
-// Delete a recording from your account
-func (c *ApiService) DeleteRecordingWithCtx(ctx context.Context, Sid string, params *DeleteRecordingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -54,7 +48,7 @@ func (c *ApiService) DeleteRecordingWithCtx(ctx context.Context, Sid string, par
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -83,11 +77,6 @@ func (params *FetchRecordingParams) SetIncludeSoftDeleted(IncludeSoftDeleted boo
 
 // Fetch an instance of a recording
 func (c *ApiService) FetchRecording(Sid string, params *FetchRecordingParams) (*ApiV2010Recording, error) {
-	return c.FetchRecordingWithCtx(context.TODO(), Sid, params)
-}
-
-// Fetch an instance of a recording
-func (c *ApiService) FetchRecordingWithCtx(ctx context.Context, Sid string, params *FetchRecordingParams) (*ApiV2010Recording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -103,7 +92,7 @@ func (c *ApiService) FetchRecordingWithCtx(ctx context.Context, Sid string, para
 		data.Set("IncludeSoftDeleted", fmt.Sprint(*params.IncludeSoftDeleted))
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -179,11 +168,6 @@ func (params *ListRecordingParams) SetLimit(Limit int) *ListRecordingParams {
 
 // Retrieve a single page of Recording records from the API. Request is executed immediately.
 func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageNumber string) (*ListRecordingResponse, error) {
-	return c.PageRecordingWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Recording records from the API. Request is executed immediately.
-func (c *ApiService) PageRecordingWithCtx(ctx context.Context, params *ListRecordingParams, pageToken, pageNumber string) (*ListRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -224,7 +208,7 @@ func (c *ApiService) PageRecordingWithCtx(ctx context.Context, params *ListRecor
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -241,12 +225,7 @@ func (c *ApiService) PageRecordingWithCtx(ctx context.Context, params *ListRecor
 
 // Lists Recording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRecording(params *ListRecordingParams) ([]ApiV2010Recording, error) {
-	return c.ListRecordingWithCtx(context.TODO(), params)
-}
-
-// Lists Recording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRecordingWithCtx(ctx context.Context, params *ListRecordingParams) ([]ApiV2010Recording, error) {
-	response, errors := c.StreamRecordingWithCtx(ctx, params)
+	response, errors := c.StreamRecording(params)
 
 	records := make([]ApiV2010Recording, 0)
 	for record := range response {
@@ -262,11 +241,6 @@ func (c *ApiService) ListRecordingWithCtx(ctx context.Context, params *ListRecor
 
 // Streams Recording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan ApiV2010Recording, chan error) {
-	return c.StreamRecordingWithCtx(context.TODO(), params)
-}
-
-// Streams Recording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRecordingWithCtx(ctx context.Context, params *ListRecordingParams) (chan ApiV2010Recording, chan error) {
 	if params == nil {
 		params = &ListRecordingParams{}
 	}
@@ -275,19 +249,19 @@ func (c *ApiService) StreamRecordingWithCtx(ctx context.Context, params *ListRec
 	recordChannel := make(chan ApiV2010Recording, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRecordingWithCtx(ctx, params, "", "")
+	response, err := c.PageRecording(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRecording(ctx, response, params, recordChannel, errorChannel)
+		go c.streamRecording(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRecording(ctx context.Context, response *ListRecordingResponse, params *ListRecordingParams, recordChannel chan ApiV2010Recording, errorChannel chan error) {
+func (c *ApiService) streamRecording(response *ListRecordingResponse, params *ListRecordingParams, recordChannel chan ApiV2010Recording, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -302,7 +276,7 @@ func (c *ApiService) streamRecording(ctx context.Context, response *ListRecordin
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListRecordingResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListRecordingResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -317,11 +291,11 @@ func (c *ApiService) streamRecording(ctx context.Context, response *ListRecordin
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRecordingResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRecordingResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -55,11 +54,6 @@ func (params *CreateSmsCommandParams) SetCallbackUrl(CallbackUrl string) *Create
 
 // Send SMS Command to a Sim.
 func (c *ApiService) CreateSmsCommand(params *CreateSmsCommandParams) (*SupersimV1SmsCommand, error) {
-	return c.CreateSmsCommandWithCtx(context.TODO(), params)
-}
-
-// Send SMS Command to a Sim.
-func (c *ApiService) CreateSmsCommandWithCtx(ctx context.Context, params *CreateSmsCommandParams) (*SupersimV1SmsCommand, error) {
 	path := "/v1/SmsCommands"
 
 	data := url.Values{}
@@ -78,7 +72,7 @@ func (c *ApiService) CreateSmsCommandWithCtx(ctx context.Context, params *Create
 		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -95,18 +89,13 @@ func (c *ApiService) CreateSmsCommandWithCtx(ctx context.Context, params *Create
 
 // Fetch SMS Command instance from your account.
 func (c *ApiService) FetchSmsCommand(Sid string) (*SupersimV1SmsCommand, error) {
-	return c.FetchSmsCommandWithCtx(context.TODO(), Sid)
-}
-
-// Fetch SMS Command instance from your account.
-func (c *ApiService) FetchSmsCommandWithCtx(ctx context.Context, Sid string) (*SupersimV1SmsCommand, error) {
 	path := "/v1/SmsCommands/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -158,11 +147,6 @@ func (params *ListSmsCommandParams) SetLimit(Limit int) *ListSmsCommandParams {
 
 // Retrieve a single page of SmsCommand records from the API. Request is executed immediately.
 func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken, pageNumber string) (*ListSmsCommandResponse, error) {
-	return c.PageSmsCommandWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of SmsCommand records from the API. Request is executed immediately.
-func (c *ApiService) PageSmsCommandWithCtx(ctx context.Context, params *ListSmsCommandParams, pageToken, pageNumber string) (*ListSmsCommandResponse, error) {
 	path := "/v1/SmsCommands"
 
 	data := url.Values{}
@@ -188,7 +172,7 @@ func (c *ApiService) PageSmsCommandWithCtx(ctx context.Context, params *ListSmsC
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -205,12 +189,7 @@ func (c *ApiService) PageSmsCommandWithCtx(ctx context.Context, params *ListSmsC
 
 // Lists SmsCommand records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams) ([]SupersimV1SmsCommand, error) {
-	return c.ListSmsCommandWithCtx(context.TODO(), params)
-}
-
-// Lists SmsCommand records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSmsCommandWithCtx(ctx context.Context, params *ListSmsCommandParams) ([]SupersimV1SmsCommand, error) {
-	response, errors := c.StreamSmsCommandWithCtx(ctx, params)
+	response, errors := c.StreamSmsCommand(params)
 
 	records := make([]SupersimV1SmsCommand, 0)
 	for record := range response {
@@ -226,11 +205,6 @@ func (c *ApiService) ListSmsCommandWithCtx(ctx context.Context, params *ListSmsC
 
 // Streams SmsCommand records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSmsCommand(params *ListSmsCommandParams) (chan SupersimV1SmsCommand, chan error) {
-	return c.StreamSmsCommandWithCtx(context.TODO(), params)
-}
-
-// Streams SmsCommand records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSmsCommandWithCtx(ctx context.Context, params *ListSmsCommandParams) (chan SupersimV1SmsCommand, chan error) {
 	if params == nil {
 		params = &ListSmsCommandParams{}
 	}
@@ -239,19 +213,19 @@ func (c *ApiService) StreamSmsCommandWithCtx(ctx context.Context, params *ListSm
 	recordChannel := make(chan SupersimV1SmsCommand, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSmsCommandWithCtx(ctx, params, "", "")
+	response, err := c.PageSmsCommand(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSmsCommand(ctx, response, params, recordChannel, errorChannel)
+		go c.streamSmsCommand(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSmsCommand(ctx context.Context, response *ListSmsCommandResponse, params *ListSmsCommandParams, recordChannel chan SupersimV1SmsCommand, errorChannel chan error) {
+func (c *ApiService) streamSmsCommand(response *ListSmsCommandResponse, params *ListSmsCommandParams, recordChannel chan SupersimV1SmsCommand, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -266,7 +240,7 @@ func (c *ApiService) streamSmsCommand(ctx context.Context, response *ListSmsComm
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSmsCommandResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSmsCommandResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -281,11 +255,11 @@ func (c *ApiService) streamSmsCommand(ctx context.Context, response *ListSmsComm
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSmsCommandResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSmsCommandResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

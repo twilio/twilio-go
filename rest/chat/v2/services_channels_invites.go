@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -41,11 +40,8 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 	return params
 }
 
+//
 func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*ChatV2Invite, error) {
-	return c.CreateInviteWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
-}
-
-func (c *ApiService) CreateInviteWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *CreateInviteParams) (*ChatV2Invite, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -60,7 +56,7 @@ func (c *ApiService) CreateInviteWithCtx(ctx context.Context, ServiceSid string,
 		data.Set("RoleSid", *params.RoleSid)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -75,11 +71,8 @@ func (c *ApiService) CreateInviteWithCtx(ctx context.Context, ServiceSid string,
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
-	return c.DeleteInviteWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
-}
-
-func (c *ApiService) DeleteInviteWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -88,7 +81,7 @@ func (c *ApiService) DeleteInviteWithCtx(ctx context.Context, ServiceSid string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -98,11 +91,8 @@ func (c *ApiService) DeleteInviteWithCtx(ctx context.Context, ServiceSid string,
 	return nil
 }
 
+//
 func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*ChatV2Invite, error) {
-	return c.FetchInviteWithCtx(context.TODO(), ServiceSid, ChannelSid, Sid)
-}
-
-func (c *ApiService) FetchInviteWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) (*ChatV2Invite, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -111,7 +101,7 @@ func (c *ApiService) FetchInviteWithCtx(ctx context.Context, ServiceSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -151,11 +141,6 @@ func (params *ListInviteParams) SetLimit(Limit int) *ListInviteParams {
 
 // Retrieve a single page of Invite records from the API. Request is executed immediately.
 func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, pageToken, pageNumber string) (*ListInviteResponse, error) {
-	return c.PageInviteWithCtx(context.TODO(), ServiceSid, ChannelSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Invite records from the API. Request is executed immediately.
-func (c *ApiService) PageInviteWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *ListInviteParams, pageToken, pageNumber string) (*ListInviteResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -180,7 +165,7 @@ func (c *ApiService) PageInviteWithCtx(ctx context.Context, ServiceSid string, C
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -197,12 +182,7 @@ func (c *ApiService) PageInviteWithCtx(ctx context.Context, ServiceSid string, C
 
 // Lists Invite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) ([]ChatV2Invite, error) {
-	return c.ListInviteWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
-}
-
-// Lists Invite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInviteWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *ListInviteParams) ([]ChatV2Invite, error) {
-	response, errors := c.StreamInviteWithCtx(ctx, ServiceSid, ChannelSid, params)
+	response, errors := c.StreamInvite(ServiceSid, ChannelSid, params)
 
 	records := make([]ChatV2Invite, 0)
 	for record := range response {
@@ -218,11 +198,6 @@ func (c *ApiService) ListInviteWithCtx(ctx context.Context, ServiceSid string, C
 
 // Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) (chan ChatV2Invite, chan error) {
-	return c.StreamInviteWithCtx(context.TODO(), ServiceSid, ChannelSid, params)
-}
-
-// Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInviteWithCtx(ctx context.Context, ServiceSid string, ChannelSid string, params *ListInviteParams) (chan ChatV2Invite, chan error) {
 	if params == nil {
 		params = &ListInviteParams{}
 	}
@@ -231,19 +206,19 @@ func (c *ApiService) StreamInviteWithCtx(ctx context.Context, ServiceSid string,
 	recordChannel := make(chan ChatV2Invite, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInviteWithCtx(ctx, ServiceSid, ChannelSid, params, "", "")
+	response, err := c.PageInvite(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInvite(ctx, response, params, recordChannel, errorChannel)
+		go c.streamInvite(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInvite(ctx context.Context, response *ListInviteResponse, params *ListInviteParams, recordChannel chan ChatV2Invite, errorChannel chan error) {
+func (c *ApiService) streamInvite(response *ListInviteResponse, params *ListInviteParams, recordChannel chan ChatV2Invite, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -258,7 +233,7 @@ func (c *ApiService) streamInvite(ctx context.Context, response *ListInviteRespo
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListInviteResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListInviteResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -273,11 +248,11 @@ func (c *ApiService) streamInvite(ctx context.Context, response *ListInviteRespo
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInviteResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInviteResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

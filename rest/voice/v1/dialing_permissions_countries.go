@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,18 +25,13 @@ import (
 
 // Retrieve voice dialing country permissions identified by the given ISO country code
 func (c *ApiService) FetchDialingPermissionsCountry(IsoCode string) (*VoiceV1DialingPermissionsCountryInstance, error) {
-	return c.FetchDialingPermissionsCountryWithCtx(context.TODO(), IsoCode)
-}
-
-// Retrieve voice dialing country permissions identified by the given ISO country code
-func (c *ApiService) FetchDialingPermissionsCountryWithCtx(ctx context.Context, IsoCode string) (*VoiceV1DialingPermissionsCountryInstance, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}"
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -107,11 +101,6 @@ func (params *ListDialingPermissionsCountryParams) SetLimit(Limit int) *ListDial
 
 // Retrieve a single page of DialingPermissionsCountry records from the API. Request is executed immediately.
 func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, pageToken, pageNumber string) (*ListDialingPermissionsCountryResponse, error) {
-	return c.PageDialingPermissionsCountryWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of DialingPermissionsCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageDialingPermissionsCountryWithCtx(ctx context.Context, params *ListDialingPermissionsCountryParams, pageToken, pageNumber string) (*ListDialingPermissionsCountryResponse, error) {
 	path := "/v1/DialingPermissions/Countries"
 
 	data := url.Values{}
@@ -146,7 +135,7 @@ func (c *ApiService) PageDialingPermissionsCountryWithCtx(ctx context.Context, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -163,12 +152,7 @@ func (c *ApiService) PageDialingPermissionsCountryWithCtx(ctx context.Context, p
 
 // Lists DialingPermissionsCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) ([]VoiceV1DialingPermissionsCountry, error) {
-	return c.ListDialingPermissionsCountryWithCtx(context.TODO(), params)
-}
-
-// Lists DialingPermissionsCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDialingPermissionsCountryWithCtx(ctx context.Context, params *ListDialingPermissionsCountryParams) ([]VoiceV1DialingPermissionsCountry, error) {
-	response, errors := c.StreamDialingPermissionsCountryWithCtx(ctx, params)
+	response, errors := c.StreamDialingPermissionsCountry(params)
 
 	records := make([]VoiceV1DialingPermissionsCountry, 0)
 	for record := range response {
@@ -184,11 +168,6 @@ func (c *ApiService) ListDialingPermissionsCountryWithCtx(ctx context.Context, p
 
 // Streams DialingPermissionsCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) (chan VoiceV1DialingPermissionsCountry, chan error) {
-	return c.StreamDialingPermissionsCountryWithCtx(context.TODO(), params)
-}
-
-// Streams DialingPermissionsCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDialingPermissionsCountryWithCtx(ctx context.Context, params *ListDialingPermissionsCountryParams) (chan VoiceV1DialingPermissionsCountry, chan error) {
 	if params == nil {
 		params = &ListDialingPermissionsCountryParams{}
 	}
@@ -197,19 +176,19 @@ func (c *ApiService) StreamDialingPermissionsCountryWithCtx(ctx context.Context,
 	recordChannel := make(chan VoiceV1DialingPermissionsCountry, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDialingPermissionsCountryWithCtx(ctx, params, "", "")
+	response, err := c.PageDialingPermissionsCountry(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDialingPermissionsCountry(ctx, response, params, recordChannel, errorChannel)
+		go c.streamDialingPermissionsCountry(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDialingPermissionsCountry(ctx context.Context, response *ListDialingPermissionsCountryResponse, params *ListDialingPermissionsCountryParams, recordChannel chan VoiceV1DialingPermissionsCountry, errorChannel chan error) {
+func (c *ApiService) streamDialingPermissionsCountry(response *ListDialingPermissionsCountryResponse, params *ListDialingPermissionsCountryParams, recordChannel chan VoiceV1DialingPermissionsCountry, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -224,7 +203,7 @@ func (c *ApiService) streamDialingPermissionsCountry(ctx context.Context, respon
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListDialingPermissionsCountryResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListDialingPermissionsCountryResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -239,11 +218,11 @@ func (c *ApiService) streamDialingPermissionsCountry(ctx context.Context, respon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDialingPermissionsCountryResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDialingPermissionsCountryResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

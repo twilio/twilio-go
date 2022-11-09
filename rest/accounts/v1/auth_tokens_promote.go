@@ -15,24 +15,18 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 )
 
 // Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
 func (c *ApiService) UpdateAuthTokenPromotion() (*AccountsV1AuthTokenPromotion, error) {
-	return c.UpdateAuthTokenPromotionWithCtx(context.TODO())
-}
-
-// Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
-func (c *ApiService) UpdateAuthTokenPromotionWithCtx(ctx context.Context) (*AccountsV1AuthTokenPromotion, error) {
 	path := "/v1/AuthTokens/Promote"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

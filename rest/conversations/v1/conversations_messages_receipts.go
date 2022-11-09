@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,11 +25,6 @@ import (
 
 // Fetch the delivery and read receipts of the conversation message
 func (c *ApiService) FetchConversationMessageReceipt(ConversationSid string, MessageSid string, Sid string) (*ConversationsV1ConversationMessageReceipt, error) {
-	return c.FetchConversationMessageReceiptWithCtx(context.TODO(), ConversationSid, MessageSid, Sid)
-}
-
-// Fetch the delivery and read receipts of the conversation message
-func (c *ApiService) FetchConversationMessageReceiptWithCtx(ctx context.Context, ConversationSid string, MessageSid string, Sid string) (*ConversationsV1ConversationMessageReceipt, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
@@ -39,7 +33,7 @@ func (c *ApiService) FetchConversationMessageReceiptWithCtx(ctx context.Context,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -73,11 +67,6 @@ func (params *ListConversationMessageReceiptParams) SetLimit(Limit int) *ListCon
 
 // Retrieve a single page of ConversationMessageReceipt records from the API. Request is executed immediately.
 func (c *ApiService) PageConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, pageToken, pageNumber string) (*ListConversationMessageReceiptResponse, error) {
-	return c.PageConversationMessageReceiptWithCtx(context.TODO(), ConversationSid, MessageSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of ConversationMessageReceipt records from the API. Request is executed immediately.
-func (c *ApiService) PageConversationMessageReceiptWithCtx(ctx context.Context, ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, pageToken, pageNumber string) (*ListConversationMessageReceiptResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
 
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -97,7 +86,7 @@ func (c *ApiService) PageConversationMessageReceiptWithCtx(ctx context.Context, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -114,12 +103,7 @@ func (c *ApiService) PageConversationMessageReceiptWithCtx(ctx context.Context, 
 
 // Lists ConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams) ([]ConversationsV1ConversationMessageReceipt, error) {
-	return c.ListConversationMessageReceiptWithCtx(context.TODO(), ConversationSid, MessageSid, params)
-}
-
-// Lists ConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConversationMessageReceiptWithCtx(ctx context.Context, ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams) ([]ConversationsV1ConversationMessageReceipt, error) {
-	response, errors := c.StreamConversationMessageReceiptWithCtx(ctx, ConversationSid, MessageSid, params)
+	response, errors := c.StreamConversationMessageReceipt(ConversationSid, MessageSid, params)
 
 	records := make([]ConversationsV1ConversationMessageReceipt, 0)
 	for record := range response {
@@ -135,11 +119,6 @@ func (c *ApiService) ListConversationMessageReceiptWithCtx(ctx context.Context, 
 
 // Streams ConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams) (chan ConversationsV1ConversationMessageReceipt, chan error) {
-	return c.StreamConversationMessageReceiptWithCtx(context.TODO(), ConversationSid, MessageSid, params)
-}
-
-// Streams ConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConversationMessageReceiptWithCtx(ctx context.Context, ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams) (chan ConversationsV1ConversationMessageReceipt, chan error) {
 	if params == nil {
 		params = &ListConversationMessageReceiptParams{}
 	}
@@ -148,19 +127,19 @@ func (c *ApiService) StreamConversationMessageReceiptWithCtx(ctx context.Context
 	recordChannel := make(chan ConversationsV1ConversationMessageReceipt, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageConversationMessageReceiptWithCtx(ctx, ConversationSid, MessageSid, params, "", "")
+	response, err := c.PageConversationMessageReceipt(ConversationSid, MessageSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConversationMessageReceipt(ctx, response, params, recordChannel, errorChannel)
+		go c.streamConversationMessageReceipt(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConversationMessageReceipt(ctx context.Context, response *ListConversationMessageReceiptResponse, params *ListConversationMessageReceiptParams, recordChannel chan ConversationsV1ConversationMessageReceipt, errorChannel chan error) {
+func (c *ApiService) streamConversationMessageReceipt(response *ListConversationMessageReceiptResponse, params *ListConversationMessageReceiptParams, recordChannel chan ConversationsV1ConversationMessageReceipt, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -175,7 +154,7 @@ func (c *ApiService) streamConversationMessageReceipt(ctx context.Context, respo
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListConversationMessageReceiptResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListConversationMessageReceiptResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -190,11 +169,11 @@ func (c *ApiService) streamConversationMessageReceipt(ctx context.Context, respo
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListConversationMessageReceiptResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListConversationMessageReceiptResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

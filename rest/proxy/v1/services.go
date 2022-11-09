@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -79,11 +78,6 @@ func (params *CreateServiceParams) SetChatInstanceSid(ChatInstanceSid string) *C
 
 // Create a new Service for Twilio Proxy
 func (c *ApiService) CreateService(params *CreateServiceParams) (*ProxyV1Service, error) {
-	return c.CreateServiceWithCtx(context.TODO(), params)
-}
-
-// Create a new Service for Twilio Proxy
-func (c *ApiService) CreateServiceWithCtx(ctx context.Context, params *CreateServiceParams) (*ProxyV1Service, error) {
 	path := "/v1/Services"
 
 	data := url.Values{}
@@ -114,7 +108,7 @@ func (c *ApiService) CreateServiceWithCtx(ctx context.Context, params *CreateSer
 		data.Set("ChatInstanceSid", *params.ChatInstanceSid)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -131,18 +125,13 @@ func (c *ApiService) CreateServiceWithCtx(ctx context.Context, params *CreateSer
 
 // Delete a specific Service.
 func (c *ApiService) DeleteService(Sid string) error {
-	return c.DeleteServiceWithCtx(context.TODO(), Sid)
-}
-
-// Delete a specific Service.
-func (c *ApiService) DeleteServiceWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -154,18 +143,13 @@ func (c *ApiService) DeleteServiceWithCtx(ctx context.Context, Sid string) error
 
 // Fetch a specific Service.
 func (c *ApiService) FetchService(Sid string) (*ProxyV1Service, error) {
-	return c.FetchServiceWithCtx(context.TODO(), Sid)
-}
-
-// Fetch a specific Service.
-func (c *ApiService) FetchServiceWithCtx(ctx context.Context, Sid string) (*ProxyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -199,11 +183,6 @@ func (params *ListServiceParams) SetLimit(Limit int) *ListServiceParams {
 
 // Retrieve a single page of Service records from the API. Request is executed immediately.
 func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumber string) (*ListServiceResponse, error) {
-	return c.PageServiceWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Service records from the API. Request is executed immediately.
-func (c *ApiService) PageServiceWithCtx(ctx context.Context, params *ListServiceParams, pageToken, pageNumber string) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
 	data := url.Values{}
@@ -220,7 +199,7 @@ func (c *ApiService) PageServiceWithCtx(ctx context.Context, params *ListService
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -237,12 +216,7 @@ func (c *ApiService) PageServiceWithCtx(ctx context.Context, params *ListService
 
 // Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListService(params *ListServiceParams) ([]ProxyV1Service, error) {
-	return c.ListServiceWithCtx(context.TODO(), params)
-}
-
-// Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceWithCtx(ctx context.Context, params *ListServiceParams) ([]ProxyV1Service, error) {
-	response, errors := c.StreamServiceWithCtx(ctx, params)
+	response, errors := c.StreamService(params)
 
 	records := make([]ProxyV1Service, 0)
 	for record := range response {
@@ -258,11 +232,6 @@ func (c *ApiService) ListServiceWithCtx(ctx context.Context, params *ListService
 
 // Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamService(params *ListServiceParams) (chan ProxyV1Service, chan error) {
-	return c.StreamServiceWithCtx(context.TODO(), params)
-}
-
-// Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceWithCtx(ctx context.Context, params *ListServiceParams) (chan ProxyV1Service, chan error) {
 	if params == nil {
 		params = &ListServiceParams{}
 	}
@@ -271,19 +240,19 @@ func (c *ApiService) StreamServiceWithCtx(ctx context.Context, params *ListServi
 	recordChannel := make(chan ProxyV1Service, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageServiceWithCtx(ctx, params, "", "")
+	response, err := c.PageService(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamService(ctx, response, params, recordChannel, errorChannel)
+		go c.streamService(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamService(ctx context.Context, response *ListServiceResponse, params *ListServiceParams, recordChannel chan ProxyV1Service, errorChannel chan error) {
+func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan ProxyV1Service, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -298,7 +267,7 @@ func (c *ApiService) streamService(ctx context.Context, response *ListServiceRes
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListServiceResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListServiceResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -313,11 +282,11 @@ func (c *ApiService) streamService(ctx context.Context, response *ListServiceRes
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListServiceResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListServiceResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -386,11 +355,6 @@ func (params *UpdateServiceParams) SetChatInstanceSid(ChatInstanceSid string) *U
 
 // Update a specific Service.
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*ProxyV1Service, error) {
-	return c.UpdateServiceWithCtx(context.TODO(), Sid, params)
-}
-
-// Update a specific Service.
-func (c *ApiService) UpdateServiceWithCtx(ctx context.Context, Sid string, params *UpdateServiceParams) (*ProxyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -422,7 +386,7 @@ func (c *ApiService) UpdateServiceWithCtx(ctx context.Context, Sid string, param
 		data.Set("ChatInstanceSid", *params.ChatInstanceSid)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

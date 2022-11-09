@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -43,11 +42,6 @@ func (params *CreateInteractionChannelParticipantParams) SetMediaProperties(Medi
 
 // Add a Participant to a Channel.
 func (c *ApiService) CreateInteractionChannelParticipant(InteractionSid string, ChannelSid string, params *CreateInteractionChannelParticipantParams) (*FlexV1InteractionChannelParticipant, error) {
-	return c.CreateInteractionChannelParticipantWithCtx(context.TODO(), InteractionSid, ChannelSid, params)
-}
-
-// Add a Participant to a Channel.
-func (c *ApiService) CreateInteractionChannelParticipantWithCtx(ctx context.Context, InteractionSid string, ChannelSid string, params *CreateInteractionChannelParticipantParams) (*FlexV1InteractionChannelParticipant, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -68,7 +62,7 @@ func (c *ApiService) CreateInteractionChannelParticipantWithCtx(ctx context.Cont
 		data.Set("MediaProperties", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -102,11 +96,6 @@ func (params *ListInteractionChannelParticipantParams) SetLimit(Limit int) *List
 
 // Retrieve a single page of InteractionChannelParticipant records from the API. Request is executed immediately.
 func (c *ApiService) PageInteractionChannelParticipant(InteractionSid string, ChannelSid string, params *ListInteractionChannelParticipantParams, pageToken, pageNumber string) (*ListInteractionChannelParticipantResponse, error) {
-	return c.PageInteractionChannelParticipantWithCtx(context.TODO(), InteractionSid, ChannelSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of InteractionChannelParticipant records from the API. Request is executed immediately.
-func (c *ApiService) PageInteractionChannelParticipantWithCtx(ctx context.Context, InteractionSid string, ChannelSid string, params *ListInteractionChannelParticipantParams, pageToken, pageNumber string) (*ListInteractionChannelParticipantResponse, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants"
 
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
@@ -126,7 +115,7 @@ func (c *ApiService) PageInteractionChannelParticipantWithCtx(ctx context.Contex
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -143,12 +132,7 @@ func (c *ApiService) PageInteractionChannelParticipantWithCtx(ctx context.Contex
 
 // Lists InteractionChannelParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInteractionChannelParticipant(InteractionSid string, ChannelSid string, params *ListInteractionChannelParticipantParams) ([]FlexV1InteractionChannelParticipant, error) {
-	return c.ListInteractionChannelParticipantWithCtx(context.TODO(), InteractionSid, ChannelSid, params)
-}
-
-// Lists InteractionChannelParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInteractionChannelParticipantWithCtx(ctx context.Context, InteractionSid string, ChannelSid string, params *ListInteractionChannelParticipantParams) ([]FlexV1InteractionChannelParticipant, error) {
-	response, errors := c.StreamInteractionChannelParticipantWithCtx(ctx, InteractionSid, ChannelSid, params)
+	response, errors := c.StreamInteractionChannelParticipant(InteractionSid, ChannelSid, params)
 
 	records := make([]FlexV1InteractionChannelParticipant, 0)
 	for record := range response {
@@ -164,11 +148,6 @@ func (c *ApiService) ListInteractionChannelParticipantWithCtx(ctx context.Contex
 
 // Streams InteractionChannelParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInteractionChannelParticipant(InteractionSid string, ChannelSid string, params *ListInteractionChannelParticipantParams) (chan FlexV1InteractionChannelParticipant, chan error) {
-	return c.StreamInteractionChannelParticipantWithCtx(context.TODO(), InteractionSid, ChannelSid, params)
-}
-
-// Streams InteractionChannelParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInteractionChannelParticipantWithCtx(ctx context.Context, InteractionSid string, ChannelSid string, params *ListInteractionChannelParticipantParams) (chan FlexV1InteractionChannelParticipant, chan error) {
 	if params == nil {
 		params = &ListInteractionChannelParticipantParams{}
 	}
@@ -177,19 +156,19 @@ func (c *ApiService) StreamInteractionChannelParticipantWithCtx(ctx context.Cont
 	recordChannel := make(chan FlexV1InteractionChannelParticipant, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInteractionChannelParticipantWithCtx(ctx, InteractionSid, ChannelSid, params, "", "")
+	response, err := c.PageInteractionChannelParticipant(InteractionSid, ChannelSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInteractionChannelParticipant(ctx, response, params, recordChannel, errorChannel)
+		go c.streamInteractionChannelParticipant(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInteractionChannelParticipant(ctx context.Context, response *ListInteractionChannelParticipantResponse, params *ListInteractionChannelParticipantParams, recordChannel chan FlexV1InteractionChannelParticipant, errorChannel chan error) {
+func (c *ApiService) streamInteractionChannelParticipant(response *ListInteractionChannelParticipantResponse, params *ListInteractionChannelParticipantParams, recordChannel chan FlexV1InteractionChannelParticipant, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -204,7 +183,7 @@ func (c *ApiService) streamInteractionChannelParticipant(ctx context.Context, re
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListInteractionChannelParticipantResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListInteractionChannelParticipantResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -219,11 +198,11 @@ func (c *ApiService) streamInteractionChannelParticipant(ctx context.Context, re
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInteractionChannelParticipantResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInteractionChannelParticipantResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -250,11 +229,6 @@ func (params *UpdateInteractionChannelParticipantParams) SetStatus(Status string
 
 // Update an existing Channel Participant.
 func (c *ApiService) UpdateInteractionChannelParticipant(InteractionSid string, ChannelSid string, Sid string, params *UpdateInteractionChannelParticipantParams) (*FlexV1InteractionChannelParticipant, error) {
-	return c.UpdateInteractionChannelParticipantWithCtx(context.TODO(), InteractionSid, ChannelSid, Sid, params)
-}
-
-// Update an existing Channel Participant.
-func (c *ApiService) UpdateInteractionChannelParticipantWithCtx(ctx context.Context, InteractionSid string, ChannelSid string, Sid string, params *UpdateInteractionChannelParticipantParams) (*FlexV1InteractionChannelParticipant, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -267,7 +241,7 @@ func (c *ApiService) UpdateInteractionChannelParticipantWithCtx(ctx context.Cont
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

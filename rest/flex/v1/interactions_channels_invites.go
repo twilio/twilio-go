@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -37,11 +36,6 @@ func (params *CreateInteractionChannelInviteParams) SetRouting(Routing interface
 
 // Invite an Agent or a TaskQueue to a Channel.
 func (c *ApiService) CreateInteractionChannelInvite(InteractionSid string, ChannelSid string, params *CreateInteractionChannelInviteParams) (*FlexV1InteractionChannelInvite, error) {
-	return c.CreateInteractionChannelInviteWithCtx(context.TODO(), InteractionSid, ChannelSid, params)
-}
-
-// Invite an Agent or a TaskQueue to a Channel.
-func (c *ApiService) CreateInteractionChannelInviteWithCtx(ctx context.Context, InteractionSid string, ChannelSid string, params *CreateInteractionChannelInviteParams) (*FlexV1InteractionChannelInvite, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -59,7 +53,7 @@ func (c *ApiService) CreateInteractionChannelInviteWithCtx(ctx context.Context, 
 		data.Set("Routing", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -93,11 +87,6 @@ func (params *ListInteractionChannelInviteParams) SetLimit(Limit int) *ListInter
 
 // Retrieve a single page of InteractionChannelInvite records from the API. Request is executed immediately.
 func (c *ApiService) PageInteractionChannelInvite(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams, pageToken, pageNumber string) (*ListInteractionChannelInviteResponse, error) {
-	return c.PageInteractionChannelInviteWithCtx(context.TODO(), InteractionSid, ChannelSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of InteractionChannelInvite records from the API. Request is executed immediately.
-func (c *ApiService) PageInteractionChannelInviteWithCtx(ctx context.Context, InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams, pageToken, pageNumber string) (*ListInteractionChannelInviteResponse, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites"
 
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
@@ -117,7 +106,7 @@ func (c *ApiService) PageInteractionChannelInviteWithCtx(ctx context.Context, In
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -134,12 +123,7 @@ func (c *ApiService) PageInteractionChannelInviteWithCtx(ctx context.Context, In
 
 // Lists InteractionChannelInvite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInteractionChannelInvite(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) ([]FlexV1InteractionChannelInvite, error) {
-	return c.ListInteractionChannelInviteWithCtx(context.TODO(), InteractionSid, ChannelSid, params)
-}
-
-// Lists InteractionChannelInvite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInteractionChannelInviteWithCtx(ctx context.Context, InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) ([]FlexV1InteractionChannelInvite, error) {
-	response, errors := c.StreamInteractionChannelInviteWithCtx(ctx, InteractionSid, ChannelSid, params)
+	response, errors := c.StreamInteractionChannelInvite(InteractionSid, ChannelSid, params)
 
 	records := make([]FlexV1InteractionChannelInvite, 0)
 	for record := range response {
@@ -155,11 +139,6 @@ func (c *ApiService) ListInteractionChannelInviteWithCtx(ctx context.Context, In
 
 // Streams InteractionChannelInvite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInteractionChannelInvite(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) (chan FlexV1InteractionChannelInvite, chan error) {
-	return c.StreamInteractionChannelInviteWithCtx(context.TODO(), InteractionSid, ChannelSid, params)
-}
-
-// Streams InteractionChannelInvite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInteractionChannelInviteWithCtx(ctx context.Context, InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) (chan FlexV1InteractionChannelInvite, chan error) {
 	if params == nil {
 		params = &ListInteractionChannelInviteParams{}
 	}
@@ -168,19 +147,19 @@ func (c *ApiService) StreamInteractionChannelInviteWithCtx(ctx context.Context, 
 	recordChannel := make(chan FlexV1InteractionChannelInvite, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInteractionChannelInviteWithCtx(ctx, InteractionSid, ChannelSid, params, "", "")
+	response, err := c.PageInteractionChannelInvite(InteractionSid, ChannelSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInteractionChannelInvite(ctx, response, params, recordChannel, errorChannel)
+		go c.streamInteractionChannelInvite(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInteractionChannelInvite(ctx context.Context, response *ListInteractionChannelInviteResponse, params *ListInteractionChannelInviteParams, recordChannel chan FlexV1InteractionChannelInvite, errorChannel chan error) {
+func (c *ApiService) streamInteractionChannelInvite(response *ListInteractionChannelInviteResponse, params *ListInteractionChannelInviteParams, recordChannel chan FlexV1InteractionChannelInvite, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -195,7 +174,7 @@ func (c *ApiService) streamInteractionChannelInvite(ctx context.Context, respons
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListInteractionChannelInviteResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListInteractionChannelInviteResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -210,11 +189,11 @@ func (c *ApiService) streamInteractionChannelInvite(ctx context.Context, respons
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInteractionChannelInviteResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInteractionChannelInviteResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

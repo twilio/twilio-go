@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -77,11 +76,8 @@ func (params *CreateTrunkParams) SetTransferCallerId(TransferCallerId string) *C
 	return params
 }
 
+//
 func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, error) {
-	return c.CreateTrunkWithCtx(context.TODO(), params)
-}
-
-func (c *ApiService) CreateTrunkWithCtx(ctx context.Context, params *CreateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks"
 
 	data := url.Values{}
@@ -112,7 +108,7 @@ func (c *ApiService) CreateTrunkWithCtx(ctx context.Context, params *CreateTrunk
 		data.Set("TransferCallerId", *params.TransferCallerId)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -127,18 +123,15 @@ func (c *ApiService) CreateTrunkWithCtx(ctx context.Context, params *CreateTrunk
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteTrunk(Sid string) error {
-	return c.DeleteTrunkWithCtx(context.TODO(), Sid)
-}
-
-func (c *ApiService) DeleteTrunkWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -148,18 +141,15 @@ func (c *ApiService) DeleteTrunkWithCtx(ctx context.Context, Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
-	return c.FetchTrunkWithCtx(context.TODO(), Sid)
-}
-
-func (c *ApiService) FetchTrunkWithCtx(ctx context.Context, Sid string) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -193,11 +183,6 @@ func (params *ListTrunkParams) SetLimit(Limit int) *ListTrunkParams {
 
 // Retrieve a single page of Trunk records from the API. Request is executed immediately.
 func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken, pageNumber string) (*ListTrunkResponse, error) {
-	return c.PageTrunkWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Trunk records from the API. Request is executed immediately.
-func (c *ApiService) PageTrunkWithCtx(ctx context.Context, params *ListTrunkParams, pageToken, pageNumber string) (*ListTrunkResponse, error) {
 	path := "/v1/Trunks"
 
 	data := url.Values{}
@@ -214,7 +199,7 @@ func (c *ApiService) PageTrunkWithCtx(ctx context.Context, params *ListTrunkPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -231,12 +216,7 @@ func (c *ApiService) PageTrunkWithCtx(ctx context.Context, params *ListTrunkPara
 
 // Lists Trunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrunk(params *ListTrunkParams) ([]TrunkingV1Trunk, error) {
-	return c.ListTrunkWithCtx(context.TODO(), params)
-}
-
-// Lists Trunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrunkWithCtx(ctx context.Context, params *ListTrunkParams) ([]TrunkingV1Trunk, error) {
-	response, errors := c.StreamTrunkWithCtx(ctx, params)
+	response, errors := c.StreamTrunk(params)
 
 	records := make([]TrunkingV1Trunk, 0)
 	for record := range response {
@@ -252,11 +232,6 @@ func (c *ApiService) ListTrunkWithCtx(ctx context.Context, params *ListTrunkPara
 
 // Streams Trunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTrunk(params *ListTrunkParams) (chan TrunkingV1Trunk, chan error) {
-	return c.StreamTrunkWithCtx(context.TODO(), params)
-}
-
-// Streams Trunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrunkWithCtx(ctx context.Context, params *ListTrunkParams) (chan TrunkingV1Trunk, chan error) {
 	if params == nil {
 		params = &ListTrunkParams{}
 	}
@@ -265,19 +240,19 @@ func (c *ApiService) StreamTrunkWithCtx(ctx context.Context, params *ListTrunkPa
 	recordChannel := make(chan TrunkingV1Trunk, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTrunkWithCtx(ctx, params, "", "")
+	response, err := c.PageTrunk(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTrunk(ctx, response, params, recordChannel, errorChannel)
+		go c.streamTrunk(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTrunk(ctx context.Context, response *ListTrunkResponse, params *ListTrunkParams, recordChannel chan TrunkingV1Trunk, errorChannel chan error) {
+func (c *ApiService) streamTrunk(response *ListTrunkResponse, params *ListTrunkParams, recordChannel chan TrunkingV1Trunk, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -292,7 +267,7 @@ func (c *ApiService) streamTrunk(ctx context.Context, response *ListTrunkRespons
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListTrunkResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListTrunkResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -307,11 +282,11 @@ func (c *ApiService) streamTrunk(ctx context.Context, response *ListTrunkRespons
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTrunkResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTrunkResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -378,11 +353,8 @@ func (params *UpdateTrunkParams) SetTransferCallerId(TransferCallerId string) *U
 	return params
 }
 
+//
 func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*TrunkingV1Trunk, error) {
-	return c.UpdateTrunkWithCtx(context.TODO(), Sid, params)
-}
-
-func (c *ApiService) UpdateTrunkWithCtx(ctx context.Context, Sid string, params *UpdateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -414,7 +386,7 @@ func (c *ApiService) UpdateTrunkWithCtx(ctx context.Context, Sid string, params 
 		data.Set("TransferCallerId", *params.TransferCallerId)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

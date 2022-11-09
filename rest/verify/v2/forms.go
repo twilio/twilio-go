@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -23,18 +22,13 @@ import (
 
 // Fetch the forms for a specific Form Type.
 func (c *ApiService) FetchForm(FormType string) (*VerifyV2Form, error) {
-	return c.FetchFormWithCtx(context.TODO(), FormType)
-}
-
-// Fetch the forms for a specific Form Type.
-func (c *ApiService) FetchFormWithCtx(ctx context.Context, FormType string) (*VerifyV2Form, error) {
 	path := "/v2/Forms/{FormType}"
 	path = strings.Replace(path, "{"+"FormType"+"}", FormType, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

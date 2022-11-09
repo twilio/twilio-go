@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -61,11 +60,6 @@ func (params *ListAccountUsageRecordParams) SetLimit(Limit int) *ListAccountUsag
 
 // Retrieve a single page of AccountUsageRecord records from the API. Request is executed immediately.
 func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams, pageToken, pageNumber string) (*ListAccountUsageRecordResponse, error) {
-	return c.PageAccountUsageRecordWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of AccountUsageRecord records from the API. Request is executed immediately.
-func (c *ApiService) PageAccountUsageRecordWithCtx(ctx context.Context, params *ListAccountUsageRecordParams, pageToken, pageNumber string) (*ListAccountUsageRecordResponse, error) {
 	path := "/v1/UsageRecords"
 
 	data := url.Values{}
@@ -91,7 +85,7 @@ func (c *ApiService) PageAccountUsageRecordWithCtx(ctx context.Context, params *
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -108,12 +102,7 @@ func (c *ApiService) PageAccountUsageRecordWithCtx(ctx context.Context, params *
 
 // Lists AccountUsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams) ([]WirelessV1AccountUsageRecord, error) {
-	return c.ListAccountUsageRecordWithCtx(context.TODO(), params)
-}
-
-// Lists AccountUsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAccountUsageRecordWithCtx(ctx context.Context, params *ListAccountUsageRecordParams) ([]WirelessV1AccountUsageRecord, error) {
-	response, errors := c.StreamAccountUsageRecordWithCtx(ctx, params)
+	response, errors := c.StreamAccountUsageRecord(params)
 
 	records := make([]WirelessV1AccountUsageRecord, 0)
 	for record := range response {
@@ -129,11 +118,6 @@ func (c *ApiService) ListAccountUsageRecordWithCtx(ctx context.Context, params *
 
 // Streams AccountUsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAccountUsageRecord(params *ListAccountUsageRecordParams) (chan WirelessV1AccountUsageRecord, chan error) {
-	return c.StreamAccountUsageRecordWithCtx(context.TODO(), params)
-}
-
-// Streams AccountUsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAccountUsageRecordWithCtx(ctx context.Context, params *ListAccountUsageRecordParams) (chan WirelessV1AccountUsageRecord, chan error) {
 	if params == nil {
 		params = &ListAccountUsageRecordParams{}
 	}
@@ -142,19 +126,19 @@ func (c *ApiService) StreamAccountUsageRecordWithCtx(ctx context.Context, params
 	recordChannel := make(chan WirelessV1AccountUsageRecord, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAccountUsageRecordWithCtx(ctx, params, "", "")
+	response, err := c.PageAccountUsageRecord(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAccountUsageRecord(ctx, response, params, recordChannel, errorChannel)
+		go c.streamAccountUsageRecord(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAccountUsageRecord(ctx context.Context, response *ListAccountUsageRecordResponse, params *ListAccountUsageRecordParams, recordChannel chan WirelessV1AccountUsageRecord, errorChannel chan error) {
+func (c *ApiService) streamAccountUsageRecord(response *ListAccountUsageRecordResponse, params *ListAccountUsageRecordParams, recordChannel chan WirelessV1AccountUsageRecord, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -169,7 +153,7 @@ func (c *ApiService) streamAccountUsageRecord(ctx context.Context, response *Lis
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListAccountUsageRecordResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAccountUsageRecordResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -184,11 +168,11 @@ func (c *ApiService) streamAccountUsageRecord(ctx context.Context, response *Lis
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAccountUsageRecordResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAccountUsageRecordResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

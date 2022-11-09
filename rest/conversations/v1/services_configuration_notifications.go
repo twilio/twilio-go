@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -24,18 +23,13 @@ import (
 
 // Fetch push notification service settings
 func (c *ApiService) FetchServiceNotification(ChatServiceSid string) (*ConversationsV1ServiceNotification, error) {
-	return c.FetchServiceNotificationWithCtx(context.TODO(), ChatServiceSid)
-}
-
-// Fetch push notification service settings
-func (c *ApiService) FetchServiceNotificationWithCtx(ctx context.Context, ChatServiceSid string) (*ConversationsV1ServiceNotification, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -135,11 +129,6 @@ func (params *UpdateServiceNotificationParams) SetNewMessageWithMediaTemplate(Ne
 
 // Update push notification service settings
 func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceNotification, error) {
-	return c.UpdateServiceNotificationWithCtx(context.TODO(), ChatServiceSid, params)
-}
-
-// Update push notification service settings
-func (c *ApiService) UpdateServiceNotificationWithCtx(ctx context.Context, ChatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceNotification, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -186,7 +175,7 @@ func (c *ApiService) UpdateServiceNotificationWithCtx(ctx context.Context, ChatS
 		data.Set("NewMessage.WithMedia.Template", *params.NewMessageWithMediaTemplate)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

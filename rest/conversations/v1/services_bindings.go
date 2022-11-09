@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,11 +25,6 @@ import (
 
 // Remove a push notification binding from the conversation service
 func (c *ApiService) DeleteServiceBinding(ChatServiceSid string, Sid string) error {
-	return c.DeleteServiceBindingWithCtx(context.TODO(), ChatServiceSid, Sid)
-}
-
-// Remove a push notification binding from the conversation service
-func (c *ApiService) DeleteServiceBindingWithCtx(ctx context.Context, ChatServiceSid string, Sid string) error {
 	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -38,7 +32,7 @@ func (c *ApiService) DeleteServiceBindingWithCtx(ctx context.Context, ChatServic
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -50,11 +44,6 @@ func (c *ApiService) DeleteServiceBindingWithCtx(ctx context.Context, ChatServic
 
 // Fetch a push notification binding from the conversation service
 func (c *ApiService) FetchServiceBinding(ChatServiceSid string, Sid string) (*ConversationsV1ServiceBinding, error) {
-	return c.FetchServiceBindingWithCtx(context.TODO(), ChatServiceSid, Sid)
-}
-
-// Fetch a push notification binding from the conversation service
-func (c *ApiService) FetchServiceBindingWithCtx(ctx context.Context, ChatServiceSid string, Sid string) (*ConversationsV1ServiceBinding, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -62,7 +51,7 @@ func (c *ApiService) FetchServiceBindingWithCtx(ctx context.Context, ChatService
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -108,11 +97,6 @@ func (params *ListServiceBindingParams) SetLimit(Limit int) *ListServiceBindingP
 
 // Retrieve a single page of ServiceBinding records from the API. Request is executed immediately.
 func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, pageToken, pageNumber string) (*ListServiceBindingResponse, error) {
-	return c.PageServiceBindingWithCtx(context.TODO(), ChatServiceSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of ServiceBinding records from the API. Request is executed immediately.
-func (c *ApiService) PageServiceBindingWithCtx(ctx context.Context, ChatServiceSid string, params *ListServiceBindingParams, pageToken, pageNumber string) (*ListServiceBindingResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -141,7 +125,7 @@ func (c *ApiService) PageServiceBindingWithCtx(ctx context.Context, ChatServiceS
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -158,12 +142,7 @@ func (c *ApiService) PageServiceBindingWithCtx(ctx context.Context, ChatServiceS
 
 // Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) ([]ConversationsV1ServiceBinding, error) {
-	return c.ListServiceBindingWithCtx(context.TODO(), ChatServiceSid, params)
-}
-
-// Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceBindingWithCtx(ctx context.Context, ChatServiceSid string, params *ListServiceBindingParams) ([]ConversationsV1ServiceBinding, error) {
-	response, errors := c.StreamServiceBindingWithCtx(ctx, ChatServiceSid, params)
+	response, errors := c.StreamServiceBinding(ChatServiceSid, params)
 
 	records := make([]ConversationsV1ServiceBinding, 0)
 	for record := range response {
@@ -179,11 +158,6 @@ func (c *ApiService) ListServiceBindingWithCtx(ctx context.Context, ChatServiceS
 
 // Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) (chan ConversationsV1ServiceBinding, chan error) {
-	return c.StreamServiceBindingWithCtx(context.TODO(), ChatServiceSid, params)
-}
-
-// Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceBindingWithCtx(ctx context.Context, ChatServiceSid string, params *ListServiceBindingParams) (chan ConversationsV1ServiceBinding, chan error) {
 	if params == nil {
 		params = &ListServiceBindingParams{}
 	}
@@ -192,19 +166,19 @@ func (c *ApiService) StreamServiceBindingWithCtx(ctx context.Context, ChatServic
 	recordChannel := make(chan ConversationsV1ServiceBinding, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageServiceBindingWithCtx(ctx, ChatServiceSid, params, "", "")
+	response, err := c.PageServiceBinding(ChatServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamServiceBinding(ctx, response, params, recordChannel, errorChannel)
+		go c.streamServiceBinding(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamServiceBinding(ctx context.Context, response *ListServiceBindingResponse, params *ListServiceBindingParams, recordChannel chan ConversationsV1ServiceBinding, errorChannel chan error) {
+func (c *ApiService) streamServiceBinding(response *ListServiceBindingResponse, params *ListServiceBindingParams, recordChannel chan ConversationsV1ServiceBinding, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -219,7 +193,7 @@ func (c *ApiService) streamServiceBinding(ctx context.Context, response *ListSer
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListServiceBindingResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListServiceBindingResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -234,11 +208,11 @@ func (c *ApiService) streamServiceBinding(ctx context.Context, response *ListSer
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListServiceBindingResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListServiceBindingResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

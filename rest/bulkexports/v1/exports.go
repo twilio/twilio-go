@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -23,18 +22,13 @@ import (
 
 // Fetch a specific Export.
 func (c *ApiService) FetchExport(ResourceType string) (*BulkexportsV1Export, error) {
-	return c.FetchExportWithCtx(context.TODO(), ResourceType)
-}
-
-// Fetch a specific Export.
-func (c *ApiService) FetchExportWithCtx(ctx context.Context, ResourceType string) (*BulkexportsV1Export, error) {
 	path := "/v1/Exports/{ResourceType}"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -1252,11 +1251,6 @@ func (params *CreateSiprecParams) SetParameter99Value(Parameter99Value string) *
 
 // Create a Siprec
 func (c *ApiService) CreateSiprec(CallSid string, params *CreateSiprecParams) (*ApiV2010Siprec, error) {
-	return c.CreateSiprecWithCtx(context.TODO(), CallSid, params)
-}
-
-// Create a Siprec
-func (c *ApiService) CreateSiprecWithCtx(ctx context.Context, CallSid string, params *CreateSiprecParams) (*ApiV2010Siprec, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -1878,7 +1872,7 @@ func (c *ApiService) CreateSiprecWithCtx(ctx context.Context, CallSid string, pa
 		data.Set("Parameter99.Value", *params.Parameter99Value)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1912,11 +1906,6 @@ func (params *UpdateSiprecParams) SetStatus(Status string) *UpdateSiprecParams {
 
 // Stop a Siprec using either the SID of the Siprec resource or the &#x60;name&#x60; used when creating the resource
 func (c *ApiService) UpdateSiprec(CallSid string, Sid string, params *UpdateSiprecParams) (*ApiV2010Siprec, error) {
-	return c.UpdateSiprecWithCtx(context.TODO(), CallSid, Sid, params)
-}
-
-// Stop a Siprec using either the SID of the Siprec resource or the &#x60;name&#x60; used when creating the resource
-func (c *ApiService) UpdateSiprecWithCtx(ctx context.Context, CallSid string, Sid string, params *UpdateSiprecParams) (*ApiV2010Siprec, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -1933,7 +1922,7 @@ func (c *ApiService) UpdateSiprecWithCtx(ctx context.Context, CallSid string, Si
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

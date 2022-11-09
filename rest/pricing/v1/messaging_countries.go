@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -24,18 +23,15 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+//
 func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1MessagingCountryInstance, error) {
-	return c.FetchMessagingCountryWithCtx(context.TODO(), IsoCountry)
-}
-
-func (c *ApiService) FetchMessagingCountryWithCtx(ctx context.Context, IsoCountry string) (*PricingV1MessagingCountryInstance, error) {
 	path := "/v1/Messaging/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -69,11 +65,6 @@ func (params *ListMessagingCountryParams) SetLimit(Limit int) *ListMessagingCoun
 
 // Retrieve a single page of MessagingCountry records from the API. Request is executed immediately.
 func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pageToken, pageNumber string) (*ListMessagingCountryResponse, error) {
-	return c.PageMessagingCountryWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of MessagingCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageMessagingCountryWithCtx(ctx context.Context, params *ListMessagingCountryParams, pageToken, pageNumber string) (*ListMessagingCountryResponse, error) {
 	path := "/v1/Messaging/Countries"
 
 	data := url.Values{}
@@ -90,7 +81,7 @@ func (c *ApiService) PageMessagingCountryWithCtx(ctx context.Context, params *Li
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -107,12 +98,7 @@ func (c *ApiService) PageMessagingCountryWithCtx(ctx context.Context, params *Li
 
 // Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([]PricingV1MessagingCountry, error) {
-	return c.ListMessagingCountryWithCtx(context.TODO(), params)
-}
-
-// Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessagingCountryWithCtx(ctx context.Context, params *ListMessagingCountryParams) ([]PricingV1MessagingCountry, error) {
-	response, errors := c.StreamMessagingCountryWithCtx(ctx, params)
+	response, errors := c.StreamMessagingCountry(params)
 
 	records := make([]PricingV1MessagingCountry, 0)
 	for record := range response {
@@ -128,11 +114,6 @@ func (c *ApiService) ListMessagingCountryWithCtx(ctx context.Context, params *Li
 
 // Streams MessagingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) (chan PricingV1MessagingCountry, chan error) {
-	return c.StreamMessagingCountryWithCtx(context.TODO(), params)
-}
-
-// Streams MessagingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessagingCountryWithCtx(ctx context.Context, params *ListMessagingCountryParams) (chan PricingV1MessagingCountry, chan error) {
 	if params == nil {
 		params = &ListMessagingCountryParams{}
 	}
@@ -141,19 +122,19 @@ func (c *ApiService) StreamMessagingCountryWithCtx(ctx context.Context, params *
 	recordChannel := make(chan PricingV1MessagingCountry, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMessagingCountryWithCtx(ctx, params, "", "")
+	response, err := c.PageMessagingCountry(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMessagingCountry(ctx, response, params, recordChannel, errorChannel)
+		go c.streamMessagingCountry(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMessagingCountry(ctx context.Context, response *ListMessagingCountryResponse, params *ListMessagingCountryParams, recordChannel chan PricingV1MessagingCountry, errorChannel chan error) {
+func (c *ApiService) streamMessagingCountry(response *ListMessagingCountryResponse, params *ListMessagingCountryParams, recordChannel chan PricingV1MessagingCountry, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -168,7 +149,7 @@ func (c *ApiService) streamMessagingCountry(ctx context.Context, response *ListM
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListMessagingCountryResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListMessagingCountryResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -183,11 +164,11 @@ func (c *ApiService) streamMessagingCountry(ctx context.Context, response *ListM
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMessagingCountryResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMessagingCountryResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

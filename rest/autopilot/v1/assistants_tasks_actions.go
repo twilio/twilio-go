@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -23,11 +22,6 @@ import (
 
 // Returns JSON actions for the Task.
 func (c *ApiService) FetchTaskActions(AssistantSid string, TaskSid string) (*AutopilotV1TaskActions, error) {
-	return c.FetchTaskActionsWithCtx(context.TODO(), AssistantSid, TaskSid)
-}
-
-// Returns JSON actions for the Task.
-func (c *ApiService) FetchTaskActionsWithCtx(ctx context.Context, AssistantSid string, TaskSid string) (*AutopilotV1TaskActions, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -35,7 +29,7 @@ func (c *ApiService) FetchTaskActionsWithCtx(ctx context.Context, AssistantSid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -63,11 +57,6 @@ func (params *UpdateTaskActionsParams) SetActions(Actions interface{}) *UpdateTa
 
 // Updates the actions of an Task identified by {TaskSid} or {TaskUniqueName}.
 func (c *ApiService) UpdateTaskActions(AssistantSid string, TaskSid string, params *UpdateTaskActionsParams) (*AutopilotV1TaskActions, error) {
-	return c.UpdateTaskActionsWithCtx(context.TODO(), AssistantSid, TaskSid, params)
-}
-
-// Updates the actions of an Task identified by {TaskSid} or {TaskUniqueName}.
-func (c *ApiService) UpdateTaskActionsWithCtx(ctx context.Context, AssistantSid string, TaskSid string, params *UpdateTaskActionsParams) (*AutopilotV1TaskActions, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -85,7 +74,7 @@ func (c *ApiService) UpdateTaskActionsWithCtx(ctx context.Context, AssistantSid 
 		data.Set("Actions", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

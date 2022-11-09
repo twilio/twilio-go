@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -248,11 +247,6 @@ func (params *CreateCallParams) SetApplicationSid(ApplicationSid string) *Create
 
 // Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
 func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error) {
-	return c.CreateCallWithCtx(context.TODO(), params)
-}
-
-// Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
-func (c *ApiService) CreateCallWithCtx(ctx context.Context, params *CreateCallParams) (*ApiV2010Call, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -373,7 +367,7 @@ func (c *ApiService) CreateCallWithCtx(ctx context.Context, params *CreateCallPa
 		data.Set("ApplicationSid", *params.ApplicationSid)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -401,11 +395,6 @@ func (params *DeleteCallParams) SetPathAccountSid(PathAccountSid string) *Delete
 
 // Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
 func (c *ApiService) DeleteCall(Sid string, params *DeleteCallParams) error {
-	return c.DeleteCallWithCtx(context.TODO(), Sid, params)
-}
-
-// Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
-func (c *ApiService) DeleteCallWithCtx(ctx context.Context, Sid string, params *DeleteCallParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -417,7 +406,7 @@ func (c *ApiService) DeleteCallWithCtx(ctx context.Context, Sid string, params *
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -440,11 +429,6 @@ func (params *FetchCallParams) SetPathAccountSid(PathAccountSid string) *FetchCa
 
 // Fetch the call specified by the provided Call SID
 func (c *ApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010Call, error) {
-	return c.FetchCallWithCtx(context.TODO(), Sid, params)
-}
-
-// Fetch the call specified by the provided Call SID
-func (c *ApiService) FetchCallWithCtx(ctx context.Context, Sid string, params *FetchCallParams) (*ApiV2010Call, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -456,7 +440,7 @@ func (c *ApiService) FetchCallWithCtx(ctx context.Context, Sid string, params *F
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -556,11 +540,6 @@ func (params *ListCallParams) SetLimit(Limit int) *ListCallParams {
 
 // Retrieve a single page of Call records from the API. Request is executed immediately.
 func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber string) (*ListCallResponse, error) {
-	return c.PageCallWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Call records from the API. Request is executed immediately.
-func (c *ApiService) PageCallWithCtx(ctx context.Context, params *ListCallParams, pageToken, pageNumber string) (*ListCallResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -613,7 +592,7 @@ func (c *ApiService) PageCallWithCtx(ctx context.Context, params *ListCallParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -630,12 +609,7 @@ func (c *ApiService) PageCallWithCtx(ctx context.Context, params *ListCallParams
 
 // Lists Call records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010Call, error) {
-	return c.ListCallWithCtx(context.TODO(), params)
-}
-
-// Lists Call records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCallWithCtx(ctx context.Context, params *ListCallParams) ([]ApiV2010Call, error) {
-	response, errors := c.StreamCallWithCtx(ctx, params)
+	response, errors := c.StreamCall(params)
 
 	records := make([]ApiV2010Call, 0)
 	for record := range response {
@@ -651,11 +625,6 @@ func (c *ApiService) ListCallWithCtx(ctx context.Context, params *ListCallParams
 
 // Streams Call records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010Call, chan error) {
-	return c.StreamCallWithCtx(context.TODO(), params)
-}
-
-// Streams Call records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCallWithCtx(ctx context.Context, params *ListCallParams) (chan ApiV2010Call, chan error) {
 	if params == nil {
 		params = &ListCallParams{}
 	}
@@ -664,19 +633,19 @@ func (c *ApiService) StreamCallWithCtx(ctx context.Context, params *ListCallPara
 	recordChannel := make(chan ApiV2010Call, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCallWithCtx(ctx, params, "", "")
+	response, err := c.PageCall(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCall(ctx, response, params, recordChannel, errorChannel)
+		go c.streamCall(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCall(ctx context.Context, response *ListCallResponse, params *ListCallParams, recordChannel chan ApiV2010Call, errorChannel chan error) {
+func (c *ApiService) streamCall(response *ListCallResponse, params *ListCallParams, recordChannel chan ApiV2010Call, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -691,7 +660,7 @@ func (c *ApiService) streamCall(ctx context.Context, response *ListCallResponse,
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListCallResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCallResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -706,11 +675,11 @@ func (c *ApiService) streamCall(ctx context.Context, response *ListCallResponse,
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCallResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCallResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -791,11 +760,6 @@ func (params *UpdateCallParams) SetTimeLimit(TimeLimit int) *UpdateCallParams {
 
 // Initiates a call redirect or terminates a call
 func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010Call, error) {
-	return c.UpdateCallWithCtx(context.TODO(), Sid, params)
-}
-
-// Initiates a call redirect or terminates a call
-func (c *ApiService) UpdateCallWithCtx(ctx context.Context, Sid string, params *UpdateCallParams) (*ApiV2010Call, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -835,7 +799,7 @@ func (c *ApiService) UpdateCallWithCtx(ctx context.Context, Sid string, params *
 		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,11 +25,6 @@ import (
 
 // Delete a specific Sync Document Permission.
 func (c *ApiService) DeleteDocumentPermission(ServiceSid string, DocumentSid string, Identity string) error {
-	return c.DeleteDocumentPermissionWithCtx(context.TODO(), ServiceSid, DocumentSid, Identity)
-}
-
-// Delete a specific Sync Document Permission.
-func (c *ApiService) DeleteDocumentPermissionWithCtx(ctx context.Context, ServiceSid string, DocumentSid string, Identity string) error {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
@@ -39,7 +33,7 @@ func (c *ApiService) DeleteDocumentPermissionWithCtx(ctx context.Context, Servic
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -51,11 +45,6 @@ func (c *ApiService) DeleteDocumentPermissionWithCtx(ctx context.Context, Servic
 
 // Fetch a specific Sync Document Permission.
 func (c *ApiService) FetchDocumentPermission(ServiceSid string, DocumentSid string, Identity string) (*SyncV1DocumentPermission, error) {
-	return c.FetchDocumentPermissionWithCtx(context.TODO(), ServiceSid, DocumentSid, Identity)
-}
-
-// Fetch a specific Sync Document Permission.
-func (c *ApiService) FetchDocumentPermissionWithCtx(ctx context.Context, ServiceSid string, DocumentSid string, Identity string) (*SyncV1DocumentPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
@@ -64,7 +53,7 @@ func (c *ApiService) FetchDocumentPermissionWithCtx(ctx context.Context, Service
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -98,11 +87,6 @@ func (params *ListDocumentPermissionParams) SetLimit(Limit int) *ListDocumentPer
 
 // Retrieve a single page of DocumentPermission records from the API. Request is executed immediately.
 func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, pageToken, pageNumber string) (*ListDocumentPermissionResponse, error) {
-	return c.PageDocumentPermissionWithCtx(context.TODO(), ServiceSid, DocumentSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of DocumentPermission records from the API. Request is executed immediately.
-func (c *ApiService) PageDocumentPermissionWithCtx(ctx context.Context, ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, pageToken, pageNumber string) (*ListDocumentPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -122,7 +106,7 @@ func (c *ApiService) PageDocumentPermissionWithCtx(ctx context.Context, ServiceS
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -139,12 +123,7 @@ func (c *ApiService) PageDocumentPermissionWithCtx(ctx context.Context, ServiceS
 
 // Lists DocumentPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) ([]SyncV1DocumentPermission, error) {
-	return c.ListDocumentPermissionWithCtx(context.TODO(), ServiceSid, DocumentSid, params)
-}
-
-// Lists DocumentPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDocumentPermissionWithCtx(ctx context.Context, ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) ([]SyncV1DocumentPermission, error) {
-	response, errors := c.StreamDocumentPermissionWithCtx(ctx, ServiceSid, DocumentSid, params)
+	response, errors := c.StreamDocumentPermission(ServiceSid, DocumentSid, params)
 
 	records := make([]SyncV1DocumentPermission, 0)
 	for record := range response {
@@ -160,11 +139,6 @@ func (c *ApiService) ListDocumentPermissionWithCtx(ctx context.Context, ServiceS
 
 // Streams DocumentPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) (chan SyncV1DocumentPermission, chan error) {
-	return c.StreamDocumentPermissionWithCtx(context.TODO(), ServiceSid, DocumentSid, params)
-}
-
-// Streams DocumentPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDocumentPermissionWithCtx(ctx context.Context, ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) (chan SyncV1DocumentPermission, chan error) {
 	if params == nil {
 		params = &ListDocumentPermissionParams{}
 	}
@@ -173,19 +147,19 @@ func (c *ApiService) StreamDocumentPermissionWithCtx(ctx context.Context, Servic
 	recordChannel := make(chan SyncV1DocumentPermission, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDocumentPermissionWithCtx(ctx, ServiceSid, DocumentSid, params, "", "")
+	response, err := c.PageDocumentPermission(ServiceSid, DocumentSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDocumentPermission(ctx, response, params, recordChannel, errorChannel)
+		go c.streamDocumentPermission(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDocumentPermission(ctx context.Context, response *ListDocumentPermissionResponse, params *ListDocumentPermissionParams, recordChannel chan SyncV1DocumentPermission, errorChannel chan error) {
+func (c *ApiService) streamDocumentPermission(response *ListDocumentPermissionResponse, params *ListDocumentPermissionParams, recordChannel chan SyncV1DocumentPermission, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -200,7 +174,7 @@ func (c *ApiService) streamDocumentPermission(ctx context.Context, response *Lis
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListDocumentPermissionResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListDocumentPermissionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -215,11 +189,11 @@ func (c *ApiService) streamDocumentPermission(ctx context.Context, response *Lis
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDocumentPermissionResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDocumentPermissionResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -258,11 +232,6 @@ func (params *UpdateDocumentPermissionParams) SetManage(Manage bool) *UpdateDocu
 
 // Update an identity&#39;s access to a specific Sync Document.
 func (c *ApiService) UpdateDocumentPermission(ServiceSid string, DocumentSid string, Identity string, params *UpdateDocumentPermissionParams) (*SyncV1DocumentPermission, error) {
-	return c.UpdateDocumentPermissionWithCtx(context.TODO(), ServiceSid, DocumentSid, Identity, params)
-}
-
-// Update an identity&#39;s access to a specific Sync Document.
-func (c *ApiService) UpdateDocumentPermissionWithCtx(ctx context.Context, ServiceSid string, DocumentSid string, Identity string, params *UpdateDocumentPermissionParams) (*SyncV1DocumentPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
@@ -281,7 +250,7 @@ func (c *ApiService) UpdateDocumentPermissionWithCtx(ctx context.Context, Servic
 		data.Set("Manage", fmt.Sprint(*params.Manage))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

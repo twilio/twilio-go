@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -55,11 +54,6 @@ func (params *CreateTrustProductParams) SetStatusCallback(StatusCallback string)
 
 // Create a new Customer-Profile.
 func (c *ApiService) CreateTrustProduct(params *CreateTrustProductParams) (*TrusthubV1TrustProduct, error) {
-	return c.CreateTrustProductWithCtx(context.TODO(), params)
-}
-
-// Create a new Customer-Profile.
-func (c *ApiService) CreateTrustProductWithCtx(ctx context.Context, params *CreateTrustProductParams) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
@@ -78,7 +72,7 @@ func (c *ApiService) CreateTrustProductWithCtx(ctx context.Context, params *Crea
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -95,18 +89,13 @@ func (c *ApiService) CreateTrustProductWithCtx(ctx context.Context, params *Crea
 
 // Delete a specific Customer-Profile.
 func (c *ApiService) DeleteTrustProduct(Sid string) error {
-	return c.DeleteTrustProductWithCtx(context.TODO(), Sid)
-}
-
-// Delete a specific Customer-Profile.
-func (c *ApiService) DeleteTrustProductWithCtx(ctx context.Context, Sid string) error {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -118,18 +107,13 @@ func (c *ApiService) DeleteTrustProductWithCtx(ctx context.Context, Sid string) 
 
 // Fetch a specific Customer-Profile instance.
 func (c *ApiService) FetchTrustProduct(Sid string) (*TrusthubV1TrustProduct, error) {
-	return c.FetchTrustProductWithCtx(context.TODO(), Sid)
-}
-
-// Fetch a specific Customer-Profile instance.
-func (c *ApiService) FetchTrustProductWithCtx(ctx context.Context, Sid string) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -181,11 +165,6 @@ func (params *ListTrustProductParams) SetLimit(Limit int) *ListTrustProductParam
 
 // Retrieve a single page of TrustProduct records from the API. Request is executed immediately.
 func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken, pageNumber string) (*ListTrustProductResponse, error) {
-	return c.PageTrustProductWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of TrustProduct records from the API. Request is executed immediately.
-func (c *ApiService) PageTrustProductWithCtx(ctx context.Context, params *ListTrustProductParams, pageToken, pageNumber string) (*ListTrustProductResponse, error) {
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
@@ -211,7 +190,7 @@ func (c *ApiService) PageTrustProductWithCtx(ctx context.Context, params *ListTr
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -228,12 +207,7 @@ func (c *ApiService) PageTrustProductWithCtx(ctx context.Context, params *ListTr
 
 // Lists TrustProduct records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrustProduct(params *ListTrustProductParams) ([]TrusthubV1TrustProduct, error) {
-	return c.ListTrustProductWithCtx(context.TODO(), params)
-}
-
-// Lists TrustProduct records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrustProductWithCtx(ctx context.Context, params *ListTrustProductParams) ([]TrusthubV1TrustProduct, error) {
-	response, errors := c.StreamTrustProductWithCtx(ctx, params)
+	response, errors := c.StreamTrustProduct(params)
 
 	records := make([]TrusthubV1TrustProduct, 0)
 	for record := range response {
@@ -249,11 +223,6 @@ func (c *ApiService) ListTrustProductWithCtx(ctx context.Context, params *ListTr
 
 // Streams TrustProduct records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTrustProduct(params *ListTrustProductParams) (chan TrusthubV1TrustProduct, chan error) {
-	return c.StreamTrustProductWithCtx(context.TODO(), params)
-}
-
-// Streams TrustProduct records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrustProductWithCtx(ctx context.Context, params *ListTrustProductParams) (chan TrusthubV1TrustProduct, chan error) {
 	if params == nil {
 		params = &ListTrustProductParams{}
 	}
@@ -262,19 +231,19 @@ func (c *ApiService) StreamTrustProductWithCtx(ctx context.Context, params *List
 	recordChannel := make(chan TrusthubV1TrustProduct, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTrustProductWithCtx(ctx, params, "", "")
+	response, err := c.PageTrustProduct(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTrustProduct(ctx, response, params, recordChannel, errorChannel)
+		go c.streamTrustProduct(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTrustProduct(ctx context.Context, response *ListTrustProductResponse, params *ListTrustProductParams, recordChannel chan TrusthubV1TrustProduct, errorChannel chan error) {
+func (c *ApiService) streamTrustProduct(response *ListTrustProductResponse, params *ListTrustProductParams, recordChannel chan TrusthubV1TrustProduct, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -289,7 +258,7 @@ func (c *ApiService) streamTrustProduct(ctx context.Context, response *ListTrust
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListTrustProductResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListTrustProductResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -304,11 +273,11 @@ func (c *ApiService) streamTrustProduct(ctx context.Context, response *ListTrust
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTrustProductResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTrustProductResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -353,11 +322,6 @@ func (params *UpdateTrustProductParams) SetEmail(Email string) *UpdateTrustProdu
 
 // Updates a Customer-Profile in an account.
 func (c *ApiService) UpdateTrustProduct(Sid string, params *UpdateTrustProductParams) (*TrusthubV1TrustProduct, error) {
-	return c.UpdateTrustProductWithCtx(context.TODO(), Sid, params)
-}
-
-// Updates a Customer-Profile in an account.
-func (c *ApiService) UpdateTrustProductWithCtx(ctx context.Context, Sid string, params *UpdateTrustProductParams) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -377,7 +341,7 @@ func (c *ApiService) UpdateTrustProductWithCtx(ctx context.Context, Sid string, 
 		data.Set("Email", *params.Email)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

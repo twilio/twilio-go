@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -68,11 +67,6 @@ func (params *CreateChallengeParams) SetAuthPayload(AuthPayload string) *CreateC
 
 // Create a new Challenge for the Factor
 func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params *CreateChallengeParams) (*VerifyV2Challenge, error) {
-	return c.CreateChallengeWithCtx(context.TODO(), ServiceSid, Identity, params)
-}
-
-// Create a new Challenge for the Factor
-func (c *ApiService) CreateChallengeWithCtx(ctx context.Context, ServiceSid string, Identity string, params *CreateChallengeParams) (*VerifyV2Challenge, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -113,7 +107,7 @@ func (c *ApiService) CreateChallengeWithCtx(ctx context.Context, ServiceSid stri
 		data.Set("AuthPayload", *params.AuthPayload)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -130,11 +124,6 @@ func (c *ApiService) CreateChallengeWithCtx(ctx context.Context, ServiceSid stri
 
 // Fetch a specific Challenge.
 func (c *ApiService) FetchChallenge(ServiceSid string, Identity string, Sid string) (*VerifyV2Challenge, error) {
-	return c.FetchChallengeWithCtx(context.TODO(), ServiceSid, Identity, Sid)
-}
-
-// Fetch a specific Challenge.
-func (c *ApiService) FetchChallengeWithCtx(ctx context.Context, ServiceSid string, Identity string, Sid string) (*VerifyV2Challenge, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -143,7 +132,7 @@ func (c *ApiService) FetchChallengeWithCtx(ctx context.Context, ServiceSid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -195,11 +184,6 @@ func (params *ListChallengeParams) SetLimit(Limit int) *ListChallengeParams {
 
 // Retrieve a single page of Challenge records from the API. Request is executed immediately.
 func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *ListChallengeParams, pageToken, pageNumber string) (*ListChallengeResponse, error) {
-	return c.PageChallengeWithCtx(context.TODO(), ServiceSid, Identity, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of Challenge records from the API. Request is executed immediately.
-func (c *ApiService) PageChallengeWithCtx(ctx context.Context, ServiceSid string, Identity string, params *ListChallengeParams, pageToken, pageNumber string) (*ListChallengeResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -228,7 +212,7 @@ func (c *ApiService) PageChallengeWithCtx(ctx context.Context, ServiceSid string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -245,12 +229,7 @@ func (c *ApiService) PageChallengeWithCtx(ctx context.Context, ServiceSid string
 
 // Lists Challenge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams) ([]VerifyV2Challenge, error) {
-	return c.ListChallengeWithCtx(context.TODO(), ServiceSid, Identity, params)
-}
-
-// Lists Challenge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChallengeWithCtx(ctx context.Context, ServiceSid string, Identity string, params *ListChallengeParams) ([]VerifyV2Challenge, error) {
-	response, errors := c.StreamChallengeWithCtx(ctx, ServiceSid, Identity, params)
+	response, errors := c.StreamChallenge(ServiceSid, Identity, params)
 
 	records := make([]VerifyV2Challenge, 0)
 	for record := range response {
@@ -266,11 +245,6 @@ func (c *ApiService) ListChallengeWithCtx(ctx context.Context, ServiceSid string
 
 // Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params *ListChallengeParams) (chan VerifyV2Challenge, chan error) {
-	return c.StreamChallengeWithCtx(context.TODO(), ServiceSid, Identity, params)
-}
-
-// Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChallengeWithCtx(ctx context.Context, ServiceSid string, Identity string, params *ListChallengeParams) (chan VerifyV2Challenge, chan error) {
 	if params == nil {
 		params = &ListChallengeParams{}
 	}
@@ -279,19 +253,19 @@ func (c *ApiService) StreamChallengeWithCtx(ctx context.Context, ServiceSid stri
 	recordChannel := make(chan VerifyV2Challenge, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageChallengeWithCtx(ctx, ServiceSid, Identity, params, "", "")
+	response, err := c.PageChallenge(ServiceSid, Identity, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamChallenge(ctx, response, params, recordChannel, errorChannel)
+		go c.streamChallenge(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamChallenge(ctx context.Context, response *ListChallengeResponse, params *ListChallengeParams, recordChannel chan VerifyV2Challenge, errorChannel chan error) {
+func (c *ApiService) streamChallenge(response *ListChallengeResponse, params *ListChallengeParams, recordChannel chan VerifyV2Challenge, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -306,7 +280,7 @@ func (c *ApiService) streamChallenge(ctx context.Context, response *ListChalleng
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListChallengeResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListChallengeResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -321,11 +295,11 @@ func (c *ApiService) streamChallenge(ctx context.Context, response *ListChalleng
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListChallengeResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListChallengeResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -358,11 +332,6 @@ func (params *UpdateChallengeParams) SetMetadata(Metadata interface{}) *UpdateCh
 
 // Verify a specific Challenge.
 func (c *ApiService) UpdateChallenge(ServiceSid string, Identity string, Sid string, params *UpdateChallengeParams) (*VerifyV2Challenge, error) {
-	return c.UpdateChallengeWithCtx(context.TODO(), ServiceSid, Identity, Sid, params)
-}
-
-// Verify a specific Challenge.
-func (c *ApiService) UpdateChallengeWithCtx(ctx context.Context, ServiceSid string, Identity string, Sid string, params *UpdateChallengeParams) (*VerifyV2Challenge, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -384,7 +353,7 @@ func (c *ApiService) UpdateChallengeWithCtx(ctx context.Context, ServiceSid stri
 		data.Set("Metadata", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

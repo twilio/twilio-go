@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,11 +24,8 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+//
 func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, ChannelSid string) error {
-	return c.DeleteUserChannelWithCtx(context.TODO(), ServiceSid, UserSid, ChannelSid)
-}
-
-func (c *ApiService) DeleteUserChannelWithCtx(ctx context.Context, ServiceSid string, UserSid string, ChannelSid string) error {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -38,7 +34,7 @@ func (c *ApiService) DeleteUserChannelWithCtx(ctx context.Context, ServiceSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -48,11 +44,8 @@ func (c *ApiService) DeleteUserChannelWithCtx(ctx context.Context, ServiceSid st
 	return nil
 }
 
+//
 func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*IpMessagingV2UserChannel, error) {
-	return c.FetchUserChannelWithCtx(context.TODO(), ServiceSid, UserSid, ChannelSid)
-}
-
-func (c *ApiService) FetchUserChannelWithCtx(ctx context.Context, ServiceSid string, UserSid string, ChannelSid string) (*IpMessagingV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -61,7 +54,7 @@ func (c *ApiService) FetchUserChannelWithCtx(ctx context.Context, ServiceSid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -95,11 +88,6 @@ func (params *ListUserChannelParams) SetLimit(Limit int) *ListUserChannelParams 
 
 // Retrieve a single page of UserChannel records from the API. Request is executed immediately.
 func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, pageToken, pageNumber string) (*ListUserChannelResponse, error) {
-	return c.PageUserChannelWithCtx(context.TODO(), ServiceSid, UserSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of UserChannel records from the API. Request is executed immediately.
-func (c *ApiService) PageUserChannelWithCtx(ctx context.Context, ServiceSid string, UserSid string, params *ListUserChannelParams, pageToken, pageNumber string) (*ListUserChannelResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -119,7 +107,7 @@ func (c *ApiService) PageUserChannelWithCtx(ctx context.Context, ServiceSid stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -136,12 +124,7 @@ func (c *ApiService) PageUserChannelWithCtx(ctx context.Context, ServiceSid stri
 
 // Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) ([]IpMessagingV2UserChannel, error) {
-	return c.ListUserChannelWithCtx(context.TODO(), ServiceSid, UserSid, params)
-}
-
-// Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUserChannelWithCtx(ctx context.Context, ServiceSid string, UserSid string, params *ListUserChannelParams) ([]IpMessagingV2UserChannel, error) {
-	response, errors := c.StreamUserChannelWithCtx(ctx, ServiceSid, UserSid, params)
+	response, errors := c.StreamUserChannel(ServiceSid, UserSid, params)
 
 	records := make([]IpMessagingV2UserChannel, 0)
 	for record := range response {
@@ -157,11 +140,6 @@ func (c *ApiService) ListUserChannelWithCtx(ctx context.Context, ServiceSid stri
 
 // Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (chan IpMessagingV2UserChannel, chan error) {
-	return c.StreamUserChannelWithCtx(context.TODO(), ServiceSid, UserSid, params)
-}
-
-// Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserChannelWithCtx(ctx context.Context, ServiceSid string, UserSid string, params *ListUserChannelParams) (chan IpMessagingV2UserChannel, chan error) {
 	if params == nil {
 		params = &ListUserChannelParams{}
 	}
@@ -170,19 +148,19 @@ func (c *ApiService) StreamUserChannelWithCtx(ctx context.Context, ServiceSid st
 	recordChannel := make(chan IpMessagingV2UserChannel, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUserChannelWithCtx(ctx, ServiceSid, UserSid, params, "", "")
+	response, err := c.PageUserChannel(ServiceSid, UserSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUserChannel(ctx, response, params, recordChannel, errorChannel)
+		go c.streamUserChannel(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUserChannel(ctx context.Context, response *ListUserChannelResponse, params *ListUserChannelParams, recordChannel chan IpMessagingV2UserChannel, errorChannel chan error) {
+func (c *ApiService) streamUserChannel(response *ListUserChannelResponse, params *ListUserChannelParams, recordChannel chan IpMessagingV2UserChannel, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -197,7 +175,7 @@ func (c *ApiService) streamUserChannel(ctx context.Context, response *ListUserCh
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListUserChannelResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListUserChannelResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -212,11 +190,11 @@ func (c *ApiService) streamUserChannel(ctx context.Context, response *ListUserCh
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUserChannelResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUserChannelResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -253,11 +231,8 @@ func (params *UpdateUserChannelParams) SetLastConsumptionTimestamp(LastConsumpti
 	return params
 }
 
+//
 func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*IpMessagingV2UserChannel, error) {
-	return c.UpdateUserChannelWithCtx(context.TODO(), ServiceSid, UserSid, ChannelSid, params)
-}
-
-func (c *ApiService) UpdateUserChannelWithCtx(ctx context.Context, ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*IpMessagingV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -276,7 +251,7 @@ func (c *ApiService) UpdateUserChannelWithCtx(ctx context.Context, ServiceSid st
 		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

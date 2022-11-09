@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -46,11 +45,6 @@ func (params *UpdateChannelParams) SetMessagingServiceSid(MessagingServiceSid st
 
 // Update a specific Channel.
 func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*ChatV3Channel, error) {
-	return c.UpdateChannelWithCtx(context.TODO(), ServiceSid, Sid, params)
-}
-
-// Update a specific Channel.
-func (c *ApiService) UpdateChannelWithCtx(ctx context.Context, ServiceSid string, Sid string, params *UpdateChannelParams) (*ChatV3Channel, error) {
 	path := "/v3/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -69,7 +63,7 @@ func (c *ApiService) UpdateChannelWithCtx(ctx context.Context, ServiceSid string
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,24 +15,20 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
+//
 func (c *ApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceNumber, error) {
-	return c.FetchVoiceNumberWithCtx(context.TODO(), Number)
-}
-
-func (c *ApiService) FetchVoiceNumberWithCtx(ctx context.Context, Number string) (*PricingV1VoiceNumber, error) {
 	path := "/v1/Voice/Numbers/{Number}"
 	path = strings.Replace(path, "{"+"Number"+"}", Number, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

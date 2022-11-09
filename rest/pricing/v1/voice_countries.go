@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -24,18 +23,15 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+//
 func (c *ApiService) FetchVoiceCountry(IsoCountry string) (*PricingV1VoiceCountryInstance, error) {
-	return c.FetchVoiceCountryWithCtx(context.TODO(), IsoCountry)
-}
-
-func (c *ApiService) FetchVoiceCountryWithCtx(ctx context.Context, IsoCountry string) (*PricingV1VoiceCountryInstance, error) {
 	path := "/v1/Voice/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -69,11 +65,6 @@ func (params *ListVoiceCountryParams) SetLimit(Limit int) *ListVoiceCountryParam
 
 // Retrieve a single page of VoiceCountry records from the API. Request is executed immediately.
 func (c *ApiService) PageVoiceCountry(params *ListVoiceCountryParams, pageToken, pageNumber string) (*ListVoiceCountryResponse, error) {
-	return c.PageVoiceCountryWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of VoiceCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageVoiceCountryWithCtx(ctx context.Context, params *ListVoiceCountryParams, pageToken, pageNumber string) (*ListVoiceCountryResponse, error) {
 	path := "/v1/Voice/Countries"
 
 	data := url.Values{}
@@ -90,7 +81,7 @@ func (c *ApiService) PageVoiceCountryWithCtx(ctx context.Context, params *ListVo
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -107,12 +98,7 @@ func (c *ApiService) PageVoiceCountryWithCtx(ctx context.Context, params *ListVo
 
 // Lists VoiceCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams) ([]PricingV1VoiceCountry, error) {
-	return c.ListVoiceCountryWithCtx(context.TODO(), params)
-}
-
-// Lists VoiceCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVoiceCountryWithCtx(ctx context.Context, params *ListVoiceCountryParams) ([]PricingV1VoiceCountry, error) {
-	response, errors := c.StreamVoiceCountryWithCtx(ctx, params)
+	response, errors := c.StreamVoiceCountry(params)
 
 	records := make([]PricingV1VoiceCountry, 0)
 	for record := range response {
@@ -128,11 +114,6 @@ func (c *ApiService) ListVoiceCountryWithCtx(ctx context.Context, params *ListVo
 
 // Streams VoiceCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams) (chan PricingV1VoiceCountry, chan error) {
-	return c.StreamVoiceCountryWithCtx(context.TODO(), params)
-}
-
-// Streams VoiceCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVoiceCountryWithCtx(ctx context.Context, params *ListVoiceCountryParams) (chan PricingV1VoiceCountry, chan error) {
 	if params == nil {
 		params = &ListVoiceCountryParams{}
 	}
@@ -141,19 +122,19 @@ func (c *ApiService) StreamVoiceCountryWithCtx(ctx context.Context, params *List
 	recordChannel := make(chan PricingV1VoiceCountry, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageVoiceCountryWithCtx(ctx, params, "", "")
+	response, err := c.PageVoiceCountry(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamVoiceCountry(ctx, response, params, recordChannel, errorChannel)
+		go c.streamVoiceCountry(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamVoiceCountry(ctx context.Context, response *ListVoiceCountryResponse, params *ListVoiceCountryParams, recordChannel chan PricingV1VoiceCountry, errorChannel chan error) {
+func (c *ApiService) streamVoiceCountry(response *ListVoiceCountryResponse, params *ListVoiceCountryParams, recordChannel chan PricingV1VoiceCountry, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -168,7 +149,7 @@ func (c *ApiService) streamVoiceCountry(ctx context.Context, response *ListVoice
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListVoiceCountryResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListVoiceCountryResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -183,11 +164,11 @@ func (c *ApiService) streamVoiceCountry(ctx context.Context, response *ListVoice
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListVoiceCountryResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListVoiceCountryResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

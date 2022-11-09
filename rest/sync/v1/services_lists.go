@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -47,11 +46,8 @@ func (params *CreateSyncListParams) SetCollectionTtl(CollectionTtl int) *CreateS
 	return params
 }
 
+//
 func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListParams) (*SyncV1SyncList, error) {
-	return c.CreateSyncListWithCtx(context.TODO(), ServiceSid, params)
-}
-
-func (c *ApiService) CreateSyncListWithCtx(ctx context.Context, ServiceSid string, params *CreateSyncListParams) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -68,7 +64,7 @@ func (c *ApiService) CreateSyncListWithCtx(ctx context.Context, ServiceSid strin
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -83,11 +79,8 @@ func (c *ApiService) CreateSyncListWithCtx(ctx context.Context, ServiceSid strin
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteSyncList(ServiceSid string, Sid string) error {
-	return c.DeleteSyncListWithCtx(context.TODO(), ServiceSid, Sid)
-}
-
-func (c *ApiService) DeleteSyncListWithCtx(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -95,7 +88,7 @@ func (c *ApiService) DeleteSyncListWithCtx(ctx context.Context, ServiceSid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -105,11 +98,8 @@ func (c *ApiService) DeleteSyncListWithCtx(ctx context.Context, ServiceSid strin
 	return nil
 }
 
+//
 func (c *ApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1SyncList, error) {
-	return c.FetchSyncListWithCtx(context.TODO(), ServiceSid, Sid)
-}
-
-func (c *ApiService) FetchSyncListWithCtx(ctx context.Context, ServiceSid string, Sid string) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -117,7 +107,7 @@ func (c *ApiService) FetchSyncListWithCtx(ctx context.Context, ServiceSid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -151,11 +141,6 @@ func (params *ListSyncListParams) SetLimit(Limit int) *ListSyncListParams {
 
 // Retrieve a single page of SyncList records from the API. Request is executed immediately.
 func (c *ApiService) PageSyncList(ServiceSid string, params *ListSyncListParams, pageToken, pageNumber string) (*ListSyncListResponse, error) {
-	return c.PageSyncListWithCtx(context.TODO(), ServiceSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of SyncList records from the API. Request is executed immediately.
-func (c *ApiService) PageSyncListWithCtx(ctx context.Context, ServiceSid string, params *ListSyncListParams, pageToken, pageNumber string) (*ListSyncListResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -174,7 +159,7 @@ func (c *ApiService) PageSyncListWithCtx(ctx context.Context, ServiceSid string,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -191,12 +176,7 @@ func (c *ApiService) PageSyncListWithCtx(ctx context.Context, ServiceSid string,
 
 // Lists SyncList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams) ([]SyncV1SyncList, error) {
-	return c.ListSyncListWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Lists SyncList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncListWithCtx(ctx context.Context, ServiceSid string, params *ListSyncListParams) ([]SyncV1SyncList, error) {
-	response, errors := c.StreamSyncListWithCtx(ctx, ServiceSid, params)
+	response, errors := c.StreamSyncList(ServiceSid, params)
 
 	records := make([]SyncV1SyncList, 0)
 	for record := range response {
@@ -212,11 +192,6 @@ func (c *ApiService) ListSyncListWithCtx(ctx context.Context, ServiceSid string,
 
 // Streams SyncList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParams) (chan SyncV1SyncList, chan error) {
-	return c.StreamSyncListWithCtx(context.TODO(), ServiceSid, params)
-}
-
-// Streams SyncList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncListWithCtx(ctx context.Context, ServiceSid string, params *ListSyncListParams) (chan SyncV1SyncList, chan error) {
 	if params == nil {
 		params = &ListSyncListParams{}
 	}
@@ -225,19 +200,19 @@ func (c *ApiService) StreamSyncListWithCtx(ctx context.Context, ServiceSid strin
 	recordChannel := make(chan SyncV1SyncList, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSyncListWithCtx(ctx, ServiceSid, params, "", "")
+	response, err := c.PageSyncList(ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSyncList(ctx, response, params, recordChannel, errorChannel)
+		go c.streamSyncList(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSyncList(ctx context.Context, response *ListSyncListResponse, params *ListSyncListParams, recordChannel chan SyncV1SyncList, errorChannel chan error) {
+func (c *ApiService) streamSyncList(response *ListSyncListResponse, params *ListSyncListParams, recordChannel chan SyncV1SyncList, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -252,7 +227,7 @@ func (c *ApiService) streamSyncList(ctx context.Context, response *ListSyncListR
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListSyncListResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSyncListResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -267,11 +242,11 @@ func (c *ApiService) streamSyncList(ctx context.Context, response *ListSyncListR
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSyncListResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSyncListResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -302,11 +277,8 @@ func (params *UpdateSyncListParams) SetCollectionTtl(CollectionTtl int) *UpdateS
 	return params
 }
 
+//
 func (c *ApiService) UpdateSyncList(ServiceSid string, Sid string, params *UpdateSyncListParams) (*SyncV1SyncList, error) {
-	return c.UpdateSyncListWithCtx(context.TODO(), ServiceSid, Sid, params)
-}
-
-func (c *ApiService) UpdateSyncListWithCtx(ctx context.Context, ServiceSid string, Sid string, params *UpdateSyncListParams) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -321,7 +293,7 @@ func (c *ApiService) UpdateSyncListWithCtx(ctx context.Context, ServiceSid strin
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

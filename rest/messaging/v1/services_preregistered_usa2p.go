@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -37,11 +36,8 @@ func (params *CreateExternalCampaignParams) SetMessagingServiceSid(MessagingServ
 	return params
 }
 
+//
 func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
-	return c.CreateExternalCampaignWithCtx(context.TODO(), params)
-}
-
-func (c *ApiService) CreateExternalCampaignWithCtx(ctx context.Context, params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
 	path := "/v1/Services/PreregisteredUsa2p"
 
 	data := url.Values{}
@@ -54,7 +50,7 @@ func (c *ApiService) CreateExternalCampaignWithCtx(ctx context.Context, params *
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

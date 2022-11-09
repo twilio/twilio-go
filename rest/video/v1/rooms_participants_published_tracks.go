@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,11 +25,6 @@ import (
 
 // Returns a single Track resource represented by TrackName or SID.
 func (c *ApiService) FetchRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomParticipantPublishedTrack, error) {
-	return c.FetchRoomParticipantPublishedTrackWithCtx(context.TODO(), RoomSid, ParticipantSid, Sid)
-}
-
-// Returns a single Track resource represented by TrackName or SID.
-func (c *ApiService) FetchRoomParticipantPublishedTrackWithCtx(ctx context.Context, RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomParticipantPublishedTrack, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -39,7 +33,7 @@ func (c *ApiService) FetchRoomParticipantPublishedTrackWithCtx(ctx context.Conte
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -73,11 +67,6 @@ func (params *ListRoomParticipantPublishedTrackParams) SetLimit(Limit int) *List
 
 // Retrieve a single page of RoomParticipantPublishedTrack records from the API. Request is executed immediately.
 func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken, pageNumber string) (*ListRoomParticipantPublishedTrackResponse, error) {
-	return c.PageRoomParticipantPublishedTrackWithCtx(context.TODO(), RoomSid, ParticipantSid, params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of RoomParticipantPublishedTrack records from the API. Request is executed immediately.
-func (c *ApiService) PageRoomParticipantPublishedTrackWithCtx(ctx context.Context, RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken, pageNumber string) (*ListRoomParticipantPublishedTrackResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -97,7 +86,7 @@ func (c *ApiService) PageRoomParticipantPublishedTrackWithCtx(ctx context.Contex
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -114,12 +103,7 @@ func (c *ApiService) PageRoomParticipantPublishedTrackWithCtx(ctx context.Contex
 
 // Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) ([]VideoV1RoomParticipantPublishedTrack, error) {
-	return c.ListRoomParticipantPublishedTrackWithCtx(context.TODO(), RoomSid, ParticipantSid, params)
-}
-
-// Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomParticipantPublishedTrackWithCtx(ctx context.Context, RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) ([]VideoV1RoomParticipantPublishedTrack, error) {
-	response, errors := c.StreamRoomParticipantPublishedTrackWithCtx(ctx, RoomSid, ParticipantSid, params)
+	response, errors := c.StreamRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params)
 
 	records := make([]VideoV1RoomParticipantPublishedTrack, 0)
 	for record := range response {
@@ -135,11 +119,6 @@ func (c *ApiService) ListRoomParticipantPublishedTrackWithCtx(ctx context.Contex
 
 // Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (chan VideoV1RoomParticipantPublishedTrack, chan error) {
-	return c.StreamRoomParticipantPublishedTrackWithCtx(context.TODO(), RoomSid, ParticipantSid, params)
-}
-
-// Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomParticipantPublishedTrackWithCtx(ctx context.Context, RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (chan VideoV1RoomParticipantPublishedTrack, chan error) {
 	if params == nil {
 		params = &ListRoomParticipantPublishedTrackParams{}
 	}
@@ -148,19 +127,19 @@ func (c *ApiService) StreamRoomParticipantPublishedTrackWithCtx(ctx context.Cont
 	recordChannel := make(chan VideoV1RoomParticipantPublishedTrack, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRoomParticipantPublishedTrackWithCtx(ctx, RoomSid, ParticipantSid, params, "", "")
+	response, err := c.PageRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRoomParticipantPublishedTrack(ctx, response, params, recordChannel, errorChannel)
+		go c.streamRoomParticipantPublishedTrack(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRoomParticipantPublishedTrack(ctx context.Context, response *ListRoomParticipantPublishedTrackResponse, params *ListRoomParticipantPublishedTrackParams, recordChannel chan VideoV1RoomParticipantPublishedTrack, errorChannel chan error) {
+func (c *ApiService) streamRoomParticipantPublishedTrack(response *ListRoomParticipantPublishedTrackResponse, params *ListRoomParticipantPublishedTrackParams, recordChannel chan VideoV1RoomParticipantPublishedTrack, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -175,7 +154,7 @@ func (c *ApiService) streamRoomParticipantPublishedTrack(ctx context.Context, re
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListRoomParticipantPublishedTrackResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListRoomParticipantPublishedTrackResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -190,11 +169,11 @@ func (c *ApiService) streamRoomParticipantPublishedTrack(ctx context.Context, re
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRoomParticipantPublishedTrackResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRoomParticipantPublishedTrackResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -173,11 +172,8 @@ func (params *CreateIncomingPhoneNumberLocalParams) SetBundleSid(BundleSid strin
 	return params
 }
 
+//
 func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneNumberLocalParams) (*ApiV2010IncomingPhoneNumberLocal, error) {
-	return c.CreateIncomingPhoneNumberLocalWithCtx(context.TODO(), params)
-}
-
-func (c *ApiService) CreateIncomingPhoneNumberLocalWithCtx(ctx context.Context, params *CreateIncomingPhoneNumberLocalParams) (*ApiV2010IncomingPhoneNumberLocal, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -258,7 +254,7 @@ func (c *ApiService) CreateIncomingPhoneNumberLocalWithCtx(ctx context.Context, 
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -322,11 +318,6 @@ func (params *ListIncomingPhoneNumberLocalParams) SetLimit(Limit int) *ListIncom
 
 // Retrieve a single page of IncomingPhoneNumberLocal records from the API. Request is executed immediately.
 func (c *ApiService) PageIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberLocalResponse, error) {
-	return c.PageIncomingPhoneNumberLocalWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of IncomingPhoneNumberLocal records from the API. Request is executed immediately.
-func (c *ApiService) PageIncomingPhoneNumberLocalWithCtx(ctx context.Context, params *ListIncomingPhoneNumberLocalParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberLocalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -361,7 +352,7 @@ func (c *ApiService) PageIncomingPhoneNumberLocalWithCtx(ctx context.Context, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -378,12 +369,7 @@ func (c *ApiService) PageIncomingPhoneNumberLocalWithCtx(ctx context.Context, pa
 
 // Lists IncomingPhoneNumberLocal records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams) ([]ApiV2010IncomingPhoneNumberLocal, error) {
-	return c.ListIncomingPhoneNumberLocalWithCtx(context.TODO(), params)
-}
-
-// Lists IncomingPhoneNumberLocal records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIncomingPhoneNumberLocalWithCtx(ctx context.Context, params *ListIncomingPhoneNumberLocalParams) ([]ApiV2010IncomingPhoneNumberLocal, error) {
-	response, errors := c.StreamIncomingPhoneNumberLocalWithCtx(ctx, params)
+	response, errors := c.StreamIncomingPhoneNumberLocal(params)
 
 	records := make([]ApiV2010IncomingPhoneNumberLocal, 0)
 	for record := range response {
@@ -399,11 +385,6 @@ func (c *ApiService) ListIncomingPhoneNumberLocalWithCtx(ctx context.Context, pa
 
 // Streams IncomingPhoneNumberLocal records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams) (chan ApiV2010IncomingPhoneNumberLocal, chan error) {
-	return c.StreamIncomingPhoneNumberLocalWithCtx(context.TODO(), params)
-}
-
-// Streams IncomingPhoneNumberLocal records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumberLocalWithCtx(ctx context.Context, params *ListIncomingPhoneNumberLocalParams) (chan ApiV2010IncomingPhoneNumberLocal, chan error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberLocalParams{}
 	}
@@ -412,19 +393,19 @@ func (c *ApiService) StreamIncomingPhoneNumberLocalWithCtx(ctx context.Context, 
 	recordChannel := make(chan ApiV2010IncomingPhoneNumberLocal, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageIncomingPhoneNumberLocalWithCtx(ctx, params, "", "")
+	response, err := c.PageIncomingPhoneNumberLocal(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamIncomingPhoneNumberLocal(ctx, response, params, recordChannel, errorChannel)
+		go c.streamIncomingPhoneNumberLocal(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIncomingPhoneNumberLocal(ctx context.Context, response *ListIncomingPhoneNumberLocalResponse, params *ListIncomingPhoneNumberLocalParams, recordChannel chan ApiV2010IncomingPhoneNumberLocal, errorChannel chan error) {
+func (c *ApiService) streamIncomingPhoneNumberLocal(response *ListIncomingPhoneNumberLocalResponse, params *ListIncomingPhoneNumberLocalParams, recordChannel chan ApiV2010IncomingPhoneNumberLocal, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -439,7 +420,7 @@ func (c *ApiService) streamIncomingPhoneNumberLocal(ctx context.Context, respons
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListIncomingPhoneNumberLocalResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberLocalResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -454,11 +435,11 @@ func (c *ApiService) streamIncomingPhoneNumberLocal(ctx context.Context, respons
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumberLocalResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListIncomingPhoneNumberLocalResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

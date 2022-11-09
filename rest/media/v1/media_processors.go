@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -65,11 +64,8 @@ func (params *CreateMediaProcessorParams) SetMaxDuration(MaxDuration int) *Creat
 	return params
 }
 
+//
 func (c *ApiService) CreateMediaProcessor(params *CreateMediaProcessorParams) (*MediaV1MediaProcessor, error) {
-	return c.CreateMediaProcessorWithCtx(context.TODO(), params)
-}
-
-func (c *ApiService) CreateMediaProcessorWithCtx(ctx context.Context, params *CreateMediaProcessorParams) (*MediaV1MediaProcessor, error) {
 	path := "/v1/MediaProcessors"
 
 	data := url.Values{}
@@ -100,7 +96,7 @@ func (c *ApiService) CreateMediaProcessorWithCtx(ctx context.Context, params *Cr
 		data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -117,18 +113,13 @@ func (c *ApiService) CreateMediaProcessorWithCtx(ctx context.Context, params *Cr
 
 // Returns a single MediaProcessor resource identified by a SID.
 func (c *ApiService) FetchMediaProcessor(Sid string) (*MediaV1MediaProcessor, error) {
-	return c.FetchMediaProcessorWithCtx(context.TODO(), Sid)
-}
-
-// Returns a single MediaProcessor resource identified by a SID.
-func (c *ApiService) FetchMediaProcessorWithCtx(ctx context.Context, Sid string) (*MediaV1MediaProcessor, error) {
 	path := "/v1/MediaProcessors/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -174,11 +165,6 @@ func (params *ListMediaProcessorParams) SetLimit(Limit int) *ListMediaProcessorP
 
 // Retrieve a single page of MediaProcessor records from the API. Request is executed immediately.
 func (c *ApiService) PageMediaProcessor(params *ListMediaProcessorParams, pageToken, pageNumber string) (*ListMediaProcessorResponse, error) {
-	return c.PageMediaProcessorWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of MediaProcessor records from the API. Request is executed immediately.
-func (c *ApiService) PageMediaProcessorWithCtx(ctx context.Context, params *ListMediaProcessorParams, pageToken, pageNumber string) (*ListMediaProcessorResponse, error) {
 	path := "/v1/MediaProcessors"
 
 	data := url.Values{}
@@ -201,7 +187,7 @@ func (c *ApiService) PageMediaProcessorWithCtx(ctx context.Context, params *List
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -218,12 +204,7 @@ func (c *ApiService) PageMediaProcessorWithCtx(ctx context.Context, params *List
 
 // Lists MediaProcessor records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMediaProcessor(params *ListMediaProcessorParams) ([]MediaV1MediaProcessor, error) {
-	return c.ListMediaProcessorWithCtx(context.TODO(), params)
-}
-
-// Lists MediaProcessor records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMediaProcessorWithCtx(ctx context.Context, params *ListMediaProcessorParams) ([]MediaV1MediaProcessor, error) {
-	response, errors := c.StreamMediaProcessorWithCtx(ctx, params)
+	response, errors := c.StreamMediaProcessor(params)
 
 	records := make([]MediaV1MediaProcessor, 0)
 	for record := range response {
@@ -239,11 +220,6 @@ func (c *ApiService) ListMediaProcessorWithCtx(ctx context.Context, params *List
 
 // Streams MediaProcessor records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMediaProcessor(params *ListMediaProcessorParams) (chan MediaV1MediaProcessor, chan error) {
-	return c.StreamMediaProcessorWithCtx(context.TODO(), params)
-}
-
-// Streams MediaProcessor records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMediaProcessorWithCtx(ctx context.Context, params *ListMediaProcessorParams) (chan MediaV1MediaProcessor, chan error) {
 	if params == nil {
 		params = &ListMediaProcessorParams{}
 	}
@@ -252,19 +228,19 @@ func (c *ApiService) StreamMediaProcessorWithCtx(ctx context.Context, params *Li
 	recordChannel := make(chan MediaV1MediaProcessor, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMediaProcessorWithCtx(ctx, params, "", "")
+	response, err := c.PageMediaProcessor(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMediaProcessor(ctx, response, params, recordChannel, errorChannel)
+		go c.streamMediaProcessor(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMediaProcessor(ctx context.Context, response *ListMediaProcessorResponse, params *ListMediaProcessorParams, recordChannel chan MediaV1MediaProcessor, errorChannel chan error) {
+func (c *ApiService) streamMediaProcessor(response *ListMediaProcessorResponse, params *ListMediaProcessorParams, recordChannel chan MediaV1MediaProcessor, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -279,7 +255,7 @@ func (c *ApiService) streamMediaProcessor(ctx context.Context, response *ListMed
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListMediaProcessorResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListMediaProcessorResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -294,11 +270,11 @@ func (c *ApiService) streamMediaProcessor(ctx context.Context, response *ListMed
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMediaProcessorResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMediaProcessorResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -325,11 +301,6 @@ func (params *UpdateMediaProcessorParams) SetStatus(Status string) *UpdateMediaP
 
 // Updates a MediaProcessor resource identified by a SID.
 func (c *ApiService) UpdateMediaProcessor(Sid string, params *UpdateMediaProcessorParams) (*MediaV1MediaProcessor, error) {
-	return c.UpdateMediaProcessorWithCtx(context.TODO(), Sid, params)
-}
-
-// Updates a MediaProcessor resource identified by a SID.
-func (c *ApiService) UpdateMediaProcessorWithCtx(ctx context.Context, Sid string, params *UpdateMediaProcessorParams) (*MediaV1MediaProcessor, error) {
 	path := "/v1/MediaProcessors/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -340,7 +311,7 @@ func (c *ApiService) UpdateMediaProcessorWithCtx(ctx context.Context, Sid string
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

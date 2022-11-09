@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -79,11 +78,6 @@ func (params *CreateUsageTriggerParams) SetTriggerBy(TriggerBy string) *CreateUs
 
 // Create a new UsageTrigger
 func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV2010UsageTrigger, error) {
-	return c.CreateUsageTriggerWithCtx(context.TODO(), params)
-}
-
-// Create a new UsageTrigger
-func (c *ApiService) CreateUsageTriggerWithCtx(ctx context.Context, params *CreateUsageTriggerParams) (*ApiV2010UsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -116,7 +110,7 @@ func (c *ApiService) CreateUsageTriggerWithCtx(ctx context.Context, params *Crea
 		data.Set("TriggerBy", *params.TriggerBy)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -142,11 +136,8 @@ func (params *DeleteUsageTriggerParams) SetPathAccountSid(PathAccountSid string)
 	return params
 }
 
+//
 func (c *ApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTriggerParams) error {
-	return c.DeleteUsageTriggerWithCtx(context.TODO(), Sid, params)
-}
-
-func (c *ApiService) DeleteUsageTriggerWithCtx(ctx context.Context, Sid string, params *DeleteUsageTriggerParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -158,7 +149,7 @@ func (c *ApiService) DeleteUsageTriggerWithCtx(ctx context.Context, Sid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -181,11 +172,6 @@ func (params *FetchUsageTriggerParams) SetPathAccountSid(PathAccountSid string) 
 
 // Fetch and instance of a usage-trigger
 func (c *ApiService) FetchUsageTrigger(Sid string, params *FetchUsageTriggerParams) (*ApiV2010UsageTrigger, error) {
-	return c.FetchUsageTriggerWithCtx(context.TODO(), Sid, params)
-}
-
-// Fetch and instance of a usage-trigger
-func (c *ApiService) FetchUsageTriggerWithCtx(ctx context.Context, Sid string, params *FetchUsageTriggerParams) (*ApiV2010UsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -197,7 +183,7 @@ func (c *ApiService) FetchUsageTriggerWithCtx(ctx context.Context, Sid string, p
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -255,11 +241,6 @@ func (params *ListUsageTriggerParams) SetLimit(Limit int) *ListUsageTriggerParam
 
 // Retrieve a single page of UsageTrigger records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken, pageNumber string) (*ListUsageTriggerResponse, error) {
-	return c.PageUsageTriggerWithCtx(context.TODO(), params, pageToken, pageNumber)
-}
-
-// Retrieve a single page of UsageTrigger records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageTriggerWithCtx(ctx context.Context, params *ListUsageTriggerParams, pageToken, pageNumber string) (*ListUsageTriggerResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -291,7 +272,7 @@ func (c *ApiService) PageUsageTriggerWithCtx(ctx context.Context, params *ListUs
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -308,12 +289,7 @@ func (c *ApiService) PageUsageTriggerWithCtx(ctx context.Context, params *ListUs
 
 // Lists UsageTrigger records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) ([]ApiV2010UsageTrigger, error) {
-	return c.ListUsageTriggerWithCtx(context.TODO(), params)
-}
-
-// Lists UsageTrigger records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageTriggerWithCtx(ctx context.Context, params *ListUsageTriggerParams) ([]ApiV2010UsageTrigger, error) {
-	response, errors := c.StreamUsageTriggerWithCtx(ctx, params)
+	response, errors := c.StreamUsageTrigger(params)
 
 	records := make([]ApiV2010UsageTrigger, 0)
 	for record := range response {
@@ -329,11 +305,6 @@ func (c *ApiService) ListUsageTriggerWithCtx(ctx context.Context, params *ListUs
 
 // Streams UsageTrigger records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams) (chan ApiV2010UsageTrigger, chan error) {
-	return c.StreamUsageTriggerWithCtx(context.TODO(), params)
-}
-
-// Streams UsageTrigger records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageTriggerWithCtx(ctx context.Context, params *ListUsageTriggerParams) (chan ApiV2010UsageTrigger, chan error) {
 	if params == nil {
 		params = &ListUsageTriggerParams{}
 	}
@@ -342,19 +313,19 @@ func (c *ApiService) StreamUsageTriggerWithCtx(ctx context.Context, params *List
 	recordChannel := make(chan ApiV2010UsageTrigger, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUsageTriggerWithCtx(ctx, params, "", "")
+	response, err := c.PageUsageTrigger(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUsageTrigger(ctx, response, params, recordChannel, errorChannel)
+		go c.streamUsageTrigger(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageTrigger(ctx context.Context, response *ListUsageTriggerResponse, params *ListUsageTriggerParams, recordChannel chan ApiV2010UsageTrigger, errorChannel chan error) {
+func (c *ApiService) streamUsageTrigger(response *ListUsageTriggerResponse, params *ListUsageTriggerParams, recordChannel chan ApiV2010UsageTrigger, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -369,7 +340,7 @@ func (c *ApiService) streamUsageTrigger(ctx context.Context, response *ListUsage
 			}
 		}
 
-		record, err := client.GetNextWithCtx(ctx, c.baseURL, response, c.getNextListUsageTriggerResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageTriggerResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -384,11 +355,11 @@ func (c *ApiService) streamUsageTrigger(ctx context.Context, response *ListUsage
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageTriggerResponse(ctx context.Context, nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageTriggerResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(ctx, nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -433,11 +404,6 @@ func (params *UpdateUsageTriggerParams) SetFriendlyName(FriendlyName string) *Up
 
 // Update an instance of a usage trigger
 func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerParams) (*ApiV2010UsageTrigger, error) {
-	return c.UpdateUsageTriggerWithCtx(context.TODO(), Sid, params)
-}
-
-// Update an instance of a usage trigger
-func (c *ApiService) UpdateUsageTriggerWithCtx(ctx context.Context, Sid string, params *UpdateUsageTriggerParams) (*ApiV2010UsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -459,7 +425,7 @@ func (c *ApiService) UpdateUsageTriggerWithCtx(ctx context.Context, Sid string, 
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

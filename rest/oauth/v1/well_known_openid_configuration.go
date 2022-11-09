@@ -15,24 +15,18 @@
 package openapi
 
 import (
-	"context"
 	"encoding/json"
 	"net/url"
 )
 
 // Fetch configuration details about the OpenID Connect Authorization Server
 func (c *ApiService) FetchOpenidDiscovery() (*OauthV1OpenidDiscovery, error) {
-	return c.FetchOpenidDiscoveryWithCtx(context.TODO())
-}
-
-// Fetch configuration details about the OpenID Connect Authorization Server
-func (c *ApiService) FetchOpenidDiscoveryWithCtx(ctx context.Context) (*OauthV1OpenidDiscovery, error) {
 	path := "/v1/well-known/openid-configuration"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(ctx, c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
