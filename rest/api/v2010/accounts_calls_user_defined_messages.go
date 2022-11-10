@@ -24,7 +24,7 @@ import (
 type CreateUserDefinedMessageParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+	// The User Defined Message in the form of URL-encoded JSON string.
 	Content *string `json:"Content,omitempty"`
 	// A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
 	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
@@ -43,7 +43,7 @@ func (params *CreateUserDefinedMessageParams) SetIdempotencyKey(IdempotencyKey s
 	return params
 }
 
-// Create a new User Defined Message for the given call sid.
+// Create a new User Defined Message for the given Call SID.
 func (c *ApiService) CreateUserDefinedMessage(CallSid string, params *CreateUserDefinedMessageParams) (*ApiV2010UserDefinedMessage, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json"
 	if params != nil && params.PathAccountSid != nil {

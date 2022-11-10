@@ -1,5 +1,18 @@
 twilio-go changelog
 ====================
+[2022-11-10] Version 1.2.0
+--------------------------
+**Library - Feature**
+- [PR #197](https://github.com/twilio/twilio-go/pull/197): add context.Context support. Thanks to [@natebrennand](https://github.com/natebrennand)!
+- [PR #196](https://github.com/twilio/twilio-go/pull/196): introduce base client that utilizes context. Thanks to [@natebrennand](https://github.com/natebrennand)!
+
+**Flex**
+- Adding two new authorization API 'user_roles' and 'gooddata' in version `v1`
+
+**Messaging**
+- Add new Campaign properties (MessageFlow, OptInMessage, OptInKeywords, OptOutMessage, OptOutKeywords, HelpMessage, HelpKeywords)
+
+
 [2022-10-31] Version 1.1.1
 --------------------------
 **Library - Miscellaneous**

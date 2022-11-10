@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 
-Subscribe to User Defined Messages for a given call sid.
+Subscribe to User Defined Messages for a given Call SID.
 
 ### Path Parameters
 
@@ -23,7 +23,7 @@ Subscribe to User Defined Messages for a given call sid.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CallSid** | **string** | The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Messages subscription is associated with. This refers to the call sid that is producing the user defined messages.
+**CallSid** | **string** | The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Messages subscription is associated with. This refers to the Call SID that is producing the user defined messages.
 
 ### Other Parameters
 
@@ -69,7 +69,7 @@ Delete a specific User Defined Message Subscription.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CallSid** | **string** | The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Messages subscription is associated with. This refers to the call sid that is producing the user defined messages.
+**CallSid** | **string** | The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message Subscription is associated with. This refers to the Call SID that is producing the User Defined Messages.
 **Sid** | **string** | The SID that uniquely identifies this User Defined Message Subscription.
 
 ### Other Parameters

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 
-Create a new User Defined Message for the given call sid.
+Create a new User Defined Message for the given Call SID.
 
 ### Path Parameters
 
@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateUserDefinedMessageParam
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
-**Content** | **string** | A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+**Content** | **string** | The User Defined Message in the form of URL-encoded JSON string.
 **IdempotencyKey** | **string** | A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
 
 ### Return type

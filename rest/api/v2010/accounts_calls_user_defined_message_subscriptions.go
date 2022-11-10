@@ -49,7 +49,7 @@ func (params *CreateUserDefinedMessageSubscriptionParams) SetIdempotencyKey(Idem
 	return params
 }
 
-// Subscribe to User Defined Messages for a given call sid.
+// Subscribe to User Defined Messages for a given Call SID.
 func (c *ApiService) CreateUserDefinedMessageSubscription(CallSid string, params *CreateUserDefinedMessageSubscriptionParams) (*ApiV2010UserDefinedMessageSubscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json"
 	if params != nil && params.PathAccountSid != nil {

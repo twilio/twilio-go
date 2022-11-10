@@ -46,6 +46,20 @@ type MessagingV1UsAppToPerson struct {
 	IsExternallyRegistered *bool `json:"is_externally_registered,omitempty"`
 	// Rate limit and/or classification set by each carrier
 	RateLimits *interface{} `json:"rate_limits,omitempty"`
+	// Consumer opt-in flow
+	MessageFlow *string `json:"message_flow,omitempty"`
+	// Opt In Message
+	OptInMessage *string `json:"opt_in_message,omitempty"`
+	// Opt Out Message
+	OptOutMessage *string `json:"opt_out_message,omitempty"`
+	// Help Message
+	HelpMessage *string `json:"help_message,omitempty"`
+	// Opt In Keywords
+	OptInKeywords *[]string `json:"opt_in_keywords,omitempty"`
+	// Opt Out Keywords
+	OptOutKeywords *[]string `json:"opt_out_keywords,omitempty"`
+	// Help Keywords
+	HelpKeywords *[]string `json:"help_keywords,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated

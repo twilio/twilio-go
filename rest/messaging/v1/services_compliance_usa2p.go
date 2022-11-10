@@ -37,6 +37,20 @@ type CreateUsAppToPersonParams struct {
 	HasEmbeddedLinks *bool `json:"HasEmbeddedLinks,omitempty"`
 	// Indicates that this SMS campaign will send messages that contain phone numbers.
 	HasEmbeddedPhone *bool `json:"HasEmbeddedPhone,omitempty"`
+	// Description of how end users opt-in to the SMS campaign, therefore giving consent to receive messages.
+	MessageFlow *string `json:"MessageFlow,omitempty"`
+	// The message that will be sent to the user when they opt in to the SMS campaign.
+	OptInMessage *string `json:"OptInMessage,omitempty"`
+	// The message that will be sent to the user when they opt out of the SMS campaign.
+	OptOutMessage *string `json:"OptOutMessage,omitempty"`
+	// The message that will be sent to the user when they request help for the SMS campaign.
+	HelpMessage *string `json:"HelpMessage,omitempty"`
+	// The keywords that will be used to opt in to the SMS campaign.
+	OptInKeywords *[]string `json:"OptInKeywords,omitempty"`
+	// The keywords that will be used to opt out of the SMS campaign.
+	OptOutKeywords *[]string `json:"OptOutKeywords,omitempty"`
+	// The keywords that will be used to request help for the SMS campaign.
+	HelpKeywords *[]string `json:"HelpKeywords,omitempty"`
 }
 
 func (params *CreateUsAppToPersonParams) SetBrandRegistrationSid(BrandRegistrationSid string) *CreateUsAppToPersonParams {
@@ -61,6 +75,34 @@ func (params *CreateUsAppToPersonParams) SetHasEmbeddedLinks(HasEmbeddedLinks bo
 }
 func (params *CreateUsAppToPersonParams) SetHasEmbeddedPhone(HasEmbeddedPhone bool) *CreateUsAppToPersonParams {
 	params.HasEmbeddedPhone = &HasEmbeddedPhone
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetMessageFlow(MessageFlow string) *CreateUsAppToPersonParams {
+	params.MessageFlow = &MessageFlow
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetOptInMessage(OptInMessage string) *CreateUsAppToPersonParams {
+	params.OptInMessage = &OptInMessage
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetOptOutMessage(OptOutMessage string) *CreateUsAppToPersonParams {
+	params.OptOutMessage = &OptOutMessage
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetHelpMessage(HelpMessage string) *CreateUsAppToPersonParams {
+	params.HelpMessage = &HelpMessage
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetOptInKeywords(OptInKeywords []string) *CreateUsAppToPersonParams {
+	params.OptInKeywords = &OptInKeywords
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetOptOutKeywords(OptOutKeywords []string) *CreateUsAppToPersonParams {
+	params.OptOutKeywords = &OptOutKeywords
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetHelpKeywords(HelpKeywords []string) *CreateUsAppToPersonParams {
+	params.HelpKeywords = &HelpKeywords
 	return params
 }
 
@@ -91,6 +133,33 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	}
 	if params != nil && params.HasEmbeddedPhone != nil {
 		data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
+	}
+	if params != nil && params.MessageFlow != nil {
+		data.Set("MessageFlow", *params.MessageFlow)
+	}
+	if params != nil && params.OptInMessage != nil {
+		data.Set("OptInMessage", *params.OptInMessage)
+	}
+	if params != nil && params.OptOutMessage != nil {
+		data.Set("OptOutMessage", *params.OptOutMessage)
+	}
+	if params != nil && params.HelpMessage != nil {
+		data.Set("HelpMessage", *params.HelpMessage)
+	}
+	if params != nil && params.OptInKeywords != nil {
+		for _, item := range *params.OptInKeywords {
+			data.Add("OptInKeywords", item)
+		}
+	}
+	if params != nil && params.OptOutKeywords != nil {
+		for _, item := range *params.OptOutKeywords {
+			data.Add("OptOutKeywords", item)
+		}
+	}
+	if params != nil && params.HelpKeywords != nil {
+		for _, item := range *params.HelpKeywords {
+			data.Add("HelpKeywords", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

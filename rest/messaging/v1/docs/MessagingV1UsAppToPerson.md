@@ -17,6 +17,13 @@ Name | Type | Description | Notes
 **CampaignId** | Pointer to **string** | The Campaign Registry (TCR) Campaign ID. |
 **IsExternallyRegistered** | Pointer to **bool** | Indicates whether the campaign was registered externally or not |
 **RateLimits** | Pointer to **interface{}** | Rate limit and/or classification set by each carrier |
+**MessageFlow** | Pointer to **string** | Consumer opt-in flow |
+**OptInMessage** | Pointer to **string** | Opt In Message |
+**OptOutMessage** | Pointer to **string** | Opt Out Message |
+**HelpMessage** | Pointer to **string** | Help Message |
+**OptInKeywords** | Pointer to **[]string** | Opt In Keywords |
+**OptOutKeywords** | Pointer to **[]string** | Opt Out Keywords |
+**HelpKeywords** | Pointer to **[]string** | Help Keywords |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **Url** | Pointer to **string** | The absolute URL of the US App to Person resource |

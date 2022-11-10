@@ -40,6 +40,13 @@ Name | Type | Description
 **UsAppToPersonUsecase** | **string** | A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
 **HasEmbeddedLinks** | **bool** | Indicates that this SMS campaign will send messages that contain links.
 **HasEmbeddedPhone** | **bool** | Indicates that this SMS campaign will send messages that contain phone numbers.
+**MessageFlow** | **string** | Description of how end users opt-in to the SMS campaign, therefore giving consent to receive messages.
+**OptInMessage** | **string** | The message that will be sent to the user when they opt in to the SMS campaign.
+**OptOutMessage** | **string** | The message that will be sent to the user when they opt out of the SMS campaign.
+**HelpMessage** | **string** | The message that will be sent to the user when they request help for the SMS campaign.
+**OptInKeywords** | **[]string** | The keywords that will be used to opt in to the SMS campaign.
+**OptOutKeywords** | **[]string** | The keywords that will be used to opt out of the SMS campaign.
+**HelpKeywords** | **[]string** | The keywords that will be used to request help for the SMS campaign.
 
 ### Return type
 
