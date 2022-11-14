@@ -54,6 +54,7 @@ jobs:
         run: make cluster-test
 
       - name: Run Test Coverage
+        if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         run: make cover
 
       - name: Install SonarCloud scanner and run analysis
