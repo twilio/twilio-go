@@ -31,7 +31,7 @@ jobs:
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
-        if: matrix.go != '1.15'  # page_util and client tests fail linting for go < 1.16
+        if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         with:
           version: latest
           only-new-issues: true
@@ -40,6 +40,7 @@ jobs:
         run: make install
 
       - name: Run Unit Tests
+        if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         run: make test
 
       - name: Run Cluster Tests
