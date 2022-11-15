@@ -20,17 +20,18 @@ jobs:
         go: [ '1.15', '1.16', '1.17', '1.18', '1.19' ]
     steps:
       - name: Setup Go environment
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: ${{ matrix.go }}
 
       - name: Checkout twilio-go
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2
+        uses: golangci/golangci-lint-action@v3
+        if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         with:
           version: latest
           only-new-issues: true
@@ -39,6 +40,7 @@ jobs:
         run: make install
 
       - name: Run Unit Tests
+        if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         run: make test
 
       - name: Run Cluster Tests
@@ -52,6 +54,7 @@ jobs:
         run: make cluster-test
 
       - name: Run Test Coverage
+        if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         run: make cover
 
       - name: Install SonarCloud scanner and run analysis
@@ -68,12 +71,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout twilio-go
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_AUTH_TOKEN }}
