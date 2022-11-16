@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** |  |
 **CallSid** | Pointer to **string** |  |
+**AnsweredBy** | Pointer to [**string**](CallSummariesEnumAnsweredBy.md) |  |
 **CallType** | Pointer to [**string**](CallSummariesEnumCallType.md) |  |
 **CallState** | Pointer to [**string**](CallSummariesEnumCallState.md) |  |
 **ProcessingState** | Pointer to [**string**](CallSummariesEnumProcessingState.md) |  |

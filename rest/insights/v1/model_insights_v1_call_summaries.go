@@ -22,6 +22,7 @@ import (
 type InsightsV1CallSummaries struct {
 	AccountSid      *string      `json:"account_sid,omitempty"`
 	CallSid         *string      `json:"call_sid,omitempty"`
+	AnsweredBy      *string      `json:"answered_by,omitempty"`
 	CallType        *string      `json:"call_type,omitempty"`
 	CallState       *string      `json:"call_state,omitempty"`
 	ProcessingState *string      `json:"processing_state,omitempty"`

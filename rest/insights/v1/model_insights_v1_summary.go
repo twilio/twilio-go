@@ -24,6 +24,7 @@ type InsightsV1Summary struct {
 	CallSid         *string      `json:"call_sid,omitempty"`
 	CallType        *string      `json:"call_type,omitempty"`
 	CallState       *string      `json:"call_state,omitempty"`
+	AnsweredBy      *string      `json:"answered_by,omitempty"`
 	ProcessingState *string      `json:"processing_state,omitempty"`
 	CreatedTime     *time.Time   `json:"created_time,omitempty"`
 	StartTime       *time.Time   `json:"start_time,omitempty"`

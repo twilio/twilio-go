@@ -27,16 +27,20 @@ import "./openapi"
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://lookups.twilio.com*
+All URIs are relative to *https://content.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | 
+*ContentApi* | [**DeleteContent**](docs/ContentApi.md#deletecontent) | **Delete** /v1/Content/{Sid} | 
+*ContentApi* | [**FetchContent**](docs/ContentApi.md#fetchcontent) | **Get** /v1/Content/{Sid} | 
+*ContentApi* | [**ListContent**](docs/ContentApi.md#listcontent) | **Get** /v1/Content | 
 
 
 ## Documentation For Models
 
- - [LookupsV2PhoneNumber](docs/LookupsV2PhoneNumber.md)
+ - [ContentV1Content](docs/ContentV1Content.md)
+ - [ListContentResponseMeta](docs/ListContentResponseMeta.md)
+ - [ListContentResponse](docs/ListContentResponse.md)
 
 
 ## Documentation For Authorization

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **CallSid** | Pointer to **string** |  |
 **CallType** | Pointer to [**string**](SummaryEnumCallType.md) |  |
 **CallState** | Pointer to [**string**](SummaryEnumCallState.md) |  |
+**AnsweredBy** | Pointer to [**string**](SummaryEnumAnsweredBy.md) |  |
 **ProcessingState** | Pointer to [**string**](SummaryEnumProcessingState.md) |  |
 **CreatedTime** | Pointer to [**time.Time**](time.Time.md) |  |
 **StartTime** | Pointer to [**time.Time**](time.Time.md) |  |
