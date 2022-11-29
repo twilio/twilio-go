@@ -235,7 +235,7 @@ func (params *UpdateMemberParams) SetMethod(Method string) *UpdateMemberParams {
 	return params
 }
 
-// Dequeue a member from a queue and have the member&#39;s call begin executing the TwiML document at that URL
+// Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL
 func (c *ApiService) UpdateMember(QueueSid string, CallSid string, params *UpdateMemberParams) (*ApiV2010Member, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {

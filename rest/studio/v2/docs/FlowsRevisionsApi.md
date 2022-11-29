@@ -24,7 +24,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string** | The SID of the Flow resource to fetch.
-**Revision** | **string** | Specific Revision number or can be &#x60;LatestPublished&#x60; and &#x60;LatestRevision&#x60;.
+**Revision** | **string** | Specific Revision number or can be `LatestPublished` and `LatestRevision`.
 
 ### Other Parameters
 

@@ -30,15 +30,15 @@ Other parameters are passed through a pointer to a CreateFleetParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**NetworkAccessProfile** | **string** | The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet&#39;s SIMs can connect to.
-**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the resource&#39;s &#x60;sid&#x60; in the URL to address the resource.
-**DataEnabled** | **bool** | Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to &#x60;true&#x60;.
+**NetworkAccessProfile** | **string** | The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+**DataEnabled** | **bool** | Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
 **DataLimit** | **int** | The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 **IpCommandsUrl** | **string** | The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-**IpCommandsMethod** | **string** | A string representing the HTTP method to use when making a request to &#x60;ip_commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;.
-**SmsCommandsEnabled** | **bool** | Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to &#x60;true&#x60;.
+**IpCommandsMethod** | **string** | A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+**SmsCommandsEnabled** | **bool** | Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
 **SmsCommandsUrl** | **string** | The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-**SmsCommandsMethod** | **string** | A string representing the HTTP method to use when making a request to &#x60;sms_commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;.
+**SmsCommandsMethod** | **string** | A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
 
 ### Return type
 
@@ -119,7 +119,7 @@ Other parameters are passed through a pointer to a ListFleetParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**NetworkAccessProfile** | **string** | The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet&#39;s SIMs can connect to.
+**NetworkAccessProfile** | **string** | The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -164,12 +164,12 @@ Other parameters are passed through a pointer to a UpdateFleetParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the resource&#39;s &#x60;sid&#x60; in the URL to address the resource.
-**NetworkAccessProfile** | **string** | The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet&#39;s SIMs can connect to.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+**NetworkAccessProfile** | **string** | The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
 **IpCommandsUrl** | **string** | The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-**IpCommandsMethod** | **string** | A string representing the HTTP method to use when making a request to &#x60;ip_commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;.
+**IpCommandsMethod** | **string** | A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
 **SmsCommandsUrl** | **string** | The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-**SmsCommandsMethod** | **string** | A string representing the HTTP method to use when making a request to &#x60;sms_commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;.
+**SmsCommandsMethod** | **string** | A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
 **DataLimit** | **int** | The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 
 ### Return type

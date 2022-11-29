@@ -35,7 +35,7 @@ Other parameters are passed through a pointer to a CreateFieldValueParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: &#x60;en-US&#x60;
+**Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
 **Value** | **string** | The Field Value data.
 **SynonymOf** | **string** | The string value that indicates which word the field value is a synonym of.
 
@@ -169,7 +169,7 @@ Other parameters are passed through a pointer to a ListFieldValueParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: &#x60;en-US&#x60;
+**Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

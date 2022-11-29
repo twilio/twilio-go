@@ -22,7 +22,7 @@ Fetch the forms for a specific Form Type.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FormType** | **string** | The Type of this Form. Currently only &#x60;form-push&#x60; is supported.
+**FormType** | **string** | The Type of this Form. Currently only `form-push` is supported.
 
 ### Other Parameters
 

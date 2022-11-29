@@ -35,8 +35,8 @@ Other parameters are passed through a pointer to a CreateSyncMapParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
-**Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
+**Ttl** | **int** | An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
 **CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
 
 ### Return type
@@ -72,7 +72,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to delete.
-**Sid** | **string** | The SID of the Sync Map resource to delete. Can be the Sync Map&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**Sid** | **string** | The SID of the Sync Map resource to delete. Can be the Sync Map's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -115,7 +115,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to fetch.
-**Sid** | **string** | The SID of the Sync Map resource to fetch. Can be the Sync Map&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**Sid** | **string** | The SID of the Sync Map resource to fetch. Can be the Sync Map's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -202,7 +202,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to update.
-**Sid** | **string** | The SID of the Sync Map resource to update. Can be the Sync Map&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**Sid** | **string** | The SID of the Sync Map resource to update. Can be the Sync Map's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -211,7 +211,7 @@ Other parameters are passed through a pointer to a UpdateSyncMapParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
+**Ttl** | **int** | An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
 **CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
 
 ### Return type

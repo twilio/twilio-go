@@ -31,13 +31,13 @@ Other parameters are passed through a pointer to a CreateChannelParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FlexFlowSid** | **string** | The SID of the Flex Flow.
-**Identity** | **string** | The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s chat User.
-**ChatUserFriendlyName** | **string** | The chat participant&#39;s friendly name.
-**ChatFriendlyName** | **string** | The chat channel&#39;s friendly name.
+**Identity** | **string** | The `identity` value that uniquely identifies the new resource's chat User.
+**ChatUserFriendlyName** | **string** | The chat participant's friendly name.
+**ChatFriendlyName** | **string** | The chat channel's friendly name.
 **Target** | **string** | The Target Contact Identity, for example the phone number of an SMS.
-**ChatUniqueName** | **string** | The chat channel&#39;s unique name.
+**ChatUniqueName** | **string** | The chat channel's unique name.
 **PreEngagementData** | **string** | The pre-engagement data.
-**TaskSid** | **string** | The SID of the TaskRouter Task. Only valid when integration type is &#x60;task&#x60;. &#x60;null&#x60; for integration types &#x60;studio&#x60; &amp; &#x60;external&#x60;
+**TaskSid** | **string** | The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
 **TaskAttributes** | **string** | The Task attributes to be added for the TaskRouter Task.
 **LongLived** | **bool** | Whether to create the channel as long-lived.
 

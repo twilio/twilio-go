@@ -72,7 +72,7 @@ func (params *CreateTokenParams) SetDeviceId(DeviceId string) *CreateTokenParams
 	return params
 }
 
-// Issues a new Access token (optionally identity_token &amp; refresh_token) in exchange of Oauth grant
+// Issues a new Access token (optionally identity_token & refresh_token) in exchange of Oauth grant
 func (c *ApiService) CreateToken(params *CreateTokenParams) (*OauthV1Token, error) {
 	path := "/v1/token"
 

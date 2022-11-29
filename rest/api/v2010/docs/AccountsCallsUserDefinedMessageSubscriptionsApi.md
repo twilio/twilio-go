@@ -33,8 +33,8 @@ Other parameters are passed through a pointer to a CreateUserDefinedMessageSubsc
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.
-**Callback** | **string** | The URL we should call using the &#x60;method&#x60; to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
-**Method** | **string** | The HTTP method Twilio will use when requesting the above &#x60;Url&#x60;. Either &#x60;GET&#x60; or &#x60;POST&#x60;.
+**Callback** | **string** | The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
+**Method** | **string** | The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
 **IdempotencyKey** | **string** | A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
 
 ### Return type

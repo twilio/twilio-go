@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateEndUserParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Type** | **string** | The type of end user of the Bundle resource - can be &#x60;individual&#x60; or &#x60;business&#x60;.
+**Type** | **string** | The type of end user of the Bundle resource - can be `individual` or `business`.
 **Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
 ### Return type

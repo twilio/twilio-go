@@ -27,7 +27,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the Map Item in.
-**MapSid** | **string** | The SID of the Sync Map to add the new Map Item to. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**MapSid** | **string** | The SID of the Sync Map to add the new Map Item to. Can be the Sync Map resource's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -38,9 +38,9 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Key** | **string** | The unique, user-defined key for the Map Item. Can be up to 320 characters long.
 **Data** | [**interface{}**](interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-**Ttl** | **int** | An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
+**Ttl** | **int** | An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 **ItemTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
 
 ### Return type
 
@@ -75,8 +75,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to delete.
-**MapSid** | **string** | The SID of the Sync Map with the Sync Map Item resource to delete. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
-**Key** | **string** | The &#x60;key&#x60; value of the Sync Map Item resource to delete.
+**MapSid** | **string** | The SID of the Sync Map with the Sync Map Item resource to delete. Can be the Sync Map resource's `sid` or its `unique_name`.
+**Key** | **string** | The `key` value of the Sync Map Item resource to delete.
 
 ### Other Parameters
 
@@ -120,8 +120,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to fetch.
-**MapSid** | **string** | The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
-**Key** | **string** | The &#x60;key&#x60; value of the Sync Map Item resource to fetch.
+**MapSid** | **string** | The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`.
+**Key** | **string** | The `key` value of the Sync Map Item resource to fetch.
 
 ### Other Parameters
 
@@ -164,7 +164,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Map Item resources to read.
-**MapSid** | **string** | The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**MapSid** | **string** | The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -173,9 +173,9 @@ Other parameters are passed through a pointer to a ListSyncMapItemParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Order** | **string** | How to order the Map Items returned by their &#x60;key&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
-**From** | **string** | The &#x60;key&#x60; of the first Sync Map Item resource to read. See also &#x60;bounds&#x60;.
-**Bounds** | **string** | Whether to include the Map Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the Map Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next Map Item. The default value is &#x60;inclusive&#x60;.
+**Order** | **string** | How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
+**From** | **string** | The `key` of the first Sync Map Item resource to read. See also `bounds`.
+**Bounds** | **string** | Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -212,8 +212,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to update.
-**MapSid** | **string** | The SID of the Sync Map with the Sync Map Item resource to update. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
-**Key** | **string** | The &#x60;key&#x60; value of the Sync Map Item resource to update. 
+**MapSid** | **string** | The SID of the Sync Map with the Sync Map Item resource to update. Can be the Sync Map resource's `sid` or its `unique_name`.
+**Key** | **string** | The `key` value of the Sync Map Item resource to update. 
 
 ### Other Parameters
 
@@ -224,9 +224,9 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 **Data** | [**interface{}**](interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-**Ttl** | **int** | An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
+**Ttl** | **int** | An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 **ItemTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 
 ### Return type
 

@@ -37,11 +37,11 @@ Other parameters are passed through a pointer to a CreateServiceConversationMess
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Author** | **string** | The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;.
+**Author** | **string** | The channel specific identifier of the message's author. Defaults to `system`.
 **Body** | **string** | The content of the message, can be up to 1,600 characters long.
 **DateCreated** | **time.Time** | The date that this resource was created.
-**DateUpdated** | **time.Time** | The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited.
-**Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
+**DateUpdated** | **time.Time** | The date that this resource was last updated. `null` if the message has not been edited.
+**Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 **MediaSid** | **string** | The Media SID to be attached to the new Message.
 
 ### Return type
@@ -175,7 +175,7 @@ Other parameters are passed through a pointer to a ListServiceConversationMessag
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Order** | **string** | The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending), with &#x60;asc&#x60; as the default.
+**Order** | **string** | The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -223,11 +223,11 @@ Other parameters are passed through a pointer to a UpdateServiceConversationMess
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Author** | **string** | The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;.
+**Author** | **string** | The channel specific identifier of the message's author. Defaults to `system`.
 **Body** | **string** | The content of the message, can be up to 1,600 characters long.
 **DateCreated** | **time.Time** | The date that this resource was created.
-**DateUpdated** | **time.Time** | The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited.
-**Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
+**DateUpdated** | **time.Time** | The date that this resource was last updated. `null` if the message has not been edited.
+**Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 
 ### Return type
 

@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a CreateWebhookParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the webhook. **This value should not contain PII.**
-**EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
+**EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
 **WebhookUrl** | **string** | The URL associated with this Webhook.
 **Status** | **string** | 
 **Version** | **string** | 
@@ -214,7 +214,7 @@ Other parameters are passed through a pointer to a UpdateWebhookParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the webhook. **This value should not contain PII.**
-**EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
+**EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
 **WebhookUrl** | **string** | The URL associated with this Webhook.
 **Status** | **string** | 
 **Version** | **string** | 

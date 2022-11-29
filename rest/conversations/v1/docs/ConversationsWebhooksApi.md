@@ -41,7 +41,7 @@ Name | Type | Description
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
 **ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
 **ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.
-**ConfigurationReplayAfter** | **int** | The message index for which and it&#39;s successors the webhook will be replayed. Not set by default
+**ConfigurationReplayAfter** | **int** | The message index for which and it's successors the webhook will be replayed. Not set by default
 
 ### Return type
 

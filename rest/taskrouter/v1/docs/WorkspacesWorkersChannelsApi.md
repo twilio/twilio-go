@@ -125,7 +125,7 @@ Other parameters are passed through a pointer to a UpdateWorkerChannelParams str
 Name | Type | Description
 ------------- | ------------- | -------------
 **Capacity** | **int** | The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
-**Available** | **bool** | Whether the WorkerChannel is available. Set to &#x60;false&#x60; to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+**Available** | **bool** | Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
 
 ### Return type
 

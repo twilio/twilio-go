@@ -122,7 +122,7 @@ Other parameters are passed through a pointer to a UpdateInteractionChannelParam
 Name | Type | Description
 ------------- | ------------- | -------------
 **Status** | **string** | 
-**Routing** | [**interface{}**](interface{}.md) | Optional. The state of associated tasks. If not specified, all tasks will be set to &#x60;wrapping&#x60;.
+**Routing** | [**interface{}**](interface{}.md) | Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
 
 ### Return type
 

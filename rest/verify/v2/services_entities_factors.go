@@ -428,7 +428,7 @@ func (params *UpdateFactorParams) SetConfigNotificationPlatform(ConfigNotificati
 	return params
 }
 
-// Update a specific Factor. This endpoint can be used to Verify a Factor if passed an &#x60;AuthPayload&#x60; param.
+// Update a specific Factor. This endpoint can be used to Verify a Factor if passed an `AuthPayload` param.
 func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string, params *UpdateFactorParams) (*VerifyV2Factor, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

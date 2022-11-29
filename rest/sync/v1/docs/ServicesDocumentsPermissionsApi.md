@@ -26,8 +26,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resource to delete.
-**DocumentSid** | **string** | The SID of the Sync Document with the Document Permission resource to delete. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
-**Identity** | **string** | The application-defined string that uniquely identifies the User&#39;s Document Permission resource to delete.
+**DocumentSid** | **string** | The SID of the Sync Document with the Document Permission resource to delete. Can be the Document resource's `sid` or its `unique_name`.
+**Identity** | **string** | The application-defined string that uniquely identifies the User's Document Permission resource to delete.
 
 ### Other Parameters
 
@@ -70,8 +70,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resource to fetch.
-**DocumentSid** | **string** | The SID of the Sync Document with the Document Permission resource to fetch. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
-**Identity** | **string** | The application-defined string that uniquely identifies the User&#39;s Document Permission resource to fetch.
+**DocumentSid** | **string** | The SID of the Sync Document with the Document Permission resource to fetch. Can be the Document resource's `sid` or its `unique_name`.
+**Identity** | **string** | The application-defined string that uniquely identifies the User's Document Permission resource to fetch.
 
 ### Other Parameters
 
@@ -114,7 +114,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resources to read.
-**DocumentSid** | **string** | The SID of the Sync Document with the Document Permission resources to read. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**DocumentSid** | **string** | The SID of the Sync Document with the Document Permission resources to read. Can be the Document resource's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -159,8 +159,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resource to update.
-**DocumentSid** | **string** | The SID of the Sync Document with the Document Permission resource to update. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
-**Identity** | **string** | The application-defined string that uniquely identifies the User&#39;s Document Permission resource to update.
+**DocumentSid** | **string** | The SID of the Sync Document with the Document Permission resource to update. Can be the Document resource's `sid` or its `unique_name`.
+**Identity** | **string** | The application-defined string that uniquely identifies the User's Document Permission resource to update.
 
 ### Other Parameters
 
@@ -169,9 +169,9 @@ Other parameters are passed through a pointer to a UpdateDocumentPermissionParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Read** | **bool** | Whether the identity can read the Sync Document. Default value is &#x60;false&#x60;.
-**Write** | **bool** | Whether the identity can update the Sync Document. Default value is &#x60;false&#x60;.
-**Manage** | **bool** | Whether the identity can delete the Sync Document. Default value is &#x60;false&#x60;.
+**Read** | **bool** | Whether the identity can read the Sync Document. Default value is `false`.
+**Write** | **bool** | Whether the identity can update the Sync Document. Default value is `false`.
+**Manage** | **bool** | Whether the identity can delete the Sync Document. Default value is `false`.
 
 ### Return type
 

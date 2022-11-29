@@ -74,7 +74,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read.
 **FriendlyName** | **string** | The string that identifies the ShortCode resources to read.
-**ShortCode** | **string** | Only show the ShortCode resources that match this pattern. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit.
+**ShortCode** | **string** | Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -120,12 +120,12 @@ Other parameters are passed through a pointer to a UpdateShortCodeParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.
-**FriendlyName** | **string** | A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the &#x60;FriendlyName&#x60; is the short code.
-**ApiVersion** | **string** | The API version to use to start a new TwiML session. Can be: &#x60;2010-04-01&#x60; or &#x60;2008-08-01&#x60;.
+**FriendlyName** | **string** | A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
+**ApiVersion** | **string** | The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
 **SmsUrl** | **string** | The URL we should call when receiving an incoming SMS message to this short code.
-**SmsMethod** | **string** | The HTTP method we should use when calling the &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
-**SmsFallbackUrl** | **string** | The URL that we should call if an error occurs while retrieving or executing the TwiML from &#x60;sms_url&#x60;.
-**SmsFallbackMethod** | **string** | The HTTP method that we should use to call the &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
+**SmsMethod** | **string** | The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
+**SmsFallbackUrl** | **string** | The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+**SmsFallbackMethod** | **string** | The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 
 ### Return type
 

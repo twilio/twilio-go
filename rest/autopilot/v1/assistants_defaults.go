@@ -20,7 +20,6 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) FetchDefaults(AssistantSid string) (*AutopilotV1Defaults, error) {
 	path := "/v1/Assistants/{AssistantSid}/Defaults"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -54,7 +53,6 @@ func (params *UpdateDefaultsParams) SetDefaults(Defaults interface{}) *UpdateDef
 	return params
 }
 
-//
 func (c *ApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsParams) (*AutopilotV1Defaults, error) {
 	path := "/v1/Assistants/{AssistantSid}/Defaults"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

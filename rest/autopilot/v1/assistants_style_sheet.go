@@ -54,7 +54,7 @@ func (params *UpdateStyleSheetParams) SetStyleSheet(StyleSheet interface{}) *Upd
 	return params
 }
 
-// Updates the style sheet for an Assistant identified by &#x60;assistant_sid&#x60;.
+// Updates the style sheet for an Assistant identified by `assistant_sid`.
 func (c *ApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSheetParams) (*AutopilotV1StyleSheet, error) {
 	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

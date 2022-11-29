@@ -40,7 +40,7 @@ func (params *CreateMessageInteractionParams) SetMediaUrl(MediaUrl []string) *Cr
 	return params
 }
 
-// Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The &#x60;inbound&#x60; properties for the Interaction will always be empty.
+// Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The `inbound` properties for the Interaction will always be empty.
 func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *CreateMessageInteractionParams) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -74,7 +74,6 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

@@ -113,12 +113,12 @@ Other parameters are passed through a pointer to a ListRecordingParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
-**SourceSid** | **string** | Read only the recordings that have this &#x60;source_sid&#x60;.
-**GroupingSid** | **[]string** | Read only recordings with this &#x60;grouping_sid&#x60;, which may include a &#x60;participant_sid&#x60; and/or a &#x60;room_sid&#x60;.
+**Status** | **string** | Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+**SourceSid** | **string** | Read only the recordings that have this `source_sid`.
+**GroupingSid** | **[]string** | Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
 **DateCreatedAfter** | **time.Time** | Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
-**DateCreatedBefore** | **time.Time** | Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as &#x60;YYYY-MM-DDThh:mm:ss+|-hh:mm&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;.
-**MediaType** | **string** | Read only recordings that have this media type. Can be either &#x60;audio&#x60; or &#x60;video&#x60;.
+**DateCreatedBefore** | **time.Time** | Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
+**MediaType** | **string** | Read only recordings that have this media type. Can be either `audio` or `video`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

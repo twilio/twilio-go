@@ -29,10 +29,10 @@ Other parameters are passed through a pointer to a CreateSmsCommandParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Sim** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
+**Sim** | **string** | The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
 **Payload** | **string** | The message body of the SMS Command.
-**CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is POST.
-**CallbackUrl** | **string** | The URL we should call using the &#x60;callback_method&#x60; after we have sent the command.
+**CallbackMethod** | **string** | The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+**CallbackUrl** | **string** | The URL we should call using the `callback_method` after we have sent the command.
 
 ### Return type
 
@@ -114,8 +114,8 @@ Other parameters are passed through a pointer to a ListSmsCommandParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Sim** | **string** | The SID or unique name of the Sim resource that SMS Command was sent to or from.
-**Status** | **string** | The status of the SMS Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
-**Direction** | **string** | The direction of the SMS Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;.
+**Status** | **string** | The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
+**Direction** | **string** | The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

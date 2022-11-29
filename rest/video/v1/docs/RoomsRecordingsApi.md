@@ -119,8 +119,8 @@ Other parameters are passed through a pointer to a ListRoomRecordingParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | Read only the recordings with this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
-**SourceSid** | **string** | Read only the recordings that have this &#x60;source_sid&#x60;.
+**Status** | **string** | Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+**SourceSid** | **string** | Read only the recordings that have this `source_sid`.
 **DateCreatedAfter** | **time.Time** | Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
 **DateCreatedBefore** | **time.Time** | Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.

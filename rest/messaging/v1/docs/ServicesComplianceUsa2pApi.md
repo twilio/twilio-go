@@ -36,7 +36,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **BrandRegistrationSid** | **string** | A2P Brand Registration SID
 **Description** | **string** | A short description of what this SMS campaign does.
-**MessageSamples** | **[]string** | Message samples, at least 2 and up to 5 sample messages, &lt;&#x3D;1024 chars each.
+**MessageSamples** | **[]string** | Message samples, at least 2 and up to 5 sample messages, <=1024 chars each.
 **UsAppToPersonUsecase** | **string** | A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
 **HasEmbeddedLinks** | **bool** | Indicates that this SMS campaign will send messages that contain links.
 **HasEmbeddedPhone** | **bool** | Indicates that this SMS campaign will send messages that contain phone numbers.
@@ -81,7 +81,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to delete the resource from.
-**Sid** | **string** | The SID of the US A2P Compliance resource to delete &#x60;QE2c6890da8086d771620e9b13fadeba0b&#x60;.
+**Sid** | **string** | The SID of the US A2P Compliance resource to delete `QE2c6890da8086d771620e9b13fadeba0b`.
 
 ### Other Parameters
 
@@ -124,7 +124,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
-**Sid** | **string** | The SID of the US A2P Compliance resource to fetch &#x60;QE2c6890da8086d771620e9b13fadeba0b&#x60;.
+**Sid** | **string** | The SID of the US A2P Compliance resource to fetch `QE2c6890da8086d771620e9b13fadeba0b`.
 
 ### Other Parameters
 

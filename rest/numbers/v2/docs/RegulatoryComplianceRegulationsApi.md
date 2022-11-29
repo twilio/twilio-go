@@ -70,8 +70,8 @@ Other parameters are passed through a pointer to a ListRegulationParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**EndUserType** | **string** | The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
-**IsoCountry** | **string** | The ISO country code of the phone number&#39;s country.
+**EndUserType** | **string** | The type of End User the regulation requires - can be `individual` or `business`.
+**IsoCountry** | **string** | The ISO country code of the phone number's country.
 **NumberType** | **string** | The type of phone number that the regulatory requiremnt is restricting.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.

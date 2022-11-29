@@ -63,7 +63,7 @@ Other parameters are passed through a pointer to a UpdateDialingPermissionsSetti
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**DialingPermissionsInheritance** | **bool** | &#x60;true&#x60; for the sub-account to inherit voice dialing permissions from the Master Project; otherwise &#x60;false&#x60;.
+**DialingPermissionsInheritance** | **bool** | `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
 
 ### Return type
 

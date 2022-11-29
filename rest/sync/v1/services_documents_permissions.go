@@ -230,7 +230,7 @@ func (params *UpdateDocumentPermissionParams) SetManage(Manage bool) *UpdateDocu
 	return params
 }
 
-// Update an identity&#39;s access to a specific Sync Document.
+// Update an identity's access to a specific Sync Document.
 func (c *ApiService) UpdateDocumentPermission(ServiceSid string, DocumentSid string, Identity string, params *UpdateDocumentPermissionParams) (*SyncV1DocumentPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

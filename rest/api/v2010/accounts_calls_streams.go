@@ -1904,7 +1904,7 @@ func (params *UpdateStreamParams) SetStatus(Status string) *UpdateStreamParams {
 	return params
 }
 
-// Stop a Stream using either the SID of the Stream resource or the &#x60;name&#x60; used when creating the resource
+// Stop a Stream using either the SID of the Stream resource or the `name` used when creating the resource
 func (c *ApiService) UpdateStream(CallSid string, Sid string, params *UpdateStreamParams) (*ApiV2010Stream, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

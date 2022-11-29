@@ -30,10 +30,10 @@ Other parameters are passed through a pointer to a CreatePlayerStreamerParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Video** | **bool** | Specifies whether the PlayerStreamer is configured to stream video. Defaults to &#x60;true&#x60;.
+**Video** | **bool** | Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
 **StatusCallback** | **string** | The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
-**StatusCallbackMethod** | **string** | The HTTP method Twilio should use to call the &#x60;status_callback&#x60; URL. Can be &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
-**MaxDuration** | **int** | The maximum time, in seconds, that the PlayerStreamer is active (&#x60;created&#x60; or &#x60;started&#x60;) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
+**StatusCallbackMethod** | **string** | The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+**MaxDuration** | **int** | The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
 
 ### Return type
 
@@ -114,8 +114,8 @@ Other parameters are passed through a pointer to a ListPlayerStreamerParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Order** | **string** | The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
-**Status** | **string** | Status to filter by, with possible values &#x60;created&#x60;, &#x60;started&#x60;, &#x60;ended&#x60;, or &#x60;failed&#x60;.
+**Order** | **string** | The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+**Status** | **string** | Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

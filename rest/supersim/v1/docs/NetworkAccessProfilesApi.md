@@ -30,7 +30,7 @@ Other parameters are passed through a pointer to a CreateNetworkAccessProfilePar
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the resource&#39;s &#x60;sid&#x60; in the URL to address the resource.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 **Networks** | **[]string** | List of Network SIDs that this Network Access Profile will allow connections to.
 
 ### Return type

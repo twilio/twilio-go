@@ -31,12 +31,12 @@ Other parameters are passed through a pointer to a CreateCommandParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Command** | **string** | The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
-**Sim** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
-**CallbackMethod** | **string** | The HTTP method we use to call &#x60;callback_url&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60;, and the default is &#x60;POST&#x60;.
-**CallbackUrl** | **string** | The URL we call using the &#x60;callback_url&#x60; when the Command has finished sending, whether the command was delivered or it failed.
+**Sim** | **string** | The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+**CallbackMethod** | **string** | The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
+**CallbackUrl** | **string** | The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
 **CommandMode** | **string** | 
-**IncludeSid** | **string** | Whether to include the SID of the command in the message body. Can be: &#x60;none&#x60;, &#x60;start&#x60;, or &#x60;end&#x60;, and the default behavior is &#x60;none&#x60;. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of &#x60;start&#x60; will prepend the message with the Command SID, and &#x60;end&#x60; will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
-**DeliveryReceiptRequested** | **bool** | Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to &#39;delivered&#39; once the server has received a delivery receipt from the device. The default value is &#x60;true&#x60;.
+**IncludeSid** | **string** | Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
+**DeliveryReceiptRequested** | **bool** | Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
 
 ### Return type
 
@@ -159,10 +159,10 @@ Other parameters are passed through a pointer to a ListCommandParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Sim** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
-**Status** | **string** | The status of the resources to read. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60;, or &#x60;failed&#x60;.
+**Sim** | **string** | The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+**Status** | **string** | The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
 **Direction** | **string** | Only return Commands with this direction value.
-**Transport** | **string** | Only return Commands with this transport value. Can be: &#x60;sms&#x60; or &#x60;ip&#x60;.
+**Transport** | **string** | Only return Commands with this transport value. Can be: `sms` or `ip`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

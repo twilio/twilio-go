@@ -39,7 +39,7 @@ Name | Type | Description
 **OptInType** | **string** | 
 **MessageVolume** | **string** | Estimate monthly volume of messages from the Tollfree Number.
 **TollfreePhoneNumberSid** | **string** | The SID of the Phone Number associated with the Tollfree Verification.
-**CustomerProfileSid** | **string** | Customer&#39;s Profile Bundle BundleSid.
+**CustomerProfileSid** | **string** | Customer's Profile Bundle BundleSid.
 **BusinessStreetAddress** | **string** | The address of the business or organization using the Tollfree number.
 **BusinessStreetAddress2** | **string** | The address of the business or organization using the Tollfree number.
 **BusinessCity** | **string** | The city of the business or organization using the Tollfree number.

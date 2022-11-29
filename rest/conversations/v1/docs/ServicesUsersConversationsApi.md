@@ -26,8 +26,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string** | The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource.
-**ConversationSid** | **string** | The unique SID identifier of the Conversation. This value can be either the &#x60;sid&#x60; or the &#x60;unique_name&#x60; of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
+**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource.
+**ConversationSid** | **string** | The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
 
 ### Other Parameters
 
@@ -70,8 +70,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string** | The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource.
-**ConversationSid** | **string** | The unique SID identifier of the Conversation. This value can be either the &#x60;sid&#x60; or the &#x60;unique_name&#x60; of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
+**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource.
+**ConversationSid** | **string** | The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
 
 ### Other Parameters
 
@@ -114,7 +114,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string** | The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource.
+**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource.
 
 ### Other Parameters
 
@@ -159,8 +159,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string** | The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource.
-**ConversationSid** | **string** | The unique SID identifier of the Conversation. This value can be either the &#x60;sid&#x60; or the &#x60;unique_name&#x60; of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
+**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource.
+**ConversationSid** | **string** | The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
 
 ### Other Parameters
 

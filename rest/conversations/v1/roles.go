@@ -46,7 +46,7 @@ func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRolePa
 	return params
 }
 
-// Create a new user role in your account&#39;s default service
+// Create a new user role in your account's default service
 func (c *ApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role, error) {
 	path := "/v1/Roles"
 
@@ -80,7 +80,7 @@ func (c *ApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role,
 	return ps, err
 }
 
-// Remove a user role from your account&#39;s default service
+// Remove a user role from your account's default service
 func (c *ApiService) DeleteRole(Sid string) error {
 	path := "/v1/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -98,7 +98,7 @@ func (c *ApiService) DeleteRole(Sid string) error {
 	return nil
 }
 
-// Fetch a user role from your account&#39;s default service
+// Fetch a user role from your account's default service
 func (c *ApiService) FetchRole(Sid string) (*ConversationsV1Role, error) {
 	path := "/v1/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -268,7 +268,7 @@ func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRolePa
 	return params
 }
 
-// Update an existing user role in your account&#39;s default service
+// Update an existing user role in your account's default service
 func (c *ApiService) UpdateRole(Sid string, params *UpdateRoleParams) (*ConversationsV1Role, error) {
 	path := "/v1/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -27,7 +27,7 @@ Other parameters are passed through a pointer to a CreateTokenParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**GrantType** | **string** | Grant type is a credential representing resource owner&#39;s authorization which can be used by client to obtain access token.
+**GrantType** | **string** | Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
 **ClientSid** | **string** | A 34 character string that uniquely identifies this OAuth App.
 **ClientSecret** | **string** | The credential for confidential OAuth App.
 **Code** | **string** | JWT token related to the authorization code grant type.

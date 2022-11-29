@@ -393,7 +393,7 @@ func (params *UpdateCallRecordingParams) SetPauseBehavior(PauseBehavior string) 
 	return params
 }
 
-// Changes the status of the recording to paused, stopped, or in-progress. Note: Pass &#x60;Twilio.CURRENT&#x60; instead of recording sid to reference current active recording.
+// Changes the status of the recording to paused, stopped, or in-progress. Note: Pass `Twilio.CURRENT` instead of recording sid to reference current active recording.
 func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *UpdateCallRecordingParams) (*ApiV2010CallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

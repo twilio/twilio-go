@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateServiceParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
-**DefaultTtl** | **int** | The default &#x60;ttl&#x60; value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session&#39;s last create or last Interaction. The default value of &#x60;0&#x60; indicates an unlimited Session length. You can override a Session&#39;s default TTL value by setting its &#x60;ttl&#x60; value.
+**DefaultTtl** | **int** | The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
 **CallbackUrl** | **string** | The URL we should call when the interaction status changes.
 **GeoMatchLevel** | **string** | 
 **NumberSelectionBehavior** | **string** | 
@@ -206,7 +206,7 @@ Other parameters are passed through a pointer to a UpdateServiceParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
-**DefaultTtl** | **int** | The default &#x60;ttl&#x60; value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session&#39;s last create or last Interaction. The default value of &#x60;0&#x60; indicates an unlimited Session length. You can override a Session&#39;s default TTL value by setting its &#x60;ttl&#x60; value.
+**DefaultTtl** | **int** | The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
 **CallbackUrl** | **string** | The URL we should call when the interaction status changes.
 **GeoMatchLevel** | **string** | 
 **NumberSelectionBehavior** | **string** | 

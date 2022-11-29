@@ -106,7 +106,6 @@ func (params *CreateUsAppToPersonParams) SetHelpKeywords(HelpKeywords []string) 
 	return params
 }
 
-//
 func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -177,7 +176,6 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -196,7 +194,6 @@ func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string)
 	return nil
 }
 
-//
 func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)

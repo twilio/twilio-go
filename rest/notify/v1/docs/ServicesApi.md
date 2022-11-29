@@ -40,7 +40,7 @@ Name | Type | Description
 **DefaultGcmNotificationProtocolVersion** | **string** | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
 **FcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
 **DefaultFcmNotificationProtocolVersion** | **string** | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**LogEnabled** | **bool** | Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
+**LogEnabled** | **bool** | Whether to log notifications. Can be: `true` or `false` and the default is `true`.
 **AlexaSkillId** | **string** | Deprecated.
 **DefaultAlexaNotificationProtocolVersion** | **string** | Deprecated.
 **DeliveryCallbackUrl** | **string** | URL to send delivery status callback.
@@ -221,7 +221,7 @@ Name | Type | Description
 **DefaultGcmNotificationProtocolVersion** | **string** | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
 **FcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
 **DefaultFcmNotificationProtocolVersion** | **string** | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**LogEnabled** | **bool** | Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
+**LogEnabled** | **bool** | Whether to log notifications. Can be: `true` or `false` and the default is `true`.
 **AlexaSkillId** | **string** | Deprecated.
 **DefaultAlexaNotificationProtocolVersion** | **string** | Deprecated.
 **DeliveryCallbackUrl** | **string** | URL to send delivery status callback.

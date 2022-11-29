@@ -39,8 +39,8 @@ Name | Type | Description
 **PostalCode** | **string** | The postal code of the new address.
 **IsoCountry** | **string** | The ISO country code of the new address.
 **FriendlyName** | **string** | A descriptive string that you create to describe the new address. It can be up to 64 characters long.
-**EmergencyEnabled** | **bool** | Whether to enable emergency calling on the new address. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
-**AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide.
+**EmergencyEnabled** | **bool** | Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+**AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
 
 ### Return type
 
@@ -166,7 +166,7 @@ Other parameters are passed through a pointer to a ListAddressParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read.
-**CustomerName** | **string** | The &#x60;customer_name&#x60; of the Address resources to read.
+**CustomerName** | **string** | The `customer_name` of the Address resources to read.
 **FriendlyName** | **string** | The string that identifies the Address resources to read.
 **IsoCountry** | **string** | The ISO country code of the Address resources to read.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -220,8 +220,8 @@ Name | Type | Description
 **City** | **string** | The city of the address.
 **Region** | **string** | The state or region of the address.
 **PostalCode** | **string** | The postal code of the address.
-**EmergencyEnabled** | **bool** | Whether to enable emergency calling on the address. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
-**AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide.
+**EmergencyEnabled** | **bool** | Whether to enable emergency calling on the address. Can be: `true` or `false`.
+**AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
 
 ### Return type
 

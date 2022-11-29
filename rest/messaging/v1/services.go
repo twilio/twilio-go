@@ -124,7 +124,6 @@ func (params *CreateServiceParams) SetUseInboundWebhookOnNumber(UseInboundWebhoo
 	return params
 }
 
-//
 func (c *ApiService) CreateService(params *CreateServiceParams) (*MessagingV1Service, error) {
 	path := "/v1/Services"
 
@@ -195,7 +194,6 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*MessagingV1Ser
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -213,7 +211,6 @@ func (c *ApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchService(Sid string) (*MessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -473,7 +470,6 @@ func (params *UpdateServiceParams) SetUseInboundWebhookOnNumber(UseInboundWebhoo
 	return params
 }
 
-//
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*MessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

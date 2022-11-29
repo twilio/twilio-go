@@ -296,7 +296,7 @@ func (params *UpdateExecutionParams) SetStatus(Status string) *UpdateExecutionPa
 	return params
 }
 
-// Update the status of an Execution to &#x60;ended&#x60;.
+// Update the status of an Execution to `ended`.
 func (c *ApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateExecutionParams) (*StudioV2Execution, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)

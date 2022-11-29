@@ -33,9 +33,9 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FlexFlowSid** | **string** | The SID of the Flex Flow.
 **Identity** | **string** | The chat identity.
-**CustomerFriendlyName** | **string** | The chat participant&#39;s friendly name.
-**ChatFriendlyName** | **string** | The chat channel&#39;s friendly name.
-**ChatUniqueName** | **string** | The chat channel&#39;s unique name.
+**CustomerFriendlyName** | **string** | The chat participant's friendly name.
+**ChatFriendlyName** | **string** | The chat channel's friendly name.
+**ChatUniqueName** | **string** | The chat channel's unique name.
 **PreEngagementData** | **string** | The pre-engagement data.
 
 ### Return type

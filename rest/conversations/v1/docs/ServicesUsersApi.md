@@ -36,9 +36,9 @@ Other parameters are passed through a pointer to a CreateServiceUserParams struc
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Identity** | **string** | The application-defined string that uniquely identifies the resource&#39;s User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
+**Identity** | **string** | The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Attributes** | **string** | The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned.
+**Attributes** | **string** | The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
 **RoleSid** | **string** | The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 
 ### Return type
@@ -74,7 +74,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string** | The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the User resource from.
-**Sid** | **string** | The SID of the User resource to delete. This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource to delete.
+**Sid** | **string** | The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
 
 ### Other Parameters
 
@@ -118,7 +118,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string** | The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to fetch the User resource from.
-**Sid** | **string** | The SID of the User resource to fetch. This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource to fetch.
+**Sid** | **string** | The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
 
 ### Other Parameters
 
@@ -205,7 +205,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string** | The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
-**Sid** | **string** | The SID of the User resource to update. This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource to update.
+**Sid** | **string** | The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
 
 ### Other Parameters
 
@@ -216,7 +216,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Attributes** | **string** | The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned.
+**Attributes** | **string** | The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
 **RoleSid** | **string** | The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 
 ### Return type

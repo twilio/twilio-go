@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a FetchTaskQueueRealTimeStatist
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**TaskChannel** | **string** | The TaskChannel for which to fetch statistics. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
+**TaskChannel** | **string** | The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
 ### Return type
 

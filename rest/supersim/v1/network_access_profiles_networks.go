@@ -61,7 +61,7 @@ func (c *ApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 	return ps, err
 }
 
-// Remove a Network resource from the Network Access Profile resource&#39;s.
+// Remove a Network resource from the Network Access Profile resource's.
 func (c *ApiService) DeleteNetworkAccessProfileNetwork(NetworkAccessProfileSid string, Sid string) error {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
@@ -80,7 +80,7 @@ func (c *ApiService) DeleteNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 	return nil
 }
 
-// Fetch a Network Access Profile resource&#39;s Network resource.
+// Fetch a Network Access Profile resource's Network resource.
 func (c *ApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid string, Sid string) (*SupersimV1NetworkAccessProfileNetwork, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)

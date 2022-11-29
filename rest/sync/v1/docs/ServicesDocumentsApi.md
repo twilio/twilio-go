@@ -37,7 +37,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **UniqueName** | **string** | An application-defined string that uniquely identifies the Sync Document
 **Data** | [**interface{}**](interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-**Ttl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document&#39;s time-to-live).
+**Ttl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
 
 ### Return type
 
@@ -72,7 +72,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to delete.
-**Sid** | **string** | The SID of the Document resource to delete. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**Sid** | **string** | The SID of the Document resource to delete. Can be the Document resource's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -115,7 +115,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to fetch.
-**Sid** | **string** | The SID of the Document resource to fetch. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**Sid** | **string** | The SID of the Document resource to fetch. Can be the Document resource's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -202,7 +202,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to update.
-**Sid** | **string** | The SID of the Document resource to update. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**Sid** | **string** | The SID of the Document resource to update. Can be the Document resource's `sid` or its `unique_name`.
 
 ### Other Parameters
 

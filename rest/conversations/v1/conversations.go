@@ -89,7 +89,7 @@ func (params *CreateConversationParams) SetTimersClosed(TimersClosed string) *Cr
 	return params
 }
 
-// Create a new conversation in your account&#39;s default service
+// Create a new conversation in your account's default service
 func (c *ApiService) CreateConversation(params *CreateConversationParams) (*ConversationsV1Conversation, error) {
 	path := "/v1/Conversations"
 
@@ -154,7 +154,7 @@ func (params *DeleteConversationParams) SetXTwilioWebhookEnabled(XTwilioWebhookE
 	return params
 }
 
-// Remove a conversation from your account&#39;s default service
+// Remove a conversation from your account's default service
 func (c *ApiService) DeleteConversation(Sid string, params *DeleteConversationParams) error {
 	path := "/v1/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -176,7 +176,7 @@ func (c *ApiService) DeleteConversation(Sid string, params *DeleteConversationPa
 	return nil
 }
 
-// Fetch a conversation from your account&#39;s default service
+// Fetch a conversation from your account's default service
 func (c *ApiService) FetchConversation(Sid string) (*ConversationsV1Conversation, error) {
 	path := "/v1/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -400,7 +400,7 @@ func (params *UpdateConversationParams) SetUniqueName(UniqueName string) *Update
 	return params
 }
 
-// Update an existing conversation in your account&#39;s default service
+// Update an existing conversation in your account's default service
 func (c *ApiService) UpdateConversation(Sid string, params *UpdateConversationParams) (*ConversationsV1Conversation, error) {
 	path := "/v1/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

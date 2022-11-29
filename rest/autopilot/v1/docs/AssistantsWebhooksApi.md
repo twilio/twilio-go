@@ -35,10 +35,10 @@ Other parameters are passed through a pointer to a CreateWebhookParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**UniqueName** | **string** | An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
 **Events** | **string** | The list of space-separated events that this Webhook will subscribe to.
 **WebhookUrl** | **string** | The URL associated with this Webhook.
-**WebhookMethod** | **string** | The method to be used when calling the webhook&#39;s URL.
+**WebhookMethod** | **string** | The method to be used when calling the webhook's URL.
 
 ### Return type
 
@@ -212,10 +212,10 @@ Other parameters are passed through a pointer to a UpdateWebhookParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**UniqueName** | **string** | An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
 **Events** | **string** | The list of space-separated events that this Webhook will subscribe to.
 **WebhookUrl** | **string** | The URL associated with this Webhook.
-**WebhookMethod** | **string** | The method to be used when calling the webhook&#39;s URL.
+**WebhookMethod** | **string** | The method to be used when calling the webhook's URL.
 
 ### Return type
 

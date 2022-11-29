@@ -52,7 +52,6 @@ func (params *CreateChannelParams) SetType(Type string) *CreateChannelParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*IpMessagingV1Channel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -88,7 +87,6 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteChannel(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -107,7 +105,6 @@ func (c *ApiService) DeleteChannel(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannel(ServiceSid string, Sid string) (*IpMessagingV1Channel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -303,7 +300,6 @@ func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChann
 	return params
 }
 
-//
 func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*IpMessagingV1Channel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

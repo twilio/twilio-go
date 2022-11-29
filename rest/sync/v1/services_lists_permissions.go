@@ -230,7 +230,7 @@ func (params *UpdateSyncListPermissionParams) SetManage(Manage bool) *UpdateSync
 	return params
 }
 
-// Update an identity&#39;s access to a specific Sync List.
+// Update an identity's access to a specific Sync List.
 func (c *ApiService) UpdateSyncListPermission(ServiceSid string, ListSid string, Identity string, params *UpdateSyncListPermissionParams) (*SyncV1SyncListPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

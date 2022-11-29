@@ -35,8 +35,8 @@ Other parameters are passed through a pointer to a CreateTaskQueueParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the TaskQueue. For example &#x60;Support-Tier 1&#x60;, &#x60;Sales&#x60;, or &#x60;Escalation&#x60;.
-**TargetWorkers** | **string** | A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, &#x60;&#39;\\\&quot;language\\\&quot; &#x3D;&#x3D; \\\&quot;spanish\\\&quot;&#39;&#x60;. The default value is &#x60;1&#x3D;&#x3D;1&#x60;. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
+**FriendlyName** | **string** | A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+**TargetWorkers** | **string** | A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
 **MaxReservedWorkers** | **int** | The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
 **TaskOrder** | **string** | 
 **ReservationActivitySid** | **string** | The SID of the Activity to assign Workers when a task is reserved for them.
@@ -169,7 +169,7 @@ Other parameters are passed through a pointer to a ListTaskQueueParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the TaskQueue resources to read.
+**FriendlyName** | **string** | The `friendly_name` of the TaskQueue resources to read.
 **EvaluateWorkerAttributes** | **string** | The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
 **WorkerSid** | **string** | The SID of the Worker with the TaskQueue resources to read.
 **Ordering** | **string** | Sorting parameter for TaskQueues
@@ -218,8 +218,8 @@ Other parameters are passed through a pointer to a UpdateTaskQueueParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the TaskQueue. For example &#x60;Support-Tier 1&#x60;, &#x60;Sales&#x60;, or &#x60;Escalation&#x60;.
-**TargetWorkers** | **string** | A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example &#39;\\\&quot;language\\\&quot; &#x3D;&#x3D; \\\&quot;spanish\\\&quot;&#39; If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+**FriendlyName** | **string** | A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+**TargetWorkers** | **string** | A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
 **ReservationActivitySid** | **string** | The SID of the Activity to assign Workers when a task is reserved for them.
 **AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned for them.
 **MaxReservedWorkers** | **int** | The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.

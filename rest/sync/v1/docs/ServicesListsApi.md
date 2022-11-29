@@ -35,7 +35,7 @@ Other parameters are passed through a pointer to a CreateSyncListParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The &#x60;unique_name&#x60; value can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
 **Ttl** | **int** | Alias for collection_ttl. If both are provided, this value is ignored.
 **CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
 
@@ -72,7 +72,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to delete.
-**Sid** | **string** | The SID of the Sync List resource to delete. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**Sid** | **string** | The SID of the Sync List resource to delete. Can be the Sync List resource's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -115,7 +115,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to fetch.
-**Sid** | **string** | The SID of the Sync List resource to fetch. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**Sid** | **string** | The SID of the Sync List resource to fetch. Can be the Sync List resource's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -202,7 +202,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to update.
-**Sid** | **string** | The SID of the Sync List resource to update. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+**Sid** | **string** | The SID of the Sync List resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
 
 ### Other Parameters
 
@@ -211,7 +211,7 @@ Other parameters are passed through a pointer to a UpdateSyncListParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both are provided, this value is ignored.
+**Ttl** | **int** | An alias for `collection_ttl`. If both are provided, this value is ignored.
 **CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
 
 ### Return type

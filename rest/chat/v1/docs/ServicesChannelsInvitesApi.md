@@ -35,7 +35,7 @@ Other parameters are passed through a pointer to a CreateInviteParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Identity** | **string** | The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info.
+**Identity** | **string** | The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info.
 **RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new member.
 
 ### Return type
@@ -168,7 +168,7 @@ Other parameters are passed through a pointer to a ListInviteParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Identity** | **[]string** | The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
+**Identity** | **[]string** | The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

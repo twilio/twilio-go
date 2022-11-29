@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a CreateModelBuildParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **StatusCallback** | **string** | The URL we should call using a POST method to send status information to your application.
-**UniqueName** | **string** | An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
 ### Return type
 
@@ -210,7 +210,7 @@ Other parameters are passed through a pointer to a UpdateModelBuildParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
 ### Return type
 

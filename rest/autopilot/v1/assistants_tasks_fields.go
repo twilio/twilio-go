@@ -40,7 +40,6 @@ func (params *CreateFieldParams) SetUniqueName(UniqueName string) *CreateFieldPa
 	return params
 }
 
-//
 func (c *ApiService) CreateField(AssistantSid string, TaskSid string, params *CreateFieldParams) (*AutopilotV1Field, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -71,7 +70,6 @@ func (c *ApiService) CreateField(AssistantSid string, TaskSid string, params *Cr
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteField(AssistantSid string, TaskSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -91,7 +89,6 @@ func (c *ApiService) DeleteField(AssistantSid string, TaskSid string, Sid string
 	return nil
 }
 
-//
 func (c *ApiService) FetchField(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1Field, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

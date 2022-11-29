@@ -30,11 +30,11 @@ Other parameters are passed through a pointer to a CreateCallFeedbackSummaryPara
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-**StartDate** | **string** | Only include feedback given on or after this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC.
-**EndDate** | **string** | Only include feedback given on or before this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC.
-**IncludeSubaccounts** | **bool** | Whether to also include Feedback resources from all subaccounts. &#x60;true&#x60; includes feedback from all subaccounts and &#x60;false&#x60;, the default, includes feedback from only the specified account.
+**StartDate** | **string** | Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
+**EndDate** | **string** | Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
+**IncludeSubaccounts** | **bool** | Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
 **StatusCallback** | **string** | The URL that we will request when the feedback summary is complete.
-**StatusCallbackMethod** | **string** | The HTTP method (&#x60;GET&#x60; or &#x60;POST&#x60;) we use to make the request to the &#x60;StatusCallback&#x60; URL.
+**StatusCallbackMethod** | **string** | The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
 
 ### Return type
 

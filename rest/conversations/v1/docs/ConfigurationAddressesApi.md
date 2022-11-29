@@ -37,11 +37,11 @@ Name | Type | Description
 **AutoCreationEnabled** | **bool** | Enable/Disable auto-creating conversations for messages to this address
 **AutoCreationType** | **string** | 
 **AutoCreationConversationServiceSid** | **string** | Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-**AutoCreationWebhookUrl** | **string** | For type &#x60;webhook&#x60;, the url for the webhook request.
+**AutoCreationWebhookUrl** | **string** | For type `webhook`, the url for the webhook request.
 **AutoCreationWebhookMethod** | **string** | 
-**AutoCreationWebhookFilters** | **[]string** | The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
-**AutoCreationStudioFlowSid** | **string** | For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
-**AutoCreationStudioRetryCount** | **int** | For type &#x60;studio&#x60;, number of times to retry the webhook request
+**AutoCreationWebhookFilters** | **[]string** | The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+**AutoCreationStudioFlowSid** | **string** | For type `studio`, the studio flow SID where the webhook should be sent to.
+**AutoCreationStudioRetryCount** | **int** | For type `studio`, number of times to retry the webhook request
 
 ### Return type
 
@@ -75,7 +75,7 @@ Remove an existing address configuration
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The SID of the Address Configuration resource. This value can be either the &#x60;sid&#x60; or the &#x60;address&#x60; of the configuration
+**Sid** | **string** | The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration
 
 ### Other Parameters
 
@@ -117,7 +117,7 @@ Fetch an address configuration
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The SID of the Address Configuration resource. This value can be either the &#x60;sid&#x60; or the &#x60;address&#x60; of the configuration
+**Sid** | **string** | The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration
 
 ### Other Parameters
 
@@ -164,7 +164,7 @@ Other parameters are passed through a pointer to a ListConfigurationAddressParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Type** | **string** | Filter the address configurations by its type. This value can be one of: &#x60;whatsapp&#x60;, &#x60;sms&#x60;.
+**Type** | **string** | Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -200,7 +200,7 @@ Update an existing address configuration
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The SID of the Address Configuration resource. This value can be either the &#x60;sid&#x60; or the &#x60;address&#x60; of the configuration
+**Sid** | **string** | The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration
 
 ### Other Parameters
 
@@ -213,11 +213,11 @@ Name | Type | Description
 **AutoCreationEnabled** | **bool** | Enable/Disable auto-creating conversations for messages to this address
 **AutoCreationType** | **string** | 
 **AutoCreationConversationServiceSid** | **string** | Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-**AutoCreationWebhookUrl** | **string** | For type &#x60;webhook&#x60;, the url for the webhook request.
+**AutoCreationWebhookUrl** | **string** | For type `webhook`, the url for the webhook request.
 **AutoCreationWebhookMethod** | **string** | 
-**AutoCreationWebhookFilters** | **[]string** | The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
-**AutoCreationStudioFlowSid** | **string** | For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
-**AutoCreationStudioRetryCount** | **int** | For type &#x60;studio&#x60;, number of times to retry the webhook request
+**AutoCreationWebhookFilters** | **[]string** | The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+**AutoCreationStudioFlowSid** | **string** | For type `studio`, the studio flow SID where the webhook should be sent to.
+**AutoCreationStudioRetryCount** | **int** | For type `studio`, number of times to retry the webhook request
 
 ### Return type
 

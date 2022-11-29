@@ -23,7 +23,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// Returns a single Track resource represented by &#x60;track_sid&#x60;.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
+// Returns a single Track resource represented by `track_sid`.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
 func (c *ApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomParticipantSubscribedTrack, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)

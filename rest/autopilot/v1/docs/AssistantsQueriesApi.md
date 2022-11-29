@@ -35,9 +35,9 @@ Other parameters are passed through a pointer to a CreateQueryParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: &#x60;en-US&#x60;.
-**Query** | **string** | The end-user&#39;s natural language input. It can be up to 2048 characters long.
-**Tasks** | **string** | The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task &#x60;unique_name&#x60; values. For example, &#x60;task-unique_name-1, task-unique_name-2&#x60;. Listing specific tasks is useful to constrain the paths that a user can take.
+**Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
+**Query** | **string** | The end-user's natural language input. It can be up to 2048 characters long.
+**Tasks** | **string** | The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
 **ModelBuild** | **string** | The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
 
 ### Return type
@@ -167,9 +167,9 @@ Other parameters are passed through a pointer to a ListQueryParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: &#x60;en-US&#x60;.
+**Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
 **ModelBuild** | **string** | The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-**Status** | **string** | The status of the resources to read. Can be: &#x60;pending-review&#x60;, &#x60;reviewed&#x60;, or &#x60;discarded&#x60;
+**Status** | **string** | The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
 **DialogueSid** | **string** | The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
@@ -217,7 +217,7 @@ Other parameters are passed through a pointer to a UpdateQueryParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **SampleSid** | **string** | The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
-**Status** | **string** | The new status of the resource. Can be: &#x60;pending-review&#x60;, &#x60;reviewed&#x60;, or &#x60;discarded&#x60;
+**Status** | **string** | The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
 
 ### Return type
 

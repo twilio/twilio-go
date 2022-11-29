@@ -58,7 +58,7 @@ func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
 	return params
 }
 
-// Add a new conversation user to your account&#39;s default service
+// Add a new conversation user to your account's default service
 func (c *ApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User, error) {
 	path := "/v1/Users"
 
@@ -108,7 +108,7 @@ func (params *DeleteUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled s
 	return params
 }
 
-// Remove a conversation user from your account&#39;s default service
+// Remove a conversation user from your account's default service
 func (c *ApiService) DeleteUser(Sid string, params *DeleteUserParams) error {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -130,7 +130,7 @@ func (c *ApiService) DeleteUser(Sid string, params *DeleteUserParams) error {
 	return nil
 }
 
-// Fetch a conversation user from your account&#39;s default service
+// Fetch a conversation user from your account's default service
 func (c *ApiService) FetchUser(Sid string) (*ConversationsV1User, error) {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -318,7 +318,7 @@ func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
 	return params
 }
 
-// Update an existing conversation user in your account&#39;s default service
+// Update an existing conversation user in your account's default service
 func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*ConversationsV1User, error) {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

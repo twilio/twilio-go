@@ -46,7 +46,7 @@ func (params *CreatePhoneNumberParams) SetIsReserved(IsReserved bool) *CreatePho
 	return params
 }
 
-// Add a Phone Number to a Service&#39;s Proxy Number Pool.
+// Add a Phone Number to a Service's Proxy Number Pool.
 func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNumberParams) (*ProxyV1PhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

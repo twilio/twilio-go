@@ -1904,7 +1904,7 @@ func (params *UpdateSiprecParams) SetStatus(Status string) *UpdateSiprecParams {
 	return params
 }
 
-// Stop a Siprec using either the SID of the Siprec resource or the &#x60;name&#x60; used when creating the resource
+// Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource
 func (c *ApiService) UpdateSiprec(CallSid string, Sid string, params *UpdateSiprecParams) (*ApiV2010Siprec, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

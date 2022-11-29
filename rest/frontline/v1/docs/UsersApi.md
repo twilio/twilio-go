@@ -23,7 +23,7 @@ Fetch a frontline user
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The SID of the User resource to fetch. This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource to fetch.
+**Sid** | **string** | The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
 
 ### Other Parameters
 
@@ -65,7 +65,7 @@ Update an existing frontline user
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The SID of the User resource to update. This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource to update.
+**Sid** | **string** | The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
 
 ### Other Parameters
 
@@ -77,7 +77,7 @@ Name | Type | Description
 **FriendlyName** | **string** | The string that you assigned to describe the User.
 **Avatar** | **string** | The avatar URL which will be shown in Frontline application.
 **State** | **string** | 
-**IsAvailable** | **bool** | Whether the User is available for new conversations. Set to &#x60;false&#x60; to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
+**IsAvailable** | **bool** | Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
 ### Return type
 

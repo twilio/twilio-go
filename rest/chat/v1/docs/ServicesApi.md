@@ -202,54 +202,54 @@ Name | Type | Description
 **DefaultServiceRoleSid** | **string** | The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
 **DefaultChannelRoleSid** | **string** | The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
 **DefaultChannelCreatorRoleSid** | **string** | The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-**ReadStatusEnabled** | **bool** | Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is &#x60;true&#x60;.
-**ReachabilityEnabled** | **bool** | Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is &#x60;false&#x60;.
-**TypingIndicatorTimeout** | **int** | How long in seconds after a &#x60;started typing&#x60; event until clients should assume that user is no longer typing, even if no &#x60;ended typing&#x60; message was received.  The default is 5 seconds.
+**ReadStatusEnabled** | **bool** | Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
+**ReachabilityEnabled** | **bool** | Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
+**TypingIndicatorTimeout** | **int** | How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
 **ConsumptionReportInterval** | **int** | DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-**NotificationsNewMessageEnabled** | **bool** | Whether to send a notification when a new message is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
-**NotificationsNewMessageTemplate** | **string** | The template to use to create the notification text displayed when a new message is added to a channel and &#x60;notifications.new_message.enabled&#x60; is &#x60;true&#x60;.
-**NotificationsAddedToChannelEnabled** | **bool** | Whether to send a notification when a member is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
-**NotificationsAddedToChannelTemplate** | **string** | The template to use to create the notification text displayed when a member is added to a channel and &#x60;notifications.added_to_channel.enabled&#x60; is &#x60;true&#x60;.
-**NotificationsRemovedFromChannelEnabled** | **bool** | Whether to send a notification to a user when they are removed from a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
-**NotificationsRemovedFromChannelTemplate** | **string** | The template to use to create the notification text displayed to a user when they are removed from a channel and &#x60;notifications.removed_from_channel.enabled&#x60; is &#x60;true&#x60;.
-**NotificationsInvitedToChannelEnabled** | **bool** | Whether to send a notification when a user is invited to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
-**NotificationsInvitedToChannelTemplate** | **string** | The template to use to create the notification text displayed when a user is invited to a channel and &#x60;notifications.invited_to_channel.enabled&#x60; is &#x60;true&#x60;.
-**PreWebhookUrl** | **string** | The URL for pre-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-**PostWebhookUrl** | **string** | The URL for post-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-**WebhookMethod** | **string** | The HTTP method to use for calls to the &#x60;pre_webhook_url&#x60; and &#x60;post_webhook_url&#x60; webhooks.  Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+**NotificationsNewMessageEnabled** | **bool** | Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
+**NotificationsNewMessageTemplate** | **string** | The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
+**NotificationsAddedToChannelEnabled** | **bool** | Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
+**NotificationsAddedToChannelTemplate** | **string** | The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
+**NotificationsRemovedFromChannelEnabled** | **bool** | Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
+**NotificationsRemovedFromChannelTemplate** | **string** | The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
+**NotificationsInvitedToChannelEnabled** | **bool** | Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
+**NotificationsInvitedToChannelTemplate** | **string** | The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
+**PreWebhookUrl** | **string** | The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+**PostWebhookUrl** | **string** | The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+**WebhookMethod** | **string** | The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 **WebhookFilters** | **[]string** | The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-**WebhooksOnMessageSendUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_message_send&#x60; event using the &#x60;webhooks.on_message_send.method&#x60; HTTP method.
-**WebhooksOnMessageSendMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_message_send.url&#x60;.
-**WebhooksOnMessageUpdateUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_message_update&#x60; event using the &#x60;webhooks.on_message_update.method&#x60; HTTP method.
-**WebhooksOnMessageUpdateMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_message_update.url&#x60;.
-**WebhooksOnMessageRemoveUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_message_remove&#x60; event using the &#x60;webhooks.on_message_remove.method&#x60; HTTP method.
-**WebhooksOnMessageRemoveMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_message_remove.url&#x60;.
-**WebhooksOnChannelAddUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_channel_add&#x60; event using the &#x60;webhooks.on_channel_add.method&#x60; HTTP method.
-**WebhooksOnChannelAddMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_channel_add.url&#x60;.
-**WebhooksOnChannelDestroyUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_channel_destroy&#x60; event using the &#x60;webhooks.on_channel_destroy.method&#x60; HTTP method.
-**WebhooksOnChannelDestroyMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_channel_destroy.url&#x60;.
-**WebhooksOnChannelUpdateUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_channel_update&#x60; event using the &#x60;webhooks.on_channel_update.method&#x60; HTTP method.
-**WebhooksOnChannelUpdateMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_channel_update.url&#x60;.
-**WebhooksOnMemberAddUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_member_add&#x60; event using the &#x60;webhooks.on_member_add.method&#x60; HTTP method.
-**WebhooksOnMemberAddMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_member_add.url&#x60;.
-**WebhooksOnMemberRemoveUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_member_remove&#x60; event using the &#x60;webhooks.on_member_remove.method&#x60; HTTP method.
-**WebhooksOnMemberRemoveMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_member_remove.url&#x60;.
-**WebhooksOnMessageSentUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event using the &#x60;webhooks.on_message_sent.method&#x60; HTTP method.
-**WebhooksOnMessageSentMethod** | **string** | The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event&#x60;.
-**WebhooksOnMessageUpdatedUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_message_updated&#x60; event using the &#x60;webhooks.on_message_updated.method&#x60; HTTP method.
-**WebhooksOnMessageUpdatedMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_message_updated.url&#x60;.
-**WebhooksOnMessageRemovedUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_message_removed&#x60; event using the &#x60;webhooks.on_message_removed.method&#x60; HTTP method.
-**WebhooksOnMessageRemovedMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_message_removed.url&#x60;.
-**WebhooksOnChannelAddedUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_added.method&#x60; HTTP method.
-**WebhooksOnChannelAddedMethod** | **string** | The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event&#x60;.
-**WebhooksOnChannelDestroyedUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_destroyed.method&#x60; HTTP method.
-**WebhooksOnChannelDestroyedMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_channel_destroyed.url&#x60;.
-**WebhooksOnChannelUpdatedUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method.
-**WebhooksOnChannelUpdatedMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;.
-**WebhooksOnMemberAddedUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method.
-**WebhooksOnMemberAddedMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;.
-**WebhooksOnMemberRemovedUrl** | **string** | The URL of the webhook to call in response to the &#x60;on_member_removed&#x60; event using the &#x60;webhooks.on_member_removed.method&#x60; HTTP method.
-**WebhooksOnMemberRemovedMethod** | **string** | The HTTP method to use when calling the &#x60;webhooks.on_member_removed.url&#x60;.
+**WebhooksOnMessageSendUrl** | **string** | The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
+**WebhooksOnMessageSendMethod** | **string** | The HTTP method to use when calling the `webhooks.on_message_send.url`.
+**WebhooksOnMessageUpdateUrl** | **string** | The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
+**WebhooksOnMessageUpdateMethod** | **string** | The HTTP method to use when calling the `webhooks.on_message_update.url`.
+**WebhooksOnMessageRemoveUrl** | **string** | The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
+**WebhooksOnMessageRemoveMethod** | **string** | The HTTP method to use when calling the `webhooks.on_message_remove.url`.
+**WebhooksOnChannelAddUrl** | **string** | The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
+**WebhooksOnChannelAddMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_add.url`.
+**WebhooksOnChannelDestroyUrl** | **string** | The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
+**WebhooksOnChannelDestroyMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
+**WebhooksOnChannelUpdateUrl** | **string** | The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
+**WebhooksOnChannelUpdateMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_update.url`.
+**WebhooksOnMemberAddUrl** | **string** | The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
+**WebhooksOnMemberAddMethod** | **string** | The HTTP method to use when calling the `webhooks.on_member_add.url`.
+**WebhooksOnMemberRemoveUrl** | **string** | The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
+**WebhooksOnMemberRemoveMethod** | **string** | The HTTP method to use when calling the `webhooks.on_member_remove.url`.
+**WebhooksOnMessageSentUrl** | **string** | The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
+**WebhooksOnMessageSentMethod** | **string** | The URL of the webhook to call in response to the `on_message_sent` event`.
+**WebhooksOnMessageUpdatedUrl** | **string** | The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
+**WebhooksOnMessageUpdatedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_message_updated.url`.
+**WebhooksOnMessageRemovedUrl** | **string** | The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
+**WebhooksOnMessageRemovedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_message_removed.url`.
+**WebhooksOnChannelAddedUrl** | **string** | The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
+**WebhooksOnChannelAddedMethod** | **string** | The URL of the webhook to call in response to the `on_channel_added` event`.
+**WebhooksOnChannelDestroyedUrl** | **string** | The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
+**WebhooksOnChannelDestroyedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
+**WebhooksOnChannelUpdatedUrl** | **string** | The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+**WebhooksOnChannelUpdatedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+**WebhooksOnMemberAddedUrl** | **string** | The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+**WebhooksOnMemberAddedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+**WebhooksOnMemberRemovedUrl** | **string** | The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
+**WebhooksOnMemberRemovedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_member_removed.url`.
 **LimitsChannelMembers** | **int** | The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
 **LimitsUserChannels** | **int** | The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
 

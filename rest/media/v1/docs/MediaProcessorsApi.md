@@ -30,11 +30,11 @@ Other parameters are passed through a pointer to a CreateMediaProcessorParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Extension** | **string** | The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: &#x60;video-composer-v2&#x60;
+**Extension** | **string** | The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
 **ExtensionContext** | **string** | The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
 **ExtensionEnvironment** | [**interface{}**](interface{}.md) | User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
 **StatusCallback** | **string** | The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
-**StatusCallbackMethod** | **string** | The HTTP method Twilio should use to call the &#x60;status_callback&#x60; URL. Can be &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
+**StatusCallbackMethod** | **string** | The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
 **MaxDuration** | **int** | The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
 
 ### Return type
@@ -116,8 +116,8 @@ Other parameters are passed through a pointer to a ListMediaProcessorParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Order** | **string** | The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
-**Status** | **string** | Status to filter by, with possible values &#x60;started&#x60;, &#x60;ended&#x60; or &#x60;failed&#x60;.
+**Order** | **string** | The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+**Status** | **string** | Status to filter by, with possible values `started`, `ended` or `failed`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

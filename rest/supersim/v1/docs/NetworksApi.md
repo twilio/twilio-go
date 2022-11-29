@@ -71,8 +71,8 @@ Other parameters are passed through a pointer to a ListNetworkParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **IsoCountry** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read.
-**Mcc** | **string** | The &#39;mobile country code&#39; of a country. Network resources with this &#x60;mcc&#x60; in their &#x60;identifiers&#x60; will be read.
-**Mnc** | **string** | The &#39;mobile network code&#39; of a mobile operator network. Network resources with this &#x60;mnc&#x60; in their &#x60;identifiers&#x60; will be read.
+**Mcc** | **string** | The 'mobile country code' of a country. Network resources with this `mcc` in their `identifiers` will be read.
+**Mnc** | **string** | The 'mobile network code' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

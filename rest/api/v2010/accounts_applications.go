@@ -528,7 +528,7 @@ func (params *UpdateApplicationParams) SetMessageStatusCallback(MessageStatusCal
 	return params
 }
 
-// Updates the application&#39;s properties
+// Updates the application's properties
 func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationParams) (*ApiV2010Application, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

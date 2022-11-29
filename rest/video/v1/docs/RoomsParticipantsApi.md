@@ -76,8 +76,8 @@ Other parameters are passed through a pointer to a ListRoomParticipantParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | Read only the participants with this status. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
-**Identity** | **string** | Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) &#x60;identity&#x60; value.
+**Status** | **string** | Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+**Identity** | **string** | Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
 **DateCreatedAfter** | **time.Time** | Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
 **DateCreatedBefore** | **time.Time** | Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.

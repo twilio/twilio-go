@@ -270,7 +270,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CallSid** | **string** | The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
-**Sid** | **string** | The SID of the Stream resource, or the &#x60;name&#x60; used when creating the resource
+**Sid** | **string** | The SID of the Stream resource, or the `name` used when creating the resource
 
 ### Other Parameters
 

@@ -77,7 +77,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
 **EventType** | **string** | The type of Events to read. Returns only Events of the type specified.
-**Minutes** | **int** | The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is &#x60;15&#x60; minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+**Minutes** | **int** | The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
 **ReservationSid** | **string** | The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
 **StartDate** | **time.Time** | Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
 **TaskQueueSid** | **string** | The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.

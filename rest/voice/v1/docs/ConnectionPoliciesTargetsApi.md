@@ -35,11 +35,11 @@ Other parameters are passed through a pointer to a CreateConnectionPolicyTargetP
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Target** | **string** | The SIP address you want Twilio to route your calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported.
+**Target** | **string** | The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 **Priority** | **int** | The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
 **Weight** | **int** | The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
-**Enabled** | **bool** | Whether the Target is enabled. The default is &#x60;true&#x60;.
+**Enabled** | **bool** | Whether the Target is enabled. The default is `true`.
 
 ### Return type
 
@@ -214,7 +214,7 @@ Other parameters are passed through a pointer to a UpdateConnectionPolicyTargetP
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-**Target** | **string** | The SIP address you want Twilio to route your calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported.
+**Target** | **string** | The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
 **Priority** | **int** | The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target.
 **Weight** | **int** | The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
 **Enabled** | **bool** | Whether the Target is enabled.

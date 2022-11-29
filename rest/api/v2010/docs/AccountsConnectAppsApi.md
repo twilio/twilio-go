@@ -164,12 +164,12 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update.
 **AuthorizeRedirectUrl** | **string** | The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
 **CompanyName** | **string** | The company name to set for the Connect App.
-**DeauthorizeCallbackMethod** | **string** | The HTTP method to use when calling &#x60;deauthorize_callback_url&#x60;.
-**DeauthorizeCallbackUrl** | **string** | The URL to call using the &#x60;deauthorize_callback_method&#x60; to de-authorize the Connect App.
+**DeauthorizeCallbackMethod** | **string** | The HTTP method to use when calling `deauthorize_callback_url`.
+**DeauthorizeCallbackUrl** | **string** | The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
 **Description** | **string** | A description of the Connect App.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 **HomepageUrl** | **string** | A public URL where users can obtain more information about this Connect App.
-**Permissions** | [**[]ConnectAppEnumPermission**](ConnectAppEnumPermission.md) | A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
+**Permissions** | [**[]ConnectAppEnumPermission**](ConnectAppEnumPermission.md) | A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
 
 ### Return type
 
