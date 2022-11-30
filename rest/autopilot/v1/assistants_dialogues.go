@@ -20,6 +20,7 @@ import (
 	"strings"
 )
 
+//
 func (c *ApiService) FetchDialogue(AssistantSid string, Sid string) (*AutopilotV1Dialogue, error) {
 	path := "/v1/Assistants/{AssistantSid}/Dialogues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

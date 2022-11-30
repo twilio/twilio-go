@@ -36,4 +36,6 @@ type MicrovisorV1Device struct {
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
+	// The absolute URLs of related resources
+	Links *map[string]interface{} `json:"links,omitempty"`
 }

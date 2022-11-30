@@ -46,6 +46,7 @@ func (params *CreateSyncMapParams) SetCollectionTtl(CollectionTtl int) *CreateSy
 	return params
 }
 
+//
 func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParams) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -78,6 +79,7 @@ func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParam
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -96,6 +98,7 @@ func (c *ApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -274,6 +277,7 @@ func (params *UpdateSyncMapParams) SetCollectionTtl(CollectionTtl int) *UpdateSy
 	return params
 }
 
+//
 func (c *ApiService) UpdateSyncMap(ServiceSid string, Sid string, params *UpdateSyncMapParams) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

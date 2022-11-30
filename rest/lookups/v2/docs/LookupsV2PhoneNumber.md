@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **CallForwarding** | Pointer to **interface{}** | An object that contains call forwarding status information |
 **LiveActivity** | Pointer to **interface{}** | An object that contains live activity information |
 **LineTypeIntelligence** | Pointer to **interface{}** | An object that contains line type information |
+**IdentityMatch** | Pointer to **interface{}** | An object that contains identity match information |
 **Url** | Pointer to **string** | The absolute URL of the resource |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -52,6 +52,7 @@ func (params *CreateWebhookParams) SetWebhookMethod(WebhookMethod string) *Creat
 	return params
 }
 
+//
 func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookParams) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -87,6 +88,7 @@ func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookPar
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteWebhook(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -105,6 +107,7 @@ func (c *ApiService) DeleteWebhook(AssistantSid string, Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchWebhook(AssistantSid string, Sid string) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -295,6 +298,7 @@ func (params *UpdateWebhookParams) SetWebhookMethod(WebhookMethod string) *Updat
 	return params
 }
 
+//
 func (c *ApiService) UpdateWebhook(AssistantSid string, Sid string, params *UpdateWebhookParams) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

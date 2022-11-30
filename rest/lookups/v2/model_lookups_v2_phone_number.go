@@ -38,6 +38,8 @@ type LookupsV2PhoneNumber struct {
 	LiveActivity *interface{} `json:"live_activity,omitempty"`
 	// An object that contains line type information
 	LineTypeIntelligence *interface{} `json:"line_type_intelligence,omitempty"`
+	// An object that contains identity match information
+	IdentityMatch *interface{} `json:"identity_match,omitempty"`
 	// The absolute URL of the resource
 	Url *string `json:"url,omitempty"`
 }

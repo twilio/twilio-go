@@ -46,6 +46,7 @@ func (params *CreateSampleParams) SetSourceChannel(SourceChannel string) *Create
 	return params
 }
 
+//
 func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *CreateSampleParams) (*AutopilotV1Sample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -79,6 +80,7 @@ func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *C
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteSample(AssistantSid string, TaskSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -98,6 +100,7 @@ func (c *ApiService) DeleteSample(AssistantSid string, TaskSid string, Sid strin
 	return nil
 }
 
+//
 func (c *ApiService) FetchSample(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1Sample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -293,6 +296,7 @@ func (params *UpdateSampleParams) SetSourceChannel(SourceChannel string) *Update
 	return params
 }
 
+//
 func (c *ApiService) UpdateSample(AssistantSid string, TaskSid string, Sid string, params *UpdateSampleParams) (*AutopilotV1Sample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

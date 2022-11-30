@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this Device was created. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this Device was last updated. |
 **Url** | Pointer to **string** | The URL of this resource. |
+**Links** | Pointer to **map[string]interface{}** | The absolute URLs of related resources |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

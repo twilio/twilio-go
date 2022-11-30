@@ -24,6 +24,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+//
 func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1RoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -232,6 +233,7 @@ func (params *UpdateRoomParticipantParams) SetStatus(Status string) *UpdateRoomP
 	return params
 }
 
+//
 func (c *ApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)

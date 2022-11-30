@@ -31,8 +31,18 @@ Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Fields** | **string** | A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence.
+**Fields** | **string** | A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
 **CountryCode** | **string** | The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
+**FirstName** | **string** | User’s first name. This query parameter is only used (optionally) for identity_match package requests.
+**LastName** | **string** | User’s last name. This query parameter is only used (optionally) for identity_match package requests.
+**AddressLine1** | **string** | User’s first address line. This query parameter is only used (optionally) for identity_match package requests.
+**AddressLine2** | **string** | User’s second address line. This query parameter is only used (optionally) for identity_match package requests.
+**City** | **string** | User’s city. This query parameter is only used (optionally) for identity_match package requests.
+**State** | **string** | User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests.
+**PostalCode** | **string** | User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests.
+**AddressCountryCode** | **string** | User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
+**NationalId** | **string** | User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
+**DateOfBirth** | **string** | User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
 
 ### Return type
 
