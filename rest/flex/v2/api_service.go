@@ -14,16 +14,22 @@
 
 package openapi
 
-// FlexV1Gooddata struct for FlexV1Gooddata
-type FlexV1Gooddata struct {
-	// Unique ID to identify the user's workspace
-	WorkspaceId *string `json:"workspace_id,omitempty"`
-	// The session expiry date and time
-	SessionExpiry *string `json:"session_expiry,omitempty"`
-	// Unique session ID
-	SessionId *string `json:"session_id,omitempty"`
-	// Base URL to fetch reports and dashboards
-	BaseUrl *string `json:"base_url,omitempty"`
-	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+import (
+	twilio "github.com/twilio/twilio-go/client"
+)
+
+type ApiService struct {
+	baseURL        string
+	requestHandler *twilio.RequestHandler
+}
+
+func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
+	return &ApiService{
+		requestHandler: requestHandler,
+		baseURL:        "https://flex-api.twilio.com",
+	}
+}
+
+func NewApiServiceWithClient(client twilio.BaseClient) *ApiService {
+	return NewApiService(twilio.NewRequestHandler(client))
 }

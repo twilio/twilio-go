@@ -28,6 +28,7 @@ Other parameters are passed through a pointer to a ListSettingsUpdateParams stru
 Name | Type | Description
 ------------- | ------------- | -------------
 **Sim** | **string** | Filter the Settings Updates by a Super SIM's SID or UniqueName.
+**Status** | **string** | Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

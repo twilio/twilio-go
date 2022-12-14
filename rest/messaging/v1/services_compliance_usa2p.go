@@ -27,9 +27,11 @@ import (
 type CreateUsAppToPersonParams struct {
 	// A2P Brand Registration SID
 	BrandRegistrationSid *string `json:"BrandRegistrationSid,omitempty"`
-	// A short description of what this SMS campaign does.
+	// A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
 	Description *string `json:"Description,omitempty"`
-	// Message samples, at least 2 and up to 5 sample messages, <=1024 chars each.
+	// Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+	MessageFlow *string `json:"MessageFlow,omitempty"`
+	// Message samples, at least 1 and up to 5 sample messages (at least 2 for sole proprietor), >=20 chars, <=1024 chars each.
 	MessageSamples *[]string `json:"MessageSamples,omitempty"`
 	// A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
 	UsAppToPersonUsecase *string `json:"UsAppToPersonUsecase,omitempty"`
@@ -37,19 +39,17 @@ type CreateUsAppToPersonParams struct {
 	HasEmbeddedLinks *bool `json:"HasEmbeddedLinks,omitempty"`
 	// Indicates that this SMS campaign will send messages that contain phone numbers.
 	HasEmbeddedPhone *bool `json:"HasEmbeddedPhone,omitempty"`
-	// Description of how end users opt-in to the SMS campaign, therefore giving consent to receive messages.
-	MessageFlow *string `json:"MessageFlow,omitempty"`
-	// The message that will be sent to the user when they opt in to the SMS campaign.
+	// If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
 	OptInMessage *string `json:"OptInMessage,omitempty"`
-	// The message that will be sent to the user when they opt out of the SMS campaign.
+	// Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
 	OptOutMessage *string `json:"OptOutMessage,omitempty"`
-	// The message that will be sent to the user when they request help for the SMS campaign.
+	// When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
 	HelpMessage *string `json:"HelpMessage,omitempty"`
-	// The keywords that will be used to opt in to the SMS campaign.
+	// If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
 	OptInKeywords *[]string `json:"OptInKeywords,omitempty"`
-	// The keywords that will be used to opt out of the SMS campaign.
+	// End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
 	OptOutKeywords *[]string `json:"OptOutKeywords,omitempty"`
-	// The keywords that will be used to request help for the SMS campaign.
+	// End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
 	HelpKeywords *[]string `json:"HelpKeywords,omitempty"`
 }
 
@@ -59,6 +59,10 @@ func (params *CreateUsAppToPersonParams) SetBrandRegistrationSid(BrandRegistrati
 }
 func (params *CreateUsAppToPersonParams) SetDescription(Description string) *CreateUsAppToPersonParams {
 	params.Description = &Description
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetMessageFlow(MessageFlow string) *CreateUsAppToPersonParams {
+	params.MessageFlow = &MessageFlow
 	return params
 }
 func (params *CreateUsAppToPersonParams) SetMessageSamples(MessageSamples []string) *CreateUsAppToPersonParams {
@@ -75,10 +79,6 @@ func (params *CreateUsAppToPersonParams) SetHasEmbeddedLinks(HasEmbeddedLinks bo
 }
 func (params *CreateUsAppToPersonParams) SetHasEmbeddedPhone(HasEmbeddedPhone bool) *CreateUsAppToPersonParams {
 	params.HasEmbeddedPhone = &HasEmbeddedPhone
-	return params
-}
-func (params *CreateUsAppToPersonParams) SetMessageFlow(MessageFlow string) *CreateUsAppToPersonParams {
-	params.MessageFlow = &MessageFlow
 	return params
 }
 func (params *CreateUsAppToPersonParams) SetOptInMessage(OptInMessage string) *CreateUsAppToPersonParams {
@@ -120,6 +120,9 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
 	}
+	if params != nil && params.MessageFlow != nil {
+		data.Set("MessageFlow", *params.MessageFlow)
+	}
 	if params != nil && params.MessageSamples != nil {
 		for _, item := range *params.MessageSamples {
 			data.Add("MessageSamples", item)
@@ -133,9 +136,6 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	}
 	if params != nil && params.HasEmbeddedPhone != nil {
 		data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
-	}
-	if params != nil && params.MessageFlow != nil {
-		data.Set("MessageFlow", *params.MessageFlow)
 	}
 	if params != nil && params.OptInMessage != nil {
 		data.Set("OptInMessage", *params.OptInMessage)

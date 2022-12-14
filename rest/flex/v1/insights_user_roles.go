@@ -19,20 +19,20 @@ import (
 	"net/url"
 )
 
-// Optional parameters for the method 'CreateGooddata'
-type CreateGooddataParams struct {
+// Optional parameters for the method 'FetchUserRoles'
+type FetchUserRolesParams struct {
 	// The Token HTTP request header
 	Token *string `json:"Token,omitempty"`
 }
 
-func (params *CreateGooddataParams) SetToken(Token string) *CreateGooddataParams {
+func (params *FetchUserRolesParams) SetToken(Token string) *FetchUserRolesParams {
 	params.Token = &Token
 	return params
 }
 
-// To create a GoodData Session id to access GoodData dashboards
-func (c *ApiService) CreateGooddata(params *CreateGooddataParams) (*FlexV1Gooddata, error) {
-	path := "/v1/Accounts/GoodData"
+// This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
+func (c *ApiService) FetchUserRoles(params *FetchUserRolesParams) (*FlexV1UserRoles, error) {
+	path := "/v1/Insights/UserRoles"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -41,14 +41,14 @@ func (c *ApiService) CreateGooddata(params *CreateGooddataParams) (*FlexV1Goodda
 		headers["Token"] = *params.Token
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
 	defer resp.Body.Close()
 
-	ps := &FlexV1Gooddata{}
+	ps := &FlexV1UserRoles{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

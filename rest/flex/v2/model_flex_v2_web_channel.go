@@ -14,16 +14,10 @@
 
 package openapi
 
-// FlexV1Gooddata struct for FlexV1Gooddata
-type FlexV1Gooddata struct {
-	// Unique ID to identify the user's workspace
-	WorkspaceId *string `json:"workspace_id,omitempty"`
-	// The session expiry date and time
-	SessionExpiry *string `json:"session_expiry,omitempty"`
-	// Unique session ID
-	SessionId *string `json:"session_id,omitempty"`
-	// Base URL to fetch reports and dashboards
-	BaseUrl *string `json:"base_url,omitempty"`
-	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+// FlexV2WebChannel struct for FlexV2WebChannel
+type FlexV2WebChannel struct {
+	// The unique string representing the Conversation resource created
+	ConversationSid *string `json:"conversation_sid,omitempty"`
+	// The unique string representing the User created
+	Identity *string `json:"identity,omitempty"`
 }

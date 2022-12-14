@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **EmergencyEnabled** | Pointer to **bool** | Whether emergency calling has been enabled on this number |
 **Validated** | Pointer to **bool** | Whether the address has been validated to comply with local regulation |
 **Verified** | Pointer to **bool** | Whether the address has been verified to comply with regulation |
+**StreetSecondary** | Pointer to **string** | The additional number and street address of the address |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

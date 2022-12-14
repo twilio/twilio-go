@@ -46,4 +46,6 @@ type ApiV2010Address struct {
 	Validated *bool `json:"validated,omitempty"`
 	// Whether the address has been verified to comply with regulation
 	Verified *bool `json:"verified,omitempty"`
+	// The additional number and street address of the address
+	StreetSecondary *string `json:"street_secondary,omitempty"`
 }

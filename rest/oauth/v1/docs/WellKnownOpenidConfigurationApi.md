@@ -4,7 +4,7 @@ All URIs are relative to *https://oauth.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchOpenidDiscovery**](WellKnownOpenidConfigurationApi.md#FetchOpenidDiscovery) | **Get** /v1/well-known/openid-configuration | 
+[**FetchOpenidDiscovery**](WellKnownOpenidConfigurationApi.md#FetchOpenidDiscovery) | **Get** /v1/.well-known/openid-configuration | 
 
 
 

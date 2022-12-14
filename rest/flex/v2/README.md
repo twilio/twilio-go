@@ -27,17 +27,16 @@ import "./openapi"
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://frontline-api.twilio.com*
+All URIs are relative to *https://flex-api.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*UsersApi* | [**FetchUser**](docs/UsersApi.md#fetchuser) | **Get** /v1/Users/{Sid} | 
-*UsersApi* | [**UpdateUser**](docs/UsersApi.md#updateuser) | **Post** /v1/Users/{Sid} | 
+*WebChatsApi* | [**CreateWebChannel**](docs/WebChatsApi.md#createwebchannel) | **Post** /v2/WebChats | 
 
 
 ## Documentation For Models
 
- - [FrontlineV1User](docs/FrontlineV1User.md)
+ - [FlexV2WebChannel](docs/FlexV2WebChannel.md)
 
 
 ## Documentation For Authorization

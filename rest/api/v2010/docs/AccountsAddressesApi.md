@@ -41,6 +41,7 @@ Name | Type | Description
 **FriendlyName** | **string** | A descriptive string that you create to describe the new address. It can be up to 64 characters long.
 **EmergencyEnabled** | **bool** | Whether to enable emergency calling on the new address. Can be: `true` or `false`.
 **AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+**StreetSecondary** | **string** | The additional number and street address of the address.
 
 ### Return type
 
@@ -222,6 +223,7 @@ Name | Type | Description
 **PostalCode** | **string** | The postal code of the address.
 **EmergencyEnabled** | **bool** | Whether to enable emergency calling on the address. Can be: `true` or `false`.
 **AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+**StreetSecondary** | **string** | The additional number and street address of the address.
 
 ### Return type
 

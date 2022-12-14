@@ -21,7 +21,7 @@ import (
 
 // Fetch configuration details about the OpenID Connect Authorization Server
 func (c *ApiService) FetchOpenidDiscovery() (*OauthV1OpenidDiscovery, error) {
-	path := "/v1/well-known/openid-configuration"
+	path := "/v1/.well-known/openid-configuration"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})

@@ -26,10 +26,10 @@ type CreateUserDefinedMessageSubscriptionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
 	Callback *string `json:"Callback,omitempty"`
-	// The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
-	Method *string `json:"Method,omitempty"`
 	// A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
 	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
+	// The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
+	Method *string `json:"Method,omitempty"`
 }
 
 func (params *CreateUserDefinedMessageSubscriptionParams) SetPathAccountSid(PathAccountSid string) *CreateUserDefinedMessageSubscriptionParams {
@@ -40,12 +40,12 @@ func (params *CreateUserDefinedMessageSubscriptionParams) SetCallback(Callback s
 	params.Callback = &Callback
 	return params
 }
-func (params *CreateUserDefinedMessageSubscriptionParams) SetMethod(Method string) *CreateUserDefinedMessageSubscriptionParams {
-	params.Method = &Method
-	return params
-}
 func (params *CreateUserDefinedMessageSubscriptionParams) SetIdempotencyKey(IdempotencyKey string) *CreateUserDefinedMessageSubscriptionParams {
 	params.IdempotencyKey = &IdempotencyKey
+	return params
+}
+func (params *CreateUserDefinedMessageSubscriptionParams) SetMethod(Method string) *CreateUserDefinedMessageSubscriptionParams {
+	params.Method = &Method
 	return params
 }
 
@@ -65,11 +65,11 @@ func (c *ApiService) CreateUserDefinedMessageSubscription(CallSid string, params
 	if params != nil && params.Callback != nil {
 		data.Set("Callback", *params.Callback)
 	}
-	if params != nil && params.Method != nil {
-		data.Set("Method", *params.Method)
-	}
 	if params != nil && params.IdempotencyKey != nil {
 		data.Set("IdempotencyKey", *params.IdempotencyKey)
+	}
+	if params != nil && params.Method != nil {
+		data.Set("Method", *params.Method)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

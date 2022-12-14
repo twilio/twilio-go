@@ -432,11 +432,11 @@ func (m VoiceSub) GetInnerElements() []Element {
 type VoiceSayAs struct {
 	// words: Words to be interpreted
 	// interpret-as: Specify the type of words are spoken
-	// role: Specify the format of the date when interpret-as is set to date
+	// format: Specify the format of the date when interpret-as is set to date
 	// OptionalAttributes: additional attributes
 	Words              string
 	InterpretAs        string
-	Role               string
+	Format             string
 	InnerElements      []Element
 	OptionalAttributes map[string]string
 }
@@ -452,7 +452,7 @@ func (m VoiceSayAs) GetText() string {
 func (m VoiceSayAs) GetAttr() (map[string]string, map[string]string) {
 	paramsAttr := map[string]string{
 		"InterpretAs": m.InterpretAs,
-		"Role":        m.Role,
+		"Format":      m.Format,
 	}
 	return m.OptionalAttributes, paramsAttr
 }

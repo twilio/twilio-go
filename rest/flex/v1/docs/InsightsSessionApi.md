@@ -1,20 +1,20 @@
-# AccountsUserRolesApi
+# InsightsSessionApi
 
 All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchUserRoles**](AccountsUserRolesApi.md#FetchUserRoles) | **Get** /v1/Accounts/UserRoles | 
+[**CreateGooddata**](InsightsSessionApi.md#CreateGooddata) | **Post** /v1/Insights/Session | 
 
 
 
-## FetchUserRoles
+## CreateGooddata
 
-> FlexV1UserRoles FetchUserRoles(ctx, optional)
+> FlexV1Gooddata CreateGooddata(ctx, optional)
 
 
 
-This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
+To obtain session details for fetching reports and dashboards
 
 ### Path Parameters
 
@@ -22,7 +22,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchUserRolesParams struct
+Other parameters are passed through a pointer to a CreateGooddataParams struct
 
 
 Name | Type | Description
@@ -31,7 +31,7 @@ Name | Type | Description
 
 ### Return type
 
-[**FlexV1UserRoles**](FlexV1UserRoles.md)
+[**FlexV1Gooddata**](FlexV1Gooddata.md)
 
 ### Authorization
 

@@ -45,6 +45,8 @@ type CreateAddressParams struct {
 	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
 	// Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
 	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
+	// The additional number and street address of the address.
+	StreetSecondary *string `json:"StreetSecondary,omitempty"`
 }
 
 func (params *CreateAddressParams) SetPathAccountSid(PathAccountSid string) *CreateAddressParams {
@@ -87,6 +89,10 @@ func (params *CreateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool
 	params.AutoCorrectAddress = &AutoCorrectAddress
 	return params
 }
+func (params *CreateAddressParams) SetStreetSecondary(StreetSecondary string) *CreateAddressParams {
+	params.StreetSecondary = &StreetSecondary
+	return params
+}
 
 //
 func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Address, error) {
@@ -126,6 +132,9 @@ func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Addres
 	}
 	if params != nil && params.AutoCorrectAddress != nil {
 		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
+	}
+	if params != nil && params.StreetSecondary != nil {
+		data.Set("StreetSecondary", *params.StreetSecondary)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -411,6 +420,8 @@ type UpdateAddressParams struct {
 	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
 	// Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
 	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
+	// The additional number and street address of the address.
+	StreetSecondary *string `json:"StreetSecondary,omitempty"`
 }
 
 func (params *UpdateAddressParams) SetPathAccountSid(PathAccountSid string) *UpdateAddressParams {
@@ -447,6 +458,10 @@ func (params *UpdateAddressParams) SetEmergencyEnabled(EmergencyEnabled bool) *U
 }
 func (params *UpdateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool) *UpdateAddressParams {
 	params.AutoCorrectAddress = &AutoCorrectAddress
+	return params
+}
+func (params *UpdateAddressParams) SetStreetSecondary(StreetSecondary string) *UpdateAddressParams {
+	params.StreetSecondary = &StreetSecondary
 	return params
 }
 
@@ -486,6 +501,9 @@ func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*Ap
 	}
 	if params != nil && params.AutoCorrectAddress != nil {
 		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
+	}
+	if params != nil && params.StreetSecondary != nil {
+		data.Set("StreetSecondary", *params.StreetSecondary)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -1,20 +1,20 @@
-# AccountsGoodDataApi
+# InsightsUserRolesApi
 
 All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateGooddata**](AccountsGoodDataApi.md#CreateGooddata) | **Post** /v1/Accounts/GoodData | 
+[**FetchUserRoles**](InsightsUserRolesApi.md#FetchUserRoles) | **Get** /v1/Insights/UserRoles | 
 
 
 
-## CreateGooddata
+## FetchUserRoles
 
-> FlexV1Gooddata CreateGooddata(ctx, optional)
+> FlexV1UserRoles FetchUserRoles(ctx, optional)
 
 
 
-To create a GoodData Session id to access GoodData dashboards
+This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
 
 ### Path Parameters
 
@@ -22,7 +22,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateGooddataParams struct
+Other parameters are passed through a pointer to a FetchUserRolesParams struct
 
 
 Name | Type | Description
@@ -31,7 +31,7 @@ Name | Type | Description
 
 ### Return type
 
-[**FlexV1Gooddata**](FlexV1Gooddata.md)
+[**FlexV1UserRoles**](FlexV1UserRoles.md)
 
 ### Authorization
 

@@ -26,6 +26,8 @@ import (
 type ListSettingsUpdateParams struct {
 	// Filter the Settings Updates by a Super SIM's SID or UniqueName.
 	Sim *string `json:"Sim,omitempty"`
+	// Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
+	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -34,6 +36,10 @@ type ListSettingsUpdateParams struct {
 
 func (params *ListSettingsUpdateParams) SetSim(Sim string) *ListSettingsUpdateParams {
 	params.Sim = &Sim
+	return params
+}
+func (params *ListSettingsUpdateParams) SetStatus(Status string) *ListSettingsUpdateParams {
+	params.Status = &Status
 	return params
 }
 func (params *ListSettingsUpdateParams) SetPageSize(PageSize int) *ListSettingsUpdateParams {
@@ -54,6 +60,9 @@ func (c *ApiService) PageSettingsUpdate(params *ListSettingsUpdateParams, pageTo
 
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
