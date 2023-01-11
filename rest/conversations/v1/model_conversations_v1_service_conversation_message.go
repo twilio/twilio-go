@@ -50,4 +50,6 @@ type ConversationsV1ServiceConversationMessage struct {
 	Url *string `json:"url,omitempty"`
 	// Absolute URL to access the receipts of this message.
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// The unique ID of the multi-channel Rich Content template.
+	ContentSid *string `json:"content_sid,omitempty"`
 }

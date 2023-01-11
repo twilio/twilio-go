@@ -40,6 +40,10 @@ type CreateServiceConversationMessageParams struct {
 	Attributes *string `json:"Attributes,omitempty"`
 	// The Media SID to be attached to the new Message.
 	MediaSid *string `json:"MediaSid,omitempty"`
+	// The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+	ContentSid *string `json:"ContentSid,omitempty"`
+	// A structurally valid JSON string that contains values to resolve Rich Content template variables.
+	ContentVariables *string `json:"ContentVariables,omitempty"`
 }
 
 func (params *CreateServiceConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateServiceConversationMessageParams {
@@ -70,6 +74,14 @@ func (params *CreateServiceConversationMessageParams) SetMediaSid(MediaSid strin
 	params.MediaSid = &MediaSid
 	return params
 }
+func (params *CreateServiceConversationMessageParams) SetContentSid(ContentSid string) *CreateServiceConversationMessageParams {
+	params.ContentSid = &ContentSid
+	return params
+}
+func (params *CreateServiceConversationMessageParams) SetContentVariables(ContentVariables string) *CreateServiceConversationMessageParams {
+	params.ContentVariables = &ContentVariables
+	return params
+}
 
 // Add a new message to the conversation in a specific service
 func (c *ApiService) CreateServiceConversationMessage(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationMessageParams) (*ConversationsV1ServiceConversationMessage, error) {
@@ -97,6 +109,12 @@ func (c *ApiService) CreateServiceConversationMessage(ChatServiceSid string, Con
 	}
 	if params != nil && params.MediaSid != nil {
 		data.Set("MediaSid", *params.MediaSid)
+	}
+	if params != nil && params.ContentSid != nil {
+		data.Set("ContentSid", *params.ContentSid)
+	}
+	if params != nil && params.ContentVariables != nil {
+		data.Set("ContentVariables", *params.ContentVariables)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

@@ -40,6 +40,10 @@ type CreateConversationMessageParams struct {
 	Attributes *string `json:"Attributes,omitempty"`
 	// The Media SID to be attached to the new Message.
 	MediaSid *string `json:"MediaSid,omitempty"`
+	// The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+	ContentSid *string `json:"ContentSid,omitempty"`
+	// A structurally valid JSON string that contains values to resolve Rich Content template variables.
+	ContentVariables *string `json:"ContentVariables,omitempty"`
 }
 
 func (params *CreateConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateConversationMessageParams {
@@ -70,6 +74,14 @@ func (params *CreateConversationMessageParams) SetMediaSid(MediaSid string) *Cre
 	params.MediaSid = &MediaSid
 	return params
 }
+func (params *CreateConversationMessageParams) SetContentSid(ContentSid string) *CreateConversationMessageParams {
+	params.ContentSid = &ContentSid
+	return params
+}
+func (params *CreateConversationMessageParams) SetContentVariables(ContentVariables string) *CreateConversationMessageParams {
+	params.ContentVariables = &ContentVariables
+	return params
+}
 
 // Add a new message to the conversation
 func (c *ApiService) CreateConversationMessage(ConversationSid string, params *CreateConversationMessageParams) (*ConversationsV1ConversationMessage, error) {
@@ -96,6 +108,12 @@ func (c *ApiService) CreateConversationMessage(ConversationSid string, params *C
 	}
 	if params != nil && params.MediaSid != nil {
 		data.Set("MediaSid", *params.MediaSid)
+	}
+	if params != nil && params.ContentSid != nil {
+		data.Set("ContentSid", *params.ContentSid)
+	}
+	if params != nil && params.ContentVariables != nil {
+		data.Set("ContentVariables", *params.ContentVariables)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

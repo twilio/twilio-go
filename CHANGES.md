@@ -1,5 +1,17 @@
 twilio-go changelog
 ====================
+[2023-01-11] Version 1.3.1
+--------------------------
+**Conversations**
+- Add support for creating Multi-Channel Rich Content Messages
+
+**Lookups**
+- Changed the no data message for match postal code from `no_data` to `data_not_available` in identity match package
+
+**Messaging**
+- Add update/edit tollfree verification API
+
+
 [2022-12-14] Version 1.3.0
 --------------------------
 **Api**

@@ -27,7 +27,7 @@ import (
 type CreateIpCommandParams struct {
 	// The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
 	Sim *string `json:"Sim,omitempty"`
-	// The payload to be delivered to the device.
+	// The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
 	Payload *string `json:"Payload,omitempty"`
 	// The device port to which the IP Command will be sent.
 	DevicePort *int `json:"DevicePort,omitempty"`

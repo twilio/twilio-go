@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **Delivery** | Pointer to **interface{}** | An object that contains the summary of delivery statuses for the message to non-chat participants. |
 **Url** | Pointer to **string** | An absolute URL for this message. |
 **Links** | Pointer to **map[string]interface{}** | Absolute URL to access the receipts of this message. |
+**ContentSid** | Pointer to **string** | The unique ID of the multi-channel Rich Content template. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

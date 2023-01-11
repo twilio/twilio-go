@@ -43,6 +43,8 @@ Name | Type | Description
 **DateUpdated** | **time.Time** | The date that this resource was last updated. `null` if the message has not been edited.
 **Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 **MediaSid** | **string** | The Media SID to be attached to the new Message.
+**ContentSid** | **string** | The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+**ContentVariables** | **string** | A structurally valid JSON string that contains values to resolve Rich Content template variables.
 
 ### Return type
 
