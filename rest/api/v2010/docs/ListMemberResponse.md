@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **QueueMembers** | [**[]ApiV2010Member**](ApiV2010Member.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**NextPageUri** | **string** |  |[optional] 
+**NextPageUri** | Pointer to **string** |  |
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
-**PreviousPageUri** | **string** |  |[optional] 
+**PreviousPageUri** | Pointer to **string** |  |
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 

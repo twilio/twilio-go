@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **Domains** | [**[]ApiV2010SipDomain**](ApiV2010SipDomain.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**NextPageUri** | **string** |  |[optional] 
+**NextPageUri** | Pointer to **string** |  |
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
-**PreviousPageUri** | **string** |  |[optional] 
+**PreviousPageUri** | Pointer to **string** |  |
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 
