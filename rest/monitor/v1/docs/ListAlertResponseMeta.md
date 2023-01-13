@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FirstPageUrl** | **string** |  |[optional] 
-**NextPageUrl** | **string** |  |[optional] 
+**NextPageUrl** | Pointer to **string** |  |
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
-**PreviousPageUrl** | **string** |  |[optional] 
+**PreviousPageUrl** | Pointer to **string** |  |
 **Url** | **string** |  |[optional] 
 **Key** | **string** |  |[optional] 
 

@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **IncomingPhoneNumbers** | [**[]ApiV2010IncomingPhoneNumberLocal**](ApiV2010IncomingPhoneNumberLocal.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**NextPageUri** | **string** |  |[optional] 
+**NextPageUri** | Pointer to **string** |  |
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
-**PreviousPageUri** | **string** |  |[optional] 
+**PreviousPageUri** | Pointer to **string** |  |
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 
