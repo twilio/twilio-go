@@ -16,14 +16,14 @@ package openapi
 
 // VerifyV2VerificationTemplate struct for VerifyV2VerificationTemplate
 type VerifyV2VerificationTemplate struct {
-	// A string that uniquely identifies this Template
+	// A 34 character string that uniquely identifies a Verification Template.
 	Sid *string `json:"sid,omitempty"`
-	// Account Sid
+	// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A string to describe the verification template
+	// A descriptive string that you create to describe a Template.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// A list of channels that support the Template
+	// A list of channels that support the Template. Can include: sms, voice
 	Channels *[]string `json:"channels,omitempty"`
-	// Object with the template translations.
+	// An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
 	Translations *interface{} `json:"translations,omitempty"`
 }

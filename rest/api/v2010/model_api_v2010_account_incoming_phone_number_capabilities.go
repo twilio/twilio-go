@@ -14,7 +14,7 @@
 
 package openapi
 
-// ApiV2010AccountIncomingPhoneNumberCapabilities Indicate if a phone can receive calls or messages
+// ApiV2010AccountIncomingPhoneNumberCapabilities The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
 type ApiV2010AccountIncomingPhoneNumberCapabilities struct {
 	Mms   bool `json:"mms,omitempty"`
 	Sms   bool `json:"sms,omitempty"`

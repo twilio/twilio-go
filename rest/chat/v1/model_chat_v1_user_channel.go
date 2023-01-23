@@ -16,19 +16,19 @@ package openapi
 
 // ChatV1UserChannel struct for ChatV1UserChannel
 type ChatV1UserChannel struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the User Channel resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Service that the resource is associated with
+	// The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the Channel the resource belongs to
+	// The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource belongs to.
 	ChannelSid *string `json:"channel_sid,omitempty"`
-	// The SID of the User as a Member in the Channel
+	// The SID of a [Member](https://www.twilio.com/docs/api/chat/rest/members) that represents the User on the Channel.
 	MemberSid *string `json:"member_sid,omitempty"`
 	Status    *string `json:"status,omitempty"`
-	// The index of the last Message in the Channel the Member has read
+	// The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) in the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) that the Member has read.
 	LastConsumedMessageIndex *int `json:"last_consumed_message_index,omitempty"`
-	// The number of unread Messages in the Channel for the User
+	// The number of unread Messages in the Channel for the User. Note that retrieving messages on a client endpoint does not mean that messages are consumed or read. See [Consumption Horizon feature](/docs/api/chat/guides/consumption-horizon) to learn how to mark messages as consumed.
 	UnreadMessagesCount *int `json:"unread_messages_count,omitempty"`
-	// Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
+	// The absolute URLs of the [Members](https://www.twilio.com/docs/chat/api/members), [Messages](https://www.twilio.com/docs/chat/api/messages) , [Invites](https://www.twilio.com/docs/chat/api/invites) and, if it exists, the last [Message](https://www.twilio.com/docs/chat/api/messages) for the Channel.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }

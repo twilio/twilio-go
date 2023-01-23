@@ -46,7 +46,6 @@ func (params *CreateFieldValueParams) SetSynonymOf(SynonymOf string) *CreateFiel
 	return params
 }
 
-//
 func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, params *CreateFieldValueParams) (*AutopilotV1FieldValue, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -80,7 +79,6 @@ func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, 
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -100,7 +98,6 @@ func (c *ApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, 
 	return nil
 }
 
-//
 func (c *ApiService) FetchFieldValue(AssistantSid string, FieldTypeSid string, Sid string) (*AutopilotV1FieldValue, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

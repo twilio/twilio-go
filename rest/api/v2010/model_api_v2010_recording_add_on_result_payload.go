@@ -16,26 +16,26 @@ package openapi
 
 // ApiV2010RecordingAddOnResultPayload struct for ApiV2010RecordingAddOnResultPayload
 type ApiV2010RecordingAddOnResultPayload struct {
-	// The unique string that identifies the resource
+	// The unique string that that we created to identify the Recording AddOnResult Payload resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the AddOnResult to which the payload belongs
+	// The SID of the AddOnResult to which the payload belongs.
 	AddOnResultSid *string `json:"add_on_result_sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The string that describes the payload
+	// The string provided by the vendor that describes the payload.
 	Label *string `json:"label,omitempty"`
-	// The SID of the Add-on to which the result belongs
+	// The SID of the Add-on to which the result belongs.
 	AddOnSid *string `json:"add_on_sid,omitempty"`
-	// The SID of the Add-on configuration
+	// The SID of the Add-on configuration.
 	AddOnConfigurationSid *string `json:"add_on_configuration_sid,omitempty"`
-	// The MIME type of the payload
+	// The MIME type of the payload.
 	ContentType *string `json:"content_type,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was created
+	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was last updated
+	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The SID of the recording to which the AddOnResult resource that contains the payload belongs
+	// The SID of the recording to which the AddOnResult resource that contains the payload belongs.
 	ReferenceSid *string `json:"reference_sid,omitempty"`
-	// A list of related resources identified by their relative URIs
+	// A list of related resources identified by their relative URIs.
 	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
 }

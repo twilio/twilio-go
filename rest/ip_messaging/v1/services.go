@@ -34,7 +34,6 @@ func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateS
 	return params
 }
 
-//
 func (c *ApiService) CreateService(params *CreateServiceParams) (*IpMessagingV1Service, error) {
 	path := "/v1/Services"
 
@@ -60,7 +59,6 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*IpMessagingV1S
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -78,7 +76,6 @@ func (c *ApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchService(Sid string) (*IpMessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -566,7 +563,6 @@ func (params *UpdateServiceParams) SetLimitsUserChannels(LimitsUserChannels int)
 	return params
 }
 
-//
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*IpMessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

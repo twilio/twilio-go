@@ -20,19 +20,19 @@ import (
 
 // AutopilotV1Webhook struct for AutopilotV1Webhook
 type AutopilotV1Webhook struct {
-	// The absolute URL of the Webhook resource
+	// The absolute URL of the Webhook resource.
 	Url *string `json:"url,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Webhook resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The SID of the Assistant that is the parent of the resource
+	// The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
 	AssistantSid *string `json:"assistant_sid,omitempty"`
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Webhook resource.
 	Sid *string `json:"sid,omitempty"`
-	// An application-defined string that uniquely identifies the resource
+	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 	UniqueName *string `json:"unique_name,omitempty"`
 	// The list of space-separated events that this Webhook is subscribed to.
 	Events *string `json:"events,omitempty"`

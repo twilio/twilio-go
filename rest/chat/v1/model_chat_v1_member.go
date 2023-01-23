@@ -20,26 +20,26 @@ import (
 
 // ChatV1Member struct for ChatV1Member
 type ChatV1Member struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Member resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the Member resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique ID of the Channel for the member
+	// The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) for the member.
 	ChannelSid *string `json:"channel_sid,omitempty"`
-	// The SID of the Service that the resource is associated with
+	// The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The string that identifies the resource's User
+	// The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/api/chat/rest/users) within the [Service](https://www.twilio.com/docs/api/chat/rest/services). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info.
 	Identity *string `json:"identity,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The SID of the Role assigned to the member
+	// The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the member.
 	RoleSid *string `json:"role_sid,omitempty"`
-	// The index of the last Message that the Member has read within the Channel
+	// The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) in the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) that the Member has read.
 	LastConsumedMessageIndex *int `json:"last_consumed_message_index,omitempty"`
-	// The ISO 8601 based timestamp string that represents the date-time of the last Message read event for the Member within the Channel
+	// The ISO 8601 timestamp string that represents the date-time of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) read event for the Member within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
 	LastConsumptionTimestamp *time.Time `json:"last_consumption_timestamp,omitempty"`
-	// The absolute URL of the Member resource
+	// The absolute URL of the Member resource.
 	Url *string `json:"url,omitempty"`
 }

@@ -20,13 +20,13 @@ import (
 
 // OauthV1Token struct for OauthV1Token
 type OauthV1Token struct {
-	// Token which carries the necessary information to access a Twilio resource directly
+	// Token which carries the necessary information to access a Twilio resource directly.
 	AccessToken *string `json:"access_token,omitempty"`
-	// Token which carries the information necessary to get a new access token
+	// Token which carries the information necessary to get a new access token.
 	RefreshToken *string `json:"refresh_token,omitempty"`
 	IdToken      *string `json:"id_token,omitempty"`
-	// The RFC 2822 date and time in GMT when the refresh token expires
+	// The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	RefreshTokenExpiresAt *time.Time `json:"refresh_token_expires_at,omitempty"`
-	// The RFC 2822 date and time in GMT when the access token expires
+	// The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	AccessTokenExpiresAt *time.Time `json:"access_token_expires_at,omitempty"`
 }

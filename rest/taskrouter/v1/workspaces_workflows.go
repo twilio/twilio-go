@@ -58,7 +58,6 @@ func (params *CreateWorkflowParams) SetTaskReservationTimeout(TaskReservationTim
 	return params
 }
 
-//
 func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -97,7 +96,6 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -116,7 +114,6 @@ func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -328,7 +325,6 @@ func (params *UpdateWorkflowParams) SetReEvaluateTasks(ReEvaluateTasks string) *
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

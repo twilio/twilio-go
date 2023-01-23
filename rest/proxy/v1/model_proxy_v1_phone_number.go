@@ -20,27 +20,27 @@ import (
 
 // ProxyV1PhoneNumber struct for ProxyV1PhoneNumber
 type ProxyV1PhoneNumber struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the PhoneNumber resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PhoneNumber resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the PhoneNumber resource's parent Service resource
+	// The SID of the PhoneNumber resource's parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The phone number in E.164 format
+	// The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The ISO Country Code
+	// The ISO Country Code for the phone number.
 	IsoCountry   *string                                `json:"iso_country,omitempty"`
 	Capabilities *ProxyV1ServicePhoneNumberCapabilities `json:"capabilities,omitempty"`
-	// The absolute URL of the PhoneNumber resource
+	// The absolute URL of the PhoneNumber resource.
 	Url *string `json:"url,omitempty"`
-	// Reserve the phone number for manual assignment to participants only
+	// Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
 	IsReserved *bool `json:"is_reserved,omitempty"`
-	// The number of open session assigned to the number.
+	// The number of open session assigned to the number. See the [How many Phone Numbers do I need?](https://www.twilio.com/docs/proxy/phone-numbers-needed) guide for more information.
 	InUse *int `json:"in_use,omitempty"`
 }

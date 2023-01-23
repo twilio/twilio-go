@@ -24,15 +24,15 @@ type MessagingV1DomainCertV4 struct {
 	DomainSid *string `json:"domain_sid,omitempty"`
 	// Date that this Domain was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// Expiration date for your private certificate.
+	// Date that the private certificate associated with this domain expires. You will need to update the certificate before that date to ensure your shortened links will continue to work.
 	DateExpires *time.Time `json:"date_expires,omitempty"`
-	// Date this Domain SID was created.
+	// Date that this Domain was registered to the Twilio platform to create a new Domain object.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// Full url path for this domain.
 	DomainName *string `json:"domain_name,omitempty"`
 	// The unique string that we created to identify this Certificate resource.
 	CertificateSid *string `json:"certificate_sid,omitempty"`
 	Url            *string `json:"url,omitempty"`
-	// Certificate validation field
+	// Boolean value indicating whether certificate has been validated
 	Validated *bool `json:"validated,omitempty"`
 }

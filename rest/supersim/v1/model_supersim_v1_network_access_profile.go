@@ -20,17 +20,17 @@ import (
 
 // SupersimV1NetworkAccessProfile struct for SupersimV1NetworkAccessProfile
 type SupersimV1NetworkAccessProfile struct {
-	// The unique string that identifies the resource
+	// The unique string that identifies the Network Access Profile resource.
 	Sid *string `json:"sid,omitempty"`
-	// An application-defined string that uniquely identifies the resource
+	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// The SID of the Account that the Network Access Profile belongs to
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Network Access Profile belongs to.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the resource
+	// The absolute URL of the Network Access Profile resource.
 	Url   *string                 `json:"url,omitempty"`
 	Links *map[string]interface{} `json:"links,omitempty"`
 }

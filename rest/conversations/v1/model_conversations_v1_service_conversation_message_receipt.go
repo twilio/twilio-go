@@ -20,27 +20,27 @@ import (
 
 // ConversationsV1ServiceConversationMessageReceipt struct for ConversationsV1ServiceConversationMessageReceipt
 type ConversationsV1ServiceConversationMessageReceipt struct {
-	// The unique ID of the Account responsible for this participant.
+	// The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this participant.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Conversation Service that the resource is associated with.
+	// The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
-	// The unique ID of the Conversation for this message.
+	// The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
 	ConversationSid *string `json:"conversation_sid,omitempty"`
-	// The SID of the message the delivery receipt belongs to
+	// The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to
 	MessageSid *string `json:"message_sid,omitempty"`
 	// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
-	// A messaging channel-specific identifier for the message delivered to participant
+	// A messaging channel-specific identifier for the message delivered to participant e.g. `SMxx` for SMS, `WAxx` for Whatsapp etc.
 	ChannelMessageSid *string `json:"channel_message_sid,omitempty"`
 	// The unique ID of the participant the delivery receipt belongs to.
 	ParticipantSid *string `json:"participant_sid,omitempty"`
 	Status         *string `json:"status,omitempty"`
-	// The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
+	// The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status,
 	ErrorCode *int `json:"error_code,omitempty"`
 	// The date that this resource was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this resource was last updated.
+	// The date that this resource was last updated. `null` if the delivery receipt has not been updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// An absolute URL for this delivery receipt.
+	// An absolute API resource URL for this delivery receipt.
 	Url *string `json:"url,omitempty"`
 }

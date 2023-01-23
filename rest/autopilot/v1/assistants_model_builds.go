@@ -40,7 +40,6 @@ func (params *CreateModelBuildParams) SetUniqueName(UniqueName string) *CreateMo
 	return params
 }
 
-//
 func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBuildParams) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -70,7 +69,6 @@ func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBu
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteModelBuild(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -89,7 +87,6 @@ func (c *ApiService) DeleteModelBuild(AssistantSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchModelBuild(AssistantSid string, Sid string) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -262,7 +259,6 @@ func (params *UpdateModelBuildParams) SetUniqueName(UniqueName string) *UpdateMo
 	return params
 }
 
-//
 func (c *ApiService) UpdateModelBuild(AssistantSid string, Sid string, params *UpdateModelBuildParams) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

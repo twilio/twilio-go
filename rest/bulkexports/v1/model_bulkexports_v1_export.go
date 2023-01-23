@@ -20,6 +20,6 @@ type BulkexportsV1Export struct {
 	ResourceType *string `json:"resource_type,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
-	// Nested resource URLs.
+	// Contains a dictionary of URL links to nested resources of this Export.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }

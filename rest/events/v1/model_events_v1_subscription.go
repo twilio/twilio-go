@@ -20,20 +20,20 @@ import (
 
 // EventsV1Subscription struct for EventsV1Subscription
 type EventsV1Subscription struct {
-	// Account SID.
+	// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A string that uniquely identifies this Subscription.
+	// A 34 character string that uniquely identifies this Subscription.
 	Sid *string `json:"sid,omitempty"`
-	// The date this Subscription was created
+	// The date that this Subscription was created, given in ISO 8601 format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date this Subscription was updated
+	// The date that this Subscription was updated, given in ISO 8601 format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// Subscription description
+	// A human readable description for the Subscription
 	Description *string `json:"description,omitempty"`
-	// Sink SID.
+	// The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 	SinkSid *string `json:"sink_sid,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
-	// Nested resource URLs.
+	// Contains a dictionary of URL links to nested resources of this Subscription.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }

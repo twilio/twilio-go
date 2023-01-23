@@ -20,23 +20,23 @@ import (
 
 // VerifyV2AccessToken struct for VerifyV2AccessToken
 type VerifyV2AccessToken struct {
-	// A string that uniquely identifies this Access Token.
+	// A 34 character string that uniquely identifies this Access Token.
 	Sid *string `json:"sid,omitempty"`
-	// Account Sid.
+	// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Verify Service Sid.
+	// The unique SID identifier of the Verify Service.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// Unique external identifier of the Entity
+	// The unique external identifier for the Entity of the Service.
 	EntityIdentity *string `json:"entity_identity,omitempty"`
 	FactorType     *string `json:"factor_type,omitempty"`
-	// A human readable description of this factor.
+	// A human readable description of this factor, up to 64 characters. For a push factor, this can be the device's name.
 	FactorFriendlyName *string `json:"factor_friendly_name,omitempty"`
-	// Generated access token.
+	// The access token generated for enrollment, this is an encrypted json web token.
 	Token *string `json:"token,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
-	// How long, in seconds, the access token is valid.
+	// How long, in seconds, the access token is valid. Max: 5 minutes
 	Ttl *int `json:"ttl,omitempty"`
-	// The date this access token was created
+	// The date that this access token was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 }

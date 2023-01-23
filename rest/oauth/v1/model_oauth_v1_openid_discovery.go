@@ -16,29 +16,29 @@ package openapi
 
 // OauthV1OpenidDiscovery struct for OauthV1OpenidDiscovery
 type OauthV1OpenidDiscovery struct {
-	// The issuer URL
+	// The URL of the party that will create the token and sign it with its private key.
 	Issuer *string `json:"issuer,omitempty"`
-	// The URL of authorization endpoint
+	// The endpoint that validates all authorization requests.
 	AuthorizationEndpoint *string `json:"authorization_endpoint,omitempty"`
-	// The URL of device code authorization endpoint
+	// The endpoint that validates all device code related authorization requests.
 	DeviceAuthorizationEndpoint *string `json:"device_authorization_endpoint,omitempty"`
-	// The URL of token endpoint
+	// The URL of the token endpoint. After a client has received an authorization code, that code is presented to the token endpoint and exchanged for an identity token, an access token, and a refresh token.
 	TokenEndpoint *string `json:"token_endpoint,omitempty"`
-	// The URL of user info endpoint
+	// The URL of the user info endpoint, which returns user profile information to a client. Keep in mind that the user info endpoint returns only the information that has been requested.
 	UserinfoEndpoint *string `json:"userinfo_endpoint,omitempty"`
-	// The URL of revocation endpoint
+	// The endpoint used to revoke access or refresh tokens issued by the authorization server.
 	RevocationEndpoint *string `json:"revocation_endpoint,omitempty"`
-	// The URL of public JWK endpoint
+	// The URL of your JSON Web Key Set. This set is a collection of JSON Web Keys, a standard method for representing cryptographic keys in a JSON structure.
 	JwkUri *string `json:"jwk_uri,omitempty"`
-	// List of response type supported for identity token
+	// A collection of response type supported by authorization server.
 	ResponseTypeSupported *[]string `json:"response_type_supported,omitempty"`
-	// List of subject supported for identity token
+	// A collection of subject by authorization server.
 	SubjectTypeSupported *[]string `json:"subject_type_supported,omitempty"`
-	// List of JWS signing algorithms supported for identity token
+	// A collection of JWS signing algorithms supported by authorization server to sign identity token.
 	IdTokenSigningAlgValuesSupported *[]string `json:"id_token_signing_alg_values_supported,omitempty"`
-	// List of scopes supported identity token
+	// A collection of scopes supported by authorization server for identity token
 	ScopesSupported *[]string `json:"scopes_supported,omitempty"`
-	// List of claims supported for identity token
+	// A collection of claims supported by authorization server for identity token
 	ClaimsSupported *[]string `json:"claims_supported,omitempty"`
 	Url             *string   `json:"url,omitempty"`
 }

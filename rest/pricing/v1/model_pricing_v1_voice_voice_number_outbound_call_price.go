@@ -20,7 +20,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// PricingV1VoiceVoiceNumberOutboundCallPrice The OutboundCallPrice record
+// PricingV1VoiceVoiceNumberOutboundCallPrice The OutboundCallPrice record, which includes a list of `origination_prefixes` and the `base_price` and `current_price` for those prefixes.
 type PricingV1VoiceVoiceNumberOutboundCallPrice struct {
 	BasePrice    float32 `json:"base_price,omitempty"`
 	CurrentPrice float32 `json:"current_price,omitempty"`

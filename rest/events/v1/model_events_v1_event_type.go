@@ -20,15 +20,15 @@ import (
 
 // EventsV1EventType struct for EventsV1EventType
 type EventsV1EventType struct {
-	// The Event Type identifier.
+	// A string that uniquely identifies this Event Type.
 	Type *string `json:"type,omitempty"`
-	// The Schema identifier for this Event Type.
+	// A string that uniquely identifies the Schema this Event Type adheres to.
 	SchemaId *string `json:"schema_id,omitempty"`
-	// The date this Event Type was created.
+	// The date that this Event Type was created, given in ISO 8601 format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date this Event Type was updated.
+	// The date that this Event Type was updated, given in ISO 8601 format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// Event Type description.
+	// A human readable description for this Event Type.
 	Description *string `json:"description,omitempty"`
 	// The URL of this resource.
 	Url   *string                 `json:"url,omitempty"`

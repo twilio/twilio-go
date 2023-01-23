@@ -16,8 +16,8 @@ package openapi
 
 // FlexV2WebChannel struct for FlexV2WebChannel
 type FlexV2WebChannel struct {
-	// The unique string representing the Conversation resource created
+	// The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created.
 	ConversationSid *string `json:"conversation_sid,omitempty"`
-	// The unique string representing the User created
+	// The unique string representing the User created and should be authorized to participate in the Conversation. For more details, see [User Identity & Access Tokens](https://www.twilio.com/docs/conversations/identity).
 	Identity *string `json:"identity,omitempty"`
 }

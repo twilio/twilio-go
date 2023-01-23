@@ -20,22 +20,22 @@ import (
 
 // MessagingV1PhoneNumber struct for MessagingV1PhoneNumber
 type MessagingV1PhoneNumber struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the PhoneNumber resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PhoneNumber resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Service that the resource is associated with
+	// The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The phone number in E.164 format
+	// The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// The 2-character ISO Country Code of the number
+	// The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
 	CountryCode *string `json:"country_code,omitempty"`
-	// An array of values that describe whether the number can receive calls or messages
+	// An array of values that describe whether the number can receive calls or messages. Can be: `Voice`, `SMS`, and `MMS`.
 	Capabilities *[]string `json:"capabilities,omitempty"`
-	// The absolute URL of the PhoneNumber resource
+	// The absolute URL of the PhoneNumber resource.
 	Url *string `json:"url,omitempty"`
 }

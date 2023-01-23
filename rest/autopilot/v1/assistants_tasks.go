@@ -52,7 +52,6 @@ func (params *CreateTaskParams) SetActionsUrl(ActionsUrl string) *CreateTaskPara
 	return params
 }
 
-//
 func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -94,7 +93,6 @@ func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTask(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -113,7 +111,6 @@ func (c *ApiService) DeleteTask(AssistantSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTask(AssistantSid string, Sid string) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -304,7 +301,6 @@ func (params *UpdateTaskParams) SetActionsUrl(ActionsUrl string) *UpdateTaskPara
 	return params
 }
 
-//
 func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateTaskParams) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

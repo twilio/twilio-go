@@ -16,12 +16,12 @@ package openapi
 
 // ApiV2010UserDefinedMessage struct for ApiV2010UserDefinedMessage
 type ApiV2010UserDefinedMessage struct {
-	// Account SID.
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Call SID.
+	// The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
 	CallSid *string `json:"call_sid,omitempty"`
-	// User Defined Message SID.
+	// The SID that uniquely identifies this User Defined Message.
 	Sid *string `json:"sid,omitempty"`
-	// The date this User Defined Message was created.
+	// The date that this User Defined Message was created, given in RFC 2822 format.
 	DateCreated *string `json:"date_created,omitempty"`
 }

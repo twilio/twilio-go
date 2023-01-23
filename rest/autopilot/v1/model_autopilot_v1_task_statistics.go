@@ -16,16 +16,16 @@ package openapi
 
 // AutopilotV1TaskStatistics struct for AutopilotV1TaskStatistics
 type AutopilotV1TaskStatistics struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskStatistics resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Assistant that is the parent of the Task associated with the resource
+	// The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
 	AssistantSid *string `json:"assistant_sid,omitempty"`
-	// The SID of the Task for which the statistics were collected
+	// The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) for which the statistics were collected.
 	TaskSid *string `json:"task_sid,omitempty"`
-	// The total number of Samples associated with the Task
+	// The total number of [Samples](https://www.twilio.com/docs/autopilot/api/task-sample) associated with the Task.
 	SamplesCount *int `json:"samples_count,omitempty"`
-	// The total number of Fields associated with the Task
+	// The total number of [Fields](https://www.twilio.com/docs/autopilot/api/task-field) associated with the Task.
 	FieldsCount *int `json:"fields_count,omitempty"`
-	// The absolute URL of the TaskStatistics resource
+	// The absolute URL of the TaskStatistics resource.
 	Url *string `json:"url,omitempty"`
 }

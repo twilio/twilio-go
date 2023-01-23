@@ -16,14 +16,14 @@ package openapi
 
 // AutopilotV1Dialogue struct for AutopilotV1Dialogue
 type AutopilotV1Dialogue struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Dialogue resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Assistant that is the parent of the resource
+	// The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
 	AssistantSid *string `json:"assistant_sid,omitempty"`
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Dialogue resource.
 	Sid *string `json:"sid,omitempty"`
-	// The JSON string that describes the dialogue session object
+	// The JSON string that describes the dialogue session object.
 	Data *interface{} `json:"data,omitempty"`
-	// The absolute URL of the Dialogue resource
+	// The absolute URL of the Dialogue resource.
 	Url *string `json:"url,omitempty"`
 }

@@ -16,18 +16,18 @@ package openapi
 
 // ApiV2010Media struct for ApiV2010Media
 type ApiV2010Media struct {
-	// The SID of the Account that created this resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Media resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The default mime-type of the media
+	// The default [mime-type](https://en.wikipedia.org/wiki/Internet_media_type) of the media, for example `image/jpeg`, `image/png`, or `image/gif`
 	ContentType *string `json:"content_type,omitempty"`
-	// The RFC 2822 date and time in GMT that this resource was created
+	// The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT that this resource was last updated
+	// The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The SID of the resource that created the media
+	// The SID of the resource that created the media.
 	ParentSid *string `json:"parent_sid,omitempty"`
-	// The unique string that identifies this resource
+	// The unique string that that we created to identify this Media resource.
 	Sid *string `json:"sid,omitempty"`
-	// The URI of this resource, relative to `https://api.twilio.com`
+	// The URI of this resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 }

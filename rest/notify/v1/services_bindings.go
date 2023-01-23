@@ -70,7 +70,6 @@ func (params *CreateBindingParams) SetEndpoint(Endpoint string) *CreateBindingPa
 	return params
 }
 
-//
 func (c *ApiService) CreateBinding(ServiceSid string, params *CreateBindingParams) (*NotifyV1Binding, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -117,7 +116,6 @@ func (c *ApiService) CreateBinding(ServiceSid string, params *CreateBindingParam
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -136,7 +134,6 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*NotifyV1Binding, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

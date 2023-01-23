@@ -20,18 +20,18 @@ import (
 
 // TrusthubV1CustomerProfileChannelEndpointAssignment struct for TrusthubV1CustomerProfileChannelEndpointAssignment
 type TrusthubV1CustomerProfileChannelEndpointAssignment struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Item Assignment resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique string that identifies the CustomerProfile resource.
+	// The unique string that we created to identify the CustomerProfile resource.
 	CustomerProfileSid *string `json:"customer_profile_sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The type of channel endpoint
+	// The type of channel endpoint. eg: phone-number
 	ChannelEndpointType *string `json:"channel_endpoint_type,omitempty"`
-	// The sid of an channel endpoint
+	// The SID of an channel endpoint
 	ChannelEndpointSid *string `json:"channel_endpoint_sid,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The absolute URL of the Identity resource
+	// The absolute URL of the Identity resource.
 	Url *string `json:"url,omitempty"`
 }

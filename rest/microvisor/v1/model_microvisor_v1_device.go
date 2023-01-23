@@ -20,22 +20,22 @@ import (
 
 // MicrovisorV1Device struct for MicrovisorV1Device
 type MicrovisorV1Device struct {
-	// A string that uniquely identifies this Device.
+	// A 34-character string that uniquely identifies this Device.
 	Sid *string `json:"sid,omitempty"`
-	// A developer-defined string that uniquely identifies the Device.
+	// A developer-defined string that uniquely identifies the Device. This value must be unique for all Devices on this Account. The `unique_name` value may be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// Account SID.
+	// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Information about the target App and the App reported by this Device.
+	// Information about the target App and the App reported by this Device. Contains the properties `target_sid`, `date_targeted`, `update_status` (one of `up-to-date`, `pending` and `error`), `update_error_code`, `reported_sid` and `date_reported`.
 	App *interface{} `json:"app,omitempty"`
-	// Object specifying whether application logging is enabled for this Device.
+	// Object specifying whether application logging is enabled for this Device. Contains the properties `enabled` and `date_expires`.
 	Logging *interface{} `json:"logging,omitempty"`
-	// The date that this Device was created.
+	// The date that this Device was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this Device was last updated.
+	// The date that this Device was last updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
-	// The absolute URLs of related resources
+	// The absolute URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }

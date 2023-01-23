@@ -16,16 +16,16 @@ package openapi
 
 // PricingV2VoiceCountryInstance struct for PricingV2VoiceCountryInstance
 type PricingV2VoiceCountryInstance struct {
-	// The name of the country
+	// The name of the country.
 	Country *string `json:"country,omitempty"`
-	// The ISO country code
+	// The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 	IsoCountry *string `json:"iso_country,omitempty"`
-	// The list of OutboundPrefixPriceWithOrigin records
+	// The list of [OutboundPrefixPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-prefix-price-with-origin) records.
 	OutboundPrefixPrices *[]PricingV2TrunkingCountryInstanceTerminatingPrefixPrices `json:"outbound_prefix_prices,omitempty"`
-	// The list of InboundCallPrice records
+	// The list of [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) records.
 	InboundCallPrices *[]PricingV2TrunkingCountryInstanceOriginatingCallPrices `json:"inbound_call_prices,omitempty"`
-	// The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
+	// The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
 	PriceUnit *string `json:"price_unit,omitempty"`
-	// The absolute URL of the resource
+	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }

@@ -20,27 +20,27 @@ import (
 
 // NumbersV2Bundle struct for NumbersV2Bundle
 type NumbersV2Bundle struct {
-	// The unique string that identifies the resource.
+	// The unique string that we created to identify the Bundle resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique string of a regulation.
+	// The unique string of a regulation that is associated to the Bundle resource.
 	RegulationSid *string `json:"regulation_sid,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	Status       *string `json:"status,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource will be valid until.
+	// The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
 	ValidUntil *time.Time `json:"valid_until,omitempty"`
-	// The email address
+	// The email address that will receive updates when the Bundle resource changes status.
 	Email *string `json:"email,omitempty"`
 	// The URL we call to inform your application of status changes.
 	StatusCallback *string `json:"status_callback,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the Bundle resource
+	// The absolute URL of the Bundle resource.
 	Url *string `json:"url,omitempty"`
-	// The URLs of the Assigned Items of the Bundle resource
+	// The URLs of the Assigned Items of the Bundle resource.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }

@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | Pointer to **int** | The automatically generated index of the List Item |
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**ServiceSid** | Pointer to **string** | The SID of the Sync Service that the resource is associated with |
-**ListSid** | Pointer to **string** | The SID of the Sync List that contains the List Item |
-**Url** | Pointer to **string** | The absolute URL of the List Item resource |
-**Revision** | Pointer to **string** | The current revision of the item, represented as a string |
-**Data** | Pointer to **interface{}** | An arbitrary, schema-less object that the List Item stores |
-**DateExpires** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the List Item expires |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
-**CreatedBy** | Pointer to **string** | The identity of the List Item's creator |
+**Index** | Pointer to **int** | The automatically generated index of the List Item. The `index` values of the List Items in a Sync List can have gaps in their sequence. |
+**AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the List Item resource. |
+**ServiceSid** | Pointer to **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with. |
+**ListSid** | Pointer to **string** | The SID of the Sync List that contains the List Item. |
+**Url** | Pointer to **string** | The absolute URL of the List Item resource. |
+**Revision** | Pointer to **string** | The current revision of the item, represented as a string. |
+**Data** | Pointer to **interface{}** | An arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. |
+**DateExpires** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the List Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the List Item does not expire, this value is `null`. The List Item resource might not be deleted immediately after it expires. |
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
+**CreatedBy** | Pointer to **string** | The identity of the List Item's creator. If the item is created from the client SDK, the value matches the Access Token's `identity` field. If the item was created from the REST API, the value is `system`. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

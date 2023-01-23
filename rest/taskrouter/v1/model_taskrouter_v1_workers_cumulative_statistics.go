@@ -20,28 +20,28 @@ import (
 
 // TaskrouterV1WorkersCumulativeStatistics struct for TaskrouterV1WorkersCumulativeStatistics
 type TaskrouterV1WorkersCumulativeStatistics struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The beginning of the interval during which these statistics were calculated
+	// The beginning of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	StartTime *time.Time `json:"start_time,omitempty"`
-	// The end of the interval during which these statistics were calculated
+	// The end of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	EndTime *time.Time `json:"end_time,omitempty"`
-	// The minimum, average, maximum, and total time that Workers spent in each Activity
+	// The minimum, average, maximum, and total time (in seconds) that Workers spent in each Activity.
 	ActivityDurations *[]interface{} `json:"activity_durations,omitempty"`
-	// The total number of Reservations that were created
+	// The total number of Reservations that were created.
 	ReservationsCreated *int `json:"reservations_created,omitempty"`
-	// The total number of Reservations that were accepted
+	// The total number of Reservations that were accepted.
 	ReservationsAccepted *int `json:"reservations_accepted,omitempty"`
-	// The total number of Reservations that were rejected
+	// The total number of Reservations that were rejected.
 	ReservationsRejected *int `json:"reservations_rejected,omitempty"`
-	// The total number of Reservations that were timed out
+	// The total number of Reservations that were timed out.
 	ReservationsTimedOut *int `json:"reservations_timed_out,omitempty"`
-	// The total number of Reservations that were canceled
+	// The total number of Reservations that were canceled.
 	ReservationsCanceled *int `json:"reservations_canceled,omitempty"`
-	// The total number of Reservations that were rescinded
+	// The total number of Reservations that were rescinded.
 	ReservationsRescinded *int `json:"reservations_rescinded,omitempty"`
-	// The SID of the Workspace that contains the Workers
+	// The SID of the Workspace that contains the Workers.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
-	// The absolute URL of the Workers statistics resource
+	// The absolute URL of the Workers statistics resource.
 	Url *string `json:"url,omitempty"`
 }

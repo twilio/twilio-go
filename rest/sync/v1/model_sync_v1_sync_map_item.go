@@ -20,26 +20,26 @@ import (
 
 // SyncV1SyncMapItem struct for SyncV1SyncMapItem
 type SyncV1SyncMapItem struct {
-	// The unique, user-defined key for the Map Item
+	// The unique, user-defined key for the Map Item.
 	Key *string `json:"key,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Map Item resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Sync Service that the resource is associated with
+	// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the Sync Map that contains the Map Item
+	// The SID of the Sync Map that contains the Map Item.
 	MapSid *string `json:"map_sid,omitempty"`
-	// The absolute URL of the Map Item resource
+	// The absolute URL of the Map Item resource.
 	Url *string `json:"url,omitempty"`
-	// The current revision of the Map Item, represented as a string
+	// The current revision of the Map Item, represented as a string.
 	Revision *string `json:"revision,omitempty"`
-	// An arbitrary, schema-less object that the Map Item stores
+	// An arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
 	Data *interface{} `json:"data,omitempty"`
-	// The ISO 8601 date and time in GMT when the Map Item expires
+	// The date and time in GMT when the Map Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Map Item does not expire, this value is `null`.  The Map Item might not be deleted immediately after it expires.
 	DateExpires *time.Time `json:"date_expires,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The identity of the Map Item's creator
+	// The identity of the Map Item's creator. If the Map Item is created from the client SDK, the value matches the Access Token's `identity` field. If the Map Item was created from the REST API, the value is `system`.
 	CreatedBy *string `json:"created_by,omitempty"`
 }

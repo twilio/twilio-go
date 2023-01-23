@@ -24,7 +24,7 @@ type InsightsV1VideoRoomSummary struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// Unique identifier for the room.
 	RoomSid *string `json:"room_sid,omitempty"`
-	// room friendly name.
+	// Room friendly name.
 	RoomName *string `json:"room_name,omitempty"`
 	// Creation time of the room.
 	CreateTime *time.Time `json:"create_time,omitempty"`
@@ -48,7 +48,7 @@ type InsightsV1VideoRoomSummary struct {
 	ConcurrentParticipants *int `json:"concurrent_participants,omitempty"`
 	// Maximum number of participants allowed in the room at the same time allowed by the application settings.
 	MaxConcurrentParticipants *int `json:"max_concurrent_participants,omitempty"`
-	// Codecs used by participants in the room.
+	// Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
 	Codecs      *[]string `json:"codecs,omitempty"`
 	MediaRegion *string   `json:"media_region,omitempty"`
 	// Total room duration from create time to end time.

@@ -16,14 +16,14 @@ package openapi
 
 // TaskrouterV1WorkerInstanceStatistics struct for TaskrouterV1WorkerInstanceStatistics
 type TaskrouterV1WorkerInstanceStatistics struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// An object that contains the cumulative statistics for the Worker
+	// An object that contains the cumulative statistics for the Worker.
 	Cumulative *interface{} `json:"cumulative,omitempty"`
-	// The SID of the Worker that contains the WorkerChannel
+	// The SID of the Worker that contains the WorkerChannel.
 	WorkerSid *string `json:"worker_sid,omitempty"`
-	// The SID of the Workspace that contains the WorkerChannel
+	// The SID of the Workspace that contains the WorkerChannel.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
-	// The absolute URL of the WorkerChannel statistics resource
+	// The absolute URL of the WorkerChannel statistics resource.
 	Url *string `json:"url,omitempty"`
 }

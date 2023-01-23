@@ -18,15 +18,15 @@ package openapi
 type ApiV2010Siprec struct {
 	// The SID of the Siprec resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created this resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Call the resource is associated with
+	// The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
 	CallSid *string `json:"call_sid,omitempty"`
-	// The name of this resource
+	// The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
 	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`
-	// The RFC 2822 date and time in GMT that this resource was last updated
+	// The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The URI of the resource, relative to `https://api.twilio.com`
+	// The URI of the resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 }

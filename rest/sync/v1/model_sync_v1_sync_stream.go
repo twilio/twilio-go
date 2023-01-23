@@ -20,24 +20,24 @@ import (
 
 // SyncV1SyncStream struct for SyncV1SyncStream
 type SyncV1SyncStream struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Sync Stream resource.
 	Sid *string `json:"sid,omitempty"`
-	// An application-defined string that uniquely identifies the resource
+	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sync Stream resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Sync Service that the resource is associated with
+	// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The absolute URL of the Message Stream resource
+	// The absolute URL of the Message Stream resource.
 	Url *string `json:"url,omitempty"`
-	// The URLs of the Stream's nested resources
+	// The URLs of the Stream's nested resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
-	// The ISO 8601 date and time in GMT when the Message Stream expires
+	// The date and time in GMT when the Message Stream expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Message Stream does not expire, this value is `null`. The Stream might not be deleted immediately after it expires.
 	DateExpires *time.Time `json:"date_expires,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The Identity of the Stream's creator
+	// The identity of the Stream's creator. If the Stream is created from the client SDK, the value matches the Access Token's `identity` field. If the Stream was created from the REST API, the value is 'system'.
 	CreatedBy *string `json:"created_by,omitempty"`
 }

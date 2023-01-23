@@ -20,44 +20,44 @@ import (
 
 // NotifyV1Service struct for NotifyV1Service
 type NotifyV1Service struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Service resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The SID of the Credential to use for APN Bindings
+	// The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
 	ApnCredentialSid *string `json:"apn_credential_sid,omitempty"`
-	// The SID of the Credential to use for GCM Bindings
+	// The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
 	GcmCredentialSid *string `json:"gcm_credential_sid,omitempty"`
-	// The SID of the Credential to use for FCM Bindings
+	// The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
 	FcmCredentialSid *string `json:"fcm_credential_sid,omitempty"`
-	// The SID of the Messaging Service to use for SMS Bindings
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. In order to send SMS notifications this parameter has to be set.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
-	// Deprecated
+	// Deprecated.
 	FacebookMessengerPageId *string `json:"facebook_messenger_page_id,omitempty"`
-	// The protocol version to use for sending APNS notifications
+	// The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
 	DefaultApnNotificationProtocolVersion *string `json:"default_apn_notification_protocol_version,omitempty"`
-	// The protocol version to use for sending GCM notifications
+	// The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
 	DefaultGcmNotificationProtocolVersion *string `json:"default_gcm_notification_protocol_version,omitempty"`
-	// The protocol version to use for sending FCM notifications
+	// The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
 	DefaultFcmNotificationProtocolVersion *string `json:"default_fcm_notification_protocol_version,omitempty"`
-	// Whether to log notifications
+	// Whether to log notifications. Can be: `true` or `false` and the default is `true`.
 	LogEnabled *bool `json:"log_enabled,omitempty"`
-	// The absolute URL of the Service resource
+	// The absolute URL of the Service resource.
 	Url *string `json:"url,omitempty"`
-	// The URLs of the resources related to the service
+	// The URLs of the Binding, Notification, Segment, and User resources related to the service.
 	Links *map[string]interface{} `json:"links,omitempty"`
-	// Deprecated
+	// Deprecated.
 	AlexaSkillId *string `json:"alexa_skill_id,omitempty"`
-	// Deprecated
+	// Deprecated.
 	DefaultAlexaNotificationProtocolVersion *string `json:"default_alexa_notification_protocol_version,omitempty"`
-	// Webhook URL
+	// URL to send delivery status callback.
 	DeliveryCallbackUrl *string `json:"delivery_callback_url,omitempty"`
-	// Enable delivery callbacks
+	// Callback configuration that enables delivery callbacks, default false
 	DeliveryCallbackEnabled *bool `json:"delivery_callback_enabled,omitempty"`
 }

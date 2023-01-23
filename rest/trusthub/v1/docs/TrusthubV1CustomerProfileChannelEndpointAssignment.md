@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
-**CustomerProfileSid** | Pointer to **string** | The unique string that identifies the CustomerProfile resource. |
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**ChannelEndpointType** | Pointer to **string** | The type of channel endpoint |
-**ChannelEndpointSid** | Pointer to **string** | The sid of an channel endpoint |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
-**Url** | Pointer to **string** | The absolute URL of the Identity resource |
+**Sid** | Pointer to **string** | The unique string that we created to identify the Item Assignment resource. |
+**CustomerProfileSid** | Pointer to **string** | The unique string that we created to identify the CustomerProfile resource. |
+**AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource. |
+**ChannelEndpointType** | Pointer to **string** | The type of channel endpoint. eg: phone-number |
+**ChannelEndpointSid** | Pointer to **string** | The SID of an channel endpoint |
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
+**Url** | Pointer to **string** | The absolute URL of the Identity resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
