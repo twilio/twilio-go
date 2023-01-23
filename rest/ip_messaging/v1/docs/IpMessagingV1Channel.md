@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** |  |
-**AccountSid** | Pointer to **string** |  |
-**ServiceSid** | Pointer to **string** |  |
-**FriendlyName** | Pointer to **string** |  |
-**UniqueName** | Pointer to **string** |  |
-**Attributes** | Pointer to **string** |  |
+**Sid** | **string** |  |[optional] 
+**AccountSid** | **string** |  |[optional] 
+**ServiceSid** | **string** |  |[optional] 
+**FriendlyName** | **string** |  |[optional] 
+**UniqueName** | **string** |  |[optional] 
+**Attributes** | **string** |  |[optional] 
 **Type** | Pointer to [**string**](ChannelEnumChannelType.md) |  |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
-**CreatedBy** | Pointer to **string** |  |
-**MembersCount** | Pointer to **int** |  |
-**MessagesCount** | Pointer to **int** |  |
-**Url** | Pointer to **string** |  |
-**Links** | Pointer to **map[string]interface{}** |  |
+**DateCreated** | [**time.Time**](time.Time.md) |  |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) |  |[optional] 
+**CreatedBy** | **string** |  |[optional] 
+**MembersCount** | **int** |  |[optional] 
+**MessagesCount** | **int** |  |[optional] 
+**Url** | **string** |  |[optional] 
+**Links** | **map[string]interface{}** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

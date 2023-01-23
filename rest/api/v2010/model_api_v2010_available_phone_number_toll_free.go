@@ -23,47 +23,47 @@ import (
 // ApiV2010AvailablePhoneNumberTollFree struct for ApiV2010AvailablePhoneNumberTollFree
 type ApiV2010AvailablePhoneNumberTollFree struct {
 	// A formatted version of the phone number
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// The phone number in E.164 format
-	PhoneNumber *string `json:"phone_number,omitempty"`
+	PhoneNumber string `json:"phone_number,omitempty"`
 	// The LATA of this phone number
-	Lata *string `json:"lata,omitempty"`
+	Lata string `json:"lata,omitempty"`
 	// The locality or city of this phone number's location
-	Locality *string `json:"locality,omitempty"`
+	Locality string `json:"locality,omitempty"`
 	// The rate center of this phone number
-	RateCenter *string `json:"rate_center,omitempty"`
+	RateCenter string `json:"rate_center,omitempty"`
 	// The latitude of this phone number's location
-	Latitude *float32 `json:"latitude,omitempty"`
+	Latitude float32 `json:"latitude,omitempty"`
 	// The longitude of this phone number's location
-	Longitude *float32 `json:"longitude,omitempty"`
+	Longitude float32 `json:"longitude,omitempty"`
 	// The two-letter state or province abbreviation of this phone number's location
-	Region *string `json:"region,omitempty"`
+	Region string `json:"region,omitempty"`
 	// The postal or ZIP code of this phone number's location
-	PostalCode *string `json:"postal_code,omitempty"`
+	PostalCode string `json:"postal_code,omitempty"`
 	// The ISO country code of this phone number
-	IsoCountry *string `json:"iso_country,omitempty"`
+	IsoCountry string `json:"iso_country,omitempty"`
 	// The type of Address resource the phone number requires
-	AddressRequirements *string `json:"address_requirements,omitempty"`
+	AddressRequirements string `json:"address_requirements,omitempty"`
 	// Whether the phone number is new to the Twilio platform
-	Beta         *bool                                                                            `json:"beta,omitempty"`
-	Capabilities *ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities `json:"capabilities,omitempty"`
+	Beta         bool                                                                            `json:"beta,omitempty"`
+	Capabilities ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities `json:"capabilities,omitempty"`
 }
 
 func (response *ApiV2010AvailablePhoneNumberTollFree) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		FriendlyName        *string                                                                          `json:"friendly_name"`
-		PhoneNumber         *string                                                                          `json:"phone_number"`
-		Lata                *string                                                                          `json:"lata"`
-		Locality            *string                                                                          `json:"locality"`
-		RateCenter          *string                                                                          `json:"rate_center"`
-		Latitude            *interface{}                                                                     `json:"latitude"`
-		Longitude           *interface{}                                                                     `json:"longitude"`
-		Region              *string                                                                          `json:"region"`
-		PostalCode          *string                                                                          `json:"postal_code"`
-		IsoCountry          *string                                                                          `json:"iso_country"`
-		AddressRequirements *string                                                                          `json:"address_requirements"`
-		Beta                *bool                                                                            `json:"beta"`
-		Capabilities        *ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities `json:"capabilities"`
+		FriendlyName        string                                                                          `json:"friendly_name"`
+		PhoneNumber         string                                                                          `json:"phone_number"`
+		Lata                string                                                                          `json:"lata"`
+		Locality            string                                                                          `json:"locality"`
+		RateCenter          string                                                                          `json:"rate_center"`
+		Latitude            interface{}                                                                     `json:"latitude"`
+		Longitude           interface{}                                                                     `json:"longitude"`
+		Region              string                                                                          `json:"region"`
+		PostalCode          string                                                                          `json:"postal_code"`
+		IsoCountry          string                                                                          `json:"iso_country"`
+		AddressRequirements string                                                                          `json:"address_requirements"`
+		Beta                bool                                                                            `json:"beta"`
+		Capabilities        ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities `json:"capabilities"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -84,17 +84,17 @@ func (response *ApiV2010AvailablePhoneNumberTollFree) UnmarshalJSON(bytes []byte
 		Capabilities:        raw.Capabilities,
 	}
 
-	responseLatitude, err := client.UnmarshalFloat32(raw.Latitude)
+	responseLatitude, err := client.UnmarshalFloat32(&raw.Latitude)
 	if err != nil {
 		return err
 	}
-	response.Latitude = responseLatitude
+	response.Latitude = *responseLatitude
 
-	responseLongitude, err := client.UnmarshalFloat32(raw.Longitude)
+	responseLongitude, err := client.UnmarshalFloat32(&raw.Longitude)
 	if err != nil {
 		return err
 	}
-	response.Longitude = responseLongitude
+	response.Longitude = *responseLongitude
 
 	return
 }

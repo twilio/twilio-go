@@ -17,9 +17,9 @@ package openapi
 // VoiceV1ArchivedCall struct for VoiceV1ArchivedCall
 type VoiceV1ArchivedCall struct {
 	// date
-	Date *string `json:"date,omitempty"`
+	Date string `json:"date,omitempty"`
 	// sid
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

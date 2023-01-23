@@ -17,25 +17,25 @@ package openapi
 // ApiV2010IncomingPhoneNumberAssignedAddOn struct for ApiV2010IncomingPhoneNumberAssignedAddOn
 type ApiV2010IncomingPhoneNumberAssignedAddOn struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Phone Number that installed this Add-on
-	ResourceSid *string `json:"resource_sid,omitempty"`
+	ResourceSid string `json:"resource_sid,omitempty"`
 	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// A short description of the Add-on functionality
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitempty"`
 	// A JSON string that represents the current configuration
 	Configuration *interface{} `json:"configuration,omitempty"`
 	// An application-defined string that uniquely identifies the resource
-	UniqueName *string `json:"unique_name,omitempty"`
+	UniqueName string `json:"unique_name,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
-	DateCreated *string `json:"date_created,omitempty"`
+	DateCreated string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated
-	DateUpdated *string `json:"date_updated,omitempty"`
+	DateUpdated string `json:"date_updated,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
-	Uri *string `json:"uri,omitempty"`
+	Uri string `json:"uri,omitempty"`
 	// A list of related resources identified by their relative URIs
-	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
+	SubresourceUris map[string]interface{} `json:"subresource_uris,omitempty"`
 }

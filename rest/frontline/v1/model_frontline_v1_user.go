@@ -17,16 +17,16 @@ package openapi
 // FrontlineV1User struct for FrontlineV1User
 type FrontlineV1User struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The string that identifies the resource's User
-	Identity *string `json:"identity,omitempty"`
+	Identity string `json:"identity,omitempty"`
 	// The string that you assigned to describe the User
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// The avatar URL which will be shown in Frontline application
-	Avatar *string `json:"avatar,omitempty"`
+	Avatar string  `json:"avatar,omitempty"`
 	State  *string `json:"state,omitempty"`
 	// Whether the User is available for new conversations
-	IsAvailable *bool `json:"is_available,omitempty"`
+	IsAvailable bool `json:"is_available,omitempty"`
 	// An absolute URL for this user.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

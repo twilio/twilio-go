@@ -17,11 +17,11 @@ package openapi
 // AutopilotV1Defaults struct for AutopilotV1Defaults
 type AutopilotV1Defaults struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Assistant that is the parent of the resource
-	AssistantSid *string `json:"assistant_sid,omitempty"`
+	AssistantSid string `json:"assistant_sid,omitempty"`
 	// The absolute URL of the Defaults resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// The JSON string that describes the default task links
 	Data *interface{} `json:"data,omitempty"`
 }

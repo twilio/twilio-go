@@ -21,23 +21,23 @@ import (
 // VerifyV2NewFactor struct for VerifyV2NewFactor
 type VerifyV2NewFactor struct {
 	// A string that uniquely identifies this Factor.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// Account Sid.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// Service Sid.
-	ServiceSid *string `json:"service_sid,omitempty"`
+	ServiceSid string `json:"service_sid,omitempty"`
 	// Entity Sid.
-	EntitySid *string `json:"entity_sid,omitempty"`
+	EntitySid string `json:"entity_sid,omitempty"`
 	// Unique external identifier of the Entity
-	Identity *string `json:"identity,omitempty"`
+	Identity string `json:"identity,omitempty"`
 	// Binding of the factor
 	Binding *interface{} `json:"binding,omitempty"`
 	// The date this Factor was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date this Factor was updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// A human readable description of this resource.
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string  `json:"friendly_name,omitempty"`
 	Status       *string `json:"status,omitempty"`
 	FactorType   *string `json:"factor_type,omitempty"`
 	// Configurations for a `factor_type`.
@@ -45,5 +45,5 @@ type VerifyV2NewFactor struct {
 	// Metadata of the factor.
 	Metadata *interface{} `json:"metadata,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

@@ -21,18 +21,18 @@ import (
 // MessagingV1DomainCertV4 struct for MessagingV1DomainCertV4
 type MessagingV1DomainCertV4 struct {
 	// The unique string that we created to identify the Domain resource.
-	DomainSid *string `json:"domain_sid,omitempty"`
+	DomainSid string `json:"domain_sid,omitempty"`
 	// Date that this Domain was last updated.
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// Expiration date for your private certificate.
-	DateExpires *time.Time `json:"date_expires,omitempty"`
+	DateExpires time.Time `json:"date_expires,omitempty"`
 	// Date this Domain SID was created.
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// Full url path for this domain.
-	DomainName *string `json:"domain_name,omitempty"`
+	DomainName string `json:"domain_name,omitempty"`
 	// The unique string that we created to identify this Certificate resource.
-	CertificateSid *string `json:"certificate_sid,omitempty"`
-	Url            *string `json:"url,omitempty"`
+	CertificateSid string `json:"certificate_sid,omitempty"`
+	Url            string `json:"url,omitempty"`
 	// Certificate validation field
-	Validated *bool `json:"validated,omitempty"`
+	Validated bool `json:"validated,omitempty"`
 }

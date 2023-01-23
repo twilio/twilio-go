@@ -21,17 +21,17 @@ import (
 // VerifyV2MessagingConfiguration struct for VerifyV2MessagingConfiguration
 type VerifyV2MessagingConfiguration struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Service that the resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
+	ServiceSid string `json:"service_sid,omitempty"`
 	// The ISO-3166-1 country code of the country or `all`.
-	Country *string `json:"country,omitempty"`
+	Country string `json:"country,omitempty"`
 	// The SID of the Messaging Service used for this configuration.
-	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
+	MessagingServiceSid string `json:"messaging_service_sid,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

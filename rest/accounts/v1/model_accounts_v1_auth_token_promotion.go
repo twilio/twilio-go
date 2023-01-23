@@ -21,13 +21,13 @@ import (
 // AccountsV1AuthTokenPromotion struct for AccountsV1AuthTokenPromotion
 type AccountsV1AuthTokenPromotion struct {
 	// The SID of the Account that the secondary Auth Token was created for
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The promoted Auth Token
-	AuthToken *string `json:"auth_token,omitempty"`
+	AuthToken string `json:"auth_token,omitempty"`
 	// The ISO 8601 formatted date and time in UTC when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 formatted date and time in UTC when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The URI for this resource, relative to `https://accounts.twilio.com`
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

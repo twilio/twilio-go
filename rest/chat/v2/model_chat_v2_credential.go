@@ -21,18 +21,18 @@ import (
 // ChatV2Credential struct for ChatV2Credential
 type ChatV2Credential struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string  `json:"friendly_name,omitempty"`
 	Type         *string `json:"type,omitempty"`
 	// [APN only] Whether to send the credential to sandbox APNs
-	Sandbox *string `json:"sandbox,omitempty"`
+	Sandbox string `json:"sandbox,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The absolute URL of the Credential resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

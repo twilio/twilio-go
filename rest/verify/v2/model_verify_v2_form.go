@@ -22,5 +22,5 @@ type VerifyV2Form struct {
 	// Additional information for the available forms for this type.
 	FormMeta *interface{} `json:"form_meta,omitempty"`
 	// The URL to access the forms for this type.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

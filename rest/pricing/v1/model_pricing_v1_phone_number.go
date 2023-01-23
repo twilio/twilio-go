@@ -16,7 +16,7 @@ package openapi
 
 // PricingV1PhoneNumber struct for PricingV1PhoneNumber
 type PricingV1PhoneNumber struct {
-	Name  *string                 `json:"name,omitempty"`
-	Url   *string                 `json:"url,omitempty"`
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Name  string                 `json:"name,omitempty"`
+	Url   string                 `json:"url,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

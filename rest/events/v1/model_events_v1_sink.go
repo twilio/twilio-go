@@ -21,19 +21,19 @@ import (
 // EventsV1Sink struct for EventsV1Sink
 type EventsV1Sink struct {
 	// The date this Sink was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date this Sink was updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// Sink Description
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitempty"`
 	// A string that uniquely identifies this Sink.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// JSON Sink configuration.
 	SinkConfiguration *interface{} `json:"sink_configuration,omitempty"`
 	SinkType          *string      `json:"sink_type,omitempty"`
 	Status            *string      `json:"status,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// Nested resource URLs.
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

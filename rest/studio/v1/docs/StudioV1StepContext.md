@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
+**AccountSid** | **string** | The SID of the Account that created the resource |[optional] 
 **Context** | Pointer to **interface{}** | The current state of the flow |
-**EngagementSid** | Pointer to **string** | The SID of the Engagement |
-**FlowSid** | Pointer to **string** | The SID of the Flow |
-**StepSid** | Pointer to **string** | Step SID |
-**Url** | Pointer to **string** | The absolute URL of the resource |
+**EngagementSid** | **string** | The SID of the Engagement |[optional] 
+**FlowSid** | **string** | The SID of the Flow |[optional] 
+**StepSid** | **string** | Step SID |[optional] 
+**Url** | **string** | The absolute URL of the resource |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

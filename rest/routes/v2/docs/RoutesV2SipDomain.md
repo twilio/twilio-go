@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SipDomain** | Pointer to **string** |  |
-**Url** | Pointer to **string** |  |
-**Sid** | Pointer to **string** |  |
-**AccountSid** | Pointer to **string** |  |
-**FriendlyName** | Pointer to **string** |  |
-**VoiceRegion** | Pointer to **string** |  |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
+**SipDomain** | **string** |  |[optional] 
+**Url** | **string** |  |[optional] 
+**Sid** | **string** |  |[optional] 
+**AccountSid** | **string** |  |[optional] 
+**FriendlyName** | **string** |  |[optional] 
+**VoiceRegion** | **string** |  |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) |  |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

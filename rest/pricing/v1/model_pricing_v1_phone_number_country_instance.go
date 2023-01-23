@@ -17,13 +17,13 @@ package openapi
 // PricingV1PhoneNumberCountryInstance struct for PricingV1PhoneNumberCountryInstance
 type PricingV1PhoneNumberCountryInstance struct {
 	// The name of the country
-	Country *string `json:"country,omitempty"`
+	Country string `json:"country,omitempty"`
 	// The ISO country code
-	IsoCountry *string `json:"iso_country,omitempty"`
+	IsoCountry string `json:"iso_country,omitempty"`
 	// The list of PhoneNumberPrices records
-	PhoneNumberPrices *[]PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices `json:"phone_number_prices,omitempty"`
+	PhoneNumberPrices []PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices `json:"phone_number_prices,omitempty"`
 	// The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
-	PriceUnit *string `json:"price_unit,omitempty"`
+	PriceUnit string `json:"price_unit,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

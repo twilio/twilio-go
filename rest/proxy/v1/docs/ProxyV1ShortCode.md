@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**ServiceSid** | Pointer to **string** | The SID of the resource's parent Service |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
-**ShortCode** | Pointer to **string** | The short code's number |
-**IsoCountry** | Pointer to **string** | The ISO Country Code |
-**Capabilities** | Pointer to [**ProxyV1ServiceShortCodeCapabilities**](ProxyV1ServiceShortCodeCapabilities.md) |  |
-**Url** | Pointer to **string** | The absolute URL of the ShortCode resource |
-**IsReserved** | Pointer to **bool** | Whether the short code should be reserved for manual assignment to participants only |
+**Sid** | **string** | The unique string that identifies the resource |[optional] 
+**AccountSid** | **string** | The SID of the Account that created the resource |[optional] 
+**ServiceSid** | **string** | The SID of the resource's parent Service |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |[optional] 
+**ShortCode** | **string** | The short code's number |[optional] 
+**IsoCountry** | **string** | The ISO Country Code |[optional] 
+**Capabilities** | [**ProxyV1ServiceShortCodeCapabilities**](ProxyV1ServiceShortCodeCapabilities.md) |  |[optional] 
+**Url** | **string** | The absolute URL of the ShortCode resource |[optional] 
+**IsReserved** | **bool** | Whether the short code should be reserved for manual assignment to participants only |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -17,17 +17,17 @@ package openapi
 // PricingV2TrunkingNumber struct for PricingV2TrunkingNumber
 type PricingV2TrunkingNumber struct {
 	// The destination phone number, in E.164 format
-	DestinationNumber *string `json:"destination_number,omitempty"`
+	DestinationNumber string `json:"destination_number,omitempty"`
 	// The origination phone number, in E.164 format
-	OriginationNumber *string `json:"origination_number,omitempty"`
+	OriginationNumber string `json:"origination_number,omitempty"`
 	// The name of the country
-	Country *string `json:"country,omitempty"`
+	Country string `json:"country,omitempty"`
 	// The ISO country code
-	IsoCountry              *string                                                    `json:"iso_country,omitempty"`
-	TerminatingPrefixPrices *[]PricingV2TrunkingCountryInstanceTerminatingPrefixPrices `json:"terminating_prefix_prices,omitempty"`
-	OriginatingCallPrice    *PricingV2TrunkingNumberOriginatingCallPrice               `json:"originating_call_price,omitempty"`
+	IsoCountry              string                                                    `json:"iso_country,omitempty"`
+	TerminatingPrefixPrices []PricingV2TrunkingCountryInstanceTerminatingPrefixPrices `json:"terminating_prefix_prices,omitempty"`
+	OriginatingCallPrice    PricingV2TrunkingNumberOriginatingCallPrice               `json:"originating_call_price,omitempty"`
 	// The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
-	PriceUnit *string `json:"price_unit,omitempty"`
+	PriceUnit string `json:"price_unit,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

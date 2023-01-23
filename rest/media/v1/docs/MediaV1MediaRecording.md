@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
-**Duration** | Pointer to **int** | The duration of the MediaRecording |
+**AccountSid** | **string** | The SID of the Account that created the resource |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |[optional] 
+**Duration** | **int** | The duration of the MediaRecording |[optional] 
 **Format** | Pointer to [**string**](MediaRecordingEnumFormat.md) |  |
-**Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
-**ProcessorSid** | Pointer to **string** | The SID of the MediaProcessor |
-**Resolution** | Pointer to **string** | The dimensions of the video image in pixels |
-**SourceSid** | Pointer to **string** | The SID of the resource that generated the original media |
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
-**MediaSize** | Pointer to **int64** | The size of the recording media |
+**Links** | **map[string]interface{}** | The URLs of related resources |[optional] 
+**ProcessorSid** | **string** | The SID of the MediaProcessor |[optional] 
+**Resolution** | **string** | The dimensions of the video image in pixels |[optional] 
+**SourceSid** | **string** | The SID of the resource that generated the original media |[optional] 
+**Sid** | **string** | The unique string that identifies the resource |[optional] 
+**MediaSize** | **int64** | The size of the recording media |[optional] 
 **Status** | Pointer to [**string**](MediaRecordingEnumStatus.md) |  |
-**StatusCallback** | Pointer to **string** | The URL to which Twilio will send MediaRecording event updates |
-**StatusCallbackMethod** | Pointer to **string** | The HTTP method Twilio should use to call the `status_callback` URL |
-**Url** | Pointer to **string** | The absolute URL of the resource |
+**StatusCallback** | **string** | The URL to which Twilio will send MediaRecording event updates |[optional] 
+**StatusCallbackMethod** | **string** | The HTTP method Twilio should use to call the `status_callback` URL |[optional] 
+**Url** | **string** | The absolute URL of the resource |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

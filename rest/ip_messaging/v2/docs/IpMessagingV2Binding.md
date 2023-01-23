@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** |  |
-**AccountSid** | Pointer to **string** |  |
-**ServiceSid** | Pointer to **string** |  |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
-**Endpoint** | Pointer to **string** |  |
-**Identity** | Pointer to **string** |  |
-**CredentialSid** | Pointer to **string** |  |
+**Sid** | **string** |  |[optional] 
+**AccountSid** | **string** |  |[optional] 
+**ServiceSid** | **string** |  |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) |  |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) |  |[optional] 
+**Endpoint** | **string** |  |[optional] 
+**Identity** | **string** |  |[optional] 
+**CredentialSid** | **string** |  |[optional] 
 **BindingType** | Pointer to [**string**](BindingEnumBindingType.md) |  |
-**MessageTypes** | Pointer to **[]string** |  |
-**Url** | Pointer to **string** |  |
-**Links** | Pointer to **map[string]interface{}** |  |
+**MessageTypes** | **[]string** |  |[optional] 
+**Url** | **string** |  |[optional] 
+**Links** | **map[string]interface{}** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

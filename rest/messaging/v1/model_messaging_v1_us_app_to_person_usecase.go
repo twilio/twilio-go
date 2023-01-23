@@ -17,5 +17,5 @@ package openapi
 // MessagingV1UsAppToPersonUsecase struct for MessagingV1UsAppToPersonUsecase
 type MessagingV1UsAppToPersonUsecase struct {
 	// Human readable A2P Use Case details
-	UsAppToPersonUsecases *[]interface{} `json:"us_app_to_person_usecases,omitempty"`
+	UsAppToPersonUsecases []interface{} `json:"us_app_to_person_usecases,omitempty"`
 }

@@ -17,25 +17,25 @@ package openapi
 // ApiV2010Conference struct for ApiV2010Conference
 type ApiV2010Conference struct {
 	// The SID of the Account that created this resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The RFC 2822 date and time in GMT that this resource was created
-	DateCreated *string `json:"date_created,omitempty"`
+	DateCreated string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that this resource was last updated
-	DateUpdated *string `json:"date_updated,omitempty"`
+	DateUpdated string `json:"date_updated,omitempty"`
 	// The API version used to create this conference
-	ApiVersion *string `json:"api_version,omitempty"`
+	ApiVersion string `json:"api_version,omitempty"`
 	// A string that you assigned to describe this conference room
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// A string that represents the Twilio Region where the conference was mixed
-	Region *string `json:"region,omitempty"`
+	Region string `json:"region,omitempty"`
 	// The unique string that identifies this resource
-	Sid    *string `json:"sid,omitempty"`
+	Sid    string  `json:"sid,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// The URI of this resource, relative to `https://api.twilio.com`
-	Uri *string `json:"uri,omitempty"`
+	Uri string `json:"uri,omitempty"`
 	// A list of related resources identified by their relative URIs
-	SubresourceUris       *map[string]interface{} `json:"subresource_uris,omitempty"`
-	ReasonConferenceEnded *string                 `json:"reason_conference_ended,omitempty"`
+	SubresourceUris       map[string]interface{} `json:"subresource_uris,omitempty"`
+	ReasonConferenceEnded *string                `json:"reason_conference_ended,omitempty"`
 	// The call SID that caused the conference to end
-	CallSidEndingConference *string `json:"call_sid_ending_conference,omitempty"`
+	CallSidEndingConference string `json:"call_sid_ending_conference,omitempty"`
 }

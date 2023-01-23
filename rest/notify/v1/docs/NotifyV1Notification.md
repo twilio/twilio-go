@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**ServiceSid** | Pointer to **string** | The SID of the Service that the resource is associated with |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The RFC 2822 date and time in GMT when the resource was created |
-**Identities** | Pointer to **[]string** | The list of identity values of the Users to notify |
-**Tags** | Pointer to **[]string** | The tags that select the Bindings to notify |
-**Segments** | Pointer to **[]string** | The list of Segments to notify |
+**Sid** | **string** | The unique string that identifies the resource |[optional] 
+**AccountSid** | **string** | The SID of the Account that created the resource |[optional] 
+**ServiceSid** | **string** | The SID of the Service that the resource is associated with |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) | The RFC 2822 date and time in GMT when the resource was created |[optional] 
+**Identities** | **[]string** | The list of identity values of the Users to notify |[optional] 
+**Tags** | **[]string** | The tags that select the Bindings to notify |[optional] 
+**Segments** | **[]string** | The list of Segments to notify |[optional] 
 **Priority** | Pointer to [**string**](NotificationEnumPriority.md) |  |
-**Ttl** | Pointer to **int** | How long, in seconds, the notification is valid |
-**Title** | Pointer to **string** | The notification title |
-**Body** | Pointer to **string** | The notification body text |
-**Sound** | Pointer to **string** | The name of the sound to be played for the notification |
-**Action** | Pointer to **string** | The actions to display for the notification |
+**Ttl** | **int** | How long, in seconds, the notification is valid |[optional] 
+**Title** | **string** | The notification title |[optional] 
+**Body** | **string** | The notification body text |[optional] 
+**Sound** | **string** | The name of the sound to be played for the notification |[optional] 
+**Action** | **string** | The actions to display for the notification |[optional] 
 **Data** | Pointer to **interface{}** | The custom key-value pairs of the notification's payload |
 **Apn** | Pointer to **interface{}** | The APNS-specific payload that overrides corresponding attributes in a generic payload for APNS Bindings |
 **Gcm** | Pointer to **interface{}** | The GCM-specific payload that overrides corresponding attributes in generic payload for GCM Bindings |

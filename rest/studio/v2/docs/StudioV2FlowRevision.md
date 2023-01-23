@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**FriendlyName** | Pointer to **string** | The string that you assigned to describe the Flow |
+**Sid** | **string** | The unique string that identifies the resource |[optional] 
+**AccountSid** | **string** | The SID of the Account that created the resource |[optional] 
+**FriendlyName** | **string** | The string that you assigned to describe the Flow |[optional] 
 **Definition** | Pointer to **interface{}** | JSON representation of flow definition |
 **Status** | Pointer to [**string**](FlowRevisionEnumStatus.md) |  |
-**Revision** | Pointer to **int** | The latest revision number of the Flow's definition |
-**CommitMessage** | Pointer to **string** | Description of change made in the revision |
-**Valid** | Pointer to **bool** | Boolean if the flow definition is valid |
-**Errors** | Pointer to **[]interface{}** | List of error in the flow definition |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
-**Url** | Pointer to **string** | The absolute URL of the resource |
+**Revision** | **int** | The latest revision number of the Flow's definition |[optional] 
+**CommitMessage** | **string** | Description of change made in the revision |[optional] 
+**Valid** | **bool** | Boolean if the flow definition is valid |[optional] 
+**Errors** | **[]interface{}** | List of error in the flow definition |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |[optional] 
+**Url** | **string** | The absolute URL of the resource |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

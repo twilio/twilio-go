@@ -17,13 +17,13 @@ package openapi
 // TrusthubV1EndUserType struct for TrusthubV1EndUserType
 type TrusthubV1EndUserType struct {
 	// The unique string that identifies the End-User Type resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// A human-readable description of the End-User Type resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// A machine-readable description of the End-User Type resource
-	MachineName *string `json:"machine_name,omitempty"`
+	MachineName string `json:"machine_name,omitempty"`
 	// The required information for creating an End-User.
-	Fields *[]interface{} `json:"fields,omitempty"`
+	Fields []interface{} `json:"fields,omitempty"`
 	// The absolute URL of the End-User Type resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

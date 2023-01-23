@@ -16,8 +16,8 @@ package openapi
 
 // InsightsV1AccountSettings struct for InsightsV1AccountSettings
 type InsightsV1AccountSettings struct {
-	AccountSid       *string `json:"account_sid,omitempty"`
-	AdvancedFeatures *bool   `json:"advanced_features,omitempty"`
-	VoiceTrace       *bool   `json:"voice_trace,omitempty"`
-	Url              *string `json:"url,omitempty"`
+	AccountSid       string `json:"account_sid,omitempty"`
+	AdvancedFeatures bool   `json:"advanced_features,omitempty"`
+	VoiceTrace       bool   `json:"voice_trace,omitempty"`
+	Url              string `json:"url,omitempty"`
 }

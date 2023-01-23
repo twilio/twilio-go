@@ -23,61 +23,61 @@ import (
 // ApiV2010CallRecording struct for ApiV2010CallRecording
 type ApiV2010CallRecording struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The API version used to make the recording
-	ApiVersion *string `json:"api_version,omitempty"`
+	ApiVersion string `json:"api_version,omitempty"`
 	// The SID of the Call the resource is associated with
-	CallSid *string `json:"call_sid,omitempty"`
+	CallSid string `json:"call_sid,omitempty"`
 	// The Conference SID that identifies the conference associated with the recording
-	ConferenceSid *string `json:"conference_sid,omitempty"`
+	ConferenceSid string `json:"conference_sid,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
-	DateCreated *string `json:"date_created,omitempty"`
+	DateCreated string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated
-	DateUpdated *string `json:"date_updated,omitempty"`
+	DateUpdated string `json:"date_updated,omitempty"`
 	// The start time of the recording, given in RFC 2822 format
-	StartTime *string `json:"start_time,omitempty"`
+	StartTime string `json:"start_time,omitempty"`
 	// The length of the recording in seconds
-	Duration *string `json:"duration,omitempty"`
+	Duration string `json:"duration,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The one-time cost of creating the recording.
-	Price *float32 `json:"price,omitempty"`
+	Price float32 `json:"price,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
-	Uri *string `json:"uri,omitempty"`
+	Uri string `json:"uri,omitempty"`
 	// How to decrypt the recording.
 	EncryptionDetails *interface{} `json:"encryption_details,omitempty"`
 	// The currency used in the price property.
-	PriceUnit *string `json:"price_unit,omitempty"`
+	PriceUnit string  `json:"price_unit,omitempty"`
 	Status    *string `json:"status,omitempty"`
 	// The number of channels in the final recording file
-	Channels *int    `json:"channels,omitempty"`
+	Channels int     `json:"channels,omitempty"`
 	Source   *string `json:"source,omitempty"`
 	// More information about why the recording is missing, if status is `absent`.
 	ErrorCode *int `json:"error_code,omitempty"`
 	// The recorded track. Can be: `inbound`, `outbound`, or `both`.
-	Track *string `json:"track,omitempty"`
+	Track string `json:"track,omitempty"`
 }
 
 func (response *ApiV2010CallRecording) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		AccountSid        *string      `json:"account_sid"`
-		ApiVersion        *string      `json:"api_version"`
-		CallSid           *string      `json:"call_sid"`
-		ConferenceSid     *string      `json:"conference_sid"`
-		DateCreated       *string      `json:"date_created"`
-		DateUpdated       *string      `json:"date_updated"`
-		StartTime         *string      `json:"start_time"`
-		Duration          *string      `json:"duration"`
-		Sid               *string      `json:"sid"`
-		Price             *interface{} `json:"price"`
-		Uri               *string      `json:"uri"`
+		AccountSid        string       `json:"account_sid"`
+		ApiVersion        string       `json:"api_version"`
+		CallSid           string       `json:"call_sid"`
+		ConferenceSid     string       `json:"conference_sid"`
+		DateCreated       string       `json:"date_created"`
+		DateUpdated       string       `json:"date_updated"`
+		StartTime         string       `json:"start_time"`
+		Duration          string       `json:"duration"`
+		Sid               string       `json:"sid"`
+		Price             interface{}  `json:"price"`
+		Uri               string       `json:"uri"`
 		EncryptionDetails *interface{} `json:"encryption_details"`
-		PriceUnit         *string      `json:"price_unit"`
+		PriceUnit         string       `json:"price_unit"`
 		Status            *string      `json:"status"`
-		Channels          *int         `json:"channels"`
+		Channels          int          `json:"channels"`
 		Source            *string      `json:"source"`
 		ErrorCode         *int         `json:"error_code"`
-		Track             *string      `json:"track"`
+		Track             string       `json:"track"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -104,11 +104,11 @@ func (response *ApiV2010CallRecording) UnmarshalJSON(bytes []byte) (err error) {
 		Track:             raw.Track,
 	}
 
-	responsePrice, err := client.UnmarshalFloat32(raw.Price)
+	responsePrice, err := client.UnmarshalFloat32(&raw.Price)
 	if err != nil {
 		return err
 	}
-	response.Price = responsePrice
+	response.Price = *responsePrice
 
 	return
 }

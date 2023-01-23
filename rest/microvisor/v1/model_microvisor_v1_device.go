@@ -21,21 +21,21 @@ import (
 // MicrovisorV1Device struct for MicrovisorV1Device
 type MicrovisorV1Device struct {
 	// A string that uniquely identifies this Device.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// A developer-defined string that uniquely identifies the Device.
-	UniqueName *string `json:"unique_name,omitempty"`
+	UniqueName string `json:"unique_name,omitempty"`
 	// Account SID.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// Information about the target App and the App reported by this Device.
 	App *interface{} `json:"app,omitempty"`
 	// Object specifying whether application logging is enabled for this Device.
 	Logging *interface{} `json:"logging,omitempty"`
 	// The date that this Device was created.
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date that this Device was last updated.
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// The absolute URLs of related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

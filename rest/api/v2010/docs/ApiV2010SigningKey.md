@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** |  |
-**FriendlyName** | Pointer to **string** |  |
-**DateCreated** | Pointer to **string** |  |
-**DateUpdated** | Pointer to **string** |  |
+**Sid** | **string** |  |[optional] 
+**FriendlyName** | **string** |  |[optional] 
+**DateCreated** | **string** |  |[optional] 
+**DateUpdated** | **string** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

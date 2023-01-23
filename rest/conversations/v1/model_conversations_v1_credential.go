@@ -21,18 +21,18 @@ import (
 // ConversationsV1Credential struct for ConversationsV1Credential
 type ConversationsV1Credential struct {
 	// A 34 character string that uniquely identifies this resource.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The unique ID of the Account responsible for this credential.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The human-readable name of this credential.
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string  `json:"friendly_name,omitempty"`
 	Type         *string `json:"type,omitempty"`
 	// [APN only] Whether to send the credential to sandbox APNs.
-	Sandbox *string `json:"sandbox,omitempty"`
+	Sandbox string `json:"sandbox,omitempty"`
 	// The date that this resource was created.
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date that this resource was last updated.
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// An absolute URL for this credential.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

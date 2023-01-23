@@ -21,28 +21,28 @@ import (
 // InsightsV1VideoParticipantSummary struct for InsightsV1VideoParticipantSummary
 type InsightsV1VideoParticipantSummary struct {
 	// Unique identifier for the participant.
-	ParticipantSid *string `json:"participant_sid,omitempty"`
+	ParticipantSid string `json:"participant_sid,omitempty"`
 	// The application-defined string that uniquely identifies the participant within a Room.
-	ParticipantIdentity *string `json:"participant_identity,omitempty"`
+	ParticipantIdentity string `json:"participant_identity,omitempty"`
 	// When the participant joined the room.
-	JoinTime *time.Time `json:"join_time,omitempty"`
+	JoinTime time.Time `json:"join_time,omitempty"`
 	// When the participant left the room
-	LeaveTime *time.Time `json:"leave_time,omitempty"`
+	LeaveTime time.Time `json:"leave_time,omitempty"`
 	// Amount of time in seconds the participant was in the room.
-	DurationSec *int64 `json:"duration_sec,omitempty"`
+	DurationSec int64 `json:"duration_sec,omitempty"`
 	// Account SID associated with the room.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// Unique identifier for the room.
-	RoomSid *string `json:"room_sid,omitempty"`
+	RoomSid string  `json:"room_sid,omitempty"`
 	Status  *string `json:"status,omitempty"`
 	// Codecs detected from the participant.
 	Codecs *[]string `json:"codecs,omitempty"`
 	// Reason the participant left the room.
-	EndReason *string `json:"end_reason,omitempty"`
+	EndReason string `json:"end_reason,omitempty"`
 	// Errors encountered by the participant.
 	ErrorCode *int `json:"error_code,omitempty"`
 	// Twilio error code dictionary link.
-	ErrorCodeUrl *string `json:"error_code_url,omitempty"`
+	ErrorCodeUrl string  `json:"error_code_url,omitempty"`
 	MediaRegion  *string `json:"media_region,omitempty"`
 	// Object containing information about the participant's data from the room.
 	Properties   *interface{} `json:"properties,omitempty"`
@@ -50,5 +50,5 @@ type InsightsV1VideoParticipantSummary struct {
 	// Object containing information about the SDK name and version.
 	PublisherInfo *interface{} `json:"publisher_info,omitempty"`
 	// URL of the participant resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

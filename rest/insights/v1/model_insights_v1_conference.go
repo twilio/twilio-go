@@ -21,17 +21,17 @@ import (
 // InsightsV1Conference struct for InsightsV1Conference
 type InsightsV1Conference struct {
 	// Conference SID.
-	ConferenceSid *string `json:"conference_sid,omitempty"`
+	ConferenceSid string `json:"conference_sid,omitempty"`
 	// Account SID.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// Custom label for the conference.
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// Conference creation date/time.
-	CreateTime *time.Time `json:"create_time,omitempty"`
+	CreateTime time.Time `json:"create_time,omitempty"`
 	// Timestamp in ISO 8601 format when the conference started.
-	StartTime *time.Time `json:"start_time,omitempty"`
+	StartTime time.Time `json:"start_time,omitempty"`
 	// Conference end date/time.
-	EndTime *time.Time `json:"end_time,omitempty"`
+	EndTime time.Time `json:"end_time,omitempty"`
 	// Conference duration in seconds.
 	DurationSeconds *int `json:"duration_seconds,omitempty"`
 	// Duration of the conference in seconds.
@@ -45,11 +45,11 @@ type InsightsV1Conference struct {
 	UniqueParticipants *int    `json:"unique_participants,omitempty"`
 	EndReason          *string `json:"end_reason,omitempty"`
 	// Call SID that ended the conference.
-	EndedBy              *string `json:"ended_by,omitempty"`
+	EndedBy              string  `json:"ended_by,omitempty"`
 	MixerRegion          *string `json:"mixer_region,omitempty"`
 	MixerRegionRequested *string `json:"mixer_region_requested,omitempty"`
 	// Boolean. Indicates whether recording was enabled.
-	RecordingEnabled *bool `json:"recording_enabled,omitempty"`
+	RecordingEnabled bool `json:"recording_enabled,omitempty"`
 	// Potential issues detected during the conference.
 	DetectedIssues *interface{} `json:"detected_issues,omitempty"`
 	// Tags for detected conference conditions and participant behaviors.
@@ -58,7 +58,7 @@ type InsightsV1Conference struct {
 	TagInfo         *interface{} `json:"tag_info,omitempty"`
 	ProcessingState *string      `json:"processing_state,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// Nested resource URLs.
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

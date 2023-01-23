@@ -21,18 +21,18 @@ import (
 // SupersimV1SettingsUpdate struct for SupersimV1SettingsUpdate
 type SupersimV1SettingsUpdate struct {
 	// The unique identifier of this Settings Update
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The ICCID associated with the SIM
-	Iccid *string `json:"iccid,omitempty"`
+	Iccid string `json:"iccid,omitempty"`
 	// The SID of the Super SIM to which this Settings Update was applied
-	SimSid *string `json:"sim_sid,omitempty"`
+	SimSid string  `json:"sim_sid,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// Array containing the different Settings Packages that will be applied to the SIM after the update completes
-	Packages *[]interface{} `json:"packages,omitempty"`
+	Packages []interface{} `json:"packages,omitempty"`
 	// The time when the update successfully completed and the new settings were applied to the SIM
-	DateCompleted *time.Time `json:"date_completed,omitempty"`
+	DateCompleted time.Time `json:"date_completed,omitempty"`
 	// The date this Settings Update was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date this Settings Update was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 }

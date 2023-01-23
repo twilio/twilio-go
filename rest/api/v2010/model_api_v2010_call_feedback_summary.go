@@ -23,50 +23,50 @@ import (
 // ApiV2010CallFeedbackSummary struct for ApiV2010CallFeedbackSummary
 type ApiV2010CallFeedbackSummary struct {
 	// The unique sid that identifies this account
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The total number of calls
-	CallCount *int `json:"call_count,omitempty"`
+	CallCount int `json:"call_count,omitempty"`
 	// The total number of calls with a feedback entry
-	CallFeedbackCount *int `json:"call_feedback_count,omitempty"`
+	CallFeedbackCount int `json:"call_feedback_count,omitempty"`
 	// The date this resource was created
-	DateCreated *string `json:"date_created,omitempty"`
+	DateCreated string `json:"date_created,omitempty"`
 	// The date this resource was last updated
-	DateUpdated *string `json:"date_updated,omitempty"`
+	DateUpdated string `json:"date_updated,omitempty"`
 	// The latest feedback entry date in the summary
-	EndDate *string `json:"end_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 	// Whether the feedback summary includes subaccounts
-	IncludeSubaccounts *bool `json:"include_subaccounts,omitempty"`
+	IncludeSubaccounts bool `json:"include_subaccounts,omitempty"`
 	// Issues experienced during the call
-	Issues *[]interface{} `json:"issues,omitempty"`
+	Issues []interface{} `json:"issues,omitempty"`
 	// The average QualityScore of the feedback entries
-	QualityScoreAverage *float32 `json:"quality_score_average,omitempty"`
+	QualityScoreAverage float32 `json:"quality_score_average,omitempty"`
 	// The median QualityScore of the feedback entries
-	QualityScoreMedian *float32 `json:"quality_score_median,omitempty"`
+	QualityScoreMedian float32 `json:"quality_score_median,omitempty"`
 	// The standard deviation of the quality scores
-	QualityScoreStandardDeviation *float32 `json:"quality_score_standard_deviation,omitempty"`
+	QualityScoreStandardDeviation float32 `json:"quality_score_standard_deviation,omitempty"`
 	// A string that uniquely identifies this feedback entry
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The earliest feedback entry date in the summary
-	StartDate *string `json:"start_date,omitempty"`
+	StartDate string  `json:"start_date,omitempty"`
 	Status    *string `json:"status,omitempty"`
 }
 
 func (response *ApiV2010CallFeedbackSummary) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		AccountSid                    *string        `json:"account_sid"`
-		CallCount                     *int           `json:"call_count"`
-		CallFeedbackCount             *int           `json:"call_feedback_count"`
-		DateCreated                   *string        `json:"date_created"`
-		DateUpdated                   *string        `json:"date_updated"`
-		EndDate                       *string        `json:"end_date"`
-		IncludeSubaccounts            *bool          `json:"include_subaccounts"`
-		Issues                        *[]interface{} `json:"issues"`
-		QualityScoreAverage           *interface{}   `json:"quality_score_average"`
-		QualityScoreMedian            *interface{}   `json:"quality_score_median"`
-		QualityScoreStandardDeviation *interface{}   `json:"quality_score_standard_deviation"`
-		Sid                           *string        `json:"sid"`
-		StartDate                     *string        `json:"start_date"`
-		Status                        *string        `json:"status"`
+		AccountSid                    string        `json:"account_sid"`
+		CallCount                     int           `json:"call_count"`
+		CallFeedbackCount             int           `json:"call_feedback_count"`
+		DateCreated                   string        `json:"date_created"`
+		DateUpdated                   string        `json:"date_updated"`
+		EndDate                       string        `json:"end_date"`
+		IncludeSubaccounts            bool          `json:"include_subaccounts"`
+		Issues                        []interface{} `json:"issues"`
+		QualityScoreAverage           interface{}   `json:"quality_score_average"`
+		QualityScoreMedian            interface{}   `json:"quality_score_median"`
+		QualityScoreStandardDeviation interface{}   `json:"quality_score_standard_deviation"`
+		Sid                           string        `json:"sid"`
+		StartDate                     string        `json:"start_date"`
+		Status                        *string       `json:"status"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -87,23 +87,23 @@ func (response *ApiV2010CallFeedbackSummary) UnmarshalJSON(bytes []byte) (err er
 		Status:             raw.Status,
 	}
 
-	responseQualityScoreAverage, err := client.UnmarshalFloat32(raw.QualityScoreAverage)
+	responseQualityScoreAverage, err := client.UnmarshalFloat32(&raw.QualityScoreAverage)
 	if err != nil {
 		return err
 	}
-	response.QualityScoreAverage = responseQualityScoreAverage
+	response.QualityScoreAverage = *responseQualityScoreAverage
 
-	responseQualityScoreMedian, err := client.UnmarshalFloat32(raw.QualityScoreMedian)
+	responseQualityScoreMedian, err := client.UnmarshalFloat32(&raw.QualityScoreMedian)
 	if err != nil {
 		return err
 	}
-	response.QualityScoreMedian = responseQualityScoreMedian
+	response.QualityScoreMedian = *responseQualityScoreMedian
 
-	responseQualityScoreStandardDeviation, err := client.UnmarshalFloat32(raw.QualityScoreStandardDeviation)
+	responseQualityScoreStandardDeviation, err := client.UnmarshalFloat32(&raw.QualityScoreStandardDeviation)
 	if err != nil {
 		return err
 	}
-	response.QualityScoreStandardDeviation = responseQualityScoreStandardDeviation
+	response.QualityScoreStandardDeviation = *responseQualityScoreStandardDeviation
 
 	return
 }

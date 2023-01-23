@@ -17,7 +17,7 @@ package openapi
 // FlexV2WebChannel struct for FlexV2WebChannel
 type FlexV2WebChannel struct {
 	// The unique string representing the Conversation resource created
-	ConversationSid *string `json:"conversation_sid,omitempty"`
+	ConversationSid string `json:"conversation_sid,omitempty"`
 	// The unique string representing the User created
-	Identity *string `json:"identity,omitempty"`
+	Identity string `json:"identity,omitempty"`
 }

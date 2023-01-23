@@ -21,9 +21,9 @@ type TaskrouterV1WorkspaceStatistics struct {
 	// An object that contains the cumulative statistics for the Workspace
 	Cumulative *interface{} `json:"cumulative,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Workspace
-	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	WorkspaceSid string `json:"workspace_sid,omitempty"`
 	// The absolute URL of the Workspace statistics resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

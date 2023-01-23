@@ -21,23 +21,23 @@ import (
 // SyncV1SyncStream struct for SyncV1SyncStream
 type SyncV1SyncStream struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// An application-defined string that uniquely identifies the resource
-	UniqueName *string `json:"unique_name,omitempty"`
+	UniqueName string `json:"unique_name,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Sync Service that the resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
+	ServiceSid string `json:"service_sid,omitempty"`
 	// The absolute URL of the Message Stream resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// The URLs of the Stream's nested resources
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 	// The ISO 8601 date and time in GMT when the Message Stream expires
-	DateExpires *time.Time `json:"date_expires,omitempty"`
+	DateExpires time.Time `json:"date_expires,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The Identity of the Stream's creator
-	CreatedBy *string `json:"created_by,omitempty"`
+	CreatedBy string `json:"created_by,omitempty"`
 }

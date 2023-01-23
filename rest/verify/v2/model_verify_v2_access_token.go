@@ -21,22 +21,22 @@ import (
 // VerifyV2AccessToken struct for VerifyV2AccessToken
 type VerifyV2AccessToken struct {
 	// A string that uniquely identifies this Access Token.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// Account Sid.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// Verify Service Sid.
-	ServiceSid *string `json:"service_sid,omitempty"`
+	ServiceSid string `json:"service_sid,omitempty"`
 	// Unique external identifier of the Entity
-	EntityIdentity *string `json:"entity_identity,omitempty"`
+	EntityIdentity string  `json:"entity_identity,omitempty"`
 	FactorType     *string `json:"factor_type,omitempty"`
 	// A human readable description of this factor.
-	FactorFriendlyName *string `json:"factor_friendly_name,omitempty"`
+	FactorFriendlyName string `json:"factor_friendly_name,omitempty"`
 	// Generated access token.
-	Token *string `json:"token,omitempty"`
+	Token string `json:"token,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// How long, in seconds, the access token is valid.
-	Ttl *int `json:"ttl,omitempty"`
+	Ttl int `json:"ttl,omitempty"`
 	// The date this access token was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 }

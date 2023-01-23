@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
-**FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
-**ChatServiceSid** | Pointer to **string** | The SID of the chat service |
+**AccountSid** | **string** | The SID of the Account that created the resource |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |[optional] 
+**Sid** | **string** | The unique string that identifies the resource |[optional] 
+**FriendlyName** | **string** | The string that you assigned to describe the resource |[optional] 
+**ChatServiceSid** | **string** | The SID of the chat service |[optional] 
 **ChannelType** | Pointer to [**string**](FlexFlowEnumChannelType.md) |  |
-**ContactIdentity** | Pointer to **string** | The channel contact's Identity |
-**Enabled** | Pointer to **bool** | Whether the Flex Flow is enabled |
+**ContactIdentity** | **string** | The channel contact's Identity |[optional] 
+**Enabled** | **bool** | Whether the Flex Flow is enabled |[optional] 
 **IntegrationType** | Pointer to [**string**](FlexFlowEnumIntegrationType.md) |  |
 **Integration** | Pointer to **interface{}** | An object that contains specific parameters for the integration |
-**LongLived** | Pointer to **bool** | Re-use this chat channel for future interactions with a contact |
-**JanitorEnabled** | Pointer to **bool** | Remove active Proxy sessions if the corresponding Task is deleted. |
-**Url** | Pointer to **string** | The absolute URL of the Flex Flow resource |
+**LongLived** | **bool** | Re-use this chat channel for future interactions with a contact |[optional] 
+**JanitorEnabled** | **bool** | Remove active Proxy sessions if the corresponding Task is deleted. |[optional] 
+**Url** | **string** | The absolute URL of the Flex Flow resource |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -17,9 +17,9 @@ package openapi
 // ConversationsV1ServiceNotification struct for ConversationsV1ServiceNotification
 type ConversationsV1ServiceNotification struct {
 	// The unique ID of the Account responsible for this configuration.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Conversation Service that the Configuration applies to.
-	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
+	ChatServiceSid string `json:"chat_service_sid,omitempty"`
 	// The Push Notification configuration for New Messages.
 	NewMessage *interface{} `json:"new_message,omitempty"`
 	// The Push Notification configuration for being added to a Conversation.
@@ -27,7 +27,7 @@ type ConversationsV1ServiceNotification struct {
 	// The Push Notification configuration for being removed from a Conversation.
 	RemovedFromConversation *interface{} `json:"removed_from_conversation,omitempty"`
 	// Weather the notification logging is enabled.
-	LogEnabled *bool `json:"log_enabled,omitempty"`
+	LogEnabled bool `json:"log_enabled,omitempty"`
 	// An absolute URL for this configuration.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

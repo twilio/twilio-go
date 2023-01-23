@@ -16,9 +16,9 @@ package openapi
 
 // InsightsV1Metric struct for InsightsV1Metric
 type InsightsV1Metric struct {
-	Timestamp   *string      `json:"timestamp,omitempty"`
-	CallSid     *string      `json:"call_sid,omitempty"`
-	AccountSid  *string      `json:"account_sid,omitempty"`
+	Timestamp   string       `json:"timestamp,omitempty"`
+	CallSid     string       `json:"call_sid,omitempty"`
+	AccountSid  string       `json:"account_sid,omitempty"`
 	Edge        *string      `json:"edge,omitempty"`
 	Direction   *string      `json:"direction,omitempty"`
 	CarrierEdge *interface{} `json:"carrier_edge,omitempty"`

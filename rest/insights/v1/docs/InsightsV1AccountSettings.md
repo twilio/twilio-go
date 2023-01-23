@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** |  |
-**AdvancedFeatures** | Pointer to **bool** |  |
-**VoiceTrace** | Pointer to **bool** |  |
-**Url** | Pointer to **string** |  |
+**AccountSid** | **string** |  |[optional] 
+**AdvancedFeatures** | **bool** |  |[optional] 
+**VoiceTrace** | **bool** |  |[optional] 
+**Url** | **string** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

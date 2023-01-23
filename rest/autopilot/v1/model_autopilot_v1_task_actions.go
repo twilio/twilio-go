@@ -17,13 +17,13 @@ package openapi
 // AutopilotV1TaskActions struct for AutopilotV1TaskActions
 type AutopilotV1TaskActions struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Assistant that is the parent of the Task associated with the resource
-	AssistantSid *string `json:"assistant_sid,omitempty"`
+	AssistantSid string `json:"assistant_sid,omitempty"`
 	// The SID of the Task associated with the resource
-	TaskSid *string `json:"task_sid,omitempty"`
+	TaskSid string `json:"task_sid,omitempty"`
 	// The absolute URL of the TaskActions resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// The JSON string that specifies the actions that instruct the Assistant on how to perform the task
 	Data *interface{} `json:"data,omitempty"`
 }

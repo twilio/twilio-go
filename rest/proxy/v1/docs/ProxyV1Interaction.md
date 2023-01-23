@@ -4,25 +4,25 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
-**SessionSid** | Pointer to **string** | The SID of the resource's parent Session |
-**ServiceSid** | Pointer to **string** | The SID of the resource's parent Service |
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**Data** | Pointer to **string** | A JSON string that includes the message body of message interactions |
+**Sid** | **string** | The unique string that identifies the resource |[optional] 
+**SessionSid** | **string** | The SID of the resource's parent Session |[optional] 
+**ServiceSid** | **string** | The SID of the resource's parent Service |[optional] 
+**AccountSid** | **string** | The SID of the Account that created the resource |[optional] 
+**Data** | **string** | A JSON string that includes the message body of message interactions |[optional] 
 **Type** | Pointer to [**string**](InteractionEnumType.md) |  |
-**InboundParticipantSid** | Pointer to **string** | The SID of the inbound Participant resource |
-**InboundResourceSid** | Pointer to **string** | The SID of the inbound resource |
+**InboundParticipantSid** | **string** | The SID of the inbound Participant resource |[optional] 
+**InboundResourceSid** | **string** | The SID of the inbound resource |[optional] 
 **InboundResourceStatus** | Pointer to [**string**](InteractionEnumResourceStatus.md) |  |
-**InboundResourceType** | Pointer to **string** | The inbound resource type |
-**InboundResourceUrl** | Pointer to **string** | The URL of the Twilio inbound resource |
-**OutboundParticipantSid** | Pointer to **string** | The SID of the outbound Participant |
-**OutboundResourceSid** | Pointer to **string** | The SID of the outbound resource |
+**InboundResourceType** | **string** | The inbound resource type |[optional] 
+**InboundResourceUrl** | **string** | The URL of the Twilio inbound resource |[optional] 
+**OutboundParticipantSid** | **string** | The SID of the outbound Participant |[optional] 
+**OutboundResourceSid** | **string** | The SID of the outbound resource |[optional] 
 **OutboundResourceStatus** | Pointer to [**string**](InteractionEnumResourceStatus.md) |  |
-**OutboundResourceType** | Pointer to **string** | The outbound resource type |
-**OutboundResourceUrl** | Pointer to **string** | The URL of the Twilio outbound resource |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the Interaction was created |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
-**Url** | Pointer to **string** | The absolute URL of the Interaction resource |
+**OutboundResourceType** | **string** | The outbound resource type |[optional] 
+**OutboundResourceUrl** | **string** | The URL of the Twilio outbound resource |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the Interaction was created |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |[optional] 
+**Url** | **string** | The absolute URL of the Interaction resource |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

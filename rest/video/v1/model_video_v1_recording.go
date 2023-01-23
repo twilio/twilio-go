@@ -21,18 +21,18 @@ import (
 // VideoV1Recording struct for VideoV1Recording
 type VideoV1Recording struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string  `json:"account_sid,omitempty"`
 	Status     *string `json:"status,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the recording source
-	SourceSid *string `json:"source_sid,omitempty"`
+	SourceSid string `json:"source_sid,omitempty"`
 	// The size of the recorded track, in bytes
-	Size *int64 `json:"size,omitempty"`
+	Size int64 `json:"size,omitempty"`
 	// The absolute URL of the resource
-	Url  *string `json:"url,omitempty"`
+	Url  string  `json:"url,omitempty"`
 	Type *string `json:"type,omitempty"`
 	// The duration of the recording in seconds
 	Duration        *int    `json:"duration,omitempty"`
@@ -41,15 +41,15 @@ type VideoV1Recording struct {
 	// A list of SIDs related to the recording
 	GroupingSids *interface{} `json:"grouping_sids,omitempty"`
 	// The name that was given to the source track of the recording
-	TrackName *string `json:"track_name,omitempty"`
+	TrackName string `json:"track_name,omitempty"`
 	// The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started
-	Offset *int64 `json:"offset,omitempty"`
+	Offset int64 `json:"offset,omitempty"`
 	// The URL of the media file associated with the recording when stored externally
-	MediaExternalLocation *string `json:"media_external_location,omitempty"`
+	MediaExternalLocation string `json:"media_external_location,omitempty"`
 	// The URL called to send status information on every recording event.
-	StatusCallback *string `json:"status_callback,omitempty"`
+	StatusCallback string `json:"status_callback,omitempty"`
 	// The HTTP method used to call `status_callback`
-	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
+	StatusCallbackMethod string `json:"status_callback_method,omitempty"`
 	// The URLs of related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

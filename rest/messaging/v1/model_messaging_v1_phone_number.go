@@ -21,21 +21,21 @@ import (
 // MessagingV1PhoneNumber struct for MessagingV1PhoneNumber
 type MessagingV1PhoneNumber struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Service that the resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
+	ServiceSid string `json:"service_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The phone number in E.164 format
-	PhoneNumber *string `json:"phone_number,omitempty"`
+	PhoneNumber string `json:"phone_number,omitempty"`
 	// The 2-character ISO Country Code of the number
-	CountryCode *string `json:"country_code,omitempty"`
+	CountryCode string `json:"country_code,omitempty"`
 	// An array of values that describe whether the number can receive calls or messages
-	Capabilities *[]string `json:"capabilities,omitempty"`
+	Capabilities []string `json:"capabilities,omitempty"`
 	// The absolute URL of the PhoneNumber resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

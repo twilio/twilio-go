@@ -21,31 +21,31 @@ import (
 // AutopilotV1Assistant struct for AutopilotV1Assistant
 type AutopilotV1Assistant struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// Reserved
-	LatestModelBuildSid *string `json:"latest_model_build_sid,omitempty"`
+	LatestModelBuildSid string `json:"latest_model_build_sid,omitempty"`
 	// A list of the URLs of the Assistant's related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 	// Whether queries should be logged and kept after training
-	LogQueries *bool `json:"log_queries,omitempty"`
+	LogQueries bool `json:"log_queries,omitempty"`
 	// A string describing the state of the assistant.
-	DevelopmentStage *string `json:"development_stage,omitempty"`
+	DevelopmentStage string `json:"development_stage,omitempty"`
 	// Whether model needs to be rebuilt
-	NeedsModelBuild *bool `json:"needs_model_build,omitempty"`
+	NeedsModelBuild bool `json:"needs_model_build,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// An application-defined string that uniquely identifies the resource
-	UniqueName *string `json:"unique_name,omitempty"`
+	UniqueName string `json:"unique_name,omitempty"`
 	// The absolute URL of the Assistant resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// Reserved
-	CallbackUrl *string `json:"callback_url,omitempty"`
+	CallbackUrl string `json:"callback_url,omitempty"`
 	// Reserved
-	CallbackEvents *string `json:"callback_events,omitempty"`
+	CallbackEvents string `json:"callback_events,omitempty"`
 }

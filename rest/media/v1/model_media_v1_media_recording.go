@@ -21,31 +21,31 @@ import (
 // MediaV1MediaRecording struct for MediaV1MediaRecording
 type MediaV1MediaRecording struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The duration of the MediaRecording
-	Duration *int    `json:"duration,omitempty"`
+	Duration int     `json:"duration,omitempty"`
 	Format   *string `json:"format,omitempty"`
 	// The URLs of related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 	// The SID of the MediaProcessor
-	ProcessorSid *string `json:"processor_sid,omitempty"`
+	ProcessorSid string `json:"processor_sid,omitempty"`
 	// The dimensions of the video image in pixels
-	Resolution *string `json:"resolution,omitempty"`
+	Resolution string `json:"resolution,omitempty"`
 	// The SID of the resource that generated the original media
-	SourceSid *string `json:"source_sid,omitempty"`
+	SourceSid string `json:"source_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The size of the recording media
-	MediaSize *int64  `json:"media_size,omitempty"`
+	MediaSize int64   `json:"media_size,omitempty"`
 	Status    *string `json:"status,omitempty"`
 	// The URL to which Twilio will send MediaRecording event updates
-	StatusCallback *string `json:"status_callback,omitempty"`
+	StatusCallback string `json:"status_callback,omitempty"`
 	// The HTTP method Twilio should use to call the `status_callback` URL
-	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
+	StatusCallbackMethod string `json:"status_callback_method,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

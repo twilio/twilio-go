@@ -21,13 +21,13 @@ import (
 // MediaV1PlayerStreamerPlaybackGrant struct for MediaV1PlayerStreamerPlaybackGrant
 type MediaV1PlayerStreamerPlaybackGrant struct {
 	// The unique string that identifies the PlayerStreamer associated with this PlaybackGrant.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The grant that authorizes the player sdk to connect to the livestream
 	Grant *interface{} `json:"grant,omitempty"`
 }

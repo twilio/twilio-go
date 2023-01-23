@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | The SID of the Account that this trigger monitors |
-**ApiVersion** | Pointer to **string** | The API version used to create the resource |
-**CallbackMethod** | Pointer to **string** | The HTTP method we use to call callback_url |
-**CallbackUrl** | Pointer to **string** | he URL we call when the trigger fires |
-**CurrentValue** | Pointer to **string** | The current value of the field the trigger is watching |
-**DateCreated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was created |
-**DateFired** | Pointer to **string** | The RFC 2822 date and time in GMT that the trigger was last fired |
-**DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was last updated |
-**FriendlyName** | Pointer to **string** | The string that you assigned to describe the trigger |
+**AccountSid** | **string** | The SID of the Account that this trigger monitors |[optional] 
+**ApiVersion** | **string** | The API version used to create the resource |[optional] 
+**CallbackMethod** | **string** | The HTTP method we use to call callback_url |[optional] 
+**CallbackUrl** | **string** | he URL we call when the trigger fires |[optional] 
+**CurrentValue** | **string** | The current value of the field the trigger is watching |[optional] 
+**DateCreated** | **string** | The RFC 2822 date and time in GMT that the resource was created |[optional] 
+**DateFired** | **string** | The RFC 2822 date and time in GMT that the trigger was last fired |[optional] 
+**DateUpdated** | **string** | The RFC 2822 date and time in GMT that the resource was last updated |[optional] 
+**FriendlyName** | **string** | The string that you assigned to describe the trigger |[optional] 
 **Recurring** | Pointer to [**string**](UsageTriggerEnumRecurring.md) |  |
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
+**Sid** | **string** | The unique string that identifies the resource |[optional] 
 **TriggerBy** | Pointer to [**string**](UsageTriggerEnumTriggerField.md) |  |
-**TriggerValue** | Pointer to **string** | The value at which the trigger will fire |
-**Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com` |
+**TriggerValue** | **string** | The value at which the trigger will fire |[optional] 
+**Uri** | **string** | The URI of the resource, relative to `https://api.twilio.com` |[optional] 
 **UsageCategory** | Pointer to [**string**](UsageTriggerEnumUsageCategory.md) |  |
-**UsageRecordUri** | Pointer to **string** | The URI of the UsageRecord resource this trigger watches |
+**UsageRecordUri** | **string** | The URI of the UsageRecord resource this trigger watches |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Timestamp** | Pointer to **string** |  |
-**CallSid** | Pointer to **string** |  |
-**AccountSid** | Pointer to **string** |  |
+**Timestamp** | **string** |  |[optional] 
+**CallSid** | **string** |  |[optional] 
+**AccountSid** | **string** |  |[optional] 
 **Edge** | Pointer to [**string**](EventEnumTwilioEdge.md) |  |
-**Group** | Pointer to **string** |  |
+**Group** | **string** |  |[optional] 
 **Level** | Pointer to [**string**](EventEnumLevel.md) |  |
-**Name** | Pointer to **string** |  |
+**Name** | **string** |  |[optional] 
 **CarrierEdge** | Pointer to **interface{}** |  |
 **SipEdge** | Pointer to **interface{}** |  |
 **SdkEdge** | Pointer to **interface{}** |  |

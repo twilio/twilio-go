@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | A string that uniquely identifies this Entity. |
-**Identity** | Pointer to **string** | Unique external identifier of the Entity |
-**AccountSid** | Pointer to **string** | Account Sid. |
-**ServiceSid** | Pointer to **string** | Service Sid. |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date this Entity was created |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date this Entity was updated |
-**Url** | Pointer to **string** | The URL of this resource. |
-**Links** | Pointer to **map[string]interface{}** | Nested resource URLs. |
+**Sid** | **string** | A string that uniquely identifies this Entity. |[optional] 
+**Identity** | **string** | Unique external identifier of the Entity |[optional] 
+**AccountSid** | **string** | Account Sid. |[optional] 
+**ServiceSid** | **string** | Service Sid. |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) | The date this Entity was created |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) | The date this Entity was updated |[optional] 
+**Url** | **string** | The URL of this resource. |[optional] 
+**Links** | **map[string]interface{}** | Nested resource URLs. |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

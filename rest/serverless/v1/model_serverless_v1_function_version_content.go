@@ -17,14 +17,14 @@ package openapi
 // ServerlessV1FunctionVersionContent struct for ServerlessV1FunctionVersionContent
 type ServerlessV1FunctionVersionContent struct {
 	// The unique string that identifies the Function Version resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the Function Version resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Service that the Function Version resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
+	ServiceSid string `json:"service_sid,omitempty"`
 	// The SID of the Function that is the parent of the Function Version
-	FunctionSid *string `json:"function_sid,omitempty"`
+	FunctionSid string `json:"function_sid,omitempty"`
 	// The content of the Function Version resource
-	Content *string `json:"content,omitempty"`
-	Url     *string `json:"url,omitempty"`
+	Content string `json:"content,omitempty"`
+	Url     string `json:"url,omitempty"`
 }

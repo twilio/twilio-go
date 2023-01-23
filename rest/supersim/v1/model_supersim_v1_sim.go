@@ -21,21 +21,21 @@ import (
 // SupersimV1Sim struct for SupersimV1Sim
 type SupersimV1Sim struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// An application-defined string that uniquely identifies the resource
-	UniqueName *string `json:"unique_name,omitempty"`
+	UniqueName string `json:"unique_name,omitempty"`
 	// The SID of the Account that the Super SIM belongs to
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The ICCID associated with the SIM
-	Iccid  *string `json:"iccid,omitempty"`
+	Iccid  string  `json:"iccid,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// The unique ID of the Fleet configured for this SIM
-	FleetSid *string `json:"fleet_sid,omitempty"`
+	FleetSid string `json:"fleet_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The absolute URL of the Sim Resource
-	Url   *string                 `json:"url,omitempty"`
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Url   string                 `json:"url,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

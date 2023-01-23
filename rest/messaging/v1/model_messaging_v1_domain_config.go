@@ -21,18 +21,18 @@ import (
 // MessagingV1DomainConfig struct for MessagingV1DomainConfig
 type MessagingV1DomainConfig struct {
 	// The unique string that we created to identify the Domain resource.
-	DomainSid *string `json:"domain_sid,omitempty"`
+	DomainSid string `json:"domain_sid,omitempty"`
 	// The unique string that we created to identify the Domain config (prefix ZK).
-	ConfigSid *string `json:"config_sid,omitempty"`
+	ConfigSid string `json:"config_sid,omitempty"`
 	// A list of messagingServiceSids (with prefix MG).
-	MessagingServiceSids *[]string `json:"messaging_service_sids,omitempty"`
+	MessagingServiceSids []string `json:"messaging_service_sids,omitempty"`
 	// We will redirect requests to urls we are unable to identify to this url.
-	FallbackUrl *string `json:"fallback_url,omitempty"`
+	FallbackUrl string `json:"fallback_url,omitempty"`
 	// URL to receive click events to your webhook whenever the recipients click on the shortened links.
-	CallbackUrl *string `json:"callback_url,omitempty"`
+	CallbackUrl string `json:"callback_url,omitempty"`
 	// Date this Domain Config was created.
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// Date that this Domain Config was last updated.
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	Url         *string    `json:"url,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
+	Url         string    `json:"url,omitempty"`
 }

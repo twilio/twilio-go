@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** |  |
-**AccountSid** | Pointer to **string** |  |
-**FriendlyName** | Pointer to **string** |  |
+**Sid** | **string** |  |[optional] 
+**AccountSid** | **string** |  |[optional] 
+**FriendlyName** | **string** |  |[optional] 
 **Type** | Pointer to [**string**](CredentialEnumPushService.md) |  |
-**Sandbox** | Pointer to **string** |  |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
-**Url** | Pointer to **string** |  |
+**Sandbox** | **string** |  |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) |  |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) |  |[optional] 
+**Url** | **string** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

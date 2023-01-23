@@ -21,32 +21,32 @@ import (
 // SupersimV1Fleet struct for SupersimV1Fleet
 type SupersimV1Fleet struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// An application-defined string that uniquely identifies the resource
-	UniqueName *string `json:"unique_name,omitempty"`
+	UniqueName string `json:"unique_name,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The absolute URL of the Fleet resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// Defines whether SIMs in the Fleet are capable of using data connectivity
-	DataEnabled *bool `json:"data_enabled,omitempty"`
+	DataEnabled bool `json:"data_enabled,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
-	DataLimit    *int    `json:"data_limit,omitempty"`
+	DataLimit    int     `json:"data_limit,omitempty"`
 	DataMetering *string `json:"data_metering,omitempty"`
 	// Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
-	SmsCommandsEnabled *bool `json:"sms_commands_enabled,omitempty"`
+	SmsCommandsEnabled bool `json:"sms_commands_enabled,omitempty"`
 	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
-	SmsCommandsUrl *string `json:"sms_commands_url,omitempty"`
+	SmsCommandsUrl string `json:"sms_commands_url,omitempty"`
 	// A string representing the HTTP method to use when making a request to `sms_commands_url`
-	SmsCommandsMethod *string `json:"sms_commands_method,omitempty"`
+	SmsCommandsMethod string `json:"sms_commands_method,omitempty"`
 	// The SID of the Network Access Profile of the Fleet
-	NetworkAccessProfileSid *string `json:"network_access_profile_sid,omitempty"`
+	NetworkAccessProfileSid string `json:"network_access_profile_sid,omitempty"`
 	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
-	IpCommandsUrl *string `json:"ip_commands_url,omitempty"`
+	IpCommandsUrl string `json:"ip_commands_url,omitempty"`
 	// A string representing the HTTP method to use when making a request to `ip_commands_url`
-	IpCommandsMethod *string `json:"ip_commands_method,omitempty"`
+	IpCommandsMethod string `json:"ip_commands_method,omitempty"`
 }

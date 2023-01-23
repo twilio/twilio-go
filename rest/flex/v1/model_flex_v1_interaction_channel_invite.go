@@ -17,12 +17,12 @@ package openapi
 // FlexV1InteractionChannelInvite struct for FlexV1InteractionChannelInvite
 type FlexV1InteractionChannelInvite struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The Interaction SID for this Channel
-	InteractionSid *string `json:"interaction_sid,omitempty"`
+	InteractionSid string `json:"interaction_sid,omitempty"`
 	// The Channel SID for this Invite
-	ChannelSid *string `json:"channel_sid,omitempty"`
+	ChannelSid string `json:"channel_sid,omitempty"`
 	// A JSON object representing the routing rules for the Interaction Channel
 	Routing *interface{} `json:"routing,omitempty"`
-	Url     *string      `json:"url,omitempty"`
+	Url     string       `json:"url,omitempty"`
 }

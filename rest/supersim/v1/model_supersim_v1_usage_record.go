@@ -23,42 +23,42 @@ import (
 // SupersimV1UsageRecord struct for SupersimV1UsageRecord
 type SupersimV1UsageRecord struct {
 	// The SID of the Account that incurred the usage.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// SID of a Sim resource to which the UsageRecord belongs.
-	SimSid *string `json:"sim_sid,omitempty"`
+	SimSid string `json:"sim_sid,omitempty"`
 	// SID of the Network resource on which the usage occurred.
-	NetworkSid *string `json:"network_sid,omitempty"`
+	NetworkSid string `json:"network_sid,omitempty"`
 	// SID of the Fleet resource on which the usage occurred.
-	FleetSid *string `json:"fleet_sid,omitempty"`
+	FleetSid string `json:"fleet_sid,omitempty"`
 	// Alpha-2 ISO Country Code of the country the usage occurred in.
-	IsoCountry *string `json:"iso_country,omitempty"`
+	IsoCountry string `json:"iso_country,omitempty"`
 	// The time period for which the usage is reported.
 	Period *interface{} `json:"period,omitempty"`
 	// Total data uploaded in bytes, aggregated by the query parameters.
-	DataUpload *int64 `json:"data_upload,omitempty"`
+	DataUpload int64 `json:"data_upload,omitempty"`
 	// Total data downloaded in bytes, aggregated by the query parameters.
-	DataDownload *int64 `json:"data_download,omitempty"`
+	DataDownload int64 `json:"data_download,omitempty"`
 	// Total of data_upload and data_download.
-	DataTotal *int64 `json:"data_total,omitempty"`
+	DataTotal int64 `json:"data_total,omitempty"`
 	// Total amount in the `billed_unit` that was charged for the data uploaded or downloaded.
-	DataTotalBilled *float32 `json:"data_total_billed,omitempty"`
+	DataTotalBilled float32 `json:"data_total_billed,omitempty"`
 	// The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`).
-	BilledUnit *string `json:"billed_unit,omitempty"`
+	BilledUnit string `json:"billed_unit,omitempty"`
 }
 
 func (response *SupersimV1UsageRecord) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		AccountSid      *string      `json:"account_sid"`
-		SimSid          *string      `json:"sim_sid"`
-		NetworkSid      *string      `json:"network_sid"`
-		FleetSid        *string      `json:"fleet_sid"`
-		IsoCountry      *string      `json:"iso_country"`
+		AccountSid      string       `json:"account_sid"`
+		SimSid          string       `json:"sim_sid"`
+		NetworkSid      string       `json:"network_sid"`
+		FleetSid        string       `json:"fleet_sid"`
+		IsoCountry      string       `json:"iso_country"`
 		Period          *interface{} `json:"period"`
-		DataUpload      *int64       `json:"data_upload"`
-		DataDownload    *int64       `json:"data_download"`
-		DataTotal       *int64       `json:"data_total"`
-		DataTotalBilled *interface{} `json:"data_total_billed"`
-		BilledUnit      *string      `json:"billed_unit"`
+		DataUpload      int64        `json:"data_upload"`
+		DataDownload    int64        `json:"data_download"`
+		DataTotal       int64        `json:"data_total"`
+		DataTotalBilled interface{}  `json:"data_total_billed"`
+		BilledUnit      string       `json:"billed_unit"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -78,11 +78,11 @@ func (response *SupersimV1UsageRecord) UnmarshalJSON(bytes []byte) (err error) {
 		BilledUnit:   raw.BilledUnit,
 	}
 
-	responseDataTotalBilled, err := client.UnmarshalFloat32(raw.DataTotalBilled)
+	responseDataTotalBilled, err := client.UnmarshalFloat32(&raw.DataTotalBilled)
 	if err != nil {
 		return err
 	}
-	response.DataTotalBilled = responseDataTotalBilled
+	response.DataTotalBilled = *responseDataTotalBilled
 
 	return
 }

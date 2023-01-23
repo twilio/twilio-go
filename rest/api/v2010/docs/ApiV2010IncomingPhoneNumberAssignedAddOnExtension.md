@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**ResourceSid** | Pointer to **string** | The SID of the Phone Number to which the Add-on is assigned |
-**AssignedAddOnSid** | Pointer to **string** | The SID that uniquely identifies the assigned Add-on installation |
-**FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
-**ProductName** | Pointer to **string** | A string that you assigned to describe the Product this Extension is used within |
-**UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource |
-**Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com` |
-**Enabled** | Pointer to **bool** | Whether the Extension will be invoked |
+**Sid** | **string** | The unique string that identifies the resource |[optional] 
+**AccountSid** | **string** | The SID of the Account that created the resource |[optional] 
+**ResourceSid** | **string** | The SID of the Phone Number to which the Add-on is assigned |[optional] 
+**AssignedAddOnSid** | **string** | The SID that uniquely identifies the assigned Add-on installation |[optional] 
+**FriendlyName** | **string** | The string that you assigned to describe the resource |[optional] 
+**ProductName** | **string** | A string that you assigned to describe the Product this Extension is used within |[optional] 
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource |[optional] 
+**Uri** | **string** | The URI of the resource, relative to `https://api.twilio.com` |[optional] 
+**Enabled** | **bool** | Whether the Extension will be invoked |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

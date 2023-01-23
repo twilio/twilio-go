@@ -16,8 +16,8 @@ package openapi
 
 // ApiV2010SigningKey struct for ApiV2010SigningKey
 type ApiV2010SigningKey struct {
-	Sid          *string `json:"sid,omitempty"`
-	FriendlyName *string `json:"friendly_name,omitempty"`
-	DateCreated  *string `json:"date_created,omitempty"`
-	DateUpdated  *string `json:"date_updated,omitempty"`
+	Sid          string `json:"sid,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
+	DateCreated  string `json:"date_created,omitempty"`
+	DateUpdated  string `json:"date_updated,omitempty"`
 }

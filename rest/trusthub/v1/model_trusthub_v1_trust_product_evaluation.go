@@ -21,16 +21,16 @@ import (
 // TrusthubV1TrustProductEvaluation struct for TrusthubV1TrustProductEvaluation
 type TrusthubV1TrustProductEvaluation struct {
 	// The unique string that identifies the Evaluation resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The unique string of a policy
-	PolicySid *string `json:"policy_sid,omitempty"`
+	PolicySid string `json:"policy_sid,omitempty"`
 	// The unique string that identifies the resource
-	TrustProductSid *string `json:"trust_product_sid,omitempty"`
+	TrustProductSid string  `json:"trust_product_sid,omitempty"`
 	Status          *string `json:"status,omitempty"`
 	// The results of the Evaluation resource
-	Results     *[]interface{} `json:"results,omitempty"`
-	DateCreated *time.Time     `json:"date_created,omitempty"`
-	Url         *string        `json:"url,omitempty"`
+	Results     []interface{} `json:"results,omitempty"`
+	DateCreated time.Time     `json:"date_created,omitempty"`
+	Url         string        `json:"url,omitempty"`
 }

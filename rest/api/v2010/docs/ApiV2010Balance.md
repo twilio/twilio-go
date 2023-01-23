@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | Account Sid. |
-**Balance** | Pointer to **string** | Account balance |
-**Currency** | Pointer to **string** | Currency units |
+**AccountSid** | **string** | Account Sid. |[optional] 
+**Balance** | **string** | Account balance |[optional] 
+**Currency** | **string** | Currency units |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

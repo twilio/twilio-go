@@ -21,17 +21,17 @@ import (
 // MicrovisorV1App struct for MicrovisorV1App
 type MicrovisorV1App struct {
 	// A string that uniquely identifies this App.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The Account SID.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// App manifest hash represented as hash_algorithm:hash_value.
-	Hash *string `json:"hash,omitempty"`
+	Hash string `json:"hash,omitempty"`
 	// An developer-defined string that uniquely identifies the App.
-	UniqueName *string `json:"unique_name,omitempty"`
+	UniqueName string `json:"unique_name,omitempty"`
 	// The date that this App was created.
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date that this App was last updated.
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

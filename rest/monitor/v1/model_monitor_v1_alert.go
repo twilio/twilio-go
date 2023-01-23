@@ -21,33 +21,33 @@ import (
 // MonitorV1Alert struct for MonitorV1Alert
 type MonitorV1Alert struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The text of the alert
-	AlertText *string `json:"alert_text,omitempty"`
+	AlertText string `json:"alert_text,omitempty"`
 	// The API version used when the alert was generated
-	ApiVersion *string `json:"api_version,omitempty"`
+	ApiVersion string `json:"api_version,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date and time when the alert was generated specified in ISO 8601 format
-	DateGenerated *time.Time `json:"date_generated,omitempty"`
+	DateGenerated time.Time `json:"date_generated,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The error code for the condition that generated the alert
-	ErrorCode *string `json:"error_code,omitempty"`
+	ErrorCode string `json:"error_code,omitempty"`
 	// The log level
-	LogLevel *string `json:"log_level,omitempty"`
+	LogLevel string `json:"log_level,omitempty"`
 	// The URL of the page in our Error Dictionary with more information about the error condition
-	MoreInfo *string `json:"more_info,omitempty"`
+	MoreInfo string `json:"more_info,omitempty"`
 	// The method used by the request that generated the alert
-	RequestMethod *string `json:"request_method,omitempty"`
+	RequestMethod string `json:"request_method,omitempty"`
 	// The URL of the request that generated the alert
-	RequestUrl *string `json:"request_url,omitempty"`
+	RequestUrl string `json:"request_url,omitempty"`
 	// The SID of the resource for which the alert was generated
-	ResourceSid *string `json:"resource_sid,omitempty"`
+	ResourceSid string `json:"resource_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The absolute URL of the Alert resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// The SID of the service or resource that generated the alert
-	ServiceSid *string `json:"service_sid,omitempty"`
+	ServiceSid string `json:"service_sid,omitempty"`
 }

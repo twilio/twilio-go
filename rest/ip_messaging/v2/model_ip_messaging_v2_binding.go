@@ -20,16 +20,16 @@ import (
 
 // IpMessagingV2Binding struct for IpMessagingV2Binding
 type IpMessagingV2Binding struct {
-	Sid           *string                 `json:"sid,omitempty"`
-	AccountSid    *string                 `json:"account_sid,omitempty"`
-	ServiceSid    *string                 `json:"service_sid,omitempty"`
-	DateCreated   *time.Time              `json:"date_created,omitempty"`
-	DateUpdated   *time.Time              `json:"date_updated,omitempty"`
-	Endpoint      *string                 `json:"endpoint,omitempty"`
-	Identity      *string                 `json:"identity,omitempty"`
-	CredentialSid *string                 `json:"credential_sid,omitempty"`
-	BindingType   *string                 `json:"binding_type,omitempty"`
-	MessageTypes  *[]string               `json:"message_types,omitempty"`
-	Url           *string                 `json:"url,omitempty"`
-	Links         *map[string]interface{} `json:"links,omitempty"`
+	Sid           string                 `json:"sid,omitempty"`
+	AccountSid    string                 `json:"account_sid,omitempty"`
+	ServiceSid    string                 `json:"service_sid,omitempty"`
+	DateCreated   time.Time              `json:"date_created,omitempty"`
+	DateUpdated   time.Time              `json:"date_updated,omitempty"`
+	Endpoint      string                 `json:"endpoint,omitempty"`
+	Identity      string                 `json:"identity,omitempty"`
+	CredentialSid string                 `json:"credential_sid,omitempty"`
+	BindingType   *string                `json:"binding_type,omitempty"`
+	MessageTypes  []string               `json:"message_types,omitempty"`
+	Url           string                 `json:"url,omitempty"`
+	Links         map[string]interface{} `json:"links,omitempty"`
 }

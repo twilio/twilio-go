@@ -21,15 +21,15 @@ import (
 // VoiceV1SourceIpMapping struct for VoiceV1SourceIpMapping
 type VoiceV1SourceIpMapping struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The unique string that identifies an IP Record
-	IpRecordSid *string `json:"ip_record_sid,omitempty"`
+	IpRecordSid string `json:"ip_record_sid,omitempty"`
 	// The unique string that identifies a SIP Domain
-	SipDomainSid *string `json:"sip_domain_sid,omitempty"`
+	SipDomainSid string `json:"sip_domain_sid,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

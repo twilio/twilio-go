@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** |  |
-**AccountSid** | Pointer to **string** |  |
-**ServiceSid** | Pointer to **string** |  |
-**FriendlyName** | Pointer to **string** |  |
+**Sid** | **string** |  |[optional] 
+**AccountSid** | **string** |  |[optional] 
+**ServiceSid** | **string** |  |[optional] 
+**FriendlyName** | **string** |  |[optional] 
 **Type** | Pointer to [**string**](RoleEnumRoleType.md) |  |
-**Permissions** | Pointer to **[]string** |  |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
-**Url** | Pointer to **string** |  |
+**Permissions** | **[]string** |  |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) |  |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) |  |[optional] 
+**Url** | **string** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

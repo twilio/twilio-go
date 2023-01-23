@@ -17,9 +17,9 @@ package openapi
 // PricingV1MessagingCountry struct for PricingV1MessagingCountry
 type PricingV1MessagingCountry struct {
 	// The name of the country
-	Country *string `json:"country,omitempty"`
+	Country string `json:"country,omitempty"`
 	// The ISO country code
-	IsoCountry *string `json:"iso_country,omitempty"`
+	IsoCountry string `json:"iso_country,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

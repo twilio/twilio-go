@@ -17,16 +17,16 @@ package openapi
 // NumbersV2Regulation struct for NumbersV2Regulation
 type NumbersV2Regulation struct {
 	// The unique string that identifies the Regulation resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// A human-readable description of the Regulation resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// The ISO country code of the phone number's country
-	IsoCountry *string `json:"iso_country,omitempty"`
+	IsoCountry string `json:"iso_country,omitempty"`
 	// The type of phone number restricted by the regulatory requirement
-	NumberType  *string `json:"number_type,omitempty"`
+	NumberType  string  `json:"number_type,omitempty"`
 	EndUserType *string `json:"end_user_type,omitempty"`
 	// The sid of a regulation object that dictates requirements
 	Requirements *interface{} `json:"requirements,omitempty"`
 	// The absolute URL of the Regulation resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

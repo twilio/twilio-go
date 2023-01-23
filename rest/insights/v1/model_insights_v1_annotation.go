@@ -17,21 +17,21 @@ package openapi
 // InsightsV1Annotation struct for InsightsV1Annotation
 type InsightsV1Annotation struct {
 	// Call SID.
-	CallSid *string `json:"call_sid,omitempty"`
+	CallSid string `json:"call_sid,omitempty"`
 	// Account SID.
-	AccountSid        *string `json:"account_sid,omitempty"`
+	AccountSid        string  `json:"account_sid,omitempty"`
 	AnsweredBy        *string `json:"answered_by,omitempty"`
 	ConnectivityIssue *string `json:"connectivity_issue,omitempty"`
 	// Indicates if the call had audio quality issues.
-	QualityIssues *[]string `json:"quality_issues,omitempty"`
+	QualityIssues []string `json:"quality_issues,omitempty"`
 	// Call spam indicator
-	Spam *bool `json:"spam,omitempty"`
+	Spam bool `json:"spam,omitempty"`
 	// Call Score
 	CallScore *int `json:"call_score,omitempty"`
 	// User comments
-	Comment *string `json:"comment,omitempty"`
+	Comment string `json:"comment,omitempty"`
 	// Call tag for incidents or support ticket
-	Incident *string `json:"incident,omitempty"`
+	Incident string `json:"incident,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

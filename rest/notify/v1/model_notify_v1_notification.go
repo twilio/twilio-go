@@ -21,30 +21,30 @@ import (
 // NotifyV1Notification struct for NotifyV1Notification
 type NotifyV1Notification struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Service that the resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
+	ServiceSid string `json:"service_sid,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The list of identity values of the Users to notify
-	Identities *[]string `json:"identities,omitempty"`
+	Identities []string `json:"identities,omitempty"`
 	// The tags that select the Bindings to notify
-	Tags *[]string `json:"tags,omitempty"`
+	Tags []string `json:"tags,omitempty"`
 	// The list of Segments to notify
-	Segments *[]string `json:"segments,omitempty"`
-	Priority *string   `json:"priority,omitempty"`
+	Segments []string `json:"segments,omitempty"`
+	Priority *string  `json:"priority,omitempty"`
 	// How long, in seconds, the notification is valid
-	Ttl *int `json:"ttl,omitempty"`
+	Ttl int `json:"ttl,omitempty"`
 	// The notification title
-	Title *string `json:"title,omitempty"`
+	Title string `json:"title,omitempty"`
 	// The notification body text
-	Body *string `json:"body,omitempty"`
+	Body string `json:"body,omitempty"`
 	// The name of the sound to be played for the notification
-	Sound *string `json:"sound,omitempty"`
+	Sound string `json:"sound,omitempty"`
 	// The actions to display for the notification
-	Action *string `json:"action,omitempty"`
+	Action string `json:"action,omitempty"`
 	// The custom key-value pairs of the notification's payload
 	Data *interface{} `json:"data,omitempty"`
 	// The APNS-specific payload that overrides corresponding attributes in a generic payload for APNS Bindings

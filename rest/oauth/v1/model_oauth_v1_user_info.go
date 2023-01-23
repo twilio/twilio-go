@@ -17,14 +17,14 @@ package openapi
 // OauthV1UserInfo struct for OauthV1UserInfo
 type OauthV1UserInfo struct {
 	// The user sid
-	UserSid *string `json:"user_sid,omitempty"`
+	UserSid string `json:"user_sid,omitempty"`
 	// The first name of the end-user
-	FirstName *string `json:"first_name,omitempty"`
+	FirstName string `json:"first_name,omitempty"`
 	// The last name of the end-user
-	LastName *string `json:"last_name,omitempty"`
+	LastName string `json:"last_name,omitempty"`
 	// The friendly name of the end-user
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// The end-user's preferred email address
-	Email *string `json:"email,omitempty"`
-	Url   *string `json:"url,omitempty"`
+	Email string `json:"email,omitempty"`
+	Url   string `json:"url,omitempty"`
 }

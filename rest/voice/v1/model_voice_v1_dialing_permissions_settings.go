@@ -17,7 +17,7 @@ package openapi
 // VoiceV1DialingPermissionsSettings struct for VoiceV1DialingPermissionsSettings
 type VoiceV1DialingPermissionsSettings struct {
 	// `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`
-	DialingPermissionsInheritance *bool `json:"dialing_permissions_inheritance,omitempty"`
+	DialingPermissionsInheritance bool `json:"dialing_permissions_inheritance,omitempty"`
 	// The absolute URL of this resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

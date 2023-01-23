@@ -21,19 +21,19 @@ import (
 // RoutesV2PhoneNumber struct for RoutesV2PhoneNumber
 type RoutesV2PhoneNumber struct {
 	// The phone number
-	PhoneNumber *string `json:"phone_number,omitempty"`
+	PhoneNumber string `json:"phone_number,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// A string that uniquely identifies the Inbound Processing Region assignments for this phone number.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// Account Sid.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// A human readable description of the Inbound Processing Region assignments for this phone number.
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// The Inbound Processing Region used for this phone number for voice.
-	VoiceRegion *string `json:"voice_region,omitempty"`
+	VoiceRegion string `json:"voice_region,omitempty"`
 	// The date that this phone number was assigned an Inbound Processing Region.
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date that the Inbound Processing Region was updated for this phone number.
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 }

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CallingCountryCode** | Pointer to **string** | International dialing prefix |
-**CountryCode** | Pointer to **string** | Phone number's ISO country code |
-**PhoneNumber** | Pointer to **string** | Phone number in E.164 format |
-**NationalFormat** | Pointer to **string** | Phone number in national format |
-**Valid** | Pointer to **bool** | Boolean which indicates if the phone number is valid |
+**CallingCountryCode** | **string** | International dialing prefix |[optional] 
+**CountryCode** | **string** | Phone number's ISO country code |[optional] 
+**PhoneNumber** | **string** | Phone number in E.164 format |[optional] 
+**NationalFormat** | **string** | Phone number in national format |[optional] 
+**Valid** | **bool** | Boolean which indicates if the phone number is valid |[optional] 
 **ValidationErrors** | Pointer to [**[]string**](PhoneNumberEnumValidationError.md) | Contains reasons why a phone number is invalid |
 **CallerName** | Pointer to **interface{}** | An object that contains caller name information |
 **SimSwap** | Pointer to **interface{}** | An object that contains SIM swap information |
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **LiveActivity** | Pointer to **interface{}** | An object that contains live activity information |
 **LineTypeIntelligence** | Pointer to **interface{}** | An object that contains line type information |
 **IdentityMatch** | Pointer to **interface{}** | An object that contains identity match information |
-**Url** | Pointer to **string** | The absolute URL of the resource |
+**Url** | **string** | The absolute URL of the resource |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

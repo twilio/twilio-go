@@ -17,11 +17,11 @@ package openapi
 // TrusthubV1Policies struct for TrusthubV1Policies
 type TrusthubV1Policies struct {
 	// The unique string that identifies the Policy resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// A human-readable description of the Policy resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// The sid of a Policy object that dictates requirements
 	Requirements *interface{} `json:"requirements,omitempty"`
 	// The absolute URL of the Policy resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

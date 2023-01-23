@@ -17,5 +17,5 @@ package openapi
 // VoiceV1DialingPermissionsHrsPrefixes struct for VoiceV1DialingPermissionsHrsPrefixes
 type VoiceV1DialingPermissionsHrsPrefixes struct {
 	// A prefix that includes the E.164 assigned country code
-	Prefix *string `json:"prefix,omitempty"`
+	Prefix string `json:"prefix,omitempty"`
 }

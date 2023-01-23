@@ -18,5 +18,5 @@ package openapi
 type OauthV1Certs struct {
 	// A collection of certificates
 	Keys *interface{} `json:"keys,omitempty"`
-	Url  *string      `json:"url,omitempty"`
+	Url  string       `json:"url,omitempty"`
 }

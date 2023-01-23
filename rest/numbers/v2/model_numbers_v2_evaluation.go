@@ -21,16 +21,16 @@ import (
 // NumbersV2Evaluation struct for NumbersV2Evaluation
 type NumbersV2Evaluation struct {
 	// The unique string that identifies the Evaluation resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The unique string of a regulation
-	RegulationSid *string `json:"regulation_sid,omitempty"`
+	RegulationSid string `json:"regulation_sid,omitempty"`
 	// The unique string that identifies the resource
-	BundleSid *string `json:"bundle_sid,omitempty"`
+	BundleSid string  `json:"bundle_sid,omitempty"`
 	Status    *string `json:"status,omitempty"`
 	// The results of the Evaluation resource
-	Results     *[]interface{} `json:"results,omitempty"`
-	DateCreated *time.Time     `json:"date_created,omitempty"`
-	Url         *string        `json:"url,omitempty"`
+	Results     []interface{} `json:"results,omitempty"`
+	DateCreated time.Time     `json:"date_created,omitempty"`
+	Url         string        `json:"url,omitempty"`
 }

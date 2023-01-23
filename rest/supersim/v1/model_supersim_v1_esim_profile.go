@@ -21,26 +21,26 @@ import (
 // SupersimV1EsimProfile struct for SupersimV1EsimProfile
 type SupersimV1EsimProfile struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account to which the eSIM Profile resource belongs
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The ICCID associated with the Sim resource
-	Iccid *string `json:"iccid,omitempty"`
+	Iccid string `json:"iccid,omitempty"`
 	// The SID of the Sim resource that this eSIM Profile controls
-	SimSid *string `json:"sim_sid,omitempty"`
+	SimSid string  `json:"sim_sid,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// Identifier of the eUICC that can claim the eSIM Profile
-	Eid *string `json:"eid,omitempty"`
+	Eid string `json:"eid,omitempty"`
 	// Address of the SM-DP+ server from which the Profile will be downloaded
-	SmdpPlusAddress *string `json:"smdp_plus_address,omitempty"`
+	SmdpPlusAddress string `json:"smdp_plus_address,omitempty"`
 	// Code indicating the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state
-	ErrorCode *string `json:"error_code,omitempty"`
+	ErrorCode string `json:"error_code,omitempty"`
 	// Error message describing the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state
-	ErrorMessage *string `json:"error_message,omitempty"`
+	ErrorMessage string `json:"error_message,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The absolute URL of the eSIM Profile resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

@@ -21,15 +21,15 @@ import (
 // TrusthubV1TrustProductEntityAssignment struct for TrusthubV1TrustProductEntityAssignment
 type TrusthubV1TrustProductEntityAssignment struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The unique string that identifies the TrustProduct resource.
-	TrustProductSid *string `json:"trust_product_sid,omitempty"`
+	TrustProductSid string `json:"trust_product_sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The sid of an object bag
-	ObjectSid *string `json:"object_sid,omitempty"`
+	ObjectSid string `json:"object_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The absolute URL of the Identity resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

@@ -21,24 +21,24 @@ import (
 // StudioV1Engagement struct for StudioV1Engagement
 type StudioV1Engagement struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Flow
-	FlowSid *string `json:"flow_sid,omitempty"`
+	FlowSid string `json:"flow_sid,omitempty"`
 	// The SID of the Contact
-	ContactSid *string `json:"contact_sid,omitempty"`
+	ContactSid string `json:"contact_sid,omitempty"`
 	// The phone number, SIP address or Client identifier that triggered this Engagement
-	ContactChannelAddress *string `json:"contact_channel_address,omitempty"`
+	ContactChannelAddress string `json:"contact_channel_address,omitempty"`
 	// The current state of the execution flow
 	Context *interface{} `json:"context,omitempty"`
 	Status  *string      `json:"status,omitempty"`
 	// The ISO 8601 date and time in GMT when the Engagement was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the Engagement was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// The URLs of the Engagement's nested resources
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

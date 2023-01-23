@@ -17,9 +17,9 @@ package openapi
 // VerifyV2Safelist struct for VerifyV2Safelist
 type VerifyV2Safelist struct {
 	// The unique string that identifies the resource.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The phone number in SafeList.
-	PhoneNumber *string `json:"phone_number,omitempty"`
+	PhoneNumber string `json:"phone_number,omitempty"`
 	// The absolute URL of the SafeList resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

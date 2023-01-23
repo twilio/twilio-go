@@ -17,11 +17,11 @@ package openapi
 // ContentV1ApprovalFetch struct for ContentV1ApprovalFetch
 type ContentV1ApprovalFetch struct {
 	// The unique string that identifies the Content resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the Content resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// Contains the whatsapp approval information for the Content resource
 	Whatsapp *interface{} `json:"whatsapp,omitempty"`
 	// The URL of the resource, relative to `https://content.twilio.com`
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

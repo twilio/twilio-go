@@ -17,5 +17,5 @@ package openapi
 // MessagingV1Deactivation struct for MessagingV1Deactivation
 type MessagingV1Deactivation struct {
 	// Redirect url to the list of deactivated numbers.
-	RedirectTo *string `json:"redirect_to,omitempty"`
+	RedirectTo string `json:"redirect_to,omitempty"`
 }

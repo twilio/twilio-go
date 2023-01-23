@@ -17,15 +17,15 @@ package openapi
 // LookupsV2PhoneNumber struct for LookupsV2PhoneNumber
 type LookupsV2PhoneNumber struct {
 	// International dialing prefix
-	CallingCountryCode *string `json:"calling_country_code,omitempty"`
+	CallingCountryCode string `json:"calling_country_code,omitempty"`
 	// Phone number's ISO country code
-	CountryCode *string `json:"country_code,omitempty"`
+	CountryCode string `json:"country_code,omitempty"`
 	// Phone number in E.164 format
-	PhoneNumber *string `json:"phone_number,omitempty"`
+	PhoneNumber string `json:"phone_number,omitempty"`
 	// Phone number in national format
-	NationalFormat *string `json:"national_format,omitempty"`
+	NationalFormat string `json:"national_format,omitempty"`
 	// Boolean which indicates if the phone number is valid
-	Valid *bool `json:"valid,omitempty"`
+	Valid bool `json:"valid,omitempty"`
 	// Contains reasons why a phone number is invalid
 	ValidationErrors *[]string `json:"validation_errors,omitempty"`
 	// An object that contains caller name information
@@ -41,5 +41,5 @@ type LookupsV2PhoneNumber struct {
 	// An object that contains identity match information
 	IdentityMatch *interface{} `json:"identity_match,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

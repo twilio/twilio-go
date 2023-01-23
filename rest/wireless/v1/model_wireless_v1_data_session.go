@@ -21,35 +21,35 @@ import (
 // WirelessV1DataSession struct for WirelessV1DataSession
 type WirelessV1DataSession struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Sim resource that the Data Session is for
-	SimSid *string `json:"sim_sid,omitempty"`
+	SimSid string `json:"sim_sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The generation of wireless technology that the device was using
-	RadioLink *string `json:"radio_link,omitempty"`
+	RadioLink string `json:"radio_link,omitempty"`
 	// The 'mobile country code' is the unique ID of the home country where the Data Session took place
-	OperatorMcc *string `json:"operator_mcc,omitempty"`
+	OperatorMcc string `json:"operator_mcc,omitempty"`
 	// The 'mobile network code' is the unique ID specific to the mobile operator network where the Data Session took place
-	OperatorMnc *string `json:"operator_mnc,omitempty"`
+	OperatorMnc string `json:"operator_mnc,omitempty"`
 	// The three letter country code representing where the device's Data Session took place
-	OperatorCountry *string `json:"operator_country,omitempty"`
+	OperatorCountry string `json:"operator_country,omitempty"`
 	// The friendly name of the mobile operator network that the SIM-connected device is attached to
-	OperatorName *string `json:"operator_name,omitempty"`
+	OperatorName string `json:"operator_name,omitempty"`
 	// The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated
-	CellId *string `json:"cell_id,omitempty"`
+	CellId string `json:"cell_id,omitempty"`
 	// An object with the estimated location where the device's Data Session took place
 	CellLocationEstimate *interface{} `json:"cell_location_estimate,omitempty"`
 	// The number of packets uploaded by the device between the start time and when the Data Session was last updated
-	PacketsUploaded *int `json:"packets_uploaded,omitempty"`
+	PacketsUploaded int `json:"packets_uploaded,omitempty"`
 	// The number of packets downloaded by the device between the start time and when the Data Session was last updated
-	PacketsDownloaded *int `json:"packets_downloaded,omitempty"`
+	PacketsDownloaded int `json:"packets_downloaded,omitempty"`
 	// The date that the resource was last updated, given as GMT in ISO 8601 format
-	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	LastUpdated time.Time `json:"last_updated,omitempty"`
 	// The date that the Data Session started, given as GMT in ISO 8601 format
-	Start *time.Time `json:"start,omitempty"`
+	Start time.Time `json:"start,omitempty"`
 	// The date that the record ended, given as GMT in ISO 8601 format
-	End *time.Time `json:"end,omitempty"`
+	End time.Time `json:"end,omitempty"`
 	// The unique ID of the device using the SIM to connect
-	Imei *string `json:"imei,omitempty"`
+	Imei string `json:"imei,omitempty"`
 }

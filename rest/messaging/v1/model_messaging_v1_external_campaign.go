@@ -21,13 +21,13 @@ import (
 // MessagingV1ExternalCampaign struct for MessagingV1ExternalCampaign
 type MessagingV1ExternalCampaign struct {
 	// The unique string that identifies a US A2P Compliance resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// ID of the preregistered campaign.
-	CampaignId *string `json:"campaign_id,omitempty"`
+	CampaignId string `json:"campaign_id,omitempty"`
 	// The SID of the Messaging Service the resource is associated with
-	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
+	MessagingServiceSid string `json:"messaging_service_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 }

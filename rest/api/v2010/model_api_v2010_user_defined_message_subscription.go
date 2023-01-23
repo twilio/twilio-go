@@ -17,13 +17,13 @@ package openapi
 // ApiV2010UserDefinedMessageSubscription struct for ApiV2010UserDefinedMessageSubscription
 type ApiV2010UserDefinedMessageSubscription struct {
 	// Account SID.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// Call SID.
-	CallSid *string `json:"call_sid,omitempty"`
+	CallSid string `json:"call_sid,omitempty"`
 	// User Defined Message Subscription SID.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The date this User Defined Message Subscription was created.
-	DateCreated *string `json:"date_created,omitempty"`
+	DateCreated string `json:"date_created,omitempty"`
 	// The URI of the User Defined Message Subscription Resource, relative to `https://api.twilio.com`.
-	Uri *string `json:"uri,omitempty"`
+	Uri string `json:"uri,omitempty"`
 }

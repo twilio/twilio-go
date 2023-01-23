@@ -21,38 +21,38 @@ import (
 // VerifyV2Service struct for VerifyV2Service
 type VerifyV2Service struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The string that you assigned to describe the verification service
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// The length of the verification code
-	CodeLength *int `json:"code_length,omitempty"`
+	CodeLength int `json:"code_length,omitempty"`
 	// Whether to perform a lookup with each verification
-	LookupEnabled *bool `json:"lookup_enabled,omitempty"`
+	LookupEnabled bool `json:"lookup_enabled,omitempty"`
 	// Whether to pass PSD2 transaction parameters when starting a verification
-	Psd2Enabled *bool `json:"psd2_enabled,omitempty"`
+	Psd2Enabled bool `json:"psd2_enabled,omitempty"`
 	// Whether to skip sending SMS verifications to landlines
-	SkipSmsToLandlines *bool `json:"skip_sms_to_landlines,omitempty"`
+	SkipSmsToLandlines bool `json:"skip_sms_to_landlines,omitempty"`
 	// Whether to ask the user to press a number before delivering the verify code in a phone call
-	DtmfInputRequired *bool `json:"dtmf_input_required,omitempty"`
+	DtmfInputRequired bool `json:"dtmf_input_required,omitempty"`
 	// The name of an alternative text-to-speech service to use in phone calls
-	TtsName *string `json:"tts_name,omitempty"`
+	TtsName string `json:"tts_name,omitempty"`
 	// Whether to add a security warning at the end of an SMS.
-	DoNotShareWarningEnabled *bool `json:"do_not_share_warning_enabled,omitempty"`
+	DoNotShareWarningEnabled bool `json:"do_not_share_warning_enabled,omitempty"`
 	// Whether to allow sending verifications with a custom code.
-	CustomCodeEnabled *bool `json:"custom_code_enabled,omitempty"`
+	CustomCodeEnabled bool `json:"custom_code_enabled,omitempty"`
 	// The service level configuration of factor push type.
 	Push *interface{} `json:"push,omitempty"`
 	// The service level configuration of factor TOTP type.
 	Totp               *interface{} `json:"totp,omitempty"`
-	DefaultTemplateSid *string      `json:"default_template_sid,omitempty"`
+	DefaultTemplateSid string       `json:"default_template_sid,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// The URLs of related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

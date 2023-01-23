@@ -17,11 +17,11 @@ package openapi
 // AutopilotV1StyleSheet struct for AutopilotV1StyleSheet
 type AutopilotV1StyleSheet struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Assistant that is the parent of the resource
-	AssistantSid *string `json:"assistant_sid,omitempty"`
+	AssistantSid string `json:"assistant_sid,omitempty"`
 	// The absolute URL of the StyleSheet resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// The JSON string that describes the style sheet object
 	Data *interface{} `json:"data,omitempty"`
 }

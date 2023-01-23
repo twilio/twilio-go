@@ -17,17 +17,17 @@ package openapi
 // ApiV2010SipCredentialList struct for ApiV2010SipCredentialList
 type ApiV2010SipCredentialList struct {
 	// The unique sid that identifies this account
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The date this resource was created
-	DateCreated *string `json:"date_created,omitempty"`
+	DateCreated string `json:"date_created,omitempty"`
 	// The date this resource was last updated
-	DateUpdated *string `json:"date_updated,omitempty"`
+	DateUpdated string `json:"date_updated,omitempty"`
 	// Human readable descriptive text
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// A string that uniquely identifies this credential
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The list of credentials associated with this credential list.
-	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
+	SubresourceUris map[string]interface{} `json:"subresource_uris,omitempty"`
 	// The URI for this resource
-	Uri *string `json:"uri,omitempty"`
+	Uri string `json:"uri,omitempty"`
 }

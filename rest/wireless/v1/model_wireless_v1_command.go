@@ -21,23 +21,23 @@ import (
 // WirelessV1Command struct for WirelessV1Command
 type WirelessV1Command struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Sim resource that the Command was sent to or from
-	SimSid *string `json:"sim_sid,omitempty"`
+	SimSid string `json:"sim_sid,omitempty"`
 	// The message being sent to or from the SIM
-	Command     *string `json:"command,omitempty"`
+	Command     string  `json:"command,omitempty"`
 	CommandMode *string `json:"command_mode,omitempty"`
 	Transport   *string `json:"transport,omitempty"`
 	// Whether to request a delivery receipt
-	DeliveryReceiptRequested *bool   `json:"delivery_receipt_requested,omitempty"`
+	DeliveryReceiptRequested bool    `json:"delivery_receipt_requested,omitempty"`
 	Status                   *string `json:"status,omitempty"`
 	Direction                *string `json:"direction,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated format
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

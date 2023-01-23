@@ -17,5 +17,5 @@ package openapi
 // MessagingV1Usecase struct for MessagingV1Usecase
 type MessagingV1Usecase struct {
 	// Human readable Messaging Service Use Case details
-	Usecases *[]interface{} `json:"usecases,omitempty"`
+	Usecases []interface{} `json:"usecases,omitempty"`
 }

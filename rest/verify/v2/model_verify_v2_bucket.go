@@ -21,21 +21,21 @@ import (
 // VerifyV2Bucket struct for VerifyV2Bucket
 type VerifyV2Bucket struct {
 	// A string that uniquely identifies this Bucket.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// Rate Limit Sid.
-	RateLimitSid *string `json:"rate_limit_sid,omitempty"`
+	RateLimitSid string `json:"rate_limit_sid,omitempty"`
 	// The SID of the Service that the resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
+	ServiceSid string `json:"service_sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// Max number of requests.
-	Max *int `json:"max,omitempty"`
+	Max int `json:"max,omitempty"`
 	// Number of seconds that the rate limit will be enforced over.
-	Interval *int `json:"interval,omitempty"`
+	Interval int `json:"interval,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

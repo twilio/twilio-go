@@ -20,13 +20,13 @@ import (
 
 // IpMessagingV2Role struct for IpMessagingV2Role
 type IpMessagingV2Role struct {
-	Sid          *string    `json:"sid,omitempty"`
-	AccountSid   *string    `json:"account_sid,omitempty"`
-	ServiceSid   *string    `json:"service_sid,omitempty"`
-	FriendlyName *string    `json:"friendly_name,omitempty"`
-	Type         *string    `json:"type,omitempty"`
-	Permissions  *[]string  `json:"permissions,omitempty"`
-	DateCreated  *time.Time `json:"date_created,omitempty"`
-	DateUpdated  *time.Time `json:"date_updated,omitempty"`
-	Url          *string    `json:"url,omitempty"`
+	Sid          string    `json:"sid,omitempty"`
+	AccountSid   string    `json:"account_sid,omitempty"`
+	ServiceSid   string    `json:"service_sid,omitempty"`
+	FriendlyName string    `json:"friendly_name,omitempty"`
+	Type         *string   `json:"type,omitempty"`
+	Permissions  []string  `json:"permissions,omitempty"`
+	DateCreated  time.Time `json:"date_created,omitempty"`
+	DateUpdated  time.Time `json:"date_updated,omitempty"`
+	Url          string    `json:"url,omitempty"`
 }

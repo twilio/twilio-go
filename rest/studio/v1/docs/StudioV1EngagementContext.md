@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | Account SID |
+**AccountSid** | **string** | Account SID |[optional] 
 **Context** | Pointer to **interface{}** | Flow state |
-**EngagementSid** | Pointer to **string** | Engagement SID |
-**FlowSid** | Pointer to **string** | Flow SID |
-**Url** | Pointer to **string** | The URL of the resource |
+**EngagementSid** | **string** | Engagement SID |[optional] 
+**FlowSid** | **string** | Flow SID |[optional] 
+**Url** | **string** | The URL of the resource |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

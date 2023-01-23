@@ -17,28 +17,28 @@ package openapi
 // OauthV1OpenidDiscovery struct for OauthV1OpenidDiscovery
 type OauthV1OpenidDiscovery struct {
 	// The issuer URL
-	Issuer *string `json:"issuer,omitempty"`
+	Issuer string `json:"issuer,omitempty"`
 	// The URL of authorization endpoint
-	AuthorizationEndpoint *string `json:"authorization_endpoint,omitempty"`
+	AuthorizationEndpoint string `json:"authorization_endpoint,omitempty"`
 	// The URL of device code authorization endpoint
-	DeviceAuthorizationEndpoint *string `json:"device_authorization_endpoint,omitempty"`
+	DeviceAuthorizationEndpoint string `json:"device_authorization_endpoint,omitempty"`
 	// The URL of token endpoint
-	TokenEndpoint *string `json:"token_endpoint,omitempty"`
+	TokenEndpoint string `json:"token_endpoint,omitempty"`
 	// The URL of user info endpoint
-	UserinfoEndpoint *string `json:"userinfo_endpoint,omitempty"`
+	UserinfoEndpoint string `json:"userinfo_endpoint,omitempty"`
 	// The URL of revocation endpoint
-	RevocationEndpoint *string `json:"revocation_endpoint,omitempty"`
+	RevocationEndpoint string `json:"revocation_endpoint,omitempty"`
 	// The URL of public JWK endpoint
-	JwkUri *string `json:"jwk_uri,omitempty"`
+	JwkUri string `json:"jwk_uri,omitempty"`
 	// List of response type supported for identity token
-	ResponseTypeSupported *[]string `json:"response_type_supported,omitempty"`
+	ResponseTypeSupported []string `json:"response_type_supported,omitempty"`
 	// List of subject supported for identity token
-	SubjectTypeSupported *[]string `json:"subject_type_supported,omitempty"`
+	SubjectTypeSupported []string `json:"subject_type_supported,omitempty"`
 	// List of JWS signing algorithms supported for identity token
-	IdTokenSigningAlgValuesSupported *[]string `json:"id_token_signing_alg_values_supported,omitempty"`
+	IdTokenSigningAlgValuesSupported []string `json:"id_token_signing_alg_values_supported,omitempty"`
 	// List of scopes supported identity token
-	ScopesSupported *[]string `json:"scopes_supported,omitempty"`
+	ScopesSupported []string `json:"scopes_supported,omitempty"`
 	// List of claims supported for identity token
-	ClaimsSupported *[]string `json:"claims_supported,omitempty"`
-	Url             *string   `json:"url,omitempty"`
+	ClaimsSupported []string `json:"claims_supported,omitempty"`
+	Url             string   `json:"url,omitempty"`
 }

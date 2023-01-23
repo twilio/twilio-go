@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Timestamp** | Pointer to **string** |  |
-**CallSid** | Pointer to **string** |  |
-**AccountSid** | Pointer to **string** |  |
+**Timestamp** | **string** |  |[optional] 
+**CallSid** | **string** |  |[optional] 
+**AccountSid** | **string** |  |[optional] 
 **Edge** | Pointer to [**string**](MetricEnumTwilioEdge.md) |  |
 **Direction** | Pointer to [**string**](MetricEnumStreamDirection.md) |  |
 **CarrierEdge** | Pointer to **interface{}** |  |

@@ -17,5 +17,5 @@ package openapi
 // EventsV1SinkTest struct for EventsV1SinkTest
 type EventsV1SinkTest struct {
 	// Feedback indicating whether the test event was generated.
-	Result *string `json:"result,omitempty"`
+	Result string `json:"result,omitempty"`
 }

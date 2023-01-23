@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**ConnectAppCompanyName** | Pointer to **string** | The company name set for the Connect App |
-**ConnectAppDescription** | Pointer to **string** | A detailed description of the app |
-**ConnectAppFriendlyName** | Pointer to **string** | The name of the Connect App |
-**ConnectAppHomepageUrl** | Pointer to **string** | The public URL for the Connect App |
-**ConnectAppSid** | Pointer to **string** | The SID that we assigned to the Connect App |
-**DateCreated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was created |
-**DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was last updated |
+**AccountSid** | **string** | The SID of the Account that created the resource |[optional] 
+**ConnectAppCompanyName** | **string** | The company name set for the Connect App |[optional] 
+**ConnectAppDescription** | **string** | A detailed description of the app |[optional] 
+**ConnectAppFriendlyName** | **string** | The name of the Connect App |[optional] 
+**ConnectAppHomepageUrl** | **string** | The public URL for the Connect App |[optional] 
+**ConnectAppSid** | **string** | The SID that we assigned to the Connect App |[optional] 
+**DateCreated** | **string** | The RFC 2822 date and time in GMT that the resource was created |[optional] 
+**DateUpdated** | **string** | The RFC 2822 date and time in GMT that the resource was last updated |[optional] 
 **Permissions** | Pointer to [**[]string**](AuthorizedConnectAppEnumPermission.md) | Permissions authorized to the app |
-**Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com` |
+**Uri** | **string** | The URI of the resource, relative to `https://api.twilio.com` |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

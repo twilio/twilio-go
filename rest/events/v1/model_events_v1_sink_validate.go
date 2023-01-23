@@ -17,5 +17,5 @@ package openapi
 // EventsV1SinkValidate struct for EventsV1SinkValidate
 type EventsV1SinkValidate struct {
 	// Feedback indicating whether the given Sink was validated.
-	Result *string `json:"result,omitempty"`
+	Result string `json:"result,omitempty"`
 }

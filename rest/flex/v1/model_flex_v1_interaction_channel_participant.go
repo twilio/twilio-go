@@ -17,11 +17,11 @@ package openapi
 // FlexV1InteractionChannelParticipant struct for FlexV1InteractionChannelParticipant
 type FlexV1InteractionChannelParticipant struct {
 	// The unique string that identifies the resource
-	Sid  *string `json:"sid,omitempty"`
+	Sid  string  `json:"sid,omitempty"`
 	Type *string `json:"type,omitempty"`
 	// The Interaction Sid for this channel.
-	InteractionSid *string `json:"interaction_sid,omitempty"`
+	InteractionSid string `json:"interaction_sid,omitempty"`
 	// The Channel Sid for this Participant.
-	ChannelSid *string `json:"channel_sid,omitempty"`
-	Url        *string `json:"url,omitempty"`
+	ChannelSid string `json:"channel_sid,omitempty"`
+	Url        string `json:"url,omitempty"`
 }

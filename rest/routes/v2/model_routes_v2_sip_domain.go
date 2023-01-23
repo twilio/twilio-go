@@ -20,12 +20,12 @@ import (
 
 // RoutesV2SipDomain struct for RoutesV2SipDomain
 type RoutesV2SipDomain struct {
-	SipDomain    *string    `json:"sip_domain,omitempty"`
-	Url          *string    `json:"url,omitempty"`
-	Sid          *string    `json:"sid,omitempty"`
-	AccountSid   *string    `json:"account_sid,omitempty"`
-	FriendlyName *string    `json:"friendly_name,omitempty"`
-	VoiceRegion  *string    `json:"voice_region,omitempty"`
-	DateCreated  *time.Time `json:"date_created,omitempty"`
-	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	SipDomain    string    `json:"sip_domain,omitempty"`
+	Url          string    `json:"url,omitempty"`
+	Sid          string    `json:"sid,omitempty"`
+	AccountSid   string    `json:"account_sid,omitempty"`
+	FriendlyName string    `json:"friendly_name,omitempty"`
+	VoiceRegion  string    `json:"voice_region,omitempty"`
+	DateCreated  time.Time `json:"date_created,omitempty"`
+	DateUpdated  time.Time `json:"date_updated,omitempty"`
 }

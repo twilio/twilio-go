@@ -17,9 +17,9 @@ package openapi
 // ApiV2010Balance struct for ApiV2010Balance
 type ApiV2010Balance struct {
 	// Account Sid.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// Account balance
-	Balance *string `json:"balance,omitempty"`
+	Balance string `json:"balance,omitempty"`
 	// Currency units
-	Currency *string `json:"currency,omitempty"`
+	Currency string `json:"currency,omitempty"`
 }

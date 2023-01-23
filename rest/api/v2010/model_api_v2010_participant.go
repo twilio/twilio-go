@@ -17,30 +17,30 @@ package openapi
 // ApiV2010Participant struct for ApiV2010Participant
 type ApiV2010Participant struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Call the resource is associated with
-	CallSid *string `json:"call_sid,omitempty"`
+	CallSid string `json:"call_sid,omitempty"`
 	// The label of this participant
-	Label *string `json:"label,omitempty"`
+	Label string `json:"label,omitempty"`
 	// The SID of the participant who is being `coached`
-	CallSidToCoach *string `json:"call_sid_to_coach,omitempty"`
+	CallSidToCoach string `json:"call_sid_to_coach,omitempty"`
 	// Indicates if the participant changed to coach
-	Coaching *bool `json:"coaching,omitempty"`
+	Coaching bool `json:"coaching,omitempty"`
 	// The SID of the conference the participant is in
-	ConferenceSid *string `json:"conference_sid,omitempty"`
+	ConferenceSid string `json:"conference_sid,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
-	DateCreated *string `json:"date_created,omitempty"`
+	DateCreated string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated
-	DateUpdated *string `json:"date_updated,omitempty"`
+	DateUpdated string `json:"date_updated,omitempty"`
 	// Whether the conference ends when the participant leaves
-	EndConferenceOnExit *bool `json:"end_conference_on_exit,omitempty"`
+	EndConferenceOnExit bool `json:"end_conference_on_exit,omitempty"`
 	// Whether the participant is muted
-	Muted *bool `json:"muted,omitempty"`
+	Muted bool `json:"muted,omitempty"`
 	// Whether the participant is on hold
-	Hold *bool `json:"hold,omitempty"`
+	Hold bool `json:"hold,omitempty"`
 	// Whether the conference starts when the participant joins the conference
-	StartConferenceOnEnter *bool   `json:"start_conference_on_enter,omitempty"`
+	StartConferenceOnEnter bool    `json:"start_conference_on_enter,omitempty"`
 	Status                 *string `json:"status,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
-	Uri *string `json:"uri,omitempty"`
+	Uri string `json:"uri,omitempty"`
 }

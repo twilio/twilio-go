@@ -17,21 +17,21 @@ package openapi
 // ApiV2010IncomingPhoneNumberAssignedAddOnExtension struct for ApiV2010IncomingPhoneNumberAssignedAddOnExtension
 type ApiV2010IncomingPhoneNumberAssignedAddOnExtension struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Phone Number to which the Add-on is assigned
-	ResourceSid *string `json:"resource_sid,omitempty"`
+	ResourceSid string `json:"resource_sid,omitempty"`
 	// The SID that uniquely identifies the assigned Add-on installation
-	AssignedAddOnSid *string `json:"assigned_add_on_sid,omitempty"`
+	AssignedAddOnSid string `json:"assigned_add_on_sid,omitempty"`
 	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// A string that you assigned to describe the Product this Extension is used within
-	ProductName *string `json:"product_name,omitempty"`
+	ProductName string `json:"product_name,omitempty"`
 	// An application-defined string that uniquely identifies the resource
-	UniqueName *string `json:"unique_name,omitempty"`
+	UniqueName string `json:"unique_name,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
-	Uri *string `json:"uri,omitempty"`
+	Uri string `json:"uri,omitempty"`
 	// Whether the Extension will be invoked
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled bool `json:"enabled,omitempty"`
 }

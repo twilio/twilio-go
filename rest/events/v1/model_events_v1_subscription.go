@@ -21,19 +21,19 @@ import (
 // EventsV1Subscription struct for EventsV1Subscription
 type EventsV1Subscription struct {
 	// Account SID.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// A string that uniquely identifies this Subscription.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The date this Subscription was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date this Subscription was updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// Subscription description
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description,omitempty"`
 	// Sink SID.
-	SinkSid *string `json:"sink_sid,omitempty"`
+	SinkSid string `json:"sink_sid,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// Nested resource URLs.
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

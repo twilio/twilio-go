@@ -21,29 +21,29 @@ import (
 // ConversationsV1ServiceConversation struct for ConversationsV1ServiceConversation
 type ConversationsV1ServiceConversation struct {
 	// The unique ID of the Account responsible for this conversation.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The unique ID of the Conversation Service this conversation belongs to.
-	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
+	ChatServiceSid string `json:"chat_service_sid,omitempty"`
 	// The unique ID of the Messaging Service this conversation belongs to.
-	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
+	MessagingServiceSid string `json:"messaging_service_sid,omitempty"`
 	// A 34 character string that uniquely identifies this resource.
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The human-readable name of this conversation.
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// An application-defined string that uniquely identifies the resource
-	UniqueName *string `json:"unique_name,omitempty"`
+	UniqueName string `json:"unique_name,omitempty"`
 	// An optional string metadata field you can use to store any data you wish.
-	Attributes *string `json:"attributes,omitempty"`
+	Attributes string  `json:"attributes,omitempty"`
 	State      *string `json:"state,omitempty"`
 	// The date that this resource was created.
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date that this resource was last updated.
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// Timer date values for this conversation.
 	Timers *interface{} `json:"timers,omitempty"`
 	// An absolute URL for this conversation.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// Absolute URLs to access the participants, messages and webhooks of this conversation.
-	Links    *map[string]interface{} `json:"links,omitempty"`
-	Bindings *interface{}            `json:"bindings,omitempty"`
+	Links    map[string]interface{} `json:"links,omitempty"`
+	Bindings *interface{}           `json:"bindings,omitempty"`
 }

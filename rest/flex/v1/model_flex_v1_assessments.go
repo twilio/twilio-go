@@ -17,5 +17,5 @@ package openapi
 // FlexV1Assessments struct for FlexV1Assessments
 type FlexV1Assessments struct {
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

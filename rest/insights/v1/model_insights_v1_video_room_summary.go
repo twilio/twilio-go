@@ -21,21 +21,21 @@ import (
 // InsightsV1VideoRoomSummary struct for InsightsV1VideoRoomSummary
 type InsightsV1VideoRoomSummary struct {
 	// Account SID associated with this room.
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// Unique identifier for the room.
-	RoomSid *string `json:"room_sid,omitempty"`
+	RoomSid string `json:"room_sid,omitempty"`
 	// room friendly name.
-	RoomName *string `json:"room_name,omitempty"`
+	RoomName string `json:"room_name,omitempty"`
 	// Creation time of the room.
-	CreateTime *time.Time `json:"create_time,omitempty"`
+	CreateTime time.Time `json:"create_time,omitempty"`
 	// End time for the room.
-	EndTime    *time.Time `json:"end_time,omitempty"`
-	RoomType   *string    `json:"room_type,omitempty"`
-	RoomStatus *string    `json:"room_status,omitempty"`
+	EndTime    time.Time `json:"end_time,omitempty"`
+	RoomType   *string   `json:"room_type,omitempty"`
+	RoomStatus *string   `json:"room_status,omitempty"`
 	// Webhook provided for status callbacks.
-	StatusCallback *string `json:"status_callback,omitempty"`
+	StatusCallback string `json:"status_callback,omitempty"`
 	// HTTP method provided for status callback URL.
-	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
+	StatusCallbackMethod string  `json:"status_callback_method,omitempty"`
 	CreatedMethod        *string `json:"created_method,omitempty"`
 	EndReason            *string `json:"end_reason,omitempty"`
 	// Max number of total participants allowed by the application settings.
@@ -52,17 +52,17 @@ type InsightsV1VideoRoomSummary struct {
 	Codecs      *[]string `json:"codecs,omitempty"`
 	MediaRegion *string   `json:"media_region,omitempty"`
 	// Total room duration from create time to end time.
-	DurationSec *int64 `json:"duration_sec,omitempty"`
+	DurationSec int64 `json:"duration_sec,omitempty"`
 	// Combined amount of participant time in the room.
-	TotalParticipantDurationSec *int64 `json:"total_participant_duration_sec,omitempty"`
+	TotalParticipantDurationSec int64 `json:"total_participant_duration_sec,omitempty"`
 	// Combined amount of recorded seconds for participants in the room.
-	TotalRecordingDurationSec *int64  `json:"total_recording_duration_sec,omitempty"`
+	TotalRecordingDurationSec int64   `json:"total_recording_duration_sec,omitempty"`
 	ProcessingState           *string `json:"processing_state,omitempty"`
 	// Boolean indicating if recording is enabled for the room.
-	RecordingEnabled *bool   `json:"recording_enabled,omitempty"`
+	RecordingEnabled bool    `json:"recording_enabled,omitempty"`
 	EdgeLocation     *string `json:"edge_location,omitempty"`
 	// URL for the room resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// Room subresources.
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

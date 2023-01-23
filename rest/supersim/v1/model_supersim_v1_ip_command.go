@@ -21,26 +21,26 @@ import (
 // SupersimV1IpCommand struct for SupersimV1IpCommand
 type SupersimV1IpCommand struct {
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The SID of the Super SIM that this IP Command was sent to or from
-	SimSid *string `json:"sim_sid,omitempty"`
+	SimSid string `json:"sim_sid,omitempty"`
 	// The ICCID of the Super SIM that this IP Command was sent to or from
-	SimIccid  *string `json:"sim_iccid,omitempty"`
+	SimIccid  string  `json:"sim_iccid,omitempty"`
 	Status    *string `json:"status,omitempty"`
 	Direction *string `json:"direction,omitempty"`
 	// The IP address of the device that the IP Command was sent to or received from
-	DeviceIp *string `json:"device_ip,omitempty"`
+	DeviceIp string `json:"device_ip,omitempty"`
 	// The port that the IP Command either originated from or was sent to
-	DevicePort  *int    `json:"device_port,omitempty"`
+	DevicePort  int     `json:"device_port,omitempty"`
 	PayloadType *string `json:"payload_type,omitempty"`
 	// The payload of the IP Command sent to or from the Super SIM
-	Payload *string `json:"payload,omitempty"`
+	Payload string `json:"payload,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The absolute URL of the IP Command resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

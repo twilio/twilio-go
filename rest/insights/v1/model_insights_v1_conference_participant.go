@@ -21,29 +21,29 @@ import (
 // InsightsV1ConferenceParticipant struct for InsightsV1ConferenceParticipant
 type InsightsV1ConferenceParticipant struct {
 	// SID for this participant.
-	ParticipantSid *string `json:"participant_sid,omitempty"`
+	ParticipantSid string `json:"participant_sid,omitempty"`
 	// The user-specified label of this participant.
-	Label *string `json:"label,omitempty"`
+	Label string `json:"label,omitempty"`
 	// Conference SID.
-	ConferenceSid *string `json:"conference_sid,omitempty"`
+	ConferenceSid string `json:"conference_sid,omitempty"`
 	// Unique SID identifier of the call.
-	CallSid *string `json:"call_sid,omitempty"`
+	CallSid string `json:"call_sid,omitempty"`
 	// Account SID.
-	AccountSid    *string `json:"account_sid,omitempty"`
+	AccountSid    string  `json:"account_sid,omitempty"`
 	CallDirection *string `json:"call_direction,omitempty"`
 	// Caller ID of the calling party.
-	From *string `json:"from,omitempty"`
+	From string `json:"from,omitempty"`
 	// Called party.
-	To         *string `json:"to,omitempty"`
+	To         string  `json:"to,omitempty"`
 	CallStatus *string `json:"call_status,omitempty"`
 	// ISO alpha-2 country code of the participant.
-	CountryCode *string `json:"country_code,omitempty"`
+	CountryCode string `json:"country_code,omitempty"`
 	// Boolean. Indicates whether participant had startConferenceOnEnter=true or endConferenceOnExit=true.
-	IsModerator *bool `json:"is_moderator,omitempty"`
+	IsModerator bool `json:"is_moderator,omitempty"`
 	// ISO 8601 timestamp of participant join event.
-	JoinTime *time.Time `json:"join_time,omitempty"`
+	JoinTime time.Time `json:"join_time,omitempty"`
 	// ISO 8601 timestamp of participant leave event.
-	LeaveTime *time.Time `json:"leave_time,omitempty"`
+	LeaveTime time.Time `json:"leave_time,omitempty"`
 	// Participant durations in seconds.
 	DurationSeconds *int `json:"duration_seconds,omitempty"`
 	// Estimated time in queue at call creation.
@@ -52,13 +52,13 @@ type InsightsV1ConferenceParticipant struct {
 	OutboundTimeInQueue *int    `json:"outbound_time_in_queue,omitempty"`
 	JitterBufferSize    *string `json:"jitter_buffer_size,omitempty"`
 	// Boolean. Indicated whether participant was a coach.
-	IsCoach *bool `json:"is_coach,omitempty"`
+	IsCoach bool `json:"is_coach,omitempty"`
 	// Call SIDs coached by this participant.
-	CoachedParticipants *[]string `json:"coached_participants,omitempty"`
-	ParticipantRegion   *string   `json:"participant_region,omitempty"`
-	ConferenceRegion    *string   `json:"conference_region,omitempty"`
-	CallType            *string   `json:"call_type,omitempty"`
-	ProcessingState     *string   `json:"processing_state,omitempty"`
+	CoachedParticipants []string `json:"coached_participants,omitempty"`
+	ParticipantRegion   *string  `json:"participant_region,omitempty"`
+	ConferenceRegion    *string  `json:"conference_region,omitempty"`
+	CallType            *string  `json:"call_type,omitempty"`
+	ProcessingState     *string  `json:"processing_state,omitempty"`
 	// Participant properties and metadata.
 	Properties *interface{} `json:"properties,omitempty"`
 	// Object containing information of actions taken by participants. Nested resource URLs.
@@ -66,5 +66,5 @@ type InsightsV1ConferenceParticipant struct {
 	// Object. Contains participant quality metrics.
 	Metrics *interface{} `json:"metrics,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 }

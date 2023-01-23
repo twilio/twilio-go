@@ -21,43 +21,43 @@ import (
 // VideoV1Composition struct for VideoV1Composition
 type VideoV1Composition struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string  `json:"account_sid,omitempty"`
 	Status     *string `json:"status,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateCreated time.Time `json:"date_created,omitempty"`
 	// Date when the media processing task finished
 	DateCompleted *time.Time `json:"date_completed,omitempty"`
 	// The ISO 8601 date and time in GMT when the composition generated media was deleted
 	DateDeleted *time.Time `json:"date_deleted,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The SID of the Group Room that generated the audio and video tracks used in the composition
-	RoomSid *string `json:"room_sid,omitempty"`
+	RoomSid string `json:"room_sid,omitempty"`
 	// The array of track names to include in the composition
-	AudioSources *[]string `json:"audio_sources,omitempty"`
+	AudioSources []string `json:"audio_sources,omitempty"`
 	// The array of track names to exclude from the composition
-	AudioSourcesExcluded *[]string `json:"audio_sources_excluded,omitempty"`
+	AudioSourcesExcluded []string `json:"audio_sources_excluded,omitempty"`
 	// An object that describes the video layout of the composition
 	VideoLayout *interface{} `json:"video_layout,omitempty"`
 	// The dimensions of the video image in pixels expressed as columns (width) and rows (height)
-	Resolution *string `json:"resolution,omitempty"`
+	Resolution string `json:"resolution,omitempty"`
 	// Whether to remove intervals with no media
-	Trim   *bool   `json:"trim,omitempty"`
+	Trim   bool    `json:"trim,omitempty"`
 	Format *string `json:"format,omitempty"`
 	// The average bit rate of the composition's media
-	Bitrate *int `json:"bitrate,omitempty"`
+	Bitrate int `json:"bitrate,omitempty"`
 	// The size of the composed media file in bytes
-	Size *int64 `json:"size,omitempty"`
+	Size int64 `json:"size,omitempty"`
 	// The duration of the composition's media file in seconds
-	Duration *int `json:"duration,omitempty"`
+	Duration int `json:"duration,omitempty"`
 	// The URL of the media file associated with the composition when stored externally
-	MediaExternalLocation *string `json:"media_external_location,omitempty"`
+	MediaExternalLocation string `json:"media_external_location,omitempty"`
 	// The URL called to send status information on every composition event.
-	StatusCallback *string `json:"status_callback,omitempty"`
+	StatusCallback string `json:"status_callback,omitempty"`
 	// The HTTP method used to call `status_callback`
-	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
+	StatusCallbackMethod string `json:"status_callback_method,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url,omitempty"`
 	// The URL of the media file associated with the composition
-	Links *map[string]interface{} `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 }

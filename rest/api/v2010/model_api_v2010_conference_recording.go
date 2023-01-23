@@ -17,35 +17,35 @@ package openapi
 // ApiV2010ConferenceRecording struct for ApiV2010ConferenceRecording
 type ApiV2010ConferenceRecording struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
+	AccountSid string `json:"account_sid,omitempty"`
 	// The API version used to create the recording
-	ApiVersion *string `json:"api_version,omitempty"`
+	ApiVersion string `json:"api_version,omitempty"`
 	// The SID of the Call the resource is associated with
-	CallSid *string `json:"call_sid,omitempty"`
+	CallSid string `json:"call_sid,omitempty"`
 	// The Conference SID that identifies the conference associated with the recording
-	ConferenceSid *string `json:"conference_sid,omitempty"`
+	ConferenceSid string `json:"conference_sid,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
-	DateCreated *string `json:"date_created,omitempty"`
+	DateCreated string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated
-	DateUpdated *string `json:"date_updated,omitempty"`
+	DateUpdated string `json:"date_updated,omitempty"`
 	// The start time of the recording, given in RFC 2822 format
-	StartTime *string `json:"start_time,omitempty"`
+	StartTime string `json:"start_time,omitempty"`
 	// The length of the recording in seconds
-	Duration *string `json:"duration,omitempty"`
+	Duration string `json:"duration,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
+	Sid string `json:"sid,omitempty"`
 	// The one-time cost of creating the recording.
-	Price *string `json:"price,omitempty"`
+	Price string `json:"price,omitempty"`
 	// The currency used in the price property.
-	PriceUnit *string `json:"price_unit,omitempty"`
+	PriceUnit string  `json:"price_unit,omitempty"`
 	Status    *string `json:"status,omitempty"`
 	// The number of channels in the final recording file as an integer
-	Channels *int    `json:"channels,omitempty"`
+	Channels int     `json:"channels,omitempty"`
 	Source   *string `json:"source,omitempty"`
 	// More information about why the recording is missing, if status is `absent`.
 	ErrorCode *int `json:"error_code,omitempty"`
 	// How to decrypt the recording.
 	EncryptionDetails *interface{} `json:"encryption_details,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
-	Uri *string `json:"uri,omitempty"`
+	Uri string `json:"uri,omitempty"`
 }

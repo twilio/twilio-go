@@ -17,21 +17,21 @@ package openapi
 // ApiV2010Account struct for ApiV2010Account
 type ApiV2010Account struct {
 	// The authorization token for this account
-	AuthToken *string `json:"auth_token,omitempty"`
+	AuthToken string `json:"auth_token,omitempty"`
 	// The date this account was created
-	DateCreated *string `json:"date_created,omitempty"`
+	DateCreated string `json:"date_created,omitempty"`
 	// The date this account was last updated
-	DateUpdated *string `json:"date_updated,omitempty"`
+	DateUpdated string `json:"date_updated,omitempty"`
 	// A human readable description of this account
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName string `json:"friendly_name,omitempty"`
 	// The unique 34 character id representing the parent of this account
-	OwnerAccountSid *string `json:"owner_account_sid,omitempty"`
+	OwnerAccountSid string `json:"owner_account_sid,omitempty"`
 	// A 34 character string that uniquely identifies this resource.
-	Sid    *string `json:"sid,omitempty"`
+	Sid    string  `json:"sid,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// Account Instance Subresources
-	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
-	Type            *string                 `json:"type,omitempty"`
+	SubresourceUris map[string]interface{} `json:"subresource_uris,omitempty"`
+	Type            *string                `json:"type,omitempty"`
 	// The URI for this resource, relative to `https://api.twilio.com`
-	Uri *string `json:"uri,omitempty"`
+	Uri string `json:"uri,omitempty"`
 }

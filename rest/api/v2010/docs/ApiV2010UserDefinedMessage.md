@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | Account SID. |
-**CallSid** | Pointer to **string** | Call SID. |
-**Sid** | Pointer to **string** | User Defined Message SID. |
-**DateCreated** | Pointer to **string** | The date this User Defined Message was created. |
+**AccountSid** | **string** | Account SID. |[optional] 
+**CallSid** | **string** | Call SID. |[optional] 
+**Sid** | **string** | User Defined Message SID. |[optional] 
+**DateCreated** | **string** | The date this User Defined Message was created. |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
