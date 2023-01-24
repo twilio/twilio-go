@@ -20,29 +20,29 @@ import (
 
 // ConversationsV1User struct for ConversationsV1User
 type ConversationsV1User struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the User resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the User resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Conversation Service that the resource is associated with
+	// The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
-	// The SID of a service-level Role assigned to the user
+	// The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) assigned to the user.
 	RoleSid *string `json:"role_sid,omitempty"`
-	// The string that identifies the resource's User
+	// The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
 	Identity *string `json:"identity,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The JSON Object string that stores application-specific data
+	// The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
 	Attributes *string `json:"attributes,omitempty"`
-	// Whether the User is actively connected to this Conversations Service and online
+	// Whether the User is actively connected to this Conversations Service and online. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, if the User has never been online for this Conversations Service, even if the Service's `reachability_enabled` is `true`.
 	IsOnline *bool `json:"is_online,omitempty"`
-	// Whether the User has a potentially valid Push Notification registration for this Conversations Service
+	// Whether the User has a potentially valid Push Notification registration (APN or GCM) for this Conversations Service. If at least one registration exists, `true`; otherwise `false`. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, and if the User has never had a notification registration, even if the Service's `reachability_enabled` is `true`.
 	IsNotifiable *bool `json:"is_notifiable,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// An absolute URL for this user.
+	// An absolute API resource URL for this user.
 	Url   *string                 `json:"url,omitempty"`
 	Links *map[string]interface{} `json:"links,omitempty"`
 }

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
+**Sid** | Pointer to **string** | The unique string created by Twilio to identify an Interaction Channel Participant resource. |
 **Type** | Pointer to [**string**](InteractionChannelParticipantEnumType.md) |  |
 **InteractionSid** | Pointer to **string** | The Interaction Sid for this channel. |
 **ChannelSid** | Pointer to **string** | The Channel Sid for this Participant. |

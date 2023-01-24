@@ -20,21 +20,21 @@ import (
 
 // ChatV2Role struct for ChatV2Role
 type ChatV2Role struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Role resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Role resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Service that the resource is associated with
+	// The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Role resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	Type         *string `json:"type,omitempty"`
-	// An array of the permissions the role has been granted
+	// An array of the permissions the role has been granted.
 	Permissions *[]string `json:"permissions,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the Role resource
+	// The absolute URL of the Role resource.
 	Url *string `json:"url,omitempty"`
 }

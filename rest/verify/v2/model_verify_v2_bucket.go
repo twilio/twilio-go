@@ -20,21 +20,21 @@ import (
 
 // VerifyV2Bucket struct for VerifyV2Bucket
 type VerifyV2Bucket struct {
-	// A string that uniquely identifies this Bucket.
+	// A 34 character string that uniquely identifies this Bucket.
 	Sid *string `json:"sid,omitempty"`
-	// Rate Limit Sid.
+	// The Twilio-provided string that uniquely identifies the Rate Limit resource.
 	RateLimitSid *string `json:"rate_limit_sid,omitempty"`
-	// The SID of the Service that the resource is associated with
+	// The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Rate Limit resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Max number of requests.
+	// Maximum number of requests permitted in during the interval.
 	Max *int `json:"max,omitempty"`
 	// Number of seconds that the rate limit will be enforced over.
 	Interval *int `json:"interval,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`

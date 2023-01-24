@@ -20,19 +20,19 @@ import (
 
 // NotifyV1Credential struct for NotifyV1Credential
 type NotifyV1Credential struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Credential resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Credential resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	Type         *string `json:"type,omitempty"`
-	// [APN only] Whether to send the credential to sandbox APNs
+	// [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
 	Sandbox *string `json:"sandbox,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the Credential resource
+	// The absolute URL of the Credential resource.
 	Url *string `json:"url,omitempty"`
 }

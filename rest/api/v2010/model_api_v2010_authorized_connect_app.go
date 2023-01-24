@@ -16,24 +16,24 @@ package openapi
 
 // ApiV2010AuthorizedConnectApp struct for ApiV2010AuthorizedConnectApp
 type ApiV2010AuthorizedConnectApp struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The company name set for the Connect App
+	// The company name set for the Connect App.
 	ConnectAppCompanyName *string `json:"connect_app_company_name,omitempty"`
-	// A detailed description of the app
+	// A detailed description of the Connect App.
 	ConnectAppDescription *string `json:"connect_app_description,omitempty"`
-	// The name of the Connect App
+	// The name of the Connect App.
 	ConnectAppFriendlyName *string `json:"connect_app_friendly_name,omitempty"`
-	// The public URL for the Connect App
+	// The public URL for the Connect App.
 	ConnectAppHomepageUrl *string `json:"connect_app_homepage_url,omitempty"`
-	// The SID that we assigned to the Connect App
+	// The SID that we assigned to the Connect App.
 	ConnectAppSid *string `json:"connect_app_sid,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was created
+	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was last updated
+	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// Permissions authorized to the app
+	// The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`.
 	Permissions *[]string `json:"permissions,omitempty"`
-	// The URI of the resource, relative to `https://api.twilio.com`
+	// The URI of the resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 }

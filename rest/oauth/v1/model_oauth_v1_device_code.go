@@ -16,16 +16,16 @@ package openapi
 
 // OauthV1DeviceCode struct for OauthV1DeviceCode
 type OauthV1DeviceCode struct {
-	// The device verification code
+	// The device verification code.
 	DeviceCode *string `json:"device_code,omitempty"`
-	// The verification code for the end user
+	// The verification code which end user uses to verify authorization request.
 	UserCode *string `json:"user_code,omitempty"`
-	// The URI that the end user visits to verify request
+	// The URI that the end user visits to verify authorization request.
 	VerificationUri *string `json:"verification_uri,omitempty"`
-	// he URI with user_code that the end-user alternatively visits to verify request
+	// The URI with user_code that the end-user alternatively visits to verify authorization request.
 	VerificationUriComplete *string `json:"verification_uri_complete,omitempty"`
-	// The expiration time of the device_code and user_code in seconds
+	// The expiration time of the device_code and user_code in seconds.
 	ExpiresIn *int64 `json:"expires_in,omitempty"`
-	// The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint
+	// The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint.
 	Interval *int `json:"interval,omitempty"`
 }

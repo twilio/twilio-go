@@ -46,7 +46,6 @@ func (params *CreateWorkerParams) SetAttributes(Attributes string) *CreateWorker
 	return params
 }
 
-//
 func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParams) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -90,7 +89,6 @@ func (params *DeleteWorkerParams) SetIfMatch(IfMatch string) *DeleteWorkerParams
 	return params
 }
 
-//
 func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *DeleteWorkerParams) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -113,7 +111,6 @@ func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *Delet
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorker(WorkspaceSid string, Sid string) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -382,7 +379,6 @@ func (params *UpdateWorkerParams) SetRejectPendingReservations(RejectPendingRese
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *UpdateWorkerParams) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

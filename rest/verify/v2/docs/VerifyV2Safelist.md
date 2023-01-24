@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | The unique string that identifies the resource. |
+**Sid** | Pointer to **string** | The unique string that we created to identify the SafeList resource. |
 **PhoneNumber** | Pointer to **string** | The phone number in SafeList. |
 **Url** | Pointer to **string** | The absolute URL of the SafeList resource. |
 

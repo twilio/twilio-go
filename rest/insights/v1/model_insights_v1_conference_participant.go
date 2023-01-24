@@ -24,11 +24,11 @@ type InsightsV1ConferenceParticipant struct {
 	ParticipantSid *string `json:"participant_sid,omitempty"`
 	// The user-specified label of this participant.
 	Label *string `json:"label,omitempty"`
-	// Conference SID.
+	// The unique SID identifier of the Conference.
 	ConferenceSid *string `json:"conference_sid,omitempty"`
-	// Unique SID identifier of the call.
+	// Unique SID identifier of the call that generated the Participant resource.
 	CallSid *string `json:"call_sid,omitempty"`
-	// Account SID.
+	// The unique SID identifier of the Account.
 	AccountSid    *string `json:"account_sid,omitempty"`
 	CallDirection *string `json:"call_direction,omitempty"`
 	// Caller ID of the calling party.
@@ -36,7 +36,7 @@ type InsightsV1ConferenceParticipant struct {
 	// Called party.
 	To         *string `json:"to,omitempty"`
 	CallStatus *string `json:"call_status,omitempty"`
-	// ISO alpha-2 country code of the participant.
+	// ISO alpha-2 country code of the participant based on caller ID or called number.
 	CountryCode *string `json:"country_code,omitempty"`
 	// Boolean. Indicates whether participant had startConferenceOnEnter=true or endConferenceOnExit=true.
 	IsModerator *bool `json:"is_moderator,omitempty"`
@@ -46,9 +46,9 @@ type InsightsV1ConferenceParticipant struct {
 	LeaveTime *time.Time `json:"leave_time,omitempty"`
 	// Participant durations in seconds.
 	DurationSeconds *int `json:"duration_seconds,omitempty"`
-	// Estimated time in queue at call creation.
+	// Add Participant API only. Estimated time in queue at call creation.
 	OutboundQueueLength *int `json:"outbound_queue_length,omitempty"`
-	// Actual time in queue (seconds).
+	// Add Participant API only. Actual time in queue in seconds.
 	OutboundTimeInQueue *int    `json:"outbound_time_in_queue,omitempty"`
 	JitterBufferSize    *string `json:"jitter_buffer_size,omitempty"`
 	// Boolean. Indicated whether participant was a coach.
@@ -61,9 +61,9 @@ type InsightsV1ConferenceParticipant struct {
 	ProcessingState     *string   `json:"processing_state,omitempty"`
 	// Participant properties and metadata.
 	Properties *interface{} `json:"properties,omitempty"`
-	// Object containing information of actions taken by participants. Nested resource URLs.
+	// Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant.
 	Events *interface{} `json:"events,omitempty"`
-	// Object. Contains participant quality metrics.
+	// Object. Contains participant call quality metrics.
 	Metrics *interface{} `json:"metrics,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`

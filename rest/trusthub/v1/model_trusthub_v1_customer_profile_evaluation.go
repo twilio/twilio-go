@@ -20,16 +20,16 @@ import (
 
 // TrusthubV1CustomerProfileEvaluation struct for TrusthubV1CustomerProfileEvaluation
 type TrusthubV1CustomerProfileEvaluation struct {
-	// The unique string that identifies the Evaluation resource
+	// The unique string that identifies the Evaluation resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the customer_profile resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique string of a policy
+	// The unique string of a policy that is associated to the customer_profile resource.
 	PolicySid *string `json:"policy_sid,omitempty"`
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the customer_profile resource.
 	CustomerProfileSid *string `json:"customer_profile_sid,omitempty"`
 	Status             *string `json:"status,omitempty"`
-	// The results of the Evaluation resource
+	// The results of the Evaluation which includes the valid and invalid attributes.
 	Results     *[]interface{} `json:"results,omitempty"`
 	DateCreated *time.Time     `json:"date_created,omitempty"`
 	Url         *string        `json:"url,omitempty"`

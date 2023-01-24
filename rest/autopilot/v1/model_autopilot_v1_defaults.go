@@ -16,12 +16,12 @@ package openapi
 
 // AutopilotV1Defaults struct for AutopilotV1Defaults
 type AutopilotV1Defaults struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Defaults resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Assistant that is the parent of the resource
+	// The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
 	AssistantSid *string `json:"assistant_sid,omitempty"`
-	// The absolute URL of the Defaults resource
+	// The absolute URL of the Defaults resource.
 	Url *string `json:"url,omitempty"`
-	// The JSON string that describes the default task links
+	// The JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
 	Data *interface{} `json:"data,omitempty"`
 }

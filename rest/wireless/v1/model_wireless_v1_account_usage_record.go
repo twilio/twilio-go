@@ -16,12 +16,12 @@ package openapi
 
 // WirelessV1AccountUsageRecord struct for WirelessV1AccountUsageRecord
 type WirelessV1AccountUsageRecord struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AccountUsageRecord resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The time period for which usage is reported
+	// The time period for which usage is reported. Contains `start` and `end` properties that describe the period using GMT date-time values specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
 	Period *interface{} `json:"period,omitempty"`
-	// An object that describes the aggregated Commands usage for all SIMs during the specified period
+	// An object that describes the aggregated Commands usage for all SIMs during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#commands-usage-object).
 	Commands *interface{} `json:"commands,omitempty"`
-	// An object that describes the aggregated Data usage for all SIMs over the period
+	// An object that describes the aggregated Data usage for all SIMs over the period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#data-usage-object).
 	Data *interface{} `json:"data,omitempty"`
 }

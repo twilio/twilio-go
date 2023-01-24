@@ -20,24 +20,24 @@ import (
 
 // TaskrouterV1TaskChannel struct for TaskrouterV1TaskChannel
 type TaskrouterV1TaskChannel struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Task Channel resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Task Channel resource.
 	Sid *string `json:"sid,omitempty"`
-	// An application-defined string that uniquely identifies the Task Channel
+	// An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// The SID of the Workspace that contains the Task Channel
+	// The SID of the Workspace that contains the Task Channel.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
-	// Whether the Task Channel will prioritize Workers that have been idle
+	// Whether the Task Channel will prioritize Workers that have been idle. When `true`, Workers that have been idle the longest are prioritized.
 	ChannelOptimizedRouting *bool `json:"channel_optimized_routing,omitempty"`
-	// The absolute URL of the Task Channel resource
+	// The absolute URL of the Task Channel resource.
 	Url *string `json:"url,omitempty"`
-	// The URLs of related resources
+	// The URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }

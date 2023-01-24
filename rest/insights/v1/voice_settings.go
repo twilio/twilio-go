@@ -31,7 +31,6 @@ func (params *FetchAccountSettingsParams) SetSubaccountSid(SubaccountSid string)
 	return params
 }
 
-//
 func (c *ApiService) FetchAccountSettings(params *FetchAccountSettingsParams) (*InsightsV1AccountSettings, error) {
 	path := "/v1/Voice/Settings"
 
@@ -80,7 +79,6 @@ func (params *UpdateAccountSettingsParams) SetSubaccountSid(SubaccountSid string
 	return params
 }
 
-//
 func (c *ApiService) UpdateAccountSettings(params *UpdateAccountSettingsParams) (*InsightsV1AccountSettings, error) {
 	path := "/v1/Voice/Settings"
 

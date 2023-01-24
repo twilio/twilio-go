@@ -28,10 +28,10 @@ type ApiV2010SipIpAddress struct {
 	CidrPrefixLength *int `json:"cidr_prefix_length,omitempty"`
 	// The unique id of the IpAccessControlList resource that includes this resource.
 	IpAccessControlListSid *string `json:"ip_access_control_list_sid,omitempty"`
-	// The date that this resource was created, given as GMT in RFC 2822 format.
+	// The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date that this resource was last updated, given as GMT in RFC 2822 format.
+	// The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The URI for this resource, relative to https://api.twilio.com
+	// The URI for this resource, relative to `https://api.twilio.com`
 	Uri *string `json:"uri,omitempty"`
 }

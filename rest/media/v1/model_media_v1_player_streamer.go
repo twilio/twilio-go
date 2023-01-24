@@ -20,26 +20,26 @@ import (
 
 // MediaV1PlayerStreamer struct for MediaV1PlayerStreamer
 type MediaV1PlayerStreamer struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PlayerStreamer resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// Whether the PlayerStreamer is configured to stream video
+	// Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
 	Video *bool `json:"video,omitempty"`
-	// The URLs of related resources
+	// The URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
-	// The unique string that identifies the resource
+	// The unique string generated to identify the PlayerStreamer resource.
 	Sid    *string `json:"sid,omitempty"`
 	Status *string `json:"status,omitempty"`
-	// The absolute URL of the resource
+	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
-	// The URL to which Twilio will send PlayerStreamer event updates
+	// The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
 	StatusCallback *string `json:"status_callback,omitempty"`
-	// The HTTP method Twilio should use to call the `status_callback` URL
+	// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
 	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
 	EndedReason          *string `json:"ended_reason,omitempty"`
-	// Maximum PlayerStreamer duration in seconds
+	// The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
 	MaxDuration *int `json:"max_duration,omitempty"`
 }

@@ -20,7 +20,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// PricingV2VoiceVoiceNumberInboundCallPrice The InboundCallPrice record
+// PricingV2VoiceVoiceNumberInboundCallPrice The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record.
 type PricingV2VoiceVoiceNumberInboundCallPrice struct {
 	BasePrice    float32 `json:"base_price,omitempty"`
 	CurrentPrice float32 `json:"current_price,omitempty"`

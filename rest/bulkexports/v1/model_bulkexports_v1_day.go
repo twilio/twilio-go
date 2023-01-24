@@ -16,11 +16,11 @@ package openapi
 
 // BulkexportsV1Day struct for BulkexportsV1Day
 type BulkexportsV1Day struct {
-	// The date of the data in the file
+	// The ISO 8601 format date of the resources in the file, for a UTC day
 	Day *string `json:"day,omitempty"`
-	// Size of the file in bytes
+	// The size of the day's data file in bytes
 	Size *int `json:"size,omitempty"`
-	// The date when resource is created
+	// The ISO 8601 format date when resources is created
 	CreateDate *string `json:"create_date,omitempty"`
 	// The friendly name specified when creating the job
 	FriendlyName *string `json:"friendly_name,omitempty"`

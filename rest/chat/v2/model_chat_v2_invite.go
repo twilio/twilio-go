@@ -20,24 +20,24 @@ import (
 
 // ChatV2Invite struct for ChatV2Invite
 type ChatV2Invite struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Invite resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Invite resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Channel the new resource belongs to
+	// The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Invite resource belongs to.
 	ChannelSid *string `json:"channel_sid,omitempty"`
-	// The SID of the Service that the resource is associated with
+	// The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Invite resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The string that identifies the resource's User
+	// The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
 	Identity *string `json:"identity,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The SID of the Role assigned to the member
+	// The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) assigned to the resource.
 	RoleSid *string `json:"role_sid,omitempty"`
-	// The identity of the User that created the invite
+	// The `identity` of the User that created the invite.
 	CreatedBy *string `json:"created_by,omitempty"`
-	// The absolute URL of the Invite resource
+	// The absolute URL of the Invite resource.
 	Url *string `json:"url,omitempty"`
 }

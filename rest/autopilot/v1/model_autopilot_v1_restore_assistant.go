@@ -20,28 +20,28 @@ import (
 
 // AutopilotV1RestoreAssistant struct for AutopilotV1RestoreAssistant
 type AutopilotV1RestoreAssistant struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Assistant resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Assistant resource.
 	Sid *string `json:"sid,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// An application-defined string that uniquely identifies the resource
+	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource. It is not unique and can be up to 255 characters long.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// Whether model needs to be rebuilt
+	// Whether model needs to be rebuilt.
 	NeedsModelBuild *bool `json:"needs_model_build,omitempty"`
-	// Reserved
+	// Reserved.
 	LatestModelBuildSid *string `json:"latest_model_build_sid,omitempty"`
-	// Whether queries should be logged and kept after training
+	// Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
 	LogQueries *bool `json:"log_queries,omitempty"`
 	// A string describing the state of the assistant.
 	DevelopmentStage *string `json:"development_stage,omitempty"`
-	// Reserved
+	// Reserved.
 	CallbackUrl *string `json:"callback_url,omitempty"`
-	// Reserved
+	// Reserved.
 	CallbackEvents *string `json:"callback_events,omitempty"`
 }

@@ -16,14 +16,14 @@ package openapi
 
 // StudioV1EngagementContext struct for StudioV1EngagementContext
 type StudioV1EngagementContext struct {
-	// Account SID
+	// The SID of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Flow state
+	// As your flow executes, we save the state in what's called the Flow Context. Any data in the flow context can be accessed by your widgets as variables, either in configuration fields or in text areas as variable substitution.
 	Context *interface{} `json:"context,omitempty"`
-	// Engagement SID
+	// The SID of the Engagement.
 	EngagementSid *string `json:"engagement_sid,omitempty"`
-	// Flow SID
+	// The SID of the Flow.
 	FlowSid *string `json:"flow_sid,omitempty"`
-	// The URL of the resource
+	// The URL of the resource.
 	Url *string `json:"url,omitempty"`
 }

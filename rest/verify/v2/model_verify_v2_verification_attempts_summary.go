@@ -22,13 +22,13 @@ import (
 
 // VerifyV2VerificationAttemptsSummary struct for VerifyV2VerificationAttemptsSummary
 type VerifyV2VerificationAttemptsSummary struct {
-	// Total of attempts made.
+	// Total of attempts made according to the provided filters
 	TotalAttempts *int `json:"total_attempts,omitempty"`
-	// Total of attempts confirmed by the end user.
+	// Total of  attempts made that were confirmed by the end user, according to the provided filters.
 	TotalConverted *int `json:"total_converted,omitempty"`
-	// Total of attempts made that were not confirmed by the end user.
+	// Total of attempts made that were not confirmed by the end user, according to the provided filters.
 	TotalUnconverted *int `json:"total_unconverted,omitempty"`
-	// Percentage of the confirmed messages over the total.
+	// Percentage of the confirmed messages over the total, defined by (total_converted/total_attempts)*100.
 	ConversionRatePercentage *float32 `json:"conversion_rate_percentage,omitempty"`
 	Url                      *string  `json:"url,omitempty"`
 }

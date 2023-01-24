@@ -31,7 +31,6 @@ func (params *FetchSummaryParams) SetProcessingState(ProcessingState string) *Fe
 	return params
 }
 
-//
 func (c *ApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*InsightsV1Summary, error) {
 	path := "/v1/Voice/{CallSid}/Summary"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)

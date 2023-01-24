@@ -20,26 +20,26 @@ import (
 
 // SyncV1SyncListItem struct for SyncV1SyncListItem
 type SyncV1SyncListItem struct {
-	// The automatically generated index of the List Item
+	// The automatically generated index of the List Item. The `index` values of the List Items in a Sync List can have gaps in their sequence.
 	Index *int `json:"index,omitempty"`
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the List Item resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Sync Service that the resource is associated with
+	// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the Sync List that contains the List Item
+	// The SID of the Sync List that contains the List Item.
 	ListSid *string `json:"list_sid,omitempty"`
-	// The absolute URL of the List Item resource
+	// The absolute URL of the List Item resource.
 	Url *string `json:"url,omitempty"`
-	// The current revision of the item, represented as a string
+	// The current revision of the item, represented as a string.
 	Revision *string `json:"revision,omitempty"`
-	// An arbitrary, schema-less object that the List Item stores
+	// An arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
 	Data *interface{} `json:"data,omitempty"`
-	// The ISO 8601 date and time in GMT when the List Item expires
+	// The date and time in GMT when the List Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the List Item does not expire, this value is `null`. The List Item resource might not be deleted immediately after it expires.
 	DateExpires *time.Time `json:"date_expires,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The identity of the List Item's creator
+	// The identity of the List Item's creator. If the item is created from the client SDK, the value matches the Access Token's `identity` field. If the item was created from the REST API, the value is `system`.
 	CreatedBy *string `json:"created_by,omitempty"`
 }

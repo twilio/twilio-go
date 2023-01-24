@@ -30,7 +30,6 @@ func (params *UpdateRestoreAssistantParams) SetAssistant(Assistant string) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistantParams) (*AutopilotV1RestoreAssistant, error) {
 	path := "/v1/Assistants/Restore"
 

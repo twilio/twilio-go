@@ -14,7 +14,7 @@
 
 package openapi
 
-// ProxyV1ServiceShortCodeCapabilities The capabilities of the short code
+// ProxyV1ServiceShortCodeCapabilities The capabilities of the short code.
 type ProxyV1ServiceShortCodeCapabilities struct {
 	Mms   bool `json:"mms,omitempty"`
 	Sms   bool `json:"sms,omitempty"`

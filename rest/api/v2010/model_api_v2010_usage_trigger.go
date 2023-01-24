@@ -16,33 +16,33 @@ package openapi
 
 // ApiV2010UsageTrigger struct for ApiV2010UsageTrigger
 type ApiV2010UsageTrigger struct {
-	// The SID of the Account that this trigger monitors
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the trigger monitors.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The API version used to create the resource
+	// The API version used to create the resource.
 	ApiVersion *string `json:"api_version,omitempty"`
-	// The HTTP method we use to call callback_url
+	// The HTTP method we use to call `callback_url`. Can be: `GET` or `POST`.
 	CallbackMethod *string `json:"callback_method,omitempty"`
-	// he URL we call when the trigger fires
+	// The URL we call using the `callback_method` when the trigger fires.
 	CallbackUrl *string `json:"callback_url,omitempty"`
-	// The current value of the field the trigger is watching
+	// The current value of the field the trigger is watching.
 	CurrentValue *string `json:"current_value,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was created
+	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT that the trigger was last fired
+	// The date and time in GMT that the trigger was last fired specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateFired *string `json:"date_fired,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was last updated
+	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The string that you assigned to describe the trigger
+	// The string that you assigned to describe the trigger.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	Recurring    *string `json:"recurring,omitempty"`
-	// The unique string that identifies the resource
+	// The unique string that that we created to identify the UsageTrigger resource.
 	Sid       *string `json:"sid,omitempty"`
 	TriggerBy *string `json:"trigger_by,omitempty"`
-	// The value at which the trigger will fire
+	// The value at which the trigger will fire.  Must be a positive, numeric value.
 	TriggerValue *string `json:"trigger_value,omitempty"`
-	// The URI of the resource, relative to `https://api.twilio.com`
+	// The URI of the resource, relative to `https://api.twilio.com`.
 	Uri           *string `json:"uri,omitempty"`
 	UsageCategory *string `json:"usage_category,omitempty"`
-	// The URI of the UsageRecord resource this trigger watches
+	// The URI of the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource this trigger watches, relative to `https://api.twilio.com`.
 	UsageRecordUri *string `json:"usage_record_uri,omitempty"`
 }

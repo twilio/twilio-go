@@ -16,7 +16,7 @@ package openapi
 
 // FlexV1InteractionChannelParticipant struct for FlexV1InteractionChannelParticipant
 type FlexV1InteractionChannelParticipant struct {
-	// The unique string that identifies the resource
+	// The unique string created by Twilio to identify an Interaction Channel Participant resource.
 	Sid  *string `json:"sid,omitempty"`
 	Type *string `json:"type,omitempty"`
 	// The Interaction Sid for this channel.

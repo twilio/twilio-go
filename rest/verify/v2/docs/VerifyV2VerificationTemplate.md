@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | A string that uniquely identifies this Template |
-**AccountSid** | Pointer to **string** | Account Sid |
-**FriendlyName** | Pointer to **string** | A string to describe the verification template |
-**Channels** | Pointer to **[]string** | A list of channels that support the Template |
-**Translations** | Pointer to **interface{}** | Object with the template translations. |
+**Sid** | Pointer to **string** | A 34 character string that uniquely identifies a Verification Template. |
+**AccountSid** | Pointer to **string** | The unique SID identifier of the Account. |
+**FriendlyName** | Pointer to **string** | A descriptive string that you create to describe a Template. |
+**Channels** | Pointer to **[]string** | A list of channels that support the Template. Can include: sms, voice |
+**Translations** | Pointer to **interface{}** | An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

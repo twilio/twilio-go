@@ -16,14 +16,14 @@ package openapi
 
 // ApiV2010NewKey struct for ApiV2010NewKey
 type ApiV2010NewKey struct {
-	// The unique string that identifies the resource
+	// The unique string that that we created to identify the NewKey resource. You will use this as the basic-auth `user` when authenticating to the API.
 	Sid *string `json:"sid,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was created
+	// The date and time in GMT that the API Key was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was last updated
+	// The date and time in GMT that the new API Key was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The secret your application uses to sign Access Tokens and to authenticate to the REST API.
+	// The secret your application uses to sign Access Tokens and to authenticate to the REST API (you will use this as the basic-auth `password`).  **Note that for security reasons, this field is ONLY returned when the API Key is first created.**
 	Secret *string `json:"secret,omitempty"`
 }

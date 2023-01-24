@@ -70,7 +70,6 @@ func (params *CreateChannelWebhookParams) SetConfigurationRetryCount(Configurati
 	return params
 }
 
-//
 func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -120,7 +119,6 @@ func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, 
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -140,7 +138,6 @@ func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, 
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -345,7 +342,6 @@ func (params *UpdateChannelWebhookParams) SetConfigurationRetryCount(Configurati
 	return params
 }
 
-//
 func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

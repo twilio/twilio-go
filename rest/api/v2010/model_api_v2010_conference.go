@@ -16,26 +16,26 @@ package openapi
 
 // ApiV2010Conference struct for ApiV2010Conference
 type ApiV2010Conference struct {
-	// The SID of the Account that created this resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Conference resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The RFC 2822 date and time in GMT that this resource was created
+	// The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT that this resource was last updated
+	// The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The API version used to create this conference
+	// The API version used to create this conference.
 	ApiVersion *string `json:"api_version,omitempty"`
-	// A string that you assigned to describe this conference room
+	// A string that you assigned to describe this conference room.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// A string that represents the Twilio Region where the conference was mixed
+	// A string that represents the Twilio Region where the conference audio was mixed. May be `us1`, `ie1`,  `de1`, `sg1`, `br1`, `au1`, and `jp1`. Basic conference audio will always be mixed in `us1`. Global Conference audio will be mixed nearest to the majority of participants.
 	Region *string `json:"region,omitempty"`
-	// The unique string that identifies this resource
+	// The unique string that that we created to identify this Conference resource.
 	Sid    *string `json:"sid,omitempty"`
 	Status *string `json:"status,omitempty"`
-	// The URI of this resource, relative to `https://api.twilio.com`
+	// The URI of this resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
-	// A list of related resources identified by their relative URIs
+	// A list of related resources identified by their URIs relative to `https://api.twilio.com`.
 	SubresourceUris       *map[string]interface{} `json:"subresource_uris,omitempty"`
 	ReasonConferenceEnded *string                 `json:"reason_conference_ended,omitempty"`
-	// The call SID that caused the conference to end
+	// The call SID that caused the conference to end.
 	CallSidEndingConference *string `json:"call_sid_ending_conference,omitempty"`
 }

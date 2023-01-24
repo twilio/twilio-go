@@ -22,13 +22,13 @@ import (
 type ConversationsV1ConfigurationAddress struct {
 	// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique ID of the Account the address belongs to.
+	// The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) the address belongs to
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Type of Address.
+	// Type of Address, value can be `whatsapp` or `sms`.
 	Type *string `json:"type,omitempty"`
-	// The unique address to be configured.
+	// The unique address to be configured. The address can be a whatsapp address or phone number
 	Address *string `json:"address,omitempty"`
-	// The human-readable name of this configuration.
+	// The human-readable name of this configuration, limited to 256 characters. Optional.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// Auto Creation configuration for the address.
 	AutoCreation *interface{} `json:"auto_creation,omitempty"`
@@ -36,6 +36,6 @@ type ConversationsV1ConfigurationAddress struct {
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date that this resource was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// An absolute URL for this address configuration.
+	// An absolute API resource URL for this address configuration.
 	Url *string `json:"url,omitempty"`
 }

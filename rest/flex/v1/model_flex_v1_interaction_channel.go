@@ -16,9 +16,9 @@ package openapi
 
 // FlexV1InteractionChannel struct for FlexV1InteractionChannel
 type FlexV1InteractionChannel struct {
-	// The unique string that identifies the resource
+	// The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
 	Sid *string `json:"sid,omitempty"`
-	// The unique string that identifies the resource.
+	// The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
 	InteractionSid *string `json:"interaction_sid,omitempty"`
 	Type           *string `json:"type,omitempty"`
 	Status         *string `json:"status,omitempty"`

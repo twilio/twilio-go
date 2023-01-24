@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | Account SID associated with this room. |
 **RoomSid** | Pointer to **string** | Unique identifier for the room. |
-**RoomName** | Pointer to **string** | room friendly name. |
+**RoomName** | Pointer to **string** | Room friendly name. |
 **CreateTime** | Pointer to [**time.Time**](time.Time.md) | Creation time of the room. |
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | End time for the room. |
 **RoomType** | Pointer to [**string**](VideoRoomSummaryEnumRoomType.md) |  |
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **UniqueParticipantIdentities** | Pointer to **int** | Unique number of participant identities. |
 **ConcurrentParticipants** | Pointer to **int** | Actual number of concurrent participants. |
 **MaxConcurrentParticipants** | Pointer to **int** | Maximum number of participants allowed in the room at the same time allowed by the application settings. |
-**Codecs** | Pointer to [**[]string**](VideoRoomSummaryEnumCodec.md) | Codecs used by participants in the room. |
+**Codecs** | Pointer to [**[]string**](VideoRoomSummaryEnumCodec.md) | Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`. |
 **MediaRegion** | Pointer to [**string**](VideoRoomSummaryEnumTwilioRealm.md) |  |
 **DurationSec** | Pointer to **int64** | Total room duration from create time to end time. |
 **TotalParticipantDurationSec** | Pointer to **int64** | Combined amount of participant time in the room. |

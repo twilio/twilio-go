@@ -16,8 +16,8 @@ package openapi
 
 // SyncV1StreamMessage struct for SyncV1StreamMessage
 type SyncV1StreamMessage struct {
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Stream Message resource.
 	Sid *string `json:"sid,omitempty"`
-	// Stream Message body
+	// An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
 	Data *interface{} `json:"data,omitempty"`
 }

@@ -20,7 +20,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// PricingV1VoiceVoiceNumberInboundCallPrice The InboundCallPrice record
+// PricingV1VoiceVoiceNumberInboundCallPrice The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record. If `null`, the Phone Number is not a Twilio number owned by this account.
 type PricingV1VoiceVoiceNumberInboundCallPrice struct {
 	BasePrice    float32 `json:"base_price,omitempty"`
 	CurrentPrice float32 `json:"current_price,omitempty"`

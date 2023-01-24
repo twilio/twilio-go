@@ -160,7 +160,6 @@ func (params *CreateTollfreeVerificationParams) SetBusinessContactPhone(Business
 	return params
 }
 
-//
 func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications"
 
@@ -253,7 +252,6 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -555,7 +553,6 @@ func (params *UpdateTollfreeVerificationParams) SetBusinessContactPhone(Business
 	return params
 }
 
-//
 func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

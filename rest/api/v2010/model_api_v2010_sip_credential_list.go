@@ -16,18 +16,18 @@ package openapi
 
 // ApiV2010SipCredentialList struct for ApiV2010SipCredentialList
 type ApiV2010SipCredentialList struct {
-	// The unique sid that identifies this account
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The date this resource was created
+	// The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date this resource was last updated
+	// The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// Human readable descriptive text
+	// A human readable descriptive text that describes the CredentialList, up to 64 characters long.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// A string that uniquely identifies this credential
+	// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
-	// The list of credentials associated with this credential list.
+	// A list of credentials associated with this credential list.
 	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
-	// The URI for this resource
+	// The URI for this resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 }

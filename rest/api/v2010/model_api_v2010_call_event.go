@@ -16,8 +16,8 @@ package openapi
 
 // ApiV2010CallEvent struct for ApiV2010CallEvent
 type ApiV2010CallEvent struct {
-	// Call Request.
+	// Contains a dictionary representing the request of the call.
 	Request *interface{} `json:"request,omitempty"`
-	// Call Response with Events.
+	// Contains a dictionary representing the call response, including a list of the call events.
 	Response *interface{} `json:"response,omitempty"`
 }

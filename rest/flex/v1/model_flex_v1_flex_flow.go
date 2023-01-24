@@ -20,30 +20,30 @@ import (
 
 // FlexV1FlexFlow struct for FlexV1FlexFlow
 type FlexV1FlexFlow struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Flow resource and owns this Workflow.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Flex Flow resource.
 	Sid *string `json:"sid,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The SID of the chat service
+	// The SID of the chat service.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
 	ChannelType    *string `json:"channel_type,omitempty"`
-	// The channel contact's Identity
+	// The channel contact's Identity.
 	ContactIdentity *string `json:"contact_identity,omitempty"`
-	// Whether the Flex Flow is enabled
+	// Whether the Flex Flow is enabled.
 	Enabled         *bool   `json:"enabled,omitempty"`
 	IntegrationType *string `json:"integration_type,omitempty"`
-	// An object that contains specific parameters for the integration
+	// An object that contains specific parameters for the integration.
 	Integration *interface{} `json:"integration,omitempty"`
-	// Re-use this chat channel for future interactions with a contact
+	// When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
 	LongLived *bool `json:"long_lived,omitempty"`
-	// Remove active Proxy sessions if the corresponding Task is deleted.
+	// When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
 	JanitorEnabled *bool `json:"janitor_enabled,omitempty"`
-	// The absolute URL of the Flex Flow resource
+	// The absolute URL of the Flex Flow resource.
 	Url *string `json:"url,omitempty"`
 }

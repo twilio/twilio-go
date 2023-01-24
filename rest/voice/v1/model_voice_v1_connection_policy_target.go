@@ -20,26 +20,26 @@ import (
 
 // VoiceV1ConnectionPolicyTarget struct for VoiceV1ConnectionPolicyTarget
 type VoiceV1ConnectionPolicyTarget struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Target resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Connection Policy that owns the Target
+	// The SID of the Connection Policy that owns the Target.
 	ConnectionPolicySid *string `json:"connection_policy_sid,omitempty"`
-	// The unique string that identifies the resource
+	// The unique string that we created to identify the Target resource.
 	Sid *string `json:"sid,omitempty"`
-	// The string that you assigned to describe the resource
+	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The SIP address you want Twilio to route your calls to
+	// The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
 	Target *string `json:"target,omitempty"`
-	// The relative importance of the target
+	// The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
 	Priority *int `json:"priority,omitempty"`
-	// The value that determines the relative load the Target should receive compared to others with the same priority
+	// The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
 	Weight *int `json:"weight,omitempty"`
-	// Whether the target is enabled
+	// Whether the target is enabled. The default is `true`.
 	Enabled *bool `json:"enabled,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the resource
+	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }

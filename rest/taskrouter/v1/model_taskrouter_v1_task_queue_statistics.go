@@ -16,16 +16,16 @@ package openapi
 
 // TaskrouterV1TaskQueueStatistics struct for TaskrouterV1TaskQueueStatistics
 type TaskrouterV1TaskQueueStatistics struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// An object that contains the cumulative statistics for the TaskQueue
+	// An object that contains the cumulative statistics for the TaskQueue.
 	Cumulative *interface{} `json:"cumulative,omitempty"`
-	// An object that contains the real-time statistics for the TaskQueue
+	// An object that contains the real-time statistics for the TaskQueue.
 	Realtime *interface{} `json:"realtime,omitempty"`
-	// The SID of the TaskQueue from which these statistics were calculated
+	// The SID of the TaskQueue from which these statistics were calculated.
 	TaskQueueSid *string `json:"task_queue_sid,omitempty"`
-	// The SID of the Workspace that contains the TaskQueue
+	// The SID of the Workspace that contains the TaskQueue.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
-	// The absolute URL of the TaskQueue statistics resource
+	// The absolute URL of the TaskQueue statistics resource.
 	Url *string `json:"url,omitempty"`
 }

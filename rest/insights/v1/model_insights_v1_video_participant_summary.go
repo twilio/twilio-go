@@ -26,7 +26,7 @@ type InsightsV1VideoParticipantSummary struct {
 	ParticipantIdentity *string `json:"participant_identity,omitempty"`
 	// When the participant joined the room.
 	JoinTime *time.Time `json:"join_time,omitempty"`
-	// When the participant left the room
+	// When the participant left the room.
 	LeaveTime *time.Time `json:"leave_time,omitempty"`
 	// Amount of time in seconds the participant was in the room.
 	DurationSec *int64 `json:"duration_sec,omitempty"`
@@ -35,19 +35,19 @@ type InsightsV1VideoParticipantSummary struct {
 	// Unique identifier for the room.
 	RoomSid *string `json:"room_sid,omitempty"`
 	Status  *string `json:"status,omitempty"`
-	// Codecs detected from the participant.
+	// Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
 	Codecs *[]string `json:"codecs,omitempty"`
-	// Reason the participant left the room.
+	// Reason the participant left the room. See [the list of possible values here](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#end_reason).
 	EndReason *string `json:"end_reason,omitempty"`
 	// Errors encountered by the participant.
 	ErrorCode *int `json:"error_code,omitempty"`
 	// Twilio error code dictionary link.
 	ErrorCodeUrl *string `json:"error_code_url,omitempty"`
 	MediaRegion  *string `json:"media_region,omitempty"`
-	// Object containing information about the participant's data from the room.
+	// Object containing information about the participant's data from the room. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#properties) for more information.
 	Properties   *interface{} `json:"properties,omitempty"`
 	EdgeLocation *string      `json:"edge_location,omitempty"`
-	// Object containing information about the SDK name and version.
+	// Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#publisher_info) for more information.
 	PublisherInfo *interface{} `json:"publisher_info,omitempty"`
 	// URL of the participant resource.
 	Url *string `json:"url,omitempty"`

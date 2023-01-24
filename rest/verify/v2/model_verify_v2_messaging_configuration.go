@@ -20,17 +20,17 @@ import (
 
 // VerifyV2MessagingConfiguration struct for VerifyV2MessagingConfiguration
 type VerifyV2MessagingConfiguration struct {
-	// The SID of the Account that created the resource
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Service that the resource is associated with
+	// The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The ISO-3166-1 country code of the country or `all`.
+	// The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
 	Country *string `json:"country,omitempty"`
-	// The SID of the Messaging Service used for this configuration.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
+	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
+	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
