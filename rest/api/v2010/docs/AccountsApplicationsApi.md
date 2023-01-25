@@ -47,6 +47,7 @@ Name | Type | Description
 **SmsStatusCallback** | **string** | The URL we should call using a POST method to send status information about SMS messages sent by the application.
 **MessageStatusCallback** | **string** | The URL we should call using a POST method to send message status information to your application.
 **FriendlyName** | **string** | A descriptive string that you create to describe the new application. It can be up to 64 characters long.
+**PublicApplicationConnectEnabled** | **bool** | Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
 ### Return type
 
@@ -233,6 +234,7 @@ Name | Type | Description
 **SmsFallbackMethod** | **string** | The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
 **SmsStatusCallback** | **string** | Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
 **MessageStatusCallback** | **string** | The URL we should call using a POST method to send message status information to your application.
+**PublicApplicationConnectEnabled** | **bool** | Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
 ### Return type
 

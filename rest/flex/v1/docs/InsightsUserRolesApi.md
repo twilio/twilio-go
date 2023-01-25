@@ -4,13 +4,13 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchUserRoles**](InsightsUserRolesApi.md#FetchUserRoles) | **Get** /v1/Insights/UserRoles | 
+[**FetchInsightsUserRoles**](InsightsUserRolesApi.md#FetchInsightsUserRoles) | **Get** /v1/Insights/UserRoles | 
 
 
 
-## FetchUserRoles
+## FetchInsightsUserRoles
 
-> FlexV1UserRoles FetchUserRoles(ctx, optional)
+> FlexV1InsightsUserRoles FetchInsightsUserRoles(ctx, optional)
 
 
 
@@ -22,7 +22,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchUserRolesParams struct
+Other parameters are passed through a pointer to a FetchInsightsUserRolesParams struct
 
 
 Name | Type | Description
@@ -31,7 +31,7 @@ Name | Type | Description
 
 ### Return type
 
-[**FlexV1UserRoles**](FlexV1UserRoles.md)
+[**FlexV1InsightsUserRoles**](FlexV1InsightsUserRoles.md)
 
 ### Authorization
 

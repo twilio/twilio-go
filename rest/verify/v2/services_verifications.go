@@ -24,7 +24,7 @@ import (
 type CreateVerificationParams struct {
 	// The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 	To *string `json:"To,omitempty"`
-	// The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, or `sna`.
+	// The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna` or `auto`.
 	Channel *string `json:"Channel,omitempty"`
 	// A custom user defined friendly name that overwrites the existing one in the verification message
 	CustomFriendlyName *string `json:"CustomFriendlyName,omitempty"`
@@ -50,6 +50,8 @@ type CreateVerificationParams struct {
 	TemplateSid *string `json:"TemplateSid,omitempty"`
 	// A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
 	TemplateCustomSubstitutions *string `json:"TemplateCustomSubstitutions,omitempty"`
+	// The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
+	DeviceIp *string `json:"DeviceIp,omitempty"`
 }
 
 func (params *CreateVerificationParams) SetTo(To string) *CreateVerificationParams {
@@ -106,6 +108,10 @@ func (params *CreateVerificationParams) SetTemplateSid(TemplateSid string) *Crea
 }
 func (params *CreateVerificationParams) SetTemplateCustomSubstitutions(TemplateCustomSubstitutions string) *CreateVerificationParams {
 	params.TemplateCustomSubstitutions = &TemplateCustomSubstitutions
+	return params
+}
+func (params *CreateVerificationParams) SetDeviceIp(DeviceIp string) *CreateVerificationParams {
+	params.DeviceIp = &DeviceIp
 	return params
 }
 
@@ -170,6 +176,9 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	}
 	if params != nil && params.TemplateCustomSubstitutions != nil {
 		data.Set("TemplateCustomSubstitutions", *params.TemplateCustomSubstitutions)
+	}
+	if params != nil && params.DeviceIp != nil {
+		data.Set("DeviceIp", *params.DeviceIp)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -52,6 +52,7 @@ Name | Type | Description
 **BusinessContactLastName** | **string** | The last name of the contact for the business or organization using the Tollfree number.
 **BusinessContactEmail** | **string** | The email address of the contact for the business or organization using the Tollfree number.
 **BusinessContactPhone** | **string** | The phone number of the contact for the business or organization using the Tollfree number.
+**ExternalReferenceId** | **string** | An optional external reference ID supplied by customer and echoed back on status retrieval.
 
 ### Return type
 

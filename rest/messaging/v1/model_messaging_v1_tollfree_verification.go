@@ -80,4 +80,6 @@ type MessagingV1TollfreeVerification struct {
 	Url *string `json:"url,omitempty"`
 	// The URLs of the documents associated with the Tollfree Verification resource.
 	ResourceLinks *interface{} `json:"resource_links,omitempty"`
+	// An optional external reference ID supplied by customer and echoed back on status retrieval.
+	ExternalReferenceId *string `json:"external_reference_id,omitempty"`
 }

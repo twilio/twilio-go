@@ -52,6 +52,7 @@ func (params *CreateQueryParams) SetModelBuild(ModelBuild string) *CreateQueryPa
 	return params
 }
 
+//
 func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -87,6 +88,7 @@ func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams)
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -105,6 +107,7 @@ func (c *ApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchQuery(AssistantSid string, Sid string) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -319,6 +322,7 @@ func (params *UpdateQueryParams) SetStatus(Status string) *UpdateQueryParams {
 	return params
 }
 
+//
 func (c *ApiService) UpdateQuery(AssistantSid string, Sid string, params *UpdateQueryParams) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

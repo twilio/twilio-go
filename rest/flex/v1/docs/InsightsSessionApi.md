@@ -4,13 +4,13 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateGooddata**](InsightsSessionApi.md#CreateGooddata) | **Post** /v1/Insights/Session | 
+[**CreateInsightsSession**](InsightsSessionApi.md#CreateInsightsSession) | **Post** /v1/Insights/Session | 
 
 
 
-## CreateGooddata
+## CreateInsightsSession
 
-> FlexV1Gooddata CreateGooddata(ctx, optional)
+> FlexV1InsightsSession CreateInsightsSession(ctx, optional)
 
 
 
@@ -22,7 +22,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateGooddataParams struct
+Other parameters are passed through a pointer to a CreateInsightsSessionParams struct
 
 
 Name | Type | Description
@@ -31,7 +31,7 @@ Name | Type | Description
 
 ### Return type
 
-[**FlexV1Gooddata**](FlexV1Gooddata.md)
+[**FlexV1InsightsSession**](FlexV1InsightsSession.md)
 
 ### Authorization
 

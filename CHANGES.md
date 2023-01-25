@@ -1,5 +1,26 @@
 twilio-go changelog
 ====================
+[2023-01-25] Version 1.3.2
+--------------------------
+**Library - Docs**
+- [PR #202](https://github.com/twilio/twilio-go/pull/202): use long property descriptions if available. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Fix**
+- [PR #199](https://github.com/twilio/twilio-go/pull/199): Nullable Page URLs. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+**Api**
+- Add `public_application_connect_enabled` param to Application resource
+
+**Messaging**
+- Add new tollfree verification API property (ExternalReferenceId)]
+
+**Verify**
+- Add `device_ip` parameter and channel `auto` for sna/sms orchestration
+
+**Twiml**
+- Add support for `<Application>` noun and `<ApplicationSid>` noun, nested `<Parameter>` to `<Hangup>` and `<Leave>` verb
+
+
 [2023-01-11] Version 1.3.1
 --------------------------
 **Conversations**

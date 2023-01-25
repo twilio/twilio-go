@@ -64,6 +64,7 @@ func (params *CreateMediaProcessorParams) SetMaxDuration(MaxDuration int) *Creat
 	return params
 }
 
+//
 func (c *ApiService) CreateMediaProcessor(params *CreateMediaProcessorParams) (*MediaV1MediaProcessor, error) {
 	path := "/v1/MediaProcessors"
 

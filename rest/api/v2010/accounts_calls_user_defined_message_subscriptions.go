@@ -28,7 +28,7 @@ type CreateUserDefinedMessageSubscriptionParams struct {
 	Callback *string `json:"Callback,omitempty"`
 	// A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
 	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
-	// The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
+	// The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
 	Method *string `json:"Method,omitempty"`
 }
 

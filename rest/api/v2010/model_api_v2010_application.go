@@ -56,4 +56,6 @@ type ApiV2010Application struct {
 	VoiceMethod *string `json:"voice_method,omitempty"`
 	// The URL we call when the phone number assigned to this application receives a call.
 	VoiceUrl *string `json:"voice_url,omitempty"`
+	// Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+	PublicApplicationConnectEnabled *bool `json:"public_application_connect_enabled,omitempty"`
 }

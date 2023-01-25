@@ -19,19 +19,19 @@ import (
 	"net/url"
 )
 
-// Optional parameters for the method 'FetchUserRoles'
-type FetchUserRolesParams struct {
+// Optional parameters for the method 'FetchInsightsUserRoles'
+type FetchInsightsUserRolesParams struct {
 	// The Token HTTP request header
 	Token *string `json:"Token,omitempty"`
 }
 
-func (params *FetchUserRolesParams) SetToken(Token string) *FetchUserRolesParams {
+func (params *FetchInsightsUserRolesParams) SetToken(Token string) *FetchInsightsUserRolesParams {
 	params.Token = &Token
 	return params
 }
 
 // This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
-func (c *ApiService) FetchUserRoles(params *FetchUserRolesParams) (*FlexV1UserRoles, error) {
+func (c *ApiService) FetchInsightsUserRoles(params *FetchInsightsUserRolesParams) (*FlexV1InsightsUserRoles, error) {
 	path := "/v1/Insights/UserRoles"
 
 	data := url.Values{}
@@ -48,7 +48,7 @@ func (c *ApiService) FetchUserRoles(params *FetchUserRolesParams) (*FlexV1UserRo
 
 	defer resp.Body.Close()
 
-	ps := &FlexV1UserRoles{}
+	ps := &FlexV1InsightsUserRoles{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

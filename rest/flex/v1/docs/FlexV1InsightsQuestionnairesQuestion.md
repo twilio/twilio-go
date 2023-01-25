@@ -1,0 +1,18 @@
+# FlexV1InsightsQuestionnairesQuestion
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource. |
+**QuestionId** | Pointer to **string** | The unique ID of the question |
+**Question** | Pointer to **string** | The question. |
+**Description** | Pointer to **string** | The description for the question. |
+**Category** | Pointer to **interface{}** | The Category for the question. |
+**AnswerSetId** | Pointer to **string** | The answer_set for the question. |
+**AllowNa** | Pointer to **bool** | The flag  to enable for disable NA for answer. |
+**Url** | Pointer to **string** |  |
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

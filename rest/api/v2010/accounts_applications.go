@@ -57,6 +57,8 @@ type CreateApplicationParams struct {
 	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
 	// A descriptive string that you create to describe the new application. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+	PublicApplicationConnectEnabled *bool `json:"PublicApplicationConnectEnabled,omitempty"`
 }
 
 func (params *CreateApplicationParams) SetPathAccountSid(PathAccountSid string) *CreateApplicationParams {
@@ -123,6 +125,10 @@ func (params *CreateApplicationParams) SetFriendlyName(FriendlyName string) *Cre
 	params.FriendlyName = &FriendlyName
 	return params
 }
+func (params *CreateApplicationParams) SetPublicApplicationConnectEnabled(PublicApplicationConnectEnabled bool) *CreateApplicationParams {
+	params.PublicApplicationConnectEnabled = &PublicApplicationConnectEnabled
+	return params
+}
 
 // Create a new application within your account
 func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV2010Application, error) {
@@ -180,6 +186,9 @@ func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV20
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PublicApplicationConnectEnabled != nil {
+		data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -461,6 +470,8 @@ type UpdateApplicationParams struct {
 	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
 	// The URL we should call using a POST method to send message status information to your application.
 	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
+	// Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+	PublicApplicationConnectEnabled *bool `json:"PublicApplicationConnectEnabled,omitempty"`
 }
 
 func (params *UpdateApplicationParams) SetPathAccountSid(PathAccountSid string) *UpdateApplicationParams {
@@ -527,6 +538,10 @@ func (params *UpdateApplicationParams) SetMessageStatusCallback(MessageStatusCal
 	params.MessageStatusCallback = &MessageStatusCallback
 	return params
 }
+func (params *UpdateApplicationParams) SetPublicApplicationConnectEnabled(PublicApplicationConnectEnabled bool) *UpdateApplicationParams {
+	params.PublicApplicationConnectEnabled = &PublicApplicationConnectEnabled
+	return params
+}
 
 // Updates the application's properties
 func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationParams) (*ApiV2010Application, error) {
@@ -585,6 +600,9 @@ func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationPara
 	}
 	if params != nil && params.MessageStatusCallback != nil {
 		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+	}
+	if params != nil && params.PublicApplicationConnectEnabled != nil {
+		data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

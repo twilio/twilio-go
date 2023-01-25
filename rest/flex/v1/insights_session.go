@@ -19,19 +19,19 @@ import (
 	"net/url"
 )
 
-// Optional parameters for the method 'CreateGooddata'
-type CreateGooddataParams struct {
+// Optional parameters for the method 'CreateInsightsSession'
+type CreateInsightsSessionParams struct {
 	// The Token HTTP request header
 	Token *string `json:"Token,omitempty"`
 }
 
-func (params *CreateGooddataParams) SetToken(Token string) *CreateGooddataParams {
+func (params *CreateInsightsSessionParams) SetToken(Token string) *CreateInsightsSessionParams {
 	params.Token = &Token
 	return params
 }
 
 // To obtain session details for fetching reports and dashboards
-func (c *ApiService) CreateGooddata(params *CreateGooddataParams) (*FlexV1Gooddata, error) {
+func (c *ApiService) CreateInsightsSession(params *CreateInsightsSessionParams) (*FlexV1InsightsSession, error) {
 	path := "/v1/Insights/Session"
 
 	data := url.Values{}
@@ -48,7 +48,7 @@ func (c *ApiService) CreateGooddata(params *CreateGooddataParams) (*FlexV1Goodda
 
 	defer resp.Body.Close()
 
-	ps := &FlexV1Gooddata{}
+	ps := &FlexV1InsightsSession{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

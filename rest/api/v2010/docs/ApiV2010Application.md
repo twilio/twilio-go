@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **VoiceFallbackUrl** | Pointer to **string** | The URL that we call when an error occurs retrieving or executing the TwiML requested by `url`. |
 **VoiceMethod** | Pointer to **string** | The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`. |
 **VoiceUrl** | Pointer to **string** | The URL we call when the phone number assigned to this application receives a call. |
+**PublicApplicationConnectEnabled** | Pointer to **bool** | Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

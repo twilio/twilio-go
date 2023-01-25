@@ -14,16 +14,8 @@
 
 package openapi
 
-// FlexV1Gooddata struct for FlexV1Gooddata
-type FlexV1Gooddata struct {
-	// Unique ID to identify the user's workspace
-	WorkspaceId *string `json:"workspace_id,omitempty"`
-	// The session expiry date and time, given in ISO 8601 format.
-	SessionExpiry *string `json:"session_expiry,omitempty"`
-	// The unique ID for the session
-	SessionId *string `json:"session_id,omitempty"`
-	// The base URL to fetch reports and dashboards
-	BaseUrl *string `json:"base_url,omitempty"`
+// FlexV1InsightsAssessments struct for FlexV1InsightsAssessments
+type FlexV1InsightsAssessments struct {
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }

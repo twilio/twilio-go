@@ -14,8 +14,8 @@
 
 package openapi
 
-// FlexV1UserRoles struct for FlexV1UserRoles
-type FlexV1UserRoles struct {
+// FlexV1InsightsUserRoles struct for FlexV1InsightsUserRoles
+type FlexV1InsightsUserRoles struct {
 	// Flex Insights roles for the user
 	Roles *[]string `json:"roles,omitempty"`
 	Url   *string   `json:"url,omitempty"`

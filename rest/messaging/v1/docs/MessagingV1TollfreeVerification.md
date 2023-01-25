@@ -35,6 +35,7 @@ Name | Type | Description | Notes
 **Status** | Pointer to [**string**](TollfreeVerificationEnumStatus.md) |  |
 **Url** | Pointer to **string** | The absolute URL of the Tollfree Verification resource. |
 **ResourceLinks** | Pointer to **interface{}** | The URLs of the documents associated with the Tollfree Verification resource. |
+**ExternalReferenceId** | Pointer to **string** | An optional external reference ID supplied by customer and echoed back on status retrieval. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

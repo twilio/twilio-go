@@ -1,4 +1,4 @@
-# FlexV1Gooddata
+# FlexV1InsightsSession
 
 ## Properties
 

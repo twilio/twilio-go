@@ -69,6 +69,8 @@ type CreateTollfreeVerificationParams struct {
 	BusinessContactEmail *string `json:"BusinessContactEmail,omitempty"`
 	// The phone number of the contact for the business or organization using the Tollfree number.
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
+	// An optional external reference ID supplied by customer and echoed back on status retrieval.
+	ExternalReferenceId *string `json:"ExternalReferenceId,omitempty"`
 }
 
 func (params *CreateTollfreeVerificationParams) SetBusinessName(BusinessName string) *CreateTollfreeVerificationParams {
@@ -159,7 +161,12 @@ func (params *CreateTollfreeVerificationParams) SetBusinessContactPhone(Business
 	params.BusinessContactPhone = &BusinessContactPhone
 	return params
 }
+func (params *CreateTollfreeVerificationParams) SetExternalReferenceId(ExternalReferenceId string) *CreateTollfreeVerificationParams {
+	params.ExternalReferenceId = &ExternalReferenceId
+	return params
+}
 
+//
 func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications"
 
@@ -236,6 +243,9 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	if params != nil && params.BusinessContactPhone != nil {
 		data.Set("BusinessContactPhone", *params.BusinessContactPhone)
 	}
+	if params != nil && params.ExternalReferenceId != nil {
+		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
+	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -252,6 +262,7 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	return ps, err
 }
 
+//
 func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -553,6 +564,7 @@ func (params *UpdateTollfreeVerificationParams) SetBusinessContactPhone(Business
 	return params
 }
 
+//
 func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

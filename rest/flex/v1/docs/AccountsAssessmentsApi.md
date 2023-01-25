@@ -4,13 +4,13 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAssessments**](AccountsAssessmentsApi.md#CreateAssessments) | **Post** /v1/Accounts/Assessments | 
+[**CreateInsightsAssessments**](AccountsAssessmentsApi.md#CreateInsightsAssessments) | **Post** /v1/Accounts/Assessments | 
 
 
 
-## CreateAssessments
+## CreateInsightsAssessments
 
-> FlexV1Assessments CreateAssessments(ctx, )
+> FlexV1InsightsAssessments CreateInsightsAssessments(ctx, )
 
 
 
@@ -22,12 +22,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateAssessmentsParams struct
+Other parameters are passed through a pointer to a CreateInsightsAssessmentsParams struct
 
 
 ### Return type
 
-[**FlexV1Assessments**](FlexV1Assessments.md)
+[**FlexV1InsightsAssessments**](FlexV1InsightsAssessments.md)
 
 ### Authorization
 

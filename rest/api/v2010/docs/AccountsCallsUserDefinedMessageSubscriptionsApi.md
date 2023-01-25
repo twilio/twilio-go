@@ -35,7 +35,7 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.
 **Callback** | **string** | The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
 **IdempotencyKey** | **string** | A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
-**Method** | **string** | The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
+**Method** | **string** | The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
 
 ### Return type
 

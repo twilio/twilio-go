@@ -20,7 +20,7 @@ import (
 )
 
 // Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question.
-func (c *ApiService) CreateAssessments() (*FlexV1Assessments, error) {
+func (c *ApiService) CreateInsightsAssessments() (*FlexV1InsightsAssessments, error) {
 	path := "/v1/Accounts/Assessments"
 
 	data := url.Values{}
@@ -33,7 +33,7 @@ func (c *ApiService) CreateAssessments() (*FlexV1Assessments, error) {
 
 	defer resp.Body.Close()
 
-	ps := &FlexV1Assessments{}
+	ps := &FlexV1InsightsAssessments{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
