@@ -16,6 +16,6 @@ package openapi
 
 // ListAppResponse struct for ListAppResponse
 type ListAppResponse struct {
-	Apps []MicrovisorV1App   `json:"apps,omitempty"`
-	Meta ListAppResponseMeta `json:"meta,omitempty"`
+	Apps []MicrovisorV1App             `json:"apps,omitempty"`
+	Meta ListAccountConfigResponseMeta `json:"meta,omitempty"`
 }

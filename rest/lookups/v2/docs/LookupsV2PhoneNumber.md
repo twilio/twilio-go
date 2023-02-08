@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **LiveActivity** | Pointer to **interface{}** | An object that contains live activity information for a mobile phone number. |
 **LineTypeIntelligence** | Pointer to **interface{}** | An object that contains line type information including the carrier name, mobile country code, and mobile network code. |
 **IdentityMatch** | Pointer to **interface{}** | An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources |
+**SmsPumpingRisk** | Pointer to **interface{}** | An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates. |
+**DisposablePhoneNumberRisk** | Pointer to **interface{}** | An object that contains information on if a mobile phone number could be a disposable or burner number. |
 **Url** | Pointer to **string** | The absolute URL of the resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

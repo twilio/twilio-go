@@ -21,12 +21,12 @@ import (
 
 // Optional parameters for the method 'CreateInsightsSession'
 type CreateInsightsSessionParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 }
 
-func (params *CreateInsightsSessionParams) SetToken(Token string) *CreateInsightsSessionParams {
-	params.Token = &Token
+func (params *CreateInsightsSessionParams) SetAuthorization(Authorization string) *CreateInsightsSessionParams {
+	params.Authorization = &Authorization
 	return params
 }
 
@@ -37,8 +37,8 @@ func (c *ApiService) CreateInsightsSession(params *CreateInsightsSessionParams) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

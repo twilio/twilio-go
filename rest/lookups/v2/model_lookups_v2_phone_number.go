@@ -40,6 +40,10 @@ type LookupsV2PhoneNumber struct {
 	LineTypeIntelligence *interface{} `json:"line_type_intelligence,omitempty"`
 	// An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
 	IdentityMatch *interface{} `json:"identity_match,omitempty"`
+	// An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
+	SmsPumpingRisk *interface{} `json:"sms_pumping_risk,omitempty"`
+	// An object that contains information on if a mobile phone number could be a disposable or burner number.
+	DisposablePhoneNumberRisk *interface{} `json:"disposable_phone_number_risk,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }
