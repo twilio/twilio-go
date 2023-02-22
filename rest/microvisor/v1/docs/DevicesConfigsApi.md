@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteDeviceConfig**](DevicesConfigsApi.md#DeleteDeviceConfig) | **Delete** /v1/Devices/{DeviceSid}/Configs/{Key} | 
 [**FetchDeviceConfig**](DevicesConfigsApi.md#FetchDeviceConfig) | **Get** /v1/Devices/{DeviceSid}/Configs/{Key} | 
 [**ListDeviceConfig**](DevicesConfigsApi.md#ListDeviceConfig) | **Get** /v1/Devices/{DeviceSid}/Configs | 
+[**UpdateDeviceConfig**](DevicesConfigsApi.md#UpdateDeviceConfig) | **Post** /v1/Devices/{DeviceSid}/Configs/{Key} | 
 
 
 
@@ -178,6 +179,50 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateDeviceConfig
+
+> MicrovisorV1DeviceConfig UpdateDeviceConfig(ctx, DeviceSidKeyoptional)
+
+
+
+Update a config for a Microvisor Device.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**DeviceSid** | **string** | A 34-character string that uniquely identifies the Device.
+**Key** | **string** | The config key; up to 100 characters.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateDeviceConfigParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Value** | **string** | The config value; up to 4096 characters.
+
+### Return type
+
+[**MicrovisorV1DeviceConfig**](MicrovisorV1DeviceConfig.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -50,8 +50,8 @@ type FlexV1InsightsSegments struct {
 	CustomerLink *string `json:"customer_link,omitempty"`
 	// The offset value for the recording.
 	SegmentRecordingOffset *string `json:"segment_recording_offset,omitempty"`
-	// The link for the conversation.
-	Media *string `json:"media,omitempty"`
+	// The media identifiers of the conversation.
+	Media *interface{} `json:"media,omitempty"`
 	// The type of the assessment.
 	AssessmentType *interface{} `json:"assessment_type,omitempty"`
 	// The percentage scored on the Assessments.

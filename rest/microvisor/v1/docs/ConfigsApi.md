@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteAccountConfig**](ConfigsApi.md#DeleteAccountConfig) | **Delete** /v1/Configs/{Key} | 
 [**FetchAccountConfig**](ConfigsApi.md#FetchAccountConfig) | **Get** /v1/Configs/{Key} | 
 [**ListAccountConfig**](ConfigsApi.md#ListAccountConfig) | **Get** /v1/Configs | 
+[**UpdateAccountConfig**](ConfigsApi.md#UpdateAccountConfig) | **Post** /v1/Configs/{Key} | 
 
 
 
@@ -31,7 +32,7 @@ Other parameters are passed through a pointer to a CreateAccountConfigParams str
 Name | Type | Description
 ------------- | ------------- | -------------
 **Key** | **string** | The config key; up to 100 characters.
-**Value** | **string** | The config value;  up to 4096 characters.
+**Value** | **string** | The config value; up to 4096 characters.
 
 ### Return type
 
@@ -168,6 +169,49 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateAccountConfig
+
+> MicrovisorV1AccountConfig UpdateAccountConfig(ctx, Keyoptional)
+
+
+
+Update a config for an Account.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Key** | **string** | The config key; up to 100 characters.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateAccountConfigParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Value** | **string** | The config value; up to 4096 characters.
+
+### Return type
+
+[**MicrovisorV1AccountConfig**](MicrovisorV1AccountConfig.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

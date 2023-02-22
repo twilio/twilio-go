@@ -1,5 +1,12 @@
 twilio-go changelog
 ====================
+[2023-02-22] Version 1.3.4
+--------------------------
+**Api**
+- Remove `scheduled_for` property from message resource
+- Add `scheduled_for` property to message resource
+
+
 [2023-02-08] Version 1.3.3
 --------------------------
 **Lookups**

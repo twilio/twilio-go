@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **CustomerName** | Pointer to **string** | The name of the customer. |
 **CustomerLink** | Pointer to **string** | The link to the customer conversation. |
 **SegmentRecordingOffset** | Pointer to **string** | The offset value for the recording. |
-**Media** | Pointer to **string** | The link for the conversation. |
+**Media** | Pointer to **interface{}** | The media identifiers of the conversation. |
 **AssessmentType** | Pointer to **interface{}** | The type of the assessment. |
 **AssessmentPercentage** | Pointer to **interface{}** | The percentage scored on the Assessments. |
 **Url** | Pointer to **string** |  |
