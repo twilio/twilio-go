@@ -31,6 +31,8 @@ type FlexV1InsightsQuestionnairesQuestion struct {
 	// The flag  to enable for disable NA for answer.
 	AllowNa *bool `json:"allow_na,omitempty"`
 	// Integer value that tells a particular question is used by how many questionnaires
-	Usage *int    `json:"usage,omitempty"`
-	Url   *string `json:"url,omitempty"`
+	Usage *int `json:"usage,omitempty"`
+	// Set of answers for the question
+	AnswerSet *interface{} `json:"answer_set,omitempty"`
+	Url       *string      `json:"url,omitempty"`
 }

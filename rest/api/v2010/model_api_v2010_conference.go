@@ -24,7 +24,7 @@ type ApiV2010Conference struct {
 	DateUpdated *string `json:"date_updated,omitempty"`
 	// The API version used to create this conference.
 	ApiVersion *string `json:"api_version,omitempty"`
-	// A string that you assigned to describe this conference room.
+	// A string that you assigned to describe this conference room. Maxiumum length is 128 characters.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// A string that represents the Twilio Region where the conference audio was mixed. May be `us1`, `ie1`,  `de1`, `sg1`, `br1`, `au1`, and `jp1`. Basic conference audio will always be mixed in `us1`. Global Conference audio will be mixed nearest to the majority of participants.
 	Region *string `json:"region,omitempty"`

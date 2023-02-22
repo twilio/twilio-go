@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteDeviceSecret**](DevicesSecretsApi.md#DeleteDeviceSecret) | **Delete** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
 [**FetchDeviceSecret**](DevicesSecretsApi.md#FetchDeviceSecret) | **Get** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
 [**ListDeviceSecret**](DevicesSecretsApi.md#ListDeviceSecret) | **Get** /v1/Devices/{DeviceSid}/Secrets | 
+[**UpdateDeviceSecret**](DevicesSecretsApi.md#UpdateDeviceSecret) | **Post** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
 
 
 
@@ -178,6 +179,50 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateDeviceSecret
+
+> MicrovisorV1DeviceSecret UpdateDeviceSecret(ctx, DeviceSidKeyoptional)
+
+
+
+Update a secret for a Microvisor Device.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**DeviceSid** | **string** | A 34-character string that uniquely identifies the Device.
+**Key** | **string** | The secret key; up to 100 characters.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateDeviceSecretParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Value** | **string** | The secret value; up to 4096 characters.
+
+### Return type
+
+[**MicrovisorV1DeviceSecret**](MicrovisorV1DeviceSecret.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

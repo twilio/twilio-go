@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **AnswerSetId** | Pointer to **string** | The answer_set for the question. |
 **AllowNa** | Pointer to **bool** | The flag  to enable for disable NA for answer. |
 **Usage** | Pointer to **int** | Integer value that tells a particular question is used by how many questionnaires |
+**AnswerSet** | Pointer to **interface{}** | Set of answers for the question |
 **Url** | Pointer to **string** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

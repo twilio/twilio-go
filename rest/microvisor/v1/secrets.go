@@ -245,3 +245,41 @@ func (c *ApiService) getNextListAccountSecretResponse(nextPageUrl string) (inter
 	}
 	return ps, nil
 }
+
+// Optional parameters for the method 'UpdateAccountSecret'
+type UpdateAccountSecretParams struct {
+	// The secret value; up to 4096 characters.
+	Value *string `json:"Value,omitempty"`
+}
+
+func (params *UpdateAccountSecretParams) SetValue(Value string) *UpdateAccountSecretParams {
+	params.Value = &Value
+	return params
+}
+
+// Update a secret for an Account.
+func (c *ApiService) UpdateAccountSecret(Key string, params *UpdateAccountSecretParams) (*MicrovisorV1AccountSecret, error) {
+	path := "/v1/Secrets/{Key}"
+	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Value != nil {
+		data.Set("Value", *params.Value)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MicrovisorV1AccountSecret{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}

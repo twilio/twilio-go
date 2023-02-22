@@ -27,7 +27,7 @@ import (
 type CreateAccountConfigParams struct {
 	// The config key; up to 100 characters.
 	Key *string `json:"Key,omitempty"`
-	// The config value;  up to 4096 characters.
+	// The config value; up to 4096 characters.
 	Value *string `json:"Value,omitempty"`
 }
 
@@ -244,4 +244,42 @@ func (c *ApiService) getNextListAccountConfigResponse(nextPageUrl string) (inter
 		return nil, err
 	}
 	return ps, nil
+}
+
+// Optional parameters for the method 'UpdateAccountConfig'
+type UpdateAccountConfigParams struct {
+	// The config value; up to 4096 characters.
+	Value *string `json:"Value,omitempty"`
+}
+
+func (params *UpdateAccountConfigParams) SetValue(Value string) *UpdateAccountConfigParams {
+	params.Value = &Value
+	return params
+}
+
+// Update a config for an Account.
+func (c *ApiService) UpdateAccountConfig(Key string, params *UpdateAccountConfigParams) (*MicrovisorV1AccountConfig, error) {
+	path := "/v1/Configs/{Key}"
+	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Value != nil {
+		data.Set("Value", *params.Value)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MicrovisorV1AccountConfig{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }

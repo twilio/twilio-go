@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteAccountSecret**](SecretsApi.md#DeleteAccountSecret) | **Delete** /v1/Secrets/{Key} | 
 [**FetchAccountSecret**](SecretsApi.md#FetchAccountSecret) | **Get** /v1/Secrets/{Key} | 
 [**ListAccountSecret**](SecretsApi.md#ListAccountSecret) | **Get** /v1/Secrets | 
+[**UpdateAccountSecret**](SecretsApi.md#UpdateAccountSecret) | **Post** /v1/Secrets/{Key} | 
 
 
 
@@ -168,6 +169,49 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateAccountSecret
+
+> MicrovisorV1AccountSecret UpdateAccountSecret(ctx, Keyoptional)
+
+
+
+Update a secret for an Account.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Key** | **string** | The secret key; up to 100 characters.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateAccountSecretParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Value** | **string** | The secret value; up to 4096 characters.
+
+### Return type
+
+[**MicrovisorV1AccountSecret**](MicrovisorV1AccountSecret.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

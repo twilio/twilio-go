@@ -250,3 +250,42 @@ func (c *ApiService) getNextListDeviceSecretResponse(nextPageUrl string) (interf
 	}
 	return ps, nil
 }
+
+// Optional parameters for the method 'UpdateDeviceSecret'
+type UpdateDeviceSecretParams struct {
+	// The secret value; up to 4096 characters.
+	Value *string `json:"Value,omitempty"`
+}
+
+func (params *UpdateDeviceSecretParams) SetValue(Value string) *UpdateDeviceSecretParams {
+	params.Value = &Value
+	return params
+}
+
+// Update a secret for a Microvisor Device.
+func (c *ApiService) UpdateDeviceSecret(DeviceSid string, Key string, params *UpdateDeviceSecretParams) (*MicrovisorV1DeviceSecret, error) {
+	path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
+	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Value != nil {
+		data.Set("Value", *params.Value)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MicrovisorV1DeviceSecret{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
