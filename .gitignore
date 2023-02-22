@@ -7,7 +7,7 @@
 .idea
 *.iml
 
-**/.openapi-generator
+**/.openapi-generator*
 
 # Test binary, built with `go test -c`
 *.test
