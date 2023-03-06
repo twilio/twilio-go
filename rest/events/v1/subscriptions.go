@@ -25,6 +25,8 @@ import (
 
 // Optional parameters for the method 'CreateSubscription'
 type CreateSubscriptionParams struct {
+	// The X-Twilio-Subscriptions-Waiver HTTP request header
+	XTwilioSubscriptionsWaiver *string `json:"X-Twilio-Subscriptions-Waiver,omitempty"`
 	// A human readable description for the Subscription **This value should not contain PII.**
 	Description *string `json:"Description,omitempty"`
 	// The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
@@ -33,6 +35,10 @@ type CreateSubscriptionParams struct {
 	Types *[]interface{} `json:"Types,omitempty"`
 }
 
+func (params *CreateSubscriptionParams) SetXTwilioSubscriptionsWaiver(XTwilioSubscriptionsWaiver string) *CreateSubscriptionParams {
+	params.XTwilioSubscriptionsWaiver = &XTwilioSubscriptionsWaiver
+	return params
+}
 func (params *CreateSubscriptionParams) SetDescription(Description string) *CreateSubscriptionParams {
 	params.Description = &Description
 	return params
@@ -69,6 +75,10 @@ func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*Even
 
 			data.Add("Types", string(v))
 		}
+	}
+
+	if params != nil && params.XTwilioSubscriptionsWaiver != nil {
+		headers["X-Twilio-Subscriptions-Waiver"] = *params.XTwilioSubscriptionsWaiver
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

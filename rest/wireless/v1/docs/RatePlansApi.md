@@ -42,6 +42,9 @@ Name | Type | Description
 **InternationalRoaming** | **[]string** | The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
 **NationalRoamingDataLimit** | **int** | The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
 **InternationalRoamingDataLimit** | **int** | The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+**UsageNotificationUrl** | **string** | 
+**UsageNotificationMethod** | **string** | 
+**DataLimitStrategy** | **string** | 
 
 ### Return type
 
@@ -210,6 +213,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It does not have to be unique.
+**UsageNotificationUrl** | **string** | 
+**UsageNotificationMethod** | **string** | 
 
 ### Return type
 

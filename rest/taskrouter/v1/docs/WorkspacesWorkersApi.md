@@ -38,6 +38,7 @@ Name | Type | Description
 **FriendlyName** | **string** | A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
 **ActivitySid** | **string** | The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
 **Attributes** | **string** | A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+**OperatingUnitSid** | **string** | The SID of the Operating Unit that the new Worker belongs to.
 
 ### Return type
 
@@ -175,6 +176,7 @@ Name | Type | Description
 **TaskQueueName** | **string** | The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
 **TaskQueueSid** | **string** | The SID of the TaskQueue that the Workers to read are eligible for.
 **Ordering** | **string** | Sorting parameter for Workers
+**OperatingUnitSid** | **string** | The SID of the Operating Unit with the Workers to read.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -225,6 +227,7 @@ Name | Type | Description
 **Attributes** | **string** | The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
 **FriendlyName** | **string** | A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
 **RejectPendingReservations** | **bool** | Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+**OperatingUnitSid** | **string** | The SID of the Operating Unit with the Worker to update.
 
 ### Return type
 

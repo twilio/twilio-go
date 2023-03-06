@@ -38,6 +38,8 @@ type VerifyV2Service struct {
 	DtmfInputRequired *bool `json:"dtmf_input_required,omitempty"`
 	// The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
 	TtsName *string `json:"tts_name,omitempty"`
+	// Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
+	MailerSid *string `json:"mailer_sid,omitempty"`
 	// Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
 	DoNotShareWarningEnabled *bool `json:"do_not_share_warning_enabled,omitempty"`
 	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.

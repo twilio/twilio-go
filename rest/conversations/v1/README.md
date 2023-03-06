@@ -60,8 +60,10 @@ Class | Method | HTTP request | Description
 *ConversationsWebhooksApi* | [**CreateConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#createconversationscopedwebhook) | **Post** /v1/Conversations/{ConversationSid}/Webhooks | 
 *ConversationsWebhooksApi* | [**DeleteConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#deleteconversationscopedwebhook) | **Delete** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | 
 *ConversationsWebhooksApi* | [**FetchConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#fetchconversationscopedwebhook) | **Get** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | 
+*ConversationsWebhooksApi* | [**FetchConversationWebhook**](docs/ConversationsWebhooksApi.md#fetchconversationwebhook) | **Get** /v1/Conversations/Webhooks | 
 *ConversationsWebhooksApi* | [**ListConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#listconversationscopedwebhook) | **Get** /v1/Conversations/{ConversationSid}/Webhooks | 
 *ConversationsWebhooksApi* | [**UpdateConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#updateconversationscopedwebhook) | **Post** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | 
+*ConversationsWebhooksApi* | [**UpdateConversationWebhook**](docs/ConversationsWebhooksApi.md#updateconversationwebhook) | **Post** /v1/Conversations/Webhooks | 
 *CredentialsApi* | [**CreateCredential**](docs/CredentialsApi.md#createcredential) | **Post** /v1/Credentials | 
 *CredentialsApi* | [**DeleteCredential**](docs/CredentialsApi.md#deletecredential) | **Delete** /v1/Credentials/{Sid} | 
 *CredentialsApi* | [**FetchCredential**](docs/CredentialsApi.md#fetchcredential) | **Get** /v1/Credentials/{Sid} | 
@@ -150,6 +152,7 @@ Class | Method | HTTP request | Description
  - [ConversationsV1ServiceNotification](docs/ConversationsV1ServiceNotification.md)
  - [ListConversationMessageReceiptResponse](docs/ListConversationMessageReceiptResponse.md)
  - [ListConfigurationAddressResponseMeta](docs/ListConfigurationAddressResponseMeta.md)
+ - [ConversationsV1ConversationWebhook](docs/ConversationsV1ConversationWebhook.md)
  - [ListConversationMessageResponse](docs/ListConversationMessageResponse.md)
  - [ConversationsV1ConfigurationWebhook](docs/ConversationsV1ConfigurationWebhook.md)
  - [ConversationsV1Credential](docs/ConversationsV1Credential.md)

@@ -26,6 +26,7 @@ type EventsV1EventType struct {
 	SchemaId *string `json:"schema_id,omitempty"`
 	// The date that this Event Type was created, given in ISO 8601 format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
+	Public      *bool      `json:"public,omitempty"`
 	// The date that this Event Type was updated, given in ISO 8601 format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// A human readable description for this Event Type.

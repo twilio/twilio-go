@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchEventType
 
-> EventsV1EventType FetchEventType(ctx, Type)
+> EventsV1EventType FetchEventType(ctx, Typeoptional)
 
 
 
@@ -32,6 +32,7 @@ Other parameters are passed through a pointer to a FetchEventTypeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioCatalogWaiver** | **string** | The X-Twilio-Catalog-Waiver HTTP request header
 
 ### Return type
 
@@ -70,6 +71,7 @@ Other parameters are passed through a pointer to a ListEventTypeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioCatalogWaiver** | **string** | The X-Twilio-Catalog-Waiver HTTP request header
 **SchemaId** | **string** | A string parameter filtering the results to return only the Event Types using a given schema.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.

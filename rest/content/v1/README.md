@@ -35,14 +35,18 @@ Class | Method | HTTP request | Description
 *ContentApi* | [**FetchContent**](docs/ContentApi.md#fetchcontent) | **Get** /v1/Content/{Sid} | 
 *ContentApi* | [**ListContent**](docs/ContentApi.md#listcontent) | **Get** /v1/Content | 
 *ContentApprovalRequestsApi* | [**FetchApprovalFetch**](docs/ContentApprovalRequestsApi.md#fetchapprovalfetch) | **Get** /v1/Content/{Sid}/ApprovalRequests | 
+*LegacyContentApi* | [**ListLegacyContent**](docs/LegacyContentApi.md#listlegacycontent) | **Get** /v1/LegacyContent | 
 
 
 ## Documentation For Models
 
+ - [ListLegacyContentResponse](docs/ListLegacyContentResponse.md)
+ - [ContentV1ApprovalCreate](docs/ContentV1ApprovalCreate.md)
  - [ContentV1ApprovalFetch](docs/ContentV1ApprovalFetch.md)
  - [ContentV1Content](docs/ContentV1Content.md)
  - [ListContentResponseMeta](docs/ListContentResponseMeta.md)
  - [ListContentResponse](docs/ListContentResponse.md)
+ - [ContentV1LegacyContent](docs/ContentV1LegacyContent.md)
 
 
 ## Documentation For Authorization

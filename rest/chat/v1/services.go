@@ -283,66 +283,98 @@ type UpdateServiceParams struct {
 	WebhooksOnMessageSendUrl *string `json:"Webhooks.OnMessageSend.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_message_send.url`.
 	WebhooksOnMessageSendMethod *string `json:"Webhooks.OnMessageSend.Method,omitempty"`
+	//
+	WebhooksOnMessageSendFormat *string `json:"Webhooks.OnMessageSend.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
 	WebhooksOnMessageUpdateUrl *string `json:"Webhooks.OnMessageUpdate.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_message_update.url`.
 	WebhooksOnMessageUpdateMethod *string `json:"Webhooks.OnMessageUpdate.Method,omitempty"`
+	//
+	WebhooksOnMessageUpdateFormat *string `json:"Webhooks.OnMessageUpdate.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
 	WebhooksOnMessageRemoveUrl *string `json:"Webhooks.OnMessageRemove.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_message_remove.url`.
 	WebhooksOnMessageRemoveMethod *string `json:"Webhooks.OnMessageRemove.Method,omitempty"`
+	//
+	WebhooksOnMessageRemoveFormat *string `json:"Webhooks.OnMessageRemove.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
 	WebhooksOnChannelAddUrl *string `json:"Webhooks.OnChannelAdd.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_channel_add.url`.
 	WebhooksOnChannelAddMethod *string `json:"Webhooks.OnChannelAdd.Method,omitempty"`
+	//
+	WebhooksOnChannelAddFormat *string `json:"Webhooks.OnChannelAdd.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
 	WebhooksOnChannelDestroyUrl *string `json:"Webhooks.OnChannelDestroy.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
 	WebhooksOnChannelDestroyMethod *string `json:"Webhooks.OnChannelDestroy.Method,omitempty"`
+	//
+	WebhooksOnChannelDestroyFormat *string `json:"Webhooks.OnChannelDestroy.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
 	WebhooksOnChannelUpdateUrl *string `json:"Webhooks.OnChannelUpdate.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_channel_update.url`.
 	WebhooksOnChannelUpdateMethod *string `json:"Webhooks.OnChannelUpdate.Method,omitempty"`
+	//
+	WebhooksOnChannelUpdateFormat *string `json:"Webhooks.OnChannelUpdate.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
 	WebhooksOnMemberAddUrl *string `json:"Webhooks.OnMemberAdd.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_member_add.url`.
 	WebhooksOnMemberAddMethod *string `json:"Webhooks.OnMemberAdd.Method,omitempty"`
+	//
+	WebhooksOnMemberAddFormat *string `json:"Webhooks.OnMemberAdd.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
 	WebhooksOnMemberRemoveUrl *string `json:"Webhooks.OnMemberRemove.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_member_remove.url`.
 	WebhooksOnMemberRemoveMethod *string `json:"Webhooks.OnMemberRemove.Method,omitempty"`
+	//
+	WebhooksOnMemberRemoveFormat *string `json:"Webhooks.OnMemberRemove.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
 	WebhooksOnMessageSentUrl *string `json:"Webhooks.OnMessageSent.Url,omitempty"`
 	// The URL of the webhook to call in response to the `on_message_sent` event`.
 	WebhooksOnMessageSentMethod *string `json:"Webhooks.OnMessageSent.Method,omitempty"`
+	//
+	WebhooksOnMessageSentFormat *string `json:"Webhooks.OnMessageSent.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
 	WebhooksOnMessageUpdatedUrl *string `json:"Webhooks.OnMessageUpdated.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_message_updated.url`.
 	WebhooksOnMessageUpdatedMethod *string `json:"Webhooks.OnMessageUpdated.Method,omitempty"`
+	//
+	WebhooksOnMessageUpdatedFormat *string `json:"Webhooks.OnMessageUpdated.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
 	WebhooksOnMessageRemovedUrl *string `json:"Webhooks.OnMessageRemoved.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_message_removed.url`.
 	WebhooksOnMessageRemovedMethod *string `json:"Webhooks.OnMessageRemoved.Method,omitempty"`
+	//
+	WebhooksOnMessageRemovedFormat *string `json:"Webhooks.OnMessageRemoved.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
 	WebhooksOnChannelAddedUrl *string `json:"Webhooks.OnChannelAdded.Url,omitempty"`
 	// The URL of the webhook to call in response to the `on_channel_added` event`.
 	WebhooksOnChannelAddedMethod *string `json:"Webhooks.OnChannelAdded.Method,omitempty"`
+	//
+	WebhooksOnChannelAddedFormat *string `json:"Webhooks.OnChannelAdded.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
 	WebhooksOnChannelDestroyedUrl *string `json:"Webhooks.OnChannelDestroyed.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
 	WebhooksOnChannelDestroyedMethod *string `json:"Webhooks.OnChannelDestroyed.Method,omitempty"`
+	//
+	WebhooksOnChannelDestroyedFormat *string `json:"Webhooks.OnChannelDestroyed.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
 	WebhooksOnChannelUpdatedUrl *string `json:"Webhooks.OnChannelUpdated.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
 	WebhooksOnChannelUpdatedMethod *string `json:"Webhooks.OnChannelUpdated.Method,omitempty"`
+	//
+	WebhooksOnChannelUpdatedFormat *string `json:"Webhooks.OnChannelUpdated.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
 	WebhooksOnMemberAddedUrl *string `json:"Webhooks.OnMemberAdded.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
 	WebhooksOnMemberAddedMethod *string `json:"Webhooks.OnMemberAdded.Method,omitempty"`
+	//
+	WebhooksOnMemberAddedFormat *string `json:"Webhooks.OnMemberAdded.Format,omitempty"`
 	// The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
 	WebhooksOnMemberRemovedUrl *string `json:"Webhooks.OnMemberRemoved.Url,omitempty"`
 	// The HTTP method to use when calling the `webhooks.on_member_removed.url`.
 	WebhooksOnMemberRemovedMethod *string `json:"Webhooks.OnMemberRemoved.Method,omitempty"`
+	//
+	WebhooksOnMemberRemovedFormat *string `json:"Webhooks.OnMemberRemoved.Format,omitempty"`
 	// The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
 	LimitsChannelMembers *int `json:"Limits.ChannelMembers,omitempty"`
 	// The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
@@ -437,12 +469,20 @@ func (params *UpdateServiceParams) SetWebhooksOnMessageSendMethod(WebhooksOnMess
 	params.WebhooksOnMessageSendMethod = &WebhooksOnMessageSendMethod
 	return params
 }
+func (params *UpdateServiceParams) SetWebhooksOnMessageSendFormat(WebhooksOnMessageSendFormat string) *UpdateServiceParams {
+	params.WebhooksOnMessageSendFormat = &WebhooksOnMessageSendFormat
+	return params
+}
 func (params *UpdateServiceParams) SetWebhooksOnMessageUpdateUrl(WebhooksOnMessageUpdateUrl string) *UpdateServiceParams {
 	params.WebhooksOnMessageUpdateUrl = &WebhooksOnMessageUpdateUrl
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnMessageUpdateMethod(WebhooksOnMessageUpdateMethod string) *UpdateServiceParams {
 	params.WebhooksOnMessageUpdateMethod = &WebhooksOnMessageUpdateMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageUpdateFormat(WebhooksOnMessageUpdateFormat string) *UpdateServiceParams {
+	params.WebhooksOnMessageUpdateFormat = &WebhooksOnMessageUpdateFormat
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnMessageRemoveUrl(WebhooksOnMessageRemoveUrl string) *UpdateServiceParams {
@@ -453,12 +493,20 @@ func (params *UpdateServiceParams) SetWebhooksOnMessageRemoveMethod(WebhooksOnMe
 	params.WebhooksOnMessageRemoveMethod = &WebhooksOnMessageRemoveMethod
 	return params
 }
+func (params *UpdateServiceParams) SetWebhooksOnMessageRemoveFormat(WebhooksOnMessageRemoveFormat string) *UpdateServiceParams {
+	params.WebhooksOnMessageRemoveFormat = &WebhooksOnMessageRemoveFormat
+	return params
+}
 func (params *UpdateServiceParams) SetWebhooksOnChannelAddUrl(WebhooksOnChannelAddUrl string) *UpdateServiceParams {
 	params.WebhooksOnChannelAddUrl = &WebhooksOnChannelAddUrl
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnChannelAddMethod(WebhooksOnChannelAddMethod string) *UpdateServiceParams {
 	params.WebhooksOnChannelAddMethod = &WebhooksOnChannelAddMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelAddFormat(WebhooksOnChannelAddFormat string) *UpdateServiceParams {
+	params.WebhooksOnChannelAddFormat = &WebhooksOnChannelAddFormat
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnChannelDestroyUrl(WebhooksOnChannelDestroyUrl string) *UpdateServiceParams {
@@ -469,12 +517,20 @@ func (params *UpdateServiceParams) SetWebhooksOnChannelDestroyMethod(WebhooksOnC
 	params.WebhooksOnChannelDestroyMethod = &WebhooksOnChannelDestroyMethod
 	return params
 }
+func (params *UpdateServiceParams) SetWebhooksOnChannelDestroyFormat(WebhooksOnChannelDestroyFormat string) *UpdateServiceParams {
+	params.WebhooksOnChannelDestroyFormat = &WebhooksOnChannelDestroyFormat
+	return params
+}
 func (params *UpdateServiceParams) SetWebhooksOnChannelUpdateUrl(WebhooksOnChannelUpdateUrl string) *UpdateServiceParams {
 	params.WebhooksOnChannelUpdateUrl = &WebhooksOnChannelUpdateUrl
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnChannelUpdateMethod(WebhooksOnChannelUpdateMethod string) *UpdateServiceParams {
 	params.WebhooksOnChannelUpdateMethod = &WebhooksOnChannelUpdateMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelUpdateFormat(WebhooksOnChannelUpdateFormat string) *UpdateServiceParams {
+	params.WebhooksOnChannelUpdateFormat = &WebhooksOnChannelUpdateFormat
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnMemberAddUrl(WebhooksOnMemberAddUrl string) *UpdateServiceParams {
@@ -485,12 +541,20 @@ func (params *UpdateServiceParams) SetWebhooksOnMemberAddMethod(WebhooksOnMember
 	params.WebhooksOnMemberAddMethod = &WebhooksOnMemberAddMethod
 	return params
 }
+func (params *UpdateServiceParams) SetWebhooksOnMemberAddFormat(WebhooksOnMemberAddFormat string) *UpdateServiceParams {
+	params.WebhooksOnMemberAddFormat = &WebhooksOnMemberAddFormat
+	return params
+}
 func (params *UpdateServiceParams) SetWebhooksOnMemberRemoveUrl(WebhooksOnMemberRemoveUrl string) *UpdateServiceParams {
 	params.WebhooksOnMemberRemoveUrl = &WebhooksOnMemberRemoveUrl
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnMemberRemoveMethod(WebhooksOnMemberRemoveMethod string) *UpdateServiceParams {
 	params.WebhooksOnMemberRemoveMethod = &WebhooksOnMemberRemoveMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMemberRemoveFormat(WebhooksOnMemberRemoveFormat string) *UpdateServiceParams {
+	params.WebhooksOnMemberRemoveFormat = &WebhooksOnMemberRemoveFormat
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnMessageSentUrl(WebhooksOnMessageSentUrl string) *UpdateServiceParams {
@@ -501,12 +565,20 @@ func (params *UpdateServiceParams) SetWebhooksOnMessageSentMethod(WebhooksOnMess
 	params.WebhooksOnMessageSentMethod = &WebhooksOnMessageSentMethod
 	return params
 }
+func (params *UpdateServiceParams) SetWebhooksOnMessageSentFormat(WebhooksOnMessageSentFormat string) *UpdateServiceParams {
+	params.WebhooksOnMessageSentFormat = &WebhooksOnMessageSentFormat
+	return params
+}
 func (params *UpdateServiceParams) SetWebhooksOnMessageUpdatedUrl(WebhooksOnMessageUpdatedUrl string) *UpdateServiceParams {
 	params.WebhooksOnMessageUpdatedUrl = &WebhooksOnMessageUpdatedUrl
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnMessageUpdatedMethod(WebhooksOnMessageUpdatedMethod string) *UpdateServiceParams {
 	params.WebhooksOnMessageUpdatedMethod = &WebhooksOnMessageUpdatedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageUpdatedFormat(WebhooksOnMessageUpdatedFormat string) *UpdateServiceParams {
+	params.WebhooksOnMessageUpdatedFormat = &WebhooksOnMessageUpdatedFormat
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnMessageRemovedUrl(WebhooksOnMessageRemovedUrl string) *UpdateServiceParams {
@@ -517,12 +589,20 @@ func (params *UpdateServiceParams) SetWebhooksOnMessageRemovedMethod(WebhooksOnM
 	params.WebhooksOnMessageRemovedMethod = &WebhooksOnMessageRemovedMethod
 	return params
 }
+func (params *UpdateServiceParams) SetWebhooksOnMessageRemovedFormat(WebhooksOnMessageRemovedFormat string) *UpdateServiceParams {
+	params.WebhooksOnMessageRemovedFormat = &WebhooksOnMessageRemovedFormat
+	return params
+}
 func (params *UpdateServiceParams) SetWebhooksOnChannelAddedUrl(WebhooksOnChannelAddedUrl string) *UpdateServiceParams {
 	params.WebhooksOnChannelAddedUrl = &WebhooksOnChannelAddedUrl
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnChannelAddedMethod(WebhooksOnChannelAddedMethod string) *UpdateServiceParams {
 	params.WebhooksOnChannelAddedMethod = &WebhooksOnChannelAddedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelAddedFormat(WebhooksOnChannelAddedFormat string) *UpdateServiceParams {
+	params.WebhooksOnChannelAddedFormat = &WebhooksOnChannelAddedFormat
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnChannelDestroyedUrl(WebhooksOnChannelDestroyedUrl string) *UpdateServiceParams {
@@ -533,12 +613,20 @@ func (params *UpdateServiceParams) SetWebhooksOnChannelDestroyedMethod(WebhooksO
 	params.WebhooksOnChannelDestroyedMethod = &WebhooksOnChannelDestroyedMethod
 	return params
 }
+func (params *UpdateServiceParams) SetWebhooksOnChannelDestroyedFormat(WebhooksOnChannelDestroyedFormat string) *UpdateServiceParams {
+	params.WebhooksOnChannelDestroyedFormat = &WebhooksOnChannelDestroyedFormat
+	return params
+}
 func (params *UpdateServiceParams) SetWebhooksOnChannelUpdatedUrl(WebhooksOnChannelUpdatedUrl string) *UpdateServiceParams {
 	params.WebhooksOnChannelUpdatedUrl = &WebhooksOnChannelUpdatedUrl
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnChannelUpdatedMethod(WebhooksOnChannelUpdatedMethod string) *UpdateServiceParams {
 	params.WebhooksOnChannelUpdatedMethod = &WebhooksOnChannelUpdatedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelUpdatedFormat(WebhooksOnChannelUpdatedFormat string) *UpdateServiceParams {
+	params.WebhooksOnChannelUpdatedFormat = &WebhooksOnChannelUpdatedFormat
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnMemberAddedUrl(WebhooksOnMemberAddedUrl string) *UpdateServiceParams {
@@ -549,12 +637,20 @@ func (params *UpdateServiceParams) SetWebhooksOnMemberAddedMethod(WebhooksOnMemb
 	params.WebhooksOnMemberAddedMethod = &WebhooksOnMemberAddedMethod
 	return params
 }
+func (params *UpdateServiceParams) SetWebhooksOnMemberAddedFormat(WebhooksOnMemberAddedFormat string) *UpdateServiceParams {
+	params.WebhooksOnMemberAddedFormat = &WebhooksOnMemberAddedFormat
+	return params
+}
 func (params *UpdateServiceParams) SetWebhooksOnMemberRemovedUrl(WebhooksOnMemberRemovedUrl string) *UpdateServiceParams {
 	params.WebhooksOnMemberRemovedUrl = &WebhooksOnMemberRemovedUrl
 	return params
 }
 func (params *UpdateServiceParams) SetWebhooksOnMemberRemovedMethod(WebhooksOnMemberRemovedMethod string) *UpdateServiceParams {
 	params.WebhooksOnMemberRemovedMethod = &WebhooksOnMemberRemovedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMemberRemovedFormat(WebhooksOnMemberRemovedFormat string) *UpdateServiceParams {
+	params.WebhooksOnMemberRemovedFormat = &WebhooksOnMemberRemovedFormat
 	return params
 }
 func (params *UpdateServiceParams) SetLimitsChannelMembers(LimitsChannelMembers int) *UpdateServiceParams {
@@ -642,11 +738,17 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 	if params != nil && params.WebhooksOnMessageSendMethod != nil {
 		data.Set("Webhooks.OnMessageSend.Method", *params.WebhooksOnMessageSendMethod)
 	}
+	if params != nil && params.WebhooksOnMessageSendFormat != nil {
+		data.Set("Webhooks.OnMessageSend.Format", *params.WebhooksOnMessageSendFormat)
+	}
 	if params != nil && params.WebhooksOnMessageUpdateUrl != nil {
 		data.Set("Webhooks.OnMessageUpdate.Url", *params.WebhooksOnMessageUpdateUrl)
 	}
 	if params != nil && params.WebhooksOnMessageUpdateMethod != nil {
 		data.Set("Webhooks.OnMessageUpdate.Method", *params.WebhooksOnMessageUpdateMethod)
+	}
+	if params != nil && params.WebhooksOnMessageUpdateFormat != nil {
+		data.Set("Webhooks.OnMessageUpdate.Format", *params.WebhooksOnMessageUpdateFormat)
 	}
 	if params != nil && params.WebhooksOnMessageRemoveUrl != nil {
 		data.Set("Webhooks.OnMessageRemove.Url", *params.WebhooksOnMessageRemoveUrl)
@@ -654,11 +756,17 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 	if params != nil && params.WebhooksOnMessageRemoveMethod != nil {
 		data.Set("Webhooks.OnMessageRemove.Method", *params.WebhooksOnMessageRemoveMethod)
 	}
+	if params != nil && params.WebhooksOnMessageRemoveFormat != nil {
+		data.Set("Webhooks.OnMessageRemove.Format", *params.WebhooksOnMessageRemoveFormat)
+	}
 	if params != nil && params.WebhooksOnChannelAddUrl != nil {
 		data.Set("Webhooks.OnChannelAdd.Url", *params.WebhooksOnChannelAddUrl)
 	}
 	if params != nil && params.WebhooksOnChannelAddMethod != nil {
 		data.Set("Webhooks.OnChannelAdd.Method", *params.WebhooksOnChannelAddMethod)
+	}
+	if params != nil && params.WebhooksOnChannelAddFormat != nil {
+		data.Set("Webhooks.OnChannelAdd.Format", *params.WebhooksOnChannelAddFormat)
 	}
 	if params != nil && params.WebhooksOnChannelDestroyUrl != nil {
 		data.Set("Webhooks.OnChannelDestroy.Url", *params.WebhooksOnChannelDestroyUrl)
@@ -666,11 +774,17 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 	if params != nil && params.WebhooksOnChannelDestroyMethod != nil {
 		data.Set("Webhooks.OnChannelDestroy.Method", *params.WebhooksOnChannelDestroyMethod)
 	}
+	if params != nil && params.WebhooksOnChannelDestroyFormat != nil {
+		data.Set("Webhooks.OnChannelDestroy.Format", *params.WebhooksOnChannelDestroyFormat)
+	}
 	if params != nil && params.WebhooksOnChannelUpdateUrl != nil {
 		data.Set("Webhooks.OnChannelUpdate.Url", *params.WebhooksOnChannelUpdateUrl)
 	}
 	if params != nil && params.WebhooksOnChannelUpdateMethod != nil {
 		data.Set("Webhooks.OnChannelUpdate.Method", *params.WebhooksOnChannelUpdateMethod)
+	}
+	if params != nil && params.WebhooksOnChannelUpdateFormat != nil {
+		data.Set("Webhooks.OnChannelUpdate.Format", *params.WebhooksOnChannelUpdateFormat)
 	}
 	if params != nil && params.WebhooksOnMemberAddUrl != nil {
 		data.Set("Webhooks.OnMemberAdd.Url", *params.WebhooksOnMemberAddUrl)
@@ -678,11 +792,17 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 	if params != nil && params.WebhooksOnMemberAddMethod != nil {
 		data.Set("Webhooks.OnMemberAdd.Method", *params.WebhooksOnMemberAddMethod)
 	}
+	if params != nil && params.WebhooksOnMemberAddFormat != nil {
+		data.Set("Webhooks.OnMemberAdd.Format", *params.WebhooksOnMemberAddFormat)
+	}
 	if params != nil && params.WebhooksOnMemberRemoveUrl != nil {
 		data.Set("Webhooks.OnMemberRemove.Url", *params.WebhooksOnMemberRemoveUrl)
 	}
 	if params != nil && params.WebhooksOnMemberRemoveMethod != nil {
 		data.Set("Webhooks.OnMemberRemove.Method", *params.WebhooksOnMemberRemoveMethod)
+	}
+	if params != nil && params.WebhooksOnMemberRemoveFormat != nil {
+		data.Set("Webhooks.OnMemberRemove.Format", *params.WebhooksOnMemberRemoveFormat)
 	}
 	if params != nil && params.WebhooksOnMessageSentUrl != nil {
 		data.Set("Webhooks.OnMessageSent.Url", *params.WebhooksOnMessageSentUrl)
@@ -690,11 +810,17 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 	if params != nil && params.WebhooksOnMessageSentMethod != nil {
 		data.Set("Webhooks.OnMessageSent.Method", *params.WebhooksOnMessageSentMethod)
 	}
+	if params != nil && params.WebhooksOnMessageSentFormat != nil {
+		data.Set("Webhooks.OnMessageSent.Format", *params.WebhooksOnMessageSentFormat)
+	}
 	if params != nil && params.WebhooksOnMessageUpdatedUrl != nil {
 		data.Set("Webhooks.OnMessageUpdated.Url", *params.WebhooksOnMessageUpdatedUrl)
 	}
 	if params != nil && params.WebhooksOnMessageUpdatedMethod != nil {
 		data.Set("Webhooks.OnMessageUpdated.Method", *params.WebhooksOnMessageUpdatedMethod)
+	}
+	if params != nil && params.WebhooksOnMessageUpdatedFormat != nil {
+		data.Set("Webhooks.OnMessageUpdated.Format", *params.WebhooksOnMessageUpdatedFormat)
 	}
 	if params != nil && params.WebhooksOnMessageRemovedUrl != nil {
 		data.Set("Webhooks.OnMessageRemoved.Url", *params.WebhooksOnMessageRemovedUrl)
@@ -702,11 +828,17 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 	if params != nil && params.WebhooksOnMessageRemovedMethod != nil {
 		data.Set("Webhooks.OnMessageRemoved.Method", *params.WebhooksOnMessageRemovedMethod)
 	}
+	if params != nil && params.WebhooksOnMessageRemovedFormat != nil {
+		data.Set("Webhooks.OnMessageRemoved.Format", *params.WebhooksOnMessageRemovedFormat)
+	}
 	if params != nil && params.WebhooksOnChannelAddedUrl != nil {
 		data.Set("Webhooks.OnChannelAdded.Url", *params.WebhooksOnChannelAddedUrl)
 	}
 	if params != nil && params.WebhooksOnChannelAddedMethod != nil {
 		data.Set("Webhooks.OnChannelAdded.Method", *params.WebhooksOnChannelAddedMethod)
+	}
+	if params != nil && params.WebhooksOnChannelAddedFormat != nil {
+		data.Set("Webhooks.OnChannelAdded.Format", *params.WebhooksOnChannelAddedFormat)
 	}
 	if params != nil && params.WebhooksOnChannelDestroyedUrl != nil {
 		data.Set("Webhooks.OnChannelDestroyed.Url", *params.WebhooksOnChannelDestroyedUrl)
@@ -714,11 +846,17 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 	if params != nil && params.WebhooksOnChannelDestroyedMethod != nil {
 		data.Set("Webhooks.OnChannelDestroyed.Method", *params.WebhooksOnChannelDestroyedMethod)
 	}
+	if params != nil && params.WebhooksOnChannelDestroyedFormat != nil {
+		data.Set("Webhooks.OnChannelDestroyed.Format", *params.WebhooksOnChannelDestroyedFormat)
+	}
 	if params != nil && params.WebhooksOnChannelUpdatedUrl != nil {
 		data.Set("Webhooks.OnChannelUpdated.Url", *params.WebhooksOnChannelUpdatedUrl)
 	}
 	if params != nil && params.WebhooksOnChannelUpdatedMethod != nil {
 		data.Set("Webhooks.OnChannelUpdated.Method", *params.WebhooksOnChannelUpdatedMethod)
+	}
+	if params != nil && params.WebhooksOnChannelUpdatedFormat != nil {
+		data.Set("Webhooks.OnChannelUpdated.Format", *params.WebhooksOnChannelUpdatedFormat)
 	}
 	if params != nil && params.WebhooksOnMemberAddedUrl != nil {
 		data.Set("Webhooks.OnMemberAdded.Url", *params.WebhooksOnMemberAddedUrl)
@@ -726,11 +864,17 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 	if params != nil && params.WebhooksOnMemberAddedMethod != nil {
 		data.Set("Webhooks.OnMemberAdded.Method", *params.WebhooksOnMemberAddedMethod)
 	}
+	if params != nil && params.WebhooksOnMemberAddedFormat != nil {
+		data.Set("Webhooks.OnMemberAdded.Format", *params.WebhooksOnMemberAddedFormat)
+	}
 	if params != nil && params.WebhooksOnMemberRemovedUrl != nil {
 		data.Set("Webhooks.OnMemberRemoved.Url", *params.WebhooksOnMemberRemovedUrl)
 	}
 	if params != nil && params.WebhooksOnMemberRemovedMethod != nil {
 		data.Set("Webhooks.OnMemberRemoved.Method", *params.WebhooksOnMemberRemovedMethod)
+	}
+	if params != nil && params.WebhooksOnMemberRemovedFormat != nil {
+		data.Set("Webhooks.OnMemberRemoved.Format", *params.WebhooksOnMemberRemovedFormat)
 	}
 	if params != nil && params.LimitsChannelMembers != nil {
 		data.Set("Limits.ChannelMembers", fmt.Sprint(*params.LimitsChannelMembers))

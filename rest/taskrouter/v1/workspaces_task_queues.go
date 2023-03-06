@@ -37,6 +37,8 @@ type CreateTaskQueueParams struct {
 	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
 	// The SID of the Activity to assign Workers when a task is assigned to them.
 	AssignmentActivitySid *string `json:"AssignmentActivitySid,omitempty"`
+	// The SID of the Operating Unit that the new TaskQueue belongs to.
+	OperatingUnitSid *string `json:"OperatingUnitSid,omitempty"`
 }
 
 func (params *CreateTaskQueueParams) SetFriendlyName(FriendlyName string) *CreateTaskQueueParams {
@@ -61,6 +63,10 @@ func (params *CreateTaskQueueParams) SetReservationActivitySid(ReservationActivi
 }
 func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivitySid string) *CreateTaskQueueParams {
 	params.AssignmentActivitySid = &AssignmentActivitySid
+	return params
+}
+func (params *CreateTaskQueueParams) SetOperatingUnitSid(OperatingUnitSid string) *CreateTaskQueueParams {
+	params.OperatingUnitSid = &OperatingUnitSid
 	return params
 }
 
@@ -89,6 +95,9 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 	}
 	if params != nil && params.AssignmentActivitySid != nil {
 		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
+	}
+	if params != nil && params.OperatingUnitSid != nil {
+		data.Set("OperatingUnitSid", *params.OperatingUnitSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -159,6 +168,8 @@ type ListTaskQueueParams struct {
 	WorkerSid *string `json:"WorkerSid,omitempty"`
 	// Sorting parameter for TaskQueues
 	Ordering *string `json:"Ordering,omitempty"`
+	// The SID of the Operating Unit with the TaskQueue to read.
+	OperatingUnitSid *string `json:"OperatingUnitSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -179,6 +190,10 @@ func (params *ListTaskQueueParams) SetWorkerSid(WorkerSid string) *ListTaskQueue
 }
 func (params *ListTaskQueueParams) SetOrdering(Ordering string) *ListTaskQueueParams {
 	params.Ordering = &Ordering
+	return params
+}
+func (params *ListTaskQueueParams) SetOperatingUnitSid(OperatingUnitSid string) *ListTaskQueueParams {
+	params.OperatingUnitSid = &OperatingUnitSid
 	return params
 }
 func (params *ListTaskQueueParams) SetPageSize(PageSize int) *ListTaskQueueParams {
@@ -210,6 +225,9 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 	}
 	if params != nil && params.Ordering != nil {
 		data.Set("Ordering", *params.Ordering)
+	}
+	if params != nil && params.OperatingUnitSid != nil {
+		data.Set("OperatingUnitSid", *params.OperatingUnitSid)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -337,6 +355,8 @@ type UpdateTaskQueueParams struct {
 	MaxReservedWorkers *int `json:"MaxReservedWorkers,omitempty"`
 	//
 	TaskOrder *string `json:"TaskOrder,omitempty"`
+	// The SID of the Operating Unit with the TaskQueue to update.
+	OperatingUnitSid *string `json:"OperatingUnitSid,omitempty"`
 }
 
 func (params *UpdateTaskQueueParams) SetFriendlyName(FriendlyName string) *UpdateTaskQueueParams {
@@ -361,6 +381,10 @@ func (params *UpdateTaskQueueParams) SetMaxReservedWorkers(MaxReservedWorkers in
 }
 func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQueueParams {
 	params.TaskOrder = &TaskOrder
+	return params
+}
+func (params *UpdateTaskQueueParams) SetOperatingUnitSid(OperatingUnitSid string) *UpdateTaskQueueParams {
+	params.OperatingUnitSid = &OperatingUnitSid
 	return params
 }
 
@@ -390,6 +414,9 @@ func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *Up
 	}
 	if params != nil && params.TaskOrder != nil {
 		data.Set("TaskOrder", *params.TaskOrder)
+	}
+	if params != nil && params.OperatingUnitSid != nil {
+		data.Set("OperatingUnitSid", *params.OperatingUnitSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -23,6 +23,93 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+// Optional parameters for the method 'CreateConferenceRecording'
+type CreateConferenceRecordingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
+	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
+	// The URL we should call when the recording events specified in parameter `recording_status_callback_event` occur.
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	// The HTTP method we should use to call `recording_status_callback`. Can be: `GET` or `POST` and the default is `POST`.
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	// Whether to trim any leading and trailing silence in the recording. Can be: `trim-silence` or `do-not-trim` and the default is `do-not-trim`. `trim-silence` trims the silence from the beginning and end of the recording and `do-not-trim` does not.
+	Trim *string `json:"Trim,omitempty"`
+	//
+	PlayBeep *bool `json:"PlayBeep,omitempty"`
+}
+
+func (params *CreateConferenceRecordingParams) SetPathAccountSid(PathAccountSid string) *CreateConferenceRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+func (params *CreateConferenceRecordingParams) SetRecordingStatusCallbackEvent(RecordingStatusCallbackEvent []string) *CreateConferenceRecordingParams {
+	params.RecordingStatusCallbackEvent = &RecordingStatusCallbackEvent
+	return params
+}
+func (params *CreateConferenceRecordingParams) SetRecordingStatusCallback(RecordingStatusCallback string) *CreateConferenceRecordingParams {
+	params.RecordingStatusCallback = &RecordingStatusCallback
+	return params
+}
+func (params *CreateConferenceRecordingParams) SetRecordingStatusCallbackMethod(RecordingStatusCallbackMethod string) *CreateConferenceRecordingParams {
+	params.RecordingStatusCallbackMethod = &RecordingStatusCallbackMethod
+	return params
+}
+func (params *CreateConferenceRecordingParams) SetTrim(Trim string) *CreateConferenceRecordingParams {
+	params.Trim = &Trim
+	return params
+}
+func (params *CreateConferenceRecordingParams) SetPlayBeep(PlayBeep bool) *CreateConferenceRecordingParams {
+	params.PlayBeep = &PlayBeep
+	return params
+}
+
+// Create a recording for the call
+func (c *ApiService) CreateConferenceRecording(ConferenceSid string, params *CreateConferenceRecordingParams) (*ApiV2010ConferenceRecording, error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.RecordingStatusCallbackEvent != nil {
+		for _, item := range *params.RecordingStatusCallbackEvent {
+			data.Add("RecordingStatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.RecordingStatusCallback != nil {
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+	}
+	if params != nil && params.RecordingStatusCallbackMethod != nil {
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", *params.Trim)
+	}
+	if params != nil && params.PlayBeep != nil {
+		data.Set("PlayBeep", fmt.Sprint(*params.PlayBeep))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010ConferenceRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
 // Optional parameters for the method 'DeleteConferenceRecording'
 type DeleteConferenceRecordingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to delete.
@@ -282,6 +369,8 @@ type UpdateConferenceRecordingParams struct {
 	Status *string `json:"Status,omitempty"`
 	// Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 	PauseBehavior *string `json:"PauseBehavior,omitempty"`
+	//
+	PlayBeep *bool `json:"PlayBeep,omitempty"`
 }
 
 func (params *UpdateConferenceRecordingParams) SetPathAccountSid(PathAccountSid string) *UpdateConferenceRecordingParams {
@@ -294,6 +383,10 @@ func (params *UpdateConferenceRecordingParams) SetStatus(Status string) *UpdateC
 }
 func (params *UpdateConferenceRecordingParams) SetPauseBehavior(PauseBehavior string) *UpdateConferenceRecordingParams {
 	params.PauseBehavior = &PauseBehavior
+	return params
+}
+func (params *UpdateConferenceRecordingParams) SetPlayBeep(PlayBeep bool) *UpdateConferenceRecordingParams {
+	params.PlayBeep = &PlayBeep
 	return params
 }
 
@@ -316,6 +409,9 @@ func (c *ApiService) UpdateConferenceRecording(ConferenceSid string, Sid string,
 	}
 	if params != nil && params.PauseBehavior != nil {
 		data.Set("PauseBehavior", *params.PauseBehavior)
+	}
+	if params != nil && params.PlayBeep != nil {
+		data.Set("PlayBeep", fmt.Sprint(*params.PlayBeep))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

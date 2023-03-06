@@ -51,6 +51,7 @@ type ApiV2010Call struct {
 	Direction *string `json:"direction,omitempty"`
 	// Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
 	AnsweredBy *string `json:"answered_by,omitempty"`
+	Annotation *string `json:"annotation,omitempty"`
 	// The API version used to create the call.
 	ApiVersion *string `json:"api_version,omitempty"`
 	// The forwarding phone number if this call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Otherwise, empty.

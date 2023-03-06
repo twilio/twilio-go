@@ -33,6 +33,10 @@ type SupersimV1EsimProfile struct {
 	Eid *string `json:"eid,omitempty"`
 	// Address of the SM-DP+ server from which the Profile will be downloaded. The URL will appear once the eSIM Profile reaches the status `available`.
 	SmdpPlusAddress *string `json:"smdp_plus_address,omitempty"`
+	// Unique identifier of the eSIM profile that can be used to identify and download the eSIM profile from the SM-DP+ server. Populated if `generate_matching_id` is set to `true` when creating the eSIM profile reservation.
+	MatchingId *string `json:"matching_id,omitempty"`
+	// Combined machine-readable activation code for acquiring an eSIM Profile with the Activation Code download method. Can be used in a QR code to download an eSIM profile.
+	ActivationCode *string `json:"activation_code,omitempty"`
 	// Code indicating the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state.
 	ErrorCode *string `json:"error_code,omitempty"`
 	// Error message describing the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state.

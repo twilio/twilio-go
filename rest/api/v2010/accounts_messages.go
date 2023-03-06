@@ -42,8 +42,12 @@ type CreateMessageParams struct {
 	Attempt *int `json:"Attempt,omitempty"`
 	// How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds.
 	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
+	//
+	MaxRate *string `json:"MaxRate,omitempty"`
 	// Reserved
 	ForceDelivery *bool `json:"ForceDelivery,omitempty"`
+	//
+	ProviderSid *string `json:"ProviderSid,omitempty"`
 	//
 	ContentRetention *string `json:"ContentRetention,omitempty"`
 	//
@@ -52,18 +56,32 @@ type CreateMessageParams struct {
 	SmartEncoded *bool `json:"SmartEncoded,omitempty"`
 	// Rich actions for Channels Messages.
 	PersistentAction *[]string `json:"PersistentAction,omitempty"`
+	//
+	InteractiveData *string `json:"InteractiveData,omitempty"`
+	//
+	ForceOptIn *bool `json:"ForceOptIn,omitempty"`
 	// Determines the usage of Click Tracking. Setting it to `true` will instruct Twilio to replace all links in the Message with a shortened version based on the associated Domain Sid and track clicks on them. If this parameter is not set on an API call, we will use the value set on the Messaging Service. If this parameter is not set and the value is not configured on the Messaging Service used this will default to `false`.
 	ShortenUrls *bool `json:"ShortenUrls,omitempty"`
+	// Sets the Domain object used to shorten links with Click Tracking. Links in the message body will be replaced with shortened links on the specified domain. This parameter will override what is configured on the Messaging Service used. If this parameter is not set and the value is not set on the Messaging Service then shortening cannot be used.
+	DomainSid *string `json:"DomainSid,omitempty"`
+	// Sets the URL where Twilio will send a POST request each time an HTTP request is received to the shortened links in this message. If you include this parameter we will override what is configured on the Messaging Service. URLs must contain a valid hostname and underscores are not allowed.
+	ClickTrackingCallback *string `json:"ClickTrackingCallback,omitempty"`
 	//
 	ScheduleType *string `json:"ScheduleType,omitempty"`
 	// The time that Twilio will send the message. Must be in ISO 8601 format.
 	SendAt *time.Time `json:"SendAt,omitempty"`
+	//
+	InvoiceTag *string `json:"InvoiceTag,omitempty"`
 	// If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
 	SendAsMms *bool `json:"SendAsMms,omitempty"`
 	// The SID of the Content object returned at Content API content create time (https://www.twilio.com/docs/content-api/create-and-send-your-first-content-api-template#create-a-template). If this parameter is not specified, then the Content API will not be utilized.
 	ContentSid *string `json:"ContentSid,omitempty"`
 	// Key-value pairs of variable names to substitution values, used alongside a content_sid. If not specified, Content API will default to the default variables defined at create time.
 	ContentVariables *string `json:"ContentVariables,omitempty"`
+	//
+	MessageIntent *string `json:"MessageIntent,omitempty"`
+	// A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
+	Tags *interface{} `json:"Tags,omitempty"`
 	// A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty.
 	From *string `json:"From,omitempty"`
 	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the `from` parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the `from` phone number for delivery.
@@ -106,8 +124,16 @@ func (params *CreateMessageParams) SetValidityPeriod(ValidityPeriod int) *Create
 	params.ValidityPeriod = &ValidityPeriod
 	return params
 }
+func (params *CreateMessageParams) SetMaxRate(MaxRate string) *CreateMessageParams {
+	params.MaxRate = &MaxRate
+	return params
+}
 func (params *CreateMessageParams) SetForceDelivery(ForceDelivery bool) *CreateMessageParams {
 	params.ForceDelivery = &ForceDelivery
+	return params
+}
+func (params *CreateMessageParams) SetProviderSid(ProviderSid string) *CreateMessageParams {
+	params.ProviderSid = &ProviderSid
 	return params
 }
 func (params *CreateMessageParams) SetContentRetention(ContentRetention string) *CreateMessageParams {
@@ -126,8 +152,24 @@ func (params *CreateMessageParams) SetPersistentAction(PersistentAction []string
 	params.PersistentAction = &PersistentAction
 	return params
 }
+func (params *CreateMessageParams) SetInteractiveData(InteractiveData string) *CreateMessageParams {
+	params.InteractiveData = &InteractiveData
+	return params
+}
+func (params *CreateMessageParams) SetForceOptIn(ForceOptIn bool) *CreateMessageParams {
+	params.ForceOptIn = &ForceOptIn
+	return params
+}
 func (params *CreateMessageParams) SetShortenUrls(ShortenUrls bool) *CreateMessageParams {
 	params.ShortenUrls = &ShortenUrls
+	return params
+}
+func (params *CreateMessageParams) SetDomainSid(DomainSid string) *CreateMessageParams {
+	params.DomainSid = &DomainSid
+	return params
+}
+func (params *CreateMessageParams) SetClickTrackingCallback(ClickTrackingCallback string) *CreateMessageParams {
+	params.ClickTrackingCallback = &ClickTrackingCallback
 	return params
 }
 func (params *CreateMessageParams) SetScheduleType(ScheduleType string) *CreateMessageParams {
@@ -136,6 +178,10 @@ func (params *CreateMessageParams) SetScheduleType(ScheduleType string) *CreateM
 }
 func (params *CreateMessageParams) SetSendAt(SendAt time.Time) *CreateMessageParams {
 	params.SendAt = &SendAt
+	return params
+}
+func (params *CreateMessageParams) SetInvoiceTag(InvoiceTag string) *CreateMessageParams {
+	params.InvoiceTag = &InvoiceTag
 	return params
 }
 func (params *CreateMessageParams) SetSendAsMms(SendAsMms bool) *CreateMessageParams {
@@ -148,6 +194,14 @@ func (params *CreateMessageParams) SetContentSid(ContentSid string) *CreateMessa
 }
 func (params *CreateMessageParams) SetContentVariables(ContentVariables string) *CreateMessageParams {
 	params.ContentVariables = &ContentVariables
+	return params
+}
+func (params *CreateMessageParams) SetMessageIntent(MessageIntent string) *CreateMessageParams {
+	params.MessageIntent = &MessageIntent
+	return params
+}
+func (params *CreateMessageParams) SetTags(Tags interface{}) *CreateMessageParams {
+	params.Tags = &Tags
 	return params
 }
 func (params *CreateMessageParams) SetFrom(From string) *CreateMessageParams {
@@ -200,8 +254,14 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 	if params != nil && params.ValidityPeriod != nil {
 		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
 	}
+	if params != nil && params.MaxRate != nil {
+		data.Set("MaxRate", *params.MaxRate)
+	}
 	if params != nil && params.ForceDelivery != nil {
 		data.Set("ForceDelivery", fmt.Sprint(*params.ForceDelivery))
+	}
+	if params != nil && params.ProviderSid != nil {
+		data.Set("ProviderSid", *params.ProviderSid)
 	}
 	if params != nil && params.ContentRetention != nil {
 		data.Set("ContentRetention", *params.ContentRetention)
@@ -217,14 +277,29 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 			data.Add("PersistentAction", item)
 		}
 	}
+	if params != nil && params.InteractiveData != nil {
+		data.Set("InteractiveData", *params.InteractiveData)
+	}
+	if params != nil && params.ForceOptIn != nil {
+		data.Set("ForceOptIn", fmt.Sprint(*params.ForceOptIn))
+	}
 	if params != nil && params.ShortenUrls != nil {
 		data.Set("ShortenUrls", fmt.Sprint(*params.ShortenUrls))
+	}
+	if params != nil && params.DomainSid != nil {
+		data.Set("DomainSid", *params.DomainSid)
+	}
+	if params != nil && params.ClickTrackingCallback != nil {
+		data.Set("ClickTrackingCallback", *params.ClickTrackingCallback)
 	}
 	if params != nil && params.ScheduleType != nil {
 		data.Set("ScheduleType", *params.ScheduleType)
 	}
 	if params != nil && params.SendAt != nil {
 		data.Set("SendAt", fmt.Sprint((*params.SendAt).Format(time.RFC3339)))
+	}
+	if params != nil && params.InvoiceTag != nil {
+		data.Set("InvoiceTag", *params.InvoiceTag)
 	}
 	if params != nil && params.SendAsMms != nil {
 		data.Set("SendAsMms", fmt.Sprint(*params.SendAsMms))
@@ -234,6 +309,18 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 	}
 	if params != nil && params.ContentVariables != nil {
 		data.Set("ContentVariables", *params.ContentVariables)
+	}
+	if params != nil && params.MessageIntent != nil {
+		data.Set("MessageIntent", *params.MessageIntent)
+	}
+	if params != nil && params.Tags != nil {
+		v, err := json.Marshal(params.Tags)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Tags", string(v))
 	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)

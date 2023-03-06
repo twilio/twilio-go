@@ -27,7 +27,8 @@ type StudioV2ExecutionStep struct {
 	// The SID of the Flow.
 	FlowSid *string `json:"flow_sid,omitempty"`
 	// The SID of the Step's Execution resource.
-	ExecutionSid *string `json:"execution_sid,omitempty"`
+	ExecutionSid  *string `json:"execution_sid,omitempty"`
+	ParentStepSid *string `json:"parent_step_sid,omitempty"`
 	// The event that caused the Flow to transition to the Step.
 	Name *string `json:"name,omitempty"`
 	// The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.

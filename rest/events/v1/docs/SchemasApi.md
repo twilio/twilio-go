@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchSchema
 
-> EventsV1Schema FetchSchema(ctx, Id)
+> EventsV1Schema FetchSchema(ctx, Idoptional)
 
 
 
@@ -31,6 +31,7 @@ Other parameters are passed through a pointer to a FetchSchemaParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioCatalogWaiver** | **string** | The X-Twilio-Catalog-Waiver HTTP request header
 
 ### Return type
 

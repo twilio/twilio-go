@@ -46,18 +46,37 @@ Class | Method | HTTP request | Description
 *ServicesBindingsApi* | [**FetchBinding**](docs/ServicesBindingsApi.md#fetchbinding) | **Get** /v1/Services/{ServiceSid}/Bindings/{Sid} | 
 *ServicesBindingsApi* | [**ListBinding**](docs/ServicesBindingsApi.md#listbinding) | **Get** /v1/Services/{ServiceSid}/Bindings | 
 *ServicesNotificationsApi* | [**CreateNotification**](docs/ServicesNotificationsApi.md#createnotification) | **Post** /v1/Services/{ServiceSid}/Notifications | 
+*ServicesSegmentsApi* | [**ListSegment**](docs/ServicesSegmentsApi.md#listsegment) | **Get** /v1/Services/{ServiceSid}/Segments | 
+*ServicesUsersApi* | [**CreateUser**](docs/ServicesUsersApi.md#createuser) | **Post** /v1/Services/{ServiceSid}/Users | 
+*ServicesUsersApi* | [**DeleteUser**](docs/ServicesUsersApi.md#deleteuser) | **Delete** /v1/Services/{ServiceSid}/Users/{Identity} | 
+*ServicesUsersApi* | [**FetchUser**](docs/ServicesUsersApi.md#fetchuser) | **Get** /v1/Services/{ServiceSid}/Users/{Identity} | 
+*ServicesUsersApi* | [**ListUser**](docs/ServicesUsersApi.md#listuser) | **Get** /v1/Services/{ServiceSid}/Users | 
+*ServicesUsersBindingsApi* | [**CreateUserBinding**](docs/ServicesUsersBindingsApi.md#createuserbinding) | **Post** /v1/Services/{ServiceSid}/Users/{Identity}/Bindings | 
+*ServicesUsersBindingsApi* | [**DeleteUserBinding**](docs/ServicesUsersBindingsApi.md#deleteuserbinding) | **Delete** /v1/Services/{ServiceSid}/Users/{Identity}/Bindings/{Sid} | 
+*ServicesUsersBindingsApi* | [**FetchUserBinding**](docs/ServicesUsersBindingsApi.md#fetchuserbinding) | **Get** /v1/Services/{ServiceSid}/Users/{Identity}/Bindings/{Sid} | 
+*ServicesUsersBindingsApi* | [**ListUserBinding**](docs/ServicesUsersBindingsApi.md#listuserbinding) | **Get** /v1/Services/{ServiceSid}/Users/{Identity}/Bindings | 
+*ServicesUsersSegmentMembershipsApi* | [**CreateSegmentMembership**](docs/ServicesUsersSegmentMembershipsApi.md#createsegmentmembership) | **Post** /v1/Services/{ServiceSid}/Users/{Identity}/SegmentMemberships | 
+*ServicesUsersSegmentMembershipsApi* | [**DeleteSegmentMembership**](docs/ServicesUsersSegmentMembershipsApi.md#deletesegmentmembership) | **Delete** /v1/Services/{ServiceSid}/Users/{Identity}/SegmentMemberships/{Segment} | 
+*ServicesUsersSegmentMembershipsApi* | [**FetchSegmentMembership**](docs/ServicesUsersSegmentMembershipsApi.md#fetchsegmentmembership) | **Get** /v1/Services/{ServiceSid}/Users/{Identity}/SegmentMemberships/{Segment} | 
 
 
 ## Documentation For Models
 
+ - [ListUserResponse](docs/ListUserResponse.md)
  - [NotifyV1Credential](docs/NotifyV1Credential.md)
  - [ListBindingResponseMeta](docs/ListBindingResponseMeta.md)
  - [NotifyV1Notification](docs/NotifyV1Notification.md)
+ - [ListBindingResponse](docs/ListBindingResponse.md)
+ - [NotifyV1UserBinding](docs/NotifyV1UserBinding.md)
+ - [NotifyV1Segment](docs/NotifyV1Segment.md)
+ - [ListServiceResponse](docs/ListServiceResponse.md)
  - [NotifyV1Service](docs/NotifyV1Service.md)
  - [NotifyV1Binding](docs/NotifyV1Binding.md)
- - [ListBindingResponse](docs/ListBindingResponse.md)
+ - [NotifyV1User](docs/NotifyV1User.md)
+ - [NotifyV1SegmentMembership](docs/NotifyV1SegmentMembership.md)
+ - [ListSegmentResponse](docs/ListSegmentResponse.md)
  - [ListCredentialResponse](docs/ListCredentialResponse.md)
- - [ListServiceResponse](docs/ListServiceResponse.md)
+ - [ListUserBindingResponse](docs/ListUserBindingResponse.md)
 
 
 ## Documentation For Authorization

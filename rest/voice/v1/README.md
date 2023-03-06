@@ -56,6 +56,9 @@ Class | Method | HTTP request | Description
 *IpRecordsApi* | [**FetchIpRecord**](docs/IpRecordsApi.md#fetchiprecord) | **Get** /v1/IpRecords/{Sid} | 
 *IpRecordsApi* | [**ListIpRecord**](docs/IpRecordsApi.md#listiprecord) | **Get** /v1/IpRecords | 
 *IpRecordsApi* | [**UpdateIpRecord**](docs/IpRecordsApi.md#updateiprecord) | **Post** /v1/IpRecords/{Sid} | 
+*RecordingsApi* | [**DeleteRecording**](docs/RecordingsApi.md#deleterecording) | **Delete** /v1/Recordings/{Sid} | 
+*RecordingsApi* | [**FetchRecording**](docs/RecordingsApi.md#fetchrecording) | **Get** /v1/Recordings/{Sid} | 
+*RecordingsApi* | [**ListRecording**](docs/RecordingsApi.md#listrecording) | **Get** /v1/Recordings | 
 *SettingsApi* | [**FetchDialingPermissionsSettings**](docs/SettingsApi.md#fetchdialingpermissionssettings) | **Get** /v1/Settings | 
 *SettingsApi* | [**UpdateDialingPermissionsSettings**](docs/SettingsApi.md#updatedialingpermissionssettings) | **Post** /v1/Settings | 
 *SourceIpMappingsApi* | [**CreateSourceIpMapping**](docs/SourceIpMappingsApi.md#createsourceipmapping) | **Post** /v1/SourceIpMappings | 
@@ -72,10 +75,12 @@ Class | Method | HTTP request | Description
  - [VoiceV1DialingPermissionsCountryInstance](docs/VoiceV1DialingPermissionsCountryInstance.md)
  - [ListIpRecordResponse](docs/ListIpRecordResponse.md)
  - [VoiceV1ArchivedCall](docs/VoiceV1ArchivedCall.md)
+ - [VoiceV1Recording](docs/VoiceV1Recording.md)
  - [VoiceV1ByocTrunk](docs/VoiceV1ByocTrunk.md)
  - [ListConnectionPolicyResponse](docs/ListConnectionPolicyResponse.md)
  - [VoiceV1DialingPermissionsSettings](docs/VoiceV1DialingPermissionsSettings.md)
  - [ListSourceIpMappingResponse](docs/ListSourceIpMappingResponse.md)
+ - [ListRecordingResponse](docs/ListRecordingResponse.md)
  - [VoiceV1ConnectionPolicyTarget](docs/VoiceV1ConnectionPolicyTarget.md)
  - [VoiceV1ConnectionPolicy](docs/VoiceV1ConnectionPolicy.md)
  - [ListByocTrunkResponseMeta](docs/ListByocTrunkResponseMeta.md)

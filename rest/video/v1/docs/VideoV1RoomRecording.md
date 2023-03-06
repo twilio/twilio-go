@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomRecording resource. |
 **Status** | Pointer to [**string**](RoomRecordingEnumStatus.md) |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
+**DateDeleted** | Pointer to [**time.Time**](time.Time.md) |  |
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
 **Sid** | Pointer to **string** | The unique string that we created to identify the RoomRecording resource. |
 **SourceSid** | Pointer to **string** | The SID of the recording source. For a Room Recording, this value is a `track_sid`. |
 **Size** | Pointer to **int64** | The size of the recorded track in bytes. |
@@ -19,6 +21,7 @@ Name | Type | Description | Notes
 **TrackName** | Pointer to **string** | The name that was given to the source track of the recording. If no name is given, the `source_sid` is used. |
 **Offset** | Pointer to **int64** | The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room. |
 **MediaExternalLocation** | Pointer to **string** | The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details. |
+**EncryptionKey** | Pointer to **string** |  |
 **RoomSid** | Pointer to **string** | The SID of the Room resource the recording is associated with. |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources. |
 

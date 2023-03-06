@@ -29,5 +29,6 @@ type LookupsV1PhoneNumber struct {
 	// A JSON string with the results of the Add-ons you specified in the `add_ons` parameters. For the format of the object, see [Using Add-ons](https://www.twilio.com/docs/add-ons).
 	AddOns *interface{} `json:"add_ons,omitempty"`
 	// The absolute URL of the resource.
-	Url *string `json:"url,omitempty"`
+	Url   *string                 `json:"url,omitempty"`
+	Fraud *map[string]interface{} `json:"fraud,omitempty"`
 }

@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **PriceUnit** | Pointer to **string** | The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`). |
 **ApiVersion** | Pointer to **string** | The API version used to process the message. |
 **SubresourceUris** | Pointer to **map[string]interface{}** | A list of related resources identified by their URIs relative to `https://api.twilio.com` |
+**Tags** | Pointer to **interface{}** | A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

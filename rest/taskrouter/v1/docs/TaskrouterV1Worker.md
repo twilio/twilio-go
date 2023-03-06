@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the Worker. |
 **Url** | Pointer to **string** | The absolute URL of the Worker resource. |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources. |
+**OperatingUnitSid** | Pointer to **string** | The SID of the Operating Unit that contains the Worker. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

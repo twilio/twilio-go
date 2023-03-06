@@ -41,6 +41,7 @@ Name | Type | Description
 **TaskOrder** | **string** | 
 **ReservationActivitySid** | **string** | The SID of the Activity to assign Workers when a task is reserved for them.
 **AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned to them.
+**OperatingUnitSid** | **string** | The SID of the Operating Unit that the new TaskQueue belongs to.
 
 ### Return type
 
@@ -173,6 +174,7 @@ Name | Type | Description
 **EvaluateWorkerAttributes** | **string** | The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
 **WorkerSid** | **string** | The SID of the Worker with the TaskQueue resources to read.
 **Ordering** | **string** | Sorting parameter for TaskQueues
+**OperatingUnitSid** | **string** | The SID of the Operating Unit with the TaskQueue to read.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -224,6 +226,7 @@ Name | Type | Description
 **AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned for them.
 **MaxReservedWorkers** | **int** | The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
 **TaskOrder** | **string** | 
+**OperatingUnitSid** | **string** | The SID of the Operating Unit with the TaskQueue to update.
 
 ### Return type
 

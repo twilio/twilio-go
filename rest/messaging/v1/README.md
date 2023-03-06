@@ -58,6 +58,11 @@ Class | Method | HTTP request | Description
 *ServicesComplianceUsa2pApi* | [**FetchUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#fetchusapptoperson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 *ServicesComplianceUsa2pApi* | [**ListUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#listusapptoperson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
 *ServicesComplianceUsa2pUsecasesApi* | [**FetchUsAppToPersonUsecase**](docs/ServicesComplianceUsa2pUsecasesApi.md#fetchusapptopersonusecase) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases | 
+*ServicesMessagesApi* | [**CreateMessage**](docs/ServicesMessagesApi.md#createmessage) | **Post** /v1/Services/{MessagingServiceSid}/Messages | 
+*ServicesMessagesApi* | [**DeleteMessage**](docs/ServicesMessagesApi.md#deletemessage) | **Delete** /v1/Services/{MessagingServiceSid}/Messages/{Sid} | 
+*ServicesMessagesApi* | [**FetchMessage**](docs/ServicesMessagesApi.md#fetchmessage) | **Get** /v1/Services/{MessagingServiceSid}/Messages/{Sid} | 
+*ServicesMessagesApi* | [**ListMessage**](docs/ServicesMessagesApi.md#listmessage) | **Get** /v1/Services/{MessagingServiceSid}/Messages | 
+*ServicesMessagesApi* | [**UpdateMessage**](docs/ServicesMessagesApi.md#updatemessage) | **Post** /v1/Services/{MessagingServiceSid}/Messages/{Sid} | 
 *ServicesPhoneNumbersApi* | [**CreatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#createphonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
 *ServicesPhoneNumbersApi* | [**DeletePhoneNumber**](docs/ServicesPhoneNumbersApi.md#deletephonenumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
 *ServicesPhoneNumbersApi* | [**FetchPhoneNumber**](docs/ServicesPhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
@@ -77,28 +82,30 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [MessagingV1DomainCertV4](docs/MessagingV1DomainCertV4.md)
- - [MessagingV1Service](docs/MessagingV1Service.md)
- - [MessagingV1Deactivation](docs/MessagingV1Deactivation.md)
- - [MessagingV1PhoneNumber](docs/MessagingV1PhoneNumber.md)
+ - [MessagingV1Message](docs/MessagingV1Message.md)
  - [MessagingV1ExternalCampaign](docs/MessagingV1ExternalCampaign.md)
  - [MessagingV1UsAppToPersonUsecase](docs/MessagingV1UsAppToPersonUsecase.md)
- - [ListBrandRegistrationsResponse](docs/ListBrandRegistrationsResponse.md)
  - [MessagingV1TollfreeVerification](docs/MessagingV1TollfreeVerification.md)
- - [ListPhoneNumberResponse](docs/ListPhoneNumberResponse.md)
+ - [ListMessageResponse](docs/ListMessageResponse.md)
  - [MessagingV1DomainConfig](docs/MessagingV1DomainConfig.md)
  - [MessagingV1UsAppToPerson](docs/MessagingV1UsAppToPerson.md)
- - [ListTollfreeVerificationResponse](docs/ListTollfreeVerificationResponse.md)
- - [MessagingV1AlphaSender](docs/MessagingV1AlphaSender.md)
- - [ListAlphaSenderResponseMeta](docs/ListAlphaSenderResponseMeta.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
  - [MessagingV1BrandRegistrations](docs/MessagingV1BrandRegistrations.md)
  - [MessagingV1ShortCode](docs/MessagingV1ShortCode.md)
  - [MessagingV1Usecase](docs/MessagingV1Usecase.md)
  - [ListBrandVettingResponse](docs/ListBrandVettingResponse.md)
  - [ListAlphaSenderResponse](docs/ListAlphaSenderResponse.md)
+ - [ListUsAppToPersonResponse](docs/ListUsAppToPersonResponse.md)
+ - [MessagingV1Service](docs/MessagingV1Service.md)
+ - [MessagingV1Deactivation](docs/MessagingV1Deactivation.md)
+ - [MessagingV1PhoneNumber](docs/MessagingV1PhoneNumber.md)
+ - [ListBrandRegistrationsResponse](docs/ListBrandRegistrationsResponse.md)
+ - [ListPhoneNumberResponse](docs/ListPhoneNumberResponse.md)
+ - [ListTollfreeVerificationResponse](docs/ListTollfreeVerificationResponse.md)
+ - [MessagingV1AlphaSender](docs/MessagingV1AlphaSender.md)
+ - [ListAlphaSenderResponseMeta](docs/ListAlphaSenderResponseMeta.md)
  - [MessagingV1BrandVetting](docs/MessagingV1BrandVetting.md)
  - [ListShortCodeResponse](docs/ListShortCodeResponse.md)
- - [ListUsAppToPersonResponse](docs/ListUsAppToPersonResponse.md)
 
 
 ## Documentation For Authorization

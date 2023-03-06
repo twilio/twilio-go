@@ -25,6 +25,8 @@ type VideoV1RoomRecording struct {
 	Status     *string `json:"status,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateDeleted *time.Time `json:"date_deleted,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The unique string that we created to identify the RoomRecording resource.
 	Sid *string `json:"sid,omitempty"`
 	// The SID of the recording source. For a Room Recording, this value is a `track_sid`.
@@ -46,6 +48,7 @@ type VideoV1RoomRecording struct {
 	Offset *int64 `json:"offset,omitempty"`
 	// The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details.
 	MediaExternalLocation *string `json:"media_external_location,omitempty"`
+	EncryptionKey         *string `json:"encryption_key,omitempty"`
 	// The SID of the Room resource the recording is associated with.
 	RoomSid *string `json:"room_sid,omitempty"`
 	// The URLs of related resources.

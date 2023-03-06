@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateInsightsQuestionnairesQuestion**](InsightsQMQuestionsApi.md#CreateInsightsQuestionnairesQuestion) | **Post** /v1/Insights/QM/Questions | 
 [**DeleteInsightsQuestionnairesQuestion**](InsightsQMQuestionsApi.md#DeleteInsightsQuestionnairesQuestion) | **Delete** /v1/Insights/QM/Questions/{QuestionId} | 
+[**ListInsightsQuestionnairesQuestion**](InsightsQMQuestionsApi.md#ListInsightsQuestionnairesQuestion) | **Get** /v1/Insights/QM/Questions | 
 [**UpdateInsightsQuestionnairesQuestion**](InsightsQMQuestionsApi.md#UpdateInsightsQuestionnairesQuestion) | **Post** /v1/Insights/QM/Questions/{QuestionId} | 
 
 
@@ -97,6 +98,48 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
+## ListInsightsQuestionnairesQuestion
+
+> []FlexV1InsightsQuestionnairesQuestion ListInsightsQuestionnairesQuestion(ctx, optional)
+
+
+
+To get all the question for the given categories
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListInsightsQuestionnairesQuestionParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Token** | **string** | The Token HTTP request header
+**CategoryId** | **[]string** | The list of category IDs
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
+
+### Return type
+
+[**[]FlexV1InsightsQuestionnairesQuestion**](FlexV1InsightsQuestionnairesQuestion.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## UpdateInsightsQuestionnairesQuestion
 
 > FlexV1InsightsQuestionnairesQuestion UpdateInsightsQuestionnairesQuestion(ctx, QuestionIdoptional)
@@ -121,11 +164,11 @@ Other parameters are passed through a pointer to a UpdateInsightsQuestionnairesQ
 Name | Type | Description
 ------------- | ------------- | -------------
 **Token** | **string** | The Token HTTP request header
+**AllowNa** | **bool** | The flag to enable for disable NA for answer.
+**CategoryId** | **string** | The ID of the category
 **Question** | **string** | The question.
 **Description** | **string** | The description for the question.
 **AnswerSetId** | **string** | The answer_set for the question.
-**AllowNa** | **bool** | The flag to enable for disable NA for answer.
-**CategoryId** | **string** | The ID of the category
 
 ### Return type
 

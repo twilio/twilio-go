@@ -114,7 +114,7 @@ func (c *ApiService) FetchSmsCommand(Sid string) (*SupersimV1SmsCommand, error) 
 type ListSmsCommandParams struct {
 	// The SID or unique name of the Sim resource that SMS Command was sent to or from.
 	Sim *string `json:"Sim,omitempty"`
-	// The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
+	// The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
 	Status *string `json:"Status,omitempty"`
 	// The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
 	Direction *string `json:"Direction,omitempty"`

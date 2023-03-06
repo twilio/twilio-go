@@ -31,6 +31,8 @@ type CreateWorkerParams struct {
 	ActivitySid *string `json:"ActivitySid,omitempty"`
 	// A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
 	Attributes *string `json:"Attributes,omitempty"`
+	// The SID of the Operating Unit that the new Worker belongs to.
+	OperatingUnitSid *string `json:"OperatingUnitSid,omitempty"`
 }
 
 func (params *CreateWorkerParams) SetFriendlyName(FriendlyName string) *CreateWorkerParams {
@@ -43,6 +45,10 @@ func (params *CreateWorkerParams) SetActivitySid(ActivitySid string) *CreateWork
 }
 func (params *CreateWorkerParams) SetAttributes(Attributes string) *CreateWorkerParams {
 	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateWorkerParams) SetOperatingUnitSid(OperatingUnitSid string) *CreateWorkerParams {
+	params.OperatingUnitSid = &OperatingUnitSid
 	return params
 }
 
@@ -62,6 +68,9 @@ func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParam
 	}
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.OperatingUnitSid != nil {
+		data.Set("OperatingUnitSid", *params.OperatingUnitSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -155,6 +164,8 @@ type ListWorkerParams struct {
 	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
 	// Sorting parameter for Workers
 	Ordering *string `json:"Ordering,omitempty"`
+	// The SID of the Operating Unit with the Workers to read.
+	OperatingUnitSid *string `json:"OperatingUnitSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -191,6 +202,10 @@ func (params *ListWorkerParams) SetTaskQueueSid(TaskQueueSid string) *ListWorker
 }
 func (params *ListWorkerParams) SetOrdering(Ordering string) *ListWorkerParams {
 	params.Ordering = &Ordering
+	return params
+}
+func (params *ListWorkerParams) SetOperatingUnitSid(OperatingUnitSid string) *ListWorkerParams {
+	params.OperatingUnitSid = &OperatingUnitSid
 	return params
 }
 func (params *ListWorkerParams) SetPageSize(PageSize int) *ListWorkerParams {
@@ -234,6 +249,9 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 	}
 	if params != nil && params.Ordering != nil {
 		data.Set("Ordering", *params.Ordering)
+	}
+	if params != nil && params.OperatingUnitSid != nil {
+		data.Set("OperatingUnitSid", *params.OperatingUnitSid)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -359,6 +377,8 @@ type UpdateWorkerParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
 	RejectPendingReservations *bool `json:"RejectPendingReservations,omitempty"`
+	// The SID of the Operating Unit with the Worker to update.
+	OperatingUnitSid *string `json:"OperatingUnitSid,omitempty"`
 }
 
 func (params *UpdateWorkerParams) SetIfMatch(IfMatch string) *UpdateWorkerParams {
@@ -379,6 +399,10 @@ func (params *UpdateWorkerParams) SetFriendlyName(FriendlyName string) *UpdateWo
 }
 func (params *UpdateWorkerParams) SetRejectPendingReservations(RejectPendingReservations bool) *UpdateWorkerParams {
 	params.RejectPendingReservations = &RejectPendingReservations
+	return params
+}
+func (params *UpdateWorkerParams) SetOperatingUnitSid(OperatingUnitSid string) *UpdateWorkerParams {
+	params.OperatingUnitSid = &OperatingUnitSid
 	return params
 }
 
@@ -402,6 +426,9 @@ func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *Updat
 	}
 	if params != nil && params.RejectPendingReservations != nil {
 		data.Set("RejectPendingReservations", fmt.Sprint(*params.RejectPendingReservations))
+	}
+	if params != nil && params.OperatingUnitSid != nil {
+		data.Set("OperatingUnitSid", *params.OperatingUnitSid)
 	}
 
 	if params != nil && params.IfMatch != nil {

@@ -42,14 +42,21 @@ Class | Method | HTTP request | Description
 *FlexFlowsApi* | [**FetchFlexFlow**](docs/FlexFlowsApi.md#fetchflexflow) | **Get** /v1/FlexFlows/{Sid} | 
 *FlexFlowsApi* | [**ListFlexFlow**](docs/FlexFlowsApi.md#listflexflow) | **Get** /v1/FlexFlows | 
 *FlexFlowsApi* | [**UpdateFlexFlow**](docs/FlexFlowsApi.md#updateflexflow) | **Post** /v1/FlexFlows/{Sid} | 
+*InsightsQMAssessmentsCommentsApi* | [**CreateInsightsAssessmentsComment**](docs/InsightsQMAssessmentsCommentsApi.md#createinsightsassessmentscomment) | **Post** /v1/Insights/QM/Assessments/Comments | 
+*InsightsQMAssessmentsCommentsApi* | [**ListInsightsAssessmentsComment**](docs/InsightsQMAssessmentsCommentsApi.md#listinsightsassessmentscomment) | **Get** /v1/Insights/QM/Assessments/Comments | 
 *InsightsQMCategoriesApi* | [**CreateInsightsQuestionnairesCategory**](docs/InsightsQMCategoriesApi.md#createinsightsquestionnairescategory) | **Post** /v1/Insights/QM/Categories | 
 *InsightsQMCategoriesApi* | [**DeleteInsightsQuestionnairesCategory**](docs/InsightsQMCategoriesApi.md#deleteinsightsquestionnairescategory) | **Delete** /v1/Insights/QM/Categories/{CategoryId} | 
+*InsightsQMCategoriesApi* | [**ListInsightsQuestionnairesCategory**](docs/InsightsQMCategoriesApi.md#listinsightsquestionnairescategory) | **Get** /v1/Insights/QM/Categories | 
 *InsightsQMCategoriesApi* | [**UpdateInsightsQuestionnairesCategory**](docs/InsightsQMCategoriesApi.md#updateinsightsquestionnairescategory) | **Post** /v1/Insights/QM/Categories/{CategoryId} | 
+*InsightsQMQuestionnairesApi* | [**CreateInsightsQuestionnaires**](docs/InsightsQMQuestionnairesApi.md#createinsightsquestionnaires) | **Post** /v1/Insights/QM/Questionnaires | 
+*InsightsQMQuestionnairesApi* | [**ListInsightsQuestionnaires**](docs/InsightsQMQuestionnairesApi.md#listinsightsquestionnaires) | **Get** /v1/Insights/QM/Questionnaires | 
 *InsightsQMQuestionsApi* | [**CreateInsightsQuestionnairesQuestion**](docs/InsightsQMQuestionsApi.md#createinsightsquestionnairesquestion) | **Post** /v1/Insights/QM/Questions | 
 *InsightsQMQuestionsApi* | [**DeleteInsightsQuestionnairesQuestion**](docs/InsightsQMQuestionsApi.md#deleteinsightsquestionnairesquestion) | **Delete** /v1/Insights/QM/Questions/{QuestionId} | 
+*InsightsQMQuestionsApi* | [**ListInsightsQuestionnairesQuestion**](docs/InsightsQMQuestionsApi.md#listinsightsquestionnairesquestion) | **Get** /v1/Insights/QM/Questions | 
 *InsightsQMQuestionsApi* | [**UpdateInsightsQuestionnairesQuestion**](docs/InsightsQMQuestionsApi.md#updateinsightsquestionnairesquestion) | **Post** /v1/Insights/QM/Questions/{QuestionId} | 
 *InsightsQMSettingsAnswerSetsApi* | [**FetchInsightsSettingsAnswersets**](docs/InsightsQMSettingsAnswerSetsApi.md#fetchinsightssettingsanswersets) | **Get** /v1/Insights/QM/Settings/AnswerSets | 
 *InsightsQMSettingsCommentTagsApi* | [**FetchInsightsSettingsComment**](docs/InsightsQMSettingsCommentTagsApi.md#fetchinsightssettingscomment) | **Get** /v1/Insights/QM/Settings/CommentTags | 
+*InsightsSegmentsApi* | [**FetchInsightsSegments**](docs/InsightsSegmentsApi.md#fetchinsightssegments) | **Get** /v1/Insights/Segments/{SegmentId} | 
 *InsightsSessionApi* | [**CreateInsightsSession**](docs/InsightsSessionApi.md#createinsightssession) | **Post** /v1/Insights/Session | 
 *InsightsUserRolesApi* | [**FetchInsightsUserRoles**](docs/InsightsUserRolesApi.md#fetchinsightsuserroles) | **Get** /v1/Insights/UserRoles | 
 *InteractionsApi* | [**CreateInteraction**](docs/InteractionsApi.md#createinteraction) | **Post** /v1/Interactions | 
@@ -74,24 +81,31 @@ Class | Method | HTTP request | Description
  - [ListInteractionChannelResponse](docs/ListInteractionChannelResponse.md)
  - [FlexV1InsightsSettingsAnswersets](docs/FlexV1InsightsSettingsAnswersets.md)
  - [FlexV1InsightsSession](docs/FlexV1InsightsSession.md)
- - [FlexV1Channel](docs/FlexV1Channel.md)
+ - [ListInsightsQuestionnairesQuestionResponse](docs/ListInsightsQuestionnairesQuestionResponse.md)
  - [FlexV1InteractionChannel](docs/FlexV1InteractionChannel.md)
  - [ListChannelResponse](docs/ListChannelResponse.md)
  - [FlexV1InteractionChannelParticipant](docs/FlexV1InteractionChannelParticipant.md)
- - [FlexV1InsightsSettingsComment](docs/FlexV1InsightsSettingsComment.md)
- - [FlexV1WebChannel](docs/FlexV1WebChannel.md)
+ - [ListInsightsQuestionnairesCategoryResponse](docs/ListInsightsQuestionnairesCategoryResponse.md)
+ - [ListInsightsQuestionnairesResponse](docs/ListInsightsQuestionnairesResponse.md)
+ - [FlexV1InsightsQuestionnaires](docs/FlexV1InsightsQuestionnaires.md)
  - [FlexV1Interaction](docs/FlexV1Interaction.md)
  - [FlexV1InsightsQuestionnairesQuestion](docs/FlexV1InsightsQuestionnairesQuestion.md)
  - [ListFlexFlowResponse](docs/ListFlexFlowResponse.md)
+ - [FlexV1InsightsAssessmentsComment](docs/FlexV1InsightsAssessmentsComment.md)
+ - [FlexV1InteractionChannelInvite](docs/FlexV1InteractionChannelInvite.md)
+ - [FlexV1InsightsUserRoles](docs/FlexV1InsightsUserRoles.md)
+ - [FlexV1Channel](docs/FlexV1Channel.md)
+ - [FlexV1InsightsSettingsComment](docs/FlexV1InsightsSettingsComment.md)
+ - [FlexV1WebChannel](docs/FlexV1WebChannel.md)
+ - [FlexV1InsightsSegments](docs/FlexV1InsightsSegments.md)
  - [ListInteractionChannelParticipantResponse](docs/ListInteractionChannelParticipantResponse.md)
  - [FlexV1FlexFlow](docs/FlexV1FlexFlow.md)
+ - [ListInsightsAssessmentsCommentResponse](docs/ListInsightsAssessmentsCommentResponse.md)
  - [ListWebChannelResponse](docs/ListWebChannelResponse.md)
  - [FlexV1Configuration](docs/FlexV1Configuration.md)
  - [FlexV1InsightsAssessments](docs/FlexV1InsightsAssessments.md)
  - [FlexV1InsightsQuestionnairesCategory](docs/FlexV1InsightsQuestionnairesCategory.md)
- - [FlexV1InteractionChannelInvite](docs/FlexV1InteractionChannelInvite.md)
  - [ListChannelResponseMeta](docs/ListChannelResponseMeta.md)
- - [FlexV1InsightsUserRoles](docs/FlexV1InsightsUserRoles.md)
  - [ListInteractionChannelInviteResponse](docs/ListInteractionChannelInviteResponse.md)
 
 

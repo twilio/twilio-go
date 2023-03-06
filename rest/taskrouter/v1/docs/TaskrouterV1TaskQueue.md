@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **Url** | Pointer to **string** | The absolute URL of the TaskQueue resource. |
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the TaskQueue. |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources. |
+**OperatingUnitSid** | Pointer to **string** | The SID of the Operating Unit that contains the TaskQueue. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

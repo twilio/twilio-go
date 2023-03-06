@@ -46,4 +46,6 @@ type TaskrouterV1Worker struct {
 	Url *string `json:"url,omitempty"`
 	// The URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// The SID of the Operating Unit that contains the Worker.
+	OperatingUnitSid *string `json:"operating_unit_sid,omitempty"`
 }

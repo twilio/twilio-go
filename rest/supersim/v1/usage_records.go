@@ -37,6 +37,8 @@ type ListUsageRecordParams struct {
 	Group *string `json:"Group,omitempty"`
 	// Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
 	Granularity *string `json:"Granularity,omitempty"`
+	//
+	SortBy *string `json:"SortBy,omitempty"`
 	// Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
 	StartTime *time.Time `json:"StartTime,omitempty"`
 	// Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
@@ -69,6 +71,10 @@ func (params *ListUsageRecordParams) SetGroup(Group string) *ListUsageRecordPara
 }
 func (params *ListUsageRecordParams) SetGranularity(Granularity string) *ListUsageRecordParams {
 	params.Granularity = &Granularity
+	return params
+}
+func (params *ListUsageRecordParams) SetSortBy(SortBy string) *ListUsageRecordParams {
+	params.SortBy = &SortBy
 	return params
 }
 func (params *ListUsageRecordParams) SetStartTime(StartTime time.Time) *ListUsageRecordParams {
@@ -112,6 +118,9 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, p
 	}
 	if params != nil && params.Granularity != nil {
 		data.Set("Granularity", *params.Granularity)
+	}
+	if params != nil && params.SortBy != nil {
+		data.Set("SortBy", *params.SortBy)
 	}
 	if params != nil && params.StartTime != nil {
 		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))

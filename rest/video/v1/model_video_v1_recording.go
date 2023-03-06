@@ -25,6 +25,8 @@ type VideoV1Recording struct {
 	Status     *string `json:"status,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateDeleted *time.Time `json:"date_deleted,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The unique string that we created to identify the Recording resource.
 	Sid *string `json:"sid,omitempty"`
 	// The SID of the recording source. For a Room Recording, this value is a `track_sid`.
@@ -50,6 +52,7 @@ type VideoV1Recording struct {
 	StatusCallback *string `json:"status_callback,omitempty"`
 	// The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
 	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
+	EncryptionKey        *string `json:"encryption_key,omitempty"`
 	// The URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }

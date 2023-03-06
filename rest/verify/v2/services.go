@@ -39,6 +39,8 @@ type CreateServiceParams struct {
 	TtsName *string `json:"TtsName,omitempty"`
 	// Whether to pass PSD2 transaction parameters when starting a verification.
 	Psd2Enabled *bool `json:"Psd2Enabled,omitempty"`
+	// Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
+	MailerSid *string `json:"MailerSid,omitempty"`
 	// Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
 	DoNotShareWarningEnabled *bool `json:"DoNotShareWarningEnabled,omitempty"`
 	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
@@ -87,6 +89,10 @@ func (params *CreateServiceParams) SetTtsName(TtsName string) *CreateServicePara
 }
 func (params *CreateServiceParams) SetPsd2Enabled(Psd2Enabled bool) *CreateServiceParams {
 	params.Psd2Enabled = &Psd2Enabled
+	return params
+}
+func (params *CreateServiceParams) SetMailerSid(MailerSid string) *CreateServiceParams {
+	params.MailerSid = &MailerSid
 	return params
 }
 func (params *CreateServiceParams) SetDoNotShareWarningEnabled(DoNotShareWarningEnabled bool) *CreateServiceParams {
@@ -157,6 +163,9 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 	}
 	if params != nil && params.Psd2Enabled != nil {
 		data.Set("Psd2Enabled", fmt.Sprint(*params.Psd2Enabled))
+	}
+	if params != nil && params.MailerSid != nil {
+		data.Set("MailerSid", *params.MailerSid)
 	}
 	if params != nil && params.DoNotShareWarningEnabled != nil {
 		data.Set("DoNotShareWarningEnabled", fmt.Sprint(*params.DoNotShareWarningEnabled))
@@ -397,6 +406,8 @@ type UpdateServiceParams struct {
 	TtsName *string `json:"TtsName,omitempty"`
 	// Whether to pass PSD2 transaction parameters when starting a verification.
 	Psd2Enabled *bool `json:"Psd2Enabled,omitempty"`
+	// Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
+	MailerSid *string `json:"MailerSid,omitempty"`
 	// Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
 	DoNotShareWarningEnabled *bool `json:"DoNotShareWarningEnabled,omitempty"`
 	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
@@ -445,6 +456,10 @@ func (params *UpdateServiceParams) SetTtsName(TtsName string) *UpdateServicePara
 }
 func (params *UpdateServiceParams) SetPsd2Enabled(Psd2Enabled bool) *UpdateServiceParams {
 	params.Psd2Enabled = &Psd2Enabled
+	return params
+}
+func (params *UpdateServiceParams) SetMailerSid(MailerSid string) *UpdateServiceParams {
+	params.MailerSid = &MailerSid
 	return params
 }
 func (params *UpdateServiceParams) SetDoNotShareWarningEnabled(DoNotShareWarningEnabled bool) *UpdateServiceParams {
@@ -516,6 +531,9 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	}
 	if params != nil && params.Psd2Enabled != nil {
 		data.Set("Psd2Enabled", fmt.Sprint(*params.Psd2Enabled))
+	}
+	if params != nil && params.MailerSid != nil {
+		data.Set("MailerSid", *params.MailerSid)
 	}
 	if params != nil && params.DoNotShareWarningEnabled != nil {
 		data.Set("DoNotShareWarningEnabled", fmt.Sprint(*params.DoNotShareWarningEnabled))

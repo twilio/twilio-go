@@ -33,6 +33,7 @@ Name | Type | Description
 **IsoCountry** | **string** | Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
 **Group** | **string** | Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
 **Granularity** | **string** | Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+**SortBy** | **string** | 
 **StartTime** | **time.Time** | Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
 **EndTime** | **time.Time** | Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.

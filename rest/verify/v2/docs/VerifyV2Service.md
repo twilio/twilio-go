@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **SkipSmsToLandlines** | Pointer to **bool** | Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`. |
 **DtmfInputRequired** | Pointer to **bool** | Whether to ask the user to press a number before delivering the verify code in a phone call. |
 **TtsName** | Pointer to **string** | The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages. |
+**MailerSid** | Pointer to **string** | Mailer SID associated to the verify service. Used for creating Verifications via the email channel. |
 **DoNotShareWarningEnabled** | Pointer to **bool** | Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code` |
 **CustomCodeEnabled** | Pointer to **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers. |
 **Push** | Pointer to **interface{}** | Configurations for the Push factors (channel) created under this Service. |

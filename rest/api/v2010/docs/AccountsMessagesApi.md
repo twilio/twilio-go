@@ -39,17 +39,26 @@ Name | Type | Description
 **ProvideFeedback** | **bool** | Whether to confirm delivery of the message. Set this value to `true` if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the [Message Feedback API](https://www.twilio.com/docs/sms/api/message-feedback-resource). This parameter is `false` by default.
 **Attempt** | **int** | Total number of attempts made ( including this ) to send out the message regardless of the provider used
 **ValidityPeriod** | **int** | How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds.
+**MaxRate** | **string** | 
 **ForceDelivery** | **bool** | Reserved
+**ProviderSid** | **string** | 
 **ContentRetention** | **string** | 
 **AddressRetention** | **string** | 
 **SmartEncoded** | **bool** | Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
 **PersistentAction** | **[]string** | Rich actions for Channels Messages.
+**InteractiveData** | **string** | 
+**ForceOptIn** | **bool** | 
 **ShortenUrls** | **bool** | Determines the usage of Click Tracking. Setting it to `true` will instruct Twilio to replace all links in the Message with a shortened version based on the associated Domain Sid and track clicks on them. If this parameter is not set on an API call, we will use the value set on the Messaging Service. If this parameter is not set and the value is not configured on the Messaging Service used this will default to `false`.
+**DomainSid** | **string** | Sets the Domain object used to shorten links with Click Tracking. Links in the message body will be replaced with shortened links on the specified domain. This parameter will override what is configured on the Messaging Service used. If this parameter is not set and the value is not set on the Messaging Service then shortening cannot be used.
+**ClickTrackingCallback** | **string** | Sets the URL where Twilio will send a POST request each time an HTTP request is received to the shortened links in this message. If you include this parameter we will override what is configured on the Messaging Service. URLs must contain a valid hostname and underscores are not allowed.
 **ScheduleType** | **string** | 
 **SendAt** | **time.Time** | The time that Twilio will send the message. Must be in ISO 8601 format.
+**InvoiceTag** | **string** | 
 **SendAsMms** | **bool** | If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
 **ContentSid** | **string** | The SID of the Content object returned at Content API content create time (https://www.twilio.com/docs/content-api/create-and-send-your-first-content-api-template#create-a-template). If this parameter is not specified, then the Content API will not be utilized.
 **ContentVariables** | **string** | Key-value pairs of variable names to substitution values, used alongside a content_sid. If not specified, Content API will default to the default variables defined at create time.
+**MessageIntent** | **string** | 
+**Tags** | [**interface{}**](interface{}.md) | A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
 **From** | **string** | A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty.
 **MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the `from` parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the `from` phone number for delivery.
 **Body** | **string** | The text of the message you want to send. Can be up to 1,600 characters in length.

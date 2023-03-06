@@ -56,6 +56,7 @@ type VideoV1Composition struct {
 	StatusCallback *string `json:"status_callback,omitempty"`
 	// The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
 	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
+	EncryptionKey        *string `json:"encryption_key,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 	// The URL of the media file associated with the composition.

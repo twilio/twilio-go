@@ -220,36 +220,52 @@ Name | Type | Description
 **WebhookFilters** | **[]string** | The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 **WebhooksOnMessageSendUrl** | **string** | The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
 **WebhooksOnMessageSendMethod** | **string** | The HTTP method to use when calling the `webhooks.on_message_send.url`.
+**WebhooksOnMessageSendFormat** | **string** | 
 **WebhooksOnMessageUpdateUrl** | **string** | The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
 **WebhooksOnMessageUpdateMethod** | **string** | The HTTP method to use when calling the `webhooks.on_message_update.url`.
+**WebhooksOnMessageUpdateFormat** | **string** | 
 **WebhooksOnMessageRemoveUrl** | **string** | The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
 **WebhooksOnMessageRemoveMethod** | **string** | The HTTP method to use when calling the `webhooks.on_message_remove.url`.
+**WebhooksOnMessageRemoveFormat** | **string** | 
 **WebhooksOnChannelAddUrl** | **string** | The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
 **WebhooksOnChannelAddMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_add.url`.
+**WebhooksOnChannelAddFormat** | **string** | 
 **WebhooksOnChannelDestroyUrl** | **string** | The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
 **WebhooksOnChannelDestroyMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
+**WebhooksOnChannelDestroyFormat** | **string** | 
 **WebhooksOnChannelUpdateUrl** | **string** | The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
 **WebhooksOnChannelUpdateMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_update.url`.
+**WebhooksOnChannelUpdateFormat** | **string** | 
 **WebhooksOnMemberAddUrl** | **string** | The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
 **WebhooksOnMemberAddMethod** | **string** | The HTTP method to use when calling the `webhooks.on_member_add.url`.
+**WebhooksOnMemberAddFormat** | **string** | 
 **WebhooksOnMemberRemoveUrl** | **string** | The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
 **WebhooksOnMemberRemoveMethod** | **string** | The HTTP method to use when calling the `webhooks.on_member_remove.url`.
+**WebhooksOnMemberRemoveFormat** | **string** | 
 **WebhooksOnMessageSentUrl** | **string** | The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
 **WebhooksOnMessageSentMethod** | **string** | The URL of the webhook to call in response to the `on_message_sent` event`.
+**WebhooksOnMessageSentFormat** | **string** | 
 **WebhooksOnMessageUpdatedUrl** | **string** | The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
 **WebhooksOnMessageUpdatedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_message_updated.url`.
+**WebhooksOnMessageUpdatedFormat** | **string** | 
 **WebhooksOnMessageRemovedUrl** | **string** | The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
 **WebhooksOnMessageRemovedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_message_removed.url`.
+**WebhooksOnMessageRemovedFormat** | **string** | 
 **WebhooksOnChannelAddedUrl** | **string** | The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
 **WebhooksOnChannelAddedMethod** | **string** | The URL of the webhook to call in response to the `on_channel_added` event`.
+**WebhooksOnChannelAddedFormat** | **string** | 
 **WebhooksOnChannelDestroyedUrl** | **string** | The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
 **WebhooksOnChannelDestroyedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
+**WebhooksOnChannelDestroyedFormat** | **string** | 
 **WebhooksOnChannelUpdatedUrl** | **string** | The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
 **WebhooksOnChannelUpdatedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+**WebhooksOnChannelUpdatedFormat** | **string** | 
 **WebhooksOnMemberAddedUrl** | **string** | The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
 **WebhooksOnMemberAddedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+**WebhooksOnMemberAddedFormat** | **string** | 
 **WebhooksOnMemberRemovedUrl** | **string** | The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
 **WebhooksOnMemberRemovedMethod** | **string** | The HTTP method to use when calling the `webhooks.on_member_removed.url`.
+**WebhooksOnMemberRemovedFormat** | **string** | 
 **LimitsChannelMembers** | **int** | The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
 **LimitsUserChannels** | **int** | The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
 

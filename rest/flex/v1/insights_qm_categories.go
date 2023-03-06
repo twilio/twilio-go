@@ -16,8 +16,11 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateInsightsQuestionnairesCategory'
@@ -98,6 +101,148 @@ func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategoryId string, par
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// Optional parameters for the method 'ListInsightsQuestionnairesCategory'
+type ListInsightsQuestionnairesCategoryParams struct {
+	// The Token HTTP request header
+	Token *string `json:"Token,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
+}
+
+func (params *ListInsightsQuestionnairesCategoryParams) SetToken(Token string) *ListInsightsQuestionnairesCategoryParams {
+	params.Token = &Token
+	return params
+}
+func (params *ListInsightsQuestionnairesCategoryParams) SetPageSize(PageSize int) *ListInsightsQuestionnairesCategoryParams {
+	params.PageSize = &PageSize
+	return params
+}
+func (params *ListInsightsQuestionnairesCategoryParams) SetLimit(Limit int) *ListInsightsQuestionnairesCategoryParams {
+	params.Limit = &Limit
+	return params
+}
+
+// Retrieve a single page of InsightsQuestionnairesCategory records from the API. Request is executed immediately.
+func (c *ApiService) PageInsightsQuestionnairesCategory(params *ListInsightsQuestionnairesCategoryParams, pageToken, pageNumber string) (*ListInsightsQuestionnairesCategoryResponse, error) {
+	path := "/v1/Insights/QM/Categories"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInsightsQuestionnairesCategoryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Lists InsightsQuestionnairesCategory records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInsightsQuestionnairesCategory(params *ListInsightsQuestionnairesCategoryParams) ([]FlexV1InsightsQuestionnairesCategory, error) {
+	response, errors := c.StreamInsightsQuestionnairesCategory(params)
+
+	records := make([]FlexV1InsightsQuestionnairesCategory, 0)
+	for record := range response {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
+}
+
+// Streams InsightsQuestionnairesCategory records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInsightsQuestionnairesCategory(params *ListInsightsQuestionnairesCategoryParams) (chan FlexV1InsightsQuestionnairesCategory, chan error) {
+	if params == nil {
+		params = &ListInsightsQuestionnairesCategoryParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1InsightsQuestionnairesCategory, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageInsightsQuestionnairesCategory(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamInsightsQuestionnairesCategory(response, params, recordChannel, errorChannel)
+	}
+
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamInsightsQuestionnairesCategory(response *ListInsightsQuestionnairesCategoryResponse, params *ListInsightsQuestionnairesCategoryParams, recordChannel chan FlexV1InsightsQuestionnairesCategory, errorChannel chan error) {
+	curRecord := 1
+
+	for response != nil {
+		responseRecords := response.Categories
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
+				return
+			}
+		}
+
+		record, err := client.GetNext(c.baseURL, response, c.getNextListInsightsQuestionnairesCategoryResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListInsightsQuestionnairesCategoryResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
+}
+
+func (c *ApiService) getNextListInsightsQuestionnairesCategoryResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInsightsQuestionnairesCategoryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateInsightsQuestionnairesCategory'

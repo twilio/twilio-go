@@ -20,13 +20,28 @@ import (
 	"strings"
 )
 
+// Optional parameters for the method 'FetchSchema'
+type FetchSchemaParams struct {
+	// The X-Twilio-Catalog-Waiver HTTP request header
+	XTwilioCatalogWaiver *string `json:"X-Twilio-Catalog-Waiver,omitempty"`
+}
+
+func (params *FetchSchemaParams) SetXTwilioCatalogWaiver(XTwilioCatalogWaiver string) *FetchSchemaParams {
+	params.XTwilioCatalogWaiver = &XTwilioCatalogWaiver
+	return params
+}
+
 // Fetch a specific schema with its nested versions.
-func (c *ApiService) FetchSchema(Id string) (*EventsV1Schema, error) {
+func (c *ApiService) FetchSchema(Id string, params *FetchSchemaParams) (*EventsV1Schema, error) {
 	path := "/v1/Schemas/{Id}"
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.XTwilioCatalogWaiver != nil {
+		headers["X-Twilio-Catalog-Waiver"] = *params.XTwilioCatalogWaiver
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

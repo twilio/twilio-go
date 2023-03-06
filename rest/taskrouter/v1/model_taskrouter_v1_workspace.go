@@ -49,4 +49,6 @@ type TaskrouterV1Workspace struct {
 	Url *string `json:"url,omitempty"`
 	// The URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// The SID of the default Operating Unit of the Workspace.
+	DefaultOperatingUnitSid *string `json:"default_operating_unit_sid,omitempty"`
 }

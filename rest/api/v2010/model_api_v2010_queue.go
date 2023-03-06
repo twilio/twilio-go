@@ -33,5 +33,6 @@ type ApiV2010Queue struct {
 	// The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
 	//  The maximum number of calls that can be in the queue. The default is 100 and the maximum is 5000.
-	MaxSize *int `json:"max_size,omitempty"`
+	MaxSize         *int                    `json:"max_size,omitempty"`
+	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
 }

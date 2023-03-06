@@ -23,14 +23,29 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+// Optional parameters for the method 'FetchSchemaVersion'
+type FetchSchemaVersionParams struct {
+	// The X-Twilio-Catalog-Waiver HTTP request header
+	XTwilioCatalogWaiver *string `json:"X-Twilio-Catalog-Waiver,omitempty"`
+}
+
+func (params *FetchSchemaVersionParams) SetXTwilioCatalogWaiver(XTwilioCatalogWaiver string) *FetchSchemaVersionParams {
+	params.XTwilioCatalogWaiver = &XTwilioCatalogWaiver
+	return params
+}
+
 // Fetch a specific schema and version.
-func (c *ApiService) FetchSchemaVersion(Id string, SchemaVersion int) (*EventsV1SchemaVersion, error) {
+func (c *ApiService) FetchSchemaVersion(Id string, SchemaVersion int, params *FetchSchemaVersionParams) (*EventsV1SchemaVersion, error) {
 	path := "/v1/Schemas/{Id}/Versions/{SchemaVersion}"
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 	path = strings.Replace(path, "{"+"SchemaVersion"+"}", fmt.Sprint(SchemaVersion), -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.XTwilioCatalogWaiver != nil {
+		headers["X-Twilio-Catalog-Waiver"] = *params.XTwilioCatalogWaiver
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -49,12 +64,18 @@ func (c *ApiService) FetchSchemaVersion(Id string, SchemaVersion int) (*EventsV1
 
 // Optional parameters for the method 'ListSchemaVersion'
 type ListSchemaVersionParams struct {
+	// The X-Twilio-Catalog-Waiver HTTP request header
+	XTwilioCatalogWaiver *string `json:"X-Twilio-Catalog-Waiver,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
+func (params *ListSchemaVersionParams) SetXTwilioCatalogWaiver(XTwilioCatalogWaiver string) *ListSchemaVersionParams {
+	params.XTwilioCatalogWaiver = &XTwilioCatalogWaiver
+	return params
+}
 func (params *ListSchemaVersionParams) SetPageSize(PageSize int) *ListSchemaVersionParams {
 	params.PageSize = &PageSize
 	return params

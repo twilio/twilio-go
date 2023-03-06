@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **PriceUnit** | Pointer to **string** | The currency in which `Price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g., `USD`, `EUR`, `JPY`). Always capitalized for calls. |
 **Direction** | Pointer to **string** | A string describing the direction of the call. Can be: `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `<Dial>` verb. Using [Elastic SIP Trunking](https://www.twilio.com/docs/sip-trunking), the values can be [`trunking-terminating`](https://www.twilio.com/docs/sip-trunking#termination) for outgoing calls from your communications infrastructure to the PSTN or [`trunking-originating`](https://www.twilio.com/docs/sip-trunking#origination) for incoming calls to your communications infrastructure from the PSTN. |
 **AnsweredBy** | Pointer to **string** | Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise. |
+**Annotation** | Pointer to **string** |  |
 **ApiVersion** | Pointer to **string** | The API version used to create the call. |
 **ForwardedFrom** | Pointer to **string** | The forwarding phone number if this call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Otherwise, empty. |
 **GroupSid** | Pointer to **string** | The Group SID associated with this call. If no Group is associated with the call, the field is empty. |

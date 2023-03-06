@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string that that we created to identify this Queue resource. |
 **DateCreated** | Pointer to **string** | The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **MaxSize** | Pointer to **int** |  The maximum number of calls that can be in the queue. The default is 100 and the maximum is 5000. |
+**SubresourceUris** | Pointer to **map[string]interface{}** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

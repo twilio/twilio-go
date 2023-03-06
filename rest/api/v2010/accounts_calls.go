@@ -64,6 +64,8 @@ type CreateCallParams struct {
 	MachineDetection *string `json:"MachineDetection,omitempty"`
 	// The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
 	MachineDetectionTimeout *int `json:"MachineDetectionTimeout,omitempty"`
+	//
+	ProviderSid *string `json:"ProviderSid,omitempty"`
 	// The recording status events that will trigger calls to the URL specified in `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`. Defaults to `completed`. Separate  multiple values with a space.
 	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
 	// Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
@@ -82,6 +84,18 @@ type CreateCallParams struct {
 	AsyncAmdStatusCallback *string `json:"AsyncAmdStatusCallback,omitempty"`
 	// The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 	AsyncAmdStatusCallbackMethod *string `json:"AsyncAmdStatusCallbackMethod,omitempty"`
+	// Select answering machine detection engine. Can be: `Lumenvox` or `Asterisk`. Default: `Lumenvox`.
+	MachineDetectionEngine *string `json:"MachineDetectionEngine,omitempty"`
+	// The minimum duration in milliseconds of voice to be considered as a word. Default: 100.
+	MachineDetectionMinWordLength *int `json:"MachineDetectionMinWordLength,omitempty"`
+	// The maximum duration in milliseconds of a word to accept. Default: 5000.
+	MachineDetectionMaxWordLength *int `json:"MachineDetectionMaxWordLength,omitempty"`
+	// The minimum duration in milliseconds of silence after a word to consider the audio what follows as a new word. Default: 50.
+	MachineDetectionWordsSilence *int `json:"MachineDetectionWordsSilence,omitempty"`
+	// The maximum number of words in the greeting. If exceeded then it's considered as MACHINE. Default: 5.
+	MachineDetectionMaxNumOfWords *int `json:"MachineDetectionMaxNumOfWords,omitempty"`
+	// The silence threshold. Default: 256.
+	MachineDetectionSilenceThreshold *int `json:"MachineDetectionSilenceThreshold,omitempty"`
 	// The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
 	Byoc *string `json:"Byoc,omitempty"`
 	// The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
@@ -92,6 +106,10 @@ type CreateCallParams struct {
 	RecordingTrack *string `json:"RecordingTrack,omitempty"`
 	// The maximum duration of the call in seconds. Constraints depend on account and configuration.
 	TimeLimit *int `json:"TimeLimit,omitempty"`
+	// Whether to transcribe the call recording. The default is `false`.
+	Transcribe *bool `json:"Transcribe,omitempty"`
+	// The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
+	TranscriptionConfiguration *string `json:"TranscriptionConfiguration,omitempty"`
 	// The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
 	Url *string `json:"Url,omitempty"`
 	// TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters.
@@ -176,6 +194,10 @@ func (params *CreateCallParams) SetMachineDetectionTimeout(MachineDetectionTimeo
 	params.MachineDetectionTimeout = &MachineDetectionTimeout
 	return params
 }
+func (params *CreateCallParams) SetProviderSid(ProviderSid string) *CreateCallParams {
+	params.ProviderSid = &ProviderSid
+	return params
+}
 func (params *CreateCallParams) SetRecordingStatusCallbackEvent(RecordingStatusCallbackEvent []string) *CreateCallParams {
 	params.RecordingStatusCallbackEvent = &RecordingStatusCallbackEvent
 	return params
@@ -212,6 +234,30 @@ func (params *CreateCallParams) SetAsyncAmdStatusCallbackMethod(AsyncAmdStatusCa
 	params.AsyncAmdStatusCallbackMethod = &AsyncAmdStatusCallbackMethod
 	return params
 }
+func (params *CreateCallParams) SetMachineDetectionEngine(MachineDetectionEngine string) *CreateCallParams {
+	params.MachineDetectionEngine = &MachineDetectionEngine
+	return params
+}
+func (params *CreateCallParams) SetMachineDetectionMinWordLength(MachineDetectionMinWordLength int) *CreateCallParams {
+	params.MachineDetectionMinWordLength = &MachineDetectionMinWordLength
+	return params
+}
+func (params *CreateCallParams) SetMachineDetectionMaxWordLength(MachineDetectionMaxWordLength int) *CreateCallParams {
+	params.MachineDetectionMaxWordLength = &MachineDetectionMaxWordLength
+	return params
+}
+func (params *CreateCallParams) SetMachineDetectionWordsSilence(MachineDetectionWordsSilence int) *CreateCallParams {
+	params.MachineDetectionWordsSilence = &MachineDetectionWordsSilence
+	return params
+}
+func (params *CreateCallParams) SetMachineDetectionMaxNumOfWords(MachineDetectionMaxNumOfWords int) *CreateCallParams {
+	params.MachineDetectionMaxNumOfWords = &MachineDetectionMaxNumOfWords
+	return params
+}
+func (params *CreateCallParams) SetMachineDetectionSilenceThreshold(MachineDetectionSilenceThreshold int) *CreateCallParams {
+	params.MachineDetectionSilenceThreshold = &MachineDetectionSilenceThreshold
+	return params
+}
 func (params *CreateCallParams) SetByoc(Byoc string) *CreateCallParams {
 	params.Byoc = &Byoc
 	return params
@@ -230,6 +276,14 @@ func (params *CreateCallParams) SetRecordingTrack(RecordingTrack string) *Create
 }
 func (params *CreateCallParams) SetTimeLimit(TimeLimit int) *CreateCallParams {
 	params.TimeLimit = &TimeLimit
+	return params
+}
+func (params *CreateCallParams) SetTranscribe(Transcribe bool) *CreateCallParams {
+	params.Transcribe = &Transcribe
+	return params
+}
+func (params *CreateCallParams) SetTranscriptionConfiguration(TranscriptionConfiguration string) *CreateCallParams {
+	params.TranscriptionConfiguration = &TranscriptionConfiguration
 	return params
 }
 func (params *CreateCallParams) SetUrl(Url string) *CreateCallParams {
@@ -313,6 +367,9 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 	if params != nil && params.MachineDetectionTimeout != nil {
 		data.Set("MachineDetectionTimeout", fmt.Sprint(*params.MachineDetectionTimeout))
 	}
+	if params != nil && params.ProviderSid != nil {
+		data.Set("ProviderSid", *params.ProviderSid)
+	}
 	if params != nil && params.RecordingStatusCallbackEvent != nil {
 		for _, item := range *params.RecordingStatusCallbackEvent {
 			data.Add("RecordingStatusCallbackEvent", item)
@@ -342,6 +399,24 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 	if params != nil && params.AsyncAmdStatusCallbackMethod != nil {
 		data.Set("AsyncAmdStatusCallbackMethod", *params.AsyncAmdStatusCallbackMethod)
 	}
+	if params != nil && params.MachineDetectionEngine != nil {
+		data.Set("MachineDetectionEngine", *params.MachineDetectionEngine)
+	}
+	if params != nil && params.MachineDetectionMinWordLength != nil {
+		data.Set("MachineDetectionMinWordLength", fmt.Sprint(*params.MachineDetectionMinWordLength))
+	}
+	if params != nil && params.MachineDetectionMaxWordLength != nil {
+		data.Set("MachineDetectionMaxWordLength", fmt.Sprint(*params.MachineDetectionMaxWordLength))
+	}
+	if params != nil && params.MachineDetectionWordsSilence != nil {
+		data.Set("MachineDetectionWordsSilence", fmt.Sprint(*params.MachineDetectionWordsSilence))
+	}
+	if params != nil && params.MachineDetectionMaxNumOfWords != nil {
+		data.Set("MachineDetectionMaxNumOfWords", fmt.Sprint(*params.MachineDetectionMaxNumOfWords))
+	}
+	if params != nil && params.MachineDetectionSilenceThreshold != nil {
+		data.Set("MachineDetectionSilenceThreshold", fmt.Sprint(*params.MachineDetectionSilenceThreshold))
+	}
 	if params != nil && params.Byoc != nil {
 		data.Set("Byoc", *params.Byoc)
 	}
@@ -356,6 +431,12 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 	}
 	if params != nil && params.TimeLimit != nil {
 		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+	}
+	if params != nil && params.Transcribe != nil {
+		data.Set("Transcribe", fmt.Sprint(*params.Transcribe))
+	}
+	if params != nil && params.TranscriptionConfiguration != nil {
+		data.Set("TranscriptionConfiguration", *params.TranscriptionConfiguration)
 	}
 	if params != nil && params.Url != nil {
 		data.Set("Url", *params.Url)

@@ -302,6 +302,10 @@ type UpdateWorkerReservationParams struct {
 	EndConferenceOnCustomerExit *bool `json:"EndConferenceOnCustomerExit,omitempty"`
 	// Whether to play a notification beep when the customer joins.
 	BeepOnCustomerEntrance *bool `json:"BeepOnCustomerEntrance,omitempty"`
+	// Whether to transcribe the call recording. The default is `false`.
+	Transcribe *bool `json:"Transcribe,omitempty"`
+	// The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
+	TranscriptionConfiguration *string `json:"TranscriptionConfiguration,omitempty"`
 }
 
 func (params *UpdateWorkerReservationParams) SetIfMatch(IfMatch string) *UpdateWorkerReservationParams {
@@ -512,6 +516,14 @@ func (params *UpdateWorkerReservationParams) SetBeepOnCustomerEntrance(BeepOnCus
 	params.BeepOnCustomerEntrance = &BeepOnCustomerEntrance
 	return params
 }
+func (params *UpdateWorkerReservationParams) SetTranscribe(Transcribe bool) *UpdateWorkerReservationParams {
+	params.Transcribe = &Transcribe
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetTranscriptionConfiguration(TranscriptionConfiguration string) *UpdateWorkerReservationParams {
+	params.TranscriptionConfiguration = &TranscriptionConfiguration
+	return params
+}
 
 //
 func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerReservationParams) (*TaskrouterV1WorkerReservation, error) {
@@ -681,6 +693,12 @@ func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid stri
 	}
 	if params != nil && params.BeepOnCustomerEntrance != nil {
 		data.Set("BeepOnCustomerEntrance", fmt.Sprint(*params.BeepOnCustomerEntrance))
+	}
+	if params != nil && params.Transcribe != nil {
+		data.Set("Transcribe", fmt.Sprint(*params.Transcribe))
+	}
+	if params != nil && params.TranscriptionConfiguration != nil {
+		data.Set("TranscriptionConfiguration", *params.TranscriptionConfiguration)
 	}
 
 	if params != nil && params.IfMatch != nil {

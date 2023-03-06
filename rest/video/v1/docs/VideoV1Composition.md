@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **MediaExternalLocation** | Pointer to **string** | The URL of the media file associated with the composition when stored externally. See [External S3 Compositions](/docs/video/api/external-s3-compositions) for more details. |
 **StatusCallback** | Pointer to **string** | The URL called using the `status_callback_method` to send status information on every composition event. |
 **StatusCallbackMethod** | Pointer to **string** | The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`. |
+**EncryptionKey** | Pointer to **string** |  |
 **Url** | Pointer to **string** | The absolute URL of the resource. |
 **Links** | Pointer to **map[string]interface{}** | The URL of the media file associated with the composition. |
 

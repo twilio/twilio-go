@@ -76,6 +76,7 @@ type ApiV2010IncomingPhoneNumber struct {
 	EmergencyAddressSid    *string `json:"emergency_address_sid,omitempty"`
 	EmergencyAddressStatus *string `json:"emergency_address_status,omitempty"`
 	// The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
-	BundleSid *string `json:"bundle_sid,omitempty"`
-	Status    *string `json:"status,omitempty"`
+	BundleSid       *string                 `json:"bundle_sid,omitempty"`
+	Status          *string                 `json:"status,omitempty"`
+	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
 }

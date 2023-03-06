@@ -38,6 +38,7 @@ Name | Type | Description | Notes
 **EmergencyAddressStatus** | Pointer to [**string**](IncomingPhoneNumberEnumEmergencyAddressStatus.md) |  |
 **BundleSid** | Pointer to **string** | The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. |
 **Status** | Pointer to **string** |  |
+**SubresourceUris** | Pointer to **map[string]interface{}** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

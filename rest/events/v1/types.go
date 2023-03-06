@@ -23,13 +23,28 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+// Optional parameters for the method 'FetchEventType'
+type FetchEventTypeParams struct {
+	// The X-Twilio-Catalog-Waiver HTTP request header
+	XTwilioCatalogWaiver *string `json:"X-Twilio-Catalog-Waiver,omitempty"`
+}
+
+func (params *FetchEventTypeParams) SetXTwilioCatalogWaiver(XTwilioCatalogWaiver string) *FetchEventTypeParams {
+	params.XTwilioCatalogWaiver = &XTwilioCatalogWaiver
+	return params
+}
+
 // Fetch a specific Event Type.
-func (c *ApiService) FetchEventType(Type string) (*EventsV1EventType, error) {
+func (c *ApiService) FetchEventType(Type string, params *FetchEventTypeParams) (*EventsV1EventType, error) {
 	path := "/v1/Types/{Type}"
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.XTwilioCatalogWaiver != nil {
+		headers["X-Twilio-Catalog-Waiver"] = *params.XTwilioCatalogWaiver
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -48,6 +63,8 @@ func (c *ApiService) FetchEventType(Type string) (*EventsV1EventType, error) {
 
 // Optional parameters for the method 'ListEventType'
 type ListEventTypeParams struct {
+	// The X-Twilio-Catalog-Waiver HTTP request header
+	XTwilioCatalogWaiver *string `json:"X-Twilio-Catalog-Waiver,omitempty"`
 	// A string parameter filtering the results to return only the Event Types using a given schema.
 	SchemaId *string `json:"SchemaId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -56,6 +73,10 @@ type ListEventTypeParams struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
+func (params *ListEventTypeParams) SetXTwilioCatalogWaiver(XTwilioCatalogWaiver string) *ListEventTypeParams {
+	params.XTwilioCatalogWaiver = &XTwilioCatalogWaiver
+	return params
+}
 func (params *ListEventTypeParams) SetSchemaId(SchemaId string) *ListEventTypeParams {
 	params.SchemaId = &SchemaId
 	return params

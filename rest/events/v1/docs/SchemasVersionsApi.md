@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchSchemaVersion
 
-> EventsV1SchemaVersion FetchSchemaVersion(ctx, IdSchemaVersion)
+> EventsV1SchemaVersion FetchSchemaVersion(ctx, IdSchemaVersionoptional)
 
 
 
@@ -33,6 +33,7 @@ Other parameters are passed through a pointer to a FetchSchemaVersionParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioCatalogWaiver** | **string** | The X-Twilio-Catalog-Waiver HTTP request header
 
 ### Return type
 
@@ -75,6 +76,7 @@ Other parameters are passed through a pointer to a ListSchemaVersionParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioCatalogWaiver** | **string** | The X-Twilio-Catalog-Waiver HTTP request header
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

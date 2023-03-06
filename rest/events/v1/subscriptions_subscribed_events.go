@@ -25,12 +25,18 @@ import (
 
 // Optional parameters for the method 'CreateSubscribedEvent'
 type CreateSubscribedEventParams struct {
+	// The X-Twilio-Subscriptions-Waiver HTTP request header
+	XTwilioSubscriptionsWaiver *string `json:"X-Twilio-Subscriptions-Waiver,omitempty"`
 	// Type of event being subscribed to.
 	Type *string `json:"Type,omitempty"`
 	// The schema version that the subscription should use.
 	SchemaVersion *int `json:"SchemaVersion,omitempty"`
 }
 
+func (params *CreateSubscribedEventParams) SetXTwilioSubscriptionsWaiver(XTwilioSubscriptionsWaiver string) *CreateSubscribedEventParams {
+	params.XTwilioSubscriptionsWaiver = &XTwilioSubscriptionsWaiver
+	return params
+}
 func (params *CreateSubscribedEventParams) SetType(Type string) *CreateSubscribedEventParams {
 	params.Type = &Type
 	return params
@@ -53,6 +59,10 @@ func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *Creat
 	}
 	if params != nil && params.SchemaVersion != nil {
 		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
+	}
+
+	if params != nil && params.XTwilioSubscriptionsWaiver != nil {
+		headers["X-Twilio-Subscriptions-Waiver"] = *params.XTwilioSubscriptionsWaiver
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -253,10 +263,16 @@ func (c *ApiService) getNextListSubscribedEventResponse(nextPageUrl string) (int
 
 // Optional parameters for the method 'UpdateSubscribedEvent'
 type UpdateSubscribedEventParams struct {
+	// The X-Twilio-Subscriptions-Waiver HTTP request header
+	XTwilioSubscriptionsWaiver *string `json:"X-Twilio-Subscriptions-Waiver,omitempty"`
 	// The schema version that the subscription should use.
 	SchemaVersion *int `json:"SchemaVersion,omitempty"`
 }
 
+func (params *UpdateSubscribedEventParams) SetXTwilioSubscriptionsWaiver(XTwilioSubscriptionsWaiver string) *UpdateSubscribedEventParams {
+	params.XTwilioSubscriptionsWaiver = &XTwilioSubscriptionsWaiver
+	return params
+}
 func (params *UpdateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *UpdateSubscribedEventParams {
 	params.SchemaVersion = &SchemaVersion
 	return params
@@ -273,6 +289,10 @@ func (c *ApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, 
 
 	if params != nil && params.SchemaVersion != nil {
 		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
+	}
+
+	if params != nil && params.XTwilioSubscriptionsWaiver != nil {
+		headers["X-Twilio-Subscriptions-Waiver"] = *params.XTwilioSubscriptionsWaiver
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

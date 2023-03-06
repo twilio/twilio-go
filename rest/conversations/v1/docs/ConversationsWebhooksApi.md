@@ -7,8 +7,10 @@ Method | HTTP request | Description
 [**CreateConversationScopedWebhook**](ConversationsWebhooksApi.md#CreateConversationScopedWebhook) | **Post** /v1/Conversations/{ConversationSid}/Webhooks | 
 [**DeleteConversationScopedWebhook**](ConversationsWebhooksApi.md#DeleteConversationScopedWebhook) | **Delete** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | 
 [**FetchConversationScopedWebhook**](ConversationsWebhooksApi.md#FetchConversationScopedWebhook) | **Get** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | 
+[**FetchConversationWebhook**](ConversationsWebhooksApi.md#FetchConversationWebhook) | **Get** /v1/Conversations/Webhooks | 
 [**ListConversationScopedWebhook**](ConversationsWebhooksApi.md#ListConversationScopedWebhook) | **Get** /v1/Conversations/{ConversationSid}/Webhooks | 
 [**UpdateConversationScopedWebhook**](ConversationsWebhooksApi.md#UpdateConversationScopedWebhook) | **Post** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | 
+[**UpdateConversationWebhook**](ConversationsWebhooksApi.md#UpdateConversationWebhook) | **Post** /v1/Conversations/Webhooks | 
 
 
 
@@ -147,6 +149,41 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
+## FetchConversationWebhook
+
+> ConversationsV1ConversationWebhook FetchConversationWebhook(ctx, )
+
+
+
+Fetch the configuration of global conversation webhooks
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchConversationWebhookParams struct
+
+
+### Return type
+
+[**ConversationsV1ConversationWebhook**](ConversationsV1ConversationWebhook.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListConversationScopedWebhook
 
 > []ConversationsV1ConversationScopedWebhook ListConversationScopedWebhook(ctx, ConversationSidoptional)
@@ -224,6 +261,49 @@ Name | Type | Description
 ### Return type
 
 [**ConversationsV1ConversationScopedWebhook**](ConversationsV1ConversationScopedWebhook.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateConversationWebhook
+
+> ConversationsV1ConversationWebhook UpdateConversationWebhook(ctx, optional)
+
+
+
+Update the configration of global conversation webhooks
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateConversationWebhookParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Method** | **string** | The HTTP method to be used when sending a webhook request.
+**Filters** | **[]string** | The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+**PreWebhookUrl** | **string** | The absolute url the pre-event webhook request should be sent to.
+**PostWebhookUrl** | **string** | The absolute url the post-event webhook request should be sent to.
+**Target** | **string** | 
+
+### Return type
+
+[**ConversationsV1ConversationWebhook**](ConversationsV1ConversationWebhook.md)
 
 ### Authorization
 

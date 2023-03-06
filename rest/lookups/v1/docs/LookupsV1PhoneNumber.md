@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Carrier** | Pointer to **interface{}** | The telecom company that provides the phone number. |
 **AddOns** | Pointer to **interface{}** | A JSON string with the results of the Add-ons you specified in the `add_ons` parameters. For the format of the object, see [Using Add-ons](https://www.twilio.com/docs/add-ons). |
 **Url** | Pointer to **string** | The absolute URL of the resource. |
+**Fraud** | Pointer to **map[string]interface{}** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

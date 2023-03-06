@@ -34,18 +34,42 @@ Class | Method | HTTP request | Description
 *AppsApi* | [**DeleteApp**](docs/AppsApi.md#deleteapp) | **Delete** /v1/Apps/{Sid} | 
 *AppsApi* | [**FetchApp**](docs/AppsApi.md#fetchapp) | **Get** /v1/Apps/{Sid} | 
 *AppsApi* | [**ListApp**](docs/AppsApi.md#listapp) | **Get** /v1/Apps | 
+*ConfigsApi* | [**CreateAccountConfig**](docs/ConfigsApi.md#createaccountconfig) | **Post** /v1/Configs | 
+*ConfigsApi* | [**DeleteAccountConfig**](docs/ConfigsApi.md#deleteaccountconfig) | **Delete** /v1/Configs/{Key} | 
+*ConfigsApi* | [**FetchAccountConfig**](docs/ConfigsApi.md#fetchaccountconfig) | **Get** /v1/Configs/{Key} | 
+*ConfigsApi* | [**ListAccountConfig**](docs/ConfigsApi.md#listaccountconfig) | **Get** /v1/Configs | 
 *DevicesApi* | [**FetchDevice**](docs/DevicesApi.md#fetchdevice) | **Get** /v1/Devices/{Sid} | 
 *DevicesApi* | [**ListDevice**](docs/DevicesApi.md#listdevice) | **Get** /v1/Devices | 
 *DevicesApi* | [**UpdateDevice**](docs/DevicesApi.md#updatedevice) | **Post** /v1/Devices/{Sid} | 
+*DevicesConfigsApi* | [**CreateDeviceConfig**](docs/DevicesConfigsApi.md#createdeviceconfig) | **Post** /v1/Devices/{DeviceSid}/Configs | 
+*DevicesConfigsApi* | [**DeleteDeviceConfig**](docs/DevicesConfigsApi.md#deletedeviceconfig) | **Delete** /v1/Devices/{DeviceSid}/Configs/{Key} | 
+*DevicesConfigsApi* | [**FetchDeviceConfig**](docs/DevicesConfigsApi.md#fetchdeviceconfig) | **Get** /v1/Devices/{DeviceSid}/Configs/{Key} | 
+*DevicesConfigsApi* | [**ListDeviceConfig**](docs/DevicesConfigsApi.md#listdeviceconfig) | **Get** /v1/Devices/{DeviceSid}/Configs | 
+*DevicesSecretsApi* | [**CreateDeviceSecret**](docs/DevicesSecretsApi.md#createdevicesecret) | **Post** /v1/Devices/{DeviceSid}/Secrets | 
+*DevicesSecretsApi* | [**DeleteDeviceSecret**](docs/DevicesSecretsApi.md#deletedevicesecret) | **Delete** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
+*DevicesSecretsApi* | [**FetchDeviceSecret**](docs/DevicesSecretsApi.md#fetchdevicesecret) | **Get** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
+*DevicesSecretsApi* | [**ListDeviceSecret**](docs/DevicesSecretsApi.md#listdevicesecret) | **Get** /v1/Devices/{DeviceSid}/Secrets | 
+*SecretsApi* | [**CreateAccountSecret**](docs/SecretsApi.md#createaccountsecret) | **Post** /v1/Secrets | 
+*SecretsApi* | [**DeleteAccountSecret**](docs/SecretsApi.md#deleteaccountsecret) | **Delete** /v1/Secrets/{Key} | 
+*SecretsApi* | [**FetchAccountSecret**](docs/SecretsApi.md#fetchaccountsecret) | **Get** /v1/Secrets/{Key} | 
+*SecretsApi* | [**ListAccountSecret**](docs/SecretsApi.md#listaccountsecret) | **Get** /v1/Secrets | 
 
 
 ## Documentation For Models
 
- - [MicrovisorV1Device](docs/MicrovisorV1Device.md)
+ - [ListAccountConfigResponse](docs/ListAccountConfigResponse.md)
+ - [ListDeviceConfigResponse](docs/ListDeviceConfigResponse.md)
  - [ListDeviceResponse](docs/ListDeviceResponse.md)
  - [MicrovisorV1App](docs/MicrovisorV1App.md)
- - [ListAppResponseMeta](docs/ListAppResponseMeta.md)
+ - [MicrovisorV1DeviceConfig](docs/MicrovisorV1DeviceConfig.md)
+ - [MicrovisorV1AccountSecret](docs/MicrovisorV1AccountSecret.md)
  - [ListAppResponse](docs/ListAppResponse.md)
+ - [MicrovisorV1Device](docs/MicrovisorV1Device.md)
+ - [MicrovisorV1AccountConfig](docs/MicrovisorV1AccountConfig.md)
+ - [ListAccountConfigResponseMeta](docs/ListAccountConfigResponseMeta.md)
+ - [ListAccountSecretResponse](docs/ListAccountSecretResponse.md)
+ - [MicrovisorV1DeviceSecret](docs/MicrovisorV1DeviceSecret.md)
+ - [ListDeviceSecretResponse](docs/ListDeviceSecretResponse.md)
 
 
 ## Documentation For Authorization

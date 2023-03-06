@@ -29,6 +29,8 @@ type CreateEsimProfileParams struct {
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
 	// The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	// When set to `true`, a value for `Eid` does not need to be provided. Instead, when the eSIM profile is reserved, a matching ID will be generated and returned via the `matching_id` property. This identifies the specific eSIM profile that can be used by any capable device to claim and download the profile.
+	GenerateMatchingId *bool `json:"GenerateMatchingId,omitempty"`
 	// Identifier of the eUICC that will claim the eSIM Profile.
 	Eid *string `json:"Eid,omitempty"`
 }
@@ -39,6 +41,10 @@ func (params *CreateEsimProfileParams) SetCallbackUrl(CallbackUrl string) *Creat
 }
 func (params *CreateEsimProfileParams) SetCallbackMethod(CallbackMethod string) *CreateEsimProfileParams {
 	params.CallbackMethod = &CallbackMethod
+	return params
+}
+func (params *CreateEsimProfileParams) SetGenerateMatchingId(GenerateMatchingId bool) *CreateEsimProfileParams {
+	params.GenerateMatchingId = &GenerateMatchingId
 	return params
 }
 func (params *CreateEsimProfileParams) SetEid(Eid string) *CreateEsimProfileParams {
@@ -58,6 +64,9 @@ func (c *ApiService) CreateEsimProfile(params *CreateEsimProfileParams) (*Supers
 	}
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.GenerateMatchingId != nil {
+		data.Set("GenerateMatchingId", fmt.Sprint(*params.GenerateMatchingId))
 	}
 	if params != nil && params.Eid != nil {
 		data.Set("Eid", *params.Eid)

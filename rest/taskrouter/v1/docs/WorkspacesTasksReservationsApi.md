@@ -180,6 +180,8 @@ Name | Type | Description
 **Supervisor** | **string** | The Supervisor SID/URI when executing the Supervise instruction.
 **EndConferenceOnCustomerExit** | **bool** | Whether to end the conference when the customer leaves.
 **BeepOnCustomerEntrance** | **bool** | Whether to play a notification beep when the customer joins.
+**Transcribe** | **bool** | Whether to transcribe the call recording. The default is `false`.
+**TranscriptionConfiguration** | **string** | The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
 
 ### Return type
 

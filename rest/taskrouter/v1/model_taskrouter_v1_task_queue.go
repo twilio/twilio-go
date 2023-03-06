@@ -49,4 +49,6 @@ type TaskrouterV1TaskQueue struct {
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 	// The URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// The SID of the Operating Unit that contains the TaskQueue.
+	OperatingUnitSid *string `json:"operating_unit_sid,omitempty"`
 }

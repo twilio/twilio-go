@@ -19,6 +19,9 @@ Name | Type | Description | Notes
 **InternationalRoamingDataLimit** | Pointer to **int** | The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. |
+**UsageNotificationUrl** | Pointer to **string** |  |
+**UsageNotificationMethod** | Pointer to **string** |  |
+**DataLimitStrategy** | Pointer to [**string**](RatePlanEnumDataLimitStrategy.md) |  |
 **Url** | Pointer to **string** | The absolute URL of the resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

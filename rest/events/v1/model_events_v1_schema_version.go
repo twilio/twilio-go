@@ -26,6 +26,7 @@ type EventsV1SchemaVersion struct {
 	SchemaVersion *int `json:"schema_version,omitempty"`
 	// The date the schema version was created, given in ISO 8601 format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
+	Public      *bool      `json:"public,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 	Raw *string `json:"raw,omitempty"`

@@ -4,11 +4,60 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CreateConferenceRecording**](AccountsConferencesRecordingsApi.md#CreateConferenceRecording) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json | 
 [**DeleteConferenceRecording**](AccountsConferencesRecordingsApi.md#DeleteConferenceRecording) | **Delete** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json | 
 [**FetchConferenceRecording**](AccountsConferencesRecordingsApi.md#FetchConferenceRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json | 
 [**ListConferenceRecording**](AccountsConferencesRecordingsApi.md#ListConferenceRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json | 
 [**UpdateConferenceRecording**](AccountsConferencesRecordingsApi.md#UpdateConferenceRecording) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json | 
 
+
+
+## CreateConferenceRecording
+
+> ApiV2010ConferenceRecording CreateConferenceRecording(ctx, ConferenceSidoptional)
+
+
+
+Create a recording for the call
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ConferenceSid** | **string** | The Conference SID that identifies the conference associated with the recording.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateConferenceRecordingParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+**RecordingStatusCallbackEvent** | **[]string** | The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
+**RecordingStatusCallback** | **string** | The URL we should call when the recording events specified in parameter `recording_status_callback_event` occur.
+**RecordingStatusCallbackMethod** | **string** | The HTTP method we should use to call `recording_status_callback`. Can be: `GET` or `POST` and the default is `POST`.
+**Trim** | **string** | Whether to trim any leading and trailing silence in the recording. Can be: `trim-silence` or `do-not-trim` and the default is `do-not-trim`. `trim-silence` trims the silence from the beginning and end of the recording and `do-not-trim` does not.
+**PlayBeep** | **bool** | 
+
+### Return type
+
+[**ApiV2010ConferenceRecording**](ApiV2010ConferenceRecording.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteConferenceRecording
@@ -174,6 +223,7 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.
 **Status** | **string** | 
 **PauseBehavior** | **string** | Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+**PlayBeep** | **bool** | 
 
 ### Return type
 

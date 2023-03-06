@@ -119,6 +119,18 @@ type CreateParticipantParams struct {
 	AmdStatusCallback *string `json:"AmdStatusCallback,omitempty"`
 	// The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 	AmdStatusCallbackMethod *string `json:"AmdStatusCallbackMethod,omitempty"`
+	// Select answering machine detection engine. Can be: `Lumenvox` or `Asterisk`. Default: `Lumenvox`.
+	MachineDetectionEngine *string `json:"MachineDetectionEngine,omitempty"`
+	// The minimum duration in milliseconds of voice to be considered as a word. Default: 100.
+	MachineDetectionMinWordLength *int `json:"MachineDetectionMinWordLength,omitempty"`
+	// The maximum duration in milliseconds of a word to accept. Default: 5000.
+	MachineDetectionMaxWordLength *int `json:"MachineDetectionMaxWordLength,omitempty"`
+	// The minimum duration in milliseconds of silence after a word to consider the audio what follows as a new word. Default: 50.
+	MachineDetectionWordsSilence *int `json:"MachineDetectionWordsSilence,omitempty"`
+	// The maximum number of words in the greeting. If exceeded, then it's considered as MACHINE. Default: 5.
+	MachineDetectionMaxNumOfWords *int `json:"MachineDetectionMaxNumOfWords,omitempty"`
+	// The silence threshold. Default: 256.
+	MachineDetectionSilenceThreshold *int `json:"MachineDetectionSilenceThreshold,omitempty"`
 }
 
 func (params *CreateParticipantParams) SetPathAccountSid(PathAccountSid string) *CreateParticipantParams {
@@ -309,6 +321,30 @@ func (params *CreateParticipantParams) SetAmdStatusCallbackMethod(AmdStatusCallb
 	params.AmdStatusCallbackMethod = &AmdStatusCallbackMethod
 	return params
 }
+func (params *CreateParticipantParams) SetMachineDetectionEngine(MachineDetectionEngine string) *CreateParticipantParams {
+	params.MachineDetectionEngine = &MachineDetectionEngine
+	return params
+}
+func (params *CreateParticipantParams) SetMachineDetectionMinWordLength(MachineDetectionMinWordLength int) *CreateParticipantParams {
+	params.MachineDetectionMinWordLength = &MachineDetectionMinWordLength
+	return params
+}
+func (params *CreateParticipantParams) SetMachineDetectionMaxWordLength(MachineDetectionMaxWordLength int) *CreateParticipantParams {
+	params.MachineDetectionMaxWordLength = &MachineDetectionMaxWordLength
+	return params
+}
+func (params *CreateParticipantParams) SetMachineDetectionWordsSilence(MachineDetectionWordsSilence int) *CreateParticipantParams {
+	params.MachineDetectionWordsSilence = &MachineDetectionWordsSilence
+	return params
+}
+func (params *CreateParticipantParams) SetMachineDetectionMaxNumOfWords(MachineDetectionMaxNumOfWords int) *CreateParticipantParams {
+	params.MachineDetectionMaxNumOfWords = &MachineDetectionMaxNumOfWords
+	return params
+}
+func (params *CreateParticipantParams) SetMachineDetectionSilenceThreshold(MachineDetectionSilenceThreshold int) *CreateParticipantParams {
+	params.MachineDetectionSilenceThreshold = &MachineDetectionSilenceThreshold
+	return params
+}
 
 //
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
@@ -468,6 +504,24 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	}
 	if params != nil && params.AmdStatusCallbackMethod != nil {
 		data.Set("AmdStatusCallbackMethod", *params.AmdStatusCallbackMethod)
+	}
+	if params != nil && params.MachineDetectionEngine != nil {
+		data.Set("MachineDetectionEngine", *params.MachineDetectionEngine)
+	}
+	if params != nil && params.MachineDetectionMinWordLength != nil {
+		data.Set("MachineDetectionMinWordLength", fmt.Sprint(*params.MachineDetectionMinWordLength))
+	}
+	if params != nil && params.MachineDetectionMaxWordLength != nil {
+		data.Set("MachineDetectionMaxWordLength", fmt.Sprint(*params.MachineDetectionMaxWordLength))
+	}
+	if params != nil && params.MachineDetectionWordsSilence != nil {
+		data.Set("MachineDetectionWordsSilence", fmt.Sprint(*params.MachineDetectionWordsSilence))
+	}
+	if params != nil && params.MachineDetectionMaxNumOfWords != nil {
+		data.Set("MachineDetectionMaxNumOfWords", fmt.Sprint(*params.MachineDetectionMaxNumOfWords))
+	}
+	if params != nil && params.MachineDetectionSilenceThreshold != nil {
+		data.Set("MachineDetectionSilenceThreshold", fmt.Sprint(*params.MachineDetectionSilenceThreshold))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

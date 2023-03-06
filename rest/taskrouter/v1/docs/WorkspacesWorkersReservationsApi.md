@@ -177,6 +177,8 @@ Name | Type | Description
 **PostWorkActivitySid** | **string** | The new worker activity SID after executing a Conference instruction.
 **EndConferenceOnCustomerExit** | **bool** | Whether to end the conference when the customer leaves.
 **BeepOnCustomerEntrance** | **bool** | Whether to play a notification beep when the customer joins.
+**Transcribe** | **bool** | Whether to transcribe the call recording. The default is `false`.
+**TranscriptionConfiguration** | **string** | The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
 
 ### Return type
 

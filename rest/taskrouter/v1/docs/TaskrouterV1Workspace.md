@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **PrioritizeQueueOrder** | Pointer to [**string**](WorkspaceEnumQueueOrder.md) |  |
 **Url** | Pointer to **string** | The absolute URL of the Workspace resource. |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources. |
+**DefaultOperatingUnitSid** | Pointer to **string** | The SID of the default Operating Unit of the Workspace. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

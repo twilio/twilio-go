@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **Status** | Pointer to [**string**](EsimProfileEnumStatus.md) |  |
 **Eid** | Pointer to **string** | Identifier of the eUICC that can claim the eSIM Profile. |
 **SmdpPlusAddress** | Pointer to **string** | Address of the SM-DP+ server from which the Profile will be downloaded. The URL will appear once the eSIM Profile reaches the status `available`. |
+**MatchingId** | Pointer to **string** | Unique identifier of the eSIM profile that can be used to identify and download the eSIM profile from the SM-DP+ server. Populated if `generate_matching_id` is set to `true` when creating the eSIM profile reservation. |
+**ActivationCode** | Pointer to **string** | Combined machine-readable activation code for acquiring an eSIM Profile with the Activation Code download method. Can be used in a QR code to download an eSIM profile. |
 **ErrorCode** | Pointer to **string** | Code indicating the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state. |
 **ErrorMessage** | Pointer to **string** | Error message describing the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |

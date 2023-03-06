@@ -49,7 +49,10 @@ type WirelessV1RatePlan struct {
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated             *time.Time `json:"date_updated,omitempty"`
+	UsageNotificationUrl    *string    `json:"usage_notification_url,omitempty"`
+	UsageNotificationMethod *string    `json:"usage_notification_method,omitempty"`
+	DataLimitStrategy       *string    `json:"data_limit_strategy,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }

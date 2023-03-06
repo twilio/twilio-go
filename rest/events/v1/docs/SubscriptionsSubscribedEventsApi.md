@@ -35,6 +35,7 @@ Other parameters are passed through a pointer to a CreateSubscribedEventParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioSubscriptionsWaiver** | **string** | The X-Twilio-Subscriptions-Waiver HTTP request header
 **Type** | **string** | Type of event being subscribed to.
 **SchemaVersion** | **int** | The schema version that the subscription should use.
 
@@ -210,6 +211,7 @@ Other parameters are passed through a pointer to a UpdateSubscribedEventParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioSubscriptionsWaiver** | **string** | The X-Twilio-Subscriptions-Waiver HTTP request header
 **SchemaVersion** | **int** | The schema version that the subscription should use.
 
 ### Return type

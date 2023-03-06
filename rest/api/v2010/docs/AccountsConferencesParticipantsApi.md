@@ -82,6 +82,12 @@ Name | Type | Description
 **MachineDetectionSilenceTimeout** | **int** | The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
 **AmdStatusCallback** | **string** | The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
 **AmdStatusCallbackMethod** | **string** | The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+**MachineDetectionEngine** | **string** | Select answering machine detection engine. Can be: `Lumenvox` or `Asterisk`. Default: `Lumenvox`.
+**MachineDetectionMinWordLength** | **int** | The minimum duration in milliseconds of voice to be considered as a word. Default: 100.
+**MachineDetectionMaxWordLength** | **int** | The maximum duration in milliseconds of a word to accept. Default: 5000.
+**MachineDetectionWordsSilence** | **int** | The minimum duration in milliseconds of silence after a word to consider the audio what follows as a new word. Default: 50.
+**MachineDetectionMaxNumOfWords** | **int** | The maximum number of words in the greeting. If exceeded, then it's considered as MACHINE. Default: 5.
+**MachineDetectionSilenceThreshold** | **int** | The silence threshold. Default: 256.
 
 ### Return type
 

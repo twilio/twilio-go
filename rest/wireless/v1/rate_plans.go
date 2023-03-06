@@ -47,6 +47,12 @@ type CreateRatePlanParams struct {
 	NationalRoamingDataLimit *int `json:"NationalRoamingDataLimit,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
 	InternationalRoamingDataLimit *int `json:"InternationalRoamingDataLimit,omitempty"`
+	//
+	UsageNotificationUrl *string `json:"UsageNotificationUrl,omitempty"`
+	//
+	UsageNotificationMethod *string `json:"UsageNotificationMethod,omitempty"`
+	//
+	DataLimitStrategy *string `json:"DataLimitStrategy,omitempty"`
 }
 
 func (params *CreateRatePlanParams) SetUniqueName(UniqueName string) *CreateRatePlanParams {
@@ -93,6 +99,18 @@ func (params *CreateRatePlanParams) SetInternationalRoamingDataLimit(Internation
 	params.InternationalRoamingDataLimit = &InternationalRoamingDataLimit
 	return params
 }
+func (params *CreateRatePlanParams) SetUsageNotificationUrl(UsageNotificationUrl string) *CreateRatePlanParams {
+	params.UsageNotificationUrl = &UsageNotificationUrl
+	return params
+}
+func (params *CreateRatePlanParams) SetUsageNotificationMethod(UsageNotificationMethod string) *CreateRatePlanParams {
+	params.UsageNotificationMethod = &UsageNotificationMethod
+	return params
+}
+func (params *CreateRatePlanParams) SetDataLimitStrategy(DataLimitStrategy string) *CreateRatePlanParams {
+	params.DataLimitStrategy = &DataLimitStrategy
+	return params
+}
 
 //
 func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
@@ -135,6 +153,15 @@ func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1Ra
 	}
 	if params != nil && params.InternationalRoamingDataLimit != nil {
 		data.Set("InternationalRoamingDataLimit", fmt.Sprint(*params.InternationalRoamingDataLimit))
+	}
+	if params != nil && params.UsageNotificationUrl != nil {
+		data.Set("UsageNotificationUrl", *params.UsageNotificationUrl)
+	}
+	if params != nil && params.UsageNotificationMethod != nil {
+		data.Set("UsageNotificationMethod", *params.UsageNotificationMethod)
+	}
+	if params != nil && params.DataLimitStrategy != nil {
+		data.Set("DataLimitStrategy", *params.DataLimitStrategy)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -335,6 +362,10 @@ type UpdateRatePlanParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 	// A descriptive string that you create to describe the resource. It does not have to be unique.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	//
+	UsageNotificationUrl *string `json:"UsageNotificationUrl,omitempty"`
+	//
+	UsageNotificationMethod *string `json:"UsageNotificationMethod,omitempty"`
 }
 
 func (params *UpdateRatePlanParams) SetUniqueName(UniqueName string) *UpdateRatePlanParams {
@@ -343,6 +374,14 @@ func (params *UpdateRatePlanParams) SetUniqueName(UniqueName string) *UpdateRate
 }
 func (params *UpdateRatePlanParams) SetFriendlyName(FriendlyName string) *UpdateRatePlanParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateRatePlanParams) SetUsageNotificationUrl(UsageNotificationUrl string) *UpdateRatePlanParams {
+	params.UsageNotificationUrl = &UsageNotificationUrl
+	return params
+}
+func (params *UpdateRatePlanParams) SetUsageNotificationMethod(UsageNotificationMethod string) *UpdateRatePlanParams {
+	params.UsageNotificationMethod = &UsageNotificationMethod
 	return params
 }
 
@@ -359,6 +398,12 @@ func (c *ApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UsageNotificationUrl != nil {
+		data.Set("UsageNotificationUrl", *params.UsageNotificationUrl)
+	}
+	if params != nil && params.UsageNotificationMethod != nil {
+		data.Set("UsageNotificationMethod", *params.UsageNotificationMethod)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

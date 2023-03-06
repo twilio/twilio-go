@@ -162,6 +162,28 @@ func (c *ApiService) FetchConversationScopedWebhook(ConversationSid string, Sid 
 	return ps, err
 }
 
+// Fetch the configuration of global conversation webhooks
+func (c *ApiService) FetchConversationWebhook() (*ConversationsV1ConversationWebhook, error) {
+	path := "/v1/Conversations/Webhooks"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ConversationWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
 // Optional parameters for the method 'ListConversationScopedWebhook'
 type ListConversationScopedWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -372,6 +394,81 @@ func (c *ApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid
 	defer resp.Body.Close()
 
 	ps := &ConversationsV1ConversationScopedWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Optional parameters for the method 'UpdateConversationWebhook'
+type UpdateConversationWebhookParams struct {
+	// The HTTP method to be used when sending a webhook request.
+	Method *string `json:"Method,omitempty"`
+	// The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+	Filters *[]string `json:"Filters,omitempty"`
+	// The absolute url the pre-event webhook request should be sent to.
+	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
+	// The absolute url the post-event webhook request should be sent to.
+	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
+	//
+	Target *string `json:"Target,omitempty"`
+}
+
+func (params *UpdateConversationWebhookParams) SetMethod(Method string) *UpdateConversationWebhookParams {
+	params.Method = &Method
+	return params
+}
+func (params *UpdateConversationWebhookParams) SetFilters(Filters []string) *UpdateConversationWebhookParams {
+	params.Filters = &Filters
+	return params
+}
+func (params *UpdateConversationWebhookParams) SetPreWebhookUrl(PreWebhookUrl string) *UpdateConversationWebhookParams {
+	params.PreWebhookUrl = &PreWebhookUrl
+	return params
+}
+func (params *UpdateConversationWebhookParams) SetPostWebhookUrl(PostWebhookUrl string) *UpdateConversationWebhookParams {
+	params.PostWebhookUrl = &PostWebhookUrl
+	return params
+}
+func (params *UpdateConversationWebhookParams) SetTarget(Target string) *UpdateConversationWebhookParams {
+	params.Target = &Target
+	return params
+}
+
+// Update the configration of global conversation webhooks
+func (c *ApiService) UpdateConversationWebhook(params *UpdateConversationWebhookParams) (*ConversationsV1ConversationWebhook, error) {
+	path := "/v1/Conversations/Webhooks"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Method != nil {
+		data.Set("Method", *params.Method)
+	}
+	if params != nil && params.Filters != nil {
+		for _, item := range *params.Filters {
+			data.Add("Filters", item)
+		}
+	}
+	if params != nil && params.PreWebhookUrl != nil {
+		data.Set("PreWebhookUrl", *params.PreWebhookUrl)
+	}
+	if params != nil && params.PostWebhookUrl != nil {
+		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+	}
+	if params != nil && params.Target != nil {
+		data.Set("Target", *params.Target)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ConversationWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
