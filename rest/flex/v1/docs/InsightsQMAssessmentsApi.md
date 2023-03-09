@@ -5,6 +5,7 @@ All URIs are relative to *https://flex-api.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateInsightsAssessments**](InsightsQMAssessmentsApi.md#CreateInsightsAssessments) | **Post** /v1/Insights/QM/Assessments | 
+[**ListInsightsAssessments**](InsightsQMAssessmentsApi.md#ListInsightsAssessments) | **Get** /v1/Insights/QM/Assessments | 
 [**UpdateInsightsAssessments**](InsightsQMAssessmentsApi.md#UpdateInsightsAssessments) | **Post** /v1/Insights/QM/Assessments/{AssessmentId} | 
 
 
@@ -53,6 +54,48 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListInsightsAssessments
+
+> []FlexV1InsightsAssessments ListInsightsAssessments(ctx, optional)
+
+
+
+Get assessments done for a conversation by logged in user
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListInsightsAssessmentsParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Token** | **string** | The Token HTTP request header
+**SegmentId** | **string** | The id of the segment.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
+
+### Return type
+
+[**[]FlexV1InsightsAssessments**](FlexV1InsightsAssessments.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

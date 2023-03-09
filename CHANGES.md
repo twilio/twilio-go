@@ -1,5 +1,20 @@
 twilio-go changelog
 ====================
+[2023-03-09] Version 1.3.5
+--------------------------
+**Library - Chore**
+- [PR #203](https://github.com/twilio/twilio-go/pull/203): drop generated ignore files. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Add new categories for whatsapp template
+
+**Lookups**
+- Remove `validation_results` from the `default_output_properties`
+
+**Supersim**
+- Add ESimProfile's `matching_id` and `activation_code` parameters to libraries
+
+
 [2023-02-22] Version 1.3.4
 --------------------------
 **Api**

@@ -33,5 +33,6 @@ type MicrovisorV1App struct {
 	// The date that this App was last updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url   *string                 `json:"url,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 }

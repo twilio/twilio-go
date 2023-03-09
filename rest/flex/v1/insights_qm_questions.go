@@ -31,12 +31,12 @@ type CreateInsightsQuestionnairesQuestionParams struct {
 	CategoryId *string `json:"CategoryId,omitempty"`
 	// The question.
 	Question *string `json:"Question,omitempty"`
-	// The description for the question.
-	Description *string `json:"Description,omitempty"`
 	// The answer_set for the question.
 	AnswerSetId *string `json:"AnswerSetId,omitempty"`
 	// The flag to enable for disable NA for answer.
 	AllowNa *bool `json:"AllowNa,omitempty"`
+	// The description for the question.
+	Description *string `json:"Description,omitempty"`
 }
 
 func (params *CreateInsightsQuestionnairesQuestionParams) SetToken(Token string) *CreateInsightsQuestionnairesQuestionParams {
@@ -51,16 +51,16 @@ func (params *CreateInsightsQuestionnairesQuestionParams) SetQuestion(Question s
 	params.Question = &Question
 	return params
 }
-func (params *CreateInsightsQuestionnairesQuestionParams) SetDescription(Description string) *CreateInsightsQuestionnairesQuestionParams {
-	params.Description = &Description
-	return params
-}
 func (params *CreateInsightsQuestionnairesQuestionParams) SetAnswerSetId(AnswerSetId string) *CreateInsightsQuestionnairesQuestionParams {
 	params.AnswerSetId = &AnswerSetId
 	return params
 }
 func (params *CreateInsightsQuestionnairesQuestionParams) SetAllowNa(AllowNa bool) *CreateInsightsQuestionnairesQuestionParams {
 	params.AllowNa = &AllowNa
+	return params
+}
+func (params *CreateInsightsQuestionnairesQuestionParams) SetDescription(Description string) *CreateInsightsQuestionnairesQuestionParams {
+	params.Description = &Description
 	return params
 }
 
@@ -77,14 +77,14 @@ func (c *ApiService) CreateInsightsQuestionnairesQuestion(params *CreateInsights
 	if params != nil && params.Question != nil {
 		data.Set("Question", *params.Question)
 	}
-	if params != nil && params.Description != nil {
-		data.Set("Description", *params.Description)
-	}
 	if params != nil && params.AnswerSetId != nil {
 		data.Set("AnswerSetId", *params.AnswerSetId)
 	}
 	if params != nil && params.AllowNa != nil {
 		data.Set("AllowNa", fmt.Sprint(*params.AllowNa))
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
 	}
 
 	if params != nil && params.Token != nil {

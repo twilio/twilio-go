@@ -31,6 +31,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **CallbackUrl** | **string** | The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
 **CallbackMethod** | **string** | The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+**GenerateMatchingId** | **bool** | When set to `true`, a value for `Eid` does not need to be provided. Instead, when the eSIM profile is reserved, a matching ID will be generated and returned via the `matching_id` property. This identifies the specific eSIM profile that can be used by any capable device to claim and download the profile.
 **Eid** | **string** | Identifier of the eUICC that will claim the eSIM Profile.
 
 ### Return type

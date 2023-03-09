@@ -33,9 +33,9 @@ Name | Type | Description
 **Token** | **string** | The Token HTTP request header
 **CategoryId** | **string** | The ID of the category
 **Question** | **string** | The question.
-**Description** | **string** | The description for the question.
 **AnswerSetId** | **string** | The answer_set for the question.
 **AllowNa** | **bool** | The flag to enable for disable NA for answer.
+**Description** | **string** | The description for the question.
 
 ### Return type
 

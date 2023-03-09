@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateInsightsAssessments'
@@ -165,6 +167,157 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 	}
 
 	return ps, err
+}
+
+// Optional parameters for the method 'ListInsightsAssessments'
+type ListInsightsAssessmentsParams struct {
+	// The Token HTTP request header
+	Token *string `json:"Token,omitempty"`
+	// The id of the segment.
+	SegmentId *string `json:"SegmentId,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
+}
+
+func (params *ListInsightsAssessmentsParams) SetToken(Token string) *ListInsightsAssessmentsParams {
+	params.Token = &Token
+	return params
+}
+func (params *ListInsightsAssessmentsParams) SetSegmentId(SegmentId string) *ListInsightsAssessmentsParams {
+	params.SegmentId = &SegmentId
+	return params
+}
+func (params *ListInsightsAssessmentsParams) SetPageSize(PageSize int) *ListInsightsAssessmentsParams {
+	params.PageSize = &PageSize
+	return params
+}
+func (params *ListInsightsAssessmentsParams) SetLimit(Limit int) *ListInsightsAssessmentsParams {
+	params.Limit = &Limit
+	return params
+}
+
+// Retrieve a single page of InsightsAssessments records from the API. Request is executed immediately.
+func (c *ApiService) PageInsightsAssessments(params *ListInsightsAssessmentsParams, pageToken, pageNumber string) (*ListInsightsAssessmentsResponse, error) {
+	path := "/v1/Insights/QM/Assessments"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.SegmentId != nil {
+		data.Set("SegmentId", *params.SegmentId)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInsightsAssessmentsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Lists InsightsAssessments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInsightsAssessments(params *ListInsightsAssessmentsParams) ([]FlexV1InsightsAssessments, error) {
+	response, errors := c.StreamInsightsAssessments(params)
+
+	records := make([]FlexV1InsightsAssessments, 0)
+	for record := range response {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
+}
+
+// Streams InsightsAssessments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInsightsAssessments(params *ListInsightsAssessmentsParams) (chan FlexV1InsightsAssessments, chan error) {
+	if params == nil {
+		params = &ListInsightsAssessmentsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1InsightsAssessments, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageInsightsAssessments(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamInsightsAssessments(response, params, recordChannel, errorChannel)
+	}
+
+	return recordChannel, errorChannel
+}
+
+func (c *ApiService) streamInsightsAssessments(response *ListInsightsAssessmentsResponse, params *ListInsightsAssessmentsParams, recordChannel chan FlexV1InsightsAssessments, errorChannel chan error) {
+	curRecord := 1
+
+	for response != nil {
+		responseRecords := response.Assessments
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
+				return
+			}
+		}
+
+		record, err := client.GetNext(c.baseURL, response, c.getNextListInsightsAssessmentsResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*ListInsightsAssessmentsResponse)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
+}
+
+func (c *ApiService) getNextListInsightsAssessmentsResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInsightsAssessmentsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateInsightsAssessments'

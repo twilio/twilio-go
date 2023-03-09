@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this App was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this App was last updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **Url** | Pointer to **string** | The URL of this resource. |
+**Links** | Pointer to **map[string]interface{}** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
