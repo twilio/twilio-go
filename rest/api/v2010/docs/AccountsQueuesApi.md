@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 **FriendlyName** | **string** | A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-**MaxSize** | **int** | The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+**MaxSize** | **int** | The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
 ### Return type
 
@@ -205,7 +205,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update.
 **FriendlyName** | **string** | A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-**MaxSize** | **int** | The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+**MaxSize** | **int** | The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
 ### Return type
 

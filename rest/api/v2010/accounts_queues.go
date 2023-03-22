@@ -29,7 +29,7 @@ type CreateQueueParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// A descriptive string that you created to describe this resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+	// The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 	MaxSize *int `json:"MaxSize,omitempty"`
 }
 
@@ -307,7 +307,7 @@ type UpdateQueueParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// A descriptive string that you created to describe this resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+	// The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 	MaxSize *int `json:"MaxSize,omitempty"`
 }
 

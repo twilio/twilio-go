@@ -33,6 +33,6 @@ type MessagingV1DomainCertV4 struct {
 	// The unique string that we created to identify this Certificate resource.
 	CertificateSid *string `json:"certificate_sid,omitempty"`
 	Url            *string `json:"url,omitempty"`
-	// Boolean value indicating whether certificate has been validated
-	Validated *bool `json:"validated,omitempty"`
+	// Optional JSON field describing the status and upload date of a new certificate in the process of validation
+	CertInValidation *interface{} `json:"cert_in_validation,omitempty"`
 }

@@ -50,7 +50,7 @@ type CreateVerificationParams struct {
 	TemplateSid *string `json:"TemplateSid,omitempty"`
 	// A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
 	TemplateCustomSubstitutions *string `json:"TemplateCustomSubstitutions,omitempty"`
-	// The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
+	// Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 	DeviceIp *string `json:"DeviceIp,omitempty"`
 }
 
