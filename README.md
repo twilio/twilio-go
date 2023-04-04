@@ -91,7 +91,7 @@ go run sendsms.go
 
 After a brief delay, you will receive the text message on your phone.
 
-> **Note**
+> **Warning**
 > It's okay to hardcode your credentials when testing locally, but you should use environment variables to keep them secret before committing any code or deploying to production. Check out [How to Set Environment Variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html) for more information.
 
 ## Use the helper library
@@ -264,34 +264,34 @@ func main() {
 package main
 
 import (
-    "fmt"
-    "os"
+	"fmt"
+	"os"
 
-    "github.com/twilio/twilio-go"
-    twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
+	"github.com/twilio/twilio-go"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 func main() {
-    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-    apiKey := os.Getenv("TWILIO_API_KEY")
-    apiSecret := os.Getenv("TWILIO_API_SECRET")
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	apiKey := os.Getenv("TWILIO_API_KEY")
+	apiSecret := os.Getenv("TWILIO_API_SECRET")
 
-    client := twilio.NewRestClientWithParams(twilio.ClientParams{
-        Username:   apiKey,
-        Password:   apiSecret,
-        AccountSid: accountSid,
-    })
+	client := twilio.NewRestClientWithParams(twilio.ClientParams{
+		Username:   apiKey,
+		Password:   apiSecret,
+		AccountSid: accountSid,
+	})
 
-    params := &twilioApi.FetchCallParams{}
+	params := &twilioApi.FetchCallParams{}
 
-    resp, err := client.Api.FetchCall("CA42ed11f93dc08b952027ffbc406d0868", params)
-    if err != nil {
-        fmt.Println(err.Error())
-    } else {
-        fmt.Println("Call Status: " + *resp.Status)
-        fmt.Println("Call Sid: " + *resp.Sid)
-        fmt.Println("Call Direction: " + *resp.Direction)
-    }
+	resp, err := client.Api.FetchCall("CA42ed11f93dc08b952027ffbc406d0868", params)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println("Call Status: " + *resp.Status)
+		fmt.Println("Call Sid: " + *resp.Sid)
+		fmt.Println("Call Direction: " + *resp.Direction)
+	}
 }
 ```
 
