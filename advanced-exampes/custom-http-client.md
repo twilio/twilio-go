@@ -39,50 +39,50 @@ Here’s an example of sending an SMS message with a custom client:
 package main
 
 import (
-  "encoding/json"
-  "fmt"
-  "net/http"
-  "os"
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"os"
 
-  "github.com/twilio/twilio-go"
-  "github.com/twilio/twilio-go/client"
-  twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
+	"github.com/twilio/twilio-go"
+	"github.com/twilio/twilio-go/client"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 func main() {
-  accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-  authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 
-  // Add proxy settings to a http Transport object
-  transport := &http.Transport{
-    Proxy: http.ProxyFromEnvironment,
-  }
+	// Add proxy settings to a http Transport object
+	transport := &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+	}
 
-  // Add the Transport to an http Client
-  httpClient := &http.Client{
-    Transport: transport,
-  }
+	// Add the Transport to an http Client
+	httpClient := &http.Client{
+		Transport: transport,
+	}
 
-  // Create your custom Twilio client using the http client and your credentials
-  twilioHttpClient := client.Client{
-    Credentials: client.NewCredentials(accountSid, authToken),
-    HTTPClient:  httpClient,
-  }
-  twilioHttpClient.SetAccountSid(accountSid)
-  twilioClient := twilio.NewRestClientWithParams(twilio.ClientParams{Client: &twilioHttpClient})
+	// Create your custom Twilio client using the http client and your credentials
+	twilioHttpClient := client.Client{
+		Credentials: client.NewCredentials(accountSid, authToken),
+		HTTPClient:  httpClient,
+	}
+	twilioHttpClient.SetAccountSid(accountSid)
+	twilioClient := twilio.NewRestClientWithParams(twilio.ClientParams{Client: &twilioHttpClient})
 
-  params := &twilioApi.CreateMessageParams{}
-  params.SetTo("+15558675310")
-  params.SetFrom("+15017122661")
-  params.SetBody("Hey there!")
+	params := &twilioApi.CreateMessageParams{}
+	params.SetTo("+15558675310")
+	params.SetFrom("+15017122661")
+	params.SetBody("Hey there!")
 
-  resp, err := twilioClient.Api.CreateMessage(params)
-  if err != nil {
-    fmt.Println(err.Error())
-  } else {
-    response, _ := json.Marshal(*resp)
-    fmt.Println("Response: " + string(response))
-  }
+	resp, err := twilioClient.Api.CreateMessage(params)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		response, _ := json.Marshal(*resp)
+		fmt.Println("Response: " + string(response))
+	}
 }
 ```
 
@@ -109,43 +109,43 @@ Now that you know how to inject your own `Client` into the Twilio API request pi
 package main
 
 import (
-  "fmt"
-  "net/http"
-  "net/url"
-  "os"
+	"fmt"
+	"net/http"
+	"net/url"
+	"os"
 
-  "github.com/twilio/twilio-go"
-  "github.com/twilio/twilio-go/client"
-  openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	"github.com/twilio/twilio-go"
+	"github.com/twilio/twilio-go/client"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 type MyClient struct {
-  client.Client
+	client.Client
 }
 
 func (c *MyClient) SendRequest(method string, rawURL string, data url.Values, headers map[string]interface{}) (*http.Response, error) {
-  // Custom code to pre-process request here
-  resp, err := c.Client.SendRequest(method, rawURL, data, headers)
-  // Custom code to pre-process response here
-  fmt.Println(resp.StatusCode)
-  return resp, err
+	// Custom code to pre-process request here
+	resp, err := c.Client.SendRequest(method, rawURL, data, headers)
+	// Custom code to pre-process response here
+	fmt.Println(resp.StatusCode)
+	return resp, err
 }
 
 func main() {
-  accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-  authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 
-  customClient := &MyClient{
-    Client: client.Client{
-    Credentials: client.NewCredentials(accountSid, authToken),
-    },
-  }
-  customClient.SetAccountSid(accountSid)
+	customClient := &MyClient{
+		Client: client.Client{
+			Credentials: client.NewCredentials(accountSid, authToken),
+		},
+	}
+	customClient.SetAccountSid(accountSid)
 
-  twilioClient := twilio.NewRestClientWithParams(twilio.ClientParams{Client: customClient})
+	twilioClient := twilio.NewRestClientWithParams(twilio.ClientParams{Client: customClient})
 
-  // You may also use custom clients with standalone product services
-  twilioApiV2010 := openapi.NewApiServiceWithClient(customClient)
+	// You may also use custom clients with standalone product services
+	twilioApiV2010 := openapi.NewApiServiceWithClient(customClient)
 }
 ```
 

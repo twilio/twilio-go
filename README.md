@@ -20,11 +20,11 @@ The Go library documentation can be found [here][libdocs].
 
 This library supports the following Go implementations:
 
-* Go 1.15
-* Go 1.16
-* Go 1.17
-* Go 1.18
-* Go 1.19
+- Go 1.15
+- Go 1.16
+- Go 1.17
+- Go 1.18
+- Go 1.19
 
 ## Installation
 
@@ -34,12 +34,12 @@ To use twilio-go in your project initialize go modules then run:
 go get github.com/twilio/twilio-go
 ```
 
-## Getting Started
+## Get started
 
 Getting started with the Twilio API couldn't be easier. Create a
 `RestClient` and you're ready to go.
 
-### API Credentials
+### API credentials
 
 The Twilio `RestClient` needs your Twilio credentials. We recommend storing them as environment variables, so that you don't have to worry about committing and accidentally posting them somewhere public. See http://twil.io/secure for more details on how to store environment variables.
 
@@ -73,7 +73,7 @@ func main() {
 }
 ```
 
-### Using Subaccount
+### Use a Subaccount
 
 Subaccounts in Twilio are just accounts that are "owned" by your account. Twilio users can create subaccounts to help separate Twilio account usage into different buckets.
 
@@ -293,7 +293,7 @@ func main() {
 }
 ```
 
-### Using Paging
+### Use pagination
 
 This library also offers paging functionality. Collections such as calls and messages have `ListXxx` and `StreamXxx`
 functions that page under the hood. With both list and stream, you can specify the number of records you want to
@@ -381,7 +381,7 @@ func main() {
 }
 ```
 
-### Handling Exceptions
+### Handle Exceptions
 
 ```go
 package main
@@ -414,7 +414,7 @@ func main() {
 For more descriptive exception types, please see
 the [Twilio documentation](https://www.twilio.com/docs/libraries/go/usage-guide#exceptions).
 
-### Generating TwiML
+### Generate TwiML
 
 To control phone calls, your application needs to output [TwiML](https://www.twilio.com/docs/voice/twiml).
 
@@ -457,7 +457,9 @@ func main() {
 	}
 }
 ```
+
 This will print the following:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
@@ -468,11 +470,13 @@ This will print the following:
     <Pause length="10"/>
 </Response>
 ```
+
 ## Advanced Usage
 
-### Using Request Validator
+### Use the request validator
 
-Validating GET/POST Requests are coming from Twilio:
+Validate that GET/POST Requests are coming from Twilio:
+
 ```go
 package main
 
@@ -487,12 +491,12 @@ func main() {
 	// You can find your Auth Token at twilio.com/console
 	// For this example: authToken := "12345"
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	
+
 	requestValidator := client.NewRequestValidator(authToken)
 
 	// Twilio's request URL
 	url := "https://mycompany.com/myapp.php?foo=1&bar=2"
-	
+
 	// Post variables in Twilio's request
 	params := map[string]string{
 		"CallSid": "CA1234567890ABCDE",
@@ -501,10 +505,10 @@ func main() {
 		"From":    "+12349013030",
 		"To":      "+18005551212",
 	}
-	
+
 	// X-Twilio-Signature header attached to the request
 	signature := "0/KCTR6DLpKmkAf8muzZqo1nDgQ="
-    
+
 	// Validate GET request
 	fmt.Println(requestValidator.Validate(url, params, signature))
 
@@ -512,16 +516,15 @@ func main() {
 	Body := []byte(`{"property": "value", "boolean": true}`)
 	theUrl := "https://mycompany.com/myapp.php?bodySHA256=0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
 	theSignature := "y77kIzt2vzLz71DgmJGsen2scGs="
-    
+
 	// Validate POST request
 	fmt.Println(requestValidator.ValidateBody(theUrl, Body, theSignature))
 }
 ```
 
-### Using Standalone Products
+### Use standalone products
 
-Don't want to import the top-level Twilio RestClient with access to the full suite of Twilio products? Use standalone
-product services instead:
+Don't want to import the top-level Twilio RestClient with access to the full suite of Twilio products? Use standalone product services instead:
 
 ```go
 package main
@@ -549,56 +552,16 @@ func main() {
 }
 ```
 
-### Using a Custom Client
+### Other advanced examples
 
-```go
-package main
+- [Learn how to create your own custom HTTP client](./advanced-exampes/custom-http-client.md)
 
-import (
-	"fmt"
-	"net/http"
-	"net/url"
-	"os"
+## Build Access Tokens
 
-	"github.com/twilio/twilio-go"
-	"github.com/twilio/twilio-go/client"
-	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
-)
-
-type MyClient struct {
-	client.Client
-}
-
-func (c *MyClient) SendRequest(method string, rawURL string, data url.Values, headers map[string]interface{}) (*http.Response, error) {
-	// Custom code to pre-process request here
-	resp, err := c.Client.SendRequest(method, rawURL, data, headers)
-	// Custom code to pre-process response here
-	fmt.Println(resp.StatusCode)
-	return resp, err
-}
-
-func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-
-	customClient := &MyClient{
-		Client: client.Client{
-			Credentials: client.NewCredentials(accountSid, authToken),
-		},
-	}
-	customClient.SetAccountSid(accountSid)
-
-	twilioClient := twilio.NewRestClientWithParams(twilio.ClientParams{Client: customClient})
-
-	// You may also use custom clients with standalone product services
-	twilioApiV2010 := twilioApi.NewApiServiceWithClient(customClient)
-}
-```
-
-## Building Access Tokens
 This library supports [access token](https://www.twilio.com/docs/iam/access-tokens) generation for use in the Twilio Client SDKs.
 
 Here's how you would generate a token for the Voice SDK:
+
 ```go
 package main
 
@@ -632,7 +595,8 @@ jwtToken.AddGrant(voiceGrant)
 token, err := jwtToken.ToJwt()
 ```
 
-Creating Capability Token for TaskRouter v1:
+Create Capability Tokens for TaskRouter v1:
+
 ```go
 package main
 
@@ -661,7 +625,7 @@ token, err := capabilityToken.ToJwt()
 
 ### Building
 
-To build *twilio-go* run:
+To build _twilio-go_ run:
 
 ```bash
 go build ./...
@@ -704,5 +668,4 @@ If you need help installing or using the library, please check the [Twilio Suppo
 If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
 
 [apidocs]: https://www.twilio.com/docs/api
-
 [libdocs]: https://pkg.go.dev/github.com/twilio/twilio-go?tab=versions
