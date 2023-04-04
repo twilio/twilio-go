@@ -562,7 +562,7 @@ func main() {
 
 ### Other advanced examples
 
-- [Learn how to create your own custom HTTP client](./advanced-exampes/custom-http-client.md)
+- [Learn how to create your own custom HTTP client](./advanced-examples/custom-http-client.md)
 
 ## Build Access Tokens
 
