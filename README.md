@@ -53,7 +53,7 @@ Try sending yourself an SMS message by pasting the following code example into a
 package main
 
 import (
-  "encoding/json"
+	"encoding/json"
 	"fmt"
 
 	"github.com/twilio/twilio-go"
@@ -159,22 +159,23 @@ Lastly, if you want to follow best practices and initialize your client using an
 package main
 
 import (
-    "os"
+	"os"
 
-    "github.com/twilio/twilio-go"
+	"github.com/twilio/twilio-go"
 )
 
 func main() {
-    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-    apiKey := os.Getenv("TWILIO_API_KEY")
-    apiSecret := os.Getenv("TWILIO_API_SECRET")
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	apiKey := os.Getenv("TWILIO_API_KEY")
+	apiSecret := os.Getenv("TWILIO_API_SECRET")
 
-    client := twilio.NewRestClientWithParams(twilio.ClientParams{
-        Username:   apiKey,
-        Password:   apiSecret,
-        AccountSid: accountSid,
-    })
+	client := twilio.NewRestClientWithParams(twilio.ClientParams{
+		Username:   apiKey,
+		Password:   apiSecret,
+		AccountSid: accountSid,
+	})
 }
+
 ```
 
 ### Specify a Region and/or Edge
