@@ -421,9 +421,6 @@ func main() {
 }
 ```
 
-For more descriptive exception types, please see
-the [Twilio documentation](https://www.twilio.com/docs/libraries/go/usage-guide#exceptions).
-
 ### Generate TwiML
 
 To control phone calls, your application needs to output [TwiML](https://www.twilio.com/docs/voice/twiml).
