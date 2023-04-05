@@ -150,4 +150,6 @@ func main() {
 }
 ```
 
+You could also implement your own `Client` to mock the Twilio API responses so your unit and integration tests can run quickly without needing to make a connection to Twilio. In fact, there’s already an example online showing [how to do exactly that with Node.js and Prism](https://www.twilio.com/docs/openapi/mock-api-generation-with-twilio-openapi-spec).
+
 We can’t wait to see what you build!
