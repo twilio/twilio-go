@@ -201,12 +201,30 @@ func (c *ApiService) FetchConversation(Sid string) (*ConversationsV1Conversation
 
 // Optional parameters for the method 'ListConversation'
 type ListConversationParams struct {
+	// Start date in ISO8601 format for sorting and filtering list of Conversations.
+	StartDate *string `json:"StartDate,omitempty"`
+	// End date in ISO8601 format for sorting and filtering list of Conversations.
+	EndDate *string `json:"EndDate,omitempty"`
+	// State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
+	State *string `json:"State,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
+func (params *ListConversationParams) SetStartDate(StartDate string) *ListConversationParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListConversationParams) SetEndDate(EndDate string) *ListConversationParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListConversationParams) SetState(State string) *ListConversationParams {
+	params.State = &State
+	return params
+}
 func (params *ListConversationParams) SetPageSize(PageSize int) *ListConversationParams {
 	params.PageSize = &PageSize
 	return params
@@ -223,6 +241,15 @@ func (c *ApiService) PageConversation(params *ListConversationParams, pageToken,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", *params.StartDate)
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", *params.EndDate)
+	}
+	if params != nil && params.State != nil {
+		data.Set("State", *params.State)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}

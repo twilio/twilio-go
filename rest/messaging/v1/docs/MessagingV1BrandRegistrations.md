@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **A2pProfileBundleSid** | Pointer to **string** | A2P Messaging Profile Bundle BundleSid. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
-**BrandType** | Pointer to **string** | Type of brand. One of: \"STANDARD\", \"STARTER\". STARTER is for the low volume, STARTER campaign use case. There can only be one STARTER campaign created per STARTER brand. STANDARD is for all other campaign use cases. Multiple campaign use cases can be created per STANDARD brand. |
+**BrandType** | Pointer to **string** | Type of brand. One of: \"STANDARD\", \"SOLE_PROPRIETOR\". SOLE_PROPRIETOR is for the low volume, SOLE_PROPRIETOR campaign use case. There can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR brand. STANDARD is for all other campaign use cases. Multiple campaign use cases can be created per STANDARD brand. |
 **Status** | Pointer to [**string**](BrandRegistrationsEnumStatus.md) |  |
 **TcrId** | Pointer to **string** | Campaign Registry (TCR) Brand ID. Assigned only after successful brand registration. |
 **FailureReason** | Pointer to **string** | A reason why brand registration has failed. Only applicable when status is FAILED. |
