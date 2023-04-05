@@ -309,7 +309,7 @@ the pages as you iterate over the collection. Also, `List` returns no records if
 whereas `Stream` returns all records up until encountering an error. You can also page manually using the `PageXxx`
 function in each of the apis.
 
-### Use `ListXxx` or `StreamXxx`
+#### Use `ListXxx` or `StreamXxx`
 
 ```go
 package main
