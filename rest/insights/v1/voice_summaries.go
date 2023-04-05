@@ -60,6 +60,8 @@ type ListCallSummariesParams struct {
 	Subaccount *string `json:"Subaccount,omitempty"`
 	//
 	AbnormalSession *bool `json:"AbnormalSession,omitempty"`
+	//
+	AnsweredBy *string `json:"AnsweredBy,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -138,6 +140,10 @@ func (params *ListCallSummariesParams) SetAbnormalSession(AbnormalSession bool) 
 	params.AbnormalSession = &AbnormalSession
 	return params
 }
+func (params *ListCallSummariesParams) SetAnsweredBy(AnsweredBy string) *ListCallSummariesParams {
+	params.AnsweredBy = &AnsweredBy
+	return params
+}
 func (params *ListCallSummariesParams) SetPageSize(PageSize int) *ListCallSummariesParams {
 	params.PageSize = &PageSize
 	return params
@@ -207,6 +213,9 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 	}
 	if params != nil && params.AbnormalSession != nil {
 		data.Set("AbnormalSession", fmt.Sprint(*params.AbnormalSession))
+	}
+	if params != nil && params.AnsweredBy != nil {
+		data.Set("AnsweredBy", *params.AnsweredBy)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

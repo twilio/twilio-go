@@ -29,7 +29,7 @@ type CreateBrandRegistrationsParams struct {
 	CustomerProfileBundleSid *string `json:"CustomerProfileBundleSid,omitempty"`
 	// A2P Messaging Profile Bundle Sid.
 	A2PProfileBundleSid *string `json:"A2PProfileBundleSid,omitempty"`
-	// Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
+	// Type of brand being created. One of: \\\"STANDARD\\\", \\\"SOLE_PROPRIETOR\\\". SOLE_PROPRIETOR is for low volume, SOLE_PROPRIETOR use cases. STANDARD is for all other use cases.
 	BrandType *string `json:"BrandType,omitempty"`
 	// A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
 	Mock *bool `json:"Mock,omitempty"`
