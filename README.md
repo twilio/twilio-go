@@ -76,7 +76,7 @@ func main() {
 
 	resp, err := client.Api.CreateMessage(params)
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println("Error sending SMS message: " + err.Error())
 	} else {
 		response, _ := json.Marshal(*resp)
 		fmt.Println("Response: " + string(response))

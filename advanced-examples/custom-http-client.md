@@ -55,6 +55,7 @@ func main() {
 
 	// Add proxy settings to a http Transport object
 	transport := &http.Transport{
+		// https://pkg.go.dev/net/http#ProxyFromEnvironment
 		Proxy: http.ProxyFromEnvironment,
 	}
 
