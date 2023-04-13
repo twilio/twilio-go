@@ -20,26 +20,84 @@ The Go library documentation can be found [here][libdocs].
 
 This library supports the following Go implementations:
 
-* Go 1.15
-* Go 1.16
-* Go 1.17
-* Go 1.18
-* Go 1.19
+- Go 1.15
+- Go 1.16
+- Go 1.17
+- Go 1.18
+- Go 1.19
+- Go 1.20
 
 ## Installation
 
-To use twilio-go in your project initialize go modules then run:
+The recommended way to install `twilio-go` is by using [Go modules](https://go.dev/ref/mod#go-get).
 
-```bash
+If you already have an initialized project, you can run the command below from your terminal in the project directory to install the library:
+
+```shell
 go get github.com/twilio/twilio-go
 ```
 
-## Getting Started
+If you are starting from scratch in a new directory, you will first need to create a go.mod file for tracking dependencies such as twilio-go. This is similar to using package.json in a Node.js project or requirements.txt in a Python project. [You can read more about mod files in the Go documentation](https://golang.org/doc/modules/managing-dependencies). To create the file, run the following command in your terminal:
 
-Getting started with the Twilio API couldn't be easier. Create a
-`RestClient` and you're ready to go.
+```shell
+go mod init twilio-example
+```
 
-### API Credentials
+Once the module is initialized, you may run the installation command from above, which will update your go.mod file to include twilio-go.
+
+### Test your installation
+
+Try sending yourself an SMS message by pasting the following code example into a sendsms.go file in the same directory where you installed twilio-go. Be sure to update the accountSid, authToken, and from phone number with values from your Twilio account. The to phone number can be your own mobile phone number.
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+
+	"github.com/twilio/twilio-go"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
+)
+
+func main() {
+	accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+	authToken := "f2xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+	client := twilio.NewRestClientWithParams(twilio.ClientParams{
+		Username: accountSid,
+		Password: authToken,
+	})
+
+	params := &twilioApi.CreateMessageParams{}
+	params.SetTo("+15558675309")
+	params.SetFrom("+15017250604")
+	params.SetBody("Hello from Go!")
+
+	resp, err := client.Api.CreateMessage(params)
+	if err != nil {
+		fmt.Println("Error sending SMS message: " + err.Error())
+	} else {
+		response, _ := json.Marshal(*resp)
+		fmt.Println("Response: " + string(response))
+	}
+}
+```
+
+Save `sendsms.go`. In your terminal from the same directory, run:
+
+```shell
+go run sendsms.go
+```
+
+After a brief delay, you will receive the text message on your phone.
+
+> **Warning**
+> It's okay to hardcode your credentials when testing locally, but you should use environment variables to keep them secret before committing any code or deploying to production. Check out [How to Set Environment Variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html) for more information.
+
+## Use the helper library
+
+### API credentials
 
 The Twilio `RestClient` needs your Twilio credentials. We recommend storing them as environment variables, so that you don't have to worry about committing and accidentally posting them somewhere public. See http://twil.io/secure for more details on how to store environment variables.
 
@@ -73,7 +131,7 @@ func main() {
 }
 ```
 
-### Using Subaccount
+### Use a Subaccount
 
 Subaccounts in Twilio are just accounts that are "owned" by your account. Twilio users can create subaccounts to help separate Twilio account usage into different buckets.
 
@@ -91,6 +149,33 @@ func main() {
 		AccountSid: subaccountSid,
 	})
 }
+```
+
+### Use API Keys
+
+Lastly, if you want to follow best practices and initialize your client using an [API Key and Secret](https://www.twilio.com/docs/iam/keys/api-key), instead of potentially exposing your account's AuthToken, use the following pattern:
+
+```go
+package main
+
+import (
+	"os"
+
+	"github.com/twilio/twilio-go"
+)
+
+func main() {
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	apiKey := os.Getenv("TWILIO_API_KEY")
+	apiSecret := os.Getenv("TWILIO_API_SECRET")
+
+	client := twilio.NewRestClientWithParams(twilio.ClientParams{
+		Username:   apiKey,
+		Password:   apiSecret,
+		AccountSid: accountSid,
+	})
+}
+
 ```
 
 ### Specify a Region and/or Edge
@@ -111,8 +196,7 @@ func main() {
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
 
-A Twilio client constructed without these parameters will also look for `TWILIO_REGION` and `TWILIO_EDGE` variables
-inside the current environment.
+A Twilio client constructed without these parameters will also look for `TWILIO_REGION` and `TWILIO_EDGE` variables inside the current environment.
 
 ### Buy a phone number
 
@@ -138,40 +222,6 @@ func main() {
 		fmt.Println(err.Error())
 	} else {
 		fmt.Println("Phone Number Status: " + *resp.Status)
-	}
-}
-```
-
-### Send a text message
-
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-	"github.com/twilio/twilio-go"
-	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
-	"os"
-)
-
-func main() {
-	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
-	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
-
-	client := twilio.NewRestClient()
-
-	params := &twilioApi.CreateMessageParams{}
-	params.SetTo(to)
-	params.SetFrom(from)
-	params.SetBody("Hello there")
-
-	resp, err := client.Api.CreateMessage(params)
-	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		response, _ := json.Marshal(*resp)
-		fmt.Println("Response: " + string(response))
 	}
 }
 ```
@@ -210,90 +260,44 @@ func main() {
 }
 ```
 
-### Create a Serverless Function
+### Get data about an existing Call
 
 ```go
 package main
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/twilio/twilio-go"
-	twilioApi "github.com/twilio/twilio-go/rest/serverless/v1"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 func main() {
-	// serviceSid should be in format "ZSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-	serviceSid := os.Getenv("TWILIO_SERVICE_SID")
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	apiKey := os.Getenv("TWILIO_API_KEY")
+	apiSecret := os.Getenv("TWILIO_API_SECRET")
 
-	client := twilio.NewRestClient()
+	client := twilio.NewRestClientWithParams(twilio.ClientParams{
+		Username:   apiKey,
+		Password:   apiSecret,
+		AccountSid: accountSid,
+	})
 
-	params := &twilioApi.CreateFunctionParams{}
-	params.SetFriendlyName("My Serverless func")
+	params := &twilioApi.FetchCallParams{}
 
-	resp, err := client.ServerlessV1.CreateFunction(serviceSid, params)
+	resp, err := client.Api.FetchCall("CA42ed11f93dc08b952027ffbc406d0868", params)
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
-		fmt.Println(*resp.Sid)
+		fmt.Println("Call Status: " + *resp.Status)
+		fmt.Println("Call Sid: " + *resp.Sid)
+		fmt.Println("Call Direction: " + *resp.Direction)
 	}
 }
 ```
 
-### Create a Studio Flow
-
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-
-	"github.com/twilio/twilio-go"
-	twilioApi "github.com/twilio/twilio-go/rest/studio/v2"
-)
-
-func main() {
-	var jsonStr = `{
-		"description":"Twilio Studio flow service",
-		"initial_state":"Trigger",
-		"states":[
-			{
-				"properties":{
-					"offset":{
-						"y":0,
-						"x":0
-					}
-				},
-				"transitions":[
-
-				],
-				"name":"Trigger",
-				"type":"trigger"
-			}
-		]
-	}`
-
-	var definition interface{}
-	_ = json.Unmarshal([]byte(jsonStr), &definition)
-
-	client := twilio.NewRestClient()
-	params := &twilioApi.CreateFlowParams{
-		Definition: &definition,
-	}
-	params.SetCommitMessage("commit")
-	params.SetFriendlyName("Studio flow from Go")
-	params.SetStatus("draft")
-
-	resp, err := client.StudioV2.CreateFlow(params)
-	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		fmt.Println(*resp.Sid)
-	}
-}
-```
-
-### Using Paging
+### Iterate through records
 
 This library also offers paging functionality. Collections such as calls and messages have `ListXxx` and `StreamXxx`
 functions that page under the hood. With both list and stream, you can specify the number of records you want to
@@ -304,6 +308,8 @@ for you.
 the pages as you iterate over the collection. Also, `List` returns no records if any errors are encountered while paging,
 whereas `Stream` returns all records up until encountering an error. You can also page manually using the `PageXxx`
 function in each of the apis.
+
+#### Use `ListXxx` or `StreamXxx`
 
 ```go
 package main
@@ -336,6 +342,8 @@ func main() {
 	}
 }
 ```
+
+#### Use `PageXxx`
 
 ```go
 package main
@@ -381,7 +389,9 @@ func main() {
 }
 ```
 
-### Handling Exceptions
+### Handle Exceptions
+
+If the Twilio API returns a 400 or a 500 level HTTP response, the twilio-go library will include information in the returned err value. 400-level errors are [normal during API operation](https://www.twilio.com/docs/usage/requests-to-twilio) ("Invalid number", "Cannot deliver SMS to that number", for example) and should be handled appropriately.
 
 ```go
 package main
@@ -411,10 +421,7 @@ func main() {
 }
 ```
 
-For more descriptive exception types, please see
-the [Twilio documentation](https://www.twilio.com/docs/libraries/go/usage-guide#exceptions).
-
-### Generating TwiML
+### Generate TwiML
 
 To control phone calls, your application needs to output [TwiML](https://www.twilio.com/docs/voice/twiml).
 
@@ -457,7 +464,9 @@ func main() {
 	}
 }
 ```
+
 This will print the following:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
@@ -468,11 +477,13 @@ This will print the following:
     <Pause length="10"/>
 </Response>
 ```
+
 ## Advanced Usage
 
-### Using Request Validator
+### Use the request validator
 
-Validating GET/POST Requests are coming from Twilio:
+Validate that GET/POST Requests are coming from Twilio:
+
 ```go
 package main
 
@@ -487,12 +498,12 @@ func main() {
 	// You can find your Auth Token at twilio.com/console
 	// For this example: authToken := "12345"
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	
+
 	requestValidator := client.NewRequestValidator(authToken)
 
 	// Twilio's request URL
 	url := "https://mycompany.com/myapp.php?foo=1&bar=2"
-	
+
 	// Post variables in Twilio's request
 	params := map[string]string{
 		"CallSid": "CA1234567890ABCDE",
@@ -501,10 +512,10 @@ func main() {
 		"From":    "+12349013030",
 		"To":      "+18005551212",
 	}
-	
+
 	// X-Twilio-Signature header attached to the request
 	signature := "0/KCTR6DLpKmkAf8muzZqo1nDgQ="
-    
+
 	// Validate GET request
 	fmt.Println(requestValidator.Validate(url, params, signature))
 
@@ -512,16 +523,15 @@ func main() {
 	Body := []byte(`{"property": "value", "boolean": true}`)
 	theUrl := "https://mycompany.com/myapp.php?bodySHA256=0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
 	theSignature := "y77kIzt2vzLz71DgmJGsen2scGs="
-    
+
 	// Validate POST request
 	fmt.Println(requestValidator.ValidateBody(theUrl, Body, theSignature))
 }
 ```
 
-### Using Standalone Products
+### Use standalone products
 
-Don't want to import the top-level Twilio RestClient with access to the full suite of Twilio products? Use standalone
-product services instead:
+Don't want to import the top-level Twilio RestClient with access to the full suite of Twilio products? Use standalone product services instead:
 
 ```go
 package main
@@ -549,56 +559,16 @@ func main() {
 }
 ```
 
-### Using a Custom Client
+### Other advanced examples
 
-```go
-package main
+- [Learn how to create your own custom HTTP client](./advanced-examples/custom-http-client.md)
 
-import (
-	"fmt"
-	"net/http"
-	"net/url"
-	"os"
+## Build Access Tokens
 
-	"github.com/twilio/twilio-go"
-	"github.com/twilio/twilio-go/client"
-	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
-)
-
-type MyClient struct {
-	client.Client
-}
-
-func (c *MyClient) SendRequest(method string, rawURL string, data url.Values, headers map[string]interface{}) (*http.Response, error) {
-	// Custom code to pre-process request here
-	resp, err := c.Client.SendRequest(method, rawURL, data, headers)
-	// Custom code to pre-process response here
-	fmt.Println(resp.StatusCode)
-	return resp, err
-}
-
-func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-
-	customClient := &MyClient{
-		Client: client.Client{
-			Credentials: client.NewCredentials(accountSid, authToken),
-		},
-	}
-	customClient.SetAccountSid(accountSid)
-
-	twilioClient := twilio.NewRestClientWithParams(twilio.ClientParams{Client: customClient})
-
-	// You may also use custom clients with standalone product services
-	twilioApiV2010 := twilioApi.NewApiServiceWithClient(customClient)
-}
-```
-
-## Building Access Tokens
 This library supports [access token](https://www.twilio.com/docs/iam/access-tokens) generation for use in the Twilio Client SDKs.
 
 Here's how you would generate a token for the Voice SDK:
+
 ```go
 package main
 
@@ -632,7 +602,8 @@ jwtToken.AddGrant(voiceGrant)
 token, err := jwtToken.ToJwt()
 ```
 
-Creating Capability Token for TaskRouter v1:
+Create Capability Tokens for TaskRouter v1:
+
 ```go
 package main
 
@@ -661,9 +632,9 @@ token, err := capabilityToken.ToJwt()
 
 ### Building
 
-To build *twilio-go* run:
+To build _twilio-go_ run:
 
-```bash
+```shell
 go build ./...
 ```
 
@@ -671,7 +642,7 @@ go build ./...
 
 To execute the test suite run:
 
-```bash
+```shell
 go test ./...
 ```
 
@@ -679,7 +650,7 @@ go test ./...
 
 To generate documentation, from the root directory:
 
-```bash
+```shell
 godoc -http=localhost:{port number}
 ```
 
@@ -687,7 +658,7 @@ Then, navigate to `http://localhost:{port number}/pkg/github.com/twilio/twilio-g
 
 Example:
 
-```bash
+```shell
 godoc -http=localhost:6060
 ```
 
@@ -704,5 +675,4 @@ If you need help installing or using the library, please check the [Twilio Suppo
 If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
 
 [apidocs]: https://www.twilio.com/docs/api
-
 [libdocs]: https://pkg.go.dev/github.com/twilio/twilio-go?tab=versions
