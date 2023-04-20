@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Sid** | Pointer to **string** | The unique string that we created to identify the Service resource. |
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource. |
-**FriendlyName** | Pointer to **string** | The string that you assigned to describe the verification service. **This value should not contain PII.** |
+**FriendlyName** | Pointer to **string** | The string that you assigned to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.** |
 **CodeLength** | Pointer to **int** | The length of the verification code to generate. |
 **LookupEnabled** | Pointer to **bool** | Whether to perform a lookup with each verification started and return info about the phone number. |
 **Psd2Enabled** | Pointer to **bool** | Whether to pass PSD2 transaction parameters when starting a verification. |

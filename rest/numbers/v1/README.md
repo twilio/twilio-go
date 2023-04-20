@@ -27,16 +27,15 @@ import "./openapi"
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://chat.twilio.com*
+All URIs are relative to *https://numbers.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ServicesChannelsApi* | [**UpdateChannel**](docs/ServicesChannelsApi.md#updatechannel) | **Post** /v3/Services/{ServiceSid}/Channels/{Sid} | 
 
 
 ## Documentation For Models
 
- - [ChatV3Channel](docs/ChatV3Channel.md)
+ - [NumbersV1Eligibility](docs/NumbersV1Eligibility.md)
 
 
 ## Documentation For Authorization

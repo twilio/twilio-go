@@ -27,7 +27,7 @@ Other parameters are passed through a pointer to a ListVerificationTemplateParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FriendlyName** | **string** | String filter used to query templates with a given friendly name
+**FriendlyName** | **string** | String filter used to query templates with a given friendly name.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

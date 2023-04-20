@@ -25,7 +25,7 @@ import (
 
 // Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-	// A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+	// A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
 	CodeLength *int `json:"CodeLength,omitempty"`
@@ -383,7 +383,7 @@ func (c *ApiService) getNextListServiceResponse(nextPageUrl string) (interface{}
 
 // Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	// A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+	// A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
 	CodeLength *int `json:"CodeLength,omitempty"`

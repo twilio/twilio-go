@@ -74,10 +74,8 @@ Other parameters are passed through a pointer to a UpdateDomainConfigParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**MessagingServiceSids** | **[]string** | A list of messagingServiceSids (with prefix MG)
 **FallbackUrl** | **string** | Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
 **CallbackUrl** | **string** | URL to receive click events to your webhook whenever the recipients click on the shortened links
-**MessagingServiceSidsAction** | **string** | An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
 
 ### Return type
 

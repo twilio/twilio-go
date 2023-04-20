@@ -78,6 +78,10 @@ type MessagingV1TollfreeVerification struct {
 	Status                 *string `json:"status,omitempty"`
 	// The absolute URL of the Tollfree Verification resource.
 	Url *string `json:"url,omitempty"`
+	// The rejection reason given when a Tollfree Verification has been rejected.
+	RejectionReason *string `json:"rejection_reason,omitempty"`
+	// The error code given when a Tollfree Verification has been rejected.
+	ErrorCode *int `json:"error_code,omitempty"`
 	// The URLs of the documents associated with the Tollfree Verification resource.
 	ResourceLinks *interface{} `json:"resource_links,omitempty"`
 	// An optional external reference ID supplied by customer and echoed back on status retrieval.

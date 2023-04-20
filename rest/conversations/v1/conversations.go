@@ -201,9 +201,9 @@ func (c *ApiService) FetchConversation(Sid string) (*ConversationsV1Conversation
 
 // Optional parameters for the method 'ListConversation'
 type ListConversationParams struct {
-	// Start date in ISO8601 format for sorting and filtering list of Conversations.
+	// Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
 	StartDate *string `json:"StartDate,omitempty"`
-	// End date in ISO8601 format for sorting and filtering list of Conversations.
+	// End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
 	EndDate *string `json:"EndDate,omitempty"`
 	// State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
 	State *string `json:"State,omitempty"`

@@ -34,6 +34,8 @@ Name | Type | Description | Notes
 **TollfreePhoneNumberSid** | Pointer to **string** | The SID of the Phone Number associated with the Tollfree Verification. |
 **Status** | Pointer to [**string**](TollfreeVerificationEnumStatus.md) |  |
 **Url** | Pointer to **string** | The absolute URL of the Tollfree Verification resource. |
+**RejectionReason** | Pointer to **string** | The rejection reason given when a Tollfree Verification has been rejected. |
+**ErrorCode** | Pointer to **int** | The error code given when a Tollfree Verification has been rejected. |
 **ResourceLinks** | Pointer to **interface{}** | The URLs of the documents associated with the Tollfree Verification resource. |
 **ExternalReferenceId** | Pointer to **string** | An optional external reference ID supplied by customer and echoed back on status retrieval. |
 

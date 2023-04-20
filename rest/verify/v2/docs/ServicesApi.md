@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+**FriendlyName** | **string** | A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
 **CodeLength** | **int** | The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
 **LookupEnabled** | **bool** | Whether to perform a lookup with each verification started and return info about the phone number.
 **SkipSmsToLandlines** | **bool** | Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
@@ -214,7 +214,7 @@ Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+**FriendlyName** | **string** | A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
 **CodeLength** | **int** | The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
 **LookupEnabled** | **bool** | Whether to perform a lookup with each verification started and return info about the phone number.
 **SkipSmsToLandlines** | **bool** | Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.

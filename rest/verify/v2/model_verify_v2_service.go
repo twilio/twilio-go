@@ -24,7 +24,7 @@ type VerifyV2Service struct {
 	Sid *string `json:"sid,omitempty"`
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The string that you assigned to describe the verification service. **This value should not contain PII.**
+	// The string that you assigned to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The length of the verification code to generate.
 	CodeLength *int `json:"code_length,omitempty"`

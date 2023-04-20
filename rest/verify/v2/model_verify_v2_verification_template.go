@@ -20,9 +20,9 @@ type VerifyV2VerificationTemplate struct {
 	Sid *string `json:"sid,omitempty"`
 	// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A descriptive string that you create to describe a Template.
+	// A descriptive string that you create to describe a Template. It can be up to 32 characters long.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// A list of channels that support the Template. Can include: sms, voice
+	// A list of channels that support the Template. Can include: sms, voice.
 	Channels *[]string `json:"channels,omitempty"`
 	// An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
 	Translations *interface{} `json:"translations,omitempty"`

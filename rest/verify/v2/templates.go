@@ -24,7 +24,7 @@ import (
 
 // Optional parameters for the method 'ListVerificationTemplate'
 type ListVerificationTemplateParams struct {
-	// String filter used to query templates with a given friendly name
+	// String filter used to query templates with a given friendly name.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

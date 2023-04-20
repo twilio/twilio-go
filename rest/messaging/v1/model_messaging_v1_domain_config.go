@@ -24,8 +24,6 @@ type MessagingV1DomainConfig struct {
 	DomainSid *string `json:"domain_sid,omitempty"`
 	// The unique string that we created to identify the Domain config (prefix ZK).
 	ConfigSid *string `json:"config_sid,omitempty"`
-	// A list of messagingServiceSids (with prefix MG).
-	MessagingServiceSids *[]string `json:"messaging_service_sids,omitempty"`
 	// Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
 	FallbackUrl *string `json:"fallback_url,omitempty"`
 	// URL to receive click events to your webhook whenever the recipients click on the shortened links.

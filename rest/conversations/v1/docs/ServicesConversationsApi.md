@@ -174,8 +174,8 @@ Other parameters are passed through a pointer to a ListServiceConversationParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**StartDate** | **string** | Start date in ISO8601 format for sorting and filtering list of Conversations.
-**EndDate** | **string** | End date in ISO8601 format for sorting and filtering list of Conversations.
+**StartDate** | **string** | Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
+**EndDate** | **string** | End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
 **State** | **string** | State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
