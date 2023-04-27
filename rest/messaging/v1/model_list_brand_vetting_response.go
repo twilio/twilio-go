@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListBrandVettingResponse struct for ListBrandVettingResponse
 type ListBrandVettingResponse struct {
-	Data []MessagingV1BrandVetting   `json:"data,omitempty"`
+	Data []MessagingV1BrandVetting `json:"data,omitempty"`
 	Meta ListAlphaSenderResponseMeta `json:"meta,omitempty"`
 }
+
+

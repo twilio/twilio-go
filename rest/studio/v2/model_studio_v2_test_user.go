@@ -13,13 +13,18 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // StudioV2TestUser struct for StudioV2TestUser
 type StudioV2TestUser struct {
-	// Unique identifier of the flow.
+		// Unique identifier of the flow.
 	Sid *string `json:"sid,omitempty"`
-	// List of test user identities that can test draft versions of the flow.
+		// List of test user identities that can test draft versions of the flow.
 	TestUsers *[]string `json:"test_users,omitempty"`
-	// The URL of this resource.
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

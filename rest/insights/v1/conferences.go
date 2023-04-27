@@ -18,172 +18,176 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Fetch a specific Conference.
-func (c *ApiService) FetchConference(ConferenceSid string) (*InsightsV1Conference, error) {
-	path := "/v1/Conferences/{ConferenceSid}"
-	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
+func (c *ApiService) FetchConference(ConferenceSid string, ) (*InsightsV1Conference, error) {
+    path := "/v1/Conferences/{ConferenceSid}"
+        path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &InsightsV1Conference{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &InsightsV1Conference{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListConference'
 type ListConferenceParams struct {
-	// The SID of the conference.
-	ConferenceSid *string `json:"ConferenceSid,omitempty"`
-	// Custom label for the conference resource, up to 64 characters.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// Conference status.
-	Status *string `json:"Status,omitempty"`
-	// Conferences created after the provided timestamp specified in ISO 8601 format
-	CreatedAfter *string `json:"CreatedAfter,omitempty"`
-	// Conferences created before the provided timestamp specified in ISO 8601 format.
-	CreatedBefore *string `json:"CreatedBefore,omitempty"`
-	// Twilio region where the conference media was mixed.
-	MixerRegion *string `json:"MixerRegion,omitempty"`
-	// Tags applied by Twilio for common potential configuration, quality, or performance issues.
-	Tags *string `json:"Tags,omitempty"`
-	// Account SID for the subaccount whose resources you wish to retrieve.
-	Subaccount *string `json:"Subaccount,omitempty"`
-	// Potential configuration, behavior, or performance issues detected during the conference.
-	DetectedIssues *string `json:"DetectedIssues,omitempty"`
-	// Conference end reason; e.g. last participant left, modified by API, etc.
-	EndReason *string `json:"EndReason,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The SID of the conference.
+    ConferenceSid *string `json:"ConferenceSid,omitempty"`
+    // Custom label for the conference resource, up to 64 characters.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
+    // Conference status.
+    Status *string `json:"Status,omitempty"`
+    // Conferences created after the provided timestamp specified in ISO 8601 format
+    CreatedAfter *string `json:"CreatedAfter,omitempty"`
+    // Conferences created before the provided timestamp specified in ISO 8601 format.
+    CreatedBefore *string `json:"CreatedBefore,omitempty"`
+    // Twilio region where the conference media was mixed.
+    MixerRegion *string `json:"MixerRegion,omitempty"`
+    // Tags applied by Twilio for common potential configuration, quality, or performance issues.
+    Tags *string `json:"Tags,omitempty"`
+    // Account SID for the subaccount whose resources you wish to retrieve.
+    Subaccount *string `json:"Subaccount,omitempty"`
+    // Potential configuration, behavior, or performance issues detected during the conference.
+    DetectedIssues *string `json:"DetectedIssues,omitempty"`
+    // Conference end reason; e.g. last participant left, modified by API, etc.
+    EndReason *string `json:"EndReason,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListConferenceParams) SetConferenceSid(ConferenceSid string) *ListConferenceParams {
-	params.ConferenceSid = &ConferenceSid
-	return params
+func (params *ListConferenceParams) SetConferenceSid(ConferenceSid string) (*ListConferenceParams){
+    params.ConferenceSid = &ConferenceSid
+    return params
 }
-func (params *ListConferenceParams) SetFriendlyName(FriendlyName string) *ListConferenceParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *ListConferenceParams) SetFriendlyName(FriendlyName string) (*ListConferenceParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
-func (params *ListConferenceParams) SetStatus(Status string) *ListConferenceParams {
-	params.Status = &Status
-	return params
+func (params *ListConferenceParams) SetStatus(Status string) (*ListConferenceParams){
+    params.Status = &Status
+    return params
 }
-func (params *ListConferenceParams) SetCreatedAfter(CreatedAfter string) *ListConferenceParams {
-	params.CreatedAfter = &CreatedAfter
-	return params
+func (params *ListConferenceParams) SetCreatedAfter(CreatedAfter string) (*ListConferenceParams){
+    params.CreatedAfter = &CreatedAfter
+    return params
 }
-func (params *ListConferenceParams) SetCreatedBefore(CreatedBefore string) *ListConferenceParams {
-	params.CreatedBefore = &CreatedBefore
-	return params
+func (params *ListConferenceParams) SetCreatedBefore(CreatedBefore string) (*ListConferenceParams){
+    params.CreatedBefore = &CreatedBefore
+    return params
 }
-func (params *ListConferenceParams) SetMixerRegion(MixerRegion string) *ListConferenceParams {
-	params.MixerRegion = &MixerRegion
-	return params
+func (params *ListConferenceParams) SetMixerRegion(MixerRegion string) (*ListConferenceParams){
+    params.MixerRegion = &MixerRegion
+    return params
 }
-func (params *ListConferenceParams) SetTags(Tags string) *ListConferenceParams {
-	params.Tags = &Tags
-	return params
+func (params *ListConferenceParams) SetTags(Tags string) (*ListConferenceParams){
+    params.Tags = &Tags
+    return params
 }
-func (params *ListConferenceParams) SetSubaccount(Subaccount string) *ListConferenceParams {
-	params.Subaccount = &Subaccount
-	return params
+func (params *ListConferenceParams) SetSubaccount(Subaccount string) (*ListConferenceParams){
+    params.Subaccount = &Subaccount
+    return params
 }
-func (params *ListConferenceParams) SetDetectedIssues(DetectedIssues string) *ListConferenceParams {
-	params.DetectedIssues = &DetectedIssues
-	return params
+func (params *ListConferenceParams) SetDetectedIssues(DetectedIssues string) (*ListConferenceParams){
+    params.DetectedIssues = &DetectedIssues
+    return params
 }
-func (params *ListConferenceParams) SetEndReason(EndReason string) *ListConferenceParams {
-	params.EndReason = &EndReason
-	return params
+func (params *ListConferenceParams) SetEndReason(EndReason string) (*ListConferenceParams){
+    params.EndReason = &EndReason
+    return params
 }
-func (params *ListConferenceParams) SetPageSize(PageSize int) *ListConferenceParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListConferenceParams) SetPageSize(PageSize int) (*ListConferenceParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListConferenceParams) SetLimit(Limit int) *ListConferenceParams {
-	params.Limit = &Limit
-	return params
+func (params *ListConferenceParams) SetLimit(Limit int) (*ListConferenceParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Conference records from the API. Request is executed immediately.
 func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pageNumber string) (*ListConferenceResponse, error) {
-	path := "/v1/Conferences"
+    path := "/v1/Conferences"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.ConferenceSid != nil {
-		data.Set("ConferenceSid", *params.ConferenceSid)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.CreatedAfter != nil {
-		data.Set("CreatedAfter", *params.CreatedAfter)
-	}
-	if params != nil && params.CreatedBefore != nil {
-		data.Set("CreatedBefore", *params.CreatedBefore)
-	}
-	if params != nil && params.MixerRegion != nil {
-		data.Set("MixerRegion", *params.MixerRegion)
-	}
-	if params != nil && params.Tags != nil {
-		data.Set("Tags", *params.Tags)
-	}
-	if params != nil && params.Subaccount != nil {
-		data.Set("Subaccount", *params.Subaccount)
-	}
-	if params != nil && params.DetectedIssues != nil {
-		data.Set("DetectedIssues", *params.DetectedIssues)
-	}
-	if params != nil && params.EndReason != nil {
-		data.Set("EndReason", *params.EndReason)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.ConferenceSid != nil {
+    data.Set("ConferenceSid", *params.ConferenceSid)
+}
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
+if params != nil && params.Status != nil {
+    data.Set("Status", *params.Status)
+}
+if params != nil && params.CreatedAfter != nil {
+    data.Set("CreatedAfter", *params.CreatedAfter)
+}
+if params != nil && params.CreatedBefore != nil {
+    data.Set("CreatedBefore", *params.CreatedBefore)
+}
+if params != nil && params.MixerRegion != nil {
+    data.Set("MixerRegion", *params.MixerRegion)
+}
+if params != nil && params.Tags != nil {
+    data.Set("Tags", *params.Tags)
+}
+if params != nil && params.Subaccount != nil {
+    data.Set("Subaccount", *params.Subaccount)
+}
+if params != nil && params.DetectedIssues != nil {
+    data.Set("DetectedIssues", *params.DetectedIssues)
+}
+if params != nil && params.EndReason != nil {
+    data.Set("EndReason", *params.EndReason)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListConferenceResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListConferenceResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists Conference records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -224,6 +228,7 @@ func (c *ApiService) StreamConference(params *ListConferenceParams) (chan Insigh
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamConference(response *ListConferenceResponse, params *ListConferenceParams, recordChannel chan InsightsV1Conference, errorChannel chan error) {
 	curRecord := 1
 
@@ -255,19 +260,20 @@ func (c *ApiService) streamConference(response *ListConferenceResponse, params *
 }
 
 func (c *ApiService) getNextListConferenceResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListConferenceResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListConferenceResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

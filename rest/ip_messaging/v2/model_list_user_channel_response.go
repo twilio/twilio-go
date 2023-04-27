@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListUserChannelResponse struct for ListUserChannelResponse
 type ListUserChannelResponse struct {
 	Channels []IpMessagingV2UserChannel `json:"channels,omitempty"`
-	Meta     ListBindingResponseMeta    `json:"meta,omitempty"`
+	Meta ListBindingResponseMeta `json:"meta,omitempty"`
 }
+
+

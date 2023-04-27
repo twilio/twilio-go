@@ -18,91 +18,95 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Fetch a specific Event Type.
-func (c *ApiService) FetchEventType(Type string) (*EventsV1EventType, error) {
-	path := "/v1/Types/{Type}"
-	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
+func (c *ApiService) FetchEventType(Type string, ) (*EventsV1EventType, error) {
+    path := "/v1/Types/{Type}"
+        path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &EventsV1EventType{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &EventsV1EventType{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListEventType'
 type ListEventTypeParams struct {
-	// A string parameter filtering the results to return only the Event Types using a given schema.
-	SchemaId *string `json:"SchemaId,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // A string parameter filtering the results to return only the Event Types using a given schema.
+    SchemaId *string `json:"SchemaId,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListEventTypeParams) SetSchemaId(SchemaId string) *ListEventTypeParams {
-	params.SchemaId = &SchemaId
-	return params
+func (params *ListEventTypeParams) SetSchemaId(SchemaId string) (*ListEventTypeParams){
+    params.SchemaId = &SchemaId
+    return params
 }
-func (params *ListEventTypeParams) SetPageSize(PageSize int) *ListEventTypeParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListEventTypeParams) SetPageSize(PageSize int) (*ListEventTypeParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListEventTypeParams) SetLimit(Limit int) *ListEventTypeParams {
-	params.Limit = &Limit
-	return params
+func (params *ListEventTypeParams) SetLimit(Limit int) (*ListEventTypeParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of EventType records from the API. Request is executed immediately.
 func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken, pageNumber string) (*ListEventTypeResponse, error) {
-	path := "/v1/Types"
+    path := "/v1/Types"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.SchemaId != nil {
-		data.Set("SchemaId", *params.SchemaId)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.SchemaId != nil {
+    data.Set("SchemaId", *params.SchemaId)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListEventTypeResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListEventTypeResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists EventType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -143,6 +147,7 @@ func (c *ApiService) StreamEventType(params *ListEventTypeParams) (chan EventsV1
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamEventType(response *ListEventTypeResponse, params *ListEventTypeParams, recordChannel chan EventsV1EventType, errorChannel chan error) {
 	curRecord := 1
 
@@ -174,19 +179,20 @@ func (c *ApiService) streamEventType(response *ListEventTypeResponse, params *Li
 }
 
 func (c *ApiService) getNextListEventTypeResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListEventTypeResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListEventTypeResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

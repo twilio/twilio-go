@@ -13,33 +13,35 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // ContentV1LegacyContent struct for ContentV1LegacyContent
 type ContentV1LegacyContent struct {
-	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The unique string that that we created to identify the Content resource.
+		// The unique string that that we created to identify the Content resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
+		// The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A string name used to describe the Content resource. Not visible to the end recipient.
+		// A string name used to describe the Content resource. Not visible to the end recipient.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
+		// Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
 	Language *string `json:"language,omitempty"`
-	// Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
+		// Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
 	Variables *interface{} `json:"variables,omitempty"`
-	// The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
+		// The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
 	Types *interface{} `json:"types,omitempty"`
-	// The string name of the legacy content template associated with this Content resource, unique across all template names for its account.  Only lowercase letters, numbers and underscores are allowed
+		// The string name of the legacy content template associated with this Content resource, unique across all template names for its account.  Only lowercase letters, numbers and underscores are allowed
 	LegacyTemplateName *string `json:"legacy_template_name,omitempty"`
-	// The string body field of the legacy content template associated with this Content resource
+		// The string body field of the legacy content template associated with this Content resource
 	LegacyBody *string `json:"legacy_body,omitempty"`
-	// The URL of the resource, relative to `https://content.twilio.com`.
+		// The URL of the resource, relative to `https://content.twilio.com`.
 	Url *string `json:"url,omitempty"`
 }
+
+

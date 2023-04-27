@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // MessagingV1Deactivation struct for MessagingV1Deactivation
 type MessagingV1Deactivation struct {
-	// Returns an authenticated url that redirects to a file containing the deactivated numbers for the requested day. This url is valid for up to two minutes.
+		// Returns an authenticated url that redirects to a file containing the deactivated numbers for the requested day. This url is valid for up to two minutes.
 	RedirectTo *string `json:"redirect_to,omitempty"`
 }
+
+

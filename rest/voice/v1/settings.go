@@ -18,63 +18,71 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Retrieve voice dialing permissions inheritance for the sub-account
 func (c *ApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPermissionsSettings, error) {
-	path := "/v1/Settings"
+    path := "/v1/Settings"
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &VoiceV1DialingPermissionsSettings{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &VoiceV1DialingPermissionsSettings{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateDialingPermissionsSettings'
 type UpdateDialingPermissionsSettingsParams struct {
-	// `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
-	DialingPermissionsInheritance *bool `json:"DialingPermissionsInheritance,omitempty"`
+    // `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
+    DialingPermissionsInheritance *bool `json:"DialingPermissionsInheritance,omitempty"`
 }
 
-func (params *UpdateDialingPermissionsSettingsParams) SetDialingPermissionsInheritance(DialingPermissionsInheritance bool) *UpdateDialingPermissionsSettingsParams {
-	params.DialingPermissionsInheritance = &DialingPermissionsInheritance
-	return params
+func (params *UpdateDialingPermissionsSettingsParams) SetDialingPermissionsInheritance(DialingPermissionsInheritance bool) (*UpdateDialingPermissionsSettingsParams){
+    params.DialingPermissionsInheritance = &DialingPermissionsInheritance
+    return params
 }
 
 // Update voice dialing permissions inheritance for the sub-account
 func (c *ApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermissionsSettingsParams) (*VoiceV1DialingPermissionsSettings, error) {
-	path := "/v1/Settings"
+    path := "/v1/Settings"
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+if params != nil && params.DialingPermissionsInheritance != nil {
+    data.Set("DialingPermissionsInheritance", fmt.Sprint(*params.DialingPermissionsInheritance))
+}
 
-	if params != nil && params.DialingPermissionsInheritance != nil {
-		data.Set("DialingPermissionsInheritance", fmt.Sprint(*params.DialingPermissionsInheritance))
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &VoiceV1DialingPermissionsSettings{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &VoiceV1DialingPermissionsSettings{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

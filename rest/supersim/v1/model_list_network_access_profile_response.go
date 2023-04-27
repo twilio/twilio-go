@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListNetworkAccessProfileResponse struct for ListNetworkAccessProfileResponse
 type ListNetworkAccessProfileResponse struct {
 	NetworkAccessProfiles []SupersimV1NetworkAccessProfile `json:"network_access_profiles,omitempty"`
-	Meta                  ListBillingPeriodResponseMeta    `json:"meta,omitempty"`
+	Meta ListBillingPeriodResponseMeta `json:"meta,omitempty"`
 }
+
+

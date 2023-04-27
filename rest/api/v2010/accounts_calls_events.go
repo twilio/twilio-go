@@ -18,72 +18,72 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'ListCallEvent'
 type ListCallEventParams struct {
-	// The unique SID identifier of the Account.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The unique SID identifier of the Account.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListCallEventParams) SetPathAccountSid(PathAccountSid string) *ListCallEventParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *ListCallEventParams) SetPathAccountSid(PathAccountSid string) (*ListCallEventParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *ListCallEventParams) SetPageSize(PageSize int) *ListCallEventParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListCallEventParams) SetPageSize(PageSize int) (*ListCallEventParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListCallEventParams) SetLimit(Limit int) *ListCallEventParams {
-	params.Limit = &Limit
-	return params
+func (params *ListCallEventParams) SetLimit(Limit int) (*ListCallEventParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of CallEvent records from the API. Request is executed immediately.
 func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, pageToken, pageNumber string) (*ListCallEventResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
+    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
 
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListCallEventResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListCallEventResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists CallEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -124,6 +124,7 @@ func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamCallEvent(response *ListCallEventResponse, params *ListCallEventParams, recordChannel chan ApiV2010CallEvent, errorChannel chan error) {
 	curRecord := 1
 
@@ -155,19 +156,20 @@ func (c *ApiService) streamCallEvent(response *ListCallEventResponse, params *Li
 }
 
 func (c *ApiService) getNextListCallEventResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListCallEventResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListCallEventResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

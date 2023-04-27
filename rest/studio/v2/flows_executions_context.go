@@ -16,30 +16,36 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Retrieve the most recent context for an Execution.
-func (c *ApiService) FetchExecutionContext(FlowSid string, ExecutionSid string) (*StudioV2ExecutionContext, error) {
-	path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context"
-	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
-	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
+func (c *ApiService) FetchExecutionContext(FlowSid string, ExecutionSid string, ) (*StudioV2ExecutionContext, error) {
+    path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context"
+        path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+    path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &StudioV2ExecutionContext{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &StudioV2ExecutionContext{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

@@ -16,29 +16,35 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Fetch a Content resource's approval status by its unique Content Sid
-func (c *ApiService) FetchApprovalFetch(Sid string) (*ContentV1ApprovalFetch, error) {
-	path := "/v1/Content/{Sid}/ApprovalRequests"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchApprovalFetch(Sid string, ) (*ContentV1ApprovalFetch, error) {
+    path := "/v1/Content/{Sid}/ApprovalRequests"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ContentV1ApprovalFetch{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &ContentV1ApprovalFetch{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

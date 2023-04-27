@@ -13,39 +13,41 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MediaV1MediaRecording struct for MediaV1MediaRecording
 type MediaV1MediaRecording struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaRecording resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaRecording resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The duration of the MediaRecording in seconds.
-	Duration *int    `json:"duration,omitempty"`
-	Format   *string `json:"format,omitempty"`
-	// The URLs of related resources.
+		// The duration of the MediaRecording in seconds.
+	Duration *int `json:"duration,omitempty"`
+	Format *string `json:"format,omitempty"`
+		// The URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
-	// The SID of the MediaProcessor resource which produced the MediaRecording.
+		// The SID of the MediaProcessor resource which produced the MediaRecording.
 	ProcessorSid *string `json:"processor_sid,omitempty"`
-	// The dimensions of the video image in pixels expressed as columns (width) and rows (height).
+		// The dimensions of the video image in pixels expressed as columns (width) and rows (height).
 	Resolution *string `json:"resolution,omitempty"`
-	// The SID of the resource that generated the original media track(s) of the MediaRecording.
+		// The SID of the resource that generated the original media track(s) of the MediaRecording.
 	SourceSid *string `json:"source_sid,omitempty"`
-	// The unique string generated to identify the MediaRecording resource.
+		// The unique string generated to identify the MediaRecording resource.
 	Sid *string `json:"sid,omitempty"`
-	// The size of the recording media in bytes.
-	MediaSize *int64  `json:"media_size,omitempty"`
-	Status    *string `json:"status,omitempty"`
-	// The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+		// The size of the recording media in bytes.
+	MediaSize *int64 `json:"media_size,omitempty"`
+	Status *string `json:"status,omitempty"`
+		// The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
 	StatusCallback *string `json:"status_callback,omitempty"`
-	// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+		// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
 	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

@@ -13,13 +13,18 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // PricingV1MessagingCountry struct for PricingV1MessagingCountry
 type PricingV1MessagingCountry struct {
-	// The name of the country.
+		// The name of the country.
 	Country *string `json:"country,omitempty"`
-	// The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+		// The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 	IsoCountry *string `json:"iso_country,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

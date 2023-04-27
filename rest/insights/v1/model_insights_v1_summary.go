@@ -13,34 +13,36 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // InsightsV1Summary struct for InsightsV1Summary
 type InsightsV1Summary struct {
-	AccountSid      *string      `json:"account_sid,omitempty"`
-	CallSid         *string      `json:"call_sid,omitempty"`
-	CallType        *string      `json:"call_type,omitempty"`
-	CallState       *string      `json:"call_state,omitempty"`
-	AnsweredBy      *string      `json:"answered_by,omitempty"`
-	ProcessingState *string      `json:"processing_state,omitempty"`
-	CreatedTime     *time.Time   `json:"created_time,omitempty"`
-	StartTime       *time.Time   `json:"start_time,omitempty"`
-	EndTime         *time.Time   `json:"end_time,omitempty"`
-	Duration        *int         `json:"duration,omitempty"`
-	ConnectDuration *int         `json:"connect_duration,omitempty"`
-	From            *interface{} `json:"from,omitempty"`
-	To              *interface{} `json:"to,omitempty"`
-	CarrierEdge     *interface{} `json:"carrier_edge,omitempty"`
-	ClientEdge      *interface{} `json:"client_edge,omitempty"`
-	SdkEdge         *interface{} `json:"sdk_edge,omitempty"`
-	SipEdge         *interface{} `json:"sip_edge,omitempty"`
-	Tags            *[]string    `json:"tags,omitempty"`
-	Url             *string      `json:"url,omitempty"`
-	Attributes      *interface{} `json:"attributes,omitempty"`
-	Properties      *interface{} `json:"properties,omitempty"`
-	Trust           *interface{} `json:"trust,omitempty"`
-	Annotation      *interface{} `json:"annotation,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
+	CallSid *string `json:"call_sid,omitempty"`
+	CallType *string `json:"call_type,omitempty"`
+	CallState *string `json:"call_state,omitempty"`
+	AnsweredBy *string `json:"answered_by,omitempty"`
+	ProcessingState *string `json:"processing_state,omitempty"`
+	CreatedTime *time.Time `json:"created_time,omitempty"`
+	StartTime *time.Time `json:"start_time,omitempty"`
+	EndTime *time.Time `json:"end_time,omitempty"`
+	Duration *int `json:"duration,omitempty"`
+	ConnectDuration *int `json:"connect_duration,omitempty"`
+	From *interface{} `json:"from,omitempty"`
+	To *interface{} `json:"to,omitempty"`
+	CarrierEdge *interface{} `json:"carrier_edge,omitempty"`
+	ClientEdge *interface{} `json:"client_edge,omitempty"`
+	SdkEdge *interface{} `json:"sdk_edge,omitempty"`
+	SipEdge *interface{} `json:"sip_edge,omitempty"`
+	Tags *[]string `json:"tags,omitempty"`
+	Url *string `json:"url,omitempty"`
+	Attributes *interface{} `json:"attributes,omitempty"`
+	Properties *interface{} `json:"properties,omitempty"`
+	Trust *interface{} `json:"trust,omitempty"`
+	Annotation *interface{} `json:"annotation,omitempty"`
 }
+
+

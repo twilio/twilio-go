@@ -13,25 +13,22 @@
  */
 
 package openapi
-
 import (
 	"encoding/json"
-
 	"github.com/twilio/twilio-go/client"
 )
-
 // PricingV2TrunkingCountryInstanceOriginatingCallPrices struct for PricingV2TrunkingCountryInstanceOriginatingCallPrices
 type PricingV2TrunkingCountryInstanceOriginatingCallPrices struct {
-	BasePrice    float32 `json:"base_price,omitempty"`
+	BasePrice float32 `json:"base_price,omitempty"`
 	CurrentPrice float32 `json:"current_price,omitempty"`
-	NumberType   string  `json:"number_type,omitempty"`
+	NumberType string `json:"number_type,omitempty"`
 }
 
 func (response *PricingV2TrunkingCountryInstanceOriginatingCallPrices) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		BasePrice    interface{} `json:"base_price"`
+		BasePrice interface{} `json:"base_price"`
 		CurrentPrice interface{} `json:"current_price"`
-		NumberType   string      `json:"number_type"`
+		NumberType string `json:"number_type"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -56,3 +53,4 @@ func (response *PricingV2TrunkingCountryInstanceOriginatingCallPrices) Unmarshal
 
 	return
 }
+

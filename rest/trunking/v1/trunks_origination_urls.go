@@ -18,178 +18,186 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateOriginationUrl'
 type CreateOriginationUrlParams struct {
-	// The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
-	Weight *int `json:"Weight,omitempty"`
-	// The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
-	Priority *int `json:"Priority,omitempty"`
-	// Whether the URL is enabled. The default is `true`.
-	Enabled *bool `json:"Enabled,omitempty"`
-	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
-	SipUrl *string `json:"SipUrl,omitempty"`
+    // The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+    Weight *int `json:"Weight,omitempty"`
+    // The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+    Priority *int `json:"Priority,omitempty"`
+    // Whether the URL is enabled. The default is `true`.
+    Enabled *bool `json:"Enabled,omitempty"`
+    // A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
+    // The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
+    SipUrl *string `json:"SipUrl,omitempty"`
 }
 
-func (params *CreateOriginationUrlParams) SetWeight(Weight int) *CreateOriginationUrlParams {
-	params.Weight = &Weight
-	return params
+func (params *CreateOriginationUrlParams) SetWeight(Weight int) (*CreateOriginationUrlParams){
+    params.Weight = &Weight
+    return params
 }
-func (params *CreateOriginationUrlParams) SetPriority(Priority int) *CreateOriginationUrlParams {
-	params.Priority = &Priority
-	return params
+func (params *CreateOriginationUrlParams) SetPriority(Priority int) (*CreateOriginationUrlParams){
+    params.Priority = &Priority
+    return params
 }
-func (params *CreateOriginationUrlParams) SetEnabled(Enabled bool) *CreateOriginationUrlParams {
-	params.Enabled = &Enabled
-	return params
+func (params *CreateOriginationUrlParams) SetEnabled(Enabled bool) (*CreateOriginationUrlParams){
+    params.Enabled = &Enabled
+    return params
 }
-func (params *CreateOriginationUrlParams) SetFriendlyName(FriendlyName string) *CreateOriginationUrlParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *CreateOriginationUrlParams) SetFriendlyName(FriendlyName string) (*CreateOriginationUrlParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
-func (params *CreateOriginationUrlParams) SetSipUrl(SipUrl string) *CreateOriginationUrlParams {
-	params.SipUrl = &SipUrl
-	return params
+func (params *CreateOriginationUrlParams) SetSipUrl(SipUrl string) (*CreateOriginationUrlParams){
+    params.SipUrl = &SipUrl
+    return params
 }
 
-//
+// 
 func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
-	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
-	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+    path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
+        path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.Weight != nil {
-		data.Set("Weight", fmt.Sprint(*params.Weight))
-	}
-	if params != nil && params.Priority != nil {
-		data.Set("Priority", fmt.Sprint(*params.Priority))
-	}
-	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", fmt.Sprint(*params.Enabled))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.SipUrl != nil {
-		data.Set("SipUrl", *params.SipUrl)
-	}
-
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &TrunkingV1OriginationUrl{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+if params != nil && params.Weight != nil {
+    data.Set("Weight", fmt.Sprint(*params.Weight))
+}
+if params != nil && params.Priority != nil {
+    data.Set("Priority", fmt.Sprint(*params.Priority))
+}
+if params != nil && params.Enabled != nil {
+    data.Set("Enabled", fmt.Sprint(*params.Enabled))
+}
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
+if params != nil && params.SipUrl != nil {
+    data.Set("SipUrl", *params.SipUrl)
 }
 
-//
-func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
-	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
-	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	return nil
+    ps := &TrunkingV1OriginationUrl{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
-//
-func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*TrunkingV1OriginationUrl, error) {
-	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
-	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+// 
+func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string, ) (error) {
+    path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
+        path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &TrunkingV1OriginationUrl{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
+}
+
+// 
+func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string, ) (*TrunkingV1OriginationUrl, error) {
+    path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
+        path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+data := url.Values{}
+headers := make(map[string]interface{})
+
+
+
+
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &TrunkingV1OriginationUrl{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListOriginationUrl'
 type ListOriginationUrlParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListOriginationUrlParams) SetPageSize(PageSize int) *ListOriginationUrlParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListOriginationUrlParams) SetPageSize(PageSize int) (*ListOriginationUrlParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListOriginationUrlParams) SetLimit(Limit int) *ListOriginationUrlParams {
-	params.Limit = &Limit
-	return params
+func (params *ListOriginationUrlParams) SetLimit(Limit int) (*ListOriginationUrlParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of OriginationUrl records from the API. Request is executed immediately.
 func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, pageToken, pageNumber string) (*ListOriginationUrlResponse, error) {
-	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
+    path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 
-	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+        path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListOriginationUrlResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListOriginationUrlResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists OriginationUrl records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -230,6 +238,7 @@ func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginati
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamOriginationUrl(response *ListOriginationUrlResponse, params *ListOriginationUrlParams, recordChannel chan TrunkingV1OriginationUrl, errorChannel chan error) {
 	curRecord := 1
 
@@ -261,94 +270,97 @@ func (c *ApiService) streamOriginationUrl(response *ListOriginationUrlResponse, 
 }
 
 func (c *ApiService) getNextListOriginationUrlResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListOriginationUrlResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListOriginationUrlResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateOriginationUrl'
 type UpdateOriginationUrlParams struct {
-	// The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
-	Weight *int `json:"Weight,omitempty"`
-	// The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
-	Priority *int `json:"Priority,omitempty"`
-	// Whether the URL is enabled. The default is `true`.
-	Enabled *bool `json:"Enabled,omitempty"`
-	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
-	SipUrl *string `json:"SipUrl,omitempty"`
+    // The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+    Weight *int `json:"Weight,omitempty"`
+    // The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+    Priority *int `json:"Priority,omitempty"`
+    // Whether the URL is enabled. The default is `true`.
+    Enabled *bool `json:"Enabled,omitempty"`
+    // A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
+    // The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
+    SipUrl *string `json:"SipUrl,omitempty"`
 }
 
-func (params *UpdateOriginationUrlParams) SetWeight(Weight int) *UpdateOriginationUrlParams {
-	params.Weight = &Weight
-	return params
+func (params *UpdateOriginationUrlParams) SetWeight(Weight int) (*UpdateOriginationUrlParams){
+    params.Weight = &Weight
+    return params
 }
-func (params *UpdateOriginationUrlParams) SetPriority(Priority int) *UpdateOriginationUrlParams {
-	params.Priority = &Priority
-	return params
+func (params *UpdateOriginationUrlParams) SetPriority(Priority int) (*UpdateOriginationUrlParams){
+    params.Priority = &Priority
+    return params
 }
-func (params *UpdateOriginationUrlParams) SetEnabled(Enabled bool) *UpdateOriginationUrlParams {
-	params.Enabled = &Enabled
-	return params
+func (params *UpdateOriginationUrlParams) SetEnabled(Enabled bool) (*UpdateOriginationUrlParams){
+    params.Enabled = &Enabled
+    return params
 }
-func (params *UpdateOriginationUrlParams) SetFriendlyName(FriendlyName string) *UpdateOriginationUrlParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *UpdateOriginationUrlParams) SetFriendlyName(FriendlyName string) (*UpdateOriginationUrlParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
-func (params *UpdateOriginationUrlParams) SetSipUrl(SipUrl string) *UpdateOriginationUrlParams {
-	params.SipUrl = &SipUrl
-	return params
+func (params *UpdateOriginationUrlParams) SetSipUrl(SipUrl string) (*UpdateOriginationUrlParams){
+    params.SipUrl = &SipUrl
+    return params
 }
 
-//
+// 
 func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *UpdateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
-	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
-	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
+        path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.Weight != nil {
-		data.Set("Weight", fmt.Sprint(*params.Weight))
-	}
-	if params != nil && params.Priority != nil {
-		data.Set("Priority", fmt.Sprint(*params.Priority))
-	}
-	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", fmt.Sprint(*params.Enabled))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.SipUrl != nil {
-		data.Set("SipUrl", *params.SipUrl)
-	}
+if params != nil && params.Weight != nil {
+    data.Set("Weight", fmt.Sprint(*params.Weight))
+}
+if params != nil && params.Priority != nil {
+    data.Set("Priority", fmt.Sprint(*params.Priority))
+}
+if params != nil && params.Enabled != nil {
+    data.Set("Enabled", fmt.Sprint(*params.Enabled))
+}
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
+if params != nil && params.SipUrl != nil {
+    data.Set("SipUrl", *params.SipUrl)
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &TrunkingV1OriginationUrl{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &TrunkingV1OriginationUrl{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

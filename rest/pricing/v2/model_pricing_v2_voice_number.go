@@ -13,22 +13,27 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // PricingV2VoiceNumber struct for PricingV2VoiceNumber
 type PricingV2VoiceNumber struct {
-	// The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+		// The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
 	DestinationNumber *string `json:"destination_number,omitempty"`
-	// The origination phone number in [[E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+		// The origination phone number in [[E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
 	OriginationNumber *string `json:"origination_number,omitempty"`
-	// The name of the country.
+		// The name of the country.
 	Country *string `json:"country,omitempty"`
-	// The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+		// The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 	IsoCountry *string `json:"iso_country,omitempty"`
-	// The list of [OutboundCallPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-call-price-with-origin) records.
+		// The list of [OutboundCallPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-call-price-with-origin) records.
 	OutboundCallPrices *[]PricingV2VoiceVoiceNumberOutboundCallPrices `json:"outbound_call_prices,omitempty"`
-	InboundCallPrice   *PricingV2VoiceVoiceNumberInboundCallPrice     `json:"inbound_call_price,omitempty"`
-	// The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
+	InboundCallPrice *PricingV2VoiceVoiceNumberInboundCallPrice `json:"inbound_call_price,omitempty"`
+		// The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
 	PriceUnit *string `json:"price_unit,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

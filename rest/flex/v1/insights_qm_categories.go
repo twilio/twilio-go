@@ -18,145 +18,149 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateInsightsQuestionnairesCategory'
 type CreateInsightsQuestionnairesCategoryParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
-	// The name of this category.
-	Name *string `json:"Name,omitempty"`
+    // The Token HTTP request header
+    Token *string `json:"Token,omitempty"`
+    // The name of this category.
+    Name *string `json:"Name,omitempty"`
 }
 
-func (params *CreateInsightsQuestionnairesCategoryParams) SetToken(Token string) *CreateInsightsQuestionnairesCategoryParams {
-	params.Token = &Token
-	return params
+func (params *CreateInsightsQuestionnairesCategoryParams) SetToken(Token string) (*CreateInsightsQuestionnairesCategoryParams){
+    params.Token = &Token
+    return params
 }
-func (params *CreateInsightsQuestionnairesCategoryParams) SetName(Name string) *CreateInsightsQuestionnairesCategoryParams {
-	params.Name = &Name
-	return params
+func (params *CreateInsightsQuestionnairesCategoryParams) SetName(Name string) (*CreateInsightsQuestionnairesCategoryParams){
+    params.Name = &Name
+    return params
 }
 
 // To create a category for Questions
 func (c *ApiService) CreateInsightsQuestionnairesCategory(params *CreateInsightsQuestionnairesCategoryParams) (*FlexV1InsightsQuestionnairesCategory, error) {
-	path := "/v1/Insights/QM/Categories"
+    path := "/v1/Insights/QM/Categories"
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+if params != nil && params.Name != nil {
+    data.Set("Name", *params.Name)
+}
 
-	if params != nil && params.Name != nil {
-		data.Set("Name", *params.Name)
-	}
 
 	if params != nil && params.Token != nil {
 		headers["Token"] = *params.Token
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1InsightsQuestionnairesCategory{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1InsightsQuestionnairesCategory{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Optional parameters for the method 'DeleteInsightsQuestionnairesCategory'
 type DeleteInsightsQuestionnairesCategoryParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+    // The Token HTTP request header
+    Token *string `json:"Token,omitempty"`
 }
 
-func (params *DeleteInsightsQuestionnairesCategoryParams) SetToken(Token string) *DeleteInsightsQuestionnairesCategoryParams {
-	params.Token = &Token
-	return params
+func (params *DeleteInsightsQuestionnairesCategoryParams) SetToken(Token string) (*DeleteInsightsQuestionnairesCategoryParams){
+    params.Token = &Token
+    return params
 }
 
-//
-func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategoryId string, params *DeleteInsightsQuestionnairesCategoryParams) error {
-	path := "/v1/Insights/QM/Categories/{CategoryId}"
-	path = strings.Replace(path, "{"+"CategoryId"+"}", CategoryId, -1)
+// 
+func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategoryId string, params *DeleteInsightsQuestionnairesCategoryParams) (error) {
+    path := "/v1/Insights/QM/Categories/{CategoryId}"
+        path = strings.Replace(path, "{"+"CategoryId"+"}", CategoryId, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
+
+
 
 	if params != nil && params.Token != nil {
 		headers["Token"] = *params.Token
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	return nil
+    return nil
 }
 
 // Optional parameters for the method 'ListInsightsQuestionnairesCategory'
 type ListInsightsQuestionnairesCategoryParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The Token HTTP request header
+    Token *string `json:"Token,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsQuestionnairesCategoryParams) SetToken(Token string) *ListInsightsQuestionnairesCategoryParams {
-	params.Token = &Token
-	return params
+func (params *ListInsightsQuestionnairesCategoryParams) SetToken(Token string) (*ListInsightsQuestionnairesCategoryParams){
+    params.Token = &Token
+    return params
 }
-func (params *ListInsightsQuestionnairesCategoryParams) SetPageSize(PageSize int) *ListInsightsQuestionnairesCategoryParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListInsightsQuestionnairesCategoryParams) SetPageSize(PageSize int) (*ListInsightsQuestionnairesCategoryParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListInsightsQuestionnairesCategoryParams) SetLimit(Limit int) *ListInsightsQuestionnairesCategoryParams {
-	params.Limit = &Limit
-	return params
+func (params *ListInsightsQuestionnairesCategoryParams) SetLimit(Limit int) (*ListInsightsQuestionnairesCategoryParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of InsightsQuestionnairesCategory records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsQuestionnairesCategory(params *ListInsightsQuestionnairesCategoryParams, pageToken, pageNumber string) (*ListInsightsQuestionnairesCategoryResponse, error) {
-	path := "/v1/Insights/QM/Categories"
+    path := "/v1/Insights/QM/Categories"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInsightsQuestionnairesCategoryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListInsightsQuestionnairesCategoryResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists InsightsQuestionnairesCategory records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -197,6 +201,7 @@ func (c *ApiService) StreamInsightsQuestionnairesCategory(params *ListInsightsQu
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamInsightsQuestionnairesCategory(response *ListInsightsQuestionnairesCategoryResponse, params *ListInsightsQuestionnairesCategoryParams, recordChannel chan FlexV1InsightsQuestionnairesCategory, errorChannel chan error) {
 	curRecord := 1
 
@@ -228,67 +233,69 @@ func (c *ApiService) streamInsightsQuestionnairesCategory(response *ListInsights
 }
 
 func (c *ApiService) getNextListInsightsQuestionnairesCategoryResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInsightsQuestionnairesCategoryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListInsightsQuestionnairesCategoryResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateInsightsQuestionnairesCategory'
 type UpdateInsightsQuestionnairesCategoryParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
-	// The name of this category.
-	Name *string `json:"Name,omitempty"`
+    // The Token HTTP request header
+    Token *string `json:"Token,omitempty"`
+    // The name of this category.
+    Name *string `json:"Name,omitempty"`
 }
 
-func (params *UpdateInsightsQuestionnairesCategoryParams) SetToken(Token string) *UpdateInsightsQuestionnairesCategoryParams {
-	params.Token = &Token
-	return params
+func (params *UpdateInsightsQuestionnairesCategoryParams) SetToken(Token string) (*UpdateInsightsQuestionnairesCategoryParams){
+    params.Token = &Token
+    return params
 }
-func (params *UpdateInsightsQuestionnairesCategoryParams) SetName(Name string) *UpdateInsightsQuestionnairesCategoryParams {
-	params.Name = &Name
-	return params
+func (params *UpdateInsightsQuestionnairesCategoryParams) SetName(Name string) (*UpdateInsightsQuestionnairesCategoryParams){
+    params.Name = &Name
+    return params
 }
 
 // To update the category for Questions
 func (c *ApiService) UpdateInsightsQuestionnairesCategory(CategoryId string, params *UpdateInsightsQuestionnairesCategoryParams) (*FlexV1InsightsQuestionnairesCategory, error) {
-	path := "/v1/Insights/QM/Categories/{CategoryId}"
-	path = strings.Replace(path, "{"+"CategoryId"+"}", CategoryId, -1)
+    path := "/v1/Insights/QM/Categories/{CategoryId}"
+        path = strings.Replace(path, "{"+"CategoryId"+"}", CategoryId, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.Name != nil {
-		data.Set("Name", *params.Name)
-	}
+if params != nil && params.Name != nil {
+    data.Set("Name", *params.Name)
+}
+
 
 	if params != nil && params.Token != nil {
 		headers["Token"] = *params.Token
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1InsightsQuestionnairesCategory{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1InsightsQuestionnairesCategory{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }

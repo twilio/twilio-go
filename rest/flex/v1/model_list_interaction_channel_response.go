@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListInteractionChannelResponse struct for ListInteractionChannelResponse
 type ListInteractionChannelResponse struct {
 	Channels []FlexV1InteractionChannel `json:"channels,omitempty"`
-	Meta     ListChannelResponseMeta    `json:"meta,omitempty"`
+	Meta ListChannelResponseMeta `json:"meta,omitempty"`
 }
+
+

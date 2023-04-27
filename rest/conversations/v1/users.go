@@ -18,189 +18,196 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateUser'
 type CreateUserParams struct {
-	// The X-Twilio-Webhook-Enabled HTTP request header
-	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	// The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
-	Identity *string `json:"Identity,omitempty"`
-	// The string that you assigned to describe the resource.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-	Attributes *string `json:"Attributes,omitempty"`
-	// The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-	RoleSid *string `json:"RoleSid,omitempty"`
+    // The X-Twilio-Webhook-Enabled HTTP request header
+    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+    // The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
+    Identity *string `json:"Identity,omitempty"`
+    // The string that you assigned to describe the resource.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
+    // The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+    Attributes *string `json:"Attributes,omitempty"`
+    // The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+    RoleSid *string `json:"RoleSid,omitempty"`
 }
 
-func (params *CreateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateUserParams {
-	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
-	return params
+func (params *CreateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) (*CreateUserParams){
+    params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+    return params
 }
-func (params *CreateUserParams) SetIdentity(Identity string) *CreateUserParams {
-	params.Identity = &Identity
-	return params
+func (params *CreateUserParams) SetIdentity(Identity string) (*CreateUserParams){
+    params.Identity = &Identity
+    return params
 }
-func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUserParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *CreateUserParams) SetFriendlyName(FriendlyName string) (*CreateUserParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
-func (params *CreateUserParams) SetAttributes(Attributes string) *CreateUserParams {
-	params.Attributes = &Attributes
-	return params
+func (params *CreateUserParams) SetAttributes(Attributes string) (*CreateUserParams){
+    params.Attributes = &Attributes
+    return params
 }
-func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
-	params.RoleSid = &RoleSid
-	return params
+func (params *CreateUserParams) SetRoleSid(RoleSid string) (*CreateUserParams){
+    params.RoleSid = &RoleSid
+    return params
 }
 
 // Add a new conversation user to your account's default service
 func (c *ApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User, error) {
-	path := "/v1/Users"
+    path := "/v1/Users"
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+if params != nil && params.Identity != nil {
+    data.Set("Identity", *params.Identity)
+}
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
+if params != nil && params.Attributes != nil {
+    data.Set("Attributes", *params.Attributes)
+}
+if params != nil && params.RoleSid != nil {
+    data.Set("RoleSid", *params.RoleSid)
+}
 
-	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
-	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
-	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ConversationsV1User{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ConversationsV1User{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Optional parameters for the method 'DeleteUser'
 type DeleteUserParams struct {
-	// The X-Twilio-Webhook-Enabled HTTP request header
-	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+    // The X-Twilio-Webhook-Enabled HTTP request header
+    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
-func (params *DeleteUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteUserParams {
-	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
-	return params
+func (params *DeleteUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) (*DeleteUserParams){
+    params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+    return params
 }
 
 // Remove a conversation user from your account's default service
-func (c *ApiService) DeleteUser(Sid string, params *DeleteUserParams) error {
-	path := "/v1/Users/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteUser(Sid string, params *DeleteUserParams) (error) {
+    path := "/v1/Users/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
+
+
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	return nil
+    return nil
 }
 
 // Fetch a conversation user from your account's default service
-func (c *ApiService) FetchUser(Sid string) (*ConversationsV1User, error) {
-	path := "/v1/Users/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchUser(Sid string, ) (*ConversationsV1User, error) {
+    path := "/v1/Users/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ConversationsV1User{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &ConversationsV1User{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListUser'
 type ListUserParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListUserParams) SetPageSize(PageSize int) *ListUserParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListUserParams) SetPageSize(PageSize int) (*ListUserParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListUserParams) SetLimit(Limit int) *ListUserParams {
-	params.Limit = &Limit
-	return params
+func (params *ListUserParams) SetLimit(Limit int) (*ListUserParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of User records from the API. Request is executed immediately.
 func (c *ApiService) PageUser(params *ListUserParams, pageToken, pageNumber string) (*ListUserResponse, error) {
-	path := "/v1/Users"
+    path := "/v1/Users"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListUserResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListUserResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -241,6 +248,7 @@ func (c *ApiService) StreamUser(params *ListUserParams) (chan ConversationsV1Use
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamUser(response *ListUserResponse, params *ListUserParams, recordChannel chan ConversationsV1User, errorChannel chan error) {
 	curRecord := 1
 
@@ -272,85 +280,87 @@ func (c *ApiService) streamUser(response *ListUserResponse, params *ListUserPara
 }
 
 func (c *ApiService) getNextListUserResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListUserResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListUserResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateUser'
 type UpdateUserParams struct {
-	// The X-Twilio-Webhook-Enabled HTTP request header
-	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	// The string that you assigned to describe the resource.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-	Attributes *string `json:"Attributes,omitempty"`
-	// The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-	RoleSid *string `json:"RoleSid,omitempty"`
+    // The X-Twilio-Webhook-Enabled HTTP request header
+    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+    // The string that you assigned to describe the resource.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
+    // The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+    Attributes *string `json:"Attributes,omitempty"`
+    // The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+    RoleSid *string `json:"RoleSid,omitempty"`
 }
 
-func (params *UpdateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateUserParams {
-	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
-	return params
+func (params *UpdateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) (*UpdateUserParams){
+    params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+    return params
 }
-func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUserParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) (*UpdateUserParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
-func (params *UpdateUserParams) SetAttributes(Attributes string) *UpdateUserParams {
-	params.Attributes = &Attributes
-	return params
+func (params *UpdateUserParams) SetAttributes(Attributes string) (*UpdateUserParams){
+    params.Attributes = &Attributes
+    return params
 }
-func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
-	params.RoleSid = &RoleSid
-	return params
+func (params *UpdateUserParams) SetRoleSid(RoleSid string) (*UpdateUserParams){
+    params.RoleSid = &RoleSid
+    return params
 }
 
 // Update an existing conversation user in your account's default service
 func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*ConversationsV1User, error) {
-	path := "/v1/Users/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/Users/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
-	}
-	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
-	}
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
+if params != nil && params.Attributes != nil {
+    data.Set("Attributes", *params.Attributes)
+}
+if params != nil && params.RoleSid != nil {
+    data.Set("RoleSid", *params.RoleSid)
+}
+
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ConversationsV1User{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ConversationsV1User{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }

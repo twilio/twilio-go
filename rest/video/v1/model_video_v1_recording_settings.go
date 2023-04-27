@@ -13,23 +13,28 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // VideoV1RecordingSettings struct for VideoV1RecordingSettings
 type VideoV1RecordingSettings struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RecordingSettings resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RecordingSettings resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The string that you assigned to describe the resource and show the user in the console
+		// The string that you assigned to describe the resource and show the user in the console
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The SID of the stored Credential resource.
+		// The SID of the stored Credential resource.
 	AwsCredentialsSid *string `json:"aws_credentials_sid,omitempty"`
-	// The URL of the AWS S3 bucket where the recordings are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+		// The URL of the AWS S3 bucket where the recordings are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
 	AwsS3Url *string `json:"aws_s3_url,omitempty"`
-	// Whether all recordings are written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
+		// Whether all recordings are written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
 	AwsStorageEnabled *bool `json:"aws_storage_enabled,omitempty"`
-	// The SID of the Public Key resource used for encryption.
+		// The SID of the Public Key resource used for encryption.
 	EncryptionKeySid *string `json:"encryption_key_sid,omitempty"`
-	// Whether all recordings are stored in an encrypted form. The default is `false`.
+		// Whether all recordings are stored in an encrypted form. The default is `false`.
 	EncryptionEnabled *bool `json:"encryption_enabled,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

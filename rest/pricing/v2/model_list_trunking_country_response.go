@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListTrunkingCountryResponse struct for ListTrunkingCountryResponse
 type ListTrunkingCountryResponse struct {
-	Countries []PricingV2TrunkingCountry      `json:"countries,omitempty"`
-	Meta      ListTrunkingCountryResponseMeta `json:"meta,omitempty"`
+	Countries []PricingV2TrunkingCountry `json:"countries,omitempty"`
+	Meta ListTrunkingCountryResponseMeta `json:"meta,omitempty"`
 }
+
+

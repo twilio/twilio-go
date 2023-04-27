@@ -16,69 +16,77 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Fetch flow test users
-func (c *ApiService) FetchTestUser(Sid string) (*StudioV2TestUser, error) {
-	path := "/v2/Flows/{Sid}/TestUsers"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchTestUser(Sid string, ) (*StudioV2TestUser, error) {
+    path := "/v2/Flows/{Sid}/TestUsers"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &StudioV2TestUser{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &StudioV2TestUser{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateTestUser'
 type UpdateTestUserParams struct {
-	// List of test user identities that can test draft versions of the flow.
-	TestUsers *[]string `json:"TestUsers,omitempty"`
+    // List of test user identities that can test draft versions of the flow.
+    TestUsers *[]string `json:"TestUsers,omitempty"`
 }
 
-func (params *UpdateTestUserParams) SetTestUsers(TestUsers []string) *UpdateTestUserParams {
-	params.TestUsers = &TestUsers
-	return params
+func (params *UpdateTestUserParams) SetTestUsers(TestUsers []string) (*UpdateTestUserParams){
+    params.TestUsers = &TestUsers
+    return params
 }
 
 // Update flow test users
 func (c *ApiService) UpdateTestUser(Sid string, params *UpdateTestUserParams) (*StudioV2TestUser, error) {
-	path := "/v2/Flows/{Sid}/TestUsers"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v2/Flows/{Sid}/TestUsers"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.TestUsers != nil {
-		for _, item := range *params.TestUsers {
-			data.Add("TestUsers", item)
-		}
-	}
+if params != nil && params.TestUsers != nil {
+    for _, item  := range *params.TestUsers {
+        data.Add("TestUsers", item)
+    }
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &StudioV2TestUser{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &StudioV2TestUser{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

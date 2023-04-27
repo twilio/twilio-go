@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListFlexFlowResponse struct for ListFlexFlowResponse
 type ListFlexFlowResponse struct {
-	FlexFlows []FlexV1FlexFlow        `json:"flex_flows,omitempty"`
-	Meta      ListChannelResponseMeta `json:"meta,omitempty"`
+	FlexFlows []FlexV1FlexFlow `json:"flex_flows,omitempty"`
+	Meta ListChannelResponseMeta `json:"meta,omitempty"`
 }
+
+

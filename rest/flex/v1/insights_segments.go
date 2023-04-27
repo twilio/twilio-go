@@ -18,114 +18,117 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchInsightsSegments'
 type FetchInsightsSegmentsParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+    // The Token HTTP request header
+    Token *string `json:"Token,omitempty"`
 }
 
-func (params *FetchInsightsSegmentsParams) SetToken(Token string) *FetchInsightsSegmentsParams {
-	params.Token = &Token
-	return params
+func (params *FetchInsightsSegmentsParams) SetToken(Token string) (*FetchInsightsSegmentsParams){
+    params.Token = &Token
+    return params
 }
 
 // To get the Segments of an Account
 func (c *ApiService) FetchInsightsSegments(SegmentId string, params *FetchInsightsSegmentsParams) (*FlexV1InsightsSegments, error) {
-	path := "/v1/Insights/Segments/{SegmentId}"
-	path = strings.Replace(path, "{"+"SegmentId"+"}", SegmentId, -1)
+    path := "/v1/Insights/Segments/{SegmentId}"
+        path = strings.Replace(path, "{"+"SegmentId"+"}", SegmentId, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
+
+
 
 	if params != nil && params.Token != nil {
 		headers["Token"] = *params.Token
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1InsightsSegments{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1InsightsSegments{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Optional parameters for the method 'ListInsightsSegments'
 type ListInsightsSegmentsParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
-	// The list of reservation Ids
-	ReservationId *[]string `json:"ReservationId,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The Token HTTP request header
+    Token *string `json:"Token,omitempty"`
+    // The list of reservation Ids
+    ReservationId *[]string `json:"ReservationId,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsSegmentsParams) SetToken(Token string) *ListInsightsSegmentsParams {
-	params.Token = &Token
-	return params
+func (params *ListInsightsSegmentsParams) SetToken(Token string) (*ListInsightsSegmentsParams){
+    params.Token = &Token
+    return params
 }
-func (params *ListInsightsSegmentsParams) SetReservationId(ReservationId []string) *ListInsightsSegmentsParams {
-	params.ReservationId = &ReservationId
-	return params
+func (params *ListInsightsSegmentsParams) SetReservationId(ReservationId []string) (*ListInsightsSegmentsParams){
+    params.ReservationId = &ReservationId
+    return params
 }
-func (params *ListInsightsSegmentsParams) SetPageSize(PageSize int) *ListInsightsSegmentsParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListInsightsSegmentsParams) SetPageSize(PageSize int) (*ListInsightsSegmentsParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListInsightsSegmentsParams) SetLimit(Limit int) *ListInsightsSegmentsParams {
-	params.Limit = &Limit
-	return params
+func (params *ListInsightsSegmentsParams) SetLimit(Limit int) (*ListInsightsSegmentsParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of InsightsSegments records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsSegments(params *ListInsightsSegmentsParams, pageToken, pageNumber string) (*ListInsightsSegmentsResponse, error) {
-	path := "/v1/Insights/Segments"
+    path := "/v1/Insights/Segments"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.ReservationId != nil {
-		for _, item := range *params.ReservationId {
-			data.Add("ReservationId", item)
-		}
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.ReservationId != nil {
+    for _, item  := range *params.ReservationId {
+        data.Add("ReservationId", item)
+    }
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInsightsSegmentsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListInsightsSegmentsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists InsightsSegments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -166,6 +169,7 @@ func (c *ApiService) StreamInsightsSegments(params *ListInsightsSegmentsParams) 
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamInsightsSegments(response *ListInsightsSegmentsResponse, params *ListInsightsSegmentsParams, recordChannel chan FlexV1InsightsSegments, errorChannel chan error) {
 	curRecord := 1
 
@@ -197,19 +201,20 @@ func (c *ApiService) streamInsightsSegments(response *ListInsightsSegmentsRespon
 }
 
 func (c *ApiService) getNextListInsightsSegmentsResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInsightsSegmentsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListInsightsSegmentsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

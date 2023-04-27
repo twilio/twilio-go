@@ -13,17 +13,22 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // EventsV1SubscribedEvent struct for EventsV1SubscribedEvent
 type EventsV1SubscribedEvent struct {
-	// The unique SID identifier of the Account.
+		// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Type of event being subscribed to.
+		// Type of event being subscribed to.
 	Type *string `json:"type,omitempty"`
-	// The schema version that the subscription should use.
+		// The schema version that the subscription should use.
 	SchemaVersion *int `json:"schema_version,omitempty"`
-	// The unique SID identifier of the Subscription.
+		// The unique SID identifier of the Subscription.
 	SubscriptionSid *string `json:"subscription_sid,omitempty"`
-	// The URL of this resource.
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

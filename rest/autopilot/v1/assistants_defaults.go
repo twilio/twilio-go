@@ -16,73 +16,81 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) FetchDefaults(AssistantSid string) (*AutopilotV1Defaults, error) {
-	path := "/v1/Assistants/{AssistantSid}/Defaults"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) FetchDefaults(AssistantSid string, ) (*AutopilotV1Defaults, error) {
+    path := "/v1/Assistants/{AssistantSid}/Defaults"
+        path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	ps := &AutopilotV1Defaults{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &AutopilotV1Defaults{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateDefaults'
 type UpdateDefaultsParams struct {
-	// A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
-	Defaults *interface{} `json:"Defaults,omitempty"`
+    // A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
+    Defaults *interface{} `json:"Defaults,omitempty"`
 }
 
-func (params *UpdateDefaultsParams) SetDefaults(Defaults interface{}) *UpdateDefaultsParams {
-	params.Defaults = &Defaults
-	return params
+func (params *UpdateDefaultsParams) SetDefaults(Defaults interface{}) (*UpdateDefaultsParams){
+    params.Defaults = &Defaults
+    return params
 }
 
-//
+// 
 func (c *ApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsParams) (*AutopilotV1Defaults, error) {
-	path := "/v1/Assistants/{AssistantSid}/Defaults"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+    path := "/v1/Assistants/{AssistantSid}/Defaults"
+        path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.Defaults != nil {
-		v, err := json.Marshal(params.Defaults)
+if params != nil && params.Defaults != nil {
+    v, err := json.Marshal(params.Defaults)
 
-		if err != nil {
-			return nil, err
-		}
+    if err != nil {
+        return nil, err
+    }
 
-		data.Set("Defaults", string(v))
-	}
+    data.Set("Defaults", string(v))
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &AutopilotV1Defaults{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &AutopilotV1Defaults{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

@@ -13,27 +13,29 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // ConversationsV1ConversationScopedWebhook struct for ConversationsV1ConversationScopedWebhook
 type ConversationsV1ConversationScopedWebhook struct {
-	// A 34 character string that uniquely identifies this resource.
+		// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
+		// The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+		// The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
 	ConversationSid *string `json:"conversation_sid,omitempty"`
-	// The target of this webhook: `webhook`, `studio`, `trigger`
+		// The target of this webhook: `webhook`, `studio`, `trigger`
 	Target *string `json:"target,omitempty"`
-	// An absolute API resource URL for this webhook.
+		// An absolute API resource URL for this webhook.
 	Url *string `json:"url,omitempty"`
-	// The configuration of this webhook. Is defined based on target.
+		// The configuration of this webhook. Is defined based on target.
 	Configuration *interface{} `json:"configuration,omitempty"`
-	// The date that this resource was created.
+		// The date that this resource was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this resource was last updated.
+		// The date that this resource was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 }
+
+

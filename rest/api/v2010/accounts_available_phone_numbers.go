@@ -18,110 +18,113 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchAvailablePhoneNumberCountry'
 type FetchAvailablePhoneNumberCountryParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
-func (params *FetchAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAccountSid string) *FetchAvailablePhoneNumberCountryParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *FetchAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAccountSid string) (*FetchAvailablePhoneNumberCountryParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
 
-//
+// 
 func (c *ApiService) FetchAvailablePhoneNumberCountry(CountryCode string, params *FetchAvailablePhoneNumberCountryParams) (*ApiV2010AvailablePhoneNumberCountry, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
+    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ApiV2010AvailablePhoneNumberCountry{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &ApiV2010AvailablePhoneNumberCountry{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListAvailablePhoneNumberCountry'
 type ListAvailablePhoneNumberCountryParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberCountryParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *ListAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAccountSid string) (*ListAvailablePhoneNumberCountryParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *ListAvailablePhoneNumberCountryParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberCountryParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListAvailablePhoneNumberCountryParams) SetPageSize(PageSize int) (*ListAvailablePhoneNumberCountryParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListAvailablePhoneNumberCountryParams) SetLimit(Limit int) *ListAvailablePhoneNumberCountryParams {
-	params.Limit = &Limit
-	return params
+func (params *ListAvailablePhoneNumberCountryParams) SetLimit(Limit int) (*ListAvailablePhoneNumberCountryParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of AvailablePhoneNumberCountry records from the API. Request is executed immediately.
 func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberCountryResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
+    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
 
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberCountryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListAvailablePhoneNumberCountryResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists AvailablePhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -162,6 +165,7 @@ func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhon
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamAvailablePhoneNumberCountry(response *ListAvailablePhoneNumberCountryResponse, params *ListAvailablePhoneNumberCountryParams, recordChannel chan ApiV2010AvailablePhoneNumberCountry, errorChannel chan error) {
 	curRecord := 1
 
@@ -193,19 +197,20 @@ func (c *ApiService) streamAvailablePhoneNumberCountry(response *ListAvailablePh
 }
 
 func (c *ApiService) getNextListAvailablePhoneNumberCountryResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberCountryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListAvailablePhoneNumberCountryResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

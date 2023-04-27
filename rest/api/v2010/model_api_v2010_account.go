@@ -13,25 +13,30 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010Account struct for ApiV2010Account
 type ApiV2010Account struct {
-	// The authorization token for this account. This token should be kept a secret, so no sharing.
+		// The authorization token for this account. This token should be kept a secret, so no sharing.
 	AuthToken *string `json:"auth_token,omitempty"`
-	// The date that this account was created, in GMT in RFC 2822 format
+		// The date that this account was created, in GMT in RFC 2822 format
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date that this account was last updated, in GMT in RFC 2822 format.
+		// The date that this account was last updated, in GMT in RFC 2822 format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
+		// A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it's own sid.
+		// The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it's own sid.
 	OwnerAccountSid *string `json:"owner_account_sid,omitempty"`
-	// A 34 character string that uniquely identifies this resource.
-	Sid    *string `json:"sid,omitempty"`
+		// A 34 character string that uniquely identifies this resource.
+	Sid *string `json:"sid,omitempty"`
 	Status *string `json:"status,omitempty"`
-	// A Map of various subresources available for the given Account Instance
+		// A Map of various subresources available for the given Account Instance
 	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
-	Type            *string                 `json:"type,omitempty"`
-	// The URI for this resource, relative to `https://api.twilio.com`
+	Type *string `json:"type,omitempty"`
+		// The URI for this resource, relative to `https://api.twilio.com`
 	Uri *string `json:"uri,omitempty"`
 }
+
+

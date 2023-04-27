@@ -13,18 +13,23 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // InsightsV1Event struct for InsightsV1Event
 type InsightsV1Event struct {
-	Timestamp   *string      `json:"timestamp,omitempty"`
-	CallSid     *string      `json:"call_sid,omitempty"`
-	AccountSid  *string      `json:"account_sid,omitempty"`
-	Edge        *string      `json:"edge,omitempty"`
-	Group       *string      `json:"group,omitempty"`
-	Level       *string      `json:"level,omitempty"`
-	Name        *string      `json:"name,omitempty"`
+	Timestamp *string `json:"timestamp,omitempty"`
+	CallSid *string `json:"call_sid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
+	Edge *string `json:"edge,omitempty"`
+	Group *string `json:"group,omitempty"`
+	Level *string `json:"level,omitempty"`
+	Name *string `json:"name,omitempty"`
 	CarrierEdge *interface{} `json:"carrier_edge,omitempty"`
-	SipEdge     *interface{} `json:"sip_edge,omitempty"`
-	SdkEdge     *interface{} `json:"sdk_edge,omitempty"`
-	ClientEdge  *interface{} `json:"client_edge,omitempty"`
+	SipEdge *interface{} `json:"sip_edge,omitempty"`
+	SdkEdge *interface{} `json:"sdk_edge,omitempty"`
+	ClientEdge *interface{} `json:"client_edge,omitempty"`
 }
+
+

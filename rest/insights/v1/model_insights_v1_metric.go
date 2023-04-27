@@ -13,16 +13,21 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // InsightsV1Metric struct for InsightsV1Metric
 type InsightsV1Metric struct {
-	Timestamp   *string      `json:"timestamp,omitempty"`
-	CallSid     *string      `json:"call_sid,omitempty"`
-	AccountSid  *string      `json:"account_sid,omitempty"`
-	Edge        *string      `json:"edge,omitempty"`
-	Direction   *string      `json:"direction,omitempty"`
+	Timestamp *string `json:"timestamp,omitempty"`
+	CallSid *string `json:"call_sid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
+	Edge *string `json:"edge,omitempty"`
+	Direction *string `json:"direction,omitempty"`
 	CarrierEdge *interface{} `json:"carrier_edge,omitempty"`
-	SipEdge     *interface{} `json:"sip_edge,omitempty"`
-	SdkEdge     *interface{} `json:"sdk_edge,omitempty"`
-	ClientEdge  *interface{} `json:"client_edge,omitempty"`
+	SipEdge *interface{} `json:"sip_edge,omitempty"`
+	SdkEdge *interface{} `json:"sdk_edge,omitempty"`
+	ClientEdge *interface{} `json:"client_edge,omitempty"`
 }
+
+

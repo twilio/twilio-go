@@ -18,82 +18,86 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Fetch a specific Supporting Document Type Instance.
-func (c *ApiService) FetchSupportingDocumentType(Sid string) (*TrusthubV1SupportingDocumentType, error) {
-	path := "/v1/SupportingDocumentTypes/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchSupportingDocumentType(Sid string, ) (*TrusthubV1SupportingDocumentType, error) {
+    path := "/v1/SupportingDocumentTypes/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &TrusthubV1SupportingDocumentType{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &TrusthubV1SupportingDocumentType{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListSupportingDocumentType'
 type ListSupportingDocumentTypeParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int) *ListSupportingDocumentTypeParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int) (*ListSupportingDocumentTypeParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListSupportingDocumentTypeParams) SetLimit(Limit int) *ListSupportingDocumentTypeParams {
-	params.Limit = &Limit
-	return params
+func (params *ListSupportingDocumentTypeParams) SetLimit(Limit int) (*ListSupportingDocumentTypeParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of SupportingDocumentType records from the API. Request is executed immediately.
 func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTypeParams, pageToken, pageNumber string) (*ListSupportingDocumentTypeResponse, error) {
-	path := "/v1/SupportingDocumentTypes"
+    path := "/v1/SupportingDocumentTypes"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListSupportingDocumentTypeResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListSupportingDocumentTypeResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -134,6 +138,7 @@ func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocument
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamSupportingDocumentType(response *ListSupportingDocumentTypeResponse, params *ListSupportingDocumentTypeParams, recordChannel chan TrusthubV1SupportingDocumentType, errorChannel chan error) {
 	curRecord := 1
 
@@ -165,19 +170,20 @@ func (c *ApiService) streamSupportingDocumentType(response *ListSupportingDocume
 }
 
 func (c *ApiService) getNextListSupportingDocumentTypeResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListSupportingDocumentTypeResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListSupportingDocumentTypeResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
