@@ -13,13 +13,18 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // VerifyV2Safelist struct for VerifyV2Safelist
 type VerifyV2Safelist struct {
-	// The unique string that we created to identify the SafeList resource.
+		// The unique string that we created to identify the SafeList resource.
 	Sid *string `json:"sid,omitempty"`
-	// The phone number in SafeList.
+		// The phone number in SafeList.
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// The absolute URL of the SafeList resource.
+		// The absolute URL of the SafeList resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

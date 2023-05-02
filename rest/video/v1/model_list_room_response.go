@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListRoomResponse struct for ListRoomResponse
 type ListRoomResponse struct {
-	Rooms []VideoV1Room               `json:"rooms,omitempty"`
-	Meta  ListCompositionResponseMeta `json:"meta,omitempty"`
+	Rooms []VideoV1Room `json:"rooms,omitempty"`
+	Meta ListCompositionResponseMeta `json:"meta,omitempty"`
 }
+
+

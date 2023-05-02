@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListPhoneNumberResponse struct for ListPhoneNumberResponse
 type ListPhoneNumberResponse struct {
-	PhoneNumbers []TrunkingV1PhoneNumber        `json:"phone_numbers,omitempty"`
-	Meta         ListCredentialListResponseMeta `json:"meta,omitempty"`
+	PhoneNumbers []TrunkingV1PhoneNumber `json:"phone_numbers,omitempty"`
+	Meta ListCredentialListResponseMeta `json:"meta,omitempty"`
 }
+
+

@@ -13,23 +13,25 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // NumbersV2ItemAssignment struct for NumbersV2ItemAssignment
 type NumbersV2ItemAssignment struct {
-	// The unique string that we created to identify the Item Assignment resource.
+		// The unique string that we created to identify the Item Assignment resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique string that we created to identify the Bundle resource.
+		// The unique string that we created to identify the Bundle resource.
 	BundleSid *string `json:"bundle_sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of an object bag that holds information of the different items.
+		// The SID of an object bag that holds information of the different items.
 	ObjectSid *string `json:"object_sid,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The absolute URL of the Identity resource.
+		// The absolute URL of the Identity resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

@@ -13,48 +13,53 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // FlexV1InsightsSegments struct for FlexV1InsightsSegments
 type FlexV1InsightsSegments struct {
-	// To unique id of the segment
+		// To unique id of the segment
 	SegmentId *string `json:"segment_id,omitempty"`
-	// The unique id for the conversation.
-	ExternalId      *string `json:"external_id,omitempty"`
-	Queue           *string `json:"queue,omitempty"`
+		// The unique id for the conversation.
+	ExternalId *string `json:"external_id,omitempty"`
+	Queue *string `json:"queue,omitempty"`
 	ExternalContact *string `json:"external_contact,omitempty"`
-	// The uuid for the external_segment_link.
+		// The uuid for the external_segment_link.
 	ExternalSegmentLinkId *string `json:"external_segment_link_id,omitempty"`
-	// The date of the conversation.
+		// The date of the conversation.
 	Date *string `json:"date,omitempty"`
-	// The unique id for the account.
+		// The unique id for the account.
 	AccountId *string `json:"account_id,omitempty"`
-	// The hyperlink to recording of the task event.
+		// The hyperlink to recording of the task event.
 	ExternalSegmentLink *string `json:"external_segment_link,omitempty"`
-	// The unique id for the agent.
+		// The unique id for the agent.
 	AgentId *string `json:"agent_id,omitempty"`
-	// The phone number of the agent.
+		// The phone number of the agent.
 	AgentPhone *string `json:"agent_phone,omitempty"`
-	// The name of the agent.
+		// The name of the agent.
 	AgentName *string `json:"agent_name,omitempty"`
-	// The team name to which agent belongs.
+		// The team name to which agent belongs.
 	AgentTeamName *string `json:"agent_team_name,omitempty"`
-	// he team name to which agent belongs.
+		// he team name to which agent belongs.
 	AgentTeamNameInHierarchy *string `json:"agent_team_name_in_hierarchy,omitempty"`
-	// The link to the agent conversation.
+		// The link to the agent conversation.
 	AgentLink *string `json:"agent_link,omitempty"`
-	// The phone number of the customer.
+		// The phone number of the customer.
 	CustomerPhone *string `json:"customer_phone,omitempty"`
-	// The name of the customer.
+		// The name of the customer.
 	CustomerName *string `json:"customer_name,omitempty"`
-	// The link to the customer conversation.
+		// The link to the customer conversation.
 	CustomerLink *string `json:"customer_link,omitempty"`
-	// The offset value for the recording.
+		// The offset value for the recording.
 	SegmentRecordingOffset *string `json:"segment_recording_offset,omitempty"`
-	// The media identifiers of the conversation.
+		// The media identifiers of the conversation.
 	Media *interface{} `json:"media,omitempty"`
-	// The type of the assessment.
+		// The type of the assessment.
 	AssessmentType *interface{} `json:"assessment_type,omitempty"`
-	// The percentage scored on the Assessments.
+		// The percentage scored on the Assessments.
 	AssessmentPercentage *interface{} `json:"assessment_percentage,omitempty"`
-	Url                  *string      `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

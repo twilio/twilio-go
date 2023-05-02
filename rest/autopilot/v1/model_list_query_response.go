@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListQueryResponse struct for ListQueryResponse
 type ListQueryResponse struct {
-	Queries []AutopilotV1Query        `json:"queries,omitempty"`
-	Meta    ListAssistantResponseMeta `json:"meta,omitempty"`
+	Queries []AutopilotV1Query `json:"queries,omitempty"`
+	Meta ListAssistantResponseMeta `json:"meta,omitempty"`
 }
+
+

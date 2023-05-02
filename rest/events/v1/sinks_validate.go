@@ -16,44 +16,49 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateSinkValidate'
 type CreateSinkValidateParams struct {
-	// A 34 character string that uniquely identifies the test event for a Sink being validated.
-	TestId *string `json:"TestId,omitempty"`
+    // A 34 character string that uniquely identifies the test event for a Sink being validated.
+    TestId *string `json:"TestId,omitempty"`
 }
 
-func (params *CreateSinkValidateParams) SetTestId(TestId string) *CreateSinkValidateParams {
-	params.TestId = &TestId
-	return params
+func (params *CreateSinkValidateParams) SetTestId(TestId string) (*CreateSinkValidateParams){
+    params.TestId = &TestId
+    return params
 }
 
 // Validate that a test event for a Sink was received.
 func (c *ApiService) CreateSinkValidate(Sid string, params *CreateSinkValidateParams) (*EventsV1SinkValidate, error) {
-	path := "/v1/Sinks/{Sid}/Validate"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/Sinks/{Sid}/Validate"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.TestId != nil {
-		data.Set("TestId", *params.TestId)
-	}
+if params != nil && params.TestId != nil {
+    data.Set("TestId", *params.TestId)
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &EventsV1SinkValidate{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &EventsV1SinkValidate{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

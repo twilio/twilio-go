@@ -13,23 +13,25 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // VoiceV1SourceIpMapping struct for VoiceV1SourceIpMapping
 type VoiceV1SourceIpMapping struct {
-	// The unique string that we created to identify the IP Record resource.
+		// The unique string that we created to identify the IP Record resource.
 	Sid *string `json:"sid,omitempty"`
-	// The Twilio-provided string that uniquely identifies the IP Record resource to map from.
+		// The Twilio-provided string that uniquely identifies the IP Record resource to map from.
 	IpRecordSid *string `json:"ip_record_sid,omitempty"`
-	// The SID of the SIP Domain that the IP Record is mapped to.
+		// The SID of the SIP Domain that the IP Record is mapped to.
 	SipDomainSid *string `json:"sip_domain_sid,omitempty"`
-	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

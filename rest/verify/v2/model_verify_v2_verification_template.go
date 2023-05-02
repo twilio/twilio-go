@@ -13,17 +13,22 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // VerifyV2VerificationTemplate struct for VerifyV2VerificationTemplate
 type VerifyV2VerificationTemplate struct {
-	// A 34 character string that uniquely identifies a Verification Template.
+		// A 34 character string that uniquely identifies a Verification Template.
 	Sid *string `json:"sid,omitempty"`
-	// The unique SID identifier of the Account.
+		// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A descriptive string that you create to describe a Template. It can be up to 32 characters long.
+		// A descriptive string that you create to describe a Template. It can be up to 32 characters long.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// A list of channels that support the Template. Can include: sms, voice.
+		// A list of channels that support the Template. Can include: sms, voice.
 	Channels *[]string `json:"channels,omitempty"`
-	// An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
+		// An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
 	Translations *interface{} `json:"translations,omitempty"`
 }
+
+

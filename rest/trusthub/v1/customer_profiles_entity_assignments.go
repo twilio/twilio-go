@@ -18,142 +18,150 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateCustomerProfileEntityAssignment'
 type CreateCustomerProfileEntityAssignmentParams struct {
-	// The SID of an object bag that holds information of the different items.
-	ObjectSid *string `json:"ObjectSid,omitempty"`
+    // The SID of an object bag that holds information of the different items.
+    ObjectSid *string `json:"ObjectSid,omitempty"`
 }
 
-func (params *CreateCustomerProfileEntityAssignmentParams) SetObjectSid(ObjectSid string) *CreateCustomerProfileEntityAssignmentParams {
-	params.ObjectSid = &ObjectSid
-	return params
+func (params *CreateCustomerProfileEntityAssignmentParams) SetObjectSid(ObjectSid string) (*CreateCustomerProfileEntityAssignmentParams){
+    params.ObjectSid = &ObjectSid
+    return params
 }
 
 // Create a new Assigned Item.
 func (c *ApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid string, params *CreateCustomerProfileEntityAssignmentParams) (*TrusthubV1CustomerProfileEntityAssignment, error) {
-	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
-	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
+    path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
+        path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.ObjectSid != nil {
-		data.Set("ObjectSid", *params.ObjectSid)
-	}
+if params != nil && params.ObjectSid != nil {
+    data.Set("ObjectSid", *params.ObjectSid)
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &TrusthubV1CustomerProfileEntityAssignment{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &TrusthubV1CustomerProfileEntityAssignment{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Remove an Assignment Item Instance.
-func (c *ApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) error {
-	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
-	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string, ) (error) {
+    path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
+        path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Fetch specific Assigned Item Instance.
-func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileEntityAssignment, error) {
-	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
-	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string, ) (*TrusthubV1CustomerProfileEntityAssignment, error) {
+    path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
+        path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &TrusthubV1CustomerProfileEntityAssignment{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &TrusthubV1CustomerProfileEntityAssignment{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListCustomerProfileEntityAssignment'
 type ListCustomerProfileEntityAssignmentParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize int) *ListCustomerProfileEntityAssignmentParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize int) (*ListCustomerProfileEntityAssignmentParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListCustomerProfileEntityAssignmentParams) SetLimit(Limit int) *ListCustomerProfileEntityAssignmentParams {
-	params.Limit = &Limit
-	return params
+func (params *ListCustomerProfileEntityAssignmentParams) SetLimit(Limit int) (*ListCustomerProfileEntityAssignmentParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of CustomerProfileEntityAssignment records from the API. Request is executed immediately.
 func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken, pageNumber string) (*ListCustomerProfileEntityAssignmentResponse, error) {
-	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
+    path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 
-	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
+        path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListCustomerProfileEntityAssignmentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListCustomerProfileEntityAssignmentResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -194,6 +202,7 @@ func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid st
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamCustomerProfileEntityAssignment(response *ListCustomerProfileEntityAssignmentResponse, params *ListCustomerProfileEntityAssignmentParams, recordChannel chan TrusthubV1CustomerProfileEntityAssignment, errorChannel chan error) {
 	curRecord := 1
 
@@ -225,19 +234,20 @@ func (c *ApiService) streamCustomerProfileEntityAssignment(response *ListCustome
 }
 
 func (c *ApiService) getNextListCustomerProfileEntityAssignmentResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListCustomerProfileEntityAssignmentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListCustomerProfileEntityAssignmentResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

@@ -16,85 +16,96 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) DeleteDomainCertV4(DomainSid string) error {
-	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) DeleteDomainCertV4(DomainSid string, ) (error) {
+    path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
+        path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	return nil
+
+
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
-//
-func (c *ApiService) FetchDomainCertV4(DomainSid string) (*MessagingV1DomainCertV4, error) {
-	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+// 
+func (c *ApiService) FetchDomainCertV4(DomainSid string, ) (*MessagingV1DomainCertV4, error) {
+    path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
+        path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &MessagingV1DomainCertV4{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &MessagingV1DomainCertV4{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateDomainCertV4'
 type UpdateDomainCertV4Params struct {
-	// Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
-	TlsCert *string `json:"TlsCert,omitempty"`
+    // Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
+    TlsCert *string `json:"TlsCert,omitempty"`
 }
 
-func (params *UpdateDomainCertV4Params) SetTlsCert(TlsCert string) *UpdateDomainCertV4Params {
-	params.TlsCert = &TlsCert
-	return params
+func (params *UpdateDomainCertV4Params) SetTlsCert(TlsCert string) (*UpdateDomainCertV4Params){
+    params.TlsCert = &TlsCert
+    return params
 }
 
-//
+// 
 func (c *ApiService) UpdateDomainCertV4(DomainSid string, params *UpdateDomainCertV4Params) (*MessagingV1DomainCertV4, error) {
-	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+    path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
+        path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.TlsCert != nil {
-		data.Set("TlsCert", *params.TlsCert)
-	}
+if params != nil && params.TlsCert != nil {
+    data.Set("TlsCert", *params.TlsCert)
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &MessagingV1DomainCertV4{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &MessagingV1DomainCertV4{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

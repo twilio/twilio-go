@@ -13,17 +13,22 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // StudioV1EngagementContext struct for StudioV1EngagementContext
 type StudioV1EngagementContext struct {
-	// The SID of the Account.
+		// The SID of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// As your flow executes, we save the state in what's called the Flow Context. Any data in the flow context can be accessed by your widgets as variables, either in configuration fields or in text areas as variable substitution.
+		// As your flow executes, we save the state in what's called the Flow Context. Any data in the flow context can be accessed by your widgets as variables, either in configuration fields or in text areas as variable substitution.
 	Context *interface{} `json:"context,omitempty"`
-	// The SID of the Engagement.
+		// The SID of the Engagement.
 	EngagementSid *string `json:"engagement_sid,omitempty"`
-	// The SID of the Flow.
+		// The SID of the Flow.
 	FlowSid *string `json:"flow_sid,omitempty"`
-	// The URL of the resource.
+		// The URL of the resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

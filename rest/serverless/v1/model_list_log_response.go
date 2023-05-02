@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListLogResponse struct for ListLogResponse
 type ListLogResponse struct {
-	Logs []ServerlessV1Log     `json:"logs,omitempty"`
+	Logs []ServerlessV1Log `json:"logs,omitempty"`
 	Meta ListAssetResponseMeta `json:"meta,omitempty"`
 }
+
+

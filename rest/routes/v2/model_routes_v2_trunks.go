@@ -13,27 +13,29 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // RoutesV2Trunks struct for RoutesV2Trunks
 type RoutesV2Trunks struct {
-	// The absolute URL of the SIP Trunk
+		// The absolute URL of the SIP Trunk
 	SipTrunkDomain *string `json:"sip_trunk_domain,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
-	// A 34 character string that uniquely identifies the Inbound Processing Region assignments for this SIP Trunk.
+		// A 34 character string that uniquely identifies the Inbound Processing Region assignments for this SIP Trunk.
 	Sid *string `json:"sid,omitempty"`
-	// The unique SID identifier of the Account.
+		// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A human readable description of the Inbound Processing Region assignments for this SIP Trunk, up to 64 characters.
+		// A human readable description of the Inbound Processing Region assignments for this SIP Trunk, up to 64 characters.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The Inbound Processing Region used for this SIP Trunk for voice.
+		// The Inbound Processing Region used for this SIP Trunk for voice.
 	VoiceRegion *string `json:"voice_region,omitempty"`
-	// The date that this SIP Trunk was assigned an Inbound Processing Region, given in ISO 8601 format.
+		// The date that this SIP Trunk was assigned an Inbound Processing Region, given in ISO 8601 format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that the Inbound Processing Region was updated for this SIP Trunk, given in ISO 8601 format.
+		// The date that the Inbound Processing Region was updated for this SIP Trunk, given in ISO 8601 format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 }
+
+

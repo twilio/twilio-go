@@ -16,91 +16,100 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Fetch the global configuration of conversations on your account
 func (c *ApiService) FetchConfiguration() (*ConversationsV1Configuration, error) {
-	path := "/v1/Configuration"
+    path := "/v1/Configuration"
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ConversationsV1Configuration{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ConversationsV1Configuration{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateConfiguration'
 type UpdateConfigurationParams struct {
-	// The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
-	DefaultChatServiceSid *string `json:"DefaultChatServiceSid,omitempty"`
-	// The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation.
-	DefaultMessagingServiceSid *string `json:"DefaultMessagingServiceSid,omitempty"`
-	// Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-	DefaultInactiveTimer *string `json:"DefaultInactiveTimer,omitempty"`
-	// Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-	DefaultClosedTimer *string `json:"DefaultClosedTimer,omitempty"`
+    // The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
+    DefaultChatServiceSid *string `json:"DefaultChatServiceSid,omitempty"`
+    // The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation.
+    DefaultMessagingServiceSid *string `json:"DefaultMessagingServiceSid,omitempty"`
+    // Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+    DefaultInactiveTimer *string `json:"DefaultInactiveTimer,omitempty"`
+    // Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+    DefaultClosedTimer *string `json:"DefaultClosedTimer,omitempty"`
 }
 
-func (params *UpdateConfigurationParams) SetDefaultChatServiceSid(DefaultChatServiceSid string) *UpdateConfigurationParams {
-	params.DefaultChatServiceSid = &DefaultChatServiceSid
-	return params
+func (params *UpdateConfigurationParams) SetDefaultChatServiceSid(DefaultChatServiceSid string) (*UpdateConfigurationParams){
+    params.DefaultChatServiceSid = &DefaultChatServiceSid
+    return params
 }
-func (params *UpdateConfigurationParams) SetDefaultMessagingServiceSid(DefaultMessagingServiceSid string) *UpdateConfigurationParams {
-	params.DefaultMessagingServiceSid = &DefaultMessagingServiceSid
-	return params
+func (params *UpdateConfigurationParams) SetDefaultMessagingServiceSid(DefaultMessagingServiceSid string) (*UpdateConfigurationParams){
+    params.DefaultMessagingServiceSid = &DefaultMessagingServiceSid
+    return params
 }
-func (params *UpdateConfigurationParams) SetDefaultInactiveTimer(DefaultInactiveTimer string) *UpdateConfigurationParams {
-	params.DefaultInactiveTimer = &DefaultInactiveTimer
-	return params
+func (params *UpdateConfigurationParams) SetDefaultInactiveTimer(DefaultInactiveTimer string) (*UpdateConfigurationParams){
+    params.DefaultInactiveTimer = &DefaultInactiveTimer
+    return params
 }
-func (params *UpdateConfigurationParams) SetDefaultClosedTimer(DefaultClosedTimer string) *UpdateConfigurationParams {
-	params.DefaultClosedTimer = &DefaultClosedTimer
-	return params
+func (params *UpdateConfigurationParams) SetDefaultClosedTimer(DefaultClosedTimer string) (*UpdateConfigurationParams){
+    params.DefaultClosedTimer = &DefaultClosedTimer
+    return params
 }
 
 // Update the global configuration of conversations on your account
 func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*ConversationsV1Configuration, error) {
-	path := "/v1/Configuration"
+    path := "/v1/Configuration"
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+if params != nil && params.DefaultChatServiceSid != nil {
+    data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid)
+}
+if params != nil && params.DefaultMessagingServiceSid != nil {
+    data.Set("DefaultMessagingServiceSid", *params.DefaultMessagingServiceSid)
+}
+if params != nil && params.DefaultInactiveTimer != nil {
+    data.Set("DefaultInactiveTimer", *params.DefaultInactiveTimer)
+}
+if params != nil && params.DefaultClosedTimer != nil {
+    data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
+}
 
-	if params != nil && params.DefaultChatServiceSid != nil {
-		data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid)
-	}
-	if params != nil && params.DefaultMessagingServiceSid != nil {
-		data.Set("DefaultMessagingServiceSid", *params.DefaultMessagingServiceSid)
-	}
-	if params != nil && params.DefaultInactiveTimer != nil {
-		data.Set("DefaultInactiveTimer", *params.DefaultInactiveTimer)
-	}
-	if params != nil && params.DefaultClosedTimer != nil {
-		data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ConversationsV1Configuration{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ConversationsV1Configuration{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

@@ -13,11 +13,16 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // FlexV1InsightsSettingsComment struct for FlexV1InsightsSettingsComment
 type FlexV1InsightsSettingsComment struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-	AccountSid *string      `json:"account_sid,omitempty"`
-	Comments   *interface{} `json:"comments,omitempty"`
-	Url        *string      `json:"url,omitempty"`
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+	AccountSid *string `json:"account_sid,omitempty"`
+	Comments *interface{} `json:"comments,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

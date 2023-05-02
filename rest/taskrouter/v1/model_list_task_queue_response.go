@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListTaskQueueResponse struct for ListTaskQueueResponse
 type ListTaskQueueResponse struct {
-	TaskQueues []TaskrouterV1TaskQueue  `json:"task_queues,omitempty"`
-	Meta       ListActivityResponseMeta `json:"meta,omitempty"`
+	TaskQueues []TaskrouterV1TaskQueue `json:"task_queues,omitempty"`
+	Meta ListActivityResponseMeta `json:"meta,omitempty"`
 }
+
+

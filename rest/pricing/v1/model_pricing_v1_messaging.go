@@ -13,10 +13,15 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // PricingV1Messaging struct for PricingV1Messaging
 type PricingV1Messaging struct {
-	Name  *string                 `json:"name,omitempty"`
-	Url   *string                 `json:"url,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Url *string `json:"url,omitempty"`
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

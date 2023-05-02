@@ -13,21 +13,26 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010Token struct for ApiV2010Token
 type ApiV2010Token struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Token resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Token resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// An array representing the ephemeral credentials and the STUN and TURN server URIs.
+		// An array representing the ephemeral credentials and the STUN and TURN server URIs.
 	IceServers *[]ApiV2010AccountTokenIceServers `json:"ice_servers,omitempty"`
-	// The temporary password that the username will use when authenticating with Twilio.
+		// The temporary password that the username will use when authenticating with Twilio.
 	Password *string `json:"password,omitempty"`
-	// The duration in seconds for which the username and password are valid.
+		// The duration in seconds for which the username and password are valid.
 	Ttl *string `json:"ttl,omitempty"`
-	// The temporary username that uniquely identifies a Token.
+		// The temporary username that uniquely identifies a Token.
 	Username *string `json:"username,omitempty"`
 }
+
+

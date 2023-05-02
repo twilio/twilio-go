@@ -13,52 +13,54 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // InsightsV1Conference struct for InsightsV1Conference
 type InsightsV1Conference struct {
-	// The unique SID identifier of the Conference.
+		// The unique SID identifier of the Conference.
 	ConferenceSid *string `json:"conference_sid,omitempty"`
-	// The unique SID identifier of the Account.
+		// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Custom label for the conference resource, up to 64 characters.
+		// Custom label for the conference resource, up to 64 characters.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// Conference creation date and time in ISO 8601 format.
+		// Conference creation date and time in ISO 8601 format.
 	CreateTime *time.Time `json:"create_time,omitempty"`
-	// Timestamp in ISO 8601 format when the conference started. Conferences do not start until at least two participants join, at least one of whom has startConferenceOnEnter=true.
+		// Timestamp in ISO 8601 format when the conference started. Conferences do not start until at least two participants join, at least one of whom has startConferenceOnEnter=true.
 	StartTime *time.Time `json:"start_time,omitempty"`
-	// Conference end date and time in ISO 8601 format.
+		// Conference end date and time in ISO 8601 format.
 	EndTime *time.Time `json:"end_time,omitempty"`
-	// Conference duration in seconds.
+		// Conference duration in seconds.
 	DurationSeconds *int `json:"duration_seconds,omitempty"`
-	// Duration of the between conference start event and conference end event in seconds.
-	ConnectDurationSeconds *int    `json:"connect_duration_seconds,omitempty"`
-	Status                 *string `json:"status,omitempty"`
-	// Maximum number of concurrent participants as specified by the configuration.
+		// Duration of the between conference start event and conference end event in seconds.
+	ConnectDurationSeconds *int `json:"connect_duration_seconds,omitempty"`
+	Status *string `json:"status,omitempty"`
+		// Maximum number of concurrent participants as specified by the configuration.
 	MaxParticipants *int `json:"max_participants,omitempty"`
-	// Actual maximum number of concurrent participants in the conference.
+		// Actual maximum number of concurrent participants in the conference.
 	MaxConcurrentParticipants *int `json:"max_concurrent_participants,omitempty"`
-	// Unique conference participants based on caller ID.
-	UniqueParticipants *int    `json:"unique_participants,omitempty"`
-	EndReason          *string `json:"end_reason,omitempty"`
-	// Call SID of the participant whose actions ended the conference.
-	EndedBy              *string `json:"ended_by,omitempty"`
-	MixerRegion          *string `json:"mixer_region,omitempty"`
+		// Unique conference participants based on caller ID.
+	UniqueParticipants *int `json:"unique_participants,omitempty"`
+	EndReason *string `json:"end_reason,omitempty"`
+		// Call SID of the participant whose actions ended the conference.
+	EndedBy *string `json:"ended_by,omitempty"`
+	MixerRegion *string `json:"mixer_region,omitempty"`
 	MixerRegionRequested *string `json:"mixer_region_requested,omitempty"`
-	// Boolean. Indicates whether recording was enabled at the conference mixer.
+		// Boolean. Indicates whether recording was enabled at the conference mixer.
 	RecordingEnabled *bool `json:"recording_enabled,omitempty"`
-	// Potential issues detected by Twilio during the conference.
+		// Potential issues detected by Twilio during the conference.
 	DetectedIssues *interface{} `json:"detected_issues,omitempty"`
-	// Tags for detected conference conditions and participant behaviors which may be of interest.
+		// Tags for detected conference conditions and participant behaviors which may be of interest.
 	Tags *[]string `json:"tags,omitempty"`
-	// Object. Contains details about conference tags including severity.
-	TagInfo         *interface{} `json:"tag_info,omitempty"`
-	ProcessingState *string      `json:"processing_state,omitempty"`
-	// The URL of this resource.
+		// Object. Contains details about conference tags including severity.
+	TagInfo *interface{} `json:"tag_info,omitempty"`
+	ProcessingState *string `json:"processing_state,omitempty"`
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
-	// Contains a dictionary of URL links to nested resources of this Conference.
+		// Contains a dictionary of URL links to nested resources of this Conference.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

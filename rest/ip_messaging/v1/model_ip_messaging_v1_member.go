@@ -13,22 +13,24 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // IpMessagingV1Member struct for IpMessagingV1Member
 type IpMessagingV1Member struct {
-	Sid                      *string    `json:"sid,omitempty"`
-	AccountSid               *string    `json:"account_sid,omitempty"`
-	ChannelSid               *string    `json:"channel_sid,omitempty"`
-	ServiceSid               *string    `json:"service_sid,omitempty"`
-	Identity                 *string    `json:"identity,omitempty"`
-	DateCreated              *time.Time `json:"date_created,omitempty"`
-	DateUpdated              *time.Time `json:"date_updated,omitempty"`
-	RoleSid                  *string    `json:"role_sid,omitempty"`
-	LastConsumedMessageIndex *int       `json:"last_consumed_message_index,omitempty"`
+	Sid *string `json:"sid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
+	ChannelSid *string `json:"channel_sid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
+	Identity *string `json:"identity,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	RoleSid *string `json:"role_sid,omitempty"`
+	LastConsumedMessageIndex *int `json:"last_consumed_message_index,omitempty"`
 	LastConsumptionTimestamp *time.Time `json:"last_consumption_timestamp,omitempty"`
-	Url                      *string    `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

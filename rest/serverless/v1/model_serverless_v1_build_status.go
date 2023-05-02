@@ -13,16 +13,21 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ServerlessV1BuildStatus struct for ServerlessV1BuildStatus
 type ServerlessV1BuildStatus struct {
-	// The unique string that we created to identify the Build resource.
+		// The unique string that we created to identify the Build resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Service that the Build resource is associated with.
+		// The SID of the Service that the Build resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	Status     *string `json:"status,omitempty"`
-	// The absolute URL of the Build Status resource.
+	Status *string `json:"status,omitempty"`
+		// The absolute URL of the Build Status resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

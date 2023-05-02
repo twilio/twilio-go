@@ -13,11 +13,16 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices struct for PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices
 type PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices struct {
-	Carrier string                                                              `json:"carrier,omitempty"`
-	Mcc     string                                                              `json:"mcc,omitempty"`
-	Mnc     string                                                              `json:"mnc,omitempty"`
-	Prices  []PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices `json:"prices,omitempty"`
+	Carrier string `json:"carrier,omitempty"`
+	Mcc string `json:"mcc,omitempty"`
+	Mnc string `json:"mnc,omitempty"`
+	Prices []PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices `json:"prices,omitempty"`
 }
+
+

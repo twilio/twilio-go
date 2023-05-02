@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListConversationScopedWebhookResponse struct for ListConversationScopedWebhookResponse
 type ListConversationScopedWebhookResponse struct {
 	Webhooks []ConversationsV1ConversationScopedWebhook `json:"webhooks,omitempty"`
-	Meta     ListConfigurationAddressResponseMeta       `json:"meta,omitempty"`
+	Meta ListConfigurationAddressResponseMeta `json:"meta,omitempty"`
 }
+
+

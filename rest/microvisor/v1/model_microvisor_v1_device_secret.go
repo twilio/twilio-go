@@ -13,18 +13,20 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MicrovisorV1DeviceSecret struct for MicrovisorV1DeviceSecret
 type MicrovisorV1DeviceSecret struct {
-	// A 34-character string that uniquely identifies the parent Device.
+		// A 34-character string that uniquely identifies the parent Device.
 	DeviceSid *string `json:"device_sid,omitempty"`
-	// The secret key; up to 100 characters.
-	Key         *string    `json:"key,omitempty"`
+		// The secret key; up to 100 characters.
+	Key *string `json:"key,omitempty"`
 	DateRotated *time.Time `json:"date_rotated,omitempty"`
-	// The absolute URL of the Secret.
+		// The absolute URL of the Secret.
 	Url *string `json:"url,omitempty"`
 }
+
+

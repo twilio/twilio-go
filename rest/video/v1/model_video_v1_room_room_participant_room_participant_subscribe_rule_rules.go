@@ -13,13 +13,18 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules struct for VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules
 type VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules struct {
-	Type      string `json:"type,omitempty"`
-	All       bool   `json:"all,omitempty"`
+	Type string `json:"type,omitempty"`
+	All bool `json:"all,omitempty"`
 	Publisher string `json:"publisher,omitempty"`
-	Track     string `json:"track,omitempty"`
-	Kind      string `json:"kind,omitempty"`
-	Priority  string `json:"priority,omitempty"`
+	Track string `json:"track,omitempty"`
+	Kind string `json:"kind,omitempty"`
+	Priority string `json:"priority,omitempty"`
 }
+
+

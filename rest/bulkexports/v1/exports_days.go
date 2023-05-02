@@ -18,85 +18,88 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Fetch a specific Day.
-func (c *ApiService) FetchDay(ResourceType string, Day string) (*BulkexportsV1DayInstance, error) {
-	path := "/v1/Exports/{ResourceType}/Days/{Day}"
-	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
-	path = strings.Replace(path, "{"+"Day"+"}", Day, -1)
+func (c *ApiService) FetchDay(ResourceType string, Day string, ) (*BulkexportsV1DayInstance, error) {
+    path := "/v1/Exports/{ResourceType}/Days/{Day}"
+        path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+    path = strings.Replace(path, "{"+"Day"+"}", Day, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &BulkexportsV1DayInstance{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &BulkexportsV1DayInstance{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListDay'
 type ListDayParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListDayParams) SetPageSize(PageSize int) *ListDayParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListDayParams) SetPageSize(PageSize int) (*ListDayParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListDayParams) SetLimit(Limit int) *ListDayParams {
-	params.Limit = &Limit
-	return params
+func (params *ListDayParams) SetLimit(Limit int) (*ListDayParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Day records from the API. Request is executed immediately.
 func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageToken, pageNumber string) (*ListDayResponse, error) {
-	path := "/v1/Exports/{ResourceType}/Days"
+    path := "/v1/Exports/{ResourceType}/Days"
 
-	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+        path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListDayResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListDayResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists Day records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -137,6 +140,7 @@ func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams) (chan
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamDay(response *ListDayResponse, params *ListDayParams, recordChannel chan BulkexportsV1Day, errorChannel chan error) {
 	curRecord := 1
 
@@ -168,19 +172,20 @@ func (c *ApiService) streamDay(response *ListDayResponse, params *ListDayParams,
 }
 
 func (c *ApiService) getNextListDayResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListDayResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListDayResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

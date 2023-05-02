@@ -13,25 +13,27 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // TrusthubV1TrustProductChannelEndpointAssignment struct for TrusthubV1TrustProductChannelEndpointAssignment
 type TrusthubV1TrustProductChannelEndpointAssignment struct {
-	// The unique string that we created to identify the Item Assignment resource.
+		// The unique string that we created to identify the Item Assignment resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique string that we created to identify the CustomerProfile resource.
+		// The unique string that we created to identify the CustomerProfile resource.
 	TrustProductSid *string `json:"trust_product_sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The type of channel endpoint. eg: phone-number
+		// The type of channel endpoint. eg: phone-number
 	ChannelEndpointType *string `json:"channel_endpoint_type,omitempty"`
-	// The SID of an channel endpoint
+		// The SID of an channel endpoint
 	ChannelEndpointSid *string `json:"channel_endpoint_sid,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The absolute URL of the Identity resource.
+		// The absolute URL of the Identity resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

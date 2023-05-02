@@ -13,26 +13,31 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010RecordingAddOnResult struct for ApiV2010RecordingAddOnResult
 type ApiV2010RecordingAddOnResult struct {
-	// The unique string that that we created to identify the Recording AddOnResult resource.
+		// The unique string that that we created to identify the Recording AddOnResult resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	Status     *string `json:"status,omitempty"`
-	// The SID of the Add-on to which the result belongs.
+	Status *string `json:"status,omitempty"`
+		// The SID of the Add-on to which the result belongs.
 	AddOnSid *string `json:"add_on_sid,omitempty"`
-	// The SID of the Add-on configuration.
+		// The SID of the Add-on configuration.
 	AddOnConfigurationSid *string `json:"add_on_configuration_sid,omitempty"`
-	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The date and time in GMT that the result was completed specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the result was completed specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCompleted *string `json:"date_completed,omitempty"`
-	// The SID of the recording to which the AddOnResult resource belongs.
+		// The SID of the recording to which the AddOnResult resource belongs.
 	ReferenceSid *string `json:"reference_sid,omitempty"`
-	// A list of related resources identified by their relative URIs.
+		// A list of related resources identified by their relative URIs.
 	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
 }
+
+

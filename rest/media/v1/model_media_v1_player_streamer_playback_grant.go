@@ -13,21 +13,23 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MediaV1PlayerStreamerPlaybackGrant struct for MediaV1PlayerStreamerPlaybackGrant
 type MediaV1PlayerStreamerPlaybackGrant struct {
-	// The unique string generated to identify the PlayerStreamer resource that this PlaybackGrant authorizes views for.
+		// The unique string generated to identify the PlayerStreamer resource that this PlaybackGrant authorizes views for.
 	Sid *string `json:"sid,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The grant that authorizes the player sdk to connect to the livestream
+		// The grant that authorizes the player sdk to connect to the livestream
 	Grant *interface{} `json:"grant,omitempty"`
 }
+
+

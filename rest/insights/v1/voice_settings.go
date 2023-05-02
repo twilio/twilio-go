@@ -18,96 +18,103 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchAccountSettings'
 type FetchAccountSettingsParams struct {
-	//
-	SubaccountSid *string `json:"SubaccountSid,omitempty"`
+    // 
+    SubaccountSid *string `json:"SubaccountSid,omitempty"`
 }
 
-func (params *FetchAccountSettingsParams) SetSubaccountSid(SubaccountSid string) *FetchAccountSettingsParams {
-	params.SubaccountSid = &SubaccountSid
-	return params
+func (params *FetchAccountSettingsParams) SetSubaccountSid(SubaccountSid string) (*FetchAccountSettingsParams){
+    params.SubaccountSid = &SubaccountSid
+    return params
 }
 
-//
+// 
 func (c *ApiService) FetchAccountSettings(params *FetchAccountSettingsParams) (*InsightsV1AccountSettings, error) {
-	path := "/v1/Voice/Settings"
+    path := "/v1/Voice/Settings"
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+if params != nil && params.SubaccountSid != nil {
+    data.Set("SubaccountSid", *params.SubaccountSid)
+}
 
-	if params != nil && params.SubaccountSid != nil {
-		data.Set("SubaccountSid", *params.SubaccountSid)
-	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &InsightsV1AccountSettings{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &InsightsV1AccountSettings{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateAccountSettings'
 type UpdateAccountSettingsParams struct {
-	//
-	AdvancedFeatures *bool `json:"AdvancedFeatures,omitempty"`
-	//
-	VoiceTrace *bool `json:"VoiceTrace,omitempty"`
-	//
-	SubaccountSid *string `json:"SubaccountSid,omitempty"`
+    // 
+    AdvancedFeatures *bool `json:"AdvancedFeatures,omitempty"`
+    // 
+    VoiceTrace *bool `json:"VoiceTrace,omitempty"`
+    // 
+    SubaccountSid *string `json:"SubaccountSid,omitempty"`
 }
 
-func (params *UpdateAccountSettingsParams) SetAdvancedFeatures(AdvancedFeatures bool) *UpdateAccountSettingsParams {
-	params.AdvancedFeatures = &AdvancedFeatures
-	return params
+func (params *UpdateAccountSettingsParams) SetAdvancedFeatures(AdvancedFeatures bool) (*UpdateAccountSettingsParams){
+    params.AdvancedFeatures = &AdvancedFeatures
+    return params
 }
-func (params *UpdateAccountSettingsParams) SetVoiceTrace(VoiceTrace bool) *UpdateAccountSettingsParams {
-	params.VoiceTrace = &VoiceTrace
-	return params
+func (params *UpdateAccountSettingsParams) SetVoiceTrace(VoiceTrace bool) (*UpdateAccountSettingsParams){
+    params.VoiceTrace = &VoiceTrace
+    return params
 }
-func (params *UpdateAccountSettingsParams) SetSubaccountSid(SubaccountSid string) *UpdateAccountSettingsParams {
-	params.SubaccountSid = &SubaccountSid
-	return params
+func (params *UpdateAccountSettingsParams) SetSubaccountSid(SubaccountSid string) (*UpdateAccountSettingsParams){
+    params.SubaccountSid = &SubaccountSid
+    return params
 }
 
-//
+// 
 func (c *ApiService) UpdateAccountSettings(params *UpdateAccountSettingsParams) (*InsightsV1AccountSettings, error) {
-	path := "/v1/Voice/Settings"
+    path := "/v1/Voice/Settings"
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+if params != nil && params.AdvancedFeatures != nil {
+    data.Set("AdvancedFeatures", fmt.Sprint(*params.AdvancedFeatures))
+}
+if params != nil && params.VoiceTrace != nil {
+    data.Set("VoiceTrace", fmt.Sprint(*params.VoiceTrace))
+}
+if params != nil && params.SubaccountSid != nil {
+    data.Set("SubaccountSid", *params.SubaccountSid)
+}
 
-	if params != nil && params.AdvancedFeatures != nil {
-		data.Set("AdvancedFeatures", fmt.Sprint(*params.AdvancedFeatures))
-	}
-	if params != nil && params.VoiceTrace != nil {
-		data.Set("VoiceTrace", fmt.Sprint(*params.VoiceTrace))
-	}
-	if params != nil && params.SubaccountSid != nil {
-		data.Set("SubaccountSid", *params.SubaccountSid)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &InsightsV1AccountSettings{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &InsightsV1AccountSettings{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

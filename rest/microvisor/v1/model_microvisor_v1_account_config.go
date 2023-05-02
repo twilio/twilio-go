@@ -13,18 +13,20 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MicrovisorV1AccountConfig struct for MicrovisorV1AccountConfig
 type MicrovisorV1AccountConfig struct {
-	// The config key; up to 100 characters.
-	Key         *string    `json:"key,omitempty"`
+		// The config key; up to 100 characters.
+	Key *string `json:"key,omitempty"`
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The config value; up to 4096 characters.
+		// The config value; up to 4096 characters.
 	Value *string `json:"value,omitempty"`
-	// The absolute URL of the Config.
+		// The absolute URL of the Config.
 	Url *string `json:"url,omitempty"`
 }
+
+

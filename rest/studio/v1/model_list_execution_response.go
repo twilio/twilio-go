@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListExecutionResponse struct for ListExecutionResponse
 type ListExecutionResponse struct {
-	Executions []StudioV1Execution        `json:"executions,omitempty"`
-	Meta       ListEngagementResponseMeta `json:"meta,omitempty"`
+	Executions []StudioV1Execution `json:"executions,omitempty"`
+	Meta ListEngagementResponseMeta `json:"meta,omitempty"`
 }
+
+

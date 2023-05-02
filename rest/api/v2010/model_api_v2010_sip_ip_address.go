@@ -13,25 +13,30 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010SipIpAddress struct for ApiV2010SipIpAddress
 type ApiV2010SipIpAddress struct {
-	// A 34 character string that uniquely identifies this resource.
+		// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique id of the Account that is responsible for this resource.
+		// The unique id of the Account that is responsible for this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A human readable descriptive text for this resource, up to 255 characters long.
+		// A human readable descriptive text for this resource, up to 255 characters long.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+		// An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
 	IpAddress *string `json:"ip_address,omitempty"`
-	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+		// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 	CidrPrefixLength *int `json:"cidr_prefix_length,omitempty"`
-	// The unique id of the IpAccessControlList resource that includes this resource.
+		// The unique id of the IpAccessControlList resource that includes this resource.
 	IpAccessControlListSid *string `json:"ip_access_control_list_sid,omitempty"`
-	// The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+		// The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+		// The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The URI for this resource, relative to `https://api.twilio.com`
+		// The URI for this resource, relative to `https://api.twilio.com`
 	Uri *string `json:"uri,omitempty"`
 }
+
+

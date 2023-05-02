@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListServiceConversationResponse struct for ListServiceConversationResponse
 type ListServiceConversationResponse struct {
 	Conversations []ConversationsV1ServiceConversation `json:"conversations,omitempty"`
-	Meta          ListConfigurationAddressResponseMeta `json:"meta,omitempty"`
+	Meta ListConfigurationAddressResponseMeta `json:"meta,omitempty"`
 }
+
+

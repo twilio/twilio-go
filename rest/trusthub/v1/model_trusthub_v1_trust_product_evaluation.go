@@ -13,24 +13,26 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // TrusthubV1TrustProductEvaluation struct for TrusthubV1TrustProductEvaluation
 type TrusthubV1TrustProductEvaluation struct {
-	// The unique string that identifies the Evaluation resource.
+		// The unique string that identifies the Evaluation resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the trust_product resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the trust_product resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique string of a policy that is associated to the trust_product resource.
+		// The unique string of a policy that is associated to the trust_product resource.
 	PolicySid *string `json:"policy_sid,omitempty"`
-	// The unique string that we created to identify the trust_product resource.
+		// The unique string that we created to identify the trust_product resource.
 	TrustProductSid *string `json:"trust_product_sid,omitempty"`
-	Status          *string `json:"status,omitempty"`
-	// The results of the Evaluation which includes the valid and invalid attributes.
-	Results     *[]interface{} `json:"results,omitempty"`
-	DateCreated *time.Time     `json:"date_created,omitempty"`
-	Url         *string        `json:"url,omitempty"`
+	Status *string `json:"status,omitempty"`
+		// The results of the Evaluation which includes the valid and invalid attributes.
+	Results *[]interface{} `json:"results,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

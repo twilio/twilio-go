@@ -13,14 +13,19 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // FlexV1InsightsQuestionnairesCategory struct for FlexV1InsightsQuestionnairesCategory
 type FlexV1InsightsQuestionnairesCategory struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique ID for the category
+		// The unique ID for the category
 	CategoryId *string `json:"category_id,omitempty"`
-	// The name of this category.
+		// The name of this category.
 	Name *string `json:"name,omitempty"`
-	Url  *string `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

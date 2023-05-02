@@ -13,11 +13,16 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // MessagingV1BrandRegistrationOtp struct for MessagingV1BrandRegistrationOtp
 type MessagingV1BrandRegistrationOtp struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Brand Registration resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Brand Registration resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique string to identify Brand Registration of Sole Proprietor Brand
+		// The unique string to identify Brand Registration of Sole Proprietor Brand
 	BrandRegistrationSid *string `json:"brand_registration_sid,omitempty"`
 }
+
+

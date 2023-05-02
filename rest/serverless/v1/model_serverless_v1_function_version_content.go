@@ -13,18 +13,23 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ServerlessV1FunctionVersionContent struct for ServerlessV1FunctionVersionContent
 type ServerlessV1FunctionVersionContent struct {
-	// The unique string that we created to identify the Function Version resource.
+		// The unique string that we created to identify the Function Version resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function Version resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function Version resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Service that the Function Version resource is associated with.
+		// The SID of the Service that the Function Version resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the Function that is the parent of the Function Version.
+		// The SID of the Function that is the parent of the Function Version.
 	FunctionSid *string `json:"function_sid,omitempty"`
-	// The content of the Function Version resource.
+		// The content of the Function Version resource.
 	Content *string `json:"content,omitempty"`
-	Url     *string `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

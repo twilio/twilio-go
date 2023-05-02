@@ -13,17 +13,22 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // BulkexportsV1Day struct for BulkexportsV1Day
 type BulkexportsV1Day struct {
-	// The ISO 8601 format date of the resources in the file, for a UTC day
+		// The ISO 8601 format date of the resources in the file, for a UTC day
 	Day *string `json:"day,omitempty"`
-	// The size of the day's data file in bytes
+		// The size of the day's data file in bytes
 	Size *int `json:"size,omitempty"`
-	// The ISO 8601 format date when resources is created
+		// The ISO 8601 format date when resources is created
 	CreateDate *string `json:"create_date,omitempty"`
-	// The friendly name specified when creating the job
+		// The friendly name specified when creating the job
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The type of communication – Messages, Calls, Conferences, and Participants
+		// The type of communication – Messages, Calls, Conferences, and Participants
 	ResourceType *string `json:"resource_type,omitempty"`
 }
+
+

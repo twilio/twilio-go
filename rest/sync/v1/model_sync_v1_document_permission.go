@@ -13,23 +13,28 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // SyncV1DocumentPermission struct for SyncV1DocumentPermission
 type SyncV1DocumentPermission struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Document Permission resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Document Permission resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
+		// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the Sync Document to which the Document Permission applies.
+		// The SID of the Sync Document to which the Document Permission applies.
 	DocumentSid *string `json:"document_sid,omitempty"`
-	// The application-defined string that uniquely identifies the resource's User within the Service to an FPA token.
+		// The application-defined string that uniquely identifies the resource's User within the Service to an FPA token.
 	Identity *string `json:"identity,omitempty"`
-	// Whether the identity can read the Sync Document.
+		// Whether the identity can read the Sync Document.
 	Read *bool `json:"read,omitempty"`
-	// Whether the identity can update the Sync Document.
+		// Whether the identity can update the Sync Document.
 	Write *bool `json:"write,omitempty"`
-	// Whether the identity can delete the Sync Document.
+		// Whether the identity can delete the Sync Document.
 	Manage *bool `json:"manage,omitempty"`
-	// The absolute URL of the Sync Document Permission resource.
+		// The absolute URL of the Sync Document Permission resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

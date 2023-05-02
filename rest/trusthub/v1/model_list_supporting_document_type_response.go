@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListSupportingDocumentTypeResponse struct for ListSupportingDocumentTypeResponse
 type ListSupportingDocumentTypeResponse struct {
 	SupportingDocumentTypes []TrusthubV1SupportingDocumentType `json:"supporting_document_types,omitempty"`
-	Meta                    ListCustomerProfileResponseMeta    `json:"meta,omitempty"`
+	Meta ListCustomerProfileResponseMeta `json:"meta,omitempty"`
 }
+
+

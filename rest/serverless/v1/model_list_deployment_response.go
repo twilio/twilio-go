@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListDeploymentResponse struct for ListDeploymentResponse
 type ListDeploymentResponse struct {
 	Deployments []ServerlessV1Deployment `json:"deployments,omitempty"`
-	Meta        ListAssetResponseMeta    `json:"meta,omitempty"`
+	Meta ListAssetResponseMeta `json:"meta,omitempty"`
 }
+
+

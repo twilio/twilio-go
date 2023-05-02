@@ -13,32 +13,34 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // VerifyV2Webhook struct for VerifyV2Webhook
 type VerifyV2Webhook struct {
-	// The unique string that we created to identify the Webhook resource.
+		// The unique string that we created to identify the Webhook resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique SID identifier of the Service.
+		// The unique SID identifier of the Service.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The string that you assigned to describe the webhook. **This value should not contain PII.**
+		// The string that you assigned to describe the webhook. **This value should not contain PII.**
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+		// The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
 	EventTypes *[]string `json:"event_types,omitempty"`
-	Status     *string   `json:"status,omitempty"`
-	Version    *string   `json:"version,omitempty"`
-	// The URL associated with this Webhook.
-	WebhookUrl    *string `json:"webhook_url,omitempty"`
+	Status *string `json:"status,omitempty"`
+	Version *string `json:"version,omitempty"`
+		// The URL associated with this Webhook.
+	WebhookUrl *string `json:"webhook_url,omitempty"`
 	WebhookMethod *string `json:"webhook_method,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the Webhook resource.
+		// The absolute URL of the Webhook resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

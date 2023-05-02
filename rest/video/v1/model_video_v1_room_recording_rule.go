@@ -13,19 +13,21 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // VideoV1RoomRecordingRule struct for VideoV1RoomRecordingRule
 type VideoV1RoomRecordingRule struct {
-	// The SID of the Room resource for the Recording Rules
+		// The SID of the Room resource for the Recording Rules
 	RoomSid *string `json:"room_sid,omitempty"`
-	// A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+		// A collection of Recording Rules that describe how to include or exclude matching tracks for recording
 	Rules *[]VideoV1RoomRoomRecordingRuleRules `json:"rules,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 }
+
+

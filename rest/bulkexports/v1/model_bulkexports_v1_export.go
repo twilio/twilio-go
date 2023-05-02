@@ -13,13 +13,18 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // BulkexportsV1Export struct for BulkexportsV1Export
 type BulkexportsV1Export struct {
-	// The type of communication – Messages, Calls, Conferences, and Participants
+		// The type of communication – Messages, Calls, Conferences, and Participants
 	ResourceType *string `json:"resource_type,omitempty"`
-	// The URL of this resource.
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
-	// Contains a dictionary of URL links to nested resources of this Export.
+		// Contains a dictionary of URL links to nested resources of this Export.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

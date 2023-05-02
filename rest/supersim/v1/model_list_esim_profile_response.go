@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListEsimProfileResponse struct for ListEsimProfileResponse
 type ListEsimProfileResponse struct {
-	EsimProfiles []SupersimV1EsimProfile       `json:"esim_profiles,omitempty"`
-	Meta         ListBillingPeriodResponseMeta `json:"meta,omitempty"`
+	EsimProfiles []SupersimV1EsimProfile `json:"esim_profiles,omitempty"`
+	Meta ListBillingPeriodResponseMeta `json:"meta,omitempty"`
 }
+
+

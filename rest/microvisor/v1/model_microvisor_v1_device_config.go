@@ -13,20 +13,22 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MicrovisorV1DeviceConfig struct for MicrovisorV1DeviceConfig
 type MicrovisorV1DeviceConfig struct {
-	// A 34-character string that uniquely identifies the parent Device.
+		// A 34-character string that uniquely identifies the parent Device.
 	DeviceSid *string `json:"device_sid,omitempty"`
-	// The config key; up to 100 characters.
+		// The config key; up to 100 characters.
 	Key *string `json:"key,omitempty"`
-	// The config value; up to 4096 characters.
-	Value       *string    `json:"value,omitempty"`
+		// The config value; up to 4096 characters.
+	Value *string `json:"value,omitempty"`
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the Config.
+		// The absolute URL of the Config.
 	Url *string `json:"url,omitempty"`
 }
+
+

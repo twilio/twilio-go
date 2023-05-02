@@ -13,60 +13,57 @@
  */
 
 package openapi
-
 import (
 	"encoding/json"
-
 	"github.com/twilio/twilio-go/client"
 )
-
 // ApiV2010CallFeedbackSummary struct for ApiV2010CallFeedbackSummary
 type ApiV2010CallFeedbackSummary struct {
-	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+		// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The total number of calls.
+		// The total number of calls.
 	CallCount *int `json:"call_count,omitempty"`
-	// The total number of calls with a feedback entry.
+		// The total number of calls with a feedback entry.
 	CallFeedbackCount *int `json:"call_feedback_count,omitempty"`
-	// The date that this resource was created, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+		// The date that this resource was created, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date that this resource was last updated, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+		// The date that this resource was last updated, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The last date for which feedback entries are included in this Feedback Summary, formatted as `YYYY-MM-DD` and specified in UTC.
+		// The last date for which feedback entries are included in this Feedback Summary, formatted as `YYYY-MM-DD` and specified in UTC.
 	EndDate *string `json:"end_date,omitempty"`
-	// Whether the feedback summary includes subaccounts; `true` if it does, otherwise `false`.
+		// Whether the feedback summary includes subaccounts; `true` if it does, otherwise `false`.
 	IncludeSubaccounts *bool `json:"include_subaccounts,omitempty"`
-	// A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, or `one-way-audio`.
+		// A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, or `one-way-audio`.
 	Issues *[]interface{} `json:"issues,omitempty"`
-	// The average QualityScore of the feedback entries.
+		// The average QualityScore of the feedback entries.
 	QualityScoreAverage *float32 `json:"quality_score_average,omitempty"`
-	// The median QualityScore of the feedback entries.
+		// The median QualityScore of the feedback entries.
 	QualityScoreMedian *float32 `json:"quality_score_median,omitempty"`
-	// The standard deviation of the quality scores.
+		// The standard deviation of the quality scores.
 	QualityScoreStandardDeviation *float32 `json:"quality_score_standard_deviation,omitempty"`
-	// A 34 character string that uniquely identifies this resource.
+		// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
-	// The first date for which feedback entries are included in this feedback summary, formatted as `YYYY-MM-DD` and specified in UTC.
+		// The first date for which feedback entries are included in this feedback summary, formatted as `YYYY-MM-DD` and specified in UTC.
 	StartDate *string `json:"start_date,omitempty"`
-	Status    *string `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 func (response *ApiV2010CallFeedbackSummary) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		AccountSid                    *string        `json:"account_sid"`
-		CallCount                     *int           `json:"call_count"`
-		CallFeedbackCount             *int           `json:"call_feedback_count"`
-		DateCreated                   *string        `json:"date_created"`
-		DateUpdated                   *string        `json:"date_updated"`
-		EndDate                       *string        `json:"end_date"`
-		IncludeSubaccounts            *bool          `json:"include_subaccounts"`
-		Issues                        *[]interface{} `json:"issues"`
-		QualityScoreAverage           *interface{}   `json:"quality_score_average"`
-		QualityScoreMedian            *interface{}   `json:"quality_score_median"`
-		QualityScoreStandardDeviation *interface{}   `json:"quality_score_standard_deviation"`
-		Sid                           *string        `json:"sid"`
-		StartDate                     *string        `json:"start_date"`
-		Status                        *string        `json:"status"`
+		AccountSid *string `json:"account_sid"`
+		CallCount *int `json:"call_count"`
+		CallFeedbackCount *int `json:"call_feedback_count"`
+		DateCreated *string `json:"date_created"`
+		DateUpdated *string `json:"date_updated"`
+		EndDate *string `json:"end_date"`
+		IncludeSubaccounts *bool `json:"include_subaccounts"`
+		Issues *[]interface{} `json:"issues"`
+		QualityScoreAverage *interface{} `json:"quality_score_average"`
+		QualityScoreMedian *interface{} `json:"quality_score_median"`
+		QualityScoreStandardDeviation *interface{} `json:"quality_score_standard_deviation"`
+		Sid *string `json:"sid"`
+		StartDate *string `json:"start_date"`
+		Status *string `json:"status"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -74,17 +71,17 @@ func (response *ApiV2010CallFeedbackSummary) UnmarshalJSON(bytes []byte) (err er
 	}
 
 	*response = ApiV2010CallFeedbackSummary{
-		AccountSid:         raw.AccountSid,
-		CallCount:          raw.CallCount,
-		CallFeedbackCount:  raw.CallFeedbackCount,
-		DateCreated:        raw.DateCreated,
-		DateUpdated:        raw.DateUpdated,
-		EndDate:            raw.EndDate,
+		AccountSid: raw.AccountSid,
+		CallCount: raw.CallCount,
+		CallFeedbackCount: raw.CallFeedbackCount,
+		DateCreated: raw.DateCreated,
+		DateUpdated: raw.DateUpdated,
+		EndDate: raw.EndDate,
 		IncludeSubaccounts: raw.IncludeSubaccounts,
-		Issues:             raw.Issues,
-		Sid:                raw.Sid,
-		StartDate:          raw.StartDate,
-		Status:             raw.Status,
+		Issues: raw.Issues,
+		Sid: raw.Sid,
+		StartDate: raw.StartDate,
+		Status: raw.Status,
 	}
 
 	responseQualityScoreAverage, err := client.UnmarshalFloat32(raw.QualityScoreAverage)
@@ -107,3 +104,4 @@ func (response *ApiV2010CallFeedbackSummary) UnmarshalJSON(bytes []byte) (err er
 
 	return
 }
+

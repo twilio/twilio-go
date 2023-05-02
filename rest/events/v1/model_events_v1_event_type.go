@@ -13,24 +13,26 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // EventsV1EventType struct for EventsV1EventType
 type EventsV1EventType struct {
-	// A string that uniquely identifies this Event Type.
+		// A string that uniquely identifies this Event Type.
 	Type *string `json:"type,omitempty"`
-	// A string that uniquely identifies the Schema this Event Type adheres to.
+		// A string that uniquely identifies the Schema this Event Type adheres to.
 	SchemaId *string `json:"schema_id,omitempty"`
-	// The date that this Event Type was created, given in ISO 8601 format.
+		// The date that this Event Type was created, given in ISO 8601 format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this Event Type was updated, given in ISO 8601 format.
+		// The date that this Event Type was updated, given in ISO 8601 format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// A human readable description for this Event Type.
+		// A human readable description for this Event Type.
 	Description *string `json:"description,omitempty"`
-	// The URL of this resource.
-	Url   *string                 `json:"url,omitempty"`
+		// The URL of this resource.
+	Url *string `json:"url,omitempty"`
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

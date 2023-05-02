@@ -13,32 +13,34 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // ConversationsV1ServiceBinding struct for ConversationsV1ServiceBinding
 type ConversationsV1ServiceBinding struct {
-	// A 34 character string that uniquely identifies this resource.
+		// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this binding.
+		// The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this binding.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+		// The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
-	// The SID of the [Credential](https://www.twilio.com/docs/conversations/api/credential-resource) for the binding. See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+		// The SID of the [Credential](https://www.twilio.com/docs/conversations/api/credential-resource) for the binding. See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 	CredentialSid *string `json:"credential_sid,omitempty"`
-	// The date that this resource was created.
+		// The date that this resource was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this resource was last updated.
+		// The date that this resource was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The unique endpoint identifier for the Binding. The format of this value depends on the `binding_type`.
+		// The unique endpoint identifier for the Binding. The format of this value depends on the `binding_type`.
 	Endpoint *string `json:"endpoint,omitempty"`
-	// The application-defined string that uniquely identifies the [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more info.
-	Identity    *string `json:"identity,omitempty"`
+		// The application-defined string that uniquely identifies the [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more info.
+	Identity *string `json:"identity,omitempty"`
 	BindingType *string `json:"binding_type,omitempty"`
-	// The [Conversation message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
+		// The [Conversation message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
 	MessageTypes *[]string `json:"message_types,omitempty"`
-	// An absolute API resource URL for this binding.
+		// An absolute API resource URL for this binding.
 	Url *string `json:"url,omitempty"`
 }
+
+

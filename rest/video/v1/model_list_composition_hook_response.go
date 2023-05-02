@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListCompositionHookResponse struct for ListCompositionHookResponse
 type ListCompositionHookResponse struct {
-	CompositionHooks []VideoV1CompositionHook    `json:"composition_hooks,omitempty"`
-	Meta             ListCompositionResponseMeta `json:"meta,omitempty"`
+	CompositionHooks []VideoV1CompositionHook `json:"composition_hooks,omitempty"`
+	Meta ListCompositionResponseMeta `json:"meta,omitempty"`
 }
+
+

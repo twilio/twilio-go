@@ -13,33 +13,35 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // ServerlessV1Environment struct for ServerlessV1Environment
 type ServerlessV1Environment struct {
-	// The unique string that we created to identify the Environment resource.
+		// The unique string that we created to identify the Environment resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Environment resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Environment resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Service that the Environment resource is associated with.
+		// The SID of the Service that the Environment resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the build deployed in the environment.
+		// The SID of the build deployed in the environment.
 	BuildSid *string `json:"build_sid,omitempty"`
-	// A user-defined string that uniquely identifies the Environment resource.
+		// A user-defined string that uniquely identifies the Environment resource.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// A URL-friendly name that represents the environment and forms part of the domain name.
+		// A URL-friendly name that represents the environment and forms part of the domain name.
 	DomainSuffix *string `json:"domain_suffix,omitempty"`
-	// The domain name for all Functions and Assets deployed in the Environment, using the Service unique name, a randomly-generated Service suffix, and an optional Environment domain suffix.
+		// The domain name for all Functions and Assets deployed in the Environment, using the Service unique name, a randomly-generated Service suffix, and an optional Environment domain suffix.
 	DomainName *string `json:"domain_name,omitempty"`
-	// The date and time in GMT when the Environment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the Environment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the Environment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the Environment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the Environment resource.
+		// The absolute URL of the Environment resource.
 	Url *string `json:"url,omitempty"`
-	// The URLs of the Environment resource's nested resources.
+		// The URLs of the Environment resource's nested resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListCommandResponse struct for ListCommandResponse
 type ListCommandResponse struct {
-	Commands []WirelessV1Command                `json:"commands,omitempty"`
-	Meta     ListAccountUsageRecordResponseMeta `json:"meta,omitempty"`
+	Commands []WirelessV1Command `json:"commands,omitempty"`
+	Meta ListAccountUsageRecordResponseMeta `json:"meta,omitempty"`
 }
+
+

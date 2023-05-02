@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListFunctionVersionResponse struct for ListFunctionVersionResponse
 type ListFunctionVersionResponse struct {
 	FunctionVersions []ServerlessV1FunctionVersion `json:"function_versions,omitempty"`
-	Meta             ListAssetResponseMeta         `json:"meta,omitempty"`
+	Meta ListAssetResponseMeta `json:"meta,omitempty"`
 }
+
+

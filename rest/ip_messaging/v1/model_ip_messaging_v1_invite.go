@@ -13,21 +13,23 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // IpMessagingV1Invite struct for IpMessagingV1Invite
 type IpMessagingV1Invite struct {
-	Sid         *string    `json:"sid,omitempty"`
-	AccountSid  *string    `json:"account_sid,omitempty"`
-	ChannelSid  *string    `json:"channel_sid,omitempty"`
-	ServiceSid  *string    `json:"service_sid,omitempty"`
-	Identity    *string    `json:"identity,omitempty"`
+	Sid *string `json:"sid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
+	ChannelSid *string `json:"channel_sid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
+	Identity *string `json:"identity,omitempty"`
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	RoleSid     *string    `json:"role_sid,omitempty"`
-	CreatedBy   *string    `json:"created_by,omitempty"`
-	Url         *string    `json:"url,omitempty"`
+	RoleSid *string `json:"role_sid,omitempty"`
+	CreatedBy *string `json:"created_by,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

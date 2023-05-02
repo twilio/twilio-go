@@ -13,23 +13,25 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // TrusthubV1CustomerProfileEntityAssignment struct for TrusthubV1CustomerProfileEntityAssignment
 type TrusthubV1CustomerProfileEntityAssignment struct {
-	// The unique string that we created to identify the Item Assignment resource.
+		// The unique string that we created to identify the Item Assignment resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique string that we created to identify the CustomerProfile resource.
+		// The unique string that we created to identify the CustomerProfile resource.
 	CustomerProfileSid *string `json:"customer_profile_sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of an object bag that holds information of the different items.
+		// The SID of an object bag that holds information of the different items.
 	ObjectSid *string `json:"object_sid,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The absolute URL of the Identity resource.
+		// The absolute URL of the Identity resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

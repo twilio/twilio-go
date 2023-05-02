@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListFlowRevisionResponse struct for ListFlowRevisionResponse
 type ListFlowRevisionResponse struct {
-	Revisions []StudioV2FlowRevision    `json:"revisions,omitempty"`
-	Meta      ListExecutionResponseMeta `json:"meta,omitempty"`
+	Revisions []StudioV2FlowRevision `json:"revisions,omitempty"`
+	Meta ListExecutionResponseMeta `json:"meta,omitempty"`
 }
+
+

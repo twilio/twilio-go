@@ -16,44 +16,49 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateReplaceItems'
 type CreateReplaceItemsParams struct {
-	// The source bundle sid to copy the item assignments from.
-	FromBundleSid *string `json:"FromBundleSid,omitempty"`
+    // The source bundle sid to copy the item assignments from.
+    FromBundleSid *string `json:"FromBundleSid,omitempty"`
 }
 
-func (params *CreateReplaceItemsParams) SetFromBundleSid(FromBundleSid string) *CreateReplaceItemsParams {
-	params.FromBundleSid = &FromBundleSid
-	return params
+func (params *CreateReplaceItemsParams) SetFromBundleSid(FromBundleSid string) (*CreateReplaceItemsParams){
+    params.FromBundleSid = &FromBundleSid
+    return params
 }
 
 // Replaces all bundle items in the target bundle (specified in the path) with all the bundle items of the source bundle (specified by the from_bundle_sid body param)
 func (c *ApiService) CreateReplaceItems(BundleSid string, params *CreateReplaceItemsParams) (*NumbersV2ReplaceItems, error) {
-	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ReplaceItems"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ReplaceItems"
+        path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.FromBundleSid != nil {
-		data.Set("FromBundleSid", *params.FromBundleSid)
-	}
+if params != nil && params.FromBundleSid != nil {
+    data.Set("FromBundleSid", *params.FromBundleSid)
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &NumbersV2ReplaceItems{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &NumbersV2ReplaceItems{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

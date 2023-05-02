@@ -13,17 +13,22 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // NumbersV2SupportingDocumentType struct for NumbersV2SupportingDocumentType
 type NumbersV2SupportingDocumentType struct {
-	// The unique string that identifies the Supporting Document Type resource.
+		// The unique string that identifies the Supporting Document Type resource.
 	Sid *string `json:"sid,omitempty"`
-	// A human-readable description of the Supporting Document Type resource.
+		// A human-readable description of the Supporting Document Type resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The machine-readable description of the Supporting Document Type resource.
+		// The machine-readable description of the Supporting Document Type resource.
 	MachineName *string `json:"machine_name,omitempty"`
-	// The required information for creating a Supporting Document. The required fields will change as regulatory needs change and will differ for businesses and individuals.
+		// The required information for creating a Supporting Document. The required fields will change as regulatory needs change and will differ for businesses and individuals.
 	Fields *[]interface{} `json:"fields,omitempty"`
-	// The absolute URL of the Supporting Document Type resource.
+		// The absolute URL of the Supporting Document Type resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

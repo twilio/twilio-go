@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListCredentialListResponse struct for ListCredentialListResponse
 type ListCredentialListResponse struct {
-	CredentialLists []TrunkingV1CredentialList     `json:"credential_lists,omitempty"`
-	Meta            ListCredentialListResponseMeta `json:"meta,omitempty"`
+	CredentialLists []TrunkingV1CredentialList `json:"credential_lists,omitempty"`
+	Meta ListCredentialListResponseMeta `json:"meta,omitempty"`
 }
+
+

@@ -16,44 +16,49 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchUsAppToPersonUsecase'
 type FetchUsAppToPersonUsecaseParams struct {
-	// The unique string to identify the A2P brand.
-	BrandRegistrationSid *string `json:"BrandRegistrationSid,omitempty"`
+    // The unique string to identify the A2P brand.
+    BrandRegistrationSid *string `json:"BrandRegistrationSid,omitempty"`
 }
 
-func (params *FetchUsAppToPersonUsecaseParams) SetBrandRegistrationSid(BrandRegistrationSid string) *FetchUsAppToPersonUsecaseParams {
-	params.BrandRegistrationSid = &BrandRegistrationSid
-	return params
+func (params *FetchUsAppToPersonUsecaseParams) SetBrandRegistrationSid(BrandRegistrationSid string) (*FetchUsAppToPersonUsecaseParams){
+    params.BrandRegistrationSid = &BrandRegistrationSid
+    return params
 }
 
-//
+// 
 func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string, params *FetchUsAppToPersonUsecaseParams) (*MessagingV1UsAppToPersonUsecase, error) {
-	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases"
-	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+    path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases"
+        path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.BrandRegistrationSid != nil {
-		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
-	}
+if params != nil && params.BrandRegistrationSid != nil {
+    data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
+}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &MessagingV1UsAppToPersonUsecase{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &MessagingV1UsAppToPersonUsecase{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

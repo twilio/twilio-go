@@ -13,35 +13,40 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // LookupsV2PhoneNumber struct for LookupsV2PhoneNumber
 type LookupsV2PhoneNumber struct {
-	// International dialing prefix of the phone number defined in the E.164 standard.
+		// International dialing prefix of the phone number defined in the E.164 standard.
 	CallingCountryCode *string `json:"calling_country_code,omitempty"`
-	// The phone number's [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+		// The phone number's [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 	CountryCode *string `json:"country_code,omitempty"`
-	// The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+		// The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// The phone number in [national format](https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers).
+		// The phone number in [national format](https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers).
 	NationalFormat *string `json:"national_format,omitempty"`
-	// Boolean which indicates if the phone number is in a valid range that can be freely assigned by a carrier to a user.
+		// Boolean which indicates if the phone number is in a valid range that can be freely assigned by a carrier to a user.
 	Valid *bool `json:"valid,omitempty"`
-	// Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
+		// Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
 	ValidationErrors *[]string `json:"validation_errors,omitempty"`
-	// An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
+		// An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
 	CallerName *interface{} `json:"caller_name,omitempty"`
-	// An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
+		// An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
 	SimSwap *interface{} `json:"sim_swap,omitempty"`
-	// An object that contains information on the unconditional call forwarding status of mobile phone number.
+		// An object that contains information on the unconditional call forwarding status of mobile phone number.
 	CallForwarding *interface{} `json:"call_forwarding,omitempty"`
-	// An object that contains live activity information for a mobile phone number.
+		// An object that contains live activity information for a mobile phone number.
 	LiveActivity *interface{} `json:"live_activity,omitempty"`
-	// An object that contains line type information including the carrier name, mobile country code, and mobile network code.
+		// An object that contains line type information including the carrier name, mobile country code, and mobile network code.
 	LineTypeIntelligence *interface{} `json:"line_type_intelligence,omitempty"`
-	// An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
+		// An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
 	IdentityMatch *interface{} `json:"identity_match,omitempty"`
-	// An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
+		// An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
 	SmsPumpingRisk *interface{} `json:"sms_pumping_risk,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

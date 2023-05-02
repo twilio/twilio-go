@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListTollfreeVerificationResponse struct for ListTollfreeVerificationResponse
 type ListTollfreeVerificationResponse struct {
 	Verifications []MessagingV1TollfreeVerification `json:"verifications,omitempty"`
-	Meta          ListAlphaSenderResponseMeta       `json:"meta,omitempty"`
+	Meta ListAlphaSenderResponseMeta `json:"meta,omitempty"`
 }
+
+

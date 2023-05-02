@@ -13,31 +13,33 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // AutopilotV1Sample struct for AutopilotV1Sample
 type AutopilotV1Sample struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sample resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sample resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the resource.
+		// The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the resource.
 	TaskSid *string `json:"task_sid,omitempty"`
-	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
+		// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
 	Language *string `json:"language,omitempty"`
-	// The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
+		// The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
 	AssistantSid *string `json:"assistant_sid,omitempty"`
-	// The unique string that we created to identify the Sample resource.
+		// The unique string that we created to identify the Sample resource.
 	Sid *string `json:"sid,omitempty"`
-	// The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+		// The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
 	TaggedText *string `json:"tagged_text,omitempty"`
-	// The absolute URL of the Sample resource.
+		// The absolute URL of the Sample resource.
 	Url *string `json:"url,omitempty"`
-	// The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
+		// The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
 	SourceChannel *string `json:"source_channel,omitempty"`
 }
+
+

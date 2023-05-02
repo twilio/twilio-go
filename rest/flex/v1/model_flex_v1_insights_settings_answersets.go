@@ -13,16 +13,21 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // FlexV1InsightsSettingsAnswersets struct for FlexV1InsightsSettingsAnswersets
 type FlexV1InsightsSettingsAnswersets struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The lis of answer sets
+		// The lis of answer sets
 	AnswerSets *interface{} `json:"answer_sets,omitempty"`
-	// The list of answer set categories
+		// The list of answer set categories
 	AnswerSetCategories *interface{} `json:"answer_set_categories,omitempty"`
-	// The details for not applicable answer set
+		// The details for not applicable answer set
 	NotApplicable *interface{} `json:"not_applicable,omitempty"`
-	Url           *string      `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

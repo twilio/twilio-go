@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // EventsV1SinkValidate struct for EventsV1SinkValidate
 type EventsV1SinkValidate struct {
-	// Feedback indicating whether the given Sink was validated.
+		// Feedback indicating whether the given Sink was validated.
 	Result *string `json:"result,omitempty"`
 }
+
+

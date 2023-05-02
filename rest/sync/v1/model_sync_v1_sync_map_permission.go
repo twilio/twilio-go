@@ -13,23 +13,28 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // SyncV1SyncMapPermission struct for SyncV1SyncMapPermission
 type SyncV1SyncMapPermission struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sync Map Permission resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sync Map Permission resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
+		// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the Sync Map to which the Permission applies.
+		// The SID of the Sync Map to which the Permission applies.
 	MapSid *string `json:"map_sid,omitempty"`
-	// The application-defined string that uniquely identifies the resource's User within the Service to an FPA token.
+		// The application-defined string that uniquely identifies the resource's User within the Service to an FPA token.
 	Identity *string `json:"identity,omitempty"`
-	// Whether the identity can read the Sync Map and its Items.
+		// Whether the identity can read the Sync Map and its Items.
 	Read *bool `json:"read,omitempty"`
-	// Whether the identity can create, update, and delete Items in the Sync Map.
+		// Whether the identity can create, update, and delete Items in the Sync Map.
 	Write *bool `json:"write,omitempty"`
-	// Whether the identity can delete the Sync Map.
+		// Whether the identity can delete the Sync Map.
 	Manage *bool `json:"manage,omitempty"`
-	// The absolute URL of the Sync Map Permission resource.
+		// The absolute URL of the Sync Map Permission resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

@@ -18,196 +18,204 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateIncomingPhoneNumberAssignedAddOn'
 type CreateIncomingPhoneNumberAssignedAddOnParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The SID that identifies the Add-on installation.
-	InstalledAddOnSid *string `json:"InstalledAddOnSid,omitempty"`
+    // The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // The SID that identifies the Add-on installation.
+    InstalledAddOnSid *string `json:"InstalledAddOnSid,omitempty"`
 }
 
-func (params *CreateIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberAssignedAddOnParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *CreateIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) (*CreateIncomingPhoneNumberAssignedAddOnParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *CreateIncomingPhoneNumberAssignedAddOnParams) SetInstalledAddOnSid(InstalledAddOnSid string) *CreateIncomingPhoneNumberAssignedAddOnParams {
-	params.InstalledAddOnSid = &InstalledAddOnSid
-	return params
+func (params *CreateIncomingPhoneNumberAssignedAddOnParams) SetInstalledAddOnSid(InstalledAddOnSid string) (*CreateIncomingPhoneNumberAssignedAddOnParams){
+    params.InstalledAddOnSid = &InstalledAddOnSid
+    return params
 }
 
 // Assign an Add-on installation to the Number specified.
 func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *CreateIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
+    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.InstalledAddOnSid != nil {
-		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
-	}
+if params != nil && params.InstalledAddOnSid != nil {
+    data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ApiV2010IncomingPhoneNumberAssignedAddOn{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ApiV2010IncomingPhoneNumberAssignedAddOn{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'DeleteIncomingPhoneNumberAssignedAddOn'
 type DeleteIncomingPhoneNumberAssignedAddOnParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to delete.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to delete.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
-func (params *DeleteIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *DeleteIncomingPhoneNumberAssignedAddOnParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *DeleteIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) (*DeleteIncomingPhoneNumberAssignedAddOnParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
 
 // Remove the assignment of an Add-on installation from the Number specified.
-func (c *ApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *DeleteIncomingPhoneNumberAssignedAddOnParams) error {
-	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *DeleteIncomingPhoneNumberAssignedAddOnParams) (error) {
+    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Optional parameters for the method 'FetchIncomingPhoneNumberAssignedAddOn'
 type FetchIncomingPhoneNumberAssignedAddOnParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
-func (params *FetchIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *FetchIncomingPhoneNumberAssignedAddOnParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *FetchIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) (*FetchIncomingPhoneNumberAssignedAddOnParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
 
 // Fetch an instance of an Add-on installation currently assigned to this Number.
 func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *FetchIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ApiV2010IncomingPhoneNumberAssignedAddOn{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &ApiV2010IncomingPhoneNumberAssignedAddOn{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOn'
 type ListIncomingPhoneNumberAssignedAddOnParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberAssignedAddOnParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) (*ListIncomingPhoneNumberAssignedAddOnParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberAssignedAddOnParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize int) (*ListIncomingPhoneNumberAssignedAddOnParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetLimit(Limit int) *ListIncomingPhoneNumberAssignedAddOnParams {
-	params.Limit = &Limit
-	return params
+func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetLimit(Limit int) (*ListIncomingPhoneNumberAssignedAddOnParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of IncomingPhoneNumberAssignedAddOn records from the API. Request is executed immediately.
 func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
+    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
 
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListIncomingPhoneNumberAssignedAddOnResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListIncomingPhoneNumberAssignedAddOnResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists IncomingPhoneNumberAssignedAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -248,6 +256,7 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamIncomingPhoneNumberAssignedAddOn(response *ListIncomingPhoneNumberAssignedAddOnResponse, params *ListIncomingPhoneNumberAssignedAddOnParams, recordChannel chan ApiV2010IncomingPhoneNumberAssignedAddOn, errorChannel chan error) {
 	curRecord := 1
 
@@ -279,19 +288,20 @@ func (c *ApiService) streamIncomingPhoneNumberAssignedAddOn(response *ListIncomi
 }
 
 func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListIncomingPhoneNumberAssignedAddOnResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListIncomingPhoneNumberAssignedAddOnResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

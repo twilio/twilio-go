@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListSyncListItemResponse struct for ListSyncListItemResponse
 type ListSyncListItemResponse struct {
-	Items []SyncV1SyncListItem     `json:"items,omitempty"`
-	Meta  ListDocumentResponseMeta `json:"meta,omitempty"`
+	Items []SyncV1SyncListItem `json:"items,omitempty"`
+	Meta ListDocumentResponseMeta `json:"meta,omitempty"`
 }
+
+

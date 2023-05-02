@@ -13,34 +13,39 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010Participant struct for ApiV2010Participant
 type ApiV2010Participant struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Participant resource is associated with.
+		// The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Participant resource is associated with.
 	CallSid *string `json:"call_sid,omitempty"`
-	// The user-specified label of this participant, if one was given when the participant was created. This may be used to fetch, update or delete the participant.
+		// The user-specified label of this participant, if one was given when the participant was created. This may be used to fetch, update or delete the participant.
 	Label *string `json:"label,omitempty"`
-	// The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+		// The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
 	CallSidToCoach *string `json:"call_sid_to_coach,omitempty"`
-	// Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+		// Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
 	Coaching *bool `json:"coaching,omitempty"`
-	// The SID of the conference the participant is in.
+		// The SID of the conference the participant is in.
 	ConferenceSid *string `json:"conference_sid,omitempty"`
-	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// Whether the conference ends when the participant leaves. Can be: `true` or `false` and the default is `false`. If `true`, the conference ends and all other participants drop out when the participant leaves.
+		// Whether the conference ends when the participant leaves. Can be: `true` or `false` and the default is `false`. If `true`, the conference ends and all other participants drop out when the participant leaves.
 	EndConferenceOnExit *bool `json:"end_conference_on_exit,omitempty"`
-	// Whether the participant is muted. Can be `true` or `false`.
+		// Whether the participant is muted. Can be `true` or `false`.
 	Muted *bool `json:"muted,omitempty"`
-	// Whether the participant is on hold. Can be `true` or `false`.
+		// Whether the participant is on hold. Can be `true` or `false`.
 	Hold *bool `json:"hold,omitempty"`
-	// Whether the conference starts when the participant joins the conference, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
-	StartConferenceOnEnter *bool   `json:"start_conference_on_enter,omitempty"`
-	Status                 *string `json:"status,omitempty"`
-	// The URI of the resource, relative to `https://api.twilio.com`.
+		// Whether the conference starts when the participant joins the conference, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+	StartConferenceOnEnter *bool `json:"start_conference_on_enter,omitempty"`
+	Status *string `json:"status,omitempty"`
+		// The URI of the resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 }
+
+

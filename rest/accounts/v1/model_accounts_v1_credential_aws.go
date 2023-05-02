@@ -13,23 +13,25 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // AccountsV1CredentialAws struct for AccountsV1CredentialAws
 type AccountsV1CredentialAws struct {
-	// The unique string that we created to identify the AWS resource.
+		// The unique string that we created to identify the AWS resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AWS resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AWS resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The string that you assigned to describe the resource.
+		// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The URI for this resource, relative to `https://accounts.twilio.com`
+		// The URI for this resource, relative to `https://accounts.twilio.com`
 	Url *string `json:"url,omitempty"`
 }
+
+

@@ -13,21 +13,23 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // VideoV1RoomParticipantSubscribeRule struct for VideoV1RoomParticipantSubscribeRule
 type VideoV1RoomParticipantSubscribeRule struct {
-	// The SID of the Participant resource for the Subscribe Rules.
+		// The SID of the Participant resource for the Subscribe Rules.
 	ParticipantSid *string `json:"participant_sid,omitempty"`
-	// The SID of the Room resource for the Subscribe Rules
+		// The SID of the Room resource for the Subscribe Rules
 	RoomSid *string `json:"room_sid,omitempty"`
-	// A collection of Subscribe Rules that describe how to include or exclude matching tracks. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+		// A collection of Subscribe Rules that describe how to include or exclude matching tracks. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 	Rules *[]VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules `json:"rules,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 }
+
+

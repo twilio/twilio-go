@@ -13,13 +13,18 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // VoiceV1ArchivedCall struct for VoiceV1ArchivedCall
 type VoiceV1ArchivedCall struct {
-	// The date
+		// The date
 	Date *string `json:"date,omitempty"`
-	// The call sid
+		// The call sid
 	Sid *string `json:"sid,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

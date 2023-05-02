@@ -13,38 +13,40 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // ChatV1Channel struct for ChatV1Channel
 type ChatV1Channel struct {
-	// The unique string that we created to identify the Channel resource.
+		// The unique string that we created to identify the Channel resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the Channel resource.
+		// The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the Channel resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
+		// The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The string that you assigned to describe the resource.
+		// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+		// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// The JSON string that stores application-specific data. **Note** If this property has been assigned a value, it's only  displayed in a FETCH action that returns a single resource; otherwise, it's null. If the attributes have not been set, `{}` is returned.
+		// The JSON string that stores application-specific data. **Note** If this property has been assigned a value, it's only  displayed in a FETCH action that returns a single resource; otherwise, it's null. If the attributes have not been set, `{}` is returned.
 	Attributes *string `json:"attributes,omitempty"`
-	Type       *string `json:"type,omitempty"`
-	// The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+	Type *string `json:"type,omitempty"`
+		// The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`.
+		// The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`.
 	CreatedBy *string `json:"created_by,omitempty"`
-	// The number of Members in the Channel.
+		// The number of Members in the Channel.
 	MembersCount *int `json:"members_count,omitempty"`
-	// The number of Messages in the Channel.
+		// The number of Messages in the Channel.
 	MessagesCount *int `json:"messages_count,omitempty"`
-	// The absolute URL of the Channel resource.
+		// The absolute URL of the Channel resource.
 	Url *string `json:"url,omitempty"`
-	// The absolute URLs of the [Members](https://www.twilio.com/docs/chat/api/members), [Messages](https://www.twilio.com/docs/chat/api/messages) , [Invites](https://www.twilio.com/docs/chat/api/invites) and, if it exists, the last [Message](https://www.twilio.com/docs/chat/api/messages) for the Channel.
+		// The absolute URLs of the [Members](https://www.twilio.com/docs/chat/api/members), [Messages](https://www.twilio.com/docs/chat/api/messages) , [Invites](https://www.twilio.com/docs/chat/api/invites) and, if it exists, the last [Message](https://www.twilio.com/docs/chat/api/messages) for the Channel.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

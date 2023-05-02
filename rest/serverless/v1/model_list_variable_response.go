@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListVariableResponse struct for ListVariableResponse
 type ListVariableResponse struct {
 	Variables []ServerlessV1Variable `json:"variables,omitempty"`
-	Meta      ListAssetResponseMeta  `json:"meta,omitempty"`
+	Meta ListAssetResponseMeta `json:"meta,omitempty"`
 }
+
+

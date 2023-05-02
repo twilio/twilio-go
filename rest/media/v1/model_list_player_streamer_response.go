@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListPlayerStreamerResponse struct for ListPlayerStreamerResponse
 type ListPlayerStreamerResponse struct {
-	PlayerStreamers []MediaV1PlayerStreamer        `json:"player_streamers,omitempty"`
-	Meta            ListMediaProcessorResponseMeta `json:"meta,omitempty"`
+	PlayerStreamers []MediaV1PlayerStreamer `json:"player_streamers,omitempty"`
+	Meta ListMediaProcessorResponseMeta `json:"meta,omitempty"`
 }
+
+

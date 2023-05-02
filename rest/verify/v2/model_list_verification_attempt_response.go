@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListVerificationAttemptResponse struct for ListVerificationAttemptResponse
 type ListVerificationAttemptResponse struct {
 	Attempts []VerifyV2VerificationAttempt `json:"attempts,omitempty"`
-	Meta     ListBucketResponseMeta        `json:"meta,omitempty"`
+	Meta ListBucketResponseMeta `json:"meta,omitempty"`
 }
+
+

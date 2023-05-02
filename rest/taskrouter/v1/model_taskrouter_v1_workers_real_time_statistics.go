@@ -13,17 +13,22 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // TaskrouterV1WorkersRealTimeStatistics struct for TaskrouterV1WorkersRealTimeStatistics
 type TaskrouterV1WorkersRealTimeStatistics struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The number of current Workers by Activity.
+		// The number of current Workers by Activity.
 	ActivityStatistics *[]interface{} `json:"activity_statistics,omitempty"`
-	// The total number of Workers.
+		// The total number of Workers.
 	TotalWorkers *int `json:"total_workers,omitempty"`
-	// The SID of the Workspace that contains the Workers.
+		// The SID of the Workspace that contains the Workers.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
-	// The absolute URL of the Workers statistics resource.
+		// The absolute URL of the Workers statistics resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

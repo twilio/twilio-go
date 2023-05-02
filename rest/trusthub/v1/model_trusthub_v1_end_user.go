@@ -13,27 +13,29 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // TrusthubV1EndUser struct for TrusthubV1EndUser
 type TrusthubV1EndUser struct {
-	// The unique string created by Twilio to identify the End User resource.
+		// The unique string created by Twilio to identify the End User resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the End User resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the End User resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The string that you assigned to describe the resource.
+		// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The type of end user of the Bundle resource - can be `individual` or `business`.
+		// The type of end user of the Bundle resource - can be `individual` or `business`.
 	Type *string `json:"type,omitempty"`
-	// The set of parameters that are the attributes of the End Users resource which are listed in the End User Types.
+		// The set of parameters that are the attributes of the End Users resource which are listed in the End User Types.
 	Attributes *interface{} `json:"attributes,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the End User resource.
+		// The absolute URL of the End User resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

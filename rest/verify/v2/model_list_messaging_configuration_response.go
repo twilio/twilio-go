@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListMessagingConfigurationResponse struct for ListMessagingConfigurationResponse
 type ListMessagingConfigurationResponse struct {
 	MessagingConfigurations []VerifyV2MessagingConfiguration `json:"messaging_configurations,omitempty"`
-	Meta                    ListBucketResponseMeta           `json:"meta,omitempty"`
+	Meta ListBucketResponseMeta `json:"meta,omitempty"`
 }
+
+

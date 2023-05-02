@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListDataSessionResponse struct for ListDataSessionResponse
 type ListDataSessionResponse struct {
-	DataSessions []WirelessV1DataSession            `json:"data_sessions,omitempty"`
-	Meta         ListAccountUsageRecordResponseMeta `json:"meta,omitempty"`
+	DataSessions []WirelessV1DataSession `json:"data_sessions,omitempty"`
+	Meta ListAccountUsageRecordResponseMeta `json:"meta,omitempty"`
 }
+
+

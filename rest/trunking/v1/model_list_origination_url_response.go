@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListOriginationUrlResponse struct for ListOriginationUrlResponse
 type ListOriginationUrlResponse struct {
-	OriginationUrls []TrunkingV1OriginationUrl     `json:"origination_urls,omitempty"`
-	Meta            ListCredentialListResponseMeta `json:"meta,omitempty"`
+	OriginationUrls []TrunkingV1OriginationUrl `json:"origination_urls,omitempty"`
+	Meta ListCredentialListResponseMeta `json:"meta,omitempty"`
 }
+
+

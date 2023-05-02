@@ -13,23 +13,28 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // SyncV1SyncListPermission struct for SyncV1SyncListPermission
 type SyncV1SyncListPermission struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sync List Permission resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sync List Permission resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
+		// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the Sync List to which the Permission applies.
+		// The SID of the Sync List to which the Permission applies.
 	ListSid *string `json:"list_sid,omitempty"`
-	// The application-defined string that uniquely identifies the resource's User within the Service to an FPA token.
+		// The application-defined string that uniquely identifies the resource's User within the Service to an FPA token.
 	Identity *string `json:"identity,omitempty"`
-	// Whether the identity can read the Sync List and its Items.
+		// Whether the identity can read the Sync List and its Items.
 	Read *bool `json:"read,omitempty"`
-	// Whether the identity can create, update, and delete Items in the Sync List.
+		// Whether the identity can create, update, and delete Items in the Sync List.
 	Write *bool `json:"write,omitempty"`
-	// Whether the identity can delete the Sync List.
+		// Whether the identity can delete the Sync List.
 	Manage *bool `json:"manage,omitempty"`
-	// The absolute URL of the Sync List Permission resource.
+		// The absolute URL of the Sync List Permission resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListConnectionPolicyTargetResponse struct for ListConnectionPolicyTargetResponse
 type ListConnectionPolicyTargetResponse struct {
 	Targets []VoiceV1ConnectionPolicyTarget `json:"targets,omitempty"`
-	Meta    ListByocTrunkResponseMeta       `json:"meta,omitempty"`
+	Meta ListByocTrunkResponseMeta `json:"meta,omitempty"`
 }
+
+

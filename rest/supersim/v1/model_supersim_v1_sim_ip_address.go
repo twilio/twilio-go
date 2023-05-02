@@ -13,10 +13,15 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // SupersimV1SimIpAddress struct for SupersimV1SimIpAddress
 type SupersimV1SimIpAddress struct {
-	// IP address assigned to the given Super SIM
-	IpAddress        *string `json:"ip_address,omitempty"`
+		// IP address assigned to the given Super SIM
+	IpAddress *string `json:"ip_address,omitempty"`
 	IpAddressVersion *string `json:"ip_address_version,omitempty"`
 }
+
+

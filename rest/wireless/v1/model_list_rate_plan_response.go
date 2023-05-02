@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListRatePlanResponse struct for ListRatePlanResponse
 type ListRatePlanResponse struct {
-	RatePlans []WirelessV1RatePlan               `json:"rate_plans,omitempty"`
-	Meta      ListAccountUsageRecordResponseMeta `json:"meta,omitempty"`
+	RatePlans []WirelessV1RatePlan `json:"rate_plans,omitempty"`
+	Meta ListAccountUsageRecordResponseMeta `json:"meta,omitempty"`
 }
+
+

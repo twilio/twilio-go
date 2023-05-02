@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListMessageResponse struct for ListMessageResponse
 type ListMessageResponse struct {
-	Messages []ChatV2Message         `json:"messages,omitempty"`
-	Meta     ListBindingResponseMeta `json:"meta,omitempty"`
+	Messages []ChatV2Message `json:"messages,omitempty"`
+	Meta ListBindingResponseMeta `json:"meta,omitempty"`
 }
+
+

@@ -13,27 +13,29 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // SupersimV1SmsCommand struct for SupersimV1SmsCommand
 type SupersimV1SmsCommand struct {
-	// The unique string that we created to identify the SMS Command resource.
+		// The unique string that we created to identify the SMS Command resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SMS Command resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SMS Command resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this SMS Command was sent to or from.
+		// The SID of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this SMS Command was sent to or from.
 	SimSid *string `json:"sim_sid,omitempty"`
-	// The message body of the SMS Command sent to or from the SIM. For text mode messages, this can be up to 160 characters.
-	Payload   *string `json:"payload,omitempty"`
-	Status    *string `json:"status,omitempty"`
+		// The message body of the SMS Command sent to or from the SIM. For text mode messages, this can be up to 160 characters.
+	Payload *string `json:"payload,omitempty"`
+	Status *string `json:"status,omitempty"`
 	Direction *string `json:"direction,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the SMS Command resource.
+		// The absolute URL of the SMS Command resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListByocTrunkResponse struct for ListByocTrunkResponse
 type ListByocTrunkResponse struct {
-	ByocTrunks []VoiceV1ByocTrunk        `json:"byoc_trunks,omitempty"`
-	Meta       ListByocTrunkResponseMeta `json:"meta,omitempty"`
+	ByocTrunks []VoiceV1ByocTrunk `json:"byoc_trunks,omitempty"`
+	Meta ListByocTrunkResponseMeta `json:"meta,omitempty"`
 }
+
+

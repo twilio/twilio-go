@@ -13,56 +13,58 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // InsightsV1VideoRoomSummary struct for InsightsV1VideoRoomSummary
 type InsightsV1VideoRoomSummary struct {
-	// Account SID associated with this room.
+		// Account SID associated with this room.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Unique identifier for the room.
+		// Unique identifier for the room.
 	RoomSid *string `json:"room_sid,omitempty"`
-	// Room friendly name.
+		// Room friendly name.
 	RoomName *string `json:"room_name,omitempty"`
-	// Creation time of the room.
+		// Creation time of the room.
 	CreateTime *time.Time `json:"create_time,omitempty"`
-	// End time for the room.
-	EndTime    *time.Time `json:"end_time,omitempty"`
-	RoomType   *string    `json:"room_type,omitempty"`
-	RoomStatus *string    `json:"room_status,omitempty"`
-	// Webhook provided for status callbacks.
+		// End time for the room.
+	EndTime *time.Time `json:"end_time,omitempty"`
+	RoomType *string `json:"room_type,omitempty"`
+	RoomStatus *string `json:"room_status,omitempty"`
+		// Webhook provided for status callbacks.
 	StatusCallback *string `json:"status_callback,omitempty"`
-	// HTTP method provided for status callback URL.
+		// HTTP method provided for status callback URL.
 	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
-	CreatedMethod        *string `json:"created_method,omitempty"`
-	EndReason            *string `json:"end_reason,omitempty"`
-	// Max number of total participants allowed by the application settings.
+	CreatedMethod *string `json:"created_method,omitempty"`
+	EndReason *string `json:"end_reason,omitempty"`
+		// Max number of total participants allowed by the application settings.
 	MaxParticipants *int `json:"max_participants,omitempty"`
-	// Number of participants. May include duplicate identities for participants who left and rejoined.
+		// Number of participants. May include duplicate identities for participants who left and rejoined.
 	UniqueParticipants *int `json:"unique_participants,omitempty"`
-	// Unique number of participant identities.
+		// Unique number of participant identities.
 	UniqueParticipantIdentities *int `json:"unique_participant_identities,omitempty"`
-	// Actual number of concurrent participants.
+		// Actual number of concurrent participants.
 	ConcurrentParticipants *int `json:"concurrent_participants,omitempty"`
-	// Maximum number of participants allowed in the room at the same time allowed by the application settings.
+		// Maximum number of participants allowed in the room at the same time allowed by the application settings.
 	MaxConcurrentParticipants *int `json:"max_concurrent_participants,omitempty"`
-	// Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-	Codecs      *[]string `json:"codecs,omitempty"`
-	MediaRegion *string   `json:"media_region,omitempty"`
-	// Total room duration from create time to end time.
+		// Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+	Codecs *[]string `json:"codecs,omitempty"`
+	MediaRegion *string `json:"media_region,omitempty"`
+		// Total room duration from create time to end time.
 	DurationSec *int64 `json:"duration_sec,omitempty"`
-	// Combined amount of participant time in the room.
+		// Combined amount of participant time in the room.
 	TotalParticipantDurationSec *int64 `json:"total_participant_duration_sec,omitempty"`
-	// Combined amount of recorded seconds for participants in the room.
-	TotalRecordingDurationSec *int64  `json:"total_recording_duration_sec,omitempty"`
-	ProcessingState           *string `json:"processing_state,omitempty"`
-	// Boolean indicating if recording is enabled for the room.
-	RecordingEnabled *bool   `json:"recording_enabled,omitempty"`
-	EdgeLocation     *string `json:"edge_location,omitempty"`
-	// URL for the room resource.
+		// Combined amount of recorded seconds for participants in the room.
+	TotalRecordingDurationSec *int64 `json:"total_recording_duration_sec,omitempty"`
+	ProcessingState *string `json:"processing_state,omitempty"`
+		// Boolean indicating if recording is enabled for the room.
+	RecordingEnabled *bool `json:"recording_enabled,omitempty"`
+	EdgeLocation *string `json:"edge_location,omitempty"`
+		// URL for the room resource.
 	Url *string `json:"url,omitempty"`
-	// Room subresources.
+		// Room subresources.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

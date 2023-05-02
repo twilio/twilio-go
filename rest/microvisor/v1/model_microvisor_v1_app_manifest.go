@@ -13,15 +13,20 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // MicrovisorV1AppManifest struct for MicrovisorV1AppManifest
 type MicrovisorV1AppManifest struct {
-	// A 34-character string that uniquely identifies this App.
+		// A 34-character string that uniquely identifies this App.
 	AppSid *string `json:"app_sid,omitempty"`
-	// App manifest hash represented as `hash_algorithm:hash_value`.
+		// App manifest hash represented as `hash_algorithm:hash_value`.
 	Hash *string `json:"hash,omitempty"`
-	// The base-64 encoded manifest
+		// The base-64 encoded manifest
 	EncodedBytes *string `json:"encoded_bytes,omitempty"`
-	// The absolute URL of this Manifest.
+		// The absolute URL of this Manifest.
 	Url *string `json:"url,omitempty"`
 }
+
+

@@ -13,21 +13,26 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ConversationsV1ServiceNotification struct for ConversationsV1ServiceNotification
 type ConversationsV1ServiceNotification struct {
-	// The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
+		// The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
+		// The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
-	// The Push Notification configuration for New Messages.
+		// The Push Notification configuration for New Messages.
 	NewMessage *interface{} `json:"new_message,omitempty"`
-	// The Push Notification configuration for being added to a Conversation.
+		// The Push Notification configuration for being added to a Conversation.
 	AddedToConversation *interface{} `json:"added_to_conversation,omitempty"`
-	// The Push Notification configuration for being removed from a Conversation.
+		// The Push Notification configuration for being removed from a Conversation.
 	RemovedFromConversation *interface{} `json:"removed_from_conversation,omitempty"`
-	// Weather the notification logging is enabled.
+		// Weather the notification logging is enabled.
 	LogEnabled *bool `json:"log_enabled,omitempty"`
-	// An absolute API resource URL for this configuration.
+		// An absolute API resource URL for this configuration.
 	Url *string `json:"url,omitempty"`
 }
+
+
