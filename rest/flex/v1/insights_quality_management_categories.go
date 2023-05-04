@@ -42,7 +42,7 @@ func (params *CreateInsightsQuestionnairesCategoryParams) SetName(Name string) *
 
 // To create a category for Questions
 func (c *ApiService) CreateInsightsQuestionnairesCategory(params *CreateInsightsQuestionnairesCategoryParams) (*FlexV1InsightsQuestionnairesCategory, error) {
-	path := "/v1/Insights/QM/Categories"
+	path := "/v1/Insights/QualityManagement/Categories"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -82,9 +82,9 @@ func (params *DeleteInsightsQuestionnairesCategoryParams) SetToken(Token string)
 }
 
 //
-func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategoryId string, params *DeleteInsightsQuestionnairesCategoryParams) error {
-	path := "/v1/Insights/QM/Categories/{CategoryId}"
-	path = strings.Replace(path, "{"+"CategoryId"+"}", CategoryId, -1)
+func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategorySid string, params *DeleteInsightsQuestionnairesCategoryParams) error {
+	path := "/v1/Insights/QualityManagement/Categories/{CategorySid}"
+	path = strings.Replace(path, "{"+"CategorySid"+"}", CategorySid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -128,7 +128,7 @@ func (params *ListInsightsQuestionnairesCategoryParams) SetLimit(Limit int) *Lis
 
 // Retrieve a single page of InsightsQuestionnairesCategory records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsQuestionnairesCategory(params *ListInsightsQuestionnairesCategoryParams, pageToken, pageNumber string) (*ListInsightsQuestionnairesCategoryResponse, error) {
-	path := "/v1/Insights/QM/Categories"
+	path := "/v1/Insights/QualityManagement/Categories"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -263,9 +263,9 @@ func (params *UpdateInsightsQuestionnairesCategoryParams) SetName(Name string) *
 }
 
 // To update the category for Questions
-func (c *ApiService) UpdateInsightsQuestionnairesCategory(CategoryId string, params *UpdateInsightsQuestionnairesCategoryParams) (*FlexV1InsightsQuestionnairesCategory, error) {
-	path := "/v1/Insights/QM/Categories/{CategoryId}"
-	path = strings.Replace(path, "{"+"CategoryId"+"}", CategoryId, -1)
+func (c *ApiService) UpdateInsightsQuestionnairesCategory(CategorySid string, params *UpdateInsightsQuestionnairesCategoryParams) (*FlexV1InsightsQuestionnairesCategory, error) {
+	path := "/v1/Insights/QualityManagement/Categories/{CategorySid}"
+	path = strings.Replace(path, "{"+"CategorySid"+"}", CategorySid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})

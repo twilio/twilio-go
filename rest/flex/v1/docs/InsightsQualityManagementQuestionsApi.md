@@ -1,13 +1,13 @@
-# InsightsQMQuestionsApi
+# InsightsQualityManagementQuestionsApi
 
 All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsQuestionnairesQuestion**](InsightsQMQuestionsApi.md#CreateInsightsQuestionnairesQuestion) | **Post** /v1/Insights/QM/Questions | 
-[**DeleteInsightsQuestionnairesQuestion**](InsightsQMQuestionsApi.md#DeleteInsightsQuestionnairesQuestion) | **Delete** /v1/Insights/QM/Questions/{QuestionId} | 
-[**ListInsightsQuestionnairesQuestion**](InsightsQMQuestionsApi.md#ListInsightsQuestionnairesQuestion) | **Get** /v1/Insights/QM/Questions | 
-[**UpdateInsightsQuestionnairesQuestion**](InsightsQMQuestionsApi.md#UpdateInsightsQuestionnairesQuestion) | **Post** /v1/Insights/QM/Questions/{QuestionId} | 
+[**CreateInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#CreateInsightsQuestionnairesQuestion) | **Post** /v1/Insights/QualityManagement/Questions | 
+[**DeleteInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#DeleteInsightsQuestionnairesQuestion) | **Delete** /v1/Insights/QualityManagement/Questions/{QuestionSid} | 
+[**ListInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#ListInsightsQuestionnairesQuestion) | **Get** /v1/Insights/QualityManagement/Questions | 
+[**UpdateInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#UpdateInsightsQuestionnairesQuestion) | **Post** /v1/Insights/QualityManagement/Questions/{QuestionSid} | 
 
 
 
@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateInsightsQuestionnairesQ
 Name | Type | Description
 ------------- | ------------- | -------------
 **Token** | **string** | The Token HTTP request header
-**CategoryId** | **string** | The ID of the category
+**CategorySid** | **string** | The SID of the category
 **Question** | **string** | The question.
 **AnswerSetId** | **string** | The answer_set for the question.
 **AllowNa** | **bool** | The flag to enable for disable NA for answer.
@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## DeleteInsightsQuestionnairesQuestion
 
-> DeleteInsightsQuestionnairesQuestion(ctx, QuestionIdoptional)
+> DeleteInsightsQuestionnairesQuestion(ctx, QuestionSidoptional)
 
 
 
@@ -69,7 +69,7 @@ Name | Type | Description
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**QuestionId** | **string** | The unique ID of the question
+**QuestionSid** | **string** | The SID of the question
 
 ### Other Parameters
 
@@ -118,7 +118,7 @@ Other parameters are passed through a pointer to a ListInsightsQuestionnairesQue
 Name | Type | Description
 ------------- | ------------- | -------------
 **Token** | **string** | The Token HTTP request header
-**CategoryId** | **[]string** | The list of category IDs
+**CategorySid** | **[]string** | The list of category SIDs
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## UpdateInsightsQuestionnairesQuestion
 
-> FlexV1InsightsQuestionnairesQuestion UpdateInsightsQuestionnairesQuestion(ctx, QuestionIdoptional)
+> FlexV1InsightsQuestionnairesQuestion UpdateInsightsQuestionnairesQuestion(ctx, QuestionSidoptional)
 
 
 
@@ -154,7 +154,7 @@ To update the question
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**QuestionId** | **string** | The unique ID of the question
+**QuestionSid** | **string** | The SID of the question
 
 ### Other Parameters
 
@@ -165,7 +165,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Token** | **string** | The Token HTTP request header
 **AllowNa** | **bool** | The flag to enable for disable NA for answer.
-**CategoryId** | **string** | The ID of the category
+**CategorySid** | **string** | The SID of the category
 **Question** | **string** | The question.
 **Description** | **string** | The description for the question.
 **AnswerSetId** | **string** | The answer_set for the question.

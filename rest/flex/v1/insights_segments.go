@@ -18,53 +18,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
 	"github.com/twilio/twilio-go/client"
 )
-
-// Optional parameters for the method 'FetchInsightsSegments'
-type FetchInsightsSegmentsParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
-}
-
-func (params *FetchInsightsSegmentsParams) SetToken(Token string) *FetchInsightsSegmentsParams {
-	params.Token = &Token
-	return params
-}
-
-// To get the Segments of an Account
-func (c *ApiService) FetchInsightsSegments(SegmentId string, params *FetchInsightsSegmentsParams) (*FlexV1InsightsSegments, error) {
-	path := "/v1/Insights/Segments/{SegmentId}"
-	path = strings.Replace(path, "{"+"SegmentId"+"}", SegmentId, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
-	}
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &FlexV1InsightsSegments{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
-}
 
 // Optional parameters for the method 'ListInsightsSegments'
 type ListInsightsSegmentsParams struct {
 	// The Token HTTP request header
 	Token *string `json:"Token,omitempty"`
+	// To unique id of the segment
+	SegmentId *string `json:"SegmentId,omitempty"`
 	// The list of reservation Ids
 	ReservationId *[]string `json:"ReservationId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -75,6 +38,10 @@ type ListInsightsSegmentsParams struct {
 
 func (params *ListInsightsSegmentsParams) SetToken(Token string) *ListInsightsSegmentsParams {
 	params.Token = &Token
+	return params
+}
+func (params *ListInsightsSegmentsParams) SetSegmentId(SegmentId string) *ListInsightsSegmentsParams {
+	params.SegmentId = &SegmentId
 	return params
 }
 func (params *ListInsightsSegmentsParams) SetReservationId(ReservationId []string) *ListInsightsSegmentsParams {
@@ -97,6 +64,9 @@ func (c *ApiService) PageInsightsSegments(params *ListInsightsSegmentsParams, pa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.SegmentId != nil {
+		data.Set("SegmentId", *params.SegmentId)
+	}
 	if params != nil && params.ReservationId != nil {
 		for _, item := range *params.ReservationId {
 			data.Add("ReservationId", item)

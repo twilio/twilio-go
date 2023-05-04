@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource. |
-**Id** | Pointer to **string** | The unique id of this questionnaire |
+**QuestionnaireSid** | Pointer to **string** | The sid of this questionnaire |
 **Name** | Pointer to **string** | The name of this category. |
 **Description** | Pointer to **string** | The description of this questionnaire |
 **Active** | Pointer to **bool** | The flag to enable or disable questionnaire |

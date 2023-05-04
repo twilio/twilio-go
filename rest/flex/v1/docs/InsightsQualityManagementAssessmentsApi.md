@@ -1,12 +1,12 @@
-# InsightsQMAssessmentsApi
+# InsightsQualityManagementAssessmentsApi
 
 All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsAssessments**](InsightsQMAssessmentsApi.md#CreateInsightsAssessments) | **Post** /v1/Insights/QM/Assessments | 
-[**ListInsightsAssessments**](InsightsQMAssessmentsApi.md#ListInsightsAssessments) | **Get** /v1/Insights/QM/Assessments | 
-[**UpdateInsightsAssessments**](InsightsQMAssessmentsApi.md#UpdateInsightsAssessments) | **Post** /v1/Insights/QM/Assessments/{AssessmentId} | 
+[**CreateInsightsAssessments**](InsightsQualityManagementAssessmentsApi.md#CreateInsightsAssessments) | **Post** /v1/Insights/QualityManagement/Assessments | 
+[**ListInsightsAssessments**](InsightsQualityManagementAssessmentsApi.md#ListInsightsAssessments) | **Get** /v1/Insights/QualityManagement/Assessments | 
+[**UpdateInsightsAssessments**](InsightsQualityManagementAssessmentsApi.md#UpdateInsightsAssessments) | **Post** /v1/Insights/QualityManagement/Assessments/{AssessmentSid} | 
 
 
 
@@ -30,18 +30,18 @@ Other parameters are passed through a pointer to a CreateInsightsAssessmentsPara
 Name | Type | Description
 ------------- | ------------- | -------------
 **Token** | **string** | The Token HTTP request header
-**CategoryId** | **string** | The id of the category 
+**CategorySid** | **string** | The SID of the category 
 **CategoryName** | **string** | The name of the category
 **SegmentId** | **string** | Segment Id of the conversation
 **UserName** | **string** | Name of the user assessing conversation
 **UserEmail** | **string** | Email of the user assessing conversation
 **AgentId** | **string** | The id of the Agent
 **Offset** | **float32** | The offset of the conversation.
-**MetricId** | **string** | The question Id selected for assessment
+**MetricId** | **string** | The question SID selected for assessment
 **MetricName** | **string** | The question name of the assessment
 **AnswerText** | **string** | The answer text selected by user
 **AnswerId** | **string** | The id of the answer selected by user
-**QuestionnaireId** | **string** | Questionnaire Id of the associated question
+**QuestionnaireSid** | **string** | Questionnaire SID of the associated question
 
 ### Return type
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 ## UpdateInsightsAssessments
 
-> FlexV1InsightsAssessments UpdateInsightsAssessments(ctx, AssessmentIdoptional)
+> FlexV1InsightsAssessments UpdateInsightsAssessments(ctx, AssessmentSidoptional)
 
 
 
@@ -117,7 +117,7 @@ Update a specific Assessment assessed earlier
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssessmentId** | **string** | The id of the assessment to be modified
+**AssessmentSid** | **string** | The SID of the assessment to be modified
 
 ### Other Parameters
 

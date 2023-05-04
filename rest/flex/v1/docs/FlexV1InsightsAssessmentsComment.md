@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource. |
-**AssessmentId** | Pointer to **string** | The unique ID of the assessment. |
+**AssessmentSid** | Pointer to **string** | The SID of the assessment. |
 **Comment** | Pointer to **interface{}** | The comment added for assessment. |
 **Offset** | Pointer to **float32** | The offset |
 **Report** | Pointer to **bool** | The flag indicating if this assessment is part of report  |

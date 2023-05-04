@@ -32,7 +32,7 @@ func (params *FetchInsightsSettingsAnswersetsParams) SetToken(Token string) *Fet
 
 // To get the Answer Set Settings for an Account
 func (c *ApiService) FetchInsightsSettingsAnswersets(params *FetchInsightsSettingsAnswersetsParams) (*FlexV1InsightsSettingsAnswersets, error) {
-	path := "/v1/Insights/QM/Settings/AnswerSets"
+	path := "/v1/Insights/QualityManagement/Settings/AnswerSets"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})

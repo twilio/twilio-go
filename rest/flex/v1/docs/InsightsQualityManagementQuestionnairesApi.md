@@ -1,14 +1,14 @@
-# InsightsQMQuestionnairesApi
+# InsightsQualityManagementQuestionnairesApi
 
 All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsQuestionnaires**](InsightsQMQuestionnairesApi.md#CreateInsightsQuestionnaires) | **Post** /v1/Insights/QM/Questionnaires | 
-[**DeleteInsightsQuestionnaires**](InsightsQMQuestionnairesApi.md#DeleteInsightsQuestionnaires) | **Delete** /v1/Insights/QM/Questionnaires/{Id} | 
-[**FetchInsightsQuestionnaires**](InsightsQMQuestionnairesApi.md#FetchInsightsQuestionnaires) | **Get** /v1/Insights/QM/Questionnaires/{Id} | 
-[**ListInsightsQuestionnaires**](InsightsQMQuestionnairesApi.md#ListInsightsQuestionnaires) | **Get** /v1/Insights/QM/Questionnaires | 
-[**UpdateInsightsQuestionnaires**](InsightsQMQuestionnairesApi.md#UpdateInsightsQuestionnaires) | **Post** /v1/Insights/QM/Questionnaires/{Id} | 
+[**CreateInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#CreateInsightsQuestionnaires) | **Post** /v1/Insights/QualityManagement/Questionnaires | 
+[**DeleteInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#DeleteInsightsQuestionnaires) | **Delete** /v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid} | 
+[**FetchInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#FetchInsightsQuestionnaires) | **Get** /v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid} | 
+[**ListInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#ListInsightsQuestionnaires) | **Get** /v1/Insights/QualityManagement/Questionnaires | 
+[**UpdateInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#UpdateInsightsQuestionnaires) | **Post** /v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid} | 
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 **Name** | **string** | The name of this questionnaire
 **Description** | **string** | The description of this questionnaire
 **Active** | **bool** | The flag to enable or disable questionnaire
-**QuestionIds** | **[]string** | The list of questions ids under a questionnaire
+**QuestionSids** | **[]string** | The list of questions sids under a questionnaire
 
 ### Return type
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## DeleteInsightsQuestionnaires
 
-> DeleteInsightsQuestionnaires(ctx, Idoptional)
+> DeleteInsightsQuestionnaires(ctx, QuestionnaireSidoptional)
 
 
 
@@ -69,7 +69,7 @@ To delete the questionnaire
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string** | The unique ID of the questionnaire
+**QuestionnaireSid** | **string** | The SID of the questionnaire
 
 ### Other Parameters
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchInsightsQuestionnaires
 
-> FlexV1InsightsQuestionnaires FetchInsightsQuestionnaires(ctx, Idoptional)
+> FlexV1InsightsQuestionnaires FetchInsightsQuestionnaires(ctx, QuestionnaireSidoptional)
 
 
 
@@ -112,7 +112,7 @@ To get the Questionnaire Detail
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string** | The unique ID of the questionnaire
+**QuestionnaireSid** | **string** | The SID of the questionnaire
 
 ### Other Parameters
 
@@ -185,7 +185,7 @@ Name | Type | Description
 
 ## UpdateInsightsQuestionnaires
 
-> FlexV1InsightsQuestionnaires UpdateInsightsQuestionnaires(ctx, Idoptional)
+> FlexV1InsightsQuestionnaires UpdateInsightsQuestionnaires(ctx, QuestionnaireSidoptional)
 
 
 
@@ -197,7 +197,7 @@ To update the questionnaire
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string** | The unique ID of the questionnaire
+**QuestionnaireSid** | **string** | The SID of the questionnaire
 
 ### Other Parameters
 
@@ -210,7 +210,7 @@ Name | Type | Description
 **Active** | **bool** | The flag to enable or disable questionnaire
 **Name** | **string** | The name of this questionnaire
 **Description** | **string** | The description of this questionnaire
-**QuestionIds** | **[]string** | The list of questions ids under a questionnaire
+**QuestionSids** | **[]string** | The list of questions sids under a questionnaire
 
 ### Return type
 

@@ -33,8 +33,8 @@ type CreateInsightsQuestionnairesParams struct {
 	Description *string `json:"Description,omitempty"`
 	// The flag to enable or disable questionnaire
 	Active *bool `json:"Active,omitempty"`
-	// The list of questions ids under a questionnaire
-	QuestionIds *[]string `json:"QuestionIds,omitempty"`
+	// The list of questions sids under a questionnaire
+	QuestionSids *[]string `json:"QuestionSids,omitempty"`
 }
 
 func (params *CreateInsightsQuestionnairesParams) SetToken(Token string) *CreateInsightsQuestionnairesParams {
@@ -53,14 +53,14 @@ func (params *CreateInsightsQuestionnairesParams) SetActive(Active bool) *Create
 	params.Active = &Active
 	return params
 }
-func (params *CreateInsightsQuestionnairesParams) SetQuestionIds(QuestionIds []string) *CreateInsightsQuestionnairesParams {
-	params.QuestionIds = &QuestionIds
+func (params *CreateInsightsQuestionnairesParams) SetQuestionSids(QuestionSids []string) *CreateInsightsQuestionnairesParams {
+	params.QuestionSids = &QuestionSids
 	return params
 }
 
 // To create a Questionnaire
 func (c *ApiService) CreateInsightsQuestionnaires(params *CreateInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
-	path := "/v1/Insights/QM/Questionnaires"
+	path := "/v1/Insights/QualityManagement/Questionnaires"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -74,9 +74,9 @@ func (c *ApiService) CreateInsightsQuestionnaires(params *CreateInsightsQuestion
 	if params != nil && params.Active != nil {
 		data.Set("Active", fmt.Sprint(*params.Active))
 	}
-	if params != nil && params.QuestionIds != nil {
-		for _, item := range *params.QuestionIds {
-			data.Add("QuestionIds", item)
+	if params != nil && params.QuestionSids != nil {
+		for _, item := range *params.QuestionSids {
+			data.Add("QuestionSids", item)
 		}
 	}
 
@@ -111,9 +111,9 @@ func (params *DeleteInsightsQuestionnairesParams) SetToken(Token string) *Delete
 }
 
 // To delete the questionnaire
-func (c *ApiService) DeleteInsightsQuestionnaires(Id string, params *DeleteInsightsQuestionnairesParams) error {
-	path := "/v1/Insights/QM/Questionnaires/{Id}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+func (c *ApiService) DeleteInsightsQuestionnaires(QuestionnaireSid string, params *DeleteInsightsQuestionnairesParams) error {
+	path := "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}"
+	path = strings.Replace(path, "{"+"QuestionnaireSid"+"}", QuestionnaireSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -144,9 +144,9 @@ func (params *FetchInsightsQuestionnairesParams) SetToken(Token string) *FetchIn
 }
 
 // To get the Questionnaire Detail
-func (c *ApiService) FetchInsightsQuestionnaires(Id string, params *FetchInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
-	path := "/v1/Insights/QM/Questionnaires/{Id}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+func (c *ApiService) FetchInsightsQuestionnaires(QuestionnaireSid string, params *FetchInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
+	path := "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}"
+	path = strings.Replace(path, "{"+"QuestionnaireSid"+"}", QuestionnaireSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -201,7 +201,7 @@ func (params *ListInsightsQuestionnairesParams) SetLimit(Limit int) *ListInsight
 
 // Retrieve a single page of InsightsQuestionnaires records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsQuestionnaires(params *ListInsightsQuestionnairesParams, pageToken, pageNumber string) (*ListInsightsQuestionnairesResponse, error) {
-	path := "/v1/Insights/QM/Questionnaires"
+	path := "/v1/Insights/QualityManagement/Questionnaires"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -331,8 +331,8 @@ type UpdateInsightsQuestionnairesParams struct {
 	Name *string `json:"Name,omitempty"`
 	// The description of this questionnaire
 	Description *string `json:"Description,omitempty"`
-	// The list of questions ids under a questionnaire
-	QuestionIds *[]string `json:"QuestionIds,omitempty"`
+	// The list of questions sids under a questionnaire
+	QuestionSids *[]string `json:"QuestionSids,omitempty"`
 }
 
 func (params *UpdateInsightsQuestionnairesParams) SetToken(Token string) *UpdateInsightsQuestionnairesParams {
@@ -351,15 +351,15 @@ func (params *UpdateInsightsQuestionnairesParams) SetDescription(Description str
 	params.Description = &Description
 	return params
 }
-func (params *UpdateInsightsQuestionnairesParams) SetQuestionIds(QuestionIds []string) *UpdateInsightsQuestionnairesParams {
-	params.QuestionIds = &QuestionIds
+func (params *UpdateInsightsQuestionnairesParams) SetQuestionSids(QuestionSids []string) *UpdateInsightsQuestionnairesParams {
+	params.QuestionSids = &QuestionSids
 	return params
 }
 
 // To update the questionnaire
-func (c *ApiService) UpdateInsightsQuestionnaires(Id string, params *UpdateInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
-	path := "/v1/Insights/QM/Questionnaires/{Id}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+func (c *ApiService) UpdateInsightsQuestionnaires(QuestionnaireSid string, params *UpdateInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
+	path := "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}"
+	path = strings.Replace(path, "{"+"QuestionnaireSid"+"}", QuestionnaireSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -373,9 +373,9 @@ func (c *ApiService) UpdateInsightsQuestionnaires(Id string, params *UpdateInsig
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
 	}
-	if params != nil && params.QuestionIds != nil {
-		for _, item := range *params.QuestionIds {
-			data.Add("QuestionIds", item)
+	if params != nil && params.QuestionSids != nil {
+		for _, item := range *params.QuestionSids {
+			data.Add("QuestionSids", item)
 		}
 	}
 

@@ -27,8 +27,8 @@ import (
 type CreateInsightsQuestionnairesQuestionParams struct {
 	// The Token HTTP request header
 	Token *string `json:"Token,omitempty"`
-	// The ID of the category
-	CategoryId *string `json:"CategoryId,omitempty"`
+	// The SID of the category
+	CategorySid *string `json:"CategorySid,omitempty"`
 	// The question.
 	Question *string `json:"Question,omitempty"`
 	// The answer_set for the question.
@@ -43,8 +43,8 @@ func (params *CreateInsightsQuestionnairesQuestionParams) SetToken(Token string)
 	params.Token = &Token
 	return params
 }
-func (params *CreateInsightsQuestionnairesQuestionParams) SetCategoryId(CategoryId string) *CreateInsightsQuestionnairesQuestionParams {
-	params.CategoryId = &CategoryId
+func (params *CreateInsightsQuestionnairesQuestionParams) SetCategorySid(CategorySid string) *CreateInsightsQuestionnairesQuestionParams {
+	params.CategorySid = &CategorySid
 	return params
 }
 func (params *CreateInsightsQuestionnairesQuestionParams) SetQuestion(Question string) *CreateInsightsQuestionnairesQuestionParams {
@@ -66,13 +66,13 @@ func (params *CreateInsightsQuestionnairesQuestionParams) SetDescription(Descrip
 
 // To create a question for a Category
 func (c *ApiService) CreateInsightsQuestionnairesQuestion(params *CreateInsightsQuestionnairesQuestionParams) (*FlexV1InsightsQuestionnairesQuestion, error) {
-	path := "/v1/Insights/QM/Questions"
+	path := "/v1/Insights/QualityManagement/Questions"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CategoryId != nil {
-		data.Set("CategoryId", *params.CategoryId)
+	if params != nil && params.CategorySid != nil {
+		data.Set("CategorySid", *params.CategorySid)
 	}
 	if params != nil && params.Question != nil {
 		data.Set("Question", *params.Question)
@@ -118,9 +118,9 @@ func (params *DeleteInsightsQuestionnairesQuestionParams) SetToken(Token string)
 }
 
 //
-func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionId string, params *DeleteInsightsQuestionnairesQuestionParams) error {
-	path := "/v1/Insights/QM/Questions/{QuestionId}"
-	path = strings.Replace(path, "{"+"QuestionId"+"}", QuestionId, -1)
+func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionSid string, params *DeleteInsightsQuestionnairesQuestionParams) error {
+	path := "/v1/Insights/QualityManagement/Questions/{QuestionSid}"
+	path = strings.Replace(path, "{"+"QuestionSid"+"}", QuestionSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -143,8 +143,8 @@ func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionId string, par
 type ListInsightsQuestionnairesQuestionParams struct {
 	// The Token HTTP request header
 	Token *string `json:"Token,omitempty"`
-	// The list of category IDs
-	CategoryId *[]string `json:"CategoryId,omitempty"`
+	// The list of category SIDs
+	CategorySid *[]string `json:"CategorySid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -155,8 +155,8 @@ func (params *ListInsightsQuestionnairesQuestionParams) SetToken(Token string) *
 	params.Token = &Token
 	return params
 }
-func (params *ListInsightsQuestionnairesQuestionParams) SetCategoryId(CategoryId []string) *ListInsightsQuestionnairesQuestionParams {
-	params.CategoryId = &CategoryId
+func (params *ListInsightsQuestionnairesQuestionParams) SetCategorySid(CategorySid []string) *ListInsightsQuestionnairesQuestionParams {
+	params.CategorySid = &CategorySid
 	return params
 }
 func (params *ListInsightsQuestionnairesQuestionParams) SetPageSize(PageSize int) *ListInsightsQuestionnairesQuestionParams {
@@ -170,14 +170,14 @@ func (params *ListInsightsQuestionnairesQuestionParams) SetLimit(Limit int) *Lis
 
 // Retrieve a single page of InsightsQuestionnairesQuestion records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsQuestionnairesQuestion(params *ListInsightsQuestionnairesQuestionParams, pageToken, pageNumber string) (*ListInsightsQuestionnairesQuestionResponse, error) {
-	path := "/v1/Insights/QM/Questions"
+	path := "/v1/Insights/QualityManagement/Questions"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CategoryId != nil {
-		for _, item := range *params.CategoryId {
-			data.Add("CategoryId", item)
+	if params != nil && params.CategorySid != nil {
+		for _, item := range *params.CategorySid {
+			data.Add("CategorySid", item)
 		}
 	}
 	if params != nil && params.PageSize != nil {
@@ -298,8 +298,8 @@ type UpdateInsightsQuestionnairesQuestionParams struct {
 	Token *string `json:"Token,omitempty"`
 	// The flag to enable for disable NA for answer.
 	AllowNa *bool `json:"AllowNa,omitempty"`
-	// The ID of the category
-	CategoryId *string `json:"CategoryId,omitempty"`
+	// The SID of the category
+	CategorySid *string `json:"CategorySid,omitempty"`
 	// The question.
 	Question *string `json:"Question,omitempty"`
 	// The description for the question.
@@ -316,8 +316,8 @@ func (params *UpdateInsightsQuestionnairesQuestionParams) SetAllowNa(AllowNa boo
 	params.AllowNa = &AllowNa
 	return params
 }
-func (params *UpdateInsightsQuestionnairesQuestionParams) SetCategoryId(CategoryId string) *UpdateInsightsQuestionnairesQuestionParams {
-	params.CategoryId = &CategoryId
+func (params *UpdateInsightsQuestionnairesQuestionParams) SetCategorySid(CategorySid string) *UpdateInsightsQuestionnairesQuestionParams {
+	params.CategorySid = &CategorySid
 	return params
 }
 func (params *UpdateInsightsQuestionnairesQuestionParams) SetQuestion(Question string) *UpdateInsightsQuestionnairesQuestionParams {
@@ -334,9 +334,9 @@ func (params *UpdateInsightsQuestionnairesQuestionParams) SetAnswerSetId(AnswerS
 }
 
 // To update the question
-func (c *ApiService) UpdateInsightsQuestionnairesQuestion(QuestionId string, params *UpdateInsightsQuestionnairesQuestionParams) (*FlexV1InsightsQuestionnairesQuestion, error) {
-	path := "/v1/Insights/QM/Questions/{QuestionId}"
-	path = strings.Replace(path, "{"+"QuestionId"+"}", QuestionId, -1)
+func (c *ApiService) UpdateInsightsQuestionnairesQuestion(QuestionSid string, params *UpdateInsightsQuestionnairesQuestionParams) (*FlexV1InsightsQuestionnairesQuestion, error) {
+	path := "/v1/Insights/QualityManagement/Questions/{QuestionSid}"
+	path = strings.Replace(path, "{"+"QuestionSid"+"}", QuestionSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -344,8 +344,8 @@ func (c *ApiService) UpdateInsightsQuestionnairesQuestion(QuestionId string, par
 	if params != nil && params.AllowNa != nil {
 		data.Set("AllowNa", fmt.Sprint(*params.AllowNa))
 	}
-	if params != nil && params.CategoryId != nil {
-		data.Set("CategoryId", *params.CategoryId)
+	if params != nil && params.CategorySid != nil {
+		data.Set("CategorySid", *params.CategorySid)
 	}
 	if params != nil && params.Question != nil {
 		data.Set("Question", *params.Question)

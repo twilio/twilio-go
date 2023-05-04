@@ -83,7 +83,7 @@ func (params *CreateInsightsAssessmentsCommentParams) SetOffset(Offset float32) 
 
 // To create a comment assessment for a conversation
 func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAssessmentsCommentParams) (*FlexV1InsightsAssessmentsComment, error) {
-	path := "/v1/Insights/QM/Assessments/Comments"
+	path := "/v1/Insights/QualityManagement/Assessments/Comments"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -169,7 +169,7 @@ func (params *ListInsightsAssessmentsCommentParams) SetLimit(Limit int) *ListIns
 
 // Retrieve a single page of InsightsAssessmentsComment records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsAssessmentsComment(params *ListInsightsAssessmentsCommentParams, pageToken, pageNumber string) (*ListInsightsAssessmentsCommentResponse, error) {
-	path := "/v1/Insights/QM/Assessments/Comments"
+	path := "/v1/Insights/QualityManagement/Assessments/Comments"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})

@@ -1,11 +1,11 @@
-# InsightsQMAssessmentsCommentsApi
+# InsightsQualityManagementAssessmentsCommentsApi
 
 All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsAssessmentsComment**](InsightsQMAssessmentsCommentsApi.md#CreateInsightsAssessmentsComment) | **Post** /v1/Insights/QM/Assessments/Comments | 
-[**ListInsightsAssessmentsComment**](InsightsQMAssessmentsCommentsApi.md#ListInsightsAssessmentsComment) | **Get** /v1/Insights/QM/Assessments/Comments | 
+[**CreateInsightsAssessmentsComment**](InsightsQualityManagementAssessmentsCommentsApi.md#CreateInsightsAssessmentsComment) | **Post** /v1/Insights/QualityManagement/Assessments/Comments | 
+[**ListInsightsAssessmentsComment**](InsightsQualityManagementAssessmentsCommentsApi.md#ListInsightsAssessmentsComment) | **Get** /v1/Insights/QualityManagement/Assessments/Comments | 
 
 
 

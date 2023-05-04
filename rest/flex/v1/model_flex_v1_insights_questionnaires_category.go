@@ -18,8 +18,8 @@ package openapi
 type FlexV1InsightsQuestionnairesCategory struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique ID for the category
-	CategoryId *string `json:"category_id,omitempty"`
+	// The SID of the category
+	CategorySid *string `json:"category_sid,omitempty"`
 	// The name of this category.
 	Name *string `json:"name,omitempty"`
 	Url  *string `json:"url,omitempty"`

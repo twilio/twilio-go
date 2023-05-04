@@ -1,5 +1,14 @@
 twilio-go changelog
 ====================
+[2023-05-04] Version 1.7.0
+--------------------------
+**Conversations**
+- Remove `start_date`, `end_date` and `state` query parameters from list operation on Conversations resource **(breaking change)**
+
+**Twiml**
+- Add support for new Amazon Polly voices (Q1 2023) for `Say` verb
+
+
 [2023-04-19] Version 1.6.0
 --------------------------
 **Library - Docs**

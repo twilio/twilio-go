@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource. |
-**QuestionId** | Pointer to **string** | The unique ID of the question |
+**QuestionSid** | Pointer to **string** | The SID of the question |
 **Question** | Pointer to **string** | The question. |
 **Description** | Pointer to **string** | The description for the question. |
 **Category** | Pointer to **interface{}** | The Category for the question. |

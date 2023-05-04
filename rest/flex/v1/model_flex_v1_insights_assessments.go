@@ -24,8 +24,8 @@ import (
 type FlexV1InsightsAssessments struct {
 	// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique id of the assessment
-	AssessmentId *string `json:"assessment_id,omitempty"`
+	// The SID of the assessment
+	AssessmentSid *string `json:"assessment_sid,omitempty"`
 	// Offset of the conversation
 	Offset *float32 `json:"offset,omitempty"`
 	// The flag indicating if this assessment is part of report
@@ -52,20 +52,20 @@ type FlexV1InsightsAssessments struct {
 
 func (response *FlexV1InsightsAssessments) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		AccountSid   *string      `json:"account_sid"`
-		AssessmentId *string      `json:"assessment_id"`
-		Offset       *interface{} `json:"offset"`
-		Report       *bool        `json:"report"`
-		Weight       *interface{} `json:"weight"`
-		AgentId      *string      `json:"agent_id"`
-		SegmentId    *string      `json:"segment_id"`
-		UserName     *string      `json:"user_name"`
-		UserEmail    *string      `json:"user_email"`
-		AnswerText   *string      `json:"answer_text"`
-		AnswerId     *string      `json:"answer_id"`
-		Assessment   *interface{} `json:"assessment"`
-		Timestamp    *interface{} `json:"timestamp"`
-		Url          *string      `json:"url"`
+		AccountSid    *string      `json:"account_sid"`
+		AssessmentSid *string      `json:"assessment_sid"`
+		Offset        *interface{} `json:"offset"`
+		Report        *bool        `json:"report"`
+		Weight        *interface{} `json:"weight"`
+		AgentId       *string      `json:"agent_id"`
+		SegmentId     *string      `json:"segment_id"`
+		UserName      *string      `json:"user_name"`
+		UserEmail     *string      `json:"user_email"`
+		AnswerText    *string      `json:"answer_text"`
+		AnswerId      *string      `json:"answer_id"`
+		Assessment    *interface{} `json:"assessment"`
+		Timestamp     *interface{} `json:"timestamp"`
+		Url           *string      `json:"url"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -73,17 +73,17 @@ func (response *FlexV1InsightsAssessments) UnmarshalJSON(bytes []byte) (err erro
 	}
 
 	*response = FlexV1InsightsAssessments{
-		AccountSid:   raw.AccountSid,
-		AssessmentId: raw.AssessmentId,
-		Report:       raw.Report,
-		AgentId:      raw.AgentId,
-		SegmentId:    raw.SegmentId,
-		UserName:     raw.UserName,
-		UserEmail:    raw.UserEmail,
-		AnswerText:   raw.AnswerText,
-		AnswerId:     raw.AnswerId,
-		Assessment:   raw.Assessment,
-		Url:          raw.Url,
+		AccountSid:    raw.AccountSid,
+		AssessmentSid: raw.AssessmentSid,
+		Report:        raw.Report,
+		AgentId:       raw.AgentId,
+		SegmentId:     raw.SegmentId,
+		UserName:      raw.UserName,
+		UserEmail:     raw.UserEmail,
+		AnswerText:    raw.AnswerText,
+		AnswerId:      raw.AnswerId,
+		Assessment:    raw.Assessment,
+		Url:           raw.Url,
 	}
 
 	responseOffset, err := client.UnmarshalFloat32(raw.Offset)

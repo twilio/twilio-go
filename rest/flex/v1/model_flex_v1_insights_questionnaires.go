@@ -18,8 +18,8 @@ package openapi
 type FlexV1InsightsQuestionnaires struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique id of this questionnaire
-	Id *string `json:"id,omitempty"`
+	// The sid of this questionnaire
+	QuestionnaireSid *string `json:"questionnaire_sid,omitempty"`
 	// The name of this category.
 	Name *string `json:"name,omitempty"`
 	// The description of this questionnaire

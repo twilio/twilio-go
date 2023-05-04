@@ -32,7 +32,7 @@ func (params *FetchInsightsSettingsCommentParams) SetToken(Token string) *FetchI
 
 // To get the Comment Settings for an Account
 func (c *ApiService) FetchInsightsSettingsComment(params *FetchInsightsSettingsCommentParams) (*FlexV1InsightsSettingsComment, error) {
-	path := "/v1/Insights/QM/Settings/CommentTags"
+	path := "/v1/Insights/QualityManagement/Settings/CommentTags"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})

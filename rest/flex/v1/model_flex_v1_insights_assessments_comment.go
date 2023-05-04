@@ -24,8 +24,8 @@ import (
 type FlexV1InsightsAssessmentsComment struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique ID of the assessment.
-	AssessmentId *string `json:"assessment_id,omitempty"`
+	// The SID of the assessment.
+	AssessmentSid *string `json:"assessment_sid,omitempty"`
 	// The comment added for assessment.
 	Comment *interface{} `json:"comment,omitempty"`
 	// The offset
@@ -49,18 +49,18 @@ type FlexV1InsightsAssessmentsComment struct {
 
 func (response *FlexV1InsightsAssessmentsComment) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		AccountSid   *string      `json:"account_sid"`
-		AssessmentId *string      `json:"assessment_id"`
-		Comment      *interface{} `json:"comment"`
-		Offset       *interface{} `json:"offset"`
-		Report       *bool        `json:"report"`
-		Weight       *interface{} `json:"weight"`
-		AgentId      *string      `json:"agent_id"`
-		SegmentId    *string      `json:"segment_id"`
-		UserName     *string      `json:"user_name"`
-		UserEmail    *string      `json:"user_email"`
-		Timestamp    *interface{} `json:"timestamp"`
-		Url          *string      `json:"url"`
+		AccountSid    *string      `json:"account_sid"`
+		AssessmentSid *string      `json:"assessment_sid"`
+		Comment       *interface{} `json:"comment"`
+		Offset        *interface{} `json:"offset"`
+		Report        *bool        `json:"report"`
+		Weight        *interface{} `json:"weight"`
+		AgentId       *string      `json:"agent_id"`
+		SegmentId     *string      `json:"segment_id"`
+		UserName      *string      `json:"user_name"`
+		UserEmail     *string      `json:"user_email"`
+		Timestamp     *interface{} `json:"timestamp"`
+		Url           *string      `json:"url"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -68,15 +68,15 @@ func (response *FlexV1InsightsAssessmentsComment) UnmarshalJSON(bytes []byte) (e
 	}
 
 	*response = FlexV1InsightsAssessmentsComment{
-		AccountSid:   raw.AccountSid,
-		AssessmentId: raw.AssessmentId,
-		Comment:      raw.Comment,
-		Report:       raw.Report,
-		AgentId:      raw.AgentId,
-		SegmentId:    raw.SegmentId,
-		UserName:     raw.UserName,
-		UserEmail:    raw.UserEmail,
-		Url:          raw.Url,
+		AccountSid:    raw.AccountSid,
+		AssessmentSid: raw.AssessmentSid,
+		Comment:       raw.Comment,
+		Report:        raw.Report,
+		AgentId:       raw.AgentId,
+		SegmentId:     raw.SegmentId,
+		UserName:      raw.UserName,
+		UserEmail:     raw.UserEmail,
+		Url:           raw.Url,
 	}
 
 	responseOffset, err := client.UnmarshalFloat32(raw.Offset)

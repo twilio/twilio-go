@@ -27,8 +27,8 @@ import (
 type CreateInsightsAssessmentsParams struct {
 	// The Token HTTP request header
 	Token *string `json:"Token,omitempty"`
-	// The id of the category
-	CategoryId *string `json:"CategoryId,omitempty"`
+	// The SID of the category
+	CategorySid *string `json:"CategorySid,omitempty"`
 	// The name of the category
 	CategoryName *string `json:"CategoryName,omitempty"`
 	// Segment Id of the conversation
@@ -41,7 +41,7 @@ type CreateInsightsAssessmentsParams struct {
 	AgentId *string `json:"AgentId,omitempty"`
 	// The offset of the conversation.
 	Offset *float32 `json:"Offset,omitempty"`
-	// The question Id selected for assessment
+	// The question SID selected for assessment
 	MetricId *string `json:"MetricId,omitempty"`
 	// The question name of the assessment
 	MetricName *string `json:"MetricName,omitempty"`
@@ -49,16 +49,16 @@ type CreateInsightsAssessmentsParams struct {
 	AnswerText *string `json:"AnswerText,omitempty"`
 	// The id of the answer selected by user
 	AnswerId *string `json:"AnswerId,omitempty"`
-	// Questionnaire Id of the associated question
-	QuestionnaireId *string `json:"QuestionnaireId,omitempty"`
+	// Questionnaire SID of the associated question
+	QuestionnaireSid *string `json:"QuestionnaireSid,omitempty"`
 }
 
 func (params *CreateInsightsAssessmentsParams) SetToken(Token string) *CreateInsightsAssessmentsParams {
 	params.Token = &Token
 	return params
 }
-func (params *CreateInsightsAssessmentsParams) SetCategoryId(CategoryId string) *CreateInsightsAssessmentsParams {
-	params.CategoryId = &CategoryId
+func (params *CreateInsightsAssessmentsParams) SetCategorySid(CategorySid string) *CreateInsightsAssessmentsParams {
+	params.CategorySid = &CategorySid
 	return params
 }
 func (params *CreateInsightsAssessmentsParams) SetCategoryName(CategoryName string) *CreateInsightsAssessmentsParams {
@@ -101,20 +101,20 @@ func (params *CreateInsightsAssessmentsParams) SetAnswerId(AnswerId string) *Cre
 	params.AnswerId = &AnswerId
 	return params
 }
-func (params *CreateInsightsAssessmentsParams) SetQuestionnaireId(QuestionnaireId string) *CreateInsightsAssessmentsParams {
-	params.QuestionnaireId = &QuestionnaireId
+func (params *CreateInsightsAssessmentsParams) SetQuestionnaireSid(QuestionnaireSid string) *CreateInsightsAssessmentsParams {
+	params.QuestionnaireSid = &QuestionnaireSid
 	return params
 }
 
 // Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question.
 func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessmentsParams) (*FlexV1InsightsAssessments, error) {
-	path := "/v1/Insights/QM/Assessments"
+	path := "/v1/Insights/QualityManagement/Assessments"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.CategoryId != nil {
-		data.Set("CategoryId", *params.CategoryId)
+	if params != nil && params.CategorySid != nil {
+		data.Set("CategorySid", *params.CategorySid)
 	}
 	if params != nil && params.CategoryName != nil {
 		data.Set("CategoryName", *params.CategoryName)
@@ -146,8 +146,8 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 	if params != nil && params.AnswerId != nil {
 		data.Set("AnswerId", *params.AnswerId)
 	}
-	if params != nil && params.QuestionnaireId != nil {
-		data.Set("QuestionnaireId", *params.QuestionnaireId)
+	if params != nil && params.QuestionnaireSid != nil {
+		data.Set("QuestionnaireSid", *params.QuestionnaireSid)
 	}
 
 	if params != nil && params.Token != nil {
@@ -200,7 +200,7 @@ func (params *ListInsightsAssessmentsParams) SetLimit(Limit int) *ListInsightsAs
 
 // Retrieve a single page of InsightsAssessments records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsAssessments(params *ListInsightsAssessmentsParams, pageToken, pageNumber string) (*ListInsightsAssessmentsResponse, error) {
-	path := "/v1/Insights/QM/Assessments"
+	path := "/v1/Insights/QualityManagement/Assessments"
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -350,9 +350,9 @@ func (params *UpdateInsightsAssessmentsParams) SetAnswerId(AnswerId string) *Upd
 }
 
 // Update a specific Assessment assessed earlier
-func (c *ApiService) UpdateInsightsAssessments(AssessmentId string, params *UpdateInsightsAssessmentsParams) (*FlexV1InsightsAssessments, error) {
-	path := "/v1/Insights/QM/Assessments/{AssessmentId}"
-	path = strings.Replace(path, "{"+"AssessmentId"+"}", AssessmentId, -1)
+func (c *ApiService) UpdateInsightsAssessments(AssessmentSid string, params *UpdateInsightsAssessmentsParams) (*FlexV1InsightsAssessments, error) {
+	path := "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}"
+	path = strings.Replace(path, "{"+"AssessmentSid"+"}", AssessmentSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})

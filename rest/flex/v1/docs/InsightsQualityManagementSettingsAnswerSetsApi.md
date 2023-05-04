@@ -1,10 +1,10 @@
-# InsightsQMSettingsAnswerSetsApi
+# InsightsQualityManagementSettingsAnswerSetsApi
 
 All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchInsightsSettingsAnswersets**](InsightsQMSettingsAnswerSetsApi.md#FetchInsightsSettingsAnswersets) | **Get** /v1/Insights/QM/Settings/AnswerSets | 
+[**FetchInsightsSettingsAnswersets**](InsightsQualityManagementSettingsAnswerSetsApi.md#FetchInsightsSettingsAnswersets) | **Get** /v1/Insights/QualityManagement/Settings/AnswerSets | 
 
 
 

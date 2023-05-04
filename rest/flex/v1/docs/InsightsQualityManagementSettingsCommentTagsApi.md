@@ -1,10 +1,10 @@
-# InsightsQMSettingsCommentTagsApi
+# InsightsQualityManagementSettingsCommentTagsApi
 
 All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchInsightsSettingsComment**](InsightsQMSettingsCommentTagsApi.md#FetchInsightsSettingsComment) | **Get** /v1/Insights/QM/Settings/CommentTags | 
+[**FetchInsightsSettingsComment**](InsightsQualityManagementSettingsCommentTagsApi.md#FetchInsightsSettingsComment) | **Get** /v1/Insights/QualityManagement/Settings/CommentTags | 
 
 
 

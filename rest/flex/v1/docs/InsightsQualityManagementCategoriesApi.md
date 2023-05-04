@@ -1,13 +1,13 @@
-# InsightsQMCategoriesApi
+# InsightsQualityManagementCategoriesApi
 
 All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsQuestionnairesCategory**](InsightsQMCategoriesApi.md#CreateInsightsQuestionnairesCategory) | **Post** /v1/Insights/QM/Categories | 
-[**DeleteInsightsQuestionnairesCategory**](InsightsQMCategoriesApi.md#DeleteInsightsQuestionnairesCategory) | **Delete** /v1/Insights/QM/Categories/{CategoryId} | 
-[**ListInsightsQuestionnairesCategory**](InsightsQMCategoriesApi.md#ListInsightsQuestionnairesCategory) | **Get** /v1/Insights/QM/Categories | 
-[**UpdateInsightsQuestionnairesCategory**](InsightsQMCategoriesApi.md#UpdateInsightsQuestionnairesCategory) | **Post** /v1/Insights/QM/Categories/{CategoryId} | 
+[**CreateInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#CreateInsightsQuestionnairesCategory) | **Post** /v1/Insights/QualityManagement/Categories | 
+[**DeleteInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#DeleteInsightsQuestionnairesCategory) | **Delete** /v1/Insights/QualityManagement/Categories/{CategorySid} | 
+[**ListInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#ListInsightsQuestionnairesCategory) | **Get** /v1/Insights/QualityManagement/Categories | 
+[**UpdateInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#UpdateInsightsQuestionnairesCategory) | **Post** /v1/Insights/QualityManagement/Categories/{CategorySid} | 
 
 
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## DeleteInsightsQuestionnairesCategory
 
-> DeleteInsightsQuestionnairesCategory(ctx, CategoryIdoptional)
+> DeleteInsightsQuestionnairesCategory(ctx, CategorySidoptional)
 
 
 
@@ -65,7 +65,7 @@ Name | Type | Description
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CategoryId** | **string** | The ID of the category to be deleted
+**CategorySid** | **string** | The SID of the category to be deleted
 
 ### Other Parameters
 
@@ -137,7 +137,7 @@ Name | Type | Description
 
 ## UpdateInsightsQuestionnairesCategory
 
-> FlexV1InsightsQuestionnairesCategory UpdateInsightsQuestionnairesCategory(ctx, CategoryIdoptional)
+> FlexV1InsightsQuestionnairesCategory UpdateInsightsQuestionnairesCategory(ctx, CategorySidoptional)
 
 
 
@@ -149,7 +149,7 @@ To update the category for Questions
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CategoryId** | **string** | The ID of the category to be update
+**CategorySid** | **string** | The SID of the category to be updated
 
 ### Other Parameters
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The unique SID identifier of the Account. |
-**AssessmentId** | Pointer to **string** | The unique id of the assessment |
+**AssessmentSid** | Pointer to **string** | The SID of the assessment |
 **Offset** | Pointer to **float32** | Offset of the conversation |
 **Report** | Pointer to **bool** | The flag indicating if this assessment is part of report  |
 **Weight** | Pointer to **float32** | The weightage given to this comment |
