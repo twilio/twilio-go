@@ -47,6 +47,8 @@ type CreateConfigurationAddressParams struct {
 	AutoCreationStudioFlowSid *string `json:"AutoCreation.StudioFlowSid,omitempty"`
 	// For type `studio`, number of times to retry the webhook request
 	AutoCreationStudioRetryCount *int `json:"AutoCreation.StudioRetryCount,omitempty"`
+	// An ISO 3166-1 alpha-2n country code which the address belongs to. This is currently only applicable to short code addresses.
+	AddressCountry *string `json:"AddressCountry,omitempty"`
 }
 
 func (params *CreateConfigurationAddressParams) SetType(Type string) *CreateConfigurationAddressParams {
@@ -93,6 +95,10 @@ func (params *CreateConfigurationAddressParams) SetAutoCreationStudioRetryCount(
 	params.AutoCreationStudioRetryCount = &AutoCreationStudioRetryCount
 	return params
 }
+func (params *CreateConfigurationAddressParams) SetAddressCountry(AddressCountry string) *CreateConfigurationAddressParams {
+	params.AddressCountry = &AddressCountry
+	return params
+}
 
 // Create a new address configuration
 func (c *ApiService) CreateConfigurationAddress(params *CreateConfigurationAddressParams) (*ConversationsV1ConfigurationAddress, error) {
@@ -135,6 +141,9 @@ func (c *ApiService) CreateConfigurationAddress(params *CreateConfigurationAddre
 	}
 	if params != nil && params.AutoCreationStudioRetryCount != nil {
 		data.Set("AutoCreation.StudioRetryCount", fmt.Sprint(*params.AutoCreationStudioRetryCount))
+	}
+	if params != nil && params.AddressCountry != nil {
+		data.Set("AddressCountry", *params.AddressCountry)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

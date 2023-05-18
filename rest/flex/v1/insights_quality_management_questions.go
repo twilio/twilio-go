@@ -25,8 +25,8 @@ import (
 
 // Optional parameters for the method 'CreateInsightsQuestionnairesQuestion'
 type CreateInsightsQuestionnairesQuestionParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// The SID of the category
 	CategorySid *string `json:"CategorySid,omitempty"`
 	// The question.
@@ -39,8 +39,8 @@ type CreateInsightsQuestionnairesQuestionParams struct {
 	Description *string `json:"Description,omitempty"`
 }
 
-func (params *CreateInsightsQuestionnairesQuestionParams) SetToken(Token string) *CreateInsightsQuestionnairesQuestionParams {
-	params.Token = &Token
+func (params *CreateInsightsQuestionnairesQuestionParams) SetAuthorization(Authorization string) *CreateInsightsQuestionnairesQuestionParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *CreateInsightsQuestionnairesQuestionParams) SetCategorySid(CategorySid string) *CreateInsightsQuestionnairesQuestionParams {
@@ -87,8 +87,8 @@ func (c *ApiService) CreateInsightsQuestionnairesQuestion(params *CreateInsights
 		data.Set("Description", *params.Description)
 	}
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -108,12 +108,12 @@ func (c *ApiService) CreateInsightsQuestionnairesQuestion(params *CreateInsights
 
 // Optional parameters for the method 'DeleteInsightsQuestionnairesQuestion'
 type DeleteInsightsQuestionnairesQuestionParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 }
 
-func (params *DeleteInsightsQuestionnairesQuestionParams) SetToken(Token string) *DeleteInsightsQuestionnairesQuestionParams {
-	params.Token = &Token
+func (params *DeleteInsightsQuestionnairesQuestionParams) SetAuthorization(Authorization string) *DeleteInsightsQuestionnairesQuestionParams {
+	params.Authorization = &Authorization
 	return params
 }
 
@@ -125,8 +125,8 @@ func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionSid string, pa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
@@ -141,8 +141,8 @@ func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionSid string, pa
 
 // Optional parameters for the method 'ListInsightsQuestionnairesQuestion'
 type ListInsightsQuestionnairesQuestionParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// The list of category SIDs
 	CategorySid *[]string `json:"CategorySid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -151,8 +151,8 @@ type ListInsightsQuestionnairesQuestionParams struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsQuestionnairesQuestionParams) SetToken(Token string) *ListInsightsQuestionnairesQuestionParams {
-	params.Token = &Token
+func (params *ListInsightsQuestionnairesQuestionParams) SetAuthorization(Authorization string) *ListInsightsQuestionnairesQuestionParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *ListInsightsQuestionnairesQuestionParams) SetCategorySid(CategorySid []string) *ListInsightsQuestionnairesQuestionParams {
@@ -294,8 +294,8 @@ func (c *ApiService) getNextListInsightsQuestionnairesQuestionResponse(nextPageU
 
 // Optional parameters for the method 'UpdateInsightsQuestionnairesQuestion'
 type UpdateInsightsQuestionnairesQuestionParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// The flag to enable for disable NA for answer.
 	AllowNa *bool `json:"AllowNa,omitempty"`
 	// The SID of the category
@@ -308,8 +308,8 @@ type UpdateInsightsQuestionnairesQuestionParams struct {
 	AnswerSetId *string `json:"AnswerSetId,omitempty"`
 }
 
-func (params *UpdateInsightsQuestionnairesQuestionParams) SetToken(Token string) *UpdateInsightsQuestionnairesQuestionParams {
-	params.Token = &Token
+func (params *UpdateInsightsQuestionnairesQuestionParams) SetAuthorization(Authorization string) *UpdateInsightsQuestionnairesQuestionParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *UpdateInsightsQuestionnairesQuestionParams) SetAllowNa(AllowNa bool) *UpdateInsightsQuestionnairesQuestionParams {
@@ -357,8 +357,8 @@ func (c *ApiService) UpdateInsightsQuestionnairesQuestion(QuestionSid string, pa
 		data.Set("AnswerSetId", *params.AnswerSetId)
 	}
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

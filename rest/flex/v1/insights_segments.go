@@ -24,8 +24,8 @@ import (
 
 // Optional parameters for the method 'ListInsightsSegments'
 type ListInsightsSegmentsParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// To unique id of the segment
 	SegmentId *string `json:"SegmentId,omitempty"`
 	// The list of reservation Ids
@@ -36,8 +36,8 @@ type ListInsightsSegmentsParams struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsSegmentsParams) SetToken(Token string) *ListInsightsSegmentsParams {
-	params.Token = &Token
+func (params *ListInsightsSegmentsParams) SetAuthorization(Authorization string) *ListInsightsSegmentsParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *ListInsightsSegmentsParams) SetSegmentId(SegmentId string) *ListInsightsSegmentsParams {

@@ -25,18 +25,14 @@ import (
 
 // Optional parameters for the method 'CreateInsightsAssessments'
 type CreateInsightsAssessmentsParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// The SID of the category
 	CategorySid *string `json:"CategorySid,omitempty"`
 	// The name of the category
 	CategoryName *string `json:"CategoryName,omitempty"`
 	// Segment Id of the conversation
 	SegmentId *string `json:"SegmentId,omitempty"`
-	// Name of the user assessing conversation
-	UserName *string `json:"UserName,omitempty"`
-	// Email of the user assessing conversation
-	UserEmail *string `json:"UserEmail,omitempty"`
 	// The id of the Agent
 	AgentId *string `json:"AgentId,omitempty"`
 	// The offset of the conversation.
@@ -53,8 +49,8 @@ type CreateInsightsAssessmentsParams struct {
 	QuestionnaireSid *string `json:"QuestionnaireSid,omitempty"`
 }
 
-func (params *CreateInsightsAssessmentsParams) SetToken(Token string) *CreateInsightsAssessmentsParams {
-	params.Token = &Token
+func (params *CreateInsightsAssessmentsParams) SetAuthorization(Authorization string) *CreateInsightsAssessmentsParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *CreateInsightsAssessmentsParams) SetCategorySid(CategorySid string) *CreateInsightsAssessmentsParams {
@@ -67,14 +63,6 @@ func (params *CreateInsightsAssessmentsParams) SetCategoryName(CategoryName stri
 }
 func (params *CreateInsightsAssessmentsParams) SetSegmentId(SegmentId string) *CreateInsightsAssessmentsParams {
 	params.SegmentId = &SegmentId
-	return params
-}
-func (params *CreateInsightsAssessmentsParams) SetUserName(UserName string) *CreateInsightsAssessmentsParams {
-	params.UserName = &UserName
-	return params
-}
-func (params *CreateInsightsAssessmentsParams) SetUserEmail(UserEmail string) *CreateInsightsAssessmentsParams {
-	params.UserEmail = &UserEmail
 	return params
 }
 func (params *CreateInsightsAssessmentsParams) SetAgentId(AgentId string) *CreateInsightsAssessmentsParams {
@@ -122,12 +110,6 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 	if params != nil && params.SegmentId != nil {
 		data.Set("SegmentId", *params.SegmentId)
 	}
-	if params != nil && params.UserName != nil {
-		data.Set("UserName", *params.UserName)
-	}
-	if params != nil && params.UserEmail != nil {
-		data.Set("UserEmail", *params.UserEmail)
-	}
 	if params != nil && params.AgentId != nil {
 		data.Set("AgentId", *params.AgentId)
 	}
@@ -150,8 +132,8 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 		data.Set("QuestionnaireSid", *params.QuestionnaireSid)
 	}
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -171,8 +153,8 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 
 // Optional parameters for the method 'ListInsightsAssessments'
 type ListInsightsAssessmentsParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// The id of the segment.
 	SegmentId *string `json:"SegmentId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -181,8 +163,8 @@ type ListInsightsAssessmentsParams struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsAssessmentsParams) SetToken(Token string) *ListInsightsAssessmentsParams {
-	params.Token = &Token
+func (params *ListInsightsAssessmentsParams) SetAuthorization(Authorization string) *ListInsightsAssessmentsParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *ListInsightsAssessmentsParams) SetSegmentId(SegmentId string) *ListInsightsAssessmentsParams {
@@ -322,8 +304,8 @@ func (c *ApiService) getNextListInsightsAssessmentsResponse(nextPageUrl string) 
 
 // Optional parameters for the method 'UpdateInsightsAssessments'
 type UpdateInsightsAssessmentsParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// The offset of the conversation
 	Offset *float32 `json:"Offset,omitempty"`
 	// The answer text selected by user
@@ -332,8 +314,8 @@ type UpdateInsightsAssessmentsParams struct {
 	AnswerId *string `json:"AnswerId,omitempty"`
 }
 
-func (params *UpdateInsightsAssessmentsParams) SetToken(Token string) *UpdateInsightsAssessmentsParams {
-	params.Token = &Token
+func (params *UpdateInsightsAssessmentsParams) SetAuthorization(Authorization string) *UpdateInsightsAssessmentsParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *UpdateInsightsAssessmentsParams) SetOffset(Offset float32) *UpdateInsightsAssessmentsParams {
@@ -367,8 +349,8 @@ func (c *ApiService) UpdateInsightsAssessments(AssessmentSid string, params *Upd
 		data.Set("AnswerId", *params.AnswerId)
 	}
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

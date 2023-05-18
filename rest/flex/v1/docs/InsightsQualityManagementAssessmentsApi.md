@@ -29,12 +29,10 @@ Other parameters are passed through a pointer to a CreateInsightsAssessmentsPara
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **CategorySid** | **string** | The SID of the category 
 **CategoryName** | **string** | The name of the category
 **SegmentId** | **string** | Segment Id of the conversation
-**UserName** | **string** | Name of the user assessing conversation
-**UserEmail** | **string** | Email of the user assessing conversation
 **AgentId** | **string** | The id of the Agent
 **Offset** | **float32** | The offset of the conversation.
 **MetricId** | **string** | The question SID selected for assessment
@@ -80,7 +78,7 @@ Other parameters are passed through a pointer to a ListInsightsAssessmentsParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **SegmentId** | **string** | The id of the segment.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
@@ -126,7 +124,7 @@ Other parameters are passed through a pointer to a UpdateInsightsAssessmentsPara
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **Offset** | **float32** | The offset of the conversation
 **AnswerText** | **string** | The answer text selected by user
 **AnswerId** | **string** | The id of the answer selected by user

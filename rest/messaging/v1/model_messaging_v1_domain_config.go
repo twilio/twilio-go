@@ -28,9 +28,13 @@ type MessagingV1DomainConfig struct {
 	FallbackUrl *string `json:"fallback_url,omitempty"`
 	// URL to receive click events to your webhook whenever the recipients click on the shortened links.
 	CallbackUrl *string `json:"callback_url,omitempty"`
+	// Boolean field to set customer delivery preference when there is a failure in linkShortening service
+	ContinueOnFailure *bool `json:"continue_on_failure,omitempty"`
 	// Date this Domain Config was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// Date that this Domain Config was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	Url         *string    `json:"url,omitempty"`
+	// Customer's choice to send links with/without \"https://\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
+	DisableHttps *bool `json:"disable_https,omitempty"`
 }

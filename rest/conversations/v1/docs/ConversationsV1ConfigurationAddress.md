@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was created. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was last updated. |
 **Url** | Pointer to **string** | An absolute API resource URL for this address configuration. |
+**AddressCountry** | Pointer to **string** | An ISO 3166-1 alpha-2n country code which the address belongs to. This is currently only applicable to short code addresses. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

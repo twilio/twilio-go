@@ -27,7 +27,7 @@ Other parameters are passed through a pointer to a ListInsightsSegmentsParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **SegmentId** | **string** | To unique id of the segment
 **ReservationId** | **[]string** | The list of reservation Ids
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.

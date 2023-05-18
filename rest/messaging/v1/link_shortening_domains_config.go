@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -49,6 +50,10 @@ type UpdateDomainConfigParams struct {
 	FallbackUrl *string `json:"FallbackUrl,omitempty"`
 	// URL to receive click events to your webhook whenever the recipients click on the shortened links
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// Boolean field to set customer delivery preference when there is a failure in linkShortening service
+	ContinueOnFailure *bool `json:"ContinueOnFailure,omitempty"`
+	// Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
+	DisableHttps *bool `json:"DisableHttps,omitempty"`
 }
 
 func (params *UpdateDomainConfigParams) SetFallbackUrl(FallbackUrl string) *UpdateDomainConfigParams {
@@ -57,6 +62,14 @@ func (params *UpdateDomainConfigParams) SetFallbackUrl(FallbackUrl string) *Upda
 }
 func (params *UpdateDomainConfigParams) SetCallbackUrl(CallbackUrl string) *UpdateDomainConfigParams {
 	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *UpdateDomainConfigParams) SetContinueOnFailure(ContinueOnFailure bool) *UpdateDomainConfigParams {
+	params.ContinueOnFailure = &ContinueOnFailure
+	return params
+}
+func (params *UpdateDomainConfigParams) SetDisableHttps(DisableHttps bool) *UpdateDomainConfigParams {
+	params.DisableHttps = &DisableHttps
 	return params
 }
 
@@ -73,6 +86,12 @@ func (c *ApiService) UpdateDomainConfig(DomainSid string, params *UpdateDomainCo
 	}
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.ContinueOnFailure != nil {
+		data.Set("ContinueOnFailure", fmt.Sprint(*params.ContinueOnFailure))
+	}
+	if params != nil && params.DisableHttps != nil {
+		data.Set("DisableHttps", fmt.Sprint(*params.DisableHttps))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

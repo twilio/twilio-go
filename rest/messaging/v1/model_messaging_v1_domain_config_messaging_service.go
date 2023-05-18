@@ -30,6 +30,8 @@ type MessagingV1DomainConfigMessagingService struct {
 	FallbackUrl *string `json:"fallback_url,omitempty"`
 	// URL to receive click events to your webhook whenever the recipients click on the shortened links.
 	CallbackUrl *string `json:"callback_url,omitempty"`
+	// Boolean field to set customer delivery preference when there is a failure in linkShortening service
+	ContinueOnFailure *bool `json:"continue_on_failure,omitempty"`
 	// Date this Domain Config was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// Date that this Domain Config was last updated.

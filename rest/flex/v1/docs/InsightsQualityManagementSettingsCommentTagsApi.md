@@ -27,7 +27,7 @@ Other parameters are passed through a pointer to a FetchInsightsSettingsCommentP
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 
 ### Return type
 

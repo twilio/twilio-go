@@ -62,6 +62,14 @@ type ListCallSummariesParams struct {
 	AbnormalSession *bool `json:"AbnormalSession,omitempty"`
 	//
 	AnsweredBy *string `json:"AnsweredBy,omitempty"`
+	//
+	ConnectivityIssues *string `json:"ConnectivityIssues,omitempty"`
+	//
+	QualityIssues *string `json:"QualityIssues,omitempty"`
+	//
+	Spam *bool `json:"Spam,omitempty"`
+	//
+	CallScores *string `json:"CallScores,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -144,6 +152,22 @@ func (params *ListCallSummariesParams) SetAnsweredBy(AnsweredBy string) *ListCal
 	params.AnsweredBy = &AnsweredBy
 	return params
 }
+func (params *ListCallSummariesParams) SetConnectivityIssues(ConnectivityIssues string) *ListCallSummariesParams {
+	params.ConnectivityIssues = &ConnectivityIssues
+	return params
+}
+func (params *ListCallSummariesParams) SetQualityIssues(QualityIssues string) *ListCallSummariesParams {
+	params.QualityIssues = &QualityIssues
+	return params
+}
+func (params *ListCallSummariesParams) SetSpam(Spam bool) *ListCallSummariesParams {
+	params.Spam = &Spam
+	return params
+}
+func (params *ListCallSummariesParams) SetCallScores(CallScores string) *ListCallSummariesParams {
+	params.CallScores = &CallScores
+	return params
+}
 func (params *ListCallSummariesParams) SetPageSize(PageSize int) *ListCallSummariesParams {
 	params.PageSize = &PageSize
 	return params
@@ -216,6 +240,18 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 	}
 	if params != nil && params.AnsweredBy != nil {
 		data.Set("AnsweredBy", *params.AnsweredBy)
+	}
+	if params != nil && params.ConnectivityIssues != nil {
+		data.Set("ConnectivityIssues", *params.ConnectivityIssues)
+	}
+	if params != nil && params.QualityIssues != nil {
+		data.Set("QualityIssues", *params.QualityIssues)
+	}
+	if params != nil && params.Spam != nil {
+		data.Set("Spam", fmt.Sprint(*params.Spam))
+	}
+	if params != nil && params.CallScores != nil {
+		data.Set("CallScores", *params.CallScores)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

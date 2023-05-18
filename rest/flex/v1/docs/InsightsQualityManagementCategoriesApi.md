@@ -30,7 +30,7 @@ Other parameters are passed through a pointer to a CreateInsightsQuestionnairesC
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **Name** | **string** | The name of this category.
 
 ### Return type
@@ -74,7 +74,7 @@ Other parameters are passed through a pointer to a DeleteInsightsQuestionnairesC
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 
 ### Return type
 
@@ -113,7 +113,7 @@ Other parameters are passed through a pointer to a ListInsightsQuestionnairesCat
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -158,7 +158,7 @@ Other parameters are passed through a pointer to a UpdateInsightsQuestionnairesC
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **Name** | **string** | The name of this category.
 
 ### Return type

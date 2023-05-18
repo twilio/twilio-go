@@ -42,6 +42,7 @@ Name | Type | Description
 **AutoCreationWebhookFilters** | **[]string** | The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
 **AutoCreationStudioFlowSid** | **string** | For type `studio`, the studio flow SID where the webhook should be sent to.
 **AutoCreationStudioRetryCount** | **int** | For type `studio`, number of times to retry the webhook request
+**AddressCountry** | **string** | An ISO 3166-1 alpha-2n country code which the address belongs to. This is currently only applicable to short code addresses.
 
 ### Return type
 

@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateInsightsQuestionnairesP
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **Name** | **string** | The name of this questionnaire
 **Description** | **string** | The description of this questionnaire
 **Active** | **bool** | The flag to enable or disable questionnaire
@@ -78,7 +78,7 @@ Other parameters are passed through a pointer to a DeleteInsightsQuestionnairesP
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 
 ### Return type
 
@@ -121,7 +121,7 @@ Other parameters are passed through a pointer to a FetchInsightsQuestionnairesPa
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 
 ### Return type
 
@@ -160,7 +160,7 @@ Other parameters are passed through a pointer to a ListInsightsQuestionnairesPar
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **IncludeInactive** | **bool** | Flag indicating whether to include inactive questionnaires or not
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
@@ -206,7 +206,7 @@ Other parameters are passed through a pointer to a UpdateInsightsQuestionnairesP
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **Active** | **bool** | The flag to enable or disable questionnaire
 **Name** | **string** | The name of this questionnaire
 **Description** | **string** | The description of this questionnaire

@@ -38,4 +38,6 @@ type ConversationsV1ConfigurationAddress struct {
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// An absolute API resource URL for this address configuration.
 	Url *string `json:"url,omitempty"`
+	// An ISO 3166-1 alpha-2n country code which the address belongs to. This is currently only applicable to short code addresses.
+	AddressCountry *string `json:"address_country,omitempty"`
 }

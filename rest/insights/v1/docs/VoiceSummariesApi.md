@@ -46,6 +46,10 @@ Name | Type | Description
 **Subaccount** | **string** | 
 **AbnormalSession** | **bool** | 
 **AnsweredBy** | **string** | 
+**ConnectivityIssues** | **string** | 
+**QualityIssues** | **string** | 
+**Spam** | **bool** | 
+**CallScores** | **string** | 
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

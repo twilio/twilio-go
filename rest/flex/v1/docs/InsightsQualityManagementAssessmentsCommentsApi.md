@@ -28,13 +28,11 @@ Other parameters are passed through a pointer to a CreateInsightsAssessmentsComm
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **CategoryId** | **string** | The ID of the category
 **CategoryName** | **string** | The name of the category
 **Comment** | **string** | The Assessment comment.
 **SegmentId** | **string** | The id of the segment.
-**UserName** | **string** | The name of the user.
-**UserEmail** | **string** | The email id of the user.
 **AgentId** | **string** | The id of the agent.
 **Offset** | **float32** | The offset
 
@@ -75,7 +73,7 @@ Other parameters are passed through a pointer to a ListInsightsAssessmentsCommen
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **SegmentId** | **string** | The id of the segment.
 **AgentId** | **string** | The id of the agent.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.

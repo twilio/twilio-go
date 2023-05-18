@@ -1,5 +1,22 @@
 twilio-go changelog
 ====================
+[2023-05-18] Version 1.7.1
+--------------------------
+**Conversations**
+- Added  `AddressCountry` parameter to Address Configuration endpoint, to support regional short code addresses
+- Added query parameters `start_date`, `end_date` and `state` in list Conversations resource for filtering
+
+**Insights**
+- Added annotations parameters to list summary api
+
+**Messaging**
+- Add GET domainByMessagingService endpoint to linkShortening service
+- Add `disable_https` to link shortening domain_config properties
+
+**Numbers**
+- Add bulk_eligibility api under version `/v1`.
+
+
 [2023-05-04] Version 1.7.0
 --------------------------
 **Conversations**

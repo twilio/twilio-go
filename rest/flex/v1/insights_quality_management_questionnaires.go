@@ -25,8 +25,8 @@ import (
 
 // Optional parameters for the method 'CreateInsightsQuestionnaires'
 type CreateInsightsQuestionnairesParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// The name of this questionnaire
 	Name *string `json:"Name,omitempty"`
 	// The description of this questionnaire
@@ -37,8 +37,8 @@ type CreateInsightsQuestionnairesParams struct {
 	QuestionSids *[]string `json:"QuestionSids,omitempty"`
 }
 
-func (params *CreateInsightsQuestionnairesParams) SetToken(Token string) *CreateInsightsQuestionnairesParams {
-	params.Token = &Token
+func (params *CreateInsightsQuestionnairesParams) SetAuthorization(Authorization string) *CreateInsightsQuestionnairesParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *CreateInsightsQuestionnairesParams) SetName(Name string) *CreateInsightsQuestionnairesParams {
@@ -80,8 +80,8 @@ func (c *ApiService) CreateInsightsQuestionnaires(params *CreateInsightsQuestion
 		}
 	}
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -101,12 +101,12 @@ func (c *ApiService) CreateInsightsQuestionnaires(params *CreateInsightsQuestion
 
 // Optional parameters for the method 'DeleteInsightsQuestionnaires'
 type DeleteInsightsQuestionnairesParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 }
 
-func (params *DeleteInsightsQuestionnairesParams) SetToken(Token string) *DeleteInsightsQuestionnairesParams {
-	params.Token = &Token
+func (params *DeleteInsightsQuestionnairesParams) SetAuthorization(Authorization string) *DeleteInsightsQuestionnairesParams {
+	params.Authorization = &Authorization
 	return params
 }
 
@@ -118,8 +118,8 @@ func (c *ApiService) DeleteInsightsQuestionnaires(QuestionnaireSid string, param
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
@@ -134,12 +134,12 @@ func (c *ApiService) DeleteInsightsQuestionnaires(QuestionnaireSid string, param
 
 // Optional parameters for the method 'FetchInsightsQuestionnaires'
 type FetchInsightsQuestionnairesParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 }
 
-func (params *FetchInsightsQuestionnairesParams) SetToken(Token string) *FetchInsightsQuestionnairesParams {
-	params.Token = &Token
+func (params *FetchInsightsQuestionnairesParams) SetAuthorization(Authorization string) *FetchInsightsQuestionnairesParams {
+	params.Authorization = &Authorization
 	return params
 }
 
@@ -151,8 +151,8 @@ func (c *ApiService) FetchInsightsQuestionnaires(QuestionnaireSid string, params
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -172,8 +172,8 @@ func (c *ApiService) FetchInsightsQuestionnaires(QuestionnaireSid string, params
 
 // Optional parameters for the method 'ListInsightsQuestionnaires'
 type ListInsightsQuestionnairesParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// Flag indicating whether to include inactive questionnaires or not
 	IncludeInactive *bool `json:"IncludeInactive,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -182,8 +182,8 @@ type ListInsightsQuestionnairesParams struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsQuestionnairesParams) SetToken(Token string) *ListInsightsQuestionnairesParams {
-	params.Token = &Token
+func (params *ListInsightsQuestionnairesParams) SetAuthorization(Authorization string) *ListInsightsQuestionnairesParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *ListInsightsQuestionnairesParams) SetIncludeInactive(IncludeInactive bool) *ListInsightsQuestionnairesParams {
@@ -323,8 +323,8 @@ func (c *ApiService) getNextListInsightsQuestionnairesResponse(nextPageUrl strin
 
 // Optional parameters for the method 'UpdateInsightsQuestionnaires'
 type UpdateInsightsQuestionnairesParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// The flag to enable or disable questionnaire
 	Active *bool `json:"Active,omitempty"`
 	// The name of this questionnaire
@@ -335,8 +335,8 @@ type UpdateInsightsQuestionnairesParams struct {
 	QuestionSids *[]string `json:"QuestionSids,omitempty"`
 }
 
-func (params *UpdateInsightsQuestionnairesParams) SetToken(Token string) *UpdateInsightsQuestionnairesParams {
-	params.Token = &Token
+func (params *UpdateInsightsQuestionnairesParams) SetAuthorization(Authorization string) *UpdateInsightsQuestionnairesParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *UpdateInsightsQuestionnairesParams) SetActive(Active bool) *UpdateInsightsQuestionnairesParams {
@@ -379,8 +379,8 @@ func (c *ApiService) UpdateInsightsQuestionnaires(QuestionnaireSid string, param
 		}
 	}
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

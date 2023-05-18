@@ -24,8 +24,8 @@ import (
 
 // Optional parameters for the method 'CreateInsightsAssessmentsComment'
 type CreateInsightsAssessmentsCommentParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// The ID of the category
 	CategoryId *string `json:"CategoryId,omitempty"`
 	// The name of the category
@@ -34,18 +34,14 @@ type CreateInsightsAssessmentsCommentParams struct {
 	Comment *string `json:"Comment,omitempty"`
 	// The id of the segment.
 	SegmentId *string `json:"SegmentId,omitempty"`
-	// The name of the user.
-	UserName *string `json:"UserName,omitempty"`
-	// The email id of the user.
-	UserEmail *string `json:"UserEmail,omitempty"`
 	// The id of the agent.
 	AgentId *string `json:"AgentId,omitempty"`
 	// The offset
 	Offset *float32 `json:"Offset,omitempty"`
 }
 
-func (params *CreateInsightsAssessmentsCommentParams) SetToken(Token string) *CreateInsightsAssessmentsCommentParams {
-	params.Token = &Token
+func (params *CreateInsightsAssessmentsCommentParams) SetAuthorization(Authorization string) *CreateInsightsAssessmentsCommentParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *CreateInsightsAssessmentsCommentParams) SetCategoryId(CategoryId string) *CreateInsightsAssessmentsCommentParams {
@@ -62,14 +58,6 @@ func (params *CreateInsightsAssessmentsCommentParams) SetComment(Comment string)
 }
 func (params *CreateInsightsAssessmentsCommentParams) SetSegmentId(SegmentId string) *CreateInsightsAssessmentsCommentParams {
 	params.SegmentId = &SegmentId
-	return params
-}
-func (params *CreateInsightsAssessmentsCommentParams) SetUserName(UserName string) *CreateInsightsAssessmentsCommentParams {
-	params.UserName = &UserName
-	return params
-}
-func (params *CreateInsightsAssessmentsCommentParams) SetUserEmail(UserEmail string) *CreateInsightsAssessmentsCommentParams {
-	params.UserEmail = &UserEmail
 	return params
 }
 func (params *CreateInsightsAssessmentsCommentParams) SetAgentId(AgentId string) *CreateInsightsAssessmentsCommentParams {
@@ -100,12 +88,6 @@ func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAsse
 	if params != nil && params.SegmentId != nil {
 		data.Set("SegmentId", *params.SegmentId)
 	}
-	if params != nil && params.UserName != nil {
-		data.Set("UserName", *params.UserName)
-	}
-	if params != nil && params.UserEmail != nil {
-		data.Set("UserEmail", *params.UserEmail)
-	}
 	if params != nil && params.AgentId != nil {
 		data.Set("AgentId", *params.AgentId)
 	}
@@ -113,8 +95,8 @@ func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAsse
 		data.Set("Offset", fmt.Sprint(*params.Offset))
 	}
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -134,8 +116,8 @@ func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAsse
 
 // Optional parameters for the method 'ListInsightsAssessmentsComment'
 type ListInsightsAssessmentsCommentParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// The id of the segment.
 	SegmentId *string `json:"SegmentId,omitempty"`
 	// The id of the agent.
@@ -146,8 +128,8 @@ type ListInsightsAssessmentsCommentParams struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsAssessmentsCommentParams) SetToken(Token string) *ListInsightsAssessmentsCommentParams {
-	params.Token = &Token
+func (params *ListInsightsAssessmentsCommentParams) SetAuthorization(Authorization string) *ListInsightsAssessmentsCommentParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *ListInsightsAssessmentsCommentParams) SetSegmentId(SegmentId string) *ListInsightsAssessmentsCommentParams {

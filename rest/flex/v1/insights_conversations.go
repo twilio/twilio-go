@@ -24,8 +24,8 @@ import (
 
 // Optional parameters for the method 'ListInsightsConversations'
 type ListInsightsConversationsParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 	// Unique Id of the segment for which conversation details needs to be fetched
 	SegmentId *string `json:"SegmentId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -34,8 +34,8 @@ type ListInsightsConversationsParams struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsConversationsParams) SetToken(Token string) *ListInsightsConversationsParams {
-	params.Token = &Token
+func (params *ListInsightsConversationsParams) SetAuthorization(Authorization string) *ListInsightsConversationsParams {
+	params.Authorization = &Authorization
 	return params
 }
 func (params *ListInsightsConversationsParams) SetSegmentId(SegmentId string) *ListInsightsConversationsParams {

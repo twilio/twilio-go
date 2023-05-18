@@ -21,12 +21,12 @@ import (
 
 // Optional parameters for the method 'FetchInsightsSettingsAnswersets'
 type FetchInsightsSettingsAnswersetsParams struct {
-	// The Token HTTP request header
-	Token *string `json:"Token,omitempty"`
+	// The Authorization HTTP request header
+	Authorization *string `json:"Authorization,omitempty"`
 }
 
-func (params *FetchInsightsSettingsAnswersetsParams) SetToken(Token string) *FetchInsightsSettingsAnswersetsParams {
-	params.Token = &Token
+func (params *FetchInsightsSettingsAnswersetsParams) SetAuthorization(Authorization string) *FetchInsightsSettingsAnswersetsParams {
+	params.Authorization = &Authorization
 	return params
 }
 
@@ -37,8 +37,8 @@ func (c *ApiService) FetchInsightsSettingsAnswersets(params *FetchInsightsSettin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Token != nil {
-		headers["Token"] = *params.Token
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)

@@ -30,7 +30,7 @@ Other parameters are passed through a pointer to a CreateInsightsQuestionnairesQ
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **CategorySid** | **string** | The SID of the category
 **Question** | **string** | The question.
 **AnswerSetId** | **string** | The answer_set for the question.
@@ -78,7 +78,7 @@ Other parameters are passed through a pointer to a DeleteInsightsQuestionnairesQ
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 
 ### Return type
 
@@ -117,7 +117,7 @@ Other parameters are passed through a pointer to a ListInsightsQuestionnairesQue
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **CategorySid** | **[]string** | The list of category SIDs
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
@@ -163,7 +163,7 @@ Other parameters are passed through a pointer to a UpdateInsightsQuestionnairesQ
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Token** | **string** | The Token HTTP request header
+**Authorization** | **string** | The Authorization HTTP request header
 **AllowNa** | **bool** | The flag to enable for disable NA for answer.
 **CategorySid** | **string** | The SID of the category
 **Question** | **string** | The question.
