@@ -28,6 +28,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **Url** | Pointer to **string** | The absolute URL of the US App to Person resource. |
 **Mock** | Pointer to **bool** | A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes. |
+**Errors** | Pointer to **[]interface{}** | Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

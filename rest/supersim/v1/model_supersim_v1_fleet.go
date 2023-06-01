@@ -34,10 +34,10 @@ type SupersimV1Fleet struct {
 	Url *string `json:"url,omitempty"`
 	// Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
 	DataEnabled *bool `json:"data_enabled,omitempty"`
-	// The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+	// The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 250MB.
 	DataLimit    *int    `json:"data_limit,omitempty"`
 	DataMetering *string `json:"data_metering,omitempty"`
-	// Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
+	// Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `false`.
 	SmsCommandsEnabled *bool `json:"sms_commands_enabled,omitempty"`
 	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
 	SmsCommandsUrl *string `json:"sms_commands_url,omitempty"`

@@ -61,7 +61,7 @@ type CreateParticipantParams struct {
 	MaxParticipants *int `json:"MaxParticipants,omitempty"`
 	// Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
 	ConferenceRecord *string `json:"ConferenceRecord,omitempty"`
-	// Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+	// Whether to trim leading and trailing silence from the conference recording. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
 	ConferenceTrim *string `json:"ConferenceTrim,omitempty"`
 	// The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
 	ConferenceStatusCallback *string `json:"ConferenceStatusCallback,omitempty"`
@@ -119,6 +119,8 @@ type CreateParticipantParams struct {
 	AmdStatusCallback *string `json:"AmdStatusCallback,omitempty"`
 	// The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 	AmdStatusCallbackMethod *string `json:"AmdStatusCallbackMethod,omitempty"`
+	// Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
+	Trim *string `json:"Trim,omitempty"`
 }
 
 func (params *CreateParticipantParams) SetPathAccountSid(PathAccountSid string) *CreateParticipantParams {
@@ -309,6 +311,10 @@ func (params *CreateParticipantParams) SetAmdStatusCallbackMethod(AmdStatusCallb
 	params.AmdStatusCallbackMethod = &AmdStatusCallbackMethod
 	return params
 }
+func (params *CreateParticipantParams) SetTrim(Trim string) *CreateParticipantParams {
+	params.Trim = &Trim
+	return params
+}
 
 //
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
@@ -468,6 +474,9 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	}
 	if params != nil && params.AmdStatusCallbackMethod != nil {
 		data.Set("AmdStatusCallbackMethod", *params.AmdStatusCallbackMethod)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", *params.Trim)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

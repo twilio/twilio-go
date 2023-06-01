@@ -1,5 +1,17 @@
 twilio-go changelog
 ====================
+[2023-06-01] Version 1.7.2
+--------------------------
+**Api**
+- Add `Trim` to create Conference Participant API
+
+**Intelligence**
+- First public beta release for Voice Intelligence APIs with client libraries
+
+**Messaging**
+- Add new `errors` attribute to us_app_to_person resource. This attribute will provide additional information about campaign registration errors.
+
+
 [2023-05-18] Version 1.7.1
 --------------------------
 **Conversations**

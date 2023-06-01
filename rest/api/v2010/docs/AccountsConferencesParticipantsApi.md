@@ -53,7 +53,7 @@ Name | Type | Description
 **EarlyMedia** | **bool** | Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.
 **MaxParticipants** | **int** | The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
 **ConferenceRecord** | **string** | Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
-**ConferenceTrim** | **string** | Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+**ConferenceTrim** | **string** | Whether to trim leading and trailing silence from the conference recording. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
 **ConferenceStatusCallback** | **string** | The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
 **ConferenceStatusCallbackMethod** | **string** | The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 **ConferenceStatusCallbackEvent** | **[]string** | The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`.
@@ -82,6 +82,7 @@ Name | Type | Description
 **MachineDetectionSilenceTimeout** | **int** | The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
 **AmdStatusCallback** | **string** | The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
 **AmdStatusCallbackMethod** | **string** | The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+**Trim** | **string** | Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
 
 ### Return type
 
