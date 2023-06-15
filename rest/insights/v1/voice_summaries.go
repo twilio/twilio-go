@@ -63,13 +63,13 @@ type ListCallSummariesParams struct {
 	//
 	AnsweredBy *string `json:"AnsweredBy,omitempty"`
 	//
-	ConnectivityIssues *string `json:"ConnectivityIssues,omitempty"`
+	ConnectivityIssue *string `json:"ConnectivityIssue,omitempty"`
 	//
-	QualityIssues *string `json:"QualityIssues,omitempty"`
+	QualityIssue *string `json:"QualityIssue,omitempty"`
 	//
 	Spam *bool `json:"Spam,omitempty"`
 	//
-	CallScores *string `json:"CallScores,omitempty"`
+	CallScore *string `json:"CallScore,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -152,20 +152,20 @@ func (params *ListCallSummariesParams) SetAnsweredBy(AnsweredBy string) *ListCal
 	params.AnsweredBy = &AnsweredBy
 	return params
 }
-func (params *ListCallSummariesParams) SetConnectivityIssues(ConnectivityIssues string) *ListCallSummariesParams {
-	params.ConnectivityIssues = &ConnectivityIssues
+func (params *ListCallSummariesParams) SetConnectivityIssue(ConnectivityIssue string) *ListCallSummariesParams {
+	params.ConnectivityIssue = &ConnectivityIssue
 	return params
 }
-func (params *ListCallSummariesParams) SetQualityIssues(QualityIssues string) *ListCallSummariesParams {
-	params.QualityIssues = &QualityIssues
+func (params *ListCallSummariesParams) SetQualityIssue(QualityIssue string) *ListCallSummariesParams {
+	params.QualityIssue = &QualityIssue
 	return params
 }
 func (params *ListCallSummariesParams) SetSpam(Spam bool) *ListCallSummariesParams {
 	params.Spam = &Spam
 	return params
 }
-func (params *ListCallSummariesParams) SetCallScores(CallScores string) *ListCallSummariesParams {
-	params.CallScores = &CallScores
+func (params *ListCallSummariesParams) SetCallScore(CallScore string) *ListCallSummariesParams {
+	params.CallScore = &CallScore
 	return params
 }
 func (params *ListCallSummariesParams) SetPageSize(PageSize int) *ListCallSummariesParams {
@@ -241,17 +241,17 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 	if params != nil && params.AnsweredBy != nil {
 		data.Set("AnsweredBy", *params.AnsweredBy)
 	}
-	if params != nil && params.ConnectivityIssues != nil {
-		data.Set("ConnectivityIssues", *params.ConnectivityIssues)
+	if params != nil && params.ConnectivityIssue != nil {
+		data.Set("ConnectivityIssue", *params.ConnectivityIssue)
 	}
-	if params != nil && params.QualityIssues != nil {
-		data.Set("QualityIssues", *params.QualityIssues)
+	if params != nil && params.QualityIssue != nil {
+		data.Set("QualityIssue", *params.QualityIssue)
 	}
 	if params != nil && params.Spam != nil {
 		data.Set("Spam", fmt.Sprint(*params.Spam))
 	}
-	if params != nil && params.CallScores != nil {
-		data.Set("CallScores", *params.CallScores)
+	if params != nil && params.CallScore != nil {
+		data.Set("CallScore", *params.CallScore)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

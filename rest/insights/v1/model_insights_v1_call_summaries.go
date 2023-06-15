@@ -42,4 +42,5 @@ type InsightsV1CallSummaries struct {
 	Attributes      *interface{} `json:"attributes,omitempty"`
 	Properties      *interface{} `json:"properties,omitempty"`
 	Trust           *interface{} `json:"trust,omitempty"`
+	Annotation      *interface{} `json:"annotation,omitempty"`
 }
