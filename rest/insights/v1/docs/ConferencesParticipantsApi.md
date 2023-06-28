@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 
-Fetch a specific Conference Participant Summary.
+Get a specific Conference Participant Summary for a Conference.
 
 ### Path Parameters
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 
 
-List Conference Participants.
+Get a list of Conference Participants Summaries for a Conference.
 
 ### Path Parameters
 

@@ -40,7 +40,7 @@ func (params *FetchConferenceParticipantParams) SetMetrics(Metrics string) *Fetc
 	return params
 }
 
-// Fetch a specific Conference Participant Summary.
+// Get a specific Conference Participant Summary for a Conference.
 func (c *ApiService) FetchConferenceParticipant(ConferenceSid string, ParticipantSid string, params *FetchConferenceParticipantParams) (*InsightsV1ConferenceParticipant, error) {
 	path := "/v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid}"
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)

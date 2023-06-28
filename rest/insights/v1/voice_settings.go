@@ -22,7 +22,7 @@ import (
 
 // Optional parameters for the method 'FetchAccountSettings'
 type FetchAccountSettingsParams struct {
-	//
+	// The unique SID identifier of the Subaccount.
 	SubaccountSid *string `json:"SubaccountSid,omitempty"`
 }
 
@@ -31,7 +31,7 @@ func (params *FetchAccountSettingsParams) SetSubaccountSid(SubaccountSid string)
 	return params
 }
 
-//
+// Get the Voice Insights Settings.
 func (c *ApiService) FetchAccountSettings(params *FetchAccountSettingsParams) (*InsightsV1AccountSettings, error) {
 	path := "/v1/Voice/Settings"
 
@@ -59,11 +59,11 @@ func (c *ApiService) FetchAccountSettings(params *FetchAccountSettingsParams) (*
 
 // Optional parameters for the method 'UpdateAccountSettings'
 type UpdateAccountSettingsParams struct {
-	//
+	// A boolean flag to enable Advanced Features for Voice Insights.
 	AdvancedFeatures *bool `json:"AdvancedFeatures,omitempty"`
-	//
+	// A boolean flag to enable Voice Trace.
 	VoiceTrace *bool `json:"VoiceTrace,omitempty"`
-	//
+	// The unique SID identifier of the Subaccount.
 	SubaccountSid *string `json:"SubaccountSid,omitempty"`
 }
 
@@ -80,7 +80,7 @@ func (params *UpdateAccountSettingsParams) SetSubaccountSid(SubaccountSid string
 	return params
 }
 
-//
+// Update a specific Voice Insights Setting.
 func (c *ApiService) UpdateAccountSettings(params *UpdateAccountSettingsParams) (*InsightsV1AccountSettings, error) {
 	path := "/v1/Voice/Settings"
 

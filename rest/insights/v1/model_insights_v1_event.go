@@ -16,15 +16,24 @@ package openapi
 
 // InsightsV1Event struct for InsightsV1Event
 type InsightsV1Event struct {
-	Timestamp   *string      `json:"timestamp,omitempty"`
-	CallSid     *string      `json:"call_sid,omitempty"`
-	AccountSid  *string      `json:"account_sid,omitempty"`
-	Edge        *string      `json:"edge,omitempty"`
-	Group       *string      `json:"group,omitempty"`
-	Level       *string      `json:"level,omitempty"`
-	Name        *string      `json:"name,omitempty"`
+	// Event time.
+	Timestamp *string `json:"timestamp,omitempty"`
+	// The unique SID identifier of the Call.
+	CallSid *string `json:"call_sid,omitempty"`
+	// The unique SID identifier of the Account.
+	AccountSid *string `json:"account_sid,omitempty"`
+	Edge       *string `json:"edge,omitempty"`
+	// Event group.
+	Group *string `json:"group,omitempty"`
+	Level *string `json:"level,omitempty"`
+	// Event name.
+	Name *string `json:"name,omitempty"`
+	// Represents the connection between Twilio and our immediate carrier partners. The events here describe the call lifecycle as reported by Twilio's carrier media gateways.
 	CarrierEdge *interface{} `json:"carrier_edge,omitempty"`
-	SipEdge     *interface{} `json:"sip_edge,omitempty"`
-	SdkEdge     *interface{} `json:"sdk_edge,omitempty"`
-	ClientEdge  *interface{} `json:"client_edge,omitempty"`
+	// Represents the Twilio media gateway for SIP interface and SIP trunking calls. The events here describe the call lifecycle as reported by Twilio's public media gateways.
+	SipEdge *interface{} `json:"sip_edge,omitempty"`
+	// Represents the Voice SDK running locally in the browser or in the Android/iOS application. The events here are emitted by the Voice SDK in response to certain call progress events, network changes, or call quality conditions.
+	SdkEdge *interface{} `json:"sdk_edge,omitempty"`
+	// Represents the Twilio media gateway for Client calls. The events here describe the call lifecycle as reported by Twilio's Voice SDK media gateways.
+	ClientEdge *interface{} `json:"client_edge,omitempty"`
 }

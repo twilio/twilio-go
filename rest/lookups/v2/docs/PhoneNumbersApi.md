@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Fields** | **string** | A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
+**Fields** | **string** | A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
 **CountryCode** | **string** | The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
 **FirstName** | **string** | User’s first name. This query parameter is only used (optionally) for identity_match package requests.
 **LastName** | **string** | User’s last name. This query parameter is only used (optionally) for identity_match package requests.
@@ -43,6 +43,7 @@ Name | Type | Description
 **AddressCountryCode** | **string** | User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
 **NationalId** | **string** | User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
 **DateOfBirth** | **string** | User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
+**LastVerifiedDate** | **string** | The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
 
 ### Return type
 

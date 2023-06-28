@@ -21,7 +21,7 @@ import (
 	"strings"
 )
 
-// Fetch a specific Annotation.
+// Get the Annotation for a specific Call.
 func (c *ApiService) FetchAnnotation(CallSid string) (*InsightsV1Annotation, error) {
 	path := "/v1/Voice/{CallSid}/Annotation"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -50,15 +50,15 @@ type UpdateAnnotationParams struct {
 	AnsweredBy *string `json:"AnsweredBy,omitempty"`
 	//
 	ConnectivityIssue *string `json:"ConnectivityIssue,omitempty"`
-	// Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
+	// Specify if the call had any subjective quality issues. Possible values, one or more of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. Use comma separated values to indicate multiple quality issues for the same call.
 	QualityIssues *string `json:"QualityIssues,omitempty"`
-	// Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
+	// A boolean flag to indicate if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Use `true` if the call was a spam call.
 	Spam *bool `json:"Spam,omitempty"`
 	// Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
 	CallScore *int `json:"CallScore,omitempty"`
-	// Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
+	// Specify any comments pertaining to the call. `comment` has a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in the `comment`.
 	Comment *string `json:"Comment,omitempty"`
-	// Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
+	// Associate this call with an incident or support ticket. The `incident` parameter is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
 	Incident *string `json:"Incident,omitempty"`
 }
 
@@ -91,7 +91,7 @@ func (params *UpdateAnnotationParams) SetIncident(Incident string) *UpdateAnnota
 	return params
 }
 
-// Create/Update the annotation for the call
+// Update an Annotation for a specific Call.
 func (c *ApiService) UpdateAnnotation(CallSid string, params *UpdateAnnotationParams) (*InsightsV1Annotation, error) {
 	path := "/v1/Voice/{CallSid}/Annotation"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)

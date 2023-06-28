@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 
-
+Get a list of Call Metrics for a Call.
 
 ### Path Parameters
 
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CallSid** | **string** | 
+**CallSid** | **string** | The unique SID identifier of the Call.
 
 ### Other Parameters
 
@@ -31,8 +31,8 @@ Other parameters are passed through a pointer to a ListMetricParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Edge** | **string** | 
-**Direction** | **string** | 
+**Edge** | **string** | The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
+**Direction** | **string** | The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

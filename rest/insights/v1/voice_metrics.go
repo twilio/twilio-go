@@ -25,9 +25,9 @@ import (
 
 // Optional parameters for the method 'ListMetric'
 type ListMetricParams struct {
-	//
+	// The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
 	Edge *string `json:"Edge,omitempty"`
-	//
+	// The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`.
 	Direction *string `json:"Direction,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

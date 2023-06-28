@@ -171,7 +171,7 @@ Name | Type | Description
 **ActivitySid** | **string** | The `activity_sid` of the Worker resources to read.
 **Available** | **string** | Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
 **FriendlyName** | **string** | The `friendly_name` of the Worker resources to read.
-**TargetWorkersExpression** | **string** | Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+**TargetWorkersExpression** | **string** | Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
 **TaskQueueName** | **string** | The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
 **TaskQueueSid** | **string** | The SID of the TaskQueue that the Workers to read are eligible for.
 **Ordering** | **string** | Sorting parameter for Workers

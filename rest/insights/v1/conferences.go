@@ -23,7 +23,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// Fetch a specific Conference.
+// Get a specific Conference Summary.
 func (c *ApiService) FetchConference(ConferenceSid string) (*InsightsV1Conference, error) {
 	path := "/v1/Conferences/{ConferenceSid}"
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)

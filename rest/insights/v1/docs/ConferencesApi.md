@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 
-Fetch a specific Conference.
+Get a specific Conference Summary.
 
 ### Path Parameters
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 
 
-Retrieve a list of Conferences.
+Get a list of Conference Summaries.
 
 ### Path Parameters
 

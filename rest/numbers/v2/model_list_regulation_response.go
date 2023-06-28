@@ -16,6 +16,6 @@ package openapi
 
 // ListRegulationResponse struct for ListRegulationResponse
 type ListRegulationResponse struct {
-	Results []NumbersV2Regulation  `json:"results,omitempty"`
-	Meta    ListBundleResponseMeta `json:"meta,omitempty"`
+	Results []NumbersV2Regulation                 `json:"results,omitempty"`
+	Meta    ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
 }

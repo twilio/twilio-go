@@ -147,7 +147,7 @@ type ListWorkerParams struct {
 	Available *string `json:"Available,omitempty"`
 	// The `friendly_name` of the Worker resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+	// Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
 	TargetWorkersExpression *string `json:"TargetWorkersExpression,omitempty"`
 	// The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
 	TaskQueueName *string `json:"TaskQueueName,omitempty"`

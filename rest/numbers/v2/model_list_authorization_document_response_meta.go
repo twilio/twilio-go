@@ -14,8 +14,8 @@
 
 package openapi
 
-// ListBundleResponseMeta struct for ListBundleResponseMeta
-type ListBundleResponseMeta struct {
+// ListAuthorizationDocumentResponseMeta struct for ListAuthorizationDocumentResponseMeta
+type ListAuthorizationDocumentResponseMeta struct {
 	FirstPageUrl    string  `json:"first_page_url,omitempty"`
 	NextPageUrl     *string `json:"next_page_url,omitempty"`
 	Page            int     `json:"page,omitempty"`

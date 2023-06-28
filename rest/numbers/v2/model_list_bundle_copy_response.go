@@ -16,6 +16,6 @@ package openapi
 
 // ListBundleCopyResponse struct for ListBundleCopyResponse
 type ListBundleCopyResponse struct {
-	Results []NumbersV2BundleCopy  `json:"results,omitempty"`
-	Meta    ListBundleResponseMeta `json:"meta,omitempty"`
+	Results []NumbersV2BundleCopy                 `json:"results,omitempty"`
+	Meta    ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
 }

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 
-
+Get a specific Call Summary.
 
 ### Path Parameters
 
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CallSid** | **string** | 
+**CallSid** | **string** | The unique SID identifier of the Call.
 
 ### Other Parameters
 
@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a FetchSummaryParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ProcessingState** | **string** | 
+**ProcessingState** | **string** | The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
 
 ### Return type
 

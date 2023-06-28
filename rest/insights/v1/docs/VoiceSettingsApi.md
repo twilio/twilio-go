@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 
-
+Get the Voice Insights Settings.
 
 ### Path Parameters
 
@@ -28,7 +28,7 @@ Other parameters are passed through a pointer to a FetchAccountSettingsParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**SubaccountSid** | **string** | 
+**SubaccountSid** | **string** | The unique SID identifier of the Subaccount.
 
 ### Return type
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 
 
-
+Update a specific Voice Insights Setting.
 
 ### Path Parameters
 
@@ -67,9 +67,9 @@ Other parameters are passed through a pointer to a UpdateAccountSettingsParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AdvancedFeatures** | **bool** | 
-**VoiceTrace** | **bool** | 
-**SubaccountSid** | **string** | 
+**AdvancedFeatures** | **bool** | A boolean flag to enable Advanced Features for Voice Insights.
+**VoiceTrace** | **bool** | A boolean flag to enable Voice Trace.
+**SubaccountSid** | **string** | The unique SID identifier of the Subaccount.
 
 ### Return type
 

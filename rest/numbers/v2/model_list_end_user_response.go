@@ -16,6 +16,6 @@ package openapi
 
 // ListEndUserResponse struct for ListEndUserResponse
 type ListEndUserResponse struct {
-	Results []NumbersV2EndUser     `json:"results,omitempty"`
-	Meta    ListBundleResponseMeta `json:"meta,omitempty"`
+	Results []NumbersV2EndUser                    `json:"results,omitempty"`
+	Meta    ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
 }

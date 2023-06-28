@@ -16,8 +16,12 @@ package openapi
 
 // InsightsV1AccountSettings struct for InsightsV1AccountSettings
 type InsightsV1AccountSettings struct {
-	AccountSid       *string `json:"account_sid,omitempty"`
-	AdvancedFeatures *bool   `json:"advanced_features,omitempty"`
-	VoiceTrace       *bool   `json:"voice_trace,omitempty"`
-	Url              *string `json:"url,omitempty"`
+	// The unique SID identifier of the Account.
+	AccountSid *string `json:"account_sid,omitempty"`
+	// A boolean flag indicating whether Advanced Features for Voice Insights are enabled.
+	AdvancedFeatures *bool `json:"advanced_features,omitempty"`
+	// A boolean flag indicating whether Voice Trace is enabled.
+	VoiceTrace *bool `json:"voice_trace,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"url,omitempty"`
 }

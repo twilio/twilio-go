@@ -22,7 +22,7 @@ import (
 
 // Optional parameters for the method 'FetchPhoneNumber'
 type FetchPhoneNumberParams struct {
-	// A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
+	// A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
 	Fields *string `json:"Fields,omitempty"`
 	// The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
 	CountryCode *string `json:"CountryCode,omitempty"`
@@ -46,6 +46,8 @@ type FetchPhoneNumberParams struct {
 	NationalId *string `json:"NationalId,omitempty"`
 	// User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
 	DateOfBirth *string `json:"DateOfBirth,omitempty"`
+	// The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
+	LastVerifiedDate *string `json:"LastVerifiedDate,omitempty"`
 }
 
 func (params *FetchPhoneNumberParams) SetFields(Fields string) *FetchPhoneNumberParams {
@@ -96,6 +98,10 @@ func (params *FetchPhoneNumberParams) SetDateOfBirth(DateOfBirth string) *FetchP
 	params.DateOfBirth = &DateOfBirth
 	return params
 }
+func (params *FetchPhoneNumberParams) SetLastVerifiedDate(LastVerifiedDate string) *FetchPhoneNumberParams {
+	params.LastVerifiedDate = &LastVerifiedDate
+	return params
+}
 
 //
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV2PhoneNumber, error) {
@@ -140,6 +146,9 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 	}
 	if params != nil && params.DateOfBirth != nil {
 		data.Set("DateOfBirth", *params.DateOfBirth)
+	}
+	if params != nil && params.LastVerifiedDate != nil {
+		data.Set("LastVerifiedDate", *params.LastVerifiedDate)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
