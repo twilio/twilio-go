@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **Status** | Pointer to [**string**](HostedNumberOrderEnumStatus.md) |  |
 **FailureReason** | Pointer to **string** | A message that explains why a hosted_number_order went to status \"action-required\" |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format. |
-**SmsCapability** | Pointer to **bool** | Whether the SMS capability will be hosted on our platform. Can be `true` of `false`. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format. |
 **Email** | Pointer to **string** | Email of the owner of this phone number that is being hosted. |
 **CcEmails** | Pointer to **[]string** | A list of emails that LOA document for this HostedNumberOrder will be carbon copied to. |

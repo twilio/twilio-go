@@ -190,6 +190,8 @@ type UpdateDeviceParams struct {
 	TargetApp *string `json:"TargetApp,omitempty"`
 	// A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
 	LoggingEnabled *bool `json:"LoggingEnabled,omitempty"`
+	// Set to true to restart the App running on the Device.
+	RestartApp *bool `json:"RestartApp,omitempty"`
 }
 
 func (params *UpdateDeviceParams) SetUniqueName(UniqueName string) *UpdateDeviceParams {
@@ -202,6 +204,10 @@ func (params *UpdateDeviceParams) SetTargetApp(TargetApp string) *UpdateDevicePa
 }
 func (params *UpdateDeviceParams) SetLoggingEnabled(LoggingEnabled bool) *UpdateDeviceParams {
 	params.LoggingEnabled = &LoggingEnabled
+	return params
+}
+func (params *UpdateDeviceParams) SetRestartApp(RestartApp bool) *UpdateDeviceParams {
+	params.RestartApp = &RestartApp
 	return params
 }
 
@@ -221,6 +227,9 @@ func (c *ApiService) UpdateDevice(Sid string, params *UpdateDeviceParams) (*Micr
 	}
 	if params != nil && params.LoggingEnabled != nil {
 		data.Set("LoggingEnabled", fmt.Sprint(*params.LoggingEnabled))
+	}
+	if params != nil && params.RestartApp != nil {
+		data.Set("RestartApp", fmt.Sprint(*params.RestartApp))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

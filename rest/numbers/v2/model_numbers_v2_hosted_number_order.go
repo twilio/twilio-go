@@ -40,8 +40,6 @@ type NumbersV2HostedNumberOrder struct {
 	FailureReason *string `json:"failure_reason,omitempty"`
 	// The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
-	SmsCapability *bool `json:"sms_capability,omitempty"`
 	// The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// Email of the owner of this phone number that is being hosted.

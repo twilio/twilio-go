@@ -33,6 +33,7 @@ Name | Type | Description
 **AddressSid** | **string** | A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
 **Email** | **string** | Email that this AuthorizationDocument will be sent to for signing.
 **ContactPhoneNumber** | **string** | The contact phone number of the person authorized to sign the Authorization Document.
+**HostedNumberOrderSids** | **[]string** | A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
 **ContactTitle** | **string** | The title of the person authorized to sign the Authorization Document for this phone number.
 **CcEmails** | **[]string** | Email recipients who will be informed when an Authorization Document has been sent and signed.
 

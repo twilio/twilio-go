@@ -118,6 +118,7 @@ Name | Type | Description
 **UniqueName** | **string** | A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
 **TargetApp** | **string** | The SID or unique name of the App to be targeted to the Device.
 **LoggingEnabled** | **bool** | A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+**RestartApp** | **bool** | Set to true to restart the App running on the Device.
 
 ### Return type
 

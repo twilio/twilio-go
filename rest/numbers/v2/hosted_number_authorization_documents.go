@@ -31,6 +31,8 @@ type CreateAuthorizationDocumentParams struct {
 	Email *string `json:"Email,omitempty"`
 	// The contact phone number of the person authorized to sign the Authorization Document.
 	ContactPhoneNumber *string `json:"ContactPhoneNumber,omitempty"`
+	// A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+	HostedNumberOrderSids *[]string `json:"HostedNumberOrderSids,omitempty"`
 	// The title of the person authorized to sign the Authorization Document for this phone number.
 	ContactTitle *string `json:"ContactTitle,omitempty"`
 	// Email recipients who will be informed when an Authorization Document has been sent and signed.
@@ -47,6 +49,10 @@ func (params *CreateAuthorizationDocumentParams) SetEmail(Email string) *CreateA
 }
 func (params *CreateAuthorizationDocumentParams) SetContactPhoneNumber(ContactPhoneNumber string) *CreateAuthorizationDocumentParams {
 	params.ContactPhoneNumber = &ContactPhoneNumber
+	return params
+}
+func (params *CreateAuthorizationDocumentParams) SetHostedNumberOrderSids(HostedNumberOrderSids []string) *CreateAuthorizationDocumentParams {
+	params.HostedNumberOrderSids = &HostedNumberOrderSids
 	return params
 }
 func (params *CreateAuthorizationDocumentParams) SetContactTitle(ContactTitle string) *CreateAuthorizationDocumentParams {
@@ -73,6 +79,11 @@ func (c *ApiService) CreateAuthorizationDocument(params *CreateAuthorizationDocu
 	}
 	if params != nil && params.ContactPhoneNumber != nil {
 		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
+	}
+	if params != nil && params.HostedNumberOrderSids != nil {
+		for _, item := range *params.HostedNumberOrderSids {
+			data.Add("HostedNumberOrderSids", item)
+		}
 	}
 	if params != nil && params.ContactTitle != nil {
 		data.Set("ContactTitle", *params.ContactTitle)

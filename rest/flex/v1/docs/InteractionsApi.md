@@ -30,6 +30,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Channel** | [**interface{}**](interface{}.md) | The Interaction's channel.
 **Routing** | [**interface{}**](interface{}.md) | The Interaction's routing logic.
+**InteractionContextSid** | **string** | The Interaction context sid is used for adding a context lookup sid
 
 ### Return type
 

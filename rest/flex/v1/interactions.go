@@ -26,6 +26,8 @@ type CreateInteractionParams struct {
 	Channel *interface{} `json:"Channel,omitempty"`
 	// The Interaction's routing logic.
 	Routing *interface{} `json:"Routing,omitempty"`
+	// The Interaction context sid is used for adding a context lookup sid
+	InteractionContextSid *string `json:"InteractionContextSid,omitempty"`
 }
 
 func (params *CreateInteractionParams) SetChannel(Channel interface{}) *CreateInteractionParams {
@@ -34,6 +36,10 @@ func (params *CreateInteractionParams) SetChannel(Channel interface{}) *CreateIn
 }
 func (params *CreateInteractionParams) SetRouting(Routing interface{}) *CreateInteractionParams {
 	params.Routing = &Routing
+	return params
+}
+func (params *CreateInteractionParams) SetInteractionContextSid(InteractionContextSid string) *CreateInteractionParams {
+	params.InteractionContextSid = &InteractionContextSid
 	return params
 }
 
@@ -61,6 +67,9 @@ func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1
 		}
 
 		data.Set("Routing", string(v))
+	}
+	if params != nil && params.InteractionContextSid != nil {
+		data.Set("InteractionContextSid", *params.InteractionContextSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

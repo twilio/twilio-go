@@ -52,6 +52,8 @@ type CreateVerificationParams struct {
 	TemplateCustomSubstitutions *string `json:"TemplateCustomSubstitutions,omitempty"`
 	// Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 	DeviceIp *string `json:"DeviceIp,omitempty"`
+	//
+	RiskCheck *string `json:"RiskCheck,omitempty"`
 }
 
 func (params *CreateVerificationParams) SetTo(To string) *CreateVerificationParams {
@@ -112,6 +114,10 @@ func (params *CreateVerificationParams) SetTemplateCustomSubstitutions(TemplateC
 }
 func (params *CreateVerificationParams) SetDeviceIp(DeviceIp string) *CreateVerificationParams {
 	params.DeviceIp = &DeviceIp
+	return params
+}
+func (params *CreateVerificationParams) SetRiskCheck(RiskCheck string) *CreateVerificationParams {
+	params.RiskCheck = &RiskCheck
 	return params
 }
 
@@ -179,6 +185,9 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	}
 	if params != nil && params.DeviceIp != nil {
 		data.Set("DeviceIp", *params.DeviceIp)
+	}
+	if params != nil && params.RiskCheck != nil {
+		data.Set("RiskCheck", *params.RiskCheck)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
