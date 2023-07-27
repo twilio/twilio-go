@@ -28,10 +28,10 @@ Other parameters are passed through a pointer to a FetchVerificationAttemptsSumm
 Name | Type | Description
 ------------- | ------------- | -------------
 **VerifyServiceSid** | **string** | Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-**DateCreatedAfter** | **time.Time** | Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-**DateCreatedBefore** | **time.Time** | Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+**DateCreatedAfter** | **time.Time** | Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+**DateCreatedBefore** | **time.Time** | Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
 **Country** | **string** | Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-**Channel** | **string** | Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+**Channel** | **string** | Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS`, `CALL` and `WHATSAPP`
 **DestinationPrefix** | **string** | Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
 ### Return type

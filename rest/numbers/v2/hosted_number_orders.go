@@ -35,7 +35,7 @@ type CreateHostedNumberOrderParams struct {
 	Email *string `json:"Email,omitempty"`
 	// This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
 	AccountSid *string `json:"AccountSid,omitempty"`
-	// A 64 character string that is a human readable text that describes this resource.
+	// A 128 character string that is a human readable text that describes this resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
 	CcEmails *[]string `json:"CcEmails,omitempty"`
@@ -248,7 +248,7 @@ type ListHostedNumberOrderParams struct {
 	PhoneNumber *string `json:"PhoneNumber,omitempty"`
 	// A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
 	IncomingPhoneNumberSid *string `json:"IncomingPhoneNumberSid,omitempty"`
-	// A human readable description of this resource, up to 64 characters.
+	// A human readable description of this resource, up to 128 characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

@@ -70,8 +70,8 @@ Other parameters are passed through a pointer to a ListVerificationAttemptParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**DateCreatedAfter** | **time.Time** | Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
-**DateCreatedBefore** | **time.Time** | Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+**DateCreatedAfter** | **time.Time** | Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+**DateCreatedBefore** | **time.Time** | Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
 **ChannelDataTo** | **string** | Destination of a verification. It is phone number in E.164 format.
 **Country** | **string** | Filter used to query Verification Attempts sent to the specified destination country.
 **Channel** | **string** | Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`

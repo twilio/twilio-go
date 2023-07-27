@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **SigningDocumentSid** | Pointer to **string** | A 34 character string that uniquely identifies the LOA document associated with this HostedNumberOrder. |
 **PhoneNumber** | Pointer to **string** | An E164 formatted phone number hosted by this HostedNumberOrder. |
 **Capabilities** | Pointer to [**NumbersV2AuthorizationDocumentDependentHostedNumberOrderCapabilities**](NumbersV2AuthorizationDocumentDependentHostedNumberOrderCapabilities.md) |  |
-**FriendlyName** | Pointer to **string** | A human readable description of this resource, up to 64 characters. |
+**FriendlyName** | Pointer to **string** | A human readable description of this resource, up to 128 characters. |
 **Status** | Pointer to [**string**](DependentHostedNumberOrderEnumStatus.md) |  |
 **FailureReason** | Pointer to **string** | A message that explains why a hosted_number_order went to status \"action-required\" |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format. |

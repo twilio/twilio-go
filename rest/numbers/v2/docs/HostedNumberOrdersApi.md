@@ -35,7 +35,7 @@ Name | Type | Description
 **AddressSid** | **string** | Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
 **Email** | **string** | Optional. Email of the owner of this phone number that is being hosted.
 **AccountSid** | **string** | This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
-**FriendlyName** | **string** | A 64 character string that is a human readable text that describes this resource.
+**FriendlyName** | **string** | A 128 character string that is a human readable text that describes this resource.
 **CcEmails** | **[]string** | Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
 **SmsUrl** | **string** | The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
 **SmsMethod** | **string** | The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
@@ -172,7 +172,7 @@ Name | Type | Description
 **SmsCapability** | **bool** | Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
 **PhoneNumber** | **string** | An E164 formatted phone number hosted by this HostedNumberOrder.
 **IncomingPhoneNumberSid** | **string** | A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-**FriendlyName** | **string** | A human readable description of this resource, up to 64 characters.
+**FriendlyName** | **string** | A human readable description of this resource, up to 128 characters.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

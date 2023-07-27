@@ -97,12 +97,16 @@ type VoiceSipRec struct {
 	// name: Friendly name given to SIPREC
 	// connector_name: Unique name for Connector
 	// track: Track to be streamed to remote service
+	// status_callback: Status Callback URL
+	// status_callback_method: Status Callback URL method
 	// OptionalAttributes: additional attributes
-	Name               string
-	ConnectorName      string
-	Track              string
-	InnerElements      []Element
-	OptionalAttributes map[string]string
+	Name                 string
+	ConnectorName        string
+	Track                string
+	StatusCallback       string
+	StatusCallbackMethod string
+	InnerElements        []Element
+	OptionalAttributes   map[string]string
 }
 
 func (m VoiceSipRec) GetName() string {
@@ -115,9 +119,11 @@ func (m VoiceSipRec) GetText() string {
 
 func (m VoiceSipRec) GetAttr() (map[string]string, map[string]string) {
 	paramsAttr := map[string]string{
-		"Name":          m.Name,
-		"ConnectorName": m.ConnectorName,
-		"Track":         m.Track,
+		"Name":                 m.Name,
+		"ConnectorName":        m.ConnectorName,
+		"Track":                m.Track,
+		"StatusCallback":       m.StatusCallback,
+		"StatusCallbackMethod": m.StatusCallbackMethod,
 	}
 	return m.OptionalAttributes, paramsAttr
 }

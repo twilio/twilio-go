@@ -49,9 +49,9 @@ func (c *ApiService) FetchVerificationAttempt(Sid string) (*VerifyV2Verification
 
 // Optional parameters for the method 'ListVerificationAttempt'
 type ListVerificationAttemptParams struct {
-	// Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
+	// Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
 	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-	// Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+	// Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	// Destination of a verification. It is phone number in E.164 format.
 	ChannelDataTo *string `json:"ChannelData.To,omitempty"`

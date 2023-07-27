@@ -26,7 +26,7 @@ import (
 
 // Optional parameters for the method 'DeleteMedia'
 type DeleteMediaParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to delete.
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is associated with the Media resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -35,7 +35,7 @@ func (params *DeleteMediaParams) SetPathAccountSid(PathAccountSid string) *Delet
 	return params
 }
 
-// Delete media from your account. Once delete, you will no longer be billed
+// Delete the Media resource.
 func (c *ApiService) DeleteMedia(MessageSid string, Sid string, params *DeleteMediaParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -61,7 +61,7 @@ func (c *ApiService) DeleteMedia(MessageSid string, Sid string, params *DeleteMe
 
 // Optional parameters for the method 'FetchMedia'
 type FetchMediaParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch.
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Media resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -70,7 +70,7 @@ func (params *FetchMediaParams) SetPathAccountSid(PathAccountSid string) *FetchM
 	return params
 }
 
-// Fetch a single media instance belonging to the account used to make the request
+// Fetch a single Media resource associated with a specific Message resource
 func (c *ApiService) FetchMedia(MessageSid string, Sid string, params *FetchMediaParams) (*ApiV2010Media, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -101,13 +101,13 @@ func (c *ApiService) FetchMedia(MessageSid string, Sid string, params *FetchMedi
 
 // Optional parameters for the method 'ListMedia'
 type ListMediaParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to read.
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is associated with the Media resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
+	// Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
-	// Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
+	// Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
 	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
-	// Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
+	// Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
 	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

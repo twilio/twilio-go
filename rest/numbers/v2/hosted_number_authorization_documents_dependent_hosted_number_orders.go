@@ -31,7 +31,7 @@ type ListDependentHostedNumberOrderParams struct {
 	PhoneNumber *string `json:"PhoneNumber,omitempty"`
 	// A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
 	IncomingPhoneNumberSid *string `json:"IncomingPhoneNumberSid,omitempty"`
-	// A human readable description of this resource, up to 64 characters.
+	// A human readable description of this resource, up to 128 characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

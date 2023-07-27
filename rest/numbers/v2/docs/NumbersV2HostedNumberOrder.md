@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **SigningDocumentSid** | Pointer to **string** | A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents) the user needs to sign. |
 **PhoneNumber** | Pointer to **string** | Phone number to be hosted. This must be in [E.164](https://en.wikipedia.org/wiki/E.164) format, e.g., +16175551212 |
 **Capabilities** | Pointer to [**NumbersV2HostedNumberOrderCapabilities**](NumbersV2HostedNumberOrderCapabilities.md) |  |
-**FriendlyName** | Pointer to **string** | A 64 character string that is a human-readable text that describes this resource. |
+**FriendlyName** | Pointer to **string** | A 128 character string that is a human-readable text that describes this resource. |
 **Status** | Pointer to [**string**](HostedNumberOrderEnumStatus.md) |  |
 **FailureReason** | Pointer to **string** | A message that explains why a hosted_number_order went to status \"action-required\" |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format. |

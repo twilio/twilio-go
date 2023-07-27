@@ -37,7 +37,7 @@ type NumbersV2DependentHostedNumberOrder struct {
 	// An E164 formatted phone number hosted by this HostedNumberOrder.
 	PhoneNumber  *string                                                               `json:"phone_number,omitempty"`
 	Capabilities *NumbersV2AuthorizationDocumentDependentHostedNumberOrderCapabilities `json:"capabilities,omitempty"`
-	// A human readable description of this resource, up to 64 characters.
+	// A human readable description of this resource, up to 128 characters.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	Status       *string `json:"status,omitempty"`
 	// A message that explains why a hosted_number_order went to status \"action-required\"

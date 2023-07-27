@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 
-Delete media from your account. Once delete, you will no longer be billed
+Delete the Media resource.
 
 ### Path Parameters
 
@@ -24,8 +24,8 @@ Delete media from your account. Once delete, you will no longer be billed
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**MessageSid** | **string** | The SID of the Message resource that this Media resource belongs to.
-**Sid** | **string** | The Twilio-provided string that uniquely identifies the Media resource to delete
+**MessageSid** | **string** | The SID of the Message resource that is associated with the Media resource.
+**Sid** | **string** | The unique identifier of the to-be-deleted Media resource.
 
 ### Other Parameters
 
@@ -34,7 +34,7 @@ Other parameters are passed through a pointer to a DeleteMediaParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to delete.
+**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is associated with the Media resource.
 
 ### Return type
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 
 
-Fetch a single media instance belonging to the account used to make the request
+Fetch a single Media resource associated with a specific Message resource
 
 ### Path Parameters
 
@@ -68,8 +68,8 @@ Fetch a single media instance belonging to the account used to make the request
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**MessageSid** | **string** | The SID of the Message resource that this Media resource belongs to.
-**Sid** | **string** | The Twilio-provided string that uniquely identifies the Media resource to fetch
+**MessageSid** | **string** | The SID of the Message resource that is associated with the Media resource.
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Media resource to fetch.
 
 ### Other Parameters
 
@@ -78,7 +78,7 @@ Other parameters are passed through a pointer to a FetchMediaParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch.
+**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Media resource.
 
 ### Return type
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 
 
-Retrieve a list of Media resources belonging to the account used to make the request
+Read a list of Media resources associated with a specific Message resource
 
 ### Path Parameters
 
@@ -112,7 +112,7 @@ Retrieve a list of Media resources belonging to the account used to make the req
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**MessageSid** | **string** | The SID of the Message resource that this Media resource belongs to.
+**MessageSid** | **string** | The SID of the Message resource that is associated with the Media resources.
 
 ### Other Parameters
 
@@ -121,10 +121,10 @@ Other parameters are passed through a pointer to a ListMediaParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to read.
-**DateCreated** | **time.Time** | Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
-**DateCreatedBefore** | **time.Time** | Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
-**DateCreatedAfter** | **time.Time** | Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
+**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is associated with the Media resources.
+**DateCreated** | **time.Time** | Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
+**DateCreatedBefore** | **time.Time** | Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
+**DateCreatedAfter** | **time.Time** | Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

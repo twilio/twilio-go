@@ -33,7 +33,7 @@ type NumbersV2HostedNumberOrder struct {
 	// Phone number to be hosted. This must be in [E.164](https://en.wikipedia.org/wiki/E.164) format, e.g., +16175551212
 	PhoneNumber  *string                                 `json:"phone_number,omitempty"`
 	Capabilities *NumbersV2HostedNumberOrderCapabilities `json:"capabilities,omitempty"`
-	// A 64 character string that is a human-readable text that describes this resource.
+	// A 128 character string that is a human-readable text that describes this resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	Status       *string `json:"status,omitempty"`
 	// A message that explains why a hosted_number_order went to status \"action-required\"
