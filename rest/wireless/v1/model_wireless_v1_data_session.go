@@ -22,7 +22,7 @@ import (
 type WirelessV1DataSession struct {
 	// The unique string that we created to identify the DataSession resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Data Session is for.
+	// The SID of the [Sim resource](https://www.twilio.com/docs/iot/wireless/api/sim-resource) that the Data Session is for.
 	SimSid *string `json:"sim_sid,omitempty"`
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DataSession resource.
 	AccountSid *string `json:"account_sid,omitempty"`
@@ -34,11 +34,11 @@ type WirelessV1DataSession struct {
 	OperatorMnc *string `json:"operator_mnc,omitempty"`
 	// The three letter country code representing where the device's Data Session took place. This is determined by looking up the `operator_mcc`.
 	OperatorCountry *string `json:"operator_country,omitempty"`
-	// The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
+	// The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/iot/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
 	OperatorName *string `json:"operator_name,omitempty"`
 	// The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated.
 	CellId *string `json:"cell_id,omitempty"`
-	// An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/wireless/api/datasession-resource#cell-location-estimate-object).
+	// An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/iot/wireless/api/datasession-resource#cell-location-estimate-object).
 	CellLocationEstimate *interface{} `json:"cell_location_estimate,omitempty"`
 	// The number of packets uploaded by the device between the `start` time and when the Data Session was last updated.
 	PacketsUploaded *int `json:"packets_uploaded,omitempty"`

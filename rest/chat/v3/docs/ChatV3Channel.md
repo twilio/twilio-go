@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **CreatedBy** | Pointer to **string** | The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`. |
 **MembersCount** | Pointer to **int** | The number of Members in the Channel. |
 **MessagesCount** | Pointer to **int** | The number of Messages that have been passed in the Channel. |
-**MessagingServiceSid** | Pointer to **string** | The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to. |
+**MessagingServiceSid** | Pointer to **string** | The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this channel belongs to. |
 **Url** | Pointer to **string** | The absolute URL of the Channel resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

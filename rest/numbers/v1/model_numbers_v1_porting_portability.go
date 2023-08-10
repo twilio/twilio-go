@@ -18,6 +18,8 @@ package openapi
 type NumbersV1PortingPortability struct {
 	// The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
 	PhoneNumber *string `json:"phone_number,omitempty"`
+	// The target account sid to which the number will be ported
+	AccountSid *string `json:"account_sid,omitempty"`
 	// Boolean flag specifying if phone number is portable or not.
 	Portable *bool `json:"portable,omitempty"`
 	// Boolean flag specifying if PIN and account number is required for the phone number.

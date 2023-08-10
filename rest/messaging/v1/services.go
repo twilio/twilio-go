@@ -37,17 +37,17 @@ type CreateServiceParams struct {
 	FallbackMethod *string `json:"FallbackMethod,omitempty"`
 	// The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
-	// Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
+	// Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
 	StickySender *bool `json:"StickySender,omitempty"`
-	// Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
+	// Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
 	MmsConverter *bool `json:"MmsConverter,omitempty"`
-	// Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
+	// Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
 	SmartEncoding *bool `json:"SmartEncoding,omitempty"`
 	//
 	ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
-	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
+	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
 	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
-	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
+	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
 	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
 	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
@@ -386,17 +386,17 @@ type UpdateServiceParams struct {
 	FallbackMethod *string `json:"FallbackMethod,omitempty"`
 	// The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
-	// Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
+	// Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
 	StickySender *bool `json:"StickySender,omitempty"`
-	// Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
+	// Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
 	MmsConverter *bool `json:"MmsConverter,omitempty"`
-	// Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
+	// Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
 	SmartEncoding *bool `json:"SmartEncoding,omitempty"`
 	//
 	ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
-	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
+	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
 	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
-	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
+	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
 	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
 	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`

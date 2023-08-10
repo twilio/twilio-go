@@ -24,7 +24,7 @@ type ConversationsV1ServiceConversation struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
-	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`

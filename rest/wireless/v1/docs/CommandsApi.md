@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateCommandParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Command** | **string** | The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
-**Sim** | **string** | The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+**Sim** | **string** | The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to send the Command to.
 **CallbackMethod** | **string** | The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
 **CallbackUrl** | **string** | The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
 **CommandMode** | **string** | 
@@ -159,7 +159,7 @@ Other parameters are passed through a pointer to a ListCommandParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Sim** | **string** | The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+**Sim** | **string** | The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read.
 **Status** | **string** | The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
 **Direction** | **string** | Only return Commands with this direction value.
 **Transport** | **string** | Only return Commands with this transport value. Can be: `sms` or `ip`.

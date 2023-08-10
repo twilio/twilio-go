@@ -14,12 +14,12 @@ Name | Type | Description | Notes
 **FallbackUrl** | Pointer to **string** | The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service. |
 **FallbackMethod** | Pointer to **string** | The HTTP method we use to call `fallback_url`. Can be: `GET` or `POST`. |
 **StatusCallback** | Pointer to **string** | The URL we call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery. |
-**StickySender** | Pointer to **bool** | Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance. |
-**MmsConverter** | Pointer to **bool** | Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance. |
-**SmartEncoding** | Pointer to **bool** | Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance. |
+**StickySender** | Pointer to **bool** | Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance. |
+**MmsConverter** | Pointer to **bool** | Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance. |
+**SmartEncoding** | Pointer to **bool** | Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance. |
 **ScanMessageContent** | Pointer to [**string**](ServiceEnumScanMessageContent.md) |  |
-**FallbackToLongCode** | Pointer to **bool** | Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance. |
-**AreaCodeGeomatch** | Pointer to **bool** | Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance. |
+**FallbackToLongCode** | Pointer to **bool** | Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance. |
+**AreaCodeGeomatch** | Pointer to **bool** | Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. |
 **SynchronousValidation** | Pointer to **bool** | Reserved. |
 **ValidityPeriod** | Pointer to **int** | How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. |
 **Url** | Pointer to **string** | The absolute URL of the Service resource. |

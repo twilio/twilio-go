@@ -24,7 +24,7 @@ type WirelessV1Command struct {
 	Sid *string `json:"sid,omitempty"`
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Command resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Command was sent to or from.
+	// The SID of the [Sim resource](https://www.twilio.com/docs/iot/wireless/api/sim-resource) that the Command was sent to or from.
 	SimSid *string `json:"sim_sid,omitempty"`
 	// The message being sent to or from the SIM. For text mode messages, this can be up to 160 characters. For binary mode messages, this is a series of up to 140 bytes of data encoded using base64.
 	Command     *string `json:"command,omitempty"`

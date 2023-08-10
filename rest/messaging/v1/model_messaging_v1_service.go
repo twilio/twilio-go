@@ -40,16 +40,16 @@ type MessagingV1Service struct {
 	FallbackMethod *string `json:"fallback_method,omitempty"`
 	// The URL we call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
 	StatusCallback *string `json:"status_callback,omitempty"`
-	// Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
+	// Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
 	StickySender *bool `json:"sticky_sender,omitempty"`
-	// Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
+	// Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
 	MmsConverter *bool `json:"mms_converter,omitempty"`
-	// Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
+	// Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
 	SmartEncoding      *bool   `json:"smart_encoding,omitempty"`
 	ScanMessageContent *string `json:"scan_message_content,omitempty"`
-	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
+	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
 	FallbackToLongCode *bool `json:"fallback_to_long_code,omitempty"`
-	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
+	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 	AreaCodeGeomatch *bool `json:"area_code_geomatch,omitempty"`
 	// Reserved.
 	SynchronousValidation *bool `json:"synchronous_validation,omitempty"`

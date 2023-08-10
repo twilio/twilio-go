@@ -62,14 +62,16 @@ type ListCallSummariesParams struct {
 	AbnormalSession *bool `json:"AbnormalSession,omitempty"`
 	// An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
 	AnsweredBy *string `json:"AnsweredBy,omitempty"`
+	// Either machine or human.
+	AnsweredByAnnotation *string `json:"AnsweredByAnnotation,omitempty"`
 	// A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
-	ConnectivityIssue *string `json:"ConnectivityIssue,omitempty"`
+	ConnectivityIssueAnnotation *string `json:"ConnectivityIssueAnnotation,omitempty"`
 	// A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
-	QualityIssue *string `json:"QualityIssue,omitempty"`
+	QualityIssueAnnotation *string `json:"QualityIssueAnnotation,omitempty"`
 	// A boolean flag indicating spam calls.
-	Spam *bool `json:"Spam,omitempty"`
+	SpamAnnotation *bool `json:"SpamAnnotation,omitempty"`
 	// A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
-	CallScore *string `json:"CallScore,omitempty"`
+	CallScoreAnnotation *string `json:"CallScoreAnnotation,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -152,20 +154,24 @@ func (params *ListCallSummariesParams) SetAnsweredBy(AnsweredBy string) *ListCal
 	params.AnsweredBy = &AnsweredBy
 	return params
 }
-func (params *ListCallSummariesParams) SetConnectivityIssue(ConnectivityIssue string) *ListCallSummariesParams {
-	params.ConnectivityIssue = &ConnectivityIssue
+func (params *ListCallSummariesParams) SetAnsweredByAnnotation(AnsweredByAnnotation string) *ListCallSummariesParams {
+	params.AnsweredByAnnotation = &AnsweredByAnnotation
 	return params
 }
-func (params *ListCallSummariesParams) SetQualityIssue(QualityIssue string) *ListCallSummariesParams {
-	params.QualityIssue = &QualityIssue
+func (params *ListCallSummariesParams) SetConnectivityIssueAnnotation(ConnectivityIssueAnnotation string) *ListCallSummariesParams {
+	params.ConnectivityIssueAnnotation = &ConnectivityIssueAnnotation
 	return params
 }
-func (params *ListCallSummariesParams) SetSpam(Spam bool) *ListCallSummariesParams {
-	params.Spam = &Spam
+func (params *ListCallSummariesParams) SetQualityIssueAnnotation(QualityIssueAnnotation string) *ListCallSummariesParams {
+	params.QualityIssueAnnotation = &QualityIssueAnnotation
 	return params
 }
-func (params *ListCallSummariesParams) SetCallScore(CallScore string) *ListCallSummariesParams {
-	params.CallScore = &CallScore
+func (params *ListCallSummariesParams) SetSpamAnnotation(SpamAnnotation bool) *ListCallSummariesParams {
+	params.SpamAnnotation = &SpamAnnotation
+	return params
+}
+func (params *ListCallSummariesParams) SetCallScoreAnnotation(CallScoreAnnotation string) *ListCallSummariesParams {
+	params.CallScoreAnnotation = &CallScoreAnnotation
 	return params
 }
 func (params *ListCallSummariesParams) SetPageSize(PageSize int) *ListCallSummariesParams {
@@ -241,17 +247,20 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 	if params != nil && params.AnsweredBy != nil {
 		data.Set("AnsweredBy", *params.AnsweredBy)
 	}
-	if params != nil && params.ConnectivityIssue != nil {
-		data.Set("ConnectivityIssue", *params.ConnectivityIssue)
+	if params != nil && params.AnsweredByAnnotation != nil {
+		data.Set("AnsweredByAnnotation", *params.AnsweredByAnnotation)
 	}
-	if params != nil && params.QualityIssue != nil {
-		data.Set("QualityIssue", *params.QualityIssue)
+	if params != nil && params.ConnectivityIssueAnnotation != nil {
+		data.Set("ConnectivityIssueAnnotation", *params.ConnectivityIssueAnnotation)
 	}
-	if params != nil && params.Spam != nil {
-		data.Set("Spam", fmt.Sprint(*params.Spam))
+	if params != nil && params.QualityIssueAnnotation != nil {
+		data.Set("QualityIssueAnnotation", *params.QualityIssueAnnotation)
 	}
-	if params != nil && params.CallScore != nil {
-		data.Set("CallScore", *params.CallScore)
+	if params != nil && params.SpamAnnotation != nil {
+		data.Set("SpamAnnotation", fmt.Sprint(*params.SpamAnnotation))
+	}
+	if params != nil && params.CallScoreAnnotation != nil {
+		data.Set("CallScoreAnnotation", *params.CallScoreAnnotation)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

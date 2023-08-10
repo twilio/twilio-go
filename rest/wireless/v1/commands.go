@@ -27,7 +27,7 @@ import (
 type CreateCommandParams struct {
 	// The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
 	Command *string `json:"Command,omitempty"`
-	// The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+	// The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to send the Command to.
 	Sim *string `json:"Sim,omitempty"`
 	// The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
@@ -157,7 +157,7 @@ func (c *ApiService) FetchCommand(Sid string) (*WirelessV1Command, error) {
 
 // Optional parameters for the method 'ListCommand'
 type ListCommandParams struct {
-	// The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+	// The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read.
 	Sim *string `json:"Sim,omitempty"`
 	// The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
 	Status *string `json:"Status,omitempty"`

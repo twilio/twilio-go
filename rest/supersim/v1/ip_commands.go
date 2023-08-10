@@ -134,7 +134,7 @@ type ListIpCommandParams struct {
 	Sim *string `json:"Sim,omitempty"`
 	// The ICCID of the Sim resource that IP Command was sent to or from.
 	SimIccid *string `json:"SimIccid,omitempty"`
-	// The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+	// The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each.
 	Status *string `json:"Status,omitempty"`
 	// The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
 	Direction *string `json:"Direction,omitempty"`

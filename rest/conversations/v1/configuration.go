@@ -45,7 +45,7 @@ func (c *ApiService) FetchConfiguration() (*ConversationsV1Configuration, error)
 type UpdateConfigurationParams struct {
 	// The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
 	DefaultChatServiceSid *string `json:"DefaultChatServiceSid,omitempty"`
-	// The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation.
+	// The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to use when creating a conversation.
 	DefaultMessagingServiceSid *string `json:"DefaultMessagingServiceSid,omitempty"`
 	// Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
 	DefaultInactiveTimer *string `json:"DefaultInactiveTimer,omitempty"`

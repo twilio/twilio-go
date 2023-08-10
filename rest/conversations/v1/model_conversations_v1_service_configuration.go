@@ -18,16 +18,16 @@ package openapi
 type ConversationsV1ServiceConfiguration struct {
 	// The unique string that we created to identify the Service configuration resource.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
-	// The conversation-level role assigned to a conversation creator user when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+	// The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
 	DefaultConversationCreatorRoleSid *string `json:"default_conversation_creator_role_sid,omitempty"`
-	// The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+	// The conversation-level role assigned to users when they are added to a conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
 	DefaultConversationRoleSid *string `json:"default_conversation_role_sid,omitempty"`
-	// The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+	// The service-level role assigned to users when they are added to the service. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
 	DefaultChatServiceRoleSid *string `json:"default_chat_service_role_sid,omitempty"`
 	// An absolute API resource URL for this service configuration.
 	Url *string `json:"url,omitempty"`
 	// Contains an absolute API resource URL to access the push notifications configuration of this service.
 	Links *map[string]interface{} `json:"links,omitempty"`
-	// Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
+	// Whether the [Reachability Indicator](https://www.twilio.com/docs/conversations/reachability) is enabled for this Conversations Service. The default is `false`.
 	ReachabilityEnabled *bool `json:"reachability_enabled,omitempty"`
 }

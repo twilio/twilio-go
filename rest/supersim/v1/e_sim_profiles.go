@@ -114,7 +114,7 @@ func (c *ApiService) FetchEsimProfile(Sid string) (*SupersimV1EsimProfile, error
 type ListEsimProfileParams struct {
 	// List the eSIM Profiles that have been associated with an EId.
 	Eid *string `json:"Eid,omitempty"`
-	// Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
+	// Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
 	SimSid *string `json:"SimSid,omitempty"`
 	// List the eSIM Profiles that are in a given status.
 	Status *string `json:"Status,omitempty"`

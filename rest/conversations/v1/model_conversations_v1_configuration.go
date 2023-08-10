@@ -20,7 +20,7 @@ type ConversationsV1Configuration struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) used when creating a conversation.
 	DefaultChatServiceSid *string `json:"default_chat_service_sid,omitempty"`
-	// The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) used when creating a conversation.
+	// The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/services/api) used when creating a conversation.
 	DefaultMessagingServiceSid *string `json:"default_messaging_service_sid,omitempty"`
 	// Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
 	DefaultInactiveTimer *string `json:"default_inactive_timer,omitempty"`

@@ -70,7 +70,7 @@ type ListSimParams struct {
 	Status *string `json:"Status,omitempty"`
 	// Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
 	Iccid *string `json:"Iccid,omitempty"`
-	// The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
+	// The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
 	RatePlan *string `json:"RatePlan,omitempty"`
 	// Deprecated.
 	EId *string `json:"EId,omitempty"`
@@ -255,13 +255,13 @@ type UpdateSimParams struct {
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
 	// A descriptive string that you create to describe the Sim resource. It does not need to be unique.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
+	// The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
 	RatePlan *string `json:"RatePlan,omitempty"`
 	//
 	Status *string `json:"Status,omitempty"`
 	// The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
 	CommandsCallbackMethod *string `json:"CommandsCallbackMethod,omitempty"`
-	// The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
+	// The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/iot/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
 	CommandsCallbackUrl *string `json:"CommandsCallbackUrl,omitempty"`
 	// The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
 	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
@@ -269,7 +269,7 @@ type UpdateSimParams struct {
 	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
 	// The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`.
 	SmsMethod *string `json:"SmsMethod,omitempty"`
-	// The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
+	// The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/iot/wireless/api/command-resource).
 	SmsUrl *string `json:"SmsUrl,omitempty"`
 	// Deprecated.
 	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
@@ -281,7 +281,7 @@ type UpdateSimParams struct {
 	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 	//
 	ResetStatus *string `json:"ResetStatus,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/iot/wireless/api/sim-resource#move-sims-between-subaccounts).
 	AccountSid *string `json:"AccountSid,omitempty"`
 }
 

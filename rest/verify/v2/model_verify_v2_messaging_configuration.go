@@ -26,7 +26,7 @@ type VerifyV2MessagingConfiguration struct {
 	ServiceSid *string `json:"service_sid,omitempty"`
 	// The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
 	Country *string `json:"country,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to be used to send SMS to the country of this configuration.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`

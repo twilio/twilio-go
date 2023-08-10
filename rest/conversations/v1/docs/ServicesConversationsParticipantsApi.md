@@ -125,7 +125,7 @@ Name | Type | Description
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string** | The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
 **ConversationSid** | **string** | The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-**Sid** | **string** | A 34 character string that uniquely identifies this resource.
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. Alternatively, you can pass a Participant's `identity` rather than the SID.
 
 ### Other Parameters
 

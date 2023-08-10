@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchPortingPortability
 
-> NumbersV1PortingPortability FetchPortingPortability(ctx, PhoneNumber)
+> NumbersV1PortingPortability FetchPortingPortability(ctx, PhoneNumberoptional)
 
 
 
@@ -31,6 +31,7 @@ Other parameters are passed through a pointer to a FetchPortingPortabilityParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**TargetAccountSid** | **string** | The SID of the account where the phone number(s) will be ported.
 
 ### Return type
 

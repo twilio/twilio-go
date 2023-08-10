@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **PhoneNumber** | Pointer to **string** | The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212). |
+**AccountSid** | Pointer to **string** | The target account sid to which the number will be ported |
 **Portable** | Pointer to **bool** | Boolean flag specifying if phone number is portable or not. |
 **PinAndAccountNumberRequired** | Pointer to **bool** | Boolean flag specifying if PIN and account number is required for the phone number. |
 **NotPortableReason** | Pointer to **string** | Reason why the phone number cannot be ported into Twilio, `null` otherwise. |

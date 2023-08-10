@@ -20,13 +20,28 @@ import (
 	"strings"
 )
 
+// Optional parameters for the method 'FetchPortingPortability'
+type FetchPortingPortabilityParams struct {
+	// The SID of the account where the phone number(s) will be ported.
+	TargetAccountSid *string `json:"TargetAccountSid,omitempty"`
+}
+
+func (params *FetchPortingPortabilityParams) SetTargetAccountSid(TargetAccountSid string) *FetchPortingPortabilityParams {
+	params.TargetAccountSid = &TargetAccountSid
+	return params
+}
+
 // Allows to check if a single phone number can be ported to Twilio or not.
-func (c *ApiService) FetchPortingPortability(PhoneNumber string) (*NumbersV1PortingPortability, error) {
+func (c *ApiService) FetchPortingPortability(PhoneNumber string, params *FetchPortingPortabilityParams) (*NumbersV1PortingPortability, error) {
 	path := "/v1/Porting/Portability/PhoneNumber/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.TargetAccountSid != nil {
+		data.Set("TargetAccountSid", *params.TargetAccountSid)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

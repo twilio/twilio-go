@@ -34,7 +34,7 @@ type CreateServiceConversationParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 	// An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 	Attributes *string `json:"Attributes,omitempty"`
-	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	// The date that this resource was created.
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
@@ -379,7 +379,7 @@ type UpdateServiceConversationParams struct {
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	// An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 	Attributes *string `json:"Attributes,omitempty"`
-	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	//
 	State *string `json:"State,omitempty"`

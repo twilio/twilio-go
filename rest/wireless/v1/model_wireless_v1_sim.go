@@ -26,7 +26,7 @@ type WirelessV1Sim struct {
 	UniqueName *string `json:"unique_name,omitempty"`
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource belongs.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource is assigned.
+	// The SID of the [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource) to which the Sim resource is assigned.
 	RatePlanSid *string `json:"rate_plan_sid,omitempty"`
 	// The string that you assigned to describe the Sim resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
@@ -36,7 +36,7 @@ type WirelessV1Sim struct {
 	EId         *string `json:"e_id,omitempty"`
 	Status      *string `json:"status,omitempty"`
 	ResetStatus *string `json:"reset_status,omitempty"`
-	// The URL we call using the `commands_callback_method` when the SIM originates a machine-to-machine [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+	// The URL we call using the `commands_callback_method` when the SIM originates a machine-to-machine [Command](https://www.twilio.com/docs/iot/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
 	CommandsCallbackUrl *string `json:"commands_callback_url,omitempty"`
 	// The HTTP method we use to call `commands_callback_url`.  Can be: `POST` or `GET`. Default is `POST`.
 	CommandsCallbackMethod *string `json:"commands_callback_method,omitempty"`

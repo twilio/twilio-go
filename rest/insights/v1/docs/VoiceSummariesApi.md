@@ -46,10 +46,11 @@ Name | Type | Description
 **Subaccount** | **string** | A unique SID identifier of a Subaccount.
 **AbnormalSession** | **bool** | A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
 **AnsweredBy** | **string** | An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
-**ConnectivityIssue** | **string** | A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
-**QualityIssue** | **string** | A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
-**Spam** | **bool** | A boolean flag indicating spam calls.
-**CallScore** | **string** | A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+**AnsweredByAnnotation** | **string** | Either machine or human.
+**ConnectivityIssueAnnotation** | **string** | A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+**QualityIssueAnnotation** | **string** | A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+**SpamAnnotation** | **bool** | A boolean flag indicating spam calls.
+**CallScoreAnnotation** | **string** | A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
