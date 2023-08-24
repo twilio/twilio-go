@@ -21,9 +21,9 @@ type ApiV2010Message struct {
 	// The number of segments that make up the complete message. SMS message bodies that exceed the [character limit](https://www.twilio.com/docs/glossary/what-sms-character-limit) are segmented and charged as multiple messages. Note: For messages sent via a Messaging Service, `num_segments` is initially `0`, since a sender hasn't yet been assigned.
 	NumSegments *string `json:"num_segments,omitempty"`
 	Direction   *string `json:"direction,omitempty"`
-	// The sender's phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), [Wireless SIM](https://www.twilio.com/docs/wireless/tutorials/communications-guides/how-to-send-and-receive-text-messages), [short code](https://www.twilio.com/docs/sms/api/short-code), or  [channel address](https://www.twilio.com/docs/sms/channels#channel-addresses) (e.g., `whatsapp:+15554449999`). For incoming messages, this is the number or channel address of the sender. For outgoing messages, this value is a Twilio phone number, alphanumeric sender ID, short code, or channel address from which the message is sent.
+	// The sender's phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/docs/sms/api/short-code), or  [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). For incoming messages, this is the number or channel address of the sender. For outgoing messages, this value is a Twilio phone number, alphanumeric sender ID, short code, or channel address from which the message is sent.
 	From *string `json:"from,omitempty"`
-	// The recipient's phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format) or [channel address](https://www.twilio.com/docs/sms/channels#channel-addresses) (e.g. `whatsapp:+15552229999`)
+	// The recipient's phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format) or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g. `whatsapp:+15552229999`)
 	To *string `json:"to,omitempty"`
 	// The [RFC 2822](https://datatracker.ietf.org/doc/html/rfc2822#section-3.3) timestamp (in GMT) of when the Message resource was last updated
 	DateUpdated *string `json:"date_updated,omitempty"`
@@ -38,7 +38,7 @@ type ApiV2010Message struct {
 	// The number of media files associated with the Message resource.
 	NumMedia *string `json:"num_media,omitempty"`
 	Status   *string `json:"status,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) associated with the Message resource. The value is `null` if a Messaging Service was not used.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) associated with the Message resource. The value is `null` if a Messaging Service was not used.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// The unique, Twilio-provided string that identifies the Message resource.
 	Sid *string `json:"sid,omitempty"`

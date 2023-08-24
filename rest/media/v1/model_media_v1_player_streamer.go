@@ -35,7 +35,7 @@ type MediaV1PlayerStreamer struct {
 	Status *string `json:"status,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
-	// The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+	// The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details.
 	StatusCallback *string `json:"status_callback,omitempty"`
 	// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
 	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`

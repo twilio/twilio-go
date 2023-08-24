@@ -28,7 +28,7 @@ type VoiceV1DialingPermissionsCountryInstance struct {
 	LowRiskNumbersEnabled *bool `json:"low_risk_numbers_enabled,omitempty"`
 	// Whether dialing to high-risk special services numbers is enabled. These prefixes include number ranges allocated by the country and include premium numbers, special services, shared cost, and others
 	HighRiskSpecialNumbersEnabled *bool `json:"high_risk_special_numbers_enabled,omitempty"`
-	// Whether dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers is enabled. These prefixes include narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks, also known as [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud). These prefixes are collected from anti-fraud databases and verified by analyzing calls on our network. These prefixes are not available for download and are updated frequently
+	// Whether dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers is enabled. These prefixes include narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks, also known as [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html). These prefixes are collected from anti-fraud databases and verified by analyzing calls on our network. These prefixes are not available for download and are updated frequently
 	HighRiskTollfraudNumbersEnabled *bool `json:"high_risk_tollfraud_numbers_enabled,omitempty"`
 	// The absolute URL of this resource.
 	Url *string `json:"url,omitempty"`

@@ -28,17 +28,17 @@ type ConversationsV1ServiceConversationParticipant struct {
 	ConversationSid *string `json:"conversation_sid,omitempty"`
 	// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
-	// A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
+	// A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
 	Identity *string `json:"identity,omitempty"`
-	// An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
+	// An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned.
 	Attributes *string `json:"attributes,omitempty"`
 	// Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant.
 	MessagingBinding *interface{} `json:"messaging_binding,omitempty"`
 	// The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 	RoleSid *string `json:"role_sid,omitempty"`
-	// The date that this resource was created.
+	// The date on which this resource was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this resource was last updated.
+	// The date on which this resource was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// An absolute API resource URL for this participant.
 	Url *string `json:"url,omitempty"`

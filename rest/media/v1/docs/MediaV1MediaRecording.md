@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string generated to identify the MediaRecording resource. |
 **MediaSize** | Pointer to **int64** | The size of the recording media in bytes. |
 **Status** | Pointer to [**string**](MediaRecordingEnumStatus.md) |  |
-**StatusCallback** | Pointer to **string** | The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details. |
+**StatusCallback** | Pointer to **string** | The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details. |
 **StatusCallbackMethod** | Pointer to **string** | The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`. |
 **Url** | Pointer to **string** | The absolute URL of the resource. |
 

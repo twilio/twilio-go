@@ -27,7 +27,7 @@ import (
 type CreatePlayerStreamerParams struct {
 	// Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
 	Video *bool `json:"Video,omitempty"`
-	// The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+	// The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`

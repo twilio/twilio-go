@@ -25,13 +25,13 @@ import (
 
 // Optional parameters for the method 'CreateMediaProcessor'
 type CreateMediaProcessorParams struct {
-	// The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
+	// The [Media Extension](/docs/live/media-extensions-overview) name or URL. Ex: `video-composer-v2`
 	Extension *string `json:"Extension,omitempty"`
-	// The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
+	// The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/media-extensions-overview) you are using for more information about the context to send.
 	ExtensionContext *string `json:"ExtensionContext,omitempty"`
-	// User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
+	// User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/media-extensions-overview) you are using for more information about whether you need to provide this.
 	ExtensionEnvironment *interface{} `json:"ExtensionEnvironment,omitempty"`
-	// The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
+	// The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/api/status-callbacks) for details.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`

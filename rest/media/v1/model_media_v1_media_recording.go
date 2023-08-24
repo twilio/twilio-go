@@ -42,7 +42,7 @@ type MediaV1MediaRecording struct {
 	// The size of the recording media in bytes.
 	MediaSize *int64  `json:"media_size,omitempty"`
 	Status    *string `json:"status,omitempty"`
-	// The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+	// The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details.
 	StatusCallback *string `json:"status_callback,omitempty"`
 	// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
 	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string generated to identify the PlayerStreamer resource. |
 **Status** | Pointer to [**string**](PlayerStreamerEnumStatus.md) |  |
 **Url** | Pointer to **string** | The absolute URL of the resource. |
-**StatusCallback** | Pointer to **string** | The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details. |
+**StatusCallback** | Pointer to **string** | The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details. |
 **StatusCallbackMethod** | Pointer to **string** | The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`. |
 **EndedReason** | Pointer to [**string**](PlayerStreamerEnumEndedReason.md) |  |
 **MaxDuration** | Pointer to **int** | The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming. |

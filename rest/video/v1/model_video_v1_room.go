@@ -52,7 +52,7 @@ type VideoV1Room struct {
 	RecordParticipantsOnConnect *bool `json:"record_participants_on_connect,omitempty"`
 	// An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
 	VideoCodecs *[]string `json:"video_codecs,omitempty"`
-	// The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+	// The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#media-servers). ***This feature is not available in `peer-to-peer` rooms.***
 	MediaRegion *string `json:"media_region,omitempty"`
 	// When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
 	AudioOnly *bool `json:"audio_only,omitempty"`
