@@ -49,6 +49,7 @@ Name | Type | Description | Notes
 **ChannelConfigs** | Pointer to **[]interface{}** | Settings for different limits for Flex Conversations channels attachments. |
 **DebuggerIntegration** | Pointer to **interface{}** | Configurable parameters for Debugger Integration. |
 **FlexUiStatusReport** | Pointer to **interface{}** | Configurable parameters for Flex UI Status report. |
+**AgentConvEndMethods** | Pointer to **interface{}** | Agent conversation end methods. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

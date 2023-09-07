@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sid** | Pointer to **string** | A 34 character string that uniquely identifies this BulkHostedNumberOrder. |
-**AccountSid** | Pointer to **string** | A 34 character string that uniquely identifies the account. |
+**BulkHostingSid** | Pointer to **string** | A 34 character string that uniquely identifies this BulkHostedNumberOrder. |
 **RequestStatus** | Pointer to [**string**](BulkHostedNumberOrderEnumRequestStatus.md) |  |
 **FriendlyName** | Pointer to **string** | A 128 character string that is a human-readable text that describes this resource. |
 **NotificationEmail** | Pointer to **string** | Email address used for send notifications about this Bulk hosted number request. |

@@ -45,7 +45,7 @@ type CreateServiceParams struct {
 	SmartEncoding *bool `json:"SmartEncoding,omitempty"`
 	//
 	ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
-	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+	// [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
 	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
 	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
@@ -394,7 +394,7 @@ type UpdateServiceParams struct {
 	SmartEncoding *bool `json:"SmartEncoding,omitempty"`
 	//
 	ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
-	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+	// [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
 	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
 	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`

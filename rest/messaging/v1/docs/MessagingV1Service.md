@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **MmsConverter** | Pointer to **bool** | Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance. |
 **SmartEncoding** | Pointer to **bool** | Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance. |
 **ScanMessageContent** | Pointer to [**string**](ServiceEnumScanMessageContent.md) |  |
-**FallbackToLongCode** | Pointer to **bool** | Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance. |
+**FallbackToLongCode** | Pointer to **bool** | [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures. |
 **AreaCodeGeomatch** | Pointer to **bool** | Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. |
 **SynchronousValidation** | Pointer to **bool** | Reserved. |
 **ValidityPeriod** | Pointer to **int** | How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. |

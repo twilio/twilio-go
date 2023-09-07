@@ -47,7 +47,7 @@ type MessagingV1Service struct {
 	// Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
 	SmartEncoding      *bool   `json:"smart_encoding,omitempty"`
 	ScanMessageContent *string `json:"scan_message_content,omitempty"`
-	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+	// [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
 	FallbackToLongCode *bool `json:"fallback_to_long_code,omitempty"`
 	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 	AreaCodeGeomatch *bool `json:"area_code_geomatch,omitempty"`

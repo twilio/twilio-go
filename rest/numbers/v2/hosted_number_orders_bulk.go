@@ -32,9 +32,9 @@ func (params *FetchBulkHostedNumberOrderParams) SetOrderStatus(OrderStatus strin
 }
 
 // Fetch a specific BulkHostedNumberOrder.
-func (c *ApiService) FetchBulkHostedNumberOrder(Sid string, params *FetchBulkHostedNumberOrderParams) (*NumbersV2BulkHostedNumberOrder, error) {
-	path := "/v2/HostedNumber/Orders/Bulk/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchBulkHostedNumberOrder(BulkHostingSid string, params *FetchBulkHostedNumberOrderParams) (*NumbersV2BulkHostedNumberOrder, error) {
+	path := "/v2/HostedNumber/Orders/Bulk/{BulkHostingSid}"
+	path = strings.Replace(path, "{"+"BulkHostingSid"+"}", BulkHostingSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})

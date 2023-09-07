@@ -109,4 +109,6 @@ type FlexV1Configuration struct {
 	DebuggerIntegration *interface{} `json:"debugger_integration,omitempty"`
 	// Configurable parameters for Flex UI Status report.
 	FlexUiStatusReport *interface{} `json:"flex_ui_status_report,omitempty"`
+	// Agent conversation end methods.
+	AgentConvEndMethods *interface{} `json:"agent_conv_end_methods,omitempty"`
 }

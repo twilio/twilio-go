@@ -62,6 +62,8 @@ type CreateMessageParams struct {
 	SendAsMms *bool `json:"SendAsMms,omitempty"`
 	// For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
 	ContentVariables *string `json:"ContentVariables,omitempty"`
+	// A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
+	Tags *string `json:"Tags,omitempty"`
 	//
 	RiskCheck *string `json:"RiskCheck,omitempty"`
 	// The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/docs/sms/api/short-code), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belong to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
@@ -146,6 +148,10 @@ func (params *CreateMessageParams) SetSendAsMms(SendAsMms bool) *CreateMessagePa
 }
 func (params *CreateMessageParams) SetContentVariables(ContentVariables string) *CreateMessageParams {
 	params.ContentVariables = &ContentVariables
+	return params
+}
+func (params *CreateMessageParams) SetTags(Tags string) *CreateMessageParams {
+	params.Tags = &Tags
 	return params
 }
 func (params *CreateMessageParams) SetRiskCheck(RiskCheck string) *CreateMessageParams {
@@ -237,6 +243,9 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 	}
 	if params != nil && params.ContentVariables != nil {
 		data.Set("ContentVariables", *params.ContentVariables)
+	}
+	if params != nil && params.Tags != nil {
+		data.Set("Tags", *params.Tags)
 	}
 	if params != nil && params.RiskCheck != nil {
 		data.Set("RiskCheck", *params.RiskCheck)

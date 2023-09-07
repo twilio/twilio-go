@@ -21,10 +21,8 @@ import (
 // NumbersV2BulkHostedNumberOrder struct for NumbersV2BulkHostedNumberOrder
 type NumbersV2BulkHostedNumberOrder struct {
 	// A 34 character string that uniquely identifies this BulkHostedNumberOrder.
-	Sid *string `json:"sid,omitempty"`
-	// A 34 character string that uniquely identifies the account.
-	AccountSid    *string `json:"account_sid,omitempty"`
-	RequestStatus *string `json:"request_status,omitempty"`
+	BulkHostingSid *string `json:"bulk_hosting_sid,omitempty"`
+	RequestStatus  *string `json:"request_status,omitempty"`
 	// A 128 character string that is a human-readable text that describes this resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// Email address used for send notifications about this Bulk hosted number request.

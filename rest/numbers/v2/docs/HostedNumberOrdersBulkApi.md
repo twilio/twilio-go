@@ -4,13 +4,13 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchBulkHostedNumberOrder**](HostedNumberOrdersBulkApi.md#FetchBulkHostedNumberOrder) | **Get** /v2/HostedNumber/Orders/Bulk/{Sid} | 
+[**FetchBulkHostedNumberOrder**](HostedNumberOrdersBulkApi.md#FetchBulkHostedNumberOrder) | **Get** /v2/HostedNumber/Orders/Bulk/{BulkHostingSid} | 
 
 
 
 ## FetchBulkHostedNumberOrder
 
-> NumbersV2BulkHostedNumberOrder FetchBulkHostedNumberOrder(ctx, Sidoptional)
+> NumbersV2BulkHostedNumberOrder FetchBulkHostedNumberOrder(ctx, BulkHostingSidoptional)
 
 
 
@@ -22,7 +22,7 @@ Fetch a specific BulkHostedNumberOrder.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies this BulkHostedNumberOrder.
+**BulkHostingSid** | **string** | A 34 character string that uniquely identifies this BulkHostedNumberOrder.
 
 ### Other Parameters
 

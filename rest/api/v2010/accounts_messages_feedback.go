@@ -22,7 +22,7 @@ import (
 
 // Optional parameters for the method 'CreateMessageFeedback'
 type CreateMessageFeedbackParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resource for which to create MessageFeedback.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	//
 	Outcome *string `json:"Outcome,omitempty"`
@@ -37,7 +37,7 @@ func (params *CreateMessageFeedbackParams) SetOutcome(Outcome string) *CreateMes
 	return params
 }
 
-//
+// Create Message Feedback to confirm a tracked user action was performed by the recipient of the associated Message
 func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMessageFeedbackParams) (*ApiV2010MessageFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {

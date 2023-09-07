@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 
-
+Create Message Feedback to confirm a tracked user action was performed by the recipient of the associated Message
 
 ### Path Parameters
 
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**MessageSid** | **string** | The SID of the Message resource for which the feedback was provided.
+**MessageSid** | **string** | The SID of the Message resource for which to create MessageFeedback.
 
 ### Other Parameters
 
@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateMessageFeedbackParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resource for which to create MessageFeedback.
 **Outcome** | **string** | 
 
 ### Return type
