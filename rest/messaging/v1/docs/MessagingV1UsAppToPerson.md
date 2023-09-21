@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`. |
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to. |
 **BrandRegistrationSid** | Pointer to **string** | The unique string to identify the A2P brand. |
-**MessagingServiceSid** | Pointer to **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with. |
+**MessagingServiceSid** | Pointer to **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with. |
 **Description** | Pointer to **string** | A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters. |
 **MessageSamples** | Pointer to **[]string** | Message samples, at least 1 and up to 5 sample messages (at least 2 for starter/sole proprietor), >=20 chars, <=1024 chars each. |
 **UsAppToPersonUsecase** | Pointer to **string** | A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING, SOLE_PROPRIETOR...]. SOLE_PROPRIETOR campaign use cases can only be created by SOLE_PROPRIETOR Brands, and there can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR Brand. |

@@ -59,7 +59,7 @@ type MessagingV1Service struct {
 	Url *string `json:"url,omitempty"`
 	// The absolute URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
-	// A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..]
+	// A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
 	Usecase *string `json:"usecase,omitempty"`
 	// Whether US A2P campaign is registered for this Service.
 	UsAppToPersonRegistered *bool `json:"us_app_to_person_registered,omitempty"`

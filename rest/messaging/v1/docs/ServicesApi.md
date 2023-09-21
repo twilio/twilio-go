@@ -45,7 +45,7 @@ Name | Type | Description
 **AreaCodeGeomatch** | **bool** | Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 **ValidityPeriod** | **int** | How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
 **SynchronousValidation** | **bool** | Reserved.
-**Usecase** | **string** | A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..].
+**Usecase** | **string** | A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
 **UseInboundWebhookOnNumber** | **bool** | A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 
 ### Return type
@@ -227,7 +227,7 @@ Name | Type | Description
 **AreaCodeGeomatch** | **bool** | Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 **ValidityPeriod** | **int** | How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
 **SynchronousValidation** | **bool** | Reserved.
-**Usecase** | **string** | A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..]
+**Usecase** | **string** | A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
 **UseInboundWebhookOnNumber** | **bool** | A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 
 ### Return type

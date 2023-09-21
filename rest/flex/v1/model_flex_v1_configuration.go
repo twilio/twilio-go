@@ -111,4 +111,6 @@ type FlexV1Configuration struct {
 	FlexUiStatusReport *interface{} `json:"flex_ui_status_report,omitempty"`
 	// Agent conversation end methods.
 	AgentConvEndMethods *interface{} `json:"agent_conv_end_methods,omitempty"`
+	// Citrix voice vdi configuration and settings.
+	CitrixVoiceVdi *interface{} `json:"citrix_voice_vdi,omitempty"`
 }

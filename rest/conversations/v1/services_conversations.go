@@ -34,7 +34,7 @@ type CreateServiceConversationParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 	// An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 	Attributes *string `json:"Attributes,omitempty"`
-	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
+	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	// The date that this resource was created.
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
@@ -46,6 +46,10 @@ type CreateServiceConversationParams struct {
 	TimersInactive *string `json:"Timers.Inactive,omitempty"`
 	// ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
 	TimersClosed *string `json:"Timers.Closed,omitempty"`
+	// The default email address that will be used when sending outbound emails in this conversation.
+	BindingsEmailAddress *string `json:"Bindings.Email.Address,omitempty"`
+	// The default name that will be used when sending outbound emails in this conversation.
+	BindingsEmailName *string `json:"Bindings.Email.Name,omitempty"`
 }
 
 func (params *CreateServiceConversationParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateServiceConversationParams {
@@ -88,6 +92,14 @@ func (params *CreateServiceConversationParams) SetTimersClosed(TimersClosed stri
 	params.TimersClosed = &TimersClosed
 	return params
 }
+func (params *CreateServiceConversationParams) SetBindingsEmailAddress(BindingsEmailAddress string) *CreateServiceConversationParams {
+	params.BindingsEmailAddress = &BindingsEmailAddress
+	return params
+}
+func (params *CreateServiceConversationParams) SetBindingsEmailName(BindingsEmailName string) *CreateServiceConversationParams {
+	params.BindingsEmailName = &BindingsEmailName
+	return params
+}
 
 // Create a new conversation in your service
 func (c *ApiService) CreateServiceConversation(ChatServiceSid string, params *CreateServiceConversationParams) (*ConversationsV1ServiceConversation, error) {
@@ -123,6 +135,12 @@ func (c *ApiService) CreateServiceConversation(ChatServiceSid string, params *Cr
 	}
 	if params != nil && params.TimersClosed != nil {
 		data.Set("Timers.Closed", *params.TimersClosed)
+	}
+	if params != nil && params.BindingsEmailAddress != nil {
+		data.Set("Bindings.Email.Address", *params.BindingsEmailAddress)
+	}
+	if params != nil && params.BindingsEmailName != nil {
+		data.Set("Bindings.Email.Name", *params.BindingsEmailName)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -379,7 +397,7 @@ type UpdateServiceConversationParams struct {
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	// An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 	Attributes *string `json:"Attributes,omitempty"`
-	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
+	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	//
 	State *string `json:"State,omitempty"`
@@ -389,6 +407,10 @@ type UpdateServiceConversationParams struct {
 	TimersClosed *string `json:"Timers.Closed,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// The default email address that will be used when sending outbound emails in this conversation.
+	BindingsEmailAddress *string `json:"Bindings.Email.Address,omitempty"`
+	// The default name that will be used when sending outbound emails in this conversation.
+	BindingsEmailName *string `json:"Bindings.Email.Name,omitempty"`
 }
 
 func (params *UpdateServiceConversationParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateServiceConversationParams {
@@ -431,6 +453,14 @@ func (params *UpdateServiceConversationParams) SetUniqueName(UniqueName string) 
 	params.UniqueName = &UniqueName
 	return params
 }
+func (params *UpdateServiceConversationParams) SetBindingsEmailAddress(BindingsEmailAddress string) *UpdateServiceConversationParams {
+	params.BindingsEmailAddress = &BindingsEmailAddress
+	return params
+}
+func (params *UpdateServiceConversationParams) SetBindingsEmailName(BindingsEmailName string) *UpdateServiceConversationParams {
+	params.BindingsEmailName = &BindingsEmailName
+	return params
+}
 
 // Update an existing conversation in your service
 func (c *ApiService) UpdateServiceConversation(ChatServiceSid string, Sid string, params *UpdateServiceConversationParams) (*ConversationsV1ServiceConversation, error) {
@@ -467,6 +497,12 @@ func (c *ApiService) UpdateServiceConversation(ChatServiceSid string, Sid string
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.BindingsEmailAddress != nil {
+		data.Set("Bindings.Email.Address", *params.BindingsEmailAddress)
+	}
+	if params != nil && params.BindingsEmailName != nil {
+		data.Set("Bindings.Email.Name", *params.BindingsEmailName)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

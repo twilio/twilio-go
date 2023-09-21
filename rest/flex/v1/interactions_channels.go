@@ -189,7 +189,7 @@ func (c *ApiService) getNextListInteractionChannelResponse(nextPageUrl string) (
 type UpdateInteractionChannelParams struct {
 	//
 	Status *string `json:"Status,omitempty"`
-	// Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
+	// It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`.
 	Routing *interface{} `json:"Routing,omitempty"`
 }
 

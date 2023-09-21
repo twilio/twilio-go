@@ -64,7 +64,7 @@ Other parameters are passed through a pointer to a UpdateConfigurationParams str
 Name | Type | Description
 ------------- | ------------- | -------------
 **DefaultChatServiceSid** | **string** | The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
-**DefaultMessagingServiceSid** | **string** | The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to use when creating a conversation.
+**DefaultMessagingServiceSid** | **string** | The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to use when creating a conversation.
 **DefaultInactiveTimer** | **string** | Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
 **DefaultClosedTimer** | **string** | Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
 

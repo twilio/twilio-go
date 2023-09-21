@@ -26,7 +26,7 @@ type MessagingV1ExternalCampaign struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// ID of the preregistered campaign.
 	CampaignId *string `json:"campaign_id,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`

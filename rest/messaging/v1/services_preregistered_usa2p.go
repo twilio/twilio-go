@@ -23,7 +23,7 @@ import (
 type CreateExternalCampaignParams struct {
 	// ID of the preregistered campaign.
 	CampaignId *string `json:"CampaignId,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 }
 

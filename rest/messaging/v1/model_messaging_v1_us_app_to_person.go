@@ -26,7 +26,7 @@ type MessagingV1UsAppToPerson struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The unique string to identify the A2P brand.
 	BrandRegistrationSid *string `json:"brand_registration_sid,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
 	Description *string `json:"description,omitempty"`

@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **ValidityPeriod** | Pointer to **int** | How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. |
 **Url** | Pointer to **string** | The absolute URL of the Service resource. |
 **Links** | Pointer to **map[string]interface{}** | The absolute URLs of related resources. |
-**Usecase** | Pointer to **string** | A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..] |
+**Usecase** | Pointer to **string** | A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`. |
 **UsAppToPersonRegistered** | Pointer to **bool** | Whether US A2P campaign is registered for this Service. |
 **UseInboundWebhookOnNumber** | Pointer to **bool** | A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service. |
 

@@ -28,7 +28,7 @@ Other parameters are passed through a pointer to a CreateExternalCampaignParams 
 Name | Type | Description
 ------------- | ------------- | -------------
 **CampaignId** | **string** | ID of the preregistered campaign.
-**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
 
 ### Return type
 

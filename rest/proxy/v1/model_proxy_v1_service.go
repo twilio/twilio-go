@@ -36,7 +36,7 @@ type ProxyV1Service struct {
 	GeoMatchLevel           *string `json:"geo_match_level,omitempty"`
 	// The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
 	InterceptCallbackUrl *string `json:"intercept_callback_url,omitempty"`
-	// The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
+	// The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/en-us/serverless/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
 	OutOfSessionCallbackUrl *string `json:"out_of_session_callback_url,omitempty"`
 	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`

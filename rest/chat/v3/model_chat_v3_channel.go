@@ -43,7 +43,7 @@ type ChatV3Channel struct {
 	MembersCount *int `json:"members_count,omitempty"`
 	// The number of Messages that have been passed in the Channel.
 	MessagesCount *int `json:"messages_count,omitempty"`
-	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this channel belongs to.
+	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// The absolute URL of the Channel resource.
 	Url *string `json:"url,omitempty"`

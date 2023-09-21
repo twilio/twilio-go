@@ -26,7 +26,7 @@ type UpdateChannelParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	//
 	Type *string `json:"Type,omitempty"`
-	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this channel belongs to.
+	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 }
 
