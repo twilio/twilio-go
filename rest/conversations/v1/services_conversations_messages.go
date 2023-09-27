@@ -44,6 +44,8 @@ type CreateServiceConversationMessageParams struct {
 	ContentSid *string `json:"ContentSid,omitempty"`
 	// A structurally valid JSON string that contains values to resolve Rich Content template variables.
 	ContentVariables *string `json:"ContentVariables,omitempty"`
+	// The subject of the message, can be up to 256 characters long.
+	Subject *string `json:"Subject,omitempty"`
 }
 
 func (params *CreateServiceConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateServiceConversationMessageParams {
@@ -82,6 +84,10 @@ func (params *CreateServiceConversationMessageParams) SetContentVariables(Conten
 	params.ContentVariables = &ContentVariables
 	return params
 }
+func (params *CreateServiceConversationMessageParams) SetSubject(Subject string) *CreateServiceConversationMessageParams {
+	params.Subject = &Subject
+	return params
+}
 
 // Add a new message to the conversation in a specific service
 func (c *ApiService) CreateServiceConversationMessage(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationMessageParams) (*ConversationsV1ServiceConversationMessage, error) {
@@ -115,6 +121,9 @@ func (c *ApiService) CreateServiceConversationMessage(ChatServiceSid string, Con
 	}
 	if params != nil && params.ContentVariables != nil {
 		data.Set("ContentVariables", *params.ContentVariables)
+	}
+	if params != nil && params.Subject != nil {
+		data.Set("Subject", *params.Subject)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -358,6 +367,8 @@ type UpdateServiceConversationMessageParams struct {
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	// A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 	Attributes *string `json:"Attributes,omitempty"`
+	// The subject of the message, can be up to 256 characters long.
+	Subject *string `json:"Subject,omitempty"`
 }
 
 func (params *UpdateServiceConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateServiceConversationMessageParams {
@@ -382,6 +393,10 @@ func (params *UpdateServiceConversationMessageParams) SetDateUpdated(DateUpdated
 }
 func (params *UpdateServiceConversationMessageParams) SetAttributes(Attributes string) *UpdateServiceConversationMessageParams {
 	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateServiceConversationMessageParams) SetSubject(Subject string) *UpdateServiceConversationMessageParams {
+	params.Subject = &Subject
 	return params
 }
 
@@ -409,6 +424,9 @@ func (c *ApiService) UpdateServiceConversationMessage(ChatServiceSid string, Con
 	}
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Subject != nil {
+		data.Set("Subject", *params.Subject)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

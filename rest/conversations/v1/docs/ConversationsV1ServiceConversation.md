@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation. |
 **ChatServiceSid** | Pointer to **string** | The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to. |
-**MessagingServiceSid** | Pointer to **string** | The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to. |
+**MessagingServiceSid** | Pointer to **string** | The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to. |
 **Sid** | Pointer to **string** | A 34 character string that uniquely identifies this resource. |
 **FriendlyName** | Pointer to **string** | The human-readable name of this conversation, limited to 256 characters. Optional. |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. |

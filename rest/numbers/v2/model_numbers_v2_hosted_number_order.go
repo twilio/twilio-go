@@ -24,11 +24,11 @@ type NumbersV2HostedNumberOrder struct {
 	Sid *string `json:"sid,omitempty"`
 	// A 34 character string that uniquely identifies the account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/api/rest/incoming-phone-numbers) resource that represents the phone number being hosted.
+	// A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the phone number being hosted.
 	IncomingPhoneNumberSid *string `json:"incoming_phone_number_sid,omitempty"`
 	// A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
 	AddressSid *string `json:"address_sid,omitempty"`
-	// A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents) the user needs to sign.
+	// A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource) the user needs to sign.
 	SigningDocumentSid *string `json:"signing_document_sid,omitempty"`
 	// Phone number to be hosted. This must be in [E.164](https://en.wikipedia.org/wiki/E.164) format, e.g., +16175551212
 	PhoneNumber  *string                                 `json:"phone_number,omitempty"`

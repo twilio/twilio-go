@@ -53,7 +53,7 @@ type CreateServiceParams struct {
 	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
 	// Reserved.
 	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
-	// A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..].
+	// A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
 	Usecase *string `json:"Usecase,omitempty"`
 	// A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 	UseInboundWebhookOnNumber *bool `json:"UseInboundWebhookOnNumber,omitempty"`
@@ -402,7 +402,7 @@ type UpdateServiceParams struct {
 	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
 	// Reserved.
 	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
-	// A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..]
+	// A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
 	Usecase *string `json:"Usecase,omitempty"`
 	// A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 	UseInboundWebhookOnNumber *bool `json:"UseInboundWebhookOnNumber,omitempty"`

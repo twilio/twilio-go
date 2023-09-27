@@ -50,6 +50,7 @@ Name | Type | Description | Notes
 **DebuggerIntegration** | Pointer to **interface{}** | Configurable parameters for Debugger Integration. |
 **FlexUiStatusReport** | Pointer to **interface{}** | Configurable parameters for Flex UI Status report. |
 **AgentConvEndMethods** | Pointer to **interface{}** | Agent conversation end methods. |
+**CitrixVoiceVdi** | Pointer to **interface{}** | Citrix voice vdi configuration and settings. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
