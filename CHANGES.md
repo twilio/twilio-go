@@ -1,5 +1,14 @@
 twilio-go changelog
 ====================
+[2023-10-05] Version 1.14.1
+---------------------------
+**Library - Chore**
+- [PR #211](https://github.com/twilio/twilio-go/pull/211): twilio help changes. Thanks to [@kridai](https://github.com/kridai)!
+
+**Lookups**
+- Add test api support for Lookup v2
+
+
 [2023-09-21] Version 1.14.0
 ---------------------------
 **Conversations**
