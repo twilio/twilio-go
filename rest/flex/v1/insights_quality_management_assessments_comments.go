@@ -19,173 +19,176 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateInsightsAssessmentsComment'
 type CreateInsightsAssessmentsCommentParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
-	// The ID of the category
-	CategoryId *string `json:"CategoryId,omitempty"`
-	// The name of the category
-	CategoryName *string `json:"CategoryName,omitempty"`
-	// The Assessment comment.
-	Comment *string `json:"Comment,omitempty"`
-	// The id of the segment.
-	SegmentId *string `json:"SegmentId,omitempty"`
-	// The id of the agent.
-	AgentId *string `json:"AgentId,omitempty"`
-	// The offset
-	Offset *float32 `json:"Offset,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
+    // The ID of the category
+    CategoryId *string `json:"CategoryId,omitempty"`
+    // The name of the category
+    CategoryName *string `json:"CategoryName,omitempty"`
+    // The Assessment comment.
+    Comment *string `json:"Comment,omitempty"`
+    // The id of the segment.
+    SegmentId *string `json:"SegmentId,omitempty"`
+    // The id of the agent.
+    AgentId *string `json:"AgentId,omitempty"`
+    // The offset
+    Offset *float32 `json:"Offset,omitempty"`
 }
 
-func (params *CreateInsightsAssessmentsCommentParams) SetAuthorization(Authorization string) *CreateInsightsAssessmentsCommentParams {
-	params.Authorization = &Authorization
-	return params
+func (params *CreateInsightsAssessmentsCommentParams) SetAuthorization(Authorization string) (*CreateInsightsAssessmentsCommentParams){
+    params.Authorization = &Authorization
+    return params
 }
-func (params *CreateInsightsAssessmentsCommentParams) SetCategoryId(CategoryId string) *CreateInsightsAssessmentsCommentParams {
-	params.CategoryId = &CategoryId
-	return params
+func (params *CreateInsightsAssessmentsCommentParams) SetCategoryId(CategoryId string) (*CreateInsightsAssessmentsCommentParams){
+    params.CategoryId = &CategoryId
+    return params
 }
-func (params *CreateInsightsAssessmentsCommentParams) SetCategoryName(CategoryName string) *CreateInsightsAssessmentsCommentParams {
-	params.CategoryName = &CategoryName
-	return params
+func (params *CreateInsightsAssessmentsCommentParams) SetCategoryName(CategoryName string) (*CreateInsightsAssessmentsCommentParams){
+    params.CategoryName = &CategoryName
+    return params
 }
-func (params *CreateInsightsAssessmentsCommentParams) SetComment(Comment string) *CreateInsightsAssessmentsCommentParams {
-	params.Comment = &Comment
-	return params
+func (params *CreateInsightsAssessmentsCommentParams) SetComment(Comment string) (*CreateInsightsAssessmentsCommentParams){
+    params.Comment = &Comment
+    return params
 }
-func (params *CreateInsightsAssessmentsCommentParams) SetSegmentId(SegmentId string) *CreateInsightsAssessmentsCommentParams {
-	params.SegmentId = &SegmentId
-	return params
+func (params *CreateInsightsAssessmentsCommentParams) SetSegmentId(SegmentId string) (*CreateInsightsAssessmentsCommentParams){
+    params.SegmentId = &SegmentId
+    return params
 }
-func (params *CreateInsightsAssessmentsCommentParams) SetAgentId(AgentId string) *CreateInsightsAssessmentsCommentParams {
-	params.AgentId = &AgentId
-	return params
+func (params *CreateInsightsAssessmentsCommentParams) SetAgentId(AgentId string) (*CreateInsightsAssessmentsCommentParams){
+    params.AgentId = &AgentId
+    return params
 }
-func (params *CreateInsightsAssessmentsCommentParams) SetOffset(Offset float32) *CreateInsightsAssessmentsCommentParams {
-	params.Offset = &Offset
-	return params
+func (params *CreateInsightsAssessmentsCommentParams) SetOffset(Offset float32) (*CreateInsightsAssessmentsCommentParams){
+    params.Offset = &Offset
+    return params
 }
 
 // To create a comment assessment for a conversation
 func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAssessmentsCommentParams) (*FlexV1InsightsAssessmentsComment, error) {
-	path := "/v1/Insights/QualityManagement/Assessments/Comments"
+    path := "/v1/Insights/QualityManagement/Assessments/Comments"
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+if params != nil && params.CategoryId != nil {
+    data.Set("CategoryId", *params.CategoryId)
+}
+if params != nil && params.CategoryName != nil {
+    data.Set("CategoryName", *params.CategoryName)
+}
+if params != nil && params.Comment != nil {
+    data.Set("Comment", *params.Comment)
+}
+if params != nil && params.SegmentId != nil {
+    data.Set("SegmentId", *params.SegmentId)
+}
+if params != nil && params.AgentId != nil {
+    data.Set("AgentId", *params.AgentId)
+}
+if params != nil && params.Offset != nil {
+    data.Set("Offset", fmt.Sprint(*params.Offset))
+}
 
-	if params != nil && params.CategoryId != nil {
-		data.Set("CategoryId", *params.CategoryId)
-	}
-	if params != nil && params.CategoryName != nil {
-		data.Set("CategoryName", *params.CategoryName)
-	}
-	if params != nil && params.Comment != nil {
-		data.Set("Comment", *params.Comment)
-	}
-	if params != nil && params.SegmentId != nil {
-		data.Set("SegmentId", *params.SegmentId)
-	}
-	if params != nil && params.AgentId != nil {
-		data.Set("AgentId", *params.AgentId)
-	}
-	if params != nil && params.Offset != nil {
-		data.Set("Offset", fmt.Sprint(*params.Offset))
-	}
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1InsightsAssessmentsComment{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1InsightsAssessmentsComment{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Optional parameters for the method 'ListInsightsAssessmentsComment'
 type ListInsightsAssessmentsCommentParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
-	// The id of the segment.
-	SegmentId *string `json:"SegmentId,omitempty"`
-	// The id of the agent.
-	AgentId *string `json:"AgentId,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
+    // The id of the segment.
+    SegmentId *string `json:"SegmentId,omitempty"`
+    // The id of the agent.
+    AgentId *string `json:"AgentId,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsAssessmentsCommentParams) SetAuthorization(Authorization string) *ListInsightsAssessmentsCommentParams {
-	params.Authorization = &Authorization
-	return params
+func (params *ListInsightsAssessmentsCommentParams) SetAuthorization(Authorization string) (*ListInsightsAssessmentsCommentParams){
+    params.Authorization = &Authorization
+    return params
 }
-func (params *ListInsightsAssessmentsCommentParams) SetSegmentId(SegmentId string) *ListInsightsAssessmentsCommentParams {
-	params.SegmentId = &SegmentId
-	return params
+func (params *ListInsightsAssessmentsCommentParams) SetSegmentId(SegmentId string) (*ListInsightsAssessmentsCommentParams){
+    params.SegmentId = &SegmentId
+    return params
 }
-func (params *ListInsightsAssessmentsCommentParams) SetAgentId(AgentId string) *ListInsightsAssessmentsCommentParams {
-	params.AgentId = &AgentId
-	return params
+func (params *ListInsightsAssessmentsCommentParams) SetAgentId(AgentId string) (*ListInsightsAssessmentsCommentParams){
+    params.AgentId = &AgentId
+    return params
 }
-func (params *ListInsightsAssessmentsCommentParams) SetPageSize(PageSize int) *ListInsightsAssessmentsCommentParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListInsightsAssessmentsCommentParams) SetPageSize(PageSize int) (*ListInsightsAssessmentsCommentParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListInsightsAssessmentsCommentParams) SetLimit(Limit int) *ListInsightsAssessmentsCommentParams {
-	params.Limit = &Limit
-	return params
+func (params *ListInsightsAssessmentsCommentParams) SetLimit(Limit int) (*ListInsightsAssessmentsCommentParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of InsightsAssessmentsComment records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsAssessmentsComment(params *ListInsightsAssessmentsCommentParams, pageToken, pageNumber string) (*ListInsightsAssessmentsCommentResponse, error) {
-	path := "/v1/Insights/QualityManagement/Assessments/Comments"
+    path := "/v1/Insights/QualityManagement/Assessments/Comments"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.SegmentId != nil {
-		data.Set("SegmentId", *params.SegmentId)
-	}
-	if params != nil && params.AgentId != nil {
-		data.Set("AgentId", *params.AgentId)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.SegmentId != nil {
+    data.Set("SegmentId", *params.SegmentId)
+}
+if params != nil && params.AgentId != nil {
+    data.Set("AgentId", *params.AgentId)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInsightsAssessmentsCommentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListInsightsAssessmentsCommentResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists InsightsAssessmentsComment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -226,6 +229,7 @@ func (c *ApiService) StreamInsightsAssessmentsComment(params *ListInsightsAssess
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamInsightsAssessmentsComment(response *ListInsightsAssessmentsCommentResponse, params *ListInsightsAssessmentsCommentParams, recordChannel chan FlexV1InsightsAssessmentsComment, errorChannel chan error) {
 	curRecord := 1
 
@@ -257,19 +261,20 @@ func (c *ApiService) streamInsightsAssessmentsComment(response *ListInsightsAsse
 }
 
 func (c *ApiService) getNextListInsightsAssessmentsCommentResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInsightsAssessmentsCommentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListInsightsAssessmentsCommentResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

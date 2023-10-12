@@ -18,199 +18,207 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateNewSigningKey'
 type CreateNewSigningKeyParams struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+    // The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *CreateNewSigningKeyParams) SetPathAccountSid(PathAccountSid string) *CreateNewSigningKeyParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *CreateNewSigningKeyParams) SetPathAccountSid(PathAccountSid string) (*CreateNewSigningKeyParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *CreateNewSigningKeyParams) SetFriendlyName(FriendlyName string) *CreateNewSigningKeyParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *CreateNewSigningKeyParams) SetFriendlyName(FriendlyName string) (*CreateNewSigningKeyParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
 
 // Create a new Signing Key for the account making the request.
 func (c *ApiService) CreateNewSigningKey(params *CreateNewSigningKeyParams) (*ApiV2010NewSigningKey, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
+    path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ApiV2010NewSigningKey{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ApiV2010NewSigningKey{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'DeleteSigningKey'
 type DeleteSigningKeyParams struct {
-	//
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // 
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
-func (params *DeleteSigningKeyParams) SetPathAccountSid(PathAccountSid string) *DeleteSigningKeyParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *DeleteSigningKeyParams) SetPathAccountSid(PathAccountSid string) (*DeleteSigningKeyParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
 
-//
-func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams) error {
-	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+// 
+func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams) (error) {
+    path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Optional parameters for the method 'FetchSigningKey'
 type FetchSigningKeyParams struct {
-	//
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // 
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
-func (params *FetchSigningKeyParams) SetPathAccountSid(PathAccountSid string) *FetchSigningKeyParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *FetchSigningKeyParams) SetPathAccountSid(PathAccountSid string) (*FetchSigningKeyParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
 
-//
+// 
 func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) (*ApiV2010SigningKey, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ApiV2010SigningKey{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &ApiV2010SigningKey{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListSigningKey'
 type ListSigningKeyParams struct {
-	//
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // 
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListSigningKeyParams) SetPathAccountSid(PathAccountSid string) *ListSigningKeyParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *ListSigningKeyParams) SetPathAccountSid(PathAccountSid string) (*ListSigningKeyParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *ListSigningKeyParams) SetPageSize(PageSize int) *ListSigningKeyParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListSigningKeyParams) SetPageSize(PageSize int) (*ListSigningKeyParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListSigningKeyParams) SetLimit(Limit int) *ListSigningKeyParams {
-	params.Limit = &Limit
-	return params
+func (params *ListSigningKeyParams) SetLimit(Limit int) (*ListSigningKeyParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of SigningKey records from the API. Request is executed immediately.
-func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pageNumber string) (*ListSigningKeyResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
+func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pageNumber string) (*, error) {
+    path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
 
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListSigningKeyResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists SigningKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) ([]ApiV2010SigningKey, error) {
+func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) (ListSigningKey200Response, error) {
 	response, errors := c.StreamSigningKey(params)
 
-	records := make([]ApiV2010SigningKey, 0)
+	records := make(ListSigningKey200Response, 0)
 	for record := range response {
 		records = append(records, record)
 	}
@@ -223,13 +231,13 @@ func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) ([]ApiV2010Sig
 }
 
 // Streams SigningKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV2010SigningKey, chan error) {
+func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ListSigningKey200Response, chan error) {
 	if params == nil {
 		params = &ListSigningKeyParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
-	recordChannel := make(chan ApiV2010SigningKey, 1)
+	recordChannel := make(chan ListSigningKey200Response, 1)
 	errorChannel := make(chan error, 1)
 
 	response, err := c.PageSigningKey(params, "", "")
@@ -244,11 +252,12 @@ func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV20
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *ListSigningKeyParams, recordChannel chan ApiV2010SigningKey, errorChannel chan error) {
+
+func (c *ApiService) streamSigningKey(response *, params *ListSigningKeyParams, recordChannel chan ListSigningKey200Response, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
-		responseRecords := response.SigningKeys
+		responseRecords := response.
 		for item := range responseRecords {
 			recordChannel <- responseRecords[item]
 			curRecord += 1
@@ -259,7 +268,7 @@ func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSigningKeyResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -267,76 +276,79 @@ func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *
 			break
 		}
 
-		response = record.(*ListSigningKeyResponse)
+		response = record.(*)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSigningKeyResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+func (c *ApiService) getNext(nextPageUrl string) (interface{}, error) {
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListSigningKeyResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateSigningKey'
 type UpdateSigningKeyParams struct {
-	//
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	//
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+    // 
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // 
+    FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *UpdateSigningKeyParams) SetPathAccountSid(PathAccountSid string) *UpdateSigningKeyParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *UpdateSigningKeyParams) SetPathAccountSid(PathAccountSid string) (*UpdateSigningKeyParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) *UpdateSigningKeyParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) (*UpdateSigningKeyParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
 
-//
+// 
 func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams) (*ApiV2010SigningKey, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ApiV2010SigningKey{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ApiV2010SigningKey{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

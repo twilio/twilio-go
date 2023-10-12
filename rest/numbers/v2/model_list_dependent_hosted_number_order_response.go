@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListDependentHostedNumberOrderResponse struct for ListDependentHostedNumberOrderResponse
 type ListDependentHostedNumberOrderResponse struct {
 	Items []NumbersV2DependentHostedNumberOrder `json:"items,omitempty"`
-	Meta  ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
+	Meta ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
 }
+
+

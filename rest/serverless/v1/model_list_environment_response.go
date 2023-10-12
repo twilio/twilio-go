@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListEnvironmentResponse struct for ListEnvironmentResponse
 type ListEnvironmentResponse struct {
 	Environments []ServerlessV1Environment `json:"environments,omitempty"`
-	Meta         ListAssetResponseMeta     `json:"meta,omitempty"`
+	Meta ListAssetResponseMeta `json:"meta,omitempty"`
 }
+
+

@@ -13,39 +13,36 @@
  */
 
 package openapi
-
 import (
 	"encoding/json"
-
 	"github.com/twilio/twilio-go/client"
 )
-
 // IntelligenceV2Sentence struct for IntelligenceV2Sentence
 type IntelligenceV2Sentence struct {
-	// The channel number.
+		// The channel number.
 	MediaChannel *int `json:"media_channel,omitempty"`
-	// The index of the sentence in the transcript.
+		// The index of the sentence in the transcript.
 	SentenceIndex *int `json:"sentence_index,omitempty"`
-	// Offset from the beginning of the transcript when this sentence starts.
+		// Offset from the beginning of the transcript when this sentence starts.
 	StartTime *float32 `json:"start_time,omitempty"`
-	// Offset from the beginning of the transcript when this sentence ends.
+		// Offset from the beginning of the transcript when this sentence ends.
 	EndTime *float32 `json:"end_time,omitempty"`
-	// Transcript text.
+		// Transcript text.
 	Transcript *string `json:"transcript,omitempty"`
-	// A 34 character string that uniquely identifies this Sentence.
-	Sid        *string  `json:"sid,omitempty"`
+		// A 34 character string that uniquely identifies this Sentence.
+	Sid *string `json:"sid,omitempty"`
 	Confidence *float32 `json:"confidence,omitempty"`
 }
 
 func (response *IntelligenceV2Sentence) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		MediaChannel  *int         `json:"media_channel"`
-		SentenceIndex *int         `json:"sentence_index"`
-		StartTime     *interface{} `json:"start_time"`
-		EndTime       *interface{} `json:"end_time"`
-		Transcript    *string      `json:"transcript"`
-		Sid           *string      `json:"sid"`
-		Confidence    *interface{} `json:"confidence"`
+		MediaChannel *int `json:"media_channel"`
+		SentenceIndex *int `json:"sentence_index"`
+		StartTime *interface{} `json:"start_time"`
+		EndTime *interface{} `json:"end_time"`
+		Transcript *string `json:"transcript"`
+		Sid *string `json:"sid"`
+		Confidence *interface{} `json:"confidence"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -53,10 +50,10 @@ func (response *IntelligenceV2Sentence) UnmarshalJSON(bytes []byte) (err error) 
 	}
 
 	*response = IntelligenceV2Sentence{
-		MediaChannel:  raw.MediaChannel,
+		MediaChannel: raw.MediaChannel,
 		SentenceIndex: raw.SentenceIndex,
-		Transcript:    raw.Transcript,
-		Sid:           raw.Sid,
+		Transcript: raw.Transcript,
+		Sid: raw.Sid,
 	}
 
 	responseStartTime, err := client.UnmarshalFloat32(raw.StartTime)
@@ -79,3 +76,4 @@ func (response *IntelligenceV2Sentence) UnmarshalJSON(bytes []byte) (err error) 
 
 	return
 }
+

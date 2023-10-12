@@ -13,26 +13,28 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MessagingV1DomainCertV4 struct for MessagingV1DomainCertV4
 type MessagingV1DomainCertV4 struct {
-	// The unique string that we created to identify the Domain resource.
+		// The unique string that we created to identify the Domain resource.
 	DomainSid *string `json:"domain_sid,omitempty"`
-	// Date that this Domain was last updated.
+		// Date that this Domain was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// Date that the private certificate associated with this domain expires. You will need to update the certificate before that date to ensure your shortened links will continue to work.
+		// Date that the private certificate associated with this domain expires. You will need to update the certificate before that date to ensure your shortened links will continue to work.
 	DateExpires *time.Time `json:"date_expires,omitempty"`
-	// Date that this Domain was registered to the Twilio platform to create a new Domain object.
+		// Date that this Domain was registered to the Twilio platform to create a new Domain object.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// Full url path for this domain.
+		// Full url path for this domain.
 	DomainName *string `json:"domain_name,omitempty"`
-	// The unique string that we created to identify this Certificate resource.
+		// The unique string that we created to identify this Certificate resource.
 	CertificateSid *string `json:"certificate_sid,omitempty"`
-	Url            *string `json:"url,omitempty"`
-	// Optional JSON field describing the status and upload date of a new certificate in the process of validation
+	Url *string `json:"url,omitempty"`
+		// Optional JSON field describing the status and upload date of a new certificate in the process of validation
 	CertInValidation *interface{} `json:"cert_in_validation,omitempty"`
 }
+
+

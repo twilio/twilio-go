@@ -13,17 +13,22 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // PricingV1PhoneNumberCountryInstance struct for PricingV1PhoneNumberCountryInstance
 type PricingV1PhoneNumberCountryInstance struct {
-	// The name of the country.
+		// The name of the country.
 	Country *string `json:"country,omitempty"`
-	// The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+		// The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 	IsoCountry *string `json:"iso_country,omitempty"`
-	// The list of [PhoneNumberPrice](https://www.twilio.com/docs/phone-numbers/pricing#phone-number-price) records.
+		// The list of [PhoneNumberPrice](https://www.twilio.com/docs/phone-numbers/pricing#phone-number-price) records.
 	PhoneNumberPrices *[]PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices `json:"phone_number_prices,omitempty"`
-	// The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
+		// The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
 	PriceUnit *string `json:"price_unit,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

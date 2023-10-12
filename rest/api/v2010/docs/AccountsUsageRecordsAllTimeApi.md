@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListUsageRecordAllTime
 
-> []ApiV2010UsageRecordAllTime ListUsageRecordAllTime(ctx, optional)
+> ListUsageRecordAllTime200Response ListUsageRecordAllTime(ctx, optional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010UsageRecordAllTime**](ApiV2010UsageRecordAllTime.md)
+[**ListUsageRecordAllTime200Response**](ListUsageRecordAllTime200Response.md)
 
 ### Authorization
 

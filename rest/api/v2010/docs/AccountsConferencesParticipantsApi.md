@@ -192,7 +192,7 @@ Name | Type | Description
 
 ## ListParticipant
 
-> []ApiV2010Participant ListParticipant(ctx, ConferenceSidoptional)
+> ListParticipant200Response ListParticipant(ctx, ConferenceSidoptional)
 
 
 
@@ -222,7 +222,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010Participant**](ApiV2010Participant.md)
+[**ListParticipant200Response**](ListParticipant200Response.md)
 
 ### Authorization
 

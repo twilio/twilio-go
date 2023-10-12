@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListEndUserTypeResponse struct for ListEndUserTypeResponse
 type ListEndUserTypeResponse struct {
-	EndUserTypes []TrusthubV1EndUserType         `json:"end_user_types,omitempty"`
-	Meta         ListCustomerProfileResponseMeta `json:"meta,omitempty"`
+	EndUserTypes []TrusthubV1EndUserType `json:"end_user_types,omitempty"`
+	Meta ListCustomerProfileResponseMeta `json:"meta,omitempty"`
 }
+
+

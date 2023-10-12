@@ -13,24 +13,26 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // NumbersV2Evaluation struct for NumbersV2Evaluation
 type NumbersV2Evaluation struct {
-	// The unique string that identifies the Evaluation resource.
+		// The unique string that identifies the Evaluation resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique string of a regulation that is associated to the Bundle resource.
+		// The unique string of a regulation that is associated to the Bundle resource.
 	RegulationSid *string `json:"regulation_sid,omitempty"`
-	// The unique string that we created to identify the Bundle resource.
+		// The unique string that we created to identify the Bundle resource.
 	BundleSid *string `json:"bundle_sid,omitempty"`
-	Status    *string `json:"status,omitempty"`
-	// The results of the Evaluation which includes the valid and invalid attributes.
-	Results     *[]interface{} `json:"results,omitempty"`
-	DateCreated *time.Time     `json:"date_created,omitempty"`
-	Url         *string        `json:"url,omitempty"`
+	Status *string `json:"status,omitempty"`
+		// The results of the Evaluation which includes the valid and invalid attributes.
+	Results *[]interface{} `json:"results,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

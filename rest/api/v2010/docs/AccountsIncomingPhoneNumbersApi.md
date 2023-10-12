@@ -163,7 +163,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumber
 
-> []ApiV2010IncomingPhoneNumber ListIncomingPhoneNumber(ctx, optional)
+> ListIncomingPhoneNumber200Response ListIncomingPhoneNumber(ctx, optional)
 
 
 
@@ -190,7 +190,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010IncomingPhoneNumber**](ApiV2010IncomingPhoneNumber.md)
+[**ListIncomingPhoneNumber200Response**](ListIncomingPhoneNumber200Response.md)
 
 ### Authorization
 

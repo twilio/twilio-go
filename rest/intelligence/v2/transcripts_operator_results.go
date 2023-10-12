@@ -18,109 +18,111 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchOperatorResult'
 type FetchOperatorResultParams struct {
-	// Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
-	Redacted *bool `json:"Redacted,omitempty"`
+    // Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+    Redacted *bool `json:"Redacted,omitempty"`
 }
 
-func (params *FetchOperatorResultParams) SetRedacted(Redacted bool) *FetchOperatorResultParams {
-	params.Redacted = &Redacted
-	return params
+func (params *FetchOperatorResultParams) SetRedacted(Redacted bool) (*FetchOperatorResultParams){
+    params.Redacted = &Redacted
+    return params
 }
 
 // Fetch a specific Operator Result for the given Transcript.
 func (c *ApiService) FetchOperatorResult(TranscriptSid string, OperatorSid string, params *FetchOperatorResultParams) (*IntelligenceV2OperatorResult, error) {
-	path := "/v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid}"
-	path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
-	path = strings.Replace(path, "{"+"OperatorSid"+"}", OperatorSid, -1)
+    path := "/v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid}"
+        path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
+    path = strings.Replace(path, "{"+"OperatorSid"+"}", OperatorSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.Redacted != nil {
-		data.Set("Redacted", fmt.Sprint(*params.Redacted))
-	}
+if params != nil && params.Redacted != nil {
+    data.Set("Redacted", fmt.Sprint(*params.Redacted))
+}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &IntelligenceV2OperatorResult{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &IntelligenceV2OperatorResult{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListOperatorResult'
 type ListOperatorResultParams struct {
-	// Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
-	Redacted *bool `json:"Redacted,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+    Redacted *bool `json:"Redacted,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListOperatorResultParams) SetRedacted(Redacted bool) *ListOperatorResultParams {
-	params.Redacted = &Redacted
-	return params
+func (params *ListOperatorResultParams) SetRedacted(Redacted bool) (*ListOperatorResultParams){
+    params.Redacted = &Redacted
+    return params
 }
-func (params *ListOperatorResultParams) SetPageSize(PageSize int) *ListOperatorResultParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListOperatorResultParams) SetPageSize(PageSize int) (*ListOperatorResultParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListOperatorResultParams) SetLimit(Limit int) *ListOperatorResultParams {
-	params.Limit = &Limit
-	return params
+func (params *ListOperatorResultParams) SetLimit(Limit int) (*ListOperatorResultParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of OperatorResult records from the API. Request is executed immediately.
 func (c *ApiService) PageOperatorResult(TranscriptSid string, params *ListOperatorResultParams, pageToken, pageNumber string) (*ListOperatorResultResponse, error) {
-	path := "/v2/Transcripts/{TranscriptSid}/OperatorResults"
+    path := "/v2/Transcripts/{TranscriptSid}/OperatorResults"
 
-	path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
+        path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.Redacted != nil {
-		data.Set("Redacted", fmt.Sprint(*params.Redacted))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.Redacted != nil {
+    data.Set("Redacted", fmt.Sprint(*params.Redacted))
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListOperatorResultResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListOperatorResultResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists OperatorResult records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -161,6 +163,7 @@ func (c *ApiService) StreamOperatorResult(TranscriptSid string, params *ListOper
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamOperatorResult(response *ListOperatorResultResponse, params *ListOperatorResultParams, recordChannel chan IntelligenceV2OperatorResult, errorChannel chan error) {
 	curRecord := 1
 
@@ -192,19 +195,20 @@ func (c *ApiService) streamOperatorResult(response *ListOperatorResultResponse, 
 }
 
 func (c *ApiService) getNextListOperatorResultResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListOperatorResultResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListOperatorResultResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

@@ -13,21 +13,26 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010SipIpAccessControlList struct for ApiV2010SipIpAccessControlList
 type ApiV2010SipIpAccessControlList struct {
-	// A 34 character string that uniquely identifies this resource.
+		// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource.
+		// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A human readable descriptive text, up to 255 characters long.
+		// A human readable descriptive text, up to 255 characters long.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+		// The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+		// The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// A list of the IpAddress resources associated with this IP access control list resource.
+		// A list of the IpAddress resources associated with this IP access control list resource.
 	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
-	// The URI for this resource, relative to `https://api.twilio.com`
+		// The URI for this resource, relative to `https://api.twilio.com`
 	Uri *string `json:"uri,omitempty"`
 }
+
+

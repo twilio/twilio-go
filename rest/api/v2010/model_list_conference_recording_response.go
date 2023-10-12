@@ -13,16 +13,13 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListConferenceRecordingResponse struct for ListConferenceRecordingResponse
 type ListConferenceRecordingResponse struct {
-	Recordings      []ApiV2010ConferenceRecording `json:"recordings,omitempty"`
-	End             int                           `json:"end,omitempty"`
-	FirstPageUri    string                        `json:"first_page_uri,omitempty"`
-	NextPageUri     *string                       `json:"next_page_uri,omitempty"`
-	Page            int                           `json:"page,omitempty"`
-	PageSize        int                           `json:"page_size,omitempty"`
-	PreviousPageUri *string                       `json:"previous_page_uri,omitempty"`
-	Start           int                           `json:"start,omitempty"`
-	Uri             string                        `json:"uri,omitempty"`
+	Recordings []ApiV2010ConferenceRecording `json:"recordings,omitempty"`
 }
+
+

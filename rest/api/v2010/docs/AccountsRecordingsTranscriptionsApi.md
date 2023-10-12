@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## ListRecordingTranscription
 
-> []ApiV2010RecordingTranscription ListRecordingTranscription(ctx, RecordingSidoptional)
+> ListRecordingTranscription200Response ListRecordingTranscription(ctx, RecordingSidoptional)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010RecordingTranscription**](ApiV2010RecordingTranscription.md)
+[**ListRecordingTranscription200Response**](ListRecordingTranscription200Response.md)
 
 ### Authorization
 

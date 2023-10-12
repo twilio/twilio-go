@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## ListRecordingAddOnResult
 
-> []ApiV2010RecordingAddOnResult ListRecordingAddOnResult(ctx, ReferenceSidoptional)
+> ListRecordingAddOnResult200Response ListRecordingAddOnResult(ctx, ReferenceSidoptional)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010RecordingAddOnResult**](ApiV2010RecordingAddOnResult.md)
+[**ListRecordingAddOnResult200Response**](ListRecordingAddOnResult200Response.md)
 
 ### Authorization
 

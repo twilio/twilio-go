@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## ListConferenceRecording
 
-> []ApiV2010ConferenceRecording ListConferenceRecording(ctx, ConferenceSidoptional)
+> ListConferenceRecording200Response ListConferenceRecording(ctx, ConferenceSidoptional)
 
 
 
@@ -131,7 +131,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010ConferenceRecording**](ApiV2010ConferenceRecording.md)
+[**ListConferenceRecording200Response**](ListConferenceRecording200Response.md)
 
 ### Authorization
 

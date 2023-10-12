@@ -94,7 +94,7 @@ Name | Type | Description
 
 ## ListAccount
 
-> []ApiV2010Account ListAccount(ctx, optional)
+> ListAccount200Response ListAccount(ctx, optional)
 
 
 
@@ -118,7 +118,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010Account**](ApiV2010Account.md)
+[**ListAccount200Response**](ListAccount200Response.md)
 
 ### Authorization
 

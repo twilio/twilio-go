@@ -18,141 +18,146 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
-	"time"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string) error {
-	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string, ) (error) {
+    path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
+        path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	return nil
+
+
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
-//
-func (c *ApiService) FetchRoomRecording(RoomSid string, Sid string) (*VideoV1RoomRecording, error) {
-	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+// 
+func (c *ApiService) FetchRoomRecording(RoomSid string, Sid string, ) (*VideoV1RoomRecording, error) {
+    path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
+        path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRecording{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &VideoV1RoomRecording{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListRoomRecording'
 type ListRoomRecordingParams struct {
-	// Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
-	Status *string `json:"Status,omitempty"`
-	// Read only the recordings that have this `source_sid`.
-	SourceSid *string `json:"SourceSid,omitempty"`
-	// Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-	// Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+    Status *string `json:"Status,omitempty"`
+    // Read only the recordings that have this `source_sid`.
+    SourceSid *string `json:"SourceSid,omitempty"`
+    // Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+    DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
+    // Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+    DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListRoomRecordingParams) SetStatus(Status string) *ListRoomRecordingParams {
-	params.Status = &Status
-	return params
+func (params *ListRoomRecordingParams) SetStatus(Status string) (*ListRoomRecordingParams){
+    params.Status = &Status
+    return params
 }
-func (params *ListRoomRecordingParams) SetSourceSid(SourceSid string) *ListRoomRecordingParams {
-	params.SourceSid = &SourceSid
-	return params
+func (params *ListRoomRecordingParams) SetSourceSid(SourceSid string) (*ListRoomRecordingParams){
+    params.SourceSid = &SourceSid
+    return params
 }
-func (params *ListRoomRecordingParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListRoomRecordingParams {
-	params.DateCreatedAfter = &DateCreatedAfter
-	return params
+func (params *ListRoomRecordingParams) SetDateCreatedAfter(DateCreatedAfter time.Time) (*ListRoomRecordingParams){
+    params.DateCreatedAfter = &DateCreatedAfter
+    return params
 }
-func (params *ListRoomRecordingParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListRoomRecordingParams {
-	params.DateCreatedBefore = &DateCreatedBefore
-	return params
+func (params *ListRoomRecordingParams) SetDateCreatedBefore(DateCreatedBefore time.Time) (*ListRoomRecordingParams){
+    params.DateCreatedBefore = &DateCreatedBefore
+    return params
 }
-func (params *ListRoomRecordingParams) SetPageSize(PageSize int) *ListRoomRecordingParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListRoomRecordingParams) SetPageSize(PageSize int) (*ListRoomRecordingParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListRoomRecordingParams) SetLimit(Limit int) *ListRoomRecordingParams {
-	params.Limit = &Limit
-	return params
+func (params *ListRoomRecordingParams) SetLimit(Limit int) (*ListRoomRecordingParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of RoomRecording records from the API. Request is executed immediately.
 func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecordingParams, pageToken, pageNumber string) (*ListRoomRecordingResponse, error) {
-	path := "/v1/Rooms/{RoomSid}/Recordings"
+    path := "/v1/Rooms/{RoomSid}/Recordings"
 
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+        path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.SourceSid != nil {
-		data.Set("SourceSid", *params.SourceSid)
-	}
-	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.Status != nil {
+    data.Set("Status", *params.Status)
+}
+if params != nil && params.SourceSid != nil {
+    data.Set("SourceSid", *params.SourceSid)
+}
+if params != nil && params.DateCreatedAfter != nil {
+    data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+}
+if params != nil && params.DateCreatedBefore != nil {
+    data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListRoomRecordingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListRoomRecordingResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists RoomRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -193,6 +198,7 @@ func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordi
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamRoomRecording(response *ListRoomRecordingResponse, params *ListRoomRecordingParams, recordChannel chan VideoV1RoomRecording, errorChannel chan error) {
 	curRecord := 1
 
@@ -224,19 +230,20 @@ func (c *ApiService) streamRoomRecording(response *ListRoomRecordingResponse, pa
 }
 
 func (c *ApiService) getNextListRoomRecordingResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListRoomRecordingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListRoomRecordingResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

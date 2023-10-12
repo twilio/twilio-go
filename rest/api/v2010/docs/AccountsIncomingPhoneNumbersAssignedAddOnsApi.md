@@ -145,7 +145,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumberAssignedAddOn
 
-> []ApiV2010IncomingPhoneNumberAssignedAddOn ListIncomingPhoneNumberAssignedAddOn(ctx, ResourceSidoptional)
+> ListIncomingPhoneNumberAssignedAddOn200Response ListIncomingPhoneNumberAssignedAddOn(ctx, ResourceSidoptional)
 
 
 
@@ -172,7 +172,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010IncomingPhoneNumberAssignedAddOn**](ApiV2010IncomingPhoneNumberAssignedAddOn.md)
+[**ListIncomingPhoneNumberAssignedAddOn200Response**](ListIncomingPhoneNumberAssignedAddOn200Response.md)
 
 ### Authorization
 

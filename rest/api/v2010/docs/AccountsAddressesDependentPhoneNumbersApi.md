@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListDependentPhoneNumber
 
-> []ApiV2010DependentPhoneNumber ListDependentPhoneNumber(ctx, AddressSidoptional)
+> ListDependentPhoneNumber200Response ListDependentPhoneNumber(ctx, AddressSidoptional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010DependentPhoneNumber**](ApiV2010DependentPhoneNumber.md)
+[**ListDependentPhoneNumber200Response**](ListDependentPhoneNumber200Response.md)
 
 ### Authorization
 

@@ -13,15 +13,20 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // FlexV1InsightsConversations struct for FlexV1InsightsConversations
 type FlexV1InsightsConversations struct {
-	// The id of the account.
+		// The id of the account.
 	AccountId *string `json:"account_id,omitempty"`
-	// The unique id of the conversation
+		// The unique id of the conversation
 	ConversationId *string `json:"conversation_id,omitempty"`
-	// The count of segments for a conversation
+		// The count of segments for a conversation
 	SegmentCount *int `json:"segment_count,omitempty"`
-	// The Segments of a conversation
+		// The Segments of a conversation
 	Segments *[]interface{} `json:"segments,omitempty"`
 }
+
+

@@ -13,45 +13,47 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // NumbersV2DependentHostedNumberOrder struct for NumbersV2DependentHostedNumberOrder
 type NumbersV2DependentHostedNumberOrder struct {
-	// A 34 character string that uniquely identifies this Authorization Document
+		// A 34 character string that uniquely identifies this Authorization Document
 	Sid *string `json:"sid,omitempty"`
-	// A 34 character string that uniquely identifies the bulk hosting request associated with this HostedNumberOrder.
+		// A 34 character string that uniquely identifies the bulk hosting request associated with this HostedNumberOrder.
 	BulkHostingRequestSid *string `json:"bulk_hosting_request_sid,omitempty"`
-	// The next step you need to take to complete the hosted number order and request it successfully.
+		// The next step you need to take to complete the hosted number order and request it successfully.
 	NextStep *string `json:"next_step,omitempty"`
-	// The unique SID identifier of the Account.
+		// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+		// A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
 	IncomingPhoneNumberSid *string `json:"incoming_phone_number_sid,omitempty"`
-	// A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
+		// A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
 	AddressSid *string `json:"address_sid,omitempty"`
-	// A 34 character string that uniquely identifies the LOA document associated with this HostedNumberOrder.
+		// A 34 character string that uniquely identifies the LOA document associated with this HostedNumberOrder.
 	SigningDocumentSid *string `json:"signing_document_sid,omitempty"`
-	// An E164 formatted phone number hosted by this HostedNumberOrder.
-	PhoneNumber  *string                                                               `json:"phone_number,omitempty"`
+		// An E164 formatted phone number hosted by this HostedNumberOrder.
+	PhoneNumber *string `json:"phone_number,omitempty"`
 	Capabilities *NumbersV2AuthorizationDocumentDependentHostedNumberOrderCapabilities `json:"capabilities,omitempty"`
-	// A human readable description of this resource, up to 128 characters.
+		// A human readable description of this resource, up to 128 characters.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	Status       *string `json:"status,omitempty"`
-	// A message that explains why a hosted_number_order went to status \"action-required\"
+	Status *string `json:"status,omitempty"`
+		// A message that explains why a hosted_number_order went to status \"action-required\"
 	FailureReason *string `json:"failure_reason,omitempty"`
-	// The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// Email of the owner of this phone number that is being hosted.
+		// Email of the owner of this phone number that is being hosted.
 	Email *string `json:"email,omitempty"`
-	// Email recipients who will be informed when an Authorization Document has been sent and signed
+		// Email recipients who will be informed when an Authorization Document has been sent and signed
 	CcEmails *[]string `json:"cc_emails,omitempty"`
-	// The title of the person authorized to sign the Authorization Document for this phone number.
+		// The title of the person authorized to sign the Authorization Document for this phone number.
 	ContactTitle *string `json:"contact_title,omitempty"`
-	// The contact phone number of the person authorized to sign the Authorization Document.
+		// The contact phone number of the person authorized to sign the Authorization Document.
 	ContactPhoneNumber *string `json:"contact_phone_number,omitempty"`
 }
+
+

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListUsageRecord
 
-> []ApiV2010UsageRecord ListUsageRecord(ctx, optional)
+> ListUsageRecord200Response ListUsageRecord(ctx, optional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010UsageRecord**](ApiV2010UsageRecord.md)
+[**ListUsageRecord200Response**](ListUsageRecord200Response.md)
 
 ### Authorization
 

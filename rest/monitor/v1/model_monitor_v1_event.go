@@ -13,39 +13,41 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MonitorV1Event struct for MonitorV1Event
 type MonitorV1Event struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the actor that caused the event, if available. Can be `null`.
+		// The SID of the actor that caused the event, if available. Can be `null`.
 	ActorSid *string `json:"actor_sid,omitempty"`
-	// The type of actor that caused the event. Can be: `user` for a change made by a logged-in user in the Twilio Console, `account` for an event caused by an API request by an authenticating Account, `twilio-admin` for an event caused by a Twilio employee, and so on.
+		// The type of actor that caused the event. Can be: `user` for a change made by a logged-in user in the Twilio Console, `account` for an event caused by an API request by an authenticating Account, `twilio-admin` for an event caused by a Twilio employee, and so on.
 	ActorType *string `json:"actor_type,omitempty"`
-	// A description of the event. Can be `null`.
+		// A description of the event. Can be `null`.
 	Description *string `json:"description,omitempty"`
-	// An object with additional data about the event. The  contents depend on `event_type`. For example, event-types of the form `RESOURCE.updated`, this value contains a `resource_properties` dictionary that describes the previous and updated properties of the resource.
+		// An object with additional data about the event. The  contents depend on `event_type`. For example, event-types of the form `RESOURCE.updated`, this value contains a `resource_properties` dictionary that describes the previous and updated properties of the resource.
 	EventData *interface{} `json:"event_data,omitempty"`
-	// The date and time in GMT when the event was recorded specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the event was recorded specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	EventDate *time.Time `json:"event_date,omitempty"`
-	// The event's type. Event-types are typically in the form: `RESOURCE_TYPE.ACTION`, where `RESOURCE_TYPE` is the type of resource that was affected and `ACTION` is what happened to it. For example, `phone-number.created`. For a full list of all event-types, see the [Monitor Event Types](https://www.twilio.com/docs/usage/monitor-events#event-types).
+		// The event's type. Event-types are typically in the form: `RESOURCE_TYPE.ACTION`, where `RESOURCE_TYPE` is the type of resource that was affected and `ACTION` is what happened to it. For example, `phone-number.created`. For a full list of all event-types, see the [Monitor Event Types](https://www.twilio.com/docs/usage/monitor-events#event-types).
 	EventType *string `json:"event_type,omitempty"`
-	// The SID of the resource that was affected.
+		// The SID of the resource that was affected.
 	ResourceSid *string `json:"resource_sid,omitempty"`
-	// The type of resource that was affected. For a full list of all resource-types, see the [Monitor Event Types](https://www.twilio.com/docs/usage/monitor-events#event-types).
+		// The type of resource that was affected. For a full list of all resource-types, see the [Monitor Event Types](https://www.twilio.com/docs/usage/monitor-events#event-types).
 	ResourceType *string `json:"resource_type,omitempty"`
-	// The unique string that we created to identify the Event resource.
+		// The unique string that we created to identify the Event resource.
 	Sid *string `json:"sid,omitempty"`
-	// The originating system or interface that caused the event.  Can be: `web` for events caused by user action in the Twilio Console, `api` for events caused by a request to our API, or   `twilio` for events caused by an automated or internal Twilio system.
+		// The originating system or interface that caused the event.  Can be: `web` for events caused by user action in the Twilio Console, `api` for events caused by a request to our API, or   `twilio` for events caused by an automated or internal Twilio system.
 	Source *string `json:"source,omitempty"`
-	// The IP address of the source, if the source is outside the Twilio cloud. This value is `null` for events with `source` of `twilio`
+		// The IP address of the source, if the source is outside the Twilio cloud. This value is `null` for events with `source` of `twilio`
 	SourceIpAddress *string `json:"source_ip_address,omitempty"`
-	// The absolute URL of the resource that was affected. Can be `null`.
+		// The absolute URL of the resource that was affected. Can be `null`.
 	Url *string `json:"url,omitempty"`
-	// The absolute URLs of related resources.
+		// The absolute URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

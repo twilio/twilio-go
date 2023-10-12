@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListRoleResponse struct for ListRoleResponse
 type ListRoleResponse struct {
-	Roles []ChatV2Role            `json:"roles,omitempty"`
-	Meta  ListBindingResponseMeta `json:"meta,omitempty"`
+	Roles []ChatV2Role `json:"roles,omitempty"`
+	Meta ListBindingResponseMeta `json:"meta,omitempty"`
 }
+
+

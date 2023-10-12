@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListSourceIpMappingResponse struct for ListSourceIpMappingResponse
 type ListSourceIpMappingResponse struct {
-	SourceIpMappings []VoiceV1SourceIpMapping  `json:"source_ip_mappings,omitempty"`
-	Meta             ListByocTrunkResponseMeta `json:"meta,omitempty"`
+	SourceIpMappings []VoiceV1SourceIpMapping `json:"source_ip_mappings,omitempty"`
+	Meta ListByocTrunkResponseMeta `json:"meta,omitempty"`
 }
+
+

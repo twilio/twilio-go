@@ -18,108 +18,114 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Creates an evaluation for a bundle
-func (c *ApiService) CreateEvaluation(BundleSid string) (*NumbersV2Evaluation, error) {
-	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+func (c *ApiService) CreateEvaluation(BundleSid string, ) (*NumbersV2Evaluation, error) {
+    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
+        path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &NumbersV2Evaluation{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &NumbersV2Evaluation{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Fetch specific Evaluation Instance.
-func (c *ApiService) FetchEvaluation(BundleSid string, Sid string) (*NumbersV2Evaluation, error) {
-	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchEvaluation(BundleSid string, Sid string, ) (*NumbersV2Evaluation, error) {
+    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}"
+        path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &NumbersV2Evaluation{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &NumbersV2Evaluation{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListEvaluation'
 type ListEvaluationParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListEvaluationParams) SetPageSize(PageSize int) *ListEvaluationParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListEvaluationParams) SetPageSize(PageSize int) (*ListEvaluationParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListEvaluationParams) SetLimit(Limit int) *ListEvaluationParams {
-	params.Limit = &Limit
-	return params
+func (params *ListEvaluationParams) SetLimit(Limit int) (*ListEvaluationParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Evaluation records from the API. Request is executed immediately.
 func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationParams, pageToken, pageNumber string) (*ListEvaluationResponse, error) {
-	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
+    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
 
-	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+        path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListEvaluationResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListEvaluationResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists Evaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -160,6 +166,7 @@ func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationPa
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamEvaluation(response *ListEvaluationResponse, params *ListEvaluationParams, recordChannel chan NumbersV2Evaluation, errorChannel chan error) {
 	curRecord := 1
 
@@ -191,19 +198,20 @@ func (c *ApiService) streamEvaluation(response *ListEvaluationResponse, params *
 }
 
 func (c *ApiService) getNextListEvaluationResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListEvaluationResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListEvaluationResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

@@ -13,26 +13,28 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // ServerlessV1AssetVersion struct for ServerlessV1AssetVersion
 type ServerlessV1AssetVersion struct {
-	// The unique string that we created to identify the Asset Version resource.
+		// The unique string that we created to identify the Asset Version resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Asset Version resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Asset Version resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Service that the Asset Version resource is associated with.
+		// The SID of the Service that the Asset Version resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the Asset resource that is the parent of the Asset Version.
+		// The SID of the Asset resource that is the parent of the Asset Version.
 	AssetSid *string `json:"asset_sid,omitempty"`
-	// The URL-friendly string by which the Asset Version can be referenced. It can be a maximum of 255 characters. All paths begin with a forward slash ('/'). If an Asset Version creation request is submitted with a path not containing a leading slash, the path will automatically be prepended with one.
-	Path       *string `json:"path,omitempty"`
+		// The URL-friendly string by which the Asset Version can be referenced. It can be a maximum of 255 characters. All paths begin with a forward slash ('/'). If an Asset Version creation request is submitted with a path not containing a leading slash, the path will automatically be prepended with one.
+	Path *string `json:"path,omitempty"`
 	Visibility *string `json:"visibility,omitempty"`
-	// The date and time in GMT when the Asset Version resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the Asset Version resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The absolute URL of the Asset Version resource.
+		// The absolute URL of the Asset Version resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

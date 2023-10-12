@@ -145,7 +145,7 @@ Name | Type | Description
 
 ## ListOutgoingCallerId
 
-> []ApiV2010OutgoingCallerId ListOutgoingCallerId(ctx, optional)
+> ListOutgoingCallerId200Response ListOutgoingCallerId(ctx, optional)
 
 
 
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010OutgoingCallerId**](ApiV2010OutgoingCallerId.md)
+[**ListOutgoingCallerId200Response**](ListOutgoingCallerId200Response.md)
 
 ### Authorization
 

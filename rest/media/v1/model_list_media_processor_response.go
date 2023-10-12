@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListMediaProcessorResponse struct for ListMediaProcessorResponse
 type ListMediaProcessorResponse struct {
-	MediaProcessors []MediaV1MediaProcessor        `json:"media_processors,omitempty"`
-	Meta            ListMediaProcessorResponseMeta `json:"meta,omitempty"`
+	MediaProcessors []MediaV1MediaProcessor `json:"media_processors,omitempty"`
+	Meta ListMediaProcessorResponseMeta `json:"meta,omitempty"`
 }
+
+

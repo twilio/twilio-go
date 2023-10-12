@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListUsageRecordYesterday
 
-> []ApiV2010UsageRecordYesterday ListUsageRecordYesterday(ctx, optional)
+> ListUsageRecordYesterday200Response ListUsageRecordYesterday(ctx, optional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010UsageRecordYesterday**](ApiV2010UsageRecordYesterday.md)
+[**ListUsageRecordYesterday200Response**](ListUsageRecordYesterday200Response.md)
 
 ### Authorization
 

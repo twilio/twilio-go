@@ -13,27 +13,32 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // TaskrouterV1WorkspaceRealTimeStatistics struct for TaskrouterV1WorkspaceRealTimeStatistics
 type TaskrouterV1WorkspaceRealTimeStatistics struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The number of current Workers by Activity.
+		// The number of current Workers by Activity.
 	ActivityStatistics *[]interface{} `json:"activity_statistics,omitempty"`
-	// The age of the longest waiting Task.
+		// The age of the longest waiting Task.
 	LongestTaskWaitingAge *int `json:"longest_task_waiting_age,omitempty"`
-	// The SID of the longest waiting Task.
+		// The SID of the longest waiting Task.
 	LongestTaskWaitingSid *string `json:"longest_task_waiting_sid,omitempty"`
-	// The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
+		// The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
 	TasksByPriority *interface{} `json:"tasks_by_priority,omitempty"`
-	// The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
+		// The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
 	TasksByStatus *interface{} `json:"tasks_by_status,omitempty"`
-	// The total number of Tasks.
+		// The total number of Tasks.
 	TotalTasks *int `json:"total_tasks,omitempty"`
-	// The total number of Workers in the Workspace.
+		// The total number of Workers in the Workspace.
 	TotalWorkers *int `json:"total_workers,omitempty"`
-	// The SID of the Workspace.
+		// The SID of the Workspace.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
-	// The absolute URL of the Workspace statistics resource.
+		// The absolute URL of the Workspace statistics resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

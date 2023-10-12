@@ -13,17 +13,22 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // IntelligenceV2Media struct for IntelligenceV2Media
 type IntelligenceV2Media struct {
-	// The unique SID identifier of the Account.
+		// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Downloadable URL for media, if stored in Twilio AI.
+		// Downloadable URL for media, if stored in Twilio AI.
 	MediaUrl *string `json:"media_url,omitempty"`
-	// The unique SID identifier of the Service.
+		// The unique SID identifier of the Service.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The unique SID identifier of the Transcript.
+		// The unique SID identifier of the Transcript.
 	Sid *string `json:"sid,omitempty"`
-	// The URL of this resource.
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

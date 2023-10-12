@@ -13,31 +13,36 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010ShortCode struct for ApiV2010ShortCode
 type ApiV2010ShortCode struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this ShortCode resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this ShortCode resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The API version used to start a new TwiML session when an SMS message is sent to this short code.
+		// The API version used to start a new TwiML session when an SMS message is sent to this short code.
 	ApiVersion *string `json:"api_version,omitempty"`
-	// The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// A string that you assigned to describe this resource. By default, the `FriendlyName` is the short code.
+		// A string that you assigned to describe this resource. By default, the `FriendlyName` is the short code.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The short code. e.g., 894546.
+		// The short code. e.g., 894546.
 	ShortCode *string `json:"short_code,omitempty"`
-	// The unique string that that we created to identify this ShortCode resource.
+		// The unique string that that we created to identify this ShortCode resource.
 	Sid *string `json:"sid,omitempty"`
-	// The HTTP method we use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
+		// The HTTP method we use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 	SmsFallbackMethod *string `json:"sms_fallback_method,omitempty"`
-	// The URL that we call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+		// The URL that we call if an error occurs while retrieving or executing the TwiML from `sms_url`.
 	SmsFallbackUrl *string `json:"sms_fallback_url,omitempty"`
-	// The HTTP method we use to call the `sms_url`. Can be: `GET` or `POST`.
+		// The HTTP method we use to call the `sms_url`. Can be: `GET` or `POST`.
 	SmsMethod *string `json:"sms_method,omitempty"`
-	// The URL we call when receiving an incoming SMS message to this short code.
+		// The URL we call when receiving an incoming SMS message to this short code.
 	SmsUrl *string `json:"sms_url,omitempty"`
-	// The URI of this resource, relative to `https://api.twilio.com`.
+		// The URI of this resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 }
+
+

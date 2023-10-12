@@ -18,166 +18,174 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateInvite'
 type CreateInviteParams struct {
-	//
-	Identity *string `json:"Identity,omitempty"`
-	//
-	RoleSid *string `json:"RoleSid,omitempty"`
+    // 
+    Identity *string `json:"Identity,omitempty"`
+    // 
+    RoleSid *string `json:"RoleSid,omitempty"`
 }
 
-func (params *CreateInviteParams) SetIdentity(Identity string) *CreateInviteParams {
-	params.Identity = &Identity
-	return params
+func (params *CreateInviteParams) SetIdentity(Identity string) (*CreateInviteParams){
+    params.Identity = &Identity
+    return params
 }
-func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams {
-	params.RoleSid = &RoleSid
-	return params
+func (params *CreateInviteParams) SetRoleSid(RoleSid string) (*CreateInviteParams){
+    params.RoleSid = &RoleSid
+    return params
 }
 
-//
+// 
 func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*IpMessagingV1Invite, error) {
-	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
-	}
-	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
-	}
-
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &IpMessagingV1Invite{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+if params != nil && params.Identity != nil {
+    data.Set("Identity", *params.Identity)
+}
+if params != nil && params.RoleSid != nil {
+    data.Set("RoleSid", *params.RoleSid)
 }
 
-//
-func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
-	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	return nil
+    ps := &IpMessagingV1Invite{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
-//
-func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1Invite, error) {
-	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+// 
+func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string, ) (error) {
+    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &IpMessagingV1Invite{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
+}
+
+// 
+func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string, ) (*IpMessagingV1Invite, error) {
+    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+data := url.Values{}
+headers := make(map[string]interface{})
+
+
+
+
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &IpMessagingV1Invite{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListInvite'
 type ListInviteParams struct {
-	//
-	Identity *[]string `json:"Identity,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // 
+    Identity *[]string `json:"Identity,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInviteParams) SetIdentity(Identity []string) *ListInviteParams {
-	params.Identity = &Identity
-	return params
+func (params *ListInviteParams) SetIdentity(Identity []string) (*ListInviteParams){
+    params.Identity = &Identity
+    return params
 }
-func (params *ListInviteParams) SetPageSize(PageSize int) *ListInviteParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListInviteParams) SetPageSize(PageSize int) (*ListInviteParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListInviteParams) SetLimit(Limit int) *ListInviteParams {
-	params.Limit = &Limit
-	return params
+func (params *ListInviteParams) SetLimit(Limit int) (*ListInviteParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Invite records from the API. Request is executed immediately.
 func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, pageToken, pageNumber string) (*ListInviteResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
+    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.Identity != nil {
-		for _, item := range *params.Identity {
-			data.Add("Identity", item)
-		}
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.Identity != nil {
+    for _, item  := range *params.Identity {
+        data.Add("Identity", item)
+    }
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInviteResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListInviteResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists Invite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -218,6 +226,7 @@ func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamInvite(response *ListInviteResponse, params *ListInviteParams, recordChannel chan IpMessagingV1Invite, errorChannel chan error) {
 	curRecord := 1
 
@@ -249,19 +258,20 @@ func (c *ApiService) streamInvite(response *ListInviteResponse, params *ListInvi
 }
 
 func (c *ApiService) getNextListInviteResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInviteResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListInviteResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

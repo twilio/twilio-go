@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListSubscribedEventResponse struct for ListSubscribedEventResponse
 type ListSubscribedEventResponse struct {
 	Types []EventsV1SubscribedEvent `json:"types,omitempty"`
-	Meta  ListEventTypeResponseMeta `json:"meta,omitempty"`
+	Meta ListEventTypeResponseMeta `json:"meta,omitempty"`
 }
+
+

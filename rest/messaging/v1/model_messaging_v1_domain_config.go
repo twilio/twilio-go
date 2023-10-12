@@ -13,28 +13,30 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MessagingV1DomainConfig struct for MessagingV1DomainConfig
 type MessagingV1DomainConfig struct {
-	// The unique string that we created to identify the Domain resource.
+		// The unique string that we created to identify the Domain resource.
 	DomainSid *string `json:"domain_sid,omitempty"`
-	// The unique string that we created to identify the Domain config (prefix ZK).
+		// The unique string that we created to identify the Domain config (prefix ZK).
 	ConfigSid *string `json:"config_sid,omitempty"`
-	// Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
+		// Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
 	FallbackUrl *string `json:"fallback_url,omitempty"`
-	// URL to receive click events to your webhook whenever the recipients click on the shortened links.
+		// URL to receive click events to your webhook whenever the recipients click on the shortened links.
 	CallbackUrl *string `json:"callback_url,omitempty"`
-	// Boolean field to set customer delivery preference when there is a failure in linkShortening service
+		// Boolean field to set customer delivery preference when there is a failure in linkShortening service
 	ContinueOnFailure *bool `json:"continue_on_failure,omitempty"`
-	// Date this Domain Config was created.
+		// Date this Domain Config was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// Date that this Domain Config was last updated.
+		// Date that this Domain Config was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	Url         *string    `json:"url,omitempty"`
-	// Customer's choice to send links with/without \"https://\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
+	Url *string `json:"url,omitempty"`
+		// Customer's choice to send links with/without \"https://\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
 	DisableHttps *bool `json:"disable_https,omitempty"`
 }
+
+

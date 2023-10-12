@@ -16,76 +16,84 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, error) {
-	path := "/v1/Trunks/{TrunkSid}/Recording"
-	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) FetchRecording(TrunkSid string, ) (*TrunkingV1Recording, error) {
+    path := "/v1/Trunks/{TrunkSid}/Recording"
+        path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	ps := &TrunkingV1Recording{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &TrunkingV1Recording{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateRecording'
 type UpdateRecordingParams struct {
-	//
-	Mode *string `json:"Mode,omitempty"`
-	//
-	Trim *string `json:"Trim,omitempty"`
+    // 
+    Mode *string `json:"Mode,omitempty"`
+    // 
+    Trim *string `json:"Trim,omitempty"`
 }
 
-func (params *UpdateRecordingParams) SetMode(Mode string) *UpdateRecordingParams {
-	params.Mode = &Mode
-	return params
+func (params *UpdateRecordingParams) SetMode(Mode string) (*UpdateRecordingParams){
+    params.Mode = &Mode
+    return params
 }
-func (params *UpdateRecordingParams) SetTrim(Trim string) *UpdateRecordingParams {
-	params.Trim = &Trim
-	return params
+func (params *UpdateRecordingParams) SetTrim(Trim string) (*UpdateRecordingParams){
+    params.Trim = &Trim
+    return params
 }
 
-//
+// 
 func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingParams) (*TrunkingV1Recording, error) {
-	path := "/v1/Trunks/{TrunkSid}/Recording"
-	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+    path := "/v1/Trunks/{TrunkSid}/Recording"
+        path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.Mode != nil {
-		data.Set("Mode", *params.Mode)
-	}
-	if params != nil && params.Trim != nil {
-		data.Set("Trim", *params.Trim)
-	}
+if params != nil && params.Mode != nil {
+    data.Set("Mode", *params.Mode)
+}
+if params != nil && params.Trim != nil {
+    data.Set("Trim", *params.Trim)
+}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &TrunkingV1Recording{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &TrunkingV1Recording{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

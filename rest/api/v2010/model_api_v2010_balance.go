@@ -13,13 +13,18 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010Balance struct for ApiV2010Balance
 type ApiV2010Balance struct {
-	// The unique SID identifier of the Account.
+		// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The balance of the Account, in units specified by the unit parameter. Balance changes may not be reflected immediately. Child accounts do not contain balance information
+		// The balance of the Account, in units specified by the unit parameter. Balance changes may not be reflected immediately. Child accounts do not contain balance information
 	Balance *string `json:"balance,omitempty"`
-	// The units of currency for the account balance
+		// The units of currency for the account balance
 	Currency *string `json:"currency,omitempty"`
 }
+
+

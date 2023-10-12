@@ -16,42 +16,48 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchInsightsSettingsComment'
 type FetchInsightsSettingsCommentParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
 }
 
-func (params *FetchInsightsSettingsCommentParams) SetAuthorization(Authorization string) *FetchInsightsSettingsCommentParams {
-	params.Authorization = &Authorization
-	return params
+func (params *FetchInsightsSettingsCommentParams) SetAuthorization(Authorization string) (*FetchInsightsSettingsCommentParams){
+    params.Authorization = &Authorization
+    return params
 }
 
 // To get the Comment Settings for an Account
 func (c *ApiService) FetchInsightsSettingsComment(params *FetchInsightsSettingsCommentParams) (*FlexV1InsightsSettingsComment, error) {
-	path := "/v1/Insights/QualityManagement/Settings/CommentTags"
+    path := "/v1/Insights/QualityManagement/Settings/CommentTags"
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1InsightsSettingsComment{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1InsightsSettingsComment{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }

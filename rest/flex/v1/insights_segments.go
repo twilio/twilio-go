@@ -19,83 +19,85 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'ListInsightsSegments'
 type ListInsightsSegmentsParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
-	// To unique id of the segment
-	SegmentId *string `json:"SegmentId,omitempty"`
-	// The list of reservation Ids
-	ReservationId *[]string `json:"ReservationId,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
+    // To unique id of the segment
+    SegmentId *string `json:"SegmentId,omitempty"`
+    // The list of reservation Ids
+    ReservationId *[]string `json:"ReservationId,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsSegmentsParams) SetAuthorization(Authorization string) *ListInsightsSegmentsParams {
-	params.Authorization = &Authorization
-	return params
+func (params *ListInsightsSegmentsParams) SetAuthorization(Authorization string) (*ListInsightsSegmentsParams){
+    params.Authorization = &Authorization
+    return params
 }
-func (params *ListInsightsSegmentsParams) SetSegmentId(SegmentId string) *ListInsightsSegmentsParams {
-	params.SegmentId = &SegmentId
-	return params
+func (params *ListInsightsSegmentsParams) SetSegmentId(SegmentId string) (*ListInsightsSegmentsParams){
+    params.SegmentId = &SegmentId
+    return params
 }
-func (params *ListInsightsSegmentsParams) SetReservationId(ReservationId []string) *ListInsightsSegmentsParams {
-	params.ReservationId = &ReservationId
-	return params
+func (params *ListInsightsSegmentsParams) SetReservationId(ReservationId []string) (*ListInsightsSegmentsParams){
+    params.ReservationId = &ReservationId
+    return params
 }
-func (params *ListInsightsSegmentsParams) SetPageSize(PageSize int) *ListInsightsSegmentsParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListInsightsSegmentsParams) SetPageSize(PageSize int) (*ListInsightsSegmentsParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListInsightsSegmentsParams) SetLimit(Limit int) *ListInsightsSegmentsParams {
-	params.Limit = &Limit
-	return params
+func (params *ListInsightsSegmentsParams) SetLimit(Limit int) (*ListInsightsSegmentsParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of InsightsSegments records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsSegments(params *ListInsightsSegmentsParams, pageToken, pageNumber string) (*ListInsightsSegmentsResponse, error) {
-	path := "/v1/Insights/Segments"
+    path := "/v1/Insights/Segments"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.SegmentId != nil {
-		data.Set("SegmentId", *params.SegmentId)
-	}
-	if params != nil && params.ReservationId != nil {
-		for _, item := range *params.ReservationId {
-			data.Add("ReservationId", item)
-		}
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.SegmentId != nil {
+    data.Set("SegmentId", *params.SegmentId)
+}
+if params != nil && params.ReservationId != nil {
+    for _, item  := range *params.ReservationId {
+        data.Add("ReservationId", item)
+    }
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInsightsSegmentsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListInsightsSegmentsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists InsightsSegments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -136,6 +138,7 @@ func (c *ApiService) StreamInsightsSegments(params *ListInsightsSegmentsParams) 
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamInsightsSegments(response *ListInsightsSegmentsResponse, params *ListInsightsSegmentsParams, recordChannel chan FlexV1InsightsSegments, errorChannel chan error) {
 	curRecord := 1
 
@@ -167,19 +170,20 @@ func (c *ApiService) streamInsightsSegments(response *ListInsightsSegmentsRespon
 }
 
 func (c *ApiService) getNextListInsightsSegmentsResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInsightsSegmentsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListInsightsSegmentsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

@@ -13,10 +13,15 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // NumbersV1PortingPortIn struct for NumbersV1PortingPortIn
 type NumbersV1PortingPortIn struct {
-	// The SID of the Port In request, It is the request identifier
+		// The SID of the Port In request, It is the request identifier
 	PortInRequestSid *string `json:"port_in_request_sid,omitempty"`
-	Url              *string `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

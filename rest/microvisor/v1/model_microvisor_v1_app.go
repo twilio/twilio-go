@@ -13,26 +13,28 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MicrovisorV1App struct for MicrovisorV1App
 type MicrovisorV1App struct {
-	// A 34-character string that uniquely identifies this App.
+		// A 34-character string that uniquely identifies this App.
 	Sid *string `json:"sid,omitempty"`
-	// The unique SID identifier of the Account.
+		// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// App manifest hash represented as `hash_algorithm:hash_value`.
+		// App manifest hash represented as `hash_algorithm:hash_value`.
 	Hash *string `json:"hash,omitempty"`
-	// A developer-defined string that uniquely identifies the App. This value must be unique for all Apps on this Account. The `unique_name` value may be used as an alternative to the `sid` in the URL path to address the resource.
+		// A developer-defined string that uniquely identifies the App. This value must be unique for all Apps on this Account. The `unique_name` value may be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// The date that this App was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date that this App was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this App was last updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date that this App was last updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The URL of this resource.
-	Url   *string                 `json:"url,omitempty"`
+		// The URL of this resource.
+	Url *string `json:"url,omitempty"`
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

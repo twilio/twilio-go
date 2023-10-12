@@ -18,191 +18,192 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
-	"time"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchTaskQueueStatistics'
 type FetchTaskQueueStatisticsParams struct {
-	// Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	// Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-	Minutes *int `json:"Minutes,omitempty"`
-	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	// Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-	TaskChannel *string `json:"TaskChannel,omitempty"`
-	// A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
+    // Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+    EndDate *time.Time `json:"EndDate,omitempty"`
+    // Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+    Minutes *int `json:"Minutes,omitempty"`
+    // Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    StartDate *time.Time `json:"StartDate,omitempty"`
+    // Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+    TaskChannel *string `json:"TaskChannel,omitempty"`
+    // A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+    SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
 }
 
-func (params *FetchTaskQueueStatisticsParams) SetEndDate(EndDate time.Time) *FetchTaskQueueStatisticsParams {
-	params.EndDate = &EndDate
-	return params
+func (params *FetchTaskQueueStatisticsParams) SetEndDate(EndDate time.Time) (*FetchTaskQueueStatisticsParams){
+    params.EndDate = &EndDate
+    return params
 }
-func (params *FetchTaskQueueStatisticsParams) SetMinutes(Minutes int) *FetchTaskQueueStatisticsParams {
-	params.Minutes = &Minutes
-	return params
+func (params *FetchTaskQueueStatisticsParams) SetMinutes(Minutes int) (*FetchTaskQueueStatisticsParams){
+    params.Minutes = &Minutes
+    return params
 }
-func (params *FetchTaskQueueStatisticsParams) SetStartDate(StartDate time.Time) *FetchTaskQueueStatisticsParams {
-	params.StartDate = &StartDate
-	return params
+func (params *FetchTaskQueueStatisticsParams) SetStartDate(StartDate time.Time) (*FetchTaskQueueStatisticsParams){
+    params.StartDate = &StartDate
+    return params
 }
-func (params *FetchTaskQueueStatisticsParams) SetTaskChannel(TaskChannel string) *FetchTaskQueueStatisticsParams {
-	params.TaskChannel = &TaskChannel
-	return params
+func (params *FetchTaskQueueStatisticsParams) SetTaskChannel(TaskChannel string) (*FetchTaskQueueStatisticsParams){
+    params.TaskChannel = &TaskChannel
+    return params
 }
-func (params *FetchTaskQueueStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) *FetchTaskQueueStatisticsParams {
-	params.SplitByWaitTime = &SplitByWaitTime
-	return params
+func (params *FetchTaskQueueStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) (*FetchTaskQueueStatisticsParams){
+    params.SplitByWaitTime = &SplitByWaitTime
+    return params
 }
 
-//
+// 
 func (c *ApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueStatisticsParams) (*TaskrouterV1TaskQueueStatistics, error) {
-	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
-	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
+    path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics"
+        path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+    path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes))
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
-	}
-	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
-	}
+if params != nil && params.EndDate != nil {
+    data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+}
+if params != nil && params.Minutes != nil {
+    data.Set("Minutes", fmt.Sprint(*params.Minutes))
+}
+if params != nil && params.StartDate != nil {
+    data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+}
+if params != nil && params.TaskChannel != nil {
+    data.Set("TaskChannel", *params.TaskChannel)
+}
+if params != nil && params.SplitByWaitTime != nil {
+    data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &TaskrouterV1TaskQueueStatistics{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &TaskrouterV1TaskQueueStatistics{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListTaskQueuesStatistics'
 type ListTaskQueuesStatisticsParams struct {
-	// Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	// The `friendly_name` of the TaskQueue statistics to read.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-	Minutes *int `json:"Minutes,omitempty"`
-	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	// Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-	TaskChannel *string `json:"TaskChannel,omitempty"`
-	// A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+    EndDate *time.Time `json:"EndDate,omitempty"`
+    // The `friendly_name` of the TaskQueue statistics to read.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
+    // Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+    Minutes *int `json:"Minutes,omitempty"`
+    // Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    StartDate *time.Time `json:"StartDate,omitempty"`
+    // Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+    TaskChannel *string `json:"TaskChannel,omitempty"`
+    // A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+    SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListTaskQueuesStatisticsParams) SetEndDate(EndDate time.Time) *ListTaskQueuesStatisticsParams {
-	params.EndDate = &EndDate
-	return params
+func (params *ListTaskQueuesStatisticsParams) SetEndDate(EndDate time.Time) (*ListTaskQueuesStatisticsParams){
+    params.EndDate = &EndDate
+    return params
 }
-func (params *ListTaskQueuesStatisticsParams) SetFriendlyName(FriendlyName string) *ListTaskQueuesStatisticsParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *ListTaskQueuesStatisticsParams) SetFriendlyName(FriendlyName string) (*ListTaskQueuesStatisticsParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
-func (params *ListTaskQueuesStatisticsParams) SetMinutes(Minutes int) *ListTaskQueuesStatisticsParams {
-	params.Minutes = &Minutes
-	return params
+func (params *ListTaskQueuesStatisticsParams) SetMinutes(Minutes int) (*ListTaskQueuesStatisticsParams){
+    params.Minutes = &Minutes
+    return params
 }
-func (params *ListTaskQueuesStatisticsParams) SetStartDate(StartDate time.Time) *ListTaskQueuesStatisticsParams {
-	params.StartDate = &StartDate
-	return params
+func (params *ListTaskQueuesStatisticsParams) SetStartDate(StartDate time.Time) (*ListTaskQueuesStatisticsParams){
+    params.StartDate = &StartDate
+    return params
 }
-func (params *ListTaskQueuesStatisticsParams) SetTaskChannel(TaskChannel string) *ListTaskQueuesStatisticsParams {
-	params.TaskChannel = &TaskChannel
-	return params
+func (params *ListTaskQueuesStatisticsParams) SetTaskChannel(TaskChannel string) (*ListTaskQueuesStatisticsParams){
+    params.TaskChannel = &TaskChannel
+    return params
 }
-func (params *ListTaskQueuesStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) *ListTaskQueuesStatisticsParams {
-	params.SplitByWaitTime = &SplitByWaitTime
-	return params
+func (params *ListTaskQueuesStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) (*ListTaskQueuesStatisticsParams){
+    params.SplitByWaitTime = &SplitByWaitTime
+    return params
 }
-func (params *ListTaskQueuesStatisticsParams) SetPageSize(PageSize int) *ListTaskQueuesStatisticsParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListTaskQueuesStatisticsParams) SetPageSize(PageSize int) (*ListTaskQueuesStatisticsParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListTaskQueuesStatisticsParams) SetLimit(Limit int) *ListTaskQueuesStatisticsParams {
-	params.Limit = &Limit
-	return params
+func (params *ListTaskQueuesStatisticsParams) SetLimit(Limit int) (*ListTaskQueuesStatisticsParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of TaskQueuesStatistics records from the API. Request is executed immediately.
 func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken, pageNumber string) (*ListTaskQueuesStatisticsResponse, error) {
-	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
+    path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
 
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+        path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes))
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
-	}
-	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.EndDate != nil {
+    data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+}
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
+if params != nil && params.Minutes != nil {
+    data.Set("Minutes", fmt.Sprint(*params.Minutes))
+}
+if params != nil && params.StartDate != nil {
+    data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+}
+if params != nil && params.TaskChannel != nil {
+    data.Set("TaskChannel", *params.TaskChannel)
+}
+if params != nil && params.SplitByWaitTime != nil {
+    data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListTaskQueuesStatisticsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListTaskQueuesStatisticsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists TaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -243,6 +244,7 @@ func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *Lis
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamTaskQueuesStatistics(response *ListTaskQueuesStatisticsResponse, params *ListTaskQueuesStatisticsParams, recordChannel chan TaskrouterV1TaskQueuesStatistics, errorChannel chan error) {
 	curRecord := 1
 
@@ -274,19 +276,20 @@ func (c *ApiService) streamTaskQueuesStatistics(response *ListTaskQueuesStatisti
 }
 
 func (c *ApiService) getNextListTaskQueuesStatisticsResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListTaskQueuesStatisticsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListTaskQueuesStatisticsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

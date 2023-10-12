@@ -13,8 +13,13 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // BulkexportsV1DayInstance struct for BulkexportsV1DayInstance
 type BulkexportsV1DayInstance struct {
 	RedirectTo *string `json:"redirect_to,omitempty"`
 }
+
+

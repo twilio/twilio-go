@@ -13,25 +13,30 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // InsightsV1Annotation struct for InsightsV1Annotation
 type InsightsV1Annotation struct {
-	// The unique SID identifier of the Call.
+		// The unique SID identifier of the Call.
 	CallSid *string `json:"call_sid,omitempty"`
-	// The unique SID identifier of the Account.
-	AccountSid        *string `json:"account_sid,omitempty"`
-	AnsweredBy        *string `json:"answered_by,omitempty"`
+		// The unique SID identifier of the Account.
+	AccountSid *string `json:"account_sid,omitempty"`
+	AnsweredBy *string `json:"answered_by,omitempty"`
 	ConnectivityIssue *string `json:"connectivity_issue,omitempty"`
-	// Specifies if the call had any subjective quality issues. Possible values are one or more of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, or `static_noise`.
+		// Specifies if the call had any subjective quality issues. Possible values are one or more of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, or `static_noise`.
 	QualityIssues *[]string `json:"quality_issues,omitempty"`
-	// Specifies if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
+		// Specifies if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
 	Spam *bool `json:"spam,omitempty"`
-	// Specifies the Call Score, if available. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+		// Specifies the Call Score, if available. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
 	CallScore *int `json:"call_score,omitempty"`
-	// Specifies any comments pertaining to the call. Twilio does not treat this field as PII, so no PII should be included in comments.
+		// Specifies any comments pertaining to the call. Twilio does not treat this field as PII, so no PII should be included in comments.
 	Comment *string `json:"comment,omitempty"`
-	// Incident or support ticket associated with this call. The `incident` property is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
+		// Incident or support ticket associated with this call. The `incident` property is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
 	Incident *string `json:"incident,omitempty"`
-	// The URL of this resource.
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

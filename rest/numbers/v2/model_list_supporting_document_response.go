@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListSupportingDocumentResponse struct for ListSupportingDocumentResponse
 type ListSupportingDocumentResponse struct {
-	Results []NumbersV2SupportingDocument         `json:"results,omitempty"`
-	Meta    ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
+	Results []NumbersV2SupportingDocument `json:"results,omitempty"`
+	Meta ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
 }
+
+

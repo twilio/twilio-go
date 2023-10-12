@@ -148,7 +148,7 @@ Name | Type | Description
 
 ## ListSipIpAddress
 
-> []ApiV2010SipIpAddress ListSipIpAddress(ctx, IpAccessControlListSidoptional)
+> ListSipIpAddress200Response ListSipIpAddress(ctx, IpAccessControlListSidoptional)
 
 
 
@@ -175,7 +175,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010SipIpAddress**](ApiV2010SipIpAddress.md)
+[**ListSipIpAddress200Response**](ListSipIpAddress200Response.md)
 
 ### Authorization
 

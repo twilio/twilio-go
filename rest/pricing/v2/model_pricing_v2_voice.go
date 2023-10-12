@@ -13,13 +13,18 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // PricingV2Voice struct for PricingV2Voice
 type PricingV2Voice struct {
-	// The resource name.
+		// The resource name.
 	Name *string `json:"name,omitempty"`
-	// The absolute URL of the resource.
+		// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
-	// The URLs of the related Countries and Numbers resources.
+		// The URLs of the related Countries and Numbers resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

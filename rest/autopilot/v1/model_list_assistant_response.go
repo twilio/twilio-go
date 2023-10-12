@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListAssistantResponse struct for ListAssistantResponse
 type ListAssistantResponse struct {
-	Assistants []AutopilotV1Assistant    `json:"assistants,omitempty"`
-	Meta       ListAssistantResponseMeta `json:"meta,omitempty"`
+	Assistants []AutopilotV1Assistant `json:"assistants,omitempty"`
+	Meta ListAssistantResponseMeta `json:"meta,omitempty"`
 }
+
+

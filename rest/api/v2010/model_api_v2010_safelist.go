@@ -13,11 +13,16 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010Safelist struct for ApiV2010Safelist
 type ApiV2010Safelist struct {
-	// The unique string that we created to identify the SafeList resource.
+		// The unique string that we created to identify the SafeList resource.
 	Sid *string `json:"sid,omitempty"`
-	// The phone number in SafeList.
+		// The phone number in SafeList.
 	PhoneNumber *string `json:"phone_number,omitempty"`
 }
+
+

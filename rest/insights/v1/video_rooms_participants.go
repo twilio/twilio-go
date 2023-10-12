@@ -18,85 +18,88 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Get Video Log Analyzer data for a Room Participant.
-func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid string) (*InsightsV1VideoParticipantSummary, error) {
-	path := "/v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid string, ) (*InsightsV1VideoParticipantSummary, error) {
+    path := "/v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid}"
+        path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+    path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &InsightsV1VideoParticipantSummary{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &InsightsV1VideoParticipantSummary{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListVideoParticipantSummary'
 type ListVideoParticipantSummaryParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListVideoParticipantSummaryParams) SetPageSize(PageSize int) *ListVideoParticipantSummaryParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListVideoParticipantSummaryParams) SetPageSize(PageSize int) (*ListVideoParticipantSummaryParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListVideoParticipantSummaryParams) SetLimit(Limit int) *ListVideoParticipantSummaryParams {
-	params.Limit = &Limit
-	return params
+func (params *ListVideoParticipantSummaryParams) SetLimit(Limit int) (*ListVideoParticipantSummaryParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of VideoParticipantSummary records from the API. Request is executed immediately.
 func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams, pageToken, pageNumber string) (*ListVideoParticipantSummaryResponse, error) {
-	path := "/v1/Video/Rooms/{RoomSid}/Participants"
+    path := "/v1/Video/Rooms/{RoomSid}/Participants"
 
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+        path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+data := url.Values{}
+headers := make(map[string]interface{})
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListVideoParticipantSummaryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &ListVideoParticipantSummaryResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Lists VideoParticipantSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -137,6 +140,7 @@ func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListV
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamVideoParticipantSummary(response *ListVideoParticipantSummaryResponse, params *ListVideoParticipantSummaryParams, recordChannel chan InsightsV1VideoParticipantSummary, errorChannel chan error) {
 	curRecord := 1
 
@@ -168,19 +172,20 @@ func (c *ApiService) streamVideoParticipantSummary(response *ListVideoParticipan
 }
 
 func (c *ApiService) getNextListVideoParticipantSummaryResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListVideoParticipantSummaryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListVideoParticipantSummaryResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

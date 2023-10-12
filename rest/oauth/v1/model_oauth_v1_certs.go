@@ -13,10 +13,15 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // OauthV1Certs struct for OauthV1Certs
 type OauthV1Certs struct {
-	// A collection of certificates where are signed Twilio-issued tokens.
+		// A collection of certificates where are signed Twilio-issued tokens.
 	Keys *interface{} `json:"keys,omitempty"`
-	Url  *string      `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

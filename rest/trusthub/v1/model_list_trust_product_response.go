@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListTrustProductResponse struct for ListTrustProductResponse
 type ListTrustProductResponse struct {
-	Results []TrusthubV1TrustProduct        `json:"results,omitempty"`
-	Meta    ListCustomerProfileResponseMeta `json:"meta,omitempty"`
+	Results []TrusthubV1TrustProduct `json:"results,omitempty"`
+	Meta ListCustomerProfileResponseMeta `json:"meta,omitempty"`
 }
+
+
