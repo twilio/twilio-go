@@ -129,13 +129,15 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	req.Header.Add("User-Agent", userAgent)
 
 	if method == http.MethodPost {
-		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		_, ok := headers["Content-Type"]
+		if !ok {
+			req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		  } 
 	}
 
 	for k, v := range headers {
 		req.Header.Add(k, fmt.Sprint(v))
 	}
-
 	return c.doWithErr(req)
 }
 
