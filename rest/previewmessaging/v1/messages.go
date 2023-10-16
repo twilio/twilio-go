@@ -15,13 +15,9 @@
 package openapi
 
 import (
-	"encoding/json"
-	"fmt"
-	"net/url"
-
-    "github.com/twilio/twilio-go/client"
+    "encoding/json"
+    "net/url"
 )
-
 
 // Optional parameters for the method 'CreateMessages'
 type CreateMessagesParams struct {
@@ -29,7 +25,7 @@ type CreateMessagesParams struct {
     CreateMessagesRequest *CreateMessagesRequest `json:"CreateMessagesRequest,omitempty"`
 }
 
-func (params *CreateMessagesParams) SetCreateMessagesRequest(CreateMessagesRequest CreateMessagesRequest) (*CreateMessagesParams){
+func (params *CreateMessagesParams) SetCreateMessagesRequest(CreateMessagesRequest CreateMessagesRequest) *CreateMessagesParams {
     params.CreateMessagesRequest = &CreateMessagesRequest
     return params
 }
@@ -37,15 +33,19 @@ func (params *CreateMessagesParams) SetCreateMessagesRequest(CreateMessagesReque
 // Send messages to multiple recipients
 func (c *ApiService) CreateMessages(params *CreateMessagesParams) (*MessagingV1CreateMessagesResult, error) {
     path := "/v1/Messages"
-    
-data := url.Values{}
-headers := make(map[string]interface{})
 
-if params != nil && params.CreateMessagesRequest != nil {
-    data.Set("CreateMessagesRequest", fmt.Sprint(*params.CreateMessagesRequest))
-}
-
-
+    data := url.Values{}
+    headers := map[string]interface{}{
+        "Content-Type": "application/json",
+    }
+    if params != nil && params.CreateMessagesRequest != nil {
+        v, err := json.Marshal(*params.CreateMessagesRequest)
+        if err != nil {
+            return nil, err
+        }
+        urlEncodedData := url.QueryEscape(string(v))
+        data.Set("CreateMessagesRequest", urlEncodedData)
+    }
 
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {

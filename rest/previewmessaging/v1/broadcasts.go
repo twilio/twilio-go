@@ -15,13 +15,9 @@
 package openapi
 
 import (
-	"encoding/json"
-	"fmt"
-	"net/url"
-
-    "github.com/twilio/twilio-go/client"
+    "encoding/json"
+    "net/url"
 )
-
 
 // Optional parameters for the method 'CreateBroadcast'
 type CreateBroadcastParams struct {
@@ -29,7 +25,7 @@ type CreateBroadcastParams struct {
     XTwilioRequestKey *string `json:"X-Twilio-Request-Key,omitempty"`
 }
 
-func (params *CreateBroadcastParams) SetXTwilioRequestKey(XTwilioRequestKey string) (*CreateBroadcastParams){
+func (params *CreateBroadcastParams) SetXTwilioRequestKey(XTwilioRequestKey string) *CreateBroadcastParams {
     params.XTwilioRequestKey = &XTwilioRequestKey
     return params
 }
@@ -37,15 +33,13 @@ func (params *CreateBroadcastParams) SetXTwilioRequestKey(XTwilioRequestKey stri
 // Create a new Broadcast
 func (c *ApiService) CreateBroadcast(params *CreateBroadcastParams) (*MessagingV1Broadcast, error) {
     path := "/v1/Broadcasts"
-    
-data := url.Values{}
-headers := make(map[string]interface{})
 
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-
-	if params != nil && params.XTwilioRequestKey != nil {
-		headers["X-Twilio-Request-Key"] = *params.XTwilioRequestKey
-	}
+    if params != nil && params.XTwilioRequestKey != nil {
+        headers["X-Twilio-Request-Key"] = *params.XTwilioRequestKey
+    }
 
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {
