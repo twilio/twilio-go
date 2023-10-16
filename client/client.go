@@ -110,11 +110,10 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 // SendRequest verifies, constructs, and authorizes an HTTP request.
 func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}) (*http.Response, error) {
-	modRawURL := "https://preview.messaging.twilio.com" + rawURL
-
+	
 	contentType := extractContentTypeHeader(headers)
 
-	u, err := url.Parse(modRawURL)
+	u, err := url.Parse(rawURL)
 	if err != nil {
 		return nil, err
 	}
