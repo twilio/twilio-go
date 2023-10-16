@@ -117,7 +117,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if err != nil {
 		return nil, err
 	}
-	
+
 	valueReader := &strings.Reader{}
 	goVersion := runtime.Version()
 	var req *http.Request
