@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListSentenceResponse struct for ListSentenceResponse
 type ListSentenceResponse struct {
-	Sentences []IntelligenceV2Sentence       `json:"sentences,omitempty"`
-	Meta      ListOperatorResultResponseMeta `json:"meta,omitempty"`
+	Sentences []IntelligenceV2Sentence `json:"sentences,omitempty"`
+	Meta ListOperatorResultResponseMeta `json:"meta,omitempty"`
 }
+
+

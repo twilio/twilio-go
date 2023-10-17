@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListAlphaSenderResponse struct for ListAlphaSenderResponse
 type ListAlphaSenderResponse struct {
-	AlphaSenders []MessagingV1AlphaSender    `json:"alpha_senders,omitempty"`
-	Meta         ListAlphaSenderResponseMeta `json:"meta,omitempty"`
+	AlphaSenders []MessagingV1AlphaSender `json:"alpha_senders,omitempty"`
+	Meta ListAlphaSenderResponseMeta `json:"meta,omitempty"`
 }
+
+

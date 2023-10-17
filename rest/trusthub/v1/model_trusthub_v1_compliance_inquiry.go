@@ -13,15 +13,20 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // TrusthubV1ComplianceInquiry struct for TrusthubV1ComplianceInquiry
 type TrusthubV1ComplianceInquiry struct {
-	// The unique ID used to start an embedded compliance registration session.
+		// The unique ID used to start an embedded compliance registration session.
 	InquiryId *string `json:"inquiry_id,omitempty"`
-	// The session token used to start an embedded compliance registration session.
+		// The session token used to start an embedded compliance registration session.
 	InquirySessionToken *string `json:"inquiry_session_token,omitempty"`
-	// The CustomerID matching the Customer Profile that should be resumed or resubmitted for editing.
+		// The CustomerID matching the Customer Profile that should be resumed or resubmitted for editing.
 	CustomerId *string `json:"customer_id,omitempty"`
-	// The URL of this resource.
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

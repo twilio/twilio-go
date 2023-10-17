@@ -18,62 +18,61 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListUserChannelParams) SetPageSize(PageSize int) *ListUserChannelParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListUserChannelParams) SetPageSize(PageSize int) (*ListUserChannelParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListUserChannelParams) SetLimit(Limit int) *ListUserChannelParams {
-	params.Limit = &Limit
-	return params
+func (params *ListUserChannelParams) SetLimit(Limit int) (*ListUserChannelParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of UserChannel records from the API. Request is executed immediately.
 func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, pageToken, pageNumber string) (*ListUserChannelResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels"
+    path := "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels"
 
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListUserChannelResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListUserChannelResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -114,6 +113,7 @@ func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamUserChannel(response *ListUserChannelResponse, params *ListUserChannelParams, recordChannel chan ChatV1UserChannel, errorChannel chan error) {
 	curRecord := 1
 
@@ -145,19 +145,20 @@ func (c *ApiService) streamUserChannel(response *ListUserChannelResponse, params
 }
 
 func (c *ApiService) getNextListUserChannelResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListUserChannelResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListUserChannelResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

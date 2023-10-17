@@ -13,33 +13,35 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // ServerlessV1Service struct for ServerlessV1Service
 type ServerlessV1Service struct {
-	// The unique string that we created to identify the Service resource.
+		// The unique string that we created to identify the Service resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The string that you assigned to describe the Service resource.
+		// The string that you assigned to describe the Service resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// A user-defined string that uniquely identifies the Service resource. It can be used in place of the Service resource's `sid` in the URL to address the Service resource.
+		// A user-defined string that uniquely identifies the Service resource. It can be used in place of the Service resource's `sid` in the URL to address the Service resource.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// Whether to inject Account credentials into a function invocation context.
+		// Whether to inject Account credentials into a function invocation context.
 	IncludeCredentials *bool `json:"include_credentials,omitempty"`
-	// Whether the Service resource's properties and subresources can be edited via the UI.
+		// Whether the Service resource's properties and subresources can be edited via the UI.
 	UiEditable *bool `json:"ui_editable,omitempty"`
-	// The base domain name for this Service, which is a combination of the unique name and a randomly generated string.
+		// The base domain name for this Service, which is a combination of the unique name and a randomly generated string.
 	DomainBase *string `json:"domain_base,omitempty"`
-	// The date and time in GMT when the Service resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the Service resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the Service resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the Service resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the Service resource.
+		// The absolute URL of the Service resource.
 	Url *string `json:"url,omitempty"`
-	// The URLs of the Service's nested resources.
+		// The URLs of the Service's nested resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

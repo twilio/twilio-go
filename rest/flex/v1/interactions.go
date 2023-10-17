@@ -16,96 +16,102 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateInteraction'
 type CreateInteractionParams struct {
-	// The Interaction's channel.
-	Channel *interface{} `json:"Channel,omitempty"`
-	// The Interaction's routing logic.
-	Routing *interface{} `json:"Routing,omitempty"`
-	// The Interaction context sid is used for adding a context lookup sid
-	InteractionContextSid *string `json:"InteractionContextSid,omitempty"`
+    // The Interaction's channel.
+    Channel *interface{} `json:"Channel,omitempty"`
+    // The Interaction's routing logic.
+    Routing *interface{} `json:"Routing,omitempty"`
+    // The Interaction context sid is used for adding a context lookup sid
+    InteractionContextSid *string `json:"InteractionContextSid,omitempty"`
 }
 
-func (params *CreateInteractionParams) SetChannel(Channel interface{}) *CreateInteractionParams {
-	params.Channel = &Channel
-	return params
+func (params *CreateInteractionParams) SetChannel(Channel interface{}) (*CreateInteractionParams){
+    params.Channel = &Channel
+    return params
 }
-func (params *CreateInteractionParams) SetRouting(Routing interface{}) *CreateInteractionParams {
-	params.Routing = &Routing
-	return params
+func (params *CreateInteractionParams) SetRouting(Routing interface{}) (*CreateInteractionParams){
+    params.Routing = &Routing
+    return params
 }
-func (params *CreateInteractionParams) SetInteractionContextSid(InteractionContextSid string) *CreateInteractionParams {
-	params.InteractionContextSid = &InteractionContextSid
-	return params
+func (params *CreateInteractionParams) SetInteractionContextSid(InteractionContextSid string) (*CreateInteractionParams){
+    params.InteractionContextSid = &InteractionContextSid
+    return params
 }
 
 // Create a new Interaction.
 func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1Interaction, error) {
-	path := "/v1/Interactions"
+    path := "/v1/Interactions"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Channel != nil {
+    v, err := json.Marshal(params.Channel)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    if err != nil {
+        return nil, err
+    }
 
-	if params != nil && params.Channel != nil {
-		v, err := json.Marshal(params.Channel)
+    data.Set("Channel", string(v))
+}
+if params != nil && params.Routing != nil {
+    v, err := json.Marshal(params.Routing)
 
-		if err != nil {
-			return nil, err
-		}
+    if err != nil {
+        return nil, err
+    }
 
-		data.Set("Channel", string(v))
-	}
-	if params != nil && params.Routing != nil {
-		v, err := json.Marshal(params.Routing)
-
-		if err != nil {
-			return nil, err
-		}
-
-		data.Set("Routing", string(v))
-	}
-	if params != nil && params.InteractionContextSid != nil {
-		data.Set("InteractionContextSid", *params.InteractionContextSid)
-	}
-
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &FlexV1Interaction{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    data.Set("Routing", string(v))
+}
+if params != nil && params.InteractionContextSid != nil {
+    data.Set("InteractionContextSid", *params.InteractionContextSid)
 }
 
-//
-func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
-	path := "/v1/Interactions/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1Interaction{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1Interaction{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
+}
+
+// 
+func (c *ApiService) FetchInteraction(Sid string, ) (*FlexV1Interaction, error) {
+    path := "/v1/Interactions/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+    data := url.Values{}
+    headers := make(map[string]interface{})
+
+
+
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &FlexV1Interaction{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

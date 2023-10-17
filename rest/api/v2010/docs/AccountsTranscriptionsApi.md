@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## ListTranscription
 
-> []ApiV2010Transcription ListTranscription(ctx, optional)
+> ListTranscription200Response ListTranscription(ctx, optional)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010Transcription**](ApiV2010Transcription.md)
+[**ListTranscription200Response**](ListTranscription200Response.md)
 
 ### Authorization
 

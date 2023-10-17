@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListShortCodeResponse struct for ListShortCodeResponse
 type ListShortCodeResponse struct {
-	ShortCodes []ProxyV1ShortCode          `json:"short_codes,omitempty"`
-	Meta       ListInteractionResponseMeta `json:"meta,omitempty"`
+	ShortCodes []ProxyV1ShortCode `json:"short_codes,omitempty"`
+	Meta ListInteractionResponseMeta `json:"meta,omitempty"`
 }
+
+

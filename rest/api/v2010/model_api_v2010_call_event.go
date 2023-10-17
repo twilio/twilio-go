@@ -13,11 +13,16 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010CallEvent struct for ApiV2010CallEvent
 type ApiV2010CallEvent struct {
-	// Contains a dictionary representing the request of the call.
+		// Contains a dictionary representing the request of the call.
 	Request *interface{} `json:"request,omitempty"`
-	// Contains a dictionary representing the call response, including a list of the call events.
+		// Contains a dictionary representing the call response, including a list of the call events.
 	Response *interface{} `json:"response,omitempty"`
 }
+
+

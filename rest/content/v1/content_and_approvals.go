@@ -19,57 +19,58 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'ListContentAndApprovals'
 type ListContentAndApprovalsParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListContentAndApprovalsParams) SetPageSize(PageSize int) *ListContentAndApprovalsParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListContentAndApprovalsParams) SetPageSize(PageSize int) (*ListContentAndApprovalsParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListContentAndApprovalsParams) SetLimit(Limit int) *ListContentAndApprovalsParams {
-	params.Limit = &Limit
-	return params
+func (params *ListContentAndApprovalsParams) SetLimit(Limit int) (*ListContentAndApprovalsParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of ContentAndApprovals records from the API. Request is executed immediately.
 func (c *ApiService) PageContentAndApprovals(params *ListContentAndApprovalsParams, pageToken, pageNumber string) (*ListContentAndApprovalsResponse, error) {
-	path := "/v1/ContentAndApprovals"
+    path := "/v1/ContentAndApprovals"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListContentAndApprovalsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListContentAndApprovalsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists ContentAndApprovals records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -110,6 +111,7 @@ func (c *ApiService) StreamContentAndApprovals(params *ListContentAndApprovalsPa
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamContentAndApprovals(response *ListContentAndApprovalsResponse, params *ListContentAndApprovalsParams, recordChannel chan ContentV1ContentAndApprovals, errorChannel chan error) {
 	curRecord := 1
 
@@ -141,19 +143,20 @@ func (c *ApiService) streamContentAndApprovals(response *ListContentAndApprovals
 }
 
 func (c *ApiService) getNextListContentAndApprovalsResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListContentAndApprovalsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListContentAndApprovalsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

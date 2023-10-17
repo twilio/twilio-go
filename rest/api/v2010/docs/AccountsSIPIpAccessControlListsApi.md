@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListSipIpAccessControlList
 
-> []ApiV2010SipIpAccessControlList ListSipIpAccessControlList(ctx, optional)
+> ListSipIpAccessControlList200Response ListSipIpAccessControlList(ctx, optional)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010SipIpAccessControlList**](ApiV2010SipIpAccessControlList.md)
+[**ListSipIpAccessControlList200Response**](ListSipIpAccessControlList200Response.md)
 
 ### Authorization
 

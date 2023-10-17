@@ -18,70 +18,69 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'ListSentence'
 type ListSentenceParams struct {
-	// Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
-	Redacted *bool `json:"Redacted,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+    Redacted *bool `json:"Redacted,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListSentenceParams) SetRedacted(Redacted bool) *ListSentenceParams {
-	params.Redacted = &Redacted
-	return params
+func (params *ListSentenceParams) SetRedacted(Redacted bool) (*ListSentenceParams){
+    params.Redacted = &Redacted
+    return params
 }
-func (params *ListSentenceParams) SetPageSize(PageSize int) *ListSentenceParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListSentenceParams) SetPageSize(PageSize int) (*ListSentenceParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListSentenceParams) SetLimit(Limit int) *ListSentenceParams {
-	params.Limit = &Limit
-	return params
+func (params *ListSentenceParams) SetLimit(Limit int) (*ListSentenceParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Sentence records from the API. Request is executed immediately.
 func (c *ApiService) PageSentence(TranscriptSid string, params *ListSentenceParams, pageToken, pageNumber string) (*ListSentenceResponse, error) {
-	path := "/v2/Transcripts/{TranscriptSid}/Sentences"
+    path := "/v2/Transcripts/{TranscriptSid}/Sentences"
 
-	path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
+        path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Redacted != nil {
+    data.Set("Redacted", fmt.Sprint(*params.Redacted))
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.Redacted != nil {
-		data.Set("Redacted", fmt.Sprint(*params.Redacted))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListSentenceResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListSentenceResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists Sentence records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -122,6 +121,7 @@ func (c *ApiService) StreamSentence(TranscriptSid string, params *ListSentencePa
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamSentence(response *ListSentenceResponse, params *ListSentenceParams, recordChannel chan IntelligenceV2Sentence, errorChannel chan error) {
 	curRecord := 1
 
@@ -153,19 +153,20 @@ func (c *ApiService) streamSentence(response *ListSentenceResponse, params *List
 }
 
 func (c *ApiService) getNextListSentenceResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListSentenceResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListSentenceResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

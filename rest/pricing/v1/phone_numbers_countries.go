@@ -18,82 +18,84 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1PhoneNumberCountryInstance, error) {
-	path := "/v1/PhoneNumbers/Countries/{IsoCountry}"
-	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string, ) (*PricingV1PhoneNumberCountryInstance, error) {
+    path := "/v1/PhoneNumbers/Countries/{IsoCountry}"
+        path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	ps := &PricingV1PhoneNumberCountryInstance{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &PricingV1PhoneNumberCountryInstance{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListPhoneNumberCountry'
 type ListPhoneNumberCountryParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListPhoneNumberCountryParams) SetPageSize(PageSize int) *ListPhoneNumberCountryParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListPhoneNumberCountryParams) SetPageSize(PageSize int) (*ListPhoneNumberCountryParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListPhoneNumberCountryParams) SetLimit(Limit int) *ListPhoneNumberCountryParams {
-	params.Limit = &Limit
-	return params
+func (params *ListPhoneNumberCountryParams) SetLimit(Limit int) (*ListPhoneNumberCountryParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of PhoneNumberCountry records from the API. Request is executed immediately.
 func (c *ApiService) PagePhoneNumberCountry(params *ListPhoneNumberCountryParams, pageToken, pageNumber string) (*ListPhoneNumberCountryResponse, error) {
-	path := "/v1/PhoneNumbers/Countries"
+    path := "/v1/PhoneNumbers/Countries"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListPhoneNumberCountryResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListPhoneNumberCountryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists PhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -134,6 +136,7 @@ func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryPara
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamPhoneNumberCountry(response *ListPhoneNumberCountryResponse, params *ListPhoneNumberCountryParams, recordChannel chan PricingV1PhoneNumberCountry, errorChannel chan error) {
 	curRecord := 1
 
@@ -165,19 +168,20 @@ func (c *ApiService) streamPhoneNumberCountry(response *ListPhoneNumberCountryRe
 }
 
 func (c *ApiService) getNextListPhoneNumberCountryResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListPhoneNumberCountryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListPhoneNumberCountryResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

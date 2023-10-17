@@ -19,72 +19,73 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'ListInsightsConversations'
 type ListInsightsConversationsParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
-	// Unique Id of the segment for which conversation details needs to be fetched
-	SegmentId *string `json:"SegmentId,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
+    // Unique Id of the segment for which conversation details needs to be fetched
+    SegmentId *string `json:"SegmentId,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsConversationsParams) SetAuthorization(Authorization string) *ListInsightsConversationsParams {
-	params.Authorization = &Authorization
-	return params
+func (params *ListInsightsConversationsParams) SetAuthorization(Authorization string) (*ListInsightsConversationsParams){
+    params.Authorization = &Authorization
+    return params
 }
-func (params *ListInsightsConversationsParams) SetSegmentId(SegmentId string) *ListInsightsConversationsParams {
-	params.SegmentId = &SegmentId
-	return params
+func (params *ListInsightsConversationsParams) SetSegmentId(SegmentId string) (*ListInsightsConversationsParams){
+    params.SegmentId = &SegmentId
+    return params
 }
-func (params *ListInsightsConversationsParams) SetPageSize(PageSize int) *ListInsightsConversationsParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListInsightsConversationsParams) SetPageSize(PageSize int) (*ListInsightsConversationsParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListInsightsConversationsParams) SetLimit(Limit int) *ListInsightsConversationsParams {
-	params.Limit = &Limit
-	return params
+func (params *ListInsightsConversationsParams) SetLimit(Limit int) (*ListInsightsConversationsParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of InsightsConversations records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsConversations(params *ListInsightsConversationsParams, pageToken, pageNumber string) (*ListInsightsConversationsResponse, error) {
-	path := "/v1/Insights/Conversations"
+    path := "/v1/Insights/Conversations"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.SegmentId != nil {
+    data.Set("SegmentId", *params.SegmentId)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.SegmentId != nil {
-		data.Set("SegmentId", *params.SegmentId)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListInsightsConversationsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListInsightsConversationsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists InsightsConversations records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -125,6 +126,7 @@ func (c *ApiService) StreamInsightsConversations(params *ListInsightsConversatio
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamInsightsConversations(response *ListInsightsConversationsResponse, params *ListInsightsConversationsParams, recordChannel chan FlexV1InsightsConversations, errorChannel chan error) {
 	curRecord := 1
 
@@ -156,19 +158,20 @@ func (c *ApiService) streamInsightsConversations(response *ListInsightsConversat
 }
 
 func (c *ApiService) getNextListInsightsConversationsResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInsightsConversationsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListInsightsConversationsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

@@ -13,11 +13,16 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010AccountTokenIceServers struct for ApiV2010AccountTokenIceServers
 type ApiV2010AccountTokenIceServers struct {
 	Credential string `json:"credential,omitempty"`
-	Username   string `json:"username,omitempty"`
-	Url        string `json:"url,omitempty"`
-	Urls       string `json:"urls,omitempty"`
+	Username string `json:"username,omitempty"`
+	Url string `json:"url,omitempty"`
+	Urls string `json:"urls,omitempty"`
 }
+
+

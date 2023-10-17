@@ -152,7 +152,7 @@ Name | Type | Description
 
 ## ListSipDomain
 
-> []ApiV2010SipDomain ListSipDomain(ctx, optional)
+> ListSipDomain200Response ListSipDomain(ctx, optional)
 
 
 
@@ -175,7 +175,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010SipDomain**](ApiV2010SipDomain.md)
+[**ListSipDomain200Response**](ListSipDomain200Response.md)
 
 ### Authorization
 

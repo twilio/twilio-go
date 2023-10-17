@@ -13,28 +13,30 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MessagingV1ChannelSender struct for MessagingV1ChannelSender
 type MessagingV1ChannelSender struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ChannelSender resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ChannelSender resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the [Service](https://www.twilio.com/docs/messaging/services) the resource is associated with.
+		// The SID of the [Service](https://www.twilio.com/docs/messaging/services) the resource is associated with.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
-	// The unique string that we created to identify the ChannelSender resource.
+		// The unique string that we created to identify the ChannelSender resource.
 	Sid *string `json:"sid,omitempty"`
-	// The unique string that identifies the sender e.g whatsapp:+123456XXXX.
+		// The unique string that identifies the sender e.g whatsapp:+123456XXXX.
 	Sender *string `json:"sender,omitempty"`
-	// A string value that identifies the sender type e.g WhatsApp, Messenger.
+		// A string value that identifies the sender type e.g WhatsApp, Messenger.
 	SenderType *string `json:"sender_type,omitempty"`
-	// The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
+		// The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
 	CountryCode *string `json:"country_code,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	Url         *string    `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

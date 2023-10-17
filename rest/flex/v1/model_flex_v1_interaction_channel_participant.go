@@ -13,15 +13,20 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // FlexV1InteractionChannelParticipant struct for FlexV1InteractionChannelParticipant
 type FlexV1InteractionChannelParticipant struct {
-	// The unique string created by Twilio to identify an Interaction Channel Participant resource.
-	Sid  *string `json:"sid,omitempty"`
+		// The unique string created by Twilio to identify an Interaction Channel Participant resource.
+	Sid *string `json:"sid,omitempty"`
 	Type *string `json:"type,omitempty"`
-	// The Interaction Sid for this channel.
+		// The Interaction Sid for this channel.
 	InteractionSid *string `json:"interaction_sid,omitempty"`
-	// The Channel Sid for this Participant.
+		// The Channel Sid for this Participant.
 	ChannelSid *string `json:"channel_sid,omitempty"`
-	Url        *string `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

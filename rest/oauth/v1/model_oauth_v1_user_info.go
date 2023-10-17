@@ -13,18 +13,23 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // OauthV1UserInfo struct for OauthV1UserInfo
 type OauthV1UserInfo struct {
-	// The URL of the party that will create the token and sign it with its private key.
+		// The URL of the party that will create the token and sign it with its private key.
 	UserSid *string `json:"user_sid,omitempty"`
-	// The first name of the end-user.
+		// The first name of the end-user.
 	FirstName *string `json:"first_name,omitempty"`
-	// The last name of the end-user.
+		// The last name of the end-user.
 	LastName *string `json:"last_name,omitempty"`
-	// The friendly name of the end-user.
+		// The friendly name of the end-user.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The end-user's preferred email address.
+		// The end-user's preferred email address.
 	Email *string `json:"email,omitempty"`
-	Url   *string `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

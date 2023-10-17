@@ -16,73 +16,79 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Returns Style sheet JSON object for the Assistant
-func (c *ApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1StyleSheet, error) {
-	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+func (c *ApiService) FetchStyleSheet(AssistantSid string, ) (*AutopilotV1StyleSheet, error) {
+    path := "/v1/Assistants/{AssistantSid}/StyleSheet"
+        path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &AutopilotV1StyleSheet{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &AutopilotV1StyleSheet{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateStyleSheet'
 type UpdateStyleSheetParams struct {
-	// The JSON string that describes the style sheet object.
-	StyleSheet *interface{} `json:"StyleSheet,omitempty"`
+    // The JSON string that describes the style sheet object.
+    StyleSheet *interface{} `json:"StyleSheet,omitempty"`
 }
 
-func (params *UpdateStyleSheetParams) SetStyleSheet(StyleSheet interface{}) *UpdateStyleSheetParams {
-	params.StyleSheet = &StyleSheet
-	return params
+func (params *UpdateStyleSheetParams) SetStyleSheet(StyleSheet interface{}) (*UpdateStyleSheetParams){
+    params.StyleSheet = &StyleSheet
+    return params
 }
 
 // Updates the style sheet for an Assistant identified by `assistant_sid`.
 func (c *ApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSheetParams) (*AutopilotV1StyleSheet, error) {
-	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+    path := "/v1/Assistants/{AssistantSid}/StyleSheet"
+        path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.StyleSheet != nil {
+    v, err := json.Marshal(params.StyleSheet)
 
-	if params != nil && params.StyleSheet != nil {
-		v, err := json.Marshal(params.StyleSheet)
+    if err != nil {
+        return nil, err
+    }
 
-		if err != nil {
-			return nil, err
-		}
+    data.Set("StyleSheet", string(v))
+}
 
-		data.Set("StyleSheet", string(v))
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &AutopilotV1StyleSheet{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &AutopilotV1StyleSheet{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

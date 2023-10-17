@@ -18,70 +18,69 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'ListEvent'
 type ListEventParams struct {
-	// The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
-	Edge *string `json:"Edge,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
+    Edge *string `json:"Edge,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListEventParams) SetEdge(Edge string) *ListEventParams {
-	params.Edge = &Edge
-	return params
+func (params *ListEventParams) SetEdge(Edge string) (*ListEventParams){
+    params.Edge = &Edge
+    return params
 }
-func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListEventParams) SetPageSize(PageSize int) (*ListEventParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
-	params.Limit = &Limit
-	return params
+func (params *ListEventParams) SetLimit(Limit int) (*ListEventParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Event records from the API. Request is executed immediately.
 func (c *ApiService) PageEvent(CallSid string, params *ListEventParams, pageToken, pageNumber string) (*ListEventResponse, error) {
-	path := "/v1/Voice/{CallSid}/Events"
+    path := "/v1/Voice/{CallSid}/Events"
 
-	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+        path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Edge != nil {
+    data.Set("Edge", *params.Edge)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.Edge != nil {
-		data.Set("Edge", *params.Edge)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListEventResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListEventResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -122,6 +121,7 @@ func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan 
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventParams, recordChannel chan InsightsV1Event, errorChannel chan error) {
 	curRecord := 1
 
@@ -153,19 +153,20 @@ func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventP
 }
 
 func (c *ApiService) getNextListEventResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListEventResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListEventResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

@@ -18,196 +18,199 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
-	"time"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateSession'
 type CreateSessionParams struct {
-	// An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
-	UniqueName *string `json:"UniqueName,omitempty"`
-	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
-	DateExpiry *time.Time `json:"DateExpiry,omitempty"`
-	// The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-	Ttl *int `json:"Ttl,omitempty"`
-	//
-	Mode *string `json:"Mode,omitempty"`
-	//
-	Status *string `json:"Status,omitempty"`
-	// The Participant objects to include in the new session.
-	Participants *[]interface{} `json:"Participants,omitempty"`
+    // An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
+    UniqueName *string `json:"UniqueName,omitempty"`
+    // The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+    DateExpiry *time.Time `json:"DateExpiry,omitempty"`
+    // The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+    Ttl *int `json:"Ttl,omitempty"`
+    // 
+    Mode *string `json:"Mode,omitempty"`
+    // 
+    Status *string `json:"Status,omitempty"`
+    // The Participant objects to include in the new session.
+    Participants *[]interface{} `json:"Participants,omitempty"`
 }
 
-func (params *CreateSessionParams) SetUniqueName(UniqueName string) *CreateSessionParams {
-	params.UniqueName = &UniqueName
-	return params
+func (params *CreateSessionParams) SetUniqueName(UniqueName string) (*CreateSessionParams){
+    params.UniqueName = &UniqueName
+    return params
 }
-func (params *CreateSessionParams) SetDateExpiry(DateExpiry time.Time) *CreateSessionParams {
-	params.DateExpiry = &DateExpiry
-	return params
+func (params *CreateSessionParams) SetDateExpiry(DateExpiry time.Time) (*CreateSessionParams){
+    params.DateExpiry = &DateExpiry
+    return params
 }
-func (params *CreateSessionParams) SetTtl(Ttl int) *CreateSessionParams {
-	params.Ttl = &Ttl
-	return params
+func (params *CreateSessionParams) SetTtl(Ttl int) (*CreateSessionParams){
+    params.Ttl = &Ttl
+    return params
 }
-func (params *CreateSessionParams) SetMode(Mode string) *CreateSessionParams {
-	params.Mode = &Mode
-	return params
+func (params *CreateSessionParams) SetMode(Mode string) (*CreateSessionParams){
+    params.Mode = &Mode
+    return params
 }
-func (params *CreateSessionParams) SetStatus(Status string) *CreateSessionParams {
-	params.Status = &Status
-	return params
+func (params *CreateSessionParams) SetStatus(Status string) (*CreateSessionParams){
+    params.Status = &Status
+    return params
 }
-func (params *CreateSessionParams) SetParticipants(Participants []interface{}) *CreateSessionParams {
-	params.Participants = &Participants
-	return params
+func (params *CreateSessionParams) SetParticipants(Participants []interface{}) (*CreateSessionParams){
+    params.Participants = &Participants
+    return params
 }
 
 // Create a new Session
 func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParams) (*ProxyV1Session, error) {
-	path := "/v1/Services/{ServiceSid}/Sessions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path := "/v1/Services/{ServiceSid}/Sessions"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.UniqueName != nil {
+    data.Set("UniqueName", *params.UniqueName)
+}
+if params != nil && params.DateExpiry != nil {
+    data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
+}
+if params != nil && params.Ttl != nil {
+    data.Set("Ttl", fmt.Sprint(*params.Ttl))
+}
+if params != nil && params.Mode != nil {
+    data.Set("Mode", *params.Mode)
+}
+if params != nil && params.Status != nil {
+    data.Set("Status", *params.Status)
+}
+if params != nil && params.Participants != nil {
+    for _, item  := range *params.Participants {
+        v, err := json.Marshal(item)
 
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
-	}
-	if params != nil && params.DateExpiry != nil {
-		data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
-	}
-	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", fmt.Sprint(*params.Ttl))
-	}
-	if params != nil && params.Mode != nil {
-		data.Set("Mode", *params.Mode)
-	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.Participants != nil {
-		for _, item := range *params.Participants {
-			v, err := json.Marshal(item)
+        if err != nil {
+            return nil, err
+        }
 
-			if err != nil {
-				return nil, err
-			}
+        data.Add("Participants", string(v))
+    }
+}
 
-			data.Add("Participants", string(v))
-		}
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ProxyV1Session{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ProxyV1Session{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Delete a specific Session.
-func (c *ApiService) DeleteSession(ServiceSid string, Sid string) error {
-	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteSession(ServiceSid string, Sid string, ) (error) {
+    path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Fetch a specific Session.
-func (c *ApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1Session, error) {
-	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchSession(ServiceSid string, Sid string, ) (*ProxyV1Session, error) {
+    path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ProxyV1Session{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ProxyV1Session{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListSession'
 type ListSessionParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListSessionParams) SetPageSize(PageSize int) *ListSessionParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListSessionParams) SetPageSize(PageSize int) (*ListSessionParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListSessionParams) SetLimit(Limit int) *ListSessionParams {
-	params.Limit = &Limit
-	return params
+func (params *ListSessionParams) SetLimit(Limit int) (*ListSessionParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Session records from the API. Request is executed immediately.
 func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, pageToken, pageNumber string) (*ListSessionResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Sessions"
+    path := "/v1/Services/{ServiceSid}/Sessions"
 
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListSessionResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListSessionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -248,6 +251,7 @@ func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams)
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamSession(response *ListSessionResponse, params *ListSessionParams, recordChannel chan ProxyV1Session, errorChannel chan error) {
 	curRecord := 1
 
@@ -279,76 +283,78 @@ func (c *ApiService) streamSession(response *ListSessionResponse, params *ListSe
 }
 
 func (c *ApiService) getNextListSessionResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListSessionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListSessionResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateSession'
 type UpdateSessionParams struct {
-	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
-	DateExpiry *time.Time `json:"DateExpiry,omitempty"`
-	// The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-	Ttl *int `json:"Ttl,omitempty"`
-	//
-	Status *string `json:"Status,omitempty"`
+    // The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+    DateExpiry *time.Time `json:"DateExpiry,omitempty"`
+    // The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+    Ttl *int `json:"Ttl,omitempty"`
+    // 
+    Status *string `json:"Status,omitempty"`
 }
 
-func (params *UpdateSessionParams) SetDateExpiry(DateExpiry time.Time) *UpdateSessionParams {
-	params.DateExpiry = &DateExpiry
-	return params
+func (params *UpdateSessionParams) SetDateExpiry(DateExpiry time.Time) (*UpdateSessionParams){
+    params.DateExpiry = &DateExpiry
+    return params
 }
-func (params *UpdateSessionParams) SetTtl(Ttl int) *UpdateSessionParams {
-	params.Ttl = &Ttl
-	return params
+func (params *UpdateSessionParams) SetTtl(Ttl int) (*UpdateSessionParams){
+    params.Ttl = &Ttl
+    return params
 }
-func (params *UpdateSessionParams) SetStatus(Status string) *UpdateSessionParams {
-	params.Status = &Status
-	return params
+func (params *UpdateSessionParams) SetStatus(Status string) (*UpdateSessionParams){
+    params.Status = &Status
+    return params
 }
 
 // Update a specific Session.
 func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *UpdateSessionParams) (*ProxyV1Session, error) {
-	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.DateExpiry != nil {
+    data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
+}
+if params != nil && params.Ttl != nil {
+    data.Set("Ttl", fmt.Sprint(*params.Ttl))
+}
+if params != nil && params.Status != nil {
+    data.Set("Status", *params.Status)
+}
 
-	if params != nil && params.DateExpiry != nil {
-		data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
-	}
-	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", fmt.Sprint(*params.Ttl))
-	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ProxyV1Session{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ProxyV1Session{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

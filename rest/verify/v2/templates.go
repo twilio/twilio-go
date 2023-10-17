@@ -19,66 +19,67 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'ListVerificationTemplate'
 type ListVerificationTemplateParams struct {
-	// String filter used to query templates with a given friendly name.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // String filter used to query templates with a given friendly name.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListVerificationTemplateParams) SetFriendlyName(FriendlyName string) *ListVerificationTemplateParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *ListVerificationTemplateParams) SetFriendlyName(FriendlyName string) (*ListVerificationTemplateParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
-func (params *ListVerificationTemplateParams) SetPageSize(PageSize int) *ListVerificationTemplateParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListVerificationTemplateParams) SetPageSize(PageSize int) (*ListVerificationTemplateParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListVerificationTemplateParams) SetLimit(Limit int) *ListVerificationTemplateParams {
-	params.Limit = &Limit
-	return params
+func (params *ListVerificationTemplateParams) SetLimit(Limit int) (*ListVerificationTemplateParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of VerificationTemplate records from the API. Request is executed immediately.
 func (c *ApiService) PageVerificationTemplate(params *ListVerificationTemplateParams, pageToken, pageNumber string) (*ListVerificationTemplateResponse, error) {
-	path := "/v2/Templates"
+    path := "/v2/Templates"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListVerificationTemplateResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListVerificationTemplateResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists VerificationTemplate records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -119,6 +120,7 @@ func (c *ApiService) StreamVerificationTemplate(params *ListVerificationTemplate
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamVerificationTemplate(response *ListVerificationTemplateResponse, params *ListVerificationTemplateParams, recordChannel chan VerifyV2VerificationTemplate, errorChannel chan error) {
 	curRecord := 1
 
@@ -150,19 +152,20 @@ func (c *ApiService) streamVerificationTemplate(response *ListVerificationTempla
 }
 
 func (c *ApiService) getNextListVerificationTemplateResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListVerificationTemplateResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListVerificationTemplateResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

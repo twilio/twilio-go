@@ -15,26 +15,31 @@
 package openapi
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API.
-func (c *ApiService) DeleteArchivedCall(Date string, Sid string) error {
-	path := "/v1/Archives/{Date}/Calls/{Sid}"
-	path = strings.Replace(path, "{"+"Date"+"}", fmt.Sprint(Date), -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteArchivedCall(Date string, Sid string, ) (error) {
+    path := "/v1/Archives/{Date}/Calls/{Sid}"
+        path = strings.Replace(path, "{"+"Date"+"}", fmt.Sprint(Date), -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }

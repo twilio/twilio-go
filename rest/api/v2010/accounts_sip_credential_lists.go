@@ -18,199 +18,203 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateSipCredentialList'
 type CreateSipCredentialListParams struct {
-	// The unique id of the Account that is responsible for this resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// A human readable descriptive text that describes the CredentialList, up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+    // The unique id of the Account that is responsible for this resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // A human readable descriptive text that describes the CredentialList, up to 64 characters long.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *CreateSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *CreateSipCredentialListParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *CreateSipCredentialListParams) SetPathAccountSid(PathAccountSid string) (*CreateSipCredentialListParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *CreateSipCredentialListParams) SetFriendlyName(FriendlyName string) *CreateSipCredentialListParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *CreateSipCredentialListParams) SetFriendlyName(FriendlyName string) (*CreateSipCredentialListParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
 
 // Create a Credential List
 func (c *ApiService) CreateSipCredentialList(params *CreateSipCredentialListParams) (*ApiV2010SipCredentialList, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
+    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ApiV2010SipCredentialList{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ApiV2010SipCredentialList{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'DeleteSipCredentialList'
 type DeleteSipCredentialListParams struct {
-	// The unique id of the Account that is responsible for this resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // The unique id of the Account that is responsible for this resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
-func (params *DeleteSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *DeleteSipCredentialListParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *DeleteSipCredentialListParams) SetPathAccountSid(PathAccountSid string) (*DeleteSipCredentialListParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
 
 // Delete a Credential List
-func (c *ApiService) DeleteSipCredentialList(Sid string, params *DeleteSipCredentialListParams) error {
-	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteSipCredentialList(Sid string, params *DeleteSipCredentialListParams) (error) {
+    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Optional parameters for the method 'FetchSipCredentialList'
 type FetchSipCredentialListParams struct {
-	// The unique id of the Account that is responsible for this resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // The unique id of the Account that is responsible for this resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
-func (params *FetchSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *FetchSipCredentialListParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *FetchSipCredentialListParams) SetPathAccountSid(PathAccountSid string) (*FetchSipCredentialListParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
 
 // Get a Credential List
 func (c *ApiService) FetchSipCredentialList(Sid string, params *FetchSipCredentialListParams) (*ApiV2010SipCredentialList, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ApiV2010SipCredentialList{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ApiV2010SipCredentialList{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListSipCredentialList'
 type ListSipCredentialListParams struct {
-	// The unique id of the Account that is responsible for this resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The unique id of the Account that is responsible for this resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialListParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *ListSipCredentialListParams) SetPathAccountSid(PathAccountSid string) (*ListSipCredentialListParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *ListSipCredentialListParams) SetPageSize(PageSize int) *ListSipCredentialListParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListSipCredentialListParams) SetPageSize(PageSize int) (*ListSipCredentialListParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListSipCredentialListParams) SetLimit(Limit int) *ListSipCredentialListParams {
-	params.Limit = &Limit
-	return params
+func (params *ListSipCredentialListParams) SetLimit(Limit int) (*ListSipCredentialListParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of SipCredentialList records from the API. Request is executed immediately.
-func (c *ApiService) PageSipCredentialList(params *ListSipCredentialListParams, pageToken, pageNumber string) (*ListSipCredentialListResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
+func (c *ApiService) PageSipCredentialList(params *ListSipCredentialListParams, pageToken, pageNumber string) (*, error) {
+    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
 
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListSipCredentialListResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists SipCredentialList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipCredentialList(params *ListSipCredentialListParams) ([]ApiV2010SipCredentialList, error) {
+func (c *ApiService) ListSipCredentialList(params *ListSipCredentialListParams) (ListSipCredentialList200Response, error) {
 	response, errors := c.StreamSipCredentialList(params)
 
-	records := make([]ApiV2010SipCredentialList, 0)
+	records := make(ListSipCredentialList200Response, 0)
 	for record := range response {
 		records = append(records, record)
 	}
@@ -223,13 +227,13 @@ func (c *ApiService) ListSipCredentialList(params *ListSipCredentialListParams) 
 }
 
 // Streams SipCredentialList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipCredentialList(params *ListSipCredentialListParams) (chan ApiV2010SipCredentialList, chan error) {
+func (c *ApiService) StreamSipCredentialList(params *ListSipCredentialListParams) (chan ListSipCredentialList200Response, chan error) {
 	if params == nil {
 		params = &ListSipCredentialListParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
-	recordChannel := make(chan ApiV2010SipCredentialList, 1)
+	recordChannel := make(chan ListSipCredentialList200Response, 1)
 	errorChannel := make(chan error, 1)
 
 	response, err := c.PageSipCredentialList(params, "", "")
@@ -244,11 +248,12 @@ func (c *ApiService) StreamSipCredentialList(params *ListSipCredentialListParams
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipCredentialList(response *ListSipCredentialListResponse, params *ListSipCredentialListParams, recordChannel chan ApiV2010SipCredentialList, errorChannel chan error) {
+
+func (c *ApiService) streamSipCredentialList(response *, params *ListSipCredentialListParams, recordChannel chan ListSipCredentialList200Response, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
-		responseRecords := response.CredentialLists
+		responseRecords := response.
 		for item := range responseRecords {
 			recordChannel <- responseRecords[item]
 			curRecord += 1
@@ -259,7 +264,7 @@ func (c *ApiService) streamSipCredentialList(response *ListSipCredentialListResp
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSipCredentialListResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -267,76 +272,78 @@ func (c *ApiService) streamSipCredentialList(response *ListSipCredentialListResp
 			break
 		}
 
-		response = record.(*ListSipCredentialListResponse)
+		response = record.(*)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipCredentialListResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+func (c *ApiService) getNext(nextPageUrl string) (interface{}, error) {
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListSipCredentialListResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateSipCredentialList'
 type UpdateSipCredentialListParams struct {
-	// The unique id of the Account that is responsible for this resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// A human readable descriptive text for a CredentialList, up to 64 characters long.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+    // The unique id of the Account that is responsible for this resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // A human readable descriptive text for a CredentialList, up to 64 characters long.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *UpdateSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *UpdateSipCredentialListParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *UpdateSipCredentialListParams) SetPathAccountSid(PathAccountSid string) (*UpdateSipCredentialListParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *UpdateSipCredentialListParams) SetFriendlyName(FriendlyName string) *UpdateSipCredentialListParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *UpdateSipCredentialListParams) SetFriendlyName(FriendlyName string) (*UpdateSipCredentialListParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
 
 // Update a Credential List
 func (c *ApiService) UpdateSipCredentialList(Sid string, params *UpdateSipCredentialListParams) (*ApiV2010SipCredentialList, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ApiV2010SipCredentialList{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ApiV2010SipCredentialList{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

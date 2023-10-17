@@ -18,116 +18,116 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateInteractionChannelParticipant'
 type CreateInteractionChannelParticipantParams struct {
-	//
-	Type *string `json:"Type,omitempty"`
-	// JSON representing the Media Properties for the new Participant.
-	MediaProperties *interface{} `json:"MediaProperties,omitempty"`
+    // 
+    Type *string `json:"Type,omitempty"`
+    // JSON representing the Media Properties for the new Participant.
+    MediaProperties *interface{} `json:"MediaProperties,omitempty"`
 }
 
-func (params *CreateInteractionChannelParticipantParams) SetType(Type string) *CreateInteractionChannelParticipantParams {
-	params.Type = &Type
-	return params
+func (params *CreateInteractionChannelParticipantParams) SetType(Type string) (*CreateInteractionChannelParticipantParams){
+    params.Type = &Type
+    return params
 }
-func (params *CreateInteractionChannelParticipantParams) SetMediaProperties(MediaProperties interface{}) *CreateInteractionChannelParticipantParams {
-	params.MediaProperties = &MediaProperties
-	return params
+func (params *CreateInteractionChannelParticipantParams) SetMediaProperties(MediaProperties interface{}) (*CreateInteractionChannelParticipantParams){
+    params.MediaProperties = &MediaProperties
+    return params
 }
 
 // Add a Participant to a Channel.
 func (c *ApiService) CreateInteractionChannelParticipant(InteractionSid string, ChannelSid string, params *CreateInteractionChannelParticipantParams) (*FlexV1InteractionChannelParticipant, error) {
-	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants"
-	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
-	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+    path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants"
+        path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+    path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Type != nil {
+    data.Set("Type", *params.Type)
+}
+if params != nil && params.MediaProperties != nil {
+    v, err := json.Marshal(params.MediaProperties)
 
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
-	}
-	if params != nil && params.MediaProperties != nil {
-		v, err := json.Marshal(params.MediaProperties)
+    if err != nil {
+        return nil, err
+    }
 
-		if err != nil {
-			return nil, err
-		}
+    data.Set("MediaProperties", string(v))
+}
 
-		data.Set("MediaProperties", string(v))
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &FlexV1InteractionChannelParticipant{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &FlexV1InteractionChannelParticipant{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListInteractionChannelParticipant'
 type ListInteractionChannelParticipantParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInteractionChannelParticipantParams) SetPageSize(PageSize int) *ListInteractionChannelParticipantParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListInteractionChannelParticipantParams) SetPageSize(PageSize int) (*ListInteractionChannelParticipantParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListInteractionChannelParticipantParams) SetLimit(Limit int) *ListInteractionChannelParticipantParams {
-	params.Limit = &Limit
-	return params
+func (params *ListInteractionChannelParticipantParams) SetLimit(Limit int) (*ListInteractionChannelParticipantParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of InteractionChannelParticipant records from the API. Request is executed immediately.
 func (c *ApiService) PageInteractionChannelParticipant(InteractionSid string, ChannelSid string, params *ListInteractionChannelParticipantParams, pageToken, pageNumber string) (*ListInteractionChannelParticipantResponse, error) {
-	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants"
+    path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants"
 
-	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
-	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+        path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+    path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListInteractionChannelParticipantResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListInteractionChannelParticipantResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists InteractionChannelParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -168,6 +168,7 @@ func (c *ApiService) StreamInteractionChannelParticipant(InteractionSid string, 
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamInteractionChannelParticipant(response *ListInteractionChannelParticipantResponse, params *ListInteractionChannelParticipantParams, recordChannel chan FlexV1InteractionChannelParticipant, errorChannel chan error) {
 	curRecord := 1
 
@@ -199,59 +200,61 @@ func (c *ApiService) streamInteractionChannelParticipant(response *ListInteracti
 }
 
 func (c *ApiService) getNextListInteractionChannelParticipantResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInteractionChannelParticipantResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListInteractionChannelParticipantResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateInteractionChannelParticipant'
 type UpdateInteractionChannelParticipantParams struct {
-	//
-	Status *string `json:"Status,omitempty"`
+    // 
+    Status *string `json:"Status,omitempty"`
 }
 
-func (params *UpdateInteractionChannelParticipantParams) SetStatus(Status string) *UpdateInteractionChannelParticipantParams {
-	params.Status = &Status
-	return params
+func (params *UpdateInteractionChannelParticipantParams) SetStatus(Status string) (*UpdateInteractionChannelParticipantParams){
+    params.Status = &Status
+    return params
 }
 
 // Update an existing Channel Participant.
 func (c *ApiService) UpdateInteractionChannelParticipant(InteractionSid string, ChannelSid string, Sid string, params *UpdateInteractionChannelParticipantParams) (*FlexV1InteractionChannelParticipant, error) {
-	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
-	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants/{Sid}"
+        path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+    path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Status != nil {
+    data.Set("Status", *params.Status)
+}
 
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &FlexV1InteractionChannelParticipant{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &FlexV1InteractionChannelParticipant{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

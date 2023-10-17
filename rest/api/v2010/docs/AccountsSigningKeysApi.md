@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListSigningKey
 
-> []ApiV2010SigningKey ListSigningKey(ctx, optional)
+> ListSigningKey200Response ListSigningKey(ctx, optional)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010SigningKey**](ApiV2010SigningKey.md)
+[**ListSigningKey200Response**](ListSigningKey200Response.md)
 
 ### Authorization
 

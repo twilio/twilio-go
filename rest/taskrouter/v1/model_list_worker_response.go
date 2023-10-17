@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListWorkerResponse struct for ListWorkerResponse
 type ListWorkerResponse struct {
-	Workers []TaskrouterV1Worker     `json:"workers,omitempty"`
-	Meta    ListActivityResponseMeta `json:"meta,omitempty"`
+	Workers []TaskrouterV1Worker `json:"workers,omitempty"`
+	Meta ListActivityResponseMeta `json:"meta,omitempty"`
 }
+
+

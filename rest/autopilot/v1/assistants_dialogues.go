@@ -16,30 +16,35 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) FetchDialogue(AssistantSid string, Sid string) (*AutopilotV1Dialogue, error) {
-	path := "/v1/Assistants/{AssistantSid}/Dialogues/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) FetchDialogue(AssistantSid string, Sid string, ) (*AutopilotV1Dialogue, error) {
+    path := "/v1/Assistants/{AssistantSid}/Dialogues/{Sid}"
+        path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	ps := &AutopilotV1Dialogue{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &AutopilotV1Dialogue{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

@@ -13,20 +13,22 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // EventsV1SchemaVersion struct for EventsV1SchemaVersion
 type EventsV1SchemaVersion struct {
-	// The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+		// The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
 	Id *string `json:"id,omitempty"`
-	// The version of this schema.
+		// The version of this schema.
 	SchemaVersion *int `json:"schema_version,omitempty"`
-	// The date the schema version was created, given in ISO 8601 format.
+		// The date the schema version was created, given in ISO 8601 format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The URL of this resource.
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 	Raw *string `json:"raw,omitempty"`
 }
+
+

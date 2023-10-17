@@ -18,141 +18,143 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateBrandVetting'
 type CreateBrandVettingParams struct {
-	//
-	VettingProvider *string `json:"VettingProvider,omitempty"`
-	// The unique ID of the vetting
-	VettingId *string `json:"VettingId,omitempty"`
+    // 
+    VettingProvider *string `json:"VettingProvider,omitempty"`
+    // The unique ID of the vetting
+    VettingId *string `json:"VettingId,omitempty"`
 }
 
-func (params *CreateBrandVettingParams) SetVettingProvider(VettingProvider string) *CreateBrandVettingParams {
-	params.VettingProvider = &VettingProvider
-	return params
+func (params *CreateBrandVettingParams) SetVettingProvider(VettingProvider string) (*CreateBrandVettingParams){
+    params.VettingProvider = &VettingProvider
+    return params
 }
-func (params *CreateBrandVettingParams) SetVettingId(VettingId string) *CreateBrandVettingParams {
-	params.VettingId = &VettingId
-	return params
+func (params *CreateBrandVettingParams) SetVettingId(VettingId string) (*CreateBrandVettingParams){
+    params.VettingId = &VettingId
+    return params
 }
 
-//
+// 
 func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVettingParams) (*MessagingV1BrandVetting, error) {
-	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
-	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
+    path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
+        path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.VettingProvider != nil {
-		data.Set("VettingProvider", *params.VettingProvider)
-	}
-	if params != nil && params.VettingId != nil {
-		data.Set("VettingId", *params.VettingId)
-	}
-
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &MessagingV1BrandVetting{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.VettingProvider != nil {
+    data.Set("VettingProvider", *params.VettingProvider)
+}
+if params != nil && params.VettingId != nil {
+    data.Set("VettingId", *params.VettingId)
 }
 
-//
-func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
-	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
-	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
-	path = strings.Replace(path, "{"+"BrandVettingSid"+"}", BrandVettingSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &MessagingV1BrandVetting{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &MessagingV1BrandVetting{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
+}
+
+// 
+func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string, ) (*MessagingV1BrandVetting, error) {
+    path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
+        path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
+    path = strings.Replace(path, "{"+"BrandVettingSid"+"}", BrandVettingSid, -1)
+
+    data := url.Values{}
+    headers := make(map[string]interface{})
+
+
+
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &MessagingV1BrandVetting{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListBrandVetting'
 type ListBrandVettingParams struct {
-	// The third-party provider of the vettings to read
-	VettingProvider *string `json:"VettingProvider,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The third-party provider of the vettings to read
+    VettingProvider *string `json:"VettingProvider,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListBrandVettingParams) SetVettingProvider(VettingProvider string) *ListBrandVettingParams {
-	params.VettingProvider = &VettingProvider
-	return params
+func (params *ListBrandVettingParams) SetVettingProvider(VettingProvider string) (*ListBrandVettingParams){
+    params.VettingProvider = &VettingProvider
+    return params
 }
-func (params *ListBrandVettingParams) SetPageSize(PageSize int) *ListBrandVettingParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListBrandVettingParams) SetPageSize(PageSize int) (*ListBrandVettingParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListBrandVettingParams) SetLimit(Limit int) *ListBrandVettingParams {
-	params.Limit = &Limit
-	return params
+func (params *ListBrandVettingParams) SetLimit(Limit int) (*ListBrandVettingParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of BrandVetting records from the API. Request is executed immediately.
 func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingParams, pageToken, pageNumber string) (*ListBrandVettingResponse, error) {
-	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
+    path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
 
-	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
+        path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.VettingProvider != nil {
+    data.Set("VettingProvider", *params.VettingProvider)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.VettingProvider != nil {
-		data.Set("VettingProvider", *params.VettingProvider)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListBrandVettingResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListBrandVettingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists BrandVetting records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -193,6 +195,7 @@ func (c *ApiService) StreamBrandVetting(BrandSid string, params *ListBrandVettin
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamBrandVetting(response *ListBrandVettingResponse, params *ListBrandVettingParams, recordChannel chan MessagingV1BrandVetting, errorChannel chan error) {
 	curRecord := 1
 
@@ -224,19 +227,20 @@ func (c *ApiService) streamBrandVetting(response *ListBrandVettingResponse, para
 }
 
 func (c *ApiService) getNextListBrandVettingResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListBrandVettingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListBrandVettingResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

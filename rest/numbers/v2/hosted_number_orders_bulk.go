@@ -16,44 +16,72 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
+
+
+// Host multiple phone numbers on Twilio's platform.
+func (c *ApiService) CreateBulkHostedNumberOrder() (*NumbersV2BulkHostedNumberOrder, error) {
+    path := "/v2/HostedNumber/Orders/Bulk"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+
+
+
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &NumbersV2BulkHostedNumberOrder{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
+}
 
 // Optional parameters for the method 'FetchBulkHostedNumberOrder'
 type FetchBulkHostedNumberOrderParams struct {
-	// Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
-	OrderStatus *string `json:"OrderStatus,omitempty"`
+    // Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
+    OrderStatus *string `json:"OrderStatus,omitempty"`
 }
 
-func (params *FetchBulkHostedNumberOrderParams) SetOrderStatus(OrderStatus string) *FetchBulkHostedNumberOrderParams {
-	params.OrderStatus = &OrderStatus
-	return params
+func (params *FetchBulkHostedNumberOrderParams) SetOrderStatus(OrderStatus string) (*FetchBulkHostedNumberOrderParams){
+    params.OrderStatus = &OrderStatus
+    return params
 }
 
 // Fetch a specific BulkHostedNumberOrder.
 func (c *ApiService) FetchBulkHostedNumberOrder(BulkHostingSid string, params *FetchBulkHostedNumberOrderParams) (*NumbersV2BulkHostedNumberOrder, error) {
-	path := "/v2/HostedNumber/Orders/Bulk/{BulkHostingSid}"
-	path = strings.Replace(path, "{"+"BulkHostingSid"+"}", BulkHostingSid, -1)
+    path := "/v2/HostedNumber/Orders/Bulk/{BulkHostingSid}"
+        path = strings.Replace(path, "{"+"BulkHostingSid"+"}", BulkHostingSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.OrderStatus != nil {
+    data.Set("OrderStatus", *params.OrderStatus)
+}
 
-	if params != nil && params.OrderStatus != nil {
-		data.Set("OrderStatus", *params.OrderStatus)
-	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &NumbersV2BulkHostedNumberOrder{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &NumbersV2BulkHostedNumberOrder{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

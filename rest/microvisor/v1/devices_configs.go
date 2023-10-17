@@ -18,151 +18,155 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateDeviceConfig'
 type CreateDeviceConfigParams struct {
-	// The config key; up to 100 characters.
-	Key *string `json:"Key,omitempty"`
-	// The config value; up to 4096 characters.
-	Value *string `json:"Value,omitempty"`
+    // The config key; up to 100 characters.
+    Key *string `json:"Key,omitempty"`
+    // The config value; up to 4096 characters.
+    Value *string `json:"Value,omitempty"`
 }
 
-func (params *CreateDeviceConfigParams) SetKey(Key string) *CreateDeviceConfigParams {
-	params.Key = &Key
-	return params
+func (params *CreateDeviceConfigParams) SetKey(Key string) (*CreateDeviceConfigParams){
+    params.Key = &Key
+    return params
 }
-func (params *CreateDeviceConfigParams) SetValue(Value string) *CreateDeviceConfigParams {
-	params.Value = &Value
-	return params
+func (params *CreateDeviceConfigParams) SetValue(Value string) (*CreateDeviceConfigParams){
+    params.Value = &Value
+    return params
 }
 
 // Create a config for a Microvisor Device.
 func (c *ApiService) CreateDeviceConfig(DeviceSid string, params *CreateDeviceConfigParams) (*MicrovisorV1DeviceConfig, error) {
-	path := "/v1/Devices/{DeviceSid}/Configs"
-	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+    path := "/v1/Devices/{DeviceSid}/Configs"
+        path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Key != nil {
+    data.Set("Key", *params.Key)
+}
+if params != nil && params.Value != nil {
+    data.Set("Value", *params.Value)
+}
 
-	if params != nil && params.Key != nil {
-		data.Set("Key", *params.Key)
-	}
-	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &MicrovisorV1DeviceConfig{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &MicrovisorV1DeviceConfig{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Delete a config for a Microvisor Device.
-func (c *ApiService) DeleteDeviceConfig(DeviceSid string, Key string) error {
-	path := "/v1/Devices/{DeviceSid}/Configs/{Key}"
-	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
-	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+func (c *ApiService) DeleteDeviceConfig(DeviceSid string, Key string, ) (error) {
+    path := "/v1/Devices/{DeviceSid}/Configs/{Key}"
+        path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+    path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Retrieve a Config for a Device.
-func (c *ApiService) FetchDeviceConfig(DeviceSid string, Key string) (*MicrovisorV1DeviceConfig, error) {
-	path := "/v1/Devices/{DeviceSid}/Configs/{Key}"
-	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
-	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+func (c *ApiService) FetchDeviceConfig(DeviceSid string, Key string, ) (*MicrovisorV1DeviceConfig, error) {
+    path := "/v1/Devices/{DeviceSid}/Configs/{Key}"
+        path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+    path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &MicrovisorV1DeviceConfig{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &MicrovisorV1DeviceConfig{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListDeviceConfig'
 type ListDeviceConfigParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListDeviceConfigParams) SetPageSize(PageSize int) *ListDeviceConfigParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListDeviceConfigParams) SetPageSize(PageSize int) (*ListDeviceConfigParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListDeviceConfigParams) SetLimit(Limit int) *ListDeviceConfigParams {
-	params.Limit = &Limit
-	return params
+func (params *ListDeviceConfigParams) SetLimit(Limit int) (*ListDeviceConfigParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of DeviceConfig records from the API. Request is executed immediately.
 func (c *ApiService) PageDeviceConfig(DeviceSid string, params *ListDeviceConfigParams, pageToken, pageNumber string) (*ListDeviceConfigResponse, error) {
-	path := "/v1/Devices/{DeviceSid}/Configs"
+    path := "/v1/Devices/{DeviceSid}/Configs"
 
-	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+        path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListDeviceConfigResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListDeviceConfigResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists DeviceConfig records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -203,6 +207,7 @@ func (c *ApiService) StreamDeviceConfig(DeviceSid string, params *ListDeviceConf
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamDeviceConfig(response *ListDeviceConfigResponse, params *ListDeviceConfigParams, recordChannel chan MicrovisorV1DeviceConfig, errorChannel chan error) {
 	curRecord := 1
 
@@ -234,58 +239,60 @@ func (c *ApiService) streamDeviceConfig(response *ListDeviceConfigResponse, para
 }
 
 func (c *ApiService) getNextListDeviceConfigResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListDeviceConfigResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListDeviceConfigResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateDeviceConfig'
 type UpdateDeviceConfigParams struct {
-	// The config value; up to 4096 characters.
-	Value *string `json:"Value,omitempty"`
+    // The config value; up to 4096 characters.
+    Value *string `json:"Value,omitempty"`
 }
 
-func (params *UpdateDeviceConfigParams) SetValue(Value string) *UpdateDeviceConfigParams {
-	params.Value = &Value
-	return params
+func (params *UpdateDeviceConfigParams) SetValue(Value string) (*UpdateDeviceConfigParams){
+    params.Value = &Value
+    return params
 }
 
 // Update a config for a Microvisor Device.
 func (c *ApiService) UpdateDeviceConfig(DeviceSid string, Key string, params *UpdateDeviceConfigParams) (*MicrovisorV1DeviceConfig, error) {
-	path := "/v1/Devices/{DeviceSid}/Configs/{Key}"
-	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
-	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+    path := "/v1/Devices/{DeviceSid}/Configs/{Key}"
+        path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+    path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Value != nil {
+    data.Set("Value", *params.Value)
+}
 
-	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &MicrovisorV1DeviceConfig{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &MicrovisorV1DeviceConfig{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

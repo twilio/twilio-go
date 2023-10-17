@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListFieldTypeResponse struct for ListFieldTypeResponse
 type ListFieldTypeResponse struct {
-	FieldTypes []AutopilotV1FieldType    `json:"field_types,omitempty"`
-	Meta       ListAssistantResponseMeta `json:"meta,omitempty"`
+	FieldTypes []AutopilotV1FieldType `json:"field_types,omitempty"`
+	Meta ListAssistantResponseMeta `json:"meta,omitempty"`
 }
+
+

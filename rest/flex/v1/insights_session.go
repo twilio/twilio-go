@@ -16,42 +16,47 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateInsightsSession'
 type CreateInsightsSessionParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
 }
 
-func (params *CreateInsightsSessionParams) SetAuthorization(Authorization string) *CreateInsightsSessionParams {
-	params.Authorization = &Authorization
-	return params
+func (params *CreateInsightsSessionParams) SetAuthorization(Authorization string) (*CreateInsightsSessionParams){
+    params.Authorization = &Authorization
+    return params
 }
 
 // To obtain session details for fetching reports and dashboards
 func (c *ApiService) CreateInsightsSession(params *CreateInsightsSessionParams) (*FlexV1InsightsSession, error) {
-	path := "/v1/Insights/Session"
+    path := "/v1/Insights/Session"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1InsightsSession{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1InsightsSession{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }

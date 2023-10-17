@@ -18,161 +18,166 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateEndUser'
 type CreateEndUserParams struct {
-	// The string that you assigned to describe the resource.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The type of end user of the Bundle resource - can be `individual` or `business`.
-	Type *string `json:"Type,omitempty"`
-	// The set of parameters that are the attributes of the End User resource which are derived End User Types.
-	Attributes *interface{} `json:"Attributes,omitempty"`
+    // The string that you assigned to describe the resource.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
+    // The type of end user of the Bundle resource - can be `individual` or `business`.
+    Type *string `json:"Type,omitempty"`
+    // The set of parameters that are the attributes of the End User resource which are derived End User Types.
+    Attributes *interface{} `json:"Attributes,omitempty"`
 }
 
-func (params *CreateEndUserParams) SetFriendlyName(FriendlyName string) *CreateEndUserParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *CreateEndUserParams) SetFriendlyName(FriendlyName string) (*CreateEndUserParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
-func (params *CreateEndUserParams) SetType(Type string) *CreateEndUserParams {
-	params.Type = &Type
-	return params
+func (params *CreateEndUserParams) SetType(Type string) (*CreateEndUserParams){
+    params.Type = &Type
+    return params
 }
-func (params *CreateEndUserParams) SetAttributes(Attributes interface{}) *CreateEndUserParams {
-	params.Attributes = &Attributes
-	return params
+func (params *CreateEndUserParams) SetAttributes(Attributes interface{}) (*CreateEndUserParams){
+    params.Attributes = &Attributes
+    return params
 }
 
 // Create a new End User.
 func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*TrusthubV1EndUser, error) {
-	path := "/v1/EndUsers"
+    path := "/v1/EndUsers"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
+if params != nil && params.Type != nil {
+    data.Set("Type", *params.Type)
+}
+if params != nil && params.Attributes != nil {
+    v, err := json.Marshal(params.Attributes)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    if err != nil {
+        return nil, err
+    }
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
-	}
-	if params != nil && params.Attributes != nil {
-		v, err := json.Marshal(params.Attributes)
+    data.Set("Attributes", string(v))
+}
 
-		if err != nil {
-			return nil, err
-		}
 
-		data.Set("Attributes", string(v))
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &TrusthubV1EndUser{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &TrusthubV1EndUser{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Delete a specific End User.
-func (c *ApiService) DeleteEndUser(Sid string) error {
-	path := "/v1/EndUsers/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteEndUser(Sid string, ) (error) {
+    path := "/v1/EndUsers/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Fetch specific End User Instance.
-func (c *ApiService) FetchEndUser(Sid string) (*TrusthubV1EndUser, error) {
-	path := "/v1/EndUsers/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchEndUser(Sid string, ) (*TrusthubV1EndUser, error) {
+    path := "/v1/EndUsers/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &TrusthubV1EndUser{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &TrusthubV1EndUser{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListEndUser'
 type ListEndUserParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListEndUserParams) SetPageSize(PageSize int) *ListEndUserParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListEndUserParams) SetPageSize(PageSize int) (*ListEndUserParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListEndUserParams) SetLimit(Limit int) *ListEndUserParams {
-	params.Limit = &Limit
-	return params
+func (params *ListEndUserParams) SetLimit(Limit int) (*ListEndUserParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of EndUser records from the API. Request is executed immediately.
 func (c *ApiService) PageEndUser(params *ListEndUserParams, pageToken, pageNumber string) (*ListEndUserResponse, error) {
-	path := "/v1/EndUsers"
+    path := "/v1/EndUsers"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListEndUserResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListEndUserResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists EndUser records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -213,6 +218,7 @@ func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan TrusthubV1En
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamEndUser(response *ListEndUserResponse, params *ListEndUserParams, recordChannel chan TrusthubV1EndUser, errorChannel chan error) {
 	curRecord := 1
 
@@ -244,72 +250,74 @@ func (c *ApiService) streamEndUser(response *ListEndUserResponse, params *ListEn
 }
 
 func (c *ApiService) getNextListEndUserResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListEndUserResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListEndUserResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateEndUser'
 type UpdateEndUserParams struct {
-	// The string that you assigned to describe the resource.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The set of parameters that are the attributes of the End User resource which are derived End User Types.
-	Attributes *interface{} `json:"Attributes,omitempty"`
+    // The string that you assigned to describe the resource.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
+    // The set of parameters that are the attributes of the End User resource which are derived End User Types.
+    Attributes *interface{} `json:"Attributes,omitempty"`
 }
 
-func (params *UpdateEndUserParams) SetFriendlyName(FriendlyName string) *UpdateEndUserParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *UpdateEndUserParams) SetFriendlyName(FriendlyName string) (*UpdateEndUserParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
-func (params *UpdateEndUserParams) SetAttributes(Attributes interface{}) *UpdateEndUserParams {
-	params.Attributes = &Attributes
-	return params
+func (params *UpdateEndUserParams) SetAttributes(Attributes interface{}) (*UpdateEndUserParams){
+    params.Attributes = &Attributes
+    return params
 }
 
 // Update an existing End User.
 func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*TrusthubV1EndUser, error) {
-	path := "/v1/EndUsers/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/EndUsers/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
+if params != nil && params.Attributes != nil {
+    v, err := json.Marshal(params.Attributes)
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Attributes != nil {
-		v, err := json.Marshal(params.Attributes)
+    if err != nil {
+        return nil, err
+    }
 
-		if err != nil {
-			return nil, err
-		}
+    data.Set("Attributes", string(v))
+}
 
-		data.Set("Attributes", string(v))
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &TrusthubV1EndUser{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &TrusthubV1EndUser{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

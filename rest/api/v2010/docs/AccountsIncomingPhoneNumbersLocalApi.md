@@ -73,7 +73,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumberLocal
 
-> []ApiV2010IncomingPhoneNumberLocal ListIncomingPhoneNumberLocal(ctx, optional)
+> ListIncomingPhoneNumberLocal200Response ListIncomingPhoneNumberLocal(ctx, optional)
 
 
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010IncomingPhoneNumberLocal**](ApiV2010IncomingPhoneNumberLocal.md)
+[**ListIncomingPhoneNumberLocal200Response**](ListIncomingPhoneNumberLocal200Response.md)
 
 ### Authorization
 

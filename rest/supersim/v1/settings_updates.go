@@ -19,75 +19,76 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'ListSettingsUpdate'
 type ListSettingsUpdateParams struct {
-	// Filter the Settings Updates by a Super SIM's SID or UniqueName.
-	Sim *string `json:"Sim,omitempty"`
-	// Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
-	Status *string `json:"Status,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // Filter the Settings Updates by a Super SIM's SID or UniqueName.
+    Sim *string `json:"Sim,omitempty"`
+    // Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
+    Status *string `json:"Status,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListSettingsUpdateParams) SetSim(Sim string) *ListSettingsUpdateParams {
-	params.Sim = &Sim
-	return params
+func (params *ListSettingsUpdateParams) SetSim(Sim string) (*ListSettingsUpdateParams){
+    params.Sim = &Sim
+    return params
 }
-func (params *ListSettingsUpdateParams) SetStatus(Status string) *ListSettingsUpdateParams {
-	params.Status = &Status
-	return params
+func (params *ListSettingsUpdateParams) SetStatus(Status string) (*ListSettingsUpdateParams){
+    params.Status = &Status
+    return params
 }
-func (params *ListSettingsUpdateParams) SetPageSize(PageSize int) *ListSettingsUpdateParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListSettingsUpdateParams) SetPageSize(PageSize int) (*ListSettingsUpdateParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListSettingsUpdateParams) SetLimit(Limit int) *ListSettingsUpdateParams {
-	params.Limit = &Limit
-	return params
+func (params *ListSettingsUpdateParams) SetLimit(Limit int) (*ListSettingsUpdateParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of SettingsUpdate records from the API. Request is executed immediately.
 func (c *ApiService) PageSettingsUpdate(params *ListSettingsUpdateParams, pageToken, pageNumber string) (*ListSettingsUpdateResponse, error) {
-	path := "/v1/SettingsUpdates"
+    path := "/v1/SettingsUpdates"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Sim != nil {
+    data.Set("Sim", *params.Sim)
+}
+if params != nil && params.Status != nil {
+    data.Set("Status", *params.Status)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
-	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListSettingsUpdateResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListSettingsUpdateResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists SettingsUpdate records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -128,6 +129,7 @@ func (c *ApiService) StreamSettingsUpdate(params *ListSettingsUpdateParams) (cha
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamSettingsUpdate(response *ListSettingsUpdateResponse, params *ListSettingsUpdateParams, recordChannel chan SupersimV1SettingsUpdate, errorChannel chan error) {
 	curRecord := 1
 
@@ -159,19 +161,20 @@ func (c *ApiService) streamSettingsUpdate(response *ListSettingsUpdateResponse, 
 }
 
 func (c *ApiService) getNextListSettingsUpdateResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListSettingsUpdateResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListSettingsUpdateResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

@@ -13,40 +13,42 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // IntelligenceV2Service struct for IntelligenceV2Service
 type IntelligenceV2Service struct {
-	// The unique SID identifier of the Account the Service belongs to.
+		// The unique SID identifier of the Account the Service belongs to.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
+		// Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
 	AutoRedaction *bool `json:"auto_redaction,omitempty"`
-	// Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
+		// Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
 	MediaRedaction *bool `json:"media_redaction,omitempty"`
-	// Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
+		// Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
 	AutoTranscribe *bool `json:"auto_transcribe,omitempty"`
-	// Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
+		// Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
 	DataLogging *bool `json:"data_logging,omitempty"`
-	// The date that this Service was created, given in ISO 8601 format.
+		// The date that this Service was created, given in ISO 8601 format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this Service was updated, given in ISO 8601 format.
+		// The date that this Service was updated, given in ISO 8601 format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// A human readable description of this resource, up to 64 characters.
+		// A human readable description of this resource, up to 64 characters.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The default language code of the audio.
+		// The default language code of the audio.
 	LanguageCode *string `json:"language_code,omitempty"`
-	// A 34 character string that uniquely identifies this Service.
+		// A 34 character string that uniquely identifies this Service.
 	Sid *string `json:"sid,omitempty"`
-	// Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
+		// Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// The URL of this resource.
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
-	// The URL Twilio will request when executing the Webhook.
-	WebhookUrl        *string `json:"webhook_url,omitempty"`
+		// The URL Twilio will request when executing the Webhook.
+	WebhookUrl *string `json:"webhook_url,omitempty"`
 	WebhookHttpMethod *string `json:"webhook_http_method,omitempty"`
-	// The version number of this Service.
+		// The version number of this Service.
 	Version *int `json:"version,omitempty"`
 }
+
+

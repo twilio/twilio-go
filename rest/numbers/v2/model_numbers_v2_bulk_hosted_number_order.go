@@ -13,28 +13,30 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // NumbersV2BulkHostedNumberOrder struct for NumbersV2BulkHostedNumberOrder
 type NumbersV2BulkHostedNumberOrder struct {
-	// A 34 character string that uniquely identifies this BulkHostedNumberOrder.
+		// A 34 character string that uniquely identifies this BulkHostedNumberOrder.
 	BulkHostingSid *string `json:"bulk_hosting_sid,omitempty"`
-	RequestStatus  *string `json:"request_status,omitempty"`
-	// A 128 character string that is a human-readable text that describes this resource.
+	RequestStatus *string `json:"request_status,omitempty"`
+		// A 128 character string that is a human-readable text that describes this resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// Email address used for send notifications about this Bulk hosted number request.
+		// Email address used for send notifications about this Bulk hosted number request.
 	NotificationEmail *string `json:"notification_email,omitempty"`
-	// The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this resource was completed, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date that this resource was completed, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCompleted *time.Time `json:"date_completed,omitempty"`
-	// The URL of this BulkHostedNumberOrder resource.
+		// The URL of this BulkHostedNumberOrder resource.
 	Url *string `json:"url,omitempty"`
-	// The total count of phone numbers in this Bulk hosting request.
+		// The total count of phone numbers in this Bulk hosting request.
 	TotalCount *int `json:"total_count,omitempty"`
-	// Contains a list of all the individual hosting orders and their information, for this Bulk request. Each result object is grouped by its order status. To see a complete list of order status, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
+		// Contains a list of all the individual hosting orders and their information, for this Bulk request. Each result object is grouped by its order status. To see a complete list of order status, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
 	Results *[]interface{} `json:"results,omitempty"`
 }
+
+

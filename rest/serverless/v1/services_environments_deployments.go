@@ -18,126 +18,128 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateDeployment'
 type CreateDeploymentParams struct {
-	// The SID of the Build for the Deployment.
-	BuildSid *string `json:"BuildSid,omitempty"`
+    // The SID of the Build for the Deployment.
+    BuildSid *string `json:"BuildSid,omitempty"`
 }
 
-func (params *CreateDeploymentParams) SetBuildSid(BuildSid string) *CreateDeploymentParams {
-	params.BuildSid = &BuildSid
-	return params
+func (params *CreateDeploymentParams) SetBuildSid(BuildSid string) (*CreateDeploymentParams){
+    params.BuildSid = &BuildSid
+    return params
 }
 
 // Create a new Deployment.
 func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, params *CreateDeploymentParams) (*ServerlessV1Deployment, error) {
-	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+    path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.BuildSid != nil {
+    data.Set("BuildSid", *params.BuildSid)
+}
 
-	if params != nil && params.BuildSid != nil {
-		data.Set("BuildSid", *params.BuildSid)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ServerlessV1Deployment{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ServerlessV1Deployment{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Retrieve a specific Deployment.
-func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Deployment, error) {
-	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, Sid string, ) (*ServerlessV1Deployment, error) {
+    path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ServerlessV1Deployment{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ServerlessV1Deployment{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListDeployment'
 type ListDeploymentParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListDeploymentParams) SetPageSize(PageSize int) *ListDeploymentParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListDeploymentParams) SetPageSize(PageSize int) (*ListDeploymentParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListDeploymentParams) SetLimit(Limit int) *ListDeploymentParams {
-	params.Limit = &Limit
-	return params
+func (params *ListDeploymentParams) SetLimit(Limit int) (*ListDeploymentParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Deployment records from the API. Request is executed immediately.
 func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, pageToken, pageNumber string) (*ListDeploymentResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
+    path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
 
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListDeploymentResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListDeploymentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists Deployment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -178,6 +180,7 @@ func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, 
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamDeployment(response *ListDeploymentResponse, params *ListDeploymentParams, recordChannel chan ServerlessV1Deployment, errorChannel chan error) {
 	curRecord := 1
 
@@ -209,19 +212,20 @@ func (c *ApiService) streamDeployment(response *ListDeploymentResponse, params *
 }
 
 func (c *ApiService) getNextListDeploymentResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListDeploymentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListDeploymentResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

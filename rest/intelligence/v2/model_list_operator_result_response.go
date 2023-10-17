@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListOperatorResultResponse struct for ListOperatorResultResponse
 type ListOperatorResultResponse struct {
 	OperatorResults []IntelligenceV2OperatorResult `json:"operator_results,omitempty"`
-	Meta            ListOperatorResultResponseMeta `json:"meta,omitempty"`
+	Meta ListOperatorResultResponseMeta `json:"meta,omitempty"`
 }
+
+

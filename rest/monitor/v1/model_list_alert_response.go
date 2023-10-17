@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListAlertResponse struct for ListAlertResponse
 type ListAlertResponse struct {
-	Alerts []MonitorV1Alert      `json:"alerts,omitempty"`
-	Meta   ListAlertResponseMeta `json:"meta,omitempty"`
+	Alerts []MonitorV1Alert `json:"alerts,omitempty"`
+	Meta ListAlertResponseMeta `json:"meta,omitempty"`
 }
+
+

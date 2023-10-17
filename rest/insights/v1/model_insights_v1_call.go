@@ -13,10 +13,15 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // InsightsV1Call struct for InsightsV1Call
 type InsightsV1Call struct {
-	Sid   *string                 `json:"sid,omitempty"`
-	Url   *string                 `json:"url,omitempty"`
+	Sid *string `json:"sid,omitempty"`
+	Url *string `json:"url,omitempty"`
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

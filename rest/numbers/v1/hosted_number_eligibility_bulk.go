@@ -16,29 +16,58 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
+
+// Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
+func (c *ApiService) CreateBulkEligibility() (*NumbersV1BulkEligibility, error) {
+    path := "/v1/HostedNumber/Eligibility/Bulk"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+
+
+
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &NumbersV1BulkEligibility{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
+}
+
 // Fetch an eligibility bulk check that you requested to host in Twilio.
-func (c *ApiService) FetchBulkEligibility(RequestId string) (*NumbersV1BulkEligibility, error) {
-	path := "/v1/HostedNumber/Eligibility/Bulk/{RequestId}"
-	path = strings.Replace(path, "{"+"RequestId"+"}", RequestId, -1)
+func (c *ApiService) FetchBulkEligibility(RequestId string, ) (*NumbersV1BulkEligibility, error) {
+    path := "/v1/HostedNumber/Eligibility/Bulk/{RequestId}"
+        path = strings.Replace(path, "{"+"RequestId"+"}", RequestId, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &NumbersV1BulkEligibility{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &NumbersV1BulkEligibility{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

@@ -18,151 +18,155 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateDeviceSecret'
 type CreateDeviceSecretParams struct {
-	// The secret key; up to 100 characters.
-	Key *string `json:"Key,omitempty"`
-	// The secret value; up to 4096 characters.
-	Value *string `json:"Value,omitempty"`
+    // The secret key; up to 100 characters.
+    Key *string `json:"Key,omitempty"`
+    // The secret value; up to 4096 characters.
+    Value *string `json:"Value,omitempty"`
 }
 
-func (params *CreateDeviceSecretParams) SetKey(Key string) *CreateDeviceSecretParams {
-	params.Key = &Key
-	return params
+func (params *CreateDeviceSecretParams) SetKey(Key string) (*CreateDeviceSecretParams){
+    params.Key = &Key
+    return params
 }
-func (params *CreateDeviceSecretParams) SetValue(Value string) *CreateDeviceSecretParams {
-	params.Value = &Value
-	return params
+func (params *CreateDeviceSecretParams) SetValue(Value string) (*CreateDeviceSecretParams){
+    params.Value = &Value
+    return params
 }
 
 // Create a secret for a Microvisor Device.
 func (c *ApiService) CreateDeviceSecret(DeviceSid string, params *CreateDeviceSecretParams) (*MicrovisorV1DeviceSecret, error) {
-	path := "/v1/Devices/{DeviceSid}/Secrets"
-	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+    path := "/v1/Devices/{DeviceSid}/Secrets"
+        path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Key != nil {
+    data.Set("Key", *params.Key)
+}
+if params != nil && params.Value != nil {
+    data.Set("Value", *params.Value)
+}
 
-	if params != nil && params.Key != nil {
-		data.Set("Key", *params.Key)
-	}
-	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &MicrovisorV1DeviceSecret{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &MicrovisorV1DeviceSecret{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Delete a secret for a Microvisor Device.
-func (c *ApiService) DeleteDeviceSecret(DeviceSid string, Key string) error {
-	path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
-	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
-	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+func (c *ApiService) DeleteDeviceSecret(DeviceSid string, Key string, ) (error) {
+    path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
+        path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+    path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Retrieve a Secret for a Device.
-func (c *ApiService) FetchDeviceSecret(DeviceSid string, Key string) (*MicrovisorV1DeviceSecret, error) {
-	path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
-	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
-	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+func (c *ApiService) FetchDeviceSecret(DeviceSid string, Key string, ) (*MicrovisorV1DeviceSecret, error) {
+    path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
+        path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+    path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &MicrovisorV1DeviceSecret{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &MicrovisorV1DeviceSecret{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListDeviceSecret'
 type ListDeviceSecretParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListDeviceSecretParams) SetPageSize(PageSize int) *ListDeviceSecretParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListDeviceSecretParams) SetPageSize(PageSize int) (*ListDeviceSecretParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListDeviceSecretParams) SetLimit(Limit int) *ListDeviceSecretParams {
-	params.Limit = &Limit
-	return params
+func (params *ListDeviceSecretParams) SetLimit(Limit int) (*ListDeviceSecretParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of DeviceSecret records from the API. Request is executed immediately.
 func (c *ApiService) PageDeviceSecret(DeviceSid string, params *ListDeviceSecretParams, pageToken, pageNumber string) (*ListDeviceSecretResponse, error) {
-	path := "/v1/Devices/{DeviceSid}/Secrets"
+    path := "/v1/Devices/{DeviceSid}/Secrets"
 
-	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+        path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListDeviceSecretResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListDeviceSecretResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists DeviceSecret records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -203,6 +207,7 @@ func (c *ApiService) StreamDeviceSecret(DeviceSid string, params *ListDeviceSecr
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamDeviceSecret(response *ListDeviceSecretResponse, params *ListDeviceSecretParams, recordChannel chan MicrovisorV1DeviceSecret, errorChannel chan error) {
 	curRecord := 1
 
@@ -234,58 +239,60 @@ func (c *ApiService) streamDeviceSecret(response *ListDeviceSecretResponse, para
 }
 
 func (c *ApiService) getNextListDeviceSecretResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListDeviceSecretResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListDeviceSecretResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateDeviceSecret'
 type UpdateDeviceSecretParams struct {
-	// The secret value; up to 4096 characters.
-	Value *string `json:"Value,omitempty"`
+    // The secret value; up to 4096 characters.
+    Value *string `json:"Value,omitempty"`
 }
 
-func (params *UpdateDeviceSecretParams) SetValue(Value string) *UpdateDeviceSecretParams {
-	params.Value = &Value
-	return params
+func (params *UpdateDeviceSecretParams) SetValue(Value string) (*UpdateDeviceSecretParams){
+    params.Value = &Value
+    return params
 }
 
 // Update a secret for a Microvisor Device.
 func (c *ApiService) UpdateDeviceSecret(DeviceSid string, Key string, params *UpdateDeviceSecretParams) (*MicrovisorV1DeviceSecret, error) {
-	path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
-	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
-	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+    path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
+        path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
+    path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Value != nil {
+    data.Set("Value", *params.Value)
+}
 
-	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &MicrovisorV1DeviceSecret{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &MicrovisorV1DeviceSecret{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## ListCallNotification
 
-> []ApiV2010CallNotification ListCallNotification(ctx, CallSidoptional)
+> ListCallNotification200Response ListCallNotification(ctx, CallSidoptional)
 
 
 
@@ -86,7 +86,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010CallNotification**](ApiV2010CallNotification.md)
+[**ListCallNotification200Response**](ListCallNotification200Response.md)
 
 ### Authorization
 

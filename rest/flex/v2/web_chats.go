@@ -16,69 +16,74 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateWebChannel'
 type CreateWebChannelParams struct {
-	// The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
-	AddressSid *string `json:"AddressSid,omitempty"`
-	// The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
-	ChatFriendlyName *string `json:"ChatFriendlyName,omitempty"`
-	// The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
-	CustomerFriendlyName *string `json:"CustomerFriendlyName,omitempty"`
-	// The pre-engagement data.
-	PreEngagementData *string `json:"PreEngagementData,omitempty"`
+    // The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
+    AddressSid *string `json:"AddressSid,omitempty"`
+    // The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
+    ChatFriendlyName *string `json:"ChatFriendlyName,omitempty"`
+    // The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
+    CustomerFriendlyName *string `json:"CustomerFriendlyName,omitempty"`
+    // The pre-engagement data.
+    PreEngagementData *string `json:"PreEngagementData,omitempty"`
 }
 
-func (params *CreateWebChannelParams) SetAddressSid(AddressSid string) *CreateWebChannelParams {
-	params.AddressSid = &AddressSid
-	return params
+func (params *CreateWebChannelParams) SetAddressSid(AddressSid string) (*CreateWebChannelParams){
+    params.AddressSid = &AddressSid
+    return params
 }
-func (params *CreateWebChannelParams) SetChatFriendlyName(ChatFriendlyName string) *CreateWebChannelParams {
-	params.ChatFriendlyName = &ChatFriendlyName
-	return params
+func (params *CreateWebChannelParams) SetChatFriendlyName(ChatFriendlyName string) (*CreateWebChannelParams){
+    params.ChatFriendlyName = &ChatFriendlyName
+    return params
 }
-func (params *CreateWebChannelParams) SetCustomerFriendlyName(CustomerFriendlyName string) *CreateWebChannelParams {
-	params.CustomerFriendlyName = &CustomerFriendlyName
-	return params
+func (params *CreateWebChannelParams) SetCustomerFriendlyName(CustomerFriendlyName string) (*CreateWebChannelParams){
+    params.CustomerFriendlyName = &CustomerFriendlyName
+    return params
 }
-func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData string) *CreateWebChannelParams {
-	params.PreEngagementData = &PreEngagementData
-	return params
+func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData string) (*CreateWebChannelParams){
+    params.PreEngagementData = &PreEngagementData
+    return params
 }
 
-//
+// 
 func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2WebChannel, error) {
-	path := "/v2/WebChats"
+    path := "/v2/WebChats"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.AddressSid != nil {
+    data.Set("AddressSid", *params.AddressSid)
+}
+if params != nil && params.ChatFriendlyName != nil {
+    data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+}
+if params != nil && params.CustomerFriendlyName != nil {
+    data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
+}
+if params != nil && params.PreEngagementData != nil {
+    data.Set("PreEngagementData", *params.PreEngagementData)
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid)
-	}
-	if params != nil && params.ChatFriendlyName != nil {
-		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
-	}
-	if params != nil && params.CustomerFriendlyName != nil {
-		data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
-	}
-	if params != nil && params.PreEngagementData != nil {
-		data.Set("PreEngagementData", *params.PreEngagementData)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV2WebChannel{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV2WebChannel{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }

@@ -18,118 +18,121 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) DeleteUserBinding(ServiceSid string, UserSid string, Sid string) error {
-	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) DeleteUserBinding(ServiceSid string, UserSid string, Sid string, ) (error) {
+    path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	return nil
+
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
-//
-func (c *ApiService) FetchUserBinding(ServiceSid string, UserSid string, Sid string) (*ChatV2UserBinding, error) {
-	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+// 
+func (c *ApiService) FetchUserBinding(ServiceSid string, UserSid string, Sid string, ) (*ChatV2UserBinding, error) {
+    path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ChatV2UserBinding{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ChatV2UserBinding{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListUserBinding'
 type ListUserBindingParams struct {
-	// The push technology used by the User Binding resources to read. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-	BindingType *[]string `json:"BindingType,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The push technology used by the User Binding resources to read. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+    BindingType *[]string `json:"BindingType,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListUserBindingParams) SetBindingType(BindingType []string) *ListUserBindingParams {
-	params.BindingType = &BindingType
-	return params
+func (params *ListUserBindingParams) SetBindingType(BindingType []string) (*ListUserBindingParams){
+    params.BindingType = &BindingType
+    return params
 }
-func (params *ListUserBindingParams) SetPageSize(PageSize int) *ListUserBindingParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListUserBindingParams) SetPageSize(PageSize int) (*ListUserBindingParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListUserBindingParams) SetLimit(Limit int) *ListUserBindingParams {
-	params.Limit = &Limit
-	return params
+func (params *ListUserBindingParams) SetLimit(Limit int) (*ListUserBindingParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of UserBinding records from the API. Request is executed immediately.
 func (c *ApiService) PageUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams, pageToken, pageNumber string) (*ListUserBindingResponse, error) {
-	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings"
+    path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings"
 
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.BindingType != nil {
+    for _, item  := range *params.BindingType {
+        data.Add("BindingType", item)
+    }
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.BindingType != nil {
-		for _, item := range *params.BindingType {
-			data.Add("BindingType", item)
-		}
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListUserBindingResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListUserBindingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists UserBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -170,6 +173,7 @@ func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamUserBinding(response *ListUserBindingResponse, params *ListUserBindingParams, recordChannel chan ChatV2UserBinding, errorChannel chan error) {
 	curRecord := 1
 
@@ -201,19 +205,20 @@ func (c *ApiService) streamUserBinding(response *ListUserBindingResponse, params
 }
 
 func (c *ApiService) getNextListUserBindingResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListUserBindingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListUserBindingResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListSchemaVersionResponse struct for ListSchemaVersionResponse
 type ListSchemaVersionResponse struct {
-	SchemaVersions []EventsV1SchemaVersion   `json:"schema_versions,omitempty"`
-	Meta           ListEventTypeResponseMeta `json:"meta,omitempty"`
+	SchemaVersions []EventsV1SchemaVersion `json:"schema_versions,omitempty"`
+	Meta ListEventTypeResponseMeta `json:"meta,omitempty"`
 }
+
+

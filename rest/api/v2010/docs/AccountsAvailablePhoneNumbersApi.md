@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## ListAvailablePhoneNumberCountry
 
-> []ApiV2010AvailablePhoneNumberCountry ListAvailablePhoneNumberCountry(ctx, optional)
+> ListAvailablePhoneNumberCountry200Response ListAvailablePhoneNumberCountry(ctx, optional)
 
 
 
@@ -77,7 +77,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010AvailablePhoneNumberCountry**](ApiV2010AvailablePhoneNumberCountry.md)
+[**ListAvailablePhoneNumberCountry200Response**](ListAvailablePhoneNumberCountry200Response.md)
 
 ### Authorization
 

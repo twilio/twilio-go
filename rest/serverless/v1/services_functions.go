@@ -18,142 +18,146 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateFunction'
 type CreateFunctionParams struct {
-	// A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+    // A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *CreateFunctionParams) SetFriendlyName(FriendlyName string) *CreateFunctionParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *CreateFunctionParams) SetFriendlyName(FriendlyName string) (*CreateFunctionParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
 
 // Create a new Function resource.
 func (c *ApiService) CreateFunction(ServiceSid string, params *CreateFunctionParams) (*ServerlessV1Function, error) {
-	path := "/v1/Services/{ServiceSid}/Functions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path := "/v1/Services/{ServiceSid}/Functions"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ServerlessV1Function{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ServerlessV1Function{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Delete a Function resource.
-func (c *ApiService) DeleteFunction(ServiceSid string, Sid string) error {
-	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteFunction(ServiceSid string, Sid string, ) (error) {
+    path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Retrieve a specific Function resource.
-func (c *ApiService) FetchFunction(ServiceSid string, Sid string) (*ServerlessV1Function, error) {
-	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchFunction(ServiceSid string, Sid string, ) (*ServerlessV1Function, error) {
+    path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ServerlessV1Function{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ServerlessV1Function{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListFunction'
 type ListFunctionParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListFunctionParams) SetPageSize(PageSize int) *ListFunctionParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListFunctionParams) SetPageSize(PageSize int) (*ListFunctionParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListFunctionParams) SetLimit(Limit int) *ListFunctionParams {
-	params.Limit = &Limit
-	return params
+func (params *ListFunctionParams) SetLimit(Limit int) (*ListFunctionParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Function records from the API. Request is executed immediately.
 func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams, pageToken, pageNumber string) (*ListFunctionResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Functions"
+    path := "/v1/Services/{ServiceSid}/Functions"
 
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListFunctionResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListFunctionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists Function records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -194,6 +198,7 @@ func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParam
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamFunction(response *ListFunctionResponse, params *ListFunctionParams, recordChannel chan ServerlessV1Function, errorChannel chan error) {
 	curRecord := 1
 
@@ -225,58 +230,60 @@ func (c *ApiService) streamFunction(response *ListFunctionResponse, params *List
 }
 
 func (c *ApiService) getNextListFunctionResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListFunctionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListFunctionResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateFunction'
 type UpdateFunctionParams struct {
-	// A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+    // A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *UpdateFunctionParams) SetFriendlyName(FriendlyName string) *UpdateFunctionParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *UpdateFunctionParams) SetFriendlyName(FriendlyName string) (*UpdateFunctionParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
 
 // Update a specific Function resource.
 func (c *ApiService) UpdateFunction(ServiceSid string, Sid string, params *UpdateFunctionParams) (*ServerlessV1Function, error) {
-	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ServerlessV1Function{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ServerlessV1Function{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

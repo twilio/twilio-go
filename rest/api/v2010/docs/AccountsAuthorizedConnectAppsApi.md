@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## ListAuthorizedConnectApp
 
-> []ApiV2010AuthorizedConnectApp ListAuthorizedConnectApp(ctx, optional)
+> ListAuthorizedConnectApp200Response ListAuthorizedConnectApp(ctx, optional)
 
 
 
@@ -77,7 +77,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010AuthorizedConnectApp**](ApiV2010AuthorizedConnectApp.md)
+[**ListAuthorizedConnectApp200Response**](ListAuthorizedConnectApp200Response.md)
 
 ### Authorization
 

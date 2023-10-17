@@ -16,49 +16,56 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) (*MessagingV1LinkshorteningMessagingService, error) {
-	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
-	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string, ) (*MessagingV1LinkshorteningMessagingService, error) {
+    path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
+        path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+    path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	ps := &MessagingV1LinkshorteningMessagingService{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &MessagingV1LinkshorteningMessagingService{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
-//
-func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) error {
-	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
-	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+// 
+func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string, ) (error) {
+    path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
+        path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+    path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }

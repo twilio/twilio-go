@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListSimResponse struct for ListSimResponse
 type ListSimResponse struct {
-	Sims []SupersimV1Sim               `json:"sims,omitempty"`
+	Sims []SupersimV1Sim `json:"sims,omitempty"`
 	Meta ListBillingPeriodResponseMeta `json:"meta,omitempty"`
 }
+
+

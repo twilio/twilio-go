@@ -16,73 +16,79 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Returns a list of Recording Rules for the Room.
-func (c *ApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRecordingRule, error) {
-	path := "/v1/Rooms/{RoomSid}/RecordingRules"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+func (c *ApiService) FetchRoomRecordingRule(RoomSid string, ) (*VideoV1RoomRecordingRule, error) {
+    path := "/v1/Rooms/{RoomSid}/RecordingRules"
+        path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRecordingRule{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &VideoV1RoomRecordingRule{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateRoomRecordingRule'
 type UpdateRoomRecordingRuleParams struct {
-	// A JSON-encoded array of recording rules.
-	Rules *interface{} `json:"Rules,omitempty"`
+    // A JSON-encoded array of recording rules.
+    Rules *interface{} `json:"Rules,omitempty"`
 }
 
-func (params *UpdateRoomRecordingRuleParams) SetRules(Rules interface{}) *UpdateRoomRecordingRuleParams {
-	params.Rules = &Rules
-	return params
+func (params *UpdateRoomRecordingRuleParams) SetRules(Rules interface{}) (*UpdateRoomRecordingRuleParams){
+    params.Rules = &Rules
+    return params
 }
 
 // Update the Recording Rules for the Room
 func (c *ApiService) UpdateRoomRecordingRule(RoomSid string, params *UpdateRoomRecordingRuleParams) (*VideoV1RoomRecordingRule, error) {
-	path := "/v1/Rooms/{RoomSid}/RecordingRules"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+    path := "/v1/Rooms/{RoomSid}/RecordingRules"
+        path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Rules != nil {
+    v, err := json.Marshal(params.Rules)
 
-	if params != nil && params.Rules != nil {
-		v, err := json.Marshal(params.Rules)
+    if err != nil {
+        return nil, err
+    }
 
-		if err != nil {
-			return nil, err
-		}
+    data.Set("Rules", string(v))
+}
 
-		data.Set("Rules", string(v))
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &VideoV1RoomRecordingRule{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &VideoV1RoomRecordingRule{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

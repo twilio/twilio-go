@@ -16,68 +16,74 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreatePortingBulkPortability'
 type CreatePortingBulkPortabilityParams struct {
-	// The phone numbers which portability is to be checked. This should be a list of strings. Phone numbers are in E.164 format (e.g. +16175551212). .
-	PhoneNumbers *[]string `json:"PhoneNumbers,omitempty"`
+    // The phone numbers which portability is to be checked. This should be a list of strings. Phone numbers are in E.164 format (e.g. +16175551212). .
+    PhoneNumbers *[]string `json:"PhoneNumbers,omitempty"`
 }
 
-func (params *CreatePortingBulkPortabilityParams) SetPhoneNumbers(PhoneNumbers []string) *CreatePortingBulkPortabilityParams {
-	params.PhoneNumbers = &PhoneNumbers
-	return params
+func (params *CreatePortingBulkPortabilityParams) SetPhoneNumbers(PhoneNumbers []string) (*CreatePortingBulkPortabilityParams){
+    params.PhoneNumbers = &PhoneNumbers
+    return params
 }
 
 // Allows to check if a list of phone numbers can be ported to Twilio or not. This is done asynchronous for each phone number.
 func (c *ApiService) CreatePortingBulkPortability(params *CreatePortingBulkPortabilityParams) (*NumbersV1PortingBulkPortability, error) {
-	path := "/v1/Porting/Portability"
+    path := "/v1/Porting/Portability"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PhoneNumbers != nil {
+    for _, item  := range *params.PhoneNumbers {
+        data.Add("PhoneNumbers", item)
+    }
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	if params != nil && params.PhoneNumbers != nil {
-		for _, item := range *params.PhoneNumbers {
-			data.Add("PhoneNumbers", item)
-		}
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &NumbersV1PortingBulkPortability{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &NumbersV1PortingBulkPortability{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Fetch a previous portability check. This should return the current status of the validation and the result for all the numbers provided, given that they have been validated (as this process is performed asynchronously).
-func (c *ApiService) FetchPortingBulkPortability(Sid string) (*NumbersV1PortingBulkPortability, error) {
-	path := "/v1/Porting/Portability/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchPortingBulkPortability(Sid string, ) (*NumbersV1PortingBulkPortability, error) {
+    path := "/v1/Porting/Portability/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &NumbersV1PortingBulkPortability{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &NumbersV1PortingBulkPortability{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

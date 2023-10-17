@@ -18,146 +18,151 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateAccountSecret'
 type CreateAccountSecretParams struct {
-	// The secret key; up to 100 characters.
-	Key *string `json:"Key,omitempty"`
-	// The secret value; up to 4096 characters.
-	Value *string `json:"Value,omitempty"`
+    // The secret key; up to 100 characters.
+    Key *string `json:"Key,omitempty"`
+    // The secret value; up to 4096 characters.
+    Value *string `json:"Value,omitempty"`
 }
 
-func (params *CreateAccountSecretParams) SetKey(Key string) *CreateAccountSecretParams {
-	params.Key = &Key
-	return params
+func (params *CreateAccountSecretParams) SetKey(Key string) (*CreateAccountSecretParams){
+    params.Key = &Key
+    return params
 }
-func (params *CreateAccountSecretParams) SetValue(Value string) *CreateAccountSecretParams {
-	params.Value = &Value
-	return params
+func (params *CreateAccountSecretParams) SetValue(Value string) (*CreateAccountSecretParams){
+    params.Value = &Value
+    return params
 }
 
 // Create a secret for an Account.
 func (c *ApiService) CreateAccountSecret(params *CreateAccountSecretParams) (*MicrovisorV1AccountSecret, error) {
-	path := "/v1/Secrets"
+    path := "/v1/Secrets"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Key != nil {
+    data.Set("Key", *params.Key)
+}
+if params != nil && params.Value != nil {
+    data.Set("Value", *params.Value)
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	if params != nil && params.Key != nil {
-		data.Set("Key", *params.Key)
-	}
-	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &MicrovisorV1AccountSecret{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &MicrovisorV1AccountSecret{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Delete a secret for an Account.
-func (c *ApiService) DeleteAccountSecret(Key string) error {
-	path := "/v1/Secrets/{Key}"
-	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+func (c *ApiService) DeleteAccountSecret(Key string, ) (error) {
+    path := "/v1/Secrets/{Key}"
+        path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Retrieve a Secret for an Account.
-func (c *ApiService) FetchAccountSecret(Key string) (*MicrovisorV1AccountSecret, error) {
-	path := "/v1/Secrets/{Key}"
-	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+func (c *ApiService) FetchAccountSecret(Key string, ) (*MicrovisorV1AccountSecret, error) {
+    path := "/v1/Secrets/{Key}"
+        path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &MicrovisorV1AccountSecret{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &MicrovisorV1AccountSecret{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListAccountSecret'
 type ListAccountSecretParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListAccountSecretParams) SetPageSize(PageSize int) *ListAccountSecretParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListAccountSecretParams) SetPageSize(PageSize int) (*ListAccountSecretParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListAccountSecretParams) SetLimit(Limit int) *ListAccountSecretParams {
-	params.Limit = &Limit
-	return params
+func (params *ListAccountSecretParams) SetLimit(Limit int) (*ListAccountSecretParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of AccountSecret records from the API. Request is executed immediately.
 func (c *ApiService) PageAccountSecret(params *ListAccountSecretParams, pageToken, pageNumber string) (*ListAccountSecretResponse, error) {
-	path := "/v1/Secrets"
+    path := "/v1/Secrets"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListAccountSecretResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListAccountSecretResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists AccountSecret records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -198,6 +203,7 @@ func (c *ApiService) StreamAccountSecret(params *ListAccountSecretParams) (chan 
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamAccountSecret(response *ListAccountSecretResponse, params *ListAccountSecretParams, recordChannel chan MicrovisorV1AccountSecret, errorChannel chan error) {
 	curRecord := 1
 
@@ -229,57 +235,59 @@ func (c *ApiService) streamAccountSecret(response *ListAccountSecretResponse, pa
 }
 
 func (c *ApiService) getNextListAccountSecretResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListAccountSecretResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListAccountSecretResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateAccountSecret'
 type UpdateAccountSecretParams struct {
-	// The secret value; up to 4096 characters.
-	Value *string `json:"Value,omitempty"`
+    // The secret value; up to 4096 characters.
+    Value *string `json:"Value,omitempty"`
 }
 
-func (params *UpdateAccountSecretParams) SetValue(Value string) *UpdateAccountSecretParams {
-	params.Value = &Value
-	return params
+func (params *UpdateAccountSecretParams) SetValue(Value string) (*UpdateAccountSecretParams){
+    params.Value = &Value
+    return params
 }
 
 // Update a secret for an Account.
 func (c *ApiService) UpdateAccountSecret(Key string, params *UpdateAccountSecretParams) (*MicrovisorV1AccountSecret, error) {
-	path := "/v1/Secrets/{Key}"
-	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+    path := "/v1/Secrets/{Key}"
+        path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Value != nil {
+    data.Set("Value", *params.Value)
+}
 
-	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &MicrovisorV1AccountSecret{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &MicrovisorV1AccountSecret{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

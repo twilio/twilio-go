@@ -13,42 +13,44 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // InsightsV1VideoParticipantSummary struct for InsightsV1VideoParticipantSummary
 type InsightsV1VideoParticipantSummary struct {
-	// Unique identifier for the participant.
+		// Unique identifier for the participant.
 	ParticipantSid *string `json:"participant_sid,omitempty"`
-	// The application-defined string that uniquely identifies the participant within a Room.
+		// The application-defined string that uniquely identifies the participant within a Room.
 	ParticipantIdentity *string `json:"participant_identity,omitempty"`
-	// When the participant joined the room.
+		// When the participant joined the room.
 	JoinTime *time.Time `json:"join_time,omitempty"`
-	// When the participant left the room.
+		// When the participant left the room.
 	LeaveTime *time.Time `json:"leave_time,omitempty"`
-	// Amount of time in seconds the participant was in the room.
+		// Amount of time in seconds the participant was in the room.
 	DurationSec *int64 `json:"duration_sec,omitempty"`
-	// Account SID associated with the room.
+		// Account SID associated with the room.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Unique identifier for the room.
+		// Unique identifier for the room.
 	RoomSid *string `json:"room_sid,omitempty"`
-	Status  *string `json:"status,omitempty"`
-	// Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
+	Status *string `json:"status,omitempty"`
+		// Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
 	Codecs *[]string `json:"codecs,omitempty"`
-	// Reason the participant left the room. See [the list of possible values here](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#end_reason).
+		// Reason the participant left the room. See [the list of possible values here](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#end_reason).
 	EndReason *string `json:"end_reason,omitempty"`
-	// Errors encountered by the participant.
+		// Errors encountered by the participant.
 	ErrorCode *int `json:"error_code,omitempty"`
-	// Twilio error code dictionary link.
+		// Twilio error code dictionary link.
 	ErrorCodeUrl *string `json:"error_code_url,omitempty"`
-	MediaRegion  *string `json:"media_region,omitempty"`
-	// Object containing information about the participant's data from the room. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#properties) for more information.
-	Properties   *interface{} `json:"properties,omitempty"`
-	EdgeLocation *string      `json:"edge_location,omitempty"`
-	// Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#publisher_info) for more information.
+	MediaRegion *string `json:"media_region,omitempty"`
+		// Object containing information about the participant's data from the room. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#properties) for more information.
+	Properties *interface{} `json:"properties,omitempty"`
+	EdgeLocation *string `json:"edge_location,omitempty"`
+		// Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#publisher_info) for more information.
 	PublisherInfo *interface{} `json:"publisher_info,omitempty"`
-	// URL of the participant resource.
+		// URL of the participant resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

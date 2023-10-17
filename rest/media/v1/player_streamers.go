@@ -18,164 +18,167 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreatePlayerStreamer'
 type CreatePlayerStreamerParams struct {
-	// Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
-	Video *bool `json:"Video,omitempty"`
-	// The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details.
-	StatusCallback *string `json:"StatusCallback,omitempty"`
-	// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
-	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	// The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
-	MaxDuration *int `json:"MaxDuration,omitempty"`
+    // Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
+    Video *bool `json:"Video,omitempty"`
+    // The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details.
+    StatusCallback *string `json:"StatusCallback,omitempty"`
+    // The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+    // The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
+    MaxDuration *int `json:"MaxDuration,omitempty"`
 }
 
-func (params *CreatePlayerStreamerParams) SetVideo(Video bool) *CreatePlayerStreamerParams {
-	params.Video = &Video
-	return params
+func (params *CreatePlayerStreamerParams) SetVideo(Video bool) (*CreatePlayerStreamerParams){
+    params.Video = &Video
+    return params
 }
-func (params *CreatePlayerStreamerParams) SetStatusCallback(StatusCallback string) *CreatePlayerStreamerParams {
-	params.StatusCallback = &StatusCallback
-	return params
+func (params *CreatePlayerStreamerParams) SetStatusCallback(StatusCallback string) (*CreatePlayerStreamerParams){
+    params.StatusCallback = &StatusCallback
+    return params
 }
-func (params *CreatePlayerStreamerParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreatePlayerStreamerParams {
-	params.StatusCallbackMethod = &StatusCallbackMethod
-	return params
+func (params *CreatePlayerStreamerParams) SetStatusCallbackMethod(StatusCallbackMethod string) (*CreatePlayerStreamerParams){
+    params.StatusCallbackMethod = &StatusCallbackMethod
+    return params
 }
-func (params *CreatePlayerStreamerParams) SetMaxDuration(MaxDuration int) *CreatePlayerStreamerParams {
-	params.MaxDuration = &MaxDuration
-	return params
+func (params *CreatePlayerStreamerParams) SetMaxDuration(MaxDuration int) (*CreatePlayerStreamerParams){
+    params.MaxDuration = &MaxDuration
+    return params
 }
 
-//
+// 
 func (c *ApiService) CreatePlayerStreamer(params *CreatePlayerStreamerParams) (*MediaV1PlayerStreamer, error) {
-	path := "/v1/PlayerStreamers"
+    path := "/v1/PlayerStreamers"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Video != nil {
+    data.Set("Video", fmt.Sprint(*params.Video))
+}
+if params != nil && params.StatusCallback != nil {
+    data.Set("StatusCallback", *params.StatusCallback)
+}
+if params != nil && params.StatusCallbackMethod != nil {
+    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+}
+if params != nil && params.MaxDuration != nil {
+    data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	if params != nil && params.Video != nil {
-		data.Set("Video", fmt.Sprint(*params.Video))
-	}
-	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
-	}
-	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-	}
-	if params != nil && params.MaxDuration != nil {
-		data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &MediaV1PlayerStreamer{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &MediaV1PlayerStreamer{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Returns a single PlayerStreamer resource identified by a SID.
-func (c *ApiService) FetchPlayerStreamer(Sid string) (*MediaV1PlayerStreamer, error) {
-	path := "/v1/PlayerStreamers/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchPlayerStreamer(Sid string, ) (*MediaV1PlayerStreamer, error) {
+    path := "/v1/PlayerStreamers/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &MediaV1PlayerStreamer{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &MediaV1PlayerStreamer{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListPlayerStreamer'
 type ListPlayerStreamerParams struct {
-	// The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-	Order *string `json:"Order,omitempty"`
-	// Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
-	Status *string `json:"Status,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+    Order *string `json:"Order,omitempty"`
+    // Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
+    Status *string `json:"Status,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListPlayerStreamerParams) SetOrder(Order string) *ListPlayerStreamerParams {
-	params.Order = &Order
-	return params
+func (params *ListPlayerStreamerParams) SetOrder(Order string) (*ListPlayerStreamerParams){
+    params.Order = &Order
+    return params
 }
-func (params *ListPlayerStreamerParams) SetStatus(Status string) *ListPlayerStreamerParams {
-	params.Status = &Status
-	return params
+func (params *ListPlayerStreamerParams) SetStatus(Status string) (*ListPlayerStreamerParams){
+    params.Status = &Status
+    return params
 }
-func (params *ListPlayerStreamerParams) SetPageSize(PageSize int) *ListPlayerStreamerParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListPlayerStreamerParams) SetPageSize(PageSize int) (*ListPlayerStreamerParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListPlayerStreamerParams) SetLimit(Limit int) *ListPlayerStreamerParams {
-	params.Limit = &Limit
-	return params
+func (params *ListPlayerStreamerParams) SetLimit(Limit int) (*ListPlayerStreamerParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of PlayerStreamer records from the API. Request is executed immediately.
 func (c *ApiService) PagePlayerStreamer(params *ListPlayerStreamerParams, pageToken, pageNumber string) (*ListPlayerStreamerResponse, error) {
-	path := "/v1/PlayerStreamers"
+    path := "/v1/PlayerStreamers"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Order != nil {
+    data.Set("Order", *params.Order)
+}
+if params != nil && params.Status != nil {
+    data.Set("Status", *params.Status)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
-	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListPlayerStreamerResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListPlayerStreamerResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists PlayerStreamer records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -216,6 +219,7 @@ func (c *ApiService) StreamPlayerStreamer(params *ListPlayerStreamerParams) (cha
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamPlayerStreamer(response *ListPlayerStreamerResponse, params *ListPlayerStreamerParams, recordChannel chan MediaV1PlayerStreamer, errorChannel chan error) {
 	curRecord := 1
 
@@ -247,57 +251,59 @@ func (c *ApiService) streamPlayerStreamer(response *ListPlayerStreamerResponse, 
 }
 
 func (c *ApiService) getNextListPlayerStreamerResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListPlayerStreamerResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListPlayerStreamerResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdatePlayerStreamer'
 type UpdatePlayerStreamerParams struct {
-	//
-	Status *string `json:"Status,omitempty"`
+    // 
+    Status *string `json:"Status,omitempty"`
 }
 
-func (params *UpdatePlayerStreamerParams) SetStatus(Status string) *UpdatePlayerStreamerParams {
-	params.Status = &Status
-	return params
+func (params *UpdatePlayerStreamerParams) SetStatus(Status string) (*UpdatePlayerStreamerParams){
+    params.Status = &Status
+    return params
 }
 
 // Updates a PlayerStreamer resource identified by a SID.
 func (c *ApiService) UpdatePlayerStreamer(Sid string, params *UpdatePlayerStreamerParams) (*MediaV1PlayerStreamer, error) {
-	path := "/v1/PlayerStreamers/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/PlayerStreamers/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Status != nil {
+    data.Set("Status", *params.Status)
+}
 
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &MediaV1PlayerStreamer{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &MediaV1PlayerStreamer{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

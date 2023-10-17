@@ -18,43 +18,46 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchMedia'
 type FetchMediaParams struct {
-	// Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media.
-	Redacted *bool `json:"Redacted,omitempty"`
+    // Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media.
+    Redacted *bool `json:"Redacted,omitempty"`
 }
 
-func (params *FetchMediaParams) SetRedacted(Redacted bool) *FetchMediaParams {
-	params.Redacted = &Redacted
-	return params
+func (params *FetchMediaParams) SetRedacted(Redacted bool) (*FetchMediaParams){
+    params.Redacted = &Redacted
+    return params
 }
 
 // Get download URLs for media if possible
 func (c *ApiService) FetchMedia(Sid string, params *FetchMediaParams) (*IntelligenceV2Media, error) {
-	path := "/v2/Transcripts/{Sid}/Media"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v2/Transcripts/{Sid}/Media"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Redacted != nil {
+    data.Set("Redacted", fmt.Sprint(*params.Redacted))
+}
 
-	if params != nil && params.Redacted != nil {
-		data.Set("Redacted", fmt.Sprint(*params.Redacted))
-	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &IntelligenceV2Media{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &IntelligenceV2Media{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

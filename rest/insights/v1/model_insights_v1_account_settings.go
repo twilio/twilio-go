@@ -13,15 +13,20 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // InsightsV1AccountSettings struct for InsightsV1AccountSettings
 type InsightsV1AccountSettings struct {
-	// The unique SID identifier of the Account.
+		// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// A boolean flag indicating whether Advanced Features for Voice Insights are enabled.
+		// A boolean flag indicating whether Advanced Features for Voice Insights are enabled.
 	AdvancedFeatures *bool `json:"advanced_features,omitempty"`
-	// A boolean flag indicating whether Voice Trace is enabled.
+		// A boolean flag indicating whether Voice Trace is enabled.
 	VoiceTrace *bool `json:"voice_trace,omitempty"`
-	// The URL of this resource.
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

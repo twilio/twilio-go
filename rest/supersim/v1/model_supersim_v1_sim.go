@@ -13,29 +13,31 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // SupersimV1Sim struct for SupersimV1Sim
 type SupersimV1Sim struct {
-	// The unique string that identifies the Sim resource.
+		// The unique string that identifies the Sim resource.
 	Sid *string `json:"sid,omitempty"`
-	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+		// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 	UniqueName *string `json:"unique_name,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Super SIM belongs to.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Super SIM belongs to.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the SIM.
-	Iccid  *string `json:"iccid,omitempty"`
+		// The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the SIM.
+	Iccid *string `json:"iccid,omitempty"`
 	Status *string `json:"status,omitempty"`
-	// The unique ID of the Fleet configured for this SIM.
+		// The unique ID of the Fleet configured for this SIM.
 	FleetSid *string `json:"fleet_sid,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the Sim Resource.
-	Url   *string                 `json:"url,omitempty"`
+		// The absolute URL of the Sim Resource.
+	Url *string `json:"url,omitempty"`
 	Links *map[string]interface{} `json:"links,omitempty"`
 }
+
+

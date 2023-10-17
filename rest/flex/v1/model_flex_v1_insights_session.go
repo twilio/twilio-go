@@ -13,17 +13,22 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // FlexV1InsightsSession struct for FlexV1InsightsSession
 type FlexV1InsightsSession struct {
-	// Unique ID to identify the user's workspace
+		// Unique ID to identify the user's workspace
 	WorkspaceId *string `json:"workspace_id,omitempty"`
-	// The session expiry date and time, given in ISO 8601 format.
+		// The session expiry date and time, given in ISO 8601 format.
 	SessionExpiry *string `json:"session_expiry,omitempty"`
-	// The unique ID for the session
+		// The unique ID for the session
 	SessionId *string `json:"session_id,omitempty"`
-	// The base URL to fetch reports and dashboards
+		// The base URL to fetch reports and dashboards
 	BaseUrl *string `json:"base_url,omitempty"`
-	// The URL of this resource.
+		// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

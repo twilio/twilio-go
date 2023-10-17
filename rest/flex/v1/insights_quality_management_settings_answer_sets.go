@@ -16,42 +16,47 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchInsightsSettingsAnswersets'
 type FetchInsightsSettingsAnswersetsParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
 }
 
-func (params *FetchInsightsSettingsAnswersetsParams) SetAuthorization(Authorization string) *FetchInsightsSettingsAnswersetsParams {
-	params.Authorization = &Authorization
-	return params
+func (params *FetchInsightsSettingsAnswersetsParams) SetAuthorization(Authorization string) (*FetchInsightsSettingsAnswersetsParams){
+    params.Authorization = &Authorization
+    return params
 }
 
 // To get the Answer Set Settings for an Account
 func (c *ApiService) FetchInsightsSettingsAnswersets(params *FetchInsightsSettingsAnswersetsParams) (*FlexV1InsightsSettingsAnswersets, error) {
-	path := "/v1/Insights/QualityManagement/Settings/AnswerSets"
+    path := "/v1/Insights/QualityManagement/Settings/AnswerSets"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1InsightsSettingsAnswersets{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1InsightsSettingsAnswersets{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }

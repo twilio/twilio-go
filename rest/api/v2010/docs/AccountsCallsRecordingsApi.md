@@ -151,7 +151,7 @@ Name | Type | Description
 
 ## ListCallRecording
 
-> []ApiV2010CallRecording ListCallRecording(ctx, CallSidoptional)
+> ListCallRecording200Response ListCallRecording(ctx, CallSidoptional)
 
 
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010CallRecording**](ApiV2010CallRecording.md)
+[**ListCallRecording200Response**](ListCallRecording200Response.md)
 
 ### Authorization
 

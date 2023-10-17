@@ -18,202 +18,202 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateInsightsAssessments'
 type CreateInsightsAssessmentsParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
-	// The SID of the category
-	CategorySid *string `json:"CategorySid,omitempty"`
-	// The name of the category
-	CategoryName *string `json:"CategoryName,omitempty"`
-	// Segment Id of the conversation
-	SegmentId *string `json:"SegmentId,omitempty"`
-	// The id of the Agent
-	AgentId *string `json:"AgentId,omitempty"`
-	// The offset of the conversation.
-	Offset *float32 `json:"Offset,omitempty"`
-	// The question SID selected for assessment
-	MetricId *string `json:"MetricId,omitempty"`
-	// The question name of the assessment
-	MetricName *string `json:"MetricName,omitempty"`
-	// The answer text selected by user
-	AnswerText *string `json:"AnswerText,omitempty"`
-	// The id of the answer selected by user
-	AnswerId *string `json:"AnswerId,omitempty"`
-	// Questionnaire SID of the associated question
-	QuestionnaireSid *string `json:"QuestionnaireSid,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
+    // The SID of the category 
+    CategorySid *string `json:"CategorySid,omitempty"`
+    // The name of the category
+    CategoryName *string `json:"CategoryName,omitempty"`
+    // Segment Id of the conversation
+    SegmentId *string `json:"SegmentId,omitempty"`
+    // The id of the Agent
+    AgentId *string `json:"AgentId,omitempty"`
+    // The offset of the conversation.
+    Offset *float32 `json:"Offset,omitempty"`
+    // The question SID selected for assessment
+    MetricId *string `json:"MetricId,omitempty"`
+    // The question name of the assessment
+    MetricName *string `json:"MetricName,omitempty"`
+    // The answer text selected by user
+    AnswerText *string `json:"AnswerText,omitempty"`
+    // The id of the answer selected by user
+    AnswerId *string `json:"AnswerId,omitempty"`
+    // Questionnaire SID of the associated question
+    QuestionnaireSid *string `json:"QuestionnaireSid,omitempty"`
 }
 
-func (params *CreateInsightsAssessmentsParams) SetAuthorization(Authorization string) *CreateInsightsAssessmentsParams {
-	params.Authorization = &Authorization
-	return params
+func (params *CreateInsightsAssessmentsParams) SetAuthorization(Authorization string) (*CreateInsightsAssessmentsParams){
+    params.Authorization = &Authorization
+    return params
 }
-func (params *CreateInsightsAssessmentsParams) SetCategorySid(CategorySid string) *CreateInsightsAssessmentsParams {
-	params.CategorySid = &CategorySid
-	return params
+func (params *CreateInsightsAssessmentsParams) SetCategorySid(CategorySid string) (*CreateInsightsAssessmentsParams){
+    params.CategorySid = &CategorySid
+    return params
 }
-func (params *CreateInsightsAssessmentsParams) SetCategoryName(CategoryName string) *CreateInsightsAssessmentsParams {
-	params.CategoryName = &CategoryName
-	return params
+func (params *CreateInsightsAssessmentsParams) SetCategoryName(CategoryName string) (*CreateInsightsAssessmentsParams){
+    params.CategoryName = &CategoryName
+    return params
 }
-func (params *CreateInsightsAssessmentsParams) SetSegmentId(SegmentId string) *CreateInsightsAssessmentsParams {
-	params.SegmentId = &SegmentId
-	return params
+func (params *CreateInsightsAssessmentsParams) SetSegmentId(SegmentId string) (*CreateInsightsAssessmentsParams){
+    params.SegmentId = &SegmentId
+    return params
 }
-func (params *CreateInsightsAssessmentsParams) SetAgentId(AgentId string) *CreateInsightsAssessmentsParams {
-	params.AgentId = &AgentId
-	return params
+func (params *CreateInsightsAssessmentsParams) SetAgentId(AgentId string) (*CreateInsightsAssessmentsParams){
+    params.AgentId = &AgentId
+    return params
 }
-func (params *CreateInsightsAssessmentsParams) SetOffset(Offset float32) *CreateInsightsAssessmentsParams {
-	params.Offset = &Offset
-	return params
+func (params *CreateInsightsAssessmentsParams) SetOffset(Offset float32) (*CreateInsightsAssessmentsParams){
+    params.Offset = &Offset
+    return params
 }
-func (params *CreateInsightsAssessmentsParams) SetMetricId(MetricId string) *CreateInsightsAssessmentsParams {
-	params.MetricId = &MetricId
-	return params
+func (params *CreateInsightsAssessmentsParams) SetMetricId(MetricId string) (*CreateInsightsAssessmentsParams){
+    params.MetricId = &MetricId
+    return params
 }
-func (params *CreateInsightsAssessmentsParams) SetMetricName(MetricName string) *CreateInsightsAssessmentsParams {
-	params.MetricName = &MetricName
-	return params
+func (params *CreateInsightsAssessmentsParams) SetMetricName(MetricName string) (*CreateInsightsAssessmentsParams){
+    params.MetricName = &MetricName
+    return params
 }
-func (params *CreateInsightsAssessmentsParams) SetAnswerText(AnswerText string) *CreateInsightsAssessmentsParams {
-	params.AnswerText = &AnswerText
-	return params
+func (params *CreateInsightsAssessmentsParams) SetAnswerText(AnswerText string) (*CreateInsightsAssessmentsParams){
+    params.AnswerText = &AnswerText
+    return params
 }
-func (params *CreateInsightsAssessmentsParams) SetAnswerId(AnswerId string) *CreateInsightsAssessmentsParams {
-	params.AnswerId = &AnswerId
-	return params
+func (params *CreateInsightsAssessmentsParams) SetAnswerId(AnswerId string) (*CreateInsightsAssessmentsParams){
+    params.AnswerId = &AnswerId
+    return params
 }
-func (params *CreateInsightsAssessmentsParams) SetQuestionnaireSid(QuestionnaireSid string) *CreateInsightsAssessmentsParams {
-	params.QuestionnaireSid = &QuestionnaireSid
-	return params
+func (params *CreateInsightsAssessmentsParams) SetQuestionnaireSid(QuestionnaireSid string) (*CreateInsightsAssessmentsParams){
+    params.QuestionnaireSid = &QuestionnaireSid
+    return params
 }
 
 // Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question.
 func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessmentsParams) (*FlexV1InsightsAssessments, error) {
-	path := "/v1/Insights/QualityManagement/Assessments"
+    path := "/v1/Insights/QualityManagement/Assessments"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.CategorySid != nil {
+    data.Set("CategorySid", *params.CategorySid)
+}
+if params != nil && params.CategoryName != nil {
+    data.Set("CategoryName", *params.CategoryName)
+}
+if params != nil && params.SegmentId != nil {
+    data.Set("SegmentId", *params.SegmentId)
+}
+if params != nil && params.AgentId != nil {
+    data.Set("AgentId", *params.AgentId)
+}
+if params != nil && params.Offset != nil {
+    data.Set("Offset", fmt.Sprint(*params.Offset))
+}
+if params != nil && params.MetricId != nil {
+    data.Set("MetricId", *params.MetricId)
+}
+if params != nil && params.MetricName != nil {
+    data.Set("MetricName", *params.MetricName)
+}
+if params != nil && params.AnswerText != nil {
+    data.Set("AnswerText", *params.AnswerText)
+}
+if params != nil && params.AnswerId != nil {
+    data.Set("AnswerId", *params.AnswerId)
+}
+if params != nil && params.QuestionnaireSid != nil {
+    data.Set("QuestionnaireSid", *params.QuestionnaireSid)
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.CategorySid != nil {
-		data.Set("CategorySid", *params.CategorySid)
-	}
-	if params != nil && params.CategoryName != nil {
-		data.Set("CategoryName", *params.CategoryName)
-	}
-	if params != nil && params.SegmentId != nil {
-		data.Set("SegmentId", *params.SegmentId)
-	}
-	if params != nil && params.AgentId != nil {
-		data.Set("AgentId", *params.AgentId)
-	}
-	if params != nil && params.Offset != nil {
-		data.Set("Offset", fmt.Sprint(*params.Offset))
-	}
-	if params != nil && params.MetricId != nil {
-		data.Set("MetricId", *params.MetricId)
-	}
-	if params != nil && params.MetricName != nil {
-		data.Set("MetricName", *params.MetricName)
-	}
-	if params != nil && params.AnswerText != nil {
-		data.Set("AnswerText", *params.AnswerText)
-	}
-	if params != nil && params.AnswerId != nil {
-		data.Set("AnswerId", *params.AnswerId)
-	}
-	if params != nil && params.QuestionnaireSid != nil {
-		data.Set("QuestionnaireSid", *params.QuestionnaireSid)
-	}
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1InsightsAssessments{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1InsightsAssessments{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Optional parameters for the method 'ListInsightsAssessments'
 type ListInsightsAssessmentsParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
-	// The id of the segment.
-	SegmentId *string `json:"SegmentId,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
+    // The id of the segment.
+    SegmentId *string `json:"SegmentId,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListInsightsAssessmentsParams) SetAuthorization(Authorization string) *ListInsightsAssessmentsParams {
-	params.Authorization = &Authorization
-	return params
+func (params *ListInsightsAssessmentsParams) SetAuthorization(Authorization string) (*ListInsightsAssessmentsParams){
+    params.Authorization = &Authorization
+    return params
 }
-func (params *ListInsightsAssessmentsParams) SetSegmentId(SegmentId string) *ListInsightsAssessmentsParams {
-	params.SegmentId = &SegmentId
-	return params
+func (params *ListInsightsAssessmentsParams) SetSegmentId(SegmentId string) (*ListInsightsAssessmentsParams){
+    params.SegmentId = &SegmentId
+    return params
 }
-func (params *ListInsightsAssessmentsParams) SetPageSize(PageSize int) *ListInsightsAssessmentsParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListInsightsAssessmentsParams) SetPageSize(PageSize int) (*ListInsightsAssessmentsParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListInsightsAssessmentsParams) SetLimit(Limit int) *ListInsightsAssessmentsParams {
-	params.Limit = &Limit
-	return params
+func (params *ListInsightsAssessmentsParams) SetLimit(Limit int) (*ListInsightsAssessmentsParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of InsightsAssessments records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsAssessments(params *ListInsightsAssessmentsParams, pageToken, pageNumber string) (*ListInsightsAssessmentsResponse, error) {
-	path := "/v1/Insights/QualityManagement/Assessments"
+    path := "/v1/Insights/QualityManagement/Assessments"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.SegmentId != nil {
+    data.Set("SegmentId", *params.SegmentId)
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.SegmentId != nil {
-		data.Set("SegmentId", *params.SegmentId)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListInsightsAssessmentsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListInsightsAssessmentsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists InsightsAssessments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -254,6 +254,7 @@ func (c *ApiService) StreamInsightsAssessments(params *ListInsightsAssessmentsPa
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamInsightsAssessments(response *ListInsightsAssessmentsResponse, params *ListInsightsAssessmentsParams, recordChannel chan FlexV1InsightsAssessments, errorChannel chan error) {
 	curRecord := 1
 
@@ -285,85 +286,86 @@ func (c *ApiService) streamInsightsAssessments(response *ListInsightsAssessments
 }
 
 func (c *ApiService) getNextListInsightsAssessmentsResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListInsightsAssessmentsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListInsightsAssessmentsResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateInsightsAssessments'
 type UpdateInsightsAssessmentsParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
-	// The offset of the conversation
-	Offset *float32 `json:"Offset,omitempty"`
-	// The answer text selected by user
-	AnswerText *string `json:"AnswerText,omitempty"`
-	// The id of the answer selected by user
-	AnswerId *string `json:"AnswerId,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
+    // The offset of the conversation
+    Offset *float32 `json:"Offset,omitempty"`
+    // The answer text selected by user
+    AnswerText *string `json:"AnswerText,omitempty"`
+    // The id of the answer selected by user
+    AnswerId *string `json:"AnswerId,omitempty"`
 }
 
-func (params *UpdateInsightsAssessmentsParams) SetAuthorization(Authorization string) *UpdateInsightsAssessmentsParams {
-	params.Authorization = &Authorization
-	return params
+func (params *UpdateInsightsAssessmentsParams) SetAuthorization(Authorization string) (*UpdateInsightsAssessmentsParams){
+    params.Authorization = &Authorization
+    return params
 }
-func (params *UpdateInsightsAssessmentsParams) SetOffset(Offset float32) *UpdateInsightsAssessmentsParams {
-	params.Offset = &Offset
-	return params
+func (params *UpdateInsightsAssessmentsParams) SetOffset(Offset float32) (*UpdateInsightsAssessmentsParams){
+    params.Offset = &Offset
+    return params
 }
-func (params *UpdateInsightsAssessmentsParams) SetAnswerText(AnswerText string) *UpdateInsightsAssessmentsParams {
-	params.AnswerText = &AnswerText
-	return params
+func (params *UpdateInsightsAssessmentsParams) SetAnswerText(AnswerText string) (*UpdateInsightsAssessmentsParams){
+    params.AnswerText = &AnswerText
+    return params
 }
-func (params *UpdateInsightsAssessmentsParams) SetAnswerId(AnswerId string) *UpdateInsightsAssessmentsParams {
-	params.AnswerId = &AnswerId
-	return params
+func (params *UpdateInsightsAssessmentsParams) SetAnswerId(AnswerId string) (*UpdateInsightsAssessmentsParams){
+    params.AnswerId = &AnswerId
+    return params
 }
 
 // Update a specific Assessment assessed earlier
 func (c *ApiService) UpdateInsightsAssessments(AssessmentSid string, params *UpdateInsightsAssessmentsParams) (*FlexV1InsightsAssessments, error) {
-	path := "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}"
-	path = strings.Replace(path, "{"+"AssessmentSid"+"}", AssessmentSid, -1)
+    path := "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}"
+        path = strings.Replace(path, "{"+"AssessmentSid"+"}", AssessmentSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Offset != nil {
+    data.Set("Offset", fmt.Sprint(*params.Offset))
+}
+if params != nil && params.AnswerText != nil {
+    data.Set("AnswerText", *params.AnswerText)
+}
+if params != nil && params.AnswerId != nil {
+    data.Set("AnswerId", *params.AnswerId)
+}
 
-	if params != nil && params.Offset != nil {
-		data.Set("Offset", fmt.Sprint(*params.Offset))
-	}
-	if params != nil && params.AnswerText != nil {
-		data.Set("AnswerText", *params.AnswerText)
-	}
-	if params != nil && params.AnswerId != nil {
-		data.Set("AnswerId", *params.AnswerId)
-	}
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1InsightsAssessments{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1InsightsAssessments{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }

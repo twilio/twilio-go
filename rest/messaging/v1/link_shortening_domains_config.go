@@ -18,93 +18,98 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) FetchDomainConfig(DomainSid string) (*MessagingV1DomainConfig, error) {
-	path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) FetchDomainConfig(DomainSid string, ) (*MessagingV1DomainConfig, error) {
+    path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
+        path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	ps := &MessagingV1DomainConfig{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &MessagingV1DomainConfig{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateDomainConfig'
 type UpdateDomainConfigParams struct {
-	// Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
-	FallbackUrl *string `json:"FallbackUrl,omitempty"`
-	// URL to receive click events to your webhook whenever the recipients click on the shortened links
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	// Boolean field to set customer delivery preference when there is a failure in linkShortening service
-	ContinueOnFailure *bool `json:"ContinueOnFailure,omitempty"`
-	// Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
-	DisableHttps *bool `json:"DisableHttps,omitempty"`
+    // Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
+    FallbackUrl *string `json:"FallbackUrl,omitempty"`
+    // URL to receive click events to your webhook whenever the recipients click on the shortened links
+    CallbackUrl *string `json:"CallbackUrl,omitempty"`
+    // Boolean field to set customer delivery preference when there is a failure in linkShortening service
+    ContinueOnFailure *bool `json:"ContinueOnFailure,omitempty"`
+    // Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
+    DisableHttps *bool `json:"DisableHttps,omitempty"`
 }
 
-func (params *UpdateDomainConfigParams) SetFallbackUrl(FallbackUrl string) *UpdateDomainConfigParams {
-	params.FallbackUrl = &FallbackUrl
-	return params
+func (params *UpdateDomainConfigParams) SetFallbackUrl(FallbackUrl string) (*UpdateDomainConfigParams){
+    params.FallbackUrl = &FallbackUrl
+    return params
 }
-func (params *UpdateDomainConfigParams) SetCallbackUrl(CallbackUrl string) *UpdateDomainConfigParams {
-	params.CallbackUrl = &CallbackUrl
-	return params
+func (params *UpdateDomainConfigParams) SetCallbackUrl(CallbackUrl string) (*UpdateDomainConfigParams){
+    params.CallbackUrl = &CallbackUrl
+    return params
 }
-func (params *UpdateDomainConfigParams) SetContinueOnFailure(ContinueOnFailure bool) *UpdateDomainConfigParams {
-	params.ContinueOnFailure = &ContinueOnFailure
-	return params
+func (params *UpdateDomainConfigParams) SetContinueOnFailure(ContinueOnFailure bool) (*UpdateDomainConfigParams){
+    params.ContinueOnFailure = &ContinueOnFailure
+    return params
 }
-func (params *UpdateDomainConfigParams) SetDisableHttps(DisableHttps bool) *UpdateDomainConfigParams {
-	params.DisableHttps = &DisableHttps
-	return params
+func (params *UpdateDomainConfigParams) SetDisableHttps(DisableHttps bool) (*UpdateDomainConfigParams){
+    params.DisableHttps = &DisableHttps
+    return params
 }
 
-//
+// 
 func (c *ApiService) UpdateDomainConfig(DomainSid string, params *UpdateDomainConfigParams) (*MessagingV1DomainConfig, error) {
-	path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+    path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
+        path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.FallbackUrl != nil {
+    data.Set("FallbackUrl", *params.FallbackUrl)
+}
+if params != nil && params.CallbackUrl != nil {
+    data.Set("CallbackUrl", *params.CallbackUrl)
+}
+if params != nil && params.ContinueOnFailure != nil {
+    data.Set("ContinueOnFailure", fmt.Sprint(*params.ContinueOnFailure))
+}
+if params != nil && params.DisableHttps != nil {
+    data.Set("DisableHttps", fmt.Sprint(*params.DisableHttps))
+}
 
-	if params != nil && params.FallbackUrl != nil {
-		data.Set("FallbackUrl", *params.FallbackUrl)
-	}
-	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
-	}
-	if params != nil && params.ContinueOnFailure != nil {
-		data.Set("ContinueOnFailure", fmt.Sprint(*params.ContinueOnFailure))
-	}
-	if params != nil && params.DisableHttps != nil {
-		data.Set("DisableHttps", fmt.Sprint(*params.DisableHttps))
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &MessagingV1DomainConfig{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &MessagingV1DomainConfig{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

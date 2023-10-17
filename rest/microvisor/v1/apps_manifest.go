@@ -16,29 +16,34 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Retrieve the Manifest for an App.
-func (c *ApiService) FetchAppManifest(AppSid string) (*MicrovisorV1AppManifest, error) {
-	path := "/v1/Apps/{AppSid}/Manifest"
-	path = strings.Replace(path, "{"+"AppSid"+"}", AppSid, -1)
+func (c *ApiService) FetchAppManifest(AppSid string, ) (*MicrovisorV1AppManifest, error) {
+    path := "/v1/Apps/{AppSid}/Manifest"
+        path = strings.Replace(path, "{"+"AppSid"+"}", AppSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &MicrovisorV1AppManifest{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &MicrovisorV1AppManifest{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

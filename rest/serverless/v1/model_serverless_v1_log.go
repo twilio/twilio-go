@@ -13,34 +13,36 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // ServerlessV1Log struct for ServerlessV1Log
 type ServerlessV1Log struct {
-	// The unique string that we created to identify the Log resource.
+		// The unique string that we created to identify the Log resource.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Log resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Log resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Service that the Log resource is associated with.
+		// The SID of the Service that the Log resource is associated with.
 	ServiceSid *string `json:"service_sid,omitempty"`
-	// The SID of the environment in which the log occurred.
+		// The SID of the environment in which the log occurred.
 	EnvironmentSid *string `json:"environment_sid,omitempty"`
-	// The SID of the build that corresponds to the log.
+		// The SID of the build that corresponds to the log.
 	BuildSid *string `json:"build_sid,omitempty"`
-	// The SID of the deployment that corresponds to the log.
+		// The SID of the deployment that corresponds to the log.
 	DeploymentSid *string `json:"deployment_sid,omitempty"`
-	// The SID of the function whose invocation produced the log.
+		// The SID of the function whose invocation produced the log.
 	FunctionSid *string `json:"function_sid,omitempty"`
-	// The SID of the request associated with the log.
+		// The SID of the request associated with the log.
 	RequestSid *string `json:"request_sid,omitempty"`
-	Level      *string `json:"level,omitempty"`
-	// The log message.
+	Level *string `json:"level,omitempty"`
+		// The log message.
 	Message *string `json:"message,omitempty"`
-	// The date and time in GMT when the Log resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the Log resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The absolute URL of the Log resource.
+		// The absolute URL of the Log resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

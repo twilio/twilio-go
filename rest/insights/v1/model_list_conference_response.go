@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ListConferenceResponse struct for ListConferenceResponse
 type ListConferenceResponse struct {
-	Conferences []InsightsV1Conference        `json:"conferences,omitempty"`
-	Meta        ListCallSummariesResponseMeta `json:"meta,omitempty"`
+	Conferences []InsightsV1Conference `json:"conferences,omitempty"`
+	Meta ListCallSummariesResponseMeta `json:"meta,omitempty"`
 }
+
+

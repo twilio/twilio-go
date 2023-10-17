@@ -18,137 +18,138 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
-	"time"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
-	path := "/v1/Events/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) FetchEvent(Sid string, ) (*MonitorV1Event, error) {
+    path := "/v1/Events/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	ps := &MonitorV1Event{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &MonitorV1Event{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListEvent'
 type ListEventParams struct {
-	// Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
-	ActorSid *string `json:"ActorSid,omitempty"`
-	// Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
-	EventType *string `json:"EventType,omitempty"`
-	// Only include events that refer to this resource. Useful for discovering the history of a specific resource.
-	ResourceSid *string `json:"ResourceSid,omitempty"`
-	// Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
-	SourceIpAddress *string `json:"SourceIpAddress,omitempty"`
-	// Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	// Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+    ActorSid *string `json:"ActorSid,omitempty"`
+    // Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+    EventType *string `json:"EventType,omitempty"`
+    // Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+    ResourceSid *string `json:"ResourceSid,omitempty"`
+    // Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+    SourceIpAddress *string `json:"SourceIpAddress,omitempty"`
+    // Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    StartDate *time.Time `json:"StartDate,omitempty"`
+    // Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    EndDate *time.Time `json:"EndDate,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListEventParams) SetActorSid(ActorSid string) *ListEventParams {
-	params.ActorSid = &ActorSid
-	return params
+func (params *ListEventParams) SetActorSid(ActorSid string) (*ListEventParams){
+    params.ActorSid = &ActorSid
+    return params
 }
-func (params *ListEventParams) SetEventType(EventType string) *ListEventParams {
-	params.EventType = &EventType
-	return params
+func (params *ListEventParams) SetEventType(EventType string) (*ListEventParams){
+    params.EventType = &EventType
+    return params
 }
-func (params *ListEventParams) SetResourceSid(ResourceSid string) *ListEventParams {
-	params.ResourceSid = &ResourceSid
-	return params
+func (params *ListEventParams) SetResourceSid(ResourceSid string) (*ListEventParams){
+    params.ResourceSid = &ResourceSid
+    return params
 }
-func (params *ListEventParams) SetSourceIpAddress(SourceIpAddress string) *ListEventParams {
-	params.SourceIpAddress = &SourceIpAddress
-	return params
+func (params *ListEventParams) SetSourceIpAddress(SourceIpAddress string) (*ListEventParams){
+    params.SourceIpAddress = &SourceIpAddress
+    return params
 }
-func (params *ListEventParams) SetStartDate(StartDate time.Time) *ListEventParams {
-	params.StartDate = &StartDate
-	return params
+func (params *ListEventParams) SetStartDate(StartDate time.Time) (*ListEventParams){
+    params.StartDate = &StartDate
+    return params
 }
-func (params *ListEventParams) SetEndDate(EndDate time.Time) *ListEventParams {
-	params.EndDate = &EndDate
-	return params
+func (params *ListEventParams) SetEndDate(EndDate time.Time) (*ListEventParams){
+    params.EndDate = &EndDate
+    return params
 }
-func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListEventParams) SetPageSize(PageSize int) (*ListEventParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
-	params.Limit = &Limit
-	return params
+func (params *ListEventParams) SetLimit(Limit int) (*ListEventParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Event records from the API. Request is executed immediately.
 func (c *ApiService) PageEvent(params *ListEventParams, pageToken, pageNumber string) (*ListEventResponse, error) {
-	path := "/v1/Events"
+    path := "/v1/Events"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.ActorSid != nil {
+    data.Set("ActorSid", *params.ActorSid)
+}
+if params != nil && params.EventType != nil {
+    data.Set("EventType", *params.EventType)
+}
+if params != nil && params.ResourceSid != nil {
+    data.Set("ResourceSid", *params.ResourceSid)
+}
+if params != nil && params.SourceIpAddress != nil {
+    data.Set("SourceIpAddress", *params.SourceIpAddress)
+}
+if params != nil && params.StartDate != nil {
+    data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+}
+if params != nil && params.EndDate != nil {
+    data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.ActorSid != nil {
-		data.Set("ActorSid", *params.ActorSid)
-	}
-	if params != nil && params.EventType != nil {
-		data.Set("EventType", *params.EventType)
-	}
-	if params != nil && params.ResourceSid != nil {
-		data.Set("ResourceSid", *params.ResourceSid)
-	}
-	if params != nil && params.SourceIpAddress != nil {
-		data.Set("SourceIpAddress", *params.SourceIpAddress)
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListEventResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListEventResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -189,6 +190,7 @@ func (c *ApiService) StreamEvent(params *ListEventParams) (chan MonitorV1Event, 
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventParams, recordChannel chan MonitorV1Event, errorChannel chan error) {
 	curRecord := 1
 
@@ -220,19 +222,20 @@ func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventP
 }
 
 func (c *ApiService) getNextListEventResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListEventResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListEventResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

@@ -18,122 +18,122 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
-	"time"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1RoomParticipant, error) {
-	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string, ) (*VideoV1RoomParticipant, error) {
+    path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
+        path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	ps := &VideoV1RoomParticipant{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &VideoV1RoomParticipant{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListRoomParticipant'
 type ListRoomParticipantParams struct {
-	// Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
-	Status *string `json:"Status,omitempty"`
-	// Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
-	Identity *string `json:"Identity,omitempty"`
-	// Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-	// Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+    Status *string `json:"Status,omitempty"`
+    // Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
+    Identity *string `json:"Identity,omitempty"`
+    // Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+    DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
+    // Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+    DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListRoomParticipantParams) SetStatus(Status string) *ListRoomParticipantParams {
-	params.Status = &Status
-	return params
+func (params *ListRoomParticipantParams) SetStatus(Status string) (*ListRoomParticipantParams){
+    params.Status = &Status
+    return params
 }
-func (params *ListRoomParticipantParams) SetIdentity(Identity string) *ListRoomParticipantParams {
-	params.Identity = &Identity
-	return params
+func (params *ListRoomParticipantParams) SetIdentity(Identity string) (*ListRoomParticipantParams){
+    params.Identity = &Identity
+    return params
 }
-func (params *ListRoomParticipantParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListRoomParticipantParams {
-	params.DateCreatedAfter = &DateCreatedAfter
-	return params
+func (params *ListRoomParticipantParams) SetDateCreatedAfter(DateCreatedAfter time.Time) (*ListRoomParticipantParams){
+    params.DateCreatedAfter = &DateCreatedAfter
+    return params
 }
-func (params *ListRoomParticipantParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListRoomParticipantParams {
-	params.DateCreatedBefore = &DateCreatedBefore
-	return params
+func (params *ListRoomParticipantParams) SetDateCreatedBefore(DateCreatedBefore time.Time) (*ListRoomParticipantParams){
+    params.DateCreatedBefore = &DateCreatedBefore
+    return params
 }
-func (params *ListRoomParticipantParams) SetPageSize(PageSize int) *ListRoomParticipantParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListRoomParticipantParams) SetPageSize(PageSize int) (*ListRoomParticipantParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListRoomParticipantParams) SetLimit(Limit int) *ListRoomParticipantParams {
-	params.Limit = &Limit
-	return params
+func (params *ListRoomParticipantParams) SetLimit(Limit int) (*ListRoomParticipantParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of RoomParticipant records from the API. Request is executed immediately.
 func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomParticipantParams, pageToken, pageNumber string) (*ListRoomParticipantResponse, error) {
-	path := "/v1/Rooms/{RoomSid}/Participants"
+    path := "/v1/Rooms/{RoomSid}/Participants"
 
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+        path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Status != nil {
+    data.Set("Status", *params.Status)
+}
+if params != nil && params.Identity != nil {
+    data.Set("Identity", *params.Identity)
+}
+if params != nil && params.DateCreatedAfter != nil {
+    data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+}
+if params != nil && params.DateCreatedBefore != nil {
+    data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
-	}
-	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListRoomParticipantResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListRoomParticipantResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists RoomParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -174,6 +174,7 @@ func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParti
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamRoomParticipant(response *ListRoomParticipantResponse, params *ListRoomParticipantParams, recordChannel chan VideoV1RoomParticipant, errorChannel chan error) {
 	curRecord := 1
 
@@ -205,58 +206,60 @@ func (c *ApiService) streamRoomParticipant(response *ListRoomParticipantResponse
 }
 
 func (c *ApiService) getNextListRoomParticipantResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListRoomParticipantResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListRoomParticipantResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateRoomParticipant'
 type UpdateRoomParticipantParams struct {
-	//
-	Status *string `json:"Status,omitempty"`
+    // 
+    Status *string `json:"Status,omitempty"`
 }
 
-func (params *UpdateRoomParticipantParams) SetStatus(Status string) *UpdateRoomParticipantParams {
-	params.Status = &Status
-	return params
+func (params *UpdateRoomParticipantParams) SetStatus(Status string) (*UpdateRoomParticipantParams){
+    params.Status = &Status
+    return params
 }
 
-//
+// 
 func (c *ApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomParticipant, error) {
-	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
+        path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Status != nil {
+    data.Set("Status", *params.Status)
+}
 
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &VideoV1RoomParticipant{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &VideoV1RoomParticipant{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

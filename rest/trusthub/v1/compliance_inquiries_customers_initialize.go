@@ -16,81 +16,86 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateComplianceInquiry'
 type CreateComplianceInquiryParams struct {
-	// The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
-	PrimaryProfileSid *string `json:"PrimaryProfileSid,omitempty"`
+    // The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+    PrimaryProfileSid *string `json:"PrimaryProfileSid,omitempty"`
 }
 
-func (params *CreateComplianceInquiryParams) SetPrimaryProfileSid(PrimaryProfileSid string) *CreateComplianceInquiryParams {
-	params.PrimaryProfileSid = &PrimaryProfileSid
-	return params
+func (params *CreateComplianceInquiryParams) SetPrimaryProfileSid(PrimaryProfileSid string) (*CreateComplianceInquiryParams){
+    params.PrimaryProfileSid = &PrimaryProfileSid
+    return params
 }
 
 // Create a new Compliance Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceInquiry(params *CreateComplianceInquiryParams) (*TrusthubV1ComplianceInquiry, error) {
-	path := "/v1/ComplianceInquiries/Customers/Initialize"
+    path := "/v1/ComplianceInquiries/Customers/Initialize"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PrimaryProfileSid != nil {
+    data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	if params != nil && params.PrimaryProfileSid != nil {
-		data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &TrusthubV1ComplianceInquiry{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &TrusthubV1ComplianceInquiry{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Optional parameters for the method 'UpdateComplianceInquiry'
 type UpdateComplianceInquiryParams struct {
-	// The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
-	PrimaryProfileSid *string `json:"PrimaryProfileSid,omitempty"`
+    // The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+    PrimaryProfileSid *string `json:"PrimaryProfileSid,omitempty"`
 }
 
-func (params *UpdateComplianceInquiryParams) SetPrimaryProfileSid(PrimaryProfileSid string) *UpdateComplianceInquiryParams {
-	params.PrimaryProfileSid = &PrimaryProfileSid
-	return params
+func (params *UpdateComplianceInquiryParams) SetPrimaryProfileSid(PrimaryProfileSid string) (*UpdateComplianceInquiryParams){
+    params.PrimaryProfileSid = &PrimaryProfileSid
+    return params
 }
 
 // Resume a specific Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 func (c *ApiService) UpdateComplianceInquiry(CustomerId string, params *UpdateComplianceInquiryParams) (*TrusthubV1ComplianceInquiry, error) {
-	path := "/v1/ComplianceInquiries/Customers/{CustomerId}/Initialize"
-	path = strings.Replace(path, "{"+"CustomerId"+"}", CustomerId, -1)
+    path := "/v1/ComplianceInquiries/Customers/{CustomerId}/Initialize"
+        path = strings.Replace(path, "{"+"CustomerId"+"}", CustomerId, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PrimaryProfileSid != nil {
+    data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
+}
 
-	if params != nil && params.PrimaryProfileSid != nil {
-		data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &TrusthubV1ComplianceInquiry{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &TrusthubV1ComplianceInquiry{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

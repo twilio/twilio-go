@@ -18,130 +18,133 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateNetworkAccessProfile'
 type CreateNetworkAccessProfileParams struct {
-	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-	UniqueName *string `json:"UniqueName,omitempty"`
-	// List of Network SIDs that this Network Access Profile will allow connections to.
-	Networks *[]string `json:"Networks,omitempty"`
+    // An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+    UniqueName *string `json:"UniqueName,omitempty"`
+    // List of Network SIDs that this Network Access Profile will allow connections to.
+    Networks *[]string `json:"Networks,omitempty"`
 }
 
-func (params *CreateNetworkAccessProfileParams) SetUniqueName(UniqueName string) *CreateNetworkAccessProfileParams {
-	params.UniqueName = &UniqueName
-	return params
+func (params *CreateNetworkAccessProfileParams) SetUniqueName(UniqueName string) (*CreateNetworkAccessProfileParams){
+    params.UniqueName = &UniqueName
+    return params
 }
-func (params *CreateNetworkAccessProfileParams) SetNetworks(Networks []string) *CreateNetworkAccessProfileParams {
-	params.Networks = &Networks
-	return params
+func (params *CreateNetworkAccessProfileParams) SetNetworks(Networks []string) (*CreateNetworkAccessProfileParams){
+    params.Networks = &Networks
+    return params
 }
 
 // Create a new Network Access Profile
 func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
-	path := "/v1/NetworkAccessProfiles"
+    path := "/v1/NetworkAccessProfiles"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.UniqueName != nil {
+    data.Set("UniqueName", *params.UniqueName)
+}
+if params != nil && params.Networks != nil {
+    for _, item  := range *params.Networks {
+        data.Add("Networks", item)
+    }
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
-	}
-	if params != nil && params.Networks != nil {
-		for _, item := range *params.Networks {
-			data.Add("Networks", item)
-		}
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &SupersimV1NetworkAccessProfile{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &SupersimV1NetworkAccessProfile{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
 
 // Fetch a Network Access Profile instance from your account.
-func (c *ApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1NetworkAccessProfile, error) {
-	path := "/v1/NetworkAccessProfiles/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchNetworkAccessProfile(Sid string, ) (*SupersimV1NetworkAccessProfile, error) {
+    path := "/v1/NetworkAccessProfiles/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &SupersimV1NetworkAccessProfile{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &SupersimV1NetworkAccessProfile{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListNetworkAccessProfile'
 type ListNetworkAccessProfileParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListNetworkAccessProfileParams) SetPageSize(PageSize int) *ListNetworkAccessProfileParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListNetworkAccessProfileParams) SetPageSize(PageSize int) (*ListNetworkAccessProfileParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListNetworkAccessProfileParams) SetLimit(Limit int) *ListNetworkAccessProfileParams {
-	params.Limit = &Limit
-	return params
+func (params *ListNetworkAccessProfileParams) SetLimit(Limit int) (*ListNetworkAccessProfileParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of NetworkAccessProfile records from the API. Request is executed immediately.
 func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfileParams, pageToken, pageNumber string) (*ListNetworkAccessProfileResponse, error) {
-	path := "/v1/NetworkAccessProfiles"
+    path := "/v1/NetworkAccessProfiles"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListNetworkAccessProfileResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListNetworkAccessProfileResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists NetworkAccessProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -182,6 +185,7 @@ func (c *ApiService) StreamNetworkAccessProfile(params *ListNetworkAccessProfile
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamNetworkAccessProfile(response *ListNetworkAccessProfileResponse, params *ListNetworkAccessProfileParams, recordChannel chan SupersimV1NetworkAccessProfile, errorChannel chan error) {
 	curRecord := 1
 
@@ -213,57 +217,59 @@ func (c *ApiService) streamNetworkAccessProfile(response *ListNetworkAccessProfi
 }
 
 func (c *ApiService) getNextListNetworkAccessProfileResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListNetworkAccessProfileResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListNetworkAccessProfileResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateNetworkAccessProfile'
 type UpdateNetworkAccessProfileParams struct {
-	// The new unique name of the Network Access Profile.
-	UniqueName *string `json:"UniqueName,omitempty"`
+    // The new unique name of the Network Access Profile.
+    UniqueName *string `json:"UniqueName,omitempty"`
 }
 
-func (params *UpdateNetworkAccessProfileParams) SetUniqueName(UniqueName string) *UpdateNetworkAccessProfileParams {
-	params.UniqueName = &UniqueName
-	return params
+func (params *UpdateNetworkAccessProfileParams) SetUniqueName(UniqueName string) (*UpdateNetworkAccessProfileParams){
+    params.UniqueName = &UniqueName
+    return params
 }
 
 // Updates the given properties of a Network Access Profile in your account.
 func (c *ApiService) UpdateNetworkAccessProfile(Sid string, params *UpdateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
-	path := "/v1/NetworkAccessProfiles/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/NetworkAccessProfiles/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.UniqueName != nil {
+    data.Set("UniqueName", *params.UniqueName)
+}
 
-	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &SupersimV1NetworkAccessProfile{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &SupersimV1NetworkAccessProfile{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

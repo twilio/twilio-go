@@ -18,107 +18,110 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Delete a specific Sync Document Permission.
-func (c *ApiService) DeleteDocumentPermission(ServiceSid string, DocumentSid string, Identity string) error {
-	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+func (c *ApiService) DeleteDocumentPermission(ServiceSid string, DocumentSid string, Identity string, ) (error) {
+    path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
+    path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Fetch a specific Sync Document Permission.
-func (c *ApiService) FetchDocumentPermission(ServiceSid string, DocumentSid string, Identity string) (*SyncV1DocumentPermission, error) {
-	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+func (c *ApiService) FetchDocumentPermission(ServiceSid string, DocumentSid string, Identity string, ) (*SyncV1DocumentPermission, error) {
+    path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
+    path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &SyncV1DocumentPermission{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &SyncV1DocumentPermission{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListDocumentPermission'
 type ListDocumentPermissionParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListDocumentPermissionParams) SetPageSize(PageSize int) *ListDocumentPermissionParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListDocumentPermissionParams) SetPageSize(PageSize int) (*ListDocumentPermissionParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListDocumentPermissionParams) SetLimit(Limit int) *ListDocumentPermissionParams {
-	params.Limit = &Limit
-	return params
+func (params *ListDocumentPermissionParams) SetLimit(Limit int) (*ListDocumentPermissionParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of DocumentPermission records from the API. Request is executed immediately.
 func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, pageToken, pageNumber string) (*ListDocumentPermissionResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
+    path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
 
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListDocumentPermissionResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListDocumentPermissionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists DocumentPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -159,6 +162,7 @@ func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid str
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamDocumentPermission(response *ListDocumentPermissionResponse, params *ListDocumentPermissionParams, recordChannel chan SyncV1DocumentPermission, errorChannel chan error) {
 	curRecord := 1
 
@@ -190,77 +194,79 @@ func (c *ApiService) streamDocumentPermission(response *ListDocumentPermissionRe
 }
 
 func (c *ApiService) getNextListDocumentPermissionResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListDocumentPermissionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListDocumentPermissionResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateDocumentPermission'
 type UpdateDocumentPermissionParams struct {
-	// Whether the identity can read the Sync Document. Default value is `false`.
-	Read *bool `json:"Read,omitempty"`
-	// Whether the identity can update the Sync Document. Default value is `false`.
-	Write *bool `json:"Write,omitempty"`
-	// Whether the identity can delete the Sync Document. Default value is `false`.
-	Manage *bool `json:"Manage,omitempty"`
+    // Whether the identity can read the Sync Document. Default value is `false`.
+    Read *bool `json:"Read,omitempty"`
+    // Whether the identity can update the Sync Document. Default value is `false`.
+    Write *bool `json:"Write,omitempty"`
+    // Whether the identity can delete the Sync Document. Default value is `false`.
+    Manage *bool `json:"Manage,omitempty"`
 }
 
-func (params *UpdateDocumentPermissionParams) SetRead(Read bool) *UpdateDocumentPermissionParams {
-	params.Read = &Read
-	return params
+func (params *UpdateDocumentPermissionParams) SetRead(Read bool) (*UpdateDocumentPermissionParams){
+    params.Read = &Read
+    return params
 }
-func (params *UpdateDocumentPermissionParams) SetWrite(Write bool) *UpdateDocumentPermissionParams {
-	params.Write = &Write
-	return params
+func (params *UpdateDocumentPermissionParams) SetWrite(Write bool) (*UpdateDocumentPermissionParams){
+    params.Write = &Write
+    return params
 }
-func (params *UpdateDocumentPermissionParams) SetManage(Manage bool) *UpdateDocumentPermissionParams {
-	params.Manage = &Manage
-	return params
+func (params *UpdateDocumentPermissionParams) SetManage(Manage bool) (*UpdateDocumentPermissionParams){
+    params.Manage = &Manage
+    return params
 }
 
 // Update an identity's access to a specific Sync Document.
 func (c *ApiService) UpdateDocumentPermission(ServiceSid string, DocumentSid string, Identity string, params *UpdateDocumentPermissionParams) (*SyncV1DocumentPermission, error) {
-	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+    path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
+    path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.Read != nil {
+    data.Set("Read", fmt.Sprint(*params.Read))
+}
+if params != nil && params.Write != nil {
+    data.Set("Write", fmt.Sprint(*params.Write))
+}
+if params != nil && params.Manage != nil {
+    data.Set("Manage", fmt.Sprint(*params.Manage))
+}
 
-	if params != nil && params.Read != nil {
-		data.Set("Read", fmt.Sprint(*params.Read))
-	}
-	if params != nil && params.Write != nil {
-		data.Set("Write", fmt.Sprint(*params.Write))
-	}
-	if params != nil && params.Manage != nil {
-		data.Set("Manage", fmt.Sprint(*params.Manage))
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &SyncV1DocumentPermission{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &SyncV1DocumentPermission{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

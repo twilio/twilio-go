@@ -18,203 +18,207 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateSipIpAccessControlListMapping'
 type CreateSipIpAccessControlListMappingParams struct {
-	// The unique id of the Account that is responsible for this resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// The unique id of the IP access control list to map to the SIP domain.
-	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
+    // The unique id of the Account that is responsible for this resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // The unique id of the IP access control list to map to the SIP domain.
+    IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
-func (params *CreateSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *CreateSipIpAccessControlListMappingParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *CreateSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) (*CreateSipIpAccessControlListMappingParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *CreateSipIpAccessControlListMappingParams) SetIpAccessControlListSid(IpAccessControlListSid string) *CreateSipIpAccessControlListMappingParams {
-	params.IpAccessControlListSid = &IpAccessControlListSid
-	return params
+func (params *CreateSipIpAccessControlListMappingParams) SetIpAccessControlListSid(IpAccessControlListSid string) (*CreateSipIpAccessControlListMappingParams){
+    params.IpAccessControlListSid = &IpAccessControlListSid
+    return params
 }
 
 // Create a new IpAccessControlListMapping resource.
 func (c *ApiService) CreateSipIpAccessControlListMapping(DomainSid string, params *CreateSipIpAccessControlListMappingParams) (*ApiV2010SipIpAccessControlListMapping, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.IpAccessControlListSid != nil {
+    data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
+}
 
-	if params != nil && params.IpAccessControlListSid != nil {
-		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ApiV2010SipIpAccessControlListMapping{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ApiV2010SipIpAccessControlListMapping{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'DeleteSipIpAccessControlListMapping'
 type DeleteSipIpAccessControlListMappingParams struct {
-	// The unique id of the Account that is responsible for this resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // The unique id of the Account that is responsible for this resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
-func (params *DeleteSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *DeleteSipIpAccessControlListMappingParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *DeleteSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) (*DeleteSipIpAccessControlListMappingParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
 
 // Delete an IpAccessControlListMapping resource.
-func (c *ApiService) DeleteSipIpAccessControlListMapping(DomainSid string, Sid string, params *DeleteSipIpAccessControlListMappingParams) error {
-	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteSipIpAccessControlListMapping(DomainSid string, Sid string, params *DeleteSipIpAccessControlListMappingParams) (error) {
+    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Optional parameters for the method 'FetchSipIpAccessControlListMapping'
 type FetchSipIpAccessControlListMappingParams struct {
-	// The unique id of the Account that is responsible for this resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // The unique id of the Account that is responsible for this resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
-func (params *FetchSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *FetchSipIpAccessControlListMappingParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *FetchSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) (*FetchSipIpAccessControlListMappingParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
 
 // Fetch an IpAccessControlListMapping resource.
 func (c *ApiService) FetchSipIpAccessControlListMapping(DomainSid string, Sid string, params *FetchSipIpAccessControlListMappingParams) (*ApiV2010SipIpAccessControlListMapping, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ApiV2010SipIpAccessControlListMapping{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ApiV2010SipIpAccessControlListMapping{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListSipIpAccessControlListMapping'
 type ListSipIpAccessControlListMappingParams struct {
-	// The unique id of the Account that is responsible for this resource.
-	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // The unique id of the Account that is responsible for this resource.
+    PathAccountSid *string `json:"PathAccountSid,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAccessControlListMappingParams {
-	params.PathAccountSid = &PathAccountSid
-	return params
+func (params *ListSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) (*ListSipIpAccessControlListMappingParams){
+    params.PathAccountSid = &PathAccountSid
+    return params
 }
-func (params *ListSipIpAccessControlListMappingParams) SetPageSize(PageSize int) *ListSipIpAccessControlListMappingParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListSipIpAccessControlListMappingParams) SetPageSize(PageSize int) (*ListSipIpAccessControlListMappingParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListSipIpAccessControlListMappingParams) SetLimit(Limit int) *ListSipIpAccessControlListMappingParams {
-	params.Limit = &Limit
-	return params
+func (params *ListSipIpAccessControlListMappingParams) SetLimit(Limit int) (*ListSipIpAccessControlListMappingParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of SipIpAccessControlListMapping records from the API. Request is executed immediately.
-func (c *ApiService) PageSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams, pageToken, pageNumber string) (*ListSipIpAccessControlListMappingResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
+func (c *ApiService) PageSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams, pageToken, pageNumber string) (*, error) {
+    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
 
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+    if params != nil && params.PathAccountSid != nil {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+} else {
+    path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+}
+    path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListSipIpAccessControlListMappingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists SipIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams) ([]ApiV2010SipIpAccessControlListMapping, error) {
+func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams) (ListSipIpAccessControlListMapping200Response, error) {
 	response, errors := c.StreamSipIpAccessControlListMapping(DomainSid, params)
 
-	records := make([]ApiV2010SipIpAccessControlListMapping, 0)
+	records := make(ListSipIpAccessControlListMapping200Response, 0)
 	for record := range response {
 		records = append(records, record)
 	}
@@ -227,13 +231,13 @@ func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params 
 }
 
 // Streams SipIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams) (chan ApiV2010SipIpAccessControlListMapping, chan error) {
+func (c *ApiService) StreamSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams) (chan ListSipIpAccessControlListMapping200Response, chan error) {
 	if params == nil {
 		params = &ListSipIpAccessControlListMappingParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
-	recordChannel := make(chan ApiV2010SipIpAccessControlListMapping, 1)
+	recordChannel := make(chan ListSipIpAccessControlListMapping200Response, 1)
 	errorChannel := make(chan error, 1)
 
 	response, err := c.PageSipIpAccessControlListMapping(DomainSid, params, "", "")
@@ -248,11 +252,12 @@ func (c *ApiService) StreamSipIpAccessControlListMapping(DomainSid string, param
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipIpAccessControlListMapping(response *ListSipIpAccessControlListMappingResponse, params *ListSipIpAccessControlListMappingParams, recordChannel chan ApiV2010SipIpAccessControlListMapping, errorChannel chan error) {
+
+func (c *ApiService) streamSipIpAccessControlListMapping(response *, params *ListSipIpAccessControlListMappingParams, recordChannel chan ListSipIpAccessControlListMapping200Response, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
-		responseRecords := response.IpAccessControlListMappings
+		responseRecords := response.
 		for item := range responseRecords {
 			recordChannel <- responseRecords[item]
 			curRecord += 1
@@ -263,7 +268,7 @@ func (c *ApiService) streamSipIpAccessControlListMapping(response *ListSipIpAcce
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSipIpAccessControlListMappingResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -271,27 +276,28 @@ func (c *ApiService) streamSipIpAccessControlListMapping(response *ListSipIpAcce
 			break
 		}
 
-		response = record.(*ListSipIpAccessControlListMappingResponse)
+		response = record.(*)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipIpAccessControlListMappingResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+func (c *ApiService) getNext(nextPageUrl string) (interface{}, error) {
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListSipIpAccessControlListMappingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

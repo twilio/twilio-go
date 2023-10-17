@@ -13,12 +13,17 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // MessagingV1LinkshorteningMessagingServiceDomainAssociation struct for MessagingV1LinkshorteningMessagingServiceDomainAssociation
 type MessagingV1LinkshorteningMessagingServiceDomainAssociation struct {
-	// The unique string that we created to identify the Domain resource.
+		// The unique string that we created to identify the Domain resource.
 	DomainSid *string `json:"domain_sid,omitempty"`
-	// The unique string that identifies the messaging service
+		// The unique string that identifies the messaging service
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
-	Url                 *string `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

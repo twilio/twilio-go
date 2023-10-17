@@ -18,110 +18,111 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
-	"time"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
-//
-func (c *ApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, error) {
-	path := "/v1/Alerts/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+// 
+func (c *ApiService) FetchAlert(Sid string, ) (*MonitorV1AlertInstance, error) {
+    path := "/v1/Alerts/{Sid}"
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	defer resp.Body.Close()
 
-	ps := &MonitorV1AlertInstance{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
 
-	return ps, err
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    ps := &MonitorV1AlertInstance{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListAlert'
 type ListAlertParams struct {
-	// Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
-	LogLevel *string `json:"LogLevel,omitempty"`
-	// Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	// Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
+    LogLevel *string `json:"LogLevel,omitempty"`
+    // Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
+    StartDate *time.Time `json:"StartDate,omitempty"`
+    // Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
+    EndDate *time.Time `json:"EndDate,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListAlertParams) SetLogLevel(LogLevel string) *ListAlertParams {
-	params.LogLevel = &LogLevel
-	return params
+func (params *ListAlertParams) SetLogLevel(LogLevel string) (*ListAlertParams){
+    params.LogLevel = &LogLevel
+    return params
 }
-func (params *ListAlertParams) SetStartDate(StartDate time.Time) *ListAlertParams {
-	params.StartDate = &StartDate
-	return params
+func (params *ListAlertParams) SetStartDate(StartDate time.Time) (*ListAlertParams){
+    params.StartDate = &StartDate
+    return params
 }
-func (params *ListAlertParams) SetEndDate(EndDate time.Time) *ListAlertParams {
-	params.EndDate = &EndDate
-	return params
+func (params *ListAlertParams) SetEndDate(EndDate time.Time) (*ListAlertParams){
+    params.EndDate = &EndDate
+    return params
 }
-func (params *ListAlertParams) SetPageSize(PageSize int) *ListAlertParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListAlertParams) SetPageSize(PageSize int) (*ListAlertParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListAlertParams) SetLimit(Limit int) *ListAlertParams {
-	params.Limit = &Limit
-	return params
+func (params *ListAlertParams) SetLimit(Limit int) (*ListAlertParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Alert records from the API. Request is executed immediately.
 func (c *ApiService) PageAlert(params *ListAlertParams, pageToken, pageNumber string) (*ListAlertResponse, error) {
-	path := "/v1/Alerts"
+    path := "/v1/Alerts"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.LogLevel != nil {
+    data.Set("LogLevel", *params.LogLevel)
+}
+if params != nil && params.StartDate != nil {
+    data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+}
+if params != nil && params.EndDate != nil {
+    data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+}
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.LogLevel != nil {
-		data.Set("LogLevel", *params.LogLevel)
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListAlertResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListAlertResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists Alert records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -162,6 +163,7 @@ func (c *ApiService) StreamAlert(params *ListAlertParams) (chan MonitorV1Alert, 
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamAlert(response *ListAlertResponse, params *ListAlertParams, recordChannel chan MonitorV1Alert, errorChannel chan error) {
 	curRecord := 1
 
@@ -193,19 +195,20 @@ func (c *ApiService) streamAlert(response *ListAlertResponse, params *ListAlertP
 }
 
 func (c *ApiService) getNextListAlertResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListAlertResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListAlertResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

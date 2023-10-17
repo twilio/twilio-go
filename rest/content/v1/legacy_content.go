@@ -19,57 +19,58 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'ListLegacyContent'
 type ListLegacyContentParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListLegacyContentParams) SetPageSize(PageSize int) *ListLegacyContentParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListLegacyContentParams) SetPageSize(PageSize int) (*ListLegacyContentParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListLegacyContentParams) SetLimit(Limit int) *ListLegacyContentParams {
-	params.Limit = &Limit
-	return params
+func (params *ListLegacyContentParams) SetLimit(Limit int) (*ListLegacyContentParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of LegacyContent records from the API. Request is executed immediately.
 func (c *ApiService) PageLegacyContent(params *ListLegacyContentParams, pageToken, pageNumber string) (*ListLegacyContentResponse, error) {
-	path := "/v1/LegacyContent"
+    path := "/v1/LegacyContent"
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListLegacyContentResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListLegacyContentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists LegacyContent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -110,6 +111,7 @@ func (c *ApiService) StreamLegacyContent(params *ListLegacyContentParams) (chan 
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamLegacyContent(response *ListLegacyContentResponse, params *ListLegacyContentParams, recordChannel chan ContentV1LegacyContent, errorChannel chan error) {
 	curRecord := 1
 
@@ -141,19 +143,20 @@ func (c *ApiService) streamLegacyContent(response *ListLegacyContentResponse, pa
 }
 
 func (c *ApiService) getNextListLegacyContentResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListLegacyContentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListLegacyContentResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

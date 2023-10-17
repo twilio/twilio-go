@@ -16,51 +16,56 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateExternalCampaign'
 type CreateExternalCampaignParams struct {
-	// ID of the preregistered campaign.
-	CampaignId *string `json:"CampaignId,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
-	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+    // ID of the preregistered campaign.
+    CampaignId *string `json:"CampaignId,omitempty"`
+    // The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
+    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 }
 
-func (params *CreateExternalCampaignParams) SetCampaignId(CampaignId string) *CreateExternalCampaignParams {
-	params.CampaignId = &CampaignId
-	return params
+func (params *CreateExternalCampaignParams) SetCampaignId(CampaignId string) (*CreateExternalCampaignParams){
+    params.CampaignId = &CampaignId
+    return params
 }
-func (params *CreateExternalCampaignParams) SetMessagingServiceSid(MessagingServiceSid string) *CreateExternalCampaignParams {
-	params.MessagingServiceSid = &MessagingServiceSid
-	return params
+func (params *CreateExternalCampaignParams) SetMessagingServiceSid(MessagingServiceSid string) (*CreateExternalCampaignParams){
+    params.MessagingServiceSid = &MessagingServiceSid
+    return params
 }
 
-//
+// 
 func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
-	path := "/v1/Services/PreregisteredUsa2p"
+    path := "/v1/Services/PreregisteredUsa2p"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.CampaignId != nil {
+    data.Set("CampaignId", *params.CampaignId)
+}
+if params != nil && params.MessagingServiceSid != nil {
+    data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+}
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
-	if params != nil && params.CampaignId != nil {
-		data.Set("CampaignId", *params.CampaignId)
-	}
-	if params != nil && params.MessagingServiceSid != nil {
-		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &MessagingV1ExternalCampaign{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &MessagingV1ExternalCampaign{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }

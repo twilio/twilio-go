@@ -13,10 +13,15 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // FlexV1InsightsUserRoles struct for FlexV1InsightsUserRoles
 type FlexV1InsightsUserRoles struct {
-	// Flex Insights roles for the user
+		// Flex Insights roles for the user
 	Roles *[]string `json:"roles,omitempty"`
-	Url   *string   `json:"url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
+
+

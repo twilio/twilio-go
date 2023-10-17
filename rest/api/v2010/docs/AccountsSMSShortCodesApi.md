@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## ListShortCode
 
-> []ApiV2010ShortCode ListShortCode(ctx, optional)
+> ListShortCode200Response ListShortCode(ctx, optional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]ApiV2010ShortCode**](ApiV2010ShortCode.md)
+[**ListShortCode200Response**](ListShortCode200Response.md)
 
 ### Authorization
 

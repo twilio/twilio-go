@@ -13,21 +13,26 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ApiV2010Media struct for ApiV2010Media
 type ApiV2010Media struct {
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with this Media resource.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with this Media resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The default [MIME type](https://en.wikipedia.org/wiki/Internet_media_type) of the media, for example `image/jpeg`, `image/png`, or `image/gif`.
+		// The default [MIME type](https://en.wikipedia.org/wiki/Internet_media_type) of the media, for example `image/jpeg`, `image/png`, or `image/gif`.
 	ContentType *string `json:"content_type,omitempty"`
-	// The date and time in GMT when this Media resource was created, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT when this Media resource was created, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date and time in GMT when this Media resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+		// The date and time in GMT when this Media resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
-	// The SID of the Message resource that is associated with this Media resource.
+		// The SID of the Message resource that is associated with this Media resource.
 	ParentSid *string `json:"parent_sid,omitempty"`
-	// The unique string that identifies this Media resource.
+		// The unique string that identifies this Media resource.
 	Sid *string `json:"sid,omitempty"`
-	// The URI of this Media resource, relative to `https://api.twilio.com`.
+		// The URI of this Media resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 }
+
+

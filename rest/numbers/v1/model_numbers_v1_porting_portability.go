@@ -13,28 +13,33 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // NumbersV1PortingPortability struct for NumbersV1PortingPortability
 type NumbersV1PortingPortability struct {
-	// The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
+		// The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// The target account sid to which the number will be ported
+		// The target account sid to which the number will be ported
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Boolean flag specifying if phone number is portable or not.
+		// Boolean flag specifying if phone number is portable or not.
 	Portable *bool `json:"portable,omitempty"`
-	// Boolean flag specifying if PIN and account number is required for the phone number.
+		// Boolean flag specifying if PIN and account number is required for the phone number.
 	PinAndAccountNumberRequired *bool `json:"pin_and_account_number_required,omitempty"`
-	// Reason why the phone number cannot be ported into Twilio, `null` otherwise.
+		// Reason why the phone number cannot be ported into Twilio, `null` otherwise.
 	NotPortableReason *string `json:"not_portable_reason,omitempty"`
-	// The Portability Reason Code for the phone number if it cannot be ported into Twilio, `null` otherwise. One of `22131`, `22132`, `22130`, `22133`, `22102` or `22135`.
-	NotPortableReasonCode *int    `json:"not_portable_reason_code,omitempty"`
-	NumberType            *string `json:"number_type,omitempty"`
-	// Country the phone number belongs to.
+		// The Portability Reason Code for the phone number if it cannot be ported into Twilio, `null` otherwise. One of `22131`, `22132`, `22130`, `22133`, `22102` or `22135`.
+	NotPortableReasonCode *int `json:"not_portable_reason_code,omitempty"`
+	NumberType *string `json:"number_type,omitempty"`
+		// Country the phone number belongs to.
 	Country *string `json:"country,omitempty"`
-	// Current messaging carrier of the phone number
+		// Current messaging carrier of the phone number
 	MessagingCarrier *string `json:"messaging_carrier,omitempty"`
-	// Current voice carrier of the phone number
+		// Current voice carrier of the phone number
 	VoiceCarrier *string `json:"voice_carrier,omitempty"`
-	// This is the url of the request that you're trying to reach out to locate the resource.
+		// This is the url of the request that you're trying to reach out to locate the resource.
 	Url *string `json:"url,omitempty"`
 }
+
+

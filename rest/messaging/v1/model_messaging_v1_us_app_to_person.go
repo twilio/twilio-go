@@ -13,61 +13,63 @@
  */
 
 package openapi
-
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
-
 // MessagingV1UsAppToPerson struct for MessagingV1UsAppToPerson
 type MessagingV1UsAppToPerson struct {
-	// The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
+		// The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
 	Sid *string `json:"sid,omitempty"`
-	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
+		// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique string to identify the A2P brand.
+		// The unique string to identify the A2P brand.
 	BrandRegistrationSid *string `json:"brand_registration_sid,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
+		// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
-	// A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+		// A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
 	Description *string `json:"description,omitempty"`
-	// Message samples, at least 1 and up to 5 sample messages (at least 2 for starter/sole proprietor), >=20 chars, <=1024 chars each.
+		// Message samples, at least 1 and up to 5 sample messages (at least 2 for starter/sole proprietor), >=20 chars, <=1024 chars each.
 	MessageSamples *[]string `json:"message_samples,omitempty"`
-	// A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING, SOLE_PROPRIETOR...]. SOLE_PROPRIETOR campaign use cases can only be created by SOLE_PROPRIETOR Brands, and there can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR Brand.
+		// A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING, SOLE_PROPRIETOR...]. SOLE_PROPRIETOR campaign use cases can only be created by SOLE_PROPRIETOR Brands, and there can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR Brand.
 	UsAppToPersonUsecase *string `json:"us_app_to_person_usecase,omitempty"`
-	// Indicate that this SMS campaign will send messages that contain links.
+		// Indicate that this SMS campaign will send messages that contain links.
 	HasEmbeddedLinks *bool `json:"has_embedded_links,omitempty"`
-	// Indicates that this SMS campaign will send messages that contain phone numbers.
+		// Indicates that this SMS campaign will send messages that contain phone numbers.
 	HasEmbeddedPhone *bool `json:"has_embedded_phone,omitempty"`
-	// Campaign status. Examples: IN_PROGRESS, VERIFIED, FAILED.
+		// Campaign status. Examples: IN_PROGRESS, VERIFIED, FAILED.
 	CampaignStatus *string `json:"campaign_status,omitempty"`
-	// The Campaign Registry (TCR) Campaign ID.
+		// The Campaign Registry (TCR) Campaign ID.
 	CampaignId *string `json:"campaign_id,omitempty"`
-	// Indicates whether the campaign was registered externally or not.
+		// Indicates whether the campaign was registered externally or not.
 	IsExternallyRegistered *bool `json:"is_externally_registered,omitempty"`
-	// Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile.
+		// Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile.
 	RateLimits *interface{} `json:"rate_limits,omitempty"`
-	// Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+		// Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
 	MessageFlow *string `json:"message_flow,omitempty"`
-	// If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
+		// If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
 	OptInMessage *string `json:"opt_in_message,omitempty"`
-	// Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+		// Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
 	OptOutMessage *string `json:"opt_out_message,omitempty"`
-	// When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+		// When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
 	HelpMessage *string `json:"help_message,omitempty"`
-	// If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
+		// If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
 	OptInKeywords *[]string `json:"opt_in_keywords,omitempty"`
-	// End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+		// End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
 	OptOutKeywords *[]string `json:"opt_out_keywords,omitempty"`
-	// End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+		// End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
 	HelpKeywords *[]string `json:"help_keywords,omitempty"`
-	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+		// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The absolute URL of the US App to Person resource.
+		// The absolute URL of the US App to Person resource.
 	Url *string `json:"url,omitempty"`
-	// A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes.
+		// A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes.
 	Mock *bool `json:"mock,omitempty"`
-	// Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
+		// Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
 	Errors *[]interface{} `json:"errors,omitempty"`
 }
+
+

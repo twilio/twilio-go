@@ -18,87 +18,88 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
 
+
 // Fetch the delivery and read receipts of the conversation message
-func (c *ApiService) FetchConversationMessageReceipt(ConversationSid string, MessageSid string, Sid string) (*ConversationsV1ConversationMessageReceipt, error) {
-	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
-	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchConversationMessageReceipt(ConversationSid string, MessageSid string, Sid string, ) (*ConversationsV1ConversationMessageReceipt, error) {
+    path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
+        path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+    path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConversationMessageReceipt{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ConversationsV1ConversationMessageReceipt{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListConversationMessageReceipt'
 type ListConversationMessageReceiptParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListConversationMessageReceiptParams) SetPageSize(PageSize int) *ListConversationMessageReceiptParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListConversationMessageReceiptParams) SetPageSize(PageSize int) (*ListConversationMessageReceiptParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListConversationMessageReceiptParams) SetLimit(Limit int) *ListConversationMessageReceiptParams {
-	params.Limit = &Limit
-	return params
+func (params *ListConversationMessageReceiptParams) SetLimit(Limit int) (*ListConversationMessageReceiptParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of ConversationMessageReceipt records from the API. Request is executed immediately.
 func (c *ApiService) PageConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, pageToken, pageNumber string) (*ListConversationMessageReceiptResponse, error) {
-	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
+    path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
 
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
-	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+        path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+    path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListConversationMessageReceiptResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListConversationMessageReceiptResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists ConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -139,6 +140,7 @@ func (c *ApiService) StreamConversationMessageReceipt(ConversationSid string, Me
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamConversationMessageReceipt(response *ListConversationMessageReceiptResponse, params *ListConversationMessageReceiptParams, recordChannel chan ConversationsV1ConversationMessageReceipt, errorChannel chan error) {
 	curRecord := 1
 
@@ -170,19 +172,20 @@ func (c *ApiService) streamConversationMessageReceipt(response *ListConversation
 }
 
 func (c *ApiService) getNextListConversationMessageReceiptResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListConversationMessageReceiptResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListConversationMessageReceiptResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+

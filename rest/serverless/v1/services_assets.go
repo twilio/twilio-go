@@ -18,142 +18,146 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
-	"github.com/twilio/twilio-go/client"
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateAsset'
 type CreateAssetParams struct {
-	// A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+    // A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *CreateAssetParams) SetFriendlyName(FriendlyName string) *CreateAssetParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *CreateAssetParams) SetFriendlyName(FriendlyName string) (*CreateAssetParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
 
 // Create a new Asset resource.
 func (c *ApiService) CreateAsset(ServiceSid string, params *CreateAssetParams) (*ServerlessV1Asset, error) {
-	path := "/v1/Services/{ServiceSid}/Assets"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path := "/v1/Services/{ServiceSid}/Assets"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ServerlessV1Asset{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ServerlessV1Asset{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Delete an Asset resource.
-func (c *ApiService) DeleteAsset(ServiceSid string, Sid string) error {
-	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteAsset(ServiceSid string, Sid string, ) (error) {
+    path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
 
-	defer resp.Body.Close()
 
-	return nil
+    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }
 
 // Retrieve a specific Asset resource.
-func (c *ApiService) FetchAsset(ServiceSid string, Sid string) (*ServerlessV1Asset, error) {
-	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchAsset(ServiceSid string, Sid string, ) (*ServerlessV1Asset, error) {
+    path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
 
-	ps := &ServerlessV1Asset{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    defer resp.Body.Close()
+
+    ps := &ServerlessV1Asset{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }
 
 // Optional parameters for the method 'ListAsset'
 type ListAssetParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
-	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+    // How many resources to return in each list page. The default is 50, and the maximum is 1000.
+    PageSize *int `json:"PageSize,omitempty"`
+    // Max number of records to return.
+    Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListAssetParams) SetPageSize(PageSize int) *ListAssetParams {
-	params.PageSize = &PageSize
-	return params
+func (params *ListAssetParams) SetPageSize(PageSize int) (*ListAssetParams){
+    params.PageSize = &PageSize
+    return params
 }
-func (params *ListAssetParams) SetLimit(Limit int) *ListAssetParams {
-	params.Limit = &Limit
-	return params
+func (params *ListAssetParams) SetLimit(Limit int) (*ListAssetParams){
+    params.Limit = &Limit
+    return params
 }
 
 // Retrieve a single page of Asset records from the API. Request is executed immediately.
 func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageToken, pageNumber string) (*ListAssetResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Assets"
+    path := "/v1/Services/{ServiceSid}/Assets"
 
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.PageSize != nil {
+    data.Set("PageSize", fmt.Sprint(*params.PageSize))
+}
 
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
+    if pageToken != "" {
+        data.Set("PageToken", pageToken)
+    }
+    if pageNumber != "" {
+        data.Set("Page", pageNumber)
+    }
 
-	if pageToken != "" {
-		data.Set("PageToken", pageToken)
-	}
-	if pageNumber != "" {
-		data.Set("Page", pageNumber)
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	defer resp.Body.Close()
+    ps := &ListAssetResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	ps := &ListAssetResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+    return ps, err
 }
 
 // Lists Asset records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -194,6 +198,7 @@ func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams) (ch
 	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamAsset(response *ListAssetResponse, params *ListAssetParams, recordChannel chan ServerlessV1Asset, errorChannel chan error) {
 	curRecord := 1
 
@@ -225,58 +230,60 @@ func (c *ApiService) streamAsset(response *ListAssetResponse, params *ListAssetP
 }
 
 func (c *ApiService) getNextListAssetResponse(nextPageUrl string) (interface{}, error) {
-	if nextPageUrl == "" {
-		return nil, nil
-	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-	if err != nil {
-		return nil, err
-	}
+    if nextPageUrl == "" {
+        return nil, nil
+    }
+    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &ListAssetResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-	return ps, nil
+    ps := &ListAssetResponse{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+    return ps, nil
 }
+
 
 // Optional parameters for the method 'UpdateAsset'
 type UpdateAssetParams struct {
-	// A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+    // A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+    FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *UpdateAssetParams) SetFriendlyName(FriendlyName string) *UpdateAssetParams {
-	params.FriendlyName = &FriendlyName
-	return params
+func (params *UpdateAssetParams) SetFriendlyName(FriendlyName string) (*UpdateAssetParams){
+    params.FriendlyName = &FriendlyName
+    return params
 }
 
 // Update a specific Asset resource.
 func (c *ApiService) UpdateAsset(ServiceSid string, Sid string, params *UpdateAssetParams) (*ServerlessV1Asset, error) {
-	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+    path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
+        path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+    data := url.Values{}
+    headers := make(map[string]interface{})
+if params != nil && params.FriendlyName != nil {
+    data.Set("FriendlyName", *params.FriendlyName)
+}
 
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
 
-	defer resp.Body.Close()
+    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	ps := &ServerlessV1Asset{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    defer resp.Body.Close()
 
-	return ps, err
+    ps := &ServerlessV1Asset{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
+
+    return ps, err
 }

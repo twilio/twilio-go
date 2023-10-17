@@ -16,42 +16,47 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchInsightsUserRoles'
 type FetchInsightsUserRolesParams struct {
-	// The Authorization HTTP request header
-	Authorization *string `json:"Authorization,omitempty"`
+    // The Authorization HTTP request header
+    Authorization *string `json:"Authorization,omitempty"`
 }
 
-func (params *FetchInsightsUserRolesParams) SetAuthorization(Authorization string) *FetchInsightsUserRolesParams {
-	params.Authorization = &Authorization
-	return params
+func (params *FetchInsightsUserRolesParams) SetAuthorization(Authorization string) (*FetchInsightsUserRolesParams){
+    params.Authorization = &Authorization
+    return params
 }
 
 // This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
 func (c *ApiService) FetchInsightsUserRoles(params *FetchInsightsUserRolesParams) (*FlexV1InsightsUserRoles, error) {
-	path := "/v1/Insights/UserRoles"
+    path := "/v1/Insights/UserRoles"
+    
+    data := url.Values{}
+    headers := make(map[string]interface{})
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &FlexV1InsightsUserRoles{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &FlexV1InsightsUserRoles{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }
