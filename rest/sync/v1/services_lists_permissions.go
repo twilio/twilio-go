@@ -35,6 +35,7 @@ func (c *ApiService) DeleteSyncListPermission(ServiceSid string, ListSid string,
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -54,6 +55,7 @@ func (c *ApiService) FetchSyncListPermission(ServiceSid string, ListSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -98,9 +100,10 @@ func (c *ApiService) PageSyncListPermission(ServiceSid string, ListSid string, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -244,15 +247,16 @@ func (c *ApiService) UpdateSyncListPermission(ServiceSid string, ListSid string,
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Read != nil {
-    data.Set("Read", fmt.Sprint(*params.Read))
-}
-if params != nil && params.Write != nil {
-    data.Set("Write", fmt.Sprint(*params.Write))
-}
-if params != nil && params.Manage != nil {
-    data.Set("Manage", fmt.Sprint(*params.Manage))
-}
+
+    if params != nil && params.Read != nil {
+        data.Set("Read", fmt.Sprint(*params.Read))
+    }
+    if params != nil && params.Write != nil {
+        data.Set("Write", fmt.Sprint(*params.Write))
+    }
+    if params != nil && params.Manage != nil {
+        data.Set("Manage", fmt.Sprint(*params.Manage))
+    }
 
 
 

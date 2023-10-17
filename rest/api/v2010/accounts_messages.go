@@ -183,79 +183,80 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.To != nil {
-    data.Set("To", *params.To)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.ApplicationSid != nil {
-    data.Set("ApplicationSid", *params.ApplicationSid)
-}
-if params != nil && params.MaxPrice != nil {
-    data.Set("MaxPrice", fmt.Sprint(*params.MaxPrice))
-}
-if params != nil && params.ProvideFeedback != nil {
-    data.Set("ProvideFeedback", fmt.Sprint(*params.ProvideFeedback))
-}
-if params != nil && params.Attempt != nil {
-    data.Set("Attempt", fmt.Sprint(*params.Attempt))
-}
-if params != nil && params.ValidityPeriod != nil {
-    data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
-}
-if params != nil && params.ForceDelivery != nil {
-    data.Set("ForceDelivery", fmt.Sprint(*params.ForceDelivery))
-}
-if params != nil && params.ContentRetention != nil {
-    data.Set("ContentRetention", *params.ContentRetention)
-}
-if params != nil && params.AddressRetention != nil {
-    data.Set("AddressRetention", *params.AddressRetention)
-}
-if params != nil && params.SmartEncoded != nil {
-    data.Set("SmartEncoded", fmt.Sprint(*params.SmartEncoded))
-}
-if params != nil && params.PersistentAction != nil {
-    for _, item  := range *params.PersistentAction {
-        data.Add("PersistentAction", item)
+
+    if params != nil && params.To != nil {
+        data.Set("To", *params.To)
     }
-}
-if params != nil && params.ShortenUrls != nil {
-    data.Set("ShortenUrls", fmt.Sprint(*params.ShortenUrls))
-}
-if params != nil && params.ScheduleType != nil {
-    data.Set("ScheduleType", *params.ScheduleType)
-}
-if params != nil && params.SendAt != nil {
-    data.Set("SendAt", fmt.Sprint((*params.SendAt).Format(time.RFC3339)))
-}
-if params != nil && params.SendAsMms != nil {
-    data.Set("SendAsMms", fmt.Sprint(*params.SendAsMms))
-}
-if params != nil && params.ContentVariables != nil {
-    data.Set("ContentVariables", *params.ContentVariables)
-}
-if params != nil && params.RiskCheck != nil {
-    data.Set("RiskCheck", *params.RiskCheck)
-}
-if params != nil && params.From != nil {
-    data.Set("From", *params.From)
-}
-if params != nil && params.MessagingServiceSid != nil {
-    data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-}
-if params != nil && params.Body != nil {
-    data.Set("Body", *params.Body)
-}
-if params != nil && params.MediaUrl != nil {
-    for _, item  := range *params.MediaUrl {
-        data.Add("MediaUrl", item)
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
     }
-}
-if params != nil && params.ContentSid != nil {
-    data.Set("ContentSid", *params.ContentSid)
-}
+    if params != nil && params.ApplicationSid != nil {
+        data.Set("ApplicationSid", *params.ApplicationSid)
+    }
+    if params != nil && params.MaxPrice != nil {
+        data.Set("MaxPrice", fmt.Sprint(*params.MaxPrice))
+    }
+    if params != nil && params.ProvideFeedback != nil {
+        data.Set("ProvideFeedback", fmt.Sprint(*params.ProvideFeedback))
+    }
+    if params != nil && params.Attempt != nil {
+        data.Set("Attempt", fmt.Sprint(*params.Attempt))
+    }
+    if params != nil && params.ValidityPeriod != nil {
+        data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
+    }
+    if params != nil && params.ForceDelivery != nil {
+        data.Set("ForceDelivery", fmt.Sprint(*params.ForceDelivery))
+    }
+    if params != nil && params.ContentRetention != nil {
+        data.Set("ContentRetention", *params.ContentRetention)
+    }
+    if params != nil && params.AddressRetention != nil {
+        data.Set("AddressRetention", *params.AddressRetention)
+    }
+    if params != nil && params.SmartEncoded != nil {
+        data.Set("SmartEncoded", fmt.Sprint(*params.SmartEncoded))
+    }
+    if params != nil && params.PersistentAction != nil {
+        for _, item  := range *params.PersistentAction {
+            data.Add("PersistentAction", item)
+    }
+    }
+    if params != nil && params.ShortenUrls != nil {
+        data.Set("ShortenUrls", fmt.Sprint(*params.ShortenUrls))
+    }
+    if params != nil && params.ScheduleType != nil {
+        data.Set("ScheduleType", *params.ScheduleType)
+    }
+    if params != nil && params.SendAt != nil {
+        data.Set("SendAt", fmt.Sprint((*params.SendAt).Format(time.RFC3339)))
+    }
+    if params != nil && params.SendAsMms != nil {
+        data.Set("SendAsMms", fmt.Sprint(*params.SendAsMms))
+    }
+    if params != nil && params.ContentVariables != nil {
+        data.Set("ContentVariables", *params.ContentVariables)
+    }
+    if params != nil && params.RiskCheck != nil {
+        data.Set("RiskCheck", *params.RiskCheck)
+    }
+    if params != nil && params.From != nil {
+        data.Set("From", *params.From)
+    }
+    if params != nil && params.MessagingServiceSid != nil {
+        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+    }
+    if params != nil && params.Body != nil {
+        data.Set("Body", *params.Body)
+    }
+    if params != nil && params.MediaUrl != nil {
+        for _, item  := range *params.MediaUrl {
+            data.Add("MediaUrl", item)
+    }
+    }
+    if params != nil && params.ContentSid != nil {
+        data.Set("ContentSid", *params.ContentSid)
+    }
 
 
 
@@ -300,6 +301,7 @@ func (c *ApiService) DeleteMessage(Sid string, params *DeleteMessageParams) (err
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -333,6 +335,7 @@ func (c *ApiService) FetchMessage(Sid string, params *FetchMessageParams) (*ApiV
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -404,18 +407,19 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumbe
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.To != nil {
-    data.Set("To", *params.To)
-}
-if params != nil && params.From != nil {
-    data.Set("From", *params.From)
-}
-if params != nil && params.DateSent != nil {
-    data.Set("DateSent", fmt.Sprint((*params.DateSent).Format(time.RFC3339)))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.To != nil {
+        data.Set("To", *params.To)
+    }
+    if params != nil && params.From != nil {
+        data.Set("From", *params.From)
+    }
+    if params != nil && params.DateSent != nil {
+        data.Set("DateSent", fmt.Sprint((*params.DateSent).Format(time.RFC3339)))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -562,12 +566,13 @@ func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*Ap
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Body != nil {
-    data.Set("Body", *params.Body)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
+
+    if params != nil && params.Body != nil {
+        data.Set("Body", *params.Body)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
 
 
 

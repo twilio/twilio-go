@@ -33,6 +33,7 @@ func (c *ApiService) FetchDomainConfig(DomainSid string, ) (*MessagingV1DomainCo
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -84,18 +85,19 @@ func (c *ApiService) UpdateDomainConfig(DomainSid string, params *UpdateDomainCo
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FallbackUrl != nil {
-    data.Set("FallbackUrl", *params.FallbackUrl)
-}
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.ContinueOnFailure != nil {
-    data.Set("ContinueOnFailure", fmt.Sprint(*params.ContinueOnFailure))
-}
-if params != nil && params.DisableHttps != nil {
-    data.Set("DisableHttps", fmt.Sprint(*params.DisableHttps))
-}
+
+    if params != nil && params.FallbackUrl != nil {
+        data.Set("FallbackUrl", *params.FallbackUrl)
+    }
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.ContinueOnFailure != nil {
+        data.Set("ContinueOnFailure", fmt.Sprint(*params.ContinueOnFailure))
+    }
+    if params != nil && params.DisableHttps != nil {
+        data.Set("DisableHttps", fmt.Sprint(*params.DisableHttps))
+    }
 
 
 

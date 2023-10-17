@@ -47,12 +47,13 @@ func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *Creat
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.SchemaVersion != nil {
-    data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
-}
+
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
+    }
+    if params != nil && params.SchemaVersion != nil {
+        data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
+    }
 
 
 
@@ -82,6 +83,7 @@ func (c *ApiService) DeleteSubscribedEvent(SubscriptionSid string, Type string, 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -100,6 +102,7 @@ func (c *ApiService) FetchSubscribedEvent(SubscriptionSid string, Type string, )
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -143,9 +146,10 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -276,9 +280,10 @@ func (c *ApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.SchemaVersion != nil {
-    data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
-}
+
+    if params != nil && params.SchemaVersion != nil {
+        data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
+    }
 
 
 

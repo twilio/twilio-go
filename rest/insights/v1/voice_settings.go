@@ -40,9 +40,10 @@ func (c *ApiService) FetchAccountSettings(params *FetchAccountSettingsParams) (*
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.SubaccountSid != nil {
-    data.Set("SubaccountSid", *params.SubaccountSid)
-}
+
+    if params != nil && params.SubaccountSid != nil {
+        data.Set("SubaccountSid", *params.SubaccountSid)
+    }
 
 
 
@@ -90,15 +91,16 @@ func (c *ApiService) UpdateAccountSettings(params *UpdateAccountSettingsParams) 
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AdvancedFeatures != nil {
-    data.Set("AdvancedFeatures", fmt.Sprint(*params.AdvancedFeatures))
-}
-if params != nil && params.VoiceTrace != nil {
-    data.Set("VoiceTrace", fmt.Sprint(*params.VoiceTrace))
-}
-if params != nil && params.SubaccountSid != nil {
-    data.Set("SubaccountSid", *params.SubaccountSid)
-}
+
+    if params != nil && params.AdvancedFeatures != nil {
+        data.Set("AdvancedFeatures", fmt.Sprint(*params.AdvancedFeatures))
+    }
+    if params != nil && params.VoiceTrace != nil {
+        data.Set("VoiceTrace", fmt.Sprint(*params.VoiceTrace))
+    }
+    if params != nil && params.SubaccountSid != nil {
+        data.Set("SubaccountSid", *params.SubaccountSid)
+    }
 
 
 

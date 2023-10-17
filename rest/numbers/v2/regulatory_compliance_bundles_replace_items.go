@@ -41,9 +41,10 @@ func (c *ApiService) CreateReplaceItems(BundleSid string, params *CreateReplaceI
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FromBundleSid != nil {
-    data.Set("FromBundleSid", *params.FromBundleSid)
-}
+
+    if params != nil && params.FromBundleSid != nil {
+        data.Set("FromBundleSid", *params.FromBundleSid)
+    }
 
 
 

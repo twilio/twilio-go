@@ -42,9 +42,10 @@ func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.BuildSid != nil {
-    data.Set("BuildSid", *params.BuildSid)
-}
+
+    if params != nil && params.BuildSid != nil {
+        data.Set("BuildSid", *params.BuildSid)
+    }
 
 
 
@@ -72,6 +73,7 @@ func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, S
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -116,9 +118,10 @@ func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

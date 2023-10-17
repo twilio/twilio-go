@@ -33,6 +33,7 @@ func (c *ApiService) FetchVerificationAttempt(Sid string, ) (*VerifyV2Verificati
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -120,33 +121,34 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.DateCreatedAfter != nil {
-    data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
-}
-if params != nil && params.DateCreatedBefore != nil {
-    data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
-}
-if params != nil && params.ChannelDataTo != nil {
-    data.Set("ChannelData.To", *params.ChannelDataTo)
-}
-if params != nil && params.Country != nil {
-    data.Set("Country", *params.Country)
-}
-if params != nil && params.Channel != nil {
-    data.Set("Channel", *params.Channel)
-}
-if params != nil && params.VerifyServiceSid != nil {
-    data.Set("VerifyServiceSid", *params.VerifyServiceSid)
-}
-if params != nil && params.VerificationSid != nil {
-    data.Set("VerificationSid", *params.VerificationSid)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.DateCreatedAfter != nil {
+        data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateCreatedBefore != nil {
+        data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+    }
+    if params != nil && params.ChannelDataTo != nil {
+        data.Set("ChannelData.To", *params.ChannelDataTo)
+    }
+    if params != nil && params.Country != nil {
+        data.Set("Country", *params.Country)
+    }
+    if params != nil && params.Channel != nil {
+        data.Set("Channel", *params.Channel)
+    }
+    if params != nil && params.VerifyServiceSid != nil {
+        data.Set("VerifyServiceSid", *params.VerifyServiceSid)
+    }
+    if params != nil && params.VerificationSid != nil {
+        data.Set("VerificationSid", *params.VerificationSid)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

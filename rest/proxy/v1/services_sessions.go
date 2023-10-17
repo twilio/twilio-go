@@ -71,32 +71,33 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.DateExpiry != nil {
-    data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
-}
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
-if params != nil && params.Mode != nil {
-    data.Set("Mode", *params.Mode)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Participants != nil {
-    for _, item  := range *params.Participants {
-        v, err := json.Marshal(item)
 
-        if err != nil {
-            return nil, err
-        }
-
-        data.Add("Participants", string(v))
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
     }
-}
+    if params != nil && params.DateExpiry != nil {
+        data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
+    }
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
+    if params != nil && params.Mode != nil {
+        data.Set("Mode", *params.Mode)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Participants != nil {
+        for _, item  := range *params.Participants {
+            v, err := json.Marshal(item)
+
+            if err != nil {
+                return nil, err
+            }
+
+            data.Add("Participants", string(v))
+    }
+    }
 
 
 
@@ -126,6 +127,7 @@ func (c *ApiService) DeleteSession(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -144,6 +146,7 @@ func (c *ApiService) FetchSession(ServiceSid string, Sid string, ) (*ProxyV1Sess
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -187,9 +190,10 @@ func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -332,15 +336,16 @@ func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *Update
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.DateExpiry != nil {
-    data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
-}
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
+
+    if params != nil && params.DateExpiry != nil {
+        data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
+    }
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
 
 
 

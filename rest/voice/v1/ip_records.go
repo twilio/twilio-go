@@ -52,15 +52,16 @@ func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRec
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IpAddress != nil {
-    data.Set("IpAddress", *params.IpAddress)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.CidrPrefixLength != nil {
-    data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
-}
+
+    if params != nil && params.IpAddress != nil {
+        data.Set("IpAddress", *params.IpAddress)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.CidrPrefixLength != nil {
+        data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
+    }
 
 
 
@@ -89,6 +90,7 @@ func (c *ApiService) DeleteIpRecord(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -106,6 +108,7 @@ func (c *ApiService) FetchIpRecord(Sid string, ) (*VoiceV1IpRecord, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -148,9 +151,10 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken, pageNum
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -280,9 +284,10 @@ func (c *ApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 

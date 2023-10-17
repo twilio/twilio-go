@@ -34,6 +34,7 @@ func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -52,6 +53,7 @@ func (c *ApiService) FetchRoomRecording(RoomSid string, Sid string, ) (*VideoV1R
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -119,21 +121,22 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.SourceSid != nil {
-    data.Set("SourceSid", *params.SourceSid)
-}
-if params != nil && params.DateCreatedAfter != nil {
-    data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
-}
-if params != nil && params.DateCreatedBefore != nil {
-    data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.SourceSid != nil {
+        data.Set("SourceSid", *params.SourceSid)
+    }
+    if params != nil && params.DateCreatedAfter != nil {
+        data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateCreatedBefore != nil {
+        data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

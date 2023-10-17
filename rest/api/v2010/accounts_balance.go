@@ -48,6 +48,7 @@ func (c *ApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010Balance,
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err

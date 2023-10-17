@@ -42,15 +42,16 @@ func (c *ApiService) CreateStreamMessage(ServiceSid string, StreamSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Data != nil {
-    v, err := json.Marshal(params.Data)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Data != nil {
+        v, err := json.Marshal(params.Data)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Data", string(v))
     }
-
-    data.Set("Data", string(v))
-}
 
 
 

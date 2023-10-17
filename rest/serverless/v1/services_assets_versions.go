@@ -35,6 +35,7 @@ func (c *ApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid s
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -76,9 +77,10 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

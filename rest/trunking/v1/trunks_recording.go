@@ -33,6 +33,7 @@ func (c *ApiService) FetchRecording(TrunkSid string, ) (*TrunkingV1Recording, er
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -72,12 +73,13 @@ func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingPar
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Mode != nil {
-    data.Set("Mode", *params.Mode)
-}
-if params != nil && params.Trim != nil {
-    data.Set("Trim", *params.Trim)
-}
+
+    if params != nil && params.Mode != nil {
+        data.Set("Mode", *params.Mode)
+    }
+    if params != nil && params.Trim != nil {
+        data.Set("Trim", *params.Trim)
+    }
 
 
 

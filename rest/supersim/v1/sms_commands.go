@@ -58,18 +58,19 @@ func (c *ApiService) CreateSmsCommand(params *CreateSmsCommandParams) (*Supersim
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Sim != nil {
-    data.Set("Sim", *params.Sim)
-}
-if params != nil && params.Payload != nil {
-    data.Set("Payload", *params.Payload)
-}
-if params != nil && params.CallbackMethod != nil {
-    data.Set("CallbackMethod", *params.CallbackMethod)
-}
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
+
+    if params != nil && params.Sim != nil {
+        data.Set("Sim", *params.Sim)
+    }
+    if params != nil && params.Payload != nil {
+        data.Set("Payload", *params.Payload)
+    }
+    if params != nil && params.CallbackMethod != nil {
+        data.Set("CallbackMethod", *params.CallbackMethod)
+    }
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
 
 
 
@@ -95,6 +96,7 @@ func (c *ApiService) FetchSmsCommand(Sid string, ) (*SupersimV1SmsCommand, error
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -155,18 +157,19 @@ func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken, pag
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Sim != nil {
-    data.Set("Sim", *params.Sim)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Direction != nil {
-    data.Set("Direction", *params.Direction)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Sim != nil {
+        data.Set("Sim", *params.Sim)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Direction != nil {
+        data.Set("Direction", *params.Direction)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

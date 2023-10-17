@@ -49,6 +49,7 @@ func (c *ApiService) DeleteRecording(Sid string, params *DeleteRecordingParams) 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -88,9 +89,10 @@ func (c *ApiService) FetchRecording(Sid string, params *FetchRecordingParams) (*
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IncludeSoftDeleted != nil {
-    data.Set("IncludeSoftDeleted", fmt.Sprint(*params.IncludeSoftDeleted))
-}
+
+    if params != nil && params.IncludeSoftDeleted != nil {
+        data.Set("IncludeSoftDeleted", fmt.Sprint(*params.IncludeSoftDeleted))
+    }
 
 
 
@@ -180,27 +182,28 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageN
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-}
-if params != nil && params.DateCreatedBefore != nil {
-    data.Set("DateCreated<", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
-}
-if params != nil && params.DateCreatedAfter != nil {
-    data.Set("DateCreated>", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
-}
-if params != nil && params.CallSid != nil {
-    data.Set("CallSid", *params.CallSid)
-}
-if params != nil && params.ConferenceSid != nil {
-    data.Set("ConferenceSid", *params.ConferenceSid)
-}
-if params != nil && params.IncludeSoftDeleted != nil {
-    data.Set("IncludeSoftDeleted", fmt.Sprint(*params.IncludeSoftDeleted))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateCreatedBefore != nil {
+        data.Set("DateCreated<", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateCreatedAfter != nil {
+        data.Set("DateCreated>", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+    }
+    if params != nil && params.CallSid != nil {
+        data.Set("CallSid", *params.CallSid)
+    }
+    if params != nil && params.ConferenceSid != nil {
+        data.Set("ConferenceSid", *params.ConferenceSid)
+    }
+    if params != nil && params.IncludeSoftDeleted != nil {
+        data.Set("IncludeSoftDeleted", fmt.Sprint(*params.IncludeSoftDeleted))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

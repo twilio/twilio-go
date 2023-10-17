@@ -59,22 +59,23 @@ func (c *ApiService) CreateBuild(ServiceSid string, params *CreateBuildParams) (
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AssetVersions != nil {
-    for _, item  := range *params.AssetVersions {
-        data.Add("AssetVersions", item)
+
+    if params != nil && params.AssetVersions != nil {
+        for _, item  := range *params.AssetVersions {
+            data.Add("AssetVersions", item)
     }
-}
-if params != nil && params.FunctionVersions != nil {
-    for _, item  := range *params.FunctionVersions {
-        data.Add("FunctionVersions", item)
     }
-}
-if params != nil && params.Dependencies != nil {
-    data.Set("Dependencies", *params.Dependencies)
-}
-if params != nil && params.Runtime != nil {
-    data.Set("Runtime", *params.Runtime)
-}
+    if params != nil && params.FunctionVersions != nil {
+        for _, item  := range *params.FunctionVersions {
+            data.Add("FunctionVersions", item)
+    }
+    }
+    if params != nil && params.Dependencies != nil {
+        data.Set("Dependencies", *params.Dependencies)
+    }
+    if params != nil && params.Runtime != nil {
+        data.Set("Runtime", *params.Runtime)
+    }
 
 
 
@@ -104,6 +105,7 @@ func (c *ApiService) DeleteBuild(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -122,6 +124,7 @@ func (c *ApiService) FetchBuild(ServiceSid string, Sid string, ) (*ServerlessV1B
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -165,9 +168,10 @@ func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageT
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

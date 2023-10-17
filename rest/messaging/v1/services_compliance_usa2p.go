@@ -113,53 +113,54 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.BrandRegistrationSid != nil {
-    data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
-}
-if params != nil && params.Description != nil {
-    data.Set("Description", *params.Description)
-}
-if params != nil && params.MessageFlow != nil {
-    data.Set("MessageFlow", *params.MessageFlow)
-}
-if params != nil && params.MessageSamples != nil {
-    for _, item  := range *params.MessageSamples {
-        data.Add("MessageSamples", item)
+
+    if params != nil && params.BrandRegistrationSid != nil {
+        data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
     }
-}
-if params != nil && params.UsAppToPersonUsecase != nil {
-    data.Set("UsAppToPersonUsecase", *params.UsAppToPersonUsecase)
-}
-if params != nil && params.HasEmbeddedLinks != nil {
-    data.Set("HasEmbeddedLinks", fmt.Sprint(*params.HasEmbeddedLinks))
-}
-if params != nil && params.HasEmbeddedPhone != nil {
-    data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
-}
-if params != nil && params.OptInMessage != nil {
-    data.Set("OptInMessage", *params.OptInMessage)
-}
-if params != nil && params.OptOutMessage != nil {
-    data.Set("OptOutMessage", *params.OptOutMessage)
-}
-if params != nil && params.HelpMessage != nil {
-    data.Set("HelpMessage", *params.HelpMessage)
-}
-if params != nil && params.OptInKeywords != nil {
-    for _, item  := range *params.OptInKeywords {
-        data.Add("OptInKeywords", item)
+    if params != nil && params.Description != nil {
+        data.Set("Description", *params.Description)
     }
-}
-if params != nil && params.OptOutKeywords != nil {
-    for _, item  := range *params.OptOutKeywords {
-        data.Add("OptOutKeywords", item)
+    if params != nil && params.MessageFlow != nil {
+        data.Set("MessageFlow", *params.MessageFlow)
     }
-}
-if params != nil && params.HelpKeywords != nil {
-    for _, item  := range *params.HelpKeywords {
-        data.Add("HelpKeywords", item)
+    if params != nil && params.MessageSamples != nil {
+        for _, item  := range *params.MessageSamples {
+            data.Add("MessageSamples", item)
     }
-}
+    }
+    if params != nil && params.UsAppToPersonUsecase != nil {
+        data.Set("UsAppToPersonUsecase", *params.UsAppToPersonUsecase)
+    }
+    if params != nil && params.HasEmbeddedLinks != nil {
+        data.Set("HasEmbeddedLinks", fmt.Sprint(*params.HasEmbeddedLinks))
+    }
+    if params != nil && params.HasEmbeddedPhone != nil {
+        data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
+    }
+    if params != nil && params.OptInMessage != nil {
+        data.Set("OptInMessage", *params.OptInMessage)
+    }
+    if params != nil && params.OptOutMessage != nil {
+        data.Set("OptOutMessage", *params.OptOutMessage)
+    }
+    if params != nil && params.HelpMessage != nil {
+        data.Set("HelpMessage", *params.HelpMessage)
+    }
+    if params != nil && params.OptInKeywords != nil {
+        for _, item  := range *params.OptInKeywords {
+            data.Add("OptInKeywords", item)
+    }
+    }
+    if params != nil && params.OptOutKeywords != nil {
+        for _, item  := range *params.OptOutKeywords {
+            data.Add("OptOutKeywords", item)
+    }
+    }
+    if params != nil && params.HelpKeywords != nil {
+        for _, item  := range *params.HelpKeywords {
+            data.Add("HelpKeywords", item)
+    }
+    }
 
 
 
@@ -189,6 +190,7 @@ func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string,
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -207,6 +209,7 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -250,9 +253,10 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

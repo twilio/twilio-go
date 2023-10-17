@@ -65,21 +65,22 @@ func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Timeout != nil {
-    data.Set("Timeout", fmt.Sprint(*params.Timeout))
-}
-if params != nil && params.Priority != nil {
-    data.Set("Priority", fmt.Sprint(*params.Priority))
-}
-if params != nil && params.TaskChannel != nil {
-    data.Set("TaskChannel", *params.TaskChannel)
-}
-if params != nil && params.WorkflowSid != nil {
-    data.Set("WorkflowSid", *params.WorkflowSid)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
+
+    if params != nil && params.Timeout != nil {
+        data.Set("Timeout", fmt.Sprint(*params.Timeout))
+    }
+    if params != nil && params.Priority != nil {
+        data.Set("Priority", fmt.Sprint(*params.Priority))
+    }
+    if params != nil && params.TaskChannel != nil {
+        data.Set("TaskChannel", *params.TaskChannel)
+    }
+    if params != nil && params.WorkflowSid != nil {
+        data.Set("WorkflowSid", *params.WorkflowSid)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
 
 
 
@@ -119,6 +120,7 @@ func (c *ApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteT
     headers := make(map[string]interface{})
 
 
+
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
@@ -141,6 +143,7 @@ func (c *ApiService) FetchTask(WorkspaceSid string, Sid string, ) (*TaskrouterV1
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -238,38 +241,39 @@ func (c *ApiService) PageTask(WorkspaceSid string, params *ListTaskParams, pageT
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Priority != nil {
-    data.Set("Priority", fmt.Sprint(*params.Priority))
-}
-if params != nil && params.AssignmentStatus != nil {
-    for _, item  := range *params.AssignmentStatus {
-        data.Add("AssignmentStatus", item)
+
+    if params != nil && params.Priority != nil {
+        data.Set("Priority", fmt.Sprint(*params.Priority))
     }
-}
-if params != nil && params.WorkflowSid != nil {
-    data.Set("WorkflowSid", *params.WorkflowSid)
-}
-if params != nil && params.WorkflowName != nil {
-    data.Set("WorkflowName", *params.WorkflowName)
-}
-if params != nil && params.TaskQueueSid != nil {
-    data.Set("TaskQueueSid", *params.TaskQueueSid)
-}
-if params != nil && params.TaskQueueName != nil {
-    data.Set("TaskQueueName", *params.TaskQueueName)
-}
-if params != nil && params.EvaluateTaskAttributes != nil {
-    data.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes)
-}
-if params != nil && params.Ordering != nil {
-    data.Set("Ordering", *params.Ordering)
-}
-if params != nil && params.HasAddons != nil {
-    data.Set("HasAddons", fmt.Sprint(*params.HasAddons))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+    if params != nil && params.AssignmentStatus != nil {
+        for _, item  := range *params.AssignmentStatus {
+            data.Add("AssignmentStatus", item)
+    }
+    }
+    if params != nil && params.WorkflowSid != nil {
+        data.Set("WorkflowSid", *params.WorkflowSid)
+    }
+    if params != nil && params.WorkflowName != nil {
+        data.Set("WorkflowName", *params.WorkflowName)
+    }
+    if params != nil && params.TaskQueueSid != nil {
+        data.Set("TaskQueueSid", *params.TaskQueueSid)
+    }
+    if params != nil && params.TaskQueueName != nil {
+        data.Set("TaskQueueName", *params.TaskQueueName)
+    }
+    if params != nil && params.EvaluateTaskAttributes != nil {
+        data.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes)
+    }
+    if params != nil && params.Ordering != nil {
+        data.Set("Ordering", *params.Ordering)
+    }
+    if params != nil && params.HasAddons != nil {
+        data.Set("HasAddons", fmt.Sprint(*params.HasAddons))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -430,21 +434,22 @@ func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateT
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.AssignmentStatus != nil {
-    data.Set("AssignmentStatus", *params.AssignmentStatus)
-}
-if params != nil && params.Reason != nil {
-    data.Set("Reason", *params.Reason)
-}
-if params != nil && params.Priority != nil {
-    data.Set("Priority", fmt.Sprint(*params.Priority))
-}
-if params != nil && params.TaskChannel != nil {
-    data.Set("TaskChannel", *params.TaskChannel)
-}
+
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.AssignmentStatus != nil {
+        data.Set("AssignmentStatus", *params.AssignmentStatus)
+    }
+    if params != nil && params.Reason != nil {
+        data.Set("Reason", *params.Reason)
+    }
+    if params != nil && params.Priority != nil {
+        data.Set("Priority", fmt.Sprint(*params.Priority))
+    }
+    if params != nil && params.TaskChannel != nil {
+        data.Set("TaskChannel", *params.TaskChannel)
+    }
 
 
 	if params != nil && params.IfMatch != nil {

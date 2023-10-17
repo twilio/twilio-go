@@ -52,9 +52,10 @@ func (c *ApiService) CreateSipIpAccessControlListMapping(DomainSid string, param
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IpAccessControlListSid != nil {
-    data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
-}
+
+    if params != nil && params.IpAccessControlListSid != nil {
+        data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
+    }
 
 
 
@@ -100,6 +101,7 @@ func (c *ApiService) DeleteSipIpAccessControlListMapping(DomainSid string, Sid s
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -134,6 +136,7 @@ func (c *ApiService) FetchSipIpAccessControlListMapping(DomainSid string, Sid st
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -188,9 +191,10 @@ func (c *ApiService) PageSipIpAccessControlListMapping(DomainSid string, params 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

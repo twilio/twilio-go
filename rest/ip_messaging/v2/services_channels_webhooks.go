@@ -78,31 +78,32 @@ func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.ConfigurationUrl != nil {
-    data.Set("Configuration.Url", *params.ConfigurationUrl)
-}
-if params != nil && params.ConfigurationMethod != nil {
-    data.Set("Configuration.Method", *params.ConfigurationMethod)
-}
-if params != nil && params.ConfigurationFilters != nil {
-    for _, item  := range *params.ConfigurationFilters {
-        data.Add("Configuration.Filters", item)
+
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
     }
-}
-if params != nil && params.ConfigurationTriggers != nil {
-    for _, item  := range *params.ConfigurationTriggers {
-        data.Add("Configuration.Triggers", item)
+    if params != nil && params.ConfigurationUrl != nil {
+        data.Set("Configuration.Url", *params.ConfigurationUrl)
     }
-}
-if params != nil && params.ConfigurationFlowSid != nil {
-    data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
-}
-if params != nil && params.ConfigurationRetryCount != nil {
-    data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
-}
+    if params != nil && params.ConfigurationMethod != nil {
+        data.Set("Configuration.Method", *params.ConfigurationMethod)
+    }
+    if params != nil && params.ConfigurationFilters != nil {
+        for _, item  := range *params.ConfigurationFilters {
+            data.Add("Configuration.Filters", item)
+    }
+    }
+    if params != nil && params.ConfigurationTriggers != nil {
+        for _, item  := range *params.ConfigurationTriggers {
+            data.Add("Configuration.Triggers", item)
+    }
+    }
+    if params != nil && params.ConfigurationFlowSid != nil {
+        data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+    }
+    if params != nil && params.ConfigurationRetryCount != nil {
+        data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
+    }
 
 
 
@@ -133,6 +134,7 @@ func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -152,6 +154,7 @@ func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, S
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -196,9 +199,10 @@ func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -360,28 +364,29 @@ func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ConfigurationUrl != nil {
-    data.Set("Configuration.Url", *params.ConfigurationUrl)
-}
-if params != nil && params.ConfigurationMethod != nil {
-    data.Set("Configuration.Method", *params.ConfigurationMethod)
-}
-if params != nil && params.ConfigurationFilters != nil {
-    for _, item  := range *params.ConfigurationFilters {
-        data.Add("Configuration.Filters", item)
+
+    if params != nil && params.ConfigurationUrl != nil {
+        data.Set("Configuration.Url", *params.ConfigurationUrl)
     }
-}
-if params != nil && params.ConfigurationTriggers != nil {
-    for _, item  := range *params.ConfigurationTriggers {
-        data.Add("Configuration.Triggers", item)
+    if params != nil && params.ConfigurationMethod != nil {
+        data.Set("Configuration.Method", *params.ConfigurationMethod)
     }
-}
-if params != nil && params.ConfigurationFlowSid != nil {
-    data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
-}
-if params != nil && params.ConfigurationRetryCount != nil {
-    data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
-}
+    if params != nil && params.ConfigurationFilters != nil {
+        for _, item  := range *params.ConfigurationFilters {
+            data.Add("Configuration.Filters", item)
+    }
+    }
+    if params != nil && params.ConfigurationTriggers != nil {
+        for _, item  := range *params.ConfigurationTriggers {
+            data.Add("Configuration.Triggers", item)
+    }
+    }
+    if params != nil && params.ConfigurationFlowSid != nil {
+        data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+    }
+    if params != nil && params.ConfigurationRetryCount != nil {
+        data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
+    }
 
 
 

@@ -32,6 +32,7 @@ func (c *ApiService) CreateBulkHostedNumberOrder() (*NumbersV2BulkHostedNumberOr
 
 
 
+
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -65,9 +66,10 @@ func (c *ApiService) FetchBulkHostedNumberOrder(BulkHostingSid string, params *F
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.OrderStatus != nil {
-    data.Set("OrderStatus", *params.OrderStatus)
-}
+
+    if params != nil && params.OrderStatus != nil {
+        data.Set("OrderStatus", *params.OrderStatus)
+    }
 
 
 

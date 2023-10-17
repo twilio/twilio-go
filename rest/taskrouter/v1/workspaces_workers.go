@@ -53,15 +53,16 @@ func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ActivitySid != nil {
-    data.Set("ActivitySid", *params.ActivitySid)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ActivitySid != nil {
+        data.Set("ActivitySid", *params.ActivitySid)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
 
 
 
@@ -101,6 +102,7 @@ func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *Delet
     headers := make(map[string]interface{})
 
 
+
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
@@ -123,6 +125,7 @@ func (c *ApiService) FetchWorker(WorkspaceSid string, Sid string, ) (*Taskrouter
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -214,33 +217,34 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ActivityName != nil {
-    data.Set("ActivityName", *params.ActivityName)
-}
-if params != nil && params.ActivitySid != nil {
-    data.Set("ActivitySid", *params.ActivitySid)
-}
-if params != nil && params.Available != nil {
-    data.Set("Available", *params.Available)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.TargetWorkersExpression != nil {
-    data.Set("TargetWorkersExpression", *params.TargetWorkersExpression)
-}
-if params != nil && params.TaskQueueName != nil {
-    data.Set("TaskQueueName", *params.TaskQueueName)
-}
-if params != nil && params.TaskQueueSid != nil {
-    data.Set("TaskQueueSid", *params.TaskQueueSid)
-}
-if params != nil && params.Ordering != nil {
-    data.Set("Ordering", *params.Ordering)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.ActivityName != nil {
+        data.Set("ActivityName", *params.ActivityName)
+    }
+    if params != nil && params.ActivitySid != nil {
+        data.Set("ActivitySid", *params.ActivitySid)
+    }
+    if params != nil && params.Available != nil {
+        data.Set("Available", *params.Available)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.TargetWorkersExpression != nil {
+        data.Set("TargetWorkersExpression", *params.TargetWorkersExpression)
+    }
+    if params != nil && params.TaskQueueName != nil {
+        data.Set("TaskQueueName", *params.TaskQueueName)
+    }
+    if params != nil && params.TaskQueueSid != nil {
+        data.Set("TaskQueueSid", *params.TaskQueueSid)
+    }
+    if params != nil && params.Ordering != nil {
+        data.Set("Ordering", *params.Ordering)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -395,18 +399,19 @@ func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *Updat
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ActivitySid != nil {
-    data.Set("ActivitySid", *params.ActivitySid)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.RejectPendingReservations != nil {
-    data.Set("RejectPendingReservations", fmt.Sprint(*params.RejectPendingReservations))
-}
+
+    if params != nil && params.ActivitySid != nil {
+        data.Set("ActivitySid", *params.ActivitySid)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.RejectPendingReservations != nil {
+        data.Set("RejectPendingReservations", fmt.Sprint(*params.RejectPendingReservations))
+    }
 
 
 	if params != nil && params.IfMatch != nil {

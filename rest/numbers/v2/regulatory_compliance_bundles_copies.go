@@ -41,9 +41,10 @@ func (c *ApiService) CreateBundleCopy(BundleSid string, params *CreateBundleCopy
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 
@@ -87,9 +88,10 @@ func (c *ApiService) PageBundleCopy(BundleSid string, params *ListBundleCopyPara
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

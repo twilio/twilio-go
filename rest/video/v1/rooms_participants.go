@@ -34,6 +34,7 @@ func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string, ) (*VideoV
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -98,21 +99,22 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Identity != nil {
-    data.Set("Identity", *params.Identity)
-}
-if params != nil && params.DateCreatedAfter != nil {
-    data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
-}
-if params != nil && params.DateCreatedBefore != nil {
-    data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Identity != nil {
+        data.Set("Identity", *params.Identity)
+    }
+    if params != nil && params.DateCreatedAfter != nil {
+        data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateCreatedBefore != nil {
+        data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -243,9 +245,10 @@ func (c *ApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *U
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
 
 
 

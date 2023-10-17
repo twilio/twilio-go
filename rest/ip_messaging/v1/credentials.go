@@ -76,27 +76,28 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*IpMessag
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Certificate != nil {
-    data.Set("Certificate", *params.Certificate)
-}
-if params != nil && params.PrivateKey != nil {
-    data.Set("PrivateKey", *params.PrivateKey)
-}
-if params != nil && params.Sandbox != nil {
-    data.Set("Sandbox", fmt.Sprint(*params.Sandbox))
-}
-if params != nil && params.ApiKey != nil {
-    data.Set("ApiKey", *params.ApiKey)
-}
-if params != nil && params.Secret != nil {
-    data.Set("Secret", *params.Secret)
-}
+
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Certificate != nil {
+        data.Set("Certificate", *params.Certificate)
+    }
+    if params != nil && params.PrivateKey != nil {
+        data.Set("PrivateKey", *params.PrivateKey)
+    }
+    if params != nil && params.Sandbox != nil {
+        data.Set("Sandbox", fmt.Sprint(*params.Sandbox))
+    }
+    if params != nil && params.ApiKey != nil {
+        data.Set("ApiKey", *params.ApiKey)
+    }
+    if params != nil && params.Secret != nil {
+        data.Set("Secret", *params.Secret)
+    }
 
 
 
@@ -125,6 +126,7 @@ func (c *ApiService) DeleteCredential(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -142,6 +144,7 @@ func (c *ApiService) FetchCredential(Sid string, ) (*IpMessagingV1Credential, er
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -184,9 +187,10 @@ func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken, pag
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -346,24 +350,25 @@ func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Certificate != nil {
-    data.Set("Certificate", *params.Certificate)
-}
-if params != nil && params.PrivateKey != nil {
-    data.Set("PrivateKey", *params.PrivateKey)
-}
-if params != nil && params.Sandbox != nil {
-    data.Set("Sandbox", fmt.Sprint(*params.Sandbox))
-}
-if params != nil && params.ApiKey != nil {
-    data.Set("ApiKey", *params.ApiKey)
-}
-if params != nil && params.Secret != nil {
-    data.Set("Secret", *params.Secret)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Certificate != nil {
+        data.Set("Certificate", *params.Certificate)
+    }
+    if params != nil && params.PrivateKey != nil {
+        data.Set("PrivateKey", *params.PrivateKey)
+    }
+    if params != nil && params.Sandbox != nil {
+        data.Set("Sandbox", fmt.Sprint(*params.Sandbox))
+    }
+    if params != nil && params.ApiKey != nil {
+        data.Set("ApiKey", *params.ApiKey)
+    }
+    if params != nil && params.Secret != nil {
+        data.Set("Secret", *params.Secret)
+    }
 
 
 

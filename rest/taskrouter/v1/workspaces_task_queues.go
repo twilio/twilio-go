@@ -71,24 +71,25 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.TargetWorkers != nil {
-    data.Set("TargetWorkers", *params.TargetWorkers)
-}
-if params != nil && params.MaxReservedWorkers != nil {
-    data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
-}
-if params != nil && params.TaskOrder != nil {
-    data.Set("TaskOrder", *params.TaskOrder)
-}
-if params != nil && params.ReservationActivitySid != nil {
-    data.Set("ReservationActivitySid", *params.ReservationActivitySid)
-}
-if params != nil && params.AssignmentActivitySid != nil {
-    data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.TargetWorkers != nil {
+        data.Set("TargetWorkers", *params.TargetWorkers)
+    }
+    if params != nil && params.MaxReservedWorkers != nil {
+        data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
+    }
+    if params != nil && params.TaskOrder != nil {
+        data.Set("TaskOrder", *params.TaskOrder)
+    }
+    if params != nil && params.ReservationActivitySid != nil {
+        data.Set("ReservationActivitySid", *params.ReservationActivitySid)
+    }
+    if params != nil && params.AssignmentActivitySid != nil {
+        data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
+    }
 
 
 
@@ -118,6 +119,7 @@ func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string, ) (error) 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -136,6 +138,7 @@ func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string, ) (*Taskrou
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -203,21 +206,22 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.EvaluateWorkerAttributes != nil {
-    data.Set("EvaluateWorkerAttributes", *params.EvaluateWorkerAttributes)
-}
-if params != nil && params.WorkerSid != nil {
-    data.Set("WorkerSid", *params.WorkerSid)
-}
-if params != nil && params.Ordering != nil {
-    data.Set("Ordering", *params.Ordering)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.EvaluateWorkerAttributes != nil {
+        data.Set("EvaluateWorkerAttributes", *params.EvaluateWorkerAttributes)
+    }
+    if params != nil && params.WorkerSid != nil {
+        data.Set("WorkerSid", *params.WorkerSid)
+    }
+    if params != nil && params.Ordering != nil {
+        data.Set("Ordering", *params.Ordering)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -378,24 +382,25 @@ func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *Up
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.TargetWorkers != nil {
-    data.Set("TargetWorkers", *params.TargetWorkers)
-}
-if params != nil && params.ReservationActivitySid != nil {
-    data.Set("ReservationActivitySid", *params.ReservationActivitySid)
-}
-if params != nil && params.AssignmentActivitySid != nil {
-    data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
-}
-if params != nil && params.MaxReservedWorkers != nil {
-    data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
-}
-if params != nil && params.TaskOrder != nil {
-    data.Set("TaskOrder", *params.TaskOrder)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.TargetWorkers != nil {
+        data.Set("TargetWorkers", *params.TargetWorkers)
+    }
+    if params != nil && params.ReservationActivitySid != nil {
+        data.Set("ReservationActivitySid", *params.ReservationActivitySid)
+    }
+    if params != nil && params.AssignmentActivitySid != nil {
+        data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
+    }
+    if params != nil && params.MaxReservedWorkers != nil {
+        data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
+    }
+    if params != nil && params.TaskOrder != nil {
+        data.Set("TaskOrder", *params.TaskOrder)
+    }
 
 
 

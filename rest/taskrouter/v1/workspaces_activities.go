@@ -47,12 +47,13 @@ func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityP
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Available != nil {
-    data.Set("Available", fmt.Sprint(*params.Available))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Available != nil {
+        data.Set("Available", fmt.Sprint(*params.Available))
+    }
 
 
 
@@ -82,6 +83,7 @@ func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -100,6 +102,7 @@ func (c *ApiService) FetchActivity(WorkspaceSid string, Sid string, ) (*Taskrout
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -155,15 +158,16 @@ func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Available != nil {
-    data.Set("Available", *params.Available)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Available != nil {
+        data.Set("Available", *params.Available)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -294,9 +298,10 @@ func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *Upd
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 

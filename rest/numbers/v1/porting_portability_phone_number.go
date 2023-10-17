@@ -41,9 +41,10 @@ func (c *ApiService) FetchPortingPortability(PhoneNumber string, params *FetchPo
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.TargetAccountSid != nil {
-    data.Set("TargetAccountSid", *params.TargetAccountSid)
-}
+
+    if params != nil && params.TargetAccountSid != nil {
+        data.Set("TargetAccountSid", *params.TargetAccountSid)
+    }
 
 
 

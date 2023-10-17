@@ -59,24 +59,25 @@ func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Actions != nil {
-    v, err := json.Marshal(params.Actions)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
     }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Actions != nil {
+        v, err := json.Marshal(params.Actions)
 
-    data.Set("Actions", string(v))
-}
-if params != nil && params.ActionsUrl != nil {
-    data.Set("ActionsUrl", *params.ActionsUrl)
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Actions", string(v))
+    }
+    if params != nil && params.ActionsUrl != nil {
+        data.Set("ActionsUrl", *params.ActionsUrl)
+    }
 
 
 
@@ -106,6 +107,7 @@ func (c *ApiService) DeleteTask(AssistantSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -124,6 +126,7 @@ func (c *ApiService) FetchTask(AssistantSid string, Sid string, ) (*AutopilotV1T
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -167,9 +170,10 @@ func (c *ApiService) PageTask(AssistantSid string, params *ListTaskParams, pageT
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -318,24 +322,25 @@ func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateT
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Actions != nil {
-    v, err := json.Marshal(params.Actions)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Actions != nil {
+        v, err := json.Marshal(params.Actions)
 
-    data.Set("Actions", string(v))
-}
-if params != nil && params.ActionsUrl != nil {
-    data.Set("ActionsUrl", *params.ActionsUrl)
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Actions", string(v))
+    }
+    if params != nil && params.ActionsUrl != nil {
+        data.Set("ActionsUrl", *params.ActionsUrl)
+    }
 
 
 

@@ -70,24 +70,25 @@ func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Taskrouter
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.EventCallbackUrl != nil {
-    data.Set("EventCallbackUrl", *params.EventCallbackUrl)
-}
-if params != nil && params.EventsFilter != nil {
-    data.Set("EventsFilter", *params.EventsFilter)
-}
-if params != nil && params.MultiTaskEnabled != nil {
-    data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled))
-}
-if params != nil && params.Template != nil {
-    data.Set("Template", *params.Template)
-}
-if params != nil && params.PrioritizeQueueOrder != nil {
-    data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.EventCallbackUrl != nil {
+        data.Set("EventCallbackUrl", *params.EventCallbackUrl)
+    }
+    if params != nil && params.EventsFilter != nil {
+        data.Set("EventsFilter", *params.EventsFilter)
+    }
+    if params != nil && params.MultiTaskEnabled != nil {
+        data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled))
+    }
+    if params != nil && params.Template != nil {
+        data.Set("Template", *params.Template)
+    }
+    if params != nil && params.PrioritizeQueueOrder != nil {
+        data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder)
+    }
 
 
 
@@ -116,6 +117,7 @@ func (c *ApiService) DeleteWorkspace(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -133,6 +135,7 @@ func (c *ApiService) FetchWorkspace(Sid string, ) (*TaskrouterV1Workspace, error
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -181,12 +184,13 @@ func (c *ApiService) PageWorkspace(params *ListWorkspaceParams, pageToken, pageN
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -352,27 +356,28 @@ func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.DefaultActivitySid != nil {
-    data.Set("DefaultActivitySid", *params.DefaultActivitySid)
-}
-if params != nil && params.EventCallbackUrl != nil {
-    data.Set("EventCallbackUrl", *params.EventCallbackUrl)
-}
-if params != nil && params.EventsFilter != nil {
-    data.Set("EventsFilter", *params.EventsFilter)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.MultiTaskEnabled != nil {
-    data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled))
-}
-if params != nil && params.TimeoutActivitySid != nil {
-    data.Set("TimeoutActivitySid", *params.TimeoutActivitySid)
-}
-if params != nil && params.PrioritizeQueueOrder != nil {
-    data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder)
-}
+
+    if params != nil && params.DefaultActivitySid != nil {
+        data.Set("DefaultActivitySid", *params.DefaultActivitySid)
+    }
+    if params != nil && params.EventCallbackUrl != nil {
+        data.Set("EventCallbackUrl", *params.EventCallbackUrl)
+    }
+    if params != nil && params.EventsFilter != nil {
+        data.Set("EventsFilter", *params.EventsFilter)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.MultiTaskEnabled != nil {
+        data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled))
+    }
+    if params != nil && params.TimeoutActivitySid != nil {
+        data.Set("TimeoutActivitySid", *params.TimeoutActivitySid)
+    }
+    if params != nil && params.PrioritizeQueueOrder != nil {
+        data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder)
+    }
 
 
 

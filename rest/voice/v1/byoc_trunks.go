@@ -94,36 +94,37 @@ func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1Byo
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.VoiceUrl != nil {
-    data.Set("VoiceUrl", *params.VoiceUrl)
-}
-if params != nil && params.VoiceMethod != nil {
-    data.Set("VoiceMethod", *params.VoiceMethod)
-}
-if params != nil && params.VoiceFallbackUrl != nil {
-    data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-}
-if params != nil && params.VoiceFallbackMethod != nil {
-    data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-}
-if params != nil && params.StatusCallbackUrl != nil {
-    data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.CnamLookupEnabled != nil {
-    data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
-}
-if params != nil && params.ConnectionPolicySid != nil {
-    data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
-}
-if params != nil && params.FromDomainSid != nil {
-    data.Set("FromDomainSid", *params.FromDomainSid)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.VoiceUrl != nil {
+        data.Set("VoiceUrl", *params.VoiceUrl)
+    }
+    if params != nil && params.VoiceMethod != nil {
+        data.Set("VoiceMethod", *params.VoiceMethod)
+    }
+    if params != nil && params.VoiceFallbackUrl != nil {
+        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+    }
+    if params != nil && params.VoiceFallbackMethod != nil {
+        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+    }
+    if params != nil && params.StatusCallbackUrl != nil {
+        data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.CnamLookupEnabled != nil {
+        data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
+    }
+    if params != nil && params.ConnectionPolicySid != nil {
+        data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
+    }
+    if params != nil && params.FromDomainSid != nil {
+        data.Set("FromDomainSid", *params.FromDomainSid)
+    }
 
 
 
@@ -152,6 +153,7 @@ func (c *ApiService) DeleteByocTrunk(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -169,6 +171,7 @@ func (c *ApiService) FetchByocTrunk(Sid string, ) (*VoiceV1ByocTrunk, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -211,9 +214,10 @@ func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken, pageN
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -397,36 +401,37 @@ func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.VoiceUrl != nil {
-    data.Set("VoiceUrl", *params.VoiceUrl)
-}
-if params != nil && params.VoiceMethod != nil {
-    data.Set("VoiceMethod", *params.VoiceMethod)
-}
-if params != nil && params.VoiceFallbackUrl != nil {
-    data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-}
-if params != nil && params.VoiceFallbackMethod != nil {
-    data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-}
-if params != nil && params.StatusCallbackUrl != nil {
-    data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.CnamLookupEnabled != nil {
-    data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
-}
-if params != nil && params.ConnectionPolicySid != nil {
-    data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
-}
-if params != nil && params.FromDomainSid != nil {
-    data.Set("FromDomainSid", *params.FromDomainSid)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.VoiceUrl != nil {
+        data.Set("VoiceUrl", *params.VoiceUrl)
+    }
+    if params != nil && params.VoiceMethod != nil {
+        data.Set("VoiceMethod", *params.VoiceMethod)
+    }
+    if params != nil && params.VoiceFallbackUrl != nil {
+        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+    }
+    if params != nil && params.VoiceFallbackMethod != nil {
+        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+    }
+    if params != nil && params.StatusCallbackUrl != nil {
+        data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.CnamLookupEnabled != nil {
+        data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
+    }
+    if params != nil && params.ConnectionPolicySid != nil {
+        data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
+    }
+    if params != nil && params.FromDomainSid != nil {
+        data.Set("FromDomainSid", *params.FromDomainSid)
+    }
 
 
 

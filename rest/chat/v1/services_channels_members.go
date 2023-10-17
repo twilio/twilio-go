@@ -48,12 +48,13 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Identity != nil {
-    data.Set("Identity", *params.Identity)
-}
-if params != nil && params.RoleSid != nil {
-    data.Set("RoleSid", *params.RoleSid)
-}
+
+    if params != nil && params.Identity != nil {
+        data.Set("Identity", *params.Identity)
+    }
+    if params != nil && params.RoleSid != nil {
+        data.Set("RoleSid", *params.RoleSid)
+    }
 
 
 
@@ -84,6 +85,7 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -103,6 +105,7 @@ func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid strin
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -153,14 +156,15 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Identity != nil {
-    for _, item  := range *params.Identity {
-        data.Add("Identity", item)
+
+    if params != nil && params.Identity != nil {
+        for _, item  := range *params.Identity {
+            data.Add("Identity", item)
     }
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -298,12 +302,13 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.RoleSid != nil {
-    data.Set("RoleSid", *params.RoleSid)
-}
-if params != nil && params.LastConsumedMessageIndex != nil {
-    data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
-}
+
+    if params != nil && params.RoleSid != nil {
+        data.Set("RoleSid", *params.RoleSid)
+    }
+    if params != nil && params.LastConsumedMessageIndex != nil {
+        data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
+    }
 
 
 

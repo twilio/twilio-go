@@ -60,15 +60,16 @@ func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageTo
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Edge != nil {
-    data.Set("Edge", *params.Edge)
-}
-if params != nil && params.Direction != nil {
-    data.Set("Direction", *params.Direction)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Edge != nil {
+        data.Set("Edge", *params.Edge)
+    }
+    if params != nil && params.Direction != nil {
+        data.Set("Direction", *params.Direction)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

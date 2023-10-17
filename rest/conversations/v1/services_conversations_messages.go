@@ -96,33 +96,34 @@ func (c *ApiService) CreateServiceConversationMessage(ChatServiceSid string, Con
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Author != nil {
-    data.Set("Author", *params.Author)
-}
-if params != nil && params.Body != nil {
-    data.Set("Body", *params.Body)
-}
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-}
-if params != nil && params.DateUpdated != nil {
-    data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.MediaSid != nil {
-    data.Set("MediaSid", *params.MediaSid)
-}
-if params != nil && params.ContentSid != nil {
-    data.Set("ContentSid", *params.ContentSid)
-}
-if params != nil && params.ContentVariables != nil {
-    data.Set("ContentVariables", *params.ContentVariables)
-}
-if params != nil && params.Subject != nil {
-    data.Set("Subject", *params.Subject)
-}
+
+    if params != nil && params.Author != nil {
+        data.Set("Author", *params.Author)
+    }
+    if params != nil && params.Body != nil {
+        data.Set("Body", *params.Body)
+    }
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateUpdated != nil {
+        data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.MediaSid != nil {
+        data.Set("MediaSid", *params.MediaSid)
+    }
+    if params != nil && params.ContentSid != nil {
+        data.Set("ContentSid", *params.ContentSid)
+    }
+    if params != nil && params.ContentVariables != nil {
+        data.Set("ContentVariables", *params.ContentVariables)
+    }
+    if params != nil && params.Subject != nil {
+        data.Set("Subject", *params.Subject)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -166,6 +167,7 @@ func (c *ApiService) DeleteServiceConversationMessage(ChatServiceSid string, Con
     headers := make(map[string]interface{})
 
 
+
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -189,6 +191,7 @@ func (c *ApiService) FetchServiceConversationMessage(ChatServiceSid string, Conv
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -239,12 +242,13 @@ func (c *ApiService) PageServiceConversationMessage(ChatServiceSid string, Conve
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Order != nil {
-    data.Set("Order", *params.Order)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Order != nil {
+        data.Set("Order", *params.Order)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -412,24 +416,25 @@ func (c *ApiService) UpdateServiceConversationMessage(ChatServiceSid string, Con
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Author != nil {
-    data.Set("Author", *params.Author)
-}
-if params != nil && params.Body != nil {
-    data.Set("Body", *params.Body)
-}
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-}
-if params != nil && params.DateUpdated != nil {
-    data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.Subject != nil {
-    data.Set("Subject", *params.Subject)
-}
+
+    if params != nil && params.Author != nil {
+        data.Set("Author", *params.Author)
+    }
+    if params != nil && params.Body != nil {
+        data.Set("Body", *params.Body)
+    }
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateUpdated != nil {
+        data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.Subject != nil {
+        data.Set("Subject", *params.Subject)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

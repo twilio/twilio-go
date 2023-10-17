@@ -58,12 +58,13 @@ func (c *ApiService) CreateUserDefinedMessage(CallSid string, params *CreateUser
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Content != nil {
-    data.Set("Content", *params.Content)
-}
-if params != nil && params.IdempotencyKey != nil {
-    data.Set("IdempotencyKey", *params.IdempotencyKey)
-}
+
+    if params != nil && params.Content != nil {
+        data.Set("Content", *params.Content)
+    }
+    if params != nil && params.IdempotencyKey != nil {
+        data.Set("IdempotencyKey", *params.IdempotencyKey)
+    }
 
 
 

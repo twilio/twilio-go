@@ -33,6 +33,7 @@ func (c *ApiService) FetchMessagingCountry(IsoCountry string, ) (*PricingV1Messa
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -72,9 +73,10 @@ func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pa
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

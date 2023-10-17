@@ -130,54 +130,55 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*MessagingV1Ser
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.InboundRequestUrl != nil {
-    data.Set("InboundRequestUrl", *params.InboundRequestUrl)
-}
-if params != nil && params.InboundMethod != nil {
-    data.Set("InboundMethod", *params.InboundMethod)
-}
-if params != nil && params.FallbackUrl != nil {
-    data.Set("FallbackUrl", *params.FallbackUrl)
-}
-if params != nil && params.FallbackMethod != nil {
-    data.Set("FallbackMethod", *params.FallbackMethod)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StickySender != nil {
-    data.Set("StickySender", fmt.Sprint(*params.StickySender))
-}
-if params != nil && params.MmsConverter != nil {
-    data.Set("MmsConverter", fmt.Sprint(*params.MmsConverter))
-}
-if params != nil && params.SmartEncoding != nil {
-    data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding))
-}
-if params != nil && params.ScanMessageContent != nil {
-    data.Set("ScanMessageContent", *params.ScanMessageContent)
-}
-if params != nil && params.FallbackToLongCode != nil {
-    data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode))
-}
-if params != nil && params.AreaCodeGeomatch != nil {
-    data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch))
-}
-if params != nil && params.ValidityPeriod != nil {
-    data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
-}
-if params != nil && params.SynchronousValidation != nil {
-    data.Set("SynchronousValidation", fmt.Sprint(*params.SynchronousValidation))
-}
-if params != nil && params.Usecase != nil {
-    data.Set("Usecase", *params.Usecase)
-}
-if params != nil && params.UseInboundWebhookOnNumber != nil {
-    data.Set("UseInboundWebhookOnNumber", fmt.Sprint(*params.UseInboundWebhookOnNumber))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.InboundRequestUrl != nil {
+        data.Set("InboundRequestUrl", *params.InboundRequestUrl)
+    }
+    if params != nil && params.InboundMethod != nil {
+        data.Set("InboundMethod", *params.InboundMethod)
+    }
+    if params != nil && params.FallbackUrl != nil {
+        data.Set("FallbackUrl", *params.FallbackUrl)
+    }
+    if params != nil && params.FallbackMethod != nil {
+        data.Set("FallbackMethod", *params.FallbackMethod)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StickySender != nil {
+        data.Set("StickySender", fmt.Sprint(*params.StickySender))
+    }
+    if params != nil && params.MmsConverter != nil {
+        data.Set("MmsConverter", fmt.Sprint(*params.MmsConverter))
+    }
+    if params != nil && params.SmartEncoding != nil {
+        data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding))
+    }
+    if params != nil && params.ScanMessageContent != nil {
+        data.Set("ScanMessageContent", *params.ScanMessageContent)
+    }
+    if params != nil && params.FallbackToLongCode != nil {
+        data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode))
+    }
+    if params != nil && params.AreaCodeGeomatch != nil {
+        data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch))
+    }
+    if params != nil && params.ValidityPeriod != nil {
+        data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
+    }
+    if params != nil && params.SynchronousValidation != nil {
+        data.Set("SynchronousValidation", fmt.Sprint(*params.SynchronousValidation))
+    }
+    if params != nil && params.Usecase != nil {
+        data.Set("Usecase", *params.Usecase)
+    }
+    if params != nil && params.UseInboundWebhookOnNumber != nil {
+        data.Set("UseInboundWebhookOnNumber", fmt.Sprint(*params.UseInboundWebhookOnNumber))
+    }
 
 
 
@@ -206,6 +207,7 @@ func (c *ApiService) DeleteService(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -223,6 +225,7 @@ func (c *ApiService) FetchService(Sid string, ) (*MessagingV1Service, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -265,9 +268,10 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -487,54 +491,55 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Me
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.InboundRequestUrl != nil {
-    data.Set("InboundRequestUrl", *params.InboundRequestUrl)
-}
-if params != nil && params.InboundMethod != nil {
-    data.Set("InboundMethod", *params.InboundMethod)
-}
-if params != nil && params.FallbackUrl != nil {
-    data.Set("FallbackUrl", *params.FallbackUrl)
-}
-if params != nil && params.FallbackMethod != nil {
-    data.Set("FallbackMethod", *params.FallbackMethod)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StickySender != nil {
-    data.Set("StickySender", fmt.Sprint(*params.StickySender))
-}
-if params != nil && params.MmsConverter != nil {
-    data.Set("MmsConverter", fmt.Sprint(*params.MmsConverter))
-}
-if params != nil && params.SmartEncoding != nil {
-    data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding))
-}
-if params != nil && params.ScanMessageContent != nil {
-    data.Set("ScanMessageContent", *params.ScanMessageContent)
-}
-if params != nil && params.FallbackToLongCode != nil {
-    data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode))
-}
-if params != nil && params.AreaCodeGeomatch != nil {
-    data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch))
-}
-if params != nil && params.ValidityPeriod != nil {
-    data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
-}
-if params != nil && params.SynchronousValidation != nil {
-    data.Set("SynchronousValidation", fmt.Sprint(*params.SynchronousValidation))
-}
-if params != nil && params.Usecase != nil {
-    data.Set("Usecase", *params.Usecase)
-}
-if params != nil && params.UseInboundWebhookOnNumber != nil {
-    data.Set("UseInboundWebhookOnNumber", fmt.Sprint(*params.UseInboundWebhookOnNumber))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.InboundRequestUrl != nil {
+        data.Set("InboundRequestUrl", *params.InboundRequestUrl)
+    }
+    if params != nil && params.InboundMethod != nil {
+        data.Set("InboundMethod", *params.InboundMethod)
+    }
+    if params != nil && params.FallbackUrl != nil {
+        data.Set("FallbackUrl", *params.FallbackUrl)
+    }
+    if params != nil && params.FallbackMethod != nil {
+        data.Set("FallbackMethod", *params.FallbackMethod)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StickySender != nil {
+        data.Set("StickySender", fmt.Sprint(*params.StickySender))
+    }
+    if params != nil && params.MmsConverter != nil {
+        data.Set("MmsConverter", fmt.Sprint(*params.MmsConverter))
+    }
+    if params != nil && params.SmartEncoding != nil {
+        data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding))
+    }
+    if params != nil && params.ScanMessageContent != nil {
+        data.Set("ScanMessageContent", *params.ScanMessageContent)
+    }
+    if params != nil && params.FallbackToLongCode != nil {
+        data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode))
+    }
+    if params != nil && params.AreaCodeGeomatch != nil {
+        data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch))
+    }
+    if params != nil && params.ValidityPeriod != nil {
+        data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
+    }
+    if params != nil && params.SynchronousValidation != nil {
+        data.Set("SynchronousValidation", fmt.Sprint(*params.SynchronousValidation))
+    }
+    if params != nil && params.Usecase != nil {
+        data.Set("Usecase", *params.Usecase)
+    }
+    if params != nil && params.UseInboundWebhookOnNumber != nil {
+        data.Set("UseInboundWebhookOnNumber", fmt.Sprint(*params.UseInboundWebhookOnNumber))
+    }
 
 
 

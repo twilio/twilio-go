@@ -118,48 +118,49 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*NotifyV1Servic
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ApnCredentialSid != nil {
-    data.Set("ApnCredentialSid", *params.ApnCredentialSid)
-}
-if params != nil && params.GcmCredentialSid != nil {
-    data.Set("GcmCredentialSid", *params.GcmCredentialSid)
-}
-if params != nil && params.MessagingServiceSid != nil {
-    data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-}
-if params != nil && params.FacebookMessengerPageId != nil {
-    data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId)
-}
-if params != nil && params.DefaultApnNotificationProtocolVersion != nil {
-    data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion)
-}
-if params != nil && params.DefaultGcmNotificationProtocolVersion != nil {
-    data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion)
-}
-if params != nil && params.FcmCredentialSid != nil {
-    data.Set("FcmCredentialSid", *params.FcmCredentialSid)
-}
-if params != nil && params.DefaultFcmNotificationProtocolVersion != nil {
-    data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion)
-}
-if params != nil && params.LogEnabled != nil {
-    data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled))
-}
-if params != nil && params.AlexaSkillId != nil {
-    data.Set("AlexaSkillId", *params.AlexaSkillId)
-}
-if params != nil && params.DefaultAlexaNotificationProtocolVersion != nil {
-    data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion)
-}
-if params != nil && params.DeliveryCallbackUrl != nil {
-    data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
-}
-if params != nil && params.DeliveryCallbackEnabled != nil {
-    data.Set("DeliveryCallbackEnabled", fmt.Sprint(*params.DeliveryCallbackEnabled))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ApnCredentialSid != nil {
+        data.Set("ApnCredentialSid", *params.ApnCredentialSid)
+    }
+    if params != nil && params.GcmCredentialSid != nil {
+        data.Set("GcmCredentialSid", *params.GcmCredentialSid)
+    }
+    if params != nil && params.MessagingServiceSid != nil {
+        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+    }
+    if params != nil && params.FacebookMessengerPageId != nil {
+        data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId)
+    }
+    if params != nil && params.DefaultApnNotificationProtocolVersion != nil {
+        data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion)
+    }
+    if params != nil && params.DefaultGcmNotificationProtocolVersion != nil {
+        data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion)
+    }
+    if params != nil && params.FcmCredentialSid != nil {
+        data.Set("FcmCredentialSid", *params.FcmCredentialSid)
+    }
+    if params != nil && params.DefaultFcmNotificationProtocolVersion != nil {
+        data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion)
+    }
+    if params != nil && params.LogEnabled != nil {
+        data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled))
+    }
+    if params != nil && params.AlexaSkillId != nil {
+        data.Set("AlexaSkillId", *params.AlexaSkillId)
+    }
+    if params != nil && params.DefaultAlexaNotificationProtocolVersion != nil {
+        data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion)
+    }
+    if params != nil && params.DeliveryCallbackUrl != nil {
+        data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
+    }
+    if params != nil && params.DeliveryCallbackEnabled != nil {
+        data.Set("DeliveryCallbackEnabled", fmt.Sprint(*params.DeliveryCallbackEnabled))
+    }
 
 
 
@@ -188,6 +189,7 @@ func (c *ApiService) DeleteService(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -205,6 +207,7 @@ func (c *ApiService) FetchService(Sid string, ) (*NotifyV1Service, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -253,12 +256,13 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -466,48 +470,49 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*No
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ApnCredentialSid != nil {
-    data.Set("ApnCredentialSid", *params.ApnCredentialSid)
-}
-if params != nil && params.GcmCredentialSid != nil {
-    data.Set("GcmCredentialSid", *params.GcmCredentialSid)
-}
-if params != nil && params.MessagingServiceSid != nil {
-    data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-}
-if params != nil && params.FacebookMessengerPageId != nil {
-    data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId)
-}
-if params != nil && params.DefaultApnNotificationProtocolVersion != nil {
-    data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion)
-}
-if params != nil && params.DefaultGcmNotificationProtocolVersion != nil {
-    data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion)
-}
-if params != nil && params.FcmCredentialSid != nil {
-    data.Set("FcmCredentialSid", *params.FcmCredentialSid)
-}
-if params != nil && params.DefaultFcmNotificationProtocolVersion != nil {
-    data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion)
-}
-if params != nil && params.LogEnabled != nil {
-    data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled))
-}
-if params != nil && params.AlexaSkillId != nil {
-    data.Set("AlexaSkillId", *params.AlexaSkillId)
-}
-if params != nil && params.DefaultAlexaNotificationProtocolVersion != nil {
-    data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion)
-}
-if params != nil && params.DeliveryCallbackUrl != nil {
-    data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
-}
-if params != nil && params.DeliveryCallbackEnabled != nil {
-    data.Set("DeliveryCallbackEnabled", fmt.Sprint(*params.DeliveryCallbackEnabled))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ApnCredentialSid != nil {
+        data.Set("ApnCredentialSid", *params.ApnCredentialSid)
+    }
+    if params != nil && params.GcmCredentialSid != nil {
+        data.Set("GcmCredentialSid", *params.GcmCredentialSid)
+    }
+    if params != nil && params.MessagingServiceSid != nil {
+        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+    }
+    if params != nil && params.FacebookMessengerPageId != nil {
+        data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId)
+    }
+    if params != nil && params.DefaultApnNotificationProtocolVersion != nil {
+        data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion)
+    }
+    if params != nil && params.DefaultGcmNotificationProtocolVersion != nil {
+        data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion)
+    }
+    if params != nil && params.FcmCredentialSid != nil {
+        data.Set("FcmCredentialSid", *params.FcmCredentialSid)
+    }
+    if params != nil && params.DefaultFcmNotificationProtocolVersion != nil {
+        data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion)
+    }
+    if params != nil && params.LogEnabled != nil {
+        data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled))
+    }
+    if params != nil && params.AlexaSkillId != nil {
+        data.Set("AlexaSkillId", *params.AlexaSkillId)
+    }
+    if params != nil && params.DefaultAlexaNotificationProtocolVersion != nil {
+        data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion)
+    }
+    if params != nil && params.DeliveryCallbackUrl != nil {
+        data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
+    }
+    if params != nil && params.DeliveryCallbackEnabled != nil {
+        data.Set("DeliveryCallbackEnabled", fmt.Sprint(*params.DeliveryCallbackEnabled))
+    }
 
 
 

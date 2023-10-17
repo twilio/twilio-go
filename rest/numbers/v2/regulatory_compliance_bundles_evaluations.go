@@ -33,6 +33,7 @@ func (c *ApiService) CreateEvaluation(BundleSid string, ) (*NumbersV2Evaluation,
 
 
 
+
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -56,6 +57,7 @@ func (c *ApiService) FetchEvaluation(BundleSid string, Sid string, ) (*NumbersV2
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -99,9 +101,10 @@ func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationPara
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

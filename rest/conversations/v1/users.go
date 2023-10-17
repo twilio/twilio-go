@@ -64,18 +64,19 @@ func (c *ApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User,
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Identity != nil {
-    data.Set("Identity", *params.Identity)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.RoleSid != nil {
-    data.Set("RoleSid", *params.RoleSid)
-}
+
+    if params != nil && params.Identity != nil {
+        data.Set("Identity", *params.Identity)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.RoleSid != nil {
+        data.Set("RoleSid", *params.RoleSid)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -117,6 +118,7 @@ func (c *ApiService) DeleteUser(Sid string, params *DeleteUserParams) (error) {
     headers := make(map[string]interface{})
 
 
+
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -138,6 +140,7 @@ func (c *ApiService) FetchUser(Sid string, ) (*ConversationsV1User, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -180,9 +183,10 @@ func (c *ApiService) PageUser(params *ListUserParams, pageToken, pageNumber stri
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -330,15 +334,16 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Conversa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.RoleSid != nil {
-    data.Set("RoleSid", *params.RoleSid)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.RoleSid != nil {
+        data.Set("RoleSid", *params.RoleSid)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

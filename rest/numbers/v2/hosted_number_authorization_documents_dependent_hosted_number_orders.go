@@ -72,21 +72,22 @@ func (c *ApiService) PageDependentHostedNumberOrder(SigningDocumentSid string, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
-if params != nil && params.IncomingPhoneNumberSid != nil {
-    data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
+    if params != nil && params.IncomingPhoneNumberSid != nil {
+        data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

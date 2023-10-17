@@ -52,27 +52,28 @@ func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Channel != nil {
-    v, err := json.Marshal(params.Channel)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Channel != nil {
+        v, err := json.Marshal(params.Channel)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Channel", string(v))
     }
+    if params != nil && params.Routing != nil {
+        v, err := json.Marshal(params.Routing)
 
-    data.Set("Channel", string(v))
-}
-if params != nil && params.Routing != nil {
-    v, err := json.Marshal(params.Routing)
+        if err != nil {
+            return nil, err
+        }
 
-    if err != nil {
-        return nil, err
+        data.Set("Routing", string(v))
     }
-
-    data.Set("Routing", string(v))
-}
-if params != nil && params.InteractionContextSid != nil {
-    data.Set("InteractionContextSid", *params.InteractionContextSid)
-}
+    if params != nil && params.InteractionContextSid != nil {
+        data.Set("InteractionContextSid", *params.InteractionContextSid)
+    }
 
 
 
@@ -98,6 +99,7 @@ func (c *ApiService) FetchInteraction(Sid string, ) (*FlexV1Interaction, error) 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

@@ -32,6 +32,7 @@ func (c *ApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, 
 
 
 
+
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -53,6 +54,7 @@ func (c *ApiService) DeleteSecondaryAuthToken() (error) {
     
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

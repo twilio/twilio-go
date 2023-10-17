@@ -33,6 +33,7 @@ func (c *ApiService) FetchRoomRecordingRule(RoomSid string, ) (*VideoV1RoomRecor
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -66,15 +67,16 @@ func (c *ApiService) UpdateRoomRecordingRule(RoomSid string, params *UpdateRoomR
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Rules != nil {
-    v, err := json.Marshal(params.Rules)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Rules != nil {
+        v, err := json.Marshal(params.Rules)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Rules", string(v))
     }
-
-    data.Set("Rules", string(v))
-}
 
 
 

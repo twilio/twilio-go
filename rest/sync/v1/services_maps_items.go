@@ -66,27 +66,28 @@ func (c *ApiService) CreateSyncMapItem(ServiceSid string, MapSid string, params 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Key != nil {
-    data.Set("Key", *params.Key)
-}
-if params != nil && params.Data != nil {
-    v, err := json.Marshal(params.Data)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Key != nil {
+        data.Set("Key", *params.Key)
     }
+    if params != nil && params.Data != nil {
+        v, err := json.Marshal(params.Data)
 
-    data.Set("Data", string(v))
-}
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
-if params != nil && params.ItemTtl != nil {
-    data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
-}
-if params != nil && params.CollectionTtl != nil {
-    data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Data", string(v))
+    }
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
+    if params != nil && params.ItemTtl != nil {
+        data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
+    }
+    if params != nil && params.CollectionTtl != nil {
+        data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
+    }
 
 
 
@@ -127,6 +128,7 @@ func (c *ApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key str
     headers := make(map[string]interface{})
 
 
+
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
@@ -150,6 +152,7 @@ func (c *ApiService) FetchSyncMapItem(ServiceSid string, MapSid string, Key stri
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -212,18 +215,19 @@ func (c *ApiService) PageSyncMapItem(ServiceSid string, MapSid string, params *L
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Order != nil {
-    data.Set("Order", *params.Order)
-}
-if params != nil && params.From != nil {
-    data.Set("From", *params.From)
-}
-if params != nil && params.Bounds != nil {
-    data.Set("Bounds", *params.Bounds)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Order != nil {
+        data.Set("Order", *params.Order)
+    }
+    if params != nil && params.From != nil {
+        data.Set("From", *params.From)
+    }
+    if params != nil && params.Bounds != nil {
+        data.Set("Bounds", *params.Bounds)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -379,24 +383,25 @@ func (c *ApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key str
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Data != nil {
-    v, err := json.Marshal(params.Data)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Data != nil {
+        v, err := json.Marshal(params.Data)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Data", string(v))
     }
-
-    data.Set("Data", string(v))
-}
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
-if params != nil && params.ItemTtl != nil {
-    data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
-}
-if params != nil && params.CollectionTtl != nil {
-    data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
-}
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
+    if params != nil && params.ItemTtl != nil {
+        data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
+    }
+    if params != nil && params.CollectionTtl != nil {
+        data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
+    }
 
 
 	if params != nil && params.IfMatch != nil {

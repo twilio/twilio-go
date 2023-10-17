@@ -35,6 +35,7 @@ func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, Channe
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -54,6 +55,7 @@ func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, Channel
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -98,9 +100,10 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -244,15 +247,16 @@ func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, Channe
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.NotificationLevel != nil {
-    data.Set("NotificationLevel", *params.NotificationLevel)
-}
-if params != nil && params.LastConsumedMessageIndex != nil {
-    data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
-}
-if params != nil && params.LastConsumptionTimestamp != nil {
-    data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
-}
+
+    if params != nil && params.NotificationLevel != nil {
+        data.Set("NotificationLevel", *params.NotificationLevel)
+    }
+    if params != nil && params.LastConsumedMessageIndex != nil {
+        data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
+    }
+    if params != nil && params.LastConsumptionTimestamp != nil {
+        data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
+    }
 
 
 

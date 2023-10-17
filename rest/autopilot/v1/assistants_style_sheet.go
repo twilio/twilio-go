@@ -33,6 +33,7 @@ func (c *ApiService) FetchStyleSheet(AssistantSid string, ) (*AutopilotV1StyleSh
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -66,15 +67,16 @@ func (c *ApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSh
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.StyleSheet != nil {
-    v, err := json.Marshal(params.StyleSheet)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.StyleSheet != nil {
+        v, err := json.Marshal(params.StyleSheet)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("StyleSheet", string(v))
     }
-
-    data.Set("StyleSheet", string(v))
-}
 
 
 

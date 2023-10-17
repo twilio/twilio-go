@@ -33,6 +33,7 @@ func (c *ApiService) DeleteDomainCertV4(DomainSid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -50,6 +51,7 @@ func (c *ApiService) FetchDomainCertV4(DomainSid string, ) (*MessagingV1DomainCe
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -86,9 +88,10 @@ func (c *ApiService) UpdateDomainCertV4(DomainSid string, params *UpdateDomainCe
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.TlsCert != nil {
-    data.Set("TlsCert", *params.TlsCert)
-}
+
+    if params != nil && params.TlsCert != nil {
+        data.Set("TlsCert", *params.TlsCert)
+    }
 
 
 

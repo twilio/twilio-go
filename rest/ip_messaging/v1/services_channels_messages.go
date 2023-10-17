@@ -54,15 +54,16 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Body != nil {
-    data.Set("Body", *params.Body)
-}
-if params != nil && params.From != nil {
-    data.Set("From", *params.From)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
+
+    if params != nil && params.Body != nil {
+        data.Set("Body", *params.Body)
+    }
+    if params != nil && params.From != nil {
+        data.Set("From", *params.From)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
 
 
 
@@ -93,6 +94,7 @@ func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid str
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -112,6 +114,7 @@ func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid stri
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -162,12 +165,13 @@ func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *L
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Order != nil {
-    data.Set("Order", *params.Order)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Order != nil {
+        data.Set("Order", *params.Order)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -305,12 +309,13 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Body != nil {
-    data.Set("Body", *params.Body)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
+
+    if params != nil && params.Body != nil {
+        data.Set("Body", *params.Body)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
 
 
 

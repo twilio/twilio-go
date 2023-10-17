@@ -40,9 +40,10 @@ func (c *ApiService) CreateComplianceInquiry(params *CreateComplianceInquiryPara
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PrimaryProfileSid != nil {
-    data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
-}
+
+    if params != nil && params.PrimaryProfileSid != nil {
+        data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
+    }
 
 
 
@@ -79,9 +80,10 @@ func (c *ApiService) UpdateComplianceInquiry(CustomerId string, params *UpdateCo
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PrimaryProfileSid != nil {
-    data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
-}
+
+    if params != nil && params.PrimaryProfileSid != nil {
+        data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
+    }
 
 
 

@@ -33,6 +33,7 @@ func (c *ApiService) FetchPolicies(Sid string, ) (*TrusthubV1Policies, error) {
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -72,9 +73,10 @@ func (c *ApiService) PagePolicies(params *ListPoliciesParams, pageToken, pageNum
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

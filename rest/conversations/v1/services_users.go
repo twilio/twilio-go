@@ -65,18 +65,19 @@ func (c *ApiService) CreateServiceUser(ChatServiceSid string, params *CreateServ
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Identity != nil {
-    data.Set("Identity", *params.Identity)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.RoleSid != nil {
-    data.Set("RoleSid", *params.RoleSid)
-}
+
+    if params != nil && params.Identity != nil {
+        data.Set("Identity", *params.Identity)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.RoleSid != nil {
+        data.Set("RoleSid", *params.RoleSid)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -119,6 +120,7 @@ func (c *ApiService) DeleteServiceUser(ChatServiceSid string, Sid string, params
     headers := make(map[string]interface{})
 
 
+
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -141,6 +143,7 @@ func (c *ApiService) FetchServiceUser(ChatServiceSid string, Sid string, ) (*Con
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -184,9 +187,10 @@ func (c *ApiService) PageServiceUser(ChatServiceSid string, params *ListServiceU
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -335,15 +339,16 @@ func (c *ApiService) UpdateServiceUser(ChatServiceSid string, Sid string, params
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.RoleSid != nil {
-    data.Set("RoleSid", *params.RoleSid)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.RoleSid != nil {
+        data.Set("RoleSid", *params.RoleSid)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

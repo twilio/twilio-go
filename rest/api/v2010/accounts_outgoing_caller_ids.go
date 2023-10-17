@@ -81,24 +81,25 @@ func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestPara
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.CallDelay != nil {
-    data.Set("CallDelay", fmt.Sprint(*params.CallDelay))
-}
-if params != nil && params.Extension != nil {
-    data.Set("Extension", *params.Extension)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
+
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.CallDelay != nil {
+        data.Set("CallDelay", fmt.Sprint(*params.CallDelay))
+    }
+    if params != nil && params.Extension != nil {
+        data.Set("Extension", *params.Extension)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
 
 
 
@@ -143,6 +144,7 @@ func (c *ApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOutgoingCa
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -176,6 +178,7 @@ func (c *ApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgoingCall
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -241,15 +244,16 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -390,9 +394,10 @@ func (c *ApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOutgoingCa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 

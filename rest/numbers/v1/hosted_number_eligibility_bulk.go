@@ -32,6 +32,7 @@ func (c *ApiService) CreateBulkEligibility() (*NumbersV1BulkEligibility, error) 
 
 
 
+
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -54,6 +55,7 @@ func (c *ApiService) FetchBulkEligibility(RequestId string, ) (*NumbersV1BulkEli
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

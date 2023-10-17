@@ -40,9 +40,10 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*IpMessagingV2S
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 
@@ -71,6 +72,7 @@ func (c *ApiService) DeleteService(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -88,6 +90,7 @@ func (c *ApiService) FetchService(Sid string, ) (*IpMessagingV2Service, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -130,9 +133,10 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -442,101 +446,102 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ip
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.DefaultServiceRoleSid != nil {
-    data.Set("DefaultServiceRoleSid", *params.DefaultServiceRoleSid)
-}
-if params != nil && params.DefaultChannelRoleSid != nil {
-    data.Set("DefaultChannelRoleSid", *params.DefaultChannelRoleSid)
-}
-if params != nil && params.DefaultChannelCreatorRoleSid != nil {
-    data.Set("DefaultChannelCreatorRoleSid", *params.DefaultChannelCreatorRoleSid)
-}
-if params != nil && params.ReadStatusEnabled != nil {
-    data.Set("ReadStatusEnabled", fmt.Sprint(*params.ReadStatusEnabled))
-}
-if params != nil && params.ReachabilityEnabled != nil {
-    data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
-}
-if params != nil && params.TypingIndicatorTimeout != nil {
-    data.Set("TypingIndicatorTimeout", fmt.Sprint(*params.TypingIndicatorTimeout))
-}
-if params != nil && params.ConsumptionReportInterval != nil {
-    data.Set("ConsumptionReportInterval", fmt.Sprint(*params.ConsumptionReportInterval))
-}
-if params != nil && params.NotificationsNewMessageEnabled != nil {
-    data.Set("Notifications.NewMessage.Enabled", fmt.Sprint(*params.NotificationsNewMessageEnabled))
-}
-if params != nil && params.NotificationsNewMessageTemplate != nil {
-    data.Set("Notifications.NewMessage.Template", *params.NotificationsNewMessageTemplate)
-}
-if params != nil && params.NotificationsNewMessageSound != nil {
-    data.Set("Notifications.NewMessage.Sound", *params.NotificationsNewMessageSound)
-}
-if params != nil && params.NotificationsNewMessageBadgeCountEnabled != nil {
-    data.Set("Notifications.NewMessage.BadgeCountEnabled", fmt.Sprint(*params.NotificationsNewMessageBadgeCountEnabled))
-}
-if params != nil && params.NotificationsAddedToChannelEnabled != nil {
-    data.Set("Notifications.AddedToChannel.Enabled", fmt.Sprint(*params.NotificationsAddedToChannelEnabled))
-}
-if params != nil && params.NotificationsAddedToChannelTemplate != nil {
-    data.Set("Notifications.AddedToChannel.Template", *params.NotificationsAddedToChannelTemplate)
-}
-if params != nil && params.NotificationsAddedToChannelSound != nil {
-    data.Set("Notifications.AddedToChannel.Sound", *params.NotificationsAddedToChannelSound)
-}
-if params != nil && params.NotificationsRemovedFromChannelEnabled != nil {
-    data.Set("Notifications.RemovedFromChannel.Enabled", fmt.Sprint(*params.NotificationsRemovedFromChannelEnabled))
-}
-if params != nil && params.NotificationsRemovedFromChannelTemplate != nil {
-    data.Set("Notifications.RemovedFromChannel.Template", *params.NotificationsRemovedFromChannelTemplate)
-}
-if params != nil && params.NotificationsRemovedFromChannelSound != nil {
-    data.Set("Notifications.RemovedFromChannel.Sound", *params.NotificationsRemovedFromChannelSound)
-}
-if params != nil && params.NotificationsInvitedToChannelEnabled != nil {
-    data.Set("Notifications.InvitedToChannel.Enabled", fmt.Sprint(*params.NotificationsInvitedToChannelEnabled))
-}
-if params != nil && params.NotificationsInvitedToChannelTemplate != nil {
-    data.Set("Notifications.InvitedToChannel.Template", *params.NotificationsInvitedToChannelTemplate)
-}
-if params != nil && params.NotificationsInvitedToChannelSound != nil {
-    data.Set("Notifications.InvitedToChannel.Sound", *params.NotificationsInvitedToChannelSound)
-}
-if params != nil && params.PreWebhookUrl != nil {
-    data.Set("PreWebhookUrl", *params.PreWebhookUrl)
-}
-if params != nil && params.PostWebhookUrl != nil {
-    data.Set("PostWebhookUrl", *params.PostWebhookUrl)
-}
-if params != nil && params.WebhookMethod != nil {
-    data.Set("WebhookMethod", *params.WebhookMethod)
-}
-if params != nil && params.WebhookFilters != nil {
-    for _, item  := range *params.WebhookFilters {
-        data.Add("WebhookFilters", item)
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
-}
-if params != nil && params.LimitsChannelMembers != nil {
-    data.Set("Limits.ChannelMembers", fmt.Sprint(*params.LimitsChannelMembers))
-}
-if params != nil && params.LimitsUserChannels != nil {
-    data.Set("Limits.UserChannels", fmt.Sprint(*params.LimitsUserChannels))
-}
-if params != nil && params.MediaCompatibilityMessage != nil {
-    data.Set("Media.CompatibilityMessage", *params.MediaCompatibilityMessage)
-}
-if params != nil && params.PreWebhookRetryCount != nil {
-    data.Set("PreWebhookRetryCount", fmt.Sprint(*params.PreWebhookRetryCount))
-}
-if params != nil && params.PostWebhookRetryCount != nil {
-    data.Set("PostWebhookRetryCount", fmt.Sprint(*params.PostWebhookRetryCount))
-}
-if params != nil && params.NotificationsLogEnabled != nil {
-    data.Set("Notifications.LogEnabled", fmt.Sprint(*params.NotificationsLogEnabled))
-}
+    if params != nil && params.DefaultServiceRoleSid != nil {
+        data.Set("DefaultServiceRoleSid", *params.DefaultServiceRoleSid)
+    }
+    if params != nil && params.DefaultChannelRoleSid != nil {
+        data.Set("DefaultChannelRoleSid", *params.DefaultChannelRoleSid)
+    }
+    if params != nil && params.DefaultChannelCreatorRoleSid != nil {
+        data.Set("DefaultChannelCreatorRoleSid", *params.DefaultChannelCreatorRoleSid)
+    }
+    if params != nil && params.ReadStatusEnabled != nil {
+        data.Set("ReadStatusEnabled", fmt.Sprint(*params.ReadStatusEnabled))
+    }
+    if params != nil && params.ReachabilityEnabled != nil {
+        data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
+    }
+    if params != nil && params.TypingIndicatorTimeout != nil {
+        data.Set("TypingIndicatorTimeout", fmt.Sprint(*params.TypingIndicatorTimeout))
+    }
+    if params != nil && params.ConsumptionReportInterval != nil {
+        data.Set("ConsumptionReportInterval", fmt.Sprint(*params.ConsumptionReportInterval))
+    }
+    if params != nil && params.NotificationsNewMessageEnabled != nil {
+        data.Set("Notifications.NewMessage.Enabled", fmt.Sprint(*params.NotificationsNewMessageEnabled))
+    }
+    if params != nil && params.NotificationsNewMessageTemplate != nil {
+        data.Set("Notifications.NewMessage.Template", *params.NotificationsNewMessageTemplate)
+    }
+    if params != nil && params.NotificationsNewMessageSound != nil {
+        data.Set("Notifications.NewMessage.Sound", *params.NotificationsNewMessageSound)
+    }
+    if params != nil && params.NotificationsNewMessageBadgeCountEnabled != nil {
+        data.Set("Notifications.NewMessage.BadgeCountEnabled", fmt.Sprint(*params.NotificationsNewMessageBadgeCountEnabled))
+    }
+    if params != nil && params.NotificationsAddedToChannelEnabled != nil {
+        data.Set("Notifications.AddedToChannel.Enabled", fmt.Sprint(*params.NotificationsAddedToChannelEnabled))
+    }
+    if params != nil && params.NotificationsAddedToChannelTemplate != nil {
+        data.Set("Notifications.AddedToChannel.Template", *params.NotificationsAddedToChannelTemplate)
+    }
+    if params != nil && params.NotificationsAddedToChannelSound != nil {
+        data.Set("Notifications.AddedToChannel.Sound", *params.NotificationsAddedToChannelSound)
+    }
+    if params != nil && params.NotificationsRemovedFromChannelEnabled != nil {
+        data.Set("Notifications.RemovedFromChannel.Enabled", fmt.Sprint(*params.NotificationsRemovedFromChannelEnabled))
+    }
+    if params != nil && params.NotificationsRemovedFromChannelTemplate != nil {
+        data.Set("Notifications.RemovedFromChannel.Template", *params.NotificationsRemovedFromChannelTemplate)
+    }
+    if params != nil && params.NotificationsRemovedFromChannelSound != nil {
+        data.Set("Notifications.RemovedFromChannel.Sound", *params.NotificationsRemovedFromChannelSound)
+    }
+    if params != nil && params.NotificationsInvitedToChannelEnabled != nil {
+        data.Set("Notifications.InvitedToChannel.Enabled", fmt.Sprint(*params.NotificationsInvitedToChannelEnabled))
+    }
+    if params != nil && params.NotificationsInvitedToChannelTemplate != nil {
+        data.Set("Notifications.InvitedToChannel.Template", *params.NotificationsInvitedToChannelTemplate)
+    }
+    if params != nil && params.NotificationsInvitedToChannelSound != nil {
+        data.Set("Notifications.InvitedToChannel.Sound", *params.NotificationsInvitedToChannelSound)
+    }
+    if params != nil && params.PreWebhookUrl != nil {
+        data.Set("PreWebhookUrl", *params.PreWebhookUrl)
+    }
+    if params != nil && params.PostWebhookUrl != nil {
+        data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+    }
+    if params != nil && params.WebhookMethod != nil {
+        data.Set("WebhookMethod", *params.WebhookMethod)
+    }
+    if params != nil && params.WebhookFilters != nil {
+        for _, item  := range *params.WebhookFilters {
+            data.Add("WebhookFilters", item)
+    }
+    }
+    if params != nil && params.LimitsChannelMembers != nil {
+        data.Set("Limits.ChannelMembers", fmt.Sprint(*params.LimitsChannelMembers))
+    }
+    if params != nil && params.LimitsUserChannels != nil {
+        data.Set("Limits.UserChannels", fmt.Sprint(*params.LimitsUserChannels))
+    }
+    if params != nil && params.MediaCompatibilityMessage != nil {
+        data.Set("Media.CompatibilityMessage", *params.MediaCompatibilityMessage)
+    }
+    if params != nil && params.PreWebhookRetryCount != nil {
+        data.Set("PreWebhookRetryCount", fmt.Sprint(*params.PreWebhookRetryCount))
+    }
+    if params != nil && params.PostWebhookRetryCount != nil {
+        data.Set("PostWebhookRetryCount", fmt.Sprint(*params.PostWebhookRetryCount))
+    }
+    if params != nil && params.NotificationsLogEnabled != nil {
+        data.Set("Notifications.LogEnabled", fmt.Sprint(*params.NotificationsLogEnabled))
+    }
 
 
 

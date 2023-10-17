@@ -52,19 +52,20 @@ func (c *ApiService) CreateDeviceCode(params *CreateDeviceCodeParams) (*OauthV1D
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ClientSid != nil {
-    data.Set("ClientSid", *params.ClientSid)
-}
-if params != nil && params.Scopes != nil {
-    for _, item  := range *params.Scopes {
-        data.Add("Scopes", item)
+
+    if params != nil && params.ClientSid != nil {
+        data.Set("ClientSid", *params.ClientSid)
     }
-}
-if params != nil && params.Audiences != nil {
-    for _, item  := range *params.Audiences {
-        data.Add("Audiences", item)
+    if params != nil && params.Scopes != nil {
+        for _, item  := range *params.Scopes {
+            data.Add("Scopes", item)
     }
-}
+    }
+    if params != nil && params.Audiences != nil {
+        for _, item  := range *params.Audiences {
+            data.Add("Audiences", item)
+    }
+    }
 
 
 

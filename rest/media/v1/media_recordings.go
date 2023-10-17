@@ -33,6 +33,7 @@ func (c *ApiService) DeleteMediaRecording(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -50,6 +51,7 @@ func (c *ApiService) FetchMediaRecording(Sid string, ) (*MediaV1MediaRecording, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -116,21 +118,22 @@ func (c *ApiService) PageMediaRecording(params *ListMediaRecordingParams, pageTo
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Order != nil {
-    data.Set("Order", *params.Order)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.ProcessorSid != nil {
-    data.Set("ProcessorSid", *params.ProcessorSid)
-}
-if params != nil && params.SourceSid != nil {
-    data.Set("SourceSid", *params.SourceSid)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Order != nil {
+        data.Set("Order", *params.Order)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.ProcessorSid != nil {
+        data.Set("ProcessorSid", *params.ProcessorSid)
+    }
+    if params != nil && params.SourceSid != nil {
+        data.Set("SourceSid", *params.SourceSid)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

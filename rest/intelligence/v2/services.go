@@ -88,33 +88,34 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*IntelligenceV2
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.AutoTranscribe != nil {
-    data.Set("AutoTranscribe", fmt.Sprint(*params.AutoTranscribe))
-}
-if params != nil && params.DataLogging != nil {
-    data.Set("DataLogging", fmt.Sprint(*params.DataLogging))
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.LanguageCode != nil {
-    data.Set("LanguageCode", *params.LanguageCode)
-}
-if params != nil && params.AutoRedaction != nil {
-    data.Set("AutoRedaction", fmt.Sprint(*params.AutoRedaction))
-}
-if params != nil && params.MediaRedaction != nil {
-    data.Set("MediaRedaction", fmt.Sprint(*params.MediaRedaction))
-}
-if params != nil && params.WebhookUrl != nil {
-    data.Set("WebhookUrl", *params.WebhookUrl)
-}
-if params != nil && params.WebhookHttpMethod != nil {
-    data.Set("WebhookHttpMethod", *params.WebhookHttpMethod)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.AutoTranscribe != nil {
+        data.Set("AutoTranscribe", fmt.Sprint(*params.AutoTranscribe))
+    }
+    if params != nil && params.DataLogging != nil {
+        data.Set("DataLogging", fmt.Sprint(*params.DataLogging))
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.LanguageCode != nil {
+        data.Set("LanguageCode", *params.LanguageCode)
+    }
+    if params != nil && params.AutoRedaction != nil {
+        data.Set("AutoRedaction", fmt.Sprint(*params.AutoRedaction))
+    }
+    if params != nil && params.MediaRedaction != nil {
+        data.Set("MediaRedaction", fmt.Sprint(*params.MediaRedaction))
+    }
+    if params != nil && params.WebhookUrl != nil {
+        data.Set("WebhookUrl", *params.WebhookUrl)
+    }
+    if params != nil && params.WebhookHttpMethod != nil {
+        data.Set("WebhookHttpMethod", *params.WebhookHttpMethod)
+    }
 
 
 
@@ -143,6 +144,7 @@ func (c *ApiService) DeleteService(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -160,6 +162,7 @@ func (c *ApiService) FetchService(Sid string, ) (*IntelligenceV2Service, error) 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -202,9 +205,10 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -388,33 +392,34 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*In
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AutoTranscribe != nil {
-    data.Set("AutoTranscribe", fmt.Sprint(*params.AutoTranscribe))
-}
-if params != nil && params.DataLogging != nil {
-    data.Set("DataLogging", fmt.Sprint(*params.DataLogging))
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.LanguageCode != nil {
-    data.Set("LanguageCode", *params.LanguageCode)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.AutoRedaction != nil {
-    data.Set("AutoRedaction", fmt.Sprint(*params.AutoRedaction))
-}
-if params != nil && params.MediaRedaction != nil {
-    data.Set("MediaRedaction", fmt.Sprint(*params.MediaRedaction))
-}
-if params != nil && params.WebhookUrl != nil {
-    data.Set("WebhookUrl", *params.WebhookUrl)
-}
-if params != nil && params.WebhookHttpMethod != nil {
-    data.Set("WebhookHttpMethod", *params.WebhookHttpMethod)
-}
+
+    if params != nil && params.AutoTranscribe != nil {
+        data.Set("AutoTranscribe", fmt.Sprint(*params.AutoTranscribe))
+    }
+    if params != nil && params.DataLogging != nil {
+        data.Set("DataLogging", fmt.Sprint(*params.DataLogging))
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.LanguageCode != nil {
+        data.Set("LanguageCode", *params.LanguageCode)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.AutoRedaction != nil {
+        data.Set("AutoRedaction", fmt.Sprint(*params.AutoRedaction))
+    }
+    if params != nil && params.MediaRedaction != nil {
+        data.Set("MediaRedaction", fmt.Sprint(*params.MediaRedaction))
+    }
+    if params != nil && params.WebhookUrl != nil {
+        data.Set("WebhookUrl", *params.WebhookUrl)
+    }
+    if params != nil && params.WebhookHttpMethod != nil {
+        data.Set("WebhookHttpMethod", *params.WebhookHttpMethod)
+    }
 
 
 	if params != nil && params.IfMatch != nil {

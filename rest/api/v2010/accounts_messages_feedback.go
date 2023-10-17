@@ -52,9 +52,10 @@ func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMess
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Outcome != nil {
-    data.Set("Outcome", *params.Outcome)
-}
+
+    if params != nil && params.Outcome != nil {
+        data.Set("Outcome", *params.Outcome)
+    }
 
 
 

@@ -76,27 +76,28 @@ func (c *ApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Comm
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Command != nil {
-    data.Set("Command", *params.Command)
-}
-if params != nil && params.Sim != nil {
-    data.Set("Sim", *params.Sim)
-}
-if params != nil && params.CallbackMethod != nil {
-    data.Set("CallbackMethod", *params.CallbackMethod)
-}
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.CommandMode != nil {
-    data.Set("CommandMode", *params.CommandMode)
-}
-if params != nil && params.IncludeSid != nil {
-    data.Set("IncludeSid", *params.IncludeSid)
-}
-if params != nil && params.DeliveryReceiptRequested != nil {
-    data.Set("DeliveryReceiptRequested", fmt.Sprint(*params.DeliveryReceiptRequested))
-}
+
+    if params != nil && params.Command != nil {
+        data.Set("Command", *params.Command)
+    }
+    if params != nil && params.Sim != nil {
+        data.Set("Sim", *params.Sim)
+    }
+    if params != nil && params.CallbackMethod != nil {
+        data.Set("CallbackMethod", *params.CallbackMethod)
+    }
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.CommandMode != nil {
+        data.Set("CommandMode", *params.CommandMode)
+    }
+    if params != nil && params.IncludeSid != nil {
+        data.Set("IncludeSid", *params.IncludeSid)
+    }
+    if params != nil && params.DeliveryReceiptRequested != nil {
+        data.Set("DeliveryReceiptRequested", fmt.Sprint(*params.DeliveryReceiptRequested))
+    }
 
 
 
@@ -125,6 +126,7 @@ func (c *ApiService) DeleteCommand(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -142,6 +144,7 @@ func (c *ApiService) FetchCommand(Sid string, ) (*WirelessV1Command, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -208,21 +211,22 @@ func (c *ApiService) PageCommand(params *ListCommandParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Sim != nil {
-    data.Set("Sim", *params.Sim)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Direction != nil {
-    data.Set("Direction", *params.Direction)
-}
-if params != nil && params.Transport != nil {
-    data.Set("Transport", *params.Transport)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Sim != nil {
+        data.Set("Sim", *params.Sim)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Direction != nil {
+        data.Set("Direction", *params.Direction)
+    }
+    if params != nil && params.Transport != nil {
+        data.Set("Transport", *params.Transport)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

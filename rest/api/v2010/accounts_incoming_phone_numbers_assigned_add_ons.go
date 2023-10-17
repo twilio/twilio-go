@@ -52,9 +52,10 @@ func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.InstalledAddOnSid != nil {
-    data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
-}
+
+    if params != nil && params.InstalledAddOnSid != nil {
+        data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
+    }
 
 
 
@@ -100,6 +101,7 @@ func (c *ApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -134,6 +136,7 @@ func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, S
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -188,9 +191,10 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

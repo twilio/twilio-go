@@ -59,18 +59,19 @@ func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams)
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Language != nil {
-    data.Set("Language", *params.Language)
-}
-if params != nil && params.Query != nil {
-    data.Set("Query", *params.Query)
-}
-if params != nil && params.Tasks != nil {
-    data.Set("Tasks", *params.Tasks)
-}
-if params != nil && params.ModelBuild != nil {
-    data.Set("ModelBuild", *params.ModelBuild)
-}
+
+    if params != nil && params.Language != nil {
+        data.Set("Language", *params.Language)
+    }
+    if params != nil && params.Query != nil {
+        data.Set("Query", *params.Query)
+    }
+    if params != nil && params.Tasks != nil {
+        data.Set("Tasks", *params.Tasks)
+    }
+    if params != nil && params.ModelBuild != nil {
+        data.Set("ModelBuild", *params.ModelBuild)
+    }
 
 
 
@@ -100,6 +101,7 @@ func (c *ApiService) DeleteQuery(AssistantSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -118,6 +120,7 @@ func (c *ApiService) FetchQuery(AssistantSid string, Sid string, ) (*AutopilotV1
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -185,21 +188,22 @@ func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pag
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Language != nil {
-    data.Set("Language", *params.Language)
-}
-if params != nil && params.ModelBuild != nil {
-    data.Set("ModelBuild", *params.ModelBuild)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.DialogueSid != nil {
-    data.Set("DialogueSid", *params.DialogueSid)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Language != nil {
+        data.Set("Language", *params.Language)
+    }
+    if params != nil && params.ModelBuild != nil {
+        data.Set("ModelBuild", *params.ModelBuild)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.DialogueSid != nil {
+        data.Set("DialogueSid", *params.DialogueSid)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -336,12 +340,13 @@ func (c *ApiService) UpdateQuery(AssistantSid string, Sid string, params *Update
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.SampleSid != nil {
-    data.Set("SampleSid", *params.SampleSid)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
+
+    if params != nil && params.SampleSid != nil {
+        data.Set("SampleSid", *params.SampleSid)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
 
 
 

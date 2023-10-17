@@ -53,15 +53,16 @@ func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNum
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Sid != nil {
-    data.Set("Sid", *params.Sid)
-}
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
-if params != nil && params.IsReserved != nil {
-    data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
-}
+
+    if params != nil && params.Sid != nil {
+        data.Set("Sid", *params.Sid)
+    }
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
+    if params != nil && params.IsReserved != nil {
+        data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
+    }
 
 
 
@@ -91,6 +92,7 @@ func (c *ApiService) DeletePhoneNumber(ServiceSid string, Sid string, ) (error) 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -109,6 +111,7 @@ func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string, ) (*ProxyV1
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -152,9 +155,10 @@ func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberP
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -285,9 +289,10 @@ func (c *ApiService) UpdatePhoneNumber(ServiceSid string, Sid string, params *Up
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IsReserved != nil {
-    data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
-}
+
+    if params != nil && params.IsReserved != nil {
+        data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
+    }
 
 
 

@@ -34,6 +34,7 @@ func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, Mess
 
 
 
+
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -57,6 +58,7 @@ func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, Mess
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

@@ -58,18 +58,19 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ServerlessV1Se
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.IncludeCredentials != nil {
-    data.Set("IncludeCredentials", fmt.Sprint(*params.IncludeCredentials))
-}
-if params != nil && params.UiEditable != nil {
-    data.Set("UiEditable", fmt.Sprint(*params.UiEditable))
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.IncludeCredentials != nil {
+        data.Set("IncludeCredentials", fmt.Sprint(*params.IncludeCredentials))
+    }
+    if params != nil && params.UiEditable != nil {
+        data.Set("UiEditable", fmt.Sprint(*params.UiEditable))
+    }
 
 
 
@@ -98,6 +99,7 @@ func (c *ApiService) DeleteService(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -115,6 +117,7 @@ func (c *ApiService) FetchService(Sid string, ) (*ServerlessV1Service, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -157,9 +160,10 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -301,15 +305,16 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Se
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IncludeCredentials != nil {
-    data.Set("IncludeCredentials", fmt.Sprint(*params.IncludeCredentials))
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.UiEditable != nil {
-    data.Set("UiEditable", fmt.Sprint(*params.UiEditable))
-}
+
+    if params != nil && params.IncludeCredentials != nil {
+        data.Set("IncludeCredentials", fmt.Sprint(*params.IncludeCredentials))
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.UiEditable != nil {
+        data.Set("UiEditable", fmt.Sprint(*params.UiEditable))
+    }
 
 
 

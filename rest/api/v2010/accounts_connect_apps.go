@@ -49,6 +49,7 @@ func (c *ApiService) DeleteConnectApp(Sid string, params *DeleteConnectAppParams
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -82,6 +83,7 @@ func (c *ApiService) FetchConnectApp(Sid string, params *FetchConnectAppParams) 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -135,9 +137,10 @@ func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken, pag
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -320,32 +323,33 @@ func (c *ApiService) UpdateConnectApp(Sid string, params *UpdateConnectAppParams
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AuthorizeRedirectUrl != nil {
-    data.Set("AuthorizeRedirectUrl", *params.AuthorizeRedirectUrl)
-}
-if params != nil && params.CompanyName != nil {
-    data.Set("CompanyName", *params.CompanyName)
-}
-if params != nil && params.DeauthorizeCallbackMethod != nil {
-    data.Set("DeauthorizeCallbackMethod", *params.DeauthorizeCallbackMethod)
-}
-if params != nil && params.DeauthorizeCallbackUrl != nil {
-    data.Set("DeauthorizeCallbackUrl", *params.DeauthorizeCallbackUrl)
-}
-if params != nil && params.Description != nil {
-    data.Set("Description", *params.Description)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.HomepageUrl != nil {
-    data.Set("HomepageUrl", *params.HomepageUrl)
-}
-if params != nil && params.Permissions != nil {
-    for _, item  := range *params.Permissions {
-        data.Add("Permissions", item)
+
+    if params != nil && params.AuthorizeRedirectUrl != nil {
+        data.Set("AuthorizeRedirectUrl", *params.AuthorizeRedirectUrl)
     }
-}
+    if params != nil && params.CompanyName != nil {
+        data.Set("CompanyName", *params.CompanyName)
+    }
+    if params != nil && params.DeauthorizeCallbackMethod != nil {
+        data.Set("DeauthorizeCallbackMethod", *params.DeauthorizeCallbackMethod)
+    }
+    if params != nil && params.DeauthorizeCallbackUrl != nil {
+        data.Set("DeauthorizeCallbackUrl", *params.DeauthorizeCallbackUrl)
+    }
+    if params != nil && params.Description != nil {
+        data.Set("Description", *params.Description)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.HomepageUrl != nil {
+        data.Set("HomepageUrl", *params.HomepageUrl)
+    }
+    if params != nil && params.Permissions != nil {
+        for _, item  := range *params.Permissions {
+            data.Add("Permissions", item)
+    }
+    }
 
 
 

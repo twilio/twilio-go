@@ -65,21 +65,22 @@ func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOrigina
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Weight != nil {
-    data.Set("Weight", fmt.Sprint(*params.Weight))
-}
-if params != nil && params.Priority != nil {
-    data.Set("Priority", fmt.Sprint(*params.Priority))
-}
-if params != nil && params.Enabled != nil {
-    data.Set("Enabled", fmt.Sprint(*params.Enabled))
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.SipUrl != nil {
-    data.Set("SipUrl", *params.SipUrl)
-}
+
+    if params != nil && params.Weight != nil {
+        data.Set("Weight", fmt.Sprint(*params.Weight))
+    }
+    if params != nil && params.Priority != nil {
+        data.Set("Priority", fmt.Sprint(*params.Priority))
+    }
+    if params != nil && params.Enabled != nil {
+        data.Set("Enabled", fmt.Sprint(*params.Enabled))
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.SipUrl != nil {
+        data.Set("SipUrl", *params.SipUrl)
+    }
 
 
 
@@ -109,6 +110,7 @@ func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string, ) (error)
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -127,6 +129,7 @@ func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string, ) (*Trunki
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -170,9 +173,10 @@ func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOrigination
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -327,21 +331,22 @@ func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *U
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Weight != nil {
-    data.Set("Weight", fmt.Sprint(*params.Weight))
-}
-if params != nil && params.Priority != nil {
-    data.Set("Priority", fmt.Sprint(*params.Priority))
-}
-if params != nil && params.Enabled != nil {
-    data.Set("Enabled", fmt.Sprint(*params.Enabled))
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.SipUrl != nil {
-    data.Set("SipUrl", *params.SipUrl)
-}
+
+    if params != nil && params.Weight != nil {
+        data.Set("Weight", fmt.Sprint(*params.Weight))
+    }
+    if params != nil && params.Priority != nil {
+        data.Set("Priority", fmt.Sprint(*params.Priority))
+    }
+    if params != nil && params.Enabled != nil {
+        data.Set("Enabled", fmt.Sprint(*params.Enabled))
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.SipUrl != nil {
+        data.Set("SipUrl", *params.SipUrl)
+    }
 
 
 

@@ -32,6 +32,7 @@ func (c *ApiService) FetchOpenidDiscovery() (*OauthV1OpenidDiscovery, error) {
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err

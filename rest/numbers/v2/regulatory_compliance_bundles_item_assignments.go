@@ -41,9 +41,10 @@ func (c *ApiService) CreateItemAssignment(BundleSid string, params *CreateItemAs
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ObjectSid != nil {
-    data.Set("ObjectSid", *params.ObjectSid)
-}
+
+    if params != nil && params.ObjectSid != nil {
+        data.Set("ObjectSid", *params.ObjectSid)
+    }
 
 
 
@@ -73,6 +74,7 @@ func (c *ApiService) DeleteItemAssignment(BundleSid string, Sid string, ) (error
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -91,6 +93,7 @@ func (c *ApiService) FetchItemAssignment(BundleSid string, Sid string, ) (*Numbe
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -134,9 +137,10 @@ func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssign
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

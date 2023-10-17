@@ -33,6 +33,7 @@ func (c *ApiService) FetchExport(ResourceType string, ) (*BulkexportsV1Export, e
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err

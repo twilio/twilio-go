@@ -59,18 +59,19 @@ func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTo
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Identity != nil {
-    data.Set("Identity", *params.Identity)
-}
-if params != nil && params.FactorType != nil {
-    data.Set("FactorType", *params.FactorType)
-}
-if params != nil && params.FactorFriendlyName != nil {
-    data.Set("FactorFriendlyName", *params.FactorFriendlyName)
-}
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
+
+    if params != nil && params.Identity != nil {
+        data.Set("Identity", *params.Identity)
+    }
+    if params != nil && params.FactorType != nil {
+        data.Set("FactorType", *params.FactorType)
+    }
+    if params != nil && params.FactorFriendlyName != nil {
+        data.Set("FactorFriendlyName", *params.FactorFriendlyName)
+    }
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
 
 
 
@@ -97,6 +98,7 @@ func (c *ApiService) FetchAccessToken(ServiceSid string, Sid string, ) (*VerifyV
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

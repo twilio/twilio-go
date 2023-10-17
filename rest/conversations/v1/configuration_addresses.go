@@ -106,44 +106,45 @@ func (c *ApiService) CreateConfigurationAddress(params *CreateConfigurationAddre
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.Address != nil {
-    data.Set("Address", *params.Address)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.AutoCreationEnabled != nil {
-    data.Set("AutoCreation.Enabled", fmt.Sprint(*params.AutoCreationEnabled))
-}
-if params != nil && params.AutoCreationType != nil {
-    data.Set("AutoCreation.Type", *params.AutoCreationType)
-}
-if params != nil && params.AutoCreationConversationServiceSid != nil {
-    data.Set("AutoCreation.ConversationServiceSid", *params.AutoCreationConversationServiceSid)
-}
-if params != nil && params.AutoCreationWebhookUrl != nil {
-    data.Set("AutoCreation.WebhookUrl", *params.AutoCreationWebhookUrl)
-}
-if params != nil && params.AutoCreationWebhookMethod != nil {
-    data.Set("AutoCreation.WebhookMethod", *params.AutoCreationWebhookMethod)
-}
-if params != nil && params.AutoCreationWebhookFilters != nil {
-    for _, item  := range *params.AutoCreationWebhookFilters {
-        data.Add("AutoCreation.WebhookFilters", item)
+
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
     }
-}
-if params != nil && params.AutoCreationStudioFlowSid != nil {
-    data.Set("AutoCreation.StudioFlowSid", *params.AutoCreationStudioFlowSid)
-}
-if params != nil && params.AutoCreationStudioRetryCount != nil {
-    data.Set("AutoCreation.StudioRetryCount", fmt.Sprint(*params.AutoCreationStudioRetryCount))
-}
-if params != nil && params.AddressCountry != nil {
-    data.Set("AddressCountry", *params.AddressCountry)
-}
+    if params != nil && params.Address != nil {
+        data.Set("Address", *params.Address)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.AutoCreationEnabled != nil {
+        data.Set("AutoCreation.Enabled", fmt.Sprint(*params.AutoCreationEnabled))
+    }
+    if params != nil && params.AutoCreationType != nil {
+        data.Set("AutoCreation.Type", *params.AutoCreationType)
+    }
+    if params != nil && params.AutoCreationConversationServiceSid != nil {
+        data.Set("AutoCreation.ConversationServiceSid", *params.AutoCreationConversationServiceSid)
+    }
+    if params != nil && params.AutoCreationWebhookUrl != nil {
+        data.Set("AutoCreation.WebhookUrl", *params.AutoCreationWebhookUrl)
+    }
+    if params != nil && params.AutoCreationWebhookMethod != nil {
+        data.Set("AutoCreation.WebhookMethod", *params.AutoCreationWebhookMethod)
+    }
+    if params != nil && params.AutoCreationWebhookFilters != nil {
+        for _, item  := range *params.AutoCreationWebhookFilters {
+            data.Add("AutoCreation.WebhookFilters", item)
+    }
+    }
+    if params != nil && params.AutoCreationStudioFlowSid != nil {
+        data.Set("AutoCreation.StudioFlowSid", *params.AutoCreationStudioFlowSid)
+    }
+    if params != nil && params.AutoCreationStudioRetryCount != nil {
+        data.Set("AutoCreation.StudioRetryCount", fmt.Sprint(*params.AutoCreationStudioRetryCount))
+    }
+    if params != nil && params.AddressCountry != nil {
+        data.Set("AddressCountry", *params.AddressCountry)
+    }
 
 
 
@@ -172,6 +173,7 @@ func (c *ApiService) DeleteConfigurationAddress(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -189,6 +191,7 @@ func (c *ApiService) FetchConfigurationAddress(Sid string, ) (*ConversationsV1Co
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -237,12 +240,13 @@ func (c *ApiService) PageConfigurationAddress(params *ListConfigurationAddressPa
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -420,35 +424,36 @@ func (c *ApiService) UpdateConfigurationAddress(Sid string, params *UpdateConfig
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.AutoCreationEnabled != nil {
-    data.Set("AutoCreation.Enabled", fmt.Sprint(*params.AutoCreationEnabled))
-}
-if params != nil && params.AutoCreationType != nil {
-    data.Set("AutoCreation.Type", *params.AutoCreationType)
-}
-if params != nil && params.AutoCreationConversationServiceSid != nil {
-    data.Set("AutoCreation.ConversationServiceSid", *params.AutoCreationConversationServiceSid)
-}
-if params != nil && params.AutoCreationWebhookUrl != nil {
-    data.Set("AutoCreation.WebhookUrl", *params.AutoCreationWebhookUrl)
-}
-if params != nil && params.AutoCreationWebhookMethod != nil {
-    data.Set("AutoCreation.WebhookMethod", *params.AutoCreationWebhookMethod)
-}
-if params != nil && params.AutoCreationWebhookFilters != nil {
-    for _, item  := range *params.AutoCreationWebhookFilters {
-        data.Add("AutoCreation.WebhookFilters", item)
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
-}
-if params != nil && params.AutoCreationStudioFlowSid != nil {
-    data.Set("AutoCreation.StudioFlowSid", *params.AutoCreationStudioFlowSid)
-}
-if params != nil && params.AutoCreationStudioRetryCount != nil {
-    data.Set("AutoCreation.StudioRetryCount", fmt.Sprint(*params.AutoCreationStudioRetryCount))
-}
+    if params != nil && params.AutoCreationEnabled != nil {
+        data.Set("AutoCreation.Enabled", fmt.Sprint(*params.AutoCreationEnabled))
+    }
+    if params != nil && params.AutoCreationType != nil {
+        data.Set("AutoCreation.Type", *params.AutoCreationType)
+    }
+    if params != nil && params.AutoCreationConversationServiceSid != nil {
+        data.Set("AutoCreation.ConversationServiceSid", *params.AutoCreationConversationServiceSid)
+    }
+    if params != nil && params.AutoCreationWebhookUrl != nil {
+        data.Set("AutoCreation.WebhookUrl", *params.AutoCreationWebhookUrl)
+    }
+    if params != nil && params.AutoCreationWebhookMethod != nil {
+        data.Set("AutoCreation.WebhookMethod", *params.AutoCreationWebhookMethod)
+    }
+    if params != nil && params.AutoCreationWebhookFilters != nil {
+        for _, item  := range *params.AutoCreationWebhookFilters {
+            data.Add("AutoCreation.WebhookFilters", item)
+    }
+    }
+    if params != nil && params.AutoCreationStudioFlowSid != nil {
+        data.Set("AutoCreation.StudioFlowSid", *params.AutoCreationStudioFlowSid)
+    }
+    if params != nil && params.AutoCreationStudioRetryCount != nil {
+        data.Set("AutoCreation.StudioRetryCount", fmt.Sprint(*params.AutoCreationStudioRetryCount))
+    }
 
 
 

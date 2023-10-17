@@ -41,9 +41,10 @@ func (c *ApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ProcessingState != nil {
-    data.Set("ProcessingState", *params.ProcessingState)
-}
+
+    if params != nil && params.ProcessingState != nil {
+        data.Set("ProcessingState", *params.ProcessingState)
+    }
 
 
 

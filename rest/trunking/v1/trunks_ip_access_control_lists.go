@@ -41,9 +41,10 @@ func (c *ApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIp
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IpAccessControlListSid != nil {
-    data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
-}
+
+    if params != nil && params.IpAccessControlListSid != nil {
+        data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
+    }
 
 
 
@@ -73,6 +74,7 @@ func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string, ) (e
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -91,6 +93,7 @@ func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string, ) (*T
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -134,9 +137,10 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

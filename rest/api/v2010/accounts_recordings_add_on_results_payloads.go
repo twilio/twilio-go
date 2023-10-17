@@ -51,6 +51,7 @@ func (c *ApiService) DeleteRecordingAddOnResultPayload(ReferenceSid string, AddO
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -86,6 +87,7 @@ func (c *ApiService) FetchRecordingAddOnResultPayload(ReferenceSid string, AddOn
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -141,9 +143,10 @@ func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

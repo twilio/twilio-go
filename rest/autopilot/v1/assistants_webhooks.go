@@ -59,18 +59,19 @@ func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookPar
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Events != nil {
-    data.Set("Events", *params.Events)
-}
-if params != nil && params.WebhookUrl != nil {
-    data.Set("WebhookUrl", *params.WebhookUrl)
-}
-if params != nil && params.WebhookMethod != nil {
-    data.Set("WebhookMethod", *params.WebhookMethod)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Events != nil {
+        data.Set("Events", *params.Events)
+    }
+    if params != nil && params.WebhookUrl != nil {
+        data.Set("WebhookUrl", *params.WebhookUrl)
+    }
+    if params != nil && params.WebhookMethod != nil {
+        data.Set("WebhookMethod", *params.WebhookMethod)
+    }
 
 
 
@@ -100,6 +101,7 @@ func (c *ApiService) DeleteWebhook(AssistantSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -118,6 +120,7 @@ func (c *ApiService) FetchWebhook(AssistantSid string, Sid string, ) (*Autopilot
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -161,9 +164,10 @@ func (c *ApiService) PageWebhook(AssistantSid string, params *ListWebhookParams,
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -312,18 +316,19 @@ func (c *ApiService) UpdateWebhook(AssistantSid string, Sid string, params *Upda
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Events != nil {
-    data.Set("Events", *params.Events)
-}
-if params != nil && params.WebhookUrl != nil {
-    data.Set("WebhookUrl", *params.WebhookUrl)
-}
-if params != nil && params.WebhookMethod != nil {
-    data.Set("WebhookMethod", *params.WebhookMethod)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Events != nil {
+        data.Set("Events", *params.Events)
+    }
+    if params != nil && params.WebhookUrl != nil {
+        data.Set("WebhookUrl", *params.WebhookUrl)
+    }
+    if params != nil && params.WebhookMethod != nil {
+        data.Set("WebhookMethod", *params.WebhookMethod)
+    }
 
 
 

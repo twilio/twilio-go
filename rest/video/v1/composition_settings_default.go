@@ -70,24 +70,25 @@ func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettings
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.AwsCredentialsSid != nil {
-    data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
-}
-if params != nil && params.EncryptionKeySid != nil {
-    data.Set("EncryptionKeySid", *params.EncryptionKeySid)
-}
-if params != nil && params.AwsS3Url != nil {
-    data.Set("AwsS3Url", *params.AwsS3Url)
-}
-if params != nil && params.AwsStorageEnabled != nil {
-    data.Set("AwsStorageEnabled", fmt.Sprint(*params.AwsStorageEnabled))
-}
-if params != nil && params.EncryptionEnabled != nil {
-    data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.AwsCredentialsSid != nil {
+        data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
+    }
+    if params != nil && params.EncryptionKeySid != nil {
+        data.Set("EncryptionKeySid", *params.EncryptionKeySid)
+    }
+    if params != nil && params.AwsS3Url != nil {
+        data.Set("AwsS3Url", *params.AwsS3Url)
+    }
+    if params != nil && params.AwsStorageEnabled != nil {
+        data.Set("AwsStorageEnabled", fmt.Sprint(*params.AwsStorageEnabled))
+    }
+    if params != nil && params.EncryptionEnabled != nil {
+        data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
+    }
 
 
 
@@ -112,6 +113,7 @@ func (c *ApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, er
     
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

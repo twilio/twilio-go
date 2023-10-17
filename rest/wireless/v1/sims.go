@@ -33,6 +33,7 @@ func (c *ApiService) DeleteSim(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -50,6 +51,7 @@ func (c *ApiService) FetchSim(Sid string, ) (*WirelessV1Sim, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -122,24 +124,25 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Iccid != nil {
-    data.Set("Iccid", *params.Iccid)
-}
-if params != nil && params.RatePlan != nil {
-    data.Set("RatePlan", *params.RatePlan)
-}
-if params != nil && params.EId != nil {
-    data.Set("EId", *params.EId)
-}
-if params != nil && params.SimRegistrationCode != nil {
-    data.Set("SimRegistrationCode", *params.SimRegistrationCode)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Iccid != nil {
+        data.Set("Iccid", *params.Iccid)
+    }
+    if params != nil && params.RatePlan != nil {
+        data.Set("RatePlan", *params.RatePlan)
+    }
+    if params != nil && params.EId != nil {
+        data.Set("EId", *params.EId)
+    }
+    if params != nil && params.SimRegistrationCode != nil {
+        data.Set("SimRegistrationCode", *params.SimRegistrationCode)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -371,60 +374,61 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.CallbackMethod != nil {
-    data.Set("CallbackMethod", *params.CallbackMethod)
-}
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.RatePlan != nil {
-    data.Set("RatePlan", *params.RatePlan)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.CommandsCallbackMethod != nil {
-    data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
-}
-if params != nil && params.CommandsCallbackUrl != nil {
-    data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
-}
-if params != nil && params.SmsFallbackMethod != nil {
-    data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-}
-if params != nil && params.SmsFallbackUrl != nil {
-    data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-}
-if params != nil && params.SmsMethod != nil {
-    data.Set("SmsMethod", *params.SmsMethod)
-}
-if params != nil && params.SmsUrl != nil {
-    data.Set("SmsUrl", *params.SmsUrl)
-}
-if params != nil && params.VoiceFallbackMethod != nil {
-    data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-}
-if params != nil && params.VoiceFallbackUrl != nil {
-    data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-}
-if params != nil && params.VoiceMethod != nil {
-    data.Set("VoiceMethod", *params.VoiceMethod)
-}
-if params != nil && params.VoiceUrl != nil {
-    data.Set("VoiceUrl", *params.VoiceUrl)
-}
-if params != nil && params.ResetStatus != nil {
-    data.Set("ResetStatus", *params.ResetStatus)
-}
-if params != nil && params.AccountSid != nil {
-    data.Set("AccountSid", *params.AccountSid)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.CallbackMethod != nil {
+        data.Set("CallbackMethod", *params.CallbackMethod)
+    }
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.RatePlan != nil {
+        data.Set("RatePlan", *params.RatePlan)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.CommandsCallbackMethod != nil {
+        data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
+    }
+    if params != nil && params.CommandsCallbackUrl != nil {
+        data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
+    }
+    if params != nil && params.SmsFallbackMethod != nil {
+        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+    }
+    if params != nil && params.SmsFallbackUrl != nil {
+        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+    }
+    if params != nil && params.SmsMethod != nil {
+        data.Set("SmsMethod", *params.SmsMethod)
+    }
+    if params != nil && params.SmsUrl != nil {
+        data.Set("SmsUrl", *params.SmsUrl)
+    }
+    if params != nil && params.VoiceFallbackMethod != nil {
+        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+    }
+    if params != nil && params.VoiceFallbackUrl != nil {
+        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+    }
+    if params != nil && params.VoiceMethod != nil {
+        data.Set("VoiceMethod", *params.VoiceMethod)
+    }
+    if params != nil && params.VoiceUrl != nil {
+        data.Set("VoiceUrl", *params.VoiceUrl)
+    }
+    if params != nil && params.ResetStatus != nil {
+        data.Set("ResetStatus", *params.ResetStatus)
+    }
+    if params != nil && params.AccountSid != nil {
+        data.Set("AccountSid", *params.AccountSid)
+    }
 
 
 

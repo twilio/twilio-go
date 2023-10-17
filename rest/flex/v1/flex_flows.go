@@ -136,57 +136,58 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ChatServiceSid != nil {
-    data.Set("ChatServiceSid", *params.ChatServiceSid)
-}
-if params != nil && params.ChannelType != nil {
-    data.Set("ChannelType", *params.ChannelType)
-}
-if params != nil && params.ContactIdentity != nil {
-    data.Set("ContactIdentity", *params.ContactIdentity)
-}
-if params != nil && params.Enabled != nil {
-    data.Set("Enabled", fmt.Sprint(*params.Enabled))
-}
-if params != nil && params.IntegrationType != nil {
-    data.Set("IntegrationType", *params.IntegrationType)
-}
-if params != nil && params.IntegrationFlowSid != nil {
-    data.Set("Integration.FlowSid", *params.IntegrationFlowSid)
-}
-if params != nil && params.IntegrationUrl != nil {
-    data.Set("Integration.Url", *params.IntegrationUrl)
-}
-if params != nil && params.IntegrationWorkspaceSid != nil {
-    data.Set("Integration.WorkspaceSid", *params.IntegrationWorkspaceSid)
-}
-if params != nil && params.IntegrationWorkflowSid != nil {
-    data.Set("Integration.WorkflowSid", *params.IntegrationWorkflowSid)
-}
-if params != nil && params.IntegrationChannel != nil {
-    data.Set("Integration.Channel", *params.IntegrationChannel)
-}
-if params != nil && params.IntegrationTimeout != nil {
-    data.Set("Integration.Timeout", fmt.Sprint(*params.IntegrationTimeout))
-}
-if params != nil && params.IntegrationPriority != nil {
-    data.Set("Integration.Priority", fmt.Sprint(*params.IntegrationPriority))
-}
-if params != nil && params.IntegrationCreationOnMessage != nil {
-    data.Set("Integration.CreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage))
-}
-if params != nil && params.LongLived != nil {
-    data.Set("LongLived", fmt.Sprint(*params.LongLived))
-}
-if params != nil && params.JanitorEnabled != nil {
-    data.Set("JanitorEnabled", fmt.Sprint(*params.JanitorEnabled))
-}
-if params != nil && params.IntegrationRetryCount != nil {
-    data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ChatServiceSid != nil {
+        data.Set("ChatServiceSid", *params.ChatServiceSid)
+    }
+    if params != nil && params.ChannelType != nil {
+        data.Set("ChannelType", *params.ChannelType)
+    }
+    if params != nil && params.ContactIdentity != nil {
+        data.Set("ContactIdentity", *params.ContactIdentity)
+    }
+    if params != nil && params.Enabled != nil {
+        data.Set("Enabled", fmt.Sprint(*params.Enabled))
+    }
+    if params != nil && params.IntegrationType != nil {
+        data.Set("IntegrationType", *params.IntegrationType)
+    }
+    if params != nil && params.IntegrationFlowSid != nil {
+        data.Set("Integration.FlowSid", *params.IntegrationFlowSid)
+    }
+    if params != nil && params.IntegrationUrl != nil {
+        data.Set("Integration.Url", *params.IntegrationUrl)
+    }
+    if params != nil && params.IntegrationWorkspaceSid != nil {
+        data.Set("Integration.WorkspaceSid", *params.IntegrationWorkspaceSid)
+    }
+    if params != nil && params.IntegrationWorkflowSid != nil {
+        data.Set("Integration.WorkflowSid", *params.IntegrationWorkflowSid)
+    }
+    if params != nil && params.IntegrationChannel != nil {
+        data.Set("Integration.Channel", *params.IntegrationChannel)
+    }
+    if params != nil && params.IntegrationTimeout != nil {
+        data.Set("Integration.Timeout", fmt.Sprint(*params.IntegrationTimeout))
+    }
+    if params != nil && params.IntegrationPriority != nil {
+        data.Set("Integration.Priority", fmt.Sprint(*params.IntegrationPriority))
+    }
+    if params != nil && params.IntegrationCreationOnMessage != nil {
+        data.Set("Integration.CreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage))
+    }
+    if params != nil && params.LongLived != nil {
+        data.Set("LongLived", fmt.Sprint(*params.LongLived))
+    }
+    if params != nil && params.JanitorEnabled != nil {
+        data.Set("JanitorEnabled", fmt.Sprint(*params.JanitorEnabled))
+    }
+    if params != nil && params.IntegrationRetryCount != nil {
+        data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
+    }
 
 
 
@@ -215,6 +216,7 @@ func (c *ApiService) DeleteFlexFlow(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -232,6 +234,7 @@ func (c *ApiService) FetchFlexFlow(Sid string, ) (*FlexV1FlexFlow, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -280,12 +283,13 @@ func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken, pageNum
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -511,57 +515,58 @@ func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ChatServiceSid != nil {
-    data.Set("ChatServiceSid", *params.ChatServiceSid)
-}
-if params != nil && params.ChannelType != nil {
-    data.Set("ChannelType", *params.ChannelType)
-}
-if params != nil && params.ContactIdentity != nil {
-    data.Set("ContactIdentity", *params.ContactIdentity)
-}
-if params != nil && params.Enabled != nil {
-    data.Set("Enabled", fmt.Sprint(*params.Enabled))
-}
-if params != nil && params.IntegrationType != nil {
-    data.Set("IntegrationType", *params.IntegrationType)
-}
-if params != nil && params.IntegrationFlowSid != nil {
-    data.Set("Integration.FlowSid", *params.IntegrationFlowSid)
-}
-if params != nil && params.IntegrationUrl != nil {
-    data.Set("Integration.Url", *params.IntegrationUrl)
-}
-if params != nil && params.IntegrationWorkspaceSid != nil {
-    data.Set("Integration.WorkspaceSid", *params.IntegrationWorkspaceSid)
-}
-if params != nil && params.IntegrationWorkflowSid != nil {
-    data.Set("Integration.WorkflowSid", *params.IntegrationWorkflowSid)
-}
-if params != nil && params.IntegrationChannel != nil {
-    data.Set("Integration.Channel", *params.IntegrationChannel)
-}
-if params != nil && params.IntegrationTimeout != nil {
-    data.Set("Integration.Timeout", fmt.Sprint(*params.IntegrationTimeout))
-}
-if params != nil && params.IntegrationPriority != nil {
-    data.Set("Integration.Priority", fmt.Sprint(*params.IntegrationPriority))
-}
-if params != nil && params.IntegrationCreationOnMessage != nil {
-    data.Set("Integration.CreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage))
-}
-if params != nil && params.LongLived != nil {
-    data.Set("LongLived", fmt.Sprint(*params.LongLived))
-}
-if params != nil && params.JanitorEnabled != nil {
-    data.Set("JanitorEnabled", fmt.Sprint(*params.JanitorEnabled))
-}
-if params != nil && params.IntegrationRetryCount != nil {
-    data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ChatServiceSid != nil {
+        data.Set("ChatServiceSid", *params.ChatServiceSid)
+    }
+    if params != nil && params.ChannelType != nil {
+        data.Set("ChannelType", *params.ChannelType)
+    }
+    if params != nil && params.ContactIdentity != nil {
+        data.Set("ContactIdentity", *params.ContactIdentity)
+    }
+    if params != nil && params.Enabled != nil {
+        data.Set("Enabled", fmt.Sprint(*params.Enabled))
+    }
+    if params != nil && params.IntegrationType != nil {
+        data.Set("IntegrationType", *params.IntegrationType)
+    }
+    if params != nil && params.IntegrationFlowSid != nil {
+        data.Set("Integration.FlowSid", *params.IntegrationFlowSid)
+    }
+    if params != nil && params.IntegrationUrl != nil {
+        data.Set("Integration.Url", *params.IntegrationUrl)
+    }
+    if params != nil && params.IntegrationWorkspaceSid != nil {
+        data.Set("Integration.WorkspaceSid", *params.IntegrationWorkspaceSid)
+    }
+    if params != nil && params.IntegrationWorkflowSid != nil {
+        data.Set("Integration.WorkflowSid", *params.IntegrationWorkflowSid)
+    }
+    if params != nil && params.IntegrationChannel != nil {
+        data.Set("Integration.Channel", *params.IntegrationChannel)
+    }
+    if params != nil && params.IntegrationTimeout != nil {
+        data.Set("Integration.Timeout", fmt.Sprint(*params.IntegrationTimeout))
+    }
+    if params != nil && params.IntegrationPriority != nil {
+        data.Set("Integration.Priority", fmt.Sprint(*params.IntegrationPriority))
+    }
+    if params != nil && params.IntegrationCreationOnMessage != nil {
+        data.Set("Integration.CreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage))
+    }
+    if params != nil && params.LongLived != nil {
+        data.Set("LongLived", fmt.Sprint(*params.LongLived))
+    }
+    if params != nil && params.JanitorEnabled != nil {
+        data.Set("JanitorEnabled", fmt.Sprint(*params.JanitorEnabled))
+    }
+    if params != nil && params.IntegrationRetryCount != nil {
+        data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
+    }
 
 
 

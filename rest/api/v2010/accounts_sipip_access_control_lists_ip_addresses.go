@@ -64,15 +64,16 @@ func (c *ApiService) CreateSipIpAddress(IpAccessControlListSid string, params *C
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.IpAddress != nil {
-    data.Set("IpAddress", *params.IpAddress)
-}
-if params != nil && params.CidrPrefixLength != nil {
-    data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.IpAddress != nil {
+        data.Set("IpAddress", *params.IpAddress)
+    }
+    if params != nil && params.CidrPrefixLength != nil {
+        data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
+    }
 
 
 
@@ -118,6 +119,7 @@ func (c *ApiService) DeleteSipIpAddress(IpAccessControlListSid string, Sid strin
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -152,6 +154,7 @@ func (c *ApiService) FetchSipIpAddress(IpAccessControlListSid string, Sid string
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -206,9 +209,10 @@ func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *Lis
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -362,15 +366,16 @@ func (c *ApiService) UpdateSipIpAddress(IpAccessControlListSid string, Sid strin
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IpAddress != nil {
-    data.Set("IpAddress", *params.IpAddress)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.CidrPrefixLength != nil {
-    data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
-}
+
+    if params != nil && params.IpAddress != nil {
+        data.Set("IpAddress", *params.IpAddress)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.CidrPrefixLength != nil {
+        data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
+    }
 
 
 

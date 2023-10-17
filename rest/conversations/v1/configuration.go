@@ -32,6 +32,7 @@ func (c *ApiService) FetchConfiguration() (*ConversationsV1Configuration, error)
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -82,18 +83,19 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Co
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.DefaultChatServiceSid != nil {
-    data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid)
-}
-if params != nil && params.DefaultMessagingServiceSid != nil {
-    data.Set("DefaultMessagingServiceSid", *params.DefaultMessagingServiceSid)
-}
-if params != nil && params.DefaultInactiveTimer != nil {
-    data.Set("DefaultInactiveTimer", *params.DefaultInactiveTimer)
-}
-if params != nil && params.DefaultClosedTimer != nil {
-    data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
-}
+
+    if params != nil && params.DefaultChatServiceSid != nil {
+        data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid)
+    }
+    if params != nil && params.DefaultMessagingServiceSid != nil {
+        data.Set("DefaultMessagingServiceSid", *params.DefaultMessagingServiceSid)
+    }
+    if params != nil && params.DefaultInactiveTimer != nil {
+        data.Set("DefaultInactiveTimer", *params.DefaultInactiveTimer)
+    }
+    if params != nil && params.DefaultClosedTimer != nil {
+        data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
+    }
 
 
 

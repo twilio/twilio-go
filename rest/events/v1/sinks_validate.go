@@ -41,9 +41,10 @@ func (c *ApiService) CreateSinkValidate(Sid string, params *CreateSinkValidatePa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.TestId != nil {
-    data.Set("TestId", *params.TestId)
-}
+
+    if params != nil && params.TestId != nil {
+        data.Set("TestId", *params.TestId)
+    }
 
 
 

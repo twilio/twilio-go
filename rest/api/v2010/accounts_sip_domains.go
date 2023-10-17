@@ -123,45 +123,46 @@ func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010Si
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.DomainName != nil {
-    data.Set("DomainName", *params.DomainName)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.VoiceUrl != nil {
-    data.Set("VoiceUrl", *params.VoiceUrl)
-}
-if params != nil && params.VoiceMethod != nil {
-    data.Set("VoiceMethod", *params.VoiceMethod)
-}
-if params != nil && params.VoiceFallbackUrl != nil {
-    data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-}
-if params != nil && params.VoiceFallbackMethod != nil {
-    data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-}
-if params != nil && params.VoiceStatusCallbackUrl != nil {
-    data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
-}
-if params != nil && params.VoiceStatusCallbackMethod != nil {
-    data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
-}
-if params != nil && params.SipRegistration != nil {
-    data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
-}
-if params != nil && params.EmergencyCallingEnabled != nil {
-    data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
-}
-if params != nil && params.Secure != nil {
-    data.Set("Secure", fmt.Sprint(*params.Secure))
-}
-if params != nil && params.ByocTrunkSid != nil {
-    data.Set("ByocTrunkSid", *params.ByocTrunkSid)
-}
-if params != nil && params.EmergencyCallerSid != nil {
-    data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
-}
+
+    if params != nil && params.DomainName != nil {
+        data.Set("DomainName", *params.DomainName)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.VoiceUrl != nil {
+        data.Set("VoiceUrl", *params.VoiceUrl)
+    }
+    if params != nil && params.VoiceMethod != nil {
+        data.Set("VoiceMethod", *params.VoiceMethod)
+    }
+    if params != nil && params.VoiceFallbackUrl != nil {
+        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+    }
+    if params != nil && params.VoiceFallbackMethod != nil {
+        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+    }
+    if params != nil && params.VoiceStatusCallbackUrl != nil {
+        data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
+    }
+    if params != nil && params.VoiceStatusCallbackMethod != nil {
+        data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
+    }
+    if params != nil && params.SipRegistration != nil {
+        data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
+    }
+    if params != nil && params.EmergencyCallingEnabled != nil {
+        data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
+    }
+    if params != nil && params.Secure != nil {
+        data.Set("Secure", fmt.Sprint(*params.Secure))
+    }
+    if params != nil && params.ByocTrunkSid != nil {
+        data.Set("ByocTrunkSid", *params.ByocTrunkSid)
+    }
+    if params != nil && params.EmergencyCallerSid != nil {
+        data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
+    }
 
 
 
@@ -206,6 +207,7 @@ func (c *ApiService) DeleteSipDomain(Sid string, params *DeleteSipDomainParams) 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -239,6 +241,7 @@ func (c *ApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -292,9 +295,10 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageN
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -507,45 +511,46 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.VoiceFallbackMethod != nil {
-    data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-}
-if params != nil && params.VoiceFallbackUrl != nil {
-    data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-}
-if params != nil && params.VoiceMethod != nil {
-    data.Set("VoiceMethod", *params.VoiceMethod)
-}
-if params != nil && params.VoiceStatusCallbackMethod != nil {
-    data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
-}
-if params != nil && params.VoiceStatusCallbackUrl != nil {
-    data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
-}
-if params != nil && params.VoiceUrl != nil {
-    data.Set("VoiceUrl", *params.VoiceUrl)
-}
-if params != nil && params.SipRegistration != nil {
-    data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
-}
-if params != nil && params.DomainName != nil {
-    data.Set("DomainName", *params.DomainName)
-}
-if params != nil && params.EmergencyCallingEnabled != nil {
-    data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
-}
-if params != nil && params.Secure != nil {
-    data.Set("Secure", fmt.Sprint(*params.Secure))
-}
-if params != nil && params.ByocTrunkSid != nil {
-    data.Set("ByocTrunkSid", *params.ByocTrunkSid)
-}
-if params != nil && params.EmergencyCallerSid != nil {
-    data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.VoiceFallbackMethod != nil {
+        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+    }
+    if params != nil && params.VoiceFallbackUrl != nil {
+        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+    }
+    if params != nil && params.VoiceMethod != nil {
+        data.Set("VoiceMethod", *params.VoiceMethod)
+    }
+    if params != nil && params.VoiceStatusCallbackMethod != nil {
+        data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
+    }
+    if params != nil && params.VoiceStatusCallbackUrl != nil {
+        data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
+    }
+    if params != nil && params.VoiceUrl != nil {
+        data.Set("VoiceUrl", *params.VoiceUrl)
+    }
+    if params != nil && params.SipRegistration != nil {
+        data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
+    }
+    if params != nil && params.DomainName != nil {
+        data.Set("DomainName", *params.DomainName)
+    }
+    if params != nil && params.EmergencyCallingEnabled != nil {
+        data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
+    }
+    if params != nil && params.Secure != nil {
+        data.Set("Secure", fmt.Sprint(*params.Secure))
+    }
+    if params != nil && params.ByocTrunkSid != nil {
+        data.Set("ByocTrunkSid", *params.ByocTrunkSid)
+    }
+    if params != nil && params.EmergencyCallerSid != nil {
+        data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
+    }
 
 
 

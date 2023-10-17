@@ -66,18 +66,19 @@ func (c *ApiService) PageUsageRecord(SimSid string, params *ListUsageRecordParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.End != nil {
-    data.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
-}
-if params != nil && params.Start != nil {
-    data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
-}
-if params != nil && params.Granularity != nil {
-    data.Set("Granularity", *params.Granularity)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.End != nil {
+        data.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
+    }
+    if params != nil && params.Start != nil {
+        data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
+    }
+    if params != nil && params.Granularity != nil {
+        data.Set("Granularity", *params.Granularity)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

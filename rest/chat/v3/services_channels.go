@@ -54,12 +54,13 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.MessagingServiceSid != nil {
-    data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-}
+
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
+    }
+    if params != nil && params.MessagingServiceSid != nil {
+        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

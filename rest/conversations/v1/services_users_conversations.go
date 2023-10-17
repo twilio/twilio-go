@@ -35,6 +35,7 @@ func (c *ApiService) DeleteServiceUserConversation(ChatServiceSid string, UserSi
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -54,6 +55,7 @@ func (c *ApiService) FetchServiceUserConversation(ChatServiceSid string, UserSid
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -98,9 +100,10 @@ func (c *ApiService) PageServiceUserConversation(ChatServiceSid string, UserSid 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -244,15 +247,16 @@ func (c *ApiService) UpdateServiceUserConversation(ChatServiceSid string, UserSi
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.NotificationLevel != nil {
-    data.Set("NotificationLevel", *params.NotificationLevel)
-}
-if params != nil && params.LastReadTimestamp != nil {
-    data.Set("LastReadTimestamp", fmt.Sprint((*params.LastReadTimestamp).Format(time.RFC3339)))
-}
-if params != nil && params.LastReadMessageIndex != nil {
-    data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex))
-}
+
+    if params != nil && params.NotificationLevel != nil {
+        data.Set("NotificationLevel", *params.NotificationLevel)
+    }
+    if params != nil && params.LastReadTimestamp != nil {
+        data.Set("LastReadTimestamp", fmt.Sprint((*params.LastReadTimestamp).Format(time.RFC3339)))
+    }
+    if params != nil && params.LastReadMessageIndex != nil {
+        data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex))
+    }
 
 
 

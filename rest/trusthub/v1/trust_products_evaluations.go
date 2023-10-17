@@ -41,9 +41,10 @@ func (c *ApiService) CreateTrustProductEvaluation(TrustProductSid string, params
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PolicySid != nil {
-    data.Set("PolicySid", *params.PolicySid)
-}
+
+    if params != nil && params.PolicySid != nil {
+        data.Set("PolicySid", *params.PolicySid)
+    }
 
 
 
@@ -70,6 +71,7 @@ func (c *ApiService) FetchTrustProductEvaluation(TrustProductSid string, Sid str
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -113,9 +115,10 @@ func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

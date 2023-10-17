@@ -43,9 +43,10 @@ func (c *ApiService) CreateNotification(ServiceSid string, Identity string, Chal
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
+
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
 
 
 

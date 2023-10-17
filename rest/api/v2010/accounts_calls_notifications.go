@@ -50,6 +50,7 @@ func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *F
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -125,21 +126,22 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Log != nil {
-    data.Set("Log", fmt.Sprint(*params.Log))
-}
-if params != nil && params.MessageDate != nil {
-    data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
-}
-if params != nil && params.MessageDateBefore != nil {
-    data.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
-}
-if params != nil && params.MessageDateAfter != nil {
-    data.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Log != nil {
+        data.Set("Log", fmt.Sprint(*params.Log))
+    }
+    if params != nil && params.MessageDate != nil {
+        data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
+    }
+    if params != nil && params.MessageDateBefore != nil {
+        data.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
+    }
+    if params != nil && params.MessageDateAfter != nil {
+        data.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

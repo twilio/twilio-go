@@ -88,43 +88,44 @@ func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.RoomSid != nil {
-    data.Set("RoomSid", *params.RoomSid)
-}
-if params != nil && params.VideoLayout != nil {
-    v, err := json.Marshal(params.VideoLayout)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.RoomSid != nil {
+        data.Set("RoomSid", *params.RoomSid)
     }
+    if params != nil && params.VideoLayout != nil {
+        v, err := json.Marshal(params.VideoLayout)
 
-    data.Set("VideoLayout", string(v))
-}
-if params != nil && params.AudioSources != nil {
-    for _, item  := range *params.AudioSources {
-        data.Add("AudioSources", item)
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("VideoLayout", string(v))
     }
-}
-if params != nil && params.AudioSourcesExcluded != nil {
-    for _, item  := range *params.AudioSourcesExcluded {
-        data.Add("AudioSourcesExcluded", item)
+    if params != nil && params.AudioSources != nil {
+        for _, item  := range *params.AudioSources {
+            data.Add("AudioSources", item)
     }
-}
-if params != nil && params.Resolution != nil {
-    data.Set("Resolution", *params.Resolution)
-}
-if params != nil && params.Format != nil {
-    data.Set("Format", *params.Format)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.Trim != nil {
-    data.Set("Trim", fmt.Sprint(*params.Trim))
-}
+    }
+    if params != nil && params.AudioSourcesExcluded != nil {
+        for _, item  := range *params.AudioSourcesExcluded {
+            data.Add("AudioSourcesExcluded", item)
+    }
+    }
+    if params != nil && params.Resolution != nil {
+        data.Set("Resolution", *params.Resolution)
+    }
+    if params != nil && params.Format != nil {
+        data.Set("Format", *params.Format)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.Trim != nil {
+        data.Set("Trim", fmt.Sprint(*params.Trim))
+    }
 
 
 
@@ -153,6 +154,7 @@ func (c *ApiService) DeleteComposition(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -170,6 +172,7 @@ func (c *ApiService) FetchComposition(Sid string, ) (*VideoV1Composition, error)
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -236,21 +239,22 @@ func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken, p
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.DateCreatedAfter != nil {
-    data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
-}
-if params != nil && params.DateCreatedBefore != nil {
-    data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
-}
-if params != nil && params.RoomSid != nil {
-    data.Set("RoomSid", *params.RoomSid)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.DateCreatedAfter != nil {
+        data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateCreatedBefore != nil {
+        data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+    }
+    if params != nil && params.RoomSid != nil {
+        data.Set("RoomSid", *params.RoomSid)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

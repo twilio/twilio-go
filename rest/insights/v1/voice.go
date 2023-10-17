@@ -33,6 +33,7 @@ func (c *ApiService) FetchCall(Sid string, ) (*InsightsV1Call, error) {
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err

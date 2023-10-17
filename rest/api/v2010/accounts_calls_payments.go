@@ -142,60 +142,61 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IdempotencyKey != nil {
-    data.Set("IdempotencyKey", *params.IdempotencyKey)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.BankAccountType != nil {
-    data.Set("BankAccountType", *params.BankAccountType)
-}
-if params != nil && params.ChargeAmount != nil {
-    data.Set("ChargeAmount", fmt.Sprint(*params.ChargeAmount))
-}
-if params != nil && params.Currency != nil {
-    data.Set("Currency", *params.Currency)
-}
-if params != nil && params.Description != nil {
-    data.Set("Description", *params.Description)
-}
-if params != nil && params.Input != nil {
-    data.Set("Input", *params.Input)
-}
-if params != nil && params.MinPostalCodeLength != nil {
-    data.Set("MinPostalCodeLength", fmt.Sprint(*params.MinPostalCodeLength))
-}
-if params != nil && params.Parameter != nil {
-    v, err := json.Marshal(params.Parameter)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.IdempotencyKey != nil {
+        data.Set("IdempotencyKey", *params.IdempotencyKey)
     }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.BankAccountType != nil {
+        data.Set("BankAccountType", *params.BankAccountType)
+    }
+    if params != nil && params.ChargeAmount != nil {
+        data.Set("ChargeAmount", fmt.Sprint(*params.ChargeAmount))
+    }
+    if params != nil && params.Currency != nil {
+        data.Set("Currency", *params.Currency)
+    }
+    if params != nil && params.Description != nil {
+        data.Set("Description", *params.Description)
+    }
+    if params != nil && params.Input != nil {
+        data.Set("Input", *params.Input)
+    }
+    if params != nil && params.MinPostalCodeLength != nil {
+        data.Set("MinPostalCodeLength", fmt.Sprint(*params.MinPostalCodeLength))
+    }
+    if params != nil && params.Parameter != nil {
+        v, err := json.Marshal(params.Parameter)
 
-    data.Set("Parameter", string(v))
-}
-if params != nil && params.PaymentConnector != nil {
-    data.Set("PaymentConnector", *params.PaymentConnector)
-}
-if params != nil && params.PaymentMethod != nil {
-    data.Set("PaymentMethod", *params.PaymentMethod)
-}
-if params != nil && params.PostalCode != nil {
-    data.Set("PostalCode", fmt.Sprint(*params.PostalCode))
-}
-if params != nil && params.SecurityCode != nil {
-    data.Set("SecurityCode", fmt.Sprint(*params.SecurityCode))
-}
-if params != nil && params.Timeout != nil {
-    data.Set("Timeout", fmt.Sprint(*params.Timeout))
-}
-if params != nil && params.TokenType != nil {
-    data.Set("TokenType", *params.TokenType)
-}
-if params != nil && params.ValidCardTypes != nil {
-    data.Set("ValidCardTypes", *params.ValidCardTypes)
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Parameter", string(v))
+    }
+    if params != nil && params.PaymentConnector != nil {
+        data.Set("PaymentConnector", *params.PaymentConnector)
+    }
+    if params != nil && params.PaymentMethod != nil {
+        data.Set("PaymentMethod", *params.PaymentMethod)
+    }
+    if params != nil && params.PostalCode != nil {
+        data.Set("PostalCode", fmt.Sprint(*params.PostalCode))
+    }
+    if params != nil && params.SecurityCode != nil {
+        data.Set("SecurityCode", fmt.Sprint(*params.SecurityCode))
+    }
+    if params != nil && params.Timeout != nil {
+        data.Set("Timeout", fmt.Sprint(*params.Timeout))
+    }
+    if params != nil && params.TokenType != nil {
+        data.Set("TokenType", *params.TokenType)
+    }
+    if params != nil && params.ValidCardTypes != nil {
+        data.Set("ValidCardTypes", *params.ValidCardTypes)
+    }
 
 
 
@@ -262,18 +263,19 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IdempotencyKey != nil {
-    data.Set("IdempotencyKey", *params.IdempotencyKey)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.Capture != nil {
-    data.Set("Capture", *params.Capture)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
+
+    if params != nil && params.IdempotencyKey != nil {
+        data.Set("IdempotencyKey", *params.IdempotencyKey)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.Capture != nil {
+        data.Set("Capture", *params.Capture)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
 
 
 

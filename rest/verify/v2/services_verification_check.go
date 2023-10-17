@@ -65,21 +65,22 @@ func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVe
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Code != nil {
-    data.Set("Code", *params.Code)
-}
-if params != nil && params.To != nil {
-    data.Set("To", *params.To)
-}
-if params != nil && params.VerificationSid != nil {
-    data.Set("VerificationSid", *params.VerificationSid)
-}
-if params != nil && params.Amount != nil {
-    data.Set("Amount", *params.Amount)
-}
-if params != nil && params.Payee != nil {
-    data.Set("Payee", *params.Payee)
-}
+
+    if params != nil && params.Code != nil {
+        data.Set("Code", *params.Code)
+    }
+    if params != nil && params.To != nil {
+        data.Set("To", *params.To)
+    }
+    if params != nil && params.VerificationSid != nil {
+        data.Set("VerificationSid", *params.VerificationSid)
+    }
+    if params != nil && params.Amount != nil {
+        data.Set("Amount", *params.Amount)
+    }
+    if params != nil && params.Payee != nil {
+        data.Set("Payee", *params.Payee)
+    }
 
 
 

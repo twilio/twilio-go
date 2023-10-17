@@ -120,54 +120,55 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.FactorType != nil {
-    data.Set("FactorType", *params.FactorType)
-}
-if params != nil && params.BindingAlg != nil {
-    data.Set("Binding.Alg", *params.BindingAlg)
-}
-if params != nil && params.BindingPublicKey != nil {
-    data.Set("Binding.PublicKey", *params.BindingPublicKey)
-}
-if params != nil && params.ConfigAppId != nil {
-    data.Set("Config.AppId", *params.ConfigAppId)
-}
-if params != nil && params.ConfigNotificationPlatform != nil {
-    data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
-}
-if params != nil && params.ConfigNotificationToken != nil {
-    data.Set("Config.NotificationToken", *params.ConfigNotificationToken)
-}
-if params != nil && params.ConfigSdkVersion != nil {
-    data.Set("Config.SdkVersion", *params.ConfigSdkVersion)
-}
-if params != nil && params.BindingSecret != nil {
-    data.Set("Binding.Secret", *params.BindingSecret)
-}
-if params != nil && params.ConfigTimeStep != nil {
-    data.Set("Config.TimeStep", fmt.Sprint(*params.ConfigTimeStep))
-}
-if params != nil && params.ConfigSkew != nil {
-    data.Set("Config.Skew", fmt.Sprint(*params.ConfigSkew))
-}
-if params != nil && params.ConfigCodeLength != nil {
-    data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
-}
-if params != nil && params.ConfigAlg != nil {
-    data.Set("Config.Alg", *params.ConfigAlg)
-}
-if params != nil && params.Metadata != nil {
-    v, err := json.Marshal(params.Metadata)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
+    if params != nil && params.FactorType != nil {
+        data.Set("FactorType", *params.FactorType)
+    }
+    if params != nil && params.BindingAlg != nil {
+        data.Set("Binding.Alg", *params.BindingAlg)
+    }
+    if params != nil && params.BindingPublicKey != nil {
+        data.Set("Binding.PublicKey", *params.BindingPublicKey)
+    }
+    if params != nil && params.ConfigAppId != nil {
+        data.Set("Config.AppId", *params.ConfigAppId)
+    }
+    if params != nil && params.ConfigNotificationPlatform != nil {
+        data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
+    }
+    if params != nil && params.ConfigNotificationToken != nil {
+        data.Set("Config.NotificationToken", *params.ConfigNotificationToken)
+    }
+    if params != nil && params.ConfigSdkVersion != nil {
+        data.Set("Config.SdkVersion", *params.ConfigSdkVersion)
+    }
+    if params != nil && params.BindingSecret != nil {
+        data.Set("Binding.Secret", *params.BindingSecret)
+    }
+    if params != nil && params.ConfigTimeStep != nil {
+        data.Set("Config.TimeStep", fmt.Sprint(*params.ConfigTimeStep))
+    }
+    if params != nil && params.ConfigSkew != nil {
+        data.Set("Config.Skew", fmt.Sprint(*params.ConfigSkew))
+    }
+    if params != nil && params.ConfigCodeLength != nil {
+        data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
+    }
+    if params != nil && params.ConfigAlg != nil {
+        data.Set("Config.Alg", *params.ConfigAlg)
+    }
+    if params != nil && params.Metadata != nil {
+        v, err := json.Marshal(params.Metadata)
 
-    data.Set("Metadata", string(v))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Metadata", string(v))
+    }
 
 
 
@@ -198,6 +199,7 @@ func (c *ApiService) DeleteFactor(ServiceSid string, Identity string, Sid string
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -217,6 +219,7 @@ func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string,
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -261,9 +264,10 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -443,33 +447,34 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AuthPayload != nil {
-    data.Set("AuthPayload", *params.AuthPayload)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ConfigNotificationToken != nil {
-    data.Set("Config.NotificationToken", *params.ConfigNotificationToken)
-}
-if params != nil && params.ConfigSdkVersion != nil {
-    data.Set("Config.SdkVersion", *params.ConfigSdkVersion)
-}
-if params != nil && params.ConfigTimeStep != nil {
-    data.Set("Config.TimeStep", fmt.Sprint(*params.ConfigTimeStep))
-}
-if params != nil && params.ConfigSkew != nil {
-    data.Set("Config.Skew", fmt.Sprint(*params.ConfigSkew))
-}
-if params != nil && params.ConfigCodeLength != nil {
-    data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
-}
-if params != nil && params.ConfigAlg != nil {
-    data.Set("Config.Alg", *params.ConfigAlg)
-}
-if params != nil && params.ConfigNotificationPlatform != nil {
-    data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
-}
+
+    if params != nil && params.AuthPayload != nil {
+        data.Set("AuthPayload", *params.AuthPayload)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ConfigNotificationToken != nil {
+        data.Set("Config.NotificationToken", *params.ConfigNotificationToken)
+    }
+    if params != nil && params.ConfigSdkVersion != nil {
+        data.Set("Config.SdkVersion", *params.ConfigSdkVersion)
+    }
+    if params != nil && params.ConfigTimeStep != nil {
+        data.Set("Config.TimeStep", fmt.Sprint(*params.ConfigTimeStep))
+    }
+    if params != nil && params.ConfigSkew != nil {
+        data.Set("Config.Skew", fmt.Sprint(*params.ConfigSkew))
+    }
+    if params != nil && params.ConfigCodeLength != nil {
+        data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
+    }
+    if params != nil && params.ConfigAlg != nil {
+        data.Set("Config.Alg", *params.ConfigAlg)
+    }
+    if params != nil && params.ConfigNotificationPlatform != nil {
+        data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
+    }
 
 
 

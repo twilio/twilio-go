@@ -41,9 +41,10 @@ func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNum
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PhoneNumberSid != nil {
-    data.Set("PhoneNumberSid", *params.PhoneNumberSid)
-}
+
+    if params != nil && params.PhoneNumberSid != nil {
+        data.Set("PhoneNumberSid", *params.PhoneNumberSid)
+    }
 
 
 
@@ -73,6 +74,7 @@ func (c *ApiService) DeletePhoneNumber(ServiceSid string, Sid string, ) (error) 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -91,6 +93,7 @@ func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string, ) (*Messagi
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -134,9 +137,10 @@ func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberP
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

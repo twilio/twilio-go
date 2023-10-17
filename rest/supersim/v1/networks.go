@@ -33,6 +33,7 @@ func (c *ApiService) FetchNetwork(Sid string, ) (*SupersimV1Network, error) {
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -90,18 +91,19 @@ func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IsoCountry != nil {
-    data.Set("IsoCountry", *params.IsoCountry)
-}
-if params != nil && params.Mcc != nil {
-    data.Set("Mcc", *params.Mcc)
-}
-if params != nil && params.Mnc != nil {
-    data.Set("Mnc", *params.Mnc)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.IsoCountry != nil {
+        data.Set("IsoCountry", *params.IsoCountry)
+    }
+    if params != nil && params.Mcc != nil {
+        data.Set("Mcc", *params.Mcc)
+    }
+    if params != nil && params.Mnc != nil {
+        data.Set("Mnc", *params.Mnc)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

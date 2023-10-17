@@ -49,6 +49,7 @@ func (c *ApiService) FetchShortCode(Sid string, params *FetchShortCodeParams) (*
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -111,15 +112,16 @@ func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken, pageN
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ShortCode != nil {
-    data.Set("ShortCode", *params.ShortCode)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ShortCode != nil {
+        data.Set("ShortCode", *params.ShortCode)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -290,24 +292,25 @@ func (c *ApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ApiVersion != nil {
-    data.Set("ApiVersion", *params.ApiVersion)
-}
-if params != nil && params.SmsUrl != nil {
-    data.Set("SmsUrl", *params.SmsUrl)
-}
-if params != nil && params.SmsMethod != nil {
-    data.Set("SmsMethod", *params.SmsMethod)
-}
-if params != nil && params.SmsFallbackUrl != nil {
-    data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-}
-if params != nil && params.SmsFallbackMethod != nil {
-    data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ApiVersion != nil {
+        data.Set("ApiVersion", *params.ApiVersion)
+    }
+    if params != nil && params.SmsUrl != nil {
+        data.Set("SmsUrl", *params.SmsUrl)
+    }
+    if params != nil && params.SmsMethod != nil {
+        data.Set("SmsMethod", *params.SmsMethod)
+    }
+    if params != nil && params.SmsFallbackUrl != nil {
+        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+    }
+    if params != nil && params.SmsFallbackMethod != nil {
+        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+    }
 
 
 

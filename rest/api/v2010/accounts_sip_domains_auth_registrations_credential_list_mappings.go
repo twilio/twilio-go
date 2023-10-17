@@ -52,9 +52,10 @@ func (c *ApiService) CreateSipAuthRegistrationsCredentialListMapping(DomainSid s
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.CredentialListSid != nil {
-    data.Set("CredentialListSid", *params.CredentialListSid)
-}
+
+    if params != nil && params.CredentialListSid != nil {
+        data.Set("CredentialListSid", *params.CredentialListSid)
+    }
 
 
 
@@ -100,6 +101,7 @@ func (c *ApiService) DeleteSipAuthRegistrationsCredentialListMapping(DomainSid s
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -134,6 +136,7 @@ func (c *ApiService) FetchSipAuthRegistrationsCredentialListMapping(DomainSid st
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -188,9 +191,10 @@ func (c *ApiService) PageSipAuthRegistrationsCredentialListMapping(DomainSid str
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

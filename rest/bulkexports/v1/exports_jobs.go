@@ -71,24 +71,25 @@ func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateEx
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.StartDay != nil {
-    data.Set("StartDay", *params.StartDay)
-}
-if params != nil && params.EndDay != nil {
-    data.Set("EndDay", *params.EndDay)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.WebhookUrl != nil {
-    data.Set("WebhookUrl", *params.WebhookUrl)
-}
-if params != nil && params.WebhookMethod != nil {
-    data.Set("WebhookMethod", *params.WebhookMethod)
-}
-if params != nil && params.Email != nil {
-    data.Set("Email", *params.Email)
-}
+
+    if params != nil && params.StartDay != nil {
+        data.Set("StartDay", *params.StartDay)
+    }
+    if params != nil && params.EndDay != nil {
+        data.Set("EndDay", *params.EndDay)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.WebhookUrl != nil {
+        data.Set("WebhookUrl", *params.WebhookUrl)
+    }
+    if params != nil && params.WebhookMethod != nil {
+        data.Set("WebhookMethod", *params.WebhookMethod)
+    }
+    if params != nil && params.Email != nil {
+        data.Set("Email", *params.Email)
+    }
 
 
 
@@ -117,6 +118,7 @@ func (c *ApiService) DeleteJob(JobSid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -134,6 +136,7 @@ func (c *ApiService) FetchJob(JobSid string, ) (*BulkexportsV1Job, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -177,9 +180,10 @@ func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExport
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

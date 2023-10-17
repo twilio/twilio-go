@@ -58,18 +58,19 @@ func (c *ApiService) CreateEsimProfile(params *CreateEsimProfileParams) (*Supers
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.CallbackMethod != nil {
-    data.Set("CallbackMethod", *params.CallbackMethod)
-}
-if params != nil && params.GenerateMatchingId != nil {
-    data.Set("GenerateMatchingId", fmt.Sprint(*params.GenerateMatchingId))
-}
-if params != nil && params.Eid != nil {
-    data.Set("Eid", *params.Eid)
-}
+
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.CallbackMethod != nil {
+        data.Set("CallbackMethod", *params.CallbackMethod)
+    }
+    if params != nil && params.GenerateMatchingId != nil {
+        data.Set("GenerateMatchingId", fmt.Sprint(*params.GenerateMatchingId))
+    }
+    if params != nil && params.Eid != nil {
+        data.Set("Eid", *params.Eid)
+    }
 
 
 
@@ -95,6 +96,7 @@ func (c *ApiService) FetchEsimProfile(Sid string, ) (*SupersimV1EsimProfile, err
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -155,18 +157,19 @@ func (c *ApiService) PageEsimProfile(params *ListEsimProfileParams, pageToken, p
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Eid != nil {
-    data.Set("Eid", *params.Eid)
-}
-if params != nil && params.SimSid != nil {
-    data.Set("SimSid", *params.SimSid)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Eid != nil {
+        data.Set("Eid", *params.Eid)
+    }
+    if params != nil && params.SimSid != nil {
+        data.Set("SimSid", *params.SimSid)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

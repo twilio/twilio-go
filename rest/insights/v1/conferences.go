@@ -33,6 +33,7 @@ func (c *ApiService) FetchConference(ConferenceSid string, ) (*InsightsV1Confere
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -132,39 +133,40 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pag
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ConferenceSid != nil {
-    data.Set("ConferenceSid", *params.ConferenceSid)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.CreatedAfter != nil {
-    data.Set("CreatedAfter", *params.CreatedAfter)
-}
-if params != nil && params.CreatedBefore != nil {
-    data.Set("CreatedBefore", *params.CreatedBefore)
-}
-if params != nil && params.MixerRegion != nil {
-    data.Set("MixerRegion", *params.MixerRegion)
-}
-if params != nil && params.Tags != nil {
-    data.Set("Tags", *params.Tags)
-}
-if params != nil && params.Subaccount != nil {
-    data.Set("Subaccount", *params.Subaccount)
-}
-if params != nil && params.DetectedIssues != nil {
-    data.Set("DetectedIssues", *params.DetectedIssues)
-}
-if params != nil && params.EndReason != nil {
-    data.Set("EndReason", *params.EndReason)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.ConferenceSid != nil {
+        data.Set("ConferenceSid", *params.ConferenceSid)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.CreatedAfter != nil {
+        data.Set("CreatedAfter", *params.CreatedAfter)
+    }
+    if params != nil && params.CreatedBefore != nil {
+        data.Set("CreatedBefore", *params.CreatedBefore)
+    }
+    if params != nil && params.MixerRegion != nil {
+        data.Set("MixerRegion", *params.MixerRegion)
+    }
+    if params != nil && params.Tags != nil {
+        data.Set("Tags", *params.Tags)
+    }
+    if params != nil && params.Subaccount != nil {
+        data.Set("Subaccount", *params.Subaccount)
+    }
+    if params != nil && params.DetectedIssues != nil {
+        data.Set("DetectedIssues", *params.DetectedIssues)
+    }
+    if params != nil && params.EndReason != nil {
+        data.Set("EndReason", *params.EndReason)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

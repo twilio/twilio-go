@@ -58,18 +58,19 @@ func (c *ApiService) CreatePlayerStreamer(params *CreatePlayerStreamerParams) (*
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Video != nil {
-    data.Set("Video", fmt.Sprint(*params.Video))
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.MaxDuration != nil {
-    data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
-}
+
+    if params != nil && params.Video != nil {
+        data.Set("Video", fmt.Sprint(*params.Video))
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.MaxDuration != nil {
+        data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
+    }
 
 
 
@@ -95,6 +96,7 @@ func (c *ApiService) FetchPlayerStreamer(Sid string, ) (*MediaV1PlayerStreamer, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -149,15 +151,16 @@ func (c *ApiService) PagePlayerStreamer(params *ListPlayerStreamerParams, pageTo
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Order != nil {
-    data.Set("Order", *params.Order)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Order != nil {
+        data.Set("Order", *params.Order)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -287,9 +290,10 @@ func (c *ApiService) UpdatePlayerStreamer(Sid string, params *UpdatePlayerStream
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
 
 
 

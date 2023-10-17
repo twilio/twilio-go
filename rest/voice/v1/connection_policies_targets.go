@@ -65,21 +65,22 @@ func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Target != nil {
-    data.Set("Target", *params.Target)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Priority != nil {
-    data.Set("Priority", fmt.Sprint(*params.Priority))
-}
-if params != nil && params.Weight != nil {
-    data.Set("Weight", fmt.Sprint(*params.Weight))
-}
-if params != nil && params.Enabled != nil {
-    data.Set("Enabled", fmt.Sprint(*params.Enabled))
-}
+
+    if params != nil && params.Target != nil {
+        data.Set("Target", *params.Target)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Priority != nil {
+        data.Set("Priority", fmt.Sprint(*params.Priority))
+    }
+    if params != nil && params.Weight != nil {
+        data.Set("Weight", fmt.Sprint(*params.Weight))
+    }
+    if params != nil && params.Enabled != nil {
+        data.Set("Enabled", fmt.Sprint(*params.Enabled))
+    }
 
 
 
@@ -109,6 +110,7 @@ func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Si
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -127,6 +129,7 @@ func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -170,9 +173,10 @@ func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, para
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -327,21 +331,22 @@ func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Si
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Target != nil {
-    data.Set("Target", *params.Target)
-}
-if params != nil && params.Priority != nil {
-    data.Set("Priority", fmt.Sprint(*params.Priority))
-}
-if params != nil && params.Weight != nil {
-    data.Set("Weight", fmt.Sprint(*params.Weight))
-}
-if params != nil && params.Enabled != nil {
-    data.Set("Enabled", fmt.Sprint(*params.Enabled))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Target != nil {
+        data.Set("Target", *params.Target)
+    }
+    if params != nil && params.Priority != nil {
+        data.Set("Priority", fmt.Sprint(*params.Priority))
+    }
+    if params != nil && params.Weight != nil {
+        data.Set("Weight", fmt.Sprint(*params.Weight))
+    }
+    if params != nil && params.Enabled != nil {
+        data.Set("Enabled", fmt.Sprint(*params.Enabled))
+    }
 
 
 

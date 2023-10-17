@@ -41,9 +41,10 @@ func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string, param
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.BrandRegistrationSid != nil {
-    data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
-}
+
+    if params != nil && params.BrandRegistrationSid != nil {
+        data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
+    }
 
 
 

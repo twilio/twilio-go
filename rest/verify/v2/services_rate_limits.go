@@ -47,12 +47,13 @@ func (c *ApiService) CreateRateLimit(ServiceSid string, params *CreateRateLimitP
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Description != nil {
-    data.Set("Description", *params.Description)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Description != nil {
+        data.Set("Description", *params.Description)
+    }
 
 
 
@@ -82,6 +83,7 @@ func (c *ApiService) DeleteRateLimit(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -100,6 +102,7 @@ func (c *ApiService) FetchRateLimit(ServiceSid string, Sid string, ) (*VerifyV2R
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -143,9 +146,10 @@ func (c *ApiService) PageRateLimit(ServiceSid string, params *ListRateLimitParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -276,9 +280,10 @@ func (c *ApiService) UpdateRateLimit(ServiceSid string, Sid string, params *Upda
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Description != nil {
-    data.Set("Description", *params.Description)
-}
+
+    if params != nil && params.Description != nil {
+        data.Set("Description", *params.Description)
+    }
 
 
 

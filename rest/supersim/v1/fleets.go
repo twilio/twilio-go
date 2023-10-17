@@ -88,33 +88,34 @@ func (c *ApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, e
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.NetworkAccessProfile != nil {
-    data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.DataEnabled != nil {
-    data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled))
-}
-if params != nil && params.DataLimit != nil {
-    data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
-}
-if params != nil && params.IpCommandsUrl != nil {
-    data.Set("IpCommandsUrl", *params.IpCommandsUrl)
-}
-if params != nil && params.IpCommandsMethod != nil {
-    data.Set("IpCommandsMethod", *params.IpCommandsMethod)
-}
-if params != nil && params.SmsCommandsEnabled != nil {
-    data.Set("SmsCommandsEnabled", fmt.Sprint(*params.SmsCommandsEnabled))
-}
-if params != nil && params.SmsCommandsUrl != nil {
-    data.Set("SmsCommandsUrl", *params.SmsCommandsUrl)
-}
-if params != nil && params.SmsCommandsMethod != nil {
-    data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
-}
+
+    if params != nil && params.NetworkAccessProfile != nil {
+        data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.DataEnabled != nil {
+        data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled))
+    }
+    if params != nil && params.DataLimit != nil {
+        data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
+    }
+    if params != nil && params.IpCommandsUrl != nil {
+        data.Set("IpCommandsUrl", *params.IpCommandsUrl)
+    }
+    if params != nil && params.IpCommandsMethod != nil {
+        data.Set("IpCommandsMethod", *params.IpCommandsMethod)
+    }
+    if params != nil && params.SmsCommandsEnabled != nil {
+        data.Set("SmsCommandsEnabled", fmt.Sprint(*params.SmsCommandsEnabled))
+    }
+    if params != nil && params.SmsCommandsUrl != nil {
+        data.Set("SmsCommandsUrl", *params.SmsCommandsUrl)
+    }
+    if params != nil && params.SmsCommandsMethod != nil {
+        data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
+    }
 
 
 
@@ -140,6 +141,7 @@ func (c *ApiService) FetchFleet(Sid string, ) (*SupersimV1Fleet, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -188,12 +190,13 @@ func (c *ApiService) PageFleet(params *ListFleetParams, pageToken, pageNumber st
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.NetworkAccessProfile != nil {
-    data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.NetworkAccessProfile != nil {
+        data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -359,27 +362,28 @@ func (c *ApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*Supers
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.NetworkAccessProfile != nil {
-    data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
-}
-if params != nil && params.IpCommandsUrl != nil {
-    data.Set("IpCommandsUrl", *params.IpCommandsUrl)
-}
-if params != nil && params.IpCommandsMethod != nil {
-    data.Set("IpCommandsMethod", *params.IpCommandsMethod)
-}
-if params != nil && params.SmsCommandsUrl != nil {
-    data.Set("SmsCommandsUrl", *params.SmsCommandsUrl)
-}
-if params != nil && params.SmsCommandsMethod != nil {
-    data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
-}
-if params != nil && params.DataLimit != nil {
-    data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.NetworkAccessProfile != nil {
+        data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+    }
+    if params != nil && params.IpCommandsUrl != nil {
+        data.Set("IpCommandsUrl", *params.IpCommandsUrl)
+    }
+    if params != nil && params.IpCommandsMethod != nil {
+        data.Set("IpCommandsMethod", *params.IpCommandsMethod)
+    }
+    if params != nil && params.SmsCommandsUrl != nil {
+        data.Set("SmsCommandsUrl", *params.SmsCommandsUrl)
+    }
+    if params != nil && params.SmsCommandsMethod != nil {
+        data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
+    }
+    if params != nil && params.DataLimit != nil {
+        data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
+    }
 
 
 

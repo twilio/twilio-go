@@ -41,9 +41,10 @@ func (c *ApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid st
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ObjectSid != nil {
-    data.Set("ObjectSid", *params.ObjectSid)
-}
+
+    if params != nil && params.ObjectSid != nil {
+        data.Set("ObjectSid", *params.ObjectSid)
+    }
 
 
 
@@ -73,6 +74,7 @@ func (c *ApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid st
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -91,6 +93,7 @@ func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid str
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -134,9 +137,10 @@ func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid stri
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

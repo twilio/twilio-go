@@ -60,18 +60,19 @@ func (c *ApiService) CreateParticipant(ServiceSid string, SessionSid string, par
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Identifier != nil {
-    data.Set("Identifier", *params.Identifier)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ProxyIdentifier != nil {
-    data.Set("ProxyIdentifier", *params.ProxyIdentifier)
-}
-if params != nil && params.ProxyIdentifierSid != nil {
-    data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid)
-}
+
+    if params != nil && params.Identifier != nil {
+        data.Set("Identifier", *params.Identifier)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ProxyIdentifier != nil {
+        data.Set("ProxyIdentifier", *params.ProxyIdentifier)
+    }
+    if params != nil && params.ProxyIdentifierSid != nil {
+        data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid)
+    }
 
 
 
@@ -102,6 +103,7 @@ func (c *ApiService) DeleteParticipant(ServiceSid string, SessionSid string, Sid
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -121,6 +123,7 @@ func (c *ApiService) FetchParticipant(ServiceSid string, SessionSid string, Sid 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -165,9 +168,10 @@ func (c *ApiService) PageParticipant(ServiceSid string, SessionSid string, param
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

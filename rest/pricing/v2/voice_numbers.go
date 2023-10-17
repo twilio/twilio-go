@@ -41,9 +41,10 @@ func (c *ApiService) FetchVoiceNumber(DestinationNumber string, params *FetchVoi
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.OriginationNumber != nil {
-    data.Set("OriginationNumber", *params.OriginationNumber)
-}
+
+    if params != nil && params.OriginationNumber != nil {
+        data.Set("OriginationNumber", *params.OriginationNumber)
+    }
 
 
 

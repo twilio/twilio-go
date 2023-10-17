@@ -40,9 +40,10 @@ func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*Flex
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UiVersion != nil {
-    data.Set("UiVersion", *params.UiVersion)
-}
+
+    if params != nil && params.UiVersion != nil {
+        data.Set("UiVersion", *params.UiVersion)
+    }
 
 
 
@@ -67,6 +68,7 @@ func (c *ApiService) UpdateConfiguration() (*FlexV1Configuration, error) {
     
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

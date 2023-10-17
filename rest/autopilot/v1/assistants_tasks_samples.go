@@ -54,15 +54,16 @@ func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *C
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Language != nil {
-    data.Set("Language", *params.Language)
-}
-if params != nil && params.TaggedText != nil {
-    data.Set("TaggedText", *params.TaggedText)
-}
-if params != nil && params.SourceChannel != nil {
-    data.Set("SourceChannel", *params.SourceChannel)
-}
+
+    if params != nil && params.Language != nil {
+        data.Set("Language", *params.Language)
+    }
+    if params != nil && params.TaggedText != nil {
+        data.Set("TaggedText", *params.TaggedText)
+    }
+    if params != nil && params.SourceChannel != nil {
+        data.Set("SourceChannel", *params.SourceChannel)
+    }
 
 
 
@@ -93,6 +94,7 @@ func (c *ApiService) DeleteSample(AssistantSid string, TaskSid string, Sid strin
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -112,6 +114,7 @@ func (c *ApiService) FetchSample(AssistantSid string, TaskSid string, Sid string
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -162,12 +165,13 @@ func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *Lis
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Language != nil {
-    data.Set("Language", *params.Language)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Language != nil {
+        data.Set("Language", *params.Language)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -311,15 +315,16 @@ func (c *ApiService) UpdateSample(AssistantSid string, TaskSid string, Sid strin
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Language != nil {
-    data.Set("Language", *params.Language)
-}
-if params != nil && params.TaggedText != nil {
-    data.Set("TaggedText", *params.TaggedText)
-}
-if params != nil && params.SourceChannel != nil {
-    data.Set("SourceChannel", *params.SourceChannel)
-}
+
+    if params != nil && params.Language != nil {
+        data.Set("Language", *params.Language)
+    }
+    if params != nil && params.TaggedText != nil {
+        data.Set("TaggedText", *params.TaggedText)
+    }
+    if params != nil && params.SourceChannel != nil {
+        data.Set("SourceChannel", *params.SourceChannel)
+    }
 
 
 

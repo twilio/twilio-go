@@ -41,9 +41,10 @@ func (c *ApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Network != nil {
-    data.Set("Network", *params.Network)
-}
+
+    if params != nil && params.Network != nil {
+        data.Set("Network", *params.Network)
+    }
 
 
 
@@ -73,6 +74,7 @@ func (c *ApiService) DeleteNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -91,6 +93,7 @@ func (c *ApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid st
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -134,9 +137,10 @@ func (c *ApiService) PageNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

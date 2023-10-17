@@ -47,12 +47,13 @@ func (c *ApiService) CreateDeviceConfig(DeviceSid string, params *CreateDeviceCo
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Key != nil {
-    data.Set("Key", *params.Key)
-}
-if params != nil && params.Value != nil {
-    data.Set("Value", *params.Value)
-}
+
+    if params != nil && params.Key != nil {
+        data.Set("Key", *params.Key)
+    }
+    if params != nil && params.Value != nil {
+        data.Set("Value", *params.Value)
+    }
 
 
 
@@ -82,6 +83,7 @@ func (c *ApiService) DeleteDeviceConfig(DeviceSid string, Key string, ) (error) 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -100,6 +102,7 @@ func (c *ApiService) FetchDeviceConfig(DeviceSid string, Key string, ) (*Microvi
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -143,9 +146,10 @@ func (c *ApiService) PageDeviceConfig(DeviceSid string, params *ListDeviceConfig
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -276,9 +280,10 @@ func (c *ApiService) UpdateDeviceConfig(DeviceSid string, Key string, params *Up
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Value != nil {
-    data.Set("Value", *params.Value)
-}
+
+    if params != nil && params.Value != nil {
+        data.Set("Value", *params.Value)
+    }
 
 
 

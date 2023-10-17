@@ -64,15 +64,16 @@ func (c *ApiService) CreateUserDefinedMessageSubscription(CallSid string, params
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Callback != nil {
-    data.Set("Callback", *params.Callback)
-}
-if params != nil && params.IdempotencyKey != nil {
-    data.Set("IdempotencyKey", *params.IdempotencyKey)
-}
-if params != nil && params.Method != nil {
-    data.Set("Method", *params.Method)
-}
+
+    if params != nil && params.Callback != nil {
+        data.Set("Callback", *params.Callback)
+    }
+    if params != nil && params.IdempotencyKey != nil {
+        data.Set("IdempotencyKey", *params.IdempotencyKey)
+    }
+    if params != nil && params.Method != nil {
+        data.Set("Method", *params.Method)
+    }
 
 
 
@@ -115,6 +116,7 @@ func (c *ApiService) DeleteUserDefinedMessageSubscription(CallSid string, Sid st
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

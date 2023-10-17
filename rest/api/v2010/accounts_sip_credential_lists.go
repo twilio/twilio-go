@@ -51,9 +51,10 @@ func (c *ApiService) CreateSipCredentialList(params *CreateSipCredentialListPara
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 
@@ -98,6 +99,7 @@ func (c *ApiService) DeleteSipCredentialList(Sid string, params *DeleteSipCreden
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -131,6 +133,7 @@ func (c *ApiService) FetchSipCredentialList(Sid string, params *FetchSipCredenti
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -184,9 +187,10 @@ func (c *ApiService) PageSipCredentialList(params *ListSipCredentialListParams, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -327,9 +331,10 @@ func (c *ApiService) UpdateSipCredentialList(Sid string, params *UpdateSipCreden
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 

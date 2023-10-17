@@ -33,6 +33,7 @@ func (c *ApiService) FetchVideoRoomSummary(RoomSid string, ) (*InsightsV1VideoRo
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -102,28 +103,29 @@ func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pa
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.RoomType != nil {
-    for _, item  := range *params.RoomType {
-        data.Add("RoomType", item)
+
+    if params != nil && params.RoomType != nil {
+        for _, item  := range *params.RoomType {
+            data.Add("RoomType", item)
     }
-}
-if params != nil && params.Codec != nil {
-    for _, item  := range *params.Codec {
-        data.Add("Codec", item)
     }
-}
-if params != nil && params.RoomName != nil {
-    data.Set("RoomName", *params.RoomName)
-}
-if params != nil && params.CreatedAfter != nil {
-    data.Set("CreatedAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
-}
-if params != nil && params.CreatedBefore != nil {
-    data.Set("CreatedBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+    if params != nil && params.Codec != nil {
+        for _, item  := range *params.Codec {
+            data.Add("Codec", item)
+    }
+    }
+    if params != nil && params.RoomName != nil {
+        data.Set("RoomName", *params.RoomName)
+    }
+    if params != nil && params.CreatedAfter != nil {
+        data.Set("CreatedAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
+    }
+    if params != nil && params.CreatedBefore != nil {
+        data.Set("CreatedBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

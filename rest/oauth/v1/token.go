@@ -82,30 +82,31 @@ func (c *ApiService) CreateToken(params *CreateTokenParams) (*OauthV1Token, erro
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.GrantType != nil {
-    data.Set("GrantType", *params.GrantType)
-}
-if params != nil && params.ClientSid != nil {
-    data.Set("ClientSid", *params.ClientSid)
-}
-if params != nil && params.ClientSecret != nil {
-    data.Set("ClientSecret", *params.ClientSecret)
-}
-if params != nil && params.Code != nil {
-    data.Set("Code", *params.Code)
-}
-if params != nil && params.CodeVerifier != nil {
-    data.Set("CodeVerifier", *params.CodeVerifier)
-}
-if params != nil && params.DeviceCode != nil {
-    data.Set("DeviceCode", *params.DeviceCode)
-}
-if params != nil && params.RefreshToken != nil {
-    data.Set("RefreshToken", *params.RefreshToken)
-}
-if params != nil && params.DeviceId != nil {
-    data.Set("DeviceId", *params.DeviceId)
-}
+
+    if params != nil && params.GrantType != nil {
+        data.Set("GrantType", *params.GrantType)
+    }
+    if params != nil && params.ClientSid != nil {
+        data.Set("ClientSid", *params.ClientSid)
+    }
+    if params != nil && params.ClientSecret != nil {
+        data.Set("ClientSecret", *params.ClientSecret)
+    }
+    if params != nil && params.Code != nil {
+        data.Set("Code", *params.Code)
+    }
+    if params != nil && params.CodeVerifier != nil {
+        data.Set("CodeVerifier", *params.CodeVerifier)
+    }
+    if params != nil && params.DeviceCode != nil {
+        data.Set("DeviceCode", *params.DeviceCode)
+    }
+    if params != nil && params.RefreshToken != nil {
+        data.Set("RefreshToken", *params.RefreshToken)
+    }
+    if params != nil && params.DeviceId != nil {
+        data.Set("DeviceId", *params.DeviceId)
+    }
 
 
 

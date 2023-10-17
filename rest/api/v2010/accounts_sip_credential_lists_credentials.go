@@ -58,12 +58,13 @@ func (c *ApiService) CreateSipCredential(CredentialListSid string, params *Creat
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Username != nil {
-    data.Set("Username", *params.Username)
-}
-if params != nil && params.Password != nil {
-    data.Set("Password", *params.Password)
-}
+
+    if params != nil && params.Username != nil {
+        data.Set("Username", *params.Username)
+    }
+    if params != nil && params.Password != nil {
+        data.Set("Password", *params.Password)
+    }
 
 
 
@@ -109,6 +110,7 @@ func (c *ApiService) DeleteSipCredential(CredentialListSid string, Sid string, p
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -143,6 +145,7 @@ func (c *ApiService) FetchSipCredential(CredentialListSid string, Sid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -197,9 +200,10 @@ func (c *ApiService) PageSipCredential(CredentialListSid string, params *ListSip
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -341,9 +345,10 @@ func (c *ApiService) UpdateSipCredential(CredentialListSid string, Sid string, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Password != nil {
-    data.Set("Password", *params.Password)
-}
+
+    if params != nil && params.Password != nil {
+        data.Set("Password", *params.Password)
+    }
 
 
 

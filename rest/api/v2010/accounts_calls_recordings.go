@@ -82,26 +82,27 @@ func (c *ApiService) CreateCallRecording(CallSid string, params *CreateCallRecor
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.RecordingStatusCallbackEvent != nil {
-    for _, item  := range *params.RecordingStatusCallbackEvent {
-        data.Add("RecordingStatusCallbackEvent", item)
+
+    if params != nil && params.RecordingStatusCallbackEvent != nil {
+        for _, item  := range *params.RecordingStatusCallbackEvent {
+            data.Add("RecordingStatusCallbackEvent", item)
     }
-}
-if params != nil && params.RecordingStatusCallback != nil {
-    data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
-}
-if params != nil && params.RecordingStatusCallbackMethod != nil {
-    data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
-}
-if params != nil && params.Trim != nil {
-    data.Set("Trim", *params.Trim)
-}
-if params != nil && params.RecordingChannels != nil {
-    data.Set("RecordingChannels", *params.RecordingChannels)
-}
-if params != nil && params.RecordingTrack != nil {
-    data.Set("RecordingTrack", *params.RecordingTrack)
-}
+    }
+    if params != nil && params.RecordingStatusCallback != nil {
+        data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+    }
+    if params != nil && params.RecordingStatusCallbackMethod != nil {
+        data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+    }
+    if params != nil && params.Trim != nil {
+        data.Set("Trim", *params.Trim)
+    }
+    if params != nil && params.RecordingChannels != nil {
+        data.Set("RecordingChannels", *params.RecordingChannels)
+    }
+    if params != nil && params.RecordingTrack != nil {
+        data.Set("RecordingTrack", *params.RecordingTrack)
+    }
 
 
 
@@ -147,6 +148,7 @@ func (c *ApiService) DeleteCallRecording(CallSid string, Sid string, params *Del
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -181,6 +183,7 @@ func (c *ApiService) FetchCallRecording(CallSid string, Sid string, params *Fetc
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -253,18 +256,19 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
-}
-if params != nil && params.DateCreatedBefore != nil {
-    data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
-}
-if params != nil && params.DateCreatedAfter != nil {
-    data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+    }
+    if params != nil && params.DateCreatedBefore != nil {
+        data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
+    }
+    if params != nil && params.DateCreatedAfter != nil {
+        data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -412,12 +416,13 @@ func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *Upd
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.PauseBehavior != nil {
-    data.Set("PauseBehavior", *params.PauseBehavior)
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.PauseBehavior != nil {
+        data.Set("PauseBehavior", *params.PauseBehavior)
+    }
 
 
 

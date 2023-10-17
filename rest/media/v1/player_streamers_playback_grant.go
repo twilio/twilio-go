@@ -47,12 +47,13 @@ func (c *ApiService) CreatePlayerStreamerPlaybackGrant(Sid string, params *Creat
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
-if params != nil && params.AccessControlAllowOrigin != nil {
-    data.Set("AccessControlAllowOrigin", *params.AccessControlAllowOrigin)
-}
+
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
+    if params != nil && params.AccessControlAllowOrigin != nil {
+        data.Set("AccessControlAllowOrigin", *params.AccessControlAllowOrigin)
+    }
 
 
 
@@ -78,6 +79,7 @@ func (c *ApiService) FetchPlayerStreamerPlaybackGrant(Sid string, ) (*MediaV1Pla
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

@@ -57,12 +57,13 @@ func (c *ApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010Queue, err
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.MaxSize != nil {
-    data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.MaxSize != nil {
+        data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
+    }
 
 
 
@@ -107,6 +108,7 @@ func (c *ApiService) DeleteQueue(Sid string, params *DeleteQueueParams) (error) 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -140,6 +142,7 @@ func (c *ApiService) FetchQueue(Sid string, params *FetchQueueParams) (*ApiV2010
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -193,9 +196,10 @@ func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber st
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -342,12 +346,13 @@ func (c *ApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (*ApiV20
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.MaxSize != nil {
-    data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.MaxSize != nil {
+        data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
+    }
 
 
 

@@ -83,27 +83,28 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-}
-if params != nil && params.DateUpdated != nil {
-    data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
-}
-if params != nil && params.CreatedBy != nil {
-    data.Set("CreatedBy", *params.CreatedBy)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
+    }
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateUpdated != nil {
+        data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+    }
+    if params != nil && params.CreatedBy != nil {
+        data.Set("CreatedBy", *params.CreatedBy)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -146,6 +147,7 @@ func (c *ApiService) DeleteChannel(ServiceSid string, Sid string, params *Delete
     headers := make(map[string]interface{})
 
 
+
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -168,6 +170,7 @@ func (c *ApiService) FetchChannel(ServiceSid string, Sid string, ) (*ChatV2Chann
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -217,14 +220,15 @@ func (c *ApiService) PageChannel(ServiceSid string, params *ListChannelParams, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Type != nil {
-    for _, item  := range *params.Type {
-        data.Add("Type", item)
+
+    if params != nil && params.Type != nil {
+        for _, item  := range *params.Type {
+            data.Add("Type", item)
     }
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -391,24 +395,25 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-}
-if params != nil && params.DateUpdated != nil {
-    data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
-}
-if params != nil && params.CreatedBy != nil {
-    data.Set("CreatedBy", *params.CreatedBy)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateUpdated != nil {
+        data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+    }
+    if params != nil && params.CreatedBy != nil {
+        data.Set("CreatedBy", *params.CreatedBy)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

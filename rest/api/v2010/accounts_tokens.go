@@ -51,9 +51,10 @@ func (c *ApiService) CreateToken(params *CreateTokenParams) (*ApiV2010Token, err
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
+
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
 
 
 

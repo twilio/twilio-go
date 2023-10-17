@@ -47,12 +47,13 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.VettingProvider != nil {
-    data.Set("VettingProvider", *params.VettingProvider)
-}
-if params != nil && params.VettingId != nil {
-    data.Set("VettingId", *params.VettingId)
-}
+
+    if params != nil && params.VettingProvider != nil {
+        data.Set("VettingProvider", *params.VettingProvider)
+    }
+    if params != nil && params.VettingId != nil {
+        data.Set("VettingId", *params.VettingId)
+    }
 
 
 
@@ -79,6 +80,7 @@ func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -128,12 +130,13 @@ func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingP
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.VettingProvider != nil {
-    data.Set("VettingProvider", *params.VettingProvider)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.VettingProvider != nil {
+        data.Set("VettingProvider", *params.VettingProvider)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

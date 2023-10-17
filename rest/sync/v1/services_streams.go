@@ -47,12 +47,13 @@ func (c *ApiService) CreateSyncStream(ServiceSid string, params *CreateSyncStrea
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
 
 
 
@@ -82,6 +83,7 @@ func (c *ApiService) DeleteSyncStream(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -100,6 +102,7 @@ func (c *ApiService) FetchSyncStream(ServiceSid string, Sid string, ) (*SyncV1Sy
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -143,9 +146,10 @@ func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamPar
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -276,9 +280,10 @@ func (c *ApiService) UpdateSyncStream(ServiceSid string, Sid string, params *Upd
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
+
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
 
 
 

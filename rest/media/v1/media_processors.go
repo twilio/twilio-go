@@ -70,30 +70,31 @@ func (c *ApiService) CreateMediaProcessor(params *CreateMediaProcessorParams) (*
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Extension != nil {
-    data.Set("Extension", *params.Extension)
-}
-if params != nil && params.ExtensionContext != nil {
-    data.Set("ExtensionContext", *params.ExtensionContext)
-}
-if params != nil && params.ExtensionEnvironment != nil {
-    v, err := json.Marshal(params.ExtensionEnvironment)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Extension != nil {
+        data.Set("Extension", *params.Extension)
     }
+    if params != nil && params.ExtensionContext != nil {
+        data.Set("ExtensionContext", *params.ExtensionContext)
+    }
+    if params != nil && params.ExtensionEnvironment != nil {
+        v, err := json.Marshal(params.ExtensionEnvironment)
 
-    data.Set("ExtensionEnvironment", string(v))
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.MaxDuration != nil {
-    data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("ExtensionEnvironment", string(v))
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.MaxDuration != nil {
+        data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
+    }
 
 
 
@@ -119,6 +120,7 @@ func (c *ApiService) FetchMediaProcessor(Sid string, ) (*MediaV1MediaProcessor, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -173,15 +175,16 @@ func (c *ApiService) PageMediaProcessor(params *ListMediaProcessorParams, pageTo
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Order != nil {
-    data.Set("Order", *params.Order)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Order != nil {
+        data.Set("Order", *params.Order)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -311,9 +314,10 @@ func (c *ApiService) UpdateMediaProcessor(Sid string, params *UpdateMediaProcess
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
 
 
 

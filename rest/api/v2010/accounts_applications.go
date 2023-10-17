@@ -141,54 +141,55 @@ func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV20
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ApiVersion != nil {
-    data.Set("ApiVersion", *params.ApiVersion)
-}
-if params != nil && params.VoiceUrl != nil {
-    data.Set("VoiceUrl", *params.VoiceUrl)
-}
-if params != nil && params.VoiceMethod != nil {
-    data.Set("VoiceMethod", *params.VoiceMethod)
-}
-if params != nil && params.VoiceFallbackUrl != nil {
-    data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-}
-if params != nil && params.VoiceFallbackMethod != nil {
-    data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.VoiceCallerIdLookup != nil {
-    data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
-}
-if params != nil && params.SmsUrl != nil {
-    data.Set("SmsUrl", *params.SmsUrl)
-}
-if params != nil && params.SmsMethod != nil {
-    data.Set("SmsMethod", *params.SmsMethod)
-}
-if params != nil && params.SmsFallbackUrl != nil {
-    data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-}
-if params != nil && params.SmsFallbackMethod != nil {
-    data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-}
-if params != nil && params.SmsStatusCallback != nil {
-    data.Set("SmsStatusCallback", *params.SmsStatusCallback)
-}
-if params != nil && params.MessageStatusCallback != nil {
-    data.Set("MessageStatusCallback", *params.MessageStatusCallback)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PublicApplicationConnectEnabled != nil {
-    data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
-}
+
+    if params != nil && params.ApiVersion != nil {
+        data.Set("ApiVersion", *params.ApiVersion)
+    }
+    if params != nil && params.VoiceUrl != nil {
+        data.Set("VoiceUrl", *params.VoiceUrl)
+    }
+    if params != nil && params.VoiceMethod != nil {
+        data.Set("VoiceMethod", *params.VoiceMethod)
+    }
+    if params != nil && params.VoiceFallbackUrl != nil {
+        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+    }
+    if params != nil && params.VoiceFallbackMethod != nil {
+        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.VoiceCallerIdLookup != nil {
+        data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+    }
+    if params != nil && params.SmsUrl != nil {
+        data.Set("SmsUrl", *params.SmsUrl)
+    }
+    if params != nil && params.SmsMethod != nil {
+        data.Set("SmsMethod", *params.SmsMethod)
+    }
+    if params != nil && params.SmsFallbackUrl != nil {
+        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+    }
+    if params != nil && params.SmsFallbackMethod != nil {
+        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+    }
+    if params != nil && params.SmsStatusCallback != nil {
+        data.Set("SmsStatusCallback", *params.SmsStatusCallback)
+    }
+    if params != nil && params.MessageStatusCallback != nil {
+        data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PublicApplicationConnectEnabled != nil {
+        data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
+    }
 
 
 
@@ -233,6 +234,7 @@ func (c *ApiService) DeleteApplication(Sid string, params *DeleteApplicationPara
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -266,6 +268,7 @@ func (c *ApiService) FetchApplication(Sid string, params *FetchApplicationParams
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -325,12 +328,13 @@ func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -561,54 +565,55 @@ func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationPara
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ApiVersion != nil {
-    data.Set("ApiVersion", *params.ApiVersion)
-}
-if params != nil && params.VoiceUrl != nil {
-    data.Set("VoiceUrl", *params.VoiceUrl)
-}
-if params != nil && params.VoiceMethod != nil {
-    data.Set("VoiceMethod", *params.VoiceMethod)
-}
-if params != nil && params.VoiceFallbackUrl != nil {
-    data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-}
-if params != nil && params.VoiceFallbackMethod != nil {
-    data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.VoiceCallerIdLookup != nil {
-    data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
-}
-if params != nil && params.SmsUrl != nil {
-    data.Set("SmsUrl", *params.SmsUrl)
-}
-if params != nil && params.SmsMethod != nil {
-    data.Set("SmsMethod", *params.SmsMethod)
-}
-if params != nil && params.SmsFallbackUrl != nil {
-    data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-}
-if params != nil && params.SmsFallbackMethod != nil {
-    data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-}
-if params != nil && params.SmsStatusCallback != nil {
-    data.Set("SmsStatusCallback", *params.SmsStatusCallback)
-}
-if params != nil && params.MessageStatusCallback != nil {
-    data.Set("MessageStatusCallback", *params.MessageStatusCallback)
-}
-if params != nil && params.PublicApplicationConnectEnabled != nil {
-    data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ApiVersion != nil {
+        data.Set("ApiVersion", *params.ApiVersion)
+    }
+    if params != nil && params.VoiceUrl != nil {
+        data.Set("VoiceUrl", *params.VoiceUrl)
+    }
+    if params != nil && params.VoiceMethod != nil {
+        data.Set("VoiceMethod", *params.VoiceMethod)
+    }
+    if params != nil && params.VoiceFallbackUrl != nil {
+        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+    }
+    if params != nil && params.VoiceFallbackMethod != nil {
+        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.VoiceCallerIdLookup != nil {
+        data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+    }
+    if params != nil && params.SmsUrl != nil {
+        data.Set("SmsUrl", *params.SmsUrl)
+    }
+    if params != nil && params.SmsMethod != nil {
+        data.Set("SmsMethod", *params.SmsMethod)
+    }
+    if params != nil && params.SmsFallbackUrl != nil {
+        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+    }
+    if params != nil && params.SmsFallbackMethod != nil {
+        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+    }
+    if params != nil && params.SmsStatusCallback != nil {
+        data.Set("SmsStatusCallback", *params.SmsStatusCallback)
+    }
+    if params != nil && params.MessageStatusCallback != nil {
+        data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+    }
+    if params != nil && params.PublicApplicationConnectEnabled != nil {
+        data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
+    }
 
 
 

@@ -72,38 +72,39 @@ func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FactorSid != nil {
-    data.Set("FactorSid", *params.FactorSid)
-}
-if params != nil && params.ExpirationDate != nil {
-    data.Set("ExpirationDate", fmt.Sprint((*params.ExpirationDate).Format(time.RFC3339)))
-}
-if params != nil && params.DetailsMessage != nil {
-    data.Set("Details.Message", *params.DetailsMessage)
-}
-if params != nil && params.DetailsFields != nil {
-    for _, item  := range *params.DetailsFields {
-        v, err := json.Marshal(item)
+
+    if params != nil && params.FactorSid != nil {
+        data.Set("FactorSid", *params.FactorSid)
+    }
+    if params != nil && params.ExpirationDate != nil {
+        data.Set("ExpirationDate", fmt.Sprint((*params.ExpirationDate).Format(time.RFC3339)))
+    }
+    if params != nil && params.DetailsMessage != nil {
+        data.Set("Details.Message", *params.DetailsMessage)
+    }
+    if params != nil && params.DetailsFields != nil {
+        for _, item  := range *params.DetailsFields {
+            v, err := json.Marshal(item)
+
+            if err != nil {
+                return nil, err
+            }
+
+            data.Add("Details.Fields", string(v))
+    }
+    }
+    if params != nil && params.HiddenDetails != nil {
+        v, err := json.Marshal(params.HiddenDetails)
 
         if err != nil {
             return nil, err
         }
 
-        data.Add("Details.Fields", string(v))
+        data.Set("HiddenDetails", string(v))
     }
-}
-if params != nil && params.HiddenDetails != nil {
-    v, err := json.Marshal(params.HiddenDetails)
-
-    if err != nil {
-        return nil, err
+    if params != nil && params.AuthPayload != nil {
+        data.Set("AuthPayload", *params.AuthPayload)
     }
-
-    data.Set("HiddenDetails", string(v))
-}
-if params != nil && params.AuthPayload != nil {
-    data.Set("AuthPayload", *params.AuthPayload)
-}
 
 
 
@@ -131,6 +132,7 @@ func (c *ApiService) FetchChallenge(ServiceSid string, Identity string, Sid stri
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -193,18 +195,19 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FactorSid != nil {
-    data.Set("FactorSid", *params.FactorSid)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Order != nil {
-    data.Set("Order", *params.Order)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.FactorSid != nil {
+        data.Set("FactorSid", *params.FactorSid)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Order != nil {
+        data.Set("Order", *params.Order)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -342,18 +345,19 @@ func (c *ApiService) UpdateChallenge(ServiceSid string, Identity string, Sid str
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AuthPayload != nil {
-    data.Set("AuthPayload", *params.AuthPayload)
-}
-if params != nil && params.Metadata != nil {
-    v, err := json.Marshal(params.Metadata)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.AuthPayload != nil {
+        data.Set("AuthPayload", *params.AuthPayload)
     }
+    if params != nil && params.Metadata != nil {
+        v, err := json.Marshal(params.Metadata)
 
-    data.Set("Metadata", string(v))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Metadata", string(v))
+    }
 
 
 

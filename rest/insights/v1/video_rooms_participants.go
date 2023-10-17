@@ -34,6 +34,7 @@ func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -74,9 +75,10 @@ func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVid
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

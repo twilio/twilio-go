@@ -46,14 +46,15 @@ func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfi
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Networks != nil {
-    for _, item  := range *params.Networks {
-        data.Add("Networks", item)
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
     }
-}
+    if params != nil && params.Networks != nil {
+        for _, item  := range *params.Networks {
+            data.Add("Networks", item)
+    }
+    }
 
 
 
@@ -79,6 +80,7 @@ func (c *ApiService) FetchNetworkAccessProfile(Sid string, ) (*SupersimV1Network
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -121,9 +123,10 @@ func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfilePa
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -253,9 +256,10 @@ func (c *ApiService) UpdateNetworkAccessProfile(Sid string, params *UpdateNetwor
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
 
 
 

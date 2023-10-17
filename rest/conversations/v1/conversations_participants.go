@@ -89,30 +89,31 @@ func (c *ApiService) CreateConversationParticipant(ConversationSid string, param
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Identity != nil {
-    data.Set("Identity", *params.Identity)
-}
-if params != nil && params.MessagingBindingAddress != nil {
-    data.Set("MessagingBinding.Address", *params.MessagingBindingAddress)
-}
-if params != nil && params.MessagingBindingProxyAddress != nil {
-    data.Set("MessagingBinding.ProxyAddress", *params.MessagingBindingProxyAddress)
-}
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-}
-if params != nil && params.DateUpdated != nil {
-    data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.MessagingBindingProjectedAddress != nil {
-    data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBindingProjectedAddress)
-}
-if params != nil && params.RoleSid != nil {
-    data.Set("RoleSid", *params.RoleSid)
-}
+
+    if params != nil && params.Identity != nil {
+        data.Set("Identity", *params.Identity)
+    }
+    if params != nil && params.MessagingBindingAddress != nil {
+        data.Set("MessagingBinding.Address", *params.MessagingBindingAddress)
+    }
+    if params != nil && params.MessagingBindingProxyAddress != nil {
+        data.Set("MessagingBinding.ProxyAddress", *params.MessagingBindingProxyAddress)
+    }
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateUpdated != nil {
+        data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.MessagingBindingProjectedAddress != nil {
+        data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBindingProjectedAddress)
+    }
+    if params != nil && params.RoleSid != nil {
+        data.Set("RoleSid", *params.RoleSid)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -155,6 +156,7 @@ func (c *ApiService) DeleteConversationParticipant(ConversationSid string, Sid s
     headers := make(map[string]interface{})
 
 
+
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -177,6 +179,7 @@ func (c *ApiService) FetchConversationParticipant(ConversationSid string, Sid st
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -220,9 +223,10 @@ func (c *ApiService) PageConversationParticipant(ConversationSid string, params 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -407,33 +411,34 @@ func (c *ApiService) UpdateConversationParticipant(ConversationSid string, Sid s
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-}
-if params != nil && params.DateUpdated != nil {
-    data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.RoleSid != nil {
-    data.Set("RoleSid", *params.RoleSid)
-}
-if params != nil && params.MessagingBindingProxyAddress != nil {
-    data.Set("MessagingBinding.ProxyAddress", *params.MessagingBindingProxyAddress)
-}
-if params != nil && params.MessagingBindingProjectedAddress != nil {
-    data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBindingProjectedAddress)
-}
-if params != nil && params.Identity != nil {
-    data.Set("Identity", *params.Identity)
-}
-if params != nil && params.LastReadMessageIndex != nil {
-    data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex))
-}
-if params != nil && params.LastReadTimestamp != nil {
-    data.Set("LastReadTimestamp", *params.LastReadTimestamp)
-}
+
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateUpdated != nil {
+        data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.RoleSid != nil {
+        data.Set("RoleSid", *params.RoleSid)
+    }
+    if params != nil && params.MessagingBindingProxyAddress != nil {
+        data.Set("MessagingBinding.ProxyAddress", *params.MessagingBindingProxyAddress)
+    }
+    if params != nil && params.MessagingBindingProjectedAddress != nil {
+        data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBindingProjectedAddress)
+    }
+    if params != nil && params.Identity != nil {
+        data.Set("Identity", *params.Identity)
+    }
+    if params != nil && params.LastReadMessageIndex != nil {
+        data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex))
+    }
+    if params != nil && params.LastReadTimestamp != nil {
+        data.Set("LastReadTimestamp", *params.LastReadTimestamp)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

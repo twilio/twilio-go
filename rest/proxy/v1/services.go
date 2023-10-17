@@ -82,30 +82,31 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ProxyV1Service
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.DefaultTtl != nil {
-    data.Set("DefaultTtl", fmt.Sprint(*params.DefaultTtl))
-}
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.GeoMatchLevel != nil {
-    data.Set("GeoMatchLevel", *params.GeoMatchLevel)
-}
-if params != nil && params.NumberSelectionBehavior != nil {
-    data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
-}
-if params != nil && params.InterceptCallbackUrl != nil {
-    data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
-}
-if params != nil && params.OutOfSessionCallbackUrl != nil {
-    data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
-}
-if params != nil && params.ChatInstanceSid != nil {
-    data.Set("ChatInstanceSid", *params.ChatInstanceSid)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.DefaultTtl != nil {
+        data.Set("DefaultTtl", fmt.Sprint(*params.DefaultTtl))
+    }
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.GeoMatchLevel != nil {
+        data.Set("GeoMatchLevel", *params.GeoMatchLevel)
+    }
+    if params != nil && params.NumberSelectionBehavior != nil {
+        data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
+    }
+    if params != nil && params.InterceptCallbackUrl != nil {
+        data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
+    }
+    if params != nil && params.OutOfSessionCallbackUrl != nil {
+        data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
+    }
+    if params != nil && params.ChatInstanceSid != nil {
+        data.Set("ChatInstanceSid", *params.ChatInstanceSid)
+    }
 
 
 
@@ -134,6 +135,7 @@ func (c *ApiService) DeleteService(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -151,6 +153,7 @@ func (c *ApiService) FetchService(Sid string, ) (*ProxyV1Service, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -193,9 +196,10 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -367,30 +371,31 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Pr
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.DefaultTtl != nil {
-    data.Set("DefaultTtl", fmt.Sprint(*params.DefaultTtl))
-}
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.GeoMatchLevel != nil {
-    data.Set("GeoMatchLevel", *params.GeoMatchLevel)
-}
-if params != nil && params.NumberSelectionBehavior != nil {
-    data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
-}
-if params != nil && params.InterceptCallbackUrl != nil {
-    data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
-}
-if params != nil && params.OutOfSessionCallbackUrl != nil {
-    data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
-}
-if params != nil && params.ChatInstanceSid != nil {
-    data.Set("ChatInstanceSid", *params.ChatInstanceSid)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.DefaultTtl != nil {
+        data.Set("DefaultTtl", fmt.Sprint(*params.DefaultTtl))
+    }
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.GeoMatchLevel != nil {
+        data.Set("GeoMatchLevel", *params.GeoMatchLevel)
+    }
+    if params != nil && params.NumberSelectionBehavior != nil {
+        data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
+    }
+    if params != nil && params.InterceptCallbackUrl != nil {
+        data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
+    }
+    if params != nil && params.OutOfSessionCallbackUrl != nil {
+        data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
+    }
+    if params != nil && params.ChatInstanceSid != nil {
+        data.Set("ChatInstanceSid", *params.ChatInstanceSid)
+    }
 
 
 

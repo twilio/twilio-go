@@ -53,15 +53,16 @@ func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
-if params != nil && params.CollectionTtl != nil {
-    data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
+    if params != nil && params.CollectionTtl != nil {
+        data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
+    }
 
 
 
@@ -91,6 +92,7 @@ func (c *ApiService) DeleteSyncMap(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -109,6 +111,7 @@ func (c *ApiService) FetchSyncMap(ServiceSid string, Sid string, ) (*SyncV1SyncM
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -152,9 +155,10 @@ func (c *ApiService) PageSyncMap(ServiceSid string, params *ListSyncMapParams, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -291,12 +295,13 @@ func (c *ApiService) UpdateSyncMap(ServiceSid string, Sid string, params *Update
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
-if params != nil && params.CollectionTtl != nil {
-    data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
-}
+
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
+    if params != nil && params.CollectionTtl != nil {
+        data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
+    }
 
 
 

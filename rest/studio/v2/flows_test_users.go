@@ -33,6 +33,7 @@ func (c *ApiService) FetchTestUser(Sid string, ) (*StudioV2TestUser, error) {
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -66,11 +67,12 @@ func (c *ApiService) UpdateTestUser(Sid string, params *UpdateTestUserParams) (*
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.TestUsers != nil {
-    for _, item  := range *params.TestUsers {
-        data.Add("TestUsers", item)
+
+    if params != nil && params.TestUsers != nil {
+        for _, item  := range *params.TestUsers {
+            data.Add("TestUsers", item)
     }
-}
+    }
 
 
 

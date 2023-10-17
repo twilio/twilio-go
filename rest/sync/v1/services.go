@@ -76,27 +76,28 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*SyncV1Service,
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.WebhookUrl != nil {
-    data.Set("WebhookUrl", *params.WebhookUrl)
-}
-if params != nil && params.ReachabilityWebhooksEnabled != nil {
-    data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled))
-}
-if params != nil && params.AclEnabled != nil {
-    data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
-}
-if params != nil && params.ReachabilityDebouncingEnabled != nil {
-    data.Set("ReachabilityDebouncingEnabled", fmt.Sprint(*params.ReachabilityDebouncingEnabled))
-}
-if params != nil && params.ReachabilityDebouncingWindow != nil {
-    data.Set("ReachabilityDebouncingWindow", fmt.Sprint(*params.ReachabilityDebouncingWindow))
-}
-if params != nil && params.WebhooksFromRestEnabled != nil {
-    data.Set("WebhooksFromRestEnabled", fmt.Sprint(*params.WebhooksFromRestEnabled))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.WebhookUrl != nil {
+        data.Set("WebhookUrl", *params.WebhookUrl)
+    }
+    if params != nil && params.ReachabilityWebhooksEnabled != nil {
+        data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled))
+    }
+    if params != nil && params.AclEnabled != nil {
+        data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
+    }
+    if params != nil && params.ReachabilityDebouncingEnabled != nil {
+        data.Set("ReachabilityDebouncingEnabled", fmt.Sprint(*params.ReachabilityDebouncingEnabled))
+    }
+    if params != nil && params.ReachabilityDebouncingWindow != nil {
+        data.Set("ReachabilityDebouncingWindow", fmt.Sprint(*params.ReachabilityDebouncingWindow))
+    }
+    if params != nil && params.WebhooksFromRestEnabled != nil {
+        data.Set("WebhooksFromRestEnabled", fmt.Sprint(*params.WebhooksFromRestEnabled))
+    }
 
 
 
@@ -125,6 +126,7 @@ func (c *ApiService) DeleteService(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -142,6 +144,7 @@ func (c *ApiService) FetchService(Sid string, ) (*SyncV1Service, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -184,9 +187,10 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -352,27 +356,28 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Sy
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.WebhookUrl != nil {
-    data.Set("WebhookUrl", *params.WebhookUrl)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.ReachabilityWebhooksEnabled != nil {
-    data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled))
-}
-if params != nil && params.AclEnabled != nil {
-    data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
-}
-if params != nil && params.ReachabilityDebouncingEnabled != nil {
-    data.Set("ReachabilityDebouncingEnabled", fmt.Sprint(*params.ReachabilityDebouncingEnabled))
-}
-if params != nil && params.ReachabilityDebouncingWindow != nil {
-    data.Set("ReachabilityDebouncingWindow", fmt.Sprint(*params.ReachabilityDebouncingWindow))
-}
-if params != nil && params.WebhooksFromRestEnabled != nil {
-    data.Set("WebhooksFromRestEnabled", fmt.Sprint(*params.WebhooksFromRestEnabled))
-}
+
+    if params != nil && params.WebhookUrl != nil {
+        data.Set("WebhookUrl", *params.WebhookUrl)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.ReachabilityWebhooksEnabled != nil {
+        data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled))
+    }
+    if params != nil && params.AclEnabled != nil {
+        data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
+    }
+    if params != nil && params.ReachabilityDebouncingEnabled != nil {
+        data.Set("ReachabilityDebouncingEnabled", fmt.Sprint(*params.ReachabilityDebouncingEnabled))
+    }
+    if params != nil && params.ReachabilityDebouncingWindow != nil {
+        data.Set("ReachabilityDebouncingWindow", fmt.Sprint(*params.ReachabilityDebouncingWindow))
+    }
+    if params != nil && params.WebhooksFromRestEnabled != nil {
+        data.Set("WebhooksFromRestEnabled", fmt.Sprint(*params.WebhooksFromRestEnabled))
+    }
 
 
 

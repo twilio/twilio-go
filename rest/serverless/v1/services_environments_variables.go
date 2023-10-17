@@ -48,12 +48,13 @@ func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Key != nil {
-    data.Set("Key", *params.Key)
-}
-if params != nil && params.Value != nil {
-    data.Set("Value", *params.Value)
-}
+
+    if params != nil && params.Key != nil {
+        data.Set("Key", *params.Key)
+    }
+    if params != nil && params.Value != nil {
+        data.Set("Value", *params.Value)
+    }
 
 
 
@@ -84,6 +85,7 @@ func (c *ApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Si
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -103,6 +105,7 @@ func (c *ApiService) FetchVariable(ServiceSid string, EnvironmentSid string, Sid
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -147,9 +150,10 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -287,12 +291,13 @@ func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Si
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Key != nil {
-    data.Set("Key", *params.Key)
-}
-if params != nil && params.Value != nil {
-    data.Set("Value", *params.Value)
-}
+
+    if params != nil && params.Key != nil {
+        data.Set("Key", *params.Key)
+    }
+    if params != nil && params.Value != nil {
+        data.Set("Value", *params.Value)
+    }
 
 
 

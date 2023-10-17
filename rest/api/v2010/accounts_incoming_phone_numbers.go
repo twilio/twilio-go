@@ -189,78 +189,79 @@ func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumber
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ApiVersion != nil {
-    data.Set("ApiVersion", *params.ApiVersion)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.SmsApplicationSid != nil {
-    data.Set("SmsApplicationSid", *params.SmsApplicationSid)
-}
-if params != nil && params.SmsFallbackMethod != nil {
-    data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-}
-if params != nil && params.SmsFallbackUrl != nil {
-    data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-}
-if params != nil && params.SmsMethod != nil {
-    data.Set("SmsMethod", *params.SmsMethod)
-}
-if params != nil && params.SmsUrl != nil {
-    data.Set("SmsUrl", *params.SmsUrl)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.VoiceApplicationSid != nil {
-    data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
-}
-if params != nil && params.VoiceCallerIdLookup != nil {
-    data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
-}
-if params != nil && params.VoiceFallbackMethod != nil {
-    data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-}
-if params != nil && params.VoiceFallbackUrl != nil {
-    data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-}
-if params != nil && params.VoiceMethod != nil {
-    data.Set("VoiceMethod", *params.VoiceMethod)
-}
-if params != nil && params.VoiceUrl != nil {
-    data.Set("VoiceUrl", *params.VoiceUrl)
-}
-if params != nil && params.EmergencyStatus != nil {
-    data.Set("EmergencyStatus", *params.EmergencyStatus)
-}
-if params != nil && params.EmergencyAddressSid != nil {
-    data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
-}
-if params != nil && params.TrunkSid != nil {
-    data.Set("TrunkSid", *params.TrunkSid)
-}
-if params != nil && params.IdentitySid != nil {
-    data.Set("IdentitySid", *params.IdentitySid)
-}
-if params != nil && params.AddressSid != nil {
-    data.Set("AddressSid", *params.AddressSid)
-}
-if params != nil && params.VoiceReceiveMode != nil {
-    data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
-}
-if params != nil && params.BundleSid != nil {
-    data.Set("BundleSid", *params.BundleSid)
-}
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
-if params != nil && params.AreaCode != nil {
-    data.Set("AreaCode", *params.AreaCode)
-}
+
+    if params != nil && params.ApiVersion != nil {
+        data.Set("ApiVersion", *params.ApiVersion)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.SmsApplicationSid != nil {
+        data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+    }
+    if params != nil && params.SmsFallbackMethod != nil {
+        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+    }
+    if params != nil && params.SmsFallbackUrl != nil {
+        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+    }
+    if params != nil && params.SmsMethod != nil {
+        data.Set("SmsMethod", *params.SmsMethod)
+    }
+    if params != nil && params.SmsUrl != nil {
+        data.Set("SmsUrl", *params.SmsUrl)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.VoiceApplicationSid != nil {
+        data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+    }
+    if params != nil && params.VoiceCallerIdLookup != nil {
+        data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+    }
+    if params != nil && params.VoiceFallbackMethod != nil {
+        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+    }
+    if params != nil && params.VoiceFallbackUrl != nil {
+        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+    }
+    if params != nil && params.VoiceMethod != nil {
+        data.Set("VoiceMethod", *params.VoiceMethod)
+    }
+    if params != nil && params.VoiceUrl != nil {
+        data.Set("VoiceUrl", *params.VoiceUrl)
+    }
+    if params != nil && params.EmergencyStatus != nil {
+        data.Set("EmergencyStatus", *params.EmergencyStatus)
+    }
+    if params != nil && params.EmergencyAddressSid != nil {
+        data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+    }
+    if params != nil && params.TrunkSid != nil {
+        data.Set("TrunkSid", *params.TrunkSid)
+    }
+    if params != nil && params.IdentitySid != nil {
+        data.Set("IdentitySid", *params.IdentitySid)
+    }
+    if params != nil && params.AddressSid != nil {
+        data.Set("AddressSid", *params.AddressSid)
+    }
+    if params != nil && params.VoiceReceiveMode != nil {
+        data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+    }
+    if params != nil && params.BundleSid != nil {
+        data.Set("BundleSid", *params.BundleSid)
+    }
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
+    if params != nil && params.AreaCode != nil {
+        data.Set("AreaCode", *params.AreaCode)
+    }
 
 
 
@@ -305,6 +306,7 @@ func (c *ApiService) DeleteIncomingPhoneNumber(Sid string, params *DeleteIncomin
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -338,6 +340,7 @@ func (c *ApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIncomingP
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -415,21 +418,22 @@ func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Beta != nil {
-    data.Set("Beta", fmt.Sprint(*params.Beta))
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
-if params != nil && params.Origin != nil {
-    data.Set("Origin", *params.Origin)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Beta != nil {
+        data.Set("Beta", fmt.Sprint(*params.Beta))
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
+    if params != nil && params.Origin != nil {
+        data.Set("Origin", *params.Origin)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -702,75 +706,76 @@ func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomin
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AccountSid != nil {
-    data.Set("AccountSid", *params.AccountSid)
-}
-if params != nil && params.ApiVersion != nil {
-    data.Set("ApiVersion", *params.ApiVersion)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.SmsApplicationSid != nil {
-    data.Set("SmsApplicationSid", *params.SmsApplicationSid)
-}
-if params != nil && params.SmsFallbackMethod != nil {
-    data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-}
-if params != nil && params.SmsFallbackUrl != nil {
-    data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-}
-if params != nil && params.SmsMethod != nil {
-    data.Set("SmsMethod", *params.SmsMethod)
-}
-if params != nil && params.SmsUrl != nil {
-    data.Set("SmsUrl", *params.SmsUrl)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.VoiceApplicationSid != nil {
-    data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
-}
-if params != nil && params.VoiceCallerIdLookup != nil {
-    data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
-}
-if params != nil && params.VoiceFallbackMethod != nil {
-    data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-}
-if params != nil && params.VoiceFallbackUrl != nil {
-    data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-}
-if params != nil && params.VoiceMethod != nil {
-    data.Set("VoiceMethod", *params.VoiceMethod)
-}
-if params != nil && params.VoiceUrl != nil {
-    data.Set("VoiceUrl", *params.VoiceUrl)
-}
-if params != nil && params.EmergencyStatus != nil {
-    data.Set("EmergencyStatus", *params.EmergencyStatus)
-}
-if params != nil && params.EmergencyAddressSid != nil {
-    data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
-}
-if params != nil && params.TrunkSid != nil {
-    data.Set("TrunkSid", *params.TrunkSid)
-}
-if params != nil && params.VoiceReceiveMode != nil {
-    data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
-}
-if params != nil && params.IdentitySid != nil {
-    data.Set("IdentitySid", *params.IdentitySid)
-}
-if params != nil && params.AddressSid != nil {
-    data.Set("AddressSid", *params.AddressSid)
-}
-if params != nil && params.BundleSid != nil {
-    data.Set("BundleSid", *params.BundleSid)
-}
+
+    if params != nil && params.AccountSid != nil {
+        data.Set("AccountSid", *params.AccountSid)
+    }
+    if params != nil && params.ApiVersion != nil {
+        data.Set("ApiVersion", *params.ApiVersion)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.SmsApplicationSid != nil {
+        data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+    }
+    if params != nil && params.SmsFallbackMethod != nil {
+        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+    }
+    if params != nil && params.SmsFallbackUrl != nil {
+        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+    }
+    if params != nil && params.SmsMethod != nil {
+        data.Set("SmsMethod", *params.SmsMethod)
+    }
+    if params != nil && params.SmsUrl != nil {
+        data.Set("SmsUrl", *params.SmsUrl)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.VoiceApplicationSid != nil {
+        data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+    }
+    if params != nil && params.VoiceCallerIdLookup != nil {
+        data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+    }
+    if params != nil && params.VoiceFallbackMethod != nil {
+        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+    }
+    if params != nil && params.VoiceFallbackUrl != nil {
+        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+    }
+    if params != nil && params.VoiceMethod != nil {
+        data.Set("VoiceMethod", *params.VoiceMethod)
+    }
+    if params != nil && params.VoiceUrl != nil {
+        data.Set("VoiceUrl", *params.VoiceUrl)
+    }
+    if params != nil && params.EmergencyStatus != nil {
+        data.Set("EmergencyStatus", *params.EmergencyStatus)
+    }
+    if params != nil && params.EmergencyAddressSid != nil {
+        data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+    }
+    if params != nil && params.TrunkSid != nil {
+        data.Set("TrunkSid", *params.TrunkSid)
+    }
+    if params != nil && params.VoiceReceiveMode != nil {
+        data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+    }
+    if params != nil && params.IdentitySid != nil {
+        data.Set("IdentitySid", *params.IdentitySid)
+    }
+    if params != nil && params.AddressSid != nil {
+        data.Set("AddressSid", *params.AddressSid)
+    }
+    if params != nil && params.BundleSid != nil {
+        data.Set("BundleSid", *params.BundleSid)
+    }
 
 
 

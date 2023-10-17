@@ -15,13 +15,13 @@
 package openapi
 
 import (
-    "encoding/json"
-    "fmt"
-    "net/url"
-    "strings"
+	"encoding/json"
+	"fmt"
+	"net/url"
 
     "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'CreateCredentialAws'
 type CreateCredentialAwsParams struct {
@@ -33,15 +33,15 @@ type CreateCredentialAwsParams struct {
     AccountSid *string `json:"AccountSid,omitempty"`
 }
 
-func (params *CreateCredentialAwsParams) SetCredentials(Credentials string) *CreateCredentialAwsParams {
+func (params *CreateCredentialAwsParams) SetCredentials(Credentials string) (*CreateCredentialAwsParams){
     params.Credentials = &Credentials
     return params
 }
-func (params *CreateCredentialAwsParams) SetFriendlyName(FriendlyName string) *CreateCredentialAwsParams {
+func (params *CreateCredentialAwsParams) SetFriendlyName(FriendlyName string) (*CreateCredentialAwsParams){
     params.FriendlyName = &FriendlyName
     return params
 }
-func (params *CreateCredentialAwsParams) SetAccountSid(AccountSid string) *CreateCredentialAwsParams {
+func (params *CreateCredentialAwsParams) SetAccountSid(AccountSid string) (*CreateCredentialAwsParams){
     params.AccountSid = &AccountSid
     return params
 }
@@ -49,9 +49,10 @@ func (params *CreateCredentialAwsParams) SetAccountSid(AccountSid string) *Creat
 // Create a new AWS Credential
 func (c *ApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*AccountsV1CredentialAws, error) {
     path := "/v1/Credentials/AWS"
-
+    
     data := url.Values{}
     headers := make(map[string]interface{})
+
     if params != nil && params.Credentials != nil {
         data.Set("Credentials", *params.Credentials)
     }
@@ -61,6 +62,8 @@ func (c *ApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*Ac
     if params != nil && params.AccountSid != nil {
         data.Set("AccountSid", *params.AccountSid)
     }
+
+
 
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {
@@ -78,12 +81,15 @@ func (c *ApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*Ac
 }
 
 // Delete a Credential from your account
-func (c *ApiService) DeleteCredentialAws(Sid string, ) error {
+func (c *ApiService) DeleteCredentialAws(Sid string, ) (error) {
     path := "/v1/Credentials/AWS/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
+
+
 
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
@@ -98,10 +104,13 @@ func (c *ApiService) DeleteCredentialAws(Sid string, ) error {
 // Fetch the AWS credentials specified by the provided Credential Sid
 func (c *ApiService) FetchCredentialAws(Sid string, ) (*AccountsV1CredentialAws, error) {
     path := "/v1/Credentials/AWS/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
+
+
 
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
@@ -126,11 +135,11 @@ type ListCredentialAwsParams struct {
     Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListCredentialAwsParams) SetPageSize(PageSize int) *ListCredentialAwsParams {
+func (params *ListCredentialAwsParams) SetPageSize(PageSize int) (*ListCredentialAwsParams){
     params.PageSize = &PageSize
     return params
 }
-func (params *ListCredentialAwsParams) SetLimit(Limit int) *ListCredentialAwsParams {
+func (params *ListCredentialAwsParams) SetLimit(Limit int) (*ListCredentialAwsParams){
     params.Limit = &Limit
     return params
 }
@@ -139,8 +148,10 @@ func (params *ListCredentialAwsParams) SetLimit(Limit int) *ListCredentialAwsPar
 func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToken, pageNumber string) (*ListCredentialAwsResponse, error) {
     path := "/v1/Credentials/AWS"
 
+    
     data := url.Values{}
     headers := make(map[string]interface{})
+
     if params != nil && params.PageSize != nil {
         data.Set("PageSize", fmt.Sprint(*params.PageSize))
     }
@@ -169,70 +180,71 @@ func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToke
 
 // Lists CredentialAws records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams) ([]AccountsV1CredentialAws, error) {
-    response, errors := c.StreamCredentialAws(params)
+	response, errors := c.StreamCredentialAws(params)
 
-    records := make([]AccountsV1CredentialAws, 0)
-    for record := range response {
-        records = append(records, record)
-    }
+	records := make([]AccountsV1CredentialAws, 0)
+	for record := range response {
+		records = append(records, record)
+	}
 
-    if err := <-errors; err != nil {
-        return nil, err
-    }
+	if err := <-errors; err != nil {
+		return nil, err
+	}
 
-    return records, nil
+	return records, nil
 }
 
 // Streams CredentialAws records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams) (chan AccountsV1CredentialAws, chan error) {
-    if params == nil {
-        params = &ListCredentialAwsParams{}
-    }
-    params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+	if params == nil {
+		params = &ListCredentialAwsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
-    recordChannel := make(chan AccountsV1CredentialAws, 1)
-    errorChannel := make(chan error, 1)
+	recordChannel := make(chan AccountsV1CredentialAws, 1)
+	errorChannel := make(chan error, 1)
 
-    response, err := c.PageCredentialAws(params, "", "")
-    if err != nil {
-        errorChannel <- err
-        close(recordChannel)
-        close(errorChannel)
-    } else {
-        go c.streamCredentialAws(response, params, recordChannel, errorChannel)
-    }
+	response, err := c.PageCredentialAws(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamCredentialAws(response, params, recordChannel, errorChannel)
+	}
 
-    return recordChannel, errorChannel
+	return recordChannel, errorChannel
 }
 
+
 func (c *ApiService) streamCredentialAws(response *ListCredentialAwsResponse, params *ListCredentialAwsParams, recordChannel chan AccountsV1CredentialAws, errorChannel chan error) {
-    curRecord := 1
+	curRecord := 1
 
-    for response != nil {
-        responseRecords := response.Credentials
-        for item := range responseRecords {
-            recordChannel <- responseRecords[item]
-            curRecord += 1
-            if params.Limit != nil && *params.Limit < curRecord {
-                close(recordChannel)
-                close(errorChannel)
-                return
-            }
-        }
+	for response != nil {
+		responseRecords := response.Credentials
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
+				return
+			}
+		}
 
-        record, err := client.GetNext(c.baseURL, response, c.getNextListCredentialAwsResponse)
-        if err != nil {
-            errorChannel <- err
-            break
-        } else if record == nil {
-            break
-        }
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCredentialAwsResponse)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
 
-        response = record.(*ListCredentialAwsResponse)
-    }
+		response = record.(*ListCredentialAwsResponse)
+	}
 
-    close(recordChannel)
-    close(errorChannel)
+	close(recordChannel)
+	close(errorChannel)
 }
 
 func (c *ApiService) getNextListCredentialAwsResponse(nextPageUrl string) (interface{}, error) {
@@ -253,13 +265,14 @@ func (c *ApiService) getNextListCredentialAwsResponse(nextPageUrl string) (inter
     return ps, nil
 }
 
+
 // Optional parameters for the method 'UpdateCredentialAws'
 type UpdateCredentialAwsParams struct {
     // A descriptive string that you create to describe the resource. It can be up to 64 characters long.
     FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *UpdateCredentialAwsParams) SetFriendlyName(FriendlyName string) *UpdateCredentialAwsParams {
+func (params *UpdateCredentialAwsParams) SetFriendlyName(FriendlyName string) (*UpdateCredentialAwsParams){
     params.FriendlyName = &FriendlyName
     return params
 }
@@ -267,13 +280,16 @@ func (params *UpdateCredentialAwsParams) SetFriendlyName(FriendlyName string) *U
 // Modify the properties of a given Account
 func (c *ApiService) UpdateCredentialAws(Sid string, params *UpdateCredentialAwsParams) (*AccountsV1CredentialAws, error) {
     path := "/v1/Credentials/AWS/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+        path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
     if params != nil && params.FriendlyName != nil {
         data.Set("FriendlyName", *params.FriendlyName)
     }
+
+
 
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {

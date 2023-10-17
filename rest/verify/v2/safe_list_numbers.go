@@ -40,9 +40,10 @@ func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*VerifyV2Safe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
+
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
 
 
 
@@ -71,6 +72,7 @@ func (c *ApiService) DeleteSafelist(PhoneNumber string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -88,6 +90,7 @@ func (c *ApiService) FetchSafelist(PhoneNumber string, ) (*VerifyV2Safelist, err
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

@@ -47,12 +47,13 @@ func (c *ApiService) CreateTrustProductChannelEndpointAssignment(TrustProductSid
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ChannelEndpointType != nil {
-    data.Set("ChannelEndpointType", *params.ChannelEndpointType)
-}
-if params != nil && params.ChannelEndpointSid != nil {
-    data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
-}
+
+    if params != nil && params.ChannelEndpointType != nil {
+        data.Set("ChannelEndpointType", *params.ChannelEndpointType)
+    }
+    if params != nil && params.ChannelEndpointSid != nil {
+        data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
+    }
 
 
 
@@ -82,6 +83,7 @@ func (c *ApiService) DeleteTrustProductChannelEndpointAssignment(TrustProductSid
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -100,6 +102,7 @@ func (c *ApiService) FetchTrustProductChannelEndpointAssignment(TrustProductSid 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -155,15 +158,16 @@ func (c *ApiService) PageTrustProductChannelEndpointAssignment(TrustProductSid s
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ChannelEndpointSid != nil {
-    data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
-}
-if params != nil && params.ChannelEndpointSids != nil {
-    data.Set("ChannelEndpointSids", *params.ChannelEndpointSids)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.ChannelEndpointSid != nil {
+        data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
+    }
+    if params != nil && params.ChannelEndpointSids != nil {
+        data.Set("ChannelEndpointSids", *params.ChannelEndpointSids)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

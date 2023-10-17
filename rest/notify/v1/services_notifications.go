@@ -143,110 +143,111 @@ func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotific
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Body != nil {
-    data.Set("Body", *params.Body)
-}
-if params != nil && params.Priority != nil {
-    data.Set("Priority", *params.Priority)
-}
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
-if params != nil && params.Title != nil {
-    data.Set("Title", *params.Title)
-}
-if params != nil && params.Sound != nil {
-    data.Set("Sound", *params.Sound)
-}
-if params != nil && params.Action != nil {
-    data.Set("Action", *params.Action)
-}
-if params != nil && params.Data != nil {
-    v, err := json.Marshal(params.Data)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Body != nil {
+        data.Set("Body", *params.Body)
     }
-
-    data.Set("Data", string(v))
-}
-if params != nil && params.Apn != nil {
-    v, err := json.Marshal(params.Apn)
-
-    if err != nil {
-        return nil, err
+    if params != nil && params.Priority != nil {
+        data.Set("Priority", *params.Priority)
     }
-
-    data.Set("Apn", string(v))
-}
-if params != nil && params.Gcm != nil {
-    v, err := json.Marshal(params.Gcm)
-
-    if err != nil {
-        return nil, err
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
     }
-
-    data.Set("Gcm", string(v))
-}
-if params != nil && params.Sms != nil {
-    v, err := json.Marshal(params.Sms)
-
-    if err != nil {
-        return nil, err
+    if params != nil && params.Title != nil {
+        data.Set("Title", *params.Title)
     }
-
-    data.Set("Sms", string(v))
-}
-if params != nil && params.FacebookMessenger != nil {
-    v, err := json.Marshal(params.FacebookMessenger)
-
-    if err != nil {
-        return nil, err
+    if params != nil && params.Sound != nil {
+        data.Set("Sound", *params.Sound)
     }
+    if params != nil && params.Action != nil {
+        data.Set("Action", *params.Action)
+    }
+    if params != nil && params.Data != nil {
+        v, err := json.Marshal(params.Data)
 
-    data.Set("FacebookMessenger", string(v))
-}
-if params != nil && params.Fcm != nil {
-    v, err := json.Marshal(params.Fcm)
+        if err != nil {
+            return nil, err
+        }
 
-    if err != nil {
-        return nil, err
+        data.Set("Data", string(v))
     }
+    if params != nil && params.Apn != nil {
+        v, err := json.Marshal(params.Apn)
 
-    data.Set("Fcm", string(v))
-}
-if params != nil && params.Segment != nil {
-    for _, item  := range *params.Segment {
-        data.Add("Segment", item)
-    }
-}
-if params != nil && params.Alexa != nil {
-    v, err := json.Marshal(params.Alexa)
+        if err != nil {
+            return nil, err
+        }
 
-    if err != nil {
-        return nil, err
+        data.Set("Apn", string(v))
     }
+    if params != nil && params.Gcm != nil {
+        v, err := json.Marshal(params.Gcm)
 
-    data.Set("Alexa", string(v))
-}
-if params != nil && params.ToBinding != nil {
-    for _, item  := range *params.ToBinding {
-        data.Add("ToBinding", item)
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Gcm", string(v))
     }
-}
-if params != nil && params.DeliveryCallbackUrl != nil {
-    data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
-}
-if params != nil && params.Identity != nil {
-    for _, item  := range *params.Identity {
-        data.Add("Identity", item)
+    if params != nil && params.Sms != nil {
+        v, err := json.Marshal(params.Sms)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Sms", string(v))
     }
-}
-if params != nil && params.Tag != nil {
-    for _, item  := range *params.Tag {
-        data.Add("Tag", item)
+    if params != nil && params.FacebookMessenger != nil {
+        v, err := json.Marshal(params.FacebookMessenger)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("FacebookMessenger", string(v))
     }
-}
+    if params != nil && params.Fcm != nil {
+        v, err := json.Marshal(params.Fcm)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Fcm", string(v))
+    }
+    if params != nil && params.Segment != nil {
+        for _, item  := range *params.Segment {
+            data.Add("Segment", item)
+    }
+    }
+    if params != nil && params.Alexa != nil {
+        v, err := json.Marshal(params.Alexa)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Alexa", string(v))
+    }
+    if params != nil && params.ToBinding != nil {
+        for _, item  := range *params.ToBinding {
+            data.Add("ToBinding", item)
+    }
+    }
+    if params != nil && params.DeliveryCallbackUrl != nil {
+        data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
+    }
+    if params != nil && params.Identity != nil {
+        for _, item  := range *params.Identity {
+            data.Add("Identity", item)
+    }
+    }
+    if params != nil && params.Tag != nil {
+        for _, item  := range *params.Tag {
+            data.Add("Tag", item)
+    }
+    }
 
 
 

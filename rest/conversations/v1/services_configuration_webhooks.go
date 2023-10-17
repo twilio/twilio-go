@@ -33,6 +33,7 @@ func (c *ApiService) FetchServiceWebhookConfiguration(ChatServiceSid string, ) (
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -84,20 +85,21 @@ func (c *ApiService) UpdateServiceWebhookConfiguration(ChatServiceSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PreWebhookUrl != nil {
-    data.Set("PreWebhookUrl", *params.PreWebhookUrl)
-}
-if params != nil && params.PostWebhookUrl != nil {
-    data.Set("PostWebhookUrl", *params.PostWebhookUrl)
-}
-if params != nil && params.Filters != nil {
-    for _, item  := range *params.Filters {
-        data.Add("Filters", item)
+
+    if params != nil && params.PreWebhookUrl != nil {
+        data.Set("PreWebhookUrl", *params.PreWebhookUrl)
     }
-}
-if params != nil && params.Method != nil {
-    data.Set("Method", *params.Method)
-}
+    if params != nil && params.PostWebhookUrl != nil {
+        data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+    }
+    if params != nil && params.Filters != nil {
+        for _, item  := range *params.Filters {
+            data.Add("Filters", item)
+    }
+    }
+    if params != nil && params.Method != nil {
+        data.Set("Method", *params.Method)
+    }
 
 
 

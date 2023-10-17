@@ -40,9 +40,10 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*IpMessagingV1S
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 
@@ -71,6 +72,7 @@ func (c *ApiService) DeleteService(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -88,6 +90,7 @@ func (c *ApiService) FetchService(Sid string, ) (*IpMessagingV1Service, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -130,9 +133,10 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -580,170 +584,171 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ip
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.DefaultServiceRoleSid != nil {
-    data.Set("DefaultServiceRoleSid", *params.DefaultServiceRoleSid)
-}
-if params != nil && params.DefaultChannelRoleSid != nil {
-    data.Set("DefaultChannelRoleSid", *params.DefaultChannelRoleSid)
-}
-if params != nil && params.DefaultChannelCreatorRoleSid != nil {
-    data.Set("DefaultChannelCreatorRoleSid", *params.DefaultChannelCreatorRoleSid)
-}
-if params != nil && params.ReadStatusEnabled != nil {
-    data.Set("ReadStatusEnabled", fmt.Sprint(*params.ReadStatusEnabled))
-}
-if params != nil && params.ReachabilityEnabled != nil {
-    data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
-}
-if params != nil && params.TypingIndicatorTimeout != nil {
-    data.Set("TypingIndicatorTimeout", fmt.Sprint(*params.TypingIndicatorTimeout))
-}
-if params != nil && params.ConsumptionReportInterval != nil {
-    data.Set("ConsumptionReportInterval", fmt.Sprint(*params.ConsumptionReportInterval))
-}
-if params != nil && params.NotificationsNewMessageEnabled != nil {
-    data.Set("Notifications.NewMessage.Enabled", fmt.Sprint(*params.NotificationsNewMessageEnabled))
-}
-if params != nil && params.NotificationsNewMessageTemplate != nil {
-    data.Set("Notifications.NewMessage.Template", *params.NotificationsNewMessageTemplate)
-}
-if params != nil && params.NotificationsAddedToChannelEnabled != nil {
-    data.Set("Notifications.AddedToChannel.Enabled", fmt.Sprint(*params.NotificationsAddedToChannelEnabled))
-}
-if params != nil && params.NotificationsAddedToChannelTemplate != nil {
-    data.Set("Notifications.AddedToChannel.Template", *params.NotificationsAddedToChannelTemplate)
-}
-if params != nil && params.NotificationsRemovedFromChannelEnabled != nil {
-    data.Set("Notifications.RemovedFromChannel.Enabled", fmt.Sprint(*params.NotificationsRemovedFromChannelEnabled))
-}
-if params != nil && params.NotificationsRemovedFromChannelTemplate != nil {
-    data.Set("Notifications.RemovedFromChannel.Template", *params.NotificationsRemovedFromChannelTemplate)
-}
-if params != nil && params.NotificationsInvitedToChannelEnabled != nil {
-    data.Set("Notifications.InvitedToChannel.Enabled", fmt.Sprint(*params.NotificationsInvitedToChannelEnabled))
-}
-if params != nil && params.NotificationsInvitedToChannelTemplate != nil {
-    data.Set("Notifications.InvitedToChannel.Template", *params.NotificationsInvitedToChannelTemplate)
-}
-if params != nil && params.PreWebhookUrl != nil {
-    data.Set("PreWebhookUrl", *params.PreWebhookUrl)
-}
-if params != nil && params.PostWebhookUrl != nil {
-    data.Set("PostWebhookUrl", *params.PostWebhookUrl)
-}
-if params != nil && params.WebhookMethod != nil {
-    data.Set("WebhookMethod", *params.WebhookMethod)
-}
-if params != nil && params.WebhookFilters != nil {
-    for _, item  := range *params.WebhookFilters {
-        data.Add("WebhookFilters", item)
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
-}
-if params != nil && params.WebhooksOnMessageSendUrl != nil {
-    data.Set("Webhooks.OnMessageSend.Url", *params.WebhooksOnMessageSendUrl)
-}
-if params != nil && params.WebhooksOnMessageSendMethod != nil {
-    data.Set("Webhooks.OnMessageSend.Method", *params.WebhooksOnMessageSendMethod)
-}
-if params != nil && params.WebhooksOnMessageUpdateUrl != nil {
-    data.Set("Webhooks.OnMessageUpdate.Url", *params.WebhooksOnMessageUpdateUrl)
-}
-if params != nil && params.WebhooksOnMessageUpdateMethod != nil {
-    data.Set("Webhooks.OnMessageUpdate.Method", *params.WebhooksOnMessageUpdateMethod)
-}
-if params != nil && params.WebhooksOnMessageRemoveUrl != nil {
-    data.Set("Webhooks.OnMessageRemove.Url", *params.WebhooksOnMessageRemoveUrl)
-}
-if params != nil && params.WebhooksOnMessageRemoveMethod != nil {
-    data.Set("Webhooks.OnMessageRemove.Method", *params.WebhooksOnMessageRemoveMethod)
-}
-if params != nil && params.WebhooksOnChannelAddUrl != nil {
-    data.Set("Webhooks.OnChannelAdd.Url", *params.WebhooksOnChannelAddUrl)
-}
-if params != nil && params.WebhooksOnChannelAddMethod != nil {
-    data.Set("Webhooks.OnChannelAdd.Method", *params.WebhooksOnChannelAddMethod)
-}
-if params != nil && params.WebhooksOnChannelDestroyUrl != nil {
-    data.Set("Webhooks.OnChannelDestroy.Url", *params.WebhooksOnChannelDestroyUrl)
-}
-if params != nil && params.WebhooksOnChannelDestroyMethod != nil {
-    data.Set("Webhooks.OnChannelDestroy.Method", *params.WebhooksOnChannelDestroyMethod)
-}
-if params != nil && params.WebhooksOnChannelUpdateUrl != nil {
-    data.Set("Webhooks.OnChannelUpdate.Url", *params.WebhooksOnChannelUpdateUrl)
-}
-if params != nil && params.WebhooksOnChannelUpdateMethod != nil {
-    data.Set("Webhooks.OnChannelUpdate.Method", *params.WebhooksOnChannelUpdateMethod)
-}
-if params != nil && params.WebhooksOnMemberAddUrl != nil {
-    data.Set("Webhooks.OnMemberAdd.Url", *params.WebhooksOnMemberAddUrl)
-}
-if params != nil && params.WebhooksOnMemberAddMethod != nil {
-    data.Set("Webhooks.OnMemberAdd.Method", *params.WebhooksOnMemberAddMethod)
-}
-if params != nil && params.WebhooksOnMemberRemoveUrl != nil {
-    data.Set("Webhooks.OnMemberRemove.Url", *params.WebhooksOnMemberRemoveUrl)
-}
-if params != nil && params.WebhooksOnMemberRemoveMethod != nil {
-    data.Set("Webhooks.OnMemberRemove.Method", *params.WebhooksOnMemberRemoveMethod)
-}
-if params != nil && params.WebhooksOnMessageSentUrl != nil {
-    data.Set("Webhooks.OnMessageSent.Url", *params.WebhooksOnMessageSentUrl)
-}
-if params != nil && params.WebhooksOnMessageSentMethod != nil {
-    data.Set("Webhooks.OnMessageSent.Method", *params.WebhooksOnMessageSentMethod)
-}
-if params != nil && params.WebhooksOnMessageUpdatedUrl != nil {
-    data.Set("Webhooks.OnMessageUpdated.Url", *params.WebhooksOnMessageUpdatedUrl)
-}
-if params != nil && params.WebhooksOnMessageUpdatedMethod != nil {
-    data.Set("Webhooks.OnMessageUpdated.Method", *params.WebhooksOnMessageUpdatedMethod)
-}
-if params != nil && params.WebhooksOnMessageRemovedUrl != nil {
-    data.Set("Webhooks.OnMessageRemoved.Url", *params.WebhooksOnMessageRemovedUrl)
-}
-if params != nil && params.WebhooksOnMessageRemovedMethod != nil {
-    data.Set("Webhooks.OnMessageRemoved.Method", *params.WebhooksOnMessageRemovedMethod)
-}
-if params != nil && params.WebhooksOnChannelAddedUrl != nil {
-    data.Set("Webhooks.OnChannelAdded.Url", *params.WebhooksOnChannelAddedUrl)
-}
-if params != nil && params.WebhooksOnChannelAddedMethod != nil {
-    data.Set("Webhooks.OnChannelAdded.Method", *params.WebhooksOnChannelAddedMethod)
-}
-if params != nil && params.WebhooksOnChannelDestroyedUrl != nil {
-    data.Set("Webhooks.OnChannelDestroyed.Url", *params.WebhooksOnChannelDestroyedUrl)
-}
-if params != nil && params.WebhooksOnChannelDestroyedMethod != nil {
-    data.Set("Webhooks.OnChannelDestroyed.Method", *params.WebhooksOnChannelDestroyedMethod)
-}
-if params != nil && params.WebhooksOnChannelUpdatedUrl != nil {
-    data.Set("Webhooks.OnChannelUpdated.Url", *params.WebhooksOnChannelUpdatedUrl)
-}
-if params != nil && params.WebhooksOnChannelUpdatedMethod != nil {
-    data.Set("Webhooks.OnChannelUpdated.Method", *params.WebhooksOnChannelUpdatedMethod)
-}
-if params != nil && params.WebhooksOnMemberAddedUrl != nil {
-    data.Set("Webhooks.OnMemberAdded.Url", *params.WebhooksOnMemberAddedUrl)
-}
-if params != nil && params.WebhooksOnMemberAddedMethod != nil {
-    data.Set("Webhooks.OnMemberAdded.Method", *params.WebhooksOnMemberAddedMethod)
-}
-if params != nil && params.WebhooksOnMemberRemovedUrl != nil {
-    data.Set("Webhooks.OnMemberRemoved.Url", *params.WebhooksOnMemberRemovedUrl)
-}
-if params != nil && params.WebhooksOnMemberRemovedMethod != nil {
-    data.Set("Webhooks.OnMemberRemoved.Method", *params.WebhooksOnMemberRemovedMethod)
-}
-if params != nil && params.LimitsChannelMembers != nil {
-    data.Set("Limits.ChannelMembers", fmt.Sprint(*params.LimitsChannelMembers))
-}
-if params != nil && params.LimitsUserChannels != nil {
-    data.Set("Limits.UserChannels", fmt.Sprint(*params.LimitsUserChannels))
-}
+    if params != nil && params.DefaultServiceRoleSid != nil {
+        data.Set("DefaultServiceRoleSid", *params.DefaultServiceRoleSid)
+    }
+    if params != nil && params.DefaultChannelRoleSid != nil {
+        data.Set("DefaultChannelRoleSid", *params.DefaultChannelRoleSid)
+    }
+    if params != nil && params.DefaultChannelCreatorRoleSid != nil {
+        data.Set("DefaultChannelCreatorRoleSid", *params.DefaultChannelCreatorRoleSid)
+    }
+    if params != nil && params.ReadStatusEnabled != nil {
+        data.Set("ReadStatusEnabled", fmt.Sprint(*params.ReadStatusEnabled))
+    }
+    if params != nil && params.ReachabilityEnabled != nil {
+        data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
+    }
+    if params != nil && params.TypingIndicatorTimeout != nil {
+        data.Set("TypingIndicatorTimeout", fmt.Sprint(*params.TypingIndicatorTimeout))
+    }
+    if params != nil && params.ConsumptionReportInterval != nil {
+        data.Set("ConsumptionReportInterval", fmt.Sprint(*params.ConsumptionReportInterval))
+    }
+    if params != nil && params.NotificationsNewMessageEnabled != nil {
+        data.Set("Notifications.NewMessage.Enabled", fmt.Sprint(*params.NotificationsNewMessageEnabled))
+    }
+    if params != nil && params.NotificationsNewMessageTemplate != nil {
+        data.Set("Notifications.NewMessage.Template", *params.NotificationsNewMessageTemplate)
+    }
+    if params != nil && params.NotificationsAddedToChannelEnabled != nil {
+        data.Set("Notifications.AddedToChannel.Enabled", fmt.Sprint(*params.NotificationsAddedToChannelEnabled))
+    }
+    if params != nil && params.NotificationsAddedToChannelTemplate != nil {
+        data.Set("Notifications.AddedToChannel.Template", *params.NotificationsAddedToChannelTemplate)
+    }
+    if params != nil && params.NotificationsRemovedFromChannelEnabled != nil {
+        data.Set("Notifications.RemovedFromChannel.Enabled", fmt.Sprint(*params.NotificationsRemovedFromChannelEnabled))
+    }
+    if params != nil && params.NotificationsRemovedFromChannelTemplate != nil {
+        data.Set("Notifications.RemovedFromChannel.Template", *params.NotificationsRemovedFromChannelTemplate)
+    }
+    if params != nil && params.NotificationsInvitedToChannelEnabled != nil {
+        data.Set("Notifications.InvitedToChannel.Enabled", fmt.Sprint(*params.NotificationsInvitedToChannelEnabled))
+    }
+    if params != nil && params.NotificationsInvitedToChannelTemplate != nil {
+        data.Set("Notifications.InvitedToChannel.Template", *params.NotificationsInvitedToChannelTemplate)
+    }
+    if params != nil && params.PreWebhookUrl != nil {
+        data.Set("PreWebhookUrl", *params.PreWebhookUrl)
+    }
+    if params != nil && params.PostWebhookUrl != nil {
+        data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+    }
+    if params != nil && params.WebhookMethod != nil {
+        data.Set("WebhookMethod", *params.WebhookMethod)
+    }
+    if params != nil && params.WebhookFilters != nil {
+        for _, item  := range *params.WebhookFilters {
+            data.Add("WebhookFilters", item)
+    }
+    }
+    if params != nil && params.WebhooksOnMessageSendUrl != nil {
+        data.Set("Webhooks.OnMessageSend.Url", *params.WebhooksOnMessageSendUrl)
+    }
+    if params != nil && params.WebhooksOnMessageSendMethod != nil {
+        data.Set("Webhooks.OnMessageSend.Method", *params.WebhooksOnMessageSendMethod)
+    }
+    if params != nil && params.WebhooksOnMessageUpdateUrl != nil {
+        data.Set("Webhooks.OnMessageUpdate.Url", *params.WebhooksOnMessageUpdateUrl)
+    }
+    if params != nil && params.WebhooksOnMessageUpdateMethod != nil {
+        data.Set("Webhooks.OnMessageUpdate.Method", *params.WebhooksOnMessageUpdateMethod)
+    }
+    if params != nil && params.WebhooksOnMessageRemoveUrl != nil {
+        data.Set("Webhooks.OnMessageRemove.Url", *params.WebhooksOnMessageRemoveUrl)
+    }
+    if params != nil && params.WebhooksOnMessageRemoveMethod != nil {
+        data.Set("Webhooks.OnMessageRemove.Method", *params.WebhooksOnMessageRemoveMethod)
+    }
+    if params != nil && params.WebhooksOnChannelAddUrl != nil {
+        data.Set("Webhooks.OnChannelAdd.Url", *params.WebhooksOnChannelAddUrl)
+    }
+    if params != nil && params.WebhooksOnChannelAddMethod != nil {
+        data.Set("Webhooks.OnChannelAdd.Method", *params.WebhooksOnChannelAddMethod)
+    }
+    if params != nil && params.WebhooksOnChannelDestroyUrl != nil {
+        data.Set("Webhooks.OnChannelDestroy.Url", *params.WebhooksOnChannelDestroyUrl)
+    }
+    if params != nil && params.WebhooksOnChannelDestroyMethod != nil {
+        data.Set("Webhooks.OnChannelDestroy.Method", *params.WebhooksOnChannelDestroyMethod)
+    }
+    if params != nil && params.WebhooksOnChannelUpdateUrl != nil {
+        data.Set("Webhooks.OnChannelUpdate.Url", *params.WebhooksOnChannelUpdateUrl)
+    }
+    if params != nil && params.WebhooksOnChannelUpdateMethod != nil {
+        data.Set("Webhooks.OnChannelUpdate.Method", *params.WebhooksOnChannelUpdateMethod)
+    }
+    if params != nil && params.WebhooksOnMemberAddUrl != nil {
+        data.Set("Webhooks.OnMemberAdd.Url", *params.WebhooksOnMemberAddUrl)
+    }
+    if params != nil && params.WebhooksOnMemberAddMethod != nil {
+        data.Set("Webhooks.OnMemberAdd.Method", *params.WebhooksOnMemberAddMethod)
+    }
+    if params != nil && params.WebhooksOnMemberRemoveUrl != nil {
+        data.Set("Webhooks.OnMemberRemove.Url", *params.WebhooksOnMemberRemoveUrl)
+    }
+    if params != nil && params.WebhooksOnMemberRemoveMethod != nil {
+        data.Set("Webhooks.OnMemberRemove.Method", *params.WebhooksOnMemberRemoveMethod)
+    }
+    if params != nil && params.WebhooksOnMessageSentUrl != nil {
+        data.Set("Webhooks.OnMessageSent.Url", *params.WebhooksOnMessageSentUrl)
+    }
+    if params != nil && params.WebhooksOnMessageSentMethod != nil {
+        data.Set("Webhooks.OnMessageSent.Method", *params.WebhooksOnMessageSentMethod)
+    }
+    if params != nil && params.WebhooksOnMessageUpdatedUrl != nil {
+        data.Set("Webhooks.OnMessageUpdated.Url", *params.WebhooksOnMessageUpdatedUrl)
+    }
+    if params != nil && params.WebhooksOnMessageUpdatedMethod != nil {
+        data.Set("Webhooks.OnMessageUpdated.Method", *params.WebhooksOnMessageUpdatedMethod)
+    }
+    if params != nil && params.WebhooksOnMessageRemovedUrl != nil {
+        data.Set("Webhooks.OnMessageRemoved.Url", *params.WebhooksOnMessageRemovedUrl)
+    }
+    if params != nil && params.WebhooksOnMessageRemovedMethod != nil {
+        data.Set("Webhooks.OnMessageRemoved.Method", *params.WebhooksOnMessageRemovedMethod)
+    }
+    if params != nil && params.WebhooksOnChannelAddedUrl != nil {
+        data.Set("Webhooks.OnChannelAdded.Url", *params.WebhooksOnChannelAddedUrl)
+    }
+    if params != nil && params.WebhooksOnChannelAddedMethod != nil {
+        data.Set("Webhooks.OnChannelAdded.Method", *params.WebhooksOnChannelAddedMethod)
+    }
+    if params != nil && params.WebhooksOnChannelDestroyedUrl != nil {
+        data.Set("Webhooks.OnChannelDestroyed.Url", *params.WebhooksOnChannelDestroyedUrl)
+    }
+    if params != nil && params.WebhooksOnChannelDestroyedMethod != nil {
+        data.Set("Webhooks.OnChannelDestroyed.Method", *params.WebhooksOnChannelDestroyedMethod)
+    }
+    if params != nil && params.WebhooksOnChannelUpdatedUrl != nil {
+        data.Set("Webhooks.OnChannelUpdated.Url", *params.WebhooksOnChannelUpdatedUrl)
+    }
+    if params != nil && params.WebhooksOnChannelUpdatedMethod != nil {
+        data.Set("Webhooks.OnChannelUpdated.Method", *params.WebhooksOnChannelUpdatedMethod)
+    }
+    if params != nil && params.WebhooksOnMemberAddedUrl != nil {
+        data.Set("Webhooks.OnMemberAdded.Url", *params.WebhooksOnMemberAddedUrl)
+    }
+    if params != nil && params.WebhooksOnMemberAddedMethod != nil {
+        data.Set("Webhooks.OnMemberAdded.Method", *params.WebhooksOnMemberAddedMethod)
+    }
+    if params != nil && params.WebhooksOnMemberRemovedUrl != nil {
+        data.Set("Webhooks.OnMemberRemoved.Url", *params.WebhooksOnMemberRemovedUrl)
+    }
+    if params != nil && params.WebhooksOnMemberRemovedMethod != nil {
+        data.Set("Webhooks.OnMemberRemoved.Method", *params.WebhooksOnMemberRemovedMethod)
+    }
+    if params != nil && params.LimitsChannelMembers != nil {
+        data.Set("Limits.ChannelMembers", fmt.Sprint(*params.LimitsChannelMembers))
+    }
+    if params != nil && params.LimitsUserChannels != nil {
+        data.Set("Limits.UserChannels", fmt.Sprint(*params.LimitsUserChannels))
+    }
 
 
 

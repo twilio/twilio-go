@@ -33,6 +33,7 @@ func (c *ApiService) FetchServiceConfiguration(ChatServiceSid string, ) (*Conver
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -84,18 +85,19 @@ func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *U
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.DefaultConversationCreatorRoleSid != nil {
-    data.Set("DefaultConversationCreatorRoleSid", *params.DefaultConversationCreatorRoleSid)
-}
-if params != nil && params.DefaultConversationRoleSid != nil {
-    data.Set("DefaultConversationRoleSid", *params.DefaultConversationRoleSid)
-}
-if params != nil && params.DefaultChatServiceRoleSid != nil {
-    data.Set("DefaultChatServiceRoleSid", *params.DefaultChatServiceRoleSid)
-}
-if params != nil && params.ReachabilityEnabled != nil {
-    data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
-}
+
+    if params != nil && params.DefaultConversationCreatorRoleSid != nil {
+        data.Set("DefaultConversationCreatorRoleSid", *params.DefaultConversationCreatorRoleSid)
+    }
+    if params != nil && params.DefaultConversationRoleSid != nil {
+        data.Set("DefaultConversationRoleSid", *params.DefaultConversationRoleSid)
+    }
+    if params != nil && params.DefaultChatServiceRoleSid != nil {
+        data.Set("DefaultChatServiceRoleSid", *params.DefaultChatServiceRoleSid)
+    }
+    if params != nil && params.ReachabilityEnabled != nil {
+        data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
+    }
 
 
 

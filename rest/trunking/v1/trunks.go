@@ -82,30 +82,31 @@ func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, e
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.DomainName != nil {
-    data.Set("DomainName", *params.DomainName)
-}
-if params != nil && params.DisasterRecoveryUrl != nil {
-    data.Set("DisasterRecoveryUrl", *params.DisasterRecoveryUrl)
-}
-if params != nil && params.DisasterRecoveryMethod != nil {
-    data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
-}
-if params != nil && params.TransferMode != nil {
-    data.Set("TransferMode", *params.TransferMode)
-}
-if params != nil && params.Secure != nil {
-    data.Set("Secure", fmt.Sprint(*params.Secure))
-}
-if params != nil && params.CnamLookupEnabled != nil {
-    data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
-}
-if params != nil && params.TransferCallerId != nil {
-    data.Set("TransferCallerId", *params.TransferCallerId)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.DomainName != nil {
+        data.Set("DomainName", *params.DomainName)
+    }
+    if params != nil && params.DisasterRecoveryUrl != nil {
+        data.Set("DisasterRecoveryUrl", *params.DisasterRecoveryUrl)
+    }
+    if params != nil && params.DisasterRecoveryMethod != nil {
+        data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
+    }
+    if params != nil && params.TransferMode != nil {
+        data.Set("TransferMode", *params.TransferMode)
+    }
+    if params != nil && params.Secure != nil {
+        data.Set("Secure", fmt.Sprint(*params.Secure))
+    }
+    if params != nil && params.CnamLookupEnabled != nil {
+        data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
+    }
+    if params != nil && params.TransferCallerId != nil {
+        data.Set("TransferCallerId", *params.TransferCallerId)
+    }
 
 
 
@@ -134,6 +135,7 @@ func (c *ApiService) DeleteTrunk(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -151,6 +153,7 @@ func (c *ApiService) FetchTrunk(Sid string, ) (*TrunkingV1Trunk, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -193,9 +196,10 @@ func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken, pageNumber st
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -367,30 +371,31 @@ func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*Trunki
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.DomainName != nil {
-    data.Set("DomainName", *params.DomainName)
-}
-if params != nil && params.DisasterRecoveryUrl != nil {
-    data.Set("DisasterRecoveryUrl", *params.DisasterRecoveryUrl)
-}
-if params != nil && params.DisasterRecoveryMethod != nil {
-    data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
-}
-if params != nil && params.TransferMode != nil {
-    data.Set("TransferMode", *params.TransferMode)
-}
-if params != nil && params.Secure != nil {
-    data.Set("Secure", fmt.Sprint(*params.Secure))
-}
-if params != nil && params.CnamLookupEnabled != nil {
-    data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
-}
-if params != nil && params.TransferCallerId != nil {
-    data.Set("TransferCallerId", *params.TransferCallerId)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.DomainName != nil {
+        data.Set("DomainName", *params.DomainName)
+    }
+    if params != nil && params.DisasterRecoveryUrl != nil {
+        data.Set("DisasterRecoveryUrl", *params.DisasterRecoveryUrl)
+    }
+    if params != nil && params.DisasterRecoveryMethod != nil {
+        data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
+    }
+    if params != nil && params.TransferMode != nil {
+        data.Set("TransferMode", *params.TransferMode)
+    }
+    if params != nil && params.Secure != nil {
+        data.Set("Secure", fmt.Sprint(*params.Secure))
+    }
+    if params != nil && params.CnamLookupEnabled != nil {
+        data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
+    }
+    if params != nil && params.TransferCallerId != nil {
+        data.Set("TransferCallerId", *params.TransferCallerId)
+    }
 
 
 

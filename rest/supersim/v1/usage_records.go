@@ -95,33 +95,34 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, p
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Sim != nil {
-    data.Set("Sim", *params.Sim)
-}
-if params != nil && params.Fleet != nil {
-    data.Set("Fleet", *params.Fleet)
-}
-if params != nil && params.Network != nil {
-    data.Set("Network", *params.Network)
-}
-if params != nil && params.IsoCountry != nil {
-    data.Set("IsoCountry", *params.IsoCountry)
-}
-if params != nil && params.Group != nil {
-    data.Set("Group", *params.Group)
-}
-if params != nil && params.Granularity != nil {
-    data.Set("Granularity", *params.Granularity)
-}
-if params != nil && params.StartTime != nil {
-    data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
-}
-if params != nil && params.EndTime != nil {
-    data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Sim != nil {
+        data.Set("Sim", *params.Sim)
+    }
+    if params != nil && params.Fleet != nil {
+        data.Set("Fleet", *params.Fleet)
+    }
+    if params != nil && params.Network != nil {
+        data.Set("Network", *params.Network)
+    }
+    if params != nil && params.IsoCountry != nil {
+        data.Set("IsoCountry", *params.IsoCountry)
+    }
+    if params != nil && params.Group != nil {
+        data.Set("Group", *params.Group)
+    }
+    if params != nil && params.Granularity != nil {
+        data.Set("Granularity", *params.Granularity)
+    }
+    if params != nil && params.StartTime != nil {
+        data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
+    }
+    if params != nil && params.EndTime != nil {
+        data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

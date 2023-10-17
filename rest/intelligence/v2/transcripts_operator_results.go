@@ -42,9 +42,10 @@ func (c *ApiService) FetchOperatorResult(TranscriptSid string, OperatorSid strin
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Redacted != nil {
-    data.Set("Redacted", fmt.Sprint(*params.Redacted))
-}
+
+    if params != nil && params.Redacted != nil {
+        data.Set("Redacted", fmt.Sprint(*params.Redacted))
+    }
 
 
 
@@ -94,12 +95,13 @@ func (c *ApiService) PageOperatorResult(TranscriptSid string, params *ListOperat
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Redacted != nil {
-    data.Set("Redacted", fmt.Sprint(*params.Redacted))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Redacted != nil {
+        data.Set("Redacted", fmt.Sprint(*params.Redacted))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

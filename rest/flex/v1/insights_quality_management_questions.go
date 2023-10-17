@@ -70,21 +70,22 @@ func (c *ApiService) CreateInsightsQuestionnairesQuestion(params *CreateInsights
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.CategorySid != nil {
-    data.Set("CategorySid", *params.CategorySid)
-}
-if params != nil && params.Question != nil {
-    data.Set("Question", *params.Question)
-}
-if params != nil && params.AnswerSetId != nil {
-    data.Set("AnswerSetId", *params.AnswerSetId)
-}
-if params != nil && params.AllowNa != nil {
-    data.Set("AllowNa", fmt.Sprint(*params.AllowNa))
-}
-if params != nil && params.Description != nil {
-    data.Set("Description", *params.Description)
-}
+
+    if params != nil && params.CategorySid != nil {
+        data.Set("CategorySid", *params.CategorySid)
+    }
+    if params != nil && params.Question != nil {
+        data.Set("Question", *params.Question)
+    }
+    if params != nil && params.AnswerSetId != nil {
+        data.Set("AnswerSetId", *params.AnswerSetId)
+    }
+    if params != nil && params.AllowNa != nil {
+        data.Set("AllowNa", fmt.Sprint(*params.AllowNa))
+    }
+    if params != nil && params.Description != nil {
+        data.Set("Description", *params.Description)
+    }
 
 
 	if params != nil && params.Authorization != nil {
@@ -124,6 +125,7 @@ func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 	if params != nil && params.Authorization != nil {
@@ -176,14 +178,15 @@ func (c *ApiService) PageInsightsQuestionnairesQuestion(params *ListInsightsQues
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.CategorySid != nil {
-    for _, item  := range *params.CategorySid {
-        data.Add("CategorySid", item)
+
+    if params != nil && params.CategorySid != nil {
+        for _, item  := range *params.CategorySid {
+            data.Add("CategorySid", item)
     }
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -343,21 +346,22 @@ func (c *ApiService) UpdateInsightsQuestionnairesQuestion(QuestionSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AllowNa != nil {
-    data.Set("AllowNa", fmt.Sprint(*params.AllowNa))
-}
-if params != nil && params.CategorySid != nil {
-    data.Set("CategorySid", *params.CategorySid)
-}
-if params != nil && params.Question != nil {
-    data.Set("Question", *params.Question)
-}
-if params != nil && params.Description != nil {
-    data.Set("Description", *params.Description)
-}
-if params != nil && params.AnswerSetId != nil {
-    data.Set("AnswerSetId", *params.AnswerSetId)
-}
+
+    if params != nil && params.AllowNa != nil {
+        data.Set("AllowNa", fmt.Sprint(*params.AllowNa))
+    }
+    if params != nil && params.CategorySid != nil {
+        data.Set("CategorySid", *params.CategorySid)
+    }
+    if params != nil && params.Question != nil {
+        data.Set("Question", *params.Question)
+    }
+    if params != nil && params.Description != nil {
+        data.Set("Description", *params.Description)
+    }
+    if params != nil && params.AnswerSetId != nil {
+        data.Set("AnswerSetId", *params.AnswerSetId)
+    }
 
 
 	if params != nil && params.Authorization != nil {

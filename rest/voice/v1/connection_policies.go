@@ -40,9 +40,10 @@ func (c *ApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 
@@ -71,6 +72,7 @@ func (c *ApiService) DeleteConnectionPolicy(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -88,6 +90,7 @@ func (c *ApiService) FetchConnectionPolicy(Sid string, ) (*VoiceV1ConnectionPoli
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -130,9 +133,10 @@ func (c *ApiService) PageConnectionPolicy(params *ListConnectionPolicyParams, pa
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -262,9 +266,10 @@ func (c *ApiService) UpdateConnectionPolicy(Sid string, params *UpdateConnection
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 

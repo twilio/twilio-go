@@ -41,9 +41,10 @@ func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeP
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ShortCodeSid != nil {
-    data.Set("ShortCodeSid", *params.ShortCodeSid)
-}
+
+    if params != nil && params.ShortCodeSid != nil {
+        data.Set("ShortCodeSid", *params.ShortCodeSid)
+    }
 
 
 
@@ -73,6 +74,7 @@ func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -91,6 +93,7 @@ func (c *ApiService) FetchShortCode(ServiceSid string, Sid string, ) (*Messaging
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -134,9 +137,10 @@ func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

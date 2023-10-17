@@ -48,12 +48,13 @@ func (c *ApiService) FetchConferenceParticipant(ConferenceSid string, Participan
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Events != nil {
-    data.Set("Events", *params.Events)
-}
-if params != nil && params.Metrics != nil {
-    data.Set("Metrics", *params.Metrics)
-}
+
+    if params != nil && params.Events != nil {
+        data.Set("Events", *params.Events)
+    }
+    if params != nil && params.Metrics != nil {
+        data.Set("Metrics", *params.Metrics)
+    }
 
 
 
@@ -115,18 +116,19 @@ func (c *ApiService) PageConferenceParticipant(ConferenceSid string, params *Lis
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ParticipantSid != nil {
-    data.Set("ParticipantSid", *params.ParticipantSid)
-}
-if params != nil && params.Label != nil {
-    data.Set("Label", *params.Label)
-}
-if params != nil && params.Events != nil {
-    data.Set("Events", *params.Events)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.ParticipantSid != nil {
+        data.Set("ParticipantSid", *params.ParticipantSid)
+    }
+    if params != nil && params.Label != nil {
+        data.Set("Label", *params.Label)
+    }
+    if params != nil && params.Events != nil {
+        data.Set("Events", *params.Events)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

@@ -51,9 +51,10 @@ func (c *ApiService) CreateNewSigningKey(params *CreateNewSigningKeyParams) (*Ap
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 
@@ -98,6 +99,7 @@ func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -131,6 +133,7 @@ func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -184,9 +187,10 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pag
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -327,9 +331,10 @@ func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 

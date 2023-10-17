@@ -48,12 +48,13 @@ func (c *ApiService) CreateField(AssistantSid string, TaskSid string, params *Cr
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FieldType != nil {
-    data.Set("FieldType", *params.FieldType)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
+
+    if params != nil && params.FieldType != nil {
+        data.Set("FieldType", *params.FieldType)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
 
 
 
@@ -84,6 +85,7 @@ func (c *ApiService) DeleteField(AssistantSid string, TaskSid string, Sid string
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -103,6 +105,7 @@ func (c *ApiService) FetchField(AssistantSid string, TaskSid string, Sid string,
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -147,9 +150,10 @@ func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *List
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

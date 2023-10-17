@@ -52,21 +52,22 @@ func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error)
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Description != nil {
-    data.Set("Description", *params.Description)
-}
-if params != nil && params.SinkConfiguration != nil {
-    v, err := json.Marshal(params.SinkConfiguration)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Description != nil {
+        data.Set("Description", *params.Description)
     }
+    if params != nil && params.SinkConfiguration != nil {
+        v, err := json.Marshal(params.SinkConfiguration)
 
-    data.Set("SinkConfiguration", string(v))
-}
-if params != nil && params.SinkType != nil {
-    data.Set("SinkType", *params.SinkType)
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("SinkConfiguration", string(v))
+    }
+    if params != nil && params.SinkType != nil {
+        data.Set("SinkType", *params.SinkType)
+    }
 
 
 
@@ -95,6 +96,7 @@ func (c *ApiService) DeleteSink(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -112,6 +114,7 @@ func (c *ApiService) FetchSink(Sid string, ) (*EventsV1Sink, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -166,15 +169,16 @@ func (c *ApiService) PageSink(params *ListSinkParams, pageToken, pageNumber stri
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.InUse != nil {
-    data.Set("InUse", fmt.Sprint(*params.InUse))
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.InUse != nil {
+        data.Set("InUse", fmt.Sprint(*params.InUse))
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -304,9 +308,10 @@ func (c *ApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*EventsV1
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Description != nil {
-    data.Set("Description", *params.Description)
-}
+
+    if params != nil && params.Description != nil {
+        data.Set("Description", *params.Description)
+    }
 
 
 

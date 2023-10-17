@@ -42,6 +42,7 @@ func (c *ApiService) FetchInsightsSettingsComment(params *FetchInsightsSettingsC
     headers := make(map[string]interface{})
 
 
+
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}

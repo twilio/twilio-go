@@ -41,9 +41,10 @@ func (c *ApiService) FetchWorkersRealTimeStatistics(WorkspaceSid string, params 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.TaskChannel != nil {
-    data.Set("TaskChannel", *params.TaskChannel)
-}
+
+    if params != nil && params.TaskChannel != nil {
+        data.Set("TaskChannel", *params.TaskChannel)
+    }
 
 
 

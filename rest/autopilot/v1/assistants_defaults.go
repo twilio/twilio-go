@@ -33,6 +33,7 @@ func (c *ApiService) FetchDefaults(AssistantSid string, ) (*AutopilotV1Defaults,
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -66,15 +67,16 @@ func (c *ApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsP
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Defaults != nil {
-    v, err := json.Marshal(params.Defaults)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Defaults != nil {
+        v, err := json.Marshal(params.Defaults)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Defaults", string(v))
     }
-
-    data.Set("Defaults", string(v))
-}
 
 
 

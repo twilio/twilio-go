@@ -33,6 +33,7 @@ func (c *ApiService) FetchDevice(Sid string, ) (*MicrovisorV1Device, error) {
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -72,9 +73,10 @@ func (c *ApiService) PageDevice(params *ListDeviceParams, pageToken, pageNumber 
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -222,18 +224,19 @@ func (c *ApiService) UpdateDevice(Sid string, params *UpdateDeviceParams) (*Micr
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.TargetApp != nil {
-    data.Set("TargetApp", *params.TargetApp)
-}
-if params != nil && params.LoggingEnabled != nil {
-    data.Set("LoggingEnabled", fmt.Sprint(*params.LoggingEnabled))
-}
-if params != nil && params.RestartApp != nil {
-    data.Set("RestartApp", fmt.Sprint(*params.RestartApp))
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.TargetApp != nil {
+        data.Set("TargetApp", *params.TargetApp)
+    }
+    if params != nil && params.LoggingEnabled != nil {
+        data.Set("LoggingEnabled", fmt.Sprint(*params.LoggingEnabled))
+    }
+    if params != nil && params.RestartApp != nil {
+        data.Set("RestartApp", fmt.Sprint(*params.RestartApp))
+    }
 
 
 

@@ -42,15 +42,16 @@ func (c *ApiService) CreateInteractionChannelInvite(InteractionSid string, Chann
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Routing != nil {
-    v, err := json.Marshal(params.Routing)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Routing != nil {
+        v, err := json.Marshal(params.Routing)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Routing", string(v))
     }
-
-    data.Set("Routing", string(v))
-}
 
 
 
@@ -95,9 +96,10 @@ func (c *ApiService) PageInteractionChannelInvite(InteractionSid string, Channel
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

@@ -40,9 +40,10 @@ func (c *ApiService) FetchDeactivation(params *FetchDeactivationParams) (*Messag
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Date != nil {
-    data.Set("Date", fmt.Sprint(*params.Date))
-}
+
+    if params != nil && params.Date != nil {
+        data.Set("Date", fmt.Sprint(*params.Date))
+    }
 
 
 

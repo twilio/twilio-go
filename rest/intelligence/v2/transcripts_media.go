@@ -41,9 +41,10 @@ func (c *ApiService) FetchMedia(Sid string, params *FetchMediaParams) (*Intellig
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Redacted != nil {
-    data.Set("Redacted", fmt.Sprint(*params.Redacted))
-}
+
+    if params != nil && params.Redacted != nil {
+        data.Set("Redacted", fmt.Sprint(*params.Redacted))
+    }
 
 
 

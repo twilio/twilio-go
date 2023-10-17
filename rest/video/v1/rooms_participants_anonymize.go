@@ -34,6 +34,7 @@ func (c *ApiService) UpdateRoomParticipantAnonymize(RoomSid string, Sid string, 
 
 
 
+
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err

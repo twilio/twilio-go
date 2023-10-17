@@ -47,12 +47,13 @@ func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBu
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
+
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
 
 
 
@@ -82,6 +83,7 @@ func (c *ApiService) DeleteModelBuild(AssistantSid string, Sid string, ) (error)
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -100,6 +102,7 @@ func (c *ApiService) FetchModelBuild(AssistantSid string, Sid string, ) (*Autopi
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -143,9 +146,10 @@ func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildP
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -276,9 +280,10 @@ func (c *ApiService) UpdateModelBuild(AssistantSid string, Sid string, params *U
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
 
 
 

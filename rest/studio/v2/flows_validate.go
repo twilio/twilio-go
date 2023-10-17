@@ -58,24 +58,25 @@ func (c *ApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*Stud
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Definition != nil {
-    v, err := json.Marshal(params.Definition)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Definition != nil {
+        v, err := json.Marshal(params.Definition)
 
-    data.Set("Definition", string(v))
-}
-if params != nil && params.CommitMessage != nil {
-    data.Set("CommitMessage", *params.CommitMessage)
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Definition", string(v))
+    }
+    if params != nil && params.CommitMessage != nil {
+        data.Set("CommitMessage", *params.CommitMessage)
+    }
 
 
 

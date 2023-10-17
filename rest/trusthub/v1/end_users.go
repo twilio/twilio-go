@@ -52,21 +52,22 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*TrusthubV1EndU
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.Attributes != nil {
-    v, err := json.Marshal(params.Attributes)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
+    }
+    if params != nil && params.Attributes != nil {
+        v, err := json.Marshal(params.Attributes)
 
-    data.Set("Attributes", string(v))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Attributes", string(v))
+    }
 
 
 
@@ -95,6 +96,7 @@ func (c *ApiService) DeleteEndUser(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -112,6 +114,7 @@ func (c *ApiService) FetchEndUser(Sid string, ) (*TrusthubV1EndUser, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -154,9 +157,10 @@ func (c *ApiService) PageEndUser(params *ListEndUserParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -292,18 +296,19 @@ func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*Tr
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Attributes != nil {
-    v, err := json.Marshal(params.Attributes)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
+    if params != nil && params.Attributes != nil {
+        v, err := json.Marshal(params.Attributes)
 
-    data.Set("Attributes", string(v))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Attributes", string(v))
+    }
 
 
 

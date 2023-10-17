@@ -33,6 +33,7 @@ func (c *ApiService) FetchServiceNotification(ChatServiceSid string, ) (*Convers
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -138,45 +139,46 @@ func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *Up
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.LogEnabled != nil {
-    data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled))
-}
-if params != nil && params.NewMessageEnabled != nil {
-    data.Set("NewMessage.Enabled", fmt.Sprint(*params.NewMessageEnabled))
-}
-if params != nil && params.NewMessageTemplate != nil {
-    data.Set("NewMessage.Template", *params.NewMessageTemplate)
-}
-if params != nil && params.NewMessageSound != nil {
-    data.Set("NewMessage.Sound", *params.NewMessageSound)
-}
-if params != nil && params.NewMessageBadgeCountEnabled != nil {
-    data.Set("NewMessage.BadgeCountEnabled", fmt.Sprint(*params.NewMessageBadgeCountEnabled))
-}
-if params != nil && params.AddedToConversationEnabled != nil {
-    data.Set("AddedToConversation.Enabled", fmt.Sprint(*params.AddedToConversationEnabled))
-}
-if params != nil && params.AddedToConversationTemplate != nil {
-    data.Set("AddedToConversation.Template", *params.AddedToConversationTemplate)
-}
-if params != nil && params.AddedToConversationSound != nil {
-    data.Set("AddedToConversation.Sound", *params.AddedToConversationSound)
-}
-if params != nil && params.RemovedFromConversationEnabled != nil {
-    data.Set("RemovedFromConversation.Enabled", fmt.Sprint(*params.RemovedFromConversationEnabled))
-}
-if params != nil && params.RemovedFromConversationTemplate != nil {
-    data.Set("RemovedFromConversation.Template", *params.RemovedFromConversationTemplate)
-}
-if params != nil && params.RemovedFromConversationSound != nil {
-    data.Set("RemovedFromConversation.Sound", *params.RemovedFromConversationSound)
-}
-if params != nil && params.NewMessageWithMediaEnabled != nil {
-    data.Set("NewMessage.WithMedia.Enabled", fmt.Sprint(*params.NewMessageWithMediaEnabled))
-}
-if params != nil && params.NewMessageWithMediaTemplate != nil {
-    data.Set("NewMessage.WithMedia.Template", *params.NewMessageWithMediaTemplate)
-}
+
+    if params != nil && params.LogEnabled != nil {
+        data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled))
+    }
+    if params != nil && params.NewMessageEnabled != nil {
+        data.Set("NewMessage.Enabled", fmt.Sprint(*params.NewMessageEnabled))
+    }
+    if params != nil && params.NewMessageTemplate != nil {
+        data.Set("NewMessage.Template", *params.NewMessageTemplate)
+    }
+    if params != nil && params.NewMessageSound != nil {
+        data.Set("NewMessage.Sound", *params.NewMessageSound)
+    }
+    if params != nil && params.NewMessageBadgeCountEnabled != nil {
+        data.Set("NewMessage.BadgeCountEnabled", fmt.Sprint(*params.NewMessageBadgeCountEnabled))
+    }
+    if params != nil && params.AddedToConversationEnabled != nil {
+        data.Set("AddedToConversation.Enabled", fmt.Sprint(*params.AddedToConversationEnabled))
+    }
+    if params != nil && params.AddedToConversationTemplate != nil {
+        data.Set("AddedToConversation.Template", *params.AddedToConversationTemplate)
+    }
+    if params != nil && params.AddedToConversationSound != nil {
+        data.Set("AddedToConversation.Sound", *params.AddedToConversationSound)
+    }
+    if params != nil && params.RemovedFromConversationEnabled != nil {
+        data.Set("RemovedFromConversation.Enabled", fmt.Sprint(*params.RemovedFromConversationEnabled))
+    }
+    if params != nil && params.RemovedFromConversationTemplate != nil {
+        data.Set("RemovedFromConversation.Template", *params.RemovedFromConversationTemplate)
+    }
+    if params != nil && params.RemovedFromConversationSound != nil {
+        data.Set("RemovedFromConversation.Sound", *params.RemovedFromConversationSound)
+    }
+    if params != nil && params.NewMessageWithMediaEnabled != nil {
+        data.Set("NewMessage.WithMedia.Enabled", fmt.Sprint(*params.NewMessageWithMediaEnabled))
+    }
+    if params != nil && params.NewMessageWithMediaTemplate != nil {
+        data.Set("NewMessage.WithMedia.Template", *params.NewMessageWithMediaTemplate)
+    }
 
 
 

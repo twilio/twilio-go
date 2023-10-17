@@ -33,6 +33,7 @@ func (c *ApiService) FetchAlert(Sid string, ) (*MonitorV1AlertInstance, error) {
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -90,18 +91,19 @@ func (c *ApiService) PageAlert(params *ListAlertParams, pageToken, pageNumber st
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.LogLevel != nil {
-    data.Set("LogLevel", *params.LogLevel)
-}
-if params != nil && params.StartDate != nil {
-    data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
-}
-if params != nil && params.EndDate != nil {
-    data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.LogLevel != nil {
+        data.Set("LogLevel", *params.LogLevel)
+    }
+    if params != nil && params.StartDate != nil {
+        data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+    }
+    if params != nil && params.EndDate != nil {
+        data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

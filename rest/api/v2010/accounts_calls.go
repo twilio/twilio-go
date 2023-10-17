@@ -255,115 +255,116 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.To != nil {
-    data.Set("To", *params.To)
-}
-if params != nil && params.From != nil {
-    data.Set("From", *params.From)
-}
-if params != nil && params.Method != nil {
-    data.Set("Method", *params.Method)
-}
-if params != nil && params.FallbackUrl != nil {
-    data.Set("FallbackUrl", *params.FallbackUrl)
-}
-if params != nil && params.FallbackMethod != nil {
-    data.Set("FallbackMethod", *params.FallbackMethod)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackEvent != nil {
-    for _, item  := range *params.StatusCallbackEvent {
-        data.Add("StatusCallbackEvent", item)
+
+    if params != nil && params.To != nil {
+        data.Set("To", *params.To)
     }
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.SendDigits != nil {
-    data.Set("SendDigits", *params.SendDigits)
-}
-if params != nil && params.Timeout != nil {
-    data.Set("Timeout", fmt.Sprint(*params.Timeout))
-}
-if params != nil && params.Record != nil {
-    data.Set("Record", fmt.Sprint(*params.Record))
-}
-if params != nil && params.RecordingChannels != nil {
-    data.Set("RecordingChannels", *params.RecordingChannels)
-}
-if params != nil && params.RecordingStatusCallback != nil {
-    data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
-}
-if params != nil && params.RecordingStatusCallbackMethod != nil {
-    data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
-}
-if params != nil && params.SipAuthUsername != nil {
-    data.Set("SipAuthUsername", *params.SipAuthUsername)
-}
-if params != nil && params.SipAuthPassword != nil {
-    data.Set("SipAuthPassword", *params.SipAuthPassword)
-}
-if params != nil && params.MachineDetection != nil {
-    data.Set("MachineDetection", *params.MachineDetection)
-}
-if params != nil && params.MachineDetectionTimeout != nil {
-    data.Set("MachineDetectionTimeout", fmt.Sprint(*params.MachineDetectionTimeout))
-}
-if params != nil && params.RecordingStatusCallbackEvent != nil {
-    for _, item  := range *params.RecordingStatusCallbackEvent {
-        data.Add("RecordingStatusCallbackEvent", item)
+    if params != nil && params.From != nil {
+        data.Set("From", *params.From)
     }
-}
-if params != nil && params.Trim != nil {
-    data.Set("Trim", *params.Trim)
-}
-if params != nil && params.CallerId != nil {
-    data.Set("CallerId", *params.CallerId)
-}
-if params != nil && params.MachineDetectionSpeechThreshold != nil {
-    data.Set("MachineDetectionSpeechThreshold", fmt.Sprint(*params.MachineDetectionSpeechThreshold))
-}
-if params != nil && params.MachineDetectionSpeechEndThreshold != nil {
-    data.Set("MachineDetectionSpeechEndThreshold", fmt.Sprint(*params.MachineDetectionSpeechEndThreshold))
-}
-if params != nil && params.MachineDetectionSilenceTimeout != nil {
-    data.Set("MachineDetectionSilenceTimeout", fmt.Sprint(*params.MachineDetectionSilenceTimeout))
-}
-if params != nil && params.AsyncAmd != nil {
-    data.Set("AsyncAmd", *params.AsyncAmd)
-}
-if params != nil && params.AsyncAmdStatusCallback != nil {
-    data.Set("AsyncAmdStatusCallback", *params.AsyncAmdStatusCallback)
-}
-if params != nil && params.AsyncAmdStatusCallbackMethod != nil {
-    data.Set("AsyncAmdStatusCallbackMethod", *params.AsyncAmdStatusCallbackMethod)
-}
-if params != nil && params.Byoc != nil {
-    data.Set("Byoc", *params.Byoc)
-}
-if params != nil && params.CallReason != nil {
-    data.Set("CallReason", *params.CallReason)
-}
-if params != nil && params.CallToken != nil {
-    data.Set("CallToken", *params.CallToken)
-}
-if params != nil && params.RecordingTrack != nil {
-    data.Set("RecordingTrack", *params.RecordingTrack)
-}
-if params != nil && params.TimeLimit != nil {
-    data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
-}
-if params != nil && params.Url != nil {
-    data.Set("Url", *params.Url)
-}
-if params != nil && params.Twiml != nil {
-    data.Set("Twiml", *params.Twiml)
-}
-if params != nil && params.ApplicationSid != nil {
-    data.Set("ApplicationSid", *params.ApplicationSid)
-}
+    if params != nil && params.Method != nil {
+        data.Set("Method", *params.Method)
+    }
+    if params != nil && params.FallbackUrl != nil {
+        data.Set("FallbackUrl", *params.FallbackUrl)
+    }
+    if params != nil && params.FallbackMethod != nil {
+        data.Set("FallbackMethod", *params.FallbackMethod)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackEvent != nil {
+        for _, item  := range *params.StatusCallbackEvent {
+            data.Add("StatusCallbackEvent", item)
+    }
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.SendDigits != nil {
+        data.Set("SendDigits", *params.SendDigits)
+    }
+    if params != nil && params.Timeout != nil {
+        data.Set("Timeout", fmt.Sprint(*params.Timeout))
+    }
+    if params != nil && params.Record != nil {
+        data.Set("Record", fmt.Sprint(*params.Record))
+    }
+    if params != nil && params.RecordingChannels != nil {
+        data.Set("RecordingChannels", *params.RecordingChannels)
+    }
+    if params != nil && params.RecordingStatusCallback != nil {
+        data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+    }
+    if params != nil && params.RecordingStatusCallbackMethod != nil {
+        data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+    }
+    if params != nil && params.SipAuthUsername != nil {
+        data.Set("SipAuthUsername", *params.SipAuthUsername)
+    }
+    if params != nil && params.SipAuthPassword != nil {
+        data.Set("SipAuthPassword", *params.SipAuthPassword)
+    }
+    if params != nil && params.MachineDetection != nil {
+        data.Set("MachineDetection", *params.MachineDetection)
+    }
+    if params != nil && params.MachineDetectionTimeout != nil {
+        data.Set("MachineDetectionTimeout", fmt.Sprint(*params.MachineDetectionTimeout))
+    }
+    if params != nil && params.RecordingStatusCallbackEvent != nil {
+        for _, item  := range *params.RecordingStatusCallbackEvent {
+            data.Add("RecordingStatusCallbackEvent", item)
+    }
+    }
+    if params != nil && params.Trim != nil {
+        data.Set("Trim", *params.Trim)
+    }
+    if params != nil && params.CallerId != nil {
+        data.Set("CallerId", *params.CallerId)
+    }
+    if params != nil && params.MachineDetectionSpeechThreshold != nil {
+        data.Set("MachineDetectionSpeechThreshold", fmt.Sprint(*params.MachineDetectionSpeechThreshold))
+    }
+    if params != nil && params.MachineDetectionSpeechEndThreshold != nil {
+        data.Set("MachineDetectionSpeechEndThreshold", fmt.Sprint(*params.MachineDetectionSpeechEndThreshold))
+    }
+    if params != nil && params.MachineDetectionSilenceTimeout != nil {
+        data.Set("MachineDetectionSilenceTimeout", fmt.Sprint(*params.MachineDetectionSilenceTimeout))
+    }
+    if params != nil && params.AsyncAmd != nil {
+        data.Set("AsyncAmd", *params.AsyncAmd)
+    }
+    if params != nil && params.AsyncAmdStatusCallback != nil {
+        data.Set("AsyncAmdStatusCallback", *params.AsyncAmdStatusCallback)
+    }
+    if params != nil && params.AsyncAmdStatusCallbackMethod != nil {
+        data.Set("AsyncAmdStatusCallbackMethod", *params.AsyncAmdStatusCallbackMethod)
+    }
+    if params != nil && params.Byoc != nil {
+        data.Set("Byoc", *params.Byoc)
+    }
+    if params != nil && params.CallReason != nil {
+        data.Set("CallReason", *params.CallReason)
+    }
+    if params != nil && params.CallToken != nil {
+        data.Set("CallToken", *params.CallToken)
+    }
+    if params != nil && params.RecordingTrack != nil {
+        data.Set("RecordingTrack", *params.RecordingTrack)
+    }
+    if params != nil && params.TimeLimit != nil {
+        data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+    }
+    if params != nil && params.Url != nil {
+        data.Set("Url", *params.Url)
+    }
+    if params != nil && params.Twiml != nil {
+        data.Set("Twiml", *params.Twiml)
+    }
+    if params != nil && params.ApplicationSid != nil {
+        data.Set("ApplicationSid", *params.ApplicationSid)
+    }
 
 
 
@@ -408,6 +409,7 @@ func (c *ApiService) DeleteCall(Sid string, params *DeleteCallParams) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -441,6 +443,7 @@ func (c *ApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010Ca
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -530,27 +533,28 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber stri
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.To != nil {
-    data.Set("To", *params.To)
-}
-if params != nil && params.From != nil {
-    data.Set("From", *params.From)
-}
-if params != nil && params.ParentCallSid != nil {
-    data.Set("ParentCallSid", *params.ParentCallSid)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.StartTime != nil {
-    data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
-}
-if params != nil && params.EndTime != nil {
-    data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.To != nil {
+        data.Set("To", *params.To)
+    }
+    if params != nil && params.From != nil {
+        data.Set("From", *params.From)
+    }
+    if params != nil && params.ParentCallSid != nil {
+        data.Set("ParentCallSid", *params.ParentCallSid)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.StartTime != nil {
+        data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
+    }
+    if params != nil && params.EndTime != nil {
+        data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -739,33 +743,34 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Url != nil {
-    data.Set("Url", *params.Url)
-}
-if params != nil && params.Method != nil {
-    data.Set("Method", *params.Method)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.FallbackUrl != nil {
-    data.Set("FallbackUrl", *params.FallbackUrl)
-}
-if params != nil && params.FallbackMethod != nil {
-    data.Set("FallbackMethod", *params.FallbackMethod)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.Twiml != nil {
-    data.Set("Twiml", *params.Twiml)
-}
-if params != nil && params.TimeLimit != nil {
-    data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
-}
+
+    if params != nil && params.Url != nil {
+        data.Set("Url", *params.Url)
+    }
+    if params != nil && params.Method != nil {
+        data.Set("Method", *params.Method)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.FallbackUrl != nil {
+        data.Set("FallbackUrl", *params.FallbackUrl)
+    }
+    if params != nil && params.FallbackMethod != nil {
+        data.Set("FallbackMethod", *params.FallbackMethod)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.Twiml != nil {
+        data.Set("Twiml", *params.Twiml)
+    }
+    if params != nil && params.TimeLimit != nil {
+        data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+    }
 
 
 

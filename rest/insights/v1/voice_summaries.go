@@ -191,81 +191,82 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.From != nil {
-    data.Set("From", *params.From)
-}
-if params != nil && params.To != nil {
-    data.Set("To", *params.To)
-}
-if params != nil && params.FromCarrier != nil {
-    data.Set("FromCarrier", *params.FromCarrier)
-}
-if params != nil && params.ToCarrier != nil {
-    data.Set("ToCarrier", *params.ToCarrier)
-}
-if params != nil && params.FromCountryCode != nil {
-    data.Set("FromCountryCode", *params.FromCountryCode)
-}
-if params != nil && params.ToCountryCode != nil {
-    data.Set("ToCountryCode", *params.ToCountryCode)
-}
-if params != nil && params.Branded != nil {
-    data.Set("Branded", fmt.Sprint(*params.Branded))
-}
-if params != nil && params.VerifiedCaller != nil {
-    data.Set("VerifiedCaller", fmt.Sprint(*params.VerifiedCaller))
-}
-if params != nil && params.HasTag != nil {
-    data.Set("HasTag", fmt.Sprint(*params.HasTag))
-}
-if params != nil && params.StartTime != nil {
-    data.Set("StartTime", *params.StartTime)
-}
-if params != nil && params.EndTime != nil {
-    data.Set("EndTime", *params.EndTime)
-}
-if params != nil && params.CallType != nil {
-    data.Set("CallType", *params.CallType)
-}
-if params != nil && params.CallState != nil {
-    data.Set("CallState", *params.CallState)
-}
-if params != nil && params.Direction != nil {
-    data.Set("Direction", *params.Direction)
-}
-if params != nil && params.ProcessingState != nil {
-    data.Set("ProcessingState", *params.ProcessingState)
-}
-if params != nil && params.SortBy != nil {
-    data.Set("SortBy", *params.SortBy)
-}
-if params != nil && params.Subaccount != nil {
-    data.Set("Subaccount", *params.Subaccount)
-}
-if params != nil && params.AbnormalSession != nil {
-    data.Set("AbnormalSession", fmt.Sprint(*params.AbnormalSession))
-}
-if params != nil && params.AnsweredBy != nil {
-    data.Set("AnsweredBy", *params.AnsweredBy)
-}
-if params != nil && params.AnsweredByAnnotation != nil {
-    data.Set("AnsweredByAnnotation", *params.AnsweredByAnnotation)
-}
-if params != nil && params.ConnectivityIssueAnnotation != nil {
-    data.Set("ConnectivityIssueAnnotation", *params.ConnectivityIssueAnnotation)
-}
-if params != nil && params.QualityIssueAnnotation != nil {
-    data.Set("QualityIssueAnnotation", *params.QualityIssueAnnotation)
-}
-if params != nil && params.SpamAnnotation != nil {
-    data.Set("SpamAnnotation", fmt.Sprint(*params.SpamAnnotation))
-}
-if params != nil && params.CallScoreAnnotation != nil {
-    data.Set("CallScoreAnnotation", *params.CallScoreAnnotation)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.From != nil {
+        data.Set("From", *params.From)
+    }
+    if params != nil && params.To != nil {
+        data.Set("To", *params.To)
+    }
+    if params != nil && params.FromCarrier != nil {
+        data.Set("FromCarrier", *params.FromCarrier)
+    }
+    if params != nil && params.ToCarrier != nil {
+        data.Set("ToCarrier", *params.ToCarrier)
+    }
+    if params != nil && params.FromCountryCode != nil {
+        data.Set("FromCountryCode", *params.FromCountryCode)
+    }
+    if params != nil && params.ToCountryCode != nil {
+        data.Set("ToCountryCode", *params.ToCountryCode)
+    }
+    if params != nil && params.Branded != nil {
+        data.Set("Branded", fmt.Sprint(*params.Branded))
+    }
+    if params != nil && params.VerifiedCaller != nil {
+        data.Set("VerifiedCaller", fmt.Sprint(*params.VerifiedCaller))
+    }
+    if params != nil && params.HasTag != nil {
+        data.Set("HasTag", fmt.Sprint(*params.HasTag))
+    }
+    if params != nil && params.StartTime != nil {
+        data.Set("StartTime", *params.StartTime)
+    }
+    if params != nil && params.EndTime != nil {
+        data.Set("EndTime", *params.EndTime)
+    }
+    if params != nil && params.CallType != nil {
+        data.Set("CallType", *params.CallType)
+    }
+    if params != nil && params.CallState != nil {
+        data.Set("CallState", *params.CallState)
+    }
+    if params != nil && params.Direction != nil {
+        data.Set("Direction", *params.Direction)
+    }
+    if params != nil && params.ProcessingState != nil {
+        data.Set("ProcessingState", *params.ProcessingState)
+    }
+    if params != nil && params.SortBy != nil {
+        data.Set("SortBy", *params.SortBy)
+    }
+    if params != nil && params.Subaccount != nil {
+        data.Set("Subaccount", *params.Subaccount)
+    }
+    if params != nil && params.AbnormalSession != nil {
+        data.Set("AbnormalSession", fmt.Sprint(*params.AbnormalSession))
+    }
+    if params != nil && params.AnsweredBy != nil {
+        data.Set("AnsweredBy", *params.AnsweredBy)
+    }
+    if params != nil && params.AnsweredByAnnotation != nil {
+        data.Set("AnsweredByAnnotation", *params.AnsweredByAnnotation)
+    }
+    if params != nil && params.ConnectivityIssueAnnotation != nil {
+        data.Set("ConnectivityIssueAnnotation", *params.ConnectivityIssueAnnotation)
+    }
+    if params != nil && params.QualityIssueAnnotation != nil {
+        data.Set("QualityIssueAnnotation", *params.QualityIssueAnnotation)
+    }
+    if params != nil && params.SpamAnnotation != nil {
+        data.Set("SpamAnnotation", fmt.Sprint(*params.SpamAnnotation))
+    }
+    if params != nil && params.CallScoreAnnotation != nil {
+        data.Set("CallScoreAnnotation", *params.CallScoreAnnotation)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

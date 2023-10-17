@@ -59,18 +59,19 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
+    }
 
 
 
@@ -100,6 +101,7 @@ func (c *ApiService) DeleteChannel(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -118,6 +120,7 @@ func (c *ApiService) FetchChannel(ServiceSid string, Sid string, ) (*ChatV1Chann
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -167,14 +170,15 @@ func (c *ApiService) PageChannel(ServiceSid string, params *ListChannelParams, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Type != nil {
-    for _, item  := range *params.Type {
-        data.Add("Type", item)
+
+    if params != nil && params.Type != nil {
+        for _, item  := range *params.Type {
+            data.Add("Type", item)
     }
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -317,15 +321,16 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
 
 
 

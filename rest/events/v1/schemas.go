@@ -33,6 +33,7 @@ func (c *ApiService) FetchSchema(Id string, ) (*EventsV1Schema, error) {
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err

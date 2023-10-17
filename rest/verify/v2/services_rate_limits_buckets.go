@@ -48,12 +48,13 @@ func (c *ApiService) CreateBucket(ServiceSid string, RateLimitSid string, params
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Max != nil {
-    data.Set("Max", fmt.Sprint(*params.Max))
-}
-if params != nil && params.Interval != nil {
-    data.Set("Interval", fmt.Sprint(*params.Interval))
-}
+
+    if params != nil && params.Max != nil {
+        data.Set("Max", fmt.Sprint(*params.Max))
+    }
+    if params != nil && params.Interval != nil {
+        data.Set("Interval", fmt.Sprint(*params.Interval))
+    }
 
 
 
@@ -84,6 +85,7 @@ func (c *ApiService) DeleteBucket(ServiceSid string, RateLimitSid string, Sid st
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -103,6 +105,7 @@ func (c *ApiService) FetchBucket(ServiceSid string, RateLimitSid string, Sid str
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -147,9 +150,10 @@ func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -287,12 +291,13 @@ func (c *ApiService) UpdateBucket(ServiceSid string, RateLimitSid string, Sid st
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Max != nil {
-    data.Set("Max", fmt.Sprint(*params.Max))
-}
-if params != nil && params.Interval != nil {
-    data.Set("Interval", fmt.Sprint(*params.Interval))
-}
+
+    if params != nil && params.Max != nil {
+        data.Set("Max", fmt.Sprint(*params.Max))
+    }
+    if params != nil && params.Interval != nil {
+        data.Set("Interval", fmt.Sprint(*params.Interval))
+    }
 
 
 

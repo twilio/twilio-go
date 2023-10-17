@@ -33,6 +33,7 @@ func (c *ApiService) FetchDialingPermissionsCountry(IsoCode string, ) (*VoiceV1D
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -108,27 +109,28 @@ func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermission
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.IsoCode != nil {
-    data.Set("IsoCode", *params.IsoCode)
-}
-if params != nil && params.Continent != nil {
-    data.Set("Continent", *params.Continent)
-}
-if params != nil && params.CountryCode != nil {
-    data.Set("CountryCode", *params.CountryCode)
-}
-if params != nil && params.LowRiskNumbersEnabled != nil {
-    data.Set("LowRiskNumbersEnabled", fmt.Sprint(*params.LowRiskNumbersEnabled))
-}
-if params != nil && params.HighRiskSpecialNumbersEnabled != nil {
-    data.Set("HighRiskSpecialNumbersEnabled", fmt.Sprint(*params.HighRiskSpecialNumbersEnabled))
-}
-if params != nil && params.HighRiskTollfraudNumbersEnabled != nil {
-    data.Set("HighRiskTollfraudNumbersEnabled", fmt.Sprint(*params.HighRiskTollfraudNumbersEnabled))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.IsoCode != nil {
+        data.Set("IsoCode", *params.IsoCode)
+    }
+    if params != nil && params.Continent != nil {
+        data.Set("Continent", *params.Continent)
+    }
+    if params != nil && params.CountryCode != nil {
+        data.Set("CountryCode", *params.CountryCode)
+    }
+    if params != nil && params.LowRiskNumbersEnabled != nil {
+        data.Set("LowRiskNumbersEnabled", fmt.Sprint(*params.LowRiskNumbersEnabled))
+    }
+    if params != nil && params.HighRiskSpecialNumbersEnabled != nil {
+        data.Set("HighRiskSpecialNumbersEnabled", fmt.Sprint(*params.HighRiskSpecialNumbersEnabled))
+    }
+    if params != nil && params.HighRiskTollfraudNumbersEnabled != nil {
+        data.Set("HighRiskTollfraudNumbersEnabled", fmt.Sprint(*params.HighRiskTollfraudNumbersEnabled))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

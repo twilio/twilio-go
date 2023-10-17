@@ -87,27 +87,28 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.TriggerValue != nil {
-    data.Set("TriggerValue", *params.TriggerValue)
-}
-if params != nil && params.UsageCategory != nil {
-    data.Set("UsageCategory", *params.UsageCategory)
-}
-if params != nil && params.CallbackMethod != nil {
-    data.Set("CallbackMethod", *params.CallbackMethod)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Recurring != nil {
-    data.Set("Recurring", *params.Recurring)
-}
-if params != nil && params.TriggerBy != nil {
-    data.Set("TriggerBy", *params.TriggerBy)
-}
+
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.TriggerValue != nil {
+        data.Set("TriggerValue", *params.TriggerValue)
+    }
+    if params != nil && params.UsageCategory != nil {
+        data.Set("UsageCategory", *params.UsageCategory)
+    }
+    if params != nil && params.CallbackMethod != nil {
+        data.Set("CallbackMethod", *params.CallbackMethod)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Recurring != nil {
+        data.Set("Recurring", *params.Recurring)
+    }
+    if params != nil && params.TriggerBy != nil {
+        data.Set("TriggerBy", *params.TriggerBy)
+    }
 
 
 
@@ -152,6 +153,7 @@ func (c *ApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTriggerPa
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -185,6 +187,7 @@ func (c *ApiService) FetchUsageTrigger(Sid string, params *FetchUsageTriggerPara
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -256,18 +259,19 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken,
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Recurring != nil {
-    data.Set("Recurring", *params.Recurring)
-}
-if params != nil && params.TriggerBy != nil {
-    data.Set("TriggerBy", *params.TriggerBy)
-}
-if params != nil && params.UsageCategory != nil {
-    data.Set("UsageCategory", *params.UsageCategory)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Recurring != nil {
+        data.Set("Recurring", *params.Recurring)
+    }
+    if params != nil && params.TriggerBy != nil {
+        data.Set("TriggerBy", *params.TriggerBy)
+    }
+    if params != nil && params.UsageCategory != nil {
+        data.Set("UsageCategory", *params.UsageCategory)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -420,15 +424,16 @@ func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerPa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.CallbackMethod != nil {
-    data.Set("CallbackMethod", *params.CallbackMethod)
-}
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.CallbackMethod != nil {
+        data.Set("CallbackMethod", *params.CallbackMethod)
+    }
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 

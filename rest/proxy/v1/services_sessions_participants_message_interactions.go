@@ -49,14 +49,15 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Body != nil {
-    data.Set("Body", *params.Body)
-}
-if params != nil && params.MediaUrl != nil {
-    for _, item  := range *params.MediaUrl {
-        data.Add("MediaUrl", item)
+
+    if params != nil && params.Body != nil {
+        data.Set("Body", *params.Body)
     }
-}
+    if params != nil && params.MediaUrl != nil {
+        for _, item  := range *params.MediaUrl {
+            data.Add("MediaUrl", item)
+    }
+    }
 
 
 
@@ -85,6 +86,7 @@ func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid strin
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -130,9 +132,10 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

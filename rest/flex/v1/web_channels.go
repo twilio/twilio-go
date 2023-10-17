@@ -70,24 +70,25 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1We
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FlexFlowSid != nil {
-    data.Set("FlexFlowSid", *params.FlexFlowSid)
-}
-if params != nil && params.Identity != nil {
-    data.Set("Identity", *params.Identity)
-}
-if params != nil && params.CustomerFriendlyName != nil {
-    data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
-}
-if params != nil && params.ChatFriendlyName != nil {
-    data.Set("ChatFriendlyName", *params.ChatFriendlyName)
-}
-if params != nil && params.ChatUniqueName != nil {
-    data.Set("ChatUniqueName", *params.ChatUniqueName)
-}
-if params != nil && params.PreEngagementData != nil {
-    data.Set("PreEngagementData", *params.PreEngagementData)
-}
+
+    if params != nil && params.FlexFlowSid != nil {
+        data.Set("FlexFlowSid", *params.FlexFlowSid)
+    }
+    if params != nil && params.Identity != nil {
+        data.Set("Identity", *params.Identity)
+    }
+    if params != nil && params.CustomerFriendlyName != nil {
+        data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
+    }
+    if params != nil && params.ChatFriendlyName != nil {
+        data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+    }
+    if params != nil && params.ChatUniqueName != nil {
+        data.Set("ChatUniqueName", *params.ChatUniqueName)
+    }
+    if params != nil && params.PreEngagementData != nil {
+        data.Set("PreEngagementData", *params.PreEngagementData)
+    }
 
 
 
@@ -116,6 +117,7 @@ func (c *ApiService) DeleteWebChannel(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -133,6 +135,7 @@ func (c *ApiService) FetchWebChannel(Sid string, ) (*FlexV1WebChannel, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -175,9 +178,10 @@ func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken, pag
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -313,12 +317,13 @@ func (c *ApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ChatStatus != nil {
-    data.Set("ChatStatus", *params.ChatStatus)
-}
-if params != nil && params.PostEngagementData != nil {
-    data.Set("PostEngagementData", *params.PostEngagementData)
-}
+
+    if params != nil && params.ChatStatus != nil {
+        data.Set("ChatStatus", *params.ChatStatus)
+    }
+    if params != nil && params.PostEngagementData != nil {
+        data.Set("PostEngagementData", *params.PostEngagementData)
+    }
 
 
 

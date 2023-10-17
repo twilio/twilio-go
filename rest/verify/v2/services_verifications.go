@@ -131,66 +131,67 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.To != nil {
-    data.Set("To", *params.To)
-}
-if params != nil && params.Channel != nil {
-    data.Set("Channel", *params.Channel)
-}
-if params != nil && params.CustomFriendlyName != nil {
-    data.Set("CustomFriendlyName", *params.CustomFriendlyName)
-}
-if params != nil && params.CustomMessage != nil {
-    data.Set("CustomMessage", *params.CustomMessage)
-}
-if params != nil && params.SendDigits != nil {
-    data.Set("SendDigits", *params.SendDigits)
-}
-if params != nil && params.Locale != nil {
-    data.Set("Locale", *params.Locale)
-}
-if params != nil && params.CustomCode != nil {
-    data.Set("CustomCode", *params.CustomCode)
-}
-if params != nil && params.Amount != nil {
-    data.Set("Amount", *params.Amount)
-}
-if params != nil && params.Payee != nil {
-    data.Set("Payee", *params.Payee)
-}
-if params != nil && params.RateLimits != nil {
-    v, err := json.Marshal(params.RateLimits)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.To != nil {
+        data.Set("To", *params.To)
     }
-
-    data.Set("RateLimits", string(v))
-}
-if params != nil && params.ChannelConfiguration != nil {
-    v, err := json.Marshal(params.ChannelConfiguration)
-
-    if err != nil {
-        return nil, err
+    if params != nil && params.Channel != nil {
+        data.Set("Channel", *params.Channel)
     }
+    if params != nil && params.CustomFriendlyName != nil {
+        data.Set("CustomFriendlyName", *params.CustomFriendlyName)
+    }
+    if params != nil && params.CustomMessage != nil {
+        data.Set("CustomMessage", *params.CustomMessage)
+    }
+    if params != nil && params.SendDigits != nil {
+        data.Set("SendDigits", *params.SendDigits)
+    }
+    if params != nil && params.Locale != nil {
+        data.Set("Locale", *params.Locale)
+    }
+    if params != nil && params.CustomCode != nil {
+        data.Set("CustomCode", *params.CustomCode)
+    }
+    if params != nil && params.Amount != nil {
+        data.Set("Amount", *params.Amount)
+    }
+    if params != nil && params.Payee != nil {
+        data.Set("Payee", *params.Payee)
+    }
+    if params != nil && params.RateLimits != nil {
+        v, err := json.Marshal(params.RateLimits)
 
-    data.Set("ChannelConfiguration", string(v))
-}
-if params != nil && params.AppHash != nil {
-    data.Set("AppHash", *params.AppHash)
-}
-if params != nil && params.TemplateSid != nil {
-    data.Set("TemplateSid", *params.TemplateSid)
-}
-if params != nil && params.TemplateCustomSubstitutions != nil {
-    data.Set("TemplateCustomSubstitutions", *params.TemplateCustomSubstitutions)
-}
-if params != nil && params.DeviceIp != nil {
-    data.Set("DeviceIp", *params.DeviceIp)
-}
-if params != nil && params.RiskCheck != nil {
-    data.Set("RiskCheck", *params.RiskCheck)
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("RateLimits", string(v))
+    }
+    if params != nil && params.ChannelConfiguration != nil {
+        v, err := json.Marshal(params.ChannelConfiguration)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("ChannelConfiguration", string(v))
+    }
+    if params != nil && params.AppHash != nil {
+        data.Set("AppHash", *params.AppHash)
+    }
+    if params != nil && params.TemplateSid != nil {
+        data.Set("TemplateSid", *params.TemplateSid)
+    }
+    if params != nil && params.TemplateCustomSubstitutions != nil {
+        data.Set("TemplateCustomSubstitutions", *params.TemplateCustomSubstitutions)
+    }
+    if params != nil && params.DeviceIp != nil {
+        data.Set("DeviceIp", *params.DeviceIp)
+    }
+    if params != nil && params.RiskCheck != nil {
+        data.Set("RiskCheck", *params.RiskCheck)
+    }
 
 
 
@@ -217,6 +218,7 @@ func (c *ApiService) FetchVerification(ServiceSid string, Sid string, ) (*Verify
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -254,9 +256,10 @@ func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *U
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
 
 
 

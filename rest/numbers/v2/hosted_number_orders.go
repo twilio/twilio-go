@@ -130,56 +130,57 @@ func (c *ApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderPara
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
-if params != nil && params.ContactPhoneNumber != nil {
-    data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
-}
-if params != nil && params.AddressSid != nil {
-    data.Set("AddressSid", *params.AddressSid)
-}
-if params != nil && params.Email != nil {
-    data.Set("Email", *params.Email)
-}
-if params != nil && params.AccountSid != nil {
-    data.Set("AccountSid", *params.AccountSid)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.CcEmails != nil {
-    for _, item  := range *params.CcEmails {
-        data.Add("CcEmails", item)
+
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
     }
-}
-if params != nil && params.SmsUrl != nil {
-    data.Set("SmsUrl", *params.SmsUrl)
-}
-if params != nil && params.SmsMethod != nil {
-    data.Set("SmsMethod", *params.SmsMethod)
-}
-if params != nil && params.SmsFallbackUrl != nil {
-    data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-}
-if params != nil && params.SmsCapability != nil {
-    data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability))
-}
-if params != nil && params.SmsFallbackMethod != nil {
-    data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-}
-if params != nil && params.StatusCallbackUrl != nil {
-    data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.SmsApplicationSid != nil {
-    data.Set("SmsApplicationSid", *params.SmsApplicationSid)
-}
-if params != nil && params.ContactTitle != nil {
-    data.Set("ContactTitle", *params.ContactTitle)
-}
+    if params != nil && params.ContactPhoneNumber != nil {
+        data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
+    }
+    if params != nil && params.AddressSid != nil {
+        data.Set("AddressSid", *params.AddressSid)
+    }
+    if params != nil && params.Email != nil {
+        data.Set("Email", *params.Email)
+    }
+    if params != nil && params.AccountSid != nil {
+        data.Set("AccountSid", *params.AccountSid)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.CcEmails != nil {
+        for _, item  := range *params.CcEmails {
+            data.Add("CcEmails", item)
+    }
+    }
+    if params != nil && params.SmsUrl != nil {
+        data.Set("SmsUrl", *params.SmsUrl)
+    }
+    if params != nil && params.SmsMethod != nil {
+        data.Set("SmsMethod", *params.SmsMethod)
+    }
+    if params != nil && params.SmsFallbackUrl != nil {
+        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+    }
+    if params != nil && params.SmsCapability != nil {
+        data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability))
+    }
+    if params != nil && params.SmsFallbackMethod != nil {
+        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+    }
+    if params != nil && params.StatusCallbackUrl != nil {
+        data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.SmsApplicationSid != nil {
+        data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+    }
+    if params != nil && params.ContactTitle != nil {
+        data.Set("ContactTitle", *params.ContactTitle)
+    }
 
 
 
@@ -208,6 +209,7 @@ func (c *ApiService) DeleteHostedNumberOrder(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -225,6 +227,7 @@ func (c *ApiService) FetchHostedNumberOrder(Sid string, ) (*NumbersV2HostedNumbe
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -297,24 +300,25 @@ func (c *ApiService) PageHostedNumberOrder(params *ListHostedNumberOrderParams, 
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.SmsCapability != nil {
-    data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability))
-}
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
-if params != nil && params.IncomingPhoneNumberSid != nil {
-    data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.SmsCapability != nil {
+        data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability))
+    }
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
+    if params != nil && params.IncomingPhoneNumberSid != nil {
+        data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

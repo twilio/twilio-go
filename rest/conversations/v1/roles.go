@@ -52,17 +52,18 @@ func (c *ApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role,
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.Permission != nil {
-    for _, item  := range *params.Permission {
-        data.Add("Permission", item)
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
-}
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
+    }
+    if params != nil && params.Permission != nil {
+        for _, item  := range *params.Permission {
+            data.Add("Permission", item)
+    }
+    }
 
 
 
@@ -91,6 +92,7 @@ func (c *ApiService) DeleteRole(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -108,6 +110,7 @@ func (c *ApiService) FetchRole(Sid string, ) (*ConversationsV1Role, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -150,9 +153,10 @@ func (c *ApiService) PageRole(params *ListRoleParams, pageToken, pageNumber stri
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -282,11 +286,12 @@ func (c *ApiService) UpdateRole(Sid string, params *UpdateRoleParams) (*Conversa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Permission != nil {
-    for _, item  := range *params.Permission {
-        data.Add("Permission", item)
+
+    if params != nil && params.Permission != nil {
+        for _, item  := range *params.Permission {
+            data.Add("Permission", item)
     }
-}
+    }
 
 
 

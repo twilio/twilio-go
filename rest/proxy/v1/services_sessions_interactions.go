@@ -35,6 +35,7 @@ func (c *ApiService) DeleteInteraction(ServiceSid string, SessionSid string, Sid
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -54,6 +55,7 @@ func (c *ApiService) FetchInteraction(ServiceSid string, SessionSid string, Sid 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -98,9 +100,10 @@ func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, param
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

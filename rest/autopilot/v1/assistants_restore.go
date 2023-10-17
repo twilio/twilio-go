@@ -40,9 +40,10 @@ func (c *ApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistantParams
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Assistant != nil {
-    data.Set("Assistant", *params.Assistant)
-}
+
+    if params != nil && params.Assistant != nil {
+        data.Set("Assistant", *params.Assistant)
+    }
 
 
 

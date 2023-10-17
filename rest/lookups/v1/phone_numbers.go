@@ -59,28 +59,29 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.CountryCode != nil {
-    data.Set("CountryCode", *params.CountryCode)
-}
-if params != nil && params.Type != nil {
-    for _, item  := range *params.Type {
-        data.Add("Type", item)
-    }
-}
-if params != nil && params.AddOns != nil {
-    for _, item  := range *params.AddOns {
-        data.Add("AddOns", item)
-    }
-}
-if params != nil && params.AddOnsData != nil {
-    v, err := json.Marshal(params.AddOnsData)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.CountryCode != nil {
+        data.Set("CountryCode", *params.CountryCode)
     }
+    if params != nil && params.Type != nil {
+        for _, item  := range *params.Type {
+            data.Add("Type", item)
+    }
+    }
+    if params != nil && params.AddOns != nil {
+        for _, item  := range *params.AddOns {
+            data.Add("AddOns", item)
+    }
+    }
+    if params != nil && params.AddOnsData != nil {
+        v, err := json.Marshal(params.AddOnsData)
 
-    data.Set("AddOnsData", string(v))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("AddOnsData", string(v))
+    }
 
 
 

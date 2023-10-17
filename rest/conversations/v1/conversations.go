@@ -106,39 +106,40 @@ func (c *ApiService) CreateConversation(params *CreateConversationParams) (*Conv
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-}
-if params != nil && params.DateUpdated != nil {
-    data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
-}
-if params != nil && params.MessagingServiceSid != nil {
-    data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.State != nil {
-    data.Set("State", *params.State)
-}
-if params != nil && params.TimersInactive != nil {
-    data.Set("Timers.Inactive", *params.TimersInactive)
-}
-if params != nil && params.TimersClosed != nil {
-    data.Set("Timers.Closed", *params.TimersClosed)
-}
-if params != nil && params.BindingsEmailAddress != nil {
-    data.Set("Bindings.Email.Address", *params.BindingsEmailAddress)
-}
-if params != nil && params.BindingsEmailName != nil {
-    data.Set("Bindings.Email.Name", *params.BindingsEmailName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateUpdated != nil {
+        data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+    }
+    if params != nil && params.MessagingServiceSid != nil {
+        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.State != nil {
+        data.Set("State", *params.State)
+    }
+    if params != nil && params.TimersInactive != nil {
+        data.Set("Timers.Inactive", *params.TimersInactive)
+    }
+    if params != nil && params.TimersClosed != nil {
+        data.Set("Timers.Closed", *params.TimersClosed)
+    }
+    if params != nil && params.BindingsEmailAddress != nil {
+        data.Set("Bindings.Email.Address", *params.BindingsEmailAddress)
+    }
+    if params != nil && params.BindingsEmailName != nil {
+        data.Set("Bindings.Email.Name", *params.BindingsEmailName)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -180,6 +181,7 @@ func (c *ApiService) DeleteConversation(Sid string, params *DeleteConversationPa
     headers := make(map[string]interface{})
 
 
+
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -201,6 +203,7 @@ func (c *ApiService) FetchConversation(Sid string, ) (*ConversationsV1Conversati
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -261,18 +264,19 @@ func (c *ApiService) PageConversation(params *ListConversationParams, pageToken,
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.StartDate != nil {
-    data.Set("StartDate", *params.StartDate)
-}
-if params != nil && params.EndDate != nil {
-    data.Set("EndDate", *params.EndDate)
-}
-if params != nil && params.State != nil {
-    data.Set("State", *params.State)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.StartDate != nil {
+        data.Set("StartDate", *params.StartDate)
+    }
+    if params != nil && params.EndDate != nil {
+        data.Set("EndDate", *params.EndDate)
+    }
+    if params != nil && params.State != nil {
+        data.Set("State", *params.State)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -468,39 +472,40 @@ func (c *ApiService) UpdateConversation(Sid string, params *UpdateConversationPa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-}
-if params != nil && params.DateUpdated != nil {
-    data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
-}
-if params != nil && params.Attributes != nil {
-    data.Set("Attributes", *params.Attributes)
-}
-if params != nil && params.MessagingServiceSid != nil {
-    data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-}
-if params != nil && params.State != nil {
-    data.Set("State", *params.State)
-}
-if params != nil && params.TimersInactive != nil {
-    data.Set("Timers.Inactive", *params.TimersInactive)
-}
-if params != nil && params.TimersClosed != nil {
-    data.Set("Timers.Closed", *params.TimersClosed)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.BindingsEmailAddress != nil {
-    data.Set("Bindings.Email.Address", *params.BindingsEmailAddress)
-}
-if params != nil && params.BindingsEmailName != nil {
-    data.Set("Bindings.Email.Name", *params.BindingsEmailName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateUpdated != nil {
+        data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+    }
+    if params != nil && params.Attributes != nil {
+        data.Set("Attributes", *params.Attributes)
+    }
+    if params != nil && params.MessagingServiceSid != nil {
+        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+    }
+    if params != nil && params.State != nil {
+        data.Set("State", *params.State)
+    }
+    if params != nil && params.TimersInactive != nil {
+        data.Set("Timers.Inactive", *params.TimersInactive)
+    }
+    if params != nil && params.TimersClosed != nil {
+        data.Set("Timers.Closed", *params.TimersClosed)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.BindingsEmailAddress != nil {
+        data.Set("Bindings.Email.Address", *params.BindingsEmailAddress)
+    }
+    if params != nil && params.BindingsEmailName != nil {
+        data.Set("Bindings.Email.Name", *params.BindingsEmailName)
+    }
 
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {

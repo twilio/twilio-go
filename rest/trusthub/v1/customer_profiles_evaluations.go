@@ -41,9 +41,10 @@ func (c *ApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PolicySid != nil {
-    data.Set("PolicySid", *params.PolicySid)
-}
+
+    if params != nil && params.PolicySid != nil {
+        data.Set("PolicySid", *params.PolicySid)
+    }
 
 
 
@@ -70,6 +71,7 @@ func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, S
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -113,9 +115,10 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

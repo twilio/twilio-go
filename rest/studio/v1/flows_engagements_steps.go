@@ -35,6 +35,7 @@ func (c *ApiService) FetchStep(FlowSid string, EngagementSid string, Sid string,
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -76,9 +77,10 @@ func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *List
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

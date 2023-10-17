@@ -33,6 +33,7 @@ func (c *ApiService) FetchEndUserType(Sid string, ) (*NumbersV2EndUserType, erro
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -72,9 +73,10 @@ func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken, p
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

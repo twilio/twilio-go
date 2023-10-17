@@ -124,59 +124,60 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.EnableTurn != nil {
-    data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn))
-}
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
-if params != nil && params.MaxParticipants != nil {
-    data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants))
-}
-if params != nil && params.RecordParticipantsOnConnect != nil {
-    data.Set("RecordParticipantsOnConnect", fmt.Sprint(*params.RecordParticipantsOnConnect))
-}
-if params != nil && params.VideoCodecs != nil {
-    for _, item  := range *params.VideoCodecs {
-        data.Add("VideoCodecs", item)
-    }
-}
-if params != nil && params.MediaRegion != nil {
-    data.Set("MediaRegion", *params.MediaRegion)
-}
-if params != nil && params.RecordingRules != nil {
-    v, err := json.Marshal(params.RecordingRules)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.EnableTurn != nil {
+        data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn))
     }
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
+    if params != nil && params.MaxParticipants != nil {
+        data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants))
+    }
+    if params != nil && params.RecordParticipantsOnConnect != nil {
+        data.Set("RecordParticipantsOnConnect", fmt.Sprint(*params.RecordParticipantsOnConnect))
+    }
+    if params != nil && params.VideoCodecs != nil {
+        for _, item  := range *params.VideoCodecs {
+            data.Add("VideoCodecs", item)
+    }
+    }
+    if params != nil && params.MediaRegion != nil {
+        data.Set("MediaRegion", *params.MediaRegion)
+    }
+    if params != nil && params.RecordingRules != nil {
+        v, err := json.Marshal(params.RecordingRules)
 
-    data.Set("RecordingRules", string(v))
-}
-if params != nil && params.AudioOnly != nil {
-    data.Set("AudioOnly", fmt.Sprint(*params.AudioOnly))
-}
-if params != nil && params.MaxParticipantDuration != nil {
-    data.Set("MaxParticipantDuration", fmt.Sprint(*params.MaxParticipantDuration))
-}
-if params != nil && params.EmptyRoomTimeout != nil {
-    data.Set("EmptyRoomTimeout", fmt.Sprint(*params.EmptyRoomTimeout))
-}
-if params != nil && params.UnusedRoomTimeout != nil {
-    data.Set("UnusedRoomTimeout", fmt.Sprint(*params.UnusedRoomTimeout))
-}
-if params != nil && params.LargeRoom != nil {
-    data.Set("LargeRoom", fmt.Sprint(*params.LargeRoom))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("RecordingRules", string(v))
+    }
+    if params != nil && params.AudioOnly != nil {
+        data.Set("AudioOnly", fmt.Sprint(*params.AudioOnly))
+    }
+    if params != nil && params.MaxParticipantDuration != nil {
+        data.Set("MaxParticipantDuration", fmt.Sprint(*params.MaxParticipantDuration))
+    }
+    if params != nil && params.EmptyRoomTimeout != nil {
+        data.Set("EmptyRoomTimeout", fmt.Sprint(*params.EmptyRoomTimeout))
+    }
+    if params != nil && params.UnusedRoomTimeout != nil {
+        data.Set("UnusedRoomTimeout", fmt.Sprint(*params.UnusedRoomTimeout))
+    }
+    if params != nil && params.LargeRoom != nil {
+        data.Set("LargeRoom", fmt.Sprint(*params.LargeRoom))
+    }
 
 
 
@@ -202,6 +203,7 @@ func (c *ApiService) FetchRoom(Sid string, ) (*VideoV1Room, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -268,21 +270,22 @@ func (c *ApiService) PageRoom(params *ListRoomParams, pageToken, pageNumber stri
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.DateCreatedAfter != nil {
-    data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
-}
-if params != nil && params.DateCreatedBefore != nil {
-    data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.DateCreatedAfter != nil {
+        data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+    }
+    if params != nil && params.DateCreatedBefore != nil {
+        data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -412,9 +415,10 @@ func (c *ApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*VideoV1R
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
 
 
 

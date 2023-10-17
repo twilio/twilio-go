@@ -76,39 +76,40 @@ func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.LogQueries != nil {
-    data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.CallbackEvents != nil {
-    data.Set("CallbackEvents", *params.CallbackEvents)
-}
-if params != nil && params.StyleSheet != nil {
-    v, err := json.Marshal(params.StyleSheet)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
-
-    data.Set("StyleSheet", string(v))
-}
-if params != nil && params.Defaults != nil {
-    v, err := json.Marshal(params.Defaults)
-
-    if err != nil {
-        return nil, err
+    if params != nil && params.LogQueries != nil {
+        data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
     }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.CallbackEvents != nil {
+        data.Set("CallbackEvents", *params.CallbackEvents)
+    }
+    if params != nil && params.StyleSheet != nil {
+        v, err := json.Marshal(params.StyleSheet)
 
-    data.Set("Defaults", string(v))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("StyleSheet", string(v))
+    }
+    if params != nil && params.Defaults != nil {
+        v, err := json.Marshal(params.Defaults)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Defaults", string(v))
+    }
 
 
 
@@ -137,6 +138,7 @@ func (c *ApiService) DeleteAssistant(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -154,6 +156,7 @@ func (c *ApiService) FetchAssistant(Sid string, ) (*AutopilotV1Assistant, error)
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -196,9 +199,10 @@ func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken, pageN
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -370,42 +374,43 @@ func (c *ApiService) UpdateAssistant(Sid string, params *UpdateAssistantParams) 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.LogQueries != nil {
-    data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
-}
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.CallbackEvents != nil {
-    data.Set("CallbackEvents", *params.CallbackEvents)
-}
-if params != nil && params.StyleSheet != nil {
-    v, err := json.Marshal(params.StyleSheet)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
-
-    data.Set("StyleSheet", string(v))
-}
-if params != nil && params.Defaults != nil {
-    v, err := json.Marshal(params.Defaults)
-
-    if err != nil {
-        return nil, err
+    if params != nil && params.LogQueries != nil {
+        data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
     }
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.CallbackEvents != nil {
+        data.Set("CallbackEvents", *params.CallbackEvents)
+    }
+    if params != nil && params.StyleSheet != nil {
+        v, err := json.Marshal(params.StyleSheet)
 
-    data.Set("Defaults", string(v))
-}
-if params != nil && params.DevelopmentStage != nil {
-    data.Set("DevelopmentStage", *params.DevelopmentStage)
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("StyleSheet", string(v))
+    }
+    if params != nil && params.Defaults != nil {
+        v, err := json.Marshal(params.Defaults)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Defaults", string(v))
+    }
+    if params != nil && params.DevelopmentStage != nil {
+        data.Set("DevelopmentStage", *params.DevelopmentStage)
+    }
 
 
 

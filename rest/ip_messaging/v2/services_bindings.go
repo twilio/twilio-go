@@ -34,6 +34,7 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -52,6 +53,7 @@ func (c *ApiService) FetchBinding(ServiceSid string, Sid string, ) (*IpMessaging
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -107,19 +109,20 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.BindingType != nil {
-    for _, item  := range *params.BindingType {
-        data.Add("BindingType", item)
+
+    if params != nil && params.BindingType != nil {
+        for _, item  := range *params.BindingType {
+            data.Add("BindingType", item)
     }
-}
-if params != nil && params.Identity != nil {
-    for _, item  := range *params.Identity {
-        data.Add("Identity", item)
     }
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+    if params != nil && params.Identity != nil {
+        for _, item  := range *params.Identity {
+            data.Add("Identity", item)
+    }
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

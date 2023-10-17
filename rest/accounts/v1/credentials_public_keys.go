@@ -52,15 +52,16 @@ func (c *ApiService) CreateCredentialPublicKey(params *CreateCredentialPublicKey
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PublicKey != nil {
-    data.Set("PublicKey", *params.PublicKey)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.AccountSid != nil {
-    data.Set("AccountSid", *params.AccountSid)
-}
+
+    if params != nil && params.PublicKey != nil {
+        data.Set("PublicKey", *params.PublicKey)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.AccountSid != nil {
+        data.Set("AccountSid", *params.AccountSid)
+    }
 
 
 
@@ -89,6 +90,7 @@ func (c *ApiService) DeleteCredentialPublicKey(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -106,6 +108,7 @@ func (c *ApiService) FetchCredentialPublicKey(Sid string, ) (*AccountsV1Credenti
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -148,9 +151,10 @@ func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyPara
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -280,9 +284,10 @@ func (c *ApiService) UpdateCredentialPublicKey(Sid string, params *UpdateCredent
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 

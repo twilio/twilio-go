@@ -64,21 +64,22 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.CustomerProfileBundleSid != nil {
-    data.Set("CustomerProfileBundleSid", *params.CustomerProfileBundleSid)
-}
-if params != nil && params.A2PProfileBundleSid != nil {
-    data.Set("A2PProfileBundleSid", *params.A2PProfileBundleSid)
-}
-if params != nil && params.BrandType != nil {
-    data.Set("BrandType", *params.BrandType)
-}
-if params != nil && params.Mock != nil {
-    data.Set("Mock", fmt.Sprint(*params.Mock))
-}
-if params != nil && params.SkipAutomaticSecVet != nil {
-    data.Set("SkipAutomaticSecVet", fmt.Sprint(*params.SkipAutomaticSecVet))
-}
+
+    if params != nil && params.CustomerProfileBundleSid != nil {
+        data.Set("CustomerProfileBundleSid", *params.CustomerProfileBundleSid)
+    }
+    if params != nil && params.A2PProfileBundleSid != nil {
+        data.Set("A2PProfileBundleSid", *params.A2PProfileBundleSid)
+    }
+    if params != nil && params.BrandType != nil {
+        data.Set("BrandType", *params.BrandType)
+    }
+    if params != nil && params.Mock != nil {
+        data.Set("Mock", fmt.Sprint(*params.Mock))
+    }
+    if params != nil && params.SkipAutomaticSecVet != nil {
+        data.Set("SkipAutomaticSecVet", fmt.Sprint(*params.SkipAutomaticSecVet))
+    }
 
 
 
@@ -104,6 +105,7 @@ func (c *ApiService) FetchBrandRegistrations(Sid string, ) (*MessagingV1BrandReg
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -146,9 +148,10 @@ func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -267,6 +270,7 @@ func (c *ApiService) UpdateBrandRegistrations(Sid string, ) (*MessagingV1BrandRe
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

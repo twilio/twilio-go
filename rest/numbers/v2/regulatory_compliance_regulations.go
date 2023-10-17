@@ -33,6 +33,7 @@ func (c *ApiService) FetchRegulation(Sid string, ) (*NumbersV2Regulation, error)
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -90,18 +91,19 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pag
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.EndUserType != nil {
-    data.Set("EndUserType", *params.EndUserType)
-}
-if params != nil && params.IsoCountry != nil {
-    data.Set("IsoCountry", *params.IsoCountry)
-}
-if params != nil && params.NumberType != nil {
-    data.Set("NumberType", *params.NumberType)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.EndUserType != nil {
+        data.Set("EndUserType", *params.EndUserType)
+    }
+    if params != nil && params.IsoCountry != nil {
+        data.Set("IsoCountry", *params.IsoCountry)
+    }
+    if params != nil && params.NumberType != nil {
+        data.Set("NumberType", *params.NumberType)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

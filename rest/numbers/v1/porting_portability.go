@@ -40,11 +40,12 @@ func (c *ApiService) CreatePortingBulkPortability(params *CreatePortingBulkPorta
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PhoneNumbers != nil {
-    for _, item  := range *params.PhoneNumbers {
-        data.Add("PhoneNumbers", item)
+
+    if params != nil && params.PhoneNumbers != nil {
+        for _, item  := range *params.PhoneNumbers {
+            data.Add("PhoneNumbers", item)
     }
-}
+    }
 
 
 
@@ -70,6 +71,7 @@ func (c *ApiService) FetchPortingBulkPortability(Sid string, ) (*NumbersV1Portin
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

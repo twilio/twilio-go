@@ -65,23 +65,24 @@ func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.EventTypes != nil {
-    for _, item  := range *params.EventTypes {
-        data.Add("EventTypes", item)
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
-}
-if params != nil && params.WebhookUrl != nil {
-    data.Set("WebhookUrl", *params.WebhookUrl)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Version != nil {
-    data.Set("Version", *params.Version)
-}
+    if params != nil && params.EventTypes != nil {
+        for _, item  := range *params.EventTypes {
+            data.Add("EventTypes", item)
+    }
+    }
+    if params != nil && params.WebhookUrl != nil {
+        data.Set("WebhookUrl", *params.WebhookUrl)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Version != nil {
+        data.Set("Version", *params.Version)
+    }
 
 
 
@@ -111,6 +112,7 @@ func (c *ApiService) DeleteWebhook(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -129,6 +131,7 @@ func (c *ApiService) FetchWebhook(ServiceSid string, Sid string, ) (*VerifyV2Web
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -172,9 +175,10 @@ func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -329,23 +333,24 @@ func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *Update
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.EventTypes != nil {
-    for _, item  := range *params.EventTypes {
-        data.Add("EventTypes", item)
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
     }
-}
-if params != nil && params.WebhookUrl != nil {
-    data.Set("WebhookUrl", *params.WebhookUrl)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Version != nil {
-    data.Set("Version", *params.Version)
-}
+    if params != nil && params.EventTypes != nil {
+        for _, item  := range *params.EventTypes {
+            data.Add("EventTypes", item)
+    }
+    }
+    if params != nil && params.WebhookUrl != nil {
+        data.Set("WebhookUrl", *params.WebhookUrl)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Version != nil {
+        data.Set("Version", *params.Version)
+    }
 
 
 

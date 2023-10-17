@@ -75,21 +75,22 @@ func (c *ApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummary
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.StartDate != nil {
-    data.Set("StartDate", fmt.Sprint(*params.StartDate))
-}
-if params != nil && params.EndDate != nil {
-    data.Set("EndDate", fmt.Sprint(*params.EndDate))
-}
-if params != nil && params.IncludeSubaccounts != nil {
-    data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.StatusCallbackMethod != nil {
-    data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-}
+
+    if params != nil && params.StartDate != nil {
+        data.Set("StartDate", fmt.Sprint(*params.StartDate))
+    }
+    if params != nil && params.EndDate != nil {
+        data.Set("EndDate", fmt.Sprint(*params.EndDate))
+    }
+    if params != nil && params.IncludeSubaccounts != nil {
+        data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.StatusCallbackMethod != nil {
+        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+    }
 
 
 
@@ -134,6 +135,7 @@ func (c *ApiService) DeleteCallFeedbackSummary(Sid string, params *DeleteCallFee
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -167,6 +169,7 @@ func (c *ApiService) FetchCallFeedbackSummary(Sid string, params *FetchCallFeedb
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 

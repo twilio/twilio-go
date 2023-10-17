@@ -33,6 +33,7 @@ func (c *ApiService) FetchAnnotation(CallSid string, ) (*InsightsV1Annotation, e
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -102,27 +103,28 @@ func (c *ApiService) UpdateAnnotation(CallSid string, params *UpdateAnnotationPa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AnsweredBy != nil {
-    data.Set("AnsweredBy", *params.AnsweredBy)
-}
-if params != nil && params.ConnectivityIssue != nil {
-    data.Set("ConnectivityIssue", *params.ConnectivityIssue)
-}
-if params != nil && params.QualityIssues != nil {
-    data.Set("QualityIssues", *params.QualityIssues)
-}
-if params != nil && params.Spam != nil {
-    data.Set("Spam", fmt.Sprint(*params.Spam))
-}
-if params != nil && params.CallScore != nil {
-    data.Set("CallScore", fmt.Sprint(*params.CallScore))
-}
-if params != nil && params.Comment != nil {
-    data.Set("Comment", *params.Comment)
-}
-if params != nil && params.Incident != nil {
-    data.Set("Incident", *params.Incident)
-}
+
+    if params != nil && params.AnsweredBy != nil {
+        data.Set("AnsweredBy", *params.AnsweredBy)
+    }
+    if params != nil && params.ConnectivityIssue != nil {
+        data.Set("ConnectivityIssue", *params.ConnectivityIssue)
+    }
+    if params != nil && params.QualityIssues != nil {
+        data.Set("QualityIssues", *params.QualityIssues)
+    }
+    if params != nil && params.Spam != nil {
+        data.Set("Spam", fmt.Sprint(*params.Spam))
+    }
+    if params != nil && params.CallScore != nil {
+        data.Set("CallScore", fmt.Sprint(*params.CallScore))
+    }
+    if params != nil && params.Comment != nil {
+        data.Set("Comment", *params.Comment)
+    }
+    if params != nil && params.Incident != nil {
+        data.Set("Incident", *params.Incident)
+    }
 
 
 

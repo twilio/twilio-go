@@ -58,18 +58,19 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2We
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AddressSid != nil {
-    data.Set("AddressSid", *params.AddressSid)
-}
-if params != nil && params.ChatFriendlyName != nil {
-    data.Set("ChatFriendlyName", *params.ChatFriendlyName)
-}
-if params != nil && params.CustomerFriendlyName != nil {
-    data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
-}
-if params != nil && params.PreEngagementData != nil {
-    data.Set("PreEngagementData", *params.PreEngagementData)
-}
+
+    if params != nil && params.AddressSid != nil {
+        data.Set("AddressSid", *params.AddressSid)
+    }
+    if params != nil && params.ChatFriendlyName != nil {
+        data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+    }
+    if params != nil && params.CustomerFriendlyName != nil {
+        data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
+    }
+    if params != nil && params.PreEngagementData != nil {
+        data.Set("PreEngagementData", *params.PreEngagementData)
+    }
 
 
 

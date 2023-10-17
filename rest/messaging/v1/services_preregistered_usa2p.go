@@ -46,12 +46,13 @@ func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.CampaignId != nil {
-    data.Set("CampaignId", *params.CampaignId)
-}
-if params != nil && params.MessagingServiceSid != nil {
-    data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-}
+
+    if params != nil && params.CampaignId != nil {
+        data.Set("CampaignId", *params.CampaignId)
+    }
+    if params != nil && params.MessagingServiceSid != nil {
+        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+    }
 
 
 

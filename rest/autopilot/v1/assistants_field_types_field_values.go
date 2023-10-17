@@ -54,15 +54,16 @@ func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Language != nil {
-    data.Set("Language", *params.Language)
-}
-if params != nil && params.Value != nil {
-    data.Set("Value", *params.Value)
-}
-if params != nil && params.SynonymOf != nil {
-    data.Set("SynonymOf", *params.SynonymOf)
-}
+
+    if params != nil && params.Language != nil {
+        data.Set("Language", *params.Language)
+    }
+    if params != nil && params.Value != nil {
+        data.Set("Value", *params.Value)
+    }
+    if params != nil && params.SynonymOf != nil {
+        data.Set("SynonymOf", *params.SynonymOf)
+    }
 
 
 
@@ -93,6 +94,7 @@ func (c *ApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -112,6 +114,7 @@ func (c *ApiService) FetchFieldValue(AssistantSid string, FieldTypeSid string, S
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -162,12 +165,13 @@ func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Language != nil {
-    data.Set("Language", *params.Language)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Language != nil {
+        data.Set("Language", *params.Language)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

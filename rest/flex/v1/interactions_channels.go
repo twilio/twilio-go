@@ -34,6 +34,7 @@ func (c *ApiService) FetchInteractionChannel(InteractionSid string, Sid string, 
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -74,9 +75,10 @@ func (c *ApiService) PageInteractionChannel(InteractionSid string, params *ListI
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -213,18 +215,19 @@ func (c *ApiService) UpdateInteractionChannel(InteractionSid string, Sid string,
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Routing != nil {
-    v, err := json.Marshal(params.Routing)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
     }
+    if params != nil && params.Routing != nil {
+        v, err := json.Marshal(params.Routing)
 
-    data.Set("Routing", string(v))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Routing", string(v))
+    }
 
 
 

@@ -46,12 +46,13 @@ func (c *ApiService) CreateSim(params *CreateSimParams) (*SupersimV1Sim, error) 
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Iccid != nil {
-    data.Set("Iccid", *params.Iccid)
-}
-if params != nil && params.RegistrationCode != nil {
-    data.Set("RegistrationCode", *params.RegistrationCode)
-}
+
+    if params != nil && params.Iccid != nil {
+        data.Set("Iccid", *params.Iccid)
+    }
+    if params != nil && params.RegistrationCode != nil {
+        data.Set("RegistrationCode", *params.RegistrationCode)
+    }
 
 
 
@@ -77,6 +78,7 @@ func (c *ApiService) FetchSim(Sid string, ) (*SupersimV1Sim, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -137,18 +139,19 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Fleet != nil {
-    data.Set("Fleet", *params.Fleet)
-}
-if params != nil && params.Iccid != nil {
-    data.Set("Iccid", *params.Iccid)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Fleet != nil {
+        data.Set("Fleet", *params.Fleet)
+    }
+    if params != nil && params.Iccid != nil {
+        data.Set("Iccid", *params.Iccid)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -308,24 +311,25 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*SupersimV1
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.Fleet != nil {
-    data.Set("Fleet", *params.Fleet)
-}
-if params != nil && params.CallbackUrl != nil {
-    data.Set("CallbackUrl", *params.CallbackUrl)
-}
-if params != nil && params.CallbackMethod != nil {
-    data.Set("CallbackMethod", *params.CallbackMethod)
-}
-if params != nil && params.AccountSid != nil {
-    data.Set("AccountSid", *params.AccountSid)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.Fleet != nil {
+        data.Set("Fleet", *params.Fleet)
+    }
+    if params != nil && params.CallbackUrl != nil {
+        data.Set("CallbackUrl", *params.CallbackUrl)
+    }
+    if params != nil && params.CallbackMethod != nil {
+        data.Set("CallbackMethod", *params.CallbackMethod)
+    }
+    if params != nil && params.AccountSid != nil {
+        data.Set("AccountSid", *params.AccountSid)
+    }
 
 
 

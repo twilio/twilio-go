@@ -49,6 +49,7 @@ func (c *ApiService) FetchConference(Sid string, params *FetchConferenceParams) 
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -123,21 +124,22 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pag
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.DateCreated != nil {
-    data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
-}
-if params != nil && params.DateUpdated != nil {
-    data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.DateCreated != nil {
+        data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+    }
+    if params != nil && params.DateUpdated != nil {
+        data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -290,15 +292,16 @@ func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.AnnounceUrl != nil {
-    data.Set("AnnounceUrl", *params.AnnounceUrl)
-}
-if params != nil && params.AnnounceMethod != nil {
-    data.Set("AnnounceMethod", *params.AnnounceMethod)
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.AnnounceUrl != nil {
+        data.Set("AnnounceUrl", *params.AnnounceUrl)
+    }
+    if params != nil && params.AnnounceMethod != nil {
+        data.Set("AnnounceMethod", *params.AnnounceMethod)
+    }
 
 
 

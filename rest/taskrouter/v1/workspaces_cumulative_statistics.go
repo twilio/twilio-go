@@ -65,21 +65,22 @@ func (c *ApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid string, par
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.EndDate != nil {
-    data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
-}
-if params != nil && params.Minutes != nil {
-    data.Set("Minutes", fmt.Sprint(*params.Minutes))
-}
-if params != nil && params.StartDate != nil {
-    data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
-}
-if params != nil && params.TaskChannel != nil {
-    data.Set("TaskChannel", *params.TaskChannel)
-}
-if params != nil && params.SplitByWaitTime != nil {
-    data.Set("SplitByWaitTime", *params.SplitByWaitTime)
-}
+
+    if params != nil && params.EndDate != nil {
+        data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+    }
+    if params != nil && params.Minutes != nil {
+        data.Set("Minutes", fmt.Sprint(*params.Minutes))
+    }
+    if params != nil && params.StartDate != nil {
+        data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+    }
+    if params != nil && params.TaskChannel != nil {
+        data.Set("TaskChannel", *params.TaskChannel)
+    }
+    if params != nil && params.SplitByWaitTime != nil {
+        data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+    }
 
 
 

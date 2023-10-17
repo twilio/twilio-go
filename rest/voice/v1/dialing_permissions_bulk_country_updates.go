@@ -40,9 +40,10 @@ func (c *ApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDia
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UpdateRequest != nil {
-    data.Set("UpdateRequest", *params.UpdateRequest)
-}
+
+    if params != nil && params.UpdateRequest != nil {
+        data.Set("UpdateRequest", *params.UpdateRequest)
+    }
 
 
 

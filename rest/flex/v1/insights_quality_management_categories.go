@@ -46,9 +46,10 @@ func (c *ApiService) CreateInsightsQuestionnairesCategory(params *CreateInsights
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Name != nil {
-    data.Set("Name", *params.Name)
-}
+
+    if params != nil && params.Name != nil {
+        data.Set("Name", *params.Name)
+    }
 
 
 	if params != nil && params.Authorization != nil {
@@ -88,6 +89,7 @@ func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategorySid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 	if params != nil && params.Authorization != nil {
@@ -134,9 +136,10 @@ func (c *ApiService) PageInsightsQuestionnairesCategory(params *ListInsightsQues
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -272,9 +275,10 @@ func (c *ApiService) UpdateInsightsQuestionnairesCategory(CategorySid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Name != nil {
-    data.Set("Name", *params.Name)
-}
+
+    if params != nil && params.Name != nil {
+        data.Set("Name", *params.Name)
+    }
 
 
 	if params != nil && params.Authorization != nil {

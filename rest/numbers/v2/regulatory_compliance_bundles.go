@@ -76,27 +76,28 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle,
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Email != nil {
-    data.Set("Email", *params.Email)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.RegulationSid != nil {
-    data.Set("RegulationSid", *params.RegulationSid)
-}
-if params != nil && params.IsoCountry != nil {
-    data.Set("IsoCountry", *params.IsoCountry)
-}
-if params != nil && params.EndUserType != nil {
-    data.Set("EndUserType", *params.EndUserType)
-}
-if params != nil && params.NumberType != nil {
-    data.Set("NumberType", *params.NumberType)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Email != nil {
+        data.Set("Email", *params.Email)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.RegulationSid != nil {
+        data.Set("RegulationSid", *params.RegulationSid)
+    }
+    if params != nil && params.IsoCountry != nil {
+        data.Set("IsoCountry", *params.IsoCountry)
+    }
+    if params != nil && params.EndUserType != nil {
+        data.Set("EndUserType", *params.EndUserType)
+    }
+    if params != nil && params.NumberType != nil {
+        data.Set("NumberType", *params.NumberType)
+    }
 
 
 
@@ -125,6 +126,7 @@ func (c *ApiService) DeleteBundle(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -142,6 +144,7 @@ func (c *ApiService) FetchBundle(Sid string, ) (*NumbersV2Bundle, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -238,36 +241,37 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.RegulationSid != nil {
-    data.Set("RegulationSid", *params.RegulationSid)
-}
-if params != nil && params.IsoCountry != nil {
-    data.Set("IsoCountry", *params.IsoCountry)
-}
-if params != nil && params.NumberType != nil {
-    data.Set("NumberType", *params.NumberType)
-}
-if params != nil && params.HasValidUntilDate != nil {
-    data.Set("HasValidUntilDate", fmt.Sprint(*params.HasValidUntilDate))
-}
-if params != nil && params.SortBy != nil {
-    data.Set("SortBy", *params.SortBy)
-}
-if params != nil && params.SortDirection != nil {
-    data.Set("SortDirection", *params.SortDirection)
-}
-if params != nil && params.ValidUntilDate != nil {
-    data.Set("ValidUntilDate", fmt.Sprint((*params.ValidUntilDate).Format(time.RFC3339)))
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.RegulationSid != nil {
+        data.Set("RegulationSid", *params.RegulationSid)
+    }
+    if params != nil && params.IsoCountry != nil {
+        data.Set("IsoCountry", *params.IsoCountry)
+    }
+    if params != nil && params.NumberType != nil {
+        data.Set("NumberType", *params.NumberType)
+    }
+    if params != nil && params.HasValidUntilDate != nil {
+        data.Set("HasValidUntilDate", fmt.Sprint(*params.HasValidUntilDate))
+    }
+    if params != nil && params.SortBy != nil {
+        data.Set("SortBy", *params.SortBy)
+    }
+    if params != nil && params.SortDirection != nil {
+        data.Set("SortDirection", *params.SortDirection)
+    }
+    if params != nil && params.ValidUntilDate != nil {
+        data.Set("ValidUntilDate", fmt.Sprint((*params.ValidUntilDate).Format(time.RFC3339)))
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -415,18 +419,19 @@ func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*Numb
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Email != nil {
-    data.Set("Email", *params.Email)
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Email != nil {
+        data.Set("Email", *params.Email)
+    }
 
 
 

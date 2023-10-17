@@ -48,18 +48,19 @@ func (c *ApiService) CreateInteractionChannelParticipant(InteractionSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Type != nil {
-    data.Set("Type", *params.Type)
-}
-if params != nil && params.MediaProperties != nil {
-    v, err := json.Marshal(params.MediaProperties)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Type != nil {
+        data.Set("Type", *params.Type)
     }
+    if params != nil && params.MediaProperties != nil {
+        v, err := json.Marshal(params.MediaProperties)
 
-    data.Set("MediaProperties", string(v))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("MediaProperties", string(v))
+    }
 
 
 
@@ -104,9 +105,10 @@ func (c *ApiService) PageInteractionChannelParticipant(InteractionSid string, Ch
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -238,9 +240,10 @@ func (c *ApiService) UpdateInteractionChannelParticipant(InteractionSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
 
 
 

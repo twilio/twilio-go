@@ -47,12 +47,13 @@ func (c *ApiService) CreateMessagingConfiguration(ServiceSid string, params *Cre
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Country != nil {
-    data.Set("Country", *params.Country)
-}
-if params != nil && params.MessagingServiceSid != nil {
-    data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-}
+
+    if params != nil && params.Country != nil {
+        data.Set("Country", *params.Country)
+    }
+    if params != nil && params.MessagingServiceSid != nil {
+        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+    }
 
 
 
@@ -82,6 +83,7 @@ func (c *ApiService) DeleteMessagingConfiguration(ServiceSid string, Country str
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -100,6 +102,7 @@ func (c *ApiService) FetchMessagingConfiguration(ServiceSid string, Country stri
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -143,9 +146,10 @@ func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListM
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -276,9 +280,10 @@ func (c *ApiService) UpdateMessagingConfiguration(ServiceSid string, Country str
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.MessagingServiceSid != nil {
-    data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-}
+
+    if params != nil && params.MessagingServiceSid != nil {
+        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+    }
 
 
 

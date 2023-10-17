@@ -76,24 +76,25 @@ func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAsse
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.CategoryId != nil {
-    data.Set("CategoryId", *params.CategoryId)
-}
-if params != nil && params.CategoryName != nil {
-    data.Set("CategoryName", *params.CategoryName)
-}
-if params != nil && params.Comment != nil {
-    data.Set("Comment", *params.Comment)
-}
-if params != nil && params.SegmentId != nil {
-    data.Set("SegmentId", *params.SegmentId)
-}
-if params != nil && params.AgentId != nil {
-    data.Set("AgentId", *params.AgentId)
-}
-if params != nil && params.Offset != nil {
-    data.Set("Offset", fmt.Sprint(*params.Offset))
-}
+
+    if params != nil && params.CategoryId != nil {
+        data.Set("CategoryId", *params.CategoryId)
+    }
+    if params != nil && params.CategoryName != nil {
+        data.Set("CategoryName", *params.CategoryName)
+    }
+    if params != nil && params.Comment != nil {
+        data.Set("Comment", *params.Comment)
+    }
+    if params != nil && params.SegmentId != nil {
+        data.Set("SegmentId", *params.SegmentId)
+    }
+    if params != nil && params.AgentId != nil {
+        data.Set("AgentId", *params.AgentId)
+    }
+    if params != nil && params.Offset != nil {
+        data.Set("Offset", fmt.Sprint(*params.Offset))
+    }
 
 
 	if params != nil && params.Authorization != nil {
@@ -157,15 +158,16 @@ func (c *ApiService) PageInsightsAssessmentsComment(params *ListInsightsAssessme
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.SegmentId != nil {
-    data.Set("SegmentId", *params.SegmentId)
-}
-if params != nil && params.AgentId != nil {
-    data.Set("AgentId", *params.AgentId)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.SegmentId != nil {
+        data.Set("SegmentId", *params.SegmentId)
+    }
+    if params != nil && params.AgentId != nil {
+        data.Set("AgentId", *params.AgentId)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

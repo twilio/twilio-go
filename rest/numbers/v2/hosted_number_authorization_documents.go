@@ -70,28 +70,29 @@ func (c *ApiService) CreateAuthorizationDocument(params *CreateAuthorizationDocu
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.AddressSid != nil {
-    data.Set("AddressSid", *params.AddressSid)
-}
-if params != nil && params.Email != nil {
-    data.Set("Email", *params.Email)
-}
-if params != nil && params.ContactPhoneNumber != nil {
-    data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
-}
-if params != nil && params.HostedNumberOrderSids != nil {
-    for _, item  := range *params.HostedNumberOrderSids {
-        data.Add("HostedNumberOrderSids", item)
+
+    if params != nil && params.AddressSid != nil {
+        data.Set("AddressSid", *params.AddressSid)
     }
-}
-if params != nil && params.ContactTitle != nil {
-    data.Set("ContactTitle", *params.ContactTitle)
-}
-if params != nil && params.CcEmails != nil {
-    for _, item  := range *params.CcEmails {
-        data.Add("CcEmails", item)
+    if params != nil && params.Email != nil {
+        data.Set("Email", *params.Email)
     }
-}
+    if params != nil && params.ContactPhoneNumber != nil {
+        data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
+    }
+    if params != nil && params.HostedNumberOrderSids != nil {
+        for _, item  := range *params.HostedNumberOrderSids {
+            data.Add("HostedNumberOrderSids", item)
+    }
+    }
+    if params != nil && params.ContactTitle != nil {
+        data.Set("ContactTitle", *params.ContactTitle)
+    }
+    if params != nil && params.CcEmails != nil {
+        for _, item  := range *params.CcEmails {
+            data.Add("CcEmails", item)
+    }
+    }
 
 
 
@@ -120,6 +121,7 @@ func (c *ApiService) DeleteAuthorizationDocument(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -137,6 +139,7 @@ func (c *ApiService) FetchAuthorizationDocument(Sid string, ) (*NumbersV2Authori
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -191,15 +194,16 @@ func (c *ApiService) PageAuthorizationDocument(params *ListAuthorizationDocument
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Email != nil {
-    data.Set("Email", *params.Email)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Email != nil {
+        data.Set("Email", *params.Email)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

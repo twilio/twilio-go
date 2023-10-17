@@ -100,41 +100,42 @@ func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1Ra
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.DataEnabled != nil {
-    data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled))
-}
-if params != nil && params.DataLimit != nil {
-    data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
-}
-if params != nil && params.DataMetering != nil {
-    data.Set("DataMetering", *params.DataMetering)
-}
-if params != nil && params.MessagingEnabled != nil {
-    data.Set("MessagingEnabled", fmt.Sprint(*params.MessagingEnabled))
-}
-if params != nil && params.VoiceEnabled != nil {
-    data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
-}
-if params != nil && params.NationalRoamingEnabled != nil {
-    data.Set("NationalRoamingEnabled", fmt.Sprint(*params.NationalRoamingEnabled))
-}
-if params != nil && params.InternationalRoaming != nil {
-    for _, item  := range *params.InternationalRoaming {
-        data.Add("InternationalRoaming", item)
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
     }
-}
-if params != nil && params.NationalRoamingDataLimit != nil {
-    data.Set("NationalRoamingDataLimit", fmt.Sprint(*params.NationalRoamingDataLimit))
-}
-if params != nil && params.InternationalRoamingDataLimit != nil {
-    data.Set("InternationalRoamingDataLimit", fmt.Sprint(*params.InternationalRoamingDataLimit))
-}
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.DataEnabled != nil {
+        data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled))
+    }
+    if params != nil && params.DataLimit != nil {
+        data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
+    }
+    if params != nil && params.DataMetering != nil {
+        data.Set("DataMetering", *params.DataMetering)
+    }
+    if params != nil && params.MessagingEnabled != nil {
+        data.Set("MessagingEnabled", fmt.Sprint(*params.MessagingEnabled))
+    }
+    if params != nil && params.VoiceEnabled != nil {
+        data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+    }
+    if params != nil && params.NationalRoamingEnabled != nil {
+        data.Set("NationalRoamingEnabled", fmt.Sprint(*params.NationalRoamingEnabled))
+    }
+    if params != nil && params.InternationalRoaming != nil {
+        for _, item  := range *params.InternationalRoaming {
+            data.Add("InternationalRoaming", item)
+    }
+    }
+    if params != nil && params.NationalRoamingDataLimit != nil {
+        data.Set("NationalRoamingDataLimit", fmt.Sprint(*params.NationalRoamingDataLimit))
+    }
+    if params != nil && params.InternationalRoamingDataLimit != nil {
+        data.Set("InternationalRoamingDataLimit", fmt.Sprint(*params.InternationalRoamingDataLimit))
+    }
 
 
 
@@ -163,6 +164,7 @@ func (c *ApiService) DeleteRatePlan(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -180,6 +182,7 @@ func (c *ApiService) FetchRatePlan(Sid string, ) (*WirelessV1RatePlan, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -222,9 +225,10 @@ func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken, pageNum
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -360,12 +364,13 @@ func (c *ApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
 
 
 

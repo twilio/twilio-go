@@ -65,21 +65,22 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Configuration != nil {
-    data.Set("Configuration", *params.Configuration)
-}
-if params != nil && params.AssignmentCallbackUrl != nil {
-    data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
-}
-if params != nil && params.FallbackAssignmentCallbackUrl != nil {
-    data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl)
-}
-if params != nil && params.TaskReservationTimeout != nil {
-    data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Configuration != nil {
+        data.Set("Configuration", *params.Configuration)
+    }
+    if params != nil && params.AssignmentCallbackUrl != nil {
+        data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
+    }
+    if params != nil && params.FallbackAssignmentCallbackUrl != nil {
+        data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl)
+    }
+    if params != nil && params.TaskReservationTimeout != nil {
+        data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
+    }
 
 
 
@@ -109,6 +110,7 @@ func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -127,6 +129,7 @@ func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string, ) (*Taskrout
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -176,12 +179,13 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -342,24 +346,25 @@ func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *Upd
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.AssignmentCallbackUrl != nil {
-    data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
-}
-if params != nil && params.FallbackAssignmentCallbackUrl != nil {
-    data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl)
-}
-if params != nil && params.Configuration != nil {
-    data.Set("Configuration", *params.Configuration)
-}
-if params != nil && params.TaskReservationTimeout != nil {
-    data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
-}
-if params != nil && params.ReEvaluateTasks != nil {
-    data.Set("ReEvaluateTasks", *params.ReEvaluateTasks)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.AssignmentCallbackUrl != nil {
+        data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
+    }
+    if params != nil && params.FallbackAssignmentCallbackUrl != nil {
+        data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl)
+    }
+    if params != nil && params.Configuration != nil {
+        data.Set("Configuration", *params.Configuration)
+    }
+    if params != nil && params.TaskReservationTimeout != nil {
+        data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
+    }
+    if params != nil && params.ReEvaluateTasks != nil {
+        data.Set("ReEvaluateTasks", *params.ReEvaluateTasks)
+    }
 
 
 

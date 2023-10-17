@@ -40,9 +40,10 @@ func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*ApiV2010Safe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
+
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
 
 
 
@@ -78,9 +79,10 @@ func (c *ApiService) DeleteSafelist(params *DeleteSafelistParams) (error) {
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
+
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
 
 
 
@@ -111,9 +113,10 @@ func (c *ApiService) FetchSafelist(params *FetchSafelistParams) (*ApiV2010Safeli
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PhoneNumber != nil {
-    data.Set("PhoneNumber", *params.PhoneNumber)
-}
+
+    if params != nil && params.PhoneNumber != nil {
+        data.Set("PhoneNumber", *params.PhoneNumber)
+    }
 
 
 

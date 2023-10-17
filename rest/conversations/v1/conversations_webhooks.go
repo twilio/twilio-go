@@ -77,31 +77,32 @@ func (c *ApiService) CreateConversationScopedWebhook(ConversationSid string, par
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Target != nil {
-    data.Set("Target", *params.Target)
-}
-if params != nil && params.ConfigurationUrl != nil {
-    data.Set("Configuration.Url", *params.ConfigurationUrl)
-}
-if params != nil && params.ConfigurationMethod != nil {
-    data.Set("Configuration.Method", *params.ConfigurationMethod)
-}
-if params != nil && params.ConfigurationFilters != nil {
-    for _, item  := range *params.ConfigurationFilters {
-        data.Add("Configuration.Filters", item)
+
+    if params != nil && params.Target != nil {
+        data.Set("Target", *params.Target)
     }
-}
-if params != nil && params.ConfigurationTriggers != nil {
-    for _, item  := range *params.ConfigurationTriggers {
-        data.Add("Configuration.Triggers", item)
+    if params != nil && params.ConfigurationUrl != nil {
+        data.Set("Configuration.Url", *params.ConfigurationUrl)
     }
-}
-if params != nil && params.ConfigurationFlowSid != nil {
-    data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
-}
-if params != nil && params.ConfigurationReplayAfter != nil {
-    data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
-}
+    if params != nil && params.ConfigurationMethod != nil {
+        data.Set("Configuration.Method", *params.ConfigurationMethod)
+    }
+    if params != nil && params.ConfigurationFilters != nil {
+        for _, item  := range *params.ConfigurationFilters {
+            data.Add("Configuration.Filters", item)
+    }
+    }
+    if params != nil && params.ConfigurationTriggers != nil {
+        for _, item  := range *params.ConfigurationTriggers {
+            data.Add("Configuration.Triggers", item)
+    }
+    }
+    if params != nil && params.ConfigurationFlowSid != nil {
+        data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+    }
+    if params != nil && params.ConfigurationReplayAfter != nil {
+        data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
+    }
 
 
 
@@ -131,6 +132,7 @@ func (c *ApiService) DeleteConversationScopedWebhook(ConversationSid string, Sid
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -149,6 +151,7 @@ func (c *ApiService) FetchConversationScopedWebhook(ConversationSid string, Sid 
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -192,9 +195,10 @@ func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, param
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -349,25 +353,26 @@ func (c *ApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ConfigurationUrl != nil {
-    data.Set("Configuration.Url", *params.ConfigurationUrl)
-}
-if params != nil && params.ConfigurationMethod != nil {
-    data.Set("Configuration.Method", *params.ConfigurationMethod)
-}
-if params != nil && params.ConfigurationFilters != nil {
-    for _, item  := range *params.ConfigurationFilters {
-        data.Add("Configuration.Filters", item)
+
+    if params != nil && params.ConfigurationUrl != nil {
+        data.Set("Configuration.Url", *params.ConfigurationUrl)
     }
-}
-if params != nil && params.ConfigurationTriggers != nil {
-    for _, item  := range *params.ConfigurationTriggers {
-        data.Add("Configuration.Triggers", item)
+    if params != nil && params.ConfigurationMethod != nil {
+        data.Set("Configuration.Method", *params.ConfigurationMethod)
     }
-}
-if params != nil && params.ConfigurationFlowSid != nil {
-    data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
-}
+    if params != nil && params.ConfigurationFilters != nil {
+        for _, item  := range *params.ConfigurationFilters {
+            data.Add("Configuration.Filters", item)
+    }
+    }
+    if params != nil && params.ConfigurationTriggers != nil {
+        for _, item  := range *params.ConfigurationTriggers {
+            data.Add("Configuration.Triggers", item)
+    }
+    }
+    if params != nil && params.ConfigurationFlowSid != nil {
+        data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+    }
 
 
 

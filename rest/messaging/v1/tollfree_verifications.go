@@ -172,79 +172,80 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.BusinessName != nil {
-    data.Set("BusinessName", *params.BusinessName)
-}
-if params != nil && params.BusinessWebsite != nil {
-    data.Set("BusinessWebsite", *params.BusinessWebsite)
-}
-if params != nil && params.NotificationEmail != nil {
-    data.Set("NotificationEmail", *params.NotificationEmail)
-}
-if params != nil && params.UseCaseCategories != nil {
-    for _, item  := range *params.UseCaseCategories {
-        data.Add("UseCaseCategories", item)
+
+    if params != nil && params.BusinessName != nil {
+        data.Set("BusinessName", *params.BusinessName)
     }
-}
-if params != nil && params.UseCaseSummary != nil {
-    data.Set("UseCaseSummary", *params.UseCaseSummary)
-}
-if params != nil && params.ProductionMessageSample != nil {
-    data.Set("ProductionMessageSample", *params.ProductionMessageSample)
-}
-if params != nil && params.OptInImageUrls != nil {
-    for _, item  := range *params.OptInImageUrls {
-        data.Add("OptInImageUrls", item)
+    if params != nil && params.BusinessWebsite != nil {
+        data.Set("BusinessWebsite", *params.BusinessWebsite)
     }
-}
-if params != nil && params.OptInType != nil {
-    data.Set("OptInType", *params.OptInType)
-}
-if params != nil && params.MessageVolume != nil {
-    data.Set("MessageVolume", *params.MessageVolume)
-}
-if params != nil && params.TollfreePhoneNumberSid != nil {
-    data.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
-}
-if params != nil && params.CustomerProfileSid != nil {
-    data.Set("CustomerProfileSid", *params.CustomerProfileSid)
-}
-if params != nil && params.BusinessStreetAddress != nil {
-    data.Set("BusinessStreetAddress", *params.BusinessStreetAddress)
-}
-if params != nil && params.BusinessStreetAddress2 != nil {
-    data.Set("BusinessStreetAddress2", *params.BusinessStreetAddress2)
-}
-if params != nil && params.BusinessCity != nil {
-    data.Set("BusinessCity", *params.BusinessCity)
-}
-if params != nil && params.BusinessStateProvinceRegion != nil {
-    data.Set("BusinessStateProvinceRegion", *params.BusinessStateProvinceRegion)
-}
-if params != nil && params.BusinessPostalCode != nil {
-    data.Set("BusinessPostalCode", *params.BusinessPostalCode)
-}
-if params != nil && params.BusinessCountry != nil {
-    data.Set("BusinessCountry", *params.BusinessCountry)
-}
-if params != nil && params.AdditionalInformation != nil {
-    data.Set("AdditionalInformation", *params.AdditionalInformation)
-}
-if params != nil && params.BusinessContactFirstName != nil {
-    data.Set("BusinessContactFirstName", *params.BusinessContactFirstName)
-}
-if params != nil && params.BusinessContactLastName != nil {
-    data.Set("BusinessContactLastName", *params.BusinessContactLastName)
-}
-if params != nil && params.BusinessContactEmail != nil {
-    data.Set("BusinessContactEmail", *params.BusinessContactEmail)
-}
-if params != nil && params.BusinessContactPhone != nil {
-    data.Set("BusinessContactPhone", *params.BusinessContactPhone)
-}
-if params != nil && params.ExternalReferenceId != nil {
-    data.Set("ExternalReferenceId", *params.ExternalReferenceId)
-}
+    if params != nil && params.NotificationEmail != nil {
+        data.Set("NotificationEmail", *params.NotificationEmail)
+    }
+    if params != nil && params.UseCaseCategories != nil {
+        for _, item  := range *params.UseCaseCategories {
+            data.Add("UseCaseCategories", item)
+    }
+    }
+    if params != nil && params.UseCaseSummary != nil {
+        data.Set("UseCaseSummary", *params.UseCaseSummary)
+    }
+    if params != nil && params.ProductionMessageSample != nil {
+        data.Set("ProductionMessageSample", *params.ProductionMessageSample)
+    }
+    if params != nil && params.OptInImageUrls != nil {
+        for _, item  := range *params.OptInImageUrls {
+            data.Add("OptInImageUrls", item)
+    }
+    }
+    if params != nil && params.OptInType != nil {
+        data.Set("OptInType", *params.OptInType)
+    }
+    if params != nil && params.MessageVolume != nil {
+        data.Set("MessageVolume", *params.MessageVolume)
+    }
+    if params != nil && params.TollfreePhoneNumberSid != nil {
+        data.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
+    }
+    if params != nil && params.CustomerProfileSid != nil {
+        data.Set("CustomerProfileSid", *params.CustomerProfileSid)
+    }
+    if params != nil && params.BusinessStreetAddress != nil {
+        data.Set("BusinessStreetAddress", *params.BusinessStreetAddress)
+    }
+    if params != nil && params.BusinessStreetAddress2 != nil {
+        data.Set("BusinessStreetAddress2", *params.BusinessStreetAddress2)
+    }
+    if params != nil && params.BusinessCity != nil {
+        data.Set("BusinessCity", *params.BusinessCity)
+    }
+    if params != nil && params.BusinessStateProvinceRegion != nil {
+        data.Set("BusinessStateProvinceRegion", *params.BusinessStateProvinceRegion)
+    }
+    if params != nil && params.BusinessPostalCode != nil {
+        data.Set("BusinessPostalCode", *params.BusinessPostalCode)
+    }
+    if params != nil && params.BusinessCountry != nil {
+        data.Set("BusinessCountry", *params.BusinessCountry)
+    }
+    if params != nil && params.AdditionalInformation != nil {
+        data.Set("AdditionalInformation", *params.AdditionalInformation)
+    }
+    if params != nil && params.BusinessContactFirstName != nil {
+        data.Set("BusinessContactFirstName", *params.BusinessContactFirstName)
+    }
+    if params != nil && params.BusinessContactLastName != nil {
+        data.Set("BusinessContactLastName", *params.BusinessContactLastName)
+    }
+    if params != nil && params.BusinessContactEmail != nil {
+        data.Set("BusinessContactEmail", *params.BusinessContactEmail)
+    }
+    if params != nil && params.BusinessContactPhone != nil {
+        data.Set("BusinessContactPhone", *params.BusinessContactPhone)
+    }
+    if params != nil && params.ExternalReferenceId != nil {
+        data.Set("ExternalReferenceId", *params.ExternalReferenceId)
+    }
 
 
 
@@ -270,6 +271,7 @@ func (c *ApiService) FetchTollfreeVerification(Sid string, ) (*MessagingV1Tollfr
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -324,15 +326,16 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.TollfreePhoneNumberSid != nil {
-    data.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.TollfreePhoneNumberSid != nil {
+        data.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -576,70 +579,71 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.BusinessName != nil {
-    data.Set("BusinessName", *params.BusinessName)
-}
-if params != nil && params.BusinessWebsite != nil {
-    data.Set("BusinessWebsite", *params.BusinessWebsite)
-}
-if params != nil && params.NotificationEmail != nil {
-    data.Set("NotificationEmail", *params.NotificationEmail)
-}
-if params != nil && params.UseCaseCategories != nil {
-    for _, item  := range *params.UseCaseCategories {
-        data.Add("UseCaseCategories", item)
+
+    if params != nil && params.BusinessName != nil {
+        data.Set("BusinessName", *params.BusinessName)
     }
-}
-if params != nil && params.UseCaseSummary != nil {
-    data.Set("UseCaseSummary", *params.UseCaseSummary)
-}
-if params != nil && params.ProductionMessageSample != nil {
-    data.Set("ProductionMessageSample", *params.ProductionMessageSample)
-}
-if params != nil && params.OptInImageUrls != nil {
-    for _, item  := range *params.OptInImageUrls {
-        data.Add("OptInImageUrls", item)
+    if params != nil && params.BusinessWebsite != nil {
+        data.Set("BusinessWebsite", *params.BusinessWebsite)
     }
-}
-if params != nil && params.OptInType != nil {
-    data.Set("OptInType", *params.OptInType)
-}
-if params != nil && params.MessageVolume != nil {
-    data.Set("MessageVolume", *params.MessageVolume)
-}
-if params != nil && params.BusinessStreetAddress != nil {
-    data.Set("BusinessStreetAddress", *params.BusinessStreetAddress)
-}
-if params != nil && params.BusinessStreetAddress2 != nil {
-    data.Set("BusinessStreetAddress2", *params.BusinessStreetAddress2)
-}
-if params != nil && params.BusinessCity != nil {
-    data.Set("BusinessCity", *params.BusinessCity)
-}
-if params != nil && params.BusinessStateProvinceRegion != nil {
-    data.Set("BusinessStateProvinceRegion", *params.BusinessStateProvinceRegion)
-}
-if params != nil && params.BusinessPostalCode != nil {
-    data.Set("BusinessPostalCode", *params.BusinessPostalCode)
-}
-if params != nil && params.BusinessCountry != nil {
-    data.Set("BusinessCountry", *params.BusinessCountry)
-}
-if params != nil && params.AdditionalInformation != nil {
-    data.Set("AdditionalInformation", *params.AdditionalInformation)
-}
-if params != nil && params.BusinessContactFirstName != nil {
-    data.Set("BusinessContactFirstName", *params.BusinessContactFirstName)
-}
-if params != nil && params.BusinessContactLastName != nil {
-    data.Set("BusinessContactLastName", *params.BusinessContactLastName)
-}
-if params != nil && params.BusinessContactEmail != nil {
-    data.Set("BusinessContactEmail", *params.BusinessContactEmail)
-}
-if params != nil && params.BusinessContactPhone != nil {
-    data.Set("BusinessContactPhone", *params.BusinessContactPhone)
-}
+    if params != nil && params.NotificationEmail != nil {
+        data.Set("NotificationEmail", *params.NotificationEmail)
+    }
+    if params != nil && params.UseCaseCategories != nil {
+        for _, item  := range *params.UseCaseCategories {
+            data.Add("UseCaseCategories", item)
+    }
+    }
+    if params != nil && params.UseCaseSummary != nil {
+        data.Set("UseCaseSummary", *params.UseCaseSummary)
+    }
+    if params != nil && params.ProductionMessageSample != nil {
+        data.Set("ProductionMessageSample", *params.ProductionMessageSample)
+    }
+    if params != nil && params.OptInImageUrls != nil {
+        for _, item  := range *params.OptInImageUrls {
+            data.Add("OptInImageUrls", item)
+    }
+    }
+    if params != nil && params.OptInType != nil {
+        data.Set("OptInType", *params.OptInType)
+    }
+    if params != nil && params.MessageVolume != nil {
+        data.Set("MessageVolume", *params.MessageVolume)
+    }
+    if params != nil && params.BusinessStreetAddress != nil {
+        data.Set("BusinessStreetAddress", *params.BusinessStreetAddress)
+    }
+    if params != nil && params.BusinessStreetAddress2 != nil {
+        data.Set("BusinessStreetAddress2", *params.BusinessStreetAddress2)
+    }
+    if params != nil && params.BusinessCity != nil {
+        data.Set("BusinessCity", *params.BusinessCity)
+    }
+    if params != nil && params.BusinessStateProvinceRegion != nil {
+        data.Set("BusinessStateProvinceRegion", *params.BusinessStateProvinceRegion)
+    }
+    if params != nil && params.BusinessPostalCode != nil {
+        data.Set("BusinessPostalCode", *params.BusinessPostalCode)
+    }
+    if params != nil && params.BusinessCountry != nil {
+        data.Set("BusinessCountry", *params.BusinessCountry)
+    }
+    if params != nil && params.AdditionalInformation != nil {
+        data.Set("AdditionalInformation", *params.AdditionalInformation)
+    }
+    if params != nil && params.BusinessContactFirstName != nil {
+        data.Set("BusinessContactFirstName", *params.BusinessContactFirstName)
+    }
+    if params != nil && params.BusinessContactLastName != nil {
+        data.Set("BusinessContactLastName", *params.BusinessContactLastName)
+    }
+    if params != nil && params.BusinessContactEmail != nil {
+        data.Set("BusinessContactEmail", *params.BusinessContactEmail)
+    }
+    if params != nil && params.BusinessContactPhone != nil {
+        data.Set("BusinessContactPhone", *params.BusinessContactPhone)
+    }
 
 
 

@@ -33,6 +33,7 @@ func (c *ApiService) CreateTaskQueueBulkRealTimeStatistics(WorkspaceSid string, 
 
 
 
+
     resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -67,9 +68,10 @@ func (c *ApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQ
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.TaskChannel != nil {
-    data.Set("TaskChannel", *params.TaskChannel)
-}
+
+    if params != nil && params.TaskChannel != nil {
+        data.Set("TaskChannel", *params.TaskChannel)
+    }
 
 
 

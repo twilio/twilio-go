@@ -53,21 +53,22 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.Data != nil {
-    v, err := json.Marshal(params.Data)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
     }
+    if params != nil && params.Data != nil {
+        v, err := json.Marshal(params.Data)
 
-    data.Set("Data", string(v))
-}
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Data", string(v))
+    }
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
 
 
 
@@ -97,6 +98,7 @@ func (c *ApiService) DeleteDocument(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -115,6 +117,7 @@ func (c *ApiService) FetchDocument(ServiceSid string, Sid string, ) (*SyncV1Docu
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -158,9 +161,10 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -303,18 +307,19 @@ func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *Updat
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Data != nil {
-    v, err := json.Marshal(params.Data)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.Data != nil {
+        v, err := json.Marshal(params.Data)
+
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Data", string(v))
     }
-
-    data.Set("Data", string(v))
-}
-if params != nil && params.Ttl != nil {
-    data.Set("Ttl", fmt.Sprint(*params.Ttl))
-}
+    if params != nil && params.Ttl != nil {
+        data.Set("Ttl", fmt.Sprint(*params.Ttl))
+    }
 
 
 	if params != nil && params.IfMatch != nil {

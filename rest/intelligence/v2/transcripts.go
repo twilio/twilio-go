@@ -58,24 +58,25 @@ func (c *ApiService) CreateTranscript(params *CreateTranscriptParams) (*Intellig
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ServiceSid != nil {
-    data.Set("ServiceSid", *params.ServiceSid)
-}
-if params != nil && params.Channel != nil {
-    v, err := json.Marshal(params.Channel)
 
-    if err != nil {
-        return nil, err
+    if params != nil && params.ServiceSid != nil {
+        data.Set("ServiceSid", *params.ServiceSid)
     }
+    if params != nil && params.Channel != nil {
+        v, err := json.Marshal(params.Channel)
 
-    data.Set("Channel", string(v))
-}
-if params != nil && params.CustomerKey != nil {
-    data.Set("CustomerKey", *params.CustomerKey)
-}
-if params != nil && params.MediaStartTime != nil {
-    data.Set("MediaStartTime", fmt.Sprint((*params.MediaStartTime).Format(time.RFC3339)))
-}
+        if err != nil {
+            return nil, err
+        }
+
+        data.Set("Channel", string(v))
+    }
+    if params != nil && params.CustomerKey != nil {
+        data.Set("CustomerKey", *params.CustomerKey)
+    }
+    if params != nil && params.MediaStartTime != nil {
+        data.Set("MediaStartTime", fmt.Sprint((*params.MediaStartTime).Format(time.RFC3339)))
+    }
 
 
 
@@ -101,6 +102,7 @@ func (c *ApiService) DeleteTranscript(Sid string, ) (error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -132,9 +134,10 @@ func (c *ApiService) FetchTranscript(Sid string, params *FetchTranscriptParams) 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Redacted != nil {
-    data.Set("Redacted", fmt.Sprint(*params.Redacted))
-}
+
+    if params != nil && params.Redacted != nil {
+        data.Set("Redacted", fmt.Sprint(*params.Redacted))
+    }
 
 
 
@@ -225,33 +228,34 @@ func (c *ApiService) PageTranscript(params *ListTranscriptParams, pageToken, pag
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.ServiceSid != nil {
-    data.Set("ServiceSid", *params.ServiceSid)
-}
-if params != nil && params.BeforeStartTime != nil {
-    data.Set("BeforeStartTime", *params.BeforeStartTime)
-}
-if params != nil && params.AfterStartTime != nil {
-    data.Set("AfterStartTime", *params.AfterStartTime)
-}
-if params != nil && params.BeforeDateCreated != nil {
-    data.Set("BeforeDateCreated", *params.BeforeDateCreated)
-}
-if params != nil && params.AfterDateCreated != nil {
-    data.Set("AfterDateCreated", *params.AfterDateCreated)
-}
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.LanguageCode != nil {
-    data.Set("LanguageCode", *params.LanguageCode)
-}
-if params != nil && params.SourceSid != nil {
-    data.Set("SourceSid", *params.SourceSid)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.ServiceSid != nil {
+        data.Set("ServiceSid", *params.ServiceSid)
+    }
+    if params != nil && params.BeforeStartTime != nil {
+        data.Set("BeforeStartTime", *params.BeforeStartTime)
+    }
+    if params != nil && params.AfterStartTime != nil {
+        data.Set("AfterStartTime", *params.AfterStartTime)
+    }
+    if params != nil && params.BeforeDateCreated != nil {
+        data.Set("BeforeDateCreated", *params.BeforeDateCreated)
+    }
+    if params != nil && params.AfterDateCreated != nil {
+        data.Set("AfterDateCreated", *params.AfterDateCreated)
+    }
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.LanguageCode != nil {
+        data.Set("LanguageCode", *params.LanguageCode)
+    }
+    if params != nil && params.SourceSid != nil {
+        data.Set("SourceSid", *params.SourceSid)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

@@ -58,18 +58,19 @@ func (c *ApiService) CreateTrustProduct(params *CreateTrustProductParams) (*Trus
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Email != nil {
-    data.Set("Email", *params.Email)
-}
-if params != nil && params.PolicySid != nil {
-    data.Set("PolicySid", *params.PolicySid)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Email != nil {
+        data.Set("Email", *params.Email)
+    }
+    if params != nil && params.PolicySid != nil {
+        data.Set("PolicySid", *params.PolicySid)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
 
 
 
@@ -98,6 +99,7 @@ func (c *ApiService) DeleteTrustProduct(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -115,6 +117,7 @@ func (c *ApiService) FetchTrustProduct(Sid string, ) (*TrusthubV1TrustProduct, e
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -175,18 +178,19 @@ func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken,
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.PolicySid != nil {
-    data.Set("PolicySid", *params.PolicySid)
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.PolicySid != nil {
+        data.Set("PolicySid", *params.PolicySid)
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -334,18 +338,19 @@ func (c *ApiService) UpdateTrustProduct(Sid string, params *UpdateTrustProductPa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Status != nil {
-    data.Set("Status", *params.Status)
-}
-if params != nil && params.StatusCallback != nil {
-    data.Set("StatusCallback", *params.StatusCallback)
-}
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Email != nil {
-    data.Set("Email", *params.Email)
-}
+
+    if params != nil && params.Status != nil {
+        data.Set("Status", *params.Status)
+    }
+    if params != nil && params.StatusCallback != nil {
+        data.Set("StatusCallback", *params.StatusCallback)
+    }
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Email != nil {
+        data.Set("Email", *params.Email)
+    }
 
 
 

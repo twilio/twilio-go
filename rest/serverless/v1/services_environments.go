@@ -47,12 +47,13 @@ func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironm
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.UniqueName != nil {
-    data.Set("UniqueName", *params.UniqueName)
-}
-if params != nil && params.DomainSuffix != nil {
-    data.Set("DomainSuffix", *params.DomainSuffix)
-}
+
+    if params != nil && params.UniqueName != nil {
+        data.Set("UniqueName", *params.UniqueName)
+    }
+    if params != nil && params.DomainSuffix != nil {
+        data.Set("DomainSuffix", *params.DomainSuffix)
+    }
 
 
 
@@ -82,6 +83,7 @@ func (c *ApiService) DeleteEnvironment(ServiceSid string, Sid string, ) (error) 
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -100,6 +102,7 @@ func (c *ApiService) FetchEnvironment(ServiceSid string, Sid string, ) (*Serverl
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -143,9 +146,10 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

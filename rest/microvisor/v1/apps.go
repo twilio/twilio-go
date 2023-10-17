@@ -33,6 +33,7 @@ func (c *ApiService) DeleteApp(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -50,6 +51,7 @@ func (c *ApiService) FetchApp(Sid string, ) (*MicrovisorV1App, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -92,9 +94,10 @@ func (c *ApiService) PageApp(params *ListAppParams, pageToken, pageNumber string
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

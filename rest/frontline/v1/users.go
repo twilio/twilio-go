@@ -33,6 +33,7 @@ func (c *ApiService) FetchUser(Sid string, ) (*FrontlineV1User, error) {
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -84,18 +85,19 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Frontlin
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.Avatar != nil {
-    data.Set("Avatar", *params.Avatar)
-}
-if params != nil && params.State != nil {
-    data.Set("State", *params.State)
-}
-if params != nil && params.IsAvailable != nil {
-    data.Set("IsAvailable", fmt.Sprint(*params.IsAvailable))
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.Avatar != nil {
+        data.Set("Avatar", *params.Avatar)
+    }
+    if params != nil && params.State != nil {
+        data.Set("State", *params.State)
+    }
+    if params != nil && params.IsAvailable != nil {
+        data.Set("IsAvailable", fmt.Sprint(*params.IsAvailable))
+    }
 
 
 

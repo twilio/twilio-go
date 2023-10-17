@@ -35,6 +35,7 @@ func (c *ApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, S
 
 
 
+
     resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
     if err != nil {
         return nil, err
@@ -76,9 +77,10 @@ func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -216,12 +218,13 @@ func (c *ApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, 
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Capacity != nil {
-    data.Set("Capacity", fmt.Sprint(*params.Capacity))
-}
-if params != nil && params.Available != nil {
-    data.Set("Available", fmt.Sprint(*params.Available))
-}
+
+    if params != nil && params.Capacity != nil {
+        data.Set("Capacity", fmt.Sprint(*params.Capacity))
+    }
+    if params != nil && params.Available != nil {
+        data.Set("Available", fmt.Sprint(*params.Available))
+    }
 
 
 

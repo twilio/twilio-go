@@ -77,29 +77,30 @@ func (c *ApiService) CreateBinding(ServiceSid string, params *CreateBindingParam
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.Identity != nil {
-    data.Set("Identity", *params.Identity)
-}
-if params != nil && params.BindingType != nil {
-    data.Set("BindingType", *params.BindingType)
-}
-if params != nil && params.Address != nil {
-    data.Set("Address", *params.Address)
-}
-if params != nil && params.Tag != nil {
-    for _, item  := range *params.Tag {
-        data.Add("Tag", item)
+
+    if params != nil && params.Identity != nil {
+        data.Set("Identity", *params.Identity)
     }
-}
-if params != nil && params.NotificationProtocolVersion != nil {
-    data.Set("NotificationProtocolVersion", *params.NotificationProtocolVersion)
-}
-if params != nil && params.CredentialSid != nil {
-    data.Set("CredentialSid", *params.CredentialSid)
-}
-if params != nil && params.Endpoint != nil {
-    data.Set("Endpoint", *params.Endpoint)
-}
+    if params != nil && params.BindingType != nil {
+        data.Set("BindingType", *params.BindingType)
+    }
+    if params != nil && params.Address != nil {
+        data.Set("Address", *params.Address)
+    }
+    if params != nil && params.Tag != nil {
+        for _, item  := range *params.Tag {
+            data.Add("Tag", item)
+    }
+    }
+    if params != nil && params.NotificationProtocolVersion != nil {
+        data.Set("NotificationProtocolVersion", *params.NotificationProtocolVersion)
+    }
+    if params != nil && params.CredentialSid != nil {
+        data.Set("CredentialSid", *params.CredentialSid)
+    }
+    if params != nil && params.Endpoint != nil {
+        data.Set("Endpoint", *params.Endpoint)
+    }
 
 
 
@@ -129,6 +130,7 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -147,6 +149,7 @@ func (c *ApiService) FetchBinding(ServiceSid string, Sid string, ) (*NotifyV1Bin
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -214,25 +217,26 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.StartDate != nil {
-    data.Set("StartDate", fmt.Sprint(*params.StartDate))
-}
-if params != nil && params.EndDate != nil {
-    data.Set("EndDate", fmt.Sprint(*params.EndDate))
-}
-if params != nil && params.Identity != nil {
-    for _, item  := range *params.Identity {
-        data.Add("Identity", item)
+
+    if params != nil && params.StartDate != nil {
+        data.Set("StartDate", fmt.Sprint(*params.StartDate))
     }
-}
-if params != nil && params.Tag != nil {
-    for _, item  := range *params.Tag {
-        data.Add("Tag", item)
+    if params != nil && params.EndDate != nil {
+        data.Set("EndDate", fmt.Sprint(*params.EndDate))
     }
-}
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+    if params != nil && params.Identity != nil {
+        for _, item  := range *params.Identity {
+            data.Add("Identity", item)
+    }
+    }
+    if params != nil && params.Tag != nil {
+        for _, item  := range *params.Tag {
+            data.Add("Tag", item)
+    }
+    }
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

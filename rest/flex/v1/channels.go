@@ -94,36 +94,37 @@ func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel,
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FlexFlowSid != nil {
-    data.Set("FlexFlowSid", *params.FlexFlowSid)
-}
-if params != nil && params.Identity != nil {
-    data.Set("Identity", *params.Identity)
-}
-if params != nil && params.ChatUserFriendlyName != nil {
-    data.Set("ChatUserFriendlyName", *params.ChatUserFriendlyName)
-}
-if params != nil && params.ChatFriendlyName != nil {
-    data.Set("ChatFriendlyName", *params.ChatFriendlyName)
-}
-if params != nil && params.Target != nil {
-    data.Set("Target", *params.Target)
-}
-if params != nil && params.ChatUniqueName != nil {
-    data.Set("ChatUniqueName", *params.ChatUniqueName)
-}
-if params != nil && params.PreEngagementData != nil {
-    data.Set("PreEngagementData", *params.PreEngagementData)
-}
-if params != nil && params.TaskSid != nil {
-    data.Set("TaskSid", *params.TaskSid)
-}
-if params != nil && params.TaskAttributes != nil {
-    data.Set("TaskAttributes", *params.TaskAttributes)
-}
-if params != nil && params.LongLived != nil {
-    data.Set("LongLived", fmt.Sprint(*params.LongLived))
-}
+
+    if params != nil && params.FlexFlowSid != nil {
+        data.Set("FlexFlowSid", *params.FlexFlowSid)
+    }
+    if params != nil && params.Identity != nil {
+        data.Set("Identity", *params.Identity)
+    }
+    if params != nil && params.ChatUserFriendlyName != nil {
+        data.Set("ChatUserFriendlyName", *params.ChatUserFriendlyName)
+    }
+    if params != nil && params.ChatFriendlyName != nil {
+        data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+    }
+    if params != nil && params.Target != nil {
+        data.Set("Target", *params.Target)
+    }
+    if params != nil && params.ChatUniqueName != nil {
+        data.Set("ChatUniqueName", *params.ChatUniqueName)
+    }
+    if params != nil && params.PreEngagementData != nil {
+        data.Set("PreEngagementData", *params.PreEngagementData)
+    }
+    if params != nil && params.TaskSid != nil {
+        data.Set("TaskSid", *params.TaskSid)
+    }
+    if params != nil && params.TaskAttributes != nil {
+        data.Set("TaskAttributes", *params.TaskAttributes)
+    }
+    if params != nil && params.LongLived != nil {
+        data.Set("LongLived", fmt.Sprint(*params.LongLived))
+    }
 
 
 
@@ -152,6 +153,7 @@ func (c *ApiService) DeleteChannel(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -169,6 +171,7 @@ func (c *ApiService) FetchChannel(Sid string, ) (*FlexV1Channel, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -211,9 +214,10 @@ func (c *ApiService) PageChannel(params *ListChannelParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)

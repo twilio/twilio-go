@@ -136,57 +136,58 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.CodeLength != nil {
-    data.Set("CodeLength", fmt.Sprint(*params.CodeLength))
-}
-if params != nil && params.LookupEnabled != nil {
-    data.Set("LookupEnabled", fmt.Sprint(*params.LookupEnabled))
-}
-if params != nil && params.SkipSmsToLandlines != nil {
-    data.Set("SkipSmsToLandlines", fmt.Sprint(*params.SkipSmsToLandlines))
-}
-if params != nil && params.DtmfInputRequired != nil {
-    data.Set("DtmfInputRequired", fmt.Sprint(*params.DtmfInputRequired))
-}
-if params != nil && params.TtsName != nil {
-    data.Set("TtsName", *params.TtsName)
-}
-if params != nil && params.Psd2Enabled != nil {
-    data.Set("Psd2Enabled", fmt.Sprint(*params.Psd2Enabled))
-}
-if params != nil && params.DoNotShareWarningEnabled != nil {
-    data.Set("DoNotShareWarningEnabled", fmt.Sprint(*params.DoNotShareWarningEnabled))
-}
-if params != nil && params.CustomCodeEnabled != nil {
-    data.Set("CustomCodeEnabled", fmt.Sprint(*params.CustomCodeEnabled))
-}
-if params != nil && params.PushIncludeDate != nil {
-    data.Set("Push.IncludeDate", fmt.Sprint(*params.PushIncludeDate))
-}
-if params != nil && params.PushApnCredentialSid != nil {
-    data.Set("Push.ApnCredentialSid", *params.PushApnCredentialSid)
-}
-if params != nil && params.PushFcmCredentialSid != nil {
-    data.Set("Push.FcmCredentialSid", *params.PushFcmCredentialSid)
-}
-if params != nil && params.TotpIssuer != nil {
-    data.Set("Totp.Issuer", *params.TotpIssuer)
-}
-if params != nil && params.TotpTimeStep != nil {
-    data.Set("Totp.TimeStep", fmt.Sprint(*params.TotpTimeStep))
-}
-if params != nil && params.TotpCodeLength != nil {
-    data.Set("Totp.CodeLength", fmt.Sprint(*params.TotpCodeLength))
-}
-if params != nil && params.TotpSkew != nil {
-    data.Set("Totp.Skew", fmt.Sprint(*params.TotpSkew))
-}
-if params != nil && params.DefaultTemplateSid != nil {
-    data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.CodeLength != nil {
+        data.Set("CodeLength", fmt.Sprint(*params.CodeLength))
+    }
+    if params != nil && params.LookupEnabled != nil {
+        data.Set("LookupEnabled", fmt.Sprint(*params.LookupEnabled))
+    }
+    if params != nil && params.SkipSmsToLandlines != nil {
+        data.Set("SkipSmsToLandlines", fmt.Sprint(*params.SkipSmsToLandlines))
+    }
+    if params != nil && params.DtmfInputRequired != nil {
+        data.Set("DtmfInputRequired", fmt.Sprint(*params.DtmfInputRequired))
+    }
+    if params != nil && params.TtsName != nil {
+        data.Set("TtsName", *params.TtsName)
+    }
+    if params != nil && params.Psd2Enabled != nil {
+        data.Set("Psd2Enabled", fmt.Sprint(*params.Psd2Enabled))
+    }
+    if params != nil && params.DoNotShareWarningEnabled != nil {
+        data.Set("DoNotShareWarningEnabled", fmt.Sprint(*params.DoNotShareWarningEnabled))
+    }
+    if params != nil && params.CustomCodeEnabled != nil {
+        data.Set("CustomCodeEnabled", fmt.Sprint(*params.CustomCodeEnabled))
+    }
+    if params != nil && params.PushIncludeDate != nil {
+        data.Set("Push.IncludeDate", fmt.Sprint(*params.PushIncludeDate))
+    }
+    if params != nil && params.PushApnCredentialSid != nil {
+        data.Set("Push.ApnCredentialSid", *params.PushApnCredentialSid)
+    }
+    if params != nil && params.PushFcmCredentialSid != nil {
+        data.Set("Push.FcmCredentialSid", *params.PushFcmCredentialSid)
+    }
+    if params != nil && params.TotpIssuer != nil {
+        data.Set("Totp.Issuer", *params.TotpIssuer)
+    }
+    if params != nil && params.TotpTimeStep != nil {
+        data.Set("Totp.TimeStep", fmt.Sprint(*params.TotpTimeStep))
+    }
+    if params != nil && params.TotpCodeLength != nil {
+        data.Set("Totp.CodeLength", fmt.Sprint(*params.TotpCodeLength))
+    }
+    if params != nil && params.TotpSkew != nil {
+        data.Set("Totp.Skew", fmt.Sprint(*params.TotpSkew))
+    }
+    if params != nil && params.DefaultTemplateSid != nil {
+        data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
+    }
 
 
 
@@ -215,6 +216,7 @@ func (c *ApiService) DeleteService(Sid string, ) (error) {
 
 
 
+
     resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
     if err != nil {
         return err
@@ -232,6 +234,7 @@ func (c *ApiService) FetchService(Sid string, ) (*VerifyV2Service, error) {
 
     data := url.Values{}
     headers := make(map[string]interface{})
+
 
 
 
@@ -274,9 +277,10 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
     
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.PageSize != nil {
-    data.Set("PageSize", fmt.Sprint(*params.PageSize))
-}
+
+    if params != nil && params.PageSize != nil {
+        data.Set("PageSize", fmt.Sprint(*params.PageSize))
+    }
 
     if pageToken != "" {
         data.Set("PageToken", pageToken)
@@ -502,57 +506,58 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 
     data := url.Values{}
     headers := make(map[string]interface{})
-if params != nil && params.FriendlyName != nil {
-    data.Set("FriendlyName", *params.FriendlyName)
-}
-if params != nil && params.CodeLength != nil {
-    data.Set("CodeLength", fmt.Sprint(*params.CodeLength))
-}
-if params != nil && params.LookupEnabled != nil {
-    data.Set("LookupEnabled", fmt.Sprint(*params.LookupEnabled))
-}
-if params != nil && params.SkipSmsToLandlines != nil {
-    data.Set("SkipSmsToLandlines", fmt.Sprint(*params.SkipSmsToLandlines))
-}
-if params != nil && params.DtmfInputRequired != nil {
-    data.Set("DtmfInputRequired", fmt.Sprint(*params.DtmfInputRequired))
-}
-if params != nil && params.TtsName != nil {
-    data.Set("TtsName", *params.TtsName)
-}
-if params != nil && params.Psd2Enabled != nil {
-    data.Set("Psd2Enabled", fmt.Sprint(*params.Psd2Enabled))
-}
-if params != nil && params.DoNotShareWarningEnabled != nil {
-    data.Set("DoNotShareWarningEnabled", fmt.Sprint(*params.DoNotShareWarningEnabled))
-}
-if params != nil && params.CustomCodeEnabled != nil {
-    data.Set("CustomCodeEnabled", fmt.Sprint(*params.CustomCodeEnabled))
-}
-if params != nil && params.PushIncludeDate != nil {
-    data.Set("Push.IncludeDate", fmt.Sprint(*params.PushIncludeDate))
-}
-if params != nil && params.PushApnCredentialSid != nil {
-    data.Set("Push.ApnCredentialSid", *params.PushApnCredentialSid)
-}
-if params != nil && params.PushFcmCredentialSid != nil {
-    data.Set("Push.FcmCredentialSid", *params.PushFcmCredentialSid)
-}
-if params != nil && params.TotpIssuer != nil {
-    data.Set("Totp.Issuer", *params.TotpIssuer)
-}
-if params != nil && params.TotpTimeStep != nil {
-    data.Set("Totp.TimeStep", fmt.Sprint(*params.TotpTimeStep))
-}
-if params != nil && params.TotpCodeLength != nil {
-    data.Set("Totp.CodeLength", fmt.Sprint(*params.TotpCodeLength))
-}
-if params != nil && params.TotpSkew != nil {
-    data.Set("Totp.Skew", fmt.Sprint(*params.TotpSkew))
-}
-if params != nil && params.DefaultTemplateSid != nil {
-    data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
-}
+
+    if params != nil && params.FriendlyName != nil {
+        data.Set("FriendlyName", *params.FriendlyName)
+    }
+    if params != nil && params.CodeLength != nil {
+        data.Set("CodeLength", fmt.Sprint(*params.CodeLength))
+    }
+    if params != nil && params.LookupEnabled != nil {
+        data.Set("LookupEnabled", fmt.Sprint(*params.LookupEnabled))
+    }
+    if params != nil && params.SkipSmsToLandlines != nil {
+        data.Set("SkipSmsToLandlines", fmt.Sprint(*params.SkipSmsToLandlines))
+    }
+    if params != nil && params.DtmfInputRequired != nil {
+        data.Set("DtmfInputRequired", fmt.Sprint(*params.DtmfInputRequired))
+    }
+    if params != nil && params.TtsName != nil {
+        data.Set("TtsName", *params.TtsName)
+    }
+    if params != nil && params.Psd2Enabled != nil {
+        data.Set("Psd2Enabled", fmt.Sprint(*params.Psd2Enabled))
+    }
+    if params != nil && params.DoNotShareWarningEnabled != nil {
+        data.Set("DoNotShareWarningEnabled", fmt.Sprint(*params.DoNotShareWarningEnabled))
+    }
+    if params != nil && params.CustomCodeEnabled != nil {
+        data.Set("CustomCodeEnabled", fmt.Sprint(*params.CustomCodeEnabled))
+    }
+    if params != nil && params.PushIncludeDate != nil {
+        data.Set("Push.IncludeDate", fmt.Sprint(*params.PushIncludeDate))
+    }
+    if params != nil && params.PushApnCredentialSid != nil {
+        data.Set("Push.ApnCredentialSid", *params.PushApnCredentialSid)
+    }
+    if params != nil && params.PushFcmCredentialSid != nil {
+        data.Set("Push.FcmCredentialSid", *params.PushFcmCredentialSid)
+    }
+    if params != nil && params.TotpIssuer != nil {
+        data.Set("Totp.Issuer", *params.TotpIssuer)
+    }
+    if params != nil && params.TotpTimeStep != nil {
+        data.Set("Totp.TimeStep", fmt.Sprint(*params.TotpTimeStep))
+    }
+    if params != nil && params.TotpCodeLength != nil {
+        data.Set("Totp.CodeLength", fmt.Sprint(*params.TotpCodeLength))
+    }
+    if params != nil && params.TotpSkew != nil {
+        data.Set("Totp.Skew", fmt.Sprint(*params.TotpSkew))
+    }
+    if params != nil && params.DefaultTemplateSid != nil {
+        data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
+    }
 
 
 
