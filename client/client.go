@@ -64,19 +64,9 @@ func extractContentTypeHeader(headers map[string]interface{}) (cType string){
 			return headerType.(string)
 }
 
-func decodeJsonPayload(jsonBody string)(s []byte){
-	prefixTrimmedString := jsonBody[2:]
-	suffixTrimmedString := prefixTrimmedString[:len(prefixTrimmedString)-2]
-	finalJsonPayload := jsonPrefix + suffixTrimmedString + jsonSuffix
-	finalJsonPayloadArray := []byte(finalJsonPayload)
-	return finalJsonPayloadArray
-}
-
 const (
 	urlEncodedContentType = "application/x-www-form-urlencoded"
 	jsonContentType = "application/json"
-	jsonPrefix = "{"
-	jsonSuffix = "}"
 	keepZeros = true
 	delimiter = '.'
 	escapee   = '\\'
@@ -109,9 +99,9 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
 func (c *Client) SendRequest(method string, rawURL string, data url.Values,
-	headers map[string]interface{}) (*http.Response, error) {
-	
-    contentType := extractContentTypeHeader(headers)
+	headers map[string]interface{}, body ...byte) (*http.Response, error) {
+
+	contentType := extractContentTypeHeader(headers)
 
 	u, err := url.Parse(rawURL)
 	if err != nil {
@@ -122,7 +112,11 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	goVersion := runtime.Version()
 	var req *http.Request
 
-	if method == http.MethodGet {
+	//For HTTP GET Method there are no body parameters. All other parameters like query, path etc
+	// are added as information in the url itself. Also while Content-Type is json, we are sending 
+	// json body. In that case, data variable conatins all other parameters than body, which is the 
+	//same case as GET method. In that case as well all parameters will be added to url
+	if method == http.MethodGet || contentType == jsonContentType{
 		if data != nil {
 			v, _ := form.EncodeToStringWith(data, delimiter, escapee, keepZeros)
 			regex := regexp.MustCompile(`\.\d+`)
@@ -132,23 +126,16 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 		}
 	}
 
+	//data is already processed and information will be added to u(the url) in the
+	//previous step. Now body will solely contain json payload 
 	if contentType == jsonContentType {
-		var jsonData []byte
-		var err error
-		var encodedString string
-		for _, value := range data {
-			jsonData, err = json.Marshal(value[0])
-			encodedString, err = url.QueryUnescape(string(jsonData))
-			if err != nil {
-				return nil, err
-			}
-		}
-		jsonBody := decodeJsonPayload(encodedString)
-		req, err = http.NewRequest(method, u.String(), bytes.NewBuffer(jsonBody))
+		req, err = http.NewRequest(method, u.String(), bytes.NewBuffer(body))
 		if err != nil {
 			return nil, err
 		}		
 	} else {
+		//Here the HTTP POST methods which is not having json content type are processed
+		//All the values will be added in data and encoded (all body, query, path parameters)
 		if method == http.MethodPost {
 			valueReader = strings.NewReader(data.Encode())
 		}
@@ -156,7 +143,6 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 		if err != nil {
 			return nil, err
 		}
-
 	}
 
 	if contentType == urlEncodedContentType{
