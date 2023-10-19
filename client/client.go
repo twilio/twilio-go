@@ -111,7 +111,7 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}) (*http.Response, error) {
 	
-	contentType := extractContentTypeHeader(headers)
+    contentType := extractContentTypeHeader(headers)
 
 	u, err := url.Parse(rawURL)
 	if err != nil {
