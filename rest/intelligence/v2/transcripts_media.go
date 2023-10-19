@@ -23,7 +23,7 @@ import (
 
 // Optional parameters for the method 'FetchMedia'
 type FetchMediaParams struct {
-	// Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media.
+	// Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media.
 	Redacted *bool `json:"Redacted,omitempty"`
 }
 

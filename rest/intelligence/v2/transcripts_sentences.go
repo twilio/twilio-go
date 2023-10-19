@@ -25,7 +25,7 @@ import (
 
 // Optional parameters for the method 'ListSentence'
 type ListSentenceParams struct {
-	// Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+	// Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
 	Redacted *bool `json:"Redacted,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

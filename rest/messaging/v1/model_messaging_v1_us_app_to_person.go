@@ -30,7 +30,7 @@ type MessagingV1UsAppToPerson struct {
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
 	Description *string `json:"description,omitempty"`
-	// Message samples, at least 1 and up to 5 sample messages (at least 2 for starter/sole proprietor), >=20 chars, <=1024 chars each.
+	// An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
 	MessageSamples *[]string `json:"message_samples,omitempty"`
 	// A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING, SOLE_PROPRIETOR...]. SOLE_PROPRIETOR campaign use cases can only be created by SOLE_PROPRIETOR Brands, and there can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR Brand.
 	UsAppToPersonUsecase *string `json:"us_app_to_person_usecase,omitempty"`

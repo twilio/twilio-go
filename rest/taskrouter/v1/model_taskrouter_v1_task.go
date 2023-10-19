@@ -61,4 +61,6 @@ type TaskrouterV1Task struct {
 	Url *string `json:"url,omitempty"`
 	// The URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// The date and time in GMT indicating the ordering for routing of the Task specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	VirtualStartTime *time.Time `json:"virtual_start_time,omitempty"`
 }

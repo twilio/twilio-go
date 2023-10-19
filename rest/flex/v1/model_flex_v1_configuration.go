@@ -113,4 +113,6 @@ type FlexV1Configuration struct {
 	AgentConvEndMethods *interface{} `json:"agent_conv_end_methods,omitempty"`
 	// Citrix voice vdi configuration and settings.
 	CitrixVoiceVdi *interface{} `json:"citrix_voice_vdi,omitempty"`
+	// Presence and presence ttl configuration
+	OfflineConfig *interface{} `json:"offline_config,omitempty"`
 }

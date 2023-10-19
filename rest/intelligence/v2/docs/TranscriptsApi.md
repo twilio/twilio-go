@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## FetchTranscript
 
-> IntelligenceV2Transcript FetchTranscript(ctx, Sidoptional)
+> IntelligenceV2Transcript FetchTranscript(ctx, Sid)
 
 
 
@@ -118,7 +118,6 @@ Other parameters are passed through a pointer to a FetchTranscriptParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Redacted** | **bool** | Grant access to PII Redacted/Unredacted Transcript. The default is `true` to access redacted Transcript.
 
 ### Return type
 

@@ -1,4 +1,4 @@
-# ApiV2010Safelist
+# AccountsV1Safelist
 
 ## Properties
 

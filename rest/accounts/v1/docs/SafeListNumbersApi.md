@@ -1,18 +1,18 @@
 # SafeListNumbersApi
 
-All URIs are relative to *https://api.twilio.com*
+All URIs are relative to *https://accounts.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSafelist**](SafeListNumbersApi.md#CreateSafelist) | **Post** /2010-04-01/SafeList/Numbers.json | 
-[**DeleteSafelist**](SafeListNumbersApi.md#DeleteSafelist) | **Delete** /2010-04-01/SafeList/Numbers.json | 
-[**FetchSafelist**](SafeListNumbersApi.md#FetchSafelist) | **Get** /2010-04-01/SafeList/Numbers.json | 
+[**CreateSafelist**](SafeListNumbersApi.md#CreateSafelist) | **Post** /v1/SafeList/Numbers | 
+[**DeleteSafelist**](SafeListNumbersApi.md#DeleteSafelist) | **Delete** /v1/SafeList/Numbers | 
+[**FetchSafelist**](SafeListNumbersApi.md#FetchSafelist) | **Get** /v1/SafeList/Numbers | 
 
 
 
 ## CreateSafelist
 
-> ApiV2010Safelist CreateSafelist(ctx, optional)
+> AccountsV1Safelist CreateSafelist(ctx, optional)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010Safelist**](ApiV2010Safelist.md)
+[**AccountsV1Safelist**](AccountsV1Safelist.md)
 
 ### Authorization
 
@@ -90,7 +90,7 @@ Name | Type | Description
 
 ## FetchSafelist
 
-> ApiV2010Safelist FetchSafelist(ctx, optional)
+> AccountsV1Safelist FetchSafelist(ctx, optional)
 
 
 
@@ -111,7 +111,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010Safelist**](ApiV2010Safelist.md)
+[**AccountsV1Safelist**](AccountsV1Safelist.md)
 
 ### Authorization
 

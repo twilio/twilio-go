@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **IdentityMatch** | Pointer to **interface{}** | An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources |
 **ReassignedNumber** | Pointer to **interface{}** | An object that contains reassigned number information. Reassigned Numbers will return a phone number's reassignment status given a phone number and date |
 **SmsPumpingRisk** | Pointer to **interface{}** | An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates. |
-**DisposablePhoneNumberRisk** | Pointer to **interface{}** | An object that contains information on if a mobile phone number could be a disposable or burner number. |
+**PhoneNumberQualityScore** | Pointer to **interface{}** | An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number. |
 **Url** | Pointer to **string** | The absolute URL of the resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

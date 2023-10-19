@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the Task. |
 **Url** | Pointer to **string** | The absolute URL of the Task resource. |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources. |
+**VirtualStartTime** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT indicating the ordering for routing of the Task specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -44,8 +44,8 @@ type LookupsV2PhoneNumber struct {
 	ReassignedNumber *interface{} `json:"reassigned_number,omitempty"`
 	// An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
 	SmsPumpingRisk *interface{} `json:"sms_pumping_risk,omitempty"`
-	// An object that contains information on if a mobile phone number could be a disposable or burner number.
-	DisposablePhoneNumberRisk *interface{} `json:"disposable_phone_number_risk,omitempty"`
+	// An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
+	PhoneNumberQualityScore *interface{} `json:"phone_number_quality_score,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }

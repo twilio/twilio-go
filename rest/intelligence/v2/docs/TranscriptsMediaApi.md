@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a FetchMediaParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Redacted** | **bool** | Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media.
+**Redacted** | **bool** | Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media.
 
 ### Return type
 

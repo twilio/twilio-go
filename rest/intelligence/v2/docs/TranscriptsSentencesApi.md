@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a ListSentenceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Redacted** | **bool** | Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+**Redacted** | **bool** | Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
