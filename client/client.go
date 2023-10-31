@@ -136,7 +136,6 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	for k, v := range headers {
 		req.Header.Add(k, fmt.Sprint(v))
 	}
-    fmt.Println("req\n\n\n",req)
     return c.doWithErr(req)
 }
 
