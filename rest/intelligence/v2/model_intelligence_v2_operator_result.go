@@ -45,6 +45,8 @@ type IntelligenceV2OperatorResult struct {
 	LabelProbabilities *interface{} `json:"label_probabilities,omitempty"`
 	// List of text extraction results. This might be available on classify-extract model outputs.
 	ExtractResults *interface{} `json:"extract_results,omitempty"`
+	// Output of a text generation operator for example Conversation Sumamary.
+	TextGenerationResults *interface{} `json:"text_generation_results,omitempty"`
 	// A 34 character string that uniquely identifies this Transcript.
 	TranscriptSid *string `json:"transcript_sid,omitempty"`
 	// The URL of this resource.
@@ -53,20 +55,21 @@ type IntelligenceV2OperatorResult struct {
 
 func (response *IntelligenceV2OperatorResult) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		OperatorType         *string        `json:"operator_type"`
-		Name                 *string        `json:"name"`
-		OperatorSid          *string        `json:"operator_sid"`
-		ExtractMatch         *bool          `json:"extract_match"`
-		MatchProbability     *interface{}   `json:"match_probability"`
-		NormalizedResult     *string        `json:"normalized_result"`
-		UtteranceResults     *[]interface{} `json:"utterance_results"`
-		UtteranceMatch       *bool          `json:"utterance_match"`
-		PredictedLabel       *string        `json:"predicted_label"`
-		PredictedProbability *interface{}   `json:"predicted_probability"`
-		LabelProbabilities   *interface{}   `json:"label_probabilities"`
-		ExtractResults       *interface{}   `json:"extract_results"`
-		TranscriptSid        *string        `json:"transcript_sid"`
-		Url                  *string        `json:"url"`
+		OperatorType          *string        `json:"operator_type"`
+		Name                  *string        `json:"name"`
+		OperatorSid           *string        `json:"operator_sid"`
+		ExtractMatch          *bool          `json:"extract_match"`
+		MatchProbability      *interface{}   `json:"match_probability"`
+		NormalizedResult      *string        `json:"normalized_result"`
+		UtteranceResults      *[]interface{} `json:"utterance_results"`
+		UtteranceMatch        *bool          `json:"utterance_match"`
+		PredictedLabel        *string        `json:"predicted_label"`
+		PredictedProbability  *interface{}   `json:"predicted_probability"`
+		LabelProbabilities    *interface{}   `json:"label_probabilities"`
+		ExtractResults        *interface{}   `json:"extract_results"`
+		TextGenerationResults *interface{}   `json:"text_generation_results"`
+		TranscriptSid         *string        `json:"transcript_sid"`
+		Url                   *string        `json:"url"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -74,18 +77,19 @@ func (response *IntelligenceV2OperatorResult) UnmarshalJSON(bytes []byte) (err e
 	}
 
 	*response = IntelligenceV2OperatorResult{
-		OperatorType:       raw.OperatorType,
-		Name:               raw.Name,
-		OperatorSid:        raw.OperatorSid,
-		ExtractMatch:       raw.ExtractMatch,
-		NormalizedResult:   raw.NormalizedResult,
-		UtteranceResults:   raw.UtteranceResults,
-		UtteranceMatch:     raw.UtteranceMatch,
-		PredictedLabel:     raw.PredictedLabel,
-		LabelProbabilities: raw.LabelProbabilities,
-		ExtractResults:     raw.ExtractResults,
-		TranscriptSid:      raw.TranscriptSid,
-		Url:                raw.Url,
+		OperatorType:          raw.OperatorType,
+		Name:                  raw.Name,
+		OperatorSid:           raw.OperatorSid,
+		ExtractMatch:          raw.ExtractMatch,
+		NormalizedResult:      raw.NormalizedResult,
+		UtteranceResults:      raw.UtteranceResults,
+		UtteranceMatch:        raw.UtteranceMatch,
+		PredictedLabel:        raw.PredictedLabel,
+		LabelProbabilities:    raw.LabelProbabilities,
+		ExtractResults:        raw.ExtractResults,
+		TextGenerationResults: raw.TextGenerationResults,
+		TranscriptSid:         raw.TranscriptSid,
+		Url:                   raw.Url,
 	}
 
 	responseMatchProbability, err := client.UnmarshalFloat32(raw.MatchProbability)

@@ -263,6 +263,24 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 }
 
 //
+func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
+	path := "/v1/Tollfree/Verifications/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	return nil
+}
+
+//
 func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -5,6 +5,7 @@ All URIs are relative to *https://messaging.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateTollfreeVerification**](TollfreeVerificationsApi.md#CreateTollfreeVerification) | **Post** /v1/Tollfree/Verifications | 
+[**DeleteTollfreeVerification**](TollfreeVerificationsApi.md#DeleteTollfreeVerification) | **Delete** /v1/Tollfree/Verifications/{Sid} | 
 [**FetchTollfreeVerification**](TollfreeVerificationsApi.md#FetchTollfreeVerification) | **Get** /v1/Tollfree/Verifications/{Sid} | 
 [**ListTollfreeVerification**](TollfreeVerificationsApi.md#ListTollfreeVerification) | **Get** /v1/Tollfree/Verifications | 
 [**UpdateTollfreeVerification**](TollfreeVerificationsApi.md#UpdateTollfreeVerification) | **Post** /v1/Tollfree/Verifications/{Sid} | 
@@ -66,6 +67,48 @@ Name | Type | Description
 
 - **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteTollfreeVerification
+
+> DeleteTollfreeVerification(ctx, Sid)
+
+
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Sid** | **string** | The unique string to identify Tollfree Verification.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteTollfreeVerificationParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

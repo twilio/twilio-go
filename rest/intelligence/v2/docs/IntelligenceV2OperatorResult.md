@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **PredictedProbability** | Pointer to **float32** | Percentage of 'matching' class needed to consider a sentence matches. |
 **LabelProbabilities** | Pointer to **interface{}** | The labels probabilities. This might be available on conversation classify model outputs. |
 **ExtractResults** | Pointer to **interface{}** | List of text extraction results. This might be available on classify-extract model outputs. |
+**TextGenerationResults** | Pointer to **interface{}** | Output of a text generation operator for example Conversation Sumamary. |
 **TranscriptSid** | Pointer to **string** | A 34 character string that uniquely identifies this Transcript. |
 **Url** | Pointer to **string** | The URL of this resource. |
 
