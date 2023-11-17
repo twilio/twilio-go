@@ -242,6 +242,7 @@ Name | Type | Description
 **BusinessContactLastName** | **string** | The last name of the contact for the business or organization using the Tollfree number.
 **BusinessContactEmail** | **string** | The email address of the contact for the business or organization using the Tollfree number.
 **BusinessContactPhone** | **string** | The phone number of the contact for the business or organization using the Tollfree number.
+**EditReason** | **string** | Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 
 ### Return type
 

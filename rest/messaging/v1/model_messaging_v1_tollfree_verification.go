@@ -84,6 +84,8 @@ type MessagingV1TollfreeVerification struct {
 	ErrorCode *int `json:"error_code,omitempty"`
 	// The date and time when the ability to edit a rejected verification expires.
 	EditExpiration *time.Time `json:"edit_expiration,omitempty"`
+	// If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
+	EditAllowed *bool `json:"edit_allowed,omitempty"`
 	// The URLs of the documents associated with the Tollfree Verification resource.
 	ResourceLinks *interface{} `json:"resource_links,omitempty"`
 	// An optional external reference ID supplied by customer and echoed back on status retrieval.

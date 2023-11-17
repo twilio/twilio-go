@@ -21,7 +21,7 @@ type TrusthubV1ComplianceTollfreeInquiry struct {
 	// The session token used to start an embedded compliance registration session.
 	InquirySessionToken *string `json:"inquiry_session_token,omitempty"`
 	// The TolfreeId matching the Tollfree Profile that should be resumed or resubmitted for editing.
-	TollfreeId *string `json:"tollfree_id,omitempty"`
+	RegistrationId *string `json:"registration_id,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }

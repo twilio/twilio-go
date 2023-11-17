@@ -49,6 +49,7 @@ Name | Type | Description
 **TemplateCustomSubstitutions** | **string** | A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
 **DeviceIp** | **string** | Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 **RiskCheck** | **string** | 
+**Tags** | **string** | A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
 
 ### Return type
 

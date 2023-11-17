@@ -499,6 +499,8 @@ type UpdateTollfreeVerificationParams struct {
 	BusinessContactEmail *string `json:"BusinessContactEmail,omitempty"`
 	// The phone number of the contact for the business or organization using the Tollfree number.
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
+	// Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
+	EditReason *string `json:"EditReason,omitempty"`
 }
 
 func (params *UpdateTollfreeVerificationParams) SetBusinessName(BusinessName string) *UpdateTollfreeVerificationParams {
@@ -581,6 +583,10 @@ func (params *UpdateTollfreeVerificationParams) SetBusinessContactPhone(Business
 	params.BusinessContactPhone = &BusinessContactPhone
 	return params
 }
+func (params *UpdateTollfreeVerificationParams) SetEditReason(EditReason string) *UpdateTollfreeVerificationParams {
+	params.EditReason = &EditReason
+	return params
+}
 
 //
 func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
@@ -653,6 +659,9 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 	}
 	if params != nil && params.BusinessContactPhone != nil {
 		data.Set("BusinessContactPhone", *params.BusinessContactPhone)
+	}
+	if params != nil && params.EditReason != nil {
+		data.Set("EditReason", *params.EditReason)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

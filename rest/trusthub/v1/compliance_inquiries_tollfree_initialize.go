@@ -17,17 +17,22 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
-	"strings"
 )
 
 // Optional parameters for the method 'CreateComplianceTollfreeInquiry'
 type CreateComplianceTollfreeInquiryParams struct {
 	// The Tollfree phone number to be verified
-	Did *string `json:"Did,omitempty"`
+	TollfreePhoneNumber *string `json:"TollfreePhoneNumber,omitempty"`
+	// The notification email to be triggered when verification status is changed
+	NotificationEmail *string `json:"NotificationEmail,omitempty"`
 }
 
-func (params *CreateComplianceTollfreeInquiryParams) SetDid(Did string) *CreateComplianceTollfreeInquiryParams {
-	params.Did = &Did
+func (params *CreateComplianceTollfreeInquiryParams) SetTollfreePhoneNumber(TollfreePhoneNumber string) *CreateComplianceTollfreeInquiryParams {
+	params.TollfreePhoneNumber = &TollfreePhoneNumber
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetNotificationEmail(NotificationEmail string) *CreateComplianceTollfreeInquiryParams {
+	params.NotificationEmail = &NotificationEmail
 	return params
 }
 
@@ -38,46 +43,11 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Did != nil {
-		data.Set("Did", *params.Did)
+	if params != nil && params.TollfreePhoneNumber != nil {
+		data.Set("TollfreePhoneNumber", *params.TollfreePhoneNumber)
 	}
-
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &TrusthubV1ComplianceTollfreeInquiry{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
-}
-
-// Optional parameters for the method 'UpdateComplianceTollfreeInquiry'
-type UpdateComplianceTollfreeInquiryParams struct {
-	// The Tollfree phone number to be verified
-	Did *string `json:"Did,omitempty"`
-}
-
-func (params *UpdateComplianceTollfreeInquiryParams) SetDid(Did string) *UpdateComplianceTollfreeInquiryParams {
-	params.Did = &Did
-	return params
-}
-
-// Resume a specific Compliance Tollfree Verification Inquiry that has expired, or re-open a rejected Compliance Tollfree Verification Inquiry for editing.
-func (c *ApiService) UpdateComplianceTollfreeInquiry(TollfreeId string, params *UpdateComplianceTollfreeInquiryParams) (*TrusthubV1ComplianceTollfreeInquiry, error) {
-	path := "/v1/ComplianceInquiries/Tollfree/{TollfreeId}/Initialize"
-	path = strings.Replace(path, "{"+"TollfreeId"+"}", TollfreeId, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Did != nil {
-		data.Set("Did", *params.Did)
+	if params != nil && params.NotificationEmail != nil {
+		data.Set("NotificationEmail", *params.NotificationEmail)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

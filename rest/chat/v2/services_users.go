@@ -82,7 +82,6 @@ func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*C
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -330,7 +329,6 @@ func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUse
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
