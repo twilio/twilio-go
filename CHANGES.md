@@ -1,5 +1,9 @@
 twilio-go changelog
 ====================
+[2023-11-22] Version 2.0.0-rc.0
+---------------------------
+- Release Candidate preparation
+
 [2023-10-05] Version 1.14.1
 ---------------------------
 **Library - Chore**
