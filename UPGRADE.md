@@ -3,8 +3,6 @@
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
 ## [2023-11-22] 1.x.x to 2.x.x-rc.x
-
----
 ### Overview
 
 #### Twilio Go Helper Library’s major version 2.0.0-rc.x is now available. We ensured that you can upgrade to Go helper Library 2.0.0-rc.x version without any breaking changes
