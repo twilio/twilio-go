@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **UniqueName** | **string** | Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
 **AutoTranscribe** | **bool** | Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
-**DataLogging** | **bool** | Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
+**DataLogging** | **bool** | Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
 **FriendlyName** | **string** | A human readable description of this resource, up to 64 characters.
 **LanguageCode** | **string** | The default language code of the audio.
 **AutoRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
@@ -208,7 +208,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | The If-Match HTTP request header
 **AutoTranscribe** | **bool** | Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
-**DataLogging** | **bool** | Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
+**DataLogging** | **bool** | Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
 **FriendlyName** | **string** | A human readable description of this resource, up to 64 characters.
 **LanguageCode** | **string** | The default language code of the audio.
 **UniqueName** | **string** | Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.

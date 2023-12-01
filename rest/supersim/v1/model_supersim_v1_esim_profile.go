@@ -26,7 +26,7 @@ type SupersimV1EsimProfile struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the Sim resource.
 	Iccid *string `json:"iccid,omitempty"`
-	// The SID of the [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource that this eSIM Profile controls.
+	// The SID of the [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource that this eSIM Profile controls.
 	SimSid *string `json:"sim_sid,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// Identifier of the eUICC that can claim the eSIM Profile.

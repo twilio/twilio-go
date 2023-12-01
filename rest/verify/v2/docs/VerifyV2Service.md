@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **Push** | Pointer to **interface{}** | Configurations for the Push factors (channel) created under this Service. |
 **Totp** | Pointer to **interface{}** | Configurations for the TOTP factors (channel) created under this Service. |
 **DefaultTemplateSid** | Pointer to **string** |  |
+**VerifyEventSubscriptionEnabled** | Pointer to **bool** | Whether to allow verifications from the service to reach the stream-events sinks if configured |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **Url** | Pointer to **string** | The absolute URL of the resource. |

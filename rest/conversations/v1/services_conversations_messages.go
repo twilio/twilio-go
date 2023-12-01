@@ -40,7 +40,7 @@ type CreateServiceConversationMessageParams struct {
 	Attributes *string `json:"Attributes,omitempty"`
 	// The Media SID to be attached to the new Message.
 	MediaSid *string `json:"MediaSid,omitempty"`
-	// The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+	// The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
 	ContentSid *string `json:"ContentSid,omitempty"`
 	// A structurally valid JSON string that contains values to resolve Rich Content template variables.
 	ContentVariables *string `json:"ContentVariables,omitempty"`

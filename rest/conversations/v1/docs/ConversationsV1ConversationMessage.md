@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Url** | Pointer to **string** | An absolute API resource API URL for this message. |
 **Delivery** | Pointer to **interface{}** | An object that contains the summary of delivery statuses for the message to non-chat participants. |
 **Links** | Pointer to **map[string]interface{}** | Contains an absolute API resource URL to access the delivery & read receipts of this message. |
-**ContentSid** | Pointer to **string** | The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template. |
+**ContentSid** | Pointer to **string** | The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
