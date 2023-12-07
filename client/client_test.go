@@ -272,7 +272,7 @@ func TestClient_SetAccountSid(t *testing.T) {
 func TestClient_DefaultUserAgentHeaders(t *testing.T) {
 	headerServer := httptest.NewServer(http.HandlerFunc(
 		func(writer http.ResponseWriter, request *http.Request) {
-			assert.Regexp(t, regexp.MustCompile(`^twilio-go/[0-9.]+\s\(\w+\s\w+\)\sgo/\S+$`), request.Header.Get("User-Agent"))
+			assert.Regexp(t, regexp.MustCompile(`^twilio-go/[0-9.]+(-rc.[0-9])*\s\(\w+\s\w+\)\sgo/\S+$`), request.Header.Get("User-Agent"))
 		}))
 
 	resp, _ := testClient.SendRequest("GET", headerServer.URL, nil, nil)
