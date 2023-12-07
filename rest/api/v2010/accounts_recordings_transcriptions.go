@@ -122,7 +122,7 @@ func (params *ListRecordingTranscriptionParams) SetLimit(Limit int) *ListRecordi
 }
 
 // Retrieve a single page of RecordingTranscription records from the API. Request is executed immediately.
-func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, pageToken, pageNumber string) (*ListRecordingTranscriptionResponse, error) {
+func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, pageToken, pageNumber string) (*ListRecordingTranscription200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -153,7 +153,7 @@ func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *Lis
 
 	defer resp.Body.Close()
 
-	ps := &ListRecordingTranscriptionResponse{}
+	ps := &ListRecordingTranscription200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -199,7 +199,7 @@ func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *L
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRecordingTranscription(response *ListRecordingTranscriptionResponse, params *ListRecordingTranscriptionParams, recordChannel chan ApiV2010RecordingTranscription, errorChannel chan error) {
+func (c *ApiService) streamRecordingTranscription(response *ListRecordingTranscription200Response, params *ListRecordingTranscriptionParams, recordChannel chan ApiV2010RecordingTranscription, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -214,7 +214,7 @@ func (c *ApiService) streamRecordingTranscription(response *ListRecordingTranscr
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRecordingTranscriptionResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListRecordingTranscription200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -222,14 +222,14 @@ func (c *ApiService) streamRecordingTranscription(response *ListRecordingTranscr
 			break
 		}
 
-		response = record.(*ListRecordingTranscriptionResponse)
+		response = record.(*ListRecordingTranscription200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRecordingTranscriptionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRecordingTranscription200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -240,7 +240,7 @@ func (c *ApiService) getNextListRecordingTranscriptionResponse(nextPageUrl strin
 
 	defer resp.Body.Close()
 
-	ps := &ListRecordingTranscriptionResponse{}
+	ps := &ListRecordingTranscription200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

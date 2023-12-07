@@ -34,7 +34,7 @@ type VerifyV2VerificationAttempt struct {
 	DateUpdated      *time.Time `json:"date_updated,omitempty"`
 	ConversionStatus *string    `json:"conversion_status,omitempty"`
 	Channel          *string    `json:"channel,omitempty"`
-	// An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
+	// An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/en-us/verify/pricing).
 	Price *interface{} `json:"price,omitempty"`
 	// An object containing the channel specific information for an attempt.
 	ChannelData *interface{} `json:"channel_data,omitempty"`

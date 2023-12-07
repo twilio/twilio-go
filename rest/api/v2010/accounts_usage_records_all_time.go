@@ -71,7 +71,7 @@ func (params *ListUsageRecordAllTimeParams) SetLimit(Limit int) *ListUsageRecord
 }
 
 // Retrieve a single page of UsageRecordAllTime records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams, pageToken, pageNumber string) (*ListUsageRecordAllTimeResponse, error) {
+func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams, pageToken, pageNumber string) (*ListUsageRecordAllTime200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -113,7 +113,7 @@ func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageRecordAllTimeResponse{}
+	ps := &ListUsageRecordAllTime200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimePara
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordAllTime(response *ListUsageRecordAllTimeResponse, params *ListUsageRecordAllTimeParams, recordChannel chan ApiV2010UsageRecordAllTime, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordAllTime(response *ListUsageRecordAllTime200Response, params *ListUsageRecordAllTimeParams, recordChannel chan ApiV2010UsageRecordAllTime, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -174,7 +174,7 @@ func (c *ApiService) streamUsageRecordAllTime(response *ListUsageRecordAllTimeRe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordAllTimeResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordAllTime200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -182,14 +182,14 @@ func (c *ApiService) streamUsageRecordAllTime(response *ListUsageRecordAllTimeRe
 			break
 		}
 
-		response = record.(*ListUsageRecordAllTimeResponse)
+		response = record.(*ListUsageRecordAllTime200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordAllTimeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordAllTime200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -200,7 +200,7 @@ func (c *ApiService) getNextListUsageRecordAllTimeResponse(nextPageUrl string) (
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageRecordAllTimeResponse{}
+	ps := &ListUsageRecordAllTime200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

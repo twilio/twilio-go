@@ -20,6 +20,28 @@ import (
 	"strings"
 )
 
+// Host multiple phone numbers on Twilio's platform.
+func (c *ApiService) CreateBulkHostedNumberOrder() (*NumbersV2BulkHostedNumberOrder, error) {
+	path := "/v2/HostedNumber/Orders/Bulk"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2BulkHostedNumberOrder{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
 // Optional parameters for the method 'FetchBulkHostedNumberOrder'
 type FetchBulkHostedNumberOrderParams struct {
 	// Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.

@@ -121,6 +121,8 @@ type CreateParticipantParams struct {
 	AmdStatusCallbackMethod *string `json:"AmdStatusCallbackMethod,omitempty"`
 	// Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
 	Trim *string `json:"Trim,omitempty"`
+	// A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
+	CallToken *string `json:"CallToken,omitempty"`
 }
 
 func (params *CreateParticipantParams) SetPathAccountSid(PathAccountSid string) *CreateParticipantParams {
@@ -315,6 +317,10 @@ func (params *CreateParticipantParams) SetTrim(Trim string) *CreateParticipantPa
 	params.Trim = &Trim
 	return params
 }
+func (params *CreateParticipantParams) SetCallToken(CallToken string) *CreateParticipantParams {
+	params.CallToken = &CallToken
+	return params
+}
 
 //
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
@@ -478,6 +484,9 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	if params != nil && params.Trim != nil {
 		data.Set("Trim", *params.Trim)
 	}
+	if params != nil && params.CallToken != nil {
+		data.Set("CallToken", *params.CallToken)
+	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -611,7 +620,7 @@ func (params *ListParticipantParams) SetLimit(Limit int) *ListParticipantParams 
 }
 
 // Retrieve a single page of Participant records from the API. Request is executed immediately.
-func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipantParams, pageToken, pageNumber string) (*ListParticipantResponse, error) {
+func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipantParams, pageToken, pageNumber string) (*ListParticipant200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -651,7 +660,7 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 
 	defer resp.Body.Close()
 
-	ps := &ListParticipantResponse{}
+	ps := &ListParticipant200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -697,7 +706,7 @@ func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListPartici
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamParticipant(response *ListParticipantResponse, params *ListParticipantParams, recordChannel chan ApiV2010Participant, errorChannel chan error) {
+func (c *ApiService) streamParticipant(response *ListParticipant200Response, params *ListParticipantParams, recordChannel chan ApiV2010Participant, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -712,7 +721,7 @@ func (c *ApiService) streamParticipant(response *ListParticipantResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListParticipantResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListParticipant200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -720,14 +729,14 @@ func (c *ApiService) streamParticipant(response *ListParticipantResponse, params
 			break
 		}
 
-		response = record.(*ListParticipantResponse)
+		response = record.(*ListParticipant200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListParticipantResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListParticipant200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -738,7 +747,7 @@ func (c *ApiService) getNextListParticipantResponse(nextPageUrl string) (interfa
 
 	defer resp.Body.Close()
 
-	ps := &ListParticipantResponse{}
+	ps := &ListParticipant200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

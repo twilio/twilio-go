@@ -33,7 +33,7 @@ Other parameters are passed through a pointer to a FetchOperatorResultParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Redacted** | **bool** | Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+**Redacted** | **bool** | Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 
 ### Return type
 
@@ -76,7 +76,7 @@ Other parameters are passed through a pointer to a ListOperatorResultParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Redacted** | **bool** | Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+**Redacted** | **bool** | Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

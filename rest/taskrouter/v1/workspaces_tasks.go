@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -35,6 +36,8 @@ type CreateTaskParams struct {
 	WorkflowSid *string `json:"WorkflowSid,omitempty"`
 	// A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
 	Attributes *string `json:"Attributes,omitempty"`
+	// The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future.
+	VirtualStartTime *time.Time `json:"VirtualStartTime,omitempty"`
 }
 
 func (params *CreateTaskParams) SetTimeout(Timeout int) *CreateTaskParams {
@@ -55,6 +58,10 @@ func (params *CreateTaskParams) SetWorkflowSid(WorkflowSid string) *CreateTaskPa
 }
 func (params *CreateTaskParams) SetAttributes(Attributes string) *CreateTaskParams {
 	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateTaskParams) SetVirtualStartTime(VirtualStartTime time.Time) *CreateTaskParams {
+	params.VirtualStartTime = &VirtualStartTime
 	return params
 }
 
@@ -80,6 +87,9 @@ func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (
 	}
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.VirtualStartTime != nil {
+		data.Set("VirtualStartTime", fmt.Sprint((*params.VirtualStartTime).Format(time.RFC3339)))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -120,7 +130,6 @@ func (c *ApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteT
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
@@ -171,9 +180,9 @@ type ListTaskParams struct {
 	TaskQueueName *string `json:"TaskQueueName,omitempty"`
 	// The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
 	EvaluateTaskAttributes *string `json:"EvaluateTaskAttributes,omitempty"`
-	// How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
+	// How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
 	Ordering *string `json:"Ordering,omitempty"`
-	// Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
+	// Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
 	HasAddons *bool `json:"HasAddons,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
@@ -390,6 +399,8 @@ type UpdateTaskParams struct {
 	Priority *int `json:"Priority,omitempty"`
 	// When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 	TaskChannel *string `json:"TaskChannel,omitempty"`
+	// The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future.
+	VirtualStartTime *time.Time `json:"VirtualStartTime,omitempty"`
 }
 
 func (params *UpdateTaskParams) SetIfMatch(IfMatch string) *UpdateTaskParams {
@@ -414,6 +425,10 @@ func (params *UpdateTaskParams) SetPriority(Priority int) *UpdateTaskParams {
 }
 func (params *UpdateTaskParams) SetTaskChannel(TaskChannel string) *UpdateTaskParams {
 	params.TaskChannel = &TaskChannel
+	return params
+}
+func (params *UpdateTaskParams) SetVirtualStartTime(VirtualStartTime time.Time) *UpdateTaskParams {
+	params.VirtualStartTime = &VirtualStartTime
 	return params
 }
 
@@ -441,11 +456,13 @@ func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateT
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
+	if params != nil && params.VirtualStartTime != nil {
+		data.Set("VirtualStartTime", fmt.Sprint((*params.VirtualStartTime).Format(time.RFC3339)))
+	}
 
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

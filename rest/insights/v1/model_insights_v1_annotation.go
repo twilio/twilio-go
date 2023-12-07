@@ -32,6 +32,5 @@ type InsightsV1Annotation struct {
 	Comment *string `json:"comment,omitempty"`
 	// Incident or support ticket associated with this call. The `incident` property is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
 	Incident *string `json:"incident,omitempty"`
-	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	Url      *string `json:"url,omitempty"`
 }

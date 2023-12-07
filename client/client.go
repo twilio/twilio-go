@@ -2,16 +2,17 @@
 package client
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"bytes"
 	"net/url"
 	"regexp"
 	"runtime"
 	"strconv"
 	"strings"
 	"time"
+
 	"github.com/pkg/errors"
 	"github.com/twilio/twilio-go/client/form"
 )
@@ -56,20 +57,20 @@ func (c *Client) SetTimeout(timeout time.Duration) {
 	c.HTTPClient.Timeout = timeout
 }
 
-func extractContentTypeHeader(headers map[string]interface{}) (cType string){
-		headerType, ok := headers["Content-Type"]
-			if !ok {
-				return urlEncodedContentType
-			  } 
-			return headerType.(string)
+func extractContentTypeHeader(headers map[string]interface{}) (cType string) {
+	headerType, ok := headers["Content-Type"]
+	if !ok {
+		return urlEncodedContentType
+	}
+	return headerType.(string)
 }
 
 const (
 	urlEncodedContentType = "application/x-www-form-urlencoded"
-	jsonContentType = "application/json"
-	keepZeros = true
-	delimiter = '.'
-	escapee   = '\\'
+	jsonContentType       = "application/json"
+	keepZeros             = true
+	delimiter             = '.'
+	escapee               = '\\'
 )
 
 func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
@@ -107,16 +108,16 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if err != nil {
 		return nil, err
 	}
-	
+
 	valueReader := &strings.Reader{}
 	goVersion := runtime.Version()
 	var req *http.Request
 
 	//For HTTP GET Method there are no body parameters. All other parameters like query, path etc
-	// are added as information in the url itself. Also while Content-Type is json, we are sending 
-	// json body. In that case, data variable conatins all other parameters than body, which is the 
+	// are added as information in the url itself. Also while Content-Type is json, we are sending
+	// json body. In that case, data variable conatins all other parameters than body, which is the
 	//same case as GET method. In that case as well all parameters will be added to url
-	if method == http.MethodGet || contentType == jsonContentType{
+	if method == http.MethodGet || contentType == jsonContentType {
 		if data != nil {
 			v, _ := form.EncodeToStringWith(data, delimiter, escapee, keepZeros)
 			regex := regexp.MustCompile(`\.\d+`)
@@ -127,12 +128,12 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	}
 
 	//data is already processed and information will be added to u(the url) in the
-	//previous step. Now body will solely contain json payload 
+	//previous step. Now body will solely contain json payload
 	if contentType == jsonContentType {
 		req, err = http.NewRequest(method, u.String(), bytes.NewBuffer(body))
 		if err != nil {
 			return nil, err
-		}		
+		}
 	} else {
 		//Here the HTTP POST methods which is not having json content type are processed
 		//All the values will be added in data and encoded (all body, query, path parameters)
@@ -146,7 +147,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 
 	}
 
-	if contentType == urlEncodedContentType{
+	if contentType == urlEncodedContentType {
 		req.Header.Add("Content-Type", urlEncodedContentType)
 	}
 

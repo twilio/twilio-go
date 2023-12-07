@@ -33,7 +33,7 @@ type ProxyV1Interaction struct {
 	Type *string `json:"type,omitempty"`
 	// The SID of the inbound [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
 	InboundParticipantSid *string `json:"inbound_participant_sid,omitempty"`
-	// The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message.
+	// The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
 	InboundResourceSid    *string `json:"inbound_resource_sid,omitempty"`
 	InboundResourceStatus *string `json:"inbound_resource_status,omitempty"`
 	// The inbound resource type. Can be [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).

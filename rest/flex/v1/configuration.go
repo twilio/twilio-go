@@ -55,3 +55,25 @@ func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*Flex
 
 	return ps, err
 }
+
+//
+func (c *ApiService) UpdateConfiguration() (*FlexV1Configuration, error) {
+	path := "/v1/Configuration"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Configuration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}

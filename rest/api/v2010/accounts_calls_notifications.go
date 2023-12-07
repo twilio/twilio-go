@@ -111,7 +111,7 @@ func (params *ListCallNotificationParams) SetLimit(Limit int) *ListCallNotificat
 }
 
 // Retrieve a single page of CallNotification records from the API. Request is executed immediately.
-func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotificationParams, pageToken, pageNumber string) (*ListCallNotificationResponse, error) {
+func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotificationParams, pageToken, pageNumber string) (*ListCallNotification200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -154,7 +154,7 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 
 	defer resp.Body.Close()
 
-	ps := &ListCallNotificationResponse{}
+	ps := &ListCallNotification200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -200,7 +200,7 @@ func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNoti
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCallNotification(response *ListCallNotificationResponse, params *ListCallNotificationParams, recordChannel chan ApiV2010CallNotification, errorChannel chan error) {
+func (c *ApiService) streamCallNotification(response *ListCallNotification200Response, params *ListCallNotificationParams, recordChannel chan ApiV2010CallNotification, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -215,7 +215,7 @@ func (c *ApiService) streamCallNotification(response *ListCallNotificationRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCallNotificationResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCallNotification200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -223,14 +223,14 @@ func (c *ApiService) streamCallNotification(response *ListCallNotificationRespon
 			break
 		}
 
-		response = record.(*ListCallNotificationResponse)
+		response = record.(*ListCallNotification200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCallNotificationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCallNotification200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -241,7 +241,7 @@ func (c *ApiService) getNextListCallNotificationResponse(nextPageUrl string) (in
 
 	defer resp.Body.Close()
 
-	ps := &ListCallNotificationResponse{}
+	ps := &ListCallNotification200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

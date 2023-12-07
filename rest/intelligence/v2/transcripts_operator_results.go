@@ -25,7 +25,7 @@ import (
 
 // Optional parameters for the method 'FetchOperatorResult'
 type FetchOperatorResultParams struct {
-	// Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+	// Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 	Redacted *bool `json:"Redacted,omitempty"`
 }
 
@@ -64,7 +64,7 @@ func (c *ApiService) FetchOperatorResult(TranscriptSid string, OperatorSid strin
 
 // Optional parameters for the method 'ListOperatorResult'
 type ListOperatorResultParams struct {
-	// Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+	// Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 	Redacted *bool `json:"Redacted,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

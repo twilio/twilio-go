@@ -686,7 +686,6 @@ func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid stri
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

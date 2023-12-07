@@ -225,7 +225,7 @@ func (params *ListOutgoingCallerIdParams) SetLimit(Limit int) *ListOutgoingCalle
 }
 
 // Retrieve a single page of OutgoingCallerId records from the API. Request is executed immediately.
-func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pageToken, pageNumber string) (*ListOutgoingCallerIdResponse, error) {
+func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pageToken, pageNumber string) (*ListOutgoingCallerId200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -261,7 +261,7 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 
 	defer resp.Body.Close()
 
-	ps := &ListOutgoingCallerIdResponse{}
+	ps := &ListOutgoingCallerId200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -307,7 +307,7 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamOutgoingCallerId(response *ListOutgoingCallerIdResponse, params *ListOutgoingCallerIdParams, recordChannel chan ApiV2010OutgoingCallerId, errorChannel chan error) {
+func (c *ApiService) streamOutgoingCallerId(response *ListOutgoingCallerId200Response, params *ListOutgoingCallerIdParams, recordChannel chan ApiV2010OutgoingCallerId, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -322,7 +322,7 @@ func (c *ApiService) streamOutgoingCallerId(response *ListOutgoingCallerIdRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListOutgoingCallerIdResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListOutgoingCallerId200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -330,14 +330,14 @@ func (c *ApiService) streamOutgoingCallerId(response *ListOutgoingCallerIdRespon
 			break
 		}
 
-		response = record.(*ListOutgoingCallerIdResponse)
+		response = record.(*ListOutgoingCallerId200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListOutgoingCallerIdResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListOutgoingCallerId200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -348,7 +348,7 @@ func (c *ApiService) getNextListOutgoingCallerIdResponse(nextPageUrl string) (in
 
 	defer resp.Body.Close()
 
-	ps := &ListOutgoingCallerIdResponse{}
+	ps := &ListOutgoingCallerId200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

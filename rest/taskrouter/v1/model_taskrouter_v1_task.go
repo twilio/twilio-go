@@ -27,7 +27,7 @@ type TaskrouterV1Task struct {
 	AssignmentStatus *string `json:"assignment_status,omitempty"`
 	// The JSON string with custom attributes of the work. **Note** If this property has been assigned a value, it will only be displayed in FETCH action that returns a single resource. Otherwise, it will be null.
 	Attributes *string `json:"attributes,omitempty"`
-	// An object that contains the [addon](https://www.twilio.com/docs/taskrouter/marketplace) data for all installed addons.
+	// An object that contains the [Add-on](https://www.twilio.com/docs/add-ons) data for all installed Add-ons.
 	Addons *string `json:"addons,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
@@ -61,4 +61,6 @@ type TaskrouterV1Task struct {
 	Url *string `json:"url,omitempty"`
 	// The URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// The date and time in GMT indicating the ordering for routing of the Task specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	VirtualStartTime *time.Time `json:"virtual_start_time,omitempty"`
 }

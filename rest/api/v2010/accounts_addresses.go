@@ -267,7 +267,7 @@ func (params *ListAddressParams) SetLimit(Limit int) *ListAddressParams {
 }
 
 // Retrieve a single page of Address records from the API. Request is executed immediately.
-func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumber string) (*ListAddressResponse, error) {
+func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumber string) (*ListAddress200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -306,7 +306,7 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumbe
 
 	defer resp.Body.Close()
 
-	ps := &ListAddressResponse{}
+	ps := &ListAddress200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -352,7 +352,7 @@ func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Addr
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAddress(response *ListAddressResponse, params *ListAddressParams, recordChannel chan ApiV2010Address, errorChannel chan error) {
+func (c *ApiService) streamAddress(response *ListAddress200Response, params *ListAddressParams, recordChannel chan ApiV2010Address, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -367,7 +367,7 @@ func (c *ApiService) streamAddress(response *ListAddressResponse, params *ListAd
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAddressResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAddress200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -375,14 +375,14 @@ func (c *ApiService) streamAddress(response *ListAddressResponse, params *ListAd
 			break
 		}
 
-		response = record.(*ListAddressResponse)
+		response = record.(*ListAddress200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAddressResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAddress200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -393,7 +393,7 @@ func (c *ApiService) getNextListAddressResponse(nextPageUrl string) (interface{}
 
 	defer resp.Body.Close()
 
-	ps := &ListAddressResponse{}
+	ps := &ListAddress200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

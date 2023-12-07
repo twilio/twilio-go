@@ -112,28 +112,13 @@ func (c *ApiService) DeleteTranscript(Sid string) error {
 	return nil
 }
 
-// Optional parameters for the method 'FetchTranscript'
-type FetchTranscriptParams struct {
-	// Grant access to PII Redacted/Unredacted Transcript. The default is `true` to access redacted Transcript.
-	Redacted *bool `json:"Redacted,omitempty"`
-}
-
-func (params *FetchTranscriptParams) SetRedacted(Redacted bool) *FetchTranscriptParams {
-	params.Redacted = &Redacted
-	return params
-}
-
 // Fetch a specific Transcript.
-func (c *ApiService) FetchTranscript(Sid string, params *FetchTranscriptParams) (*IntelligenceV2Transcript, error) {
+func (c *ApiService) FetchTranscript(Sid string) (*IntelligenceV2Transcript, error) {
 	path := "/v2/Transcripts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
-	if params != nil && params.Redacted != nil {
-		data.Set("Redacted", fmt.Sprint(*params.Redacted))
-	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

@@ -33,16 +33,17 @@ import (
 	IntelligenceV2 "github.com/twilio/twilio-go/rest/intelligence/v2"
 	IpMessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
 	IpMessagingV2 "github.com/twilio/twilio-go/rest/ip_messaging/v2"
+	LookupsBulk "github.com/twilio/twilio-go/rest/lookups/bulk"
 	LookupsV1 "github.com/twilio/twilio-go/rest/lookups/v1"
 	LookupsV2 "github.com/twilio/twilio-go/rest/lookups/v2"
 	MediaV1 "github.com/twilio/twilio-go/rest/media/v1"
 	MessagingV1 "github.com/twilio/twilio-go/rest/messaging/v1"
+	MessagingBulkV1 "github.com/twilio/twilio-go/rest/messaging_bulk/v1"
 	MicrovisorV1 "github.com/twilio/twilio-go/rest/microvisor/v1"
 	MonitorV1 "github.com/twilio/twilio-go/rest/monitor/v1"
 	NotifyV1 "github.com/twilio/twilio-go/rest/notify/v1"
 	NumbersV1 "github.com/twilio/twilio-go/rest/numbers/v1"
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
-	OauthV1 "github.com/twilio/twilio-go/rest/oauth/v1"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
@@ -81,16 +82,17 @@ type RestClient struct {
 	IntelligenceV2  *IntelligenceV2.ApiService
 	IpMessagingV1   *IpMessagingV1.ApiService
 	IpMessagingV2   *IpMessagingV2.ApiService
+	LookupsBulk     *LookupsBulk.ApiService
 	LookupsV1       *LookupsV1.ApiService
 	LookupsV2       *LookupsV2.ApiService
 	MediaV1         *MediaV1.ApiService
+	MessagingBulkV1 *MessagingBulkV1.ApiService
 	MessagingV1     *MessagingV1.ApiService
 	MicrovisorV1    *MicrovisorV1.ApiService
 	MonitorV1       *MonitorV1.ApiService
 	NotifyV1        *NotifyV1.ApiService
 	NumbersV1       *NumbersV1.ApiService
 	NumbersV2       *NumbersV2.ApiService
-	OauthV1         *OauthV1.ApiService
 	PricingV1       *PricingV1.ApiService
 	PricingV2       *PricingV2.ApiService
 	ProxyV1         *ProxyV1.ApiService
@@ -176,16 +178,17 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.IntelligenceV2 = IntelligenceV2.NewApiService(c.RequestHandler)
 	c.IpMessagingV1 = IpMessagingV1.NewApiService(c.RequestHandler)
 	c.IpMessagingV2 = IpMessagingV2.NewApiService(c.RequestHandler)
+	c.LookupsBulk = LookupsBulk.NewApiService(c.RequestHandler)
 	c.LookupsV1 = LookupsV1.NewApiService(c.RequestHandler)
 	c.LookupsV2 = LookupsV2.NewApiService(c.RequestHandler)
 	c.MediaV1 = MediaV1.NewApiService(c.RequestHandler)
+	c.MessagingBulkV1 = MessagingBulkV1.NewApiService(c.RequestHandler)
 	c.MessagingV1 = MessagingV1.NewApiService(c.RequestHandler)
 	c.MicrovisorV1 = MicrovisorV1.NewApiService(c.RequestHandler)
 	c.MonitorV1 = MonitorV1.NewApiService(c.RequestHandler)
 	c.NotifyV1 = NotifyV1.NewApiService(c.RequestHandler)
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)
 	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
-	c.OauthV1 = OauthV1.NewApiService(c.RequestHandler)
 	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
 	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
 	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)
