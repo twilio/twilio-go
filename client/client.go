@@ -100,7 +100,7 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
 func (c *Client) SendRequest(method string, rawURL string, data url.Values,
-	headers map[string]interface{}, body ...byte) (*http.Response, error) {
+	headers map[string]interface{}, queryParams url.Values, body ...byte) (*http.Response, error) {
 
 	contentType := extractContentTypeHeader(headers)
 
@@ -113,18 +113,11 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	goVersion := runtime.Version()
 	var req *http.Request
 
-	//For HTTP GET Method there are no body parameters. All other parameters like query, path etc
-	// are added as information in the url itself. Also while Content-Type is json, we are sending
-	// json body. In that case, data variable conatins all other parameters than body, which is the
-	//same case as GET method. In that case as well all parameters will be added to url
-	if method == http.MethodGet || contentType == jsonContentType {
-		if data != nil {
-			v, _ := form.EncodeToStringWith(data, delimiter, escapee, keepZeros)
-			regex := regexp.MustCompile(`\.\d+`)
-			s := regex.ReplaceAllString(v, "")
-
-			u.RawQuery = s
-		}
+	if queryParams != nil && queryParams != nil {
+		v, _ := form.EncodeToStringWith(queryParams, delimiter, escapee, keepZeros)
+		regex := regexp.MustCompile(`\.\d+`)
+		s := regex.ReplaceAllString(v, "")
+		u.RawQuery = s
 	}
 
 	//data is already processed and information will be added to u(the url) in the
