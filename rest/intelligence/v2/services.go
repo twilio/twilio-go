@@ -29,7 +29,7 @@ type CreateServiceParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 	// Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
 	AutoTranscribe *bool `json:"AutoTranscribe,omitempty"`
-	// Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
+	// Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
 	DataLogging *bool `json:"DataLogging,omitempty"`
 	// A human readable description of this resource, up to 64 characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
@@ -315,7 +315,7 @@ type UpdateServiceParams struct {
 	IfMatch *string `json:"If-Match,omitempty"`
 	// Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
 	AutoTranscribe *bool `json:"AutoTranscribe,omitempty"`
-	// Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
+	// Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
 	DataLogging *bool `json:"DataLogging,omitempty"`
 	// A human readable description of this resource, up to 64 characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
@@ -413,7 +413,6 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*In
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

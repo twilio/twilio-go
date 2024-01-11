@@ -90,7 +90,6 @@ func (c *ApiService) CreateInsightsQuestionnairesQuestion(params *CreateInsights
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -128,7 +127,6 @@ func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionSid string, pa
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
@@ -360,7 +358,6 @@ func (c *ApiService) UpdateInsightsQuestionnairesQuestion(QuestionSid string, pa
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

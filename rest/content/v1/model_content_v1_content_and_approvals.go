@@ -34,7 +34,7 @@ type ContentV1ContentAndApprovals struct {
 	Language *string `json:"language,omitempty"`
 	// Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
 	Variables *interface{} `json:"variables,omitempty"`
-	// The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
+	// The [Content types](https://www.twilio.com/docs/content/content-types-overview) (e.g. twilio/text) for this Content resource.
 	Types *interface{} `json:"types,omitempty"`
 	// The submitted information and approval request status of the Content resource.
 	ApprovalRequests *interface{} `json:"approval_requests,omitempty"`

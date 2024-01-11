@@ -28,10 +28,6 @@ type ApiV2010AuthorizedConnectApp struct {
 	ConnectAppHomepageUrl *string `json:"connect_app_homepage_url,omitempty"`
 	// The SID that we assigned to the Connect App.
 	ConnectAppSid *string `json:"connect_app_sid,omitempty"`
-	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-	DateCreated *string `json:"date_created,omitempty"`
-	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-	DateUpdated *string `json:"date_updated,omitempty"`
 	// The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`.
 	Permissions *[]string `json:"permissions,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`.

@@ -1,20 +1,20 @@
-# WellKnownOpenidConfigurationApi
+# AccountProvisionStatusApi
 
-All URIs are relative to *https://oauth.twilio.com*
+All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchOpenidDiscovery**](WellKnownOpenidConfigurationApi.md#FetchOpenidDiscovery) | **Get** /v1/.well-known/openid-configuration | 
+[**FetchProvisioningStatus**](AccountProvisionStatusApi.md#FetchProvisioningStatus) | **Get** /v1/account/provision/status | 
 
 
 
-## FetchOpenidDiscovery
+## FetchProvisioningStatus
 
-> OauthV1OpenidDiscovery FetchOpenidDiscovery(ctx, )
+> FlexV1ProvisioningStatus FetchProvisioningStatus(ctx, )
 
 
 
-Fetch configuration details about the OpenID Connect Authorization Server
+
 
 ### Path Parameters
 
@@ -22,12 +22,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchOpenidDiscoveryParams struct
+Other parameters are passed through a pointer to a FetchProvisioningStatusParams struct
 
 
 ### Return type
 
-[**OauthV1OpenidDiscovery**](OauthV1OpenidDiscovery.md)
+[**FlexV1ProvisioningStatus**](FlexV1ProvisioningStatus.md)
 
 ### Authorization
 
