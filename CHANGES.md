@@ -1,5 +1,14 @@
 twilio-go changelog
 ====================
+[2024-01-14] Version 1.16.1
+---------------------------
+**Library - Chore**
+- [PR #218](https://github.com/twilio/twilio-go/pull/218): added versions file. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Push**
+- Migrated to new Push API V4 with Resilient Notification Delivery.
+
+
 [2023-12-14] Version 1.16.0
 ---------------------------
 **Api**
