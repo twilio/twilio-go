@@ -146,6 +146,7 @@ func (c *ApiService) CreateServiceConversation(ChatServiceSid string, params *Cr
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
+
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -184,6 +185,7 @@ func (c *ApiService) DeleteServiceConversation(ChatServiceSid string, Sid string
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
+
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
@@ -506,6 +508,7 @@ func (c *ApiService) UpdateServiceConversation(ChatServiceSid string, Sid string
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
+
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

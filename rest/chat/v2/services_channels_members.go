@@ -111,6 +111,7 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
+
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -150,6 +151,7 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
+
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
@@ -414,6 +416,7 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
+
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

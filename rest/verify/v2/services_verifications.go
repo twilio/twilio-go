@@ -54,8 +54,6 @@ type CreateVerificationParams struct {
 	DeviceIp *string `json:"DeviceIp,omitempty"`
 	//
 	RiskCheck *string `json:"RiskCheck,omitempty"`
-	// A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
-	Tags *string `json:"Tags,omitempty"`
 }
 
 func (params *CreateVerificationParams) SetTo(To string) *CreateVerificationParams {
@@ -120,10 +118,6 @@ func (params *CreateVerificationParams) SetDeviceIp(DeviceIp string) *CreateVeri
 }
 func (params *CreateVerificationParams) SetRiskCheck(RiskCheck string) *CreateVerificationParams {
 	params.RiskCheck = &RiskCheck
-	return params
-}
-func (params *CreateVerificationParams) SetTags(Tags string) *CreateVerificationParams {
-	params.Tags = &Tags
 	return params
 }
 
@@ -194,9 +188,6 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	}
 	if params != nil && params.RiskCheck != nil {
 		data.Set("RiskCheck", *params.RiskCheck)
-	}
-	if params != nil && params.Tags != nil {
-		data.Set("Tags", *params.Tags)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

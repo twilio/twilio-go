@@ -47,8 +47,6 @@ type VerifyV2Service struct {
 	// Configurations for the TOTP factors (channel) created under this Service.
 	Totp               *interface{} `json:"totp,omitempty"`
 	DefaultTemplateSid *string      `json:"default_template_sid,omitempty"`
-	// Whether to allow verifications from the service to reach the stream-events sinks if configured
-	VerifyEventSubscriptionEnabled *bool `json:"verify_event_subscription_enabled,omitempty"`
 	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.

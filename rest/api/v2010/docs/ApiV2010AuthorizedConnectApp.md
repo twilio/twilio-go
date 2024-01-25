@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **ConnectAppFriendlyName** | Pointer to **string** | The name of the Connect App. |
 **ConnectAppHomepageUrl** | Pointer to **string** | The public URL for the Connect App. |
 **ConnectAppSid** | Pointer to **string** | The SID that we assigned to the Connect App. |
+**DateCreated** | Pointer to **string** | The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
+**DateUpdated** | Pointer to **string** | The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **Permissions** | Pointer to [**[]string**](AuthorizedConnectAppEnumPermission.md) | The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`. |
 **Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com`. |
 

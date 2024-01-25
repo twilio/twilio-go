@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **AutoRedaction** | Pointer to **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service. |
 **MediaRedaction** | Pointer to **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise. |
 **AutoTranscribe** | Pointer to **bool** | Instructs the Speech Recognition service to automatically transcribe all recordings made on the account. |
-**DataLogging** | Pointer to **bool** | Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent. |
+**DataLogging** | Pointer to **bool** | Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this Service was created, given in ISO 8601 format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this Service was updated, given in ISO 8601 format. |
 **FriendlyName** | Pointer to **string** | A human readable description of this resource, up to 64 characters. |

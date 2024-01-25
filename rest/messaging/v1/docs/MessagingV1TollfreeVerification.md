@@ -37,7 +37,6 @@ Name | Type | Description | Notes
 **RejectionReason** | Pointer to **string** | The rejection reason given when a Tollfree Verification has been rejected. |
 **ErrorCode** | Pointer to **int** | The error code given when a Tollfree Verification has been rejected. |
 **EditExpiration** | Pointer to [**time.Time**](time.Time.md) | The date and time when the ability to edit a rejected verification expires. |
-**EditAllowed** | Pointer to **bool** | If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not. |
 **ResourceLinks** | Pointer to **interface{}** | The URLs of the documents associated with the Tollfree Verification resource. |
 **ExternalReferenceId** | Pointer to **string** | An optional external reference ID supplied by customer and echoed back on status retrieval. |
 

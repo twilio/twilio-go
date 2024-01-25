@@ -98,6 +98,7 @@ func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAsse
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
+
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Data** | Pointer to **string** | A JSON string that includes the message body of message interactions (e.g. `{\"body\": \"hello\"}`) or the call duration (when available) of a call (e.g. `{\"duration\": \"5\"}`). |
 **Type** | Pointer to [**string**](InteractionEnumType.md) |  |
 **InboundParticipantSid** | Pointer to **string** | The SID of the inbound [Participant](https://www.twilio.com/docs/proxy/api/participant) resource. |
-**InboundResourceSid** | Pointer to **string** | The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource). |
+**InboundResourceSid** | Pointer to **string** | The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message. |
 **InboundResourceStatus** | Pointer to [**string**](InteractionEnumResourceStatus.md) |  |
 **InboundResourceType** | Pointer to **string** | The inbound resource type. Can be [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource). |
 **InboundResourceUrl** | Pointer to **string** | The URL of the Twilio inbound resource |

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Age** | Pointer to **int** | The number of seconds since the Task was created. |
 **AssignmentStatus** | Pointer to [**string**](TaskEnumStatus.md) |  |
 **Attributes** | Pointer to **string** | The JSON string with custom attributes of the work. **Note** If this property has been assigned a value, it will only be displayed in FETCH action that returns a single resource. Otherwise, it will be null. |
-**Addons** | Pointer to **string** | An object that contains the [Add-on](https://www.twilio.com/docs/add-ons) data for all installed Add-ons. |
+**Addons** | Pointer to **string** | An object that contains the [addon](https://www.twilio.com/docs/taskrouter/marketplace) data for all installed addons. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **TaskQueueEnteredDate** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the Task entered the TaskQueue, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |

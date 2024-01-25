@@ -50,6 +50,6 @@ type ConversationsV1ServiceConversationMessage struct {
 	Url *string `json:"url,omitempty"`
 	// Contains an absolute API resource URL to access the delivery & read receipts of this message.
 	Links *map[string]interface{} `json:"links,omitempty"`
-	// The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template.
+	// The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template.
 	ContentSid *string `json:"content_sid,omitempty"`
 }

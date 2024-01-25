@@ -135,6 +135,7 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
+
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -351,6 +352,7 @@ func (c *ApiService) UpdateInsightsAssessments(AssessmentSid string, params *Upd
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
+
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

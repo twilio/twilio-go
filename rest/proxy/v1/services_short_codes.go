@@ -25,7 +25,7 @@ import (
 
 // Optional parameters for the method 'CreateShortCode'
 type CreateShortCodeParams struct {
-	// The SID of a Twilio [ShortCode](https://www.twilio.com/en-us/messaging/channels/sms/short-codes) resource that represents the short code you would like to assign to your Proxy Service.
+	// The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
 	Sid *string `json:"Sid,omitempty"`
 }
 

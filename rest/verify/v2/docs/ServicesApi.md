@@ -48,7 +48,6 @@ Name | Type | Description
 **TotpCodeLength** | **int** | Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
 **TotpSkew** | **int** | Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
 **DefaultTemplateSid** | **string** | The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
-**VerifyEventSubscriptionEnabled** | **bool** | Whether to allow verifications from the service to reach the stream-events sinks if configured
 
 ### Return type
 
@@ -232,7 +231,6 @@ Name | Type | Description
 **TotpCodeLength** | **int** | Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
 **TotpSkew** | **int** | Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
 **DefaultTemplateSid** | **string** | The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
-**VerifyEventSubscriptionEnabled** | **bool** | Whether to allow verifications from the service to reach the stream-events sinks if configured
 
 ### Return type
 

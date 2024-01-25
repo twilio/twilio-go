@@ -16,7 +16,7 @@ package openapi
 
 // NumbersV1PortingPortIn struct for NumbersV1PortingPortIn
 type NumbersV1PortingPortIn struct {
-	// The SID of the Port In request. This is a unique identifier of the port in request.
+	// The SID of the Port In request, It is the request identifier
 	PortInRequestSid *string `json:"port_in_request_sid,omitempty"`
 	Url              *string `json:"url,omitempty"`
 }

@@ -121,8 +121,6 @@ type CreateParticipantParams struct {
 	AmdStatusCallbackMethod *string `json:"AmdStatusCallbackMethod,omitempty"`
 	// Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
 	Trim *string `json:"Trim,omitempty"`
-	// A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
-	CallToken *string `json:"CallToken,omitempty"`
 }
 
 func (params *CreateParticipantParams) SetPathAccountSid(PathAccountSid string) *CreateParticipantParams {
@@ -317,10 +315,6 @@ func (params *CreateParticipantParams) SetTrim(Trim string) *CreateParticipantPa
 	params.Trim = &Trim
 	return params
 }
-func (params *CreateParticipantParams) SetCallToken(CallToken string) *CreateParticipantParams {
-	params.CallToken = &CallToken
-	return params
-}
 
 //
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
@@ -483,9 +477,6 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	}
 	if params != nil && params.Trim != nil {
 		data.Set("Trim", *params.Trim)
-	}
-	if params != nil && params.CallToken != nil {
-		data.Set("CallToken", *params.CallToken)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

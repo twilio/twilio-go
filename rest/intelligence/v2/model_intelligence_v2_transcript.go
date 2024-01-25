@@ -33,7 +33,7 @@ type IntelligenceV2Transcript struct {
 	Status      *string    `json:"status,omitempty"`
 	// Media Channel describing Transcript Source and Participant Mapping
 	Channel *interface{} `json:"channel,omitempty"`
-	// Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
+	// Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
 	DataLogging *bool `json:"data_logging,omitempty"`
 	// The default language code of the audio.
 	LanguageCode *string `json:"language_code,omitempty"`

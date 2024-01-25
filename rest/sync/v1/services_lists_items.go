@@ -119,6 +119,7 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
+
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
@@ -387,6 +388,7 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
+
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

@@ -128,6 +128,7 @@ func (c *ApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key str
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
+
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
@@ -396,6 +397,7 @@ func (c *ApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key str
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
+
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

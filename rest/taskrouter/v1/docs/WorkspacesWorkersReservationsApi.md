@@ -177,7 +177,6 @@ Name | Type | Description
 **PostWorkActivitySid** | **string** | The new worker activity SID after executing a Conference instruction.
 **EndConferenceOnCustomerExit** | **bool** | Whether to end the conference when the customer leaves.
 **BeepOnCustomerEntrance** | **bool** | Whether to play a notification beep when the customer joins.
-**JitterBufferSize** | **string** | The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
 ### Return type
 

@@ -59,8 +59,6 @@ type CreateServiceParams struct {
 	TotpSkew *int `json:"Totp.Skew,omitempty"`
 	// The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 	DefaultTemplateSid *string `json:"DefaultTemplateSid,omitempty"`
-	// Whether to allow verifications from the service to reach the stream-events sinks if configured
-	VerifyEventSubscriptionEnabled *bool `json:"VerifyEventSubscriptionEnabled,omitempty"`
 }
 
 func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateServiceParams {
@@ -131,10 +129,6 @@ func (params *CreateServiceParams) SetDefaultTemplateSid(DefaultTemplateSid stri
 	params.DefaultTemplateSid = &DefaultTemplateSid
 	return params
 }
-func (params *CreateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEventSubscriptionEnabled bool) *CreateServiceParams {
-	params.VerifyEventSubscriptionEnabled = &VerifyEventSubscriptionEnabled
-	return params
-}
 
 // Create a new Verification Service.
 func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Service, error) {
@@ -193,9 +187,6 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 	}
 	if params != nil && params.DefaultTemplateSid != nil {
 		data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
-	}
-	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
-		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -426,8 +417,6 @@ type UpdateServiceParams struct {
 	TotpSkew *int `json:"Totp.Skew,omitempty"`
 	// The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 	DefaultTemplateSid *string `json:"DefaultTemplateSid,omitempty"`
-	// Whether to allow verifications from the service to reach the stream-events sinks if configured
-	VerifyEventSubscriptionEnabled *bool `json:"VerifyEventSubscriptionEnabled,omitempty"`
 }
 
 func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateServiceParams {
@@ -498,10 +487,6 @@ func (params *UpdateServiceParams) SetDefaultTemplateSid(DefaultTemplateSid stri
 	params.DefaultTemplateSid = &DefaultTemplateSid
 	return params
 }
-func (params *UpdateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEventSubscriptionEnabled bool) *UpdateServiceParams {
-	params.VerifyEventSubscriptionEnabled = &VerifyEventSubscriptionEnabled
-	return params
-}
 
 // Update a specific Verification Service.
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*VerifyV2Service, error) {
@@ -561,9 +546,6 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	}
 	if params != nil && params.DefaultTemplateSid != nil {
 		data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
-	}
-	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
-		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

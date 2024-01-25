@@ -180,7 +180,6 @@ Name | Type | Description
 **Supervisor** | **string** | The Supervisor SID/URI when executing the Supervise instruction.
 **EndConferenceOnCustomerExit** | **bool** | Whether to end the conference when the customer leaves.
 **BeepOnCustomerEntrance** | **bool** | Whether to play a notification beep when the customer joins.
-**JitterBufferSize** | **string** | The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
 ### Return type
 

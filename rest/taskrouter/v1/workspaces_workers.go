@@ -102,6 +102,7 @@ func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *Delet
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
+
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
@@ -406,6 +407,7 @@ func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *Updat
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
+
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
