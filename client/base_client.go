@@ -10,5 +10,5 @@ type BaseClient interface {
 	AccountSid() string
 	SetTimeout(timeout time.Duration)
 	SendRequest(method string, rawURL string, data url.Values,
-		headers map[string]interface{}) (*http.Response, error)
+		headers map[string]interface{}, queryParams ...url.Values) (*http.Response, error)
 }

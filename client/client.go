@@ -2,95 +2,96 @@
 package client
 
 import (
-	"encoding/json"
-	"fmt"
-	"net/http"
-	"net/url"
-	"regexp"
-	"runtime"
-	"strconv"
-	"strings"
-	"time"
+    "encoding/json"
+    "fmt"
+    "net/http"
+    "net/url"
+    "regexp"
+    "runtime"
+    "strconv"
+    "strings"
+    "time"
 
-	"github.com/pkg/errors"
-	"github.com/twilio/twilio-go/client/form"
+    "github.com/pkg/errors"
+    "github.com/twilio/twilio-go/client/form"
 )
 
 // Credentials store user authentication credentials.
 type Credentials struct {
-	Username string
-	Password string
+    Username string
+    Password string
 }
 
 func NewCredentials(username string, password string) *Credentials {
-	return &Credentials{Username: username, Password: password}
+    return &Credentials{Username: username, Password: password}
 }
 
 // Client encapsulates a standard HTTP backend with authorization.
 type Client struct {
-	*Credentials
-	HTTPClient          *http.Client
-	accountSid          string
-	UserAgentExtensions []string
+    *Credentials
+    HTTPClient          *http.Client
+    accountSid          string
+    UserAgentExtensions []string
 }
 
 // default http Client should not follow redirects and return the most recent response.
 func defaultHTTPClient() *http.Client {
-	return &http.Client{
-		CheckRedirect: func(req *http.Request, via []*http.Request) error {
-			return http.ErrUseLastResponse
-		},
-		Timeout: time.Second * 10,
-	}
+    return &http.Client{
+        CheckRedirect: func(req *http.Request, via []*http.Request) error {
+            return http.ErrUseLastResponse
+        },
+        Timeout: time.Second * 10,
+    }
 }
 
 func (c *Client) basicAuth() (string, string) {
-	return c.Credentials.Username, c.Credentials.Password
+    return c.Credentials.Username, c.Credentials.Password
 }
 
 // SetTimeout sets the Timeout for HTTP requests.
 func (c *Client) SetTimeout(timeout time.Duration) {
-	if c.HTTPClient == nil {
-		c.HTTPClient = defaultHTTPClient()
-	}
-	c.HTTPClient.Timeout = timeout
+    if c.HTTPClient == nil {
+        c.HTTPClient = defaultHTTPClient()
+    }
+    c.HTTPClient.Timeout = timeout
 }
 
 const (
-	keepZeros = true
-	delimiter = '.'
-	escapee   = '\\'
+    keepZeros = true
+    delimiter = '.'
+    escapee   = '\\'
 )
 
 func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
-	client := c.HTTPClient
+    client := c.HTTPClient
 
-	if client == nil {
-		client = defaultHTTPClient()
-	}
+    if client == nil {
+        client = defaultHTTPClient()
+    }
 
-	res, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
+    res, err := client.Do(req)
+    if err != nil {
+        return nil, err
+    }
 
-	// Note that 3XX response codes are allowed for fetches
-	if res.StatusCode < 200 || res.StatusCode >= 400 {
-		err = &TwilioRestError{}
-		if decodeErr := json.NewDecoder(res.Body).Decode(err); decodeErr != nil {
-			err = errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
-			return nil, err
-		}
+    // Note that 3XX response codes are allowed for fetches
+    if res.StatusCode < 200 || res.StatusCode >= 400 {
+        err = &TwilioRestError{}
+        if decodeErr := json.NewDecoder(res.Body).Decode(err); decodeErr != nil {
+            err = errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
+            return nil, err
+        }
 
-		return nil, err
-	}
-	return res, nil
+        return nil, err
+    }
+    return res, nil
 }
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
 func (c *Client) SendRequest(method string, rawURL string, data url.Values,
-	headers map[string]interface{}) (*http.Response, error) {
-	u, err := url.Parse(rawURL)
+    headers map[string]interface{}, queryParams ...url.Values) (*http.Response, error) {
+    
+    u, err := url.Parse(rawURL)
 	if err != nil {
 		return nil, err
 	}
@@ -98,15 +99,14 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	valueReader := &strings.Reader{}
 	goVersion := runtime.Version()
 
-	if method == http.MethodGet {
-		if data != nil {
-			v, _ := form.EncodeToStringWith(data, delimiter, escapee, keepZeros)
-			regex := regexp.MustCompile(`\.\d+`)
-			s := regex.ReplaceAllString(v, "")
+    if queryParams != nil && queryParams[0] != nil{
+        v, _ := form.EncodeToStringWith(queryParams[0], delimiter, escapee, keepZeros)
+        regex := regexp.MustCompile(`\.\d+`)
+        s := regex.ReplaceAllString(v, "")
 
-			u.RawQuery = s
-		}
-	}
+        u.RawQuery = s
+        
+    }
 
 	if method == http.MethodPost {
 		valueReader = strings.NewReader(data.Encode())
@@ -135,16 +135,15 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	for k, v := range headers {
 		req.Header.Add(k, fmt.Sprint(v))
 	}
-
-	return c.doWithErr(req)
+    return c.doWithErr(req)
 }
 
 // SetAccountSid sets the Client's accountSid field
 func (c *Client) SetAccountSid(sid string) {
-	c.accountSid = sid
+    c.accountSid = sid
 }
 
 // Returns the Account SID.
 func (c *Client) AccountSid() string {
-	return c.accountSid
+    return c.accountSid
 }
