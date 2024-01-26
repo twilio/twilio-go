@@ -34,19 +34,19 @@ func (params *CreateAlphaSenderParams) SetAlphaSender(AlphaSender string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSenderParams) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AlphaSender != nil {
 		data.Set("AlphaSender", *params.AlphaSender)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -61,16 +61,16 @@ func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSen
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteAlphaSender(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -80,16 +80,16 @@ func (c *ApiService) DeleteAlphaSender(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchAlphaSender(ServiceSid string, Sid string) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -128,10 +128,11 @@ func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderP
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -141,7 +142,7 @@ func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -228,7 +229,7 @@ func (c *ApiService) getNextListAlphaSenderResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

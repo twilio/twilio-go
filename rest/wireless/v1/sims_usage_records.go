@@ -66,19 +66,20 @@ func (c *ApiService) PageUsageRecord(SimSid string, params *ListUsageRecordParam
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.End != nil {
-		data.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
+		queryParams.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
 	}
 	if params != nil && params.Start != nil {
-		data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
+		queryParams.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
 	}
 	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
+		queryParams.Set("Granularity", *params.Granularity)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -88,7 +89,7 @@ func (c *ApiService) PageUsageRecord(SimSid string, params *ListUsageRecordParam
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +176,7 @@ func (c *ApiService) getNextListUsageRecordResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

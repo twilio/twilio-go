@@ -30,9 +30,10 @@ func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -71,10 +72,11 @@ func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVid
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -84,7 +86,7 @@ func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVid
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +173,7 @@ func (c *ApiService) getNextListVideoParticipantSummaryResponse(nextPageUrl stri
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

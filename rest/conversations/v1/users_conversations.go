@@ -31,9 +31,10 @@ func (c *ApiService) DeleteUserConversation(UserSid string, ConversationSid stri
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -50,9 +51,10 @@ func (c *ApiService) FetchUserConversation(UserSid string, ConversationSid strin
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -91,10 +93,11 @@ func (c *ApiService) PageUserConversation(UserSid string, params *ListUserConver
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -104,7 +107,7 @@ func (c *ApiService) PageUserConversation(UserSid string, params *ListUserConver
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -191,7 +194,7 @@ func (c *ApiService) getNextListUserConversationResponse(nextPageUrl string) (in
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -235,6 +238,7 @@ func (c *ApiService) UpdateUserConversation(UserSid string, ConversationSid stri
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.NotificationLevel != nil {
@@ -247,7 +251,7 @@ func (c *ApiService) UpdateUserConversation(UserSid string, ConversationSid stri
 		data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -54,6 +54,7 @@ func (c *ApiService) CreateUserDefinedMessage(CallSid string, params *CreateUser
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Content != nil {
@@ -63,7 +64,7 @@ func (c *ApiService) CreateUserDefinedMessage(CallSid string, params *CreateUser
 		data.Set("IdempotencyKey", *params.IdempotencyKey)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

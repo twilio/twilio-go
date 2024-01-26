@@ -64,12 +64,12 @@ func (params *CreateExportCustomJobParams) SetEmail(Email string) *CreateExportC
 	return params
 }
 
-//
 func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateExportCustomJobParams) (*BulkexportsV1ExportCustomJob, error) {
 	path := "/v1/Exports/{ResourceType}/Jobs"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.StartDay != nil {
@@ -91,7 +91,7 @@ func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateEx
 		data.Set("Email", *params.Email)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -106,15 +106,15 @@ func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateEx
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteJob(JobSid string) error {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -124,15 +124,15 @@ func (c *ApiService) DeleteJob(JobSid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchJob(JobSid string) (*BulkexportsV1Job, error) {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -171,10 +171,11 @@ func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExport
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -184,7 +185,7 @@ func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExport
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -271,7 +272,7 @@ func (c *ApiService) getNextListExportCustomJobResponse(nextPageUrl string) (int
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -20,15 +20,15 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) FetchSipDomain(SipDomain string) (*RoutesV2SipDomain, error) {
 	path := "/v2/SipDomains/{SipDomain}"
 	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -60,12 +60,12 @@ func (params *UpdateSipDomainParams) SetFriendlyName(FriendlyName string) *Updat
 	return params
 }
 
-//
 func (c *ApiService) UpdateSipDomain(SipDomain string, params *UpdateSipDomainParams) (*RoutesV2SipDomain, error) {
 	path := "/v2/SipDomains/{SipDomain}"
 	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.VoiceRegion != nil {
@@ -75,7 +75,7 @@ func (c *ApiService) UpdateSipDomain(SipDomain string, params *UpdateSipDomainPa
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

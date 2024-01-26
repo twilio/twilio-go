@@ -31,20 +31,20 @@ func (params *FetchWorkflowRealTimeStatisticsParams) SetTaskChannel(TaskChannel 
 	return params
 }
 
-//
 func (c *ApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowRealTimeStatisticsParams) (*TaskrouterV1WorkflowRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		queryParams.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

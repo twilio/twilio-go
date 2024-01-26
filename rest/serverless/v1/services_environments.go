@@ -46,6 +46,7 @@ func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironm
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
@@ -55,7 +56,7 @@ func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironm
 		data.Set("DomainSuffix", *params.DomainSuffix)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -77,9 +78,10 @@ func (c *ApiService) DeleteEnvironment(ServiceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -96,9 +98,10 @@ func (c *ApiService) FetchEnvironment(ServiceSid string, Sid string) (*Serverles
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -137,10 +140,11 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -150,7 +154,7 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -237,7 +241,7 @@ func (c *ApiService) getNextListEnvironmentResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -93,34 +93,35 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, p
 	path := "/v1/UsageRecords"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+		queryParams.Set("Sim", *params.Sim)
 	}
 	if params != nil && params.Fleet != nil {
-		data.Set("Fleet", *params.Fleet)
+		queryParams.Set("Fleet", *params.Fleet)
 	}
 	if params != nil && params.Network != nil {
-		data.Set("Network", *params.Network)
+		queryParams.Set("Network", *params.Network)
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+		queryParams.Set("IsoCountry", *params.IsoCountry)
 	}
 	if params != nil && params.Group != nil {
-		data.Set("Group", *params.Group)
+		queryParams.Set("Group", *params.Group)
 	}
 	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
+		queryParams.Set("Granularity", *params.Granularity)
 	}
 	if params != nil && params.StartTime != nil {
-		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
+		queryParams.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTime != nil {
-		data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
+		queryParams.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -130,7 +131,7 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -217,7 +218,7 @@ func (c *ApiService) getNextListUsageRecordResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

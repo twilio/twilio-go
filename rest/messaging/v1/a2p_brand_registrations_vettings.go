@@ -40,12 +40,12 @@ func (params *CreateBrandVettingParams) SetVettingId(VettingId string) *CreateBr
 	return params
 }
 
-//
 func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVettingParams) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.VettingProvider != nil {
@@ -55,7 +55,7 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 		data.Set("VettingId", *params.VettingId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -70,16 +70,16 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
 	path = strings.Replace(path, "{"+"BrandVettingSid"+"}", BrandVettingSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -124,13 +124,14 @@ func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingP
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.VettingProvider != nil {
-		data.Set("VettingProvider", *params.VettingProvider)
+		queryParams.Set("VettingProvider", *params.VettingProvider)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -140,7 +141,7 @@ func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -227,7 +228,7 @@ func (c *ApiService) getNextListBrandVettingResponse(nextPageUrl string) (interf
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

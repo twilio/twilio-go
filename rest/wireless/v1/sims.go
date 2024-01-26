@@ -29,9 +29,10 @@ func (c *ApiService) DeleteSim(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -47,9 +48,10 @@ func (c *ApiService) FetchSim(Sid string) (*WirelessV1Sim, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -116,25 +118,26 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string
 	path := "/v1/Sims"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.Iccid != nil {
-		data.Set("Iccid", *params.Iccid)
+		queryParams.Set("Iccid", *params.Iccid)
 	}
 	if params != nil && params.RatePlan != nil {
-		data.Set("RatePlan", *params.RatePlan)
+		queryParams.Set("RatePlan", *params.RatePlan)
 	}
 	if params != nil && params.EId != nil {
-		data.Set("EId", *params.EId)
+		queryParams.Set("EId", *params.EId)
 	}
 	if params != nil && params.SimRegistrationCode != nil {
-		data.Set("SimRegistrationCode", *params.SimRegistrationCode)
+		queryParams.Set("SimRegistrationCode", *params.SimRegistrationCode)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -144,7 +147,7 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -231,7 +234,7 @@ func (c *ApiService) getNextListSimResponse(nextPageUrl string) (interface{}, er
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -364,6 +367,7 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
@@ -421,7 +425,7 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1
 		data.Set("AccountSid", *params.AccountSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

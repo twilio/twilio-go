@@ -52,12 +52,12 @@ func (params *CreateChannelParams) SetType(Type string) *CreateChannelParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*ChatV1Channel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -73,7 +73,7 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 		data.Set("Type", *params.Type)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -88,16 +88,16 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteChannel(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -107,16 +107,16 @@ func (c *ApiService) DeleteChannel(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannel(ServiceSid string, Sid string) (*ChatV1Channel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -161,15 +161,16 @@ func (c *ApiService) PageChannel(ServiceSid string, params *ListChannelParams, p
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Type != nil {
 		for _, item := range *params.Type {
-			data.Add("Type", item)
+			queryParams.Add("Type", item)
 		}
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -179,7 +180,7 @@ func (c *ApiService) PageChannel(ServiceSid string, params *ListChannelParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -266,7 +267,7 @@ func (c *ApiService) getNextListChannelResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -303,13 +304,13 @@ func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChann
 	return params
 }
 
-//
 func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*ChatV1Channel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -322,7 +323,7 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 		data.Set("Attributes", *params.Attributes)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

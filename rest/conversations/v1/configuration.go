@@ -24,9 +24,10 @@ func (c *ApiService) FetchConfiguration() (*ConversationsV1Configuration, error)
 	path := "/v1/Configuration"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -75,6 +76,7 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Co
 	path := "/v1/Configuration"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.DefaultChatServiceSid != nil {
@@ -90,7 +92,7 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Co
 		data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

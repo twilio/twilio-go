@@ -30,18 +30,18 @@ func (params *FetchConfigurationParams) SetUiVersion(UiVersion string) *FetchCon
 	return params
 }
 
-//
 func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.UiVersion != nil {
-		data.Set("UiVersion", *params.UiVersion)
+		queryParams.Set("UiVersion", *params.UiVersion)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

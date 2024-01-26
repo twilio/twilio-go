@@ -139,6 +139,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.IdempotencyKey != nil {
@@ -196,7 +197,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 		data.Set("ValidCardTypes", *params.ValidCardTypes)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -258,6 +259,7 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.IdempotencyKey != nil {
@@ -273,7 +275,7 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

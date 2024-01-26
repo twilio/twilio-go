@@ -29,9 +29,10 @@ func (c *ApiService) FetchDevice(Sid string) (*MicrovisorV1Device, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -68,10 +69,11 @@ func (c *ApiService) PageDevice(params *ListDeviceParams, pageToken, pageNumber 
 	path := "/v1/Devices"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -81,7 +83,7 @@ func (c *ApiService) PageDevice(params *ListDeviceParams, pageToken, pageNumber 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +170,7 @@ func (c *ApiService) getNextListDeviceResponse(nextPageUrl string) (interface{},
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -217,6 +219,7 @@ func (c *ApiService) UpdateDevice(Sid string, params *UpdateDeviceParams) (*Micr
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
@@ -232,7 +235,7 @@ func (c *ApiService) UpdateDevice(Sid string, params *UpdateDeviceParams) (*Micr
 		data.Set("RestartApp", fmt.Sprint(*params.RestartApp))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

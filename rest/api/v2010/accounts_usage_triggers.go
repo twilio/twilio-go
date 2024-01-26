@@ -86,6 +86,7 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackUrl != nil {
@@ -110,7 +111,7 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 		data.Set("TriggerBy", *params.TriggerBy)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +137,6 @@ func (params *DeleteUsageTriggerParams) SetPathAccountSid(PathAccountSid string)
 	return params
 }
 
-//
 func (c *ApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTriggerParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -147,9 +147,10 @@ func (c *ApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTriggerPa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -181,9 +182,10 @@ func (c *ApiService) FetchUsageTrigger(Sid string, params *FetchUsageTriggerPara
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -250,19 +252,20 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken,
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Recurring != nil {
-		data.Set("Recurring", *params.Recurring)
+		queryParams.Set("Recurring", *params.Recurring)
 	}
 	if params != nil && params.TriggerBy != nil {
-		data.Set("TriggerBy", *params.TriggerBy)
+		queryParams.Set("TriggerBy", *params.TriggerBy)
 	}
 	if params != nil && params.UsageCategory != nil {
-		data.Set("UsageCategory", *params.UsageCategory)
+		queryParams.Set("UsageCategory", *params.UsageCategory)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -272,7 +275,7 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -359,7 +362,7 @@ func (c *ApiService) getNextListUsageTriggerResponse(nextPageUrl string) (interf
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -413,6 +416,7 @@ func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerPa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackMethod != nil {
@@ -425,7 +429,7 @@ func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerPa
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

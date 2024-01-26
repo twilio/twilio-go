@@ -57,6 +57,7 @@ func (c *ApiService) CreateSmsCommand(params *CreateSmsCommandParams) (*Supersim
 	path := "/v1/SmsCommands"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Sim != nil {
@@ -72,7 +73,7 @@ func (c *ApiService) CreateSmsCommand(params *CreateSmsCommandParams) (*Supersim
 		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -93,9 +94,10 @@ func (c *ApiService) FetchSmsCommand(Sid string) (*SupersimV1SmsCommand, error) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -150,19 +152,20 @@ func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken, pag
 	path := "/v1/SmsCommands"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+		queryParams.Set("Sim", *params.Sim)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
+		queryParams.Set("Direction", *params.Direction)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -172,7 +175,7 @@ func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -259,7 +262,7 @@ func (c *ApiService) getNextListSmsCommandResponse(nextPageUrl string) (interfac
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

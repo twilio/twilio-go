@@ -70,12 +70,12 @@ func (params *CreateBindingParams) SetEndpoint(Endpoint string) *CreateBindingPa
 	return params
 }
 
-//
 func (c *ApiService) CreateBinding(ServiceSid string, params *CreateBindingParams) (*NotifyV1Binding, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Identity != nil {
@@ -102,7 +102,7 @@ func (c *ApiService) CreateBinding(ServiceSid string, params *CreateBindingParam
 		data.Set("Endpoint", *params.Endpoint)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -117,16 +117,16 @@ func (c *ApiService) CreateBinding(ServiceSid string, params *CreateBindingParam
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -136,16 +136,16 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*NotifyV1Binding, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -208,26 +208,27 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		queryParams.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		queryParams.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.Identity != nil {
 		for _, item := range *params.Identity {
-			data.Add("Identity", item)
+			queryParams.Add("Identity", item)
 		}
 	}
 	if params != nil && params.Tag != nil {
 		for _, item := range *params.Tag {
-			data.Add("Tag", item)
+			queryParams.Add("Tag", item)
 		}
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -237,7 +238,7 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -324,7 +325,7 @@ func (c *ApiService) getNextListBindingResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

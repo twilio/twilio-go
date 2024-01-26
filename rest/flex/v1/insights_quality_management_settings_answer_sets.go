@@ -35,12 +35,13 @@ func (c *ApiService) FetchInsightsSettingsAnswersets(params *FetchInsightsSettin
 	path := "/v1/Insights/QualityManagement/Settings/AnswerSets"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

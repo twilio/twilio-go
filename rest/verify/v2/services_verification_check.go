@@ -61,6 +61,7 @@ func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVe
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Code != nil {
@@ -79,7 +80,7 @@ func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVe
 		data.Set("Payee", *params.Payee)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

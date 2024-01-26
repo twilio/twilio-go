@@ -25,9 +25,10 @@ func (c *ApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPermissio
 	path := "/v1/Settings"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -58,13 +59,14 @@ func (c *ApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermi
 	path := "/v1/Settings"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.DialingPermissionsInheritance != nil {
 		data.Set("DialingPermissionsInheritance", fmt.Sprint(*params.DialingPermissionsInheritance))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

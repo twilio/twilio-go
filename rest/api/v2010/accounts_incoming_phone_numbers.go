@@ -188,6 +188,7 @@ func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumber
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ApiVersion != nil {
@@ -263,7 +264,7 @@ func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumber
 		data.Set("AreaCode", *params.AreaCode)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -300,9 +301,10 @@ func (c *ApiService) DeleteIncomingPhoneNumber(Sid string, params *DeleteIncomin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -334,9 +336,10 @@ func (c *ApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIncomingP
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -409,22 +412,23 @@ func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		queryParams.Set("Beta", fmt.Sprint(*params.Beta))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		queryParams.Set("PhoneNumber", *params.PhoneNumber)
 	}
 	if params != nil && params.Origin != nil {
-		data.Set("Origin", *params.Origin)
+		queryParams.Set("Origin", *params.Origin)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -434,7 +438,7 @@ func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -521,7 +525,7 @@ func (c *ApiService) getNextListIncomingPhoneNumberResponse(nextPageUrl string) 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -695,6 +699,7 @@ func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AccountSid != nil {
@@ -767,7 +772,7 @@ func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomin
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

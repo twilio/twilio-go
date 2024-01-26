@@ -29,9 +29,10 @@ func (c *ApiService) FetchRegulation(Sid string) (*NumbersV2Regulation, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -86,19 +87,20 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pag
 	path := "/v2/RegulatoryCompliance/Regulations"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.EndUserType != nil {
-		data.Set("EndUserType", *params.EndUserType)
+		queryParams.Set("EndUserType", *params.EndUserType)
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+		queryParams.Set("IsoCountry", *params.IsoCountry)
 	}
 	if params != nil && params.NumberType != nil {
-		data.Set("NumberType", *params.NumberType)
+		queryParams.Set("NumberType", *params.NumberType)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -108,7 +110,7 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +197,7 @@ func (c *ApiService) getNextListRegulationResponse(nextPageUrl string) (interfac
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -36,13 +36,14 @@ func (c *ApiService) FetchDeactivation(params *FetchDeactivationParams) (*Messag
 	path := "/v1/Deactivations"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Date != nil {
-		data.Set("Date", fmt.Sprint(*params.Date))
+		queryParams.Set("Date", fmt.Sprint(*params.Date))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

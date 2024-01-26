@@ -64,12 +64,12 @@ func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivity
 	return params
 }
 
-//
 func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -91,7 +91,7 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -106,16 +106,16 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -125,16 +125,16 @@ func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -197,22 +197,23 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.EvaluateWorkerAttributes != nil {
-		data.Set("EvaluateWorkerAttributes", *params.EvaluateWorkerAttributes)
+		queryParams.Set("EvaluateWorkerAttributes", *params.EvaluateWorkerAttributes)
 	}
 	if params != nil && params.WorkerSid != nil {
-		data.Set("WorkerSid", *params.WorkerSid)
+		queryParams.Set("WorkerSid", *params.WorkerSid)
 	}
 	if params != nil && params.Ordering != nil {
-		data.Set("Ordering", *params.Ordering)
+		queryParams.Set("Ordering", *params.Ordering)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -222,7 +223,7 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -309,7 +310,7 @@ func (c *ApiService) getNextListTaskQueueResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -364,13 +365,13 @@ func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQ
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -392,7 +393,7 @@ func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *Up
 		data.Set("TaskOrder", *params.TaskOrder)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

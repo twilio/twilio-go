@@ -24,9 +24,10 @@ func (c *ApiService) UpdateAuthTokenPromotion() (*AccountsV1AuthTokenPromotion, 
 	path := "/v1/AuthTokens/Promote"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

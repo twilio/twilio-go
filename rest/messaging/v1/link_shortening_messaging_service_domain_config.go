@@ -20,15 +20,15 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) FetchDomainConfigMessagingService(MessagingServiceSid string) (*MessagingV1DomainConfigMessagingService, error) {
 	path := "/v1/LinkShortening/MessagingService/{MessagingServiceSid}/DomainConfig"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

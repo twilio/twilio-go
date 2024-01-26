@@ -21,15 +21,15 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) FetchDomainConfig(DomainSid string) (*MessagingV1DomainConfig, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -73,12 +73,12 @@ func (params *UpdateDomainConfigParams) SetDisableHttps(DisableHttps bool) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateDomainConfig(DomainSid string, params *UpdateDomainConfigParams) (*MessagingV1DomainConfig, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FallbackUrl != nil {
@@ -94,7 +94,7 @@ func (c *ApiService) UpdateDomainConfig(DomainSid string, params *UpdateDomainCo
 		data.Set("DisableHttps", fmt.Sprint(*params.DisableHttps))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

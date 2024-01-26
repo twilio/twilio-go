@@ -45,6 +45,7 @@ func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfi
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
@@ -56,7 +57,7 @@ func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfi
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -77,9 +78,10 @@ func (c *ApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1NetworkAc
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -116,10 +118,11 @@ func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfilePa
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -129,7 +132,7 @@ func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfilePa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -216,7 +219,7 @@ func (c *ApiService) getNextListNetworkAccessProfileResponse(nextPageUrl string)
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -247,13 +250,14 @@ func (c *ApiService) UpdateNetworkAccessProfile(Sid string, params *UpdateNetwor
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -24,15 +24,15 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 	path := "/v1/Events/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -105,28 +105,29 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken, pageNumber st
 	path := "/v1/Events"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ActorSid != nil {
-		data.Set("ActorSid", *params.ActorSid)
+		queryParams.Set("ActorSid", *params.ActorSid)
 	}
 	if params != nil && params.EventType != nil {
-		data.Set("EventType", *params.EventType)
+		queryParams.Set("EventType", *params.EventType)
 	}
 	if params != nil && params.ResourceSid != nil {
-		data.Set("ResourceSid", *params.ResourceSid)
+		queryParams.Set("ResourceSid", *params.ResourceSid)
 	}
 	if params != nil && params.SourceIpAddress != nil {
-		data.Set("SourceIpAddress", *params.SourceIpAddress)
+		queryParams.Set("SourceIpAddress", *params.SourceIpAddress)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+		queryParams.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+		queryParams.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -136,7 +137,7 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken, pageNumber st
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -223,7 +224,7 @@ func (c *ApiService) getNextListEventResponse(nextPageUrl string) (interface{}, 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

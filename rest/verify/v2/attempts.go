@@ -30,9 +30,10 @@ func (c *ApiService) FetchVerificationAttempt(Sid string) (*VerifyV2Verification
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -117,34 +118,35 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 	path := "/v2/Attempts"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.ChannelDataTo != nil {
-		data.Set("ChannelData.To", *params.ChannelDataTo)
+		queryParams.Set("ChannelData.To", *params.ChannelDataTo)
 	}
 	if params != nil && params.Country != nil {
-		data.Set("Country", *params.Country)
+		queryParams.Set("Country", *params.Country)
 	}
 	if params != nil && params.Channel != nil {
-		data.Set("Channel", *params.Channel)
+		queryParams.Set("Channel", *params.Channel)
 	}
 	if params != nil && params.VerifyServiceSid != nil {
-		data.Set("VerifyServiceSid", *params.VerifyServiceSid)
+		queryParams.Set("VerifyServiceSid", *params.VerifyServiceSid)
 	}
 	if params != nil && params.VerificationSid != nil {
-		data.Set("VerificationSid", *params.VerificationSid)
+		queryParams.Set("VerificationSid", *params.VerificationSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -154,7 +156,7 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -241,7 +243,7 @@ func (c *ApiService) getNextListVerificationAttemptResponse(nextPageUrl string) 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

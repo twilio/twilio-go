@@ -49,25 +49,25 @@ func (params *FetchPhoneNumberParams) SetAddOnsData(AddOnsData map[string]interf
 	return params
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV1PhoneNumber, error) {
 	path := "/v1/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CountryCode != nil {
-		data.Set("CountryCode", *params.CountryCode)
+		queryParams.Set("CountryCode", *params.CountryCode)
 	}
 	if params != nil && params.Type != nil {
 		for _, item := range *params.Type {
-			data.Add("Type", item)
+			queryParams.Add("Type", item)
 		}
 	}
 	if params != nil && params.AddOns != nil {
 		for _, item := range *params.AddOns {
-			data.Add("AddOns", item)
+			queryParams.Add("AddOns", item)
 		}
 	}
 	if params != nil && params.AddOnsData != nil {
@@ -77,10 +77,10 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 			return nil, err
 		}
 
-		data.Set("AddOnsData", string(v))
+		queryParams.Set("AddOnsData", string(v))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

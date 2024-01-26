@@ -46,12 +46,12 @@ func (params *CreateWorkerParams) SetAttributes(Attributes string) *CreateWorker
 	return params
 }
 
-//
 func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParams) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -64,7 +64,7 @@ func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParam
 		data.Set("Attributes", *params.Attributes)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -90,19 +90,19 @@ func (params *DeleteWorkerParams) SetIfMatch(IfMatch string) *DeleteWorkerParams
 	return params
 }
 
-//
 func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *DeleteWorkerParams) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -112,16 +112,16 @@ func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *Delet
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorker(WorkspaceSid string, Sid string) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -208,34 +208,35 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ActivityName != nil {
-		data.Set("ActivityName", *params.ActivityName)
+		queryParams.Set("ActivityName", *params.ActivityName)
 	}
 	if params != nil && params.ActivitySid != nil {
-		data.Set("ActivitySid", *params.ActivitySid)
+		queryParams.Set("ActivitySid", *params.ActivitySid)
 	}
 	if params != nil && params.Available != nil {
-		data.Set("Available", *params.Available)
+		queryParams.Set("Available", *params.Available)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.TargetWorkersExpression != nil {
-		data.Set("TargetWorkersExpression", *params.TargetWorkersExpression)
+		queryParams.Set("TargetWorkersExpression", *params.TargetWorkersExpression)
 	}
 	if params != nil && params.TaskQueueName != nil {
-		data.Set("TaskQueueName", *params.TaskQueueName)
+		queryParams.Set("TaskQueueName", *params.TaskQueueName)
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid)
+		queryParams.Set("TaskQueueSid", *params.TaskQueueSid)
 	}
 	if params != nil && params.Ordering != nil {
-		data.Set("Ordering", *params.Ordering)
+		queryParams.Set("Ordering", *params.Ordering)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -245,7 +246,7 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -332,7 +333,7 @@ func (c *ApiService) getNextListWorkerResponse(nextPageUrl string) (interface{},
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -381,13 +382,13 @@ func (params *UpdateWorkerParams) SetRejectPendingReservations(RejectPendingRese
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *UpdateWorkerParams) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ActivitySid != nil {
@@ -406,7 +407,7 @@ func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *Updat
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

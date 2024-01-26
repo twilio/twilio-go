@@ -37,13 +37,14 @@ func (c *ApiService) CreateReplaceItems(BundleSid string, params *CreateReplaceI
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FromBundleSid != nil {
 		data.Set("FromBundleSid", *params.FromBundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

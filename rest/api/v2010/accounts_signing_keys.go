@@ -50,13 +50,14 @@ func (c *ApiService) CreateNewSigningKey(params *CreateNewSigningKeyParams) (*Ap
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -82,7 +83,6 @@ func (params *DeleteSigningKeyParams) SetPathAccountSid(PathAccountSid string) *
 	return params
 }
 
-//
 func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -93,9 +93,10 @@ func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -116,7 +117,6 @@ func (params *FetchSigningKeyParams) SetPathAccountSid(PathAccountSid string) *F
 	return params
 }
 
-//
 func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -127,9 +127,10 @@ func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -178,10 +179,11 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pag
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -191,7 +193,7 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -278,7 +280,7 @@ func (c *ApiService) getNextListSigningKeyResponse(nextPageUrl string) (interfac
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -309,7 +311,6 @@ func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -320,13 +321,14 @@ func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -47,6 +47,7 @@ func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, pa
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Key != nil {
@@ -56,7 +57,7 @@ func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, pa
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -79,9 +80,10 @@ func (c *ApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Si
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -99,9 +101,10 @@ func (c *ApiService) FetchVariable(ServiceSid string, EnvironmentSid string, Sid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -141,10 +144,11 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -154,7 +158,7 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -241,7 +245,7 @@ func (c *ApiService) getNextListVariableResponse(nextPageUrl string) (interface{
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -280,6 +284,7 @@ func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Si
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Key != nil {
@@ -289,7 +294,7 @@ func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Si
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

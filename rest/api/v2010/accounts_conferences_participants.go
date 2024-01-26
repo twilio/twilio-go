@@ -322,7 +322,6 @@ func (params *CreateParticipantParams) SetCallToken(CallToken string) *CreatePar
 	return params
 }
 
-//
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -333,6 +332,7 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.From != nil {
@@ -488,7 +488,7 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 		data.Set("CallToken", *params.CallToken)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -526,9 +526,10 @@ func (c *ApiService) DeleteParticipant(ConferenceSid string, CallSid string, par
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -561,9 +562,10 @@ func (c *ApiService) FetchParticipant(ConferenceSid string, CallSid string, para
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -631,19 +633,20 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Muted != nil {
-		data.Set("Muted", fmt.Sprint(*params.Muted))
+		queryParams.Set("Muted", fmt.Sprint(*params.Muted))
 	}
 	if params != nil && params.Hold != nil {
-		data.Set("Hold", fmt.Sprint(*params.Hold))
+		queryParams.Set("Hold", fmt.Sprint(*params.Hold))
 	}
 	if params != nil && params.Coaching != nil {
-		data.Set("Coaching", fmt.Sprint(*params.Coaching))
+		queryParams.Set("Coaching", fmt.Sprint(*params.Coaching))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -653,7 +656,7 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -740,7 +743,7 @@ func (c *ApiService) getNextListParticipantResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -849,6 +852,7 @@ func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, par
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Muted != nil {
@@ -888,7 +892,7 @@ func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, par
 		data.Set("CallSidToCoach", *params.CallSidToCoach)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

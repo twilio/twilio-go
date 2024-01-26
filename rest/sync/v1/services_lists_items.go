@@ -52,13 +52,13 @@ func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Cre
 	return params
 }
 
-//
 func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Data != nil {
@@ -80,7 +80,7 @@ func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, param
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +106,6 @@ func (params *DeleteSyncListItemParams) SetIfMatch(IfMatch string) *DeleteSyncLi
 	return params
 }
 
-//
 func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int, params *DeleteSyncListItemParams) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -114,12 +113,13 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -129,7 +129,6 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 	return nil
 }
 
-//
 func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -137,9 +136,10 @@ func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index 
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -197,19 +197,20 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
+		queryParams.Set("Order", *params.Order)
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		queryParams.Set("From", *params.From)
 	}
 	if params != nil && params.Bounds != nil {
-		data.Set("Bounds", *params.Bounds)
+		queryParams.Set("Bounds", *params.Bounds)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -219,7 +220,7 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -306,7 +307,7 @@ func (c *ApiService) getNextListSyncListItemResponse(nextPageUrl string) (interf
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -355,7 +356,6 @@ func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Upd
 	return params
 }
 
-//
 func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -363,6 +363,7 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Data != nil {
@@ -387,7 +388,7 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

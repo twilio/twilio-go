@@ -69,6 +69,7 @@ func (c *ApiService) CreateInsightsQuestionnairesQuestion(params *CreateInsights
 	path := "/v1/Insights/QualityManagement/Questions"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CategorySid != nil {
@@ -90,7 +91,7 @@ func (c *ApiService) CreateInsightsQuestionnairesQuestion(params *CreateInsights
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -116,18 +117,18 @@ func (params *DeleteInsightsQuestionnairesQuestionParams) SetAuthorization(Autho
 	return params
 }
 
-//
 func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionSid string, params *DeleteInsightsQuestionnairesQuestionParams) error {
 	path := "/v1/Insights/QualityManagement/Questions/{QuestionSid}"
 	path = strings.Replace(path, "{"+"QuestionSid"+"}", QuestionSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -171,15 +172,16 @@ func (c *ApiService) PageInsightsQuestionnairesQuestion(params *ListInsightsQues
 	path := "/v1/Insights/QualityManagement/Questions"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CategorySid != nil {
 		for _, item := range *params.CategorySid {
-			data.Add("CategorySid", item)
+			queryParams.Add("CategorySid", item)
 		}
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -189,7 +191,7 @@ func (c *ApiService) PageInsightsQuestionnairesQuestion(params *ListInsightsQues
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -276,7 +278,7 @@ func (c *ApiService) getNextListInsightsQuestionnairesQuestionResponse(nextPageU
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -337,6 +339,7 @@ func (c *ApiService) UpdateInsightsQuestionnairesQuestion(QuestionSid string, pa
 	path = strings.Replace(path, "{"+"QuestionSid"+"}", QuestionSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AllowNa != nil {
@@ -358,7 +361,7 @@ func (c *ApiService) UpdateInsightsQuestionnairesQuestion(QuestionSid string, pa
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

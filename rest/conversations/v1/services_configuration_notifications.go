@@ -27,9 +27,10 @@ func (c *ApiService) FetchServiceNotification(ChatServiceSid string) (*Conversat
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -133,6 +134,7 @@ func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *Up
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.LogEnabled != nil {
@@ -175,7 +177,7 @@ func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *Up
 		data.Set("NewMessage.WithMedia.Template", *params.NewMessageWithMediaTemplate)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

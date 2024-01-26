@@ -34,7 +34,6 @@ func (params *DeleteRecordingTranscriptionParams) SetPathAccountSid(PathAccountS
 	return params
 }
 
-//
 func (c *ApiService) DeleteRecordingTranscription(RecordingSid string, Sid string, params *DeleteRecordingTranscriptionParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -46,9 +45,10 @@ func (c *ApiService) DeleteRecordingTranscription(RecordingSid string, Sid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -69,7 +69,6 @@ func (params *FetchRecordingTranscriptionParams) SetPathAccountSid(PathAccountSi
 	return params
 }
 
-//
 func (c *ApiService) FetchRecordingTranscription(RecordingSid string, Sid string, params *FetchRecordingTranscriptionParams) (*ApiV2010RecordingTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -81,9 +80,10 @@ func (c *ApiService) FetchRecordingTranscription(RecordingSid string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -133,10 +133,11 @@ func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *Lis
 	path = strings.Replace(path, "{"+"RecordingSid"+"}", RecordingSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -146,7 +147,7 @@ func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *Lis
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -233,7 +234,7 @@ func (c *ApiService) getNextListRecordingTranscriptionResponse(nextPageUrl strin
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

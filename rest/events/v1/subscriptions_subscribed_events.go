@@ -46,6 +46,7 @@ func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *Creat
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Type != nil {
@@ -55,7 +56,7 @@ func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *Creat
 		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -77,9 +78,10 @@ func (c *ApiService) DeleteSubscribedEvent(SubscriptionSid string, Type string) 
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -96,9 +98,10 @@ func (c *ApiService) FetchSubscribedEvent(SubscriptionSid string, Type string) (
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -137,10 +140,11 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -150,7 +154,7 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -237,7 +241,7 @@ func (c *ApiService) getNextListSubscribedEventResponse(nextPageUrl string) (int
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -269,13 +273,14 @@ func (c *ApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, 
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.SchemaVersion != nil {
 		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

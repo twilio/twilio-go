@@ -20,15 +20,15 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) CreateBrandRegistrationOtp(BrandRegistrationSid string) (*MessagingV1BrandRegistrationOtp, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp"
 	path = strings.Replace(path, "{"+"BrandRegistrationSid"+"}", BrandRegistrationSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -56,13 +56,14 @@ func (c *ApiService) PageInsightsConversations(params *ListInsightsConversations
 	path := "/v1/Insights/Conversations"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.SegmentId != nil {
-		data.Set("SegmentId", *params.SegmentId)
+		queryParams.Set("SegmentId", *params.SegmentId)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -72,7 +73,7 @@ func (c *ApiService) PageInsightsConversations(params *ListInsightsConversations
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -159,7 +160,7 @@ func (c *ApiService) getNextListInsightsConversationsResponse(nextPageUrl string
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -47,16 +47,17 @@ func (c *ApiService) FetchConferenceParticipant(ConferenceSid string, Participan
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Events != nil {
-		data.Set("Events", *params.Events)
+		queryParams.Set("Events", *params.Events)
 	}
 	if params != nil && params.Metrics != nil {
-		data.Set("Metrics", *params.Metrics)
+		queryParams.Set("Metrics", *params.Metrics)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -113,19 +114,20 @@ func (c *ApiService) PageConferenceParticipant(ConferenceSid string, params *Lis
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ParticipantSid != nil {
-		data.Set("ParticipantSid", *params.ParticipantSid)
+		queryParams.Set("ParticipantSid", *params.ParticipantSid)
 	}
 	if params != nil && params.Label != nil {
-		data.Set("Label", *params.Label)
+		queryParams.Set("Label", *params.Label)
 	}
 	if params != nil && params.Events != nil {
-		data.Set("Events", *params.Events)
+		queryParams.Set("Events", *params.Events)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -135,7 +137,7 @@ func (c *ApiService) PageConferenceParticipant(ConferenceSid string, params *Lis
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -222,7 +224,7 @@ func (c *ApiService) getNextListConferenceParticipantResponse(nextPageUrl string
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

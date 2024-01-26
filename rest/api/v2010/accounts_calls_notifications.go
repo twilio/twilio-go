@@ -34,7 +34,6 @@ func (params *FetchCallNotificationParams) SetPathAccountSid(PathAccountSid stri
 	return params
 }
 
-//
 func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *FetchCallNotificationParams) (*ApiV2010CallNotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -46,9 +45,10 @@ func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *F
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -122,22 +122,23 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Log != nil {
-		data.Set("Log", fmt.Sprint(*params.Log))
+		queryParams.Set("Log", fmt.Sprint(*params.Log))
 	}
 	if params != nil && params.MessageDate != nil {
-		data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
+		queryParams.Set("MessageDate", fmt.Sprint(*params.MessageDate))
 	}
 	if params != nil && params.MessageDateBefore != nil {
-		data.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
+		queryParams.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
 	}
 	if params != nil && params.MessageDateAfter != nil {
-		data.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
+		queryParams.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -147,7 +148,7 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -234,7 +235,7 @@ func (c *ApiService) getNextListCallNotificationResponse(nextPageUrl string) (in
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -20,15 +20,15 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceNumber, error) {
 	path := "/v1/Voice/Numbers/{Number}"
 	path = strings.Replace(path, "{"+"Number"+"}", Number, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -36,6 +36,7 @@ func (c *ApiService) CreatePortingBulkPortability(params *CreatePortingBulkPorta
 	path := "/v1/Porting/Portability"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PhoneNumbers != nil {
@@ -44,7 +45,7 @@ func (c *ApiService) CreatePortingBulkPortability(params *CreatePortingBulkPorta
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -65,9 +66,10 @@ func (c *ApiService) FetchPortingBulkPortability(Sid string) (*NumbersV1PortingB
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

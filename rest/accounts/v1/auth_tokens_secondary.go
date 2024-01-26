@@ -24,9 +24,10 @@ func (c *ApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, 
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -46,9 +47,10 @@ func (c *ApiService) DeleteSecondaryAuthToken() error {
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}

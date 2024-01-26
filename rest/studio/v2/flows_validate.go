@@ -53,6 +53,7 @@ func (c *ApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*Stud
 	path := "/v2/Flows/Validate"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -74,7 +75,7 @@ func (c *ApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*Stud
 		data.Set("CommitMessage", *params.CommitMessage)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

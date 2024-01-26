@@ -46,6 +46,7 @@ func (c *ApiService) CreateDeviceSecret(DeviceSid string, params *CreateDeviceSe
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Key != nil {
@@ -55,7 +56,7 @@ func (c *ApiService) CreateDeviceSecret(DeviceSid string, params *CreateDeviceSe
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -77,9 +78,10 @@ func (c *ApiService) DeleteDeviceSecret(DeviceSid string, Key string) error {
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -96,9 +98,10 @@ func (c *ApiService) FetchDeviceSecret(DeviceSid string, Key string) (*Microviso
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -137,10 +140,11 @@ func (c *ApiService) PageDeviceSecret(DeviceSid string, params *ListDeviceSecret
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -150,7 +154,7 @@ func (c *ApiService) PageDeviceSecret(DeviceSid string, params *ListDeviceSecret
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -237,7 +241,7 @@ func (c *ApiService) getNextListDeviceSecretResponse(nextPageUrl string) (interf
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -269,13 +273,14 @@ func (c *ApiService) UpdateDeviceSecret(DeviceSid string, Key string, params *Up
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Value != nil {
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

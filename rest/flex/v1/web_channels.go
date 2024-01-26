@@ -64,11 +64,11 @@ func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData str
 	return params
 }
 
-//
 func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FlexFlowSid != nil {
@@ -90,7 +90,7 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1We
 		data.Set("PreEngagementData", *params.PreEngagementData)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -105,15 +105,15 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1We
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWebChannel(Sid string) error {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -123,15 +123,15 @@ func (c *ApiService) DeleteWebChannel(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -168,10 +168,11 @@ func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken, pag
 	path := "/v1/WebChannels"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -181,7 +182,7 @@ func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -268,7 +269,7 @@ func (c *ApiService) getNextListWebChannelResponse(nextPageUrl string) (interfac
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -299,12 +300,12 @@ func (params *UpdateWebChannelParams) SetPostEngagementData(PostEngagementData s
 	return params
 }
 
-//
 func (c *ApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ChatStatus != nil {
@@ -314,7 +315,7 @@ func (c *ApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams
 		data.Set("PostEngagementData", *params.PostEngagementData)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

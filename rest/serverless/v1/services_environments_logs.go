@@ -32,9 +32,10 @@ func (c *ApiService) FetchLog(ServiceSid string, EnvironmentSid string, Sid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -92,19 +93,20 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FunctionSid != nil {
-		data.Set("FunctionSid", *params.FunctionSid)
+		queryParams.Set("FunctionSid", *params.FunctionSid)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+		queryParams.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+		queryParams.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -114,7 +116,7 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -201,7 +203,7 @@ func (c *ApiService) getNextListLogResponse(nextPageUrl string) (interface{}, er
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

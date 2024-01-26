@@ -172,7 +172,6 @@ func (params *CreateIncomingPhoneNumberTollFreeParams) SetBundleSid(BundleSid st
 	return params
 }
 
-//
 func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPhoneNumberTollFreeParams) (*ApiV2010IncomingPhoneNumberTollFree, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -182,6 +181,7 @@ func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPho
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PhoneNumber != nil {
@@ -254,7 +254,7 @@ func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPho
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -327,22 +327,23 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		queryParams.Set("Beta", fmt.Sprint(*params.Beta))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		queryParams.Set("PhoneNumber", *params.PhoneNumber)
 	}
 	if params != nil && params.Origin != nil {
-		data.Set("Origin", *params.Origin)
+		queryParams.Set("Origin", *params.Origin)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -352,7 +353,7 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -439,7 +440,7 @@ func (c *ApiService) getNextListIncomingPhoneNumberTollFreeResponse(nextPageUrl 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

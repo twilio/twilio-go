@@ -75,6 +75,7 @@ func (c *ApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Comm
 	path := "/v1/Commands"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Command != nil {
@@ -99,7 +100,7 @@ func (c *ApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Comm
 		data.Set("DeliveryReceiptRequested", fmt.Sprint(*params.DeliveryReceiptRequested))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -120,9 +121,10 @@ func (c *ApiService) DeleteCommand(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -138,9 +140,10 @@ func (c *ApiService) FetchCommand(Sid string) (*WirelessV1Command, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -201,22 +204,23 @@ func (c *ApiService) PageCommand(params *ListCommandParams, pageToken, pageNumbe
 	path := "/v1/Commands"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+		queryParams.Set("Sim", *params.Sim)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
+		queryParams.Set("Direction", *params.Direction)
 	}
 	if params != nil && params.Transport != nil {
-		data.Set("Transport", *params.Transport)
+		queryParams.Set("Transport", *params.Transport)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -226,7 +230,7 @@ func (c *ApiService) PageCommand(params *ListCommandParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +317,7 @@ func (c *ApiService) getNextListCommandResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -43,9 +43,10 @@ func (c *ApiService) FetchCallFeedback(CallSid string, params *FetchCallFeedback
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -94,6 +95,7 @@ func (c *ApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedba
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.QualityScore != nil {
@@ -105,7 +107,7 @@ func (c *ApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedba
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

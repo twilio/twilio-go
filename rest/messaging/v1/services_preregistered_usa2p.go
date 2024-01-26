@@ -36,11 +36,11 @@ func (params *CreateExternalCampaignParams) SetMessagingServiceSid(MessagingServ
 	return params
 }
 
-//
 func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
 	path := "/v1/Services/PreregisteredUsa2p"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CampaignId != nil {
@@ -50,7 +50,7 @@ func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

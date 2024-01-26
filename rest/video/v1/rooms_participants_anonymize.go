@@ -20,16 +20,16 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) UpdateRoomParticipantAnonymize(RoomSid string, Sid string) (*VideoV1RoomParticipantAnonymize, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}/Anonymize"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

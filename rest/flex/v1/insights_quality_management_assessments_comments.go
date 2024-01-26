@@ -74,6 +74,7 @@ func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAsse
 	path := "/v1/Insights/QualityManagement/Assessments/Comments"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CategoryId != nil {
@@ -98,7 +99,7 @@ func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAsse
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -153,16 +154,17 @@ func (c *ApiService) PageInsightsAssessmentsComment(params *ListInsightsAssessme
 	path := "/v1/Insights/QualityManagement/Assessments/Comments"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.SegmentId != nil {
-		data.Set("SegmentId", *params.SegmentId)
+		queryParams.Set("SegmentId", *params.SegmentId)
 	}
 	if params != nil && params.AgentId != nil {
-		data.Set("AgentId", *params.AgentId)
+		queryParams.Set("AgentId", *params.AgentId)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -172,7 +174,7 @@ func (c *ApiService) PageInsightsAssessmentsComment(params *ListInsightsAssessme
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -259,7 +261,7 @@ func (c *ApiService) getNextListInsightsAssessmentsCommentResponse(nextPageUrl s
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

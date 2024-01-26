@@ -57,6 +57,7 @@ func (c *ApiService) CreateEsimProfile(params *CreateEsimProfileParams) (*Supers
 	path := "/v1/ESimProfiles"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackUrl != nil {
@@ -72,7 +73,7 @@ func (c *ApiService) CreateEsimProfile(params *CreateEsimProfileParams) (*Supers
 		data.Set("Eid", *params.Eid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -93,9 +94,10 @@ func (c *ApiService) FetchEsimProfile(Sid string) (*SupersimV1EsimProfile, error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -150,19 +152,20 @@ func (c *ApiService) PageEsimProfile(params *ListEsimProfileParams, pageToken, p
 	path := "/v1/ESimProfiles"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Eid != nil {
-		data.Set("Eid", *params.Eid)
+		queryParams.Set("Eid", *params.Eid)
 	}
 	if params != nil && params.SimSid != nil {
-		data.Set("SimSid", *params.SimSid)
+		queryParams.Set("SimSid", *params.SimSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -172,7 +175,7 @@ func (c *ApiService) PageEsimProfile(params *ListEsimProfileParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -259,7 +262,7 @@ func (c *ApiService) getNextListEsimProfileResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -67,28 +67,29 @@ func (c *ApiService) FetchVerificationAttemptsSummary(params *FetchVerificationA
 	path := "/v2/Attempts/Summary"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.VerifyServiceSid != nil {
-		data.Set("VerifyServiceSid", *params.VerifyServiceSid)
+		queryParams.Set("VerifyServiceSid", *params.VerifyServiceSid)
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.Country != nil {
-		data.Set("Country", *params.Country)
+		queryParams.Set("Country", *params.Country)
 	}
 	if params != nil && params.Channel != nil {
-		data.Set("Channel", *params.Channel)
+		queryParams.Set("Channel", *params.Channel)
 	}
 	if params != nil && params.DestinationPrefix != nil {
-		data.Set("DestinationPrefix", *params.DestinationPrefix)
+		queryParams.Set("DestinationPrefix", *params.DestinationPrefix)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

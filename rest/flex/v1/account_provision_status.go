@@ -19,14 +19,14 @@ import (
 	"net/url"
 )
 
-//
 func (c *ApiService) FetchProvisioningStatus() (*FlexV1ProvisioningStatus, error) {
 	path := "/v1/account/provision/status"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

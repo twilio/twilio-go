@@ -38,6 +38,7 @@ func (c *ApiService) CreateStreamMessage(ServiceSid string, StreamSid string, pa
 	path = strings.Replace(path, "{"+"StreamSid"+"}", StreamSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Data != nil {
@@ -50,7 +51,7 @@ func (c *ApiService) CreateStreamMessage(ServiceSid string, StreamSid string, pa
 		data.Set("Data", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

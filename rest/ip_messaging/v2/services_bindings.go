@@ -23,16 +23,16 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -42,16 +42,16 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*IpMessagingV2Binding, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -102,20 +102,21 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.BindingType != nil {
 		for _, item := range *params.BindingType {
-			data.Add("BindingType", item)
+			queryParams.Add("BindingType", item)
 		}
 	}
 	if params != nil && params.Identity != nil {
 		for _, item := range *params.Identity {
-			data.Add("Identity", item)
+			queryParams.Add("Identity", item)
 		}
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -125,7 +126,7 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -212,7 +213,7 @@ func (c *ApiService) getNextListBindingResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

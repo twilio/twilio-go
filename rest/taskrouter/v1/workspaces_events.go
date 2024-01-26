@@ -24,16 +24,16 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1Event, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Events/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -138,43 +138,44 @@ func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pag
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+		queryParams.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EventType != nil {
-		data.Set("EventType", *params.EventType)
+		queryParams.Set("EventType", *params.EventType)
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes))
+		queryParams.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.ReservationSid != nil {
-		data.Set("ReservationSid", *params.ReservationSid)
+		queryParams.Set("ReservationSid", *params.ReservationSid)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+		queryParams.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid)
+		queryParams.Set("TaskQueueSid", *params.TaskQueueSid)
 	}
 	if params != nil && params.TaskSid != nil {
-		data.Set("TaskSid", *params.TaskSid)
+		queryParams.Set("TaskSid", *params.TaskSid)
 	}
 	if params != nil && params.WorkerSid != nil {
-		data.Set("WorkerSid", *params.WorkerSid)
+		queryParams.Set("WorkerSid", *params.WorkerSid)
 	}
 	if params != nil && params.WorkflowSid != nil {
-		data.Set("WorkflowSid", *params.WorkflowSid)
+		queryParams.Set("WorkflowSid", *params.WorkflowSid)
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		queryParams.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.Sid != nil {
-		data.Set("Sid", *params.Sid)
+		queryParams.Set("Sid", *params.Sid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -184,7 +185,7 @@ func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -271,7 +272,7 @@ func (c *ApiService) getNextListEventResponse(nextPageUrl string) (interface{}, 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

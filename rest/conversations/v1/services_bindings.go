@@ -30,9 +30,10 @@ func (c *ApiService) DeleteServiceBinding(ChatServiceSid string, Sid string) err
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -49,9 +50,10 @@ func (c *ApiService) FetchServiceBinding(ChatServiceSid string, Sid string) (*Co
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -102,20 +104,21 @@ func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServi
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.BindingType != nil {
 		for _, item := range *params.BindingType {
-			data.Add("BindingType", item)
+			queryParams.Add("BindingType", item)
 		}
 	}
 	if params != nil && params.Identity != nil {
 		for _, item := range *params.Identity {
-			data.Add("Identity", item)
+			queryParams.Add("Identity", item)
 		}
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -125,7 +128,7 @@ func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -212,7 +215,7 @@ func (c *ApiService) getNextListServiceBindingResponse(nextPageUrl string) (inte
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

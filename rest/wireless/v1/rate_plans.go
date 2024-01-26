@@ -94,11 +94,11 @@ func (params *CreateRatePlanParams) SetInternationalRoamingDataLimit(Internation
 	return params
 }
 
-//
 func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
@@ -137,7 +137,7 @@ func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1Ra
 		data.Set("InternationalRoamingDataLimit", fmt.Sprint(*params.InternationalRoamingDataLimit))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -152,15 +152,15 @@ func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1Ra
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteRatePlan(Sid string) error {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -170,15 +170,15 @@ func (c *ApiService) DeleteRatePlan(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -215,10 +215,11 @@ func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken, pageNum
 	path := "/v1/RatePlans"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -228,7 +229,7 @@ func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken, pageNum
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -315,7 +316,7 @@ func (c *ApiService) getNextListRatePlanResponse(nextPageUrl string) (interface{
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -346,12 +347,12 @@ func (params *UpdateRatePlanParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
@@ -361,7 +362,7 @@ func (c *ApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

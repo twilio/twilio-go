@@ -1260,6 +1260,7 @@ func (c *ApiService) CreateSiprec(CallSid string, params *CreateSiprecParams) (*
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Name != nil {
@@ -1872,7 +1873,7 @@ func (c *ApiService) CreateSiprec(CallSid string, params *CreateSiprecParams) (*
 		data.Set("Parameter99.Value", *params.Parameter99Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -1916,13 +1917,14 @@ func (c *ApiService) UpdateSiprec(CallSid string, Sid string, params *UpdateSipr
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

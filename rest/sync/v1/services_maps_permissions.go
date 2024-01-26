@@ -31,9 +31,10 @@ func (c *ApiService) DeleteSyncMapPermission(ServiceSid string, MapSid string, I
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -51,9 +52,10 @@ func (c *ApiService) FetchSyncMapPermission(ServiceSid string, MapSid string, Id
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -93,10 +95,11 @@ func (c *ApiService) PageSyncMapPermission(ServiceSid string, MapSid string, par
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -106,7 +109,7 @@ func (c *ApiService) PageSyncMapPermission(ServiceSid string, MapSid string, par
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +196,7 @@ func (c *ApiService) getNextListSyncMapPermissionResponse(nextPageUrl string) (i
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -238,6 +241,7 @@ func (c *ApiService) UpdateSyncMapPermission(ServiceSid string, MapSid string, I
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Read != nil {
@@ -250,7 +254,7 @@ func (c *ApiService) UpdateSyncMapPermission(ServiceSid string, MapSid string, I
 		data.Set("Manage", fmt.Sprint(*params.Manage))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -26,9 +26,10 @@ func (c *ApiService) FetchTrunks(SipTrunkDomain string) (*RoutesV2Trunks, error)
 	path = strings.Replace(path, "{"+"SipTrunkDomain"+"}", SipTrunkDomain, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -66,6 +67,7 @@ func (c *ApiService) UpdateTrunks(SipTrunkDomain string, params *UpdateTrunksPar
 	path = strings.Replace(path, "{"+"SipTrunkDomain"+"}", SipTrunkDomain, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.VoiceRegion != nil {
@@ -75,7 +77,7 @@ func (c *ApiService) UpdateTrunks(SipTrunkDomain string, params *UpdateTrunksPar
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

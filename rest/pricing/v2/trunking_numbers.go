@@ -37,13 +37,14 @@ func (c *ApiService) FetchTrunkingNumber(DestinationNumber string, params *Fetch
 	path = strings.Replace(path, "{"+"DestinationNumber"+"}", DestinationNumber, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.OriginationNumber != nil {
-		data.Set("OriginationNumber", *params.OriginationNumber)
+		queryParams.Set("OriginationNumber", *params.OriginationNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

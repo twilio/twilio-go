@@ -40,13 +40,13 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 	return params
 }
 
-//
 func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*IpMessagingV2Invite, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Identity != nil {
@@ -56,7 +56,7 @@ func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *
 		data.Set("RoleSid", *params.RoleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +71,6 @@ func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -79,9 +78,10 @@ func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -91,7 +91,6 @@ func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid stri
 	return nil
 }
 
-//
 func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2Invite, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -99,9 +98,10 @@ func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -147,15 +147,16 @@ func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *Li
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Identity != nil {
 		for _, item := range *params.Identity {
-			data.Add("Identity", item)
+			queryParams.Add("Identity", item)
 		}
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -165,7 +166,7 @@ func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *Li
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -252,7 +253,7 @@ func (c *ApiService) getNextListInviteResponse(nextPageUrl string) (interface{},
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -166,64 +166,65 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AreaCode != nil {
-		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
+		queryParams.Set("AreaCode", fmt.Sprint(*params.AreaCode))
 	}
 	if params != nil && params.Contains != nil {
-		data.Set("Contains", *params.Contains)
+		queryParams.Set("Contains", *params.Contains)
 	}
 	if params != nil && params.SmsEnabled != nil {
-		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
+		queryParams.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
 	}
 	if params != nil && params.MmsEnabled != nil {
-		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
+		queryParams.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+		queryParams.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
 	}
 	if params != nil && params.ExcludeAllAddressRequired != nil {
-		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
+		queryParams.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
 	}
 	if params != nil && params.ExcludeLocalAddressRequired != nil {
-		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
+		queryParams.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
 	}
 	if params != nil && params.ExcludeForeignAddressRequired != nil {
-		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
+		queryParams.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
 	}
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		queryParams.Set("Beta", fmt.Sprint(*params.Beta))
 	}
 	if params != nil && params.NearNumber != nil {
-		data.Set("NearNumber", *params.NearNumber)
+		queryParams.Set("NearNumber", *params.NearNumber)
 	}
 	if params != nil && params.NearLatLong != nil {
-		data.Set("NearLatLong", *params.NearLatLong)
+		queryParams.Set("NearLatLong", *params.NearLatLong)
 	}
 	if params != nil && params.Distance != nil {
-		data.Set("Distance", fmt.Sprint(*params.Distance))
+		queryParams.Set("Distance", fmt.Sprint(*params.Distance))
 	}
 	if params != nil && params.InPostalCode != nil {
-		data.Set("InPostalCode", *params.InPostalCode)
+		queryParams.Set("InPostalCode", *params.InPostalCode)
 	}
 	if params != nil && params.InRegion != nil {
-		data.Set("InRegion", *params.InRegion)
+		queryParams.Set("InRegion", *params.InRegion)
 	}
 	if params != nil && params.InRateCenter != nil {
-		data.Set("InRateCenter", *params.InRateCenter)
+		queryParams.Set("InRateCenter", *params.InRateCenter)
 	}
 	if params != nil && params.InLata != nil {
-		data.Set("InLata", *params.InLata)
+		queryParams.Set("InLata", *params.InLata)
 	}
 	if params != nil && params.InLocality != nil {
-		data.Set("InLocality", *params.InLocality)
+		queryParams.Set("InLocality", *params.InLocality)
 	}
 	if params != nil && params.FaxEnabled != nil {
-		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
+		queryParams.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -233,7 +234,7 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -320,7 +321,7 @@ func (c *ApiService) getNextListAvailablePhoneNumberSharedCostResponse(nextPageU
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -60,6 +60,7 @@ func (c *ApiService) CreateUserDefinedMessageSubscription(CallSid string, params
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Callback != nil {
@@ -72,7 +73,7 @@ func (c *ApiService) CreateUserDefinedMessageSubscription(CallSid string, params
 		data.Set("Method", *params.Method)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -110,9 +111,10 @@ func (c *ApiService) DeleteUserDefinedMessageSubscription(CallSid string, Sid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}

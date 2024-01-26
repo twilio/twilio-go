@@ -103,55 +103,55 @@ func (params *FetchPhoneNumberParams) SetLastVerifiedDate(LastVerifiedDate strin
 	return params
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV2PhoneNumber, error) {
 	path := "/v2/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Fields != nil {
-		data.Set("Fields", *params.Fields)
+		queryParams.Set("Fields", *params.Fields)
 	}
 	if params != nil && params.CountryCode != nil {
-		data.Set("CountryCode", *params.CountryCode)
+		queryParams.Set("CountryCode", *params.CountryCode)
 	}
 	if params != nil && params.FirstName != nil {
-		data.Set("FirstName", *params.FirstName)
+		queryParams.Set("FirstName", *params.FirstName)
 	}
 	if params != nil && params.LastName != nil {
-		data.Set("LastName", *params.LastName)
+		queryParams.Set("LastName", *params.LastName)
 	}
 	if params != nil && params.AddressLine1 != nil {
-		data.Set("AddressLine1", *params.AddressLine1)
+		queryParams.Set("AddressLine1", *params.AddressLine1)
 	}
 	if params != nil && params.AddressLine2 != nil {
-		data.Set("AddressLine2", *params.AddressLine2)
+		queryParams.Set("AddressLine2", *params.AddressLine2)
 	}
 	if params != nil && params.City != nil {
-		data.Set("City", *params.City)
+		queryParams.Set("City", *params.City)
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		queryParams.Set("State", *params.State)
 	}
 	if params != nil && params.PostalCode != nil {
-		data.Set("PostalCode", *params.PostalCode)
+		queryParams.Set("PostalCode", *params.PostalCode)
 	}
 	if params != nil && params.AddressCountryCode != nil {
-		data.Set("AddressCountryCode", *params.AddressCountryCode)
+		queryParams.Set("AddressCountryCode", *params.AddressCountryCode)
 	}
 	if params != nil && params.NationalId != nil {
-		data.Set("NationalId", *params.NationalId)
+		queryParams.Set("NationalId", *params.NationalId)
 	}
 	if params != nil && params.DateOfBirth != nil {
-		data.Set("DateOfBirth", *params.DateOfBirth)
+		queryParams.Set("DateOfBirth", *params.DateOfBirth)
 	}
 	if params != nil && params.LastVerifiedDate != nil {
-		data.Set("LastVerifiedDate", *params.LastVerifiedDate)
+		queryParams.Set("LastVerifiedDate", *params.LastVerifiedDate)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

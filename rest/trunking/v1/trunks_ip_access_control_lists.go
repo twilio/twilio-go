@@ -40,13 +40,14 @@ func (c *ApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIp
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.IpAccessControlListSid != nil {
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -68,9 +69,10 @@ func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -80,16 +82,16 @@ func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) erro
 	return nil
 }
 
-//
 func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*TrunkingV1IpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -128,10 +130,11 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -141,7 +144,7 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -228,7 +231,7 @@ func (c *ApiService) getNextListIpAccessControlListResponse(nextPageUrl string) 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

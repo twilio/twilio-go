@@ -122,6 +122,7 @@ func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010Si
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.DomainName != nil {
@@ -164,7 +165,7 @@ func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010Si
 		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -201,9 +202,10 @@ func (c *ApiService) DeleteSipDomain(Sid string, params *DeleteSipDomainParams) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -235,9 +237,10 @@ func (c *ApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -286,10 +289,11 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageN
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -299,7 +303,7 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -386,7 +390,7 @@ func (c *ApiService) getNextListSipDomainResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -500,6 +504,7 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -542,7 +547,7 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

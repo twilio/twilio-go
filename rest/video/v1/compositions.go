@@ -83,11 +83,11 @@ func (params *CreateCompositionParams) SetTrim(Trim bool) *CreateCompositionPara
 	return params
 }
 
-//
 func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV1Composition, error) {
 	path := "/v1/Compositions"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.RoomSid != nil {
@@ -128,7 +128,7 @@ func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -149,9 +149,10 @@ func (c *ApiService) DeleteComposition(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -167,9 +168,10 @@ func (c *ApiService) FetchComposition(Sid string) (*VideoV1Composition, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -230,22 +232,23 @@ func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken, p
 	path := "/v1/Compositions"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.RoomSid != nil {
-		data.Set("RoomSid", *params.RoomSid)
+		queryParams.Set("RoomSid", *params.RoomSid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -255,7 +258,7 @@ func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -342,7 +345,7 @@ func (c *ApiService) getNextListCompositionResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -27,9 +27,10 @@ func (c *ApiService) FetchUser(Sid string) (*FrontlineV1User, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -79,6 +80,7 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Frontlin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -94,7 +96,7 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Frontlin
 		data.Set("IsAvailable", fmt.Sprint(*params.IsAvailable))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -27,9 +27,10 @@ func (c *ApiService) FetchEngagementContext(FlowSid string, EngagementSid string
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

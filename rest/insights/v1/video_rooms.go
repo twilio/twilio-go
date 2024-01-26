@@ -30,9 +30,10 @@ func (c *ApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1VideoRoom
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -99,29 +100,30 @@ func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pa
 	path := "/v1/Video/Rooms"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.RoomType != nil {
 		for _, item := range *params.RoomType {
-			data.Add("RoomType", item)
+			queryParams.Add("RoomType", item)
 		}
 	}
 	if params != nil && params.Codec != nil {
 		for _, item := range *params.Codec {
-			data.Add("Codec", item)
+			queryParams.Add("Codec", item)
 		}
 	}
 	if params != nil && params.RoomName != nil {
-		data.Set("RoomName", *params.RoomName)
+		queryParams.Set("RoomName", *params.RoomName)
 	}
 	if params != nil && params.CreatedAfter != nil {
-		data.Set("CreatedAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
+		queryParams.Set("CreatedAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.CreatedBefore != nil {
-		data.Set("CreatedBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
+		queryParams.Set("CreatedBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -131,7 +133,7 @@ func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -218,7 +220,7 @@ func (c *ApiService) getNextListVideoRoomSummaryResponse(nextPageUrl string) (in
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

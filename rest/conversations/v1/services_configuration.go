@@ -27,9 +27,10 @@ func (c *ApiService) FetchServiceConfiguration(ChatServiceSid string) (*Conversa
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -79,6 +80,7 @@ func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *U
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.DefaultConversationCreatorRoleSid != nil {
@@ -94,7 +96,7 @@ func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *U
 		data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

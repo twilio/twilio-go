@@ -24,7 +24,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, ChannelSid string) error {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -32,9 +31,10 @@ func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, Channe
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -44,7 +44,6 @@ func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, Channe
 	return nil
 }
 
-//
 func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*IpMessagingV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -52,9 +51,10 @@ func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, Channel
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -94,10 +94,11 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -107,7 +108,7 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -194,7 +195,7 @@ func (c *ApiService) getNextListUserChannelResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -231,7 +232,6 @@ func (params *UpdateUserChannelParams) SetLastConsumptionTimestamp(LastConsumpti
 	return params
 }
 
-//
 func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*IpMessagingV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -239,6 +239,7 @@ func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, Channe
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.NotificationLevel != nil {
@@ -251,7 +252,7 @@ func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, Channe
 		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

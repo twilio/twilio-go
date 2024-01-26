@@ -40,12 +40,12 @@ func (params *CreateActivityParams) SetAvailable(Available bool) *CreateActivity
 	return params
 }
 
-//
 func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityParams) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -55,7 +55,7 @@ func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityP
 		data.Set("Available", fmt.Sprint(*params.Available))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -70,16 +70,16 @@ func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityP
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -89,16 +89,16 @@ func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchActivity(WorkspaceSid string, Sid string) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -149,16 +149,17 @@ func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParam
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Available != nil {
-		data.Set("Available", *params.Available)
+		queryParams.Set("Available", *params.Available)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -168,7 +169,7 @@ func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParam
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +256,7 @@ func (c *ApiService) getNextListActivityResponse(nextPageUrl string) (interface{
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -280,20 +281,20 @@ func (params *UpdateActivityParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

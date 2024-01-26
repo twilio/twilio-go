@@ -46,9 +46,10 @@ func (c *ApiService) DeleteConferenceRecording(ConferenceSid string, Sid string,
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -81,9 +82,10 @@ func (c *ApiService) FetchConferenceRecording(ConferenceSid string, Sid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -151,19 +153,20 @@ func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListC
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		queryParams.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
+		queryParams.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
+		queryParams.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -173,7 +176,7 @@ func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListC
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -260,7 +263,7 @@ func (c *ApiService) getNextListConferenceRecordingResponse(nextPageUrl string) 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -309,6 +312,7 @@ func (c *ApiService) UpdateConferenceRecording(ConferenceSid string, Sid string,
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
@@ -318,7 +322,7 @@ func (c *ApiService) UpdateConferenceRecording(ConferenceSid string, Sid string,
 		data.Set("PauseBehavior", *params.PauseBehavior)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

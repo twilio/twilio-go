@@ -61,11 +61,11 @@ func (params *CreateRecordingSettingsParams) SetEncryptionEnabled(EncryptionEnab
 	return params
 }
 
-//
 func (c *ApiService) CreateRecordingSettings(params *CreateRecordingSettingsParams) (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -87,7 +87,7 @@ func (c *ApiService) CreateRecordingSettings(params *CreateRecordingSettingsPara
 		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -102,14 +102,14 @@ func (c *ApiService) CreateRecordingSettings(params *CreateRecordingSettingsPara
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchRecordingSettings() (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

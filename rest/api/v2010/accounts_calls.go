@@ -255,6 +255,7 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.To != nil {
@@ -367,7 +368,7 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 		data.Set("ApplicationSid", *params.ApplicationSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -404,9 +405,10 @@ func (c *ApiService) DeleteCall(Sid string, params *DeleteCallParams) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -438,9 +440,10 @@ func (c *ApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010Ca
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -549,40 +552,41 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber stri
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		queryParams.Set("To", *params.To)
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		queryParams.Set("From", *params.From)
 	}
 	if params != nil && params.ParentCallSid != nil {
-		data.Set("ParentCallSid", *params.ParentCallSid)
+		queryParams.Set("ParentCallSid", *params.ParentCallSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.StartTime != nil {
-		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
+		queryParams.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
 	}
 	if params != nil && params.StartTimeBefore != nil {
-		data.Set("StartTime<", fmt.Sprint((*params.StartTimeBefore).Format(time.RFC3339)))
+		queryParams.Set("StartTime<", fmt.Sprint((*params.StartTimeBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.StartTimeAfter != nil {
-		data.Set("StartTime>", fmt.Sprint((*params.StartTimeAfter).Format(time.RFC3339)))
+		queryParams.Set("StartTime>", fmt.Sprint((*params.StartTimeAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTime != nil {
-		data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
+		queryParams.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTimeBefore != nil {
-		data.Set("EndTime<", fmt.Sprint((*params.EndTimeBefore).Format(time.RFC3339)))
+		queryParams.Set("EndTime<", fmt.Sprint((*params.EndTimeBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTimeAfter != nil {
-		data.Set("EndTime>", fmt.Sprint((*params.EndTimeAfter).Format(time.RFC3339)))
+		queryParams.Set("EndTime>", fmt.Sprint((*params.EndTimeAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -592,7 +596,7 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -679,7 +683,7 @@ func (c *ApiService) getNextListCallResponse(nextPageUrl string) (interface{}, e
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -769,6 +773,7 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Url != nil {
@@ -799,7 +804,7 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

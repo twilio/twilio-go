@@ -46,12 +46,12 @@ func (params *CreateDocumentParams) SetTtl(Ttl int) *CreateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
@@ -70,7 +70,7 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -85,16 +85,16 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -104,16 +104,16 @@ func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -152,10 +152,11 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -165,7 +166,7 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -252,7 +253,7 @@ func (c *ApiService) getNextListDocumentResponse(nextPageUrl string) (interface{
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -289,13 +290,13 @@ func (params *UpdateDocumentParams) SetTtl(Ttl int) *UpdateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Data != nil {
@@ -314,7 +315,7 @@ func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *Updat
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

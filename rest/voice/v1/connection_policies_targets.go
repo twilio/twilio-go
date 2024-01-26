@@ -58,12 +58,12 @@ func (params *CreateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *Crea
 	return params
 }
 
-//
 func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Target != nil {
@@ -82,7 +82,7 @@ func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, pa
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -97,16 +97,16 @@ func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, pa
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Sid string) error {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -116,16 +116,16 @@ func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Si
 	return nil
 }
 
-//
 func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -164,10 +164,11 @@ func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, para
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -177,7 +178,7 @@ func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, para
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -264,7 +265,7 @@ func (c *ApiService) getNextListConnectionPolicyTargetResponse(nextPageUrl strin
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -313,13 +314,13 @@ func (params *UpdateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -338,7 +339,7 @@ func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Si
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

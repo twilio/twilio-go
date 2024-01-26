@@ -45,9 +45,10 @@ func (c *ApiService) FetchConference(Sid string, params *FetchConferenceParams) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -144,34 +145,35 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pag
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		queryParams.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
+		queryParams.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
+		queryParams.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		queryParams.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
 	}
 	if params != nil && params.DateUpdatedBefore != nil {
-		data.Set("DateUpdated<", fmt.Sprint(*params.DateUpdatedBefore))
+		queryParams.Set("DateUpdated<", fmt.Sprint(*params.DateUpdatedBefore))
 	}
 	if params != nil && params.DateUpdatedAfter != nil {
-		data.Set("DateUpdated>", fmt.Sprint(*params.DateUpdatedAfter))
+		queryParams.Set("DateUpdated>", fmt.Sprint(*params.DateUpdatedAfter))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -181,7 +183,7 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -268,7 +270,7 @@ func (c *ApiService) getNextListConferenceResponse(nextPageUrl string) (interfac
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -311,7 +313,6 @@ func (params *UpdateConferenceParams) SetAnnounceMethod(AnnounceMethod string) *
 	return params
 }
 
-//
 func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams) (*ApiV2010Conference, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -322,6 +323,7 @@ func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
@@ -334,7 +336,7 @@ func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams
 		data.Set("AnnounceMethod", *params.AnnounceMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

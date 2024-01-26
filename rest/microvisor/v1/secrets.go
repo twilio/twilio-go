@@ -45,6 +45,7 @@ func (c *ApiService) CreateAccountSecret(params *CreateAccountSecretParams) (*Mi
 	path := "/v1/Secrets"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Key != nil {
@@ -54,7 +55,7 @@ func (c *ApiService) CreateAccountSecret(params *CreateAccountSecretParams) (*Mi
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -75,9 +76,10 @@ func (c *ApiService) DeleteAccountSecret(Key string) error {
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -93,9 +95,10 @@ func (c *ApiService) FetchAccountSecret(Key string) (*MicrovisorV1AccountSecret,
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -132,10 +135,11 @@ func (c *ApiService) PageAccountSecret(params *ListAccountSecretParams, pageToke
 	path := "/v1/Secrets"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -145,7 +149,7 @@ func (c *ApiService) PageAccountSecret(params *ListAccountSecretParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -232,7 +236,7 @@ func (c *ApiService) getNextListAccountSecretResponse(nextPageUrl string) (inter
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -263,13 +267,14 @@ func (c *ApiService) UpdateAccountSecret(Key string, params *UpdateAccountSecret
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Value != nil {
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -89,11 +89,11 @@ func (params *CreateCompositionHookParams) SetTrim(Trim bool) *CreateComposition
 	return params
 }
 
-//
 func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -137,7 +137,7 @@ func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) 
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -158,9 +158,10 @@ func (c *ApiService) DeleteCompositionHook(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -176,9 +177,10 @@ func (c *ApiService) FetchCompositionHook(Sid string) (*VideoV1CompositionHook, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -239,22 +241,23 @@ func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, page
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", fmt.Sprint(*params.Enabled))
+		queryParams.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -264,7 +267,7 @@ func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, page
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -351,7 +354,7 @@ func (c *ApiService) getNextListCompositionHookResponse(nextPageUrl string) (int
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -430,12 +433,12 @@ func (params *UpdateCompositionHookParams) SetStatusCallbackMethod(StatusCallbac
 	return params
 }
 
-//
 func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -479,7 +482,7 @@ func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateComposition
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

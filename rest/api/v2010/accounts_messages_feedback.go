@@ -48,13 +48,14 @@ func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMess
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Outcome != nil {
 		data.Set("Outcome", *params.Outcome)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

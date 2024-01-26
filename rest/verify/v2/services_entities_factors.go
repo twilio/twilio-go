@@ -119,6 +119,7 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -170,7 +171,7 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 		data.Set("Metadata", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -193,9 +194,10 @@ func (c *ApiService) DeleteFactor(ServiceSid string, Identity string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -213,9 +215,10 @@ func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -255,10 +258,11 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -268,7 +272,7 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -355,7 +359,7 @@ func (c *ApiService) getNextListFactorResponse(nextPageUrl string) (interface{},
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -436,6 +440,7 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AuthPayload != nil {
@@ -466,7 +471,7 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 		data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

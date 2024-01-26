@@ -34,18 +34,18 @@ func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateS
 	return params
 }
 
-//
 func (c *ApiService) CreateService(params *CreateServiceParams) (*ChatV2Service, error) {
 	path := "/v2/Services"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -60,15 +60,15 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ChatV2Service,
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -78,15 +78,15 @@ func (c *ApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchService(Sid string) (*ChatV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -123,10 +123,11 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 	path := "/v2/Services"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -136,7 +137,7 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -223,7 +224,7 @@ func (c *ApiService) getNextListServiceResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -428,12 +429,12 @@ func (params *UpdateServiceParams) SetNotificationsLogEnabled(NotificationsLogEn
 	return params
 }
 
-//
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*ChatV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -532,7 +533,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 		data.Set("Notifications.LogEnabled", fmt.Sprint(*params.NotificationsLogEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

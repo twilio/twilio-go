@@ -48,6 +48,7 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Body != nil {
@@ -59,7 +60,7 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +75,6 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -83,9 +83,10 @@ func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -126,10 +127,11 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -139,7 +141,7 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -226,7 +228,7 @@ func (c *ApiService) getNextListMessageInteractionResponse(nextPageUrl string) (
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

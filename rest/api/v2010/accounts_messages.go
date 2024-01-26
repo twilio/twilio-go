@@ -183,6 +183,7 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.To != nil {
@@ -259,7 +260,7 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 		data.Set("ContentSid", *params.ContentSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -296,9 +297,10 @@ func (c *ApiService) DeleteMessage(Sid string, params *DeleteMessageParams) erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -330,9 +332,10 @@ func (c *ApiService) FetchMessage(Sid string, params *FetchMessageParams) (*ApiV
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -411,25 +414,26 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumbe
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		queryParams.Set("To", *params.To)
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		queryParams.Set("From", *params.From)
 	}
 	if params != nil && params.DateSent != nil {
-		data.Set("DateSent", fmt.Sprint((*params.DateSent).Format(time.RFC3339)))
+		queryParams.Set("DateSent", fmt.Sprint((*params.DateSent).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateSentBefore != nil {
-		data.Set("DateSent<", fmt.Sprint((*params.DateSentBefore).Format(time.RFC3339)))
+		queryParams.Set("DateSent<", fmt.Sprint((*params.DateSentBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateSentAfter != nil {
-		data.Set("DateSent>", fmt.Sprint((*params.DateSentAfter).Format(time.RFC3339)))
+		queryParams.Set("DateSent>", fmt.Sprint((*params.DateSentAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -439,7 +443,7 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -526,7 +530,7 @@ func (c *ApiService) getNextListMessageResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -574,6 +578,7 @@ func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*Ap
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Body != nil {
@@ -583,7 +588,7 @@ func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*Ap
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

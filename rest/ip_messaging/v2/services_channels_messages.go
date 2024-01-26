@@ -77,13 +77,13 @@ func (params *CreateMessageParams) SetMediaSid(MediaSid string) *CreateMessagePa
 	return params
 }
 
-//
 func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*IpMessagingV2Message, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.From != nil {
@@ -111,7 +111,7 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +137,6 @@ func (params *DeleteMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnable
 	return params
 }
 
-//
 func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid string, params *DeleteMessageParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -145,12 +144,13 @@ func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -160,7 +160,6 @@ func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid str
 	return nil
 }
 
-//
 func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2Message, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -168,9 +167,10 @@ func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -216,13 +216,14 @@ func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *L
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
+		queryParams.Set("Order", *params.Order)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -232,7 +233,7 @@ func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *L
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -319,7 +320,7 @@ func (c *ApiService) getNextListMessageResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -380,7 +381,6 @@ func (params *UpdateMessageParams) SetFrom(From string) *UpdateMessageParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*IpMessagingV2Message, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -388,6 +388,7 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Body != nil {
@@ -412,7 +413,7 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

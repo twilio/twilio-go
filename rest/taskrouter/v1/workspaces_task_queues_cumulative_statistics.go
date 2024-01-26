@@ -57,32 +57,32 @@ func (params *FetchTaskQueueCumulativeStatisticsParams) SetSplitByWaitTime(Split
 	return params
 }
 
-//
 func (c *ApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueCumulativeStatisticsParams) (*TaskrouterV1TaskQueueCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+		queryParams.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes))
+		queryParams.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+		queryParams.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		queryParams.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+		queryParams.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -58,12 +58,12 @@ func (params *CreateOriginationUrlParams) SetSipUrl(SipUrl string) *CreateOrigin
 	return params
 }
 
-//
 func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Weight != nil {
@@ -82,7 +82,7 @@ func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOrigina
 		data.Set("SipUrl", *params.SipUrl)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -97,16 +97,16 @@ func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOrigina
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -116,16 +116,16 @@ func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -164,10 +164,11 @@ func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOrigination
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -177,7 +178,7 @@ func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOrigination
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -264,7 +265,7 @@ func (c *ApiService) getNextListOriginationUrlResponse(nextPageUrl string) (inte
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -313,13 +314,13 @@ func (params *UpdateOriginationUrlParams) SetSipUrl(SipUrl string) *UpdateOrigin
 	return params
 }
 
-//
 func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *UpdateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Weight != nil {
@@ -338,7 +339,7 @@ func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *U
 		data.Set("SipUrl", *params.SipUrl)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

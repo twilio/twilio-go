@@ -37,13 +37,14 @@ func (c *ApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ProcessingState != nil {
-		data.Set("ProcessingState", *params.ProcessingState)
+		queryParams.Set("ProcessingState", *params.ProcessingState)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -70,13 +70,13 @@ func (params *CreateChannelWebhookParams) SetConfigurationRetryCount(Configurati
 	return params
 }
 
-//
 func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*IpMessagingV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Type != nil {
@@ -105,7 +105,7 @@ func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, 
 		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +120,6 @@ func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, 
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -128,9 +127,10 @@ func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -140,7 +140,6 @@ func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, 
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -148,9 +147,10 @@ func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, S
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -190,10 +190,11 @@ func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, pa
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -203,7 +204,7 @@ func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -290,7 +291,7 @@ func (c *ApiService) getNextListChannelWebhookResponse(nextPageUrl string) (inte
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -345,7 +346,6 @@ func (params *UpdateChannelWebhookParams) SetConfigurationRetryCount(Configurati
 	return params
 }
 
-//
 func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*IpMessagingV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -353,6 +353,7 @@ func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationUrl != nil {
@@ -378,7 +379,7 @@ func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, 
 		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

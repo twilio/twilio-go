@@ -70,7 +70,6 @@ func (params *CreateValidationRequestParams) SetStatusCallbackMethod(StatusCallb
 	return params
 }
 
-//
 func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestParams) (*ApiV2010ValidationRequest, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -80,6 +79,7 @@ func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestPara
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PhoneNumber != nil {
@@ -101,7 +101,7 @@ func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestPara
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -138,9 +138,10 @@ func (c *ApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOutgoingCa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -172,9 +173,10 @@ func (c *ApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgoingCall
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -235,16 +237,17 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		queryParams.Set("PhoneNumber", *params.PhoneNumber)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -254,7 +257,7 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -341,7 +344,7 @@ func (c *ApiService) getNextListOutgoingCallerIdResponse(nextPageUrl string) (in
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -383,13 +386,14 @@ func (c *ApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOutgoingCa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -119,11 +119,11 @@ func (params *CreateRoomParams) SetLargeRoom(LargeRoom bool) *CreateRoomParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.EnableTurn != nil {
@@ -180,7 +180,7 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 		data.Set("LargeRoom", fmt.Sprint(*params.LargeRoom))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -195,15 +195,15 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchRoom(Sid string) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -264,22 +264,23 @@ func (c *ApiService) PageRoom(params *ListRoomParams, pageToken, pageNumber stri
 	path := "/v1/Rooms"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		queryParams.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -289,7 +290,7 @@ func (c *ApiService) PageRoom(params *ListRoomParams, pageToken, pageNumber stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -376,7 +377,7 @@ func (c *ApiService) getNextListRoomResponse(nextPageUrl string) (interface{}, e
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -401,19 +402,19 @@ func (params *UpdateRoomParams) SetStatus(Status string) *UpdateRoomParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

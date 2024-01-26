@@ -166,11 +166,11 @@ func (params *CreateTollfreeVerificationParams) SetExternalReferenceId(ExternalR
 	return params
 }
 
-//
 func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.BusinessName != nil {
@@ -247,7 +247,7 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -262,15 +262,15 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -280,15 +280,15 @@ func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -337,16 +337,17 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
 	path := "/v1/Tollfree/Verifications"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.TollfreePhoneNumberSid != nil {
-		data.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
+		queryParams.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -356,7 +357,7 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -443,7 +444,7 @@ func (c *ApiService) getNextListTollfreeVerificationResponse(nextPageUrl string)
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -588,12 +589,12 @@ func (params *UpdateTollfreeVerificationParams) SetEditReason(EditReason string)
 	return params
 }
 
-//
 func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.BusinessName != nil {
@@ -664,7 +665,7 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 		data.Set("EditReason", *params.EditReason)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

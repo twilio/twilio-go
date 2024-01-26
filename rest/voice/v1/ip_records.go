@@ -46,11 +46,11 @@ func (params *CreateIpRecordParams) SetCidrPrefixLength(CidrPrefixLength int) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.IpAddress != nil {
@@ -63,7 +63,7 @@ func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRec
 		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -78,15 +78,15 @@ func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRec
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteIpRecord(Sid string) error {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -96,15 +96,15 @@ func (c *ApiService) DeleteIpRecord(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -141,10 +141,11 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken, pageNum
 	path := "/v1/IpRecords"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -154,7 +155,7 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken, pageNum
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -241,7 +242,7 @@ func (c *ApiService) getNextListIpRecordResponse(nextPageUrl string) (interface{
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -266,19 +267,19 @@ func (params *UpdateIpRecordParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

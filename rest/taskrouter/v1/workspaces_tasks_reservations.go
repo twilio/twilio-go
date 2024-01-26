@@ -23,7 +23,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchTaskReservation(WorkspaceSid string, TaskSid string, Sid string) (*TaskrouterV1TaskReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -31,9 +30,10 @@ func (c *ApiService) FetchTaskReservation(WorkspaceSid string, TaskSid string, S
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -85,16 +85,17 @@ func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, pa
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus)
+		queryParams.Set("ReservationStatus", *params.ReservationStatus)
 	}
 	if params != nil && params.WorkerSid != nil {
-		data.Set("WorkerSid", *params.WorkerSid)
+		queryParams.Set("WorkerSid", *params.WorkerSid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -104,7 +105,7 @@ func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -191,7 +192,7 @@ func (c *ApiService) getNextListTaskReservationResponse(nextPageUrl string) (int
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -540,7 +541,6 @@ func (params *UpdateTaskReservationParams) SetJitterBufferSize(JitterBufferSize 
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid string, Sid string, params *UpdateTaskReservationParams) (*TaskrouterV1TaskReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -548,6 +548,7 @@ func (c *ApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ReservationStatus != nil {
@@ -722,7 +723,7 @@ func (c *ApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid string, 
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

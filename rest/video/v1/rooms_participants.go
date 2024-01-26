@@ -24,16 +24,16 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1RoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -96,22 +96,23 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		queryParams.Set("Identity", *params.Identity)
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+		queryParams.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -121,7 +122,7 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +209,7 @@ func (c *ApiService) getNextListRoomParticipantResponse(nextPageUrl string) (int
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -233,20 +234,20 @@ func (params *UpdateRoomParticipantParams) SetStatus(Status string) *UpdateRoomP
 	return params
 }
 
-//
 func (c *ApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

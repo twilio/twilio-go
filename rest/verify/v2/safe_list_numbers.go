@@ -36,13 +36,14 @@ func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*VerifyV2Safe
 	path := "/v2/SafeList/Numbers"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -63,9 +64,10 @@ func (c *ApiService) DeleteSafelist(PhoneNumber string) error {
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -81,9 +83,10 @@ func (c *ApiService) FetchSafelist(PhoneNumber string) (*VerifyV2Safelist, error
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

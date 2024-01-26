@@ -20,15 +20,15 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) DeleteDomainCertV4(DomainSid string) error {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -38,15 +38,15 @@ func (c *ApiService) DeleteDomainCertV4(DomainSid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchDomainCertV4(DomainSid string) (*MessagingV1DomainCertV4, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -72,19 +72,19 @@ func (params *UpdateDomainCertV4Params) SetTlsCert(TlsCert string) *UpdateDomain
 	return params
 }
 
-//
 func (c *ApiService) UpdateDomainCertV4(DomainSid string, params *UpdateDomainCertV4Params) (*MessagingV1DomainCertV4, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.TlsCert != nil {
 		data.Set("TlsCert", *params.TlsCert)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

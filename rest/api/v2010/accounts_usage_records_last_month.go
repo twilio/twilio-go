@@ -81,22 +81,23 @@ func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		queryParams.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		queryParams.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		queryParams.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		queryParams.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -106,7 +107,7 @@ func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +194,7 @@ func (c *ApiService) getNextListUsageRecordLastMonthResponse(nextPageUrl string)
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

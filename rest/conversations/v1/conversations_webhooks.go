@@ -76,6 +76,7 @@ func (c *ApiService) CreateConversationScopedWebhook(ConversationSid string, par
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Target != nil {
@@ -104,7 +105,7 @@ func (c *ApiService) CreateConversationScopedWebhook(ConversationSid string, par
 		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -126,9 +127,10 @@ func (c *ApiService) DeleteConversationScopedWebhook(ConversationSid string, Sid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -145,9 +147,10 @@ func (c *ApiService) FetchConversationScopedWebhook(ConversationSid string, Sid 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -186,10 +189,11 @@ func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, param
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -199,7 +203,7 @@ func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, param
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -286,7 +290,7 @@ func (c *ApiService) getNextListConversationScopedWebhookResponse(nextPageUrl st
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -342,6 +346,7 @@ func (c *ApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationUrl != nil {
@@ -364,7 +369,7 @@ func (c *ApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid
 		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

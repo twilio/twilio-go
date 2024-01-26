@@ -58,6 +58,7 @@ func (c *ApiService) CreateTranscript(params *CreateTranscriptParams) (*Intellig
 	path := "/v2/Transcripts"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ServiceSid != nil {
@@ -79,7 +80,7 @@ func (c *ApiService) CreateTranscript(params *CreateTranscriptParams) (*Intellig
 		data.Set("MediaStartTime", fmt.Sprint((*params.MediaStartTime).Format(time.RFC3339)))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -100,9 +101,10 @@ func (c *ApiService) DeleteTranscript(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -118,9 +120,10 @@ func (c *ApiService) FetchTranscript(Sid string) (*IntelligenceV2Transcript, err
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -205,34 +208,35 @@ func (c *ApiService) PageTranscript(params *ListTranscriptParams, pageToken, pag
 	path := "/v2/Transcripts"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ServiceSid != nil {
-		data.Set("ServiceSid", *params.ServiceSid)
+		queryParams.Set("ServiceSid", *params.ServiceSid)
 	}
 	if params != nil && params.BeforeStartTime != nil {
-		data.Set("BeforeStartTime", *params.BeforeStartTime)
+		queryParams.Set("BeforeStartTime", *params.BeforeStartTime)
 	}
 	if params != nil && params.AfterStartTime != nil {
-		data.Set("AfterStartTime", *params.AfterStartTime)
+		queryParams.Set("AfterStartTime", *params.AfterStartTime)
 	}
 	if params != nil && params.BeforeDateCreated != nil {
-		data.Set("BeforeDateCreated", *params.BeforeDateCreated)
+		queryParams.Set("BeforeDateCreated", *params.BeforeDateCreated)
 	}
 	if params != nil && params.AfterDateCreated != nil {
-		data.Set("AfterDateCreated", *params.AfterDateCreated)
+		queryParams.Set("AfterDateCreated", *params.AfterDateCreated)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.LanguageCode != nil {
-		data.Set("LanguageCode", *params.LanguageCode)
+		queryParams.Set("LanguageCode", *params.LanguageCode)
 	}
 	if params != nil && params.SourceSid != nil {
-		data.Set("SourceSid", *params.SourceSid)
+		queryParams.Set("SourceSid", *params.SourceSid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -242,7 +246,7 @@ func (c *ApiService) PageTranscript(params *ListTranscriptParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -329,7 +333,7 @@ func (c *ApiService) getNextListTranscriptResponse(nextPageUrl string) (interfac
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

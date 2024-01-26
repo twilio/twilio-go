@@ -77,12 +77,12 @@ func (params *CreateChannelParams) SetCreatedBy(CreatedBy string) *CreateChannel
 	return params
 }
 
-//
 func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*IpMessagingV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -110,7 +110,7 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -136,19 +136,19 @@ func (params *DeleteChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnable
 	return params
 }
 
-//
 func (c *ApiService) DeleteChannel(ServiceSid string, Sid string, params *DeleteChannelParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -158,16 +158,16 @@ func (c *ApiService) DeleteChannel(ServiceSid string, Sid string, params *Delete
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannel(ServiceSid string, Sid string) (*IpMessagingV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -212,15 +212,16 @@ func (c *ApiService) PageChannel(ServiceSid string, params *ListChannelParams, p
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Type != nil {
 		for _, item := range *params.Type {
-			data.Add("Type", item)
+			queryParams.Add("Type", item)
 		}
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -230,7 +231,7 @@ func (c *ApiService) PageChannel(ServiceSid string, params *ListChannelParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +318,7 @@ func (c *ApiService) getNextListChannelResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -378,13 +379,13 @@ func (params *UpdateChannelParams) SetCreatedBy(CreatedBy string) *UpdateChannel
 	return params
 }
 
-//
 func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*IpMessagingV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -409,7 +410,7 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

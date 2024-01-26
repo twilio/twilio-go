@@ -58,12 +58,12 @@ func (params *CreateWorkflowParams) SetTaskReservationTimeout(TaskReservationTim
 	return params
 }
 
-//
 func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -82,7 +82,7 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -97,16 +97,16 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -116,16 +116,16 @@ func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -170,13 +170,14 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -186,7 +187,7 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -273,7 +274,7 @@ func (c *ApiService) getNextListWorkflowResponse(nextPageUrl string) (interface{
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -328,13 +329,13 @@ func (params *UpdateWorkflowParams) SetReEvaluateTasks(ReEvaluateTasks string) *
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -356,7 +357,7 @@ func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *Upd
 		data.Set("ReEvaluateTasks", *params.ReEvaluateTasks)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

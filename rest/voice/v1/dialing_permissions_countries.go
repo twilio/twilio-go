@@ -29,9 +29,10 @@ func (c *ApiService) FetchDialingPermissionsCountry(IsoCode string) (*VoiceV1Dia
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -104,28 +105,29 @@ func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermission
 	path := "/v1/DialingPermissions/Countries"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.IsoCode != nil {
-		data.Set("IsoCode", *params.IsoCode)
+		queryParams.Set("IsoCode", *params.IsoCode)
 	}
 	if params != nil && params.Continent != nil {
-		data.Set("Continent", *params.Continent)
+		queryParams.Set("Continent", *params.Continent)
 	}
 	if params != nil && params.CountryCode != nil {
-		data.Set("CountryCode", *params.CountryCode)
+		queryParams.Set("CountryCode", *params.CountryCode)
 	}
 	if params != nil && params.LowRiskNumbersEnabled != nil {
-		data.Set("LowRiskNumbersEnabled", fmt.Sprint(*params.LowRiskNumbersEnabled))
+		queryParams.Set("LowRiskNumbersEnabled", fmt.Sprint(*params.LowRiskNumbersEnabled))
 	}
 	if params != nil && params.HighRiskSpecialNumbersEnabled != nil {
-		data.Set("HighRiskSpecialNumbersEnabled", fmt.Sprint(*params.HighRiskSpecialNumbersEnabled))
+		queryParams.Set("HighRiskSpecialNumbersEnabled", fmt.Sprint(*params.HighRiskSpecialNumbersEnabled))
 	}
 	if params != nil && params.HighRiskTollfraudNumbersEnabled != nil {
-		data.Set("HighRiskTollfraudNumbersEnabled", fmt.Sprint(*params.HighRiskTollfraudNumbersEnabled))
+		queryParams.Set("HighRiskTollfraudNumbersEnabled", fmt.Sprint(*params.HighRiskTollfraudNumbersEnabled))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -135,7 +137,7 @@ func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermission
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -222,7 +224,7 @@ func (c *ApiService) getNextListDialingPermissionsCountryResponse(nextPageUrl st
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

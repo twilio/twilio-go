@@ -27,9 +27,10 @@ func (c *ApiService) FetchExportConfiguration(ResourceType string) (*Bulkexports
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -73,6 +74,7 @@ func (c *ApiService) UpdateExportConfiguration(ResourceType string, params *Upda
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Enabled != nil {
@@ -85,7 +87,7 @@ func (c *ApiService) UpdateExportConfiguration(ResourceType string, params *Upda
 		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

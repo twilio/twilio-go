@@ -58,11 +58,11 @@ func (params *CreateBrandRegistrationsParams) SetSkipAutomaticSecVet(SkipAutomat
 	return params
 }
 
-//
 func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsParams) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CustomerProfileBundleSid != nil {
@@ -81,7 +81,7 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 		data.Set("SkipAutomaticSecVet", fmt.Sprint(*params.SkipAutomaticSecVet))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -96,15 +96,15 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -141,10 +141,11 @@ func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams
 	path := "/v1/a2p/BrandRegistrations"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -154,7 +155,7 @@ func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -241,7 +242,7 @@ func (c *ApiService) getNextListBrandRegistrationsResponse(nextPageUrl string) (
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -255,15 +256,15 @@ func (c *ApiService) getNextListBrandRegistrationsResponse(nextPageUrl string) (
 	return ps, nil
 }
 
-//
 func (c *ApiService) UpdateBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

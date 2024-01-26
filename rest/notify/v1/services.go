@@ -112,11 +112,11 @@ func (params *CreateServiceParams) SetDeliveryCallbackEnabled(DeliveryCallbackEn
 	return params
 }
 
-//
 func (c *ApiService) CreateService(params *CreateServiceParams) (*NotifyV1Service, error) {
 	path := "/v1/Services"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -162,7 +162,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*NotifyV1Servic
 		data.Set("DeliveryCallbackEnabled", fmt.Sprint(*params.DeliveryCallbackEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -177,15 +177,15 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*NotifyV1Servic
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -195,15 +195,15 @@ func (c *ApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchService(Sid string) (*NotifyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -246,13 +246,14 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 	path := "/v1/Services"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -262,7 +263,7 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -349,7 +350,7 @@ func (c *ApiService) getNextListServiceResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -452,12 +453,12 @@ func (params *UpdateServiceParams) SetDeliveryCallbackEnabled(DeliveryCallbackEn
 	return params
 }
 
-//
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*NotifyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -503,7 +504,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*No
 		data.Set("DeliveryCallbackEnabled", fmt.Sprint(*params.DeliveryCallbackEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

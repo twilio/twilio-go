@@ -34,19 +34,19 @@ func (params *CreateShortCodeParams) SetShortCodeSid(ShortCodeSid string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ShortCodeSid != nil {
 		data.Set("ShortCodeSid", *params.ShortCodeSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -61,16 +61,16 @@ func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeP
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -80,16 +80,16 @@ func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -128,10 +128,11 @@ func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParam
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -141,7 +142,7 @@ func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParam
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -228,7 +229,7 @@ func (c *ApiService) getNextListShortCodeResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

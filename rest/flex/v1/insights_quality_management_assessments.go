@@ -99,6 +99,7 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 	path := "/v1/Insights/QualityManagement/Assessments"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CategorySid != nil {
@@ -135,7 +136,7 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -184,13 +185,14 @@ func (c *ApiService) PageInsightsAssessments(params *ListInsightsAssessmentsPara
 	path := "/v1/Insights/QualityManagement/Assessments"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.SegmentId != nil {
-		data.Set("SegmentId", *params.SegmentId)
+		queryParams.Set("SegmentId", *params.SegmentId)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -200,7 +202,7 @@ func (c *ApiService) PageInsightsAssessments(params *ListInsightsAssessmentsPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -287,7 +289,7 @@ func (c *ApiService) getNextListInsightsAssessmentsResponse(nextPageUrl string) 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -336,6 +338,7 @@ func (c *ApiService) UpdateInsightsAssessments(AssessmentSid string, params *Upd
 	path = strings.Replace(path, "{"+"AssessmentSid"+"}", AssessmentSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Offset != nil {
@@ -351,7 +354,7 @@ func (c *ApiService) UpdateInsightsAssessments(AssessmentSid string, params *Upd
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

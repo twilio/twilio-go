@@ -155,6 +155,7 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 	path := "/v1/ComplianceInquiries/Tollfree/Initialize"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.TollfreePhoneNumber != nil {
@@ -225,7 +226,7 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 		data.Set("BusinessContactPhone", *params.BusinessContactPhone)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

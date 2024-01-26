@@ -19,14 +19,14 @@ import (
 	"net/url"
 )
 
-//
 func (c *ApiService) FetchUsecase() (*MessagingV1Usecase, error) {
 	path := "/v1/Services/Usecases"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

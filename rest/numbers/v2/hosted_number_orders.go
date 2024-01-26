@@ -129,6 +129,7 @@ func (c *ApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderPara
 	path := "/v2/HostedNumber/Orders"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PhoneNumber != nil {
@@ -182,7 +183,7 @@ func (c *ApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderPara
 		data.Set("ContactTitle", *params.ContactTitle)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -203,9 +204,10 @@ func (c *ApiService) DeleteHostedNumberOrder(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -221,9 +223,10 @@ func (c *ApiService) FetchHostedNumberOrder(Sid string) (*NumbersV2HostedNumberO
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -290,25 +293,26 @@ func (c *ApiService) PageHostedNumberOrder(params *ListHostedNumberOrderParams, 
 	path := "/v2/HostedNumber/Orders"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.SmsCapability != nil {
-		data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability))
+		queryParams.Set("SmsCapability", fmt.Sprint(*params.SmsCapability))
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		queryParams.Set("PhoneNumber", *params.PhoneNumber)
 	}
 	if params != nil && params.IncomingPhoneNumberSid != nil {
-		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
+		queryParams.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -318,7 +322,7 @@ func (c *ApiService) PageHostedNumberOrder(params *ListHostedNumberOrderParams, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -405,7 +409,7 @@ func (c *ApiService) getNextListHostedNumberOrderResponse(nextPageUrl string) (i
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

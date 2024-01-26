@@ -65,12 +65,12 @@ func (params *CreateTaskParams) SetVirtualStartTime(VirtualStartTime time.Time) 
 	return params
 }
 
-//
 func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Timeout != nil {
@@ -92,7 +92,7 @@ func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (
 		data.Set("VirtualStartTime", fmt.Sprint((*params.VirtualStartTime).Format(time.RFC3339)))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -118,19 +118,19 @@ func (params *DeleteTaskParams) SetIfMatch(IfMatch string) *DeleteTaskParams {
 	return params
 }
 
-//
 func (c *ApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteTaskParams) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -140,16 +140,16 @@ func (c *ApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteT
 	return nil
 }
 
-//
 func (c *ApiService) FetchTask(WorkspaceSid string, Sid string) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -242,39 +242,40 @@ func (c *ApiService) PageTask(WorkspaceSid string, params *ListTaskParams, pageT
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", fmt.Sprint(*params.Priority))
+		queryParams.Set("Priority", fmt.Sprint(*params.Priority))
 	}
 	if params != nil && params.AssignmentStatus != nil {
 		for _, item := range *params.AssignmentStatus {
-			data.Add("AssignmentStatus", item)
+			queryParams.Add("AssignmentStatus", item)
 		}
 	}
 	if params != nil && params.WorkflowSid != nil {
-		data.Set("WorkflowSid", *params.WorkflowSid)
+		queryParams.Set("WorkflowSid", *params.WorkflowSid)
 	}
 	if params != nil && params.WorkflowName != nil {
-		data.Set("WorkflowName", *params.WorkflowName)
+		queryParams.Set("WorkflowName", *params.WorkflowName)
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid)
+		queryParams.Set("TaskQueueSid", *params.TaskQueueSid)
 	}
 	if params != nil && params.TaskQueueName != nil {
-		data.Set("TaskQueueName", *params.TaskQueueName)
+		queryParams.Set("TaskQueueName", *params.TaskQueueName)
 	}
 	if params != nil && params.EvaluateTaskAttributes != nil {
-		data.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes)
+		queryParams.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes)
 	}
 	if params != nil && params.Ordering != nil {
-		data.Set("Ordering", *params.Ordering)
+		queryParams.Set("Ordering", *params.Ordering)
 	}
 	if params != nil && params.HasAddons != nil {
-		data.Set("HasAddons", fmt.Sprint(*params.HasAddons))
+		queryParams.Set("HasAddons", fmt.Sprint(*params.HasAddons))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -284,7 +285,7 @@ func (c *ApiService) PageTask(WorkspaceSid string, params *ListTaskParams, pageT
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -371,7 +372,7 @@ func (c *ApiService) getNextListTaskResponse(nextPageUrl string) (interface{}, e
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -432,13 +433,13 @@ func (params *UpdateTaskParams) SetVirtualStartTime(VirtualStartTime time.Time) 
 	return params
 }
 
-//
 func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateTaskParams) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
@@ -463,7 +464,7 @@ func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateT
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

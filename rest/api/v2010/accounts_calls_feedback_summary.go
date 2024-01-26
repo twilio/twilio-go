@@ -72,6 +72,7 @@ func (c *ApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummary
 	}
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.StartDate != nil {
@@ -90,7 +91,7 @@ func (c *ApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummary
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -127,9 +128,10 @@ func (c *ApiService) DeleteCallFeedbackSummary(Sid string, params *DeleteCallFee
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -161,9 +163,10 @@ func (c *ApiService) FetchCallFeedbackSummary(Sid string, params *FetchCallFeedb
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -61,11 +61,11 @@ func (params *CreateCompositionSettingsParams) SetEncryptionEnabled(EncryptionEn
 	return params
 }
 
-//
 func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettingsParams) (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -87,7 +87,7 @@ func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettings
 		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -102,14 +102,14 @@ func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettings
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

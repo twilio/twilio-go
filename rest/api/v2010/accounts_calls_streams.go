@@ -1260,6 +1260,7 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Url != nil {
@@ -1872,7 +1873,7 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 		data.Set("Parameter99.Value", *params.Parameter99Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -1916,13 +1917,14 @@ func (c *ApiService) UpdateStream(CallSid string, Sid string, params *UpdateStre
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

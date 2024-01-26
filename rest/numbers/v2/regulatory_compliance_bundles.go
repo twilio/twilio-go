@@ -76,6 +76,7 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle,
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -100,7 +101,7 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle,
 		data.Set("NumberType", *params.NumberType)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -121,9 +122,10 @@ func (c *ApiService) DeleteBundle(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -139,9 +141,10 @@ func (c *ApiService) FetchBundle(Sid string) (*NumbersV2Bundle, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -244,43 +247,44 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		queryParams.Set("Status", *params.Status)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		queryParams.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.RegulationSid != nil {
-		data.Set("RegulationSid", *params.RegulationSid)
+		queryParams.Set("RegulationSid", *params.RegulationSid)
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+		queryParams.Set("IsoCountry", *params.IsoCountry)
 	}
 	if params != nil && params.NumberType != nil {
-		data.Set("NumberType", *params.NumberType)
+		queryParams.Set("NumberType", *params.NumberType)
 	}
 	if params != nil && params.HasValidUntilDate != nil {
-		data.Set("HasValidUntilDate", fmt.Sprint(*params.HasValidUntilDate))
+		queryParams.Set("HasValidUntilDate", fmt.Sprint(*params.HasValidUntilDate))
 	}
 	if params != nil && params.SortBy != nil {
-		data.Set("SortBy", *params.SortBy)
+		queryParams.Set("SortBy", *params.SortBy)
 	}
 	if params != nil && params.SortDirection != nil {
-		data.Set("SortDirection", *params.SortDirection)
+		queryParams.Set("SortDirection", *params.SortDirection)
 	}
 	if params != nil && params.ValidUntilDate != nil {
-		data.Set("ValidUntilDate", fmt.Sprint((*params.ValidUntilDate).Format(time.RFC3339)))
+		queryParams.Set("ValidUntilDate", fmt.Sprint((*params.ValidUntilDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.ValidUntilDateBefore != nil {
-		data.Set("ValidUntilDate<", fmt.Sprint((*params.ValidUntilDateBefore).Format(time.RFC3339)))
+		queryParams.Set("ValidUntilDate<", fmt.Sprint((*params.ValidUntilDateBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.ValidUntilDateAfter != nil {
-		data.Set("ValidUntilDate>", fmt.Sprint((*params.ValidUntilDateAfter).Format(time.RFC3339)))
+		queryParams.Set("ValidUntilDate>", fmt.Sprint((*params.ValidUntilDateAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -290,7 +294,7 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -377,7 +381,7 @@ func (c *ApiService) getNextListBundleResponse(nextPageUrl string) (interface{},
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -426,6 +430,7 @@ func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*Numb
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
@@ -441,7 +446,7 @@ func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*Numb
 		data.Set("Email", *params.Email)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

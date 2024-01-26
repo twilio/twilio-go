@@ -48,11 +48,11 @@ func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData str
 	return params
 }
 
-//
 func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2WebChannel, error) {
 	path := "/v2/WebChats"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AddressSid != nil {
@@ -68,7 +68,7 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2We
 		data.Set("PreEngagementData", *params.PreEngagementData)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

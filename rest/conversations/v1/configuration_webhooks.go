@@ -19,14 +19,14 @@ import (
 	"net/url"
 )
 
-//
 func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -76,11 +76,11 @@ func (params *UpdateConfigurationWebhookParams) SetTarget(Target string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Method != nil {
@@ -101,7 +101,7 @@ func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebho
 		data.Set("Target", *params.Target)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

@@ -56,16 +56,17 @@ func (c *ApiService) PageParticipantConversation(params *ListParticipantConversa
 	path := "/v1/ParticipantConversations"
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		queryParams.Set("Identity", *params.Identity)
 	}
 	if params != nil && params.Address != nil {
-		data.Set("Address", *params.Address)
+		queryParams.Set("Address", *params.Address)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -75,7 +76,7 @@ func (c *ApiService) PageParticipantConversation(params *ListParticipantConversa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +163,7 @@ func (c *ApiService) getNextListParticipantConversationResponse(nextPageUrl stri
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

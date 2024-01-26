@@ -38,12 +38,12 @@ func (params *CreatePlayerStreamerPlaybackGrantParams) SetAccessControlAllowOrig
 	return params
 }
 
-//
 func (c *ApiService) CreatePlayerStreamerPlaybackGrant(Sid string, params *CreatePlayerStreamerPlaybackGrantParams) (*MediaV1PlayerStreamerPlaybackGrant, error) {
 	path := "/v1/PlayerStreamers/{Sid}/PlaybackGrant"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Ttl != nil {
@@ -53,7 +53,7 @@ func (c *ApiService) CreatePlayerStreamerPlaybackGrant(Sid string, params *Creat
 		data.Set("AccessControlAllowOrigin", *params.AccessControlAllowOrigin)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -74,9 +74,10 @@ func (c *ApiService) FetchPlayerStreamerPlaybackGrant(Sid string) (*MediaV1Playe
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

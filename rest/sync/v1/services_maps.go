@@ -46,12 +46,12 @@ func (params *CreateSyncMapParams) SetCollectionTtl(CollectionTtl int) *CreateSy
 	return params
 }
 
-//
 func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParams) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
@@ -64,7 +64,7 @@ func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParam
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -79,16 +79,16 @@ func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParam
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -98,16 +98,16 @@ func (c *ApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -146,10 +146,11 @@ func (c *ApiService) PageSyncMap(ServiceSid string, params *ListSyncMapParams, p
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -159,7 +160,7 @@ func (c *ApiService) PageSyncMap(ServiceSid string, params *ListSyncMapParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -246,7 +247,7 @@ func (c *ApiService) getNextListSyncMapResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -277,13 +278,13 @@ func (params *UpdateSyncMapParams) SetCollectionTtl(CollectionTtl int) *UpdateSy
 	return params
 }
 
-//
 func (c *ApiService) UpdateSyncMap(ServiceSid string, Sid string, params *UpdateSyncMapParams) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Ttl != nil {
@@ -293,7 +294,7 @@ func (c *ApiService) UpdateSyncMap(ServiceSid string, Sid string, params *Update
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

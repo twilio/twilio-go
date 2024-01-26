@@ -51,13 +51,14 @@ func (c *ApiService) CreateSipAuthCallsCredentialListMapping(DomainSid string, p
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.CredentialListSid != nil {
 		data.Set("CredentialListSid", *params.CredentialListSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -95,9 +96,10 @@ func (c *ApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid string, S
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -130,9 +132,10 @@ func (c *ApiService) FetchSipAuthCallsCredentialListMapping(DomainSid string, Si
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -182,10 +185,11 @@ func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, par
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -195,7 +199,7 @@ func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, par
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -282,7 +286,7 @@ func (c *ApiService) getNextListSipAuthCallsCredentialListMappingResponse(nextPa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

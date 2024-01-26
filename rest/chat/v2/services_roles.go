@@ -46,12 +46,12 @@ func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRolePa
 	return params
 }
 
-//
 func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*ChatV2Role, error) {
 	path := "/v2/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
@@ -66,7 +66,7 @@ func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*C
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -81,16 +81,16 @@ func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*C
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return err
 	}
@@ -100,16 +100,16 @@ func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*ChatV2Role, error) {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -148,10 +148,11 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		queryParams.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
 	if pageToken != "" {
@@ -161,7 +162,7 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
@@ -248,7 +249,7 @@ func (c *ApiService) getNextListRoleResponse(nextPageUrl string) (interface{}, e
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -273,13 +274,13 @@ func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRolePa
 	return params
 }
 
-//
 func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*ChatV2Role, error) {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Permission != nil {
@@ -288,7 +289,7 @@ func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRol
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}

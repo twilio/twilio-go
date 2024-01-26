@@ -26,9 +26,10 @@ func (c *ApiService) FetchAppManifest(AppSid string) (*MicrovisorV1AppManifest, 
 	path = strings.Replace(path, "{"+"AppSid"+"}", AppSid, -1)
 
 	data := url.Values{}
+	queryParams := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, queryParams)
 	if err != nil {
 		return nil, err
 	}
