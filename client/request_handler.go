@@ -91,6 +91,6 @@ func (c *RequestHandler) Get(path string, queryData url.Values, headers map[stri
 	return c.sendRequest(http.MethodGet, path, queryData, headers, queryParams)
 }
 
-func (c *RequestHandler) Delete(path string, nothing url.Values, headers map[string]interface{}, queryParams ...url.Values) (*http.Response, error) {
-	return c.sendRequest(http.MethodDelete, path, nil, headers, queryParams...)
+func (c *RequestHandler) Delete(path string, nothing url.Values, headers map[string]interface{}, queryParams url.Values) (*http.Response, error) {
+	return c.sendRequest(http.MethodDelete, path, nil, headers, queryParams)
 }
