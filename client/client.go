@@ -99,8 +99,8 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	valueReader := &strings.Reader{}
 	goVersion := runtime.Version()
 
-    if queryParams != nil && queryParams[0] != nil{
-        v, _ := form.EncodeToStringWith(queryParams[0], delimiter, escapee, keepZeros)
+    if queryParams != nil {
+        v, _ := form.EncodeToStringWith(queryParams, delimiter, escapee, keepZeros)
         regex := regexp.MustCompile(`\.\d+`)
         s := regex.ReplaceAllString(v, "")
 
