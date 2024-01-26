@@ -83,12 +83,12 @@ func (c *RequestHandler) BuildUrl(rawURL string) (string, error) {
 	return u.String(), nil
 }
 
-func (c *RequestHandler) Post(path string, bodyData url.Values, headers map[string]interface{}, queryParams ...url.Values) (*http.Response, error) {
-	return c.sendRequest(http.MethodPost, path, bodyData, headers, queryParams...)
+func (c *RequestHandler) Post(path string, bodyData url.Values, headers map[string]interface{}, queryParams url.Values) (*http.Response, error) {
+	return c.sendRequest(http.MethodPost, path, bodyData, headers, queryParams)
 }
 
-func (c *RequestHandler) Get(path string, queryData url.Values, headers map[string]interface{}, queryParams ...url.Values) (*http.Response, error) {
-	return c.sendRequest(http.MethodGet, path, queryData, headers, queryParams...)
+func (c *RequestHandler) Get(path string, queryData url.Values, headers map[string]interface{}, queryParams url.Values) (*http.Response, error) {
+	return c.sendRequest(http.MethodGet, path, queryData, headers, queryParams)
 }
 
 func (c *RequestHandler) Delete(path string, nothing url.Values, headers map[string]interface{}, queryParams ...url.Values) (*http.Response, error) {
