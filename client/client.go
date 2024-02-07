@@ -87,6 +87,24 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 	return res, nil
 }
 
+func isAlphanumeric(word string) bool {
+	return regexp.MustCompile(`^[a-zA-Z0-9]*$`).MatchString(word)
+}
+
+func (c *Client) validateCredentials() error {
+	username, password := c.basicAuth()
+	err := &TwilioRestError{Status: 400}
+	if !isAlphanumeric(username) {
+		err.Message = "Invalid Username"
+		return err
+	}
+	if !isAlphanumeric(password) {
+		err.Message = "Invalid Password"
+		return err
+	}
+	return nil
+}
+
 // SendRequest verifies, constructs, and authorizes an HTTP request.
 func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}) (*http.Response, error) {
@@ -110,6 +128,11 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 
 	if method == http.MethodPost {
 		valueReader = strings.NewReader(data.Encode())
+	}
+
+	credErr := c.validateCredentials()
+	if credErr != nil {
+		return nil, credErr
 	}
 
 	req, err := http.NewRequest(method, u.String(), valueReader)
