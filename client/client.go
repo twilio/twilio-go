@@ -95,16 +95,17 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 	return res, nil
 }
 
+// throws error if username and password contains special characters
 func (c *Client) validateCredentials() error {
 	username, password := c.basicAuth()
-	if alphanumericRegex.MatchString(username) == false {
+	if !alphanumericRegex.MatchString(username) {
 		return &TwilioRestError{
 			Status:   400,
 			Code:     21222,
 			Message:  "Invalid Username. Illegal chars",
 			MoreInfo: "https://www.twilio.com/docs/errors/21222"}
 	}
-	if alphanumericRegex.MatchString(password) == false {
+	if !alphanumericRegex.MatchString(password) {
 		return &TwilioRestError{
 			Status:   400,
 			Code:     21224,
