@@ -16,6 +16,14 @@ import (
 	"github.com/twilio/twilio-go/client/form"
 )
 
+var alphanumericRegex *regexp.Regexp
+var delimitingRegex *regexp.Regexp
+
+func init() {
+	alphanumericRegex = regexp.MustCompile(`^[a-zA-Z0-9]*$`)
+	delimitingRegex = regexp.MustCompile(`\.\d+`)
+}
+
 // Credentials store user authentication credentials.
 type Credentials struct {
 	Username string
@@ -87,20 +95,21 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 	return res, nil
 }
 
-func isAlphanumeric(word string) bool {
-	return regexp.MustCompile(`^[a-zA-Z0-9]*$`).MatchString(word)
-}
-
 func (c *Client) validateCredentials() error {
 	username, password := c.basicAuth()
-	err := &TwilioRestError{Status: 400}
-	if !isAlphanumeric(username) {
-		err.Message = "Invalid Username"
-		return err
+	if alphanumericRegex.MatchString(username) == false {
+		return &TwilioRestError{
+			Status:   400,
+			Code:     21222,
+			Message:  "Invalid Username. Illegal chars",
+			MoreInfo: "https://www.twilio.com/docs/errors/21222"}
 	}
-	if !isAlphanumeric(password) {
-		err.Message = "Invalid Password"
-		return err
+	if alphanumericRegex.MatchString(password) == false {
+		return &TwilioRestError{
+			Status:   400,
+			Code:     21224,
+			Message:  "Invalid Password. Illegal chars",
+			MoreInfo: "https://www.twilio.com/docs/errors/21224"}
 	}
 	return nil
 }
@@ -119,8 +128,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if method == http.MethodGet {
 		if data != nil {
 			v, _ := form.EncodeToStringWith(data, delimiter, escapee, keepZeros)
-			regex := regexp.MustCompile(`\.\d+`)
-			s := regex.ReplaceAllString(v, "")
+			s := delimitingRegex.ReplaceAllString(v, "")
 
 			u.RawQuery = s
 		}

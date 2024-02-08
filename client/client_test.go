@@ -117,49 +117,25 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 }
 
 func TestClient_SendRequestUsernameError(t *testing.T) {
-	errorResponse := `{
-    "status": 400,
-    "code":20001,
-    "message":"Bad request",
-    "more_info":"https://www.twilio.com/docs/errors/20001",
-}`
-	errorServer := httptest.NewServer(http.HandlerFunc(
-		func(resp http.ResponseWriter, req *http.Request) {
-			resp.WriteHeader(400)
-			_, _ = resp.Write([]byte(errorResponse))
-		}))
-	defer errorServer.Close()
-
 	newTestClient := NewClient("user1\nuser2", "pass")
-	resp, err := newTestClient.SendRequest("GET", errorServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := newTestClient.SendRequest("GET", "http://example.org", nil, nil) //nolint:bodyclose
 	twilioError := err.(*twilio.TwilioRestError)
-	assert.Error(t, err)
-	assert.Contains(t, err.Error(), "Invalid Username")
-	assert.Equal(t, 400, twilioError.Status)
 	assert.Nil(t, resp)
+	assert.Equal(t, 400, twilioError.Status)
+	assert.Equal(t, 21222, twilioError.Code)
+	assert.Equal(t, "https://www.twilio.com/docs/errors/21222", twilioError.MoreInfo)
+	assert.Equal(t, "Invalid Username. Illegal chars", twilioError.Message)
 }
 
 func TestClient_SendRequestPasswordError(t *testing.T) {
-	errorResponse := `{
-    "status": 400,
-    "code":20001,
-    "message":"Bad request",
-    "more_info":"https://www.twilio.com/docs/errors/20001",
-}`
-	errorServer := httptest.NewServer(http.HandlerFunc(
-		func(resp http.ResponseWriter, req *http.Request) {
-			resp.WriteHeader(400)
-			_, _ = resp.Write([]byte(errorResponse))
-		}))
-	defer errorServer.Close()
-
 	newTestClient := NewClient("user1", "pass1\npass2")
-	resp, err := newTestClient.SendRequest("GET", errorServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := newTestClient.SendRequest("GET", "http://example.org", nil, nil) //nolint:bodyclose
 	twilioError := err.(*twilio.TwilioRestError)
-	assert.Error(t, err)
-	assert.Contains(t, err.Error(), "Invalid Password")
-	assert.Equal(t, 400, twilioError.Status)
 	assert.Nil(t, resp)
+	assert.Equal(t, 400, twilioError.Status)
+	assert.Equal(t, 21224, twilioError.Code)
+	assert.Equal(t, "https://www.twilio.com/docs/errors/21224", twilioError.MoreInfo)
+	assert.Equal(t, "Invalid Password. Illegal chars", twilioError.Message)
 }
 
 func TestClient_SendRequestWithRedirect(t *testing.T) {
