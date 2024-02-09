@@ -1,0 +1,77 @@
+# ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi
+
+All URIs are relative to *https://trusthub.twilio.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**CreateComplianceRegistration**](ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi.md#CreateComplianceRegistration) | **Post** /v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize | 
+
+
+
+## CreateComplianceRegistration
+
+> TrusthubV1ComplianceRegistration CreateComplianceRegistration(ctx, optional)
+
+
+
+Create a new Compliance Registration Inquiry for the authenticated account. This is necessary to start a new embedded session.
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateComplianceRegistrationParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**EndUserType** | **string** | 
+**PhoneNumberType** | **string** | 
+**BusinessIdentityType** | **string** | 
+**BusinessRegistrationAuthority** | **string** | The authority that registered the business
+**BusinessLegalName** | **string** | he name of the business or organization using the Tollfree number.
+**NotificationEmail** | **string** | he email address to receive the notification about the verification result.
+**AcceptedNotificationReceipt** | **bool** | The email address to receive the notification about the verification result.
+**BusinessRegistrationNumber** | **string** | Business registration number of the business
+**BusinessWebsiteUrl** | **string** | The URL of the business website
+**FriendlyName** | **string** | Friendly name for your business information
+**AuthorizedRepresentative1FirstName** | **string** | First name of the authorized representative
+**AuthorizedRepresentative1LastName** | **string** | Last name of the authorized representative
+**AuthorizedRepresentative1Phone** | **string** | Phone number of the authorized representative
+**AuthorizedRepresentative1Email** | **string** | Email address of the authorized representative
+**AuthorizedRepresentative1DateOfBirth** | **string** | Birthdate of the authorized representative
+**AddressStreet** | **string** | Street address of the business
+**AddressStreetSecondary** | **string** | Street address of the business
+**AddressCity** | **string** | City of the business
+**AddressSubdivision** | **string** | State or province of the business
+**AddressPostalCode** | **string** | Postal code of the business
+**AddressCountryCode** | **string** | Country code of the business
+**EmergencyAddressStreet** | **string** | Street address of the business
+**EmergencyAddressStreetSecondary** | **string** | Street address of the business
+**EmergencyAddressCity** | **string** | City of the business
+**EmergencyAddressSubdivision** | **string** | State or province of the business
+**EmergencyAddressPostalCode** | **string** | Postal code of the business
+**EmergencyAddressCountryCode** | **string** | Country code of the business
+**UseAddressAsEmergencyAddress** | **bool** | Use the business address as the emergency address
+**FileName** | **string** | The name of the verification document to upload
+**File** | **string** | The verification document to upload
+
+### Return type
+
+[**TrusthubV1ComplianceRegistration**](TrusthubV1ComplianceRegistration.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+

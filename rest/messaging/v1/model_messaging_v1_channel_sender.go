@@ -36,5 +36,6 @@ type MessagingV1ChannelSender struct {
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	Url         *string    `json:"url,omitempty"`
+	// The absolute URL of the ChannelSender resource.
+	Url *string `json:"url,omitempty"`
 }

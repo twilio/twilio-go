@@ -13,6 +13,9 @@ Name | Type | Description | Notes
 **UsAppToPersonUsecase** | Pointer to **string** | A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING, SOLE_PROPRIETOR...]. SOLE_PROPRIETOR campaign use cases can only be created by SOLE_PROPRIETOR Brands, and there can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR Brand. |
 **HasEmbeddedLinks** | Pointer to **bool** | Indicate that this SMS campaign will send messages that contain links. |
 **HasEmbeddedPhone** | Pointer to **bool** | Indicates that this SMS campaign will send messages that contain phone numbers. |
+**SubscriberOptIn** | Pointer to **bool** | A boolean that specifies whether campaign has Subscriber Optin or not. |
+**AgeGated** | Pointer to **bool** | A boolean that specifies whether campaign is age gated or not. |
+**DirectLending** | Pointer to **bool** | A boolean that specifies whether campaign allows direct lending or not. |
 **CampaignStatus** | Pointer to **string** | Campaign status. Examples: IN_PROGRESS, VERIFIED, FAILED. |
 **CampaignId** | Pointer to **string** | The Campaign Registry (TCR) Campaign ID. |
 **IsExternallyRegistered** | Pointer to **bool** | Indicates whether the campaign was registered externally or not. |

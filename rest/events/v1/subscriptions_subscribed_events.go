@@ -27,7 +27,7 @@ import (
 type CreateSubscribedEventParams struct {
 	// Type of event being subscribed to.
 	Type *string `json:"Type,omitempty"`
-	// The schema version that the subscription should use.
+	// The schema version that the Subscription should use.
 	SchemaVersion *int `json:"SchemaVersion,omitempty"`
 }
 
@@ -40,7 +40,7 @@ func (params *CreateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *
 	return params
 }
 
-// Create a new Subscribed Event type for the subscription
+// Add an event type to a Subscription.
 func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *CreateSubscribedEventParams) (*EventsV1SubscribedEvent, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
@@ -70,7 +70,7 @@ func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *Creat
 	return ps, err
 }
 
-// Remove an event type from a subscription.
+// Remove an event type from a Subscription.
 func (c *ApiService) DeleteSubscribedEvent(SubscriptionSid string, Type string) error {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
@@ -253,7 +253,7 @@ func (c *ApiService) getNextListSubscribedEventResponse(nextPageUrl string) (int
 
 // Optional parameters for the method 'UpdateSubscribedEvent'
 type UpdateSubscribedEventParams struct {
-	// The schema version that the subscription should use.
+	// The schema version that the Subscription should use.
 	SchemaVersion *int `json:"SchemaVersion,omitempty"`
 }
 

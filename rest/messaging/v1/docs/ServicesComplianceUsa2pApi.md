@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteUsAppToPerson**](ServicesComplianceUsa2pApi.md#DeleteUsAppToPerson) | **Delete** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 [**FetchUsAppToPerson**](ServicesComplianceUsa2pApi.md#FetchUsAppToPerson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 [**ListUsAppToPerson**](ServicesComplianceUsa2pApi.md#ListUsAppToPerson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
+[**UpdateUsAppToPerson**](ServicesComplianceUsa2pApi.md#UpdateUsAppToPerson) | **Post** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 
 
 
@@ -47,6 +48,9 @@ Name | Type | Description
 **OptInKeywords** | **[]string** | If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
 **OptOutKeywords** | **[]string** | End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
 **HelpKeywords** | **[]string** | End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+**SubscriberOptIn** | **bool** | A boolean that specifies whether campaign has Subscriber Optin or not.
+**AgeGated** | **bool** | A boolean that specifies whether campaign is age gated or not.
+**DirectLending** | **bool** | A boolean that specifies whether campaign allows direct lending or not.
 
 ### Return type
 
@@ -189,6 +193,56 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateUsAppToPerson
+
+> MessagingV1UsAppToPerson UpdateUsAppToPerson(ctx, MessagingServiceSidSidoptional)
+
+
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to update the resource from.
+**Sid** | **string** | The SID of the US A2P Compliance resource to update `QE2c6890da8086d771620e9b13fadeba0b`.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateUsAppToPersonParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**HasEmbeddedLinks** | **bool** | Indicates that this SMS campaign will send messages that contain links.
+**HasEmbeddedPhone** | **bool** | Indicates that this SMS campaign will send messages that contain phone numbers.
+**MessageSamples** | **[]string** | An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
+**MessageFlow** | **string** | Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+**Description** | **string** | A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+**AgeGated** | **bool** | A boolean that specifies whether campaign requires age gate for federally legal content.
+**DirectLending** | **bool** | A boolean that specifies whether campaign allows direct lending or not.
+
+### Return type
+
+[**MessagingV1UsAppToPerson**](MessagingV1UsAppToPerson.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

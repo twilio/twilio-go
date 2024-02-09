@@ -40,7 +40,7 @@ type CreateConversationMessageParams struct {
 	Attributes *string `json:"Attributes,omitempty"`
 	// The Media SID to be attached to the new Message.
 	MediaSid *string `json:"MediaSid,omitempty"`
-	// The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+	// The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
 	ContentSid *string `json:"ContentSid,omitempty"`
 	// A structurally valid JSON string that contains values to resolve Rich Content template variables.
 	ContentVariables *string `json:"ContentVariables,omitempty"`
@@ -128,7 +128,6 @@ func (c *ApiService) CreateConversationMessage(ConversationSid string, params *C
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -167,7 +166,6 @@ func (c *ApiService) DeleteConversationMessage(ConversationSid string, Sid strin
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
@@ -427,7 +425,6 @@ func (c *ApiService) UpdateConversationMessage(ConversationSid string, Sid strin
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

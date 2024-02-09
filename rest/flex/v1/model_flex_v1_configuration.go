@@ -53,6 +53,8 @@ type FlexV1Configuration struct {
 	ChatServiceInstanceSid *string `json:"chat_service_instance_sid,omitempty"`
 	// The SID of the Flex service instance.
 	FlexServiceInstanceSid *string `json:"flex_service_instance_sid,omitempty"`
+	// The SID of the Flex instance.
+	FlexInstanceSid *string `json:"flex_instance_sid,omitempty"`
 	// The primary language of the Flex UI.
 	UiLanguage *string `json:"ui_language,omitempty"`
 	// The object that describes Flex UI characteristics and settings.
@@ -113,4 +115,6 @@ type FlexV1Configuration struct {
 	AgentConvEndMethods *interface{} `json:"agent_conv_end_methods,omitempty"`
 	// Citrix voice vdi configuration and settings.
 	CitrixVoiceVdi *interface{} `json:"citrix_voice_vdi,omitempty"`
+	// Presence and presence ttl configuration
+	OfflineConfig *interface{} `json:"offline_config,omitempty"`
 }

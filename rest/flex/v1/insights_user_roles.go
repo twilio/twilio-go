@@ -40,7 +40,6 @@ func (c *ApiService) FetchInsightsUserRoles(params *FetchInsightsUserRolesParams
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

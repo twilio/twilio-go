@@ -18,7 +18,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 	AccountsV1 "github.com/twilio/twilio-go/rest/accounts/v1"
 	Api "github.com/twilio/twilio-go/rest/api/v2010"
-	AutopilotV1 "github.com/twilio/twilio-go/rest/autopilot/v1"
 	BulkexportsV1 "github.com/twilio/twilio-go/rest/bulkexports/v1"
 	ChatV1 "github.com/twilio/twilio-go/rest/chat/v1"
 	ChatV2 "github.com/twilio/twilio-go/rest/chat/v2"
@@ -42,7 +41,6 @@ import (
 	NotifyV1 "github.com/twilio/twilio-go/rest/notify/v1"
 	NumbersV1 "github.com/twilio/twilio-go/rest/numbers/v1"
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
-	OauthV1 "github.com/twilio/twilio-go/rest/oauth/v1"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
@@ -66,7 +64,6 @@ type RestClient struct {
 	*client.RequestHandler
 	AccountsV1      *AccountsV1.ApiService
 	Api             *Api.ApiService
-	AutopilotV1     *AutopilotV1.ApiService
 	BulkexportsV1   *BulkexportsV1.ApiService
 	ChatV1          *ChatV1.ApiService
 	ChatV2          *ChatV2.ApiService
@@ -90,7 +87,6 @@ type RestClient struct {
 	NotifyV1        *NotifyV1.ApiService
 	NumbersV1       *NumbersV1.ApiService
 	NumbersV2       *NumbersV2.ApiService
-	OauthV1         *OauthV1.ApiService
 	PricingV1       *PricingV1.ApiService
 	PricingV2       *PricingV2.ApiService
 	ProxyV1         *ProxyV1.ApiService
@@ -161,7 +157,6 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 
 	c.AccountsV1 = AccountsV1.NewApiService(c.RequestHandler)
 	c.Api = Api.NewApiService(c.RequestHandler)
-	c.AutopilotV1 = AutopilotV1.NewApiService(c.RequestHandler)
 	c.BulkexportsV1 = BulkexportsV1.NewApiService(c.RequestHandler)
 	c.ChatV1 = ChatV1.NewApiService(c.RequestHandler)
 	c.ChatV2 = ChatV2.NewApiService(c.RequestHandler)
@@ -185,7 +180,6 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.NotifyV1 = NotifyV1.NewApiService(c.RequestHandler)
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)
 	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
-	c.OauthV1 = OauthV1.NewApiService(c.RequestHandler)
 	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
 	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
 	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)

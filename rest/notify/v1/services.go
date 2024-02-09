@@ -31,7 +31,7 @@ type CreateServiceParams struct {
 	ApnCredentialSid *string `json:"ApnCredentialSid,omitempty"`
 	// The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
 	GcmCredentialSid *string `json:"GcmCredentialSid,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	// Deprecated.
 	FacebookMessengerPageId *string `json:"FacebookMessengerPageId,omitempty"`
@@ -371,7 +371,7 @@ type UpdateServiceParams struct {
 	ApnCredentialSid *string `json:"ApnCredentialSid,omitempty"`
 	// The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
 	GcmCredentialSid *string `json:"GcmCredentialSid,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	// Deprecated.
 	FacebookMessengerPageId *string `json:"FacebookMessengerPageId,omitempty"`
