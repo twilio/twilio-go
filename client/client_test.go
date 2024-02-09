@@ -116,6 +116,28 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 	assert.Equal(t, details, twilioError.Details)
 }
 
+func TestClient_SendRequestUsernameError(t *testing.T) {
+	newTestClient := NewClient("user1\nuser2", "pass")
+	resp, err := newTestClient.SendRequest("GET", "http://example.org", nil, nil) //nolint:bodyclose
+	twilioError := err.(*twilio.TwilioRestError)
+	assert.Nil(t, resp)
+	assert.Equal(t, 400, twilioError.Status)
+	assert.Equal(t, 21222, twilioError.Code)
+	assert.Equal(t, "https://www.twilio.com/docs/errors/21222", twilioError.MoreInfo)
+	assert.Equal(t, "Invalid Username. Illegal chars", twilioError.Message)
+}
+
+func TestClient_SendRequestPasswordError(t *testing.T) {
+	newTestClient := NewClient("user1", "pass1\npass2")
+	resp, err := newTestClient.SendRequest("GET", "http://example.org", nil, nil) //nolint:bodyclose
+	twilioError := err.(*twilio.TwilioRestError)
+	assert.Nil(t, resp)
+	assert.Equal(t, 400, twilioError.Status)
+	assert.Equal(t, 21224, twilioError.Code)
+	assert.Equal(t, "https://www.twilio.com/docs/errors/21224", twilioError.MoreInfo)
+	assert.Equal(t, "Invalid Password. Illegal chars", twilioError.Message)
+}
+
 func TestClient_SendRequestWithRedirect(t *testing.T) {
 	redirectServer := httptest.NewServer(http.HandlerFunc(
 		func(writer http.ResponseWriter, request *http.Request) {
