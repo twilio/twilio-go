@@ -22,7 +22,7 @@ import (
 
 // Optional parameters for the method 'FetchPhoneNumber'
 type FetchPhoneNumberParams struct {
-	// A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
+	// A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score.
 	Fields *string `json:"Fields,omitempty"`
 	// The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
 	CountryCode *string `json:"CountryCode,omitempty"`

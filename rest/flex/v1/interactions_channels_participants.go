@@ -29,6 +29,8 @@ type CreateInteractionChannelParticipantParams struct {
 	Type *string `json:"Type,omitempty"`
 	// JSON representing the Media Properties for the new Participant.
 	MediaProperties *interface{} `json:"MediaProperties,omitempty"`
+	// Object representing the Routing Properties for the new Participant.
+	RoutingProperties *interface{} `json:"RoutingProperties,omitempty"`
 }
 
 func (params *CreateInteractionChannelParticipantParams) SetType(Type string) *CreateInteractionChannelParticipantParams {
@@ -37,6 +39,10 @@ func (params *CreateInteractionChannelParticipantParams) SetType(Type string) *C
 }
 func (params *CreateInteractionChannelParticipantParams) SetMediaProperties(MediaProperties interface{}) *CreateInteractionChannelParticipantParams {
 	params.MediaProperties = &MediaProperties
+	return params
+}
+func (params *CreateInteractionChannelParticipantParams) SetRoutingProperties(RoutingProperties interface{}) *CreateInteractionChannelParticipantParams {
+	params.RoutingProperties = &RoutingProperties
 	return params
 }
 
@@ -60,6 +66,15 @@ func (c *ApiService) CreateInteractionChannelParticipant(InteractionSid string, 
 		}
 
 		data.Set("MediaProperties", string(v))
+	}
+	if params != nil && params.RoutingProperties != nil {
+		v, err := json.Marshal(params.RoutingProperties)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("RoutingProperties", string(v))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

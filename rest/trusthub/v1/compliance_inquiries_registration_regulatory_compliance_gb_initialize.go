@@ -28,7 +28,7 @@ type CreateComplianceRegistrationParams struct {
 	PhoneNumberType *string `json:"PhoneNumberType,omitempty"`
 	//
 	BusinessIdentityType *string `json:"BusinessIdentityType,omitempty"`
-	// The authority that registered the business
+	//
 	BusinessRegistrationAuthority *string `json:"BusinessRegistrationAuthority,omitempty"`
 	// he name of the business or organization using the Tollfree number.
 	BusinessLegalName *string `json:"BusinessLegalName,omitempty"`
@@ -82,6 +82,18 @@ type CreateComplianceRegistrationParams struct {
 	FileName *string `json:"FileName,omitempty"`
 	// The verification document to upload
 	File *string `json:"File,omitempty"`
+	// The first name of the Individual User.
+	FirstName *string `json:"FirstName,omitempty"`
+	// The last name of the Individual User.
+	LastName *string `json:"LastName,omitempty"`
+	// The date of birth of the Individual User.
+	DateOfBirth *string `json:"DateOfBirth,omitempty"`
+	// The email address of the Individual User.
+	IndividualEmail *string `json:"IndividualEmail,omitempty"`
+	// The phone number of the Individual User.
+	IndividualPhone *string `json:"IndividualPhone,omitempty"`
+	// Indicates if the inquiry is being started from an ISV embedded component.
+	IsIsvEmbed *bool `json:"IsIsvEmbed,omitempty"`
 }
 
 func (params *CreateComplianceRegistrationParams) SetEndUserType(EndUserType string) *CreateComplianceRegistrationParams {
@@ -204,6 +216,30 @@ func (params *CreateComplianceRegistrationParams) SetFile(File string) *CreateCo
 	params.File = &File
 	return params
 }
+func (params *CreateComplianceRegistrationParams) SetFirstName(FirstName string) *CreateComplianceRegistrationParams {
+	params.FirstName = &FirstName
+	return params
+}
+func (params *CreateComplianceRegistrationParams) SetLastName(LastName string) *CreateComplianceRegistrationParams {
+	params.LastName = &LastName
+	return params
+}
+func (params *CreateComplianceRegistrationParams) SetDateOfBirth(DateOfBirth string) *CreateComplianceRegistrationParams {
+	params.DateOfBirth = &DateOfBirth
+	return params
+}
+func (params *CreateComplianceRegistrationParams) SetIndividualEmail(IndividualEmail string) *CreateComplianceRegistrationParams {
+	params.IndividualEmail = &IndividualEmail
+	return params
+}
+func (params *CreateComplianceRegistrationParams) SetIndividualPhone(IndividualPhone string) *CreateComplianceRegistrationParams {
+	params.IndividualPhone = &IndividualPhone
+	return params
+}
+func (params *CreateComplianceRegistrationParams) SetIsIsvEmbed(IsIsvEmbed bool) *CreateComplianceRegistrationParams {
+	params.IsIsvEmbed = &IsIsvEmbed
+	return params
+}
 
 // Create a new Compliance Registration Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegistrationParams) (*TrusthubV1ComplianceRegistration, error) {
@@ -301,6 +337,24 @@ func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegist
 	}
 	if params != nil && params.File != nil {
 		data.Set("File", *params.File)
+	}
+	if params != nil && params.FirstName != nil {
+		data.Set("FirstName", *params.FirstName)
+	}
+	if params != nil && params.LastName != nil {
+		data.Set("LastName", *params.LastName)
+	}
+	if params != nil && params.DateOfBirth != nil {
+		data.Set("DateOfBirth", *params.DateOfBirth)
+	}
+	if params != nil && params.IndividualEmail != nil {
+		data.Set("IndividualEmail", *params.IndividualEmail)
+	}
+	if params != nil && params.IndividualPhone != nil {
+		data.Set("IndividualPhone", *params.IndividualPhone)
+	}
+	if params != nil && params.IsIsvEmbed != nil {
+		data.Set("IsIsvEmbed", fmt.Sprint(*params.IsIsvEmbed))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

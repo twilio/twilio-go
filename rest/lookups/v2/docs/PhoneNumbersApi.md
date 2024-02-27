@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Fields** | **string** | A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
+**Fields** | **string** | A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score.
 **CountryCode** | **string** | The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
 **FirstName** | **string** | User’s first name. This query parameter is only used (optionally) for identity_match package requests.
 **LastName** | **string** | User’s last name. This query parameter is only used (optionally) for identity_match package requests.

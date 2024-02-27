@@ -36,6 +36,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Type** | **string** | 
 **MediaProperties** | [**interface{}**](interface{}.md) | JSON representing the Media Properties for the new Participant.
+**RoutingProperties** | [**interface{}**](interface{}.md) | Object representing the Routing Properties for the new Participant.
 
 ### Return type
 

@@ -52,7 +52,7 @@ Name | Type | Description
 **BusinessContactFirstName** | **string** | The first name of the contact for the business or organization using the Tollfree number.
 **BusinessContactLastName** | **string** | The last name of the contact for the business or organization using the Tollfree number.
 **BusinessContactEmail** | **string** | The email address of the contact for the business or organization using the Tollfree number.
-**BusinessContactPhone** | **string** | The phone number of the contact for the business or organization using the Tollfree number.
+**BusinessContactPhone** | **string** | The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 **ExternalReferenceId** | **string** | An optional external reference ID supplied by customer and echoed back on status retrieval.
 
 ### Return type
@@ -241,7 +241,7 @@ Name | Type | Description
 **BusinessContactFirstName** | **string** | The first name of the contact for the business or organization using the Tollfree number.
 **BusinessContactLastName** | **string** | The last name of the contact for the business or organization using the Tollfree number.
 **BusinessContactEmail** | **string** | The email address of the contact for the business or organization using the Tollfree number.
-**BusinessContactPhone** | **string** | The phone number of the contact for the business or organization using the Tollfree number.
+**BusinessContactPhone** | **string** | The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 **EditReason** | **string** | Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 
 ### Return type

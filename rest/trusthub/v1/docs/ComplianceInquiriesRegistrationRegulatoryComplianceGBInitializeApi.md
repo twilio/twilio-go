@@ -30,7 +30,7 @@ Name | Type | Description
 **EndUserType** | **string** | 
 **PhoneNumberType** | **string** | 
 **BusinessIdentityType** | **string** | 
-**BusinessRegistrationAuthority** | **string** | The authority that registered the business
+**BusinessRegistrationAuthority** | **string** | 
 **BusinessLegalName** | **string** | he name of the business or organization using the Tollfree number.
 **NotificationEmail** | **string** | he email address to receive the notification about the verification result.
 **AcceptedNotificationReceipt** | **bool** | The email address to receive the notification about the verification result.
@@ -57,6 +57,12 @@ Name | Type | Description
 **UseAddressAsEmergencyAddress** | **bool** | Use the business address as the emergency address
 **FileName** | **string** | The name of the verification document to upload
 **File** | **string** | The verification document to upload
+**FirstName** | **string** | The first name of the Individual User.
+**LastName** | **string** | The last name of the Individual User.
+**DateOfBirth** | **string** | The date of birth of the Individual User.
+**IndividualEmail** | **string** | The email address of the Individual User.
+**IndividualPhone** | **string** | The phone number of the Individual User.
+**IsIsvEmbed** | **bool** | Indicates if the inquiry is being started from an ISV embedded component.
 
 ### Return type
 

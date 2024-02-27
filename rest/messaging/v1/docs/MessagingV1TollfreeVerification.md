@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **BusinessContactFirstName** | Pointer to **string** | The first name of the contact for the business or organization using the Tollfree number. |
 **BusinessContactLastName** | Pointer to **string** | The last name of the contact for the business or organization using the Tollfree number. |
 **BusinessContactEmail** | Pointer to **string** | The email address of the contact for the business or organization using the Tollfree number. |
-**BusinessContactPhone** | Pointer to **string** | The phone number of the contact for the business or organization using the Tollfree number. |
+**BusinessContactPhone** | Pointer to **string** | The E.164 formatted phone number of the contact for the business or organization using the Tollfree number. |
 **NotificationEmail** | Pointer to **string** | The email address to receive the notification about the verification result. . |
 **UseCaseCategories** | Pointer to **[]string** | The category of the use case for the Tollfree Number. List as many are applicable.. |
 **UseCaseSummary** | Pointer to **string** | Use this to further explain how messaging is used by the business or organization. |
@@ -38,6 +38,7 @@ Name | Type | Description | Notes
 **ErrorCode** | Pointer to **int** | The error code given when a Tollfree Verification has been rejected. |
 **EditExpiration** | Pointer to [**time.Time**](time.Time.md) | The date and time when the ability to edit a rejected verification expires. |
 **EditAllowed** | Pointer to **bool** | If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not. |
+**RejectionReasons** | Pointer to **[]interface{}** | A list of rejection reasons and codes describing why a Tollfree Verification has been rejected. |
 **ResourceLinks** | Pointer to **interface{}** | The URLs of the documents associated with the Tollfree Verification resource. |
 **ExternalReferenceId** | Pointer to **string** | An optional external reference ID supplied by customer and echoed back on status retrieval. |
 
