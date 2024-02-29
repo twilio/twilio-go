@@ -50,7 +50,7 @@ Name | Type | Description
 
 ## UpdateConfiguration
 
-> FlexV1Configuration UpdateConfiguration(ctx, )
+> FlexV1Configuration UpdateConfiguration(ctx, optional)
 
 
 
@@ -65,6 +65,10 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a UpdateConfigurationParams struct
 
 
+Name | Type | Description
+------------- | ------------- | -------------
+**Body** | **map[string]interface{}** | 
+
 ### Return type
 
 [**FlexV1Configuration**](FlexV1Configuration.md)
@@ -75,7 +79,7 @@ Other parameters are passed through a pointer to a UpdateConfigurationParams str
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

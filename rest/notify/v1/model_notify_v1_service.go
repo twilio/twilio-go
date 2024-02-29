@@ -36,7 +36,7 @@ type NotifyV1Service struct {
 	GcmCredentialSid *string `json:"gcm_credential_sid,omitempty"`
 	// The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
 	FcmCredentialSid *string `json:"fcm_credential_sid,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. In order to send SMS notifications this parameter has to be set.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. In order to send SMS notifications this parameter has to be set.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// Deprecated.
 	FacebookMessengerPageId *string `json:"facebook_messenger_page_id,omitempty"`

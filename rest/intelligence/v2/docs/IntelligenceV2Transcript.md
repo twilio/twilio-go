@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this Transcript was updated, given in ISO 8601 format. |
 **Status** | Pointer to [**string**](TranscriptEnumStatus.md) |  |
 **Channel** | Pointer to **interface{}** | Media Channel describing Transcript Source and Participant Mapping |
-**DataLogging** | Pointer to **bool** | Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models. |
+**DataLogging** | Pointer to **bool** | Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent. |
 **LanguageCode** | Pointer to **string** | The default language code of the audio. |
 **CustomerKey** | Pointer to **string** |  |
 **MediaStartTime** | Pointer to [**time.Time**](time.Time.md) | The date that this Transcript's media was started, given in ISO 8601 format. |

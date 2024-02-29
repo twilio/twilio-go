@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **MessagingServiceInstanceSid** | Pointer to **string** | The SID of the Messaging service instance. |
 **ChatServiceInstanceSid** | Pointer to **string** | The SID of the chat service this user belongs to. |
 **FlexServiceInstanceSid** | Pointer to **string** | The SID of the Flex service instance. |
+**FlexInstanceSid** | Pointer to **string** | The SID of the Flex instance. |
 **UiLanguage** | Pointer to **string** | The primary language of the Flex UI. |
 **UiAttributes** | Pointer to **interface{}** | The object that describes Flex UI characteristics and settings. |
 **UiDependencies** | Pointer to **interface{}** | The object that defines the NPM packages and versions to be used in Hosted Flex. |

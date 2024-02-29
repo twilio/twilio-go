@@ -38,6 +38,12 @@ type MessagingV1UsAppToPerson struct {
 	HasEmbeddedLinks *bool `json:"has_embedded_links,omitempty"`
 	// Indicates that this SMS campaign will send messages that contain phone numbers.
 	HasEmbeddedPhone *bool `json:"has_embedded_phone,omitempty"`
+	// A boolean that specifies whether campaign has Subscriber Optin or not.
+	SubscriberOptIn *bool `json:"subscriber_opt_in,omitempty"`
+	// A boolean that specifies whether campaign is age gated or not.
+	AgeGated *bool `json:"age_gated,omitempty"`
+	// A boolean that specifies whether campaign allows direct lending or not.
+	DirectLending *bool `json:"direct_lending,omitempty"`
 	// Campaign status. Examples: IN_PROGRESS, VERIFIED, FAILED.
 	CampaignStatus *string `json:"campaign_status,omitempty"`
 	// The Campaign Registry (TCR) Campaign ID.

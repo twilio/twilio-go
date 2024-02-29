@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateEligibility
 
-> NumbersV1Eligibility CreateEligibility(ctx, )
+> NumbersV1Eligibility CreateEligibility(ctx, optional)
 
 
 
@@ -25,6 +25,10 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateEligibilityParams struct
 
 
+Name | Type | Description
+------------- | ------------- | -------------
+**Body** | **map[string]interface{}** | 
+
 ### Return type
 
 [**NumbersV1Eligibility**](NumbersV1Eligibility.md)
@@ -35,7 +39,7 @@ Other parameters are passed through a pointer to a CreateEligibilityParams struc
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

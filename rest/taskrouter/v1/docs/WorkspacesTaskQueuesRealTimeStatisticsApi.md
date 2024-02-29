@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## CreateTaskQueueBulkRealTimeStatistics
 
-> TaskrouterV1TaskQueueBulkRealTimeStatistics CreateTaskQueueBulkRealTimeStatistics(ctx, WorkspaceSid)
+> TaskrouterV1TaskQueueBulkRealTimeStatistics CreateTaskQueueBulkRealTimeStatistics(ctx, WorkspaceSidoptional)
 
 
 
@@ -32,6 +32,7 @@ Other parameters are passed through a pointer to a CreateTaskQueueBulkRealTimeSt
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**Body** | **map[string]interface{}** | 
 
 ### Return type
 
@@ -43,7 +44,7 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

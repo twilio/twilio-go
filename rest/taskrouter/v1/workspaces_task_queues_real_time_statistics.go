@@ -20,15 +20,37 @@ import (
 	"strings"
 )
 
+// Optional parameters for the method 'CreateTaskQueueBulkRealTimeStatistics'
+type CreateTaskQueueBulkRealTimeStatisticsParams struct {
+	//
+	Body *map[string]interface{} `json:"body,omitempty"`
+}
+
+func (params *CreateTaskQueueBulkRealTimeStatisticsParams) SetBody(Body map[string]interface{}) *CreateTaskQueueBulkRealTimeStatisticsParams {
+	params.Body = &Body
+	return params
+}
+
 // Fetch a Task Queue Real Time Statistics in bulk for the array of TaskQueue SIDs, support upto 50 in a request.
-func (c *ApiService) CreateTaskQueueBulkRealTimeStatistics(WorkspaceSid string) (*TaskrouterV1TaskQueueBulkRealTimeStatistics, error) {
+func (c *ApiService) CreateTaskQueueBulkRealTimeStatistics(WorkspaceSid string, params *CreateTaskQueueBulkRealTimeStatisticsParams) (*TaskrouterV1TaskQueueBulkRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +76,6 @@ func (params *FetchTaskQueueRealTimeStatisticsParams) SetTaskChannel(TaskChannel
 	return params
 }
 
-//
 func (c *ApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueRealTimeStatisticsParams) (*TaskrouterV1TaskQueueRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

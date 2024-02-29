@@ -67,7 +67,7 @@ type CreateTollfreeVerificationParams struct {
 	BusinessContactLastName *string `json:"BusinessContactLastName,omitempty"`
 	// The email address of the contact for the business or organization using the Tollfree number.
 	BusinessContactEmail *string `json:"BusinessContactEmail,omitempty"`
-	// The phone number of the contact for the business or organization using the Tollfree number.
+	// The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
 	// An optional external reference ID supplied by customer and echoed back on status retrieval.
 	ExternalReferenceId *string `json:"ExternalReferenceId,omitempty"`
@@ -166,7 +166,6 @@ func (params *CreateTollfreeVerificationParams) SetExternalReferenceId(ExternalR
 	return params
 }
 
-//
 func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications"
 
@@ -262,7 +261,6 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -280,7 +278,6 @@ func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -497,7 +494,7 @@ type UpdateTollfreeVerificationParams struct {
 	BusinessContactLastName *string `json:"BusinessContactLastName,omitempty"`
 	// The email address of the contact for the business or organization using the Tollfree number.
 	BusinessContactEmail *string `json:"BusinessContactEmail,omitempty"`
-	// The phone number of the contact for the business or organization using the Tollfree number.
+	// The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
 	// Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 	EditReason *string `json:"EditReason,omitempty"`
@@ -588,7 +585,6 @@ func (params *UpdateTollfreeVerificationParams) SetEditReason(EditReason string)
 	return params
 }
 
-//
 func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

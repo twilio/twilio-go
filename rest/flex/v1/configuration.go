@@ -30,7 +30,6 @@ func (params *FetchConfigurationParams) SetUiVersion(UiVersion string) *FetchCon
 	return params
 }
 
-//
 func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
@@ -56,14 +55,35 @@ func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*Flex
 	return ps, err
 }
 
-//
-func (c *ApiService) UpdateConfiguration() (*FlexV1Configuration, error) {
+// Optional parameters for the method 'UpdateConfiguration'
+type UpdateConfigurationParams struct {
+	//
+	Body *map[string]interface{} `json:"body,omitempty"`
+}
+
+func (params *UpdateConfigurationParams) SetBody(Body map[string]interface{}) *UpdateConfigurationParams {
+	params.Body = &Body
+	return params
+}
+
+func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

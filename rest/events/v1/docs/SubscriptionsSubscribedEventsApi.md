@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 
-Create a new Subscribed Event type for the subscription
+Add an event type to a Subscription.
 
 ### Path Parameters
 
@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a CreateSubscribedEventParams s
 Name | Type | Description
 ------------- | ------------- | -------------
 **Type** | **string** | Type of event being subscribed to.
-**SchemaVersion** | **int** | The schema version that the subscription should use.
+**SchemaVersion** | **int** | The schema version that the Subscription should use.
 
 ### Return type
 
@@ -62,7 +62,7 @@ Name | Type | Description
 
 
 
-Remove an event type from a subscription.
+Remove an event type from a Subscription.
 
 ### Path Parameters
 
@@ -210,7 +210,7 @@ Other parameters are passed through a pointer to a UpdateSubscribedEventParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**SchemaVersion** | **int** | The schema version that the subscription should use.
+**SchemaVersion** | **int** | The schema version that the Subscription should use.
 
 ### Return type
 

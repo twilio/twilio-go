@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## CreateBulkHostedNumberOrder
 
-> NumbersV2BulkHostedNumberOrder CreateBulkHostedNumberOrder(ctx, )
+> NumbersV2BulkHostedNumberOrder CreateBulkHostedNumberOrder(ctx, optional)
 
 
 
@@ -26,6 +26,10 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateBulkHostedNumberOrderParams struct
 
 
+Name | Type | Description
+------------- | ------------- | -------------
+**Body** | **map[string]interface{}** | 
+
 ### Return type
 
 [**NumbersV2BulkHostedNumberOrder**](NumbersV2BulkHostedNumberOrder.md)
@@ -36,7 +40,7 @@ Other parameters are passed through a pointer to a CreateBulkHostedNumberOrderPa
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -64,11 +64,6 @@ Class | Method | HTTP request | Description
 *AccountsCallsApi* | [**ListCall**](docs/AccountsCallsApi.md#listcall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls.json | 
 *AccountsCallsApi* | [**UpdateCall**](docs/AccountsCallsApi.md#updatecall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | 
 *AccountsCallsEventsApi* | [**ListCallEvent**](docs/AccountsCallsEventsApi.md#listcallevent) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json | 
-*AccountsCallsFeedbackApi* | [**FetchCallFeedback**](docs/AccountsCallsFeedbackApi.md#fetchcallfeedback) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json | 
-*AccountsCallsFeedbackApi* | [**UpdateCallFeedback**](docs/AccountsCallsFeedbackApi.md#updatecallfeedback) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json | 
-*AccountsCallsFeedbackSummaryApi* | [**CreateCallFeedbackSummary**](docs/AccountsCallsFeedbackSummaryApi.md#createcallfeedbacksummary) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json | 
-*AccountsCallsFeedbackSummaryApi* | [**DeleteCallFeedbackSummary**](docs/AccountsCallsFeedbackSummaryApi.md#deletecallfeedbacksummary) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json | 
-*AccountsCallsFeedbackSummaryApi* | [**FetchCallFeedbackSummary**](docs/AccountsCallsFeedbackSummaryApi.md#fetchcallfeedbacksummary) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json | 
 *AccountsCallsNotificationsApi* | [**FetchCallNotification**](docs/AccountsCallsNotificationsApi.md#fetchcallnotification) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json | 
 *AccountsCallsNotificationsApi* | [**ListCallNotification**](docs/AccountsCallsNotificationsApi.md#listcallnotification) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json | 
 *AccountsCallsPaymentsApi* | [**CreatePayments**](docs/AccountsCallsPaymentsApi.md#createpayments) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json | 
@@ -255,7 +250,6 @@ Class | Method | HTTP request | Description
  - [ApiV2010CallNotificationInstance](docs/ApiV2010CallNotificationInstance.md)
  - [ListUsageRecordMonthlyResponse](docs/ListUsageRecordMonthlyResponse.md)
  - [ListSigningKey200Response](docs/ListSigningKey200Response.md)
- - [ApiV2010CallFeedback](docs/ApiV2010CallFeedback.md)
  - [ListUsageRecordLastMonthResponse](docs/ListUsageRecordLastMonthResponse.md)
  - [ApiV2010RecordingTranscription](docs/ApiV2010RecordingTranscription.md)
  - [ListRecordingTranscription200Response](docs/ListRecordingTranscription200Response.md)
@@ -287,7 +281,6 @@ Class | Method | HTTP request | Description
  - [ListUsageRecordYearly200Response](docs/ListUsageRecordYearly200Response.md)
  - [ApiV2010Media](docs/ApiV2010Media.md)
  - [ApiV2010UsageRecordYearly](docs/ApiV2010UsageRecordYearly.md)
- - [ApiV2010CallFeedbackSummary](docs/ApiV2010CallFeedbackSummary.md)
  - [ListAuthorizedConnectApp200Response](docs/ListAuthorizedConnectApp200Response.md)
  - [ListKeyResponse](docs/ListKeyResponse.md)
  - [ApiV2010NotificationInstance](docs/ApiV2010NotificationInstance.md)

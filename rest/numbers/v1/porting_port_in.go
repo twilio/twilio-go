@@ -17,16 +17,39 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+	"strings"
 )
 
-// Allows to create a port in request
-func (c *ApiService) CreatePortingPortIn() (*NumbersV1PortingPortIn, error) {
+// Optional parameters for the method 'CreatePortingPortIn'
+type CreatePortingPortInParams struct {
+	//
+	Body *map[string]interface{} `json:"body,omitempty"`
+}
+
+func (params *CreatePortingPortInParams) SetBody(Body map[string]interface{}) *CreatePortingPortInParams {
+	params.Body = &Body
+	return params
+}
+
+// Allows to create a new port in request
+func (c *ApiService) CreatePortingPortIn(params *CreatePortingPortInParams) (*NumbersV1PortingPortIn, error) {
 	path := "/v1/Porting/PortIn"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -34,6 +57,29 @@ func (c *ApiService) CreatePortingPortIn() (*NumbersV1PortingPortIn, error) {
 	defer resp.Body.Close()
 
 	ps := &NumbersV1PortingPortIn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Fetch a port in request by SID
+func (c *ApiService) FetchPortingPortInFetch(PortInRequestSid string) (*NumbersV1PortingPortInFetch, error) {
+	path := "/v1/Porting/PortIn/{PortInRequestSid}"
+	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1PortingPortInFetch{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

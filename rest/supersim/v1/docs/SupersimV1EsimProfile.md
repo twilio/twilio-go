@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string that we created to identify the eSIM Profile resource. |
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the eSIM Profile resource belongs. |
 **Iccid** | Pointer to **string** | The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the Sim resource. |
-**SimSid** | Pointer to **string** | The SID of the [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource that this eSIM Profile controls. |
+**SimSid** | Pointer to **string** | The SID of the [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource that this eSIM Profile controls. |
 **Status** | Pointer to [**string**](EsimProfileEnumStatus.md) |  |
 **Eid** | Pointer to **string** | Identifier of the eUICC that can claim the eSIM Profile. |
 **SmdpPlusAddress** | Pointer to **string** | Address of the SM-DP+ server from which the Profile will be downloaded. The URL will appear once the eSIM Profile reaches the status `available`. |

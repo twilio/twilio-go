@@ -64,6 +64,7 @@ Class | Method | HTTP request | Description
 *ServicesComplianceUsa2pApi* | [**DeleteUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#deleteusapptoperson) | **Delete** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 *ServicesComplianceUsa2pApi* | [**FetchUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#fetchusapptoperson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 *ServicesComplianceUsa2pApi* | [**ListUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#listusapptoperson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
+*ServicesComplianceUsa2pApi* | [**UpdateUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#updateusapptoperson) | **Post** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 *ServicesComplianceUsa2pUsecasesApi* | [**FetchUsAppToPersonUsecase**](docs/ServicesComplianceUsa2pUsecasesApi.md#fetchusapptopersonusecase) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases | 
 *ServicesPhoneNumbersApi* | [**CreatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#createphonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
 *ServicesPhoneNumbersApi* | [**DeletePhoneNumber**](docs/ServicesPhoneNumbersApi.md#deletephonenumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 

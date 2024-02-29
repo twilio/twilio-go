@@ -31,7 +31,7 @@ type CreateServiceParams struct {
 	ApnCredentialSid *string `json:"ApnCredentialSid,omitempty"`
 	// The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
 	GcmCredentialSid *string `json:"GcmCredentialSid,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	// Deprecated.
 	FacebookMessengerPageId *string `json:"FacebookMessengerPageId,omitempty"`
@@ -112,7 +112,6 @@ func (params *CreateServiceParams) SetDeliveryCallbackEnabled(DeliveryCallbackEn
 	return params
 }
 
-//
 func (c *ApiService) CreateService(params *CreateServiceParams) (*NotifyV1Service, error) {
 	path := "/v1/Services"
 
@@ -177,7 +176,6 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*NotifyV1Servic
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -195,7 +193,6 @@ func (c *ApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchService(Sid string) (*NotifyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -371,7 +368,7 @@ type UpdateServiceParams struct {
 	ApnCredentialSid *string `json:"ApnCredentialSid,omitempty"`
 	// The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
 	GcmCredentialSid *string `json:"GcmCredentialSid,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	// Deprecated.
 	FacebookMessengerPageId *string `json:"FacebookMessengerPageId,omitempty"`
@@ -452,7 +449,6 @@ func (params *UpdateServiceParams) SetDeliveryCallbackEnabled(DeliveryCallbackEn
 	return params
 }
 
-//
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*NotifyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

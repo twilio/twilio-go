@@ -18,11 +18,11 @@ import (
 	"github.com/twilio/twilio-go/client"
 	AccountsV1 "github.com/twilio/twilio-go/rest/accounts/v1"
 	Api "github.com/twilio/twilio-go/rest/api/v2010"
-	AutopilotV1 "github.com/twilio/twilio-go/rest/autopilot/v1"
 	BulkexportsV1 "github.com/twilio/twilio-go/rest/bulkexports/v1"
 	ChatV1 "github.com/twilio/twilio-go/rest/chat/v1"
 	ChatV2 "github.com/twilio/twilio-go/rest/chat/v2"
 	ChatV3 "github.com/twilio/twilio-go/rest/chat/v3"
+	ContentSdk "github.com/twilio/twilio-go/rest/content/sdk"
 	ContentV1 "github.com/twilio/twilio-go/rest/content/v1"
 	ConversationsV1 "github.com/twilio/twilio-go/rest/conversations/v1"
 	EventsV1 "github.com/twilio/twilio-go/rest/events/v1"
@@ -33,7 +33,6 @@ import (
 	IntelligenceV2 "github.com/twilio/twilio-go/rest/intelligence/v2"
 	IpMessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
 	IpMessagingV2 "github.com/twilio/twilio-go/rest/ip_messaging/v2"
-	LookupsBulk "github.com/twilio/twilio-go/rest/lookups/bulk"
 	LookupsV1 "github.com/twilio/twilio-go/rest/lookups/v1"
 	LookupsV2 "github.com/twilio/twilio-go/rest/lookups/v2"
 	MediaV1 "github.com/twilio/twilio-go/rest/media/v1"
@@ -67,11 +66,11 @@ type RestClient struct {
 	*client.RequestHandler
 	AccountsV1      *AccountsV1.ApiService
 	Api             *Api.ApiService
-	AutopilotV1     *AutopilotV1.ApiService
 	BulkexportsV1   *BulkexportsV1.ApiService
 	ChatV1          *ChatV1.ApiService
 	ChatV2          *ChatV2.ApiService
 	ChatV3          *ChatV3.ApiService
+	ContentSdk      *ContentSdk.ApiService
 	ContentV1       *ContentV1.ApiService
 	ConversationsV1 *ConversationsV1.ApiService
 	EventsV1        *EventsV1.ApiService
@@ -82,7 +81,6 @@ type RestClient struct {
 	IntelligenceV2  *IntelligenceV2.ApiService
 	IpMessagingV1   *IpMessagingV1.ApiService
 	IpMessagingV2   *IpMessagingV2.ApiService
-	LookupsBulk     *LookupsBulk.ApiService
 	LookupsV1       *LookupsV1.ApiService
 	LookupsV2       *LookupsV2.ApiService
 	MediaV1         *MediaV1.ApiService
@@ -163,11 +161,11 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 
 	c.AccountsV1 = AccountsV1.NewApiService(c.RequestHandler)
 	c.Api = Api.NewApiService(c.RequestHandler)
-	c.AutopilotV1 = AutopilotV1.NewApiService(c.RequestHandler)
 	c.BulkexportsV1 = BulkexportsV1.NewApiService(c.RequestHandler)
 	c.ChatV1 = ChatV1.NewApiService(c.RequestHandler)
 	c.ChatV2 = ChatV2.NewApiService(c.RequestHandler)
 	c.ChatV3 = ChatV3.NewApiService(c.RequestHandler)
+	c.ContentSdk = ContentSdk.NewApiService(c.RequestHandler)
 	c.ContentV1 = ContentV1.NewApiService(c.RequestHandler)
 	c.ConversationsV1 = ConversationsV1.NewApiService(c.RequestHandler)
 	c.EventsV1 = EventsV1.NewApiService(c.RequestHandler)
@@ -178,7 +176,6 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.IntelligenceV2 = IntelligenceV2.NewApiService(c.RequestHandler)
 	c.IpMessagingV1 = IpMessagingV1.NewApiService(c.RequestHandler)
 	c.IpMessagingV2 = IpMessagingV2.NewApiService(c.RequestHandler)
-	c.LookupsBulk = LookupsBulk.NewApiService(c.RequestHandler)
 	c.LookupsV1 = LookupsV1.NewApiService(c.RequestHandler)
 	c.LookupsV2 = LookupsV2.NewApiService(c.RequestHandler)
 	c.MediaV1 = MediaV1.NewApiService(c.RequestHandler)

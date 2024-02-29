@@ -53,6 +53,8 @@ type FlexV1Configuration struct {
 	ChatServiceInstanceSid *string `json:"chat_service_instance_sid,omitempty"`
 	// The SID of the Flex service instance.
 	FlexServiceInstanceSid *string `json:"flex_service_instance_sid,omitempty"`
+	// The SID of the Flex instance.
+	FlexInstanceSid *string `json:"flex_instance_sid,omitempty"`
 	// The primary language of the Flex UI.
 	UiLanguage *string `json:"ui_language,omitempty"`
 	// The object that describes Flex UI characteristics and settings.

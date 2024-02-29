@@ -33,6 +33,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ComplianceInquiriesCustomersInitializeApi* | [**CreateComplianceInquiry**](docs/ComplianceInquiriesCustomersInitializeApi.md#createcomplianceinquiry) | **Post** /v1/ComplianceInquiries/Customers/Initialize | 
 *ComplianceInquiriesCustomersInitializeApi* | [**UpdateComplianceInquiry**](docs/ComplianceInquiriesCustomersInitializeApi.md#updatecomplianceinquiry) | **Post** /v1/ComplianceInquiries/Customers/{CustomerId}/Initialize | 
+*ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi* | [**CreateComplianceRegistration**](docs/ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi.md#createcomplianceregistration) | **Post** /v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize | 
 *ComplianceInquiriesTollfreeInitializeApi* | [**CreateComplianceTollfreeInquiry**](docs/ComplianceInquiriesTollfreeInitializeApi.md#createcompliancetollfreeinquiry) | **Post** /v1/ComplianceInquiries/Tollfree/Initialize | 
 *CustomerProfilesApi* | [**CreateCustomerProfile**](docs/CustomerProfilesApi.md#createcustomerprofile) | **Post** /v1/CustomerProfiles | 
 *CustomerProfilesApi* | [**DeleteCustomerProfile**](docs/CustomerProfilesApi.md#deletecustomerprofile) | **Delete** /v1/CustomerProfiles/{Sid} | 
@@ -115,6 +116,7 @@ Class | Method | HTTP request | Description
  - [ListCustomerProfileChannelEndpointAssignmentResponse](docs/ListCustomerProfileChannelEndpointAssignmentResponse.md)
  - [TrusthubV1ComplianceTollfreeInquiry](docs/TrusthubV1ComplianceTollfreeInquiry.md)
  - [TrusthubV1CustomerProfileEvaluation](docs/TrusthubV1CustomerProfileEvaluation.md)
+ - [TrusthubV1ComplianceRegistration](docs/TrusthubV1ComplianceRegistration.md)
 
 
 ## Documentation For Authorization

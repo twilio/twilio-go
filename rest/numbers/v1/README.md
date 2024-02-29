@@ -35,6 +35,7 @@ Class | Method | HTTP request | Description
 *HostedNumberEligibilityBulkApi* | [**CreateBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#createbulkeligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | 
 *HostedNumberEligibilityBulkApi* | [**FetchBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#fetchbulkeligibility) | **Get** /v1/HostedNumber/Eligibility/Bulk/{RequestId} | 
 *PortingPortInApi* | [**CreatePortingPortIn**](docs/PortingPortInApi.md#createportingportin) | **Post** /v1/Porting/PortIn | 
+*PortingPortInApi* | [**FetchPortingPortInFetch**](docs/PortingPortInApi.md#fetchportingportinfetch) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | 
 *PortingPortabilityApi* | [**CreatePortingBulkPortability**](docs/PortingPortabilityApi.md#createportingbulkportability) | **Post** /v1/Porting/Portability | 
 *PortingPortabilityApi* | [**FetchPortingBulkPortability**](docs/PortingPortabilityApi.md#fetchportingbulkportability) | **Get** /v1/Porting/Portability/{Sid} | 
 *PortingPortabilityPhoneNumberApi* | [**FetchPortingPortability**](docs/PortingPortabilityPhoneNumberApi.md#fetchportingportability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | 
@@ -44,6 +45,7 @@ Class | Method | HTTP request | Description
 
  - [NumbersV1PortingPortability](docs/NumbersV1PortingPortability.md)
  - [NumbersV1BulkEligibility](docs/NumbersV1BulkEligibility.md)
+ - [NumbersV1PortingPortInFetch](docs/NumbersV1PortingPortInFetch.md)
  - [NumbersV1Eligibility](docs/NumbersV1Eligibility.md)
  - [NumbersV1PortingBulkPortability](docs/NumbersV1PortingBulkPortability.md)
  - [NumbersV1PortingPortIn](docs/NumbersV1PortingPortIn.md)

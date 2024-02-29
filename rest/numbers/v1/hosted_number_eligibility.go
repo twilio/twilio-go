@@ -19,14 +19,36 @@ import (
 	"net/url"
 )
 
+// Optional parameters for the method 'CreateEligibility'
+type CreateEligibilityParams struct {
+	//
+	Body *map[string]interface{} `json:"body,omitempty"`
+}
+
+func (params *CreateEligibilityParams) SetBody(Body map[string]interface{}) *CreateEligibilityParams {
+	params.Body = &Body
+	return params
+}
+
 // Create an eligibility check for a number that you want to host in Twilio.
-func (c *ApiService) CreateEligibility() (*NumbersV1Eligibility, error) {
+func (c *ApiService) CreateEligibility(params *CreateEligibilityParams) (*NumbersV1Eligibility, error) {
 	path := "/v1/HostedNumber/Eligibility"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

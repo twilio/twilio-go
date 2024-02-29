@@ -24,4 +24,6 @@ type FlexV1InteractionChannelParticipant struct {
 	// The Channel Sid for this Participant.
 	ChannelSid *string `json:"channel_sid,omitempty"`
 	Url        *string `json:"url,omitempty"`
+	// The Participant's routing properties.
+	RoutingProperties *interface{} `json:"routing_properties,omitempty"`
 }

@@ -23,7 +23,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkerReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -302,6 +301,8 @@ type UpdateWorkerReservationParams struct {
 	EndConferenceOnCustomerExit *bool `json:"EndConferenceOnCustomerExit,omitempty"`
 	// Whether to play a notification beep when the customer joins.
 	BeepOnCustomerEntrance *bool `json:"BeepOnCustomerEntrance,omitempty"`
+	// The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
+	JitterBufferSize *string `json:"JitterBufferSize,omitempty"`
 }
 
 func (params *UpdateWorkerReservationParams) SetIfMatch(IfMatch string) *UpdateWorkerReservationParams {
@@ -512,8 +513,11 @@ func (params *UpdateWorkerReservationParams) SetBeepOnCustomerEntrance(BeepOnCus
 	params.BeepOnCustomerEntrance = &BeepOnCustomerEntrance
 	return params
 }
+func (params *UpdateWorkerReservationParams) SetJitterBufferSize(JitterBufferSize string) *UpdateWorkerReservationParams {
+	params.JitterBufferSize = &JitterBufferSize
+	return params
+}
 
-//
 func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerReservationParams) (*TaskrouterV1WorkerReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -681,6 +685,9 @@ func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid stri
 	}
 	if params != nil && params.BeepOnCustomerEntrance != nil {
 		data.Set("BeepOnCustomerEntrance", fmt.Sprint(*params.BeepOnCustomerEntrance))
+	}
+	if params != nil && params.JitterBufferSize != nil {
+		data.Set("JitterBufferSize", *params.JitterBufferSize)
 	}
 
 	if params != nil && params.IfMatch != nil {

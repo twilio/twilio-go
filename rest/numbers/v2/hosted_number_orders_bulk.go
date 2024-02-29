@@ -20,14 +20,36 @@ import (
 	"strings"
 )
 
+// Optional parameters for the method 'CreateBulkHostedNumberOrder'
+type CreateBulkHostedNumberOrderParams struct {
+	//
+	Body *map[string]interface{} `json:"body,omitempty"`
+}
+
+func (params *CreateBulkHostedNumberOrderParams) SetBody(Body map[string]interface{}) *CreateBulkHostedNumberOrderParams {
+	params.Body = &Body
+	return params
+}
+
 // Host multiple phone numbers on Twilio's platform.
-func (c *ApiService) CreateBulkHostedNumberOrder() (*NumbersV2BulkHostedNumberOrder, error) {
+func (c *ApiService) CreateBulkHostedNumberOrder(params *CreateBulkHostedNumberOrderParams) (*NumbersV2BulkHostedNumberOrder, error) {
 	path := "/v2/HostedNumber/Orders/Bulk"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

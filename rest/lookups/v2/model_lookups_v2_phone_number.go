@@ -34,8 +34,8 @@ type LookupsV2PhoneNumber struct {
 	SimSwap *interface{} `json:"sim_swap,omitempty"`
 	// An object that contains information on the unconditional call forwarding status of mobile phone number.
 	CallForwarding *interface{} `json:"call_forwarding,omitempty"`
-	// An object that contains live activity information for a mobile phone number.
-	LiveActivity *interface{} `json:"live_activity,omitempty"`
+	// An object that contains line status information for a mobile phone number.
+	LineStatus *interface{} `json:"line_status,omitempty"`
 	// An object that contains line type information including the carrier name, mobile country code, and mobile network code.
 	LineTypeIntelligence *interface{} `json:"line_type_intelligence,omitempty"`
 	// An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources

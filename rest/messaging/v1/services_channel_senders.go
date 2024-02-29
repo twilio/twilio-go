@@ -23,7 +23,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchChannelSender(MessagingServiceSid string, Sid string) (*MessagingV1ChannelSender, error) {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)

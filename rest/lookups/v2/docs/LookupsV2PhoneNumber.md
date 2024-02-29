@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **CallerName** | Pointer to **interface{}** | An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID). |
 **SimSwap** | Pointer to **interface{}** | An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number. |
 **CallForwarding** | Pointer to **interface{}** | An object that contains information on the unconditional call forwarding status of mobile phone number. |
-**LiveActivity** | Pointer to **interface{}** | An object that contains live activity information for a mobile phone number. |
+**LineStatus** | Pointer to **interface{}** | An object that contains line status information for a mobile phone number. |
 **LineTypeIntelligence** | Pointer to **interface{}** | An object that contains line type information including the carrier name, mobile country code, and mobile network code. |
 **IdentityMatch** | Pointer to **interface{}** | An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources |
 **ReassignedNumber** | Pointer to **interface{}** | An object that contains reassigned number information. Reassigned Numbers will return a phone number's reassignment status given a phone number and date |

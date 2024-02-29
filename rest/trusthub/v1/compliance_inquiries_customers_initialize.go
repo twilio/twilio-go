@@ -24,10 +24,16 @@ import (
 type CreateComplianceInquiryParams struct {
 	// The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
 	PrimaryProfileSid *string `json:"PrimaryProfileSid,omitempty"`
+	// The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
+	NotificationEmail *string `json:"NotificationEmail,omitempty"`
 }
 
 func (params *CreateComplianceInquiryParams) SetPrimaryProfileSid(PrimaryProfileSid string) *CreateComplianceInquiryParams {
 	params.PrimaryProfileSid = &PrimaryProfileSid
+	return params
+}
+func (params *CreateComplianceInquiryParams) SetNotificationEmail(NotificationEmail string) *CreateComplianceInquiryParams {
+	params.NotificationEmail = &NotificationEmail
 	return params
 }
 
@@ -40,6 +46,9 @@ func (c *ApiService) CreateComplianceInquiry(params *CreateComplianceInquiryPara
 
 	if params != nil && params.PrimaryProfileSid != nil {
 		data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
+	}
+	if params != nil && params.NotificationEmail != nil {
+		data.Set("NotificationEmail", *params.NotificationEmail)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
