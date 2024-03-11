@@ -2,6 +2,14 @@
 
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
+## [2024-03-11] 1.x.x to 2.x.x
+### Overview
+
+#### Twilio Go Helper Library’s major version 2.0.0 is now available. We ensured that you can upgrade to Go helper Library 2.0.0 version without any breaking changes of existing apis
+
+Behind the scenes Go Helper is now auto-generated via OpenAPI with this release. This enables us to rapidly add new features and enhance consistency across versions and languages.
+We're pleased to inform you that version 2.0.0 adds support for the application/json content type in the request body.
+
 [2022-10-05] 0.26.x to 1.x.x
 -----------------------------
 ### NEW FEATURE - Added Support for Twiml Building
