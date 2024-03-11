@@ -86,7 +86,7 @@ func (params *ListAuthorizedConnectAppParams) SetLimit(Limit int) *ListAuthorize
 }
 
 // Retrieve a single page of AuthorizedConnectApp records from the API. Request is executed immediately.
-func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, pageToken, pageNumber string) (*ListAuthorizedConnectAppResponse, error) {
+func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, pageToken, pageNumber string) (*ListAuthorizedConnectApp200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -116,7 +116,7 @@ func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 
 	defer resp.Body.Close()
 
-	ps := &ListAuthorizedConnectAppResponse{}
+	ps := &ListAuthorizedConnectApp200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -162,7 +162,7 @@ func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectApp
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAuthorizedConnectApp(response *ListAuthorizedConnectAppResponse, params *ListAuthorizedConnectAppParams, recordChannel chan ApiV2010AuthorizedConnectApp, errorChannel chan error) {
+func (c *ApiService) streamAuthorizedConnectApp(response *ListAuthorizedConnectApp200Response, params *ListAuthorizedConnectAppParams, recordChannel chan ApiV2010AuthorizedConnectApp, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -177,7 +177,7 @@ func (c *ApiService) streamAuthorizedConnectApp(response *ListAuthorizedConnectA
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAuthorizedConnectAppResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAuthorizedConnectApp200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -185,14 +185,14 @@ func (c *ApiService) streamAuthorizedConnectApp(response *ListAuthorizedConnectA
 			break
 		}
 
-		response = record.(*ListAuthorizedConnectAppResponse)
+		response = record.(*ListAuthorizedConnectApp200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAuthorizedConnectAppResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAuthorizedConnectApp200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -203,7 +203,7 @@ func (c *ApiService) getNextListAuthorizedConnectAppResponse(nextPageUrl string)
 
 	defer resp.Body.Close()
 
-	ps := &ListAuthorizedConnectAppResponse{}
+	ps := &ListAuthorizedConnectApp200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

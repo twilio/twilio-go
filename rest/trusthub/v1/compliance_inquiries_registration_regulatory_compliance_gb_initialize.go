@@ -94,6 +94,10 @@ type CreateComplianceRegistrationParams struct {
 	IndividualPhone *string `json:"IndividualPhone,omitempty"`
 	// Indicates if the inquiry is being started from an ISV embedded component.
 	IsIsvEmbed *bool `json:"IsIsvEmbed,omitempty"`
+	// Indicates if the isv registering for self or tenant.
+	IsvRegisteringForSelfOrTenant *string `json:"IsvRegisteringForSelfOrTenant,omitempty"`
+	// The url we call to inform you of bundle changes.
+	StatusCallbackUrl *string `json:"StatusCallbackUrl,omitempty"`
 }
 
 func (params *CreateComplianceRegistrationParams) SetEndUserType(EndUserType string) *CreateComplianceRegistrationParams {
@@ -240,6 +244,14 @@ func (params *CreateComplianceRegistrationParams) SetIsIsvEmbed(IsIsvEmbed bool)
 	params.IsIsvEmbed = &IsIsvEmbed
 	return params
 }
+func (params *CreateComplianceRegistrationParams) SetIsvRegisteringForSelfOrTenant(IsvRegisteringForSelfOrTenant string) *CreateComplianceRegistrationParams {
+	params.IsvRegisteringForSelfOrTenant = &IsvRegisteringForSelfOrTenant
+	return params
+}
+func (params *CreateComplianceRegistrationParams) SetStatusCallbackUrl(StatusCallbackUrl string) *CreateComplianceRegistrationParams {
+	params.StatusCallbackUrl = &StatusCallbackUrl
+	return params
+}
 
 // Create a new Compliance Registration Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegistrationParams) (*TrusthubV1ComplianceRegistration, error) {
@@ -355,6 +367,12 @@ func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegist
 	}
 	if params != nil && params.IsIsvEmbed != nil {
 		data.Set("IsIsvEmbed", fmt.Sprint(*params.IsIsvEmbed))
+	}
+	if params != nil && params.IsvRegisteringForSelfOrTenant != nil {
+		data.Set("IsvRegisteringForSelfOrTenant", *params.IsvRegisteringForSelfOrTenant)
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

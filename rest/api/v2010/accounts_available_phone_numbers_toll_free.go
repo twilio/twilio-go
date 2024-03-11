@@ -155,7 +155,7 @@ func (params *ListAvailablePhoneNumberTollFreeParams) SetLimit(Limit int) *ListA
 }
 
 // Retrieve a single page of AvailablePhoneNumberTollFree records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberTollFreeResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberTollFree200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -240,7 +240,7 @@ func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params
 
 	defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberTollFreeResponse{}
+	ps := &ListAvailablePhoneNumberTollFree200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -286,7 +286,7 @@ func (c *ApiService) StreamAvailablePhoneNumberTollFree(CountryCode string, para
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberTollFree(response *ListAvailablePhoneNumberTollFreeResponse, params *ListAvailablePhoneNumberTollFreeParams, recordChannel chan ApiV2010AvailablePhoneNumberTollFree, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberTollFree(response *ListAvailablePhoneNumberTollFree200Response, params *ListAvailablePhoneNumberTollFreeParams, recordChannel chan ApiV2010AvailablePhoneNumberTollFree, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -301,7 +301,7 @@ func (c *ApiService) streamAvailablePhoneNumberTollFree(response *ListAvailableP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberTollFreeResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberTollFree200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -309,14 +309,14 @@ func (c *ApiService) streamAvailablePhoneNumberTollFree(response *ListAvailableP
 			break
 		}
 
-		response = record.(*ListAvailablePhoneNumberTollFreeResponse)
+		response = record.(*ListAvailablePhoneNumberTollFree200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberTollFreeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailablePhoneNumberTollFree200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -327,7 +327,7 @@ func (c *ApiService) getNextListAvailablePhoneNumberTollFreeResponse(nextPageUrl
 
 	defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberTollFreeResponse{}
+	ps := &ListAvailablePhoneNumberTollFree200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -36,7 +36,6 @@ func (params *CreateExternalCampaignParams) SetMessagingServiceSid(MessagingServ
 	return params
 }
 
-//
 func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
 	path := "/v1/Services/PreregisteredUsa2p"
 

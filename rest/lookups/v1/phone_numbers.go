@@ -49,7 +49,6 @@ func (params *FetchPhoneNumberParams) SetAddOnsData(AddOnsData map[string]interf
 	return params
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV1PhoneNumber, error) {
 	path := "/v1/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)

@@ -17,10 +17,10 @@ package openapi
 // ListChannelResponseMeta struct for ListChannelResponseMeta
 type ListChannelResponseMeta struct {
 	FirstPageUrl    string  `json:"first_page_url,omitempty"`
+	Key             string  `json:"key,omitempty"`
 	NextPageUrl     *string `json:"next_page_url,omitempty"`
 	Page            int     `json:"page,omitempty"`
 	PageSize        int     `json:"page_size,omitempty"`
 	PreviousPageUrl *string `json:"previous_page_url,omitempty"`
 	Url             string  `json:"url,omitempty"`
-	Key             string  `json:"key,omitempty"`
 }

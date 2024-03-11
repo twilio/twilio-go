@@ -82,7 +82,6 @@ func (params *DeleteSigningKeyParams) SetPathAccountSid(PathAccountSid string) *
 	return params
 }
 
-//
 func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -116,7 +115,6 @@ func (params *FetchSigningKeyParams) SetPathAccountSid(PathAccountSid string) *F
 	return params
 }
 
-//
 func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -168,7 +166,7 @@ func (params *ListSigningKeyParams) SetLimit(Limit int) *ListSigningKeyParams {
 }
 
 // Retrieve a single page of SigningKey records from the API. Request is executed immediately.
-func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pageNumber string) (*ListSigningKeyResponse, error) {
+func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pageNumber string) (*ListSigningKey200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -198,7 +196,7 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pag
 
 	defer resp.Body.Close()
 
-	ps := &ListSigningKeyResponse{}
+	ps := &ListSigningKey200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -244,7 +242,7 @@ func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV20
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *ListSigningKeyParams, recordChannel chan ApiV2010SigningKey, errorChannel chan error) {
+func (c *ApiService) streamSigningKey(response *ListSigningKey200Response, params *ListSigningKeyParams, recordChannel chan ApiV2010SigningKey, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -259,7 +257,7 @@ func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSigningKeyResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSigningKey200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -267,14 +265,14 @@ func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *
 			break
 		}
 
-		response = record.(*ListSigningKeyResponse)
+		response = record.(*ListSigningKey200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSigningKeyResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSigningKey200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -285,7 +283,7 @@ func (c *ApiService) getNextListSigningKeyResponse(nextPageUrl string) (interfac
 
 	defer resp.Body.Close()
 
-	ps := &ListSigningKeyResponse{}
+	ps := &ListSigningKey200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -309,7 +307,6 @@ func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
