@@ -21,7 +21,7 @@ import (
 )
 
 // Fetch a Content resource's approval status by its unique Content Sid
-func (c *ApiService) FetchApprovalFetch(Sid string) (*ContentV1ApprovalFetch, error) {
+func (c *ApiService) FetchApproval(Sid string) (*ContentV1ApprovalFetch, error) {
 	path := "/v1/Content/{Sid}/ApprovalRequests"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 

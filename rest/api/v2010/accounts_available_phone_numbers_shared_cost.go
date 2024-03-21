@@ -155,7 +155,7 @@ func (params *ListAvailablePhoneNumberSharedCostParams) SetLimit(Limit int) *Lis
 }
 
 // Retrieve a single page of AvailablePhoneNumberSharedCost records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberSharedCostResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberSharedCost200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -240,7 +240,7 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 
 	defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberSharedCostResponse{}
+	ps := &ListAvailablePhoneNumberSharedCost200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -286,7 +286,7 @@ func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, pa
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberSharedCost(response *ListAvailablePhoneNumberSharedCostResponse, params *ListAvailablePhoneNumberSharedCostParams, recordChannel chan ApiV2010AvailablePhoneNumberSharedCost, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberSharedCost(response *ListAvailablePhoneNumberSharedCost200Response, params *ListAvailablePhoneNumberSharedCostParams, recordChannel chan ApiV2010AvailablePhoneNumberSharedCost, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -301,7 +301,7 @@ func (c *ApiService) streamAvailablePhoneNumberSharedCost(response *ListAvailabl
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberSharedCostResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberSharedCost200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -309,14 +309,14 @@ func (c *ApiService) streamAvailablePhoneNumberSharedCost(response *ListAvailabl
 			break
 		}
 
-		response = record.(*ListAvailablePhoneNumberSharedCostResponse)
+		response = record.(*ListAvailablePhoneNumberSharedCost200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberSharedCostResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailablePhoneNumberSharedCost200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -327,7 +327,7 @@ func (c *ApiService) getNextListAvailablePhoneNumberSharedCostResponse(nextPageU
 
 	defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberSharedCostResponse{}
+	ps := &ListAvailablePhoneNumberSharedCost200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

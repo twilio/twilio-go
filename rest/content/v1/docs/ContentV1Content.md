@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **FriendlyName** | Pointer to **string** | A string name used to describe the Content resource. Not visible to the end recipient. |
 **Language** | Pointer to **string** | Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in. |
 **Variables** | Pointer to **interface{}** | Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}. |
-**Types** | Pointer to **interface{}** | The [Content types](https://www.twilio.com/docs/content/content-types-overview) (e.g. twilio/text) for this Content resource. |
+**Types** | Pointer to **interface{}** | The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource. |
 **Url** | Pointer to **string** | The URL of the resource, relative to `https://content.twilio.com`. |
 **Links** | Pointer to **map[string]interface{}** | A list of links related to the Content resource, such as approval_fetch and approval_create |
 

@@ -236,7 +236,7 @@ func (params *ListCallRecordingParams) SetLimit(Limit int) *ListCallRecordingPar
 }
 
 // Retrieve a single page of CallRecording records from the API. Request is executed immediately.
-func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecordingParams, pageToken, pageNumber string) (*ListCallRecordingResponse, error) {
+func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecordingParams, pageToken, pageNumber string) (*ListCallRecording200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -276,7 +276,7 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 
 	defer resp.Body.Close()
 
-	ps := &ListCallRecordingResponse{}
+	ps := &ListCallRecording200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -322,7 +322,7 @@ func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordi
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCallRecording(response *ListCallRecordingResponse, params *ListCallRecordingParams, recordChannel chan ApiV2010CallRecording, errorChannel chan error) {
+func (c *ApiService) streamCallRecording(response *ListCallRecording200Response, params *ListCallRecordingParams, recordChannel chan ApiV2010CallRecording, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -337,7 +337,7 @@ func (c *ApiService) streamCallRecording(response *ListCallRecordingResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCallRecordingResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCallRecording200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -345,14 +345,14 @@ func (c *ApiService) streamCallRecording(response *ListCallRecordingResponse, pa
 			break
 		}
 
-		response = record.(*ListCallRecordingResponse)
+		response = record.(*ListCallRecording200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCallRecordingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCallRecording200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -363,7 +363,7 @@ func (c *ApiService) getNextListCallRecordingResponse(nextPageUrl string) (inter
 
 	defer resp.Body.Close()
 
-	ps := &ListCallRecordingResponse{}
+	ps := &ListCallRecording200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

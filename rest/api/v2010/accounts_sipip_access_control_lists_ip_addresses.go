@@ -189,7 +189,7 @@ func (params *ListSipIpAddressParams) SetLimit(Limit int) *ListSipIpAddressParam
 }
 
 // Retrieve a single page of SipIpAddress records from the API. Request is executed immediately.
-func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, pageToken, pageNumber string) (*ListSipIpAddressResponse, error) {
+func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, pageToken, pageNumber string) (*ListSipIpAddress200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -220,7 +220,7 @@ func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *Lis
 
 	defer resp.Body.Close()
 
-	ps := &ListSipIpAddressResponse{}
+	ps := &ListSipIpAddress200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -266,7 +266,7 @@ func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *L
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipIpAddress(response *ListSipIpAddressResponse, params *ListSipIpAddressParams, recordChannel chan ApiV2010SipIpAddress, errorChannel chan error) {
+func (c *ApiService) streamSipIpAddress(response *ListSipIpAddress200Response, params *ListSipIpAddressParams, recordChannel chan ApiV2010SipIpAddress, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -281,7 +281,7 @@ func (c *ApiService) streamSipIpAddress(response *ListSipIpAddressResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSipIpAddressResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSipIpAddress200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -289,14 +289,14 @@ func (c *ApiService) streamSipIpAddress(response *ListSipIpAddressResponse, para
 			break
 		}
 
-		response = record.(*ListSipIpAddressResponse)
+		response = record.(*ListSipIpAddress200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipIpAddressResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSipIpAddress200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -307,7 +307,7 @@ func (c *ApiService) getNextListSipIpAddressResponse(nextPageUrl string) (interf
 
 	defer resp.Body.Close()
 
-	ps := &ListSipIpAddressResponse{}
+	ps := &ListSipIpAddress200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

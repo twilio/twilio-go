@@ -176,10 +176,6 @@ type ListBundleParams struct {
 	SortDirection *string `json:"SortDirection,omitempty"`
 	// Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
 	ValidUntilDate *time.Time `json:"ValidUntilDate,omitempty"`
-	// Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-	ValidUntilDateBefore *time.Time `json:"ValidUntilDate&lt;,omitempty"`
-	// Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-	ValidUntilDateAfter *time.Time `json:"ValidUntilDate&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -220,14 +216,6 @@ func (params *ListBundleParams) SetSortDirection(SortDirection string) *ListBund
 }
 func (params *ListBundleParams) SetValidUntilDate(ValidUntilDate time.Time) *ListBundleParams {
 	params.ValidUntilDate = &ValidUntilDate
-	return params
-}
-func (params *ListBundleParams) SetValidUntilDateBefore(ValidUntilDateBefore time.Time) *ListBundleParams {
-	params.ValidUntilDateBefore = &ValidUntilDateBefore
-	return params
-}
-func (params *ListBundleParams) SetValidUntilDateAfter(ValidUntilDateAfter time.Time) *ListBundleParams {
-	params.ValidUntilDateAfter = &ValidUntilDateAfter
 	return params
 }
 func (params *ListBundleParams) SetPageSize(PageSize int) *ListBundleParams {
@@ -272,12 +260,6 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 	}
 	if params != nil && params.ValidUntilDate != nil {
 		data.Set("ValidUntilDate", fmt.Sprint((*params.ValidUntilDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.ValidUntilDateBefore != nil {
-		data.Set("ValidUntilDate<", fmt.Sprint((*params.ValidUntilDateBefore).Format(time.RFC3339)))
-	}
-	if params != nil && params.ValidUntilDateAfter != nil {
-		data.Set("ValidUntilDate>", fmt.Sprint((*params.ValidUntilDateAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

@@ -4,10 +4,50 @@ All URIs are relative to *https://content.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CreateContent**](ContentApi.md#CreateContent) | **Post** /v1/Content | 
 [**DeleteContent**](ContentApi.md#DeleteContent) | **Delete** /v1/Content/{Sid} | 
 [**FetchContent**](ContentApi.md#FetchContent) | **Get** /v1/Content/{Sid} | 
 [**ListContent**](ContentApi.md#ListContent) | **Get** /v1/Content | 
 
+
+
+## CreateContent
+
+> ContentV1Content CreateContent(ctx, optional)
+
+
+
+Create a Content resource
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateContentParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ContentCreateRequest** | [**ContentCreateRequest**](ContentCreateRequest.md) | 
+
+### Return type
+
+[**ContentV1Content**](ContentV1Content.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteContent

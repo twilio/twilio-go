@@ -63,6 +63,8 @@ Name | Type | Description
 **IndividualEmail** | **string** | The email address of the Individual User.
 **IndividualPhone** | **string** | The phone number of the Individual User.
 **IsIsvEmbed** | **bool** | Indicates if the inquiry is being started from an ISV embedded component.
+**IsvRegisteringForSelfOrTenant** | **string** | Indicates if the isv registering for self or tenant.
+**StatusCallbackUrl** | **string** | The url we call to inform you of bundle changes.
 
 ### Return type
 

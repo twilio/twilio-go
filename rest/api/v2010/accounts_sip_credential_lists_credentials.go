@@ -180,7 +180,7 @@ func (params *ListSipCredentialParams) SetLimit(Limit int) *ListSipCredentialPar
 }
 
 // Retrieve a single page of SipCredential records from the API. Request is executed immediately.
-func (c *ApiService) PageSipCredential(CredentialListSid string, params *ListSipCredentialParams, pageToken, pageNumber string) (*ListSipCredentialResponse, error) {
+func (c *ApiService) PageSipCredential(CredentialListSid string, params *ListSipCredentialParams, pageToken, pageNumber string) (*ListSipCredential200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -211,7 +211,7 @@ func (c *ApiService) PageSipCredential(CredentialListSid string, params *ListSip
 
 	defer resp.Body.Close()
 
-	ps := &ListSipCredentialResponse{}
+	ps := &ListSipCredential200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -257,7 +257,7 @@ func (c *ApiService) StreamSipCredential(CredentialListSid string, params *ListS
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipCredential(response *ListSipCredentialResponse, params *ListSipCredentialParams, recordChannel chan ApiV2010SipCredential, errorChannel chan error) {
+func (c *ApiService) streamSipCredential(response *ListSipCredential200Response, params *ListSipCredentialParams, recordChannel chan ApiV2010SipCredential, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -272,7 +272,7 @@ func (c *ApiService) streamSipCredential(response *ListSipCredentialResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSipCredentialResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSipCredential200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -280,14 +280,14 @@ func (c *ApiService) streamSipCredential(response *ListSipCredentialResponse, pa
 			break
 		}
 
-		response = record.(*ListSipCredentialResponse)
+		response = record.(*ListSipCredential200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipCredentialResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSipCredential200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -298,7 +298,7 @@ func (c *ApiService) getNextListSipCredentialResponse(nextPageUrl string) (inter
 
 	defer resp.Body.Close()
 
-	ps := &ListSipCredentialResponse{}
+	ps := &ListSipCredential200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

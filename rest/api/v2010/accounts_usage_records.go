@@ -71,7 +71,7 @@ func (params *ListUsageRecordParams) SetLimit(Limit int) *ListUsageRecordParams 
 }
 
 // Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, pageNumber string) (*ListUsageRecordResponse, error) {
+func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, pageNumber string) (*ListUsageRecord200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -113,7 +113,7 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, p
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageRecordResponse{}
+	ps := &ListUsageRecord200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (c *ApiService) StreamUsageRecord(params *ListUsageRecordParams) (chan ApiV
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecord(response *ListUsageRecordResponse, params *ListUsageRecordParams, recordChannel chan ApiV2010UsageRecord, errorChannel chan error) {
+func (c *ApiService) streamUsageRecord(response *ListUsageRecord200Response, params *ListUsageRecordParams, recordChannel chan ApiV2010UsageRecord, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -174,7 +174,7 @@ func (c *ApiService) streamUsageRecord(response *ListUsageRecordResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecord200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -182,14 +182,14 @@ func (c *ApiService) streamUsageRecord(response *ListUsageRecordResponse, params
 			break
 		}
 
-		response = record.(*ListUsageRecordResponse)
+		response = record.(*ListUsageRecord200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecord200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -200,7 +200,7 @@ func (c *ApiService) getNextListUsageRecordResponse(nextPageUrl string) (interfa
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageRecordResponse{}
+	ps := &ListUsageRecord200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

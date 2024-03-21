@@ -4,8 +4,48 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CreateBulkHostedNumberOrder**](HostedNumberOrdersBulkApi.md#CreateBulkHostedNumberOrder) | **Post** /v2/HostedNumber/Orders/Bulk | 
 [**FetchBulkHostedNumberOrder**](HostedNumberOrdersBulkApi.md#FetchBulkHostedNumberOrder) | **Get** /v2/HostedNumber/Orders/Bulk/{BulkHostingSid} | 
 
+
+
+## CreateBulkHostedNumberOrder
+
+> NumbersV2BulkHostedNumberOrder CreateBulkHostedNumberOrder(ctx, optional)
+
+
+
+Host multiple phone numbers on Twilio's platform.
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateBulkHostedNumberOrderParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Body** | **map[string]interface{}** | 
+
+### Return type
+
+[**NumbersV2BulkHostedNumberOrder**](NumbersV2BulkHostedNumberOrder.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## FetchBulkHostedNumberOrder
