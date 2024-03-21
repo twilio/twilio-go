@@ -40,7 +40,6 @@ func (params *CreateNewKeyParams) SetFriendlyName(FriendlyName string) *CreateNe
 	return params
 }
 
-//
 func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010NewKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -82,7 +81,6 @@ func (params *DeleteKeyParams) SetPathAccountSid(PathAccountSid string) *DeleteK
 	return params
 }
 
-//
 func (c *ApiService) DeleteKey(Sid string, params *DeleteKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -116,7 +114,6 @@ func (params *FetchKeyParams) SetPathAccountSid(PathAccountSid string) *FetchKey
 	return params
 }
 
-//
 func (c *ApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -168,7 +165,7 @@ func (params *ListKeyParams) SetLimit(Limit int) *ListKeyParams {
 }
 
 // Retrieve a single page of Key records from the API. Request is executed immediately.
-func (c *ApiService) PageKey(params *ListKeyParams, pageToken, pageNumber string) (*ListKeyResponse, error) {
+func (c *ApiService) PageKey(params *ListKeyParams, pageToken, pageNumber string) (*ListKey200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -198,7 +195,7 @@ func (c *ApiService) PageKey(params *ListKeyParams, pageToken, pageNumber string
 
 	defer resp.Body.Close()
 
-	ps := &ListKeyResponse{}
+	ps := &ListKey200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -244,7 +241,7 @@ func (c *ApiService) StreamKey(params *ListKeyParams) (chan ApiV2010Key, chan er
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamKey(response *ListKeyResponse, params *ListKeyParams, recordChannel chan ApiV2010Key, errorChannel chan error) {
+func (c *ApiService) streamKey(response *ListKey200Response, params *ListKeyParams, recordChannel chan ApiV2010Key, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -259,7 +256,7 @@ func (c *ApiService) streamKey(response *ListKeyResponse, params *ListKeyParams,
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListKeyResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListKey200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -267,14 +264,14 @@ func (c *ApiService) streamKey(response *ListKeyResponse, params *ListKeyParams,
 			break
 		}
 
-		response = record.(*ListKeyResponse)
+		response = record.(*ListKey200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListKeyResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListKey200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -285,7 +282,7 @@ func (c *ApiService) getNextListKeyResponse(nextPageUrl string) (interface{}, er
 
 	defer resp.Body.Close()
 
-	ps := &ListKeyResponse{}
+	ps := &ListKey200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -309,7 +306,6 @@ func (params *UpdateKeyParams) SetFriendlyName(FriendlyName string) *UpdateKeyPa
 	return params
 }
 
-//
 func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

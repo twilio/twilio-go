@@ -71,7 +71,7 @@ func (params *ListUsageRecordDailyParams) SetLimit(Limit int) *ListUsageRecordDa
 }
 
 // Retrieve a single page of UsageRecordDaily records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecordDaily(params *ListUsageRecordDailyParams, pageToken, pageNumber string) (*ListUsageRecordDailyResponse, error) {
+func (c *ApiService) PageUsageRecordDaily(params *ListUsageRecordDailyParams, pageToken, pageNumber string) (*ListUsageRecordDaily200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -113,7 +113,7 @@ func (c *ApiService) PageUsageRecordDaily(params *ListUsageRecordDailyParams, pa
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageRecordDailyResponse{}
+	ps := &ListUsageRecordDaily200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (c *ApiService) StreamUsageRecordDaily(params *ListUsageRecordDailyParams) 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordDaily(response *ListUsageRecordDailyResponse, params *ListUsageRecordDailyParams, recordChannel chan ApiV2010UsageRecordDaily, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordDaily(response *ListUsageRecordDaily200Response, params *ListUsageRecordDailyParams, recordChannel chan ApiV2010UsageRecordDaily, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -174,7 +174,7 @@ func (c *ApiService) streamUsageRecordDaily(response *ListUsageRecordDailyRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordDailyResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordDaily200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -182,14 +182,14 @@ func (c *ApiService) streamUsageRecordDaily(response *ListUsageRecordDailyRespon
 			break
 		}
 
-		response = record.(*ListUsageRecordDailyResponse)
+		response = record.(*ListUsageRecordDaily200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordDailyResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordDaily200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -200,7 +200,7 @@ func (c *ApiService) getNextListUsageRecordDailyResponse(nextPageUrl string) (in
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageRecordDailyResponse{}
+	ps := &ListUsageRecordDaily200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

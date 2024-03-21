@@ -4,8 +4,48 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CreateBulkEligibility**](HostedNumberEligibilityBulkApi.md#CreateBulkEligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | 
 [**FetchBulkEligibility**](HostedNumberEligibilityBulkApi.md#FetchBulkEligibility) | **Get** /v1/HostedNumber/Eligibility/Bulk/{RequestId} | 
 
+
+
+## CreateBulkEligibility
+
+> NumbersV1BulkEligibility CreateBulkEligibility(ctx, optional)
+
+
+
+Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateBulkEligibilityParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Body** | **map[string]interface{}** | 
+
+### Return type
+
+[**NumbersV1BulkEligibility**](NumbersV1BulkEligibility.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## FetchBulkEligibility

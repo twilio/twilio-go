@@ -37,13 +37,15 @@ type MessagingV1BrandRegistrations struct {
 	Status    *string `json:"status,omitempty"`
 	// Campaign Registry (TCR) Brand ID. Assigned only after successful brand registration.
 	TcrId *string `json:"tcr_id,omitempty"`
-	// A reason why brand registration has failed. Only applicable when status is FAILED.
+	// DEPRECATED. A reason why brand registration has failed. Only applicable when status is FAILED.
 	FailureReason *string `json:"failure_reason,omitempty"`
+	// A list of errors that occurred during the brand registration process.
+	Errors *[]interface{} `json:"errors,omitempty"`
 	// The absolute URL of the Brand Registration resource.
 	Url *string `json:"url,omitempty"`
 	// The secondary vetting score if it was done. Otherwise, it will be the brand score if it's returned from TCR. It may be null if no score is available.
 	BrandScore *int `json:"brand_score,omitempty"`
-	// Feedback on how to improve brand score
+	// DEPRECATED. Feedback on how to improve brand score
 	BrandFeedback  *[]string `json:"brand_feedback,omitempty"`
 	IdentityStatus *string   `json:"identity_status,omitempty"`
 	// Publicly traded company identified in the Russell 3000 Index

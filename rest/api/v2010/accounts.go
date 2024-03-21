@@ -113,7 +113,7 @@ func (params *ListAccountParams) SetLimit(Limit int) *ListAccountParams {
 }
 
 // Retrieve a single page of Account records from the API. Request is executed immediately.
-func (c *ApiService) PageAccount(params *ListAccountParams, pageToken, pageNumber string) (*ListAccountResponse, error) {
+func (c *ApiService) PageAccount(params *ListAccountParams, pageToken, pageNumber string) (*ListAccount200Response, error) {
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
@@ -143,7 +143,7 @@ func (c *ApiService) PageAccount(params *ListAccountParams, pageToken, pageNumbe
 
 	defer resp.Body.Close()
 
-	ps := &ListAccountResponse{}
+	ps := &ListAccount200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -189,7 +189,7 @@ func (c *ApiService) StreamAccount(params *ListAccountParams) (chan ApiV2010Acco
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAccount(response *ListAccountResponse, params *ListAccountParams, recordChannel chan ApiV2010Account, errorChannel chan error) {
+func (c *ApiService) streamAccount(response *ListAccount200Response, params *ListAccountParams, recordChannel chan ApiV2010Account, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -204,7 +204,7 @@ func (c *ApiService) streamAccount(response *ListAccountResponse, params *ListAc
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAccountResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAccount200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -212,14 +212,14 @@ func (c *ApiService) streamAccount(response *ListAccountResponse, params *ListAc
 			break
 		}
 
-		response = record.(*ListAccountResponse)
+		response = record.(*ListAccount200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAccountResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAccount200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -230,7 +230,7 @@ func (c *ApiService) getNextListAccountResponse(nextPageUrl string) (interface{}
 
 	defer resp.Body.Close()
 
-	ps := &ListAccountResponse{}
+	ps := &ListAccount200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

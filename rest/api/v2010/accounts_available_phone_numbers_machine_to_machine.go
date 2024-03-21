@@ -155,7 +155,7 @@ func (params *ListAvailablePhoneNumberMachineToMachineParams) SetLimit(Limit int
 }
 
 // Retrieve a single page of AvailablePhoneNumberMachineToMachine records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberMachineToMachine200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -240,7 +240,7 @@ func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string
 
 	defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberMachineToMachineResponse{}
+	ps := &ListAvailablePhoneNumberMachineToMachine200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -286,7 +286,7 @@ func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode stri
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(response *ListAvailablePhoneNumberMachineToMachineResponse, params *ListAvailablePhoneNumberMachineToMachineParams, recordChannel chan ApiV2010AvailablePhoneNumberMachineToMachine, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(response *ListAvailablePhoneNumberMachineToMachine200Response, params *ListAvailablePhoneNumberMachineToMachineParams, recordChannel chan ApiV2010AvailablePhoneNumberMachineToMachine, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -301,7 +301,7 @@ func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(response *ListAv
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberMachineToMachineResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberMachineToMachine200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -309,14 +309,14 @@ func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(response *ListAv
 			break
 		}
 
-		response = record.(*ListAvailablePhoneNumberMachineToMachineResponse)
+		response = record.(*ListAvailablePhoneNumberMachineToMachine200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberMachineToMachineResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailablePhoneNumberMachineToMachine200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -327,7 +327,7 @@ func (c *ApiService) getNextListAvailablePhoneNumberMachineToMachineResponse(nex
 
 	defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberMachineToMachineResponse{}
+	ps := &ListAvailablePhoneNumberMachineToMachine200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

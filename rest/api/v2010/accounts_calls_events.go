@@ -47,7 +47,7 @@ func (params *ListCallEventParams) SetLimit(Limit int) *ListCallEventParams {
 }
 
 // Retrieve a single page of CallEvent records from the API. Request is executed immediately.
-func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, pageToken, pageNumber string) (*ListCallEventResponse, error) {
+func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, pageToken, pageNumber string) (*ListCallEvent200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -78,7 +78,7 @@ func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, 
 
 	defer resp.Body.Close()
 
-	ps := &ListCallEventResponse{}
+	ps := &ListCallEvent200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -124,7 +124,7 @@ func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCallEvent(response *ListCallEventResponse, params *ListCallEventParams, recordChannel chan ApiV2010CallEvent, errorChannel chan error) {
+func (c *ApiService) streamCallEvent(response *ListCallEvent200Response, params *ListCallEventParams, recordChannel chan ApiV2010CallEvent, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -139,7 +139,7 @@ func (c *ApiService) streamCallEvent(response *ListCallEventResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCallEventResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCallEvent200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -147,14 +147,14 @@ func (c *ApiService) streamCallEvent(response *ListCallEventResponse, params *Li
 			break
 		}
 
-		response = record.(*ListCallEventResponse)
+		response = record.(*ListCallEvent200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCallEventResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCallEvent200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -165,7 +165,7 @@ func (c *ApiService) getNextListCallEventResponse(nextPageUrl string) (interface
 
 	defer resp.Body.Close()
 
-	ps := &ListCallEventResponse{}
+	ps := &ListCallEvent200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
