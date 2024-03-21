@@ -32,9 +32,9 @@ type CreateMessageParams struct {
 	To *string `json:"To,omitempty"`
 	// The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource).
 	StatusCallback *string `json:"StatusCallback,omitempty"`
-	// The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). If this parameter is provided, the `status_callback` parameter of this request is ignored; [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL.
+	// The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL. Note that the `status_callback` parameter of a request takes priority over the `application_sid` parameter; if both are included `application_sid` is ignored.
 	ApplicationSid *string `json:"ApplicationSid,omitempty"`
-	// The maximum price in US dollars that you are willing to pay for this Message's delivery. The value can have up to four decimal places. When the `max_price` parameter is provided, the cost of a message is checked before it is sent. If the cost exceeds `max_price`, the message is not sent and the Message `status` is `failed`.
+	// [DEPRECATED] This parameter will no longer have any effect as of 2024-06-03.
 	MaxPrice *float32 `json:"MaxPrice,omitempty"`
 	// Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.
 	ProvideFeedback *bool `json:"ProvideFeedback,omitempty"`
@@ -357,10 +357,6 @@ type ListMessageParams struct {
 	From *string `json:"From,omitempty"`
 	// Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
 	DateSent *time.Time `json:"DateSent,omitempty"`
-	// Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
-	DateSentBefore *time.Time `json:"DateSent&lt;,omitempty"`
-	// Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
-	DateSentAfter *time.Time `json:"DateSent&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -383,14 +379,6 @@ func (params *ListMessageParams) SetDateSent(DateSent time.Time) *ListMessagePar
 	params.DateSent = &DateSent
 	return params
 }
-func (params *ListMessageParams) SetDateSentBefore(DateSentBefore time.Time) *ListMessageParams {
-	params.DateSentBefore = &DateSentBefore
-	return params
-}
-func (params *ListMessageParams) SetDateSentAfter(DateSentAfter time.Time) *ListMessageParams {
-	params.DateSentAfter = &DateSentAfter
-	return params
-}
 func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
 	params.PageSize = &PageSize
 	return params
@@ -401,7 +389,7 @@ func (params *ListMessageParams) SetLimit(Limit int) *ListMessageParams {
 }
 
 // Retrieve a single page of Message records from the API. Request is executed immediately.
-func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumber string) (*ListMessageResponse, error) {
+func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumber string) (*ListMessage200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -422,12 +410,6 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumbe
 	if params != nil && params.DateSent != nil {
 		data.Set("DateSent", fmt.Sprint((*params.DateSent).Format(time.RFC3339)))
 	}
-	if params != nil && params.DateSentBefore != nil {
-		data.Set("DateSent<", fmt.Sprint((*params.DateSentBefore).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateSentAfter != nil {
-		data.Set("DateSent>", fmt.Sprint((*params.DateSentAfter).Format(time.RFC3339)))
-	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -446,7 +428,7 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumbe
 
 	defer resp.Body.Close()
 
-	ps := &ListMessageResponse{}
+	ps := &ListMessage200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -492,7 +474,7 @@ func (c *ApiService) StreamMessage(params *ListMessageParams) (chan ApiV2010Mess
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMessage(response *ListMessageResponse, params *ListMessageParams, recordChannel chan ApiV2010Message, errorChannel chan error) {
+func (c *ApiService) streamMessage(response *ListMessage200Response, params *ListMessageParams, recordChannel chan ApiV2010Message, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -507,7 +489,7 @@ func (c *ApiService) streamMessage(response *ListMessageResponse, params *ListMe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMessageResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListMessage200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -515,14 +497,14 @@ func (c *ApiService) streamMessage(response *ListMessageResponse, params *ListMe
 			break
 		}
 
-		response = record.(*ListMessageResponse)
+		response = record.(*ListMessage200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMessageResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMessage200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -533,7 +515,7 @@ func (c *ApiService) getNextListMessageResponse(nextPageUrl string) (interface{}
 
 	defer resp.Body.Close()
 
-	ps := &ListMessageResponse{}
+	ps := &ListMessage200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

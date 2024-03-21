@@ -167,7 +167,7 @@ func (params *ListRecordingParams) SetLimit(Limit int) *ListRecordingParams {
 }
 
 // Retrieve a single page of Recording records from the API. Request is executed immediately.
-func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageNumber string) (*ListRecordingResponse, error) {
+func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageNumber string) (*ListRecording200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -215,7 +215,7 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageN
 
 	defer resp.Body.Close()
 
-	ps := &ListRecordingResponse{}
+	ps := &ListRecording200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -261,7 +261,7 @@ func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan ApiV2010
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRecording(response *ListRecordingResponse, params *ListRecordingParams, recordChannel chan ApiV2010Recording, errorChannel chan error) {
+func (c *ApiService) streamRecording(response *ListRecording200Response, params *ListRecordingParams, recordChannel chan ApiV2010Recording, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -276,7 +276,7 @@ func (c *ApiService) streamRecording(response *ListRecordingResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRecordingResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListRecording200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -284,14 +284,14 @@ func (c *ApiService) streamRecording(response *ListRecordingResponse, params *Li
 			break
 		}
 
-		response = record.(*ListRecordingResponse)
+		response = record.(*ListRecording200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRecordingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRecording200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -302,7 +302,7 @@ func (c *ApiService) getNextListRecordingResponse(nextPageUrl string) (interface
 
 	defer resp.Body.Close()
 
-	ps := &ListRecordingResponse{}
+	ps := &ListRecording200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

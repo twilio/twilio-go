@@ -2,6 +2,8 @@ package client_test
 
 import (
 	"errors"
+	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"testing"
 
@@ -64,4 +66,54 @@ func assertAndGetURL(t *testing.T, requestHandler *client.RequestHandler, rawURL
 	parsedURL, err := requestHandler.BuildUrl(rawURL)
 	assert.Nil(t, err)
 	return parsedURL
+}
+
+func TestRequestHandler_SendGetRequest(t *testing.T) {
+	errorResponse := `{
+	"status": 400,
+	"code":20001,
+	"message":"Bad request",
+	"more_info":"https://www.twilio.com/docs/errors/20001"
+}`
+	errorServer := httptest.NewServer(http.HandlerFunc(
+		func(resp http.ResponseWriter, req *http.Request) {
+			resp.WriteHeader(400)
+			_, _ = resp.Write([]byte(errorResponse))
+		}))
+	defer errorServer.Close()
+
+	requestHandler := NewRequestHandler("user", "pass")
+	resp, err := requestHandler.Get(errorServer.URL, nil, nil) //nolint:bodyclose
+	twilioError := err.(*client.TwilioRestError)
+	assert.Nil(t, resp)
+	assert.Equal(t, 400, twilioError.Status)
+	assert.Equal(t, 20001, twilioError.Code)
+	assert.Equal(t, "https://www.twilio.com/docs/errors/20001", twilioError.MoreInfo)
+	assert.Equal(t, "Bad request", twilioError.Message)
+	assert.Nil(t, twilioError.Details)
+}
+
+func TestRequestHandler_SendPostRequest(t *testing.T) {
+	errorResponse := `{
+	"status": 400,
+	"code":20001,
+	"message":"Bad request",
+	"more_info":"https://www.twilio.com/docs/errors/20001"
+}`
+	errorServer := httptest.NewServer(http.HandlerFunc(
+		func(resp http.ResponseWriter, req *http.Request) {
+			resp.WriteHeader(400)
+			_, _ = resp.Write([]byte(errorResponse))
+		}))
+	defer errorServer.Close()
+
+	requestHandler := NewRequestHandler("user", "pass")
+	resp, err := requestHandler.Post(errorServer.URL, nil, nil) //nolint:bodyclose
+	twilioError := err.(*client.TwilioRestError)
+	assert.Nil(t, resp)
+	assert.Equal(t, 400, twilioError.Status)
+	assert.Equal(t, 20001, twilioError.Code)
+	assert.Equal(t, "https://www.twilio.com/docs/errors/20001", twilioError.MoreInfo)
+	assert.Equal(t, "Bad request", twilioError.Message)
+	assert.Nil(t, twilioError.Details)
 }

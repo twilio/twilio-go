@@ -469,16 +469,8 @@ type ListCallParams struct {
 	Status *string `json:"Status,omitempty"`
 	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
 	StartTime *time.Time `json:"StartTime,omitempty"`
-	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-	StartTimeBefore *time.Time `json:"StartTime&lt;,omitempty"`
-	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-	StartTimeAfter *time.Time `json:"StartTime&gt;,omitempty"`
 	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
 	EndTime *time.Time `json:"EndTime,omitempty"`
-	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-	EndTimeBefore *time.Time `json:"EndTime&lt;,omitempty"`
-	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-	EndTimeAfter *time.Time `json:"EndTime&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -509,24 +501,8 @@ func (params *ListCallParams) SetStartTime(StartTime time.Time) *ListCallParams 
 	params.StartTime = &StartTime
 	return params
 }
-func (params *ListCallParams) SetStartTimeBefore(StartTimeBefore time.Time) *ListCallParams {
-	params.StartTimeBefore = &StartTimeBefore
-	return params
-}
-func (params *ListCallParams) SetStartTimeAfter(StartTimeAfter time.Time) *ListCallParams {
-	params.StartTimeAfter = &StartTimeAfter
-	return params
-}
 func (params *ListCallParams) SetEndTime(EndTime time.Time) *ListCallParams {
 	params.EndTime = &EndTime
-	return params
-}
-func (params *ListCallParams) SetEndTimeBefore(EndTimeBefore time.Time) *ListCallParams {
-	params.EndTimeBefore = &EndTimeBefore
-	return params
-}
-func (params *ListCallParams) SetEndTimeAfter(EndTimeAfter time.Time) *ListCallParams {
-	params.EndTimeAfter = &EndTimeAfter
 	return params
 }
 func (params *ListCallParams) SetPageSize(PageSize int) *ListCallParams {
@@ -539,7 +515,7 @@ func (params *ListCallParams) SetLimit(Limit int) *ListCallParams {
 }
 
 // Retrieve a single page of Call records from the API. Request is executed immediately.
-func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber string) (*ListCallResponse, error) {
+func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber string) (*ListCall200Response, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -566,20 +542,8 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber stri
 	if params != nil && params.StartTime != nil {
 		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
 	}
-	if params != nil && params.StartTimeBefore != nil {
-		data.Set("StartTime<", fmt.Sprint((*params.StartTimeBefore).Format(time.RFC3339)))
-	}
-	if params != nil && params.StartTimeAfter != nil {
-		data.Set("StartTime>", fmt.Sprint((*params.StartTimeAfter).Format(time.RFC3339)))
-	}
 	if params != nil && params.EndTime != nil {
 		data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
-	}
-	if params != nil && params.EndTimeBefore != nil {
-		data.Set("EndTime<", fmt.Sprint((*params.EndTimeBefore).Format(time.RFC3339)))
-	}
-	if params != nil && params.EndTimeAfter != nil {
-		data.Set("EndTime>", fmt.Sprint((*params.EndTimeAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -599,7 +563,7 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber stri
 
 	defer resp.Body.Close()
 
-	ps := &ListCallResponse{}
+	ps := &ListCall200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -645,7 +609,7 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010Call, chan
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCall(response *ListCallResponse, params *ListCallParams, recordChannel chan ApiV2010Call, errorChannel chan error) {
+func (c *ApiService) streamCall(response *ListCall200Response, params *ListCallParams, recordChannel chan ApiV2010Call, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -660,7 +624,7 @@ func (c *ApiService) streamCall(response *ListCallResponse, params *ListCallPara
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCallResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListCall200Response)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -668,14 +632,14 @@ func (c *ApiService) streamCall(response *ListCallResponse, params *ListCallPara
 			break
 		}
 
-		response = record.(*ListCallResponse)
+		response = record.(*ListCall200Response)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCallResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCall200Response(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -686,7 +650,7 @@ func (c *ApiService) getNextListCallResponse(nextPageUrl string) (interface{}, e
 
 	defer resp.Body.Close()
 
-	ps := &ListCallResponse{}
+	ps := &ListCall200Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
