@@ -41,6 +41,8 @@ type ApiV2010Participant struct {
 	// Whether the conference starts when the participant joins the conference, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
 	StartConferenceOnEnter *bool   `json:"start_conference_on_enter,omitempty"`
 	Status                 *string `json:"status,omitempty"`
+	// The wait time in milliseconds before participant's call is placed. Only available in the response to a create participant request.
+	QueueTime *string `json:"queue_time,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 }

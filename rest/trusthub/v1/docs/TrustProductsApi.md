@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 
-Create a new Customer-Profile.
+Create a new Trust Product.
 
 ### Path Parameters
 
@@ -32,8 +32,8 @@ Other parameters are passed through a pointer to a CreateTrustProductParams stru
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
-**PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource.
+**Email** | **string** | The email address that will receive updates when the Trust Product resource changes status.
+**PolicySid** | **string** | The unique string of a policy that is associated to the Trust Product resource.
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
 
 ### Return type
@@ -60,7 +60,7 @@ Name | Type | Description
 
 
 
-Delete a specific Customer-Profile.
+Delete a specific Trust Product.
 
 ### Path Parameters
 
@@ -68,7 +68,7 @@ Delete a specific Customer-Profile.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource.
+**Sid** | **string** | The unique string that we created to identify the Trust Product resource.
 
 ### Other Parameters
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 
 
-Fetch a specific Customer-Profile instance.
+Fetch a specific Trust Product instance.
 
 ### Path Parameters
 
@@ -110,7 +110,7 @@ Fetch a specific Customer-Profile instance.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource.
+**Sid** | **string** | The unique string that we created to identify the Trust Product resource.
 
 ### Other Parameters
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 
 
-Retrieve a list of all Customer-Profiles for an account.
+Retrieve a list of all Trust Products for an account.
 
 ### Path Parameters
 
@@ -157,9 +157,9 @@ Other parameters are passed through a pointer to a ListTrustProductParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The verification status of the Customer-Profile resource.
+**Status** | **string** | The verification status of the Trust Product resource.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource.
+**PolicySid** | **string** | The unique string of a policy that is associated to the Trust Product resource.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -187,7 +187,7 @@ Name | Type | Description
 
 
 
-Updates a Customer-Profile in an account.
+Updates a Trust Product in an account.
 
 ### Path Parameters
 
@@ -195,7 +195,7 @@ Updates a Customer-Profile in an account.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource.
+**Sid** | **string** | The unique string that we created to identify the Trust Product resource.
 
 ### Other Parameters
 
@@ -207,7 +207,7 @@ Name | Type | Description
 **Status** | **string** | 
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
+**Email** | **string** | The email address that will receive updates when the Trust Product resource changes status.
 
 ### Return type
 

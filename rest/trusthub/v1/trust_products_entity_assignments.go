@@ -106,12 +106,18 @@ func (c *ApiService) FetchTrustProductEntityAssignment(TrustProductSid string, S
 
 // Optional parameters for the method 'ListTrustProductEntityAssignment'
 type ListTrustProductEntityAssignmentParams struct {
+	// A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
+	ObjectType *string `json:"ObjectType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
+func (params *ListTrustProductEntityAssignmentParams) SetObjectType(ObjectType string) *ListTrustProductEntityAssignmentParams {
+	params.ObjectType = &ObjectType
+	return params
+}
 func (params *ListTrustProductEntityAssignmentParams) SetPageSize(PageSize int) *ListTrustProductEntityAssignmentParams {
 	params.PageSize = &PageSize
 	return params
@@ -130,6 +136,9 @@ func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, pa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.ObjectType != nil {
+		data.Set("ObjectType", *params.ObjectType)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}

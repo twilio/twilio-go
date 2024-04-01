@@ -48,7 +48,7 @@ type MessagingMessage struct {
 	// body: Message Body
 	// to: Phone Number to send Message to
 	// from: Phone Number to send Message from
-	// action: Action URL
+	// action: A URL specifying where Twilio should send status callbacks for the created outbound message.
 	// method: Action URL Method
 	// status_callback: Status callback URL. Deprecated in favor of action.
 	// OptionalAttributes: additional attributes

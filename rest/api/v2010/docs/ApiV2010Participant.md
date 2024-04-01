@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **Hold** | Pointer to **bool** | Whether the participant is on hold. Can be `true` or `false`. |
 **StartConferenceOnEnter** | Pointer to **bool** | Whether the conference starts when the participant joins the conference, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference. |
 **Status** | Pointer to [**string**](ParticipantEnumStatus.md) |  |
+**QueueTime** | Pointer to **string** | The wait time in milliseconds before participant's call is placed. Only available in the response to a create participant request. |
 **Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com`. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

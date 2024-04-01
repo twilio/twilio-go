@@ -5,6 +5,7 @@ All URIs are relative to *https://trusthub.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateComplianceRegistration**](ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi.md#CreateComplianceRegistration) | **Post** /v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize | 
+[**UpdateComplianceRegistration**](ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi.md#UpdateComplianceRegistration) | **Post** /v1/ComplianceInquiries/Registration/{RegistrationId}/RegulatoryCompliance/GB/Initialize | 
 
 
 
@@ -63,6 +64,53 @@ Name | Type | Description
 **IndividualEmail** | **string** | The email address of the Individual User.
 **IndividualPhone** | **string** | The phone number of the Individual User.
 **IsIsvEmbed** | **bool** | Indicates if the inquiry is being started from an ISV embedded component.
+**IsvRegisteringForSelfOrTenant** | **string** | Indicates if the isv registering for self or tenant.
+**StatusCallbackUrl** | **string** | The url we call to inform you of bundle changes.
+**ThemeSetId** | **string** | Theme id for styling the inquiry form.
+
+### Return type
+
+[**TrusthubV1ComplianceRegistration**](TrusthubV1ComplianceRegistration.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateComplianceRegistration
+
+> TrusthubV1ComplianceRegistration UpdateComplianceRegistration(ctx, RegistrationIdoptional)
+
+
+
+Resume a specific Regulatory Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**RegistrationId** | **string** | The unique RegistrationId matching the Regulatory Compliance Inquiry that should be resumed or resubmitted. This value will have been returned by the initial Regulatory Compliance Inquiry creation call.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateComplianceRegistrationParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**IsIsvEmbed** | **bool** | Indicates if the inquiry is being started from an ISV embedded component.
+**ThemeSetId** | **string** | Theme id for styling the inquiry form.
 
 ### Return type
 

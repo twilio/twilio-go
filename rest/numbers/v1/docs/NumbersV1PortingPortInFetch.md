@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **TargetPortInDate** | Pointer to **string** | Minimum number of days in the future (at least 2 days) needs to be established with the Ops team for validation. |
 **TargetPortInTimeRangeStart** | Pointer to **string** | Minimum hour in the future needs to be established with the Ops team for validation. |
 **TargetPortInTimeRangeEnd** | Pointer to **string** | Maximum hour in the future needs to be established with the Ops team for validation. |
+**PortInRequestStatus** | Pointer to **string** | The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled. |
 **LosingCarrierInformation** | Pointer to **interface{}** | The information for the losing carrier.  |
 **PhoneNumbers** | Pointer to **[]interface{}** | The list of phone numbers to Port in. Phone numbers are in E.164 format (e.g. +16175551212). |
 **Documents** | Pointer to **[]string** | The list of documents SID referencing a utility bills |

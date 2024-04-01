@@ -1,5 +1,58 @@
 twilio-go changelog
 ====================
+[2024-04-01] Version 1.19.1
+---------------------------
+**Library - Chore**
+- [PR #238](https://github.com/twilio/twilio-go/pull/238): Merge '2.0.0-rc' to 'main'. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #241](https://github.com/twilio/twilio-go/pull/241): Revert "feat!: Merge '2.0.0-rc' to main". Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Add property `queue_time` to conference participant resource
+- Update RiskCheck documentation
+- Correct call filtering by start and end time documentation, clarifying that times are UTC.
+- Correct precedence documentation for application_sid vs status_callback in message creation
+- Mark MaxPrice as deprecated
+
+**Flex**
+- Adding optional parameter to `plugins`
+- Making `plugins` visibility to public
+
+**Media**
+- Remove API: MediaProcessor
+
+**Messaging**
+- Remove Sending-Window due to test failure
+- Add Sending-Window as a response property to Messaging Services, gated by a beta feature flag
+- Add new `errors` attribute to the Brand Registration resource.
+- Mark `brand_feedback` attribute as deprecated.
+- Mark `failure_reason` attribute as deprecated.
+- The new `errors` attribute is expected to provide additional information about Brand registration failures and feedback (if any has been provided by The Campaign Registry). Consumers should use this attribute instead of `brand_feedback` and `failure_reason`.
+
+**Numbers**
+- Correct valid_until_date field to be visible in Bundles resource
+- Adding port_in_status field to the Port In resource and phone_number_status and sid fields to the Port In Phone Number resource
+- Correcting mount_name for porting port in fetch API
+
+**Oauth**
+- Modified token endpoint response
+- Added refresh_token and scope as optional parameter to token endpoint
+- Add new APIs for vendor authorize and token endpoints
+
+**Trusthub**
+- Add update inquiry endpoint in compliance_registration.
+- Add new field in themeSetId in compliance_registration.
+- Add new field in statusCallbackUrl in compliance_registration.
+- Add new field in isvRegisteringForSelfOrTenant in compliance_registration.
+
+**Voice**
+- Correct call filtering by start and end time documentation, clarifying that times are UTC.
+
+**Twiml**
+- Add support for new Google voices (Q1 2024) for `Say` verb - gu-IN voices
+- Add support for new Amazon Polly and Google voices (Q1 2024) for `Say` verb - Niamh (en-IE) and Sofie (da-DK) voices
+- Expanded description of Action parameter for Message verb
+
+
 [2024-02-27] Version 1.19.0
 ---------------------------
 **Library - Chore**

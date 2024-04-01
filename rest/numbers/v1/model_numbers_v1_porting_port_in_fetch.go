@@ -30,6 +30,8 @@ type NumbersV1PortingPortInFetch struct {
 	TargetPortInTimeRangeStart *string `json:"target_port_in_time_range_start,omitempty"`
 	// Maximum hour in the future needs to be established with the Ops team for validation.
 	TargetPortInTimeRangeEnd *string `json:"target_port_in_time_range_end,omitempty"`
+	// The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
+	PortInRequestStatus *string `json:"port_in_request_status,omitempty"`
 	// The information for the losing carrier.
 	LosingCarrierInformation *interface{} `json:"losing_carrier_information,omitempty"`
 	// The list of phone numbers to Port in. Phone numbers are in E.164 format (e.g. +16175551212).

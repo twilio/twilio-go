@@ -18,6 +18,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"strings"
 )
 
 // Optional parameters for the method 'CreateComplianceRegistration'
@@ -94,6 +95,12 @@ type CreateComplianceRegistrationParams struct {
 	IndividualPhone *string `json:"IndividualPhone,omitempty"`
 	// Indicates if the inquiry is being started from an ISV embedded component.
 	IsIsvEmbed *bool `json:"IsIsvEmbed,omitempty"`
+	// Indicates if the isv registering for self or tenant.
+	IsvRegisteringForSelfOrTenant *string `json:"IsvRegisteringForSelfOrTenant,omitempty"`
+	// The url we call to inform you of bundle changes.
+	StatusCallbackUrl *string `json:"StatusCallbackUrl,omitempty"`
+	// Theme id for styling the inquiry form.
+	ThemeSetId *string `json:"ThemeSetId,omitempty"`
 }
 
 func (params *CreateComplianceRegistrationParams) SetEndUserType(EndUserType string) *CreateComplianceRegistrationParams {
@@ -240,6 +247,18 @@ func (params *CreateComplianceRegistrationParams) SetIsIsvEmbed(IsIsvEmbed bool)
 	params.IsIsvEmbed = &IsIsvEmbed
 	return params
 }
+func (params *CreateComplianceRegistrationParams) SetIsvRegisteringForSelfOrTenant(IsvRegisteringForSelfOrTenant string) *CreateComplianceRegistrationParams {
+	params.IsvRegisteringForSelfOrTenant = &IsvRegisteringForSelfOrTenant
+	return params
+}
+func (params *CreateComplianceRegistrationParams) SetStatusCallbackUrl(StatusCallbackUrl string) *CreateComplianceRegistrationParams {
+	params.StatusCallbackUrl = &StatusCallbackUrl
+	return params
+}
+func (params *CreateComplianceRegistrationParams) SetThemeSetId(ThemeSetId string) *CreateComplianceRegistrationParams {
+	params.ThemeSetId = &ThemeSetId
+	return params
+}
 
 // Create a new Compliance Registration Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegistrationParams) (*TrusthubV1ComplianceRegistration, error) {
@@ -355,6 +374,62 @@ func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegist
 	}
 	if params != nil && params.IsIsvEmbed != nil {
 		data.Set("IsIsvEmbed", fmt.Sprint(*params.IsIsvEmbed))
+	}
+	if params != nil && params.IsvRegisteringForSelfOrTenant != nil {
+		data.Set("IsvRegisteringForSelfOrTenant", *params.IsvRegisteringForSelfOrTenant)
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1ComplianceRegistration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Optional parameters for the method 'UpdateComplianceRegistration'
+type UpdateComplianceRegistrationParams struct {
+	// Indicates if the inquiry is being started from an ISV embedded component.
+	IsIsvEmbed *bool `json:"IsIsvEmbed,omitempty"`
+	// Theme id for styling the inquiry form.
+	ThemeSetId *string `json:"ThemeSetId,omitempty"`
+}
+
+func (params *UpdateComplianceRegistrationParams) SetIsIsvEmbed(IsIsvEmbed bool) *UpdateComplianceRegistrationParams {
+	params.IsIsvEmbed = &IsIsvEmbed
+	return params
+}
+func (params *UpdateComplianceRegistrationParams) SetThemeSetId(ThemeSetId string) *UpdateComplianceRegistrationParams {
+	params.ThemeSetId = &ThemeSetId
+	return params
+}
+
+// Resume a specific Regulatory Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
+func (c *ApiService) UpdateComplianceRegistration(RegistrationId string, params *UpdateComplianceRegistrationParams) (*TrusthubV1ComplianceRegistration, error) {
+	path := "/v1/ComplianceInquiries/Registration/{RegistrationId}/RegulatoryCompliance/GB/Initialize"
+	path = strings.Replace(path, "{"+"RegistrationId"+"}", RegistrationId, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.IsIsvEmbed != nil {
+		data.Set("IsIsvEmbed", fmt.Sprint(*params.IsIsvEmbed))
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
