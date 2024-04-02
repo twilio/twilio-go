@@ -61,16 +61,16 @@ Class | Method | HTTP request | Description
 
  - [ListCredentialListResponse](docs/ListCredentialListResponse.md)
  - [TrunkingV1CredentialList](docs/TrunkingV1CredentialList.md)
- - [ListCredentialListResponseMeta](docs/ListCredentialListResponseMeta.md)
  - [TrunkingV1PhoneNumber](docs/TrunkingV1PhoneNumber.md)
+ - [ListCredentialListResponseMeta](docs/ListCredentialListResponseMeta.md)
  - [TrunkingV1Trunk](docs/TrunkingV1Trunk.md)
  - [TrunkingV1IpAccessControlList](docs/TrunkingV1IpAccessControlList.md)
  - [ListIpAccessControlListResponse](docs/ListIpAccessControlListResponse.md)
  - [ListOriginationUrlResponse](docs/ListOriginationUrlResponse.md)
  - [ListPhoneNumberResponse](docs/ListPhoneNumberResponse.md)
  - [ListTrunkResponse](docs/ListTrunkResponse.md)
- - [TrunkingV1OriginationUrl](docs/TrunkingV1OriginationUrl.md)
  - [TrunkingV1Recording](docs/TrunkingV1Recording.md)
+ - [TrunkingV1OriginationUrl](docs/TrunkingV1OriginationUrl.md)
 
 
 ## Documentation For Authorization

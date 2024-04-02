@@ -361,7 +361,6 @@ Class | Method | HTTP request | Description
  - [ListRecordingAddOnResultResponse](docs/ListRecordingAddOnResultResponse.md)
  - [ListIncomingPhoneNumberAssignedAddOnExtensionResponse](docs/ListIncomingPhoneNumberAssignedAddOnExtensionResponse.md)
  - [ListSipAuthCallsIpAccessControlListMappingResponse](docs/ListSipAuthCallsIpAccessControlListMappingResponse.md)
- - [FetchHealthCheck200Response](docs/FetchHealthCheck200Response.md)
  - [ApiV2010AuthorizedConnectApp](docs/ApiV2010AuthorizedConnectApp.md)
  - [ListUsageRecordAllTimeResponse](docs/ListUsageRecordAllTimeResponse.md)
  - [ListSipDomainResponse](docs/ListSipDomainResponse.md)

@@ -49,8 +49,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [ListOperatorResultResponseMeta](docs/ListOperatorResultResponseMeta.md)
- - [IntelligenceV2OperatorResult](docs/IntelligenceV2OperatorResult.md)
  - [IntelligenceV2Transcript](docs/IntelligenceV2Transcript.md)
+ - [IntelligenceV2OperatorResult](docs/IntelligenceV2OperatorResult.md)
  - [ListTranscriptResponse](docs/ListTranscriptResponse.md)
  - [IntelligenceV2Service](docs/IntelligenceV2Service.md)
  - [IntelligenceV2Sentence](docs/IntelligenceV2Sentence.md)

@@ -84,8 +84,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [ListSyncStreamResponse](docs/ListSyncStreamResponse.md)
- - [ListDocumentResponse](docs/ListDocumentResponse.md)
  - [SyncV1StreamMessage](docs/SyncV1StreamMessage.md)
+ - [ListDocumentResponse](docs/ListDocumentResponse.md)
  - [SyncV1SyncMap](docs/SyncV1SyncMap.md)
  - [ListDocumentResponseMeta](docs/ListDocumentResponseMeta.md)
  - [ListSyncListPermissionResponse](docs/ListSyncListPermissionResponse.md)
@@ -103,8 +103,8 @@ Class | Method | HTTP request | Description
  - [ListSyncListResponse](docs/ListSyncListResponse.md)
  - [ListSyncListItemResponse](docs/ListSyncListItemResponse.md)
  - [SyncV1SyncStream](docs/SyncV1SyncStream.md)
- - [ListSyncMapItemResponse](docs/ListSyncMapItemResponse.md)
  - [SyncV1Service](docs/SyncV1Service.md)
+ - [ListSyncMapItemResponse](docs/ListSyncMapItemResponse.md)
 
 
 ## Documentation For Authorization

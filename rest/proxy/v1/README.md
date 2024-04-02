@@ -65,16 +65,16 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [ProxyV1PhoneNumber](docs/ProxyV1PhoneNumber.md)
  - [ProxyV1ServiceShortCodeCapabilities](docs/ProxyV1ServiceShortCodeCapabilities.md)
+ - [ProxyV1PhoneNumber](docs/ProxyV1PhoneNumber.md)
  - [ListSessionResponse](docs/ListSessionResponse.md)
  - [ProxyV1Session](docs/ProxyV1Session.md)
  - [ListInteractionResponse](docs/ListInteractionResponse.md)
  - [ListPhoneNumberResponse](docs/ListPhoneNumberResponse.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
  - [ProxyV1Interaction](docs/ProxyV1Interaction.md)
- - [ProxyV1MessageInteraction](docs/ProxyV1MessageInteraction.md)
  - [ProxyV1ServicePhoneNumberCapabilities](docs/ProxyV1ServicePhoneNumberCapabilities.md)
+ - [ProxyV1MessageInteraction](docs/ProxyV1MessageInteraction.md)
  - [ListParticipantResponse](docs/ListParticipantResponse.md)
  - [ListInteractionResponseMeta](docs/ListInteractionResponseMeta.md)
  - [ListMessageInteractionResponse](docs/ListMessageInteractionResponse.md)
