@@ -16,7 +16,6 @@ package openapi
 
 // ListRecordingAddOnResultPayloadResponse struct for ListRecordingAddOnResultPayloadResponse
 type ListRecordingAddOnResultPayloadResponse struct {
-	Payloads        []ApiV2010RecordingAddOnResultPayload `json:"payloads,omitempty"`
 	End             int                                   `json:"end,omitempty"`
 	FirstPageUri    string                                `json:"first_page_uri,omitempty"`
 	NextPageUri     *string                               `json:"next_page_uri,omitempty"`
@@ -25,4 +24,5 @@ type ListRecordingAddOnResultPayloadResponse struct {
 	PreviousPageUri *string                               `json:"previous_page_uri,omitempty"`
 	Start           int                                   `json:"start,omitempty"`
 	Uri             string                                `json:"uri,omitempty"`
+	Payloads        []ApiV2010RecordingAddOnResultPayload `json:"payloads,omitempty"`
 }

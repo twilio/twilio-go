@@ -16,7 +16,6 @@ package openapi
 
 // ListAddressResponse struct for ListAddressResponse
 type ListAddressResponse struct {
-	Addresses       []ApiV2010Address `json:"addresses,omitempty"`
 	End             int               `json:"end,omitempty"`
 	FirstPageUri    string            `json:"first_page_uri,omitempty"`
 	NextPageUri     *string           `json:"next_page_uri,omitempty"`
@@ -25,4 +24,5 @@ type ListAddressResponse struct {
 	PreviousPageUri *string           `json:"previous_page_uri,omitempty"`
 	Start           int               `json:"start,omitempty"`
 	Uri             string            `json:"uri,omitempty"`
+	Addresses       []ApiV2010Address `json:"addresses,omitempty"`
 }

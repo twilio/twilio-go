@@ -4,13 +4,13 @@ All URIs are relative to *https://content.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchApprovalFetch**](ContentApprovalRequestsApi.md#FetchApprovalFetch) | **Get** /v1/Content/{Sid}/ApprovalRequests | 
+[**FetchApproval**](ContentApprovalRequestsApi.md#FetchApproval) | **Get** /v1/Content/{ContentSid}/ApprovalRequests | 
 
 
 
-## FetchApprovalFetch
+## FetchApproval
 
-> ContentV1ApprovalFetch FetchApprovalFetch(ctx, Sid)
+> ContentV1ApprovalFetch FetchApproval(ctx, ContentSid)
 
 
 
@@ -22,11 +22,11 @@ Fetch a Content resource's approval status by its unique Content Sid
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The Twilio-provided string that uniquely identifies the Content resource whose approval information to fetch.
+**ContentSid** | **string** | The Twilio-provided string that uniquely identifies the Content resource whose approval information to fetch.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchApprovalFetchParams struct
+Other parameters are passed through a pointer to a FetchApprovalParams struct
 
 
 Name | Type | Description

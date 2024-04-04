@@ -16,7 +16,6 @@ package openapi
 
 // ListAvailablePhoneNumberLocalResponse struct for ListAvailablePhoneNumberLocalResponse
 type ListAvailablePhoneNumberLocalResponse struct {
-	AvailablePhoneNumbers []ApiV2010AvailablePhoneNumberLocal `json:"available_phone_numbers,omitempty"`
 	End                   int                                 `json:"end,omitempty"`
 	FirstPageUri          string                              `json:"first_page_uri,omitempty"`
 	NextPageUri           *string                             `json:"next_page_uri,omitempty"`
@@ -25,4 +24,5 @@ type ListAvailablePhoneNumberLocalResponse struct {
 	PreviousPageUri       *string                             `json:"previous_page_uri,omitempty"`
 	Start                 int                                 `json:"start,omitempty"`
 	Uri                   string                              `json:"uri,omitempty"`
+	AvailablePhoneNumbers []ApiV2010AvailablePhoneNumberLocal `json:"available_phone_numbers,omitempty"`
 }

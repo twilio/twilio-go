@@ -16,7 +16,6 @@ package openapi
 
 // ListKeyResponse struct for ListKeyResponse
 type ListKeyResponse struct {
-	Keys            []ApiV2010Key `json:"keys,omitempty"`
 	End             int           `json:"end,omitempty"`
 	FirstPageUri    string        `json:"first_page_uri,omitempty"`
 	NextPageUri     *string       `json:"next_page_uri,omitempty"`
@@ -25,4 +24,5 @@ type ListKeyResponse struct {
 	PreviousPageUri *string       `json:"previous_page_uri,omitempty"`
 	Start           int           `json:"start,omitempty"`
 	Uri             string        `json:"uri,omitempty"`
+	Keys            []ApiV2010Key `json:"keys,omitempty"`
 }

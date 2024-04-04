@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthorizedConnectApps** | [**[]ApiV2010AuthorizedConnectApp**](ApiV2010AuthorizedConnectApp.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | Pointer to **string** |  |
@@ -13,6 +12,7 @@ Name | Type | Description | Notes
 **PreviousPageUri** | Pointer to **string** |  |
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
+**AuthorizedConnectApps** | [**[]ApiV2010AuthorizedConnectApp**](ApiV2010AuthorizedConnectApp.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

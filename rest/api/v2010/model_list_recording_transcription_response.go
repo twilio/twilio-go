@@ -16,7 +16,6 @@ package openapi
 
 // ListRecordingTranscriptionResponse struct for ListRecordingTranscriptionResponse
 type ListRecordingTranscriptionResponse struct {
-	Transcriptions  []ApiV2010RecordingTranscription `json:"transcriptions,omitempty"`
 	End             int                              `json:"end,omitempty"`
 	FirstPageUri    string                           `json:"first_page_uri,omitempty"`
 	NextPageUri     *string                          `json:"next_page_uri,omitempty"`
@@ -25,4 +24,5 @@ type ListRecordingTranscriptionResponse struct {
 	PreviousPageUri *string                          `json:"previous_page_uri,omitempty"`
 	Start           int                              `json:"start,omitempty"`
 	Uri             string                           `json:"uri,omitempty"`
+	Transcriptions  []ApiV2010RecordingTranscription `json:"transcriptions,omitempty"`
 }

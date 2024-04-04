@@ -34,7 +34,6 @@ func (params *FetchConfiguredPluginParams) SetFlexMetadata(FlexMetadata string) 
 	return params
 }
 
-//
 func (c *ApiService) FetchConfiguredPlugin(ConfigurationSid string, PluginSid string, params *FetchConfiguredPluginParams) (*FlexV1ConfiguredPlugin, error) {
 	path := "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins/{PluginSid}"
 	path = strings.Replace(path, "{"+"ConfigurationSid"+"}", ConfigurationSid, -1)

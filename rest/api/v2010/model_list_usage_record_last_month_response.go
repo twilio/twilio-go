@@ -16,7 +16,6 @@ package openapi
 
 // ListUsageRecordLastMonthResponse struct for ListUsageRecordLastMonthResponse
 type ListUsageRecordLastMonthResponse struct {
-	UsageRecords    []ApiV2010UsageRecordLastMonth `json:"usage_records,omitempty"`
 	End             int                            `json:"end,omitempty"`
 	FirstPageUri    string                         `json:"first_page_uri,omitempty"`
 	NextPageUri     *string                        `json:"next_page_uri,omitempty"`
@@ -25,4 +24,5 @@ type ListUsageRecordLastMonthResponse struct {
 	PreviousPageUri *string                        `json:"previous_page_uri,omitempty"`
 	Start           int                            `json:"start,omitempty"`
 	Uri             string                         `json:"uri,omitempty"`
+	UsageRecords    []ApiV2010UsageRecordLastMonth `json:"usage_records,omitempty"`
 }
