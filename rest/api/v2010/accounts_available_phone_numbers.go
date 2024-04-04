@@ -85,7 +85,7 @@ func (params *ListAvailablePhoneNumberCountryParams) SetLimit(Limit int) *ListAv
 }
 
 // Retrieve a single page of AvailablePhoneNumberCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberCountry200Response, error) {
+func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberCountryResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -115,7 +115,7 @@ func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneN
 
 	defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberCountry200Response{}
+	ps := &ListAvailablePhoneNumberCountryResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -161,7 +161,7 @@ func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhon
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberCountry(response *ListAvailablePhoneNumberCountry200Response, params *ListAvailablePhoneNumberCountryParams, recordChannel chan ApiV2010AvailablePhoneNumberCountry, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberCountry(response *ListAvailablePhoneNumberCountryResponse, params *ListAvailablePhoneNumberCountryParams, recordChannel chan ApiV2010AvailablePhoneNumberCountry, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -176,7 +176,7 @@ func (c *ApiService) streamAvailablePhoneNumberCountry(response *ListAvailablePh
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberCountry200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberCountryResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -184,14 +184,14 @@ func (c *ApiService) streamAvailablePhoneNumberCountry(response *ListAvailablePh
 			break
 		}
 
-		response = record.(*ListAvailablePhoneNumberCountry200Response)
+		response = record.(*ListAvailablePhoneNumberCountryResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberCountry200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailablePhoneNumberCountryResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -202,7 +202,7 @@ func (c *ApiService) getNextListAvailablePhoneNumberCountry200Response(nextPageU
 
 	defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberCountry200Response{}
+	ps := &ListAvailablePhoneNumberCountryResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

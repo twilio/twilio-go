@@ -4,13 +4,13 @@ All URIs are relative to *https://content.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateContentApprovalRequest**](ContentApprovalRequestsWhatsappApi.md#CreateContentApprovalRequest) | **Post** /v1/Content/{Sid}/ApprovalRequests/whatsapp | 
+[**CreateContentApprovalRequest**](ContentApprovalRequestsWhatsappApi.md#CreateContentApprovalRequest) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | 
 
 
 
 ## CreateContentApprovalRequest
 
-> ContentV1ApprovalCreate CreateContentApprovalRequest(ctx, Sidoptional)
+> ContentV1ApprovalCreate CreateContentApprovalRequest(ctx, ContentSidoptional)
 
 
 
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | 
+**ContentSid** | **string** | 
 
 ### Other Parameters
 

@@ -171,7 +171,7 @@ func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetLimit(Limit i
 }
 
 // Retrieve a single page of SipAuthCallsIpAccessControlListMapping records from the API. Request is executed immediately.
-func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, pageToken, pageNumber string) (*ListSipAuthCallsIpAccessControlListMapping200Response, error) {
+func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, pageToken, pageNumber string) (*ListSipAuthCallsIpAccessControlListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -202,7 +202,7 @@ func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string
 
 	defer resp.Body.Close()
 
-	ps := &ListSipAuthCallsIpAccessControlListMapping200Response{}
+	ps := &ListSipAuthCallsIpAccessControlListMappingResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -248,7 +248,7 @@ func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(DomainSid stri
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipAuthCallsIpAccessControlListMapping(response *ListSipAuthCallsIpAccessControlListMapping200Response, params *ListSipAuthCallsIpAccessControlListMappingParams, recordChannel chan ApiV2010SipAuthCallsIpAccessControlListMapping, errorChannel chan error) {
+func (c *ApiService) streamSipAuthCallsIpAccessControlListMapping(response *ListSipAuthCallsIpAccessControlListMappingResponse, params *ListSipAuthCallsIpAccessControlListMappingParams, recordChannel chan ApiV2010SipAuthCallsIpAccessControlListMapping, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -263,7 +263,7 @@ func (c *ApiService) streamSipAuthCallsIpAccessControlListMapping(response *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSipAuthCallsIpAccessControlListMapping200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSipAuthCallsIpAccessControlListMappingResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -271,14 +271,14 @@ func (c *ApiService) streamSipAuthCallsIpAccessControlListMapping(response *List
 			break
 		}
 
-		response = record.(*ListSipAuthCallsIpAccessControlListMapping200Response)
+		response = record.(*ListSipAuthCallsIpAccessControlListMappingResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipAuthCallsIpAccessControlListMapping200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSipAuthCallsIpAccessControlListMappingResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -289,7 +289,7 @@ func (c *ApiService) getNextListSipAuthCallsIpAccessControlListMapping200Respons
 
 	defer resp.Body.Close()
 
-	ps := &ListSipAuthCallsIpAccessControlListMapping200Response{}
+	ps := &ListSipAuthCallsIpAccessControlListMappingResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

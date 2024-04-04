@@ -276,7 +276,7 @@ func (params *ListSipDomainParams) SetLimit(Limit int) *ListSipDomainParams {
 }
 
 // Retrieve a single page of SipDomain records from the API. Request is executed immediately.
-func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageNumber string) (*ListSipDomain200Response, error) {
+func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageNumber string) (*ListSipDomainResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -306,7 +306,7 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageN
 
 	defer resp.Body.Close()
 
-	ps := &ListSipDomain200Response{}
+	ps := &ListSipDomainResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -352,7 +352,7 @@ func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipDomain(response *ListSipDomain200Response, params *ListSipDomainParams, recordChannel chan ApiV2010SipDomain, errorChannel chan error) {
+func (c *ApiService) streamSipDomain(response *ListSipDomainResponse, params *ListSipDomainParams, recordChannel chan ApiV2010SipDomain, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -367,7 +367,7 @@ func (c *ApiService) streamSipDomain(response *ListSipDomain200Response, params 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSipDomain200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSipDomainResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -375,14 +375,14 @@ func (c *ApiService) streamSipDomain(response *ListSipDomain200Response, params 
 			break
 		}
 
-		response = record.(*ListSipDomain200Response)
+		response = record.(*ListSipDomainResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipDomain200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSipDomainResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -393,7 +393,7 @@ func (c *ApiService) getNextListSipDomain200Response(nextPageUrl string) (interf
 
 	defer resp.Body.Close()
 
-	ps := &ListSipDomain200Response{}
+	ps := &ListSipDomainResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

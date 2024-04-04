@@ -357,6 +357,10 @@ type ListMessageParams struct {
 	From *string `json:"From,omitempty"`
 	// Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
 	DateSent *time.Time `json:"DateSent,omitempty"`
+	// Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+	DateSentBefore *time.Time `json:"DateSent&lt;,omitempty"`
+	// Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+	DateSentAfter *time.Time `json:"DateSent&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -379,6 +383,14 @@ func (params *ListMessageParams) SetDateSent(DateSent time.Time) *ListMessagePar
 	params.DateSent = &DateSent
 	return params
 }
+func (params *ListMessageParams) SetDateSentBefore(DateSentBefore time.Time) *ListMessageParams {
+	params.DateSentBefore = &DateSentBefore
+	return params
+}
+func (params *ListMessageParams) SetDateSentAfter(DateSentAfter time.Time) *ListMessageParams {
+	params.DateSentAfter = &DateSentAfter
+	return params
+}
 func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
 	params.PageSize = &PageSize
 	return params
@@ -389,7 +401,7 @@ func (params *ListMessageParams) SetLimit(Limit int) *ListMessageParams {
 }
 
 // Retrieve a single page of Message records from the API. Request is executed immediately.
-func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumber string) (*ListMessage200Response, error) {
+func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumber string) (*ListMessageResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -410,6 +422,12 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumbe
 	if params != nil && params.DateSent != nil {
 		data.Set("DateSent", fmt.Sprint((*params.DateSent).Format(time.RFC3339)))
 	}
+	if params != nil && params.DateSentBefore != nil {
+		data.Set("DateSent<", fmt.Sprint((*params.DateSentBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateSentAfter != nil {
+		data.Set("DateSent>", fmt.Sprint((*params.DateSentAfter).Format(time.RFC3339)))
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -428,7 +446,7 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumbe
 
 	defer resp.Body.Close()
 
-	ps := &ListMessage200Response{}
+	ps := &ListMessageResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -474,7 +492,7 @@ func (c *ApiService) StreamMessage(params *ListMessageParams) (chan ApiV2010Mess
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMessage(response *ListMessage200Response, params *ListMessageParams, recordChannel chan ApiV2010Message, errorChannel chan error) {
+func (c *ApiService) streamMessage(response *ListMessageResponse, params *ListMessageParams, recordChannel chan ApiV2010Message, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -489,7 +507,7 @@ func (c *ApiService) streamMessage(response *ListMessage200Response, params *Lis
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMessage200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListMessageResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -497,14 +515,14 @@ func (c *ApiService) streamMessage(response *ListMessage200Response, params *Lis
 			break
 		}
 
-		response = record.(*ListMessage200Response)
+		response = record.(*ListMessageResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMessage200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMessageResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -515,7 +533,7 @@ func (c *ApiService) getNextListMessage200Response(nextPageUrl string) (interfac
 
 	defer resp.Body.Close()
 
-	ps := &ListMessage200Response{}
+	ps := &ListMessageResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

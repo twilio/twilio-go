@@ -26,7 +26,7 @@ type ApiService struct {
 func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
 	return &ApiService{
 		requestHandler: requestHandler,
-		baseURL:        "",
+		baseURL:        "https://preview.messaging.twilio.com",
 	}
 }
 

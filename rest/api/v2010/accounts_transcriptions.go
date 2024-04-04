@@ -120,7 +120,7 @@ func (params *ListTranscriptionParams) SetLimit(Limit int) *ListTranscriptionPar
 }
 
 // Retrieve a single page of Transcription records from the API. Request is executed immediately.
-func (c *ApiService) PageTranscription(params *ListTranscriptionParams, pageToken, pageNumber string) (*ListTranscription200Response, error) {
+func (c *ApiService) PageTranscription(params *ListTranscriptionParams, pageToken, pageNumber string) (*ListTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -150,7 +150,7 @@ func (c *ApiService) PageTranscription(params *ListTranscriptionParams, pageToke
 
 	defer resp.Body.Close()
 
-	ps := &ListTranscription200Response{}
+	ps := &ListTranscriptionResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (c *ApiService) StreamTranscription(params *ListTranscriptionParams) (chan 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTranscription(response *ListTranscription200Response, params *ListTranscriptionParams, recordChannel chan ApiV2010Transcription, errorChannel chan error) {
+func (c *ApiService) streamTranscription(response *ListTranscriptionResponse, params *ListTranscriptionParams, recordChannel chan ApiV2010Transcription, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -211,7 +211,7 @@ func (c *ApiService) streamTranscription(response *ListTranscription200Response,
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListTranscription200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListTranscriptionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -219,14 +219,14 @@ func (c *ApiService) streamTranscription(response *ListTranscription200Response,
 			break
 		}
 
-		response = record.(*ListTranscription200Response)
+		response = record.(*ListTranscriptionResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTranscription200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTranscriptionResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -237,7 +237,7 @@ func (c *ApiService) getNextListTranscription200Response(nextPageUrl string) (in
 
 	defer resp.Body.Close()
 
-	ps := &ListTranscription200Response{}
+	ps := &ListTranscriptionResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

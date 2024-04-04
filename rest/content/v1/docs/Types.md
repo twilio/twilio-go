@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **TwilioCallToAction** | Pointer to [**TwilioCallToAction**](TwilioCallToAction.md) |  |
 **TwilioQuickReply** | Pointer to [**TwilioQuickReply**](TwilioQuickReply.md) |  |
 **TwilioCard** | Pointer to [**TwilioCard**](TwilioCard.md) |  |
+**TwilioCatalog** | Pointer to [**TwilioCatalog**](TwilioCatalog.md) |  |
 **WhatsappCard** | Pointer to [**WhatsappCard**](WhatsappCard.md) |  |
 **WhatsappAuthentication** | Pointer to [**WhatsappAuthentication**](WhatsappAuthentication.md) |  |
 

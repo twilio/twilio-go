@@ -239,7 +239,7 @@ func (params *ListUsageTriggerParams) SetLimit(Limit int) *ListUsageTriggerParam
 }
 
 // Retrieve a single page of UsageTrigger records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken, pageNumber string) (*ListUsageTrigger200Response, error) {
+func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken, pageNumber string) (*ListUsageTriggerResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -278,7 +278,7 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken,
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageTrigger200Response{}
+	ps := &ListUsageTriggerResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -324,7 +324,7 @@ func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams) (chan Ap
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageTrigger(response *ListUsageTrigger200Response, params *ListUsageTriggerParams, recordChannel chan ApiV2010UsageTrigger, errorChannel chan error) {
+func (c *ApiService) streamUsageTrigger(response *ListUsageTriggerResponse, params *ListUsageTriggerParams, recordChannel chan ApiV2010UsageTrigger, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -339,7 +339,7 @@ func (c *ApiService) streamUsageTrigger(response *ListUsageTrigger200Response, p
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageTrigger200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageTriggerResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -347,14 +347,14 @@ func (c *ApiService) streamUsageTrigger(response *ListUsageTrigger200Response, p
 			break
 		}
 
-		response = record.(*ListUsageTrigger200Response)
+		response = record.(*ListUsageTriggerResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageTrigger200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageTriggerResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -365,7 +365,7 @@ func (c *ApiService) getNextListUsageTrigger200Response(nextPageUrl string) (int
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageTrigger200Response{}
+	ps := &ListUsageTriggerResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

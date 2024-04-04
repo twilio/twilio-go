@@ -68,8 +68,16 @@ type ListConferenceParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
 	DateCreated *string `json:"DateCreated,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
 	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
 	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+	DateUpdatedBefore *string `json:"DateUpdated&lt;,omitempty"`
+	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+	DateUpdatedAfter *string `json:"DateUpdated&gt;,omitempty"`
 	// The string that identifies the Conference resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
@@ -88,8 +96,24 @@ func (params *ListConferenceParams) SetDateCreated(DateCreated string) *ListConf
 	params.DateCreated = &DateCreated
 	return params
 }
+func (params *ListConferenceParams) SetDateCreatedBefore(DateCreatedBefore string) *ListConferenceParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListConferenceParams) SetDateCreatedAfter(DateCreatedAfter string) *ListConferenceParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
 func (params *ListConferenceParams) SetDateUpdated(DateUpdated string) *ListConferenceParams {
 	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *ListConferenceParams) SetDateUpdatedBefore(DateUpdatedBefore string) *ListConferenceParams {
+	params.DateUpdatedBefore = &DateUpdatedBefore
+	return params
+}
+func (params *ListConferenceParams) SetDateUpdatedAfter(DateUpdatedAfter string) *ListConferenceParams {
+	params.DateUpdatedAfter = &DateUpdatedAfter
 	return params
 }
 func (params *ListConferenceParams) SetFriendlyName(FriendlyName string) *ListConferenceParams {
@@ -110,7 +134,7 @@ func (params *ListConferenceParams) SetLimit(Limit int) *ListConferenceParams {
 }
 
 // Retrieve a single page of Conference records from the API. Request is executed immediately.
-func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pageNumber string) (*ListConference200Response, error) {
+func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pageNumber string) (*ListConferenceResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -125,8 +149,20 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pag
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
+	}
 	if params != nil && params.DateUpdated != nil {
 		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+	}
+	if params != nil && params.DateUpdatedBefore != nil {
+		data.Set("DateUpdated<", fmt.Sprint(*params.DateUpdatedBefore))
+	}
+	if params != nil && params.DateUpdatedAfter != nil {
+		data.Set("DateUpdated>", fmt.Sprint(*params.DateUpdatedAfter))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -152,7 +188,7 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pag
 
 	defer resp.Body.Close()
 
-	ps := &ListConference200Response{}
+	ps := &ListConferenceResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -198,7 +234,7 @@ func (c *ApiService) StreamConference(params *ListConferenceParams) (chan ApiV20
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConference(response *ListConference200Response, params *ListConferenceParams, recordChannel chan ApiV2010Conference, errorChannel chan error) {
+func (c *ApiService) streamConference(response *ListConferenceResponse, params *ListConferenceParams, recordChannel chan ApiV2010Conference, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -213,7 +249,7 @@ func (c *ApiService) streamConference(response *ListConference200Response, param
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListConference200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListConferenceResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -221,14 +257,14 @@ func (c *ApiService) streamConference(response *ListConference200Response, param
 			break
 		}
 
-		response = record.(*ListConference200Response)
+		response = record.(*ListConferenceResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListConference200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListConferenceResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -239,7 +275,7 @@ func (c *ApiService) getNextListConference200Response(nextPageUrl string) (inter
 
 	defer resp.Body.Close()
 
-	ps := &ListConference200Response{}
+	ps := &ListConferenceResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -88,7 +88,7 @@ func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetLimit(Limi
 }
 
 // Retrieve a single page of IncomingPhoneNumberAssignedAddOnExtension records from the API. Request is executed immediately.
-func (c *ApiService) PageIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnExtension200Response, error) {
+func (c *ApiService) PageIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnExtensionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -120,7 +120,7 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOnExtension(ResourceSid s
 
 	defer resp.Body.Close()
 
-	ps := &ListIncomingPhoneNumberAssignedAddOnExtension200Response{}
+	ps := &ListIncomingPhoneNumberAssignedAddOnExtensionResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -166,7 +166,7 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOnExtension(ResourceSid
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIncomingPhoneNumberAssignedAddOnExtension(response *ListIncomingPhoneNumberAssignedAddOnExtension200Response, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, recordChannel chan ApiV2010IncomingPhoneNumberAssignedAddOnExtension, errorChannel chan error) {
+func (c *ApiService) streamIncomingPhoneNumberAssignedAddOnExtension(response *ListIncomingPhoneNumberAssignedAddOnExtensionResponse, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, recordChannel chan ApiV2010IncomingPhoneNumberAssignedAddOnExtension, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -181,7 +181,7 @@ func (c *ApiService) streamIncomingPhoneNumberAssignedAddOnExtension(response *L
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberAssignedAddOnExtension200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberAssignedAddOnExtensionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -189,14 +189,14 @@ func (c *ApiService) streamIncomingPhoneNumberAssignedAddOnExtension(response *L
 			break
 		}
 
-		response = record.(*ListIncomingPhoneNumberAssignedAddOnExtension200Response)
+		response = record.(*ListIncomingPhoneNumberAssignedAddOnExtensionResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnExtension200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnExtensionResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -207,7 +207,7 @@ func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnExtension200Resp
 
 	defer resp.Body.Close()
 
-	ps := &ListIncomingPhoneNumberAssignedAddOnExtension200Response{}
+	ps := &ListIncomingPhoneNumberAssignedAddOnExtensionResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

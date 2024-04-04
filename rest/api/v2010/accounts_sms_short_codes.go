@@ -98,7 +98,7 @@ func (params *ListShortCodeParams) SetLimit(Limit int) *ListShortCodeParams {
 }
 
 // Retrieve a single page of ShortCode records from the API. Request is executed immediately.
-func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken, pageNumber string) (*ListShortCode200Response, error) {
+func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken, pageNumber string) (*ListShortCodeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -134,7 +134,7 @@ func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken, pageN
 
 	defer resp.Body.Close()
 
-	ps := &ListShortCode200Response{}
+	ps := &ListShortCodeResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -180,7 +180,7 @@ func (c *ApiService) StreamShortCode(params *ListShortCodeParams) (chan ApiV2010
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamShortCode(response *ListShortCode200Response, params *ListShortCodeParams, recordChannel chan ApiV2010ShortCode, errorChannel chan error) {
+func (c *ApiService) streamShortCode(response *ListShortCodeResponse, params *ListShortCodeParams, recordChannel chan ApiV2010ShortCode, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -195,7 +195,7 @@ func (c *ApiService) streamShortCode(response *ListShortCode200Response, params 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListShortCode200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListShortCodeResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -203,14 +203,14 @@ func (c *ApiService) streamShortCode(response *ListShortCode200Response, params 
 			break
 		}
 
-		response = record.(*ListShortCode200Response)
+		response = record.(*ListShortCodeResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListShortCode200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListShortCodeResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -221,7 +221,7 @@ func (c *ApiService) getNextListShortCode200Response(nextPageUrl string) (interf
 
 	defer resp.Body.Close()
 
-	ps := &ListShortCode200Response{}
+	ps := &ListShortCodeResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -23,6 +23,7 @@ type Types struct {
 	TwilioCallToAction     *TwilioCallToAction     `json:"twilio/call-to-action,omitempty"`
 	TwilioQuickReply       *TwilioQuickReply       `json:"twilio/quick-reply,omitempty"`
 	TwilioCard             *TwilioCard             `json:"twilio/card,omitempty"`
+	TwilioCatalog          *TwilioCatalog          `json:"twilio/catalog,omitempty"`
 	WhatsappCard           *WhatsappCard           `json:"whatsapp/card,omitempty"`
 	WhatsappAuthentication *WhatsappAuthentication `json:"whatsapp/authentication,omitempty"`
 }

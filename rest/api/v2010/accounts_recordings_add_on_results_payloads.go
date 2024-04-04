@@ -124,7 +124,7 @@ func (params *ListRecordingAddOnResultPayloadParams) SetLimit(Limit int) *ListRe
 }
 
 // Retrieve a single page of RecordingAddOnResultPayload records from the API. Request is executed immediately.
-func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, pageToken, pageNumber string) (*ListRecordingAddOnResultPayload200Response, error) {
+func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, pageToken, pageNumber string) (*ListRecordingAddOnResultPayloadResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -156,7 +156,7 @@ func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 
 	defer resp.Body.Close()
 
-	ps := &ListRecordingAddOnResultPayload200Response{}
+	ps := &ListRecordingAddOnResultPayloadResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -202,7 +202,7 @@ func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddO
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRecordingAddOnResultPayload(response *ListRecordingAddOnResultPayload200Response, params *ListRecordingAddOnResultPayloadParams, recordChannel chan ApiV2010RecordingAddOnResultPayload, errorChannel chan error) {
+func (c *ApiService) streamRecordingAddOnResultPayload(response *ListRecordingAddOnResultPayloadResponse, params *ListRecordingAddOnResultPayloadParams, recordChannel chan ApiV2010RecordingAddOnResultPayload, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -217,7 +217,7 @@ func (c *ApiService) streamRecordingAddOnResultPayload(response *ListRecordingAd
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRecordingAddOnResultPayload200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListRecordingAddOnResultPayloadResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -225,14 +225,14 @@ func (c *ApiService) streamRecordingAddOnResultPayload(response *ListRecordingAd
 			break
 		}
 
-		response = record.(*ListRecordingAddOnResultPayload200Response)
+		response = record.(*ListRecordingAddOnResultPayloadResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRecordingAddOnResultPayload200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRecordingAddOnResultPayloadResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -243,7 +243,7 @@ func (c *ApiService) getNextListRecordingAddOnResultPayload200Response(nextPageU
 
 	defer resp.Body.Close()
 
-	ps := &ListRecordingAddOnResultPayload200Response{}
+	ps := &ListRecordingAddOnResultPayloadResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

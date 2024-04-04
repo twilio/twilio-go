@@ -168,7 +168,7 @@ func (params *ListSipIpAccessControlListParams) SetLimit(Limit int) *ListSipIpAc
 }
 
 // Retrieve a single page of SipIpAccessControlList records from the API. Request is executed immediately.
-func (c *ApiService) PageSipIpAccessControlList(params *ListSipIpAccessControlListParams, pageToken, pageNumber string) (*ListSipIpAccessControlList200Response, error) {
+func (c *ApiService) PageSipIpAccessControlList(params *ListSipIpAccessControlListParams, pageToken, pageNumber string) (*ListSipIpAccessControlListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -198,7 +198,7 @@ func (c *ApiService) PageSipIpAccessControlList(params *ListSipIpAccessControlLi
 
 	defer resp.Body.Close()
 
-	ps := &ListSipIpAccessControlList200Response{}
+	ps := &ListSipIpAccessControlListResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -244,7 +244,7 @@ func (c *ApiService) StreamSipIpAccessControlList(params *ListSipIpAccessControl
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipIpAccessControlList(response *ListSipIpAccessControlList200Response, params *ListSipIpAccessControlListParams, recordChannel chan ApiV2010SipIpAccessControlList, errorChannel chan error) {
+func (c *ApiService) streamSipIpAccessControlList(response *ListSipIpAccessControlListResponse, params *ListSipIpAccessControlListParams, recordChannel chan ApiV2010SipIpAccessControlList, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -259,7 +259,7 @@ func (c *ApiService) streamSipIpAccessControlList(response *ListSipIpAccessContr
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSipIpAccessControlList200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSipIpAccessControlListResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -267,14 +267,14 @@ func (c *ApiService) streamSipIpAccessControlList(response *ListSipIpAccessContr
 			break
 		}
 
-		response = record.(*ListSipIpAccessControlList200Response)
+		response = record.(*ListSipIpAccessControlListResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipIpAccessControlList200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSipIpAccessControlListResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -285,7 +285,7 @@ func (c *ApiService) getNextListSipIpAccessControlList200Response(nextPageUrl st
 
 	defer resp.Body.Close()
 
-	ps := &ListSipIpAccessControlList200Response{}
+	ps := &ListSipIpAccessControlListResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

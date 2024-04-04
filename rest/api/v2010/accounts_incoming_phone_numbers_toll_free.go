@@ -316,7 +316,7 @@ func (params *ListIncomingPhoneNumberTollFreeParams) SetLimit(Limit int) *ListIn
 }
 
 // Retrieve a single page of IncomingPhoneNumberTollFree records from the API. Request is executed immediately.
-func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberTollFree200Response, error) {
+func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -358,7 +358,7 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 
 	defer resp.Body.Close()
 
-	ps := &ListIncomingPhoneNumberTollFree200Response{}
+	ps := &ListIncomingPhoneNumberTollFreeResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -404,7 +404,7 @@ func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhone
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIncomingPhoneNumberTollFree(response *ListIncomingPhoneNumberTollFree200Response, params *ListIncomingPhoneNumberTollFreeParams, recordChannel chan ApiV2010IncomingPhoneNumberTollFree, errorChannel chan error) {
+func (c *ApiService) streamIncomingPhoneNumberTollFree(response *ListIncomingPhoneNumberTollFreeResponse, params *ListIncomingPhoneNumberTollFreeParams, recordChannel chan ApiV2010IncomingPhoneNumberTollFree, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -419,7 +419,7 @@ func (c *ApiService) streamIncomingPhoneNumberTollFree(response *ListIncomingPho
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberTollFree200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberTollFreeResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -427,14 +427,14 @@ func (c *ApiService) streamIncomingPhoneNumberTollFree(response *ListIncomingPho
 			break
 		}
 
-		response = record.(*ListIncomingPhoneNumberTollFree200Response)
+		response = record.(*ListIncomingPhoneNumberTollFreeResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumberTollFree200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListIncomingPhoneNumberTollFreeResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -445,7 +445,7 @@ func (c *ApiService) getNextListIncomingPhoneNumberTollFree200Response(nextPageU
 
 	defer resp.Body.Close()
 
-	ps := &ListIncomingPhoneNumberTollFree200Response{}
+	ps := &ListIncomingPhoneNumberTollFreeResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

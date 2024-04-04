@@ -120,7 +120,7 @@ func (params *ListConnectAppParams) SetLimit(Limit int) *ListConnectAppParams {
 }
 
 // Retrieve a single page of ConnectApp records from the API. Request is executed immediately.
-func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken, pageNumber string) (*ListConnectApp200Response, error) {
+func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken, pageNumber string) (*ListConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -150,7 +150,7 @@ func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken, pag
 
 	defer resp.Body.Close()
 
-	ps := &ListConnectApp200Response{}
+	ps := &ListConnectAppResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (c *ApiService) StreamConnectApp(params *ListConnectAppParams) (chan ApiV20
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConnectApp(response *ListConnectApp200Response, params *ListConnectAppParams, recordChannel chan ApiV2010ConnectApp, errorChannel chan error) {
+func (c *ApiService) streamConnectApp(response *ListConnectAppResponse, params *ListConnectAppParams, recordChannel chan ApiV2010ConnectApp, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -211,7 +211,7 @@ func (c *ApiService) streamConnectApp(response *ListConnectApp200Response, param
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListConnectApp200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListConnectAppResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -219,14 +219,14 @@ func (c *ApiService) streamConnectApp(response *ListConnectApp200Response, param
 			break
 		}
 
-		response = record.(*ListConnectApp200Response)
+		response = record.(*ListConnectAppResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListConnectApp200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListConnectAppResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -237,7 +237,7 @@ func (c *ApiService) getNextListConnectApp200Response(nextPageUrl string) (inter
 
 	defer resp.Body.Close()
 
-	ps := &ListConnectApp200Response{}
+	ps := &ListConnectAppResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

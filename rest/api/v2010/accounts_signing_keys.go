@@ -166,7 +166,7 @@ func (params *ListSigningKeyParams) SetLimit(Limit int) *ListSigningKeyParams {
 }
 
 // Retrieve a single page of SigningKey records from the API. Request is executed immediately.
-func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pageNumber string) (*ListSigningKey200Response, error) {
+func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pageNumber string) (*ListSigningKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -196,7 +196,7 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pag
 
 	defer resp.Body.Close()
 
-	ps := &ListSigningKey200Response{}
+	ps := &ListSigningKeyResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -242,7 +242,7 @@ func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV20
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSigningKey(response *ListSigningKey200Response, params *ListSigningKeyParams, recordChannel chan ApiV2010SigningKey, errorChannel chan error) {
+func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *ListSigningKeyParams, recordChannel chan ApiV2010SigningKey, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -257,7 +257,7 @@ func (c *ApiService) streamSigningKey(response *ListSigningKey200Response, param
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSigningKey200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListSigningKeyResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -265,14 +265,14 @@ func (c *ApiService) streamSigningKey(response *ListSigningKey200Response, param
 			break
 		}
 
-		response = record.(*ListSigningKey200Response)
+		response = record.(*ListSigningKeyResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSigningKey200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSigningKeyResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -283,7 +283,7 @@ func (c *ApiService) getNextListSigningKey200Response(nextPageUrl string) (inter
 
 	defer resp.Body.Close()
 
-	ps := &ListSigningKey200Response{}
+	ps := &ListSigningKeyResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

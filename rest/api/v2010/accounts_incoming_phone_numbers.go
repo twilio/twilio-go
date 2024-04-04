@@ -399,7 +399,7 @@ func (params *ListIncomingPhoneNumberParams) SetLimit(Limit int) *ListIncomingPh
 }
 
 // Retrieve a single page of IncomingPhoneNumber records from the API. Request is executed immediately.
-func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberParams, pageToken, pageNumber string) (*ListIncomingPhoneNumber200Response, error) {
+func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -441,7 +441,7 @@ func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 
 	defer resp.Body.Close()
 
-	ps := &ListIncomingPhoneNumber200Response{}
+	ps := &ListIncomingPhoneNumberResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -487,7 +487,7 @@ func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberPa
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIncomingPhoneNumber(response *ListIncomingPhoneNumber200Response, params *ListIncomingPhoneNumberParams, recordChannel chan ApiV2010IncomingPhoneNumber, errorChannel chan error) {
+func (c *ApiService) streamIncomingPhoneNumber(response *ListIncomingPhoneNumberResponse, params *ListIncomingPhoneNumberParams, recordChannel chan ApiV2010IncomingPhoneNumber, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -502,7 +502,7 @@ func (c *ApiService) streamIncomingPhoneNumber(response *ListIncomingPhoneNumber
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumber200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -510,14 +510,14 @@ func (c *ApiService) streamIncomingPhoneNumber(response *ListIncomingPhoneNumber
 			break
 		}
 
-		response = record.(*ListIncomingPhoneNumber200Response)
+		response = record.(*ListIncomingPhoneNumberResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumber200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListIncomingPhoneNumberResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -528,7 +528,7 @@ func (c *ApiService) getNextListIncomingPhoneNumber200Response(nextPageUrl strin
 
 	defer resp.Body.Close()
 
-	ps := &ListIncomingPhoneNumber200Response{}
+	ps := &ListIncomingPhoneNumberResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

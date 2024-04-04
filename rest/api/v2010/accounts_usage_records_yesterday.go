@@ -71,7 +71,7 @@ func (params *ListUsageRecordYesterdayParams) SetLimit(Limit int) *ListUsageReco
 }
 
 // Retrieve a single page of UsageRecordYesterday records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayParams, pageToken, pageNumber string) (*ListUsageRecordYesterday200Response, error) {
+func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayParams, pageToken, pageNumber string) (*ListUsageRecordYesterdayResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -113,7 +113,7 @@ func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageRecordYesterday200Response{}
+	ps := &ListUsageRecordYesterdayResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (c *ApiService) StreamUsageRecordYesterday(params *ListUsageRecordYesterday
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordYesterday(response *ListUsageRecordYesterday200Response, params *ListUsageRecordYesterdayParams, recordChannel chan ApiV2010UsageRecordYesterday, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordYesterday(response *ListUsageRecordYesterdayResponse, params *ListUsageRecordYesterdayParams, recordChannel chan ApiV2010UsageRecordYesterday, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -174,7 +174,7 @@ func (c *ApiService) streamUsageRecordYesterday(response *ListUsageRecordYesterd
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordYesterday200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordYesterdayResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -182,14 +182,14 @@ func (c *ApiService) streamUsageRecordYesterday(response *ListUsageRecordYesterd
 			break
 		}
 
-		response = record.(*ListUsageRecordYesterday200Response)
+		response = record.(*ListUsageRecordYesterdayResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordYesterday200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordYesterdayResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -200,7 +200,7 @@ func (c *ApiService) getNextListUsageRecordYesterday200Response(nextPageUrl stri
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageRecordYesterday200Response{}
+	ps := &ListUsageRecordYesterdayResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

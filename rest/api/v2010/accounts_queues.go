@@ -177,7 +177,7 @@ func (params *ListQueueParams) SetLimit(Limit int) *ListQueueParams {
 }
 
 // Retrieve a single page of Queue records from the API. Request is executed immediately.
-func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber string) (*ListQueue200Response, error) {
+func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber string) (*ListQueueResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -207,7 +207,7 @@ func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber st
 
 	defer resp.Body.Close()
 
-	ps := &ListQueue200Response{}
+	ps := &ListQueueResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -253,7 +253,7 @@ func (c *ApiService) StreamQueue(params *ListQueueParams) (chan ApiV2010Queue, c
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamQueue(response *ListQueue200Response, params *ListQueueParams, recordChannel chan ApiV2010Queue, errorChannel chan error) {
+func (c *ApiService) streamQueue(response *ListQueueResponse, params *ListQueueParams, recordChannel chan ApiV2010Queue, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -268,7 +268,7 @@ func (c *ApiService) streamQueue(response *ListQueue200Response, params *ListQue
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListQueue200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListQueueResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -276,14 +276,14 @@ func (c *ApiService) streamQueue(response *ListQueue200Response, params *ListQue
 			break
 		}
 
-		response = record.(*ListQueue200Response)
+		response = record.(*ListQueueResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListQueue200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListQueueResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -294,7 +294,7 @@ func (c *ApiService) getNextListQueue200Response(nextPageUrl string) (interface{
 
 	defer resp.Body.Close()
 
-	ps := &ListQueue200Response{}
+	ps := &ListQueueResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

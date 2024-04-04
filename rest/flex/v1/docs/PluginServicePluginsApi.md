@@ -34,6 +34,8 @@ Name | Type | Description
 **UniqueName** | **string** | The Flex Plugin's unique name.
 **FriendlyName** | **string** | The Flex Plugin's friendly name.
 **Description** | **string** | A descriptive string that you create to describe the plugin resource. It can be up to 500 characters long
+**CliVersion** | **string** | The version of Flex Plugins CLI used to create this plugin
+**ValidateStatus** | **string** | The validation status of the plugin, indicating whether it has been validated
 
 ### Return type
 

@@ -71,7 +71,7 @@ func (params *ListUsageRecordMonthlyParams) SetLimit(Limit int) *ListUsageRecord
 }
 
 // Retrieve a single page of UsageRecordMonthly records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecordMonthly(params *ListUsageRecordMonthlyParams, pageToken, pageNumber string) (*ListUsageRecordMonthly200Response, error) {
+func (c *ApiService) PageUsageRecordMonthly(params *ListUsageRecordMonthlyParams, pageToken, pageNumber string) (*ListUsageRecordMonthlyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -113,7 +113,7 @@ func (c *ApiService) PageUsageRecordMonthly(params *ListUsageRecordMonthlyParams
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageRecordMonthly200Response{}
+	ps := &ListUsageRecordMonthlyResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (c *ApiService) StreamUsageRecordMonthly(params *ListUsageRecordMonthlyPara
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordMonthly(response *ListUsageRecordMonthly200Response, params *ListUsageRecordMonthlyParams, recordChannel chan ApiV2010UsageRecordMonthly, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordMonthly(response *ListUsageRecordMonthlyResponse, params *ListUsageRecordMonthlyParams, recordChannel chan ApiV2010UsageRecordMonthly, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -174,7 +174,7 @@ func (c *ApiService) streamUsageRecordMonthly(response *ListUsageRecordMonthly20
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordMonthly200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordMonthlyResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -182,14 +182,14 @@ func (c *ApiService) streamUsageRecordMonthly(response *ListUsageRecordMonthly20
 			break
 		}
 
-		response = record.(*ListUsageRecordMonthly200Response)
+		response = record.(*ListUsageRecordMonthlyResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordMonthly200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordMonthlyResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -200,7 +200,7 @@ func (c *ApiService) getNextListUsageRecordMonthly200Response(nextPageUrl string
 
 	defer resp.Body.Close()
 
-	ps := &ListUsageRecordMonthly200Response{}
+	ps := &ListUsageRecordMonthlyResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

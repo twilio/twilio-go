@@ -155,7 +155,7 @@ func (params *ListAvailablePhoneNumberMobileParams) SetLimit(Limit int) *ListAva
 }
 
 // Retrieve a single page of AvailablePhoneNumberMobile records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberMobile200Response, error) {
+func (c *ApiService) PageAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberMobileResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -240,7 +240,7 @@ func (c *ApiService) PageAvailablePhoneNumberMobile(CountryCode string, params *
 
 	defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberMobile200Response{}
+	ps := &ListAvailablePhoneNumberMobileResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -286,7 +286,7 @@ func (c *ApiService) StreamAvailablePhoneNumberMobile(CountryCode string, params
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberMobile(response *ListAvailablePhoneNumberMobile200Response, params *ListAvailablePhoneNumberMobileParams, recordChannel chan ApiV2010AvailablePhoneNumberMobile, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberMobile(response *ListAvailablePhoneNumberMobileResponse, params *ListAvailablePhoneNumberMobileParams, recordChannel chan ApiV2010AvailablePhoneNumberMobile, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -301,7 +301,7 @@ func (c *ApiService) streamAvailablePhoneNumberMobile(response *ListAvailablePho
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberMobile200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberMobileResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -309,14 +309,14 @@ func (c *ApiService) streamAvailablePhoneNumberMobile(response *ListAvailablePho
 			break
 		}
 
-		response = record.(*ListAvailablePhoneNumberMobile200Response)
+		response = record.(*ListAvailablePhoneNumberMobileResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberMobile200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailablePhoneNumberMobileResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -327,7 +327,7 @@ func (c *ApiService) getNextListAvailablePhoneNumberMobile200Response(nextPageUr
 
 	defer resp.Body.Close()
 
-	ps := &ListAvailablePhoneNumberMobile200Response{}
+	ps := &ListAvailablePhoneNumberMobileResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

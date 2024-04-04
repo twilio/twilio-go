@@ -87,7 +87,7 @@ func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
 }
 
 // Retrieve a single page of Member records from the API. Request is executed immediately.
-func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMember200Response, error) {
+func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMemberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -118,7 +118,7 @@ func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageT
 
 	defer resp.Body.Close()
 
-	ps := &ListMember200Response{}
+	ps := &ListMemberResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -164,7 +164,7 @@ func (c *ApiService) StreamMember(QueueSid string, params *ListMemberParams) (ch
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMember(response *ListMember200Response, params *ListMemberParams, recordChannel chan ApiV2010Member, errorChannel chan error) {
+func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemberParams, recordChannel chan ApiV2010Member, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -179,7 +179,7 @@ func (c *ApiService) streamMember(response *ListMember200Response, params *ListM
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMember200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListMemberResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -187,14 +187,14 @@ func (c *ApiService) streamMember(response *ListMember200Response, params *ListM
 			break
 		}
 
-		response = record.(*ListMember200Response)
+		response = record.(*ListMemberResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMember200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMemberResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -205,7 +205,7 @@ func (c *ApiService) getNextListMember200Response(nextPageUrl string) (interface
 
 	defer resp.Body.Close()
 
-	ps := &ListMember200Response{}
+	ps := &ListMemberResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -36,8 +36,8 @@ Class | Method | HTTP request | Description
 *ContentApi* | [**FetchContent**](docs/ContentApi.md#fetchcontent) | **Get** /v1/Content/{Sid} | 
 *ContentApi* | [**ListContent**](docs/ContentApi.md#listcontent) | **Get** /v1/Content | 
 *ContentAndApprovalsApi* | [**ListContentAndApprovals**](docs/ContentAndApprovalsApi.md#listcontentandapprovals) | **Get** /v1/ContentAndApprovals | 
-*ContentApprovalRequestsApi* | [**FetchApproval**](docs/ContentApprovalRequestsApi.md#fetchapproval) | **Get** /v1/Content/{Sid}/ApprovalRequests | 
-*ContentApprovalRequestsWhatsappApi* | [**CreateContentApprovalRequest**](docs/ContentApprovalRequestsWhatsappApi.md#createcontentapprovalrequest) | **Post** /v1/Content/{Sid}/ApprovalRequests/whatsapp | 
+*ContentApprovalRequestsApi* | [**FetchApproval**](docs/ContentApprovalRequestsApi.md#fetchapproval) | **Get** /v1/Content/{ContentSid}/ApprovalRequests | 
+*ContentApprovalRequestsWhatsappApi* | [**CreateContentApprovalRequest**](docs/ContentApprovalRequestsWhatsappApi.md#createcontentapprovalrequest) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | 
 *LegacyContentApi* | [**ListLegacyContent**](docs/LegacyContentApi.md#listlegacycontent) | **Get** /v1/LegacyContent | 
 
 
@@ -65,12 +65,14 @@ Class | Method | HTTP request | Description
  - [CallToActionAction](docs/CallToActionAction.md)
  - [TwilioQuickReply](docs/TwilioQuickReply.md)
  - [ContentApprovalRequest](docs/ContentApprovalRequest.md)
+ - [TwilioCatalog](docs/TwilioCatalog.md)
  - [ContentV1Content](docs/ContentV1Content.md)
  - [ListContentResponse](docs/ListContentResponse.md)
  - [TwilioCallToAction](docs/TwilioCallToAction.md)
  - [AuthenticationActionType](docs/AuthenticationActionType.md)
  - [AuthenticationAction](docs/AuthenticationAction.md)
  - [CardAction](docs/CardAction.md)
+ - [CatalogItem](docs/CatalogItem.md)
  - [ContentV1LegacyContent](docs/ContentV1LegacyContent.md)
  - [ListContentAndApprovalsResponse](docs/ListContentAndApprovalsResponse.md)
 

@@ -47,7 +47,7 @@ func (params *ListDependentPhoneNumberParams) SetLimit(Limit int) *ListDependent
 }
 
 // Retrieve a single page of DependentPhoneNumber records from the API. Request is executed immediately.
-func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams, pageToken, pageNumber string) (*ListDependentPhoneNumber200Response, error) {
+func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams, pageToken, pageNumber string) (*ListDependentPhoneNumberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -78,7 +78,7 @@ func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDep
 
 	defer resp.Body.Close()
 
-	ps := &ListDependentPhoneNumber200Response{}
+	ps := &ListDependentPhoneNumberResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -124,7 +124,7 @@ func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListD
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDependentPhoneNumber(response *ListDependentPhoneNumber200Response, params *ListDependentPhoneNumberParams, recordChannel chan ApiV2010DependentPhoneNumber, errorChannel chan error) {
+func (c *ApiService) streamDependentPhoneNumber(response *ListDependentPhoneNumberResponse, params *ListDependentPhoneNumberParams, recordChannel chan ApiV2010DependentPhoneNumber, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -139,7 +139,7 @@ func (c *ApiService) streamDependentPhoneNumber(response *ListDependentPhoneNumb
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDependentPhoneNumber200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListDependentPhoneNumberResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -147,14 +147,14 @@ func (c *ApiService) streamDependentPhoneNumber(response *ListDependentPhoneNumb
 			break
 		}
 
-		response = record.(*ListDependentPhoneNumber200Response)
+		response = record.(*ListDependentPhoneNumberResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDependentPhoneNumber200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDependentPhoneNumberResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -165,7 +165,7 @@ func (c *ApiService) getNextListDependentPhoneNumber200Response(nextPageUrl stri
 
 	defer resp.Body.Close()
 
-	ps := &ListDependentPhoneNumber200Response{}
+	ps := &ListDependentPhoneNumberResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

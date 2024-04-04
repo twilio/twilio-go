@@ -65,11 +65,11 @@ Class | Method | HTTP request | Description
  - [ListConferenceParticipantResponse](docs/ListConferenceParticipantResponse.md)
  - [ListVideoRoomSummaryResponse](docs/ListVideoRoomSummaryResponse.md)
  - [InsightsV1Call](docs/InsightsV1Call.md)
- - [ListCallSummariesResponse](docs/ListCallSummariesResponse.md)
  - [ListCallSummariesResponseMeta](docs/ListCallSummariesResponseMeta.md)
- - [InsightsV1Summary](docs/InsightsV1Summary.md)
+ - [ListCallSummariesResponse](docs/ListCallSummariesResponse.md)
  - [ListEventResponse](docs/ListEventResponse.md)
  - [ListMetricResponse](docs/ListMetricResponse.md)
+ - [InsightsV1Summary](docs/InsightsV1Summary.md)
  - [InsightsV1Event](docs/InsightsV1Event.md)
 
 

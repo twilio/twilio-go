@@ -619,7 +619,7 @@ func (params *ListParticipantParams) SetLimit(Limit int) *ListParticipantParams 
 }
 
 // Retrieve a single page of Participant records from the API. Request is executed immediately.
-func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipantParams, pageToken, pageNumber string) (*ListParticipant200Response, error) {
+func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipantParams, pageToken, pageNumber string) (*ListParticipantResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -659,7 +659,7 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 
 	defer resp.Body.Close()
 
-	ps := &ListParticipant200Response{}
+	ps := &ListParticipantResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -705,7 +705,7 @@ func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListPartici
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamParticipant(response *ListParticipant200Response, params *ListParticipantParams, recordChannel chan ApiV2010Participant, errorChannel chan error) {
+func (c *ApiService) streamParticipant(response *ListParticipantResponse, params *ListParticipantParams, recordChannel chan ApiV2010Participant, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -720,7 +720,7 @@ func (c *ApiService) streamParticipant(response *ListParticipant200Response, par
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListParticipant200Response)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListParticipantResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -728,14 +728,14 @@ func (c *ApiService) streamParticipant(response *ListParticipant200Response, par
 			break
 		}
 
-		response = record.(*ListParticipant200Response)
+		response = record.(*ListParticipantResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListParticipant200Response(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListParticipantResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -746,7 +746,7 @@ func (c *ApiService) getNextListParticipant200Response(nextPageUrl string) (inte
 
 	defer resp.Body.Close()
 
-	ps := &ListParticipant200Response{}
+	ps := &ListParticipantResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
