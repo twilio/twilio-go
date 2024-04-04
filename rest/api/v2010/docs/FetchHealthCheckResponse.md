@@ -1,4 +1,4 @@
-# FetchHealthCheck200Response
+# FetchHealthCheckResponse
 
 ## Properties
 

@@ -14,8 +14,8 @@
 
 package openapi
 
-// FetchHealthCheck200Response struct for FetchHealthCheck200Response
-type FetchHealthCheck200Response struct {
+// FetchHealthCheckResponse struct for FetchHealthCheckResponse
+type FetchHealthCheckResponse struct {
 	// HealthCheck status
 	Status string `json:"status,omitempty"`
 }
