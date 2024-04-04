@@ -35,6 +35,10 @@ type CreatePluginVersionParams struct {
 	Changelog *string `json:"Changelog,omitempty"`
 	// Whether this Flex Plugin Version requires authorization.
 	Private *bool `json:"Private,omitempty"`
+	// The version of Flex Plugins CLI used to create this plugin
+	CliVersion *string `json:"CliVersion,omitempty"`
+	// The validation status of the plugin, indicating whether it has been validated
+	ValidateStatus *string `json:"ValidateStatus,omitempty"`
 }
 
 func (params *CreatePluginVersionParams) SetFlexMetadata(FlexMetadata string) *CreatePluginVersionParams {
@@ -57,7 +61,16 @@ func (params *CreatePluginVersionParams) SetPrivate(Private bool) *CreatePluginV
 	params.Private = &Private
 	return params
 }
+func (params *CreatePluginVersionParams) SetCliVersion(CliVersion string) *CreatePluginVersionParams {
+	params.CliVersion = &CliVersion
+	return params
+}
+func (params *CreatePluginVersionParams) SetValidateStatus(ValidateStatus string) *CreatePluginVersionParams {
+	params.ValidateStatus = &ValidateStatus
+	return params
+}
 
+//
 func (c *ApiService) CreatePluginVersion(PluginSid string, params *CreatePluginVersionParams) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -76,6 +89,12 @@ func (c *ApiService) CreatePluginVersion(PluginSid string, params *CreatePluginV
 	}
 	if params != nil && params.Private != nil {
 		data.Set("Private", fmt.Sprint(*params.Private))
+	}
+	if params != nil && params.CliVersion != nil {
+		data.Set("CliVersion", *params.CliVersion)
+	}
+	if params != nil && params.ValidateStatus != nil {
+		data.Set("ValidateStatus", *params.ValidateStatus)
 	}
 
 	if params != nil && params.FlexMetadata != nil {
@@ -107,6 +126,7 @@ func (params *FetchPluginVersionParams) SetFlexMetadata(FlexMetadata string) *Fe
 	return params
 }
 
+//
 func (c *ApiService) FetchPluginVersion(PluginSid string, Sid string, params *FetchPluginVersionParams) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)

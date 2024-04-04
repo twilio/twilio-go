@@ -80,6 +80,7 @@ func (params *DeleteInsightsQuestionnairesCategoryParams) SetAuthorization(Autho
 	return params
 }
 
+//
 func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategorySid string, params *DeleteInsightsQuestionnairesCategoryParams) error {
 	path := "/v1/Insights/QualityManagement/Categories/{CategorySid}"
 	path = strings.Replace(path, "{"+"CategorySid"+"}", CategorySid, -1)

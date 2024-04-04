@@ -33,10 +33,6 @@ type CreatePluginParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// A descriptive string that you create to describe the plugin resource. It can be up to 500 characters long
 	Description *string `json:"Description,omitempty"`
-	// The version of Flex Plugins CLI used to create this plugin
-	CliVersion *string `json:"CliVersion,omitempty"`
-	// The validation status of the plugin, indicating whether it has been validated
-	ValidateStatus *string `json:"ValidateStatus,omitempty"`
 }
 
 func (params *CreatePluginParams) SetFlexMetadata(FlexMetadata string) *CreatePluginParams {
@@ -55,15 +51,8 @@ func (params *CreatePluginParams) SetDescription(Description string) *CreatePlug
 	params.Description = &Description
 	return params
 }
-func (params *CreatePluginParams) SetCliVersion(CliVersion string) *CreatePluginParams {
-	params.CliVersion = &CliVersion
-	return params
-}
-func (params *CreatePluginParams) SetValidateStatus(ValidateStatus string) *CreatePluginParams {
-	params.ValidateStatus = &ValidateStatus
-	return params
-}
 
+//
 func (c *ApiService) CreatePlugin(params *CreatePluginParams) (*FlexV1Plugin, error) {
 	path := "/v1/PluginService/Plugins"
 
@@ -78,12 +67,6 @@ func (c *ApiService) CreatePlugin(params *CreatePluginParams) (*FlexV1Plugin, er
 	}
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
-	}
-	if params != nil && params.CliVersion != nil {
-		data.Set("CliVersion", *params.CliVersion)
-	}
-	if params != nil && params.ValidateStatus != nil {
-		data.Set("ValidateStatus", *params.ValidateStatus)
 	}
 
 	if params != nil && params.FlexMetadata != nil {
@@ -115,6 +98,7 @@ func (params *FetchPluginParams) SetFlexMetadata(FlexMetadata string) *FetchPlug
 	return params
 }
 
+//
 func (c *ApiService) FetchPlugin(Sid string, params *FetchPluginParams) (*FlexV1Plugin, error) {
 	path := "/v1/PluginService/Plugins/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -305,6 +289,7 @@ func (params *UpdatePluginParams) SetDescription(Description string) *UpdatePlug
 	return params
 }
 
+//
 func (c *ApiService) UpdatePlugin(Sid string, params *UpdatePluginParams) (*FlexV1Plugin, error) {
 	path := "/v1/PluginService/Plugins/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

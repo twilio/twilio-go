@@ -31,6 +31,7 @@ func (params *UpdatePluginVersionArchiveParams) SetFlexMetadata(FlexMetadata str
 	return params
 }
 
+//
 func (c *ApiService) UpdatePluginVersionArchive(PluginSid string, Sid string, params *UpdatePluginVersionArchiveParams) (*FlexV1PluginVersionArchive, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}/Archive"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)

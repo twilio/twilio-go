@@ -1,5 +1,33 @@
 twilio-go changelog
 ====================
+[2024-04-04] Version 1.20.0
+---------------------------
+**Library - Feature**
+- [PR #239](https://github.com/twilio/twilio-go/pull/239): added support for application/json content type in request body. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Correct conference filtering by date_created and date_updated documentation, clarifying that times are UTC.
+
+**Flex**
+- Remove optional parameter from `plugins` and it to `plugin_versions`
+
+**Lookups**
+- Add new `pre_fill` package to the lookup response
+
+**Messaging**
+- Cleanup api.messaging.next-gen from Messaging Services endpoints
+- Readd Sending-Window after fixing test failure
+
+**Verify**
+- Add `whatsapp.msg_service_sid` and `whatsapp.from` parameters to create, update, get and list of services endpoints
+
+**Voice**
+- Correct conference filtering by date_created and date_updated documentation, clarifying that times are UTC.
+
+**Twiml**
+- Add new `token_type` value `payment-method` for `Pay` verb
+
+
 [2024-04-01] Version 1.19.1
 ---------------------------
 **Library - Chore**

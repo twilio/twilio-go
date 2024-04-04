@@ -38,6 +38,8 @@ Name | Type | Description
 **PluginUrl** | **string** | The URL of the Flex Plugin Version bundle
 **Changelog** | **string** | The changelog of the Flex Plugin Version.
 **Private** | **bool** | Whether this Flex Plugin Version requires authorization.
+**CliVersion** | **string** | The version of Flex Plugins CLI used to create this plugin
+**ValidateStatus** | **string** | The validation status of the plugin, indicating whether it has been validated
 
 ### Return type
 

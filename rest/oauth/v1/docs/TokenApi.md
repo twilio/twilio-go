@@ -42,7 +42,7 @@ Name | Type | Description
 
 ### Authorization
 
-[accountSid_authToken](../README.md#accountSid_authToken)
+No authorization required
 
 ### HTTP request headers
 

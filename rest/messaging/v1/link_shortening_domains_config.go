@@ -21,6 +21,7 @@ import (
 	"strings"
 )
 
+//
 func (c *ApiService) FetchDomainConfig(DomainSid string) (*MessagingV1DomainConfig, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -72,6 +73,7 @@ func (params *UpdateDomainConfigParams) SetDisableHttps(DisableHttps bool) *Upda
 	return params
 }
 
+//
 func (c *ApiService) UpdateDomainConfig(DomainSid string, params *UpdateDomainConfigParams) (*MessagingV1DomainConfig, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)

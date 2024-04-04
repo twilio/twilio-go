@@ -59,6 +59,10 @@ type CreateServiceParams struct {
 	TotpSkew *int `json:"Totp.Skew,omitempty"`
 	// The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 	DefaultTemplateSid *string `json:"DefaultTemplateSid,omitempty"`
+	// The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users.
+	WhatsappMsgServiceSid *string `json:"Whatsapp.MsgServiceSid,omitempty"`
+	// The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID.
+	WhatsappFrom *string `json:"Whatsapp.From,omitempty"`
 	// Whether to allow verifications from the service to reach the stream-events sinks if configured
 	VerifyEventSubscriptionEnabled *bool `json:"VerifyEventSubscriptionEnabled,omitempty"`
 }
@@ -131,6 +135,14 @@ func (params *CreateServiceParams) SetDefaultTemplateSid(DefaultTemplateSid stri
 	params.DefaultTemplateSid = &DefaultTemplateSid
 	return params
 }
+func (params *CreateServiceParams) SetWhatsappMsgServiceSid(WhatsappMsgServiceSid string) *CreateServiceParams {
+	params.WhatsappMsgServiceSid = &WhatsappMsgServiceSid
+	return params
+}
+func (params *CreateServiceParams) SetWhatsappFrom(WhatsappFrom string) *CreateServiceParams {
+	params.WhatsappFrom = &WhatsappFrom
+	return params
+}
 func (params *CreateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEventSubscriptionEnabled bool) *CreateServiceParams {
 	params.VerifyEventSubscriptionEnabled = &VerifyEventSubscriptionEnabled
 	return params
@@ -193,6 +205,12 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 	}
 	if params != nil && params.DefaultTemplateSid != nil {
 		data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
+	}
+	if params != nil && params.WhatsappMsgServiceSid != nil {
+		data.Set("Whatsapp.MsgServiceSid", *params.WhatsappMsgServiceSid)
+	}
+	if params != nil && params.WhatsappFrom != nil {
+		data.Set("Whatsapp.From", *params.WhatsappFrom)
 	}
 	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
 		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))
@@ -426,6 +444,10 @@ type UpdateServiceParams struct {
 	TotpSkew *int `json:"Totp.Skew,omitempty"`
 	// The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 	DefaultTemplateSid *string `json:"DefaultTemplateSid,omitempty"`
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+	WhatsappMsgServiceSid *string `json:"Whatsapp.MsgServiceSid,omitempty"`
+	// The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
+	WhatsappFrom *string `json:"Whatsapp.From,omitempty"`
 	// Whether to allow verifications from the service to reach the stream-events sinks if configured
 	VerifyEventSubscriptionEnabled *bool `json:"VerifyEventSubscriptionEnabled,omitempty"`
 }
@@ -498,6 +520,14 @@ func (params *UpdateServiceParams) SetDefaultTemplateSid(DefaultTemplateSid stri
 	params.DefaultTemplateSid = &DefaultTemplateSid
 	return params
 }
+func (params *UpdateServiceParams) SetWhatsappMsgServiceSid(WhatsappMsgServiceSid string) *UpdateServiceParams {
+	params.WhatsappMsgServiceSid = &WhatsappMsgServiceSid
+	return params
+}
+func (params *UpdateServiceParams) SetWhatsappFrom(WhatsappFrom string) *UpdateServiceParams {
+	params.WhatsappFrom = &WhatsappFrom
+	return params
+}
 func (params *UpdateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEventSubscriptionEnabled bool) *UpdateServiceParams {
 	params.VerifyEventSubscriptionEnabled = &VerifyEventSubscriptionEnabled
 	return params
@@ -561,6 +591,12 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	}
 	if params != nil && params.DefaultTemplateSid != nil {
 		data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
+	}
+	if params != nil && params.WhatsappMsgServiceSid != nil {
+		data.Set("Whatsapp.MsgServiceSid", *params.WhatsappMsgServiceSid)
+	}
+	if params != nil && params.WhatsappFrom != nil {
+		data.Set("Whatsapp.From", *params.WhatsappFrom)
 	}
 	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
 		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))

@@ -46,6 +46,8 @@ type LookupsV2PhoneNumber struct {
 	SmsPumpingRisk *interface{} `json:"sms_pumping_risk,omitempty"`
 	// An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
 	PhoneNumberQualityScore *interface{} `json:"phone_number_quality_score,omitempty"`
+	// An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code.
+	PreFill *interface{} `json:"pre_fill,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }

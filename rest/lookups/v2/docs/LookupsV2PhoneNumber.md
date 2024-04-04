@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **ReassignedNumber** | Pointer to **interface{}** | An object that contains reassigned number information. Reassigned Numbers will return a phone number's reassignment status given a phone number and date |
 **SmsPumpingRisk** | Pointer to **interface{}** | An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates. |
 **PhoneNumberQualityScore** | Pointer to **interface{}** | An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number. |
+**PreFill** | Pointer to **interface{}** | An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code.  |
 **Url** | Pointer to **string** | The absolute URL of the resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

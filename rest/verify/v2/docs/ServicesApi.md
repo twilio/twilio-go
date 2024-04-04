@@ -48,6 +48,8 @@ Name | Type | Description
 **TotpCodeLength** | **int** | Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
 **TotpSkew** | **int** | Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
 **DefaultTemplateSid** | **string** | The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+**WhatsappMsgServiceSid** | **string** | The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users.
+**WhatsappFrom** | **string** | The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID.
 **VerifyEventSubscriptionEnabled** | **bool** | Whether to allow verifications from the service to reach the stream-events sinks if configured
 
 ### Return type
@@ -232,6 +234,8 @@ Name | Type | Description
 **TotpCodeLength** | **int** | Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
 **TotpSkew** | **int** | Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
 **DefaultTemplateSid** | **string** | The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+**WhatsappMsgServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+**WhatsappFrom** | **string** | The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
 **VerifyEventSubscriptionEnabled** | **bool** | Whether to allow verifications from the service to reach the stream-events sinks if configured
 
 ### Return type

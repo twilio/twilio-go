@@ -65,4 +65,6 @@ type MessagingV1Service struct {
 	UsAppToPersonRegistered *bool `json:"us_app_to_person_registered,omitempty"`
 	// A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 	UseInboundWebhookOnNumber *bool `json:"use_inbound_webhook_on_number,omitempty"`
+	// A list of Sending Windows, which indicate defined time ranges in which a message can be sent, in the UTC time zone. Each window is defined by two strings, labeled \"start_time\" and \"end_time\".
+	SendingWindows *interface{} `json:"sending_windows,omitempty"`
 }
