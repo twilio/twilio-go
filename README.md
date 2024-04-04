@@ -10,7 +10,7 @@ and [twilio-oai](https://github.com/twilio/twilio-oai). If you find an issue wit
 please go ahead and open an issue or a PR against the relevant repositories.
 
 ## 🚀 Feature Update
-Twilio Go Helper Library's version 1.20.0 adds support for the application/json content type in the request body. See example [here](##-documentation)
+Twilio Go Helper Library's version 1.20.0 adds support for the application/json content type in the request body. See example [here](#messaging-bulk)
 Behind the scenes Go Helper is now auto-generated via OpenAPI with this release.
 This enables us to rapidly add new features and enhance consistency across versions and languages.
 
@@ -301,7 +301,7 @@ func main() {
 }
 ```
 
-### Send Bulk Message
+### Send Bulk Message <a id="messaging-bulk"></a>
 
 Try sending a message to multiple recipients with JSON request body support.
 
