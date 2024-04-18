@@ -24,15 +24,15 @@ import (
 type CreateStreamParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// Relative or absolute url where WebSocket connection will be established.
+	// Relative or absolute URL where WebSocket connection will be established.
 	Url *string `json:"Url,omitempty"`
-	// The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+	// The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
 	Name *string `json:"Name,omitempty"`
 	//
 	Track *string `json:"Track,omitempty"`
-	// Absolute URL of the status callback.
+	// Absolute URL to which Twilio sends status callback HTTP requests.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
-	// The http method for the status_callback (one of GET, POST).
+	// The HTTP method Twilio uses when sending `status_callback` requests. Possible values are `GET` and `POST`. Default is `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 	// Parameter name
 	Parameter1Name *string `json:"Parameter1.Name,omitempty"`

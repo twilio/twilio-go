@@ -33,11 +33,11 @@ Other parameters are passed through a pointer to a CreateStreamParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
-**Url** | **string** | Relative or absolute url where WebSocket connection will be established.
-**Name** | **string** | The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+**Url** | **string** | Relative or absolute URL where WebSocket connection will be established.
+**Name** | **string** | The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
 **Track** | **string** | 
-**StatusCallback** | **string** | Absolute URL of the status callback.
-**StatusCallbackMethod** | **string** | The http method for the status_callback (one of GET, POST).
+**StatusCallback** | **string** | Absolute URL to which Twilio sends status callback HTTP requests.
+**StatusCallbackMethod** | **string** | The HTTP method Twilio uses when sending `status_callback` requests. Possible values are `GET` and `POST`. Default is `POST`.
 **Parameter1Name** | **string** | Parameter name
 **Parameter1Value** | **string** | Parameter value
 **Parameter2Name** | **string** | Parameter name
@@ -270,7 +270,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CallSid** | **string** | The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
-**Sid** | **string** | The SID of the Stream resource, or the `name` used when creating the resource
+**Sid** | **string** | The SID or the `name` of the Stream resource to be stopped
 
 ### Other Parameters
 

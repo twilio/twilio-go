@@ -64,6 +64,24 @@ func (c *ApiService) CreatePortingPortIn(params *CreatePortingPortInParams) (*Nu
 	return ps, err
 }
 
+// Allows to cancel a port in request by SID
+func (c *ApiService) DeletePortingPortIn(PortInRequestSid string) error {
+	path := "/v1/Porting/PortIn/{PortInRequestSid}"
+	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	return nil
+}
+
 // Fetch a port in request by SID
 func (c *ApiService) FetchPortingPortInFetch(PortInRequestSid string) (*NumbersV1PortingPortInFetch, error) {
 	path := "/v1/Porting/PortIn/{PortInRequestSid}"

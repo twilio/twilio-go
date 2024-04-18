@@ -31,11 +31,13 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*InstancesUsersApi* | [**FetchFlexUser**](docs/InstancesUsersApi.md#fetchflexuser) | **Get** /v2/Instances/{InstanceSid}/Users/{FlexUserSid} | 
 *WebChatsApi* | [**CreateWebChannel**](docs/WebChatsApi.md#createwebchannel) | **Post** /v2/WebChats | 
 
 
 ## Documentation For Models
 
+ - [FlexV2FlexUser](docs/FlexV2FlexUser.md)
  - [FlexV2WebChannel](docs/FlexV2WebChannel.md)
 
 
