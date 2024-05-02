@@ -86,6 +86,10 @@ func (c *RequestHandler) Post(path string, bodyData url.Values, headers map[stri
 	return c.sendRequest(http.MethodPost, path, bodyData, headers, body...)
 }
 
+func (c *RequestHandler) Put(path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
+	return c.sendRequest(http.MethodPut, path, bodyData, headers, body...)
+}
+
 func (c *RequestHandler) Get(path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
 	return c.sendRequest(http.MethodGet, path, queryData, headers)
 }
