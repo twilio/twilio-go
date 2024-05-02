@@ -77,7 +77,7 @@ func getTestClient(t *testing.T) *MockBaseClient {
 		gomock.Any(),
 		gomock.Any()).
 		DoAndReturn(func(method string, rawURL string, data url.Values,
-			headers map[string]interface{}) (*http.Response, error) {
+			headers map[string]interface{}, body ...interface{}) (*http.Response, error) {
 			response := map[string]interface{}{
 				"end":            4,
 				"first_page_uri": "/2010-04-01/Accounts/ACXX/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=2&Page=0",
