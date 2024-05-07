@@ -74,6 +74,8 @@ type CreateMessageParams struct {
 	MediaUrl *[]string `json:"MediaUrl,omitempty"`
 	// For [Content Editor/API](https://www.twilio.com/docs/content) only: The SID of the Content Template to be used with the Message, e.g., `HXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`. If this parameter is not provided, a Content Template is not used. Find the SID in the Console on the Content Editor page. For Content API users, the SID is found in Twilio's response when [creating the Template](https://www.twilio.com/docs/content/content-api-resources#create-templates) or by [fetching your Templates](https://www.twilio.com/docs/content/content-api-resources#fetch-all-content-resources).
 	ContentSid *string `json:"ContentSid,omitempty"`
+	// Tags is a private beta feature, which is switched on for Recart
+	Tags *map[string]string `json:"Tags,omitempty"`
 }
 
 func (params *CreateMessageParams) SetPathAccountSid(PathAccountSid string) *CreateMessageParams {
@@ -172,6 +174,10 @@ func (params *CreateMessageParams) SetContentSid(ContentSid string) *CreateMessa
 	params.ContentSid = &ContentSid
 	return params
 }
+func (params *CreateMessageParams) SetTags(Tags map[string]string) *CreateMessageParams {
+	params.Tags = &Tags
+	return params
+}
 
 // Send a message
 func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Message, error) {
@@ -257,6 +263,14 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 	}
 	if params != nil && params.ContentSid != nil {
 		data.Set("ContentSid", *params.ContentSid)
+	}
+	if params != nil && params.Tags != nil {
+		res, err := json.Marshal(*params.Tags)
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Tags", string(res))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
