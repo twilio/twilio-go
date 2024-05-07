@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Fetch a Network resource.
@@ -82,7 +82,10 @@ func (params *ListNetworkParams) SetLimit(Limit int) *ListNetworkParams {
 }
 
 // Retrieve a single page of Network records from the API. Request is executed immediately.
-func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken, pageNumber string) (*ListNetworkResponse, error) {
+func (c *ApiService) PageNetwork(
+	params *ListNetworkParams,
+	pageToken, pageNumber string,
+) (*ListNetworkResponse, error) {
 	path := "/v1/Networks"
 
 	data := url.Values{}
@@ -161,7 +164,12 @@ func (c *ApiService) StreamNetwork(params *ListNetworkParams) (chan SupersimV1Ne
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamNetwork(response *ListNetworkResponse, params *ListNetworkParams, recordChannel chan SupersimV1Network, errorChannel chan error) {
+func (c *ApiService) streamNetwork(
+	response *ListNetworkResponse,
+	params *ListNetworkParams,
+	recordChannel chan SupersimV1Network,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

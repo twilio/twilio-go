@@ -17,7 +17,7 @@ package openapi
 import (
 	"encoding/json"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // FlexV1InsightsAssessmentsComment struct for FlexV1InsightsAssessmentsComment

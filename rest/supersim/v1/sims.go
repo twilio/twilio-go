@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSim'
@@ -207,7 +207,12 @@ func (c *ApiService) StreamSim(params *ListSimParams) (chan SupersimV1Sim, chan 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSim(response *ListSimResponse, params *ListSimParams, recordChannel chan SupersimV1Sim, errorChannel chan error) {
+func (c *ApiService) streamSim(
+	response *ListSimResponse,
+	params *ListSimParams,
+	recordChannel chan SupersimV1Sim,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

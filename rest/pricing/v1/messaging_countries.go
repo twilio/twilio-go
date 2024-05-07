@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 //
@@ -64,7 +64,10 @@ func (params *ListMessagingCountryParams) SetLimit(Limit int) *ListMessagingCoun
 }
 
 // Retrieve a single page of MessagingCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pageToken, pageNumber string) (*ListMessagingCountryResponse, error) {
+func (c *ApiService) PageMessagingCountry(
+	params *ListMessagingCountryParams,
+	pageToken, pageNumber string,
+) (*ListMessagingCountryResponse, error) {
 	path := "/v1/Messaging/Countries"
 
 	data := url.Values{}
@@ -134,7 +137,12 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMessagingCountry(response *ListMessagingCountryResponse, params *ListMessagingCountryParams, recordChannel chan PricingV1MessagingCountry, errorChannel chan error) {
+func (c *ApiService) streamMessagingCountry(
+	response *ListMessagingCountryResponse,
+	params *ListMessagingCountryParams,
+	recordChannel chan PricingV1MessagingCountry,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateEnvironment'
@@ -41,7 +41,10 @@ func (params *CreateEnvironmentParams) SetDomainSuffix(DomainSuffix string) *Cre
 }
 
 // Create a new environment.
-func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironmentParams) (*ServerlessV1Environment, error) {
+func (c *ApiService) CreateEnvironment(
+	ServiceSid string,
+	params *CreateEnvironmentParams,
+) (*ServerlessV1Environment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -131,7 +134,11 @@ func (params *ListEnvironmentParams) SetLimit(Limit int) *ListEnvironmentParams 
 }
 
 // Retrieve a single page of Environment records from the API. Request is executed immediately.
-func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentParams, pageToken, pageNumber string) (*ListEnvironmentResponse, error) {
+func (c *ApiService) PageEnvironment(
+	ServiceSid string,
+	params *ListEnvironmentParams,
+	pageToken, pageNumber string,
+) (*ListEnvironmentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -166,7 +173,10 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 }
 
 // Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams) ([]ServerlessV1Environment, error) {
+func (c *ApiService) ListEnvironment(
+	ServiceSid string,
+	params *ListEnvironmentParams,
+) ([]ServerlessV1Environment, error) {
 	response, errors := c.StreamEnvironment(ServiceSid, params)
 
 	records := make([]ServerlessV1Environment, 0)
@@ -182,7 +192,10 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 }
 
 // Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmentParams) (chan ServerlessV1Environment, chan error) {
+func (c *ApiService) StreamEnvironment(
+	ServiceSid string,
+	params *ListEnvironmentParams,
+) (chan ServerlessV1Environment, chan error) {
 	if params == nil {
 		params = &ListEnvironmentParams{}
 	}
@@ -203,7 +216,12 @@ func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmen
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEnvironment(response *ListEnvironmentResponse, params *ListEnvironmentParams, recordChannel chan ServerlessV1Environment, errorChannel chan error) {
+func (c *ApiService) streamEnvironment(
+	response *ListEnvironmentResponse,
+	params *ListEnvironmentParams,
+	recordChannel chan ServerlessV1Environment,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

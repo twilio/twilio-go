@@ -17,7 +17,7 @@ package openapi
 import (
 	"encoding/json"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // VerifyV2VerificationAttemptsSummary struct for VerifyV2VerificationAttemptsSummary

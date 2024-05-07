@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateRateLimit'
@@ -131,7 +131,11 @@ func (params *ListRateLimitParams) SetLimit(Limit int) *ListRateLimitParams {
 }
 
 // Retrieve a single page of RateLimit records from the API. Request is executed immediately.
-func (c *ApiService) PageRateLimit(ServiceSid string, params *ListRateLimitParams, pageToken, pageNumber string) (*ListRateLimitResponse, error) {
+func (c *ApiService) PageRateLimit(
+	ServiceSid string,
+	params *ListRateLimitParams,
+	pageToken, pageNumber string,
+) (*ListRateLimitResponse, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -182,7 +186,10 @@ func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParam
 }
 
 // Streams RateLimit records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitParams) (chan VerifyV2RateLimit, chan error) {
+func (c *ApiService) StreamRateLimit(
+	ServiceSid string,
+	params *ListRateLimitParams,
+) (chan VerifyV2RateLimit, chan error) {
 	if params == nil {
 		params = &ListRateLimitParams{}
 	}
@@ -203,7 +210,12 @@ func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitPar
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRateLimit(response *ListRateLimitResponse, params *ListRateLimitParams, recordChannel chan VerifyV2RateLimit, errorChannel chan error) {
+func (c *ApiService) streamRateLimit(
+	response *ListRateLimitResponse,
+	params *ListRateLimitParams,
+	recordChannel chan VerifyV2RateLimit,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -263,7 +275,11 @@ func (params *UpdateRateLimitParams) SetDescription(Description string) *UpdateR
 }
 
 // Update a specific Rate Limit.
-func (c *ApiService) UpdateRateLimit(ServiceSid string, Sid string, params *UpdateRateLimitParams) (*VerifyV2RateLimit, error) {
+func (c *ApiService) UpdateRateLimit(
+	ServiceSid string,
+	Sid string,
+	params *UpdateRateLimitParams,
+) (*VerifyV2RateLimit, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

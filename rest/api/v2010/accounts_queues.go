@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateQueue'
@@ -253,7 +253,12 @@ func (c *ApiService) StreamQueue(params *ListQueueParams) (chan ApiV2010Queue, c
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamQueue(response *ListQueueResponse, params *ListQueueParams, recordChannel chan ApiV2010Queue, errorChannel chan error) {
+func (c *ApiService) streamQueue(
+	response *ListQueueResponse,
+	params *ListQueueParams,
+	recordChannel chan ApiV2010Queue,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

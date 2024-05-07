@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTaskQueue'
@@ -65,7 +65,10 @@ func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivity
 }
 
 //
-func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
+func (c *ApiService) CreateTaskQueue(
+	WorkspaceSid string,
+	params *CreateTaskQueueParams,
+) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -191,7 +194,11 @@ func (params *ListTaskQueueParams) SetLimit(Limit int) *ListTaskQueueParams {
 }
 
 // Retrieve a single page of TaskQueue records from the API. Request is executed immediately.
-func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueueParams, pageToken, pageNumber string) (*ListTaskQueueResponse, error) {
+func (c *ApiService) PageTaskQueue(
+	WorkspaceSid string,
+	params *ListTaskQueueParams,
+	pageToken, pageNumber string,
+) (*ListTaskQueueResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -254,7 +261,10 @@ func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 }
 
 // Streams TaskQueue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) (chan TaskrouterV1TaskQueue, chan error) {
+func (c *ApiService) StreamTaskQueue(
+	WorkspaceSid string,
+	params *ListTaskQueueParams,
+) (chan TaskrouterV1TaskQueue, chan error) {
 	if params == nil {
 		params = &ListTaskQueueParams{}
 	}
@@ -275,7 +285,12 @@ func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueP
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTaskQueue(response *ListTaskQueueResponse, params *ListTaskQueueParams, recordChannel chan TaskrouterV1TaskQueue, errorChannel chan error) {
+func (c *ApiService) streamTaskQueue(
+	response *ListTaskQueueResponse,
+	params *ListTaskQueueParams,
+	recordChannel chan TaskrouterV1TaskQueue,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -365,7 +380,11 @@ func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQ
 }
 
 //
-func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
+func (c *ApiService) UpdateTaskQueue(
+	WorkspaceSid string,
+	Sid string,
+	params *UpdateTaskQueueParams,
+) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

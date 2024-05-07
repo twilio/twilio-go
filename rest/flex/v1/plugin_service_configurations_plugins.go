@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'FetchConfiguredPlugin'
@@ -35,7 +35,11 @@ func (params *FetchConfiguredPluginParams) SetFlexMetadata(FlexMetadata string) 
 }
 
 //
-func (c *ApiService) FetchConfiguredPlugin(ConfigurationSid string, PluginSid string, params *FetchConfiguredPluginParams) (*FlexV1ConfiguredPlugin, error) {
+func (c *ApiService) FetchConfiguredPlugin(
+	ConfigurationSid string,
+	PluginSid string,
+	params *FetchConfiguredPluginParams,
+) (*FlexV1ConfiguredPlugin, error) {
 	path := "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins/{PluginSid}"
 	path = strings.Replace(path, "{"+"ConfigurationSid"+"}", ConfigurationSid, -1)
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -85,7 +89,11 @@ func (params *ListConfiguredPluginParams) SetLimit(Limit int) *ListConfiguredPlu
 }
 
 // Retrieve a single page of ConfiguredPlugin records from the API. Request is executed immediately.
-func (c *ApiService) PageConfiguredPlugin(ConfigurationSid string, params *ListConfiguredPluginParams, pageToken, pageNumber string) (*ListConfiguredPluginResponse, error) {
+func (c *ApiService) PageConfiguredPlugin(
+	ConfigurationSid string,
+	params *ListConfiguredPluginParams,
+	pageToken, pageNumber string,
+) (*ListConfiguredPluginResponse, error) {
 	path := "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins"
 
 	path = strings.Replace(path, "{"+"ConfigurationSid"+"}", ConfigurationSid, -1)
@@ -120,7 +128,10 @@ func (c *ApiService) PageConfiguredPlugin(ConfigurationSid string, params *ListC
 }
 
 // Lists ConfiguredPlugin records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConfiguredPlugin(ConfigurationSid string, params *ListConfiguredPluginParams) ([]FlexV1ConfiguredPlugin, error) {
+func (c *ApiService) ListConfiguredPlugin(
+	ConfigurationSid string,
+	params *ListConfiguredPluginParams,
+) ([]FlexV1ConfiguredPlugin, error) {
 	response, errors := c.StreamConfiguredPlugin(ConfigurationSid, params)
 
 	records := make([]FlexV1ConfiguredPlugin, 0)
@@ -136,7 +147,10 @@ func (c *ApiService) ListConfiguredPlugin(ConfigurationSid string, params *ListC
 }
 
 // Streams ConfiguredPlugin records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConfiguredPlugin(ConfigurationSid string, params *ListConfiguredPluginParams) (chan FlexV1ConfiguredPlugin, chan error) {
+func (c *ApiService) StreamConfiguredPlugin(
+	ConfigurationSid string,
+	params *ListConfiguredPluginParams,
+) (chan FlexV1ConfiguredPlugin, chan error) {
 	if params == nil {
 		params = &ListConfiguredPluginParams{}
 	}
@@ -157,7 +171,12 @@ func (c *ApiService) StreamConfiguredPlugin(ConfigurationSid string, params *Lis
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConfiguredPlugin(response *ListConfiguredPluginResponse, params *ListConfiguredPluginParams, recordChannel chan FlexV1ConfiguredPlugin, errorChannel chan error) {
+func (c *ApiService) streamConfiguredPlugin(
+	response *ListConfiguredPluginResponse,
+	params *ListConfiguredPluginParams,
+	recordChannel chan FlexV1ConfiguredPlugin,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

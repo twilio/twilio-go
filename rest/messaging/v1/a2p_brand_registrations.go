@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateBrandRegistrations'
@@ -137,7 +137,10 @@ func (params *ListBrandRegistrationsParams) SetLimit(Limit int) *ListBrandRegist
 }
 
 // Retrieve a single page of BrandRegistrations records from the API. Request is executed immediately.
-func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams, pageToken, pageNumber string) (*ListBrandRegistrationsResponse, error) {
+func (c *ApiService) PageBrandRegistrations(
+	params *ListBrandRegistrationsParams,
+	pageToken, pageNumber string,
+) (*ListBrandRegistrationsResponse, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
 	data := url.Values{}
@@ -207,7 +210,12 @@ func (c *ApiService) StreamBrandRegistrations(params *ListBrandRegistrationsPara
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBrandRegistrations(response *ListBrandRegistrationsResponse, params *ListBrandRegistrationsParams, recordChannel chan MessagingV1BrandRegistrations, errorChannel chan error) {
+func (c *ApiService) streamBrandRegistrations(
+	response *ListBrandRegistrationsResponse,
+	params *ListBrandRegistrationsParams,
+	recordChannel chan MessagingV1BrandRegistrations,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

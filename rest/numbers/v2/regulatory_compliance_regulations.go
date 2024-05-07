@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Fetch specific Regulation Instance.
@@ -82,7 +82,10 @@ func (params *ListRegulationParams) SetLimit(Limit int) *ListRegulationParams {
 }
 
 // Retrieve a single page of Regulation records from the API. Request is executed immediately.
-func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pageNumber string) (*ListRegulationResponse, error) {
+func (c *ApiService) PageRegulation(
+	params *ListRegulationParams,
+	pageToken, pageNumber string,
+) (*ListRegulationResponse, error) {
 	path := "/v2/RegulatoryCompliance/Regulations"
 
 	data := url.Values{}
@@ -161,7 +164,12 @@ func (c *ApiService) StreamRegulation(params *ListRegulationParams) (chan Number
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRegulation(response *ListRegulationResponse, params *ListRegulationParams, recordChannel chan NumbersV2Regulation, errorChannel chan error) {
+func (c *ApiService) streamRegulation(
+	response *ListRegulationResponse,
+	params *ListRegulationParams,
+	recordChannel chan NumbersV2Regulation,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

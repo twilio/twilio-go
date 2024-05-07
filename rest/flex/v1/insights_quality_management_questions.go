@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateInsightsQuestionnairesQuestion'
@@ -117,7 +117,10 @@ func (params *DeleteInsightsQuestionnairesQuestionParams) SetAuthorization(Autho
 }
 
 //
-func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionSid string, params *DeleteInsightsQuestionnairesQuestionParams) error {
+func (c *ApiService) DeleteInsightsQuestionnairesQuestion(
+	QuestionSid string,
+	params *DeleteInsightsQuestionnairesQuestionParams,
+) error {
 	path := "/v1/Insights/QualityManagement/Questions/{QuestionSid}"
 	path = strings.Replace(path, "{"+"QuestionSid"+"}", QuestionSid, -1)
 
@@ -167,7 +170,10 @@ func (params *ListInsightsQuestionnairesQuestionParams) SetLimit(Limit int) *Lis
 }
 
 // Retrieve a single page of InsightsQuestionnairesQuestion records from the API. Request is executed immediately.
-func (c *ApiService) PageInsightsQuestionnairesQuestion(params *ListInsightsQuestionnairesQuestionParams, pageToken, pageNumber string) (*ListInsightsQuestionnairesQuestionResponse, error) {
+func (c *ApiService) PageInsightsQuestionnairesQuestion(
+	params *ListInsightsQuestionnairesQuestionParams,
+	pageToken, pageNumber string,
+) (*ListInsightsQuestionnairesQuestionResponse, error) {
 	path := "/v1/Insights/QualityManagement/Questions"
 
 	data := url.Values{}
@@ -242,7 +248,12 @@ func (c *ApiService) StreamInsightsQuestionnairesQuestion(params *ListInsightsQu
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInsightsQuestionnairesQuestion(response *ListInsightsQuestionnairesQuestionResponse, params *ListInsightsQuestionnairesQuestionParams, recordChannel chan FlexV1InsightsQuestionnairesQuestion, errorChannel chan error) {
+func (c *ApiService) streamInsightsQuestionnairesQuestion(
+	response *ListInsightsQuestionnairesQuestionResponse,
+	params *ListInsightsQuestionnairesQuestionParams,
+	recordChannel chan FlexV1InsightsQuestionnairesQuestion,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -332,7 +343,10 @@ func (params *UpdateInsightsQuestionnairesQuestionParams) SetAnswerSetId(AnswerS
 }
 
 // To update the question
-func (c *ApiService) UpdateInsightsQuestionnairesQuestion(QuestionSid string, params *UpdateInsightsQuestionnairesQuestionParams) (*FlexV1InsightsQuestionnairesQuestion, error) {
+func (c *ApiService) UpdateInsightsQuestionnairesQuestion(
+	QuestionSid string,
+	params *UpdateInsightsQuestionnairesQuestionParams,
+) (*FlexV1InsightsQuestionnairesQuestion, error) {
 	path := "/v1/Insights/QualityManagement/Questions/{QuestionSid}"
 	path = strings.Replace(path, "{"+"QuestionSid"+"}", QuestionSid, -1)
 

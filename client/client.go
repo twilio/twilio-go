@@ -13,8 +13,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/ghostmonitor/twilio-go/client/form"
 	"github.com/pkg/errors"
-	"github.com/twilio/twilio-go/client/form"
 )
 
 var alphanumericRegex *regexp.Regexp
@@ -97,7 +97,10 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 	if res.StatusCode < 200 || res.StatusCode >= 400 {
 		err = &TwilioRestError{}
 		if decodeErr := json.NewDecoder(res.Body).Decode(err); decodeErr != nil {
-			err = errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
+			err = errors.Wrap(
+				decodeErr,
+				"error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode),
+			)
 			return nil, err
 		}
 
@@ -114,21 +117,25 @@ func (c *Client) validateCredentials() error {
 			Status:   400,
 			Code:     21222,
 			Message:  "Invalid Username. Illegal chars",
-			MoreInfo: "https://www.twilio.com/docs/errors/21222"}
+			MoreInfo: "https://www.twilio.com/docs/errors/21222",
+		}
 	}
 	if !alphanumericRegex.MatchString(password) {
 		return &TwilioRestError{
 			Status:   400,
 			Code:     21224,
 			Message:  "Invalid Password. Illegal chars",
-			MoreInfo: "https://www.twilio.com/docs/errors/21224"}
+			MoreInfo: "https://www.twilio.com/docs/errors/21224",
+		}
 	}
 	return nil
 }
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
-func (c *Client) SendRequest(method string, rawURL string, data url.Values,
-	headers map[string]interface{}, body ...byte) (*http.Response, error) {
+func (c *Client) SendRequest(
+	method string, rawURL string, data url.Values,
+	headers map[string]interface{}, body ...byte,
+) (*http.Response, error) {
 
 	contentType := extractContentTypeHeader(headers)
 

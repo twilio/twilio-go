@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'FetchMember'
@@ -87,7 +87,11 @@ func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
 }
 
 // Retrieve a single page of Member records from the API. Request is executed immediately.
-func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMemberResponse, error) {
+func (c *ApiService) PageMember(
+	QueueSid string,
+	params *ListMemberParams,
+	pageToken, pageNumber string,
+) (*ListMemberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -164,7 +168,12 @@ func (c *ApiService) StreamMember(QueueSid string, params *ListMemberParams) (ch
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemberParams, recordChannel chan ApiV2010Member, errorChannel chan error) {
+func (c *ApiService) streamMember(
+	response *ListMemberResponse,
+	params *ListMemberParams,
+	recordChannel chan ApiV2010Member,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -236,7 +245,11 @@ func (params *UpdateMemberParams) SetMethod(Method string) *UpdateMemberParams {
 }
 
 // Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL
-func (c *ApiService) UpdateMember(QueueSid string, CallSid string, params *UpdateMemberParams) (*ApiV2010Member, error) {
+func (c *ApiService) UpdateMember(
+	QueueSid string,
+	CallSid string,
+	params *UpdateMemberParams,
+) (*ApiV2010Member, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)

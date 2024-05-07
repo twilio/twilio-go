@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSipIpAccessControlList'
@@ -117,7 +117,10 @@ func (params *FetchSipIpAccessControlListParams) SetPathAccountSid(PathAccountSi
 }
 
 // Fetch a specific instance of an IpAccessControlList
-func (c *ApiService) FetchSipIpAccessControlList(Sid string, params *FetchSipIpAccessControlListParams) (*ApiV2010SipIpAccessControlList, error) {
+func (c *ApiService) FetchSipIpAccessControlList(
+	Sid string,
+	params *FetchSipIpAccessControlListParams,
+) (*ApiV2010SipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -168,7 +171,10 @@ func (params *ListSipIpAccessControlListParams) SetLimit(Limit int) *ListSipIpAc
 }
 
 // Retrieve a single page of SipIpAccessControlList records from the API. Request is executed immediately.
-func (c *ApiService) PageSipIpAccessControlList(params *ListSipIpAccessControlListParams, pageToken, pageNumber string) (*ListSipIpAccessControlListResponse, error) {
+func (c *ApiService) PageSipIpAccessControlList(
+	params *ListSipIpAccessControlListParams,
+	pageToken, pageNumber string,
+) (*ListSipIpAccessControlListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -244,7 +250,12 @@ func (c *ApiService) StreamSipIpAccessControlList(params *ListSipIpAccessControl
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipIpAccessControlList(response *ListSipIpAccessControlListResponse, params *ListSipIpAccessControlListParams, recordChannel chan ApiV2010SipIpAccessControlList, errorChannel chan error) {
+func (c *ApiService) streamSipIpAccessControlList(
+	response *ListSipIpAccessControlListResponse,
+	params *ListSipIpAccessControlListParams,
+	recordChannel chan ApiV2010SipIpAccessControlList,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -310,7 +321,10 @@ func (params *UpdateSipIpAccessControlListParams) SetFriendlyName(FriendlyName s
 }
 
 // Rename an IpAccessControlList
-func (c *ApiService) UpdateSipIpAccessControlList(Sid string, params *UpdateSipIpAccessControlListParams) (*ApiV2010SipIpAccessControlList, error) {
+func (c *ApiService) UpdateSipIpAccessControlList(
+	Sid string,
+	params *UpdateSipIpAccessControlListParams,
+) (*ApiV2010SipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Delete a specific Sync Document Permission.
@@ -44,7 +44,11 @@ func (c *ApiService) DeleteDocumentPermission(ServiceSid string, DocumentSid str
 }
 
 // Fetch a specific Sync Document Permission.
-func (c *ApiService) FetchDocumentPermission(ServiceSid string, DocumentSid string, Identity string) (*SyncV1DocumentPermission, error) {
+func (c *ApiService) FetchDocumentPermission(
+	ServiceSid string,
+	DocumentSid string,
+	Identity string,
+) (*SyncV1DocumentPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
@@ -86,7 +90,12 @@ func (params *ListDocumentPermissionParams) SetLimit(Limit int) *ListDocumentPer
 }
 
 // Retrieve a single page of DocumentPermission records from the API. Request is executed immediately.
-func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, pageToken, pageNumber string) (*ListDocumentPermissionResponse, error) {
+func (c *ApiService) PageDocumentPermission(
+	ServiceSid string,
+	DocumentSid string,
+	params *ListDocumentPermissionParams,
+	pageToken, pageNumber string,
+) (*ListDocumentPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -122,7 +131,11 @@ func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid strin
 }
 
 // Lists DocumentPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) ([]SyncV1DocumentPermission, error) {
+func (c *ApiService) ListDocumentPermission(
+	ServiceSid string,
+	DocumentSid string,
+	params *ListDocumentPermissionParams,
+) ([]SyncV1DocumentPermission, error) {
 	response, errors := c.StreamDocumentPermission(ServiceSid, DocumentSid, params)
 
 	records := make([]SyncV1DocumentPermission, 0)
@@ -138,7 +151,11 @@ func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid strin
 }
 
 // Streams DocumentPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) (chan SyncV1DocumentPermission, chan error) {
+func (c *ApiService) StreamDocumentPermission(
+	ServiceSid string,
+	DocumentSid string,
+	params *ListDocumentPermissionParams,
+) (chan SyncV1DocumentPermission, chan error) {
 	if params == nil {
 		params = &ListDocumentPermissionParams{}
 	}
@@ -159,7 +176,12 @@ func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid str
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDocumentPermission(response *ListDocumentPermissionResponse, params *ListDocumentPermissionParams, recordChannel chan SyncV1DocumentPermission, errorChannel chan error) {
+func (c *ApiService) streamDocumentPermission(
+	response *ListDocumentPermissionResponse,
+	params *ListDocumentPermissionParams,
+	recordChannel chan SyncV1DocumentPermission,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -231,7 +253,12 @@ func (params *UpdateDocumentPermissionParams) SetManage(Manage bool) *UpdateDocu
 }
 
 // Update an identity's access to a specific Sync Document.
-func (c *ApiService) UpdateDocumentPermission(ServiceSid string, DocumentSid string, Identity string, params *UpdateDocumentPermissionParams) (*SyncV1DocumentPermission, error) {
+func (c *ApiService) UpdateDocumentPermission(
+	ServiceSid string,
+	DocumentSid string,
+	Identity string,
+	params *UpdateDocumentPermissionParams,
+) (*SyncV1DocumentPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateWebhook'
@@ -160,7 +160,11 @@ func (params *ListWebhookParams) SetLimit(Limit int) *ListWebhookParams {
 }
 
 // Retrieve a single page of Webhook records from the API. Request is executed immediately.
-func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, pageToken, pageNumber string) (*ListWebhookResponse, error) {
+func (c *ApiService) PageWebhook(
+	ServiceSid string,
+	params *ListWebhookParams,
+	pageToken, pageNumber string,
+) (*ListWebhookResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -232,7 +236,12 @@ func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams)
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamWebhook(response *ListWebhookResponse, params *ListWebhookParams, recordChannel chan VerifyV2Webhook, errorChannel chan error) {
+func (c *ApiService) streamWebhook(
+	response *ListWebhookResponse,
+	params *ListWebhookParams,
+	recordChannel chan VerifyV2Webhook,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -316,7 +325,11 @@ func (params *UpdateWebhookParams) SetVersion(Version string) *UpdateWebhookPara
 }
 
 //
-func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *UpdateWebhookParams) (*VerifyV2Webhook, error) {
+func (c *ApiService) UpdateWebhook(
+	ServiceSid string,
+	Sid string,
+	params *UpdateWebhookParams,
+) (*VerifyV2Webhook, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

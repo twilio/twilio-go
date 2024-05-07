@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 //
@@ -64,7 +64,10 @@ func (params *ListVoiceCountryParams) SetLimit(Limit int) *ListVoiceCountryParam
 }
 
 // Retrieve a single page of VoiceCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageVoiceCountry(params *ListVoiceCountryParams, pageToken, pageNumber string) (*ListVoiceCountryResponse, error) {
+func (c *ApiService) PageVoiceCountry(
+	params *ListVoiceCountryParams,
+	pageToken, pageNumber string,
+) (*ListVoiceCountryResponse, error) {
 	path := "/v1/Voice/Countries"
 
 	data := url.Values{}
@@ -134,7 +137,12 @@ func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams) (chan Pr
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamVoiceCountry(response *ListVoiceCountryResponse, params *ListVoiceCountryParams, recordChannel chan PricingV1VoiceCountry, errorChannel chan error) {
+func (c *ApiService) streamVoiceCountry(
+	response *ListVoiceCountryResponse,
+	params *ListVoiceCountryParams,
+	recordChannel chan PricingV1VoiceCountry,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

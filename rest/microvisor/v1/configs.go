@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateAccountConfig'
@@ -128,7 +128,10 @@ func (params *ListAccountConfigParams) SetLimit(Limit int) *ListAccountConfigPar
 }
 
 // Retrieve a single page of AccountConfig records from the API. Request is executed immediately.
-func (c *ApiService) PageAccountConfig(params *ListAccountConfigParams, pageToken, pageNumber string) (*ListAccountConfigResponse, error) {
+func (c *ApiService) PageAccountConfig(
+	params *ListAccountConfigParams,
+	pageToken, pageNumber string,
+) (*ListAccountConfigResponse, error) {
 	path := "/v1/Configs"
 
 	data := url.Values{}
@@ -198,7 +201,12 @@ func (c *ApiService) StreamAccountConfig(params *ListAccountConfigParams) (chan 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAccountConfig(response *ListAccountConfigResponse, params *ListAccountConfigParams, recordChannel chan MicrovisorV1AccountConfig, errorChannel chan error) {
+func (c *ApiService) streamAccountConfig(
+	response *ListAccountConfigResponse,
+	params *ListAccountConfigParams,
+	recordChannel chan MicrovisorV1AccountConfig,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -258,7 +266,10 @@ func (params *UpdateAccountConfigParams) SetValue(Value string) *UpdateAccountCo
 }
 
 // Update a config for an Account.
-func (c *ApiService) UpdateAccountConfig(Key string, params *UpdateAccountConfigParams) (*MicrovisorV1AccountConfig, error) {
+func (c *ApiService) UpdateAccountConfig(
+	Key string,
+	params *UpdateAccountConfigParams,
+) (*MicrovisorV1AccountConfig, error) {
 	path := "/v1/Configs/{Key}"
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 

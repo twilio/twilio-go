@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSipDomain'
@@ -276,7 +276,10 @@ func (params *ListSipDomainParams) SetLimit(Limit int) *ListSipDomainParams {
 }
 
 // Retrieve a single page of SipDomain records from the API. Request is executed immediately.
-func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageNumber string) (*ListSipDomainResponse, error) {
+func (c *ApiService) PageSipDomain(
+	params *ListSipDomainParams,
+	pageToken, pageNumber string,
+) (*ListSipDomainResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -352,7 +355,12 @@ func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipDomain(response *ListSipDomainResponse, params *ListSipDomainParams, recordChannel chan ApiV2010SipDomain, errorChannel chan error) {
+func (c *ApiService) streamSipDomain(
+	response *ListSipDomainResponse,
+	params *ListSipDomainParams,
+	recordChannel chan ApiV2010SipDomain,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

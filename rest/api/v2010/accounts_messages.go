@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateMessage'
@@ -401,7 +401,10 @@ func (params *ListMessageParams) SetLimit(Limit int) *ListMessageParams {
 }
 
 // Retrieve a single page of Message records from the API. Request is executed immediately.
-func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumber string) (*ListMessageResponse, error) {
+func (c *ApiService) PageMessage(
+	params *ListMessageParams,
+	pageToken, pageNumber string,
+) (*ListMessageResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -492,7 +495,12 @@ func (c *ApiService) StreamMessage(params *ListMessageParams) (chan ApiV2010Mess
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMessage(response *ListMessageResponse, params *ListMessageParams, recordChannel chan ApiV2010Message, errorChannel chan error) {
+func (c *ApiService) streamMessage(
+	response *ListMessageResponse,
+	params *ListMessageParams,
+	recordChannel chan ApiV2010Message,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

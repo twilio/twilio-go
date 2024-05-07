@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListLegacyContent'
@@ -40,7 +40,10 @@ func (params *ListLegacyContentParams) SetLimit(Limit int) *ListLegacyContentPar
 }
 
 // Retrieve a single page of LegacyContent records from the API. Request is executed immediately.
-func (c *ApiService) PageLegacyContent(params *ListLegacyContentParams, pageToken, pageNumber string) (*ListLegacyContentResponse, error) {
+func (c *ApiService) PageLegacyContent(
+	params *ListLegacyContentParams,
+	pageToken, pageNumber string,
+) (*ListLegacyContentResponse, error) {
 	path := "/v1/LegacyContent"
 
 	data := url.Values{}
@@ -110,7 +113,12 @@ func (c *ApiService) StreamLegacyContent(params *ListLegacyContentParams) (chan 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamLegacyContent(response *ListLegacyContentResponse, params *ListLegacyContentParams, recordChannel chan ContentV1LegacyContent, errorChannel chan error) {
+func (c *ApiService) streamLegacyContent(
+	response *ListLegacyContentResponse,
+	params *ListLegacyContentParams,
+	recordChannel chan ContentV1LegacyContent,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

@@ -17,7 +17,7 @@ package openapi
 import (
 	"encoding/json"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // PricingV2TrunkingNumberOriginatingCallPrice The [OriginatingCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record.

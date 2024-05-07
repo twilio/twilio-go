@@ -17,7 +17,7 @@ package openapi
 import (
 	"encoding/json"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // PricingV1VoiceVoiceNumberInboundCallPrice The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record. If `null`, the Phone Number is not a Twilio number owned by this account.

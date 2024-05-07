@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateNewKey'
@@ -244,7 +244,12 @@ func (c *ApiService) StreamKey(params *ListKeyParams) (chan ApiV2010Key, chan er
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamKey(response *ListKeyResponse, params *ListKeyParams, recordChannel chan ApiV2010Key, errorChannel chan error) {
+func (c *ApiService) streamKey(
+	response *ListKeyResponse,
+	params *ListKeyParams,
+	recordChannel chan ApiV2010Key,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

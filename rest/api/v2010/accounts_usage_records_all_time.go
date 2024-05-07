@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListUsageRecordAllTime'
@@ -71,7 +71,10 @@ func (params *ListUsageRecordAllTimeParams) SetLimit(Limit int) *ListUsageRecord
 }
 
 // Retrieve a single page of UsageRecordAllTime records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams, pageToken, pageNumber string) (*ListUsageRecordAllTimeResponse, error) {
+func (c *ApiService) PageUsageRecordAllTime(
+	params *ListUsageRecordAllTimeParams,
+	pageToken, pageNumber string,
+) (*ListUsageRecordAllTimeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -159,7 +162,12 @@ func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimePara
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordAllTime(response *ListUsageRecordAllTimeResponse, params *ListUsageRecordAllTimeParams, recordChannel chan ApiV2010UsageRecordAllTime, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordAllTime(
+	response *ListUsageRecordAllTimeResponse,
+	params *ListUsageRecordAllTimeParams,
+	recordChannel chan ApiV2010UsageRecordAllTime,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

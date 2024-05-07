@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateChannel'
@@ -200,7 +200,10 @@ func (params *ListChannelParams) SetLimit(Limit int) *ListChannelParams {
 }
 
 // Retrieve a single page of Channel records from the API. Request is executed immediately.
-func (c *ApiService) PageChannel(params *ListChannelParams, pageToken, pageNumber string) (*ListChannelResponse, error) {
+func (c *ApiService) PageChannel(
+	params *ListChannelParams,
+	pageToken, pageNumber string,
+) (*ListChannelResponse, error) {
 	path := "/v1/Channels"
 
 	data := url.Values{}
@@ -270,7 +273,12 @@ func (c *ApiService) StreamChannel(params *ListChannelParams) (chan FlexV1Channe
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamChannel(response *ListChannelResponse, params *ListChannelParams, recordChannel chan FlexV1Channel, errorChannel chan error) {
+func (c *ApiService) streamChannel(
+	response *ListChannelResponse,
+	params *ListChannelParams,
+	recordChannel chan FlexV1Channel,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

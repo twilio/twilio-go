@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'DeleteConferenceRecording'
@@ -35,7 +35,11 @@ func (params *DeleteConferenceRecordingParams) SetPathAccountSid(PathAccountSid 
 }
 
 // Delete a recording from your account
-func (c *ApiService) DeleteConferenceRecording(ConferenceSid string, Sid string, params *DeleteConferenceRecordingParams) error {
+func (c *ApiService) DeleteConferenceRecording(
+	ConferenceSid string,
+	Sid string,
+	params *DeleteConferenceRecordingParams,
+) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -70,7 +74,11 @@ func (params *FetchConferenceRecordingParams) SetPathAccountSid(PathAccountSid s
 }
 
 // Fetch an instance of a recording for a call
-func (c *ApiService) FetchConferenceRecording(ConferenceSid string, Sid string, params *FetchConferenceRecordingParams) (*ApiV2010ConferenceRecording, error) {
+func (c *ApiService) FetchConferenceRecording(
+	ConferenceSid string,
+	Sid string,
+	params *FetchConferenceRecordingParams,
+) (*ApiV2010ConferenceRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -140,7 +148,11 @@ func (params *ListConferenceRecordingParams) SetLimit(Limit int) *ListConference
 }
 
 // Retrieve a single page of ConferenceRecording records from the API. Request is executed immediately.
-func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams, pageToken, pageNumber string) (*ListConferenceRecordingResponse, error) {
+func (c *ApiService) PageConferenceRecording(
+	ConferenceSid string,
+	params *ListConferenceRecordingParams,
+	pageToken, pageNumber string,
+) (*ListConferenceRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -189,7 +201,10 @@ func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListC
 }
 
 // Lists ConferenceRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) ([]ApiV2010ConferenceRecording, error) {
+func (c *ApiService) ListConferenceRecording(
+	ConferenceSid string,
+	params *ListConferenceRecordingParams,
+) ([]ApiV2010ConferenceRecording, error) {
 	response, errors := c.StreamConferenceRecording(ConferenceSid, params)
 
 	records := make([]ApiV2010ConferenceRecording, 0)
@@ -205,7 +220,10 @@ func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListC
 }
 
 // Streams ConferenceRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) (chan ApiV2010ConferenceRecording, chan error) {
+func (c *ApiService) StreamConferenceRecording(
+	ConferenceSid string,
+	params *ListConferenceRecordingParams,
+) (chan ApiV2010ConferenceRecording, chan error) {
 	if params == nil {
 		params = &ListConferenceRecordingParams{}
 	}
@@ -226,7 +244,12 @@ func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *Lis
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConferenceRecording(response *ListConferenceRecordingResponse, params *ListConferenceRecordingParams, recordChannel chan ApiV2010ConferenceRecording, errorChannel chan error) {
+func (c *ApiService) streamConferenceRecording(
+	response *ListConferenceRecordingResponse,
+	params *ListConferenceRecordingParams,
+	recordChannel chan ApiV2010ConferenceRecording,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -298,7 +321,11 @@ func (params *UpdateConferenceRecordingParams) SetPauseBehavior(PauseBehavior st
 }
 
 // Changes the status of the recording to paused, stopped, or in-progress. Note: To use `Twilio.CURRENT`, pass it as recording sid.
-func (c *ApiService) UpdateConferenceRecording(ConferenceSid string, Sid string, params *UpdateConferenceRecordingParams) (*ApiV2010ConferenceRecording, error) {
+func (c *ApiService) UpdateConferenceRecording(
+	ConferenceSid string,
+	Sid string,
+	params *UpdateConferenceRecordingParams,
+) (*ApiV2010ConferenceRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)

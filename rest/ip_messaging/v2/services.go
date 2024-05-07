@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateService'
@@ -119,7 +119,10 @@ func (params *ListServiceParams) SetLimit(Limit int) *ListServiceParams {
 }
 
 // Retrieve a single page of Service records from the API. Request is executed immediately.
-func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumber string) (*ListServiceResponse, error) {
+func (c *ApiService) PageService(
+	params *ListServiceParams,
+	pageToken, pageNumber string,
+) (*ListServiceResponse, error) {
 	path := "/v2/Services"
 
 	data := url.Values{}
@@ -189,7 +192,12 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan IpMessagingV
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan IpMessagingV2Service, errorChannel chan error) {
+func (c *ApiService) streamService(
+	response *ListServiceResponse,
+	params *ListServiceParams,
+	recordChannel chan IpMessagingV2Service,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -470,7 +478,10 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ip
 		data.Set("Notifications.NewMessage.Sound", *params.NotificationsNewMessageSound)
 	}
 	if params != nil && params.NotificationsNewMessageBadgeCountEnabled != nil {
-		data.Set("Notifications.NewMessage.BadgeCountEnabled", fmt.Sprint(*params.NotificationsNewMessageBadgeCountEnabled))
+		data.Set(
+			"Notifications.NewMessage.BadgeCountEnabled",
+			fmt.Sprint(*params.NotificationsNewMessageBadgeCountEnabled),
+		)
 	}
 	if params != nil && params.NotificationsAddedToChannelEnabled != nil {
 		data.Set("Notifications.AddedToChannel.Enabled", fmt.Sprint(*params.NotificationsAddedToChannelEnabled))

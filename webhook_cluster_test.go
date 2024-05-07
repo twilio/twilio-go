@@ -11,10 +11,10 @@ import (
 	"testing"
 	"time"
 
+	twilio "github.com/ghostmonitor/twilio-go/client"
+	StudioV2 "github.com/ghostmonitor/twilio-go/rest/studio/v2"
 	"github.com/localtunnel/go-localtunnel"
 	"github.com/stretchr/testify/assert"
-	twilio "github.com/twilio/twilio-go/client"
-	StudioV2 "github.com/twilio/twilio-go/rest/studio/v2"
 )
 
 var testClient *RestClient
@@ -32,26 +32,29 @@ func TestMain(m *testing.M) {
 
 func createValidationServer(channel chan bool) *http.Server {
 	server := &http.Server{}
-	server.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		url := r.Header["X-Forwarded-Proto"][0] + "://" + r.Header["X-Forwarded-Host"][0] + r.URL.RequestURI()
-		signatureHeader := r.Header["X-Twilio-Signature"]
-		r.ParseForm()
-		params := make(map[string]string)
-		for k, v := range r.PostForm {
-			params[k] = v[0]
-		}
-		requestValidator := twilio.NewRequestValidator(authToken)
-		if len(signatureHeader) != 0 {
-			channel <- requestValidator.Validate(url, params, r.Header["X-Twilio-Signature"][0])
-		} else {
-			channel <- false
-		}
-	})
+	server.Handler = http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
+			url := r.Header["X-Forwarded-Proto"][0] + "://" + r.Header["X-Forwarded-Host"][0] + r.URL.RequestURI()
+			signatureHeader := r.Header["X-Twilio-Signature"]
+			r.ParseForm()
+			params := make(map[string]string)
+			for k, v := range r.PostForm {
+				params[k] = v[0]
+			}
+			requestValidator := twilio.NewRequestValidator(authToken)
+			if len(signatureHeader) != 0 {
+				channel <- requestValidator.Validate(url, params, r.Header["X-Twilio-Signature"][0])
+			} else {
+				channel <- false
+			}
+		},
+	)
 	return server
 }
 
 func createStudioFlowParams(url string, method string) *StudioV2.CreateFlowParams {
-	jsonStr := fmt.Sprintf(`{
+	jsonStr := fmt.Sprintf(
+		`{
 		"description": "Studio Flow",
 		"states": [
 		  {
@@ -81,7 +84,8 @@ func createStudioFlowParams(url string, method string) *StudioV2.CreateFlowParam
 		"flags": {
 		  "allow_concurrent_calls": true
 		}
-	  }`, method, url)
+	  }`, method, url,
+	)
 
 	var definition interface{}
 	_ = json.Unmarshal([]byte(jsonStr), &definition)

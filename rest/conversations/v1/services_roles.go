@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateServiceRole'
@@ -47,7 +47,10 @@ func (params *CreateServiceRoleParams) SetPermission(Permission []string) *Creat
 }
 
 // Create a new user role in your service
-func (c *ApiService) CreateServiceRole(ChatServiceSid string, params *CreateServiceRoleParams) (*ConversationsV1ServiceRole, error) {
+func (c *ApiService) CreateServiceRole(
+	ChatServiceSid string,
+	params *CreateServiceRoleParams,
+) (*ConversationsV1ServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -142,7 +145,11 @@ func (params *ListServiceRoleParams) SetLimit(Limit int) *ListServiceRoleParams 
 }
 
 // Retrieve a single page of ServiceRole records from the API. Request is executed immediately.
-func (c *ApiService) PageServiceRole(ChatServiceSid string, params *ListServiceRoleParams, pageToken, pageNumber string) (*ListServiceRoleResponse, error) {
+func (c *ApiService) PageServiceRole(
+	ChatServiceSid string,
+	params *ListServiceRoleParams,
+	pageToken, pageNumber string,
+) (*ListServiceRoleResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -177,7 +184,10 @@ func (c *ApiService) PageServiceRole(ChatServiceSid string, params *ListServiceR
 }
 
 // Lists ServiceRole records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams) ([]ConversationsV1ServiceRole, error) {
+func (c *ApiService) ListServiceRole(
+	ChatServiceSid string,
+	params *ListServiceRoleParams,
+) ([]ConversationsV1ServiceRole, error) {
 	response, errors := c.StreamServiceRole(ChatServiceSid, params)
 
 	records := make([]ConversationsV1ServiceRole, 0)
@@ -193,7 +203,10 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 }
 
 // Streams ServiceRole records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServiceRoleParams) (chan ConversationsV1ServiceRole, chan error) {
+func (c *ApiService) StreamServiceRole(
+	ChatServiceSid string,
+	params *ListServiceRoleParams,
+) (chan ConversationsV1ServiceRole, chan error) {
 	if params == nil {
 		params = &ListServiceRoleParams{}
 	}
@@ -214,7 +227,12 @@ func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServic
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamServiceRole(response *ListServiceRoleResponse, params *ListServiceRoleParams, recordChannel chan ConversationsV1ServiceRole, errorChannel chan error) {
+func (c *ApiService) streamServiceRole(
+	response *ListServiceRoleResponse,
+	params *ListServiceRoleParams,
+	recordChannel chan ConversationsV1ServiceRole,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -274,7 +292,11 @@ func (params *UpdateServiceRoleParams) SetPermission(Permission []string) *Updat
 }
 
 // Update an existing user role in your service
-func (c *ApiService) UpdateServiceRole(ChatServiceSid string, Sid string, params *UpdateServiceRoleParams) (*ConversationsV1ServiceRole, error) {
+func (c *ApiService) UpdateServiceRole(
+	ChatServiceSid string,
+	Sid string,
+	params *UpdateServiceRoleParams,
+) (*ConversationsV1ServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -20,11 +20,15 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 //
-func (c *ApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkerChannel, error) {
+func (c *ApiService) FetchWorkerChannel(
+	WorkspaceSid string,
+	WorkerSid string,
+	Sid string,
+) (*TaskrouterV1WorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
@@ -66,7 +70,12 @@ func (params *ListWorkerChannelParams) SetLimit(Limit int) *ListWorkerChannelPar
 }
 
 // Retrieve a single page of WorkerChannel records from the API. Request is executed immediately.
-func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, pageToken, pageNumber string) (*ListWorkerChannelResponse, error) {
+func (c *ApiService) PageWorkerChannel(
+	WorkspaceSid string,
+	WorkerSid string,
+	params *ListWorkerChannelParams,
+	pageToken, pageNumber string,
+) (*ListWorkerChannelResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -102,7 +111,11 @@ func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 }
 
 // Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) ([]TaskrouterV1WorkerChannel, error) {
+func (c *ApiService) ListWorkerChannel(
+	WorkspaceSid string,
+	WorkerSid string,
+	params *ListWorkerChannelParams,
+) ([]TaskrouterV1WorkerChannel, error) {
 	response, errors := c.StreamWorkerChannel(WorkspaceSid, WorkerSid, params)
 
 	records := make([]TaskrouterV1WorkerChannel, 0)
@@ -118,7 +131,11 @@ func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 }
 
 // Streams WorkerChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (chan TaskrouterV1WorkerChannel, chan error) {
+func (c *ApiService) StreamWorkerChannel(
+	WorkspaceSid string,
+	WorkerSid string,
+	params *ListWorkerChannelParams,
+) (chan TaskrouterV1WorkerChannel, chan error) {
 	if params == nil {
 		params = &ListWorkerChannelParams{}
 	}
@@ -139,7 +156,12 @@ func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamWorkerChannel(response *ListWorkerChannelResponse, params *ListWorkerChannelParams, recordChannel chan TaskrouterV1WorkerChannel, errorChannel chan error) {
+func (c *ApiService) streamWorkerChannel(
+	response *ListWorkerChannelResponse,
+	params *ListWorkerChannelParams,
+	recordChannel chan TaskrouterV1WorkerChannel,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -205,7 +227,12 @@ func (params *UpdateWorkerChannelParams) SetAvailable(Available bool) *UpdateWor
 }
 
 //
-func (c *ApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerChannelParams) (*TaskrouterV1WorkerChannel, error) {
+func (c *ApiService) UpdateWorkerChannel(
+	WorkspaceSid string,
+	WorkerSid string,
+	Sid string,
+	params *UpdateWorkerChannelParams,
+) (*TaskrouterV1WorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)

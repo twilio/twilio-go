@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSipAuthCallsIpAccessControlListMapping'
@@ -41,7 +41,10 @@ func (params *CreateSipAuthCallsIpAccessControlListMappingParams) SetIpAccessCon
 }
 
 // Create a new IP Access Control List mapping
-func (c *ApiService) CreateSipAuthCallsIpAccessControlListMapping(DomainSid string, params *CreateSipAuthCallsIpAccessControlListMappingParams) (*ApiV2010SipAuthCallsIpAccessControlListMapping, error) {
+func (c *ApiService) CreateSipAuthCallsIpAccessControlListMapping(
+	DomainSid string,
+	params *CreateSipAuthCallsIpAccessControlListMappingParams,
+) (*ApiV2010SipAuthCallsIpAccessControlListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -84,7 +87,11 @@ func (params *DeleteSipAuthCallsIpAccessControlListMappingParams) SetPathAccount
 }
 
 // Delete an IP Access Control List mapping from the requested domain
-func (c *ApiService) DeleteSipAuthCallsIpAccessControlListMapping(DomainSid string, Sid string, params *DeleteSipAuthCallsIpAccessControlListMappingParams) error {
+func (c *ApiService) DeleteSipAuthCallsIpAccessControlListMapping(
+	DomainSid string,
+	Sid string,
+	params *DeleteSipAuthCallsIpAccessControlListMappingParams,
+) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -119,7 +126,11 @@ func (params *FetchSipAuthCallsIpAccessControlListMappingParams) SetPathAccountS
 }
 
 // Fetch a specific instance of an IP Access Control List mapping
-func (c *ApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSid string, Sid string, params *FetchSipAuthCallsIpAccessControlListMappingParams) (*ApiV2010SipAuthCallsIpAccessControlListMapping, error) {
+func (c *ApiService) FetchSipAuthCallsIpAccessControlListMapping(
+	DomainSid string,
+	Sid string,
+	params *FetchSipAuthCallsIpAccessControlListMappingParams,
+) (*ApiV2010SipAuthCallsIpAccessControlListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -171,7 +182,11 @@ func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetLimit(Limit i
 }
 
 // Retrieve a single page of SipAuthCallsIpAccessControlListMapping records from the API. Request is executed immediately.
-func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, pageToken, pageNumber string) (*ListSipAuthCallsIpAccessControlListMappingResponse, error) {
+func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(
+	DomainSid string,
+	params *ListSipAuthCallsIpAccessControlListMappingParams,
+	pageToken, pageNumber string,
+) (*ListSipAuthCallsIpAccessControlListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -211,7 +226,10 @@ func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string
 }
 
 // Lists SipAuthCallsIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams) ([]ApiV2010SipAuthCallsIpAccessControlListMapping, error) {
+func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(
+	DomainSid string,
+	params *ListSipAuthCallsIpAccessControlListMappingParams,
+) ([]ApiV2010SipAuthCallsIpAccessControlListMapping, error) {
 	response, errors := c.StreamSipAuthCallsIpAccessControlListMapping(DomainSid, params)
 
 	records := make([]ApiV2010SipAuthCallsIpAccessControlListMapping, 0)
@@ -227,7 +245,10 @@ func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string
 }
 
 // Streams SipAuthCallsIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams) (chan ApiV2010SipAuthCallsIpAccessControlListMapping, chan error) {
+func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(
+	DomainSid string,
+	params *ListSipAuthCallsIpAccessControlListMappingParams,
+) (chan ApiV2010SipAuthCallsIpAccessControlListMapping, chan error) {
 	if params == nil {
 		params = &ListSipAuthCallsIpAccessControlListMappingParams{}
 	}
@@ -248,7 +269,12 @@ func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(DomainSid stri
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipAuthCallsIpAccessControlListMapping(response *ListSipAuthCallsIpAccessControlListMappingResponse, params *ListSipAuthCallsIpAccessControlListMappingParams, recordChannel chan ApiV2010SipAuthCallsIpAccessControlListMapping, errorChannel chan error) {
+func (c *ApiService) streamSipAuthCallsIpAccessControlListMapping(
+	response *ListSipAuthCallsIpAccessControlListMappingResponse,
+	params *ListSipAuthCallsIpAccessControlListMappingParams,
+	recordChannel chan ApiV2010SipAuthCallsIpAccessControlListMapping,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

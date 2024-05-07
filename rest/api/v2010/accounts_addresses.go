@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateAddress'
@@ -267,7 +267,10 @@ func (params *ListAddressParams) SetLimit(Limit int) *ListAddressParams {
 }
 
 // Retrieve a single page of Address records from the API. Request is executed immediately.
-func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumber string) (*ListAddressResponse, error) {
+func (c *ApiService) PageAddress(
+	params *ListAddressParams,
+	pageToken, pageNumber string,
+) (*ListAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -352,7 +355,12 @@ func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Addr
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAddress(response *ListAddressResponse, params *ListAddressParams, recordChannel chan ApiV2010Address, errorChannel chan error) {
+func (c *ApiService) streamAddress(
+	response *ListAddressResponse,
+	params *ListAddressParams,
+	recordChannel chan ApiV2010Address,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

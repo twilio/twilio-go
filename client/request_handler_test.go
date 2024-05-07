@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"testing"
 
+	"github.com/ghostmonitor/twilio-go/client"
 	"github.com/stretchr/testify/assert"
-	"github.com/twilio/twilio-go/client"
 )
 
 func NewRequestHandler(accountSid string, authToken string) *client.RequestHandler {
@@ -19,12 +19,20 @@ func NewRequestHandler(accountSid string, authToken string) *client.RequestHandl
 func TestRequestHandler_BuildUrlSetRegion(t *testing.T) {
 	// Region set via url
 	requestHandler := NewRequestHandler("user", "pass")
-	assert.Equal(t, "https://api.region.twilio.com", assertAndGetURL(t, requestHandler, "https://api.region.twilio.com"))
+	assert.Equal(
+		t,
+		"https://api.region.twilio.com",
+		assertAndGetURL(t, requestHandler, "https://api.region.twilio.com"),
+	)
 
 	// Region set via requestHandler
 	requestHandler.Region = "region"
 	assert.Equal(t, "https://api.region.twilio.com", assertAndGetURL(t, requestHandler, "https://api.twilio.com"))
-	assert.Equal(t, "https://api.region.twilio.com", assertAndGetURL(t, requestHandler, "https://api.urlRegion.twilio.com"))
+	assert.Equal(
+		t,
+		"https://api.region.twilio.com",
+		assertAndGetURL(t, requestHandler, "https://api.urlRegion.twilio.com"),
+	)
 }
 
 func TestRequestHandler_BuildUrlSetEdgeDefaultRegion(t *testing.T) {
@@ -37,14 +45,26 @@ func TestRequestHandler_BuildUrlSetEdgeDefaultRegion(t *testing.T) {
 func TestRequestHandler_BuildUrlSetEdgeRegion(t *testing.T) {
 	//Edge and Region set via url
 	requestHandler := NewRequestHandler("user", "pass")
-	assert.Equal(t, "https://api.edge.region.twilio.com", assertAndGetURL(t, requestHandler, "https://api.edge.region.twilio.com"))
+	assert.Equal(
+		t,
+		"https://api.edge.region.twilio.com",
+		assertAndGetURL(t, requestHandler, "https://api.edge.region.twilio.com"),
+	)
 
 	// Edge and Region set via client
 	requestHandler.Edge = "edge"
-	assert.Equal(t, "https://api.edge.region.twilio.com", assertAndGetURL(t, requestHandler, "https://api.region.twilio.com"))
+	assert.Equal(
+		t,
+		"https://api.edge.region.twilio.com",
+		assertAndGetURL(t, requestHandler, "https://api.region.twilio.com"),
+	)
 	requestHandler.Region = "region"
 	assert.Equal(t, "https://api.edge.region.twilio.com", assertAndGetURL(t, requestHandler, "https://api.twilio.com"))
-	assert.Equal(t, "https://api.edge.region.twilio.com", assertAndGetURL(t, requestHandler, "https://api.urlEdge.urlRegion.twilio.com"))
+	assert.Equal(
+		t,
+		"https://api.edge.region.twilio.com",
+		assertAndGetURL(t, requestHandler, "https://api.urlEdge.urlRegion.twilio.com"),
+	)
 }
 
 func TestRequestHandler_BuildHostRawHostWithoutPeriods(t *testing.T) {
@@ -75,11 +95,14 @@ func TestRequestHandler_SendGetRequest(t *testing.T) {
 	"message":"Bad request",
 	"more_info":"https://www.twilio.com/docs/errors/20001"
 }`
-	errorServer := httptest.NewServer(http.HandlerFunc(
-		func(resp http.ResponseWriter, req *http.Request) {
-			resp.WriteHeader(400)
-			_, _ = resp.Write([]byte(errorResponse))
-		}))
+	errorServer := httptest.NewServer(
+		http.HandlerFunc(
+			func(resp http.ResponseWriter, req *http.Request) {
+				resp.WriteHeader(400)
+				_, _ = resp.Write([]byte(errorResponse))
+			},
+		),
+	)
 	defer errorServer.Close()
 
 	requestHandler := NewRequestHandler("user", "pass")
@@ -100,11 +123,14 @@ func TestRequestHandler_SendPostRequest(t *testing.T) {
 	"message":"Bad request",
 	"more_info":"https://www.twilio.com/docs/errors/20001"
 }`
-	errorServer := httptest.NewServer(http.HandlerFunc(
-		func(resp http.ResponseWriter, req *http.Request) {
-			resp.WriteHeader(400)
-			_, _ = resp.Write([]byte(errorResponse))
-		}))
+	errorServer := httptest.NewServer(
+		http.HandlerFunc(
+			func(resp http.ResponseWriter, req *http.Request) {
+				resp.WriteHeader(400)
+				_, _ = resp.Write([]byte(errorResponse))
+			},
+		),
+	)
 	defer errorServer.Close()
 
 	requestHandler := NewRequestHandler("user", "pass")

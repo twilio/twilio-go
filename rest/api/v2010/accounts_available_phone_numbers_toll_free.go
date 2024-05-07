@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListAvailablePhoneNumberTollFree'
@@ -155,7 +155,11 @@ func (params *ListAvailablePhoneNumberTollFreeParams) SetLimit(Limit int) *ListA
 }
 
 // Retrieve a single page of AvailablePhoneNumberTollFree records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberTollFreeResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberTollFree(
+	CountryCode string,
+	params *ListAvailablePhoneNumberTollFreeParams,
+	pageToken, pageNumber string,
+) (*ListAvailablePhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -249,7 +253,10 @@ func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params
 }
 
 // Lists AvailablePhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) ([]ApiV2010AvailablePhoneNumberTollFree, error) {
+func (c *ApiService) ListAvailablePhoneNumberTollFree(
+	CountryCode string,
+	params *ListAvailablePhoneNumberTollFreeParams,
+) ([]ApiV2010AvailablePhoneNumberTollFree, error) {
 	response, errors := c.StreamAvailablePhoneNumberTollFree(CountryCode, params)
 
 	records := make([]ApiV2010AvailablePhoneNumberTollFree, 0)
@@ -265,7 +272,10 @@ func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params
 }
 
 // Streams AvailablePhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) (chan ApiV2010AvailablePhoneNumberTollFree, chan error) {
+func (c *ApiService) StreamAvailablePhoneNumberTollFree(
+	CountryCode string,
+	params *ListAvailablePhoneNumberTollFreeParams,
+) (chan ApiV2010AvailablePhoneNumberTollFree, chan error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberTollFreeParams{}
 	}
@@ -286,7 +296,12 @@ func (c *ApiService) StreamAvailablePhoneNumberTollFree(CountryCode string, para
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberTollFree(response *ListAvailablePhoneNumberTollFreeResponse, params *ListAvailablePhoneNumberTollFreeParams, recordChannel chan ApiV2010AvailablePhoneNumberTollFree, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberTollFree(
+	response *ListAvailablePhoneNumberTollFreeResponse,
+	params *ListAvailablePhoneNumberTollFreeParams,
+	recordChannel chan ApiV2010AvailablePhoneNumberTollFree,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

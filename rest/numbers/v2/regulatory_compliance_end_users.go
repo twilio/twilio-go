@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateEndUser'
@@ -143,7 +143,10 @@ func (params *ListEndUserParams) SetLimit(Limit int) *ListEndUserParams {
 }
 
 // Retrieve a single page of EndUser records from the API. Request is executed immediately.
-func (c *ApiService) PageEndUser(params *ListEndUserParams, pageToken, pageNumber string) (*ListEndUserResponse, error) {
+func (c *ApiService) PageEndUser(
+	params *ListEndUserParams,
+	pageToken, pageNumber string,
+) (*ListEndUserResponse, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
 	data := url.Values{}
@@ -213,7 +216,12 @@ func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan NumbersV2End
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEndUser(response *ListEndUserResponse, params *ListEndUserParams, recordChannel chan NumbersV2EndUser, errorChannel chan error) {
+func (c *ApiService) streamEndUser(
+	response *ListEndUserResponse,
+	params *ListEndUserParams,
+	recordChannel chan NumbersV2EndUser,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

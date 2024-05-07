@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateFunction'
@@ -122,7 +122,11 @@ func (params *ListFunctionParams) SetLimit(Limit int) *ListFunctionParams {
 }
 
 // Retrieve a single page of Function records from the API. Request is executed immediately.
-func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams, pageToken, pageNumber string) (*ListFunctionResponse, error) {
+func (c *ApiService) PageFunction(
+	ServiceSid string,
+	params *ListFunctionParams,
+	pageToken, pageNumber string,
+) (*ListFunctionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Functions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -173,7 +177,10 @@ func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams)
 }
 
 // Streams Function records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParams) (chan ServerlessV1Function, chan error) {
+func (c *ApiService) StreamFunction(
+	ServiceSid string,
+	params *ListFunctionParams,
+) (chan ServerlessV1Function, chan error) {
 	if params == nil {
 		params = &ListFunctionParams{}
 	}
@@ -194,7 +201,12 @@ func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParam
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFunction(response *ListFunctionResponse, params *ListFunctionParams, recordChannel chan ServerlessV1Function, errorChannel chan error) {
+func (c *ApiService) streamFunction(
+	response *ListFunctionResponse,
+	params *ListFunctionParams,
+	recordChannel chan ServerlessV1Function,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -254,7 +266,11 @@ func (params *UpdateFunctionParams) SetFriendlyName(FriendlyName string) *Update
 }
 
 // Update a specific Function resource.
-func (c *ApiService) UpdateFunction(ServiceSid string, Sid string, params *UpdateFunctionParams) (*ServerlessV1Function, error) {
+func (c *ApiService) UpdateFunction(
+	ServiceSid string,
+	Sid string,
+	params *UpdateFunctionParams,
+) (*ServerlessV1Function, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

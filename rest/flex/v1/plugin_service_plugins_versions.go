@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreatePluginVersion'
@@ -71,7 +71,10 @@ func (params *CreatePluginVersionParams) SetValidateStatus(ValidateStatus string
 }
 
 //
-func (c *ApiService) CreatePluginVersion(PluginSid string, params *CreatePluginVersionParams) (*FlexV1PluginVersion, error) {
+func (c *ApiService) CreatePluginVersion(
+	PluginSid string,
+	params *CreatePluginVersionParams,
+) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
 
@@ -127,7 +130,11 @@ func (params *FetchPluginVersionParams) SetFlexMetadata(FlexMetadata string) *Fe
 }
 
 //
-func (c *ApiService) FetchPluginVersion(PluginSid string, Sid string, params *FetchPluginVersionParams) (*FlexV1PluginVersion, error) {
+func (c *ApiService) FetchPluginVersion(
+	PluginSid string,
+	Sid string,
+	params *FetchPluginVersionParams,
+) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -177,7 +184,11 @@ func (params *ListPluginVersionParams) SetLimit(Limit int) *ListPluginVersionPar
 }
 
 // Retrieve a single page of PluginVersion records from the API. Request is executed immediately.
-func (c *ApiService) PagePluginVersion(PluginSid string, params *ListPluginVersionParams, pageToken, pageNumber string) (*ListPluginVersionResponse, error) {
+func (c *ApiService) PagePluginVersion(
+	PluginSid string,
+	params *ListPluginVersionParams,
+	pageToken, pageNumber string,
+) (*ListPluginVersionResponse, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions"
 
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -212,7 +223,10 @@ func (c *ApiService) PagePluginVersion(PluginSid string, params *ListPluginVersi
 }
 
 // Lists PluginVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListPluginVersion(PluginSid string, params *ListPluginVersionParams) ([]FlexV1PluginVersion, error) {
+func (c *ApiService) ListPluginVersion(
+	PluginSid string,
+	params *ListPluginVersionParams,
+) ([]FlexV1PluginVersion, error) {
 	response, errors := c.StreamPluginVersion(PluginSid, params)
 
 	records := make([]FlexV1PluginVersion, 0)
@@ -228,7 +242,10 @@ func (c *ApiService) ListPluginVersion(PluginSid string, params *ListPluginVersi
 }
 
 // Streams PluginVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPluginVersion(PluginSid string, params *ListPluginVersionParams) (chan FlexV1PluginVersion, chan error) {
+func (c *ApiService) StreamPluginVersion(
+	PluginSid string,
+	params *ListPluginVersionParams,
+) (chan FlexV1PluginVersion, chan error) {
 	if params == nil {
 		params = &ListPluginVersionParams{}
 	}
@@ -249,7 +266,12 @@ func (c *ApiService) StreamPluginVersion(PluginSid string, params *ListPluginVer
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPluginVersion(response *ListPluginVersionResponse, params *ListPluginVersionParams, recordChannel chan FlexV1PluginVersion, errorChannel chan error) {
+func (c *ApiService) streamPluginVersion(
+	response *ListPluginVersionResponse,
+	params *ListPluginVersionParams,
+	recordChannel chan FlexV1PluginVersion,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

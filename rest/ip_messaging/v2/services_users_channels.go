@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 //
@@ -45,7 +45,11 @@ func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, Channe
 }
 
 //
-func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*IpMessagingV2UserChannel, error) {
+func (c *ApiService) FetchUserChannel(
+	ServiceSid string,
+	UserSid string,
+	ChannelSid string,
+) (*IpMessagingV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -87,7 +91,12 @@ func (params *ListUserChannelParams) SetLimit(Limit int) *ListUserChannelParams 
 }
 
 // Retrieve a single page of UserChannel records from the API. Request is executed immediately.
-func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, pageToken, pageNumber string) (*ListUserChannelResponse, error) {
+func (c *ApiService) PageUserChannel(
+	ServiceSid string,
+	UserSid string,
+	params *ListUserChannelParams,
+	pageToken, pageNumber string,
+) (*ListUserChannelResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -123,7 +132,11 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 }
 
 // Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) ([]IpMessagingV2UserChannel, error) {
+func (c *ApiService) ListUserChannel(
+	ServiceSid string,
+	UserSid string,
+	params *ListUserChannelParams,
+) ([]IpMessagingV2UserChannel, error) {
 	response, errors := c.StreamUserChannel(ServiceSid, UserSid, params)
 
 	records := make([]IpMessagingV2UserChannel, 0)
@@ -139,7 +152,11 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 }
 
 // Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (chan IpMessagingV2UserChannel, chan error) {
+func (c *ApiService) StreamUserChannel(
+	ServiceSid string,
+	UserSid string,
+	params *ListUserChannelParams,
+) (chan IpMessagingV2UserChannel, chan error) {
 	if params == nil {
 		params = &ListUserChannelParams{}
 	}
@@ -160,7 +177,12 @@ func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUserChannel(response *ListUserChannelResponse, params *ListUserChannelParams, recordChannel chan IpMessagingV2UserChannel, errorChannel chan error) {
+func (c *ApiService) streamUserChannel(
+	response *ListUserChannelResponse,
+	params *ListUserChannelParams,
+	recordChannel chan IpMessagingV2UserChannel,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -232,7 +254,12 @@ func (params *UpdateUserChannelParams) SetLastConsumptionTimestamp(LastConsumpti
 }
 
 //
-func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*IpMessagingV2UserChannel, error) {
+func (c *ApiService) UpdateUserChannel(
+	ServiceSid string,
+	UserSid string,
+	ChannelSid string,
+	params *UpdateUserChannelParams,
+) (*IpMessagingV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)

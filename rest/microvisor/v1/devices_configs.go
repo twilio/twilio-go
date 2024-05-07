@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateDeviceConfig'
@@ -41,7 +41,10 @@ func (params *CreateDeviceConfigParams) SetValue(Value string) *CreateDeviceConf
 }
 
 // Create a config for a Microvisor Device.
-func (c *ApiService) CreateDeviceConfig(DeviceSid string, params *CreateDeviceConfigParams) (*MicrovisorV1DeviceConfig, error) {
+func (c *ApiService) CreateDeviceConfig(
+	DeviceSid string,
+	params *CreateDeviceConfigParams,
+) (*MicrovisorV1DeviceConfig, error) {
 	path := "/v1/Devices/{DeviceSid}/Configs"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
@@ -131,7 +134,11 @@ func (params *ListDeviceConfigParams) SetLimit(Limit int) *ListDeviceConfigParam
 }
 
 // Retrieve a single page of DeviceConfig records from the API. Request is executed immediately.
-func (c *ApiService) PageDeviceConfig(DeviceSid string, params *ListDeviceConfigParams, pageToken, pageNumber string) (*ListDeviceConfigResponse, error) {
+func (c *ApiService) PageDeviceConfig(
+	DeviceSid string,
+	params *ListDeviceConfigParams,
+	pageToken, pageNumber string,
+) (*ListDeviceConfigResponse, error) {
 	path := "/v1/Devices/{DeviceSid}/Configs"
 
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
@@ -166,7 +173,10 @@ func (c *ApiService) PageDeviceConfig(DeviceSid string, params *ListDeviceConfig
 }
 
 // Lists DeviceConfig records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDeviceConfig(DeviceSid string, params *ListDeviceConfigParams) ([]MicrovisorV1DeviceConfig, error) {
+func (c *ApiService) ListDeviceConfig(
+	DeviceSid string,
+	params *ListDeviceConfigParams,
+) ([]MicrovisorV1DeviceConfig, error) {
 	response, errors := c.StreamDeviceConfig(DeviceSid, params)
 
 	records := make([]MicrovisorV1DeviceConfig, 0)
@@ -182,7 +192,10 @@ func (c *ApiService) ListDeviceConfig(DeviceSid string, params *ListDeviceConfig
 }
 
 // Streams DeviceConfig records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDeviceConfig(DeviceSid string, params *ListDeviceConfigParams) (chan MicrovisorV1DeviceConfig, chan error) {
+func (c *ApiService) StreamDeviceConfig(
+	DeviceSid string,
+	params *ListDeviceConfigParams,
+) (chan MicrovisorV1DeviceConfig, chan error) {
 	if params == nil {
 		params = &ListDeviceConfigParams{}
 	}
@@ -203,7 +216,12 @@ func (c *ApiService) StreamDeviceConfig(DeviceSid string, params *ListDeviceConf
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDeviceConfig(response *ListDeviceConfigResponse, params *ListDeviceConfigParams, recordChannel chan MicrovisorV1DeviceConfig, errorChannel chan error) {
+func (c *ApiService) streamDeviceConfig(
+	response *ListDeviceConfigResponse,
+	params *ListDeviceConfigParams,
+	recordChannel chan MicrovisorV1DeviceConfig,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -263,7 +281,11 @@ func (params *UpdateDeviceConfigParams) SetValue(Value string) *UpdateDeviceConf
 }
 
 // Update a config for a Microvisor Device.
-func (c *ApiService) UpdateDeviceConfig(DeviceSid string, Key string, params *UpdateDeviceConfigParams) (*MicrovisorV1DeviceConfig, error) {
+func (c *ApiService) UpdateDeviceConfig(
+	DeviceSid string,
+	Key string,
+	params *UpdateDeviceConfigParams,
+) (*MicrovisorV1DeviceConfig, error) {
 	path := "/v1/Devices/{DeviceSid}/Configs/{Key}"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateDeviceSecret'
@@ -41,7 +41,10 @@ func (params *CreateDeviceSecretParams) SetValue(Value string) *CreateDeviceSecr
 }
 
 // Create a secret for a Microvisor Device.
-func (c *ApiService) CreateDeviceSecret(DeviceSid string, params *CreateDeviceSecretParams) (*MicrovisorV1DeviceSecret, error) {
+func (c *ApiService) CreateDeviceSecret(
+	DeviceSid string,
+	params *CreateDeviceSecretParams,
+) (*MicrovisorV1DeviceSecret, error) {
 	path := "/v1/Devices/{DeviceSid}/Secrets"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
@@ -131,7 +134,11 @@ func (params *ListDeviceSecretParams) SetLimit(Limit int) *ListDeviceSecretParam
 }
 
 // Retrieve a single page of DeviceSecret records from the API. Request is executed immediately.
-func (c *ApiService) PageDeviceSecret(DeviceSid string, params *ListDeviceSecretParams, pageToken, pageNumber string) (*ListDeviceSecretResponse, error) {
+func (c *ApiService) PageDeviceSecret(
+	DeviceSid string,
+	params *ListDeviceSecretParams,
+	pageToken, pageNumber string,
+) (*ListDeviceSecretResponse, error) {
 	path := "/v1/Devices/{DeviceSid}/Secrets"
 
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
@@ -166,7 +173,10 @@ func (c *ApiService) PageDeviceSecret(DeviceSid string, params *ListDeviceSecret
 }
 
 // Lists DeviceSecret records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDeviceSecret(DeviceSid string, params *ListDeviceSecretParams) ([]MicrovisorV1DeviceSecret, error) {
+func (c *ApiService) ListDeviceSecret(
+	DeviceSid string,
+	params *ListDeviceSecretParams,
+) ([]MicrovisorV1DeviceSecret, error) {
 	response, errors := c.StreamDeviceSecret(DeviceSid, params)
 
 	records := make([]MicrovisorV1DeviceSecret, 0)
@@ -182,7 +192,10 @@ func (c *ApiService) ListDeviceSecret(DeviceSid string, params *ListDeviceSecret
 }
 
 // Streams DeviceSecret records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDeviceSecret(DeviceSid string, params *ListDeviceSecretParams) (chan MicrovisorV1DeviceSecret, chan error) {
+func (c *ApiService) StreamDeviceSecret(
+	DeviceSid string,
+	params *ListDeviceSecretParams,
+) (chan MicrovisorV1DeviceSecret, chan error) {
 	if params == nil {
 		params = &ListDeviceSecretParams{}
 	}
@@ -203,7 +216,12 @@ func (c *ApiService) StreamDeviceSecret(DeviceSid string, params *ListDeviceSecr
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDeviceSecret(response *ListDeviceSecretResponse, params *ListDeviceSecretParams, recordChannel chan MicrovisorV1DeviceSecret, errorChannel chan error) {
+func (c *ApiService) streamDeviceSecret(
+	response *ListDeviceSecretResponse,
+	params *ListDeviceSecretParams,
+	recordChannel chan MicrovisorV1DeviceSecret,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -263,7 +281,11 @@ func (params *UpdateDeviceSecretParams) SetValue(Value string) *UpdateDeviceSecr
 }
 
 // Update a secret for a Microvisor Device.
-func (c *ApiService) UpdateDeviceSecret(DeviceSid string, Key string, params *UpdateDeviceSecretParams) (*MicrovisorV1DeviceSecret, error) {
+func (c *ApiService) UpdateDeviceSecret(
+	DeviceSid string,
+	Key string,
+	params *UpdateDeviceSecretParams,
+) (*MicrovisorV1DeviceSecret, error) {
 	path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)

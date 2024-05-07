@@ -20,11 +20,15 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Returns a single Track resource represented by TrackName or SID.
-func (c *ApiService) FetchRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomParticipantPublishedTrack, error) {
+func (c *ApiService) FetchRoomParticipantPublishedTrack(
+	RoomSid string,
+	ParticipantSid string,
+	Sid string,
+) (*VideoV1RoomParticipantPublishedTrack, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -66,7 +70,12 @@ func (params *ListRoomParticipantPublishedTrackParams) SetLimit(Limit int) *List
 }
 
 // Retrieve a single page of RoomParticipantPublishedTrack records from the API. Request is executed immediately.
-func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken, pageNumber string) (*ListRoomParticipantPublishedTrackResponse, error) {
+func (c *ApiService) PageRoomParticipantPublishedTrack(
+	RoomSid string,
+	ParticipantSid string,
+	params *ListRoomParticipantPublishedTrackParams,
+	pageToken, pageNumber string,
+) (*ListRoomParticipantPublishedTrackResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -102,7 +111,11 @@ func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, Participa
 }
 
 // Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) ([]VideoV1RoomParticipantPublishedTrack, error) {
+func (c *ApiService) ListRoomParticipantPublishedTrack(
+	RoomSid string,
+	ParticipantSid string,
+	params *ListRoomParticipantPublishedTrackParams,
+) ([]VideoV1RoomParticipantPublishedTrack, error) {
 	response, errors := c.StreamRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params)
 
 	records := make([]VideoV1RoomParticipantPublishedTrack, 0)
@@ -118,7 +131,11 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 }
 
 // Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (chan VideoV1RoomParticipantPublishedTrack, chan error) {
+func (c *ApiService) StreamRoomParticipantPublishedTrack(
+	RoomSid string,
+	ParticipantSid string,
+	params *ListRoomParticipantPublishedTrackParams,
+) (chan VideoV1RoomParticipantPublishedTrack, chan error) {
 	if params == nil {
 		params = &ListRoomParticipantPublishedTrackParams{}
 	}
@@ -139,7 +156,12 @@ func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, Partici
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRoomParticipantPublishedTrack(response *ListRoomParticipantPublishedTrackResponse, params *ListRoomParticipantPublishedTrackParams, recordChannel chan VideoV1RoomParticipantPublishedTrack, errorChannel chan error) {
+func (c *ApiService) streamRoomParticipantPublishedTrack(
+	response *ListRoomParticipantPublishedTrackResponse,
+	params *ListRoomParticipantPublishedTrackParams,
+	recordChannel chan VideoV1RoomParticipantPublishedTrack,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

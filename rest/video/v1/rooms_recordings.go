@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 //
@@ -109,7 +109,11 @@ func (params *ListRoomRecordingParams) SetLimit(Limit int) *ListRoomRecordingPar
 }
 
 // Retrieve a single page of RoomRecording records from the API. Request is executed immediately.
-func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecordingParams, pageToken, pageNumber string) (*ListRoomRecordingResponse, error) {
+func (c *ApiService) PageRoomRecording(
+	RoomSid string,
+	params *ListRoomRecordingParams,
+	pageToken, pageNumber string,
+) (*ListRoomRecordingResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -156,7 +160,10 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 }
 
 // Lists RoomRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams) ([]VideoV1RoomRecording, error) {
+func (c *ApiService) ListRoomRecording(
+	RoomSid string,
+	params *ListRoomRecordingParams,
+) ([]VideoV1RoomRecording, error) {
 	response, errors := c.StreamRoomRecording(RoomSid, params)
 
 	records := make([]VideoV1RoomRecording, 0)
@@ -172,7 +179,10 @@ func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecording
 }
 
 // Streams RoomRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordingParams) (chan VideoV1RoomRecording, chan error) {
+func (c *ApiService) StreamRoomRecording(
+	RoomSid string,
+	params *ListRoomRecordingParams,
+) (chan VideoV1RoomRecording, chan error) {
 	if params == nil {
 		params = &ListRoomRecordingParams{}
 	}
@@ -193,7 +203,12 @@ func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordi
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRoomRecording(response *ListRoomRecordingResponse, params *ListRoomRecordingParams, recordChannel chan VideoV1RoomRecording, errorChannel chan error) {
+func (c *ApiService) streamRoomRecording(
+	response *ListRoomRecordingResponse,
+	params *ListRoomRecordingParams,
+	recordChannel chan VideoV1RoomRecording,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

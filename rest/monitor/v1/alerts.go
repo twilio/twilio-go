@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 //
@@ -162,7 +162,12 @@ func (c *ApiService) StreamAlert(params *ListAlertParams) (chan MonitorV1Alert, 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAlert(response *ListAlertResponse, params *ListAlertParams, recordChannel chan MonitorV1Alert, errorChannel chan error) {
+func (c *ApiService) streamAlert(
+	response *ListAlertResponse,
+	params *ListAlertParams,
+	recordChannel chan MonitorV1Alert,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

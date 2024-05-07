@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSubscription'
@@ -151,7 +151,10 @@ func (params *ListSubscriptionParams) SetLimit(Limit int) *ListSubscriptionParam
 }
 
 // Retrieve a single page of Subscription records from the API. Request is executed immediately.
-func (c *ApiService) PageSubscription(params *ListSubscriptionParams, pageToken, pageNumber string) (*ListSubscriptionResponse, error) {
+func (c *ApiService) PageSubscription(
+	params *ListSubscriptionParams,
+	pageToken, pageNumber string,
+) (*ListSubscriptionResponse, error) {
 	path := "/v1/Subscriptions"
 
 	data := url.Values{}
@@ -224,7 +227,12 @@ func (c *ApiService) StreamSubscription(params *ListSubscriptionParams) (chan Ev
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSubscription(response *ListSubscriptionResponse, params *ListSubscriptionParams, recordChannel chan EventsV1Subscription, errorChannel chan error) {
+func (c *ApiService) streamSubscription(
+	response *ListSubscriptionResponse,
+	params *ListSubscriptionParams,
+	recordChannel chan EventsV1Subscription,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

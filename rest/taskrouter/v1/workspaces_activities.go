@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateActivity'
@@ -143,7 +143,11 @@ func (params *ListActivityParams) SetLimit(Limit int) *ListActivityParams {
 }
 
 // Retrieve a single page of Activity records from the API. Request is executed immediately.
-func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParams, pageToken, pageNumber string) (*ListActivityResponse, error) {
+func (c *ApiService) PageActivity(
+	WorkspaceSid string,
+	params *ListActivityParams,
+	pageToken, pageNumber string,
+) (*ListActivityResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -200,7 +204,10 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 }
 
 // Streams Activity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityParams) (chan TaskrouterV1Activity, chan error) {
+func (c *ApiService) StreamActivity(
+	WorkspaceSid string,
+	params *ListActivityParams,
+) (chan TaskrouterV1Activity, chan error) {
 	if params == nil {
 		params = &ListActivityParams{}
 	}
@@ -221,7 +228,12 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamActivity(response *ListActivityResponse, params *ListActivityParams, recordChannel chan TaskrouterV1Activity, errorChannel chan error) {
+func (c *ApiService) streamActivity(
+	response *ListActivityResponse,
+	params *ListActivityParams,
+	recordChannel chan TaskrouterV1Activity,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -281,7 +293,11 @@ func (params *UpdateActivityParams) SetFriendlyName(FriendlyName string) *Update
 }
 
 //
-func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1Activity, error) {
+func (c *ApiService) UpdateActivity(
+	WorkspaceSid string,
+	Sid string,
+	params *UpdateActivityParams,
+) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

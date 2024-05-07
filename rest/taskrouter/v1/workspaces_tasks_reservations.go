@@ -20,11 +20,15 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 //
-func (c *ApiService) FetchTaskReservation(WorkspaceSid string, TaskSid string, Sid string) (*TaskrouterV1TaskReservation, error) {
+func (c *ApiService) FetchTaskReservation(
+	WorkspaceSid string,
+	TaskSid string,
+	Sid string,
+) (*TaskrouterV1TaskReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -78,7 +82,12 @@ func (params *ListTaskReservationParams) SetLimit(Limit int) *ListTaskReservatio
 }
 
 // Retrieve a single page of TaskReservation records from the API. Request is executed immediately.
-func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, pageToken, pageNumber string) (*ListTaskReservationResponse, error) {
+func (c *ApiService) PageTaskReservation(
+	WorkspaceSid string,
+	TaskSid string,
+	params *ListTaskReservationParams,
+	pageToken, pageNumber string,
+) (*ListTaskReservationResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -120,7 +129,11 @@ func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, pa
 }
 
 // Lists TaskReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) ([]TaskrouterV1TaskReservation, error) {
+func (c *ApiService) ListTaskReservation(
+	WorkspaceSid string,
+	TaskSid string,
+	params *ListTaskReservationParams,
+) ([]TaskrouterV1TaskReservation, error) {
 	response, errors := c.StreamTaskReservation(WorkspaceSid, TaskSid, params)
 
 	records := make([]TaskrouterV1TaskReservation, 0)
@@ -136,7 +149,11 @@ func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, pa
 }
 
 // Streams TaskReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) (chan TaskrouterV1TaskReservation, chan error) {
+func (c *ApiService) StreamTaskReservation(
+	WorkspaceSid string,
+	TaskSid string,
+	params *ListTaskReservationParams,
+) (chan TaskrouterV1TaskReservation, chan error) {
 	if params == nil {
 		params = &ListTaskReservationParams{}
 	}
@@ -157,7 +174,12 @@ func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTaskReservation(response *ListTaskReservationResponse, params *ListTaskReservationParams, recordChannel chan TaskrouterV1TaskReservation, errorChannel chan error) {
+func (c *ApiService) streamTaskReservation(
+	response *ListTaskReservationResponse,
+	params *ListTaskReservationParams,
+	recordChannel chan TaskrouterV1TaskReservation,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -541,7 +563,12 @@ func (params *UpdateTaskReservationParams) SetJitterBufferSize(JitterBufferSize 
 }
 
 //
-func (c *ApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid string, Sid string, params *UpdateTaskReservationParams) (*TaskrouterV1TaskReservation, error) {
+func (c *ApiService) UpdateTaskReservation(
+	WorkspaceSid string,
+	TaskSid string,
+	Sid string,
+	params *UpdateTaskReservationParams,
+) (*TaskrouterV1TaskReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListCallEvent'
@@ -47,7 +47,11 @@ func (params *ListCallEventParams) SetLimit(Limit int) *ListCallEventParams {
 }
 
 // Retrieve a single page of CallEvent records from the API. Request is executed immediately.
-func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, pageToken, pageNumber string) (*ListCallEventResponse, error) {
+func (c *ApiService) PageCallEvent(
+	CallSid string,
+	params *ListCallEventParams,
+	pageToken, pageNumber string,
+) (*ListCallEventResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -124,7 +128,12 @@ func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCallEvent(response *ListCallEventResponse, params *ListCallEventParams, recordChannel chan ApiV2010CallEvent, errorChannel chan error) {
+func (c *ApiService) streamCallEvent(
+	response *ListCallEventResponse,
+	params *ListCallEventParams,
+	recordChannel chan ApiV2010CallEvent,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

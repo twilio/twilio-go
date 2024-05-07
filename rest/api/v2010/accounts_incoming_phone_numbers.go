@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateIncomingPhoneNumber'
@@ -324,7 +324,10 @@ func (params *FetchIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid s
 }
 
 // Fetch an incoming-phone-number belonging to the account used to make the request.
-func (c *ApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
+func (c *ApiService) FetchIncomingPhoneNumber(
+	Sid string,
+	params *FetchIncomingPhoneNumberParams,
+) (*ApiV2010IncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -399,7 +402,10 @@ func (params *ListIncomingPhoneNumberParams) SetLimit(Limit int) *ListIncomingPh
 }
 
 // Retrieve a single page of IncomingPhoneNumber records from the API. Request is executed immediately.
-func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberResponse, error) {
+func (c *ApiService) PageIncomingPhoneNumber(
+	params *ListIncomingPhoneNumberParams,
+	pageToken, pageNumber string,
+) (*ListIncomingPhoneNumberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -487,7 +493,12 @@ func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberPa
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIncomingPhoneNumber(response *ListIncomingPhoneNumberResponse, params *ListIncomingPhoneNumberParams, recordChannel chan ApiV2010IncomingPhoneNumber, errorChannel chan error) {
+func (c *ApiService) streamIncomingPhoneNumber(
+	response *ListIncomingPhoneNumberResponse,
+	params *ListIncomingPhoneNumberParams,
+	recordChannel chan ApiV2010IncomingPhoneNumber,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -685,7 +696,10 @@ func (params *UpdateIncomingPhoneNumberParams) SetBundleSid(BundleSid string) *U
 }
 
 // Update an incoming-phone-number instance.
-func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
+func (c *ApiService) UpdateIncomingPhoneNumber(
+	Sid string,
+	params *UpdateIncomingPhoneNumberParams,
+) (*ApiV2010IncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateFleet'
@@ -252,7 +252,12 @@ func (c *ApiService) StreamFleet(params *ListFleetParams) (chan SupersimV1Fleet,
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFleet(response *ListFleetResponse, params *ListFleetParams, recordChannel chan SupersimV1Fleet, errorChannel chan error) {
+func (c *ApiService) streamFleet(
+	response *ListFleetResponse,
+	params *ListFleetParams,
+	recordChannel chan SupersimV1Fleet,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

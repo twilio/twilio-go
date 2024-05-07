@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateDocument'
@@ -146,7 +146,11 @@ func (params *ListDocumentParams) SetLimit(Limit int) *ListDocumentParams {
 }
 
 // Retrieve a single page of Document records from the API. Request is executed immediately.
-func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams, pageToken, pageNumber string) (*ListDocumentResponse, error) {
+func (c *ApiService) PageDocument(
+	ServiceSid string,
+	params *ListDocumentParams,
+	pageToken, pageNumber string,
+) (*ListDocumentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -218,7 +222,12 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDocument(response *ListDocumentResponse, params *ListDocumentParams, recordChannel chan SyncV1Document, errorChannel chan error) {
+func (c *ApiService) streamDocument(
+	response *ListDocumentResponse,
+	params *ListDocumentParams,
+	recordChannel chan SyncV1Document,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -290,7 +299,11 @@ func (params *UpdateDocumentParams) SetTtl(Ttl int) *UpdateDocumentParams {
 }
 
 //
-func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1Document, error) {
+func (c *ApiService) UpdateDocument(
+	ServiceSid string,
+	Sid string,
+	params *UpdateDocumentParams,
+) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListUsageRecordLastMonth'
@@ -71,7 +71,10 @@ func (params *ListUsageRecordLastMonthParams) SetLimit(Limit int) *ListUsageReco
 }
 
 // Retrieve a single page of UsageRecordLastMonth records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthParams, pageToken, pageNumber string) (*ListUsageRecordLastMonthResponse, error) {
+func (c *ApiService) PageUsageRecordLastMonth(
+	params *ListUsageRecordLastMonthParams,
+	pageToken, pageNumber string,
+) (*ListUsageRecordLastMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -159,7 +162,12 @@ func (c *ApiService) StreamUsageRecordLastMonth(params *ListUsageRecordLastMonth
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordLastMonth(response *ListUsageRecordLastMonthResponse, params *ListUsageRecordLastMonthParams, recordChannel chan ApiV2010UsageRecordLastMonth, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordLastMonth(
+	response *ListUsageRecordLastMonthResponse,
+	params *ListUsageRecordLastMonthParams,
+	recordChannel chan ApiV2010UsageRecordLastMonth,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

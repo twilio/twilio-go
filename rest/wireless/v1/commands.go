@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCommand'
@@ -197,7 +197,10 @@ func (params *ListCommandParams) SetLimit(Limit int) *ListCommandParams {
 }
 
 // Retrieve a single page of Command records from the API. Request is executed immediately.
-func (c *ApiService) PageCommand(params *ListCommandParams, pageToken, pageNumber string) (*ListCommandResponse, error) {
+func (c *ApiService) PageCommand(
+	params *ListCommandParams,
+	pageToken, pageNumber string,
+) (*ListCommandResponse, error) {
 	path := "/v1/Commands"
 
 	data := url.Values{}
@@ -279,7 +282,12 @@ func (c *ApiService) StreamCommand(params *ListCommandParams) (chan WirelessV1Co
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCommand(response *ListCommandResponse, params *ListCommandParams, recordChannel chan WirelessV1Command, errorChannel chan error) {
+func (c *ApiService) streamCommand(
+	response *ListCommandResponse,
+	params *ListCommandParams,
+	recordChannel chan WirelessV1Command,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

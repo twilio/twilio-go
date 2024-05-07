@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateIpCommand'
@@ -170,7 +170,10 @@ func (params *ListIpCommandParams) SetLimit(Limit int) *ListIpCommandParams {
 }
 
 // Retrieve a single page of IpCommand records from the API. Request is executed immediately.
-func (c *ApiService) PageIpCommand(params *ListIpCommandParams, pageToken, pageNumber string) (*ListIpCommandResponse, error) {
+func (c *ApiService) PageIpCommand(
+	params *ListIpCommandParams,
+	pageToken, pageNumber string,
+) (*ListIpCommandResponse, error) {
 	path := "/v1/IpCommands"
 
 	data := url.Values{}
@@ -252,7 +255,12 @@ func (c *ApiService) StreamIpCommand(params *ListIpCommandParams) (chan Supersim
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIpCommand(response *ListIpCommandResponse, params *ListIpCommandParams, recordChannel chan SupersimV1IpCommand, errorChannel chan error) {
+func (c *ApiService) streamIpCommand(
+	response *ListIpCommandResponse,
+	params *ListIpCommandParams,
+	recordChannel chan SupersimV1IpCommand,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

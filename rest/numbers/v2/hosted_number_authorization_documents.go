@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateAuthorizationDocument'
@@ -180,7 +180,10 @@ func (params *ListAuthorizationDocumentParams) SetLimit(Limit int) *ListAuthoriz
 }
 
 // Retrieve a single page of AuthorizationDocument records from the API. Request is executed immediately.
-func (c *ApiService) PageAuthorizationDocument(params *ListAuthorizationDocumentParams, pageToken, pageNumber string) (*ListAuthorizationDocumentResponse, error) {
+func (c *ApiService) PageAuthorizationDocument(
+	params *ListAuthorizationDocumentParams,
+	pageToken, pageNumber string,
+) (*ListAuthorizationDocumentResponse, error) {
 	path := "/v2/HostedNumber/AuthorizationDocuments"
 
 	data := url.Values{}
@@ -256,7 +259,12 @@ func (c *ApiService) StreamAuthorizationDocument(params *ListAuthorizationDocume
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAuthorizationDocument(response *ListAuthorizationDocumentResponse, params *ListAuthorizationDocumentParams, recordChannel chan NumbersV2AuthorizationDocument, errorChannel chan error) {
+func (c *ApiService) streamAuthorizationDocument(
+	response *ListAuthorizationDocumentResponse,
+	params *ListAuthorizationDocumentParams,
+	recordChannel chan NumbersV2AuthorizationDocument,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

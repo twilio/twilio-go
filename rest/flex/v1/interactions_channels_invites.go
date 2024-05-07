@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateInteractionChannelInvite'
@@ -35,7 +35,11 @@ func (params *CreateInteractionChannelInviteParams) SetRouting(Routing interface
 }
 
 // Invite an Agent or a TaskQueue to a Channel.
-func (c *ApiService) CreateInteractionChannelInvite(InteractionSid string, ChannelSid string, params *CreateInteractionChannelInviteParams) (*FlexV1InteractionChannelInvite, error) {
+func (c *ApiService) CreateInteractionChannelInvite(
+	InteractionSid string,
+	ChannelSid string,
+	params *CreateInteractionChannelInviteParams,
+) (*FlexV1InteractionChannelInvite, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -86,7 +90,12 @@ func (params *ListInteractionChannelInviteParams) SetLimit(Limit int) *ListInter
 }
 
 // Retrieve a single page of InteractionChannelInvite records from the API. Request is executed immediately.
-func (c *ApiService) PageInteractionChannelInvite(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams, pageToken, pageNumber string) (*ListInteractionChannelInviteResponse, error) {
+func (c *ApiService) PageInteractionChannelInvite(
+	InteractionSid string,
+	ChannelSid string,
+	params *ListInteractionChannelInviteParams,
+	pageToken, pageNumber string,
+) (*ListInteractionChannelInviteResponse, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites"
 
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
@@ -122,7 +131,11 @@ func (c *ApiService) PageInteractionChannelInvite(InteractionSid string, Channel
 }
 
 // Lists InteractionChannelInvite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInteractionChannelInvite(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) ([]FlexV1InteractionChannelInvite, error) {
+func (c *ApiService) ListInteractionChannelInvite(
+	InteractionSid string,
+	ChannelSid string,
+	params *ListInteractionChannelInviteParams,
+) ([]FlexV1InteractionChannelInvite, error) {
 	response, errors := c.StreamInteractionChannelInvite(InteractionSid, ChannelSid, params)
 
 	records := make([]FlexV1InteractionChannelInvite, 0)
@@ -138,7 +151,11 @@ func (c *ApiService) ListInteractionChannelInvite(InteractionSid string, Channel
 }
 
 // Streams InteractionChannelInvite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInteractionChannelInvite(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) (chan FlexV1InteractionChannelInvite, chan error) {
+func (c *ApiService) StreamInteractionChannelInvite(
+	InteractionSid string,
+	ChannelSid string,
+	params *ListInteractionChannelInviteParams,
+) (chan FlexV1InteractionChannelInvite, chan error) {
 	if params == nil {
 		params = &ListInteractionChannelInviteParams{}
 	}
@@ -159,7 +176,12 @@ func (c *ApiService) StreamInteractionChannelInvite(InteractionSid string, Chann
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInteractionChannelInvite(response *ListInteractionChannelInviteResponse, params *ListInteractionChannelInviteParams, recordChannel chan FlexV1InteractionChannelInvite, errorChannel chan error) {
+func (c *ApiService) streamInteractionChannelInvite(
+	response *ListInteractionChannelInviteResponse,
+	params *ListInteractionChannelInviteParams,
+	recordChannel chan FlexV1InteractionChannelInvite,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListUsageRecord'
@@ -71,7 +71,10 @@ func (params *ListUsageRecordParams) SetLimit(Limit int) *ListUsageRecordParams 
 }
 
 // Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, pageNumber string) (*ListUsageRecordResponse, error) {
+func (c *ApiService) PageUsageRecord(
+	params *ListUsageRecordParams,
+	pageToken, pageNumber string,
+) (*ListUsageRecordResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -159,7 +162,12 @@ func (c *ApiService) StreamUsageRecord(params *ListUsageRecordParams) (chan ApiV
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecord(response *ListUsageRecordResponse, params *ListUsageRecordParams, recordChannel chan ApiV2010UsageRecord, errorChannel chan error) {
+func (c *ApiService) streamUsageRecord(
+	response *ListUsageRecordResponse,
+	params *ListUsageRecordParams,
+	recordChannel chan ApiV2010UsageRecord,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

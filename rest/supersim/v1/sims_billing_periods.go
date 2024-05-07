@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListBillingPeriod'
@@ -41,7 +41,11 @@ func (params *ListBillingPeriodParams) SetLimit(Limit int) *ListBillingPeriodPar
 }
 
 // Retrieve a single page of BillingPeriod records from the API. Request is executed immediately.
-func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodParams, pageToken, pageNumber string) (*ListBillingPeriodResponse, error) {
+func (c *ApiService) PageBillingPeriod(
+	SimSid string,
+	params *ListBillingPeriodParams,
+	pageToken, pageNumber string,
+) (*ListBillingPeriodResponse, error) {
 	path := "/v1/Sims/{SimSid}/BillingPeriods"
 
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
@@ -76,7 +80,10 @@ func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodP
 }
 
 // Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams) ([]SupersimV1BillingPeriod, error) {
+func (c *ApiService) ListBillingPeriod(
+	SimSid string,
+	params *ListBillingPeriodParams,
+) ([]SupersimV1BillingPeriod, error) {
 	response, errors := c.StreamBillingPeriod(SimSid, params)
 
 	records := make([]SupersimV1BillingPeriod, 0)
@@ -92,7 +99,10 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 }
 
 // Streams BillingPeriod records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPeriodParams) (chan SupersimV1BillingPeriod, chan error) {
+func (c *ApiService) StreamBillingPeriod(
+	SimSid string,
+	params *ListBillingPeriodParams,
+) (chan SupersimV1BillingPeriod, chan error) {
 	if params == nil {
 		params = &ListBillingPeriodParams{}
 	}
@@ -113,7 +123,12 @@ func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPerio
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBillingPeriod(response *ListBillingPeriodResponse, params *ListBillingPeriodParams, recordChannel chan SupersimV1BillingPeriod, errorChannel chan error) {
+func (c *ApiService) streamBillingPeriod(
+	response *ListBillingPeriodResponse,
+	params *ListBillingPeriodParams,
+	recordChannel chan SupersimV1BillingPeriod,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

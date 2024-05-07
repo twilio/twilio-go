@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'FetchAvailablePhoneNumberCountry'
@@ -35,7 +35,10 @@ func (params *FetchAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAcco
 }
 
 //
-func (c *ApiService) FetchAvailablePhoneNumberCountry(CountryCode string, params *FetchAvailablePhoneNumberCountryParams) (*ApiV2010AvailablePhoneNumberCountry, error) {
+func (c *ApiService) FetchAvailablePhoneNumberCountry(
+	CountryCode string,
+	params *FetchAvailablePhoneNumberCountryParams,
+) (*ApiV2010AvailablePhoneNumberCountry, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -86,7 +89,10 @@ func (params *ListAvailablePhoneNumberCountryParams) SetLimit(Limit int) *ListAv
 }
 
 // Retrieve a single page of AvailablePhoneNumberCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberCountryResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberCountry(
+	params *ListAvailablePhoneNumberCountryParams,
+	pageToken, pageNumber string,
+) (*ListAvailablePhoneNumberCountryResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -162,7 +168,12 @@ func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhon
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberCountry(response *ListAvailablePhoneNumberCountryResponse, params *ListAvailablePhoneNumberCountryParams, recordChannel chan ApiV2010AvailablePhoneNumberCountry, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberCountry(
+	response *ListAvailablePhoneNumberCountryResponse,
+	params *ListAvailablePhoneNumberCountryParams,
+	recordChannel chan ApiV2010AvailablePhoneNumberCountry,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 //
@@ -92,7 +92,12 @@ func (params *ListUserBindingParams) SetLimit(Limit int) *ListUserBindingParams 
 }
 
 // Retrieve a single page of UserBinding records from the API. Request is executed immediately.
-func (c *ApiService) PageUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams, pageToken, pageNumber string) (*ListUserBindingResponse, error) {
+func (c *ApiService) PageUserBinding(
+	ServiceSid string,
+	UserSid string,
+	params *ListUserBindingParams,
+	pageToken, pageNumber string,
+) (*ListUserBindingResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -133,7 +138,11 @@ func (c *ApiService) PageUserBinding(ServiceSid string, UserSid string, params *
 }
 
 // Lists UserBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) ([]ChatV2UserBinding, error) {
+func (c *ApiService) ListUserBinding(
+	ServiceSid string,
+	UserSid string,
+	params *ListUserBindingParams,
+) ([]ChatV2UserBinding, error) {
 	response, errors := c.StreamUserBinding(ServiceSid, UserSid, params)
 
 	records := make([]ChatV2UserBinding, 0)
@@ -149,7 +158,11 @@ func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *
 }
 
 // Streams UserBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) (chan ChatV2UserBinding, chan error) {
+func (c *ApiService) StreamUserBinding(
+	ServiceSid string,
+	UserSid string,
+	params *ListUserBindingParams,
+) (chan ChatV2UserBinding, chan error) {
 	if params == nil {
 		params = &ListUserBindingParams{}
 	}
@@ -170,7 +183,12 @@ func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUserBinding(response *ListUserBindingResponse, params *ListUserBindingParams, recordChannel chan ChatV2UserBinding, errorChannel chan error) {
+func (c *ApiService) streamUserBinding(
+	response *ListUserBindingResponse,
+	params *ListUserBindingParams,
+	recordChannel chan ChatV2UserBinding,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

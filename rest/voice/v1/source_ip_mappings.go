@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSourceIpMapping'
@@ -128,7 +128,10 @@ func (params *ListSourceIpMappingParams) SetLimit(Limit int) *ListSourceIpMappin
 }
 
 // Retrieve a single page of SourceIpMapping records from the API. Request is executed immediately.
-func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, pageToken, pageNumber string) (*ListSourceIpMappingResponse, error) {
+func (c *ApiService) PageSourceIpMapping(
+	params *ListSourceIpMappingParams,
+	pageToken, pageNumber string,
+) (*ListSourceIpMappingResponse, error) {
 	path := "/v1/SourceIpMappings"
 
 	data := url.Values{}
@@ -198,7 +201,12 @@ func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams) (c
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSourceIpMapping(response *ListSourceIpMappingResponse, params *ListSourceIpMappingParams, recordChannel chan VoiceV1SourceIpMapping, errorChannel chan error) {
+func (c *ApiService) streamSourceIpMapping(
+	response *ListSourceIpMappingResponse,
+	params *ListSourceIpMappingParams,
+	recordChannel chan VoiceV1SourceIpMapping,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -258,7 +266,10 @@ func (params *UpdateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) 
 }
 
 //
-func (c *ApiService) UpdateSourceIpMapping(Sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
+func (c *ApiService) UpdateSourceIpMapping(
+	Sid string,
+	params *UpdateSourceIpMappingParams,
+) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 

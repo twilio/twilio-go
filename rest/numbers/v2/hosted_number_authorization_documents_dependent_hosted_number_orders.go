@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListDependentHostedNumberOrder'
@@ -65,7 +65,11 @@ func (params *ListDependentHostedNumberOrderParams) SetLimit(Limit int) *ListDep
 }
 
 // Retrieve a single page of DependentHostedNumberOrder records from the API. Request is executed immediately.
-func (c *ApiService) PageDependentHostedNumberOrder(SigningDocumentSid string, params *ListDependentHostedNumberOrderParams, pageToken, pageNumber string) (*ListDependentHostedNumberOrderResponse, error) {
+func (c *ApiService) PageDependentHostedNumberOrder(
+	SigningDocumentSid string,
+	params *ListDependentHostedNumberOrderParams,
+	pageToken, pageNumber string,
+) (*ListDependentHostedNumberOrderResponse, error) {
 	path := "/v2/HostedNumber/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders"
 
 	path = strings.Replace(path, "{"+"SigningDocumentSid"+"}", SigningDocumentSid, -1)
@@ -112,7 +116,10 @@ func (c *ApiService) PageDependentHostedNumberOrder(SigningDocumentSid string, p
 }
 
 // Lists DependentHostedNumberOrder records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDependentHostedNumberOrder(SigningDocumentSid string, params *ListDependentHostedNumberOrderParams) ([]NumbersV2DependentHostedNumberOrder, error) {
+func (c *ApiService) ListDependentHostedNumberOrder(
+	SigningDocumentSid string,
+	params *ListDependentHostedNumberOrderParams,
+) ([]NumbersV2DependentHostedNumberOrder, error) {
 	response, errors := c.StreamDependentHostedNumberOrder(SigningDocumentSid, params)
 
 	records := make([]NumbersV2DependentHostedNumberOrder, 0)
@@ -128,7 +135,10 @@ func (c *ApiService) ListDependentHostedNumberOrder(SigningDocumentSid string, p
 }
 
 // Streams DependentHostedNumberOrder records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDependentHostedNumberOrder(SigningDocumentSid string, params *ListDependentHostedNumberOrderParams) (chan NumbersV2DependentHostedNumberOrder, chan error) {
+func (c *ApiService) StreamDependentHostedNumberOrder(
+	SigningDocumentSid string,
+	params *ListDependentHostedNumberOrderParams,
+) (chan NumbersV2DependentHostedNumberOrder, chan error) {
 	if params == nil {
 		params = &ListDependentHostedNumberOrderParams{}
 	}
@@ -149,7 +159,12 @@ func (c *ApiService) StreamDependentHostedNumberOrder(SigningDocumentSid string,
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDependentHostedNumberOrder(response *ListDependentHostedNumberOrderResponse, params *ListDependentHostedNumberOrderParams, recordChannel chan NumbersV2DependentHostedNumberOrder, errorChannel chan error) {
+func (c *ApiService) streamDependentHostedNumberOrder(
+	response *ListDependentHostedNumberOrderResponse,
+	params *ListDependentHostedNumberOrderParams,
+	recordChannel chan NumbersV2DependentHostedNumberOrder,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

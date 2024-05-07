@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateIncomingPhoneNumberTollFree'
@@ -317,7 +317,10 @@ func (params *ListIncomingPhoneNumberTollFreeParams) SetLimit(Limit int) *ListIn
 }
 
 // Retrieve a single page of IncomingPhoneNumberTollFree records from the API. Request is executed immediately.
-func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberTollFreeResponse, error) {
+func (c *ApiService) PageIncomingPhoneNumberTollFree(
+	params *ListIncomingPhoneNumberTollFreeParams,
+	pageToken, pageNumber string,
+) (*ListIncomingPhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -405,7 +408,12 @@ func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhone
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIncomingPhoneNumberTollFree(response *ListIncomingPhoneNumberTollFreeResponse, params *ListIncomingPhoneNumberTollFreeParams, recordChannel chan ApiV2010IncomingPhoneNumberTollFree, errorChannel chan error) {
+func (c *ApiService) streamIncomingPhoneNumberTollFree(
+	response *ListIncomingPhoneNumberTollFreeResponse,
+	params *ListIncomingPhoneNumberTollFreeParams,
+	recordChannel chan ApiV2010IncomingPhoneNumberTollFree,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

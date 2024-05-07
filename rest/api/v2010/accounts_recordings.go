@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'DeleteRecording'
@@ -167,7 +167,10 @@ func (params *ListRecordingParams) SetLimit(Limit int) *ListRecordingParams {
 }
 
 // Retrieve a single page of Recording records from the API. Request is executed immediately.
-func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageNumber string) (*ListRecordingResponse, error) {
+func (c *ApiService) PageRecording(
+	params *ListRecordingParams,
+	pageToken, pageNumber string,
+) (*ListRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -261,7 +264,12 @@ func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan ApiV2010
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRecording(response *ListRecordingResponse, params *ListRecordingParams, recordChannel chan ApiV2010Recording, errorChannel chan error) {
+func (c *ApiService) streamRecording(
+	response *ListRecordingResponse,
+	params *ListRecordingParams,
+	recordChannel chan ApiV2010Recording,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

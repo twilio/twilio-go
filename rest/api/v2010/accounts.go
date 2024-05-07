@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateAccount'
@@ -113,7 +113,10 @@ func (params *ListAccountParams) SetLimit(Limit int) *ListAccountParams {
 }
 
 // Retrieve a single page of Account records from the API. Request is executed immediately.
-func (c *ApiService) PageAccount(params *ListAccountParams, pageToken, pageNumber string) (*ListAccountResponse, error) {
+func (c *ApiService) PageAccount(
+	params *ListAccountParams,
+	pageToken, pageNumber string,
+) (*ListAccountResponse, error) {
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
@@ -189,7 +192,12 @@ func (c *ApiService) StreamAccount(params *ListAccountParams) (chan ApiV2010Acco
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAccount(response *ListAccountResponse, params *ListAccountParams, recordChannel chan ApiV2010Account, errorChannel chan error) {
+func (c *ApiService) streamAccount(
+	response *ListAccountResponse,
+	params *ListAccountParams,
+	recordChannel chan ApiV2010Account,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

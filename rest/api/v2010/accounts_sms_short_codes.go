@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'FetchShortCode'
@@ -98,7 +98,10 @@ func (params *ListShortCodeParams) SetLimit(Limit int) *ListShortCodeParams {
 }
 
 // Retrieve a single page of ShortCode records from the API. Request is executed immediately.
-func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken, pageNumber string) (*ListShortCodeResponse, error) {
+func (c *ApiService) PageShortCode(
+	params *ListShortCodeParams,
+	pageToken, pageNumber string,
+) (*ListShortCodeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -180,7 +183,12 @@ func (c *ApiService) StreamShortCode(params *ListShortCodeParams) (chan ApiV2010
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamShortCode(response *ListShortCodeResponse, params *ListShortCodeParams, recordChannel chan ApiV2010ShortCode, errorChannel chan error) {
+func (c *ApiService) streamShortCode(
+	response *ListShortCodeResponse,
+	params *ListShortCodeParams,
+	recordChannel chan ApiV2010ShortCode,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

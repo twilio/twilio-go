@@ -20,11 +20,15 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Retrieve a specific Asset Version.
-func (c *ApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid string) (*ServerlessV1AssetVersion, error) {
+func (c *ApiService) FetchAssetVersion(
+	ServiceSid string,
+	AssetSid string,
+	Sid string,
+) (*ServerlessV1AssetVersion, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"AssetSid"+"}", AssetSid, -1)
@@ -66,7 +70,12 @@ func (params *ListAssetVersionParams) SetLimit(Limit int) *ListAssetVersionParam
 }
 
 // Retrieve a single page of AssetVersion records from the API. Request is executed immediately.
-func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, pageToken, pageNumber string) (*ListAssetVersionResponse, error) {
+func (c *ApiService) PageAssetVersion(
+	ServiceSid string,
+	AssetSid string,
+	params *ListAssetVersionParams,
+	pageToken, pageNumber string,
+) (*ListAssetVersionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -102,7 +111,11 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 }
 
 // Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) ([]ServerlessV1AssetVersion, error) {
+func (c *ApiService) ListAssetVersion(
+	ServiceSid string,
+	AssetSid string,
+	params *ListAssetVersionParams,
+) ([]ServerlessV1AssetVersion, error) {
 	response, errors := c.StreamAssetVersion(ServiceSid, AssetSid, params)
 
 	records := make([]ServerlessV1AssetVersion, 0)
@@ -118,7 +131,11 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 }
 
 // Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) (chan ServerlessV1AssetVersion, chan error) {
+func (c *ApiService) StreamAssetVersion(
+	ServiceSid string,
+	AssetSid string,
+	params *ListAssetVersionParams,
+) (chan ServerlessV1AssetVersion, chan error) {
 	if params == nil {
 		params = &ListAssetVersionParams{}
 	}
@@ -139,7 +156,12 @@ func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, para
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAssetVersion(response *ListAssetVersionResponse, params *ListAssetVersionParams, recordChannel chan ServerlessV1AssetVersion, errorChannel chan error) {
+func (c *ApiService) streamAssetVersion(
+	response *ListAssetVersionResponse,
+	params *ListAssetVersionParams,
+	recordChannel chan ServerlessV1AssetVersion,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

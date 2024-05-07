@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	. "github.com/twilio/twilio-go/client/jwt/util"
+	. "github.com/ghostmonitor/twilio-go/client/jwt/util"
 )
 
 type AccessToken struct {

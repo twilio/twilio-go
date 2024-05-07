@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSession'
@@ -176,7 +176,11 @@ func (params *ListSessionParams) SetLimit(Limit int) *ListSessionParams {
 }
 
 // Retrieve a single page of Session records from the API. Request is executed immediately.
-func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, pageToken, pageNumber string) (*ListSessionResponse, error) {
+func (c *ApiService) PageSession(
+	ServiceSid string,
+	params *ListSessionParams,
+	pageToken, pageNumber string,
+) (*ListSessionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -248,7 +252,12 @@ func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams)
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSession(response *ListSessionResponse, params *ListSessionParams, recordChannel chan ProxyV1Session, errorChannel chan error) {
+func (c *ApiService) streamSession(
+	response *ListSessionResponse,
+	params *ListSessionParams,
+	recordChannel chan ProxyV1Session,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -320,7 +329,11 @@ func (params *UpdateSessionParams) SetStatus(Status string) *UpdateSessionParams
 }
 
 // Update a specific Session.
-func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *UpdateSessionParams) (*ProxyV1Session, error) {
+func (c *ApiService) UpdateSession(
+	ServiceSid string,
+	Sid string,
+	params *UpdateSessionParams,
+) (*ProxyV1Session, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

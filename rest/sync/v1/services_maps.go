@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSyncMap'
@@ -140,7 +140,11 @@ func (params *ListSyncMapParams) SetLimit(Limit int) *ListSyncMapParams {
 }
 
 // Retrieve a single page of SyncMap records from the API. Request is executed immediately.
-func (c *ApiService) PageSyncMap(ServiceSid string, params *ListSyncMapParams, pageToken, pageNumber string) (*ListSyncMapResponse, error) {
+func (c *ApiService) PageSyncMap(
+	ServiceSid string,
+	params *ListSyncMapParams,
+	pageToken, pageNumber string,
+) (*ListSyncMapResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Maps"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -212,7 +216,12 @@ func (c *ApiService) StreamSyncMap(ServiceSid string, params *ListSyncMapParams)
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSyncMap(response *ListSyncMapResponse, params *ListSyncMapParams, recordChannel chan SyncV1SyncMap, errorChannel chan error) {
+func (c *ApiService) streamSyncMap(
+	response *ListSyncMapResponse,
+	params *ListSyncMapParams,
+	recordChannel chan SyncV1SyncMap,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

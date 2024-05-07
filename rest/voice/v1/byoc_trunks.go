@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateByocTrunk'
@@ -200,7 +200,10 @@ func (params *ListByocTrunkParams) SetLimit(Limit int) *ListByocTrunkParams {
 }
 
 // Retrieve a single page of ByocTrunk records from the API. Request is executed immediately.
-func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken, pageNumber string) (*ListByocTrunkResponse, error) {
+func (c *ApiService) PageByocTrunk(
+	params *ListByocTrunkParams,
+	pageToken, pageNumber string,
+) (*ListByocTrunkResponse, error) {
 	path := "/v1/ByocTrunks"
 
 	data := url.Values{}
@@ -270,7 +273,12 @@ func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams) (chan VoiceV1B
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamByocTrunk(response *ListByocTrunkResponse, params *ListByocTrunkParams, recordChannel chan VoiceV1ByocTrunk, errorChannel chan error) {
+func (c *ApiService) streamByocTrunk(
+	response *ListByocTrunkResponse,
+	params *ListByocTrunkParams,
+	recordChannel chan VoiceV1ByocTrunk,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

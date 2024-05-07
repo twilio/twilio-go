@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateNetworkAccessProfile'
@@ -112,7 +112,10 @@ func (params *ListNetworkAccessProfileParams) SetLimit(Limit int) *ListNetworkAc
 }
 
 // Retrieve a single page of NetworkAccessProfile records from the API. Request is executed immediately.
-func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfileParams, pageToken, pageNumber string) (*ListNetworkAccessProfileResponse, error) {
+func (c *ApiService) PageNetworkAccessProfile(
+	params *ListNetworkAccessProfileParams,
+	pageToken, pageNumber string,
+) (*ListNetworkAccessProfileResponse, error) {
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
@@ -182,7 +185,12 @@ func (c *ApiService) StreamNetworkAccessProfile(params *ListNetworkAccessProfile
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamNetworkAccessProfile(response *ListNetworkAccessProfileResponse, params *ListNetworkAccessProfileParams, recordChannel chan SupersimV1NetworkAccessProfile, errorChannel chan error) {
+func (c *ApiService) streamNetworkAccessProfile(
+	response *ListNetworkAccessProfileResponse,
+	params *ListNetworkAccessProfileParams,
+	recordChannel chan SupersimV1NetworkAccessProfile,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -242,7 +250,10 @@ func (params *UpdateNetworkAccessProfileParams) SetUniqueName(UniqueName string)
 }
 
 // Updates the given properties of a Network Access Profile in your account.
-func (c *ApiService) UpdateNetworkAccessProfile(Sid string, params *UpdateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
+func (c *ApiService) UpdateNetworkAccessProfile(
+	Sid string,
+	params *UpdateNetworkAccessProfileParams,
+) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 

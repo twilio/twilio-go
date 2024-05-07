@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListCallSummaries'
@@ -184,7 +184,10 @@ func (params *ListCallSummariesParams) SetLimit(Limit int) *ListCallSummariesPar
 }
 
 // Retrieve a single page of CallSummaries records from the API. Request is executed immediately.
-func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToken, pageNumber string) (*ListCallSummariesResponse, error) {
+func (c *ApiService) PageCallSummaries(
+	params *ListCallSummariesParams,
+	pageToken, pageNumber string,
+) (*ListCallSummariesResponse, error) {
 	path := "/v1/Voice/Summaries"
 
 	data := url.Values{}
@@ -326,7 +329,12 @@ func (c *ApiService) StreamCallSummaries(params *ListCallSummariesParams) (chan 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCallSummaries(response *ListCallSummariesResponse, params *ListCallSummariesParams, recordChannel chan InsightsV1CallSummaries, errorChannel chan error) {
+func (c *ApiService) streamCallSummaries(
+	response *ListCallSummariesResponse,
+	params *ListCallSummariesParams,
+	recordChannel chan InsightsV1CallSummaries,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

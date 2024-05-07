@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateVariable'
@@ -41,7 +41,11 @@ func (params *CreateVariableParams) SetValue(Value string) *CreateVariableParams
 }
 
 // Create a new Variable.
-func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, params *CreateVariableParams) (*ServerlessV1Variable, error) {
+func (c *ApiService) CreateVariable(
+	ServiceSid string,
+	EnvironmentSid string,
+	params *CreateVariableParams,
+) (*ServerlessV1Variable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -92,7 +96,11 @@ func (c *ApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Si
 }
 
 // Retrieve a specific Variable.
-func (c *ApiService) FetchVariable(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Variable, error) {
+func (c *ApiService) FetchVariable(
+	ServiceSid string,
+	EnvironmentSid string,
+	Sid string,
+) (*ServerlessV1Variable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -134,7 +142,12 @@ func (params *ListVariableParams) SetLimit(Limit int) *ListVariableParams {
 }
 
 // Retrieve a single page of Variable records from the API. Request is executed immediately.
-func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, pageToken, pageNumber string) (*ListVariableResponse, error) {
+func (c *ApiService) PageVariable(
+	ServiceSid string,
+	EnvironmentSid string,
+	params *ListVariableParams,
+	pageToken, pageNumber string,
+) (*ListVariableResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -170,7 +183,11 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 }
 
 // Lists Variable records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams) ([]ServerlessV1Variable, error) {
+func (c *ApiService) ListVariable(
+	ServiceSid string,
+	EnvironmentSid string,
+	params *ListVariableParams,
+) ([]ServerlessV1Variable, error) {
 	response, errors := c.StreamVariable(ServiceSid, EnvironmentSid, params)
 
 	records := make([]ServerlessV1Variable, 0)
@@ -186,7 +203,11 @@ func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, para
 }
 
 // Streams Variable records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams) (chan ServerlessV1Variable, chan error) {
+func (c *ApiService) StreamVariable(
+	ServiceSid string,
+	EnvironmentSid string,
+	params *ListVariableParams,
+) (chan ServerlessV1Variable, chan error) {
 	if params == nil {
 		params = &ListVariableParams{}
 	}
@@ -207,7 +228,12 @@ func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, pa
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamVariable(response *ListVariableResponse, params *ListVariableParams, recordChannel chan ServerlessV1Variable, errorChannel chan error) {
+func (c *ApiService) streamVariable(
+	response *ListVariableResponse,
+	params *ListVariableParams,
+	recordChannel chan ServerlessV1Variable,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -273,7 +299,12 @@ func (params *UpdateVariableParams) SetValue(Value string) *UpdateVariableParams
 }
 
 // Update a specific Variable.
-func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Sid string, params *UpdateVariableParams) (*ServerlessV1Variable, error) {
+func (c *ApiService) UpdateVariable(
+	ServiceSid string,
+	EnvironmentSid string,
+	Sid string,
+	params *UpdateVariableParams,
+) (*ServerlessV1Variable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)

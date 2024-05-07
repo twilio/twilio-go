@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Remove a push notification binding from the conversation service
@@ -96,7 +96,11 @@ func (params *ListServiceBindingParams) SetLimit(Limit int) *ListServiceBindingP
 }
 
 // Retrieve a single page of ServiceBinding records from the API. Request is executed immediately.
-func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, pageToken, pageNumber string) (*ListServiceBindingResponse, error) {
+func (c *ApiService) PageServiceBinding(
+	ChatServiceSid string,
+	params *ListServiceBindingParams,
+	pageToken, pageNumber string,
+) (*ListServiceBindingResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -141,7 +145,10 @@ func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServi
 }
 
 // Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) ([]ConversationsV1ServiceBinding, error) {
+func (c *ApiService) ListServiceBinding(
+	ChatServiceSid string,
+	params *ListServiceBindingParams,
+) ([]ConversationsV1ServiceBinding, error) {
 	response, errors := c.StreamServiceBinding(ChatServiceSid, params)
 
 	records := make([]ConversationsV1ServiceBinding, 0)
@@ -157,7 +164,10 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 }
 
 // Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) (chan ConversationsV1ServiceBinding, chan error) {
+func (c *ApiService) StreamServiceBinding(
+	ChatServiceSid string,
+	params *ListServiceBindingParams,
+) (chan ConversationsV1ServiceBinding, chan error) {
 	if params == nil {
 		params = &ListServiceBindingParams{}
 	}
@@ -178,7 +188,12 @@ func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListSer
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamServiceBinding(response *ListServiceBindingResponse, params *ListServiceBindingParams, recordChannel chan ConversationsV1ServiceBinding, errorChannel chan error) {
+func (c *ApiService) streamServiceBinding(
+	response *ListServiceBindingResponse,
+	params *ListServiceBindingParams,
+	recordChannel chan ConversationsV1ServiceBinding,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

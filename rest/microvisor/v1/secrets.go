@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateAccountSecret'
@@ -128,7 +128,10 @@ func (params *ListAccountSecretParams) SetLimit(Limit int) *ListAccountSecretPar
 }
 
 // Retrieve a single page of AccountSecret records from the API. Request is executed immediately.
-func (c *ApiService) PageAccountSecret(params *ListAccountSecretParams, pageToken, pageNumber string) (*ListAccountSecretResponse, error) {
+func (c *ApiService) PageAccountSecret(
+	params *ListAccountSecretParams,
+	pageToken, pageNumber string,
+) (*ListAccountSecretResponse, error) {
 	path := "/v1/Secrets"
 
 	data := url.Values{}
@@ -198,7 +201,12 @@ func (c *ApiService) StreamAccountSecret(params *ListAccountSecretParams) (chan 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAccountSecret(response *ListAccountSecretResponse, params *ListAccountSecretParams, recordChannel chan MicrovisorV1AccountSecret, errorChannel chan error) {
+func (c *ApiService) streamAccountSecret(
+	response *ListAccountSecretResponse,
+	params *ListAccountSecretParams,
+	recordChannel chan MicrovisorV1AccountSecret,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -258,7 +266,10 @@ func (params *UpdateAccountSecretParams) SetValue(Value string) *UpdateAccountSe
 }
 
 // Update a secret for an Account.
-func (c *ApiService) UpdateAccountSecret(Key string, params *UpdateAccountSecretParams) (*MicrovisorV1AccountSecret, error) {
+func (c *ApiService) UpdateAccountSecret(
+	Key string,
+	params *UpdateAccountSecretParams,
+) (*MicrovisorV1AccountSecret, error) {
 	path := "/v1/Secrets/{Key}"
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 

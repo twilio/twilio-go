@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListInsightsSegments'
@@ -58,7 +58,10 @@ func (params *ListInsightsSegmentsParams) SetLimit(Limit int) *ListInsightsSegme
 }
 
 // Retrieve a single page of InsightsSegments records from the API. Request is executed immediately.
-func (c *ApiService) PageInsightsSegments(params *ListInsightsSegmentsParams, pageToken, pageNumber string) (*ListInsightsSegmentsResponse, error) {
+func (c *ApiService) PageInsightsSegments(
+	params *ListInsightsSegmentsParams,
+	pageToken, pageNumber string,
+) (*ListInsightsSegmentsResponse, error) {
 	path := "/v1/Insights/Segments"
 
 	data := url.Values{}
@@ -136,7 +139,12 @@ func (c *ApiService) StreamInsightsSegments(params *ListInsightsSegmentsParams) 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInsightsSegments(response *ListInsightsSegmentsResponse, params *ListInsightsSegmentsParams, recordChannel chan FlexV1InsightsSegments, errorChannel chan error) {
+func (c *ApiService) streamInsightsSegments(
+	response *ListInsightsSegmentsResponse,
+	params *ListInsightsSegmentsParams,
+	recordChannel chan FlexV1InsightsSegments,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateShortCode'
@@ -122,7 +122,11 @@ func (params *ListShortCodeParams) SetLimit(Limit int) *ListShortCodeParams {
 }
 
 // Retrieve a single page of ShortCode records from the API. Request is executed immediately.
-func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParams, pageToken, pageNumber string) (*ListShortCodeResponse, error) {
+func (c *ApiService) PageShortCode(
+	ServiceSid string,
+	params *ListShortCodeParams,
+	pageToken, pageNumber string,
+) (*ListShortCodeResponse, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -173,7 +177,10 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 }
 
 // Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodeParams) (chan ProxyV1ShortCode, chan error) {
+func (c *ApiService) StreamShortCode(
+	ServiceSid string,
+	params *ListShortCodeParams,
+) (chan ProxyV1ShortCode, chan error) {
 	if params == nil {
 		params = &ListShortCodeParams{}
 	}
@@ -194,7 +201,12 @@ func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodePar
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamShortCode(response *ListShortCodeResponse, params *ListShortCodeParams, recordChannel chan ProxyV1ShortCode, errorChannel chan error) {
+func (c *ApiService) streamShortCode(
+	response *ListShortCodeResponse,
+	params *ListShortCodeParams,
+	recordChannel chan ProxyV1ShortCode,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -254,7 +266,11 @@ func (params *UpdateShortCodeParams) SetIsReserved(IsReserved bool) *UpdateShort
 }
 
 // Update a specific Short Code.
-func (c *ApiService) UpdateShortCode(ServiceSid string, Sid string, params *UpdateShortCodeParams) (*ProxyV1ShortCode, error) {
+func (c *ApiService) UpdateShortCode(
+	ServiceSid string,
+	Sid string,
+	params *UpdateShortCodeParams,
+) (*ProxyV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

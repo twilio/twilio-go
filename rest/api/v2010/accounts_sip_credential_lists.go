@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSipCredentialList'
@@ -117,7 +117,10 @@ func (params *FetchSipCredentialListParams) SetPathAccountSid(PathAccountSid str
 }
 
 // Get a Credential List
-func (c *ApiService) FetchSipCredentialList(Sid string, params *FetchSipCredentialListParams) (*ApiV2010SipCredentialList, error) {
+func (c *ApiService) FetchSipCredentialList(
+	Sid string,
+	params *FetchSipCredentialListParams,
+) (*ApiV2010SipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -168,7 +171,10 @@ func (params *ListSipCredentialListParams) SetLimit(Limit int) *ListSipCredentia
 }
 
 // Retrieve a single page of SipCredentialList records from the API. Request is executed immediately.
-func (c *ApiService) PageSipCredentialList(params *ListSipCredentialListParams, pageToken, pageNumber string) (*ListSipCredentialListResponse, error) {
+func (c *ApiService) PageSipCredentialList(
+	params *ListSipCredentialListParams,
+	pageToken, pageNumber string,
+) (*ListSipCredentialListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -244,7 +250,12 @@ func (c *ApiService) StreamSipCredentialList(params *ListSipCredentialListParams
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipCredentialList(response *ListSipCredentialListResponse, params *ListSipCredentialListParams, recordChannel chan ApiV2010SipCredentialList, errorChannel chan error) {
+func (c *ApiService) streamSipCredentialList(
+	response *ListSipCredentialListResponse,
+	params *ListSipCredentialListParams,
+	recordChannel chan ApiV2010SipCredentialList,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -310,7 +321,10 @@ func (params *UpdateSipCredentialListParams) SetFriendlyName(FriendlyName string
 }
 
 // Update a Credential List
-func (c *ApiService) UpdateSipCredentialList(Sid string, params *UpdateSipCredentialListParams) (*ApiV2010SipCredentialList, error) {
+func (c *ApiService) UpdateSipCredentialList(
+	Sid string,
+	params *UpdateSipCredentialListParams,
+) (*ApiV2010SipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)

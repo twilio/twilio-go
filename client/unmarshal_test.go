@@ -3,8 +3,8 @@ package client_test
 import (
 	"testing"
 
+	"github.com/ghostmonitor/twilio-go/client"
 	"github.com/stretchr/testify/assert"
-	"github.com/twilio/twilio-go/client"
 )
 
 func TestUnmarshalFloat32(t *testing.T) {

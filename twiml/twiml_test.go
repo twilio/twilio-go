@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/beevik/etree"
+	"github.com/ghostmonitor/twilio-go/twiml"
 	"github.com/stretchr/testify/assert"
-	"github.com/twilio/twilio-go/twiml"
 )
 
 type MockElement struct {
@@ -75,7 +75,8 @@ func TestAddAllVerbs_ManyVerbList(t *testing.T) {
 		"Thank you!",
 		map[string]string{"Voice": "alice", "Language": "en"},
 		map[string]string{"Loop": "1"},
-		[]twiml.Element{}}
+		[]twiml.Element{},
+	}
 	verbs := []twiml.Element{v1, v2}
 	resEl := etree.Element{}
 
@@ -148,10 +149,12 @@ func TestToXML(t *testing.T) {
 
 	xml, _ := twiml.ToXML(doc)
 
-	assert.Equal(t,
+	assert.Equal(
+		t,
 		expected,
 		xml,
-		"Output XML string should match expected value.")
+		"Output XML string should match expected value.",
+	)
 }
 
 // Utilities
@@ -160,16 +163,20 @@ Asserts that a given XML element contains the list of TwiML Elements as
 child XML elements.
 */
 func assertDefinesTwiMLXMLElements(t *testing.T, el *etree.Element, elements []twiml.Element) {
-	assert.Equal(t,
+	assert.Equal(
+		t,
 		len(elements),
 		len(el.ChildElements()),
-		"Parent element should have same number of child elements as child TwiML Elements.")
+		"Parent element should have same number of child elements as child TwiML Elements.",
+	)
 
 	for _, element := range elements {
 		xmlEl := el.FindElement(element.GetName())
-		assert.NotNil(t,
+		assert.NotNil(
+			t,
 			xmlEl,
-			"Parent element should contain a child corresponding to the twiML element.")
+			"Parent element should contain a child corresponding to the twiML element.",
+		)
 		assert.Equal(t, element.GetName(), xmlEl.Tag, "Child element tag should match twiML element name.")
 		assert.Equal(t, element.GetText(), xmlEl.Text(), "Child element text should match twiML element text.")
 

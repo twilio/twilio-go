@@ -17,7 +17,7 @@ package openapi
 import (
 	"encoding/json"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices struct for PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Fetch a specific Country.
@@ -64,7 +64,10 @@ func (params *ListTrunkingCountryParams) SetLimit(Limit int) *ListTrunkingCountr
 }
 
 // Retrieve a single page of TrunkingCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageTrunkingCountry(params *ListTrunkingCountryParams, pageToken, pageNumber string) (*ListTrunkingCountryResponse, error) {
+func (c *ApiService) PageTrunkingCountry(
+	params *ListTrunkingCountryParams,
+	pageToken, pageNumber string,
+) (*ListTrunkingCountryResponse, error) {
 	path := "/v2/Trunking/Countries"
 
 	data := url.Values{}
@@ -134,7 +137,12 @@ func (c *ApiService) StreamTrunkingCountry(params *ListTrunkingCountryParams) (c
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTrunkingCountry(response *ListTrunkingCountryResponse, params *ListTrunkingCountryParams, recordChannel chan PricingV2TrunkingCountry, errorChannel chan error) {
+func (c *ApiService) streamTrunkingCountry(
+	response *ListTrunkingCountryResponse,
+	params *ListTrunkingCountryParams,
+	recordChannel chan PricingV2TrunkingCountry,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

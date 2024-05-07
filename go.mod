@@ -1,4 +1,4 @@
-module github.com/twilio/twilio-go
+module github.com/ghostmonitor/twilio-go
 
 go 1.16
 

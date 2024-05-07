@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSubscribedEvent'
@@ -41,7 +41,10 @@ func (params *CreateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *
 }
 
 // Add an event type to a Subscription.
-func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *CreateSubscribedEventParams) (*EventsV1SubscribedEvent, error) {
+func (c *ApiService) CreateSubscribedEvent(
+	SubscriptionSid string,
+	params *CreateSubscribedEventParams,
+) (*EventsV1SubscribedEvent, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 
@@ -131,7 +134,11 @@ func (params *ListSubscribedEventParams) SetLimit(Limit int) *ListSubscribedEven
 }
 
 // Retrieve a single page of SubscribedEvent records from the API. Request is executed immediately.
-func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, pageToken, pageNumber string) (*ListSubscribedEventResponse, error) {
+func (c *ApiService) PageSubscribedEvent(
+	SubscriptionSid string,
+	params *ListSubscribedEventParams,
+	pageToken, pageNumber string,
+) (*ListSubscribedEventResponse, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
 
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
@@ -166,7 +173,10 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 }
 
 // Lists SubscribedEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) ([]EventsV1SubscribedEvent, error) {
+func (c *ApiService) ListSubscribedEvent(
+	SubscriptionSid string,
+	params *ListSubscribedEventParams,
+) ([]EventsV1SubscribedEvent, error) {
 	response, errors := c.StreamSubscribedEvent(SubscriptionSid, params)
 
 	records := make([]EventsV1SubscribedEvent, 0)
@@ -182,7 +192,10 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 }
 
 // Streams SubscribedEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) (chan EventsV1SubscribedEvent, chan error) {
+func (c *ApiService) StreamSubscribedEvent(
+	SubscriptionSid string,
+	params *ListSubscribedEventParams,
+) (chan EventsV1SubscribedEvent, chan error) {
 	if params == nil {
 		params = &ListSubscribedEventParams{}
 	}
@@ -203,7 +216,12 @@ func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListS
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSubscribedEvent(response *ListSubscribedEventResponse, params *ListSubscribedEventParams, recordChannel chan EventsV1SubscribedEvent, errorChannel chan error) {
+func (c *ApiService) streamSubscribedEvent(
+	response *ListSubscribedEventResponse,
+	params *ListSubscribedEventParams,
+	recordChannel chan EventsV1SubscribedEvent,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -263,7 +281,11 @@ func (params *UpdateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *
 }
 
 // Update an Event for a Subscription.
-func (c *ApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, params *UpdateSubscribedEventParams) (*EventsV1SubscribedEvent, error) {
+func (c *ApiService) UpdateSubscribedEvent(
+	SubscriptionSid string,
+	Type string,
+	params *UpdateSubscribedEventParams,
+) (*EventsV1SubscribedEvent, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)

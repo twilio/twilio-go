@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Fetch a specific Event Type.
@@ -70,7 +70,10 @@ func (params *ListEventTypeParams) SetLimit(Limit int) *ListEventTypeParams {
 }
 
 // Retrieve a single page of EventType records from the API. Request is executed immediately.
-func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken, pageNumber string) (*ListEventTypeResponse, error) {
+func (c *ApiService) PageEventType(
+	params *ListEventTypeParams,
+	pageToken, pageNumber string,
+) (*ListEventTypeResponse, error) {
 	path := "/v1/Types"
 
 	data := url.Values{}
@@ -143,7 +146,12 @@ func (c *ApiService) StreamEventType(params *ListEventTypeParams) (chan EventsV1
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEventType(response *ListEventTypeResponse, params *ListEventTypeParams, recordChannel chan EventsV1EventType, errorChannel chan error) {
+func (c *ApiService) streamEventType(
+	response *ListEventTypeResponse,
+	params *ListEventTypeParams,
+	recordChannel chan EventsV1EventType,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

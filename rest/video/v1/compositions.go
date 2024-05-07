@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateComposition'
@@ -226,7 +226,10 @@ func (params *ListCompositionParams) SetLimit(Limit int) *ListCompositionParams 
 }
 
 // Retrieve a single page of Composition records from the API. Request is executed immediately.
-func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken, pageNumber string) (*ListCompositionResponse, error) {
+func (c *ApiService) PageComposition(
+	params *ListCompositionParams,
+	pageToken, pageNumber string,
+) (*ListCompositionResponse, error) {
 	path := "/v1/Compositions"
 
 	data := url.Values{}
@@ -308,7 +311,12 @@ func (c *ApiService) StreamComposition(params *ListCompositionParams) (chan Vide
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamComposition(response *ListCompositionResponse, params *ListCompositionParams, recordChannel chan VideoV1Composition, errorChannel chan error) {
+func (c *ApiService) streamComposition(
+	response *ListCompositionResponse,
+	params *ListCompositionParams,
+	recordChannel chan VideoV1Composition,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

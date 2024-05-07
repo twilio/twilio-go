@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateParticipant'
@@ -323,7 +323,10 @@ func (params *CreateParticipantParams) SetCallToken(CallToken string) *CreatePar
 }
 
 //
-func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
+func (c *ApiService) CreateParticipant(
+	ConferenceSid string,
+	params *CreateParticipantParams,
+) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -550,7 +553,11 @@ func (params *FetchParticipantParams) SetPathAccountSid(PathAccountSid string) *
 }
 
 // Fetch an instance of a participant
-func (c *ApiService) FetchParticipant(ConferenceSid string, CallSid string, params *FetchParticipantParams) (*ApiV2010Participant, error) {
+func (c *ApiService) FetchParticipant(
+	ConferenceSid string,
+	CallSid string,
+	params *FetchParticipantParams,
+) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -620,7 +627,11 @@ func (params *ListParticipantParams) SetLimit(Limit int) *ListParticipantParams 
 }
 
 // Retrieve a single page of Participant records from the API. Request is executed immediately.
-func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipantParams, pageToken, pageNumber string) (*ListParticipantResponse, error) {
+func (c *ApiService) PageParticipant(
+	ConferenceSid string,
+	params *ListParticipantParams,
+	pageToken, pageNumber string,
+) (*ListParticipantResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -669,7 +680,10 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 }
 
 // Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipantParams) ([]ApiV2010Participant, error) {
+func (c *ApiService) ListParticipant(
+	ConferenceSid string,
+	params *ListParticipantParams,
+) ([]ApiV2010Participant, error) {
 	response, errors := c.StreamParticipant(ConferenceSid, params)
 
 	records := make([]ApiV2010Participant, 0)
@@ -685,7 +699,10 @@ func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipa
 }
 
 // Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListParticipantParams) (chan ApiV2010Participant, chan error) {
+func (c *ApiService) StreamParticipant(
+	ConferenceSid string,
+	params *ListParticipantParams,
+) (chan ApiV2010Participant, chan error) {
 	if params == nil {
 		params = &ListParticipantParams{}
 	}
@@ -706,7 +723,12 @@ func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListPartici
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamParticipant(response *ListParticipantResponse, params *ListParticipantParams, recordChannel chan ApiV2010Participant, errorChannel chan error) {
+func (c *ApiService) streamParticipant(
+	response *ListParticipantResponse,
+	params *ListParticipantParams,
+	recordChannel chan ApiV2010Participant,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -838,7 +860,11 @@ func (params *UpdateParticipantParams) SetCallSidToCoach(CallSidToCoach string) 
 }
 
 // Update the properties of the participant
-func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, params *UpdateParticipantParams) (*ApiV2010Participant, error) {
+func (c *ApiService) UpdateParticipant(
+	ConferenceSid string,
+	CallSid string,
+	params *UpdateParticipantParams,
+) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)

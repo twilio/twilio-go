@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'DeleteMedia'
@@ -141,7 +141,11 @@ func (params *ListMediaParams) SetLimit(Limit int) *ListMediaParams {
 }
 
 // Retrieve a single page of Media records from the API. Request is executed immediately.
-func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageToken, pageNumber string) (*ListMediaResponse, error) {
+func (c *ApiService) PageMedia(
+	MessageSid string,
+	params *ListMediaParams,
+	pageToken, pageNumber string,
+) (*ListMediaResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -227,7 +231,12 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (ch
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMedia(response *ListMediaResponse, params *ListMediaParams, recordChannel chan ApiV2010Media, errorChannel chan error) {
+func (c *ApiService) streamMedia(
+	response *ListMediaResponse,
+	params *ListMediaParams,
+	recordChannel chan ApiV2010Media,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

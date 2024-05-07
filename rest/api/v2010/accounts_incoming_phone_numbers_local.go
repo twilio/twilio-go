@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateIncomingPhoneNumberLocal'
@@ -317,7 +317,10 @@ func (params *ListIncomingPhoneNumberLocalParams) SetLimit(Limit int) *ListIncom
 }
 
 // Retrieve a single page of IncomingPhoneNumberLocal records from the API. Request is executed immediately.
-func (c *ApiService) PageIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberLocalResponse, error) {
+func (c *ApiService) PageIncomingPhoneNumberLocal(
+	params *ListIncomingPhoneNumberLocalParams,
+	pageToken, pageNumber string,
+) (*ListIncomingPhoneNumberLocalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -405,7 +408,12 @@ func (c *ApiService) StreamIncomingPhoneNumberLocal(params *ListIncomingPhoneNum
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIncomingPhoneNumberLocal(response *ListIncomingPhoneNumberLocalResponse, params *ListIncomingPhoneNumberLocalParams, recordChannel chan ApiV2010IncomingPhoneNumberLocal, errorChannel chan error) {
+func (c *ApiService) streamIncomingPhoneNumberLocal(
+	response *ListIncomingPhoneNumberLocalResponse,
+	params *ListIncomingPhoneNumberLocalParams,
+	recordChannel chan ApiV2010IncomingPhoneNumberLocal,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

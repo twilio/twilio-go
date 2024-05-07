@@ -20,11 +20,15 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Retrieve a Step.
-func (c *ApiService) FetchExecutionStep(FlowSid string, ExecutionSid string, Sid string) (*StudioV1ExecutionStep, error) {
+func (c *ApiService) FetchExecutionStep(
+	FlowSid string,
+	ExecutionSid string,
+	Sid string,
+) (*StudioV1ExecutionStep, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
@@ -66,7 +70,12 @@ func (params *ListExecutionStepParams) SetLimit(Limit int) *ListExecutionStepPar
 }
 
 // Retrieve a single page of ExecutionStep records from the API. Request is executed immediately.
-func (c *ApiService) PageExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams, pageToken, pageNumber string) (*ListExecutionStepResponse, error) {
+func (c *ApiService) PageExecutionStep(
+	FlowSid string,
+	ExecutionSid string,
+	params *ListExecutionStepParams,
+	pageToken, pageNumber string,
+) (*ListExecutionStepResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps"
 
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -102,7 +111,11 @@ func (c *ApiService) PageExecutionStep(FlowSid string, ExecutionSid string, para
 }
 
 // Lists ExecutionStep records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) ([]StudioV1ExecutionStep, error) {
+func (c *ApiService) ListExecutionStep(
+	FlowSid string,
+	ExecutionSid string,
+	params *ListExecutionStepParams,
+) ([]StudioV1ExecutionStep, error) {
 	response, errors := c.StreamExecutionStep(FlowSid, ExecutionSid, params)
 
 	records := make([]StudioV1ExecutionStep, 0)
@@ -118,7 +131,11 @@ func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, para
 }
 
 // Streams ExecutionStep records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) (chan StudioV1ExecutionStep, chan error) {
+func (c *ApiService) StreamExecutionStep(
+	FlowSid string,
+	ExecutionSid string,
+	params *ListExecutionStepParams,
+) (chan StudioV1ExecutionStep, chan error) {
 	if params == nil {
 		params = &ListExecutionStepParams{}
 	}
@@ -139,7 +156,12 @@ func (c *ApiService) StreamExecutionStep(FlowSid string, ExecutionSid string, pa
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamExecutionStep(response *ListExecutionStepResponse, params *ListExecutionStepParams, recordChannel chan StudioV1ExecutionStep, errorChannel chan error) {
+func (c *ApiService) streamExecutionStep(
+	response *ListExecutionStepResponse,
+	params *ListExecutionStepParams,
+	recordChannel chan StudioV1ExecutionStep,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

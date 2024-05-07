@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateFlexFlow'
@@ -269,7 +269,10 @@ func (params *ListFlexFlowParams) SetLimit(Limit int) *ListFlexFlowParams {
 }
 
 // Retrieve a single page of FlexFlow records from the API. Request is executed immediately.
-func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken, pageNumber string) (*ListFlexFlowResponse, error) {
+func (c *ApiService) PageFlexFlow(
+	params *ListFlexFlowParams,
+	pageToken, pageNumber string,
+) (*ListFlexFlowResponse, error) {
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
@@ -342,7 +345,12 @@ func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams) (chan FlexV1Flex
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFlexFlow(response *ListFlexFlowResponse, params *ListFlexFlowParams, recordChannel chan FlexV1FlexFlow, errorChannel chan error) {
+func (c *ApiService) streamFlexFlow(
+	response *ListFlexFlowResponse,
+	params *ListFlexFlowParams,
+	recordChannel chan FlexV1FlexFlow,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateBuild'
@@ -153,7 +153,11 @@ func (params *ListBuildParams) SetLimit(Limit int) *ListBuildParams {
 }
 
 // Retrieve a single page of Build records from the API. Request is executed immediately.
-func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageToken, pageNumber string) (*ListBuildResponse, error) {
+func (c *ApiService) PageBuild(
+	ServiceSid string,
+	params *ListBuildParams,
+	pageToken, pageNumber string,
+) (*ListBuildResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Builds"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -225,7 +229,12 @@ func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams) (ch
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBuild(response *ListBuildResponse, params *ListBuildParams, recordChannel chan ServerlessV1Build, errorChannel chan error) {
+func (c *ApiService) streamBuild(
+	response *ListBuildResponse,
+	params *ListBuildParams,
+	recordChannel chan ServerlessV1Build,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

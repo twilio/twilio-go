@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTrustProduct'
@@ -164,7 +164,10 @@ func (params *ListTrustProductParams) SetLimit(Limit int) *ListTrustProductParam
 }
 
 // Retrieve a single page of TrustProduct records from the API. Request is executed immediately.
-func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken, pageNumber string) (*ListTrustProductResponse, error) {
+func (c *ApiService) PageTrustProduct(
+	params *ListTrustProductParams,
+	pageToken, pageNumber string,
+) (*ListTrustProductResponse, error) {
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
@@ -243,7 +246,12 @@ func (c *ApiService) StreamTrustProduct(params *ListTrustProductParams) (chan Tr
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTrustProduct(response *ListTrustProductResponse, params *ListTrustProductParams, recordChannel chan TrusthubV1TrustProduct, errorChannel chan error) {
+func (c *ApiService) streamTrustProduct(
+	response *ListTrustProductResponse,
+	params *ListTrustProductParams,
+	recordChannel chan TrusthubV1TrustProduct,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

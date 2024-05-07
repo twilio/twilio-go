@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Fetch a specific Device.
@@ -134,7 +134,12 @@ func (c *ApiService) StreamDevice(params *ListDeviceParams) (chan MicrovisorV1De
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDevice(response *ListDeviceResponse, params *ListDeviceParams, recordChannel chan MicrovisorV1Device, errorChannel chan error) {
+func (c *ApiService) streamDevice(
+	response *ListDeviceResponse,
+	params *ListDeviceParams,
+	recordChannel chan MicrovisorV1Device,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

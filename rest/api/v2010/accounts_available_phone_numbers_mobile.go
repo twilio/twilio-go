@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListAvailablePhoneNumberMobile'
@@ -155,7 +155,11 @@ func (params *ListAvailablePhoneNumberMobileParams) SetLimit(Limit int) *ListAva
 }
 
 // Retrieve a single page of AvailablePhoneNumberMobile records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberMobileResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberMobile(
+	CountryCode string,
+	params *ListAvailablePhoneNumberMobileParams,
+	pageToken, pageNumber string,
+) (*ListAvailablePhoneNumberMobileResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -249,7 +253,10 @@ func (c *ApiService) PageAvailablePhoneNumberMobile(CountryCode string, params *
 }
 
 // Lists AvailablePhoneNumberMobile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams) ([]ApiV2010AvailablePhoneNumberMobile, error) {
+func (c *ApiService) ListAvailablePhoneNumberMobile(
+	CountryCode string,
+	params *ListAvailablePhoneNumberMobileParams,
+) ([]ApiV2010AvailablePhoneNumberMobile, error) {
 	response, errors := c.StreamAvailablePhoneNumberMobile(CountryCode, params)
 
 	records := make([]ApiV2010AvailablePhoneNumberMobile, 0)
@@ -265,7 +272,10 @@ func (c *ApiService) ListAvailablePhoneNumberMobile(CountryCode string, params *
 }
 
 // Streams AvailablePhoneNumberMobile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams) (chan ApiV2010AvailablePhoneNumberMobile, chan error) {
+func (c *ApiService) StreamAvailablePhoneNumberMobile(
+	CountryCode string,
+	params *ListAvailablePhoneNumberMobileParams,
+) (chan ApiV2010AvailablePhoneNumberMobile, chan error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberMobileParams{}
 	}
@@ -286,7 +296,12 @@ func (c *ApiService) StreamAvailablePhoneNumberMobile(CountryCode string, params
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberMobile(response *ListAvailablePhoneNumberMobileResponse, params *ListAvailablePhoneNumberMobileParams, recordChannel chan ApiV2010AvailablePhoneNumberMobile, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberMobile(
+	response *ListAvailablePhoneNumberMobileResponse,
+	params *ListAvailablePhoneNumberMobileParams,
+	recordChannel chan ApiV2010AvailablePhoneNumberMobile,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

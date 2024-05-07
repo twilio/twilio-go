@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateUser'
@@ -149,7 +149,11 @@ func (params *ListUserParams) SetLimit(Limit int) *ListUserParams {
 }
 
 // Retrieve a single page of User records from the API. Request is executed immediately.
-func (c *ApiService) PageUser(ServiceSid string, params *ListUserParams, pageToken, pageNumber string) (*ListUserResponse, error) {
+func (c *ApiService) PageUser(
+	ServiceSid string,
+	params *ListUserParams,
+	pageToken, pageNumber string,
+) (*ListUserResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Users"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -221,7 +225,12 @@ func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUser(response *ListUserResponse, params *ListUserParams, recordChannel chan ChatV1User, errorChannel chan error) {
+func (c *ApiService) streamUser(
+	response *ListUserResponse,
+	params *ListUserParams,
+	recordChannel chan ChatV1User,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

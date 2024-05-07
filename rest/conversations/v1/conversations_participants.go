@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateConversationParticipant'
@@ -84,7 +84,10 @@ func (params *CreateConversationParticipantParams) SetRoleSid(RoleSid string) *C
 }
 
 // Add a new participant to the conversation
-func (c *ApiService) CreateConversationParticipant(ConversationSid string, params *CreateConversationParticipantParams) (*ConversationsV1ConversationParticipant, error) {
+func (c *ApiService) CreateConversationParticipant(
+	ConversationSid string,
+	params *CreateConversationParticipantParams,
+) (*ConversationsV1ConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
@@ -146,7 +149,11 @@ func (params *DeleteConversationParticipantParams) SetXTwilioWebhookEnabled(XTwi
 }
 
 // Remove a participant from the conversation
-func (c *ApiService) DeleteConversationParticipant(ConversationSid string, Sid string, params *DeleteConversationParticipantParams) error {
+func (c *ApiService) DeleteConversationParticipant(
+	ConversationSid string,
+	Sid string,
+	params *DeleteConversationParticipantParams,
+) error {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -168,7 +175,10 @@ func (c *ApiService) DeleteConversationParticipant(ConversationSid string, Sid s
 }
 
 // Fetch a participant of the conversation
-func (c *ApiService) FetchConversationParticipant(ConversationSid string, Sid string) (*ConversationsV1ConversationParticipant, error) {
+func (c *ApiService) FetchConversationParticipant(
+	ConversationSid string,
+	Sid string,
+) (*ConversationsV1ConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -209,7 +219,11 @@ func (params *ListConversationParticipantParams) SetLimit(Limit int) *ListConver
 }
 
 // Retrieve a single page of ConversationParticipant records from the API. Request is executed immediately.
-func (c *ApiService) PageConversationParticipant(ConversationSid string, params *ListConversationParticipantParams, pageToken, pageNumber string) (*ListConversationParticipantResponse, error) {
+func (c *ApiService) PageConversationParticipant(
+	ConversationSid string,
+	params *ListConversationParticipantParams,
+	pageToken, pageNumber string,
+) (*ListConversationParticipantResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants"
 
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -244,7 +258,10 @@ func (c *ApiService) PageConversationParticipant(ConversationSid string, params 
 }
 
 // Lists ConversationParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) ([]ConversationsV1ConversationParticipant, error) {
+func (c *ApiService) ListConversationParticipant(
+	ConversationSid string,
+	params *ListConversationParticipantParams,
+) ([]ConversationsV1ConversationParticipant, error) {
 	response, errors := c.StreamConversationParticipant(ConversationSid, params)
 
 	records := make([]ConversationsV1ConversationParticipant, 0)
@@ -260,7 +277,10 @@ func (c *ApiService) ListConversationParticipant(ConversationSid string, params 
 }
 
 // Streams ConversationParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) (chan ConversationsV1ConversationParticipant, chan error) {
+func (c *ApiService) StreamConversationParticipant(
+	ConversationSid string,
+	params *ListConversationParticipantParams,
+) (chan ConversationsV1ConversationParticipant, chan error) {
 	if params == nil {
 		params = &ListConversationParticipantParams{}
 	}
@@ -281,7 +301,12 @@ func (c *ApiService) StreamConversationParticipant(ConversationSid string, param
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConversationParticipant(response *ListConversationParticipantResponse, params *ListConversationParticipantParams, recordChannel chan ConversationsV1ConversationParticipant, errorChannel chan error) {
+func (c *ApiService) streamConversationParticipant(
+	response *ListConversationParticipantResponse,
+	params *ListConversationParticipantParams,
+	recordChannel chan ConversationsV1ConversationParticipant,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -395,7 +420,11 @@ func (params *UpdateConversationParticipantParams) SetLastReadTimestamp(LastRead
 }
 
 // Update an existing participant in the conversation
-func (c *ApiService) UpdateConversationParticipant(ConversationSid string, Sid string, params *UpdateConversationParticipantParams) (*ConversationsV1ConversationParticipant, error) {
+func (c *ApiService) UpdateConversationParticipant(
+	ConversationSid string,
+	Sid string,
+	params *UpdateConversationParticipantParams,
+) (*ConversationsV1ConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

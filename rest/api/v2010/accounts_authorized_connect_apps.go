@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'FetchAuthorizedConnectApp'
@@ -35,7 +35,10 @@ func (params *FetchAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid 
 }
 
 // Fetch an instance of an authorized-connect-app
-func (c *ApiService) FetchAuthorizedConnectApp(ConnectAppSid string, params *FetchAuthorizedConnectAppParams) (*ApiV2010AuthorizedConnectApp, error) {
+func (c *ApiService) FetchAuthorizedConnectApp(
+	ConnectAppSid string,
+	params *FetchAuthorizedConnectAppParams,
+) (*ApiV2010AuthorizedConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -86,7 +89,10 @@ func (params *ListAuthorizedConnectAppParams) SetLimit(Limit int) *ListAuthorize
 }
 
 // Retrieve a single page of AuthorizedConnectApp records from the API. Request is executed immediately.
-func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, pageToken, pageNumber string) (*ListAuthorizedConnectAppResponse, error) {
+func (c *ApiService) PageAuthorizedConnectApp(
+	params *ListAuthorizedConnectAppParams,
+	pageToken, pageNumber string,
+) (*ListAuthorizedConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -162,7 +168,12 @@ func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectApp
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAuthorizedConnectApp(response *ListAuthorizedConnectAppResponse, params *ListAuthorizedConnectAppParams, recordChannel chan ApiV2010AuthorizedConnectApp, errorChannel chan error) {
+func (c *ApiService) streamAuthorizedConnectApp(
+	response *ListAuthorizedConnectAppResponse,
+	params *ListAuthorizedConnectAppParams,
+	recordChannel chan ApiV2010AuthorizedConnectApp,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

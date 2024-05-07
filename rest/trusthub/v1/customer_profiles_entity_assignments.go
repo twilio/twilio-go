@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCustomerProfileEntityAssignment'
@@ -35,7 +35,10 @@ func (params *CreateCustomerProfileEntityAssignmentParams) SetObjectSid(ObjectSi
 }
 
 // Create a new Assigned Item.
-func (c *ApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid string, params *CreateCustomerProfileEntityAssignmentParams) (*TrusthubV1CustomerProfileEntityAssignment, error) {
+func (c *ApiService) CreateCustomerProfileEntityAssignment(
+	CustomerProfileSid string,
+	params *CreateCustomerProfileEntityAssignmentParams,
+) (*TrusthubV1CustomerProfileEntityAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
@@ -81,7 +84,10 @@ func (c *ApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid st
 }
 
 // Fetch specific Assigned Item Instance.
-func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileEntityAssignment, error) {
+func (c *ApiService) FetchCustomerProfileEntityAssignment(
+	CustomerProfileSid string,
+	Sid string,
+) (*TrusthubV1CustomerProfileEntityAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -128,7 +134,11 @@ func (params *ListCustomerProfileEntityAssignmentParams) SetLimit(Limit int) *Li
 }
 
 // Retrieve a single page of CustomerProfileEntityAssignment records from the API. Request is executed immediately.
-func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken, pageNumber string) (*ListCustomerProfileEntityAssignmentResponse, error) {
+func (c *ApiService) PageCustomerProfileEntityAssignment(
+	CustomerProfileSid string,
+	params *ListCustomerProfileEntityAssignmentParams,
+	pageToken, pageNumber string,
+) (*ListCustomerProfileEntityAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -166,7 +176,10 @@ func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid stri
 }
 
 // Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) ([]TrusthubV1CustomerProfileEntityAssignment, error) {
+func (c *ApiService) ListCustomerProfileEntityAssignment(
+	CustomerProfileSid string,
+	params *ListCustomerProfileEntityAssignmentParams,
+) ([]TrusthubV1CustomerProfileEntityAssignment, error) {
 	response, errors := c.StreamCustomerProfileEntityAssignment(CustomerProfileSid, params)
 
 	records := make([]TrusthubV1CustomerProfileEntityAssignment, 0)
@@ -182,7 +195,10 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 }
 
 // Streams CustomerProfileEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) (chan TrusthubV1CustomerProfileEntityAssignment, chan error) {
+func (c *ApiService) StreamCustomerProfileEntityAssignment(
+	CustomerProfileSid string,
+	params *ListCustomerProfileEntityAssignmentParams,
+) (chan TrusthubV1CustomerProfileEntityAssignment, chan error) {
 	if params == nil {
 		params = &ListCustomerProfileEntityAssignmentParams{}
 	}
@@ -203,7 +219,12 @@ func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid st
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCustomerProfileEntityAssignment(response *ListCustomerProfileEntityAssignmentResponse, params *ListCustomerProfileEntityAssignmentParams, recordChannel chan TrusthubV1CustomerProfileEntityAssignment, errorChannel chan error) {
+func (c *ApiService) streamCustomerProfileEntityAssignment(
+	response *ListCustomerProfileEntityAssignmentResponse,
+	params *ListCustomerProfileEntityAssignmentParams,
+	recordChannel chan TrusthubV1CustomerProfileEntityAssignment,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

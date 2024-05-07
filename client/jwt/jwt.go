@@ -7,7 +7,8 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
-	. "github.com/twilio/twilio-go/client/jwt/util"
+
+	. "github.com/ghostmonitor/twilio-go/client/jwt/util"
 )
 
 type TokenType string
@@ -64,14 +65,16 @@ func (token *Jwt) FromJwt(jwtStr string, key string) (*Jwt, error) {
 	// useful if you use multiple keys for your application.  The standard is to use 'kid' in the
 	// head of the token to identify which key to use, but the parsed token (head and claims) is provided
 	// to the callback, providing flexibility.
-	decodedToken, err := jwt.Parse(jwtStr, func(token *jwt.Token) (interface{}, error) {
-		// Validate the alg is what you expect
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-		}
+	decodedToken, err := jwt.Parse(
+		jwtStr, func(token *jwt.Token) (interface{}, error) {
+			// Validate the alg is what you expect
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+			}
 
-		return []byte(key), nil
-	})
+			return []byte(key), nil
+		},
+	)
 
 	if decodedToken != nil {
 		if claims, ok := decodedToken.Claims.(jwt.MapClaims); ok {

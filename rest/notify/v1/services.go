@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateService'
@@ -242,7 +242,10 @@ func (params *ListServiceParams) SetLimit(Limit int) *ListServiceParams {
 }
 
 // Retrieve a single page of Service records from the API. Request is executed immediately.
-func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumber string) (*ListServiceResponse, error) {
+func (c *ApiService) PageService(
+	params *ListServiceParams,
+	pageToken, pageNumber string,
+) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
 	data := url.Values{}
@@ -315,7 +318,12 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan NotifyV1Serv
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan NotifyV1Service, errorChannel chan error) {
+func (c *ApiService) streamService(
+	response *ListServiceResponse,
+	params *ListServiceParams,
+	recordChannel chan NotifyV1Service,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

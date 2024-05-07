@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateEntity'
@@ -122,7 +122,11 @@ func (params *ListEntityParams) SetLimit(Limit int) *ListEntityParams {
 }
 
 // Retrieve a single page of Entity records from the API. Request is executed immediately.
-func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pageToken, pageNumber string) (*ListEntityResponse, error) {
+func (c *ApiService) PageEntity(
+	ServiceSid string,
+	params *ListEntityParams,
+	pageToken, pageNumber string,
+) (*ListEntityResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -194,7 +198,12 @@ func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEntity(response *ListEntityResponse, params *ListEntityParams, recordChannel chan VerifyV2Entity, errorChannel chan error) {
+func (c *ApiService) streamEntity(
+	response *ListEntityResponse,
+	params *ListEntityParams,
+	recordChannel chan VerifyV2Entity,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

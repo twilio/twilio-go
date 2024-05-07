@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListAvailablePhoneNumberMachineToMachine'
@@ -155,7 +155,11 @@ func (params *ListAvailablePhoneNumberMachineToMachineParams) SetLimit(Limit int
 }
 
 // Retrieve a single page of AvailablePhoneNumberMachineToMachine records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(
+	CountryCode string,
+	params *ListAvailablePhoneNumberMachineToMachineParams,
+	pageToken, pageNumber string,
+) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -249,7 +253,10 @@ func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string
 }
 
 // Lists AvailablePhoneNumberMachineToMachine records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) ([]ApiV2010AvailablePhoneNumberMachineToMachine, error) {
+func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(
+	CountryCode string,
+	params *ListAvailablePhoneNumberMachineToMachineParams,
+) ([]ApiV2010AvailablePhoneNumberMachineToMachine, error) {
 	response, errors := c.StreamAvailablePhoneNumberMachineToMachine(CountryCode, params)
 
 	records := make([]ApiV2010AvailablePhoneNumberMachineToMachine, 0)
@@ -265,7 +272,10 @@ func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string
 }
 
 // Streams AvailablePhoneNumberMachineToMachine records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (chan ApiV2010AvailablePhoneNumberMachineToMachine, chan error) {
+func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(
+	CountryCode string,
+	params *ListAvailablePhoneNumberMachineToMachineParams,
+) (chan ApiV2010AvailablePhoneNumberMachineToMachine, chan error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberMachineToMachineParams{}
 	}
@@ -286,7 +296,12 @@ func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode stri
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(response *ListAvailablePhoneNumberMachineToMachineResponse, params *ListAvailablePhoneNumberMachineToMachineParams, recordChannel chan ApiV2010AvailablePhoneNumberMachineToMachine, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(
+	response *ListAvailablePhoneNumberMachineToMachineResponse,
+	params *ListAvailablePhoneNumberMachineToMachineParams,
+	recordChannel chan ApiV2010AvailablePhoneNumberMachineToMachine,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

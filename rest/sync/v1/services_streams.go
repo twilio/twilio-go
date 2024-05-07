@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSyncStream'
@@ -131,7 +131,11 @@ func (params *ListSyncStreamParams) SetLimit(Limit int) *ListSyncStreamParams {
 }
 
 // Retrieve a single page of SyncStream records from the API. Request is executed immediately.
-func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamParams, pageToken, pageNumber string) (*ListSyncStreamResponse, error) {
+func (c *ApiService) PageSyncStream(
+	ServiceSid string,
+	params *ListSyncStreamParams,
+	pageToken, pageNumber string,
+) (*ListSyncStreamResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Streams"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -182,7 +186,10 @@ func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamPar
 }
 
 // Streams SyncStream records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamParams) (chan SyncV1SyncStream, chan error) {
+func (c *ApiService) StreamSyncStream(
+	ServiceSid string,
+	params *ListSyncStreamParams,
+) (chan SyncV1SyncStream, chan error) {
 	if params == nil {
 		params = &ListSyncStreamParams{}
 	}
@@ -203,7 +210,12 @@ func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamP
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSyncStream(response *ListSyncStreamResponse, params *ListSyncStreamParams, recordChannel chan SyncV1SyncStream, errorChannel chan error) {
+func (c *ApiService) streamSyncStream(
+	response *ListSyncStreamResponse,
+	params *ListSyncStreamParams,
+	recordChannel chan SyncV1SyncStream,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -263,7 +275,11 @@ func (params *UpdateSyncStreamParams) SetTtl(Ttl int) *UpdateSyncStreamParams {
 }
 
 // Update a specific Stream.
-func (c *ApiService) UpdateSyncStream(ServiceSid string, Sid string, params *UpdateSyncStreamParams) (*SyncV1SyncStream, error) {
+func (c *ApiService) UpdateSyncStream(
+	ServiceSid string,
+	Sid string,
+	params *UpdateSyncStreamParams,
+) (*SyncV1SyncStream, error) {
 	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

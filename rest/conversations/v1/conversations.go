@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateConversation'
@@ -251,7 +251,10 @@ func (params *ListConversationParams) SetLimit(Limit int) *ListConversationParam
 }
 
 // Retrieve a single page of Conversation records from the API. Request is executed immediately.
-func (c *ApiService) PageConversation(params *ListConversationParams, pageToken, pageNumber string) (*ListConversationResponse, error) {
+func (c *ApiService) PageConversation(
+	params *ListConversationParams,
+	pageToken, pageNumber string,
+) (*ListConversationResponse, error) {
 	path := "/v1/Conversations"
 
 	data := url.Values{}
@@ -330,7 +333,12 @@ func (c *ApiService) StreamConversation(params *ListConversationParams) (chan Co
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConversation(response *ListConversationResponse, params *ListConversationParams, recordChannel chan ConversationsV1Conversation, errorChannel chan error) {
+func (c *ApiService) streamConversation(
+	response *ListConversationResponse,
+	params *ListConversationParams,
+	recordChannel chan ConversationsV1Conversation,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -456,7 +464,10 @@ func (params *UpdateConversationParams) SetBindingsEmailName(BindingsEmailName s
 }
 
 // Update an existing conversation in your account's default service
-func (c *ApiService) UpdateConversation(Sid string, params *UpdateConversationParams) (*ConversationsV1Conversation, error) {
+func (c *ApiService) UpdateConversation(
+	Sid string,
+	params *UpdateConversationParams,
+) (*ConversationsV1Conversation, error) {
 	path := "/v1/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 

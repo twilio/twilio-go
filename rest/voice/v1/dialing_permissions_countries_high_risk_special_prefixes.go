@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListDialingPermissionsHrsPrefixes'
@@ -41,7 +41,11 @@ func (params *ListDialingPermissionsHrsPrefixesParams) SetLimit(Limit int) *List
 }
 
 // Retrieve a single page of DialingPermissionsHrsPrefixes records from the API. Request is executed immediately.
-func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, pageToken, pageNumber string) (*ListDialingPermissionsHrsPrefixesResponse, error) {
+func (c *ApiService) PageDialingPermissionsHrsPrefixes(
+	IsoCode string,
+	params *ListDialingPermissionsHrsPrefixesParams,
+	pageToken, pageNumber string,
+) (*ListDialingPermissionsHrsPrefixesResponse, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes"
 
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
@@ -76,7 +80,10 @@ func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *L
 }
 
 // Lists DialingPermissionsHrsPrefixes records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) ([]VoiceV1DialingPermissionsHrsPrefixes, error) {
+func (c *ApiService) ListDialingPermissionsHrsPrefixes(
+	IsoCode string,
+	params *ListDialingPermissionsHrsPrefixesParams,
+) ([]VoiceV1DialingPermissionsHrsPrefixes, error) {
 	response, errors := c.StreamDialingPermissionsHrsPrefixes(IsoCode, params)
 
 	records := make([]VoiceV1DialingPermissionsHrsPrefixes, 0)
@@ -92,7 +99,10 @@ func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *L
 }
 
 // Streams DialingPermissionsHrsPrefixes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) (chan VoiceV1DialingPermissionsHrsPrefixes, chan error) {
+func (c *ApiService) StreamDialingPermissionsHrsPrefixes(
+	IsoCode string,
+	params *ListDialingPermissionsHrsPrefixesParams,
+) (chan VoiceV1DialingPermissionsHrsPrefixes, chan error) {
 	if params == nil {
 		params = &ListDialingPermissionsHrsPrefixesParams{}
 	}
@@ -113,7 +123,12 @@ func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDialingPermissionsHrsPrefixes(response *ListDialingPermissionsHrsPrefixesResponse, params *ListDialingPermissionsHrsPrefixesParams, recordChannel chan VoiceV1DialingPermissionsHrsPrefixes, errorChannel chan error) {
+func (c *ApiService) streamDialingPermissionsHrsPrefixes(
+	response *ListDialingPermissionsHrsPrefixesResponse,
+	params *ListDialingPermissionsHrsPrefixesParams,
+	recordChannel chan VoiceV1DialingPermissionsHrsPrefixes,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

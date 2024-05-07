@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListInsightsConversations'
@@ -52,7 +52,10 @@ func (params *ListInsightsConversationsParams) SetLimit(Limit int) *ListInsights
 }
 
 // Retrieve a single page of InsightsConversations records from the API. Request is executed immediately.
-func (c *ApiService) PageInsightsConversations(params *ListInsightsConversationsParams, pageToken, pageNumber string) (*ListInsightsConversationsResponse, error) {
+func (c *ApiService) PageInsightsConversations(
+	params *ListInsightsConversationsParams,
+	pageToken, pageNumber string,
+) (*ListInsightsConversationsResponse, error) {
 	path := "/v1/Insights/Conversations"
 
 	data := url.Values{}
@@ -125,7 +128,12 @@ func (c *ApiService) StreamInsightsConversations(params *ListInsightsConversatio
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInsightsConversations(response *ListInsightsConversationsResponse, params *ListInsightsConversationsParams, recordChannel chan FlexV1InsightsConversations, errorChannel chan error) {
+func (c *ApiService) streamInsightsConversations(
+	response *ListInsightsConversationsResponse,
+	params *ListInsightsConversationsParams,
+	recordChannel chan FlexV1InsightsConversations,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

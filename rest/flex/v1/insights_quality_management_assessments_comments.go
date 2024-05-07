@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateInsightsAssessmentsComment'
@@ -149,7 +149,10 @@ func (params *ListInsightsAssessmentsCommentParams) SetLimit(Limit int) *ListIns
 }
 
 // Retrieve a single page of InsightsAssessmentsComment records from the API. Request is executed immediately.
-func (c *ApiService) PageInsightsAssessmentsComment(params *ListInsightsAssessmentsCommentParams, pageToken, pageNumber string) (*ListInsightsAssessmentsCommentResponse, error) {
+func (c *ApiService) PageInsightsAssessmentsComment(
+	params *ListInsightsAssessmentsCommentParams,
+	pageToken, pageNumber string,
+) (*ListInsightsAssessmentsCommentResponse, error) {
 	path := "/v1/Insights/QualityManagement/Assessments/Comments"
 
 	data := url.Values{}
@@ -225,7 +228,12 @@ func (c *ApiService) StreamInsightsAssessmentsComment(params *ListInsightsAssess
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInsightsAssessmentsComment(response *ListInsightsAssessmentsCommentResponse, params *ListInsightsAssessmentsCommentParams, recordChannel chan FlexV1InsightsAssessmentsComment, errorChannel chan error) {
+func (c *ApiService) streamInsightsAssessmentsComment(
+	response *ListInsightsAssessmentsCommentResponse,
+	params *ListInsightsAssessmentsCommentParams,
+	recordChannel chan FlexV1InsightsAssessmentsComment,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

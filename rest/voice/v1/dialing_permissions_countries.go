@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Retrieve voice dialing country permissions identified by the given ISO country code
@@ -100,7 +100,10 @@ func (params *ListDialingPermissionsCountryParams) SetLimit(Limit int) *ListDial
 }
 
 // Retrieve a single page of DialingPermissionsCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, pageToken, pageNumber string) (*ListDialingPermissionsCountryResponse, error) {
+func (c *ApiService) PageDialingPermissionsCountry(
+	params *ListDialingPermissionsCountryParams,
+	pageToken, pageNumber string,
+) (*ListDialingPermissionsCountryResponse, error) {
 	path := "/v1/DialingPermissions/Countries"
 
 	data := url.Values{}
@@ -188,7 +191,12 @@ func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissi
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDialingPermissionsCountry(response *ListDialingPermissionsCountryResponse, params *ListDialingPermissionsCountryParams, recordChannel chan VoiceV1DialingPermissionsCountry, errorChannel chan error) {
+func (c *ApiService) streamDialingPermissionsCountry(
+	response *ListDialingPermissionsCountryResponse,
+	params *ListDialingPermissionsCountryParams,
+	recordChannel chan VoiceV1DialingPermissionsCountry,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

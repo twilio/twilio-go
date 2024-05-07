@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateRoom'
@@ -342,7 +342,12 @@ func (c *ApiService) StreamRoom(params *ListRoomParams) (chan VideoV1Room, chan 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRoom(response *ListRoomResponse, params *ListRoomParams, recordChannel chan VideoV1Room, errorChannel chan error) {
+func (c *ApiService) streamRoom(
+	response *ListRoomResponse,
+	params *ListRoomParams,
+	recordChannel chan VideoV1Room,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

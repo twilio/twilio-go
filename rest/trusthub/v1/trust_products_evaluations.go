@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTrustProductEvaluation'
@@ -35,7 +35,10 @@ func (params *CreateTrustProductEvaluationParams) SetPolicySid(PolicySid string)
 }
 
 // Create a new Evaluation
-func (c *ApiService) CreateTrustProductEvaluation(TrustProductSid string, params *CreateTrustProductEvaluationParams) (*TrusthubV1TrustProductEvaluation, error) {
+func (c *ApiService) CreateTrustProductEvaluation(
+	TrustProductSid string,
+	params *CreateTrustProductEvaluationParams,
+) (*TrusthubV1TrustProductEvaluation, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
@@ -62,7 +65,10 @@ func (c *ApiService) CreateTrustProductEvaluation(TrustProductSid string, params
 }
 
 // Fetch specific Evaluation Instance.
-func (c *ApiService) FetchTrustProductEvaluation(TrustProductSid string, Sid string) (*TrusthubV1TrustProductEvaluation, error) {
+func (c *ApiService) FetchTrustProductEvaluation(
+	TrustProductSid string,
+	Sid string,
+) (*TrusthubV1TrustProductEvaluation, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -103,7 +109,11 @@ func (params *ListTrustProductEvaluationParams) SetLimit(Limit int) *ListTrustPr
 }
 
 // Retrieve a single page of TrustProductEvaluation records from the API. Request is executed immediately.
-func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, pageToken, pageNumber string) (*ListTrustProductEvaluationResponse, error) {
+func (c *ApiService) PageTrustProductEvaluation(
+	TrustProductSid string,
+	params *ListTrustProductEvaluationParams,
+	pageToken, pageNumber string,
+) (*ListTrustProductEvaluationResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -138,7 +148,10 @@ func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *
 }
 
 // Lists TrustProductEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) ([]TrusthubV1TrustProductEvaluation, error) {
+func (c *ApiService) ListTrustProductEvaluation(
+	TrustProductSid string,
+	params *ListTrustProductEvaluationParams,
+) ([]TrusthubV1TrustProductEvaluation, error) {
 	response, errors := c.StreamTrustProductEvaluation(TrustProductSid, params)
 
 	records := make([]TrusthubV1TrustProductEvaluation, 0)
@@ -154,7 +167,10 @@ func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *
 }
 
 // Streams TrustProductEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) (chan TrusthubV1TrustProductEvaluation, chan error) {
+func (c *ApiService) StreamTrustProductEvaluation(
+	TrustProductSid string,
+	params *ListTrustProductEvaluationParams,
+) (chan TrusthubV1TrustProductEvaluation, chan error) {
 	if params == nil {
 		params = &ListTrustProductEvaluationParams{}
 	}
@@ -175,7 +191,12 @@ func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTrustProductEvaluation(response *ListTrustProductEvaluationResponse, params *ListTrustProductEvaluationParams, recordChannel chan TrusthubV1TrustProductEvaluation, errorChannel chan error) {
+func (c *ApiService) streamTrustProductEvaluation(
+	response *ListTrustProductEvaluationResponse,
+	params *ListTrustProductEvaluationParams,
+	recordChannel chan TrusthubV1TrustProductEvaluation,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

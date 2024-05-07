@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Delete a specific Flow.
@@ -152,7 +152,12 @@ func (c *ApiService) StreamFlow(params *ListFlowParams) (chan StudioV1Flow, chan
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFlow(response *ListFlowResponse, params *ListFlowParams, recordChannel chan StudioV1Flow, errorChannel chan error) {
+func (c *ApiService) streamFlow(
+	response *ListFlowResponse,
+	params *ListFlowParams,
+	recordChannel chan StudioV1Flow,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

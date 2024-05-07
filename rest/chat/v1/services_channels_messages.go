@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateMessage'
@@ -47,7 +47,11 @@ func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessa
 }
 
 //
-func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*ChatV1Message, error) {
+func (c *ApiService) CreateMessage(
+	ServiceSid string,
+	ChannelSid string,
+	params *CreateMessageParams,
+) (*ChatV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -149,7 +153,12 @@ func (params *ListMessageParams) SetLimit(Limit int) *ListMessageParams {
 }
 
 // Retrieve a single page of Message records from the API. Request is executed immediately.
-func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, pageToken, pageNumber string) (*ListMessageResponse, error) {
+func (c *ApiService) PageMessage(
+	ServiceSid string,
+	ChannelSid string,
+	params *ListMessageParams,
+	pageToken, pageNumber string,
+) (*ListMessageResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -188,7 +197,11 @@ func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *L
 }
 
 // Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) ([]ChatV1Message, error) {
+func (c *ApiService) ListMessage(
+	ServiceSid string,
+	ChannelSid string,
+	params *ListMessageParams,
+) ([]ChatV1Message, error) {
 	response, errors := c.StreamMessage(ServiceSid, ChannelSid, params)
 
 	records := make([]ChatV1Message, 0)
@@ -204,7 +217,11 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 }
 
 // Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) (chan ChatV1Message, chan error) {
+func (c *ApiService) StreamMessage(
+	ServiceSid string,
+	ChannelSid string,
+	params *ListMessageParams,
+) (chan ChatV1Message, chan error) {
 	if params == nil {
 		params = &ListMessageParams{}
 	}
@@ -225,7 +242,12 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMessage(response *ListMessageResponse, params *ListMessageParams, recordChannel chan ChatV1Message, errorChannel chan error) {
+func (c *ApiService) streamMessage(
+	response *ListMessageResponse,
+	params *ListMessageParams,
+	recordChannel chan ChatV1Message,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -291,7 +313,12 @@ func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessa
 }
 
 //
-func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*ChatV1Message, error) {
+func (c *ApiService) UpdateMessage(
+	ServiceSid string,
+	ChannelSid string,
+	Sid string,
+	params *UpdateMessageParams,
+) (*ChatV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateInvite'
@@ -41,7 +41,11 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 }
 
 //
-func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*IpMessagingV2Invite, error) {
+func (c *ApiService) CreateInvite(
+	ServiceSid string,
+	ChannelSid string,
+	params *CreateInviteParams,
+) (*IpMessagingV2Invite, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -140,7 +144,12 @@ func (params *ListInviteParams) SetLimit(Limit int) *ListInviteParams {
 }
 
 // Retrieve a single page of Invite records from the API. Request is executed immediately.
-func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, pageToken, pageNumber string) (*ListInviteResponse, error) {
+func (c *ApiService) PageInvite(
+	ServiceSid string,
+	ChannelSid string,
+	params *ListInviteParams,
+	pageToken, pageNumber string,
+) (*ListInviteResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -181,7 +190,11 @@ func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Lists Invite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) ([]IpMessagingV2Invite, error) {
+func (c *ApiService) ListInvite(
+	ServiceSid string,
+	ChannelSid string,
+	params *ListInviteParams,
+) ([]IpMessagingV2Invite, error) {
 	response, errors := c.StreamInvite(ServiceSid, ChannelSid, params)
 
 	records := make([]IpMessagingV2Invite, 0)
@@ -197,7 +210,11 @@ func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) (chan IpMessagingV2Invite, chan error) {
+func (c *ApiService) StreamInvite(
+	ServiceSid string,
+	ChannelSid string,
+	params *ListInviteParams,
+) (chan IpMessagingV2Invite, chan error) {
 	if params == nil {
 		params = &ListInviteParams{}
 	}
@@ -218,7 +235,12 @@ func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInvite(response *ListInviteResponse, params *ListInviteParams, recordChannel chan IpMessagingV2Invite, errorChannel chan error) {
+func (c *ApiService) streamInvite(
+	response *ListInviteResponse,
+	params *ListInviteParams,
+	recordChannel chan IpMessagingV2Invite,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

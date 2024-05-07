@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Delete a specific App.
@@ -152,7 +152,12 @@ func (c *ApiService) StreamApp(params *ListAppParams) (chan MicrovisorV1App, cha
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamApp(response *ListAppResponse, params *ListAppParams, recordChannel chan MicrovisorV1App, errorChannel chan error) {
+func (c *ApiService) streamApp(
+	response *ListAppResponse,
+	params *ListAppParams,
+	recordChannel chan MicrovisorV1App,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

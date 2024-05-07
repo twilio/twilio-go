@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListMetric'
@@ -53,7 +53,11 @@ func (params *ListMetricParams) SetLimit(Limit int) *ListMetricParams {
 }
 
 // Retrieve a single page of Metric records from the API. Request is executed immediately.
-func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageToken, pageNumber string) (*ListMetricResponse, error) {
+func (c *ApiService) PageMetric(
+	CallSid string,
+	params *ListMetricParams,
+	pageToken, pageNumber string,
+) (*ListMetricResponse, error) {
 	path := "/v1/Voice/{CallSid}/Metrics"
 
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -131,7 +135,12 @@ func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (cha
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMetric(response *ListMetricResponse, params *ListMetricParams, recordChannel chan InsightsV1Metric, errorChannel chan error) {
+func (c *ApiService) streamMetric(
+	response *ListMetricResponse,
+	params *ListMetricParams,
+	recordChannel chan InsightsV1Metric,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

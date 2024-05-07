@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCall'
@@ -645,7 +645,12 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010Call, chan
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCall(response *ListCallResponse, params *ListCallParams, recordChannel chan ApiV2010Call, errorChannel chan error) {
+func (c *ApiService) streamCall(
+	response *ListCallResponse,
+	params *ListCallParams,
+	recordChannel chan ApiV2010Call,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

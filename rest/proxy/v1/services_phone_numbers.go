@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreatePhoneNumber'
@@ -47,7 +47,10 @@ func (params *CreatePhoneNumberParams) SetIsReserved(IsReserved bool) *CreatePho
 }
 
 // Add a Phone Number to a Service's Proxy Number Pool.
-func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNumberParams) (*ProxyV1PhoneNumber, error) {
+func (c *ApiService) CreatePhoneNumber(
+	ServiceSid string,
+	params *CreatePhoneNumberParams,
+) (*ProxyV1PhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -140,7 +143,11 @@ func (params *ListPhoneNumberParams) SetLimit(Limit int) *ListPhoneNumberParams 
 }
 
 // Retrieve a single page of PhoneNumber records from the API. Request is executed immediately.
-func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberParams, pageToken, pageNumber string) (*ListPhoneNumberResponse, error) {
+func (c *ApiService) PagePhoneNumber(
+	ServiceSid string,
+	params *ListPhoneNumberParams,
+	pageToken, pageNumber string,
+) (*ListPhoneNumberResponse, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -191,7 +198,10 @@ func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberP
 }
 
 // Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) (chan ProxyV1PhoneNumber, chan error) {
+func (c *ApiService) StreamPhoneNumber(
+	ServiceSid string,
+	params *ListPhoneNumberParams,
+) (chan ProxyV1PhoneNumber, chan error) {
 	if params == nil {
 		params = &ListPhoneNumberParams{}
 	}
@@ -212,7 +222,12 @@ func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumbe
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPhoneNumber(response *ListPhoneNumberResponse, params *ListPhoneNumberParams, recordChannel chan ProxyV1PhoneNumber, errorChannel chan error) {
+func (c *ApiService) streamPhoneNumber(
+	response *ListPhoneNumberResponse,
+	params *ListPhoneNumberParams,
+	recordChannel chan ProxyV1PhoneNumber,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -272,7 +287,11 @@ func (params *UpdatePhoneNumberParams) SetIsReserved(IsReserved bool) *UpdatePho
 }
 
 // Update a specific Proxy Number.
-func (c *ApiService) UpdatePhoneNumber(ServiceSid string, Sid string, params *UpdatePhoneNumberParams) (*ProxyV1PhoneNumber, error) {
+func (c *ApiService) UpdatePhoneNumber(
+	ServiceSid string,
+	Sid string,
+	params *UpdatePhoneNumberParams,
+) (*ProxyV1PhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

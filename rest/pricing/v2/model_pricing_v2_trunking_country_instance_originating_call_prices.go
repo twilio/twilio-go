@@ -17,7 +17,7 @@ package openapi
 import (
 	"encoding/json"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // PricingV2TrunkingCountryInstanceOriginatingCallPrices struct for PricingV2TrunkingCountryInstanceOriginatingCallPrices

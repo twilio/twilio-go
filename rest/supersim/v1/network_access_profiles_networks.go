@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateNetworkAccessProfileNetwork'
@@ -35,7 +35,10 @@ func (params *CreateNetworkAccessProfileNetworkParams) SetNetwork(Network string
 }
 
 // Add a Network resource to the Network Access Profile resource.
-func (c *ApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *CreateNetworkAccessProfileNetworkParams) (*SupersimV1NetworkAccessProfileNetwork, error) {
+func (c *ApiService) CreateNetworkAccessProfileNetwork(
+	NetworkAccessProfileSid string,
+	params *CreateNetworkAccessProfileNetworkParams,
+) (*SupersimV1NetworkAccessProfileNetwork, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
 
@@ -81,7 +84,10 @@ func (c *ApiService) DeleteNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 }
 
 // Fetch a Network Access Profile resource's Network resource.
-func (c *ApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid string, Sid string) (*SupersimV1NetworkAccessProfileNetwork, error) {
+func (c *ApiService) FetchNetworkAccessProfileNetwork(
+	NetworkAccessProfileSid string,
+	Sid string,
+) (*SupersimV1NetworkAccessProfileNetwork, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -122,7 +128,11 @@ func (params *ListNetworkAccessProfileNetworkParams) SetLimit(Limit int) *ListNe
 }
 
 // Retrieve a single page of NetworkAccessProfileNetwork records from the API. Request is executed immediately.
-func (c *ApiService) PageNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, pageToken, pageNumber string) (*ListNetworkAccessProfileNetworkResponse, error) {
+func (c *ApiService) PageNetworkAccessProfileNetwork(
+	NetworkAccessProfileSid string,
+	params *ListNetworkAccessProfileNetworkParams,
+	pageToken, pageNumber string,
+) (*ListNetworkAccessProfileNetworkResponse, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
 
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
@@ -157,7 +167,10 @@ func (c *ApiService) PageNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 }
 
 // Lists NetworkAccessProfileNetwork records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) ([]SupersimV1NetworkAccessProfileNetwork, error) {
+func (c *ApiService) ListNetworkAccessProfileNetwork(
+	NetworkAccessProfileSid string,
+	params *ListNetworkAccessProfileNetworkParams,
+) ([]SupersimV1NetworkAccessProfileNetwork, error) {
 	response, errors := c.StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid, params)
 
 	records := make([]SupersimV1NetworkAccessProfileNetwork, 0)
@@ -173,7 +186,10 @@ func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 }
 
 // Streams NetworkAccessProfileNetwork records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (chan SupersimV1NetworkAccessProfileNetwork, chan error) {
+func (c *ApiService) StreamNetworkAccessProfileNetwork(
+	NetworkAccessProfileSid string,
+	params *ListNetworkAccessProfileNetworkParams,
+) (chan SupersimV1NetworkAccessProfileNetwork, chan error) {
 	if params == nil {
 		params = &ListNetworkAccessProfileNetworkParams{}
 	}
@@ -194,7 +210,12 @@ func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamNetworkAccessProfileNetwork(response *ListNetworkAccessProfileNetworkResponse, params *ListNetworkAccessProfileNetworkParams, recordChannel chan SupersimV1NetworkAccessProfileNetwork, errorChannel chan error) {
+func (c *ApiService) streamNetworkAccessProfileNetwork(
+	response *ListNetworkAccessProfileNetworkResponse,
+	params *ListNetworkAccessProfileNetworkParams,
+	recordChannel chan SupersimV1NetworkAccessProfileNetwork,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateMessagingConfiguration'
@@ -41,7 +41,10 @@ func (params *CreateMessagingConfigurationParams) SetMessagingServiceSid(Messagi
 }
 
 // Create a new MessagingConfiguration for a service.
-func (c *ApiService) CreateMessagingConfiguration(ServiceSid string, params *CreateMessagingConfigurationParams) (*VerifyV2MessagingConfiguration, error) {
+func (c *ApiService) CreateMessagingConfiguration(
+	ServiceSid string,
+	params *CreateMessagingConfigurationParams,
+) (*VerifyV2MessagingConfiguration, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -90,7 +93,10 @@ func (c *ApiService) DeleteMessagingConfiguration(ServiceSid string, Country str
 }
 
 // Fetch a specific MessagingConfiguration.
-func (c *ApiService) FetchMessagingConfiguration(ServiceSid string, Country string) (*VerifyV2MessagingConfiguration, error) {
+func (c *ApiService) FetchMessagingConfiguration(
+	ServiceSid string,
+	Country string,
+) (*VerifyV2MessagingConfiguration, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
@@ -131,7 +137,11 @@ func (params *ListMessagingConfigurationParams) SetLimit(Limit int) *ListMessagi
 }
 
 // Retrieve a single page of MessagingConfiguration records from the API. Request is executed immediately.
-func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams, pageToken, pageNumber string) (*ListMessagingConfigurationResponse, error) {
+func (c *ApiService) PageMessagingConfiguration(
+	ServiceSid string,
+	params *ListMessagingConfigurationParams,
+	pageToken, pageNumber string,
+) (*ListMessagingConfigurationResponse, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -166,7 +176,10 @@ func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListM
 }
 
 // Lists MessagingConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) ([]VerifyV2MessagingConfiguration, error) {
+func (c *ApiService) ListMessagingConfiguration(
+	ServiceSid string,
+	params *ListMessagingConfigurationParams,
+) ([]VerifyV2MessagingConfiguration, error) {
 	response, errors := c.StreamMessagingConfiguration(ServiceSid, params)
 
 	records := make([]VerifyV2MessagingConfiguration, 0)
@@ -182,7 +195,10 @@ func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListM
 }
 
 // Streams MessagingConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) (chan VerifyV2MessagingConfiguration, chan error) {
+func (c *ApiService) StreamMessagingConfiguration(
+	ServiceSid string,
+	params *ListMessagingConfigurationParams,
+) (chan VerifyV2MessagingConfiguration, chan error) {
 	if params == nil {
 		params = &ListMessagingConfigurationParams{}
 	}
@@ -203,7 +219,12 @@ func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *Lis
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMessagingConfiguration(response *ListMessagingConfigurationResponse, params *ListMessagingConfigurationParams, recordChannel chan VerifyV2MessagingConfiguration, errorChannel chan error) {
+func (c *ApiService) streamMessagingConfiguration(
+	response *ListMessagingConfigurationResponse,
+	params *ListMessagingConfigurationParams,
+	recordChannel chan VerifyV2MessagingConfiguration,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -263,7 +284,11 @@ func (params *UpdateMessagingConfigurationParams) SetMessagingServiceSid(Messagi
 }
 
 // Update a specific MessagingConfiguration
-func (c *ApiService) UpdateMessagingConfiguration(ServiceSid string, Country string, params *UpdateMessagingConfigurationParams) (*VerifyV2MessagingConfiguration, error) {
+func (c *ApiService) UpdateMessagingConfiguration(
+	ServiceSid string,
+	Country string,
+	params *UpdateMessagingConfigurationParams,
+) (*VerifyV2MessagingConfiguration, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)

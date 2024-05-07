@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTranscript'
@@ -201,7 +201,10 @@ func (params *ListTranscriptParams) SetLimit(Limit int) *ListTranscriptParams {
 }
 
 // Retrieve a single page of Transcript records from the API. Request is executed immediately.
-func (c *ApiService) PageTranscript(params *ListTranscriptParams, pageToken, pageNumber string) (*ListTranscriptResponse, error) {
+func (c *ApiService) PageTranscript(
+	params *ListTranscriptParams,
+	pageToken, pageNumber string,
+) (*ListTranscriptResponse, error) {
 	path := "/v2/Transcripts"
 
 	data := url.Values{}
@@ -295,7 +298,12 @@ func (c *ApiService) StreamTranscript(params *ListTranscriptParams) (chan Intell
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTranscript(response *ListTranscriptResponse, params *ListTranscriptParams, recordChannel chan IntelligenceV2Transcript, errorChannel chan error) {
+func (c *ApiService) streamTranscript(
+	response *ListTranscriptResponse,
+	params *ListTranscriptParams,
+	recordChannel chan IntelligenceV2Transcript,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

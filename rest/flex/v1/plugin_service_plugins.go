@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreatePlugin'
@@ -218,7 +218,12 @@ func (c *ApiService) StreamPlugin(params *ListPluginParams) (chan FlexV1Plugin, 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPlugin(response *ListPluginResponse, params *ListPluginParams, recordChannel chan FlexV1Plugin, errorChannel chan error) {
+func (c *ApiService) streamPlugin(
+	response *ListPluginResponse,
+	params *ListPluginParams,
+	recordChannel chan FlexV1Plugin,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

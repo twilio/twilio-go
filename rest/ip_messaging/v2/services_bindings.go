@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 //
@@ -96,7 +96,11 @@ func (params *ListBindingParams) SetLimit(Limit int) *ListBindingParams {
 }
 
 // Retrieve a single page of Binding records from the API. Request is executed immediately.
-func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, pageToken, pageNumber string) (*ListBindingResponse, error) {
+func (c *ApiService) PageBinding(
+	ServiceSid string,
+	params *ListBindingParams,
+	pageToken, pageNumber string,
+) (*ListBindingResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -157,7 +161,10 @@ func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) (
 }
 
 // Streams Binding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams) (chan IpMessagingV2Binding, chan error) {
+func (c *ApiService) StreamBinding(
+	ServiceSid string,
+	params *ListBindingParams,
+) (chan IpMessagingV2Binding, chan error) {
 	if params == nil {
 		params = &ListBindingParams{}
 	}
@@ -178,7 +185,12 @@ func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams)
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBinding(response *ListBindingResponse, params *ListBindingParams, recordChannel chan IpMessagingV2Binding, errorChannel chan error) {
+func (c *ApiService) streamBinding(
+	response *ListBindingResponse,
+	params *ListBindingParams,
+	recordChannel chan IpMessagingV2Binding,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

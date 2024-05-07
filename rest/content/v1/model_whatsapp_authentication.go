@@ -17,7 +17,7 @@ package openapi
 import (
 	"encoding/json"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // WhatsappAuthentication whatsApp/authentication templates let companies deliver WA approved one-time-password button.

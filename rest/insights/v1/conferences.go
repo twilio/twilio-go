@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Get a specific Conference Summary.
@@ -124,7 +124,10 @@ func (params *ListConferenceParams) SetLimit(Limit int) *ListConferenceParams {
 }
 
 // Retrieve a single page of Conference records from the API. Request is executed immediately.
-func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pageNumber string) (*ListConferenceResponse, error) {
+func (c *ApiService) PageConference(
+	params *ListConferenceParams,
+	pageToken, pageNumber string,
+) (*ListConferenceResponse, error) {
 	path := "/v1/Conferences"
 
 	data := url.Values{}
@@ -224,7 +227,12 @@ func (c *ApiService) StreamConference(params *ListConferenceParams) (chan Insigh
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConference(response *ListConferenceResponse, params *ListConferenceParams, recordChannel chan InsightsV1Conference, errorChannel chan error) {
+func (c *ApiService) streamConference(
+	response *ListConferenceResponse,
+	params *ListConferenceParams,
+	recordChannel chan InsightsV1Conference,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

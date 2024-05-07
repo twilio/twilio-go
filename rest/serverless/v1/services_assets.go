@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateAsset'
@@ -122,7 +122,11 @@ func (params *ListAssetParams) SetLimit(Limit int) *ListAssetParams {
 }
 
 // Retrieve a single page of Asset records from the API. Request is executed immediately.
-func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageToken, pageNumber string) (*ListAssetResponse, error) {
+func (c *ApiService) PageAsset(
+	ServiceSid string,
+	params *ListAssetParams,
+	pageToken, pageNumber string,
+) (*ListAssetResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -194,7 +198,12 @@ func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams) (ch
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAsset(response *ListAssetResponse, params *ListAssetParams, recordChannel chan ServerlessV1Asset, errorChannel chan error) {
+func (c *ApiService) streamAsset(
+	response *ListAssetResponse,
+	params *ListAssetParams,
+	recordChannel chan ServerlessV1Asset,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

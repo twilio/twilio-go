@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Delete a specific User Conversation.
@@ -44,7 +44,10 @@ func (c *ApiService) DeleteUserConversation(UserSid string, ConversationSid stri
 }
 
 // Fetch a specific User Conversation.
-func (c *ApiService) FetchUserConversation(UserSid string, ConversationSid string) (*ConversationsV1UserConversation, error) {
+func (c *ApiService) FetchUserConversation(
+	UserSid string,
+	ConversationSid string,
+) (*ConversationsV1UserConversation, error) {
 	path := "/v1/Users/{UserSid}/Conversations/{ConversationSid}"
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -85,7 +88,11 @@ func (params *ListUserConversationParams) SetLimit(Limit int) *ListUserConversat
 }
 
 // Retrieve a single page of UserConversation records from the API. Request is executed immediately.
-func (c *ApiService) PageUserConversation(UserSid string, params *ListUserConversationParams, pageToken, pageNumber string) (*ListUserConversationResponse, error) {
+func (c *ApiService) PageUserConversation(
+	UserSid string,
+	params *ListUserConversationParams,
+	pageToken, pageNumber string,
+) (*ListUserConversationResponse, error) {
 	path := "/v1/Users/{UserSid}/Conversations"
 
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -120,7 +127,10 @@ func (c *ApiService) PageUserConversation(UserSid string, params *ListUserConver
 }
 
 // Lists UserConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUserConversation(UserSid string, params *ListUserConversationParams) ([]ConversationsV1UserConversation, error) {
+func (c *ApiService) ListUserConversation(
+	UserSid string,
+	params *ListUserConversationParams,
+) ([]ConversationsV1UserConversation, error) {
 	response, errors := c.StreamUserConversation(UserSid, params)
 
 	records := make([]ConversationsV1UserConversation, 0)
@@ -136,7 +146,10 @@ func (c *ApiService) ListUserConversation(UserSid string, params *ListUserConver
 }
 
 // Streams UserConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserConversation(UserSid string, params *ListUserConversationParams) (chan ConversationsV1UserConversation, chan error) {
+func (c *ApiService) StreamUserConversation(
+	UserSid string,
+	params *ListUserConversationParams,
+) (chan ConversationsV1UserConversation, chan error) {
 	if params == nil {
 		params = &ListUserConversationParams{}
 	}
@@ -157,7 +170,12 @@ func (c *ApiService) StreamUserConversation(UserSid string, params *ListUserConv
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUserConversation(response *ListUserConversationResponse, params *ListUserConversationParams, recordChannel chan ConversationsV1UserConversation, errorChannel chan error) {
+func (c *ApiService) streamUserConversation(
+	response *ListUserConversationResponse,
+	params *ListUserConversationParams,
+	recordChannel chan ConversationsV1UserConversation,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -229,7 +247,11 @@ func (params *UpdateUserConversationParams) SetLastReadMessageIndex(LastReadMess
 }
 
 // Update a specific User Conversation.
-func (c *ApiService) UpdateUserConversation(UserSid string, ConversationSid string, params *UpdateUserConversationParams) (*ConversationsV1UserConversation, error) {
+func (c *ApiService) UpdateUserConversation(
+	UserSid string,
+	ConversationSid string,
+	params *UpdateUserConversationParams,
+) (*ConversationsV1UserConversation, error) {
 	path := "/v1/Users/{UserSid}/Conversations/{ConversationSid}"
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Creates an evaluation for a bundle
@@ -88,7 +88,11 @@ func (params *ListEvaluationParams) SetLimit(Limit int) *ListEvaluationParams {
 }
 
 // Retrieve a single page of Evaluation records from the API. Request is executed immediately.
-func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationParams, pageToken, pageNumber string) (*ListEvaluationResponse, error) {
+func (c *ApiService) PageEvaluation(
+	BundleSid string,
+	params *ListEvaluationParams,
+	pageToken, pageNumber string,
+) (*ListEvaluationResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
 
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
@@ -139,7 +143,10 @@ func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationPara
 }
 
 // Streams Evaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationParams) (chan NumbersV2Evaluation, chan error) {
+func (c *ApiService) StreamEvaluation(
+	BundleSid string,
+	params *ListEvaluationParams,
+) (chan NumbersV2Evaluation, chan error) {
 	if params == nil {
 		params = &ListEvaluationParams{}
 	}
@@ -160,7 +167,12 @@ func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationPa
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEvaluation(response *ListEvaluationResponse, params *ListEvaluationParams, recordChannel chan NumbersV2Evaluation, errorChannel chan error) {
+func (c *ApiService) streamEvaluation(
+	response *ListEvaluationResponse,
+	params *ListEvaluationParams,
+	recordChannel chan NumbersV2Evaluation,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

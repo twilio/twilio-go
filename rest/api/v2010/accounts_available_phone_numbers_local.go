@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListAvailablePhoneNumberLocal'
@@ -155,7 +155,11 @@ func (params *ListAvailablePhoneNumberLocalParams) SetLimit(Limit int) *ListAvai
 }
 
 // Retrieve a single page of AvailablePhoneNumberLocal records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberLocalResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberLocal(
+	CountryCode string,
+	params *ListAvailablePhoneNumberLocalParams,
+	pageToken, pageNumber string,
+) (*ListAvailablePhoneNumberLocalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -249,7 +253,10 @@ func (c *ApiService) PageAvailablePhoneNumberLocal(CountryCode string, params *L
 }
 
 // Lists AvailablePhoneNumberLocal records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams) ([]ApiV2010AvailablePhoneNumberLocal, error) {
+func (c *ApiService) ListAvailablePhoneNumberLocal(
+	CountryCode string,
+	params *ListAvailablePhoneNumberLocalParams,
+) ([]ApiV2010AvailablePhoneNumberLocal, error) {
 	response, errors := c.StreamAvailablePhoneNumberLocal(CountryCode, params)
 
 	records := make([]ApiV2010AvailablePhoneNumberLocal, 0)
@@ -265,7 +272,10 @@ func (c *ApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *L
 }
 
 // Streams AvailablePhoneNumberLocal records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams) (chan ApiV2010AvailablePhoneNumberLocal, chan error) {
+func (c *ApiService) StreamAvailablePhoneNumberLocal(
+	CountryCode string,
+	params *ListAvailablePhoneNumberLocalParams,
+) (chan ApiV2010AvailablePhoneNumberLocal, chan error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberLocalParams{}
 	}
@@ -286,7 +296,12 @@ func (c *ApiService) StreamAvailablePhoneNumberLocal(CountryCode string, params 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberLocal(response *ListAvailablePhoneNumberLocalResponse, params *ListAvailablePhoneNumberLocalParams, recordChannel chan ApiV2010AvailablePhoneNumberLocal, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberLocal(
+	response *ListAvailablePhoneNumberLocalResponse,
+	params *ListAvailablePhoneNumberLocalParams,
+	recordChannel chan ApiV2010AvailablePhoneNumberLocal,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

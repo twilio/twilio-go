@@ -15,7 +15,7 @@
 package openapi
 
 import (
-	twilio "github.com/twilio/twilio-go/client"
+	twilio "github.com/ghostmonitor/twilio-go/client"
 )
 
 type ApiService struct {

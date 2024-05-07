@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListSentence'
@@ -47,7 +47,11 @@ func (params *ListSentenceParams) SetLimit(Limit int) *ListSentenceParams {
 }
 
 // Retrieve a single page of Sentence records from the API. Request is executed immediately.
-func (c *ApiService) PageSentence(TranscriptSid string, params *ListSentenceParams, pageToken, pageNumber string) (*ListSentenceResponse, error) {
+func (c *ApiService) PageSentence(
+	TranscriptSid string,
+	params *ListSentenceParams,
+	pageToken, pageNumber string,
+) (*ListSentenceResponse, error) {
 	path := "/v2/Transcripts/{TranscriptSid}/Sentences"
 
 	path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
@@ -101,7 +105,10 @@ func (c *ApiService) ListSentence(TranscriptSid string, params *ListSentencePara
 }
 
 // Streams Sentence records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSentence(TranscriptSid string, params *ListSentenceParams) (chan IntelligenceV2Sentence, chan error) {
+func (c *ApiService) StreamSentence(
+	TranscriptSid string,
+	params *ListSentenceParams,
+) (chan IntelligenceV2Sentence, chan error) {
 	if params == nil {
 		params = &ListSentenceParams{}
 	}
@@ -122,7 +129,12 @@ func (c *ApiService) StreamSentence(TranscriptSid string, params *ListSentencePa
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSentence(response *ListSentenceResponse, params *ListSentenceParams, recordChannel chan IntelligenceV2Sentence, errorChannel chan error) {
+func (c *ApiService) streamSentence(
+	response *ListSentenceResponse,
+	params *ListSentenceParams,
+	recordChannel chan IntelligenceV2Sentence,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

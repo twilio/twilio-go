@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateNewSigningKey'
@@ -168,7 +168,10 @@ func (params *ListSigningKeyParams) SetLimit(Limit int) *ListSigningKeyParams {
 }
 
 // Retrieve a single page of SigningKey records from the API. Request is executed immediately.
-func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pageNumber string) (*ListSigningKeyResponse, error) {
+func (c *ApiService) PageSigningKey(
+	params *ListSigningKeyParams,
+	pageToken, pageNumber string,
+) (*ListSigningKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -244,7 +247,12 @@ func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV20
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *ListSigningKeyParams, recordChannel chan ApiV2010SigningKey, errorChannel chan error) {
+func (c *ApiService) streamSigningKey(
+	response *ListSigningKeyResponse,
+	params *ListSigningKeyParams,
+	recordChannel chan ApiV2010SigningKey,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Fetch a specific End-User Type Instance.
@@ -64,7 +64,10 @@ func (params *ListEndUserTypeParams) SetLimit(Limit int) *ListEndUserTypeParams 
 }
 
 // Retrieve a single page of EndUserType records from the API. Request is executed immediately.
-func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken, pageNumber string) (*ListEndUserTypeResponse, error) {
+func (c *ApiService) PageEndUserType(
+	params *ListEndUserTypeParams,
+	pageToken, pageNumber string,
+) (*ListEndUserTypeResponse, error) {
 	path := "/v2/RegulatoryCompliance/EndUserTypes"
 
 	data := url.Values{}
@@ -134,7 +137,12 @@ func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan Numb
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEndUserType(response *ListEndUserTypeResponse, params *ListEndUserTypeParams, recordChannel chan NumbersV2EndUserType, errorChannel chan error) {
+func (c *ApiService) streamEndUserType(
+	response *ListEndUserTypeResponse,
+	params *ListEndUserTypeParams,
+	recordChannel chan NumbersV2EndUserType,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

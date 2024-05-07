@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'DeleteRecordingTranscription'
@@ -35,7 +35,11 @@ func (params *DeleteRecordingTranscriptionParams) SetPathAccountSid(PathAccountS
 }
 
 //
-func (c *ApiService) DeleteRecordingTranscription(RecordingSid string, Sid string, params *DeleteRecordingTranscriptionParams) error {
+func (c *ApiService) DeleteRecordingTranscription(
+	RecordingSid string,
+	Sid string,
+	params *DeleteRecordingTranscriptionParams,
+) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -70,7 +74,11 @@ func (params *FetchRecordingTranscriptionParams) SetPathAccountSid(PathAccountSi
 }
 
 //
-func (c *ApiService) FetchRecordingTranscription(RecordingSid string, Sid string, params *FetchRecordingTranscriptionParams) (*ApiV2010RecordingTranscription, error) {
+func (c *ApiService) FetchRecordingTranscription(
+	RecordingSid string,
+	Sid string,
+	params *FetchRecordingTranscriptionParams,
+) (*ApiV2010RecordingTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -122,7 +130,11 @@ func (params *ListRecordingTranscriptionParams) SetLimit(Limit int) *ListRecordi
 }
 
 // Retrieve a single page of RecordingTranscription records from the API. Request is executed immediately.
-func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, pageToken, pageNumber string) (*ListRecordingTranscriptionResponse, error) {
+func (c *ApiService) PageRecordingTranscription(
+	RecordingSid string,
+	params *ListRecordingTranscriptionParams,
+	pageToken, pageNumber string,
+) (*ListRecordingTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -162,7 +174,10 @@ func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *Lis
 }
 
 // Lists RecordingTranscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams) ([]ApiV2010RecordingTranscription, error) {
+func (c *ApiService) ListRecordingTranscription(
+	RecordingSid string,
+	params *ListRecordingTranscriptionParams,
+) ([]ApiV2010RecordingTranscription, error) {
 	response, errors := c.StreamRecordingTranscription(RecordingSid, params)
 
 	records := make([]ApiV2010RecordingTranscription, 0)
@@ -178,7 +193,10 @@ func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *Lis
 }
 
 // Streams RecordingTranscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams) (chan ApiV2010RecordingTranscription, chan error) {
+func (c *ApiService) StreamRecordingTranscription(
+	RecordingSid string,
+	params *ListRecordingTranscriptionParams,
+) (chan ApiV2010RecordingTranscription, chan error) {
 	if params == nil {
 		params = &ListRecordingTranscriptionParams{}
 	}
@@ -199,7 +217,12 @@ func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *L
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRecordingTranscription(response *ListRecordingTranscriptionResponse, params *ListRecordingTranscriptionParams, recordChannel chan ApiV2010RecordingTranscription, errorChannel chan error) {
+func (c *ApiService) streamRecordingTranscription(
+	response *ListRecordingTranscriptionResponse,
+	params *ListRecordingTranscriptionParams,
+	recordChannel chan ApiV2010RecordingTranscription,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

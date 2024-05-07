@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSink'
@@ -231,7 +231,12 @@ func (c *ApiService) StreamSink(params *ListSinkParams) (chan EventsV1Sink, chan
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSink(response *ListSinkResponse, params *ListSinkParams, recordChannel chan EventsV1Sink, errorChannel chan error) {
+func (c *ApiService) streamSink(
+	response *ListSinkResponse,
+	params *ListSinkParams,
+	recordChannel chan EventsV1Sink,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

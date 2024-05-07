@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateUsAppToPerson'
@@ -125,7 +125,10 @@ func (params *CreateUsAppToPersonParams) SetDirectLending(DirectLending bool) *C
 }
 
 //
-func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
+func (c *ApiService) CreateUsAppToPerson(
+	MessagingServiceSid string,
+	params *CreateUsAppToPersonParams,
+) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
@@ -265,7 +268,11 @@ func (params *ListUsAppToPersonParams) SetLimit(Limit int) *ListUsAppToPersonPar
 }
 
 // Retrieve a single page of UsAppToPerson records from the API. Request is executed immediately.
-func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, pageToken, pageNumber string) (*ListUsAppToPersonResponse, error) {
+func (c *ApiService) PageUsAppToPerson(
+	MessagingServiceSid string,
+	params *ListUsAppToPersonParams,
+	pageToken, pageNumber string,
+) (*ListUsAppToPersonResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -300,7 +307,10 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 }
 
 // Lists UsAppToPerson records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) ([]MessagingV1UsAppToPerson, error) {
+func (c *ApiService) ListUsAppToPerson(
+	MessagingServiceSid string,
+	params *ListUsAppToPersonParams,
+) ([]MessagingV1UsAppToPerson, error) {
 	response, errors := c.StreamUsAppToPerson(MessagingServiceSid, params)
 
 	records := make([]MessagingV1UsAppToPerson, 0)
@@ -316,7 +326,10 @@ func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListU
 }
 
 // Streams UsAppToPerson records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) (chan MessagingV1UsAppToPerson, chan error) {
+func (c *ApiService) StreamUsAppToPerson(
+	MessagingServiceSid string,
+	params *ListUsAppToPersonParams,
+) (chan MessagingV1UsAppToPerson, chan error) {
 	if params == nil {
 		params = &ListUsAppToPersonParams{}
 	}
@@ -337,7 +350,12 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsAppToPerson(response *ListUsAppToPersonResponse, params *ListUsAppToPersonParams, recordChannel chan MessagingV1UsAppToPerson, errorChannel chan error) {
+func (c *ApiService) streamUsAppToPerson(
+	response *ListUsAppToPersonResponse,
+	params *ListUsAppToPersonParams,
+	recordChannel chan MessagingV1UsAppToPerson,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -433,7 +451,11 @@ func (params *UpdateUsAppToPersonParams) SetDirectLending(DirectLending bool) *U
 }
 
 //
-func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string, params *UpdateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
+func (c *ApiService) UpdateUsAppToPerson(
+	MessagingServiceSid string,
+	Sid string,
+	params *UpdateUsAppToPersonParams,
+) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

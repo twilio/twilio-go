@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Fetch a specific schema and version.
@@ -65,7 +65,11 @@ func (params *ListSchemaVersionParams) SetLimit(Limit int) *ListSchemaVersionPar
 }
 
 // Retrieve a single page of SchemaVersion records from the API. Request is executed immediately.
-func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParams, pageToken, pageNumber string) (*ListSchemaVersionResponse, error) {
+func (c *ApiService) PageSchemaVersion(
+	Id string,
+	params *ListSchemaVersionParams,
+	pageToken, pageNumber string,
+) (*ListSchemaVersionResponse, error) {
 	path := "/v1/Schemas/{Id}/Versions"
 
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
@@ -116,7 +120,10 @@ func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParam
 }
 
 // Streams SchemaVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionParams) (chan EventsV1SchemaVersion, chan error) {
+func (c *ApiService) StreamSchemaVersion(
+	Id string,
+	params *ListSchemaVersionParams,
+) (chan EventsV1SchemaVersion, chan error) {
 	if params == nil {
 		params = &ListSchemaVersionParams{}
 	}
@@ -137,7 +144,12 @@ func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionPar
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSchemaVersion(response *ListSchemaVersionResponse, params *ListSchemaVersionParams, recordChannel chan EventsV1SchemaVersion, errorChannel chan error) {
+func (c *ApiService) streamSchemaVersion(
+	response *ListSchemaVersionResponse,
+	params *ListSchemaVersionParams,
+	recordChannel chan EventsV1SchemaVersion,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

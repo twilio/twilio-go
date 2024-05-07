@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCredential'
@@ -173,7 +173,10 @@ func (params *ListCredentialParams) SetLimit(Limit int) *ListCredentialParams {
 }
 
 // Retrieve a single page of Credential records from the API. Request is executed immediately.
-func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken, pageNumber string) (*ListCredentialResponse, error) {
+func (c *ApiService) PageCredential(
+	params *ListCredentialParams,
+	pageToken, pageNumber string,
+) (*ListCredentialResponse, error) {
 	path := "/v2/Credentials"
 
 	data := url.Values{}
@@ -243,7 +246,12 @@ func (c *ApiService) StreamCredential(params *ListCredentialParams) (chan ChatV2
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCredential(response *ListCredentialResponse, params *ListCredentialParams, recordChannel chan ChatV2Credential, errorChannel chan error) {
+func (c *ApiService) streamCredential(
+	response *ListCredentialResponse,
+	params *ListCredentialParams,
+	recordChannel chan ChatV2Credential,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

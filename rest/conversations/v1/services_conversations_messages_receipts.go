@@ -20,11 +20,16 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Fetch the delivery and read receipts of the conversation message
-func (c *ApiService) FetchServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, Sid string) (*ConversationsV1ServiceConversationMessageReceipt, error) {
+func (c *ApiService) FetchServiceConversationMessageReceipt(
+	ChatServiceSid string,
+	ConversationSid string,
+	MessageSid string,
+	Sid string,
+) (*ConversationsV1ServiceConversationMessageReceipt, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -67,7 +72,13 @@ func (params *ListServiceConversationMessageReceiptParams) SetLimit(Limit int) *
 }
 
 // Retrieve a single page of ServiceConversationMessageReceipt records from the API. Request is executed immediately.
-func (c *ApiService) PageServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, pageToken, pageNumber string) (*ListServiceConversationMessageReceiptResponse, error) {
+func (c *ApiService) PageServiceConversationMessageReceipt(
+	ChatServiceSid string,
+	ConversationSid string,
+	MessageSid string,
+	params *ListServiceConversationMessageReceiptParams,
+	pageToken, pageNumber string,
+) (*ListServiceConversationMessageReceiptResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -104,7 +115,12 @@ func (c *ApiService) PageServiceConversationMessageReceipt(ChatServiceSid string
 }
 
 // Lists ServiceConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams) ([]ConversationsV1ServiceConversationMessageReceipt, error) {
+func (c *ApiService) ListServiceConversationMessageReceipt(
+	ChatServiceSid string,
+	ConversationSid string,
+	MessageSid string,
+	params *ListServiceConversationMessageReceiptParams,
+) ([]ConversationsV1ServiceConversationMessageReceipt, error) {
 	response, errors := c.StreamServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params)
 
 	records := make([]ConversationsV1ServiceConversationMessageReceipt, 0)
@@ -120,7 +136,12 @@ func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string
 }
 
 // Streams ServiceConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams) (chan ConversationsV1ServiceConversationMessageReceipt, chan error) {
+func (c *ApiService) StreamServiceConversationMessageReceipt(
+	ChatServiceSid string,
+	ConversationSid string,
+	MessageSid string,
+	params *ListServiceConversationMessageReceiptParams,
+) (chan ConversationsV1ServiceConversationMessageReceipt, chan error) {
 	if params == nil {
 		params = &ListServiceConversationMessageReceiptParams{}
 	}
@@ -129,7 +150,14 @@ func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid stri
 	recordChannel := make(chan ConversationsV1ServiceConversationMessageReceipt, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params, "", "")
+	response, err := c.PageServiceConversationMessageReceipt(
+		ChatServiceSid,
+		ConversationSid,
+		MessageSid,
+		params,
+		"",
+		"",
+	)
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
@@ -141,7 +169,12 @@ func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid stri
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamServiceConversationMessageReceipt(response *ListServiceConversationMessageReceiptResponse, params *ListServiceConversationMessageReceiptParams, recordChannel chan ConversationsV1ServiceConversationMessageReceipt, errorChannel chan error) {
+func (c *ApiService) streamServiceConversationMessageReceipt(
+	response *ListServiceConversationMessageReceiptResponse,
+	params *ListServiceConversationMessageReceiptParams,
+	recordChannel chan ConversationsV1ServiceConversationMessageReceipt,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

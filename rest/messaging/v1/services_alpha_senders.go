@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateAlphaSender'
@@ -35,7 +35,10 @@ func (params *CreateAlphaSenderParams) SetAlphaSender(AlphaSender string) *Creat
 }
 
 //
-func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSenderParams) (*MessagingV1AlphaSender, error) {
+func (c *ApiService) CreateAlphaSender(
+	ServiceSid string,
+	params *CreateAlphaSenderParams,
+) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -122,7 +125,11 @@ func (params *ListAlphaSenderParams) SetLimit(Limit int) *ListAlphaSenderParams 
 }
 
 // Retrieve a single page of AlphaSender records from the API. Request is executed immediately.
-func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderParams, pageToken, pageNumber string) (*ListAlphaSenderResponse, error) {
+func (c *ApiService) PageAlphaSender(
+	ServiceSid string,
+	params *ListAlphaSenderParams,
+	pageToken, pageNumber string,
+) (*ListAlphaSenderResponse, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -157,7 +164,10 @@ func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderP
 }
 
 // Lists AlphaSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams) ([]MessagingV1AlphaSender, error) {
+func (c *ApiService) ListAlphaSender(
+	ServiceSid string,
+	params *ListAlphaSenderParams,
+) ([]MessagingV1AlphaSender, error) {
 	response, errors := c.StreamAlphaSender(ServiceSid, params)
 
 	records := make([]MessagingV1AlphaSender, 0)
@@ -173,7 +183,10 @@ func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderP
 }
 
 // Streams AlphaSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSenderParams) (chan MessagingV1AlphaSender, chan error) {
+func (c *ApiService) StreamAlphaSender(
+	ServiceSid string,
+	params *ListAlphaSenderParams,
+) (chan MessagingV1AlphaSender, chan error) {
 	if params == nil {
 		params = &ListAlphaSenderParams{}
 	}
@@ -194,7 +207,12 @@ func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSende
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAlphaSender(response *ListAlphaSenderResponse, params *ListAlphaSenderParams, recordChannel chan MessagingV1AlphaSender, errorChannel chan error) {
+func (c *ApiService) streamAlphaSender(
+	response *ListAlphaSenderResponse,
+	params *ListAlphaSenderParams,
+	recordChannel chan MessagingV1AlphaSender,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateInteractionChannelParticipant'
@@ -47,7 +47,11 @@ func (params *CreateInteractionChannelParticipantParams) SetRoutingProperties(Ro
 }
 
 // Add a Participant to a Channel.
-func (c *ApiService) CreateInteractionChannelParticipant(InteractionSid string, ChannelSid string, params *CreateInteractionChannelParticipantParams) (*FlexV1InteractionChannelParticipant, error) {
+func (c *ApiService) CreateInteractionChannelParticipant(
+	InteractionSid string,
+	ChannelSid string,
+	params *CreateInteractionChannelParticipantParams,
+) (*FlexV1InteractionChannelParticipant, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -110,7 +114,12 @@ func (params *ListInteractionChannelParticipantParams) SetLimit(Limit int) *List
 }
 
 // Retrieve a single page of InteractionChannelParticipant records from the API. Request is executed immediately.
-func (c *ApiService) PageInteractionChannelParticipant(InteractionSid string, ChannelSid string, params *ListInteractionChannelParticipantParams, pageToken, pageNumber string) (*ListInteractionChannelParticipantResponse, error) {
+func (c *ApiService) PageInteractionChannelParticipant(
+	InteractionSid string,
+	ChannelSid string,
+	params *ListInteractionChannelParticipantParams,
+	pageToken, pageNumber string,
+) (*ListInteractionChannelParticipantResponse, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants"
 
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
@@ -146,7 +155,11 @@ func (c *ApiService) PageInteractionChannelParticipant(InteractionSid string, Ch
 }
 
 // Lists InteractionChannelParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInteractionChannelParticipant(InteractionSid string, ChannelSid string, params *ListInteractionChannelParticipantParams) ([]FlexV1InteractionChannelParticipant, error) {
+func (c *ApiService) ListInteractionChannelParticipant(
+	InteractionSid string,
+	ChannelSid string,
+	params *ListInteractionChannelParticipantParams,
+) ([]FlexV1InteractionChannelParticipant, error) {
 	response, errors := c.StreamInteractionChannelParticipant(InteractionSid, ChannelSid, params)
 
 	records := make([]FlexV1InteractionChannelParticipant, 0)
@@ -162,7 +175,11 @@ func (c *ApiService) ListInteractionChannelParticipant(InteractionSid string, Ch
 }
 
 // Streams InteractionChannelParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInteractionChannelParticipant(InteractionSid string, ChannelSid string, params *ListInteractionChannelParticipantParams) (chan FlexV1InteractionChannelParticipant, chan error) {
+func (c *ApiService) StreamInteractionChannelParticipant(
+	InteractionSid string,
+	ChannelSid string,
+	params *ListInteractionChannelParticipantParams,
+) (chan FlexV1InteractionChannelParticipant, chan error) {
 	if params == nil {
 		params = &ListInteractionChannelParticipantParams{}
 	}
@@ -183,7 +200,12 @@ func (c *ApiService) StreamInteractionChannelParticipant(InteractionSid string, 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInteractionChannelParticipant(response *ListInteractionChannelParticipantResponse, params *ListInteractionChannelParticipantParams, recordChannel chan FlexV1InteractionChannelParticipant, errorChannel chan error) {
+func (c *ApiService) streamInteractionChannelParticipant(
+	response *ListInteractionChannelParticipantResponse,
+	params *ListInteractionChannelParticipantParams,
+	recordChannel chan FlexV1InteractionChannelParticipant,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -243,7 +265,12 @@ func (params *UpdateInteractionChannelParticipantParams) SetStatus(Status string
 }
 
 // Update an existing Channel Participant.
-func (c *ApiService) UpdateInteractionChannelParticipant(InteractionSid string, ChannelSid string, Sid string, params *UpdateInteractionChannelParticipantParams) (*FlexV1InteractionChannelParticipant, error) {
+func (c *ApiService) UpdateInteractionChannelParticipant(
+	InteractionSid string,
+	ChannelSid string,
+	Sid string,
+	params *UpdateInteractionChannelParticipantParams,
+) (*FlexV1InteractionChannelParticipant, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)

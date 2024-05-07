@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListSimIpAddress'
@@ -41,7 +41,11 @@ func (params *ListSimIpAddressParams) SetLimit(Limit int) *ListSimIpAddressParam
 }
 
 // Retrieve a single page of SimIpAddress records from the API. Request is executed immediately.
-func (c *ApiService) PageSimIpAddress(SimSid string, params *ListSimIpAddressParams, pageToken, pageNumber string) (*ListSimIpAddressResponse, error) {
+func (c *ApiService) PageSimIpAddress(
+	SimSid string,
+	params *ListSimIpAddressParams,
+	pageToken, pageNumber string,
+) (*ListSimIpAddressResponse, error) {
 	path := "/v1/Sims/{SimSid}/IpAddresses"
 
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
@@ -92,7 +96,10 @@ func (c *ApiService) ListSimIpAddress(SimSid string, params *ListSimIpAddressPar
 }
 
 // Streams SimIpAddress records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSimIpAddress(SimSid string, params *ListSimIpAddressParams) (chan SupersimV1SimIpAddress, chan error) {
+func (c *ApiService) StreamSimIpAddress(
+	SimSid string,
+	params *ListSimIpAddressParams,
+) (chan SupersimV1SimIpAddress, chan error) {
 	if params == nil {
 		params = &ListSimIpAddressParams{}
 	}
@@ -113,7 +120,12 @@ func (c *ApiService) StreamSimIpAddress(SimSid string, params *ListSimIpAddressP
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSimIpAddress(response *ListSimIpAddressResponse, params *ListSimIpAddressParams, recordChannel chan SupersimV1SimIpAddress, errorChannel chan error) {
+func (c *ApiService) streamSimIpAddress(
+	response *ListSimIpAddressResponse,
+	params *ListSimIpAddressParams,
+	recordChannel chan SupersimV1SimIpAddress,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

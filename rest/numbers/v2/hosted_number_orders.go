@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateHostedNumberOrder'
@@ -286,7 +286,10 @@ func (params *ListHostedNumberOrderParams) SetLimit(Limit int) *ListHostedNumber
 }
 
 // Retrieve a single page of HostedNumberOrder records from the API. Request is executed immediately.
-func (c *ApiService) PageHostedNumberOrder(params *ListHostedNumberOrderParams, pageToken, pageNumber string) (*ListHostedNumberOrderResponse, error) {
+func (c *ApiService) PageHostedNumberOrder(
+	params *ListHostedNumberOrderParams,
+	pageToken, pageNumber string,
+) (*ListHostedNumberOrderResponse, error) {
 	path := "/v2/HostedNumber/Orders"
 
 	data := url.Values{}
@@ -371,7 +374,12 @@ func (c *ApiService) StreamHostedNumberOrder(params *ListHostedNumberOrderParams
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamHostedNumberOrder(response *ListHostedNumberOrderResponse, params *ListHostedNumberOrderParams, recordChannel chan NumbersV2HostedNumberOrder, errorChannel chan error) {
+func (c *ApiService) streamHostedNumberOrder(
+	response *ListHostedNumberOrderResponse,
+	params *ListHostedNumberOrderParams,
+	recordChannel chan NumbersV2HostedNumberOrder,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

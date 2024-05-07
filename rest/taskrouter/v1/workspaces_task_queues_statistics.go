@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'FetchTaskQueueStatistics'
@@ -60,7 +60,11 @@ func (params *FetchTaskQueueStatisticsParams) SetSplitByWaitTime(SplitByWaitTime
 }
 
 //
-func (c *ApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueStatisticsParams) (*TaskrouterV1TaskQueueStatistics, error) {
+func (c *ApiService) FetchTaskQueueStatistics(
+	WorkspaceSid string,
+	TaskQueueSid string,
+	params *FetchTaskQueueStatisticsParams,
+) (*TaskrouterV1TaskQueueStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
@@ -153,7 +157,11 @@ func (params *ListTaskQueuesStatisticsParams) SetLimit(Limit int) *ListTaskQueue
 }
 
 // Retrieve a single page of TaskQueuesStatistics records from the API. Request is executed immediately.
-func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken, pageNumber string) (*ListTaskQueuesStatisticsResponse, error) {
+func (c *ApiService) PageTaskQueuesStatistics(
+	WorkspaceSid string,
+	params *ListTaskQueuesStatisticsParams,
+	pageToken, pageNumber string,
+) (*ListTaskQueuesStatisticsResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -206,7 +214,10 @@ func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListT
 }
 
 // Lists TaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) ([]TaskrouterV1TaskQueuesStatistics, error) {
+func (c *ApiService) ListTaskQueuesStatistics(
+	WorkspaceSid string,
+	params *ListTaskQueuesStatisticsParams,
+) ([]TaskrouterV1TaskQueuesStatistics, error) {
 	response, errors := c.StreamTaskQueuesStatistics(WorkspaceSid, params)
 
 	records := make([]TaskrouterV1TaskQueuesStatistics, 0)
@@ -222,7 +233,10 @@ func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListT
 }
 
 // Streams TaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (chan TaskrouterV1TaskQueuesStatistics, chan error) {
+func (c *ApiService) StreamTaskQueuesStatistics(
+	WorkspaceSid string,
+	params *ListTaskQueuesStatisticsParams,
+) (chan TaskrouterV1TaskQueuesStatistics, chan error) {
 	if params == nil {
 		params = &ListTaskQueuesStatisticsParams{}
 	}
@@ -243,7 +257,12 @@ func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *Lis
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTaskQueuesStatistics(response *ListTaskQueuesStatisticsResponse, params *ListTaskQueuesStatisticsParams, recordChannel chan TaskrouterV1TaskQueuesStatistics, errorChannel chan error) {
+func (c *ApiService) streamTaskQueuesStatistics(
+	response *ListTaskQueuesStatisticsResponse,
+	params *ListTaskQueuesStatisticsParams,
+	recordChannel chan TaskrouterV1TaskQueuesStatistics,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {

@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCustomerProfile'
@@ -164,7 +164,10 @@ func (params *ListCustomerProfileParams) SetLimit(Limit int) *ListCustomerProfil
 }
 
 // Retrieve a single page of CustomerProfile records from the API. Request is executed immediately.
-func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, pageToken, pageNumber string) (*ListCustomerProfileResponse, error) {
+func (c *ApiService) PageCustomerProfile(
+	params *ListCustomerProfileParams,
+	pageToken, pageNumber string,
+) (*ListCustomerProfileResponse, error) {
 	path := "/v1/CustomerProfiles"
 
 	data := url.Values{}
@@ -243,7 +246,12 @@ func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams) (c
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCustomerProfile(response *ListCustomerProfileResponse, params *ListCustomerProfileParams, recordChannel chan TrusthubV1CustomerProfile, errorChannel chan error) {
+func (c *ApiService) streamCustomerProfile(
+	response *ListCustomerProfileResponse,
+	params *ListCustomerProfileParams,
+	recordChannel chan TrusthubV1CustomerProfile,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -321,7 +329,10 @@ func (params *UpdateCustomerProfileParams) SetEmail(Email string) *UpdateCustome
 }
 
 // Updates a Customer-Profile in an account.
-func (c *ApiService) UpdateCustomerProfile(Sid string, params *UpdateCustomerProfileParams) (*TrusthubV1CustomerProfile, error) {
+func (c *ApiService) UpdateCustomerProfile(
+	Sid string,
+	params *UpdateCustomerProfileParams,
+) (*TrusthubV1CustomerProfile, error) {
 	path := "/v1/CustomerProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
