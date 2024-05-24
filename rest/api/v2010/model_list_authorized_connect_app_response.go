@@ -16,6 +16,7 @@ package openapi
 
 // ListAuthorizedConnectAppResponse struct for ListAuthorizedConnectAppResponse
 type ListAuthorizedConnectAppResponse struct {
+	AuthorizedConnectApps []ApiV2010AuthorizedConnectApp `json:"authorized_connect_apps,omitempty"`
 	End                   int                            `json:"end,omitempty"`
 	FirstPageUri          string                         `json:"first_page_uri,omitempty"`
 	NextPageUri           *string                        `json:"next_page_uri,omitempty"`
@@ -24,5 +25,4 @@ type ListAuthorizedConnectAppResponse struct {
 	PreviousPageUri       *string                        `json:"previous_page_uri,omitempty"`
 	Start                 int                            `json:"start,omitempty"`
 	Uri                   string                         `json:"uri,omitempty"`
-	AuthorizedConnectApps []ApiV2010AuthorizedConnectApp `json:"authorized_connect_apps,omitempty"`
 }

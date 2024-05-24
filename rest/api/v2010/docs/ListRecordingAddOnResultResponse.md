@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AddOnResults** | [**[]ApiV2010RecordingAddOnResult**](ApiV2010RecordingAddOnResult.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | Pointer to **string** |  |
@@ -12,7 +13,6 @@ Name | Type | Description | Notes
 **PreviousPageUri** | Pointer to **string** |  |
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
-**AddOnResults** | [**[]ApiV2010RecordingAddOnResult**](ApiV2010RecordingAddOnResult.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

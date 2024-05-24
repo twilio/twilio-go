@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"encoding/json"
 	"net/url"
 	"strings"
 )
@@ -36,4 +37,28 @@ func (c *ApiService) DeletePortingPortInPhoneNumber(PortInRequestSid string, Pho
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// Fetch a phone number by port in request SID and phone number SID
+func (c *ApiService) FetchPortingPortInPhoneNumber(PortInRequestSid string, PhoneNumberSid string) (*NumbersV1PortingPortInPhoneNumber, error) {
+	path := "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}"
+	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
+	path = strings.Replace(path, "{"+"PhoneNumberSid"+"}", PhoneNumberSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1PortingPortInPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }

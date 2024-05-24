@@ -32,10 +32,11 @@ type FlexV1PluginVersion struct {
 	PluginUrl *string `json:"plugin_url,omitempty"`
 	// A changelog that describes the changes this Flex Plugin Version brings.
 	Changelog *string `json:"changelog,omitempty"`
-	// Whether to inject credentials while accessing this Plugin Version. The default value is false.
+	// Whether the Flex Plugin Version is validated. The default value is false.
 	Private *bool `json:"private,omitempty"`
 	// Whether the Flex Plugin Version is archived. The default value is false.
-	Archived *bool `json:"archived,omitempty"`
+	Archived  *bool `json:"archived,omitempty"`
+	Validated *bool `json:"validated,omitempty"`
 	// The date and time in GMT when the Flex Plugin Version was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The absolute URL of the Flex Plugin Version resource.

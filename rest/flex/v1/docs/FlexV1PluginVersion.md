@@ -10,8 +10,9 @@ Name | Type | Description | Notes
 **Version** | Pointer to **string** | The unique version of this Flex Plugin Version. |
 **PluginUrl** | Pointer to **string** | The URL of where the Flex Plugin Version JavaScript bundle is hosted on. |
 **Changelog** | Pointer to **string** | A changelog that describes the changes this Flex Plugin Version brings. |
-**Private** | Pointer to **bool** | Whether to inject credentials while accessing this Plugin Version. The default value is false. |
+**Private** | Pointer to **bool** | Whether the Flex Plugin Version is validated. The default value is false. |
 **Archived** | Pointer to **bool** | Whether the Flex Plugin Version is archived. The default value is false. |
+**Validated** | Pointer to **bool** |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the Flex Plugin Version was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **Url** | Pointer to **string** | The absolute URL of the Flex Plugin Version resource. |
 

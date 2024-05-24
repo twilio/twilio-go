@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource. |
 **To** | Pointer to **string** | The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). |
 **Channel** | Pointer to [**string**](VerificationEnumChannel.md) |  |
-**Status** | Pointer to **string** | The status of the verification. One of: `pending`, `approved`, or `canceled` |
+**Status** | Pointer to **string** | The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`. |
 **Valid** | Pointer to **bool** | Use \"status\" instead. Legacy property indicating whether the verification was successful. |
 **Lookup** | Pointer to **interface{}** | Information about the phone number being verified. |
 **Amount** | Pointer to **string** | The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled. |

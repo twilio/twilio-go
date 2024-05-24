@@ -63,6 +63,8 @@ type CreateComplianceTollfreeInquiryParams struct {
 	BusinessContactEmail *string `json:"BusinessContactEmail,omitempty"`
 	// The phone number of the contact for the business or organization using the Tollfree number.
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
+	// Theme id for styling the inquiry form.
+	ThemeSetId *string `json:"ThemeSetId,omitempty"`
 }
 
 func (params *CreateComplianceTollfreeInquiryParams) SetTollfreePhoneNumber(TollfreePhoneNumber string) *CreateComplianceTollfreeInquiryParams {
@@ -149,6 +151,10 @@ func (params *CreateComplianceTollfreeInquiryParams) SetBusinessContactPhone(Bus
 	params.BusinessContactPhone = &BusinessContactPhone
 	return params
 }
+func (params *CreateComplianceTollfreeInquiryParams) SetThemeSetId(ThemeSetId string) *CreateComplianceTollfreeInquiryParams {
+	params.ThemeSetId = &ThemeSetId
+	return params
+}
 
 // Create a new Compliance Tollfree Verification Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTollfreeInquiryParams) (*TrusthubV1ComplianceTollfreeInquiry, error) {
@@ -223,6 +229,9 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 	}
 	if params != nil && params.BusinessContactPhone != nil {
 		data.Set("BusinessContactPhone", *params.BusinessContactPhone)
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

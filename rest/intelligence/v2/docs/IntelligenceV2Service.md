@@ -12,12 +12,13 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this Service was created, given in ISO 8601 format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this Service was updated, given in ISO 8601 format. |
 **FriendlyName** | Pointer to **string** | A human readable description of this resource, up to 64 characters. |
-**LanguageCode** | Pointer to **string** | The default language code of the audio. |
+**LanguageCode** | Pointer to **string** | The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it's set. |
 **Sid** | Pointer to **string** | A 34 character string that uniquely identifies this Service. |
 **UniqueName** | Pointer to **string** | Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID. |
 **Url** | Pointer to **string** | The URL of this resource. |
 **WebhookUrl** | Pointer to **string** | The URL Twilio will request when executing the Webhook. |
 **WebhookHttpMethod** | Pointer to [**string**](ServiceEnumHttpMethod.md) |  |
+**ReadOnlyAttachedOperatorSids** | Pointer to **[]string** | Operator sids attached to this service, read only |
 **Version** | Pointer to **int** | The version number of this Service. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

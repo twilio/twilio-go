@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ConnectApps** | [**[]ApiV2010ConnectApp**](ApiV2010ConnectApp.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | Pointer to **string** |  |
@@ -12,7 +13,6 @@ Name | Type | Description | Notes
 **PreviousPageUri** | Pointer to **string** |  |
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
-**ConnectApps** | [**[]ApiV2010ConnectApp**](ApiV2010ConnectApp.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

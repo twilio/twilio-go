@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreatePortingPortIn**](PortingPortInApi.md#CreatePortingPortIn) | **Post** /v1/Porting/PortIn | 
 [**DeletePortingPortIn**](PortingPortInApi.md#DeletePortingPortIn) | **Delete** /v1/Porting/PortIn/{PortInRequestSid} | 
-[**FetchPortingPortInFetch**](PortingPortInApi.md#FetchPortingPortInFetch) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | 
+[**FetchPortingPortIn**](PortingPortInApi.md#FetchPortingPortIn) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | 
 
 
 
@@ -91,9 +91,9 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## FetchPortingPortInFetch
+## FetchPortingPortIn
 
-> NumbersV1PortingPortInFetch FetchPortingPortInFetch(ctx, PortInRequestSid)
+> NumbersV1PortingPortIn FetchPortingPortIn(ctx, PortInRequestSid)
 
 
 
@@ -109,7 +109,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchPortingPortInFetchParams struct
+Other parameters are passed through a pointer to a FetchPortingPortInParams struct
 
 
 Name | Type | Description
@@ -117,7 +117,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV1PortingPortInFetch**](NumbersV1PortingPortInFetch.md)
+[**NumbersV1PortingPortIn**](NumbersV1PortingPortIn.md)
 
 ### Authorization
 

@@ -17,5 +17,5 @@ package openapi
 // ListTranscriptResponse struct for ListTranscriptResponse
 type ListTranscriptResponse struct {
 	Transcripts []IntelligenceV2Transcript     `json:"transcripts,omitempty"`
-	Meta        ListOperatorResultResponseMeta `json:"meta,omitempty"`
+	Meta        ListCustomOperatorResponseMeta `json:"meta,omitempty"`
 }

@@ -27,7 +27,6 @@ Name | Type | Description | Notes
 **Usecase** | Pointer to **string** | A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`. |
 **UsAppToPersonRegistered** | Pointer to **bool** | Whether US A2P campaign is registered for this Service. |
 **UseInboundWebhookOnNumber** | Pointer to **bool** | A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service. |
-**SendingWindows** | Pointer to **interface{}** | A list of Sending Windows, which indicate defined time ranges in which a message can be sent, in the UTC time zone. Each window is defined by two strings, labeled \"start_time\" and \"end_time\". |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

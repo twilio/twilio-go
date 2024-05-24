@@ -33,7 +33,7 @@ type CreateServiceParams struct {
 	DataLogging *bool `json:"DataLogging,omitempty"`
 	// A human readable description of this resource, up to 64 characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The default language code of the audio.
+	// The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it's set.
 	LanguageCode *string `json:"LanguageCode,omitempty"`
 	// Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
 	AutoRedaction *bool `json:"AutoRedaction,omitempty"`
@@ -319,8 +319,6 @@ type UpdateServiceParams struct {
 	DataLogging *bool `json:"DataLogging,omitempty"`
 	// A human readable description of this resource, up to 64 characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The default language code of the audio.
-	LanguageCode *string `json:"LanguageCode,omitempty"`
 	// Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
 	UniqueName *string `json:"UniqueName,omitempty"`
 	// Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
@@ -347,10 +345,6 @@ func (params *UpdateServiceParams) SetDataLogging(DataLogging bool) *UpdateServi
 }
 func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateServiceParams {
 	params.FriendlyName = &FriendlyName
-	return params
-}
-func (params *UpdateServiceParams) SetLanguageCode(LanguageCode string) *UpdateServiceParams {
-	params.LanguageCode = &LanguageCode
 	return params
 }
 func (params *UpdateServiceParams) SetUniqueName(UniqueName string) *UpdateServiceParams {
@@ -390,9 +384,6 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*In
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.LanguageCode != nil {
-		data.Set("LanguageCode", *params.LanguageCode)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
