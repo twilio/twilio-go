@@ -23,6 +23,7 @@ import (
 	ChatV2 "github.com/ghostmonitor/twilio-go/rest/chat/v2"
 	ChatV3 "github.com/ghostmonitor/twilio-go/rest/chat/v3"
 	ContentV1 "github.com/ghostmonitor/twilio-go/rest/content/v1"
+	ContentV2 "github.com/ghostmonitor/twilio-go/rest/content/v2"
 	ConversationsV1 "github.com/ghostmonitor/twilio-go/rest/conversations/v1"
 	EventsV1 "github.com/ghostmonitor/twilio-go/rest/events/v1"
 	FlexV1 "github.com/ghostmonitor/twilio-go/rest/flex/v1"
@@ -41,7 +42,6 @@ import (
 	NumbersV1 "github.com/ghostmonitor/twilio-go/rest/numbers/v1"
 	NumbersV2 "github.com/ghostmonitor/twilio-go/rest/numbers/v2"
 	OauthV1 "github.com/ghostmonitor/twilio-go/rest/oauth/v1"
-	PreviewMessagingV1 "github.com/ghostmonitor/twilio-go/rest/preview_messaging/v1"
 	PricingV1 "github.com/ghostmonitor/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/ghostmonitor/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/ghostmonitor/twilio-go/rest/proxy/v1"
@@ -63,48 +63,48 @@ import (
 // RestClient provides access to Twilio services.
 type RestClient struct {
 	*client.RequestHandler
-	AccountsV1         *AccountsV1.ApiService
-	Api                *Api.ApiService
-	BulkexportsV1      *BulkexportsV1.ApiService
-	ChatV1             *ChatV1.ApiService
-	ChatV2             *ChatV2.ApiService
-	ChatV3             *ChatV3.ApiService
-	ContentV1          *ContentV1.ApiService
-	ConversationsV1    *ConversationsV1.ApiService
-	EventsV1           *EventsV1.ApiService
-	FlexV1             *FlexV1.ApiService
-	FlexV2             *FlexV2.ApiService
-	FrontlineV1        *FrontlineV1.ApiService
-	InsightsV1         *InsightsV1.ApiService
-	IntelligenceV2     *IntelligenceV2.ApiService
-	IpMessagingV1      *IpMessagingV1.ApiService
-	IpMessagingV2      *IpMessagingV2.ApiService
-	LookupsV1          *LookupsV1.ApiService
-	LookupsV2          *LookupsV2.ApiService
-	PreviewMessagingV1 *PreviewMessagingV1.ApiService
-	MessagingV1        *MessagingV1.ApiService
-	MicrovisorV1       *MicrovisorV1.ApiService
-	MonitorV1          *MonitorV1.ApiService
-	NotifyV1           *NotifyV1.ApiService
-	NumbersV1          *NumbersV1.ApiService
-	NumbersV2          *NumbersV2.ApiService
-	OauthV1            *OauthV1.ApiService
-	PricingV1          *PricingV1.ApiService
-	PricingV2          *PricingV2.ApiService
-	ProxyV1            *ProxyV1.ApiService
-	RoutesV2           *RoutesV2.ApiService
-	ServerlessV1       *ServerlessV1.ApiService
-	StudioV1           *StudioV1.ApiService
-	StudioV2           *StudioV2.ApiService
-	SupersimV1         *SupersimV1.ApiService
-	SyncV1             *SyncV1.ApiService
-	TaskrouterV1       *TaskrouterV1.ApiService
-	TrunkingV1         *TrunkingV1.ApiService
-	TrusthubV1         *TrusthubV1.ApiService
-	VerifyV2           *VerifyV2.ApiService
-	VideoV1            *VideoV1.ApiService
-	VoiceV1            *VoiceV1.ApiService
-	WirelessV1         *WirelessV1.ApiService
+	AccountsV1      *AccountsV1.ApiService
+	Api             *Api.ApiService
+	BulkexportsV1   *BulkexportsV1.ApiService
+	ChatV1          *ChatV1.ApiService
+	ChatV2          *ChatV2.ApiService
+	ChatV3          *ChatV3.ApiService
+	ContentV1       *ContentV1.ApiService
+	ContentV2       *ContentV2.ApiService
+	ConversationsV1 *ConversationsV1.ApiService
+	EventsV1        *EventsV1.ApiService
+	FlexV1          *FlexV1.ApiService
+	FlexV2          *FlexV2.ApiService
+	FrontlineV1     *FrontlineV1.ApiService
+	InsightsV1      *InsightsV1.ApiService
+	IntelligenceV2  *IntelligenceV2.ApiService
+	IpMessagingV1   *IpMessagingV1.ApiService
+	IpMessagingV2   *IpMessagingV2.ApiService
+	LookupsV1       *LookupsV1.ApiService
+	LookupsV2       *LookupsV2.ApiService
+	MessagingV1     *MessagingV1.ApiService
+	MicrovisorV1    *MicrovisorV1.ApiService
+	MonitorV1       *MonitorV1.ApiService
+	NotifyV1        *NotifyV1.ApiService
+	NumbersV1       *NumbersV1.ApiService
+	NumbersV2       *NumbersV2.ApiService
+	OauthV1         *OauthV1.ApiService
+	PricingV1       *PricingV1.ApiService
+	PricingV2       *PricingV2.ApiService
+	ProxyV1         *ProxyV1.ApiService
+	RoutesV2        *RoutesV2.ApiService
+	ServerlessV1    *ServerlessV1.ApiService
+	StudioV1        *StudioV1.ApiService
+	StudioV2        *StudioV2.ApiService
+	SupersimV1      *SupersimV1.ApiService
+	SyncV1          *SyncV1.ApiService
+	TaskrouterV1    *TaskrouterV1.ApiService
+	TrunkingV1      *TrunkingV1.ApiService
+	TrusthubV1      *TrusthubV1.ApiService
+	VerifyV2        *VerifyV2.ApiService
+	VideoV1         *VideoV1.ApiService
+	VoiceV1         *VoiceV1.ApiService
+	WirelessV1      *WirelessV1.ApiService
 }
 
 // Meta holds relevant pagination resources.

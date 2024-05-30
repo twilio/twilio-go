@@ -43,4 +43,6 @@ type TrusthubV1CustomerProfile struct {
 	Url *string `json:"url,omitempty"`
 	// The URLs of the Assigned Items of the Customer-Profile resource.
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// The error codes associated with the rejection of the Customer-Profile.
+	Errors *[]interface{} `json:"errors,omitempty"`
 }

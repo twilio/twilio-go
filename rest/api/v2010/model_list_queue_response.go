@@ -16,6 +16,7 @@ package openapi
 
 // ListQueueResponse struct for ListQueueResponse
 type ListQueueResponse struct {
+	Queues          []ApiV2010Queue `json:"queues,omitempty"`
 	End             int             `json:"end,omitempty"`
 	FirstPageUri    string          `json:"first_page_uri,omitempty"`
 	NextPageUri     *string         `json:"next_page_uri,omitempty"`
@@ -24,5 +25,4 @@ type ListQueueResponse struct {
 	PreviousPageUri *string         `json:"previous_page_uri,omitempty"`
 	Start           int             `json:"start,omitempty"`
 	Uri             string          `json:"uri,omitempty"`
-	Queues          []ApiV2010Queue `json:"queues,omitempty"`
 }

@@ -38,6 +38,12 @@ type CreateTaskParams struct {
 	Attributes *string `json:"Attributes,omitempty"`
 	// The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future.
 	VirtualStartTime *time.Time `json:"VirtualStartTime,omitempty"`
+	// A SID of a Worker, Queue, or Workflow to route a Task to
+	RoutingTarget *string `json:"RoutingTarget,omitempty"`
+	// A boolean indicating if a new task should respect a worker's capacity during assignment
+	IgnoreCapacity *string `json:"IgnoreCapacity,omitempty"`
+	// The SID of the TaskQueue in which the Task belongs
+	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
 }
 
 func (params *CreateTaskParams) SetTimeout(Timeout int) *CreateTaskParams {
@@ -62,6 +68,18 @@ func (params *CreateTaskParams) SetAttributes(Attributes string) *CreateTaskPara
 }
 func (params *CreateTaskParams) SetVirtualStartTime(VirtualStartTime time.Time) *CreateTaskParams {
 	params.VirtualStartTime = &VirtualStartTime
+	return params
+}
+func (params *CreateTaskParams) SetRoutingTarget(RoutingTarget string) *CreateTaskParams {
+	params.RoutingTarget = &RoutingTarget
+	return params
+}
+func (params *CreateTaskParams) SetIgnoreCapacity(IgnoreCapacity string) *CreateTaskParams {
+	params.IgnoreCapacity = &IgnoreCapacity
+	return params
+}
+func (params *CreateTaskParams) SetTaskQueueSid(TaskQueueSid string) *CreateTaskParams {
+	params.TaskQueueSid = &TaskQueueSid
 	return params
 }
 
@@ -90,6 +108,15 @@ func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (
 	}
 	if params != nil && params.VirtualStartTime != nil {
 		data.Set("VirtualStartTime", fmt.Sprint((*params.VirtualStartTime).Format(time.RFC3339)))
+	}
+	if params != nil && params.RoutingTarget != nil {
+		data.Set("RoutingTarget", *params.RoutingTarget)
+	}
+	if params != nil && params.IgnoreCapacity != nil {
+		data.Set("IgnoreCapacity", *params.IgnoreCapacity)
+	}
+	if params != nil && params.TaskQueueSid != nil {
+		data.Set("TaskQueueSid", *params.TaskQueueSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -180,6 +207,8 @@ type ListTaskParams struct {
 	TaskQueueName *string `json:"TaskQueueName,omitempty"`
 	// The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
 	EvaluateTaskAttributes *string `json:"EvaluateTaskAttributes,omitempty"`
+	// A SID of a Worker, Queue, or Workflow to route a Task to
+	RoutingTarget *string `json:"RoutingTarget,omitempty"`
 	// How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
 	Ordering *string `json:"Ordering,omitempty"`
 	// Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
@@ -216,6 +245,10 @@ func (params *ListTaskParams) SetTaskQueueName(TaskQueueName string) *ListTaskPa
 }
 func (params *ListTaskParams) SetEvaluateTaskAttributes(EvaluateTaskAttributes string) *ListTaskParams {
 	params.EvaluateTaskAttributes = &EvaluateTaskAttributes
+	return params
+}
+func (params *ListTaskParams) SetRoutingTarget(RoutingTarget string) *ListTaskParams {
+	params.RoutingTarget = &RoutingTarget
 	return params
 }
 func (params *ListTaskParams) SetOrdering(Ordering string) *ListTaskParams {
@@ -270,6 +303,9 @@ func (c *ApiService) PageTask(
 	}
 	if params != nil && params.EvaluateTaskAttributes != nil {
 		data.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes)
+	}
+	if params != nil && params.RoutingTarget != nil {
+		data.Set("RoutingTarget", *params.RoutingTarget)
 	}
 	if params != nil && params.Ordering != nil {
 		data.Set("Ordering", *params.Ordering)

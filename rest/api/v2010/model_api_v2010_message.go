@@ -38,7 +38,7 @@ type ApiV2010Message struct {
 	// The number of media files associated with the Message resource.
 	NumMedia *string `json:"num_media,omitempty"`
 	Status   *string `json:"status,omitempty"`
-	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) associated with the Message resource. The value is `null` if a Messaging Service was not used.
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) associated with the Message resource. A unique default value is assigned if a Messaging Service is not used.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// The unique, Twilio-provided string that identifies the Message resource.
 	Sid *string `json:"sid,omitempty"`

@@ -31,11 +31,25 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*OperatorTypesApi* | [**FetchOperatorType**](docs/OperatorTypesApi.md#fetchoperatortype) | **Get** /v2/OperatorTypes/{Sid} | 
+*OperatorTypesApi* | [**ListOperatorType**](docs/OperatorTypesApi.md#listoperatortype) | **Get** /v2/OperatorTypes | 
+*OperatorsApi* | [**FetchOperator**](docs/OperatorsApi.md#fetchoperator) | **Get** /v2/Operators/{Sid} | 
+*OperatorsApi* | [**ListOperator**](docs/OperatorsApi.md#listoperator) | **Get** /v2/Operators | 
+*OperatorsCustomApi* | [**CreateCustomOperator**](docs/OperatorsCustomApi.md#createcustomoperator) | **Post** /v2/Operators/Custom | 
+*OperatorsCustomApi* | [**DeleteCustomOperator**](docs/OperatorsCustomApi.md#deletecustomoperator) | **Delete** /v2/Operators/Custom/{Sid} | 
+*OperatorsCustomApi* | [**FetchCustomOperator**](docs/OperatorsCustomApi.md#fetchcustomoperator) | **Get** /v2/Operators/Custom/{Sid} | 
+*OperatorsCustomApi* | [**ListCustomOperator**](docs/OperatorsCustomApi.md#listcustomoperator) | **Get** /v2/Operators/Custom | 
+*OperatorsCustomApi* | [**UpdateCustomOperator**](docs/OperatorsCustomApi.md#updatecustomoperator) | **Post** /v2/Operators/Custom/{Sid} | 
+*OperatorsPreBuiltApi* | [**FetchPrebuiltOperator**](docs/OperatorsPreBuiltApi.md#fetchprebuiltoperator) | **Get** /v2/Operators/PreBuilt/{Sid} | 
+*OperatorsPreBuiltApi* | [**ListPrebuiltOperator**](docs/OperatorsPreBuiltApi.md#listprebuiltoperator) | **Get** /v2/Operators/PreBuilt | 
 *ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v2/Services | 
 *ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v2/Services/{Sid} | 
 *ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v2/Services/{Sid} | 
 *ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v2/Services | 
 *ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v2/Services/{Sid} | 
+*ServicesOperatorsApi* | [**CreateOperatorAttachment**](docs/ServicesOperatorsApi.md#createoperatorattachment) | **Post** /v2/Services/{ServiceSid}/Operators/{OperatorSid} | 
+*ServicesOperatorsApi* | [**DeleteOperatorAttachment**](docs/ServicesOperatorsApi.md#deleteoperatorattachment) | **Delete** /v2/Services/{ServiceSid}/Operators/{OperatorSid} | 
+*ServicesOperatorsApi* | [**FetchOperatorAttachments**](docs/ServicesOperatorsApi.md#fetchoperatorattachments) | **Get** /v2/Services/{ServiceSid}/Operators | 
 *TranscriptsApi* | [**CreateTranscript**](docs/TranscriptsApi.md#createtranscript) | **Post** /v2/Transcripts | 
 *TranscriptsApi* | [**DeleteTranscript**](docs/TranscriptsApi.md#deletetranscript) | **Delete** /v2/Transcripts/{Sid} | 
 *TranscriptsApi* | [**FetchTranscript**](docs/TranscriptsApi.md#fetchtranscript) | **Get** /v2/Transcripts/{Sid} | 
@@ -48,16 +62,26 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [ListOperatorResultResponseMeta](docs/ListOperatorResultResponseMeta.md)
+ - [ListCustomOperatorResponse](docs/ListCustomOperatorResponse.md)
+ - [IntelligenceV2OperatorAttachments](docs/IntelligenceV2OperatorAttachments.md)
+ - [IntelligenceV2OperatorAttachment](docs/IntelligenceV2OperatorAttachment.md)
  - [IntelligenceV2Transcript](docs/IntelligenceV2Transcript.md)
- - [IntelligenceV2OperatorResult](docs/IntelligenceV2OperatorResult.md)
  - [ListTranscriptResponse](docs/ListTranscriptResponse.md)
- - [IntelligenceV2Service](docs/IntelligenceV2Service.md)
  - [IntelligenceV2Sentence](docs/IntelligenceV2Sentence.md)
  - [ListSentenceResponse](docs/ListSentenceResponse.md)
- - [IntelligenceV2Media](docs/IntelligenceV2Media.md)
- - [ListOperatorResultResponse](docs/ListOperatorResultResponse.md)
+ - [IntelligenceV2Operator](docs/IntelligenceV2Operator.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
+ - [IntelligenceV2CustomOperator](docs/IntelligenceV2CustomOperator.md)
+ - [ListOperatorTypeResponse](docs/ListOperatorTypeResponse.md)
+ - [IntelligenceV2PrebuiltOperator](docs/IntelligenceV2PrebuiltOperator.md)
+ - [IntelligenceV2OperatorResult](docs/IntelligenceV2OperatorResult.md)
+ - [IntelligenceV2OperatorType](docs/IntelligenceV2OperatorType.md)
+ - [ListCustomOperatorResponseMeta](docs/ListCustomOperatorResponseMeta.md)
+ - [IntelligenceV2Service](docs/IntelligenceV2Service.md)
+ - [ListOperatorResultResponse](docs/ListOperatorResultResponse.md)
+ - [IntelligenceV2Media](docs/IntelligenceV2Media.md)
+ - [ListOperatorResponse](docs/ListOperatorResponse.md)
+ - [ListPrebuiltOperatorResponse](docs/ListPrebuiltOperatorResponse.md)
 
 
 ## Documentation For Authorization

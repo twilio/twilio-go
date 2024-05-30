@@ -34,23 +34,26 @@ Class | Method | HTTP request | Description
 *HostedNumberEligibilityApi* | [**CreateEligibility**](docs/HostedNumberEligibilityApi.md#createeligibility) | **Post** /v1/HostedNumber/Eligibility | 
 *HostedNumberEligibilityBulkApi* | [**CreateBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#createbulkeligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | 
 *HostedNumberEligibilityBulkApi* | [**FetchBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#fetchbulkeligibility) | **Get** /v1/HostedNumber/Eligibility/Bulk/{RequestId} | 
+*PortingConfigurationWebhookApi* | [**CreatePortingWebhookConfiguration**](docs/PortingConfigurationWebhookApi.md#createportingwebhookconfiguration) | **Post** /v1/Porting/Configuration/Webhook | 
+*PortingConfigurationWebhookApi* | [**DeletePortingWebhookConfigurationDelete**](docs/PortingConfigurationWebhookApi.md#deleteportingwebhookconfigurationdelete) | **Delete** /v1/Porting/Configuration/Webhook/{WebhookType} | 
+*PortingConfigurationWebhookApi* | [**FetchPortingWebhookConfigurationFetch**](docs/PortingConfigurationWebhookApi.md#fetchportingwebhookconfigurationfetch) | **Get** /v1/Porting/Configuration/Webhook | 
 *PortingPortInApi* | [**CreatePortingPortIn**](docs/PortingPortInApi.md#createportingportin) | **Post** /v1/Porting/PortIn | 
 *PortingPortInApi* | [**DeletePortingPortIn**](docs/PortingPortInApi.md#deleteportingportin) | **Delete** /v1/Porting/PortIn/{PortInRequestSid} | 
-*PortingPortInApi* | [**FetchPortingPortInFetch**](docs/PortingPortInApi.md#fetchportingportinfetch) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | 
+*PortingPortInApi* | [**FetchPortingPortIn**](docs/PortingPortInApi.md#fetchportingportin) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | 
 *PortingPortInPhoneNumberApi* | [**DeletePortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#deleteportingportinphonenumber) | **Delete** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | 
-*PortingPortabilityApi* | [**CreatePortingBulkPortability**](docs/PortingPortabilityApi.md#createportingbulkportability) | **Post** /v1/Porting/Portability | 
-*PortingPortabilityApi* | [**FetchPortingBulkPortability**](docs/PortingPortabilityApi.md#fetchportingbulkportability) | **Get** /v1/Porting/Portability/{Sid} | 
+*PortingPortInPhoneNumberApi* | [**FetchPortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#fetchportingportinphonenumber) | **Get** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | 
 *PortingPortabilityPhoneNumberApi* | [**FetchPortingPortability**](docs/PortingPortabilityPhoneNumberApi.md#fetchportingportability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | 
 
 
 ## Documentation For Models
 
  - [NumbersV1PortingPortability](docs/NumbersV1PortingPortability.md)
+ - [NumbersV1PortingWebhookConfiguration](docs/NumbersV1PortingWebhookConfiguration.md)
  - [NumbersV1BulkEligibility](docs/NumbersV1BulkEligibility.md)
- - [NumbersV1PortingPortInFetch](docs/NumbersV1PortingPortInFetch.md)
  - [NumbersV1Eligibility](docs/NumbersV1Eligibility.md)
  - [NumbersV1PortingPortInPhoneNumber](docs/NumbersV1PortingPortInPhoneNumber.md)
- - [NumbersV1PortingBulkPortability](docs/NumbersV1PortingBulkPortability.md)
+ - [NumbersV1PortingWebhookConfigurationDelete](docs/NumbersV1PortingWebhookConfigurationDelete.md)
+ - [NumbersV1PortingWebhookConfigurationFetch](docs/NumbersV1PortingWebhookConfigurationFetch.md)
  - [NumbersV1PortingPortIn](docs/NumbersV1PortingPortIn.md)
 
 

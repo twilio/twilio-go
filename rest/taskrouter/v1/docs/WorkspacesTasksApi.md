@@ -41,6 +41,9 @@ Name | Type | Description
 **WorkflowSid** | **string** | The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
 **Attributes** | **string** | A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
 **VirtualStartTime** | **time.Time** | The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future.
+**RoutingTarget** | **string** | A SID of a Worker, Queue, or Workflow to route a Task to
+**IgnoreCapacity** | **string** | A boolean indicating if a new task should respect a worker's capacity during assignment
+**TaskQueueSid** | **string** | The SID of the TaskQueue in which the Task belongs
 
 ### Return type
 
@@ -177,6 +180,7 @@ Name | Type | Description
 **TaskQueueSid** | **string** | The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
 **TaskQueueName** | **string** | The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
 **EvaluateTaskAttributes** | **string** | The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
+**RoutingTarget** | **string** | A SID of a Worker, Queue, or Workflow to route a Task to
 **Ordering** | **string** | How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
 **HasAddons** | **bool** | Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.

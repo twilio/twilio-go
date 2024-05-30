@@ -29,7 +29,7 @@ type VerifyV2VerificationCheck struct {
 	// The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 	To      *string `json:"to,omitempty"`
 	Channel *string `json:"channel,omitempty"`
-	// The status of the verification. Can be: `pending`, `approved`, or `canceled`.
+	// The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`.
 	Status *string `json:"status,omitempty"`
 	// Use \"status\" instead. Legacy property indicating whether the verification was successful.
 	Valid *bool `json:"valid,omitempty"`

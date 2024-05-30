@@ -14,6 +14,10 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // NumbersV1PortingPortInPhoneNumber struct for NumbersV1PortingPortInPhoneNumber
 type NumbersV1PortingPortInPhoneNumber struct {
 	// The SID of the Port In request. This is a unique identifier of the port in request.
@@ -21,4 +25,26 @@ type NumbersV1PortingPortInPhoneNumber struct {
 	// The SID of the Port In request phone number. This is a unique identifier of the phone number.
 	PhoneNumberSid *string `json:"phone_number_sid,omitempty"`
 	Url            *string `json:"url,omitempty"`
+	// The SID of the account that the phone number belongs to.
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The type of the phone number.
+	PhoneNumberType *string `json:"phone_number_type,omitempty"`
+	// The date when the phone number was created.
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The country of the phone number.
+	Country *string `json:"country,omitempty"`
+	// The phone number is missing required fields.
+	MissingRequiredFields *bool `json:"missing_required_fields,omitempty"`
+	// The timestamp when the status was last updated.
+	StatusLastTimeUpdatedTimestamp *time.Time `json:"status_last_time_updated_timestamp,omitempty"`
+	// The phone number.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+	// The phone number is portable.
+	Portable *bool `json:"portable,omitempty"`
+	// The reason why the phone number is not portable.
+	NotPortabilityReason *string `json:"not_portability_reason,omitempty"`
+	// The code of the reason why the phone number is not portable.
+	NotPortabilityReasonCode *string `json:"not_portability_reason_code,omitempty"`
+	// The status of the phone number in the port in request.
+	PortInPhoneNumberStatus *string `json:"port_in_phone_number_status,omitempty"`
 }

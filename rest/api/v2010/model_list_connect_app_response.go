@@ -16,6 +16,7 @@ package openapi
 
 // ListConnectAppResponse struct for ListConnectAppResponse
 type ListConnectAppResponse struct {
+	ConnectApps     []ApiV2010ConnectApp `json:"connect_apps,omitempty"`
 	End             int                  `json:"end,omitempty"`
 	FirstPageUri    string               `json:"first_page_uri,omitempty"`
 	NextPageUri     *string              `json:"next_page_uri,omitempty"`
@@ -24,5 +25,4 @@ type ListConnectAppResponse struct {
 	PreviousPageUri *string              `json:"previous_page_uri,omitempty"`
 	Start           int                  `json:"start,omitempty"`
 	Uri             string               `json:"uri,omitempty"`
-	ConnectApps     []ApiV2010ConnectApp `json:"connect_apps,omitempty"`
 }

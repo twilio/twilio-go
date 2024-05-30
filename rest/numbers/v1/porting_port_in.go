@@ -83,7 +83,7 @@ func (c *ApiService) DeletePortingPortIn(PortInRequestSid string) error {
 }
 
 // Fetch a port in request by SID
-func (c *ApiService) FetchPortingPortInFetch(PortInRequestSid string) (*NumbersV1PortingPortInFetch, error) {
+func (c *ApiService) FetchPortingPortIn(PortInRequestSid string) (*NumbersV1PortingPortIn, error) {
 	path := "/v1/Porting/PortIn/{PortInRequestSid}"
 	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
 
@@ -97,7 +97,7 @@ func (c *ApiService) FetchPortingPortInFetch(PortInRequestSid string) (*NumbersV
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV1PortingPortInFetch{}
+	ps := &NumbersV1PortingPortIn{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
