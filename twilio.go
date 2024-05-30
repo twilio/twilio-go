@@ -175,7 +175,6 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.IpMessagingV2 = IpMessagingV2.NewApiService(c.RequestHandler)
 	c.LookupsV1 = LookupsV1.NewApiService(c.RequestHandler)
 	c.LookupsV2 = LookupsV2.NewApiService(c.RequestHandler)
-	c.PreviewMessagingV1 = PreviewMessagingV1.NewApiService(c.RequestHandler)
 	c.MessagingV1 = MessagingV1.NewApiService(c.RequestHandler)
 	c.MicrovisorV1 = MicrovisorV1.NewApiService(c.RequestHandler)
 	c.MonitorV1 = MonitorV1.NewApiService(c.RequestHandler)
