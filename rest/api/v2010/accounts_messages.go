@@ -76,6 +76,8 @@ type CreateMessageParams struct {
 	ContentSid *string `json:"ContentSid,omitempty"`
 	// Tags is a private beta feature, which is switched on for Recart
 	Tags *map[string]string `json:"Tags,omitempty"`
+	// MessageIntent is to assign a Traffic Shaping Service Level
+	MessageIntent *string `json:"MessageIntent,omitempty"`
 }
 
 func (params *CreateMessageParams) SetPathAccountSid(PathAccountSid string) *CreateMessageParams {
@@ -178,6 +180,10 @@ func (params *CreateMessageParams) SetTags(Tags map[string]string) *CreateMessag
 	params.Tags = &Tags
 	return params
 }
+func (params *CreateMessageParams) SetMessageIntent(MessageIntent string) *CreateMessageParams {
+	params.MessageIntent = &MessageIntent
+	return params
+}
 
 // Send a message
 func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Message, error) {
@@ -271,6 +277,9 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 		}
 
 		data.Set("Tags", string(res))
+	}
+	if params != nil && params.MessageIntent != nil {
+		data.Set("MessageIntent", *params.MessageIntent)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
