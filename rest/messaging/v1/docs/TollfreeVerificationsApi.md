@@ -129,7 +129,7 @@ Name | Type | Description
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string to identify Tollfree Verification.
+**Sid** | **string** | A unique string identifying a Tollfree Verification.
 
 ### Other Parameters
 
@@ -178,6 +178,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **TollfreePhoneNumberSid** | **string** | The SID of the Phone Number associated with the Tollfree Verification.
 **Status** | **string** | The compliance status of the Tollfree Verification record.
+**ExternalReferenceId** | **string** | Customer supplied reference id for the Tollfree Verification record.
+**IncludeSubAccounts** | **bool** | Whether to include Tollfree Verifications from sub accounts in list response.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

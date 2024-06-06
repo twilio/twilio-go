@@ -309,6 +309,10 @@ type ListTollfreeVerificationParams struct {
 	TollfreePhoneNumberSid *string `json:"TollfreePhoneNumberSid,omitempty"`
 	// The compliance status of the Tollfree Verification record.
 	Status *string `json:"Status,omitempty"`
+	// Customer supplied reference id for the Tollfree Verification record.
+	ExternalReferenceId *string `json:"ExternalReferenceId,omitempty"`
+	// Whether to include Tollfree Verifications from sub accounts in list response.
+	IncludeSubAccounts *bool `json:"IncludeSubAccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -321,6 +325,14 @@ func (params *ListTollfreeVerificationParams) SetTollfreePhoneNumberSid(Tollfree
 }
 func (params *ListTollfreeVerificationParams) SetStatus(Status string) *ListTollfreeVerificationParams {
 	params.Status = &Status
+	return params
+}
+func (params *ListTollfreeVerificationParams) SetExternalReferenceId(ExternalReferenceId string) *ListTollfreeVerificationParams {
+	params.ExternalReferenceId = &ExternalReferenceId
+	return params
+}
+func (params *ListTollfreeVerificationParams) SetIncludeSubAccounts(IncludeSubAccounts bool) *ListTollfreeVerificationParams {
+	params.IncludeSubAccounts = &IncludeSubAccounts
 	return params
 }
 func (params *ListTollfreeVerificationParams) SetPageSize(PageSize int) *ListTollfreeVerificationParams {
@@ -344,6 +356,12 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.ExternalReferenceId != nil {
+		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
+	}
+	if params != nil && params.IncludeSubAccounts != nil {
+		data.Set("IncludeSubAccounts", fmt.Sprint(*params.IncludeSubAccounts))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
