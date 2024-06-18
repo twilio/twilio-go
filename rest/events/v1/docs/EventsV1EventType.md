@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this Event Type was created, given in ISO 8601 format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this Event Type was updated, given in ISO 8601 format. |
 **Description** | Pointer to **string** | A human readable description for this Event Type. |
+**Status** | Pointer to **string** | A string that describes how this Event Type can be used. For example: `available`, `deprecated`, `restricted`, `discontinued`. When the status is `available`, the Event Type can be used normally. |
+**DocumentationUrl** | Pointer to **string** | The URL to the documentation or to the most relevant Twilio Changelog entry of this Event Type. |
 **Url** | Pointer to **string** | The URL of this resource. |
 **Links** | Pointer to **map[string]interface{}** |  |
 

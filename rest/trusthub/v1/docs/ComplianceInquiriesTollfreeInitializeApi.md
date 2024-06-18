@@ -49,6 +49,7 @@ Name | Type | Description
 **BusinessContactEmail** | **string** | The email address of the contact for the business or organization using the Tollfree number.
 **BusinessContactPhone** | **string** | The phone number of the contact for the business or organization using the Tollfree number.
 **ThemeSetId** | **string** | Theme id for styling the inquiry form.
+**SkipMessagingUseCase** | **bool** | Skip the messaging use case screen of the inquiry form.
 
 ### Return type
 

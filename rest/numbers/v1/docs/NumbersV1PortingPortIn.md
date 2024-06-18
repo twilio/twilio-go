@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **LosingCarrierInformation** | Pointer to **interface{}** | The information for the losing carrier.  |
 **PhoneNumbers** | Pointer to **[]interface{}** | The list of phone numbers to Port in. Phone numbers are in E.164 format (e.g. +16175551212). |
 **Documents** | Pointer to **[]string** | The list of documents SID referencing a utility bills |
+**DateCreated** | Pointer to **string** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

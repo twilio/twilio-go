@@ -57,7 +57,9 @@ func (c *ApiService) CreateMarketplaceInstalledAddOn(params *CreateMarketplaceIn
 	path := "/v1/InstalledAddOns"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.AvailableAddOnSid != nil {
 		data.Set("AvailableAddOnSid", *params.AvailableAddOnSid)
@@ -99,7 +101,9 @@ func (c *ApiService) DeleteMarketplaceInstalledAddOn(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -117,7 +121,9 @@ func (c *ApiService) FetchMarketplaceInstalledAddOn(Sid string) (*MarketplaceIns
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -156,7 +162,9 @@ func (c *ApiService) PageMarketplaceInstalledAddOn(params *ListMarketplaceInstal
 	path := "/v1/InstalledAddOns"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -293,7 +301,9 @@ func (c *ApiService) UpdateMarketplaceInstalledAddOn(Sid string, params *UpdateM
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Configuration != nil {
 		v, err := json.Marshal(params.Configuration)

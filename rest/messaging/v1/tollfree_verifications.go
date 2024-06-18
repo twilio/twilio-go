@@ -171,7 +171,9 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	path := "/v1/Tollfree/Verifications"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.BusinessName != nil {
 		data.Set("BusinessName", *params.BusinessName)
@@ -268,7 +270,9 @@ func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -286,7 +290,9 @@ func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1Tollfree
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -349,7 +355,9 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
 	path := "/v1/Tollfree/Verifications"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.TollfreePhoneNumberSid != nil {
 		data.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
@@ -612,7 +620,9 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.BusinessName != nil {
 		data.Set("BusinessName", *params.BusinessName)

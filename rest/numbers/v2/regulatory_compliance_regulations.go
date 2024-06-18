@@ -29,7 +29,9 @@ func (c *ApiService) FetchRegulation(Sid string) (*NumbersV2Regulation, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -86,7 +88,9 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pag
 	path := "/v2/RegulatoryCompliance/Regulations"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.EndUserType != nil {
 		data.Set("EndUserType", *params.EndUserType)
