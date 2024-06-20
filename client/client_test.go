@@ -180,7 +180,10 @@ func TestClient_SendRequestWithData(t *testing.T) {
 		t.Run(tc, func(t *testing.T) {
 			data := url.Values{}
 			data.Set("foo", "bar")
-			resp, err := testClient.SendRequest(tc, dataServer.URL, data, nil) //nolint:bodyclose
+			headers := map[string]interface{}{
+				"Content-Type": "application/x-www-form-urlencoded",
+			}
+			resp, err := testClient.SendRequest(tc, dataServer.URL, data, headers) //nolint:bodyclose
 			assert.NoError(t, err)
 			assert.Equal(t, 200, resp.StatusCode)
 		})
