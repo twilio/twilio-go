@@ -16,5 +16,5 @@ require (
 )
 
 retract (
-    v1.22.0 // Published accidentally.
+    v1.22.0 // Contains known bug
 )
