@@ -1,5 +1,10 @@
 twilio-go changelog
 ====================
+[2024-06-25] Version 1.22.1
+---------------------------
+**Library - Chore**
+- [PR #252](https://github.com/twilio/twilio-go/pull/252): retract v1.22.0 due to known bug. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
 [2024-06-18] Version 1.22.0
 ---------------------------
 **Events**
