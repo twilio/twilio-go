@@ -37,6 +37,7 @@ jobs:
           only-new-issues: true
 
       - name: Build
+        if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         run: make install
 
       - name: Run Unit Tests
