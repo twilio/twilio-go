@@ -4,14 +4,14 @@ All URIs are relative to *https://marketplace.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchMarketplaceAvailableAddOnExtension**](AvailableAddOnsExtensionsApi.md#FetchMarketplaceAvailableAddOnExtension) | **Get** /v1/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid} | 
-[**ListMarketplaceAvailableAddOnExtension**](AvailableAddOnsExtensionsApi.md#ListMarketplaceAvailableAddOnExtension) | **Get** /v1/AvailableAddOns/{AvailableAddOnSid}/Extensions | 
+[**FetchAvailableAddOnExtension**](AvailableAddOnsExtensionsApi.md#FetchAvailableAddOnExtension) | **Get** /v1/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid} | 
+[**ListAvailableAddOnExtension**](AvailableAddOnsExtensionsApi.md#ListAvailableAddOnExtension) | **Get** /v1/AvailableAddOns/{AvailableAddOnSid}/Extensions | 
 
 
 
-## FetchMarketplaceAvailableAddOnExtension
+## FetchAvailableAddOnExtension
 
-> MarketplaceAvailableAddOnAvailableAddOnExtension FetchMarketplaceAvailableAddOnExtension(ctx, AvailableAddOnSidSid)
+> MarketplaceV1AvailableAddOnExtension FetchAvailableAddOnExtension(ctx, AvailableAddOnSidSid)
 
 
 
@@ -28,7 +28,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchMarketplaceAvailableAddOnExtensionParams struct
+Other parameters are passed through a pointer to a FetchAvailableAddOnExtensionParams struct
 
 
 Name | Type | Description
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MarketplaceAvailableAddOnAvailableAddOnExtension**](MarketplaceAvailableAddOnAvailableAddOnExtension.md)
+[**MarketplaceV1AvailableAddOnExtension**](MarketplaceV1AvailableAddOnExtension.md)
 
 ### Authorization
 
@@ -52,9 +52,9 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## ListMarketplaceAvailableAddOnExtension
+## ListAvailableAddOnExtension
 
-> []MarketplaceAvailableAddOnAvailableAddOnExtension ListMarketplaceAvailableAddOnExtension(ctx, AvailableAddOnSidoptional)
+> []MarketplaceV1AvailableAddOnExtension ListAvailableAddOnExtension(ctx, AvailableAddOnSidoptional)
 
 
 
@@ -70,7 +70,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListMarketplaceAvailableAddOnExtensionParams struct
+Other parameters are passed through a pointer to a ListAvailableAddOnExtensionParams struct
 
 
 Name | Type | Description
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]MarketplaceAvailableAddOnAvailableAddOnExtension**](MarketplaceAvailableAddOnAvailableAddOnExtension.md)
+[**[]MarketplaceV1AvailableAddOnExtension**](MarketplaceV1AvailableAddOnExtension.md)
 
 ### Authorization
 

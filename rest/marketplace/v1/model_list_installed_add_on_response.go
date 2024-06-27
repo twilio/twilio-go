@@ -14,8 +14,8 @@
 
 package openapi
 
-// ListMarketplaceAvailableAddOnResponse struct for ListMarketplaceAvailableAddOnResponse
-type ListMarketplaceAvailableAddOnResponse struct {
-	AvailableAddOns []MarketplaceAvailableAddOn               `json:"available_add_ons,omitempty"`
-	Meta            ListMarketplaceAvailableAddOnResponseMeta `json:"meta,omitempty"`
+// ListInstalledAddOnResponse struct for ListInstalledAddOnResponse
+type ListInstalledAddOnResponse struct {
+	InstalledAddOns []MarketplaceV1InstalledAddOn  `json:"installed_add_ons,omitempty"`
+	Meta            ListAvailableAddOnResponseMeta `json:"meta,omitempty"`
 }

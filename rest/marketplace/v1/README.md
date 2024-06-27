@@ -31,39 +31,39 @@ All URIs are relative to *https://marketplace.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AvailableAddOnsApi* | [**FetchMarketplaceAvailableAddOn**](docs/AvailableAddOnsApi.md#fetchmarketplaceavailableaddon) | **Get** /v1/AvailableAddOns/{Sid} | 
-*AvailableAddOnsApi* | [**ListMarketplaceAvailableAddOn**](docs/AvailableAddOnsApi.md#listmarketplaceavailableaddon) | **Get** /v1/AvailableAddOns | 
-*AvailableAddOnsExtensionsApi* | [**FetchMarketplaceAvailableAddOnExtension**](docs/AvailableAddOnsExtensionsApi.md#fetchmarketplaceavailableaddonextension) | **Get** /v1/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid} | 
-*AvailableAddOnsExtensionsApi* | [**ListMarketplaceAvailableAddOnExtension**](docs/AvailableAddOnsExtensionsApi.md#listmarketplaceavailableaddonextension) | **Get** /v1/AvailableAddOns/{AvailableAddOnSid}/Extensions | 
-*InstalledAddOnsApi* | [**CreateMarketplaceInstalledAddOn**](docs/InstalledAddOnsApi.md#createmarketplaceinstalledaddon) | **Post** /v1/InstalledAddOns | 
-*InstalledAddOnsApi* | [**DeleteMarketplaceInstalledAddOn**](docs/InstalledAddOnsApi.md#deletemarketplaceinstalledaddon) | **Delete** /v1/InstalledAddOns/{Sid} | 
-*InstalledAddOnsApi* | [**FetchMarketplaceInstalledAddOn**](docs/InstalledAddOnsApi.md#fetchmarketplaceinstalledaddon) | **Get** /v1/InstalledAddOns/{Sid} | 
-*InstalledAddOnsApi* | [**ListMarketplaceInstalledAddOn**](docs/InstalledAddOnsApi.md#listmarketplaceinstalledaddon) | **Get** /v1/InstalledAddOns | 
-*InstalledAddOnsApi* | [**UpdateMarketplaceInstalledAddOn**](docs/InstalledAddOnsApi.md#updatemarketplaceinstalledaddon) | **Post** /v1/InstalledAddOns/{Sid} | 
-*InstalledAddOnsExtensionsApi* | [**FetchMarketplaceInstalledAddOnExtension**](docs/InstalledAddOnsExtensionsApi.md#fetchmarketplaceinstalledaddonextension) | **Get** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid} | 
-*InstalledAddOnsExtensionsApi* | [**ListMarketplaceInstalledAddOnExtension**](docs/InstalledAddOnsExtensionsApi.md#listmarketplaceinstalledaddonextension) | **Get** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions | 
-*InstalledAddOnsExtensionsApi* | [**UpdateMarketplaceInstalledAddOnExtension**](docs/InstalledAddOnsExtensionsApi.md#updatemarketplaceinstalledaddonextension) | **Post** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid} | 
-*InstalledAddOnsUsageApi* | [**CreateMarketplaceBillingUsage**](docs/InstalledAddOnsUsageApi.md#createmarketplacebillingusage) | **Post** /v1/InstalledAddOns/{InstalledAddOnSid}/Usage | 
-*ListingApi* | [**FetchMarketplaceModuleDataManagement**](docs/ListingApi.md#fetchmarketplacemoduledatamanagement) | **Get** /v1/Listing/{Sid} | 
-*ListingApi* | [**UpdateMarketplaceModuleDataManagement**](docs/ListingApi.md#updatemarketplacemoduledatamanagement) | **Post** /v1/Listing/{Sid} | 
+*AvailableAddOnsApi* | [**FetchAvailableAddOn**](docs/AvailableAddOnsApi.md#fetchavailableaddon) | **Get** /v1/AvailableAddOns/{Sid} | 
+*AvailableAddOnsApi* | [**ListAvailableAddOn**](docs/AvailableAddOnsApi.md#listavailableaddon) | **Get** /v1/AvailableAddOns | 
+*AvailableAddOnsExtensionsApi* | [**FetchAvailableAddOnExtension**](docs/AvailableAddOnsExtensionsApi.md#fetchavailableaddonextension) | **Get** /v1/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid} | 
+*AvailableAddOnsExtensionsApi* | [**ListAvailableAddOnExtension**](docs/AvailableAddOnsExtensionsApi.md#listavailableaddonextension) | **Get** /v1/AvailableAddOns/{AvailableAddOnSid}/Extensions | 
+*InstalledAddOnsApi* | [**CreateInstalledAddOn**](docs/InstalledAddOnsApi.md#createinstalledaddon) | **Post** /v1/InstalledAddOns | 
+*InstalledAddOnsApi* | [**DeleteInstalledAddOn**](docs/InstalledAddOnsApi.md#deleteinstalledaddon) | **Delete** /v1/InstalledAddOns/{Sid} | 
+*InstalledAddOnsApi* | [**FetchInstalledAddOn**](docs/InstalledAddOnsApi.md#fetchinstalledaddon) | **Get** /v1/InstalledAddOns/{Sid} | 
+*InstalledAddOnsApi* | [**ListInstalledAddOn**](docs/InstalledAddOnsApi.md#listinstalledaddon) | **Get** /v1/InstalledAddOns | 
+*InstalledAddOnsApi* | [**UpdateInstalledAddOn**](docs/InstalledAddOnsApi.md#updateinstalledaddon) | **Post** /v1/InstalledAddOns/{Sid} | 
+*InstalledAddOnsExtensionsApi* | [**FetchInstalledAddOnExtension**](docs/InstalledAddOnsExtensionsApi.md#fetchinstalledaddonextension) | **Get** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid} | 
+*InstalledAddOnsExtensionsApi* | [**ListInstalledAddOnExtension**](docs/InstalledAddOnsExtensionsApi.md#listinstalledaddonextension) | **Get** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions | 
+*InstalledAddOnsExtensionsApi* | [**UpdateInstalledAddOnExtension**](docs/InstalledAddOnsExtensionsApi.md#updateinstalledaddonextension) | **Post** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid} | 
+*InstalledAddOnsUsageApi* | [**CreateBillingUsage**](docs/InstalledAddOnsUsageApi.md#createbillingusage) | **Post** /v1/InstalledAddOns/{InstalledAddOnSid}/Usage | 
+*ListingApi* | [**FetchModuleDataManagement**](docs/ListingApi.md#fetchmoduledatamanagement) | **Get** /v1/Listing/{Sid} | 
+*ListingApi* | [**UpdateModuleDataManagement**](docs/ListingApi.md#updatemoduledatamanagement) | **Post** /v1/Listing/{Sid} | 
 
 
 ## Documentation For Models
 
- - [ListMarketplaceAvailableAddOnResponseMeta](docs/ListMarketplaceAvailableAddOnResponseMeta.md)
- - [MarketplaceInstalledAddOnInstalledAddOnExtension](docs/MarketplaceInstalledAddOnInstalledAddOnExtension.md)
- - [ListMarketplaceInstalledAddOnResponse](docs/ListMarketplaceInstalledAddOnResponse.md)
- - [MarketplaceModuleDataManagement](docs/MarketplaceModuleDataManagement.md)
- - [ListMarketplaceAvailableAddOnExtensionResponse](docs/ListMarketplaceAvailableAddOnExtensionResponse.md)
- - [MarketplaceAvailableAddOn](docs/MarketplaceAvailableAddOn.md)
- - [MarketplaceInstalledAddOnBillingUsageResponseBillableItems](docs/MarketplaceInstalledAddOnBillingUsageResponseBillableItems.md)
- - [CreateMarketplaceBillingUsageRequestBillableItems](docs/CreateMarketplaceBillingUsageRequestBillableItems.md)
- - [MarketplaceInstalledAddOn](docs/MarketplaceInstalledAddOn.md)
- - [CreateMarketplaceBillingUsageRequest](docs/CreateMarketplaceBillingUsageRequest.md)
- - [MarketplaceInstalledAddOnBillingUsageResponse](docs/MarketplaceInstalledAddOnBillingUsageResponse.md)
- - [ListMarketplaceAvailableAddOnResponse](docs/ListMarketplaceAvailableAddOnResponse.md)
- - [MarketplaceAvailableAddOnAvailableAddOnExtension](docs/MarketplaceAvailableAddOnAvailableAddOnExtension.md)
- - [ListMarketplaceInstalledAddOnExtensionResponse](docs/ListMarketplaceInstalledAddOnExtensionResponse.md)
+ - [MarketplaceV1AvailableAddOn](docs/MarketplaceV1AvailableAddOn.md)
+ - [ListInstalledAddOnExtensionResponse](docs/ListInstalledAddOnExtensionResponse.md)
+ - [ListAvailableAddOnResponse](docs/ListAvailableAddOnResponse.md)
+ - [MarketplaceV1AvailableAddOnExtension](docs/MarketplaceV1AvailableAddOnExtension.md)
+ - [MarketplaceV1InstalledAddOnExtension](docs/MarketplaceV1InstalledAddOnExtension.md)
+ - [CreateBillingUsageRequestBillableItems](docs/CreateBillingUsageRequestBillableItems.md)
+ - [ListAvailableAddOnExtensionResponse](docs/ListAvailableAddOnExtensionResponse.md)
+ - [MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems](docs/MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems.md)
+ - [CreateBillingUsageRequest](docs/CreateBillingUsageRequest.md)
+ - [ListInstalledAddOnResponse](docs/ListInstalledAddOnResponse.md)
+ - [MarketplaceV1InstalledAddOn](docs/MarketplaceV1InstalledAddOn.md)
+ - [MarketplaceV1BillingUsageResponse](docs/MarketplaceV1BillingUsageResponse.md)
+ - [ListAvailableAddOnResponseMeta](docs/ListAvailableAddOnResponseMeta.md)
+ - [MarketplaceV1ModuleDataManagement](docs/MarketplaceV1ModuleDataManagement.md)
 
 
 ## Documentation For Authorization

@@ -14,20 +14,20 @@
 
 package openapi
 
-// MarketplaceAvailableAddOn struct for MarketplaceAvailableAddOn
-type MarketplaceAvailableAddOn struct {
-	// The unique string that we created to identify the AvailableAddOn resource.
+// MarketplaceV1InstalledAddOnExtension struct for MarketplaceV1InstalledAddOnExtension
+type MarketplaceV1InstalledAddOnExtension struct {
+	// The unique string that we created to identify the InstalledAddOn Extension resource.
 	Sid *string `json:"sid,omitempty"`
+	// The SID of the InstalledAddOn resource to which this extension applies.
+	InstalledAddOnSid *string `json:"installed_add_on_sid,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// A short description of the Add-on's functionality.
-	Description *string `json:"description,omitempty"`
-	// How customers are charged for using this Add-on.
-	PricingType *string `json:"pricing_type,omitempty"`
-	// The JSON object with the configuration that must be provided when installing a given Add-on.
-	ConfigurationSchema *interface{} `json:"configuration_schema,omitempty"`
+	// The name of the Product this Extension is used within.
+	ProductName *string `json:"product_name,omitempty"`
+	// An application-defined string that uniquely identifies the resource.
+	UniqueName *string `json:"unique_name,omitempty"`
+	// Whether the Extension will be invoked.
+	Enabled *bool `json:"enabled,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
-	// The URLs of related resources.
-	Links *map[string]interface{} `json:"links,omitempty"`
 }

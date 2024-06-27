@@ -4,15 +4,15 @@ All URIs are relative to *https://marketplace.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchMarketplaceInstalledAddOnExtension**](InstalledAddOnsExtensionsApi.md#FetchMarketplaceInstalledAddOnExtension) | **Get** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid} | 
-[**ListMarketplaceInstalledAddOnExtension**](InstalledAddOnsExtensionsApi.md#ListMarketplaceInstalledAddOnExtension) | **Get** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions | 
-[**UpdateMarketplaceInstalledAddOnExtension**](InstalledAddOnsExtensionsApi.md#UpdateMarketplaceInstalledAddOnExtension) | **Post** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid} | 
+[**FetchInstalledAddOnExtension**](InstalledAddOnsExtensionsApi.md#FetchInstalledAddOnExtension) | **Get** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid} | 
+[**ListInstalledAddOnExtension**](InstalledAddOnsExtensionsApi.md#ListInstalledAddOnExtension) | **Get** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions | 
+[**UpdateInstalledAddOnExtension**](InstalledAddOnsExtensionsApi.md#UpdateInstalledAddOnExtension) | **Post** /v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid} | 
 
 
 
-## FetchMarketplaceInstalledAddOnExtension
+## FetchInstalledAddOnExtension
 
-> MarketplaceInstalledAddOnInstalledAddOnExtension FetchMarketplaceInstalledAddOnExtension(ctx, InstalledAddOnSidSid)
+> MarketplaceV1InstalledAddOnExtension FetchInstalledAddOnExtension(ctx, InstalledAddOnSidSid)
 
 
 
@@ -29,7 +29,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchMarketplaceInstalledAddOnExtensionParams struct
+Other parameters are passed through a pointer to a FetchInstalledAddOnExtensionParams struct
 
 
 Name | Type | Description
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MarketplaceInstalledAddOnInstalledAddOnExtension**](MarketplaceInstalledAddOnInstalledAddOnExtension.md)
+[**MarketplaceV1InstalledAddOnExtension**](MarketplaceV1InstalledAddOnExtension.md)
 
 ### Authorization
 
@@ -53,9 +53,9 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## ListMarketplaceInstalledAddOnExtension
+## ListInstalledAddOnExtension
 
-> []MarketplaceInstalledAddOnInstalledAddOnExtension ListMarketplaceInstalledAddOnExtension(ctx, InstalledAddOnSidoptional)
+> []MarketplaceV1InstalledAddOnExtension ListInstalledAddOnExtension(ctx, InstalledAddOnSidoptional)
 
 
 
@@ -71,7 +71,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListMarketplaceInstalledAddOnExtensionParams struct
+Other parameters are passed through a pointer to a ListInstalledAddOnExtensionParams struct
 
 
 Name | Type | Description
@@ -81,7 +81,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]MarketplaceInstalledAddOnInstalledAddOnExtension**](MarketplaceInstalledAddOnInstalledAddOnExtension.md)
+[**[]MarketplaceV1InstalledAddOnExtension**](MarketplaceV1InstalledAddOnExtension.md)
 
 ### Authorization
 
@@ -97,9 +97,9 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## UpdateMarketplaceInstalledAddOnExtension
+## UpdateInstalledAddOnExtension
 
-> MarketplaceInstalledAddOnInstalledAddOnExtension UpdateMarketplaceInstalledAddOnExtension(ctx, InstalledAddOnSidSidoptional)
+> MarketplaceV1InstalledAddOnExtension UpdateInstalledAddOnExtension(ctx, InstalledAddOnSidSidoptional)
 
 
 
@@ -116,7 +116,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateMarketplaceInstalledAddOnExtensionParams struct
+Other parameters are passed through a pointer to a UpdateInstalledAddOnExtensionParams struct
 
 
 Name | Type | Description
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MarketplaceInstalledAddOnInstalledAddOnExtension**](MarketplaceInstalledAddOnInstalledAddOnExtension.md)
+[**MarketplaceV1InstalledAddOnExtension**](MarketplaceV1InstalledAddOnExtension.md)
 
 ### Authorization
 

@@ -24,7 +24,7 @@ import (
 )
 
 // Fetch an instance of an Add-on currently available to be installed.
-func (c *ApiService) FetchMarketplaceAvailableAddOn(Sid string) (*MarketplaceAvailableAddOn, error) {
+func (c *ApiService) FetchAvailableAddOn(Sid string) (*MarketplaceV1AvailableAddOn, error) {
 	path := "/v1/AvailableAddOns/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -40,7 +40,7 @@ func (c *ApiService) FetchMarketplaceAvailableAddOn(Sid string) (*MarketplaceAva
 
 	defer resp.Body.Close()
 
-	ps := &MarketplaceAvailableAddOn{}
+	ps := &MarketplaceV1AvailableAddOn{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -48,25 +48,25 @@ func (c *ApiService) FetchMarketplaceAvailableAddOn(Sid string) (*MarketplaceAva
 	return ps, err
 }
 
-// Optional parameters for the method 'ListMarketplaceAvailableAddOn'
-type ListMarketplaceAvailableAddOnParams struct {
+// Optional parameters for the method 'ListAvailableAddOn'
+type ListAvailableAddOnParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListMarketplaceAvailableAddOnParams) SetPageSize(PageSize int) *ListMarketplaceAvailableAddOnParams {
+func (params *ListAvailableAddOnParams) SetPageSize(PageSize int) *ListAvailableAddOnParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMarketplaceAvailableAddOnParams) SetLimit(Limit int) *ListMarketplaceAvailableAddOnParams {
+func (params *ListAvailableAddOnParams) SetLimit(Limit int) *ListAvailableAddOnParams {
 	params.Limit = &Limit
 	return params
 }
 
-// Retrieve a single page of MarketplaceAvailableAddOn records from the API. Request is executed immediately.
-func (c *ApiService) PageMarketplaceAvailableAddOn(params *ListMarketplaceAvailableAddOnParams, pageToken, pageNumber string) (*ListMarketplaceAvailableAddOnResponse, error) {
+// Retrieve a single page of AvailableAddOn records from the API. Request is executed immediately.
+func (c *ApiService) PageAvailableAddOn(params *ListAvailableAddOnParams, pageToken, pageNumber string) (*ListAvailableAddOnResponse, error) {
 	path := "/v1/AvailableAddOns"
 
 	data := url.Values{}
@@ -92,7 +92,7 @@ func (c *ApiService) PageMarketplaceAvailableAddOn(params *ListMarketplaceAvaila
 
 	defer resp.Body.Close()
 
-	ps := &ListMarketplaceAvailableAddOnResponse{}
+	ps := &ListAvailableAddOnResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -100,11 +100,11 @@ func (c *ApiService) PageMarketplaceAvailableAddOn(params *ListMarketplaceAvaila
 	return ps, err
 }
 
-// Lists MarketplaceAvailableAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMarketplaceAvailableAddOn(params *ListMarketplaceAvailableAddOnParams) ([]MarketplaceAvailableAddOn, error) {
-	response, errors := c.StreamMarketplaceAvailableAddOn(params)
+// Lists AvailableAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailableAddOn(params *ListAvailableAddOnParams) ([]MarketplaceV1AvailableAddOn, error) {
+	response, errors := c.StreamAvailableAddOn(params)
 
-	records := make([]MarketplaceAvailableAddOn, 0)
+	records := make([]MarketplaceV1AvailableAddOn, 0)
 	for record := range response {
 		records = append(records, record)
 	}
@@ -116,29 +116,29 @@ func (c *ApiService) ListMarketplaceAvailableAddOn(params *ListMarketplaceAvaila
 	return records, nil
 }
 
-// Streams MarketplaceAvailableAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMarketplaceAvailableAddOn(params *ListMarketplaceAvailableAddOnParams) (chan MarketplaceAvailableAddOn, chan error) {
+// Streams AvailableAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailableAddOn(params *ListAvailableAddOnParams) (chan MarketplaceV1AvailableAddOn, chan error) {
 	if params == nil {
-		params = &ListMarketplaceAvailableAddOnParams{}
+		params = &ListAvailableAddOnParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
-	recordChannel := make(chan MarketplaceAvailableAddOn, 1)
+	recordChannel := make(chan MarketplaceV1AvailableAddOn, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMarketplaceAvailableAddOn(params, "", "")
+	response, err := c.PageAvailableAddOn(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMarketplaceAvailableAddOn(response, params, recordChannel, errorChannel)
+		go c.streamAvailableAddOn(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMarketplaceAvailableAddOn(response *ListMarketplaceAvailableAddOnResponse, params *ListMarketplaceAvailableAddOnParams, recordChannel chan MarketplaceAvailableAddOn, errorChannel chan error) {
+func (c *ApiService) streamAvailableAddOn(response *ListAvailableAddOnResponse, params *ListAvailableAddOnParams, recordChannel chan MarketplaceV1AvailableAddOn, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -153,7 +153,7 @@ func (c *ApiService) streamMarketplaceAvailableAddOn(response *ListMarketplaceAv
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMarketplaceAvailableAddOnResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailableAddOnResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -161,14 +161,14 @@ func (c *ApiService) streamMarketplaceAvailableAddOn(response *ListMarketplaceAv
 			break
 		}
 
-		response = record.(*ListMarketplaceAvailableAddOnResponse)
+		response = record.(*ListAvailableAddOnResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMarketplaceAvailableAddOnResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailableAddOnResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -179,7 +179,7 @@ func (c *ApiService) getNextListMarketplaceAvailableAddOnResponse(nextPageUrl st
 
 	defer resp.Body.Close()
 
-	ps := &ListMarketplaceAvailableAddOnResponse{}
+	ps := &ListAvailableAddOnResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

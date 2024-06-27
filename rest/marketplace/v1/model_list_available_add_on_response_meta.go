@@ -14,8 +14,8 @@
 
 package openapi
 
-// ListMarketplaceAvailableAddOnResponseMeta struct for ListMarketplaceAvailableAddOnResponseMeta
-type ListMarketplaceAvailableAddOnResponseMeta struct {
+// ListAvailableAddOnResponseMeta struct for ListAvailableAddOnResponseMeta
+type ListAvailableAddOnResponseMeta struct {
 	FirstPageUrl    string  `json:"first_page_url,omitempty"`
 	Key             string  `json:"key,omitempty"`
 	NextPageUrl     *string `json:"next_page_url,omitempty"`

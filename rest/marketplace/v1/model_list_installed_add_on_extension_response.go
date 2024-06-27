@@ -14,13 +14,8 @@
 
 package openapi
 
-// MarketplaceModuleDataManagement struct for MarketplaceModuleDataManagement
-type MarketplaceModuleDataManagement struct {
-	Url           *string      `json:"url,omitempty"`
-	Sid           *string      `json:"sid,omitempty"`
-	Description   *interface{} `json:"description,omitempty"`
-	Support       *interface{} `json:"support,omitempty"`
-	Policies      *interface{} `json:"policies,omitempty"`
-	ModuleInfo    *interface{} `json:"module_info,omitempty"`
-	Documentation *interface{} `json:"documentation,omitempty"`
+// ListInstalledAddOnExtensionResponse struct for ListInstalledAddOnExtensionResponse
+type ListInstalledAddOnExtensionResponse struct {
+	Extensions []MarketplaceV1InstalledAddOnExtension `json:"extensions,omitempty"`
+	Meta       ListAvailableAddOnResponseMeta         `json:"meta,omitempty"`
 }

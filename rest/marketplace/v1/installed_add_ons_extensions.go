@@ -24,7 +24,7 @@ import (
 )
 
 // Fetch an instance of an Extension for the Installed Add-on.
-func (c *ApiService) FetchMarketplaceInstalledAddOnExtension(InstalledAddOnSid string, Sid string) (*MarketplaceInstalledAddOnInstalledAddOnExtension, error) {
+func (c *ApiService) FetchInstalledAddOnExtension(InstalledAddOnSid string, Sid string) (*MarketplaceV1InstalledAddOnExtension, error) {
 	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -41,7 +41,7 @@ func (c *ApiService) FetchMarketplaceInstalledAddOnExtension(InstalledAddOnSid s
 
 	defer resp.Body.Close()
 
-	ps := &MarketplaceInstalledAddOnInstalledAddOnExtension{}
+	ps := &MarketplaceV1InstalledAddOnExtension{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -49,25 +49,25 @@ func (c *ApiService) FetchMarketplaceInstalledAddOnExtension(InstalledAddOnSid s
 	return ps, err
 }
 
-// Optional parameters for the method 'ListMarketplaceInstalledAddOnExtension'
-type ListMarketplaceInstalledAddOnExtensionParams struct {
+// Optional parameters for the method 'ListInstalledAddOnExtension'
+type ListInstalledAddOnExtensionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListMarketplaceInstalledAddOnExtensionParams) SetPageSize(PageSize int) *ListMarketplaceInstalledAddOnExtensionParams {
+func (params *ListInstalledAddOnExtensionParams) SetPageSize(PageSize int) *ListInstalledAddOnExtensionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMarketplaceInstalledAddOnExtensionParams) SetLimit(Limit int) *ListMarketplaceInstalledAddOnExtensionParams {
+func (params *ListInstalledAddOnExtensionParams) SetLimit(Limit int) *ListInstalledAddOnExtensionParams {
 	params.Limit = &Limit
 	return params
 }
 
-// Retrieve a single page of MarketplaceInstalledAddOnExtension records from the API. Request is executed immediately.
-func (c *ApiService) PageMarketplaceInstalledAddOnExtension(InstalledAddOnSid string, params *ListMarketplaceInstalledAddOnExtensionParams, pageToken, pageNumber string) (*ListMarketplaceInstalledAddOnExtensionResponse, error) {
+// Retrieve a single page of InstalledAddOnExtension records from the API. Request is executed immediately.
+func (c *ApiService) PageInstalledAddOnExtension(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams, pageToken, pageNumber string) (*ListInstalledAddOnExtensionResponse, error) {
 	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions"
 
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
@@ -95,7 +95,7 @@ func (c *ApiService) PageMarketplaceInstalledAddOnExtension(InstalledAddOnSid st
 
 	defer resp.Body.Close()
 
-	ps := &ListMarketplaceInstalledAddOnExtensionResponse{}
+	ps := &ListInstalledAddOnExtensionResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -103,11 +103,11 @@ func (c *ApiService) PageMarketplaceInstalledAddOnExtension(InstalledAddOnSid st
 	return ps, err
 }
 
-// Lists MarketplaceInstalledAddOnExtension records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMarketplaceInstalledAddOnExtension(InstalledAddOnSid string, params *ListMarketplaceInstalledAddOnExtensionParams) ([]MarketplaceInstalledAddOnInstalledAddOnExtension, error) {
-	response, errors := c.StreamMarketplaceInstalledAddOnExtension(InstalledAddOnSid, params)
+// Lists InstalledAddOnExtension records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInstalledAddOnExtension(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams) ([]MarketplaceV1InstalledAddOnExtension, error) {
+	response, errors := c.StreamInstalledAddOnExtension(InstalledAddOnSid, params)
 
-	records := make([]MarketplaceInstalledAddOnInstalledAddOnExtension, 0)
+	records := make([]MarketplaceV1InstalledAddOnExtension, 0)
 	for record := range response {
 		records = append(records, record)
 	}
@@ -119,29 +119,29 @@ func (c *ApiService) ListMarketplaceInstalledAddOnExtension(InstalledAddOnSid st
 	return records, nil
 }
 
-// Streams MarketplaceInstalledAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMarketplaceInstalledAddOnExtension(InstalledAddOnSid string, params *ListMarketplaceInstalledAddOnExtensionParams) (chan MarketplaceInstalledAddOnInstalledAddOnExtension, chan error) {
+// Streams InstalledAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInstalledAddOnExtension(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams) (chan MarketplaceV1InstalledAddOnExtension, chan error) {
 	if params == nil {
-		params = &ListMarketplaceInstalledAddOnExtensionParams{}
+		params = &ListInstalledAddOnExtensionParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
-	recordChannel := make(chan MarketplaceInstalledAddOnInstalledAddOnExtension, 1)
+	recordChannel := make(chan MarketplaceV1InstalledAddOnExtension, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMarketplaceInstalledAddOnExtension(InstalledAddOnSid, params, "", "")
+	response, err := c.PageInstalledAddOnExtension(InstalledAddOnSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMarketplaceInstalledAddOnExtension(response, params, recordChannel, errorChannel)
+		go c.streamInstalledAddOnExtension(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMarketplaceInstalledAddOnExtension(response *ListMarketplaceInstalledAddOnExtensionResponse, params *ListMarketplaceInstalledAddOnExtensionParams, recordChannel chan MarketplaceInstalledAddOnInstalledAddOnExtension, errorChannel chan error) {
+func (c *ApiService) streamInstalledAddOnExtension(response *ListInstalledAddOnExtensionResponse, params *ListInstalledAddOnExtensionParams, recordChannel chan MarketplaceV1InstalledAddOnExtension, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -156,7 +156,7 @@ func (c *ApiService) streamMarketplaceInstalledAddOnExtension(response *ListMark
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMarketplaceInstalledAddOnExtensionResponse)
+		record, err := client.GetNext(c.baseURL, response, c.getNextListInstalledAddOnExtensionResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -164,14 +164,14 @@ func (c *ApiService) streamMarketplaceInstalledAddOnExtension(response *ListMark
 			break
 		}
 
-		response = record.(*ListMarketplaceInstalledAddOnExtensionResponse)
+		response = record.(*ListInstalledAddOnExtensionResponse)
 	}
 
 	close(recordChannel)
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMarketplaceInstalledAddOnExtensionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInstalledAddOnExtensionResponse(nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
@@ -182,26 +182,26 @@ func (c *ApiService) getNextListMarketplaceInstalledAddOnExtensionResponse(nextP
 
 	defer resp.Body.Close()
 
-	ps := &ListMarketplaceInstalledAddOnExtensionResponse{}
+	ps := &ListInstalledAddOnExtensionResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
 	return ps, nil
 }
 
-// Optional parameters for the method 'UpdateMarketplaceInstalledAddOnExtension'
-type UpdateMarketplaceInstalledAddOnExtensionParams struct {
+// Optional parameters for the method 'UpdateInstalledAddOnExtension'
+type UpdateInstalledAddOnExtensionParams struct {
 	// Whether the Extension should be invoked.
 	Enabled *bool `json:"Enabled,omitempty"`
 }
 
-func (params *UpdateMarketplaceInstalledAddOnExtensionParams) SetEnabled(Enabled bool) *UpdateMarketplaceInstalledAddOnExtensionParams {
+func (params *UpdateInstalledAddOnExtensionParams) SetEnabled(Enabled bool) *UpdateInstalledAddOnExtensionParams {
 	params.Enabled = &Enabled
 	return params
 }
 
 // Update an Extension for an Add-on installation.
-func (c *ApiService) UpdateMarketplaceInstalledAddOnExtension(InstalledAddOnSid string, Sid string, params *UpdateMarketplaceInstalledAddOnExtensionParams) (*MarketplaceInstalledAddOnInstalledAddOnExtension, error) {
+func (c *ApiService) UpdateInstalledAddOnExtension(InstalledAddOnSid string, Sid string, params *UpdateInstalledAddOnExtensionParams) (*MarketplaceV1InstalledAddOnExtension, error) {
 	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -222,7 +222,7 @@ func (c *ApiService) UpdateMarketplaceInstalledAddOnExtension(InstalledAddOnSid 
 
 	defer resp.Body.Close()
 
-	ps := &MarketplaceInstalledAddOnInstalledAddOnExtension{}
+	ps := &MarketplaceV1InstalledAddOnExtension{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

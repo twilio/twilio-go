@@ -20,19 +20,19 @@ import (
 	"strings"
 )
 
-// Optional parameters for the method 'CreateMarketplaceBillingUsage'
-type CreateMarketplaceBillingUsageParams struct {
+// Optional parameters for the method 'CreateBillingUsage'
+type CreateBillingUsageParams struct {
 	//
-	CreateMarketplaceBillingUsageRequest *CreateMarketplaceBillingUsageRequest `json:"CreateMarketplaceBillingUsageRequest,omitempty"`
+	CreateBillingUsageRequest *CreateBillingUsageRequest `json:"CreateBillingUsageRequest,omitempty"`
 }
 
-func (params *CreateMarketplaceBillingUsageParams) SetCreateMarketplaceBillingUsageRequest(CreateMarketplaceBillingUsageRequest CreateMarketplaceBillingUsageRequest) *CreateMarketplaceBillingUsageParams {
-	params.CreateMarketplaceBillingUsageRequest = &CreateMarketplaceBillingUsageRequest
+func (params *CreateBillingUsageParams) SetCreateBillingUsageRequest(CreateBillingUsageRequest CreateBillingUsageRequest) *CreateBillingUsageParams {
+	params.CreateBillingUsageRequest = &CreateBillingUsageRequest
 	return params
 }
 
 //
-func (c *ApiService) CreateMarketplaceBillingUsage(InstalledAddOnSid string, params *CreateMarketplaceBillingUsageParams) (*MarketplaceInstalledAddOnBillingUsageResponse, error) {
+func (c *ApiService) CreateBillingUsage(InstalledAddOnSid string, params *CreateBillingUsageParams) (*MarketplaceV1BillingUsageResponse, error) {
 	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Usage"
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
 
@@ -42,8 +42,8 @@ func (c *ApiService) CreateMarketplaceBillingUsage(InstalledAddOnSid string, par
 	}
 
 	body := []byte{}
-	if params != nil && params.CreateMarketplaceBillingUsageRequest != nil {
-		b, err := json.Marshal(*params.CreateMarketplaceBillingUsageRequest)
+	if params != nil && params.CreateBillingUsageRequest != nil {
+		b, err := json.Marshal(*params.CreateBillingUsageRequest)
 		if err != nil {
 			return nil, err
 		}
@@ -57,7 +57,7 @@ func (c *ApiService) CreateMarketplaceBillingUsage(InstalledAddOnSid string, par
 
 	defer resp.Body.Close()
 
-	ps := &MarketplaceInstalledAddOnBillingUsageResponse{}
+	ps := &MarketplaceV1BillingUsageResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

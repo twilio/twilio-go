@@ -1,5 +1,29 @@
 twilio-go changelog
 ====================
+[2024-06-27] Version 1.22.2
+---------------------------
+**Library - Chore**
+- [PR #253](https://github.com/twilio/twilio-go/pull/253): updated changelog. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #252](https://github.com/twilio/twilio-go/pull/252): retract v1.22.0 due to known bug. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #249](https://github.com/twilio/twilio-go/pull/249): remove duplicate setting of header params. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Add `transcription` resource
+- Add beta feature request managed cert
+
+**Flex**
+- Changed mount name for flex_team v2 api
+
+**Intelligence**
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` as Response Headers to Operator resources
+
+**Numbers**
+- Added include_constraints query parameter to the Regulations API
+
+**Twiml**
+- Add support for `<Transcription>` noun
+
+
 [2024-06-25] Version 1.22.1
 ---------------------------
 **Library - Chore**

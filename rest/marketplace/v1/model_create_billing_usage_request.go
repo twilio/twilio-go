@@ -14,7 +14,7 @@
 
 package openapi
 
-// CreateMarketplaceBillingUsageRequest struct for CreateMarketplaceBillingUsageRequest
-type CreateMarketplaceBillingUsageRequest struct {
-	BillableItems []CreateMarketplaceBillingUsageRequestBillableItems `json:"billable_items,omitempty"`
+// CreateBillingUsageRequest struct for CreateBillingUsageRequest
+type CreateBillingUsageRequest struct {
+	BillableItems []CreateBillingUsageRequestBillableItems `json:"billable_items,omitempty"`
 }

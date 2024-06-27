@@ -21,7 +21,7 @@ import (
 )
 
 //
-func (c *ApiService) FetchMarketplaceModuleDataManagement(Sid string) (*MarketplaceModuleDataManagement, error) {
+func (c *ApiService) FetchModuleDataManagement(Sid string) (*MarketplaceV1ModuleDataManagement, error) {
 	path := "/v1/Listing/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -37,7 +37,7 @@ func (c *ApiService) FetchMarketplaceModuleDataManagement(Sid string) (*Marketpl
 
 	defer resp.Body.Close()
 
-	ps := &MarketplaceModuleDataManagement{}
+	ps := &MarketplaceV1ModuleDataManagement{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -45,8 +45,8 @@ func (c *ApiService) FetchMarketplaceModuleDataManagement(Sid string) (*Marketpl
 	return ps, err
 }
 
-// Optional parameters for the method 'UpdateMarketplaceModuleDataManagement'
-type UpdateMarketplaceModuleDataManagementParams struct {
+// Optional parameters for the method 'UpdateModuleDataManagement'
+type UpdateModuleDataManagementParams struct {
 	//
 	ModuleInfo *string `json:"ModuleInfo,omitempty"`
 	//
@@ -59,29 +59,29 @@ type UpdateMarketplaceModuleDataManagementParams struct {
 	Support *string `json:"Support,omitempty"`
 }
 
-func (params *UpdateMarketplaceModuleDataManagementParams) SetModuleInfo(ModuleInfo string) *UpdateMarketplaceModuleDataManagementParams {
+func (params *UpdateModuleDataManagementParams) SetModuleInfo(ModuleInfo string) *UpdateModuleDataManagementParams {
 	params.ModuleInfo = &ModuleInfo
 	return params
 }
-func (params *UpdateMarketplaceModuleDataManagementParams) SetDescription(Description string) *UpdateMarketplaceModuleDataManagementParams {
+func (params *UpdateModuleDataManagementParams) SetDescription(Description string) *UpdateModuleDataManagementParams {
 	params.Description = &Description
 	return params
 }
-func (params *UpdateMarketplaceModuleDataManagementParams) SetDocumentation(Documentation string) *UpdateMarketplaceModuleDataManagementParams {
+func (params *UpdateModuleDataManagementParams) SetDocumentation(Documentation string) *UpdateModuleDataManagementParams {
 	params.Documentation = &Documentation
 	return params
 }
-func (params *UpdateMarketplaceModuleDataManagementParams) SetPolicies(Policies string) *UpdateMarketplaceModuleDataManagementParams {
+func (params *UpdateModuleDataManagementParams) SetPolicies(Policies string) *UpdateModuleDataManagementParams {
 	params.Policies = &Policies
 	return params
 }
-func (params *UpdateMarketplaceModuleDataManagementParams) SetSupport(Support string) *UpdateMarketplaceModuleDataManagementParams {
+func (params *UpdateModuleDataManagementParams) SetSupport(Support string) *UpdateModuleDataManagementParams {
 	params.Support = &Support
 	return params
 }
 
 //
-func (c *ApiService) UpdateMarketplaceModuleDataManagement(Sid string, params *UpdateMarketplaceModuleDataManagementParams) (*MarketplaceModuleDataManagement, error) {
+func (c *ApiService) UpdateModuleDataManagement(Sid string, params *UpdateModuleDataManagementParams) (*MarketplaceV1ModuleDataManagement, error) {
 	path := "/v1/Listing/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -113,7 +113,7 @@ func (c *ApiService) UpdateMarketplaceModuleDataManagement(Sid string, params *U
 
 	defer resp.Body.Close()
 
-	ps := &MarketplaceModuleDataManagement{}
+	ps := &MarketplaceV1ModuleDataManagement{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

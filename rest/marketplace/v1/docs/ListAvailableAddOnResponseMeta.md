@@ -1,4 +1,4 @@
-# ListMarketplaceAvailableAddOnResponseMeta
+# ListAvailableAddOnResponseMeta
 
 ## Properties
 

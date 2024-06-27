@@ -4,17 +4,17 @@ All URIs are relative to *https://marketplace.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateMarketplaceInstalledAddOn**](InstalledAddOnsApi.md#CreateMarketplaceInstalledAddOn) | **Post** /v1/InstalledAddOns | 
-[**DeleteMarketplaceInstalledAddOn**](InstalledAddOnsApi.md#DeleteMarketplaceInstalledAddOn) | **Delete** /v1/InstalledAddOns/{Sid} | 
-[**FetchMarketplaceInstalledAddOn**](InstalledAddOnsApi.md#FetchMarketplaceInstalledAddOn) | **Get** /v1/InstalledAddOns/{Sid} | 
-[**ListMarketplaceInstalledAddOn**](InstalledAddOnsApi.md#ListMarketplaceInstalledAddOn) | **Get** /v1/InstalledAddOns | 
-[**UpdateMarketplaceInstalledAddOn**](InstalledAddOnsApi.md#UpdateMarketplaceInstalledAddOn) | **Post** /v1/InstalledAddOns/{Sid} | 
+[**CreateInstalledAddOn**](InstalledAddOnsApi.md#CreateInstalledAddOn) | **Post** /v1/InstalledAddOns | 
+[**DeleteInstalledAddOn**](InstalledAddOnsApi.md#DeleteInstalledAddOn) | **Delete** /v1/InstalledAddOns/{Sid} | 
+[**FetchInstalledAddOn**](InstalledAddOnsApi.md#FetchInstalledAddOn) | **Get** /v1/InstalledAddOns/{Sid} | 
+[**ListInstalledAddOn**](InstalledAddOnsApi.md#ListInstalledAddOn) | **Get** /v1/InstalledAddOns | 
+[**UpdateInstalledAddOn**](InstalledAddOnsApi.md#UpdateInstalledAddOn) | **Post** /v1/InstalledAddOns/{Sid} | 
 
 
 
-## CreateMarketplaceInstalledAddOn
+## CreateInstalledAddOn
 
-> MarketplaceInstalledAddOn CreateMarketplaceInstalledAddOn(ctx, optional)
+> MarketplaceV1InstalledAddOn CreateInstalledAddOn(ctx, optional)
 
 
 
@@ -26,7 +26,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateMarketplaceInstalledAddOnParams struct
+Other parameters are passed through a pointer to a CreateInstalledAddOnParams struct
 
 
 Name | Type | Description
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MarketplaceInstalledAddOn**](MarketplaceInstalledAddOn.md)
+[**MarketplaceV1InstalledAddOn**](MarketplaceV1InstalledAddOn.md)
 
 ### Authorization
 
@@ -54,9 +54,9 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## DeleteMarketplaceInstalledAddOn
+## DeleteInstalledAddOn
 
-> DeleteMarketplaceInstalledAddOn(ctx, Sid)
+> DeleteInstalledAddOn(ctx, Sid)
 
 
 
@@ -72,7 +72,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteMarketplaceInstalledAddOnParams struct
+Other parameters are passed through a pointer to a DeleteInstalledAddOnParams struct
 
 
 Name | Type | Description
@@ -96,9 +96,9 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## FetchMarketplaceInstalledAddOn
+## FetchInstalledAddOn
 
-> MarketplaceInstalledAddOn FetchMarketplaceInstalledAddOn(ctx, Sid)
+> MarketplaceV1InstalledAddOn FetchInstalledAddOn(ctx, Sid)
 
 
 
@@ -114,7 +114,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchMarketplaceInstalledAddOnParams struct
+Other parameters are passed through a pointer to a FetchInstalledAddOnParams struct
 
 
 Name | Type | Description
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MarketplaceInstalledAddOn**](MarketplaceInstalledAddOn.md)
+[**MarketplaceV1InstalledAddOn**](MarketplaceV1InstalledAddOn.md)
 
 ### Authorization
 
@@ -138,9 +138,9 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## ListMarketplaceInstalledAddOn
+## ListInstalledAddOn
 
-> []MarketplaceInstalledAddOn ListMarketplaceInstalledAddOn(ctx, optional)
+> []MarketplaceV1InstalledAddOn ListInstalledAddOn(ctx, optional)
 
 
 
@@ -152,7 +152,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListMarketplaceInstalledAddOnParams struct
+Other parameters are passed through a pointer to a ListInstalledAddOnParams struct
 
 
 Name | Type | Description
@@ -162,7 +162,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]MarketplaceInstalledAddOn**](MarketplaceInstalledAddOn.md)
+[**[]MarketplaceV1InstalledAddOn**](MarketplaceV1InstalledAddOn.md)
 
 ### Authorization
 
@@ -178,9 +178,9 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## UpdateMarketplaceInstalledAddOn
+## UpdateInstalledAddOn
 
-> MarketplaceInstalledAddOn UpdateMarketplaceInstalledAddOn(ctx, Sidoptional)
+> MarketplaceV1InstalledAddOn UpdateInstalledAddOn(ctx, Sidoptional)
 
 
 
@@ -196,7 +196,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateMarketplaceInstalledAddOnParams struct
+Other parameters are passed through a pointer to a UpdateInstalledAddOnParams struct
 
 
 Name | Type | Description
@@ -206,7 +206,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MarketplaceInstalledAddOn**](MarketplaceInstalledAddOn.md)
+[**MarketplaceV1InstalledAddOn**](MarketplaceV1InstalledAddOn.md)
 
 ### Authorization
 

@@ -18,8 +18,8 @@ import (
 	"time"
 )
 
-// MarketplaceInstalledAddOn struct for MarketplaceInstalledAddOn
-type MarketplaceInstalledAddOn struct {
+// MarketplaceV1InstalledAddOn struct for MarketplaceV1InstalledAddOn
+type MarketplaceV1InstalledAddOn struct {
 	// The unique string that we created to identify the InstalledAddOn resource. This Sid can also be found in the Console on that specific Add-ons page as the 'Available Add-on Sid'.
 	Sid *string `json:"sid,omitempty"`
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the InstalledAddOn resource.

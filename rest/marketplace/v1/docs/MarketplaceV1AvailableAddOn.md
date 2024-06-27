@@ -1,4 +1,4 @@
-# MarketplaceAvailableAddOn
+# MarketplaceV1AvailableAddOn
 
 ## Properties
 

@@ -14,8 +14,8 @@
 
 package openapi
 
-// MarketplaceAvailableAddOnAvailableAddOnExtension struct for MarketplaceAvailableAddOnAvailableAddOnExtension
-type MarketplaceAvailableAddOnAvailableAddOnExtension struct {
+// MarketplaceV1AvailableAddOnExtension struct for MarketplaceV1AvailableAddOnExtension
+type MarketplaceV1AvailableAddOnExtension struct {
 	// The unique string that we created to identify the AvailableAddOnExtension resource.
 	Sid *string `json:"sid,omitempty"`
 	// The SID of the AvailableAddOn resource to which this extension applies.

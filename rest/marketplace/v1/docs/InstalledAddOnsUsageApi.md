@@ -4,13 +4,13 @@ All URIs are relative to *https://marketplace.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateMarketplaceBillingUsage**](InstalledAddOnsUsageApi.md#CreateMarketplaceBillingUsage) | **Post** /v1/InstalledAddOns/{InstalledAddOnSid}/Usage | 
+[**CreateBillingUsage**](InstalledAddOnsUsageApi.md#CreateBillingUsage) | **Post** /v1/InstalledAddOns/{InstalledAddOnSid}/Usage | 
 
 
 
-## CreateMarketplaceBillingUsage
+## CreateBillingUsage
 
-> MarketplaceInstalledAddOnBillingUsageResponse CreateMarketplaceBillingUsage(ctx, InstalledAddOnSidoptional)
+> MarketplaceV1BillingUsageResponse CreateBillingUsage(ctx, InstalledAddOnSidoptional)
 
 
 
@@ -26,16 +26,16 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateMarketplaceBillingUsageParams struct
+Other parameters are passed through a pointer to a CreateBillingUsageParams struct
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CreateMarketplaceBillingUsageRequest** | [**CreateMarketplaceBillingUsageRequest**](CreateMarketplaceBillingUsageRequest.md) | 
+**CreateBillingUsageRequest** | [**CreateBillingUsageRequest**](CreateBillingUsageRequest.md) | 
 
 ### Return type
 
-[**MarketplaceInstalledAddOnBillingUsageResponse**](MarketplaceInstalledAddOnBillingUsageResponse.md)
+[**MarketplaceV1BillingUsageResponse**](MarketplaceV1BillingUsageResponse.md)
 
 ### Authorization
 

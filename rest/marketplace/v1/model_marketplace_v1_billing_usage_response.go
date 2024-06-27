@@ -20,24 +20,24 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// MarketplaceInstalledAddOnBillingUsageResponse struct for MarketplaceInstalledAddOnBillingUsageResponse
-type MarketplaceInstalledAddOnBillingUsageResponse struct {
-	BillableItems []MarketplaceInstalledAddOnBillingUsageResponseBillableItems `json:"billable_items,omitempty"`
+// MarketplaceV1BillingUsageResponse struct for MarketplaceV1BillingUsageResponse
+type MarketplaceV1BillingUsageResponse struct {
+	BillableItems []MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems `json:"billable_items,omitempty"`
 	// Represents the total quantity submitted.
 	TotalSubmitted float32 `json:"total_submitted,omitempty"`
 }
 
-func (response *MarketplaceInstalledAddOnBillingUsageResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (response *MarketplaceV1BillingUsageResponse) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		BillableItems  []MarketplaceInstalledAddOnBillingUsageResponseBillableItems `json:"billable_items"`
-		TotalSubmitted interface{}                                                  `json:"total_submitted"`
+		BillableItems  []MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems `json:"billable_items"`
+		TotalSubmitted interface{}                                                    `json:"total_submitted"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
 		return err
 	}
 
-	*response = MarketplaceInstalledAddOnBillingUsageResponse{
+	*response = MarketplaceV1BillingUsageResponse{
 		BillableItems: raw.BillableItems,
 	}
 

@@ -20,26 +20,30 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// CreateMarketplaceBillingUsageRequestBillableItems struct for CreateMarketplaceBillingUsageRequestBillableItems
-type CreateMarketplaceBillingUsageRequestBillableItems struct {
+// MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems struct for MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems
+type MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems struct {
 	//
-	Quantity float32 `json:"quantity"`
+	Quantity float32 `json:"quantity,omitempty"`
 	//
-	Sid string `json:"sid"`
+	Sid string `json:"sid,omitempty"`
+	// Whether this billable item was successfully submitted for billing.
+	Submitted bool `json:"submitted,omitempty"`
 }
 
-func (response *CreateMarketplaceBillingUsageRequestBillableItems) UnmarshalJSON(bytes []byte) (err error) {
+func (response *MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		Quantity interface{} `json:"quantity"`
-		Sid      string      `json:"sid"`
+		Quantity  interface{} `json:"quantity"`
+		Sid       string      `json:"sid"`
+		Submitted bool        `json:"submitted"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
 		return err
 	}
 
-	*response = CreateMarketplaceBillingUsageRequestBillableItems{
-		Sid: raw.Sid,
+	*response = MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems{
+		Sid:       raw.Sid,
+		Submitted: raw.Submitted,
 	}
 
 	responseQuantity, err := client.UnmarshalFloat32(&raw.Quantity)

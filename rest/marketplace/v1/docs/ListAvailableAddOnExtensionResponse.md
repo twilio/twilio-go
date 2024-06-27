@@ -1,11 +1,11 @@
-# ListMarketplaceInstalledAddOnResponse
+# ListAvailableAddOnExtensionResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InstalledAddOns** | [**[]MarketplaceInstalledAddOn**](MarketplaceInstalledAddOn.md) |  |[optional] 
-**Meta** | [**ListMarketplaceAvailableAddOnResponseMeta**](ListMarketplaceAvailableAddOnResponseMeta.md) |  |[optional] 
+**Extensions** | [**[]MarketplaceV1AvailableAddOnExtension**](MarketplaceV1AvailableAddOnExtension.md) |  |[optional] 
+**Meta** | [**ListAvailableAddOnResponseMeta**](ListAvailableAddOnResponseMeta.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

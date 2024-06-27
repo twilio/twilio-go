@@ -1,4 +1,4 @@
-# MarketplaceInstalledAddOnInstalledAddOnExtension
+# MarketplaceV1InstalledAddOnExtension
 
 ## Properties
 

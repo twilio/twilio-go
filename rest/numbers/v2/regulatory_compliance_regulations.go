@@ -23,14 +23,29 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+// Optional parameters for the method 'FetchRegulation'
+type FetchRegulationParams struct {
+	// A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+	IncludeConstraints *bool `json:"IncludeConstraints,omitempty"`
+}
+
+func (params *FetchRegulationParams) SetIncludeConstraints(IncludeConstraints bool) *FetchRegulationParams {
+	params.IncludeConstraints = &IncludeConstraints
+	return params
+}
+
 // Fetch specific Regulation Instance.
-func (c *ApiService) FetchRegulation(Sid string) (*NumbersV2Regulation, error) {
+func (c *ApiService) FetchRegulation(Sid string, params *FetchRegulationParams) (*NumbersV2Regulation, error) {
 	path := "/v2/RegulatoryCompliance/Regulations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
 		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IncludeConstraints != nil {
+		data.Set("IncludeConstraints", fmt.Sprint(*params.IncludeConstraints))
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -56,6 +71,8 @@ type ListRegulationParams struct {
 	IsoCountry *string `json:"IsoCountry,omitempty"`
 	// The type of phone number that the regulatory requiremnt is restricting.
 	NumberType *string `json:"NumberType,omitempty"`
+	// A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+	IncludeConstraints *bool `json:"IncludeConstraints,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -72,6 +89,10 @@ func (params *ListRegulationParams) SetIsoCountry(IsoCountry string) *ListRegula
 }
 func (params *ListRegulationParams) SetNumberType(NumberType string) *ListRegulationParams {
 	params.NumberType = &NumberType
+	return params
+}
+func (params *ListRegulationParams) SetIncludeConstraints(IncludeConstraints bool) *ListRegulationParams {
+	params.IncludeConstraints = &IncludeConstraints
 	return params
 }
 func (params *ListRegulationParams) SetPageSize(PageSize int) *ListRegulationParams {
@@ -100,6 +121,9 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pag
 	}
 	if params != nil && params.NumberType != nil {
 		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.IncludeConstraints != nil {
+		data.Set("IncludeConstraints", fmt.Sprint(*params.IncludeConstraints))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

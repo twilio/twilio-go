@@ -4,14 +4,14 @@ All URIs are relative to *https://marketplace.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchMarketplaceModuleDataManagement**](ListingApi.md#FetchMarketplaceModuleDataManagement) | **Get** /v1/Listing/{Sid} | 
-[**UpdateMarketplaceModuleDataManagement**](ListingApi.md#UpdateMarketplaceModuleDataManagement) | **Post** /v1/Listing/{Sid} | 
+[**FetchModuleDataManagement**](ListingApi.md#FetchModuleDataManagement) | **Get** /v1/Listing/{Sid} | 
+[**UpdateModuleDataManagement**](ListingApi.md#UpdateModuleDataManagement) | **Post** /v1/Listing/{Sid} | 
 
 
 
-## FetchMarketplaceModuleDataManagement
+## FetchModuleDataManagement
 
-> MarketplaceModuleDataManagement FetchMarketplaceModuleDataManagement(ctx, Sid)
+> MarketplaceV1ModuleDataManagement FetchModuleDataManagement(ctx, Sid)
 
 
 
@@ -27,7 +27,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchMarketplaceModuleDataManagementParams struct
+Other parameters are passed through a pointer to a FetchModuleDataManagementParams struct
 
 
 Name | Type | Description
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MarketplaceModuleDataManagement**](MarketplaceModuleDataManagement.md)
+[**MarketplaceV1ModuleDataManagement**](MarketplaceV1ModuleDataManagement.md)
 
 ### Authorization
 
@@ -51,9 +51,9 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## UpdateMarketplaceModuleDataManagement
+## UpdateModuleDataManagement
 
-> MarketplaceModuleDataManagement UpdateMarketplaceModuleDataManagement(ctx, Sidoptional)
+> MarketplaceV1ModuleDataManagement UpdateModuleDataManagement(ctx, Sidoptional)
 
 
 
@@ -69,7 +69,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateMarketplaceModuleDataManagementParams struct
+Other parameters are passed through a pointer to a UpdateModuleDataManagementParams struct
 
 
 Name | Type | Description
@@ -82,7 +82,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MarketplaceModuleDataManagement**](MarketplaceModuleDataManagement.md)
+[**MarketplaceV1ModuleDataManagement**](MarketplaceV1ModuleDataManagement.md)
 
 ### Authorization
 
