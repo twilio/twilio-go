@@ -1,5 +1,11 @@
 twilio-go changelog
 ====================
+[2024-07-02] Version 1.22.3
+---------------------------
+**Intelligence**
+- Deprecate account flag api.twilio-intelligence.v2
+
+
 [2024-06-27] Version 1.22.2
 ---------------------------
 **Library - Chore**
