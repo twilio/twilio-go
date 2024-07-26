@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/twilio/twilio-go/client"
+	"github.com/ghostmonitor/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateInstalledAddOn'
@@ -158,7 +158,10 @@ func (params *ListInstalledAddOnParams) SetLimit(Limit int) *ListInstalledAddOnP
 }
 
 // Retrieve a single page of InstalledAddOn records from the API. Request is executed immediately.
-func (c *ApiService) PageInstalledAddOn(params *ListInstalledAddOnParams, pageToken, pageNumber string) (*ListInstalledAddOnResponse, error) {
+func (c *ApiService) PageInstalledAddOn(
+	params *ListInstalledAddOnParams,
+	pageToken, pageNumber string,
+) (*ListInstalledAddOnResponse, error) {
 	path := "/v1/InstalledAddOns"
 
 	data := url.Values{}
@@ -230,7 +233,12 @@ func (c *ApiService) StreamInstalledAddOn(params *ListInstalledAddOnParams) (cha
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInstalledAddOn(response *ListInstalledAddOnResponse, params *ListInstalledAddOnParams, recordChannel chan MarketplaceV1InstalledAddOn, errorChannel chan error) {
+func (c *ApiService) streamInstalledAddOn(
+	response *ListInstalledAddOnResponse,
+	params *ListInstalledAddOnParams,
+	recordChannel chan MarketplaceV1InstalledAddOn,
+	errorChannel chan error,
+) {
 	curRecord := 1
 
 	for response != nil {
@@ -296,7 +304,10 @@ func (params *UpdateInstalledAddOnParams) SetUniqueName(UniqueName string) *Upda
 }
 
 // Update an Add-on installation for the Account specified.
-func (c *ApiService) UpdateInstalledAddOn(Sid string, params *UpdateInstalledAddOnParams) (*MarketplaceV1InstalledAddOn, error) {
+func (c *ApiService) UpdateInstalledAddOn(
+	Sid string,
+	params *UpdateInstalledAddOnParams,
+) (*MarketplaceV1InstalledAddOn, error) {
 	path := "/v1/InstalledAddOns/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
