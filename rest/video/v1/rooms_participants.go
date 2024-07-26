@@ -31,7 +31,9 @@ func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1R
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -100,7 +102,9 @@ func (c *ApiService) PageRoomParticipant(
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -259,7 +263,9 @@ func (c *ApiService) UpdateRoomParticipant(
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)

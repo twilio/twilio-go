@@ -182,7 +182,9 @@ func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPho
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)
@@ -330,7 +332,9 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))

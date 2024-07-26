@@ -92,6 +92,132 @@ func (m VoiceStop) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
+//VoiceTranscription <Transcription> TwiML Noun
+type VoiceTranscription struct {
+	// name: Friendly name given to the Transcription
+	// track: Track to be analyze by the provider
+	// status_callback_url: Status Callback URL
+	// status_callback_method: Status Callback URL method
+	// inbound_track_label: Friendly name given to the Inbound Track
+	// outbound_track_label: Friendly name given to the Outbound Track Label
+	// partial_results: Indicates if partial results are going to be send to the customer
+	// language_code: Language Code used by the transcription engine
+	// transcription_engine: Transcription Engine to be used
+	// profanity_filter: Enable Profanity Filter
+	// speech_model: Speech Model used by the transcription engine
+	// hints: Hints to be provided to the transcription engine
+	// enable_automatic_punctuation: Enable Automatic Punctuation
+	// OptionalAttributes: additional attributes
+	Name                       string
+	Track                      string
+	StatusCallbackUrl          string
+	StatusCallbackMethod       string
+	InboundTrackLabel          string
+	OutboundTrackLabel         string
+	PartialResults             string
+	LanguageCode               string
+	TranscriptionEngine        string
+	ProfanityFilter            string
+	SpeechModel                string
+	Hints                      string
+	EnableAutomaticPunctuation string
+	InnerElements              []Element
+	OptionalAttributes         map[string]string
+}
+
+func (m VoiceTranscription) GetName() string {
+	return "Transcription"
+}
+
+func (m VoiceTranscription) GetText() string {
+	return ""
+}
+
+func (m VoiceTranscription) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Name":                       m.Name,
+		"Track":                      m.Track,
+		"StatusCallbackUrl":          m.StatusCallbackUrl,
+		"StatusCallbackMethod":       m.StatusCallbackMethod,
+		"InboundTrackLabel":          m.InboundTrackLabel,
+		"OutboundTrackLabel":         m.OutboundTrackLabel,
+		"PartialResults":             m.PartialResults,
+		"LanguageCode":               m.LanguageCode,
+		"TranscriptionEngine":        m.TranscriptionEngine,
+		"ProfanityFilter":            m.ProfanityFilter,
+		"SpeechModel":                m.SpeechModel,
+		"Hints":                      m.Hints,
+		"EnableAutomaticPunctuation": m.EnableAutomaticPunctuation,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceTranscription) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
+//VoiceParameter <Parameter> TwiML Noun
+type VoiceParameter struct {
+	// name: The name of the custom parameter
+	// value: The value of the custom parameter
+	// OptionalAttributes: additional attributes
+	Name               string
+	Value              string
+	InnerElements      []Element
+	OptionalAttributes map[string]string
+}
+
+func (m VoiceParameter) GetName() string {
+	return "Parameter"
+}
+
+func (m VoiceParameter) GetText() string {
+	return ""
+}
+
+func (m VoiceParameter) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Name":  m.Name,
+		"Value": m.Value,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceParameter) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
+//VoiceConfig <Config> TwiML Noun
+type VoiceConfig struct {
+	// name: The name of the custom config
+	// value: The value of the custom config
+	// OptionalAttributes: additional attributes
+	Name               string
+	Value              string
+	InnerElements      []Element
+	OptionalAttributes map[string]string
+}
+
+func (m VoiceConfig) GetName() string {
+	return "Config"
+}
+
+func (m VoiceConfig) GetText() string {
+	return ""
+}
+
+func (m VoiceConfig) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Name":  m.Name,
+		"Value": m.Value,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceConfig) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
 //VoiceSipRec <Siprec> TwiML Noun
 type VoiceSipRec struct {
 	// name: Friendly name given to SIPREC
@@ -129,37 +255,6 @@ func (m VoiceSipRec) GetAttr() (map[string]string, map[string]string) {
 }
 
 func (m VoiceSipRec) GetInnerElements() []Element {
-	return m.InnerElements
-}
-
-//VoiceParameter <Parameter> TwiML Noun
-type VoiceParameter struct {
-	// name: The name of the custom parameter
-	// value: The value of the custom parameter
-	// OptionalAttributes: additional attributes
-	Name               string
-	Value              string
-	InnerElements      []Element
-	OptionalAttributes map[string]string
-}
-
-func (m VoiceParameter) GetName() string {
-	return "Parameter"
-}
-
-func (m VoiceParameter) GetText() string {
-	return ""
-}
-
-func (m VoiceParameter) GetAttr() (map[string]string, map[string]string) {
-	paramsAttr := map[string]string{
-		"Name":  m.Name,
-		"Value": m.Value,
-	}
-	return m.OptionalAttributes, paramsAttr
-}
-
-func (m VoiceParameter) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
@@ -1785,37 +1880,6 @@ func (m VoiceVirtualAgent) GetAttr() (map[string]string, map[string]string) {
 }
 
 func (m VoiceVirtualAgent) GetInnerElements() []Element {
-	return m.InnerElements
-}
-
-//VoiceConfig <Config> TwiML Noun
-type VoiceConfig struct {
-	// name: The name of the custom config
-	// value: The value of the custom config
-	// OptionalAttributes: additional attributes
-	Name               string
-	Value              string
-	InnerElements      []Element
-	OptionalAttributes map[string]string
-}
-
-func (m VoiceConfig) GetName() string {
-	return "Config"
-}
-
-func (m VoiceConfig) GetText() string {
-	return ""
-}
-
-func (m VoiceConfig) GetAttr() (map[string]string, map[string]string) {
-	paramsAttr := map[string]string{
-		"Name":  m.Name,
-		"Value": m.Value,
-	}
-	return m.OptionalAttributes, paramsAttr
-}
-
-func (m VoiceConfig) GetInnerElements() []Element {
 	return m.InnerElements
 }
 

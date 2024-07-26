@@ -45,7 +45,9 @@ func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfi
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -77,7 +79,9 @@ func (c *ApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1NetworkAc
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -119,7 +123,9 @@ func (c *ApiService) PageNetworkAccessProfile(
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -258,7 +264,9 @@ func (c *ApiService) UpdateNetworkAccessProfile(
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)

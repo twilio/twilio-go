@@ -336,7 +336,9 @@ func (c *ApiService) CreateParticipant(
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
@@ -529,7 +531,9 @@ func (c *ApiService) DeleteParticipant(ConferenceSid string, CallSid string, par
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -568,7 +572,9 @@ func (c *ApiService) FetchParticipant(
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -642,7 +648,9 @@ func (c *ApiService) PageParticipant(
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Muted != nil {
 		data.Set("Muted", fmt.Sprint(*params.Muted))
@@ -875,7 +883,9 @@ func (c *ApiService) UpdateParticipant(
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Muted != nil {
 		data.Set("Muted", fmt.Sprint(*params.Muted))

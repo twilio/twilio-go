@@ -63,7 +63,9 @@ func (c *ApiService) PageServiceParticipantConversation(
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)

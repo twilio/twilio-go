@@ -49,7 +49,9 @@ func (c *ApiService) CreateMessagingConfiguration(
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Country != nil {
 		data.Set("Country", *params.Country)
@@ -80,7 +82,9 @@ func (c *ApiService) DeleteMessagingConfiguration(ServiceSid string, Country str
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -102,7 +106,9 @@ func (c *ApiService) FetchMessagingConfiguration(
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -147,7 +153,9 @@ func (c *ApiService) PageMessagingConfiguration(
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -294,7 +302,9 @@ func (c *ApiService) UpdateMessagingConfiguration(
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.MessagingServiceSid != nil {
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)

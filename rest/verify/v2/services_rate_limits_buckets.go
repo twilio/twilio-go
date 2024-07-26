@@ -51,7 +51,9 @@ func (c *ApiService) CreateBucket(
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Max != nil {
 		data.Set("Max", fmt.Sprint(*params.Max))
@@ -83,7 +85,9 @@ func (c *ApiService) DeleteBucket(ServiceSid string, RateLimitSid string, Sid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -103,7 +107,9 @@ func (c *ApiService) FetchBucket(ServiceSid string, RateLimitSid string, Sid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -150,7 +156,9 @@ func (c *ApiService) PageBucket(
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -307,7 +315,9 @@ func (c *ApiService) UpdateBucket(
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Max != nil {
 		data.Set("Max", fmt.Sprint(*params.Max))

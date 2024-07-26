@@ -51,7 +51,9 @@ func (c *ApiService) FetchConferenceParticipant(
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Events != nil {
 		data.Set("Events", *params.Events)
@@ -121,7 +123,9 @@ func (c *ApiService) PageConferenceParticipant(
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.ParticipantSid != nil {
 		data.Set("ParticipantSid", *params.ParticipantSid)

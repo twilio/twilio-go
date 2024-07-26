@@ -57,7 +57,9 @@ func (c *ApiService) CreatePluginConfiguration(params *CreatePluginConfiguration
 	path := "/v1/PluginService/Configurations"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Name != nil {
 		data.Set("Name", *params.Name)
@@ -115,7 +117,9 @@ func (c *ApiService) FetchPluginConfiguration(
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
@@ -166,7 +170,9 @@ func (c *ApiService) PagePluginConfiguration(
 	path := "/v1/PluginService/Configurations"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

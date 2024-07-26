@@ -63,7 +63,9 @@ func (c *ApiService) CreateInsightsQuestionnaires(params *CreateInsightsQuestion
 	path := "/v1/Insights/QualityManagement/Questionnaires"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Name != nil {
 		data.Set("Name", *params.Name)
@@ -118,7 +120,9 @@ func (c *ApiService) DeleteInsightsQuestionnaires(
 	path = strings.Replace(path, "{"+"QuestionnaireSid"+"}", QuestionnaireSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
@@ -153,7 +157,9 @@ func (c *ApiService) FetchInsightsQuestionnaires(
 	path = strings.Replace(path, "{"+"QuestionnaireSid"+"}", QuestionnaireSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
@@ -210,7 +216,9 @@ func (c *ApiService) PageInsightsQuestionnaires(
 	path := "/v1/Insights/QualityManagement/Questionnaires"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.IncludeInactive != nil {
 		data.Set("IncludeInactive", fmt.Sprint(*params.IncludeInactive))
@@ -376,7 +384,9 @@ func (c *ApiService) UpdateInsightsQuestionnaires(
 	path = strings.Replace(path, "{"+"QuestionnaireSid"+"}", QuestionnaireSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Active != nil {
 		data.Set("Active", fmt.Sprint(*params.Active))

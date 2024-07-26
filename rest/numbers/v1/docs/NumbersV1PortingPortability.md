@@ -12,8 +12,6 @@ Name | Type | Description | Notes
 **NotPortableReasonCode** | Pointer to **int** | The Portability Reason Code for the phone number if it cannot be ported into Twilio, `null` otherwise. One of `22131`, `22132`, `22130`, `22133`, `22102` or `22135`. |
 **NumberType** | Pointer to [**string**](PortingPortabilityEnumNumberType.md) |  |
 **Country** | Pointer to **string** | Country the phone number belongs to. |
-**MessagingCarrier** | Pointer to **string** | Current messaging carrier of the phone number |
-**VoiceCarrier** | Pointer to **string** | Current voice carrier of the phone number |
 **Url** | Pointer to **string** | This is the url of the request that you're trying to reach out to locate the resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

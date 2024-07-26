@@ -37,6 +37,7 @@ jobs:
           only-new-issues: true
 
       - name: Build
+        if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         run: make install
 
       - name: Run Unit Tests
@@ -44,7 +45,7 @@ jobs:
         run: make test
 
       - name: Run Cluster Tests
-        if: (!github.event.pull_request.head.repo.fork)
+        if: (!github.event.pull_request.head.repo.fork) && matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         env:
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}

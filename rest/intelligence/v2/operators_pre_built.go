@@ -29,7 +29,9 @@ func (c *ApiService) FetchPrebuiltOperator(Sid string) (*IntelligenceV2PrebuiltO
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -83,7 +85,9 @@ func (c *ApiService) PagePrebuiltOperator(
 	path := "/v2/Operators/PreBuilt"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Availability != nil {
 		data.Set("Availability", *params.Availability)

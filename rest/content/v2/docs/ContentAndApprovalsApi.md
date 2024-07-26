@@ -28,6 +28,15 @@ Other parameters are passed through a pointer to a ListContentAndApprovalsParams
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**SortByDate** | **string** | Whether to sort by ascending or descending date updated
+**SortByContentName** | **string** | Whether to sort by ascending or descending content name
+**DateCreatedAfter** | **time.Time** | Filter by >=[date-time]
+**DateCreatedBefore** | **time.Time** | Filter by <=[date-time]
+**ContentName** | **string** | Filter by Regex Pattern in content name
+**Content** | **string** | Filter by Regex Pattern in template content
+**Language** | **[]string** | Filter by array of valid language(s)
+**ContentType** | **[]string** | Filter by array of contentType(s)
+**ChannelEligibility** | **[]string** | Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

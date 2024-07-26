@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Price** | Pointer to **string** | The one-time cost of creating the recording in the `price_unit` currency. |
 **PriceUnit** | Pointer to **string** | The currency used in the `price` property. Example: `USD`. |
 **Status** | Pointer to [**string**](RecordingEnumStatus.md) |  |
-**Channels** | Pointer to **int** | The number of channels in the final recording file. Can be: `1` or `2`. You can split a call with two legs into two separate recording channels if you record using [TwiML Dial](https://www.twilio.com/docs/voice/twiml/dial#record) or the [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls#manage-your-outbound-call). |
+**Channels** | Pointer to **int** | The number of channels in the final recording file. Can be: `1` or `2`. |
 **Source** | Pointer to [**string**](RecordingEnumSource.md) |  |
 **ErrorCode** | Pointer to **int** | The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`. |
 **Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com`. |

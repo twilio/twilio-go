@@ -96,7 +96,9 @@ func (c *ApiService) PageUsageRecord(
 	path := "/v1/UsageRecords"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)

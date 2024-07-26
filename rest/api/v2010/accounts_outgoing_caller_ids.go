@@ -80,7 +80,9 @@ func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestPara
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)
@@ -138,7 +140,9 @@ func (c *ApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOutgoingCa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -175,7 +179,9 @@ func (c *ApiService) FetchOutgoingCallerId(
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -241,7 +247,9 @@ func (c *ApiService) PageOutgoingCallerId(
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)
@@ -397,7 +405,9 @@ func (c *ApiService) UpdateOutgoingCallerId(
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)

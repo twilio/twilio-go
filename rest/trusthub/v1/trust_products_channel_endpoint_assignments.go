@@ -49,7 +49,9 @@ func (c *ApiService) CreateTrustProductChannelEndpointAssignment(
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.ChannelEndpointType != nil {
 		data.Set("ChannelEndpointType", *params.ChannelEndpointType)
@@ -80,7 +82,9 @@ func (c *ApiService) DeleteTrustProductChannelEndpointAssignment(TrustProductSid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -102,7 +106,9 @@ func (c *ApiService) FetchTrustProductChannelEndpointAssignment(
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -159,7 +165,9 @@ func (c *ApiService) PageTrustProductChannelEndpointAssignment(
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.ChannelEndpointSid != nil {
 		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)

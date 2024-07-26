@@ -150,7 +150,7 @@ func (c *Client) SendRequest(
 
 	//For HTTP GET Method there are no body parameters. All other parameters like query, path etc
 	// are added as information in the url itself. Also while Content-Type is json, we are sending
-	// json body. In that case, data variable conatins all other parameters than body, which is the
+	// json body. In that case, data variable contains all other parameters than body, which is the
 	//same case as GET method. In that case as well all parameters will be added to url
 	if method == http.MethodGet || contentType == jsonContentType {
 		if data != nil {
@@ -183,10 +183,6 @@ func (c *Client) SendRequest(
 			return nil, err
 		}
 
-	}
-
-	if contentType == urlEncodedContentType {
-		req.Header.Add("Content-Type", urlEncodedContentType)
 	}
 
 	req.SetBasicAuth(c.basicAuth())

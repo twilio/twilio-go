@@ -99,7 +99,9 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 	path := "/v1/Insights/QualityManagement/Assessments"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.CategorySid != nil {
 		data.Set("CategorySid", *params.CategorySid)
@@ -187,7 +189,9 @@ func (c *ApiService) PageInsightsAssessments(
 	path := "/v1/Insights/QualityManagement/Assessments"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.SegmentId != nil {
 		data.Set("SegmentId", *params.SegmentId)
@@ -347,7 +351,9 @@ func (c *ApiService) UpdateInsightsAssessments(
 	path = strings.Replace(path, "{"+"AssessmentSid"+"}", AssessmentSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Offset != nil {
 		data.Set("Offset", fmt.Sprint(*params.Offset))

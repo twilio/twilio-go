@@ -49,7 +49,9 @@ func (c *ApiService) CreateDeviceSecret(
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Key != nil {
 		data.Set("Key", *params.Key)
@@ -80,7 +82,9 @@ func (c *ApiService) DeleteDeviceSecret(DeviceSid string, Key string) error {
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -99,7 +103,9 @@ func (c *ApiService) FetchDeviceSecret(DeviceSid string, Key string) (*Microviso
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -144,7 +150,9 @@ func (c *ApiService) PageDeviceSecret(
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -291,7 +299,9 @@ func (c *ApiService) UpdateDeviceSecret(
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Value != nil {
 		data.Set("Value", *params.Value)

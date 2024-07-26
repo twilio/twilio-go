@@ -195,15 +195,16 @@ func TestClient_SendRequestWithData(t *testing.T) {
 
 	tests := []string{http.MethodGet, http.MethodPost}
 	for _, tc := range tests {
-		t.Run(
-			tc, func(t *testing.T) {
-				data := url.Values{}
-				data.Set("foo", "bar")
-				resp, err := testClient.SendRequest(tc, dataServer.URL, data, nil) //nolint:bodyclose
-				assert.NoError(t, err)
-				assert.Equal(t, 200, resp.StatusCode)
-			},
-		)
+		t.Run(tc, func(t *testing.T) {
+			data := url.Values{}
+			data.Set("foo", "bar")
+			headers := map[string]interface{}{
+				"Content-Type": "application/x-www-form-urlencoded",
+			}
+			resp, err := testClient.SendRequest(tc, dataServer.URL, data, headers) //nolint:bodyclose
+			assert.NoError(t, err)
+			assert.Equal(t, 200, resp.StatusCode)
+		})
 	}
 }
 

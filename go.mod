@@ -14,3 +14,7 @@ require (
 	github.com/stretchr/testify v1.7.0
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 )
+
+retract (
+    v1.22.0 // Contains known bug
+)

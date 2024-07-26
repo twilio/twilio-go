@@ -29,7 +29,9 @@ func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1Messagi
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -71,7 +73,9 @@ func (c *ApiService) PageMessagingCountry(
 	path := "/v1/Messaging/Countries"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
