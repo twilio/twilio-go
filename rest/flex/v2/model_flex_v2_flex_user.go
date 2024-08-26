@@ -44,6 +44,10 @@ type FlexV2FlexUser struct {
 	Email *string `json:"email,omitempty"`
 	// Friendly name of the User.
 	FriendlyName *string `json:"friendly_name,omitempty"`
+	// The locale preference of the user.
+	Locale *string `json:"locale,omitempty"`
+	// The roles of the user.
+	Roles *[]string `json:"roles,omitempty"`
 	// The date that this user was created, given in ISO 8601 format.
 	CreatedDate *time.Time `json:"created_date,omitempty"`
 	// The date that this user was updated, given in ISO 8601 format.

@@ -4,13 +4,13 @@ All URIs are relative to *https://content.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchApproval**](ContentApprovalRequestsApi.md#FetchApproval) | **Get** /v1/Content/{ContentSid}/ApprovalRequests | 
+[**FetchApprovalFetch**](ContentApprovalRequestsApi.md#FetchApprovalFetch) | **Get** /v1/Content/{ContentSid}/ApprovalRequests | 
 
 
 
-## FetchApproval
+## FetchApprovalFetch
 
-> ContentV1ApprovalFetch FetchApproval(ctx, ContentSid)
+> ContentV1ApprovalFetch FetchApprovalFetch(ctx, ContentSid)
 
 
 
@@ -26,7 +26,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchApprovalParams struct
+Other parameters are passed through a pointer to a FetchApprovalFetchParams struct
 
 
 Name | Type | Description

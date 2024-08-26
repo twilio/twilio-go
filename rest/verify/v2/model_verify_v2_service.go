@@ -40,7 +40,7 @@ type VerifyV2Service struct {
 	TtsName *string `json:"tts_name,omitempty"`
 	// Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
 	DoNotShareWarningEnabled *bool `json:"do_not_share_warning_enabled,omitempty"`
-	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+	// Whether to allow sending verifications with a custom code instead of a randomly generated one.
 	CustomCodeEnabled *bool `json:"custom_code_enabled,omitempty"`
 	// Configurations for the Push factors (channel) created under this Service.
 	Push *interface{} `json:"push,omitempty"`

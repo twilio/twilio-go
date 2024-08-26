@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **OperatorName** | Pointer to **string** | The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/iot/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`. |
 **CellId** | Pointer to **string** | The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated. |
 **CellLocationEstimate** | Pointer to **interface{}** | An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/iot/wireless/api/datasession-resource#cell-location-estimate-object).  |
-**PacketsUploaded** | Pointer to **int** | The number of packets uploaded by the device between the `start` time and when the Data Session was last updated. |
-**PacketsDownloaded** | Pointer to **int** | The number of packets downloaded by the device between the `start` time and when the Data Session was last updated. |
+**PacketsUploaded** | Pointer to **int** | The number of packets uploaded by the device between the `start` time and when the Data Session was last updated. |[default to 0]
+**PacketsDownloaded** | Pointer to **int** | The number of packets downloaded by the device between the `start` time and when the Data Session was last updated. |[default to 0]
 **LastUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that the resource was last updated, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. |
 **Start** | Pointer to [**time.Time**](time.Time.md) | The date that the Data Session started, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. |
 **End** | Pointer to [**time.Time**](time.Time.md) | The date that the record ended, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. |

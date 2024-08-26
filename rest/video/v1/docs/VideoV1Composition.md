@@ -17,9 +17,9 @@ Name | Type | Description | Notes
 **Resolution** | Pointer to **string** | The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string's format is `{width}x{height}`, such as `640x480`. |
 **Trim** | Pointer to **bool** | Whether to remove intervals with no media, as specified in the POST request that created the composition. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. |
 **Format** | Pointer to [**string**](CompositionEnumFormat.md) |  |
-**Bitrate** | Pointer to **int** | The average bit rate of the composition's media. |
+**Bitrate** | Pointer to **int** | The average bit rate of the composition's media. |[default to 0]
 **Size** | Pointer to **int64** | The size of the composed media file in bytes. |
-**Duration** | Pointer to **int** | The duration of the composition's media file in seconds. |
+**Duration** | Pointer to **int** | The duration of the composition's media file in seconds. |[default to 0]
 **MediaExternalLocation** | Pointer to **string** | The URL of the media file associated with the composition when stored externally. See [External S3 Compositions](/docs/video/api/external-s3-compositions) for more details. |
 **StatusCallback** | Pointer to **string** | The URL called using the `status_callback_method` to send status information on every composition event. |
 **StatusCallbackMethod** | Pointer to **string** | The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`. |

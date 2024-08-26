@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 
-Allows to create a new webhook configuration
+Create a Webhook Configuration
 
 ### Path Parameters
 
@@ -63,7 +63,7 @@ Allows the client to delete a webhook configuration.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**WebhookType** | **string** | The of the webhook type of the configuration to be deleted
+**WebhookType** | **string** | The webhook type for the configuration to be delete. `PORT_IN`, `PORT_OUT`
 
 ### Other Parameters
 

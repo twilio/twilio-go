@@ -36,8 +36,8 @@ Class | Method | HTTP request | Description
 *ContentApi* | [**FetchContent**](docs/ContentApi.md#fetchcontent) | **Get** /v1/Content/{Sid} | 
 *ContentApi* | [**ListContent**](docs/ContentApi.md#listcontent) | **Get** /v1/Content | 
 *ContentAndApprovalsApi* | [**ListContentAndApprovals**](docs/ContentAndApprovalsApi.md#listcontentandapprovals) | **Get** /v1/ContentAndApprovals | 
-*ContentApprovalRequestsApi* | [**FetchApproval**](docs/ContentApprovalRequestsApi.md#fetchapproval) | **Get** /v1/Content/{ContentSid}/ApprovalRequests | 
-*ContentApprovalRequestsWhatsappApi* | [**CreateContentApprovalRequest**](docs/ContentApprovalRequestsWhatsappApi.md#createcontentapprovalrequest) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | 
+*ContentApprovalRequestsApi* | [**FetchApprovalFetch**](docs/ContentApprovalRequestsApi.md#fetchapprovalfetch) | **Get** /v1/Content/{ContentSid}/ApprovalRequests | 
+*ContentApprovalRequestsWhatsappApi* | [**CreateApprovalCreate**](docs/ContentApprovalRequestsWhatsappApi.md#createapprovalcreate) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | 
 *LegacyContentApi* | [**ListLegacyContent**](docs/LegacyContentApi.md#listlegacycontent) | **Get** /v1/LegacyContent | 
 
 
@@ -48,6 +48,7 @@ Class | Method | HTTP request | Description
  - [CallToActionActionType](docs/CallToActionActionType.md)
  - [QuickReplyActionType](docs/QuickReplyActionType.md)
  - [ContentV1ApprovalFetch](docs/ContentV1ApprovalFetch.md)
+ - [CarouselActionType](docs/CarouselActionType.md)
  - [QuickReplyAction](docs/QuickReplyAction.md)
  - [CardActionType](docs/CardActionType.md)
  - [ContentV1ContentAndApprovals](docs/ContentV1ContentAndApprovals.md)
@@ -55,6 +56,7 @@ Class | Method | HTTP request | Description
  - [ContentCreateRequest](docs/ContentCreateRequest.md)
  - [TwilioListPicker](docs/TwilioListPicker.md)
  - [ListContentResponseMeta](docs/ListContentResponseMeta.md)
+ - [TwilioCarousel](docs/TwilioCarousel.md)
  - [TwilioText](docs/TwilioText.md)
  - [WhatsappAuthentication](docs/WhatsappAuthentication.md)
  - [WhatsappCard](docs/WhatsappCard.md)
@@ -67,11 +69,13 @@ Class | Method | HTTP request | Description
  - [ContentApprovalRequest](docs/ContentApprovalRequest.md)
  - [TwilioCatalog](docs/TwilioCatalog.md)
  - [ContentV1Content](docs/ContentV1Content.md)
+ - [CarouselCard](docs/CarouselCard.md)
  - [ListContentResponse](docs/ListContentResponse.md)
  - [TwilioCallToAction](docs/TwilioCallToAction.md)
  - [AuthenticationActionType](docs/AuthenticationActionType.md)
  - [AuthenticationAction](docs/AuthenticationAction.md)
  - [CardAction](docs/CardAction.md)
+ - [CarouselAction](docs/CarouselAction.md)
  - [CatalogItem](docs/CatalogItem.md)
  - [ContentV1LegacyContent](docs/ContentV1LegacyContent.md)
  - [ListContentAndApprovalsResponse](docs/ListContentAndApprovalsResponse.md)

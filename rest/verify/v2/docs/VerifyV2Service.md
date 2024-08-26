@@ -7,14 +7,14 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string that we created to identify the Service resource. |
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource. |
 **FriendlyName** | Pointer to **string** | The name that appears in the body of your verification messages. It can be up to 30 characters long and can include letters, numbers, spaces, dashes, underscores. Phone numbers, special characters or links are NOT allowed. **This value should not contain PII.** |
-**CodeLength** | Pointer to **int** | The length of the verification code to generate. |
+**CodeLength** | Pointer to **int** | The length of the verification code to generate. |[default to 0]
 **LookupEnabled** | Pointer to **bool** | Whether to perform a lookup with each verification started and return info about the phone number. |
 **Psd2Enabled** | Pointer to **bool** | Whether to pass PSD2 transaction parameters when starting a verification. |
 **SkipSmsToLandlines** | Pointer to **bool** | Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`. |
 **DtmfInputRequired** | Pointer to **bool** | Whether to ask the user to press a number before delivering the verify code in a phone call. |
 **TtsName** | Pointer to **string** | The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages. |
 **DoNotShareWarningEnabled** | Pointer to **bool** | Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code` |
-**CustomCodeEnabled** | Pointer to **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers. |
+**CustomCodeEnabled** | Pointer to **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one. |
 **Push** | Pointer to **interface{}** | Configurations for the Push factors (channel) created under this Service. |
 **Totp** | Pointer to **interface{}** | Configurations for the TOTP factors (channel) created under this Service. |
 **DefaultTemplateSid** | Pointer to **string** |  |

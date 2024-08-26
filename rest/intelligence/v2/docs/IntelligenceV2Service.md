@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **WebhookUrl** | Pointer to **string** | The URL Twilio will request when executing the Webhook. |
 **WebhookHttpMethod** | Pointer to [**string**](ServiceEnumHttpMethod.md) |  |
 **ReadOnlyAttachedOperatorSids** | Pointer to **[]string** | Operator sids attached to this service, read only |
-**Version** | Pointer to **int** | The version number of this Service. |
+**Version** | Pointer to **int** | The version number of this Service. |[default to 0]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

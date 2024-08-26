@@ -20,15 +20,15 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// CreateBillingUsageRequestBillableItems struct for CreateBillingUsageRequestBillableItems
-type CreateBillingUsageRequestBillableItems struct {
-	//
+// MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems struct for MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+type MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems struct {
+	// Any floating number greater than 0.
 	Quantity float32 `json:"quantity"`
-	//
+	// BillingSid to use for billing.
 	Sid string `json:"sid"`
 }
 
-func (response *CreateBillingUsageRequestBillableItems) UnmarshalJSON(bytes []byte) (err error) {
+func (response *MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
 		Quantity interface{} `json:"quantity"`
 		Sid      string      `json:"sid"`
@@ -38,7 +38,7 @@ func (response *CreateBillingUsageRequestBillableItems) UnmarshalJSON(bytes []by
 		return err
 	}
 
-	*response = CreateBillingUsageRequestBillableItems{
+	*response = MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems{
 		Sid: raw.Sid,
 	}
 

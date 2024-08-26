@@ -20,19 +20,19 @@ import (
 	"strings"
 )
 
-// Optional parameters for the method 'CreateContentApprovalRequest'
-type CreateContentApprovalRequestParams struct {
+// Optional parameters for the method 'CreateApprovalCreate'
+type CreateApprovalCreateParams struct {
 	//
 	ContentApprovalRequest *ContentApprovalRequest `json:"ContentApprovalRequest,omitempty"`
 }
 
-func (params *CreateContentApprovalRequestParams) SetContentApprovalRequest(ContentApprovalRequest ContentApprovalRequest) *CreateContentApprovalRequestParams {
+func (params *CreateApprovalCreateParams) SetContentApprovalRequest(ContentApprovalRequest ContentApprovalRequest) *CreateApprovalCreateParams {
 	params.ContentApprovalRequest = &ContentApprovalRequest
 	return params
 }
 
 //
-func (c *ApiService) CreateContentApprovalRequest(ContentSid string, params *CreateContentApprovalRequestParams) (*ContentV1ApprovalCreate, error) {
+func (c *ApiService) CreateApprovalCreate(ContentSid string, params *CreateApprovalCreateParams) (*ContentV1ApprovalCreate, error) {
 	path := "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp"
 	path = strings.Replace(path, "{"+"ContentSid"+"}", ContentSid, -1)
 

@@ -153,6 +153,7 @@ Class | Method | HTTP request | Description
 *AccountsRecordingsAddOnResultsPayloadsApi* | [**DeleteRecordingAddOnResultPayload**](docs/AccountsRecordingsAddOnResultsPayloadsApi.md#deleterecordingaddonresultpayload) | **Delete** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json | 
 *AccountsRecordingsAddOnResultsPayloadsApi* | [**FetchRecordingAddOnResultPayload**](docs/AccountsRecordingsAddOnResultsPayloadsApi.md#fetchrecordingaddonresultpayload) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json | 
 *AccountsRecordingsAddOnResultsPayloadsApi* | [**ListRecordingAddOnResultPayload**](docs/AccountsRecordingsAddOnResultsPayloadsApi.md#listrecordingaddonresultpayload) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json | 
+*AccountsRecordingsAddOnResultsPayloadsDataApi* | [**FetchRecordingAddOnResultPayloadData**](docs/AccountsRecordingsAddOnResultsPayloadsDataApi.md#fetchrecordingaddonresultpayloaddata) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json | 
 *AccountsRecordingsTranscriptionsApi* | [**DeleteRecordingTranscription**](docs/AccountsRecordingsTranscriptionsApi.md#deleterecordingtranscription) | **Delete** /2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json | 
 *AccountsRecordingsTranscriptionsApi* | [**FetchRecordingTranscription**](docs/AccountsRecordingsTranscriptionsApi.md#fetchrecordingtranscription) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json | 
 *AccountsRecordingsTranscriptionsApi* | [**ListRecordingTranscription**](docs/AccountsRecordingsTranscriptionsApi.md#listrecordingtranscription) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json | 
@@ -273,6 +274,7 @@ Class | Method | HTTP request | Description
  - [ApiV2010SipIpAccessControlList](docs/ApiV2010SipIpAccessControlList.md)
  - [ListCallNotificationResponse](docs/ListCallNotificationResponse.md)
  - [ApiV2010AvailablePhoneNumberCountry](docs/ApiV2010AvailablePhoneNumberCountry.md)
+ - [ApiV2010RecordingAddOnResultPayloadData](docs/ApiV2010RecordingAddOnResultPayloadData.md)
  - [ApiV2010AccountTokenIceServers](docs/ApiV2010AccountTokenIceServers.md)
  - [ApiV2010UsageRecordThisMonth](docs/ApiV2010UsageRecordThisMonth.md)
  - [ListAvailablePhoneNumberVoipResponse](docs/ListAvailablePhoneNumberVoipResponse.md)

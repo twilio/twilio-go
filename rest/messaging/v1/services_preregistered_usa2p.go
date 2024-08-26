@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -25,6 +26,8 @@ type CreateExternalCampaignParams struct {
 	CampaignId *string `json:"CampaignId,omitempty"`
 	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	// Customers should use this flag during the ERC registration process to indicate to Twilio that the campaign being registered is undergoing CNP migration. It is important for the user to first trigger the CNP migration process for said campaign in their CSP portal and have Twilio accept the sharing request, before making this api call.
+	CnpMigration *bool `json:"CnpMigration,omitempty"`
 }
 
 func (params *CreateExternalCampaignParams) SetCampaignId(CampaignId string) *CreateExternalCampaignParams {
@@ -33,6 +36,10 @@ func (params *CreateExternalCampaignParams) SetCampaignId(CampaignId string) *Cr
 }
 func (params *CreateExternalCampaignParams) SetMessagingServiceSid(MessagingServiceSid string) *CreateExternalCampaignParams {
 	params.MessagingServiceSid = &MessagingServiceSid
+	return params
+}
+func (params *CreateExternalCampaignParams) SetCnpMigration(CnpMigration bool) *CreateExternalCampaignParams {
+	params.CnpMigration = &CnpMigration
 	return params
 }
 
@@ -50,6 +57,9 @@ func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams
 	}
 	if params != nil && params.MessagingServiceSid != nil {
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+	if params != nil && params.CnpMigration != nil {
+		data.Set("CnpMigration", fmt.Sprint(*params.CnpMigration))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

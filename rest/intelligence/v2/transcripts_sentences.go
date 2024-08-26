@@ -27,6 +27,8 @@ import (
 type ListSentenceParams struct {
 	// Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
 	Redacted *bool `json:"Redacted,omitempty"`
+	// Returns word level timestamps information, if word_timestamps is enabled. The default is `false`.
+	WordTimestamps *bool `json:"WordTimestamps,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -35,6 +37,10 @@ type ListSentenceParams struct {
 
 func (params *ListSentenceParams) SetRedacted(Redacted bool) *ListSentenceParams {
 	params.Redacted = &Redacted
+	return params
+}
+func (params *ListSentenceParams) SetWordTimestamps(WordTimestamps bool) *ListSentenceParams {
+	params.WordTimestamps = &WordTimestamps
 	return params
 }
 func (params *ListSentenceParams) SetPageSize(PageSize int) *ListSentenceParams {
@@ -59,6 +65,9 @@ func (c *ApiService) PageSentence(TranscriptSid string, params *ListSentencePara
 
 	if params != nil && params.Redacted != nil {
 		data.Set("Redacted", fmt.Sprint(*params.Redacted))
+	}
+	if params != nil && params.WordTimestamps != nil {
+		data.Set("WordTimestamps", fmt.Sprint(*params.WordTimestamps))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

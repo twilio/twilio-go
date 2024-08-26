@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **WasEdited** | Pointer to **bool** |  |
 **From** | Pointer to **string** |  |
 **Body** | Pointer to **string** |  |
-**Index** | Pointer to **int** |  |
+**Index** | Pointer to **int** |  |[default to 0]
 **Url** | Pointer to **string** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

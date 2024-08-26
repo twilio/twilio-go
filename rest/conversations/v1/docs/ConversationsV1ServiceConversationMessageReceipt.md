@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **ChannelMessageSid** | Pointer to **string** | A messaging channel-specific identifier for the message delivered to participant e.g. `SMxx` for SMS, `WAxx` for Whatsapp etc.  |
 **ParticipantSid** | Pointer to **string** | The unique ID of the participant the delivery receipt belongs to. |
 **Status** | Pointer to [**string**](ServiceConversationMessageReceiptEnumDeliveryStatus.md) |  |
-**ErrorCode** | Pointer to **int** | The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status,  |
+**ErrorCode** | Pointer to **int** | The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status,  |[default to 0]
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was created. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was last updated. `null` if the delivery receipt has not been updated. |
 **Url** | Pointer to **string** | An absolute API resource URL for this delivery receipt. |

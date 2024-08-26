@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateBillingUsageParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CreateBillingUsageRequest** | [**CreateBillingUsageRequest**](CreateBillingUsageRequest.md) | 
+**MarketplaceV1InstalledAddOnUsage** | [**MarketplaceV1InstalledAddOnUsage**](MarketplaceV1InstalledAddOnUsage.md) | 
 
 ### Return type
 

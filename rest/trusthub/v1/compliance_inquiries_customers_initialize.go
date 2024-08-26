@@ -26,6 +26,8 @@ type CreateComplianceInquiryParams struct {
 	PrimaryProfileSid *string `json:"PrimaryProfileSid,omitempty"`
 	// The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
 	NotificationEmail *string `json:"NotificationEmail,omitempty"`
+	// Theme id for styling the inquiry form.
+	ThemeSetId *string `json:"ThemeSetId,omitempty"`
 }
 
 func (params *CreateComplianceInquiryParams) SetPrimaryProfileSid(PrimaryProfileSid string) *CreateComplianceInquiryParams {
@@ -34,6 +36,10 @@ func (params *CreateComplianceInquiryParams) SetPrimaryProfileSid(PrimaryProfile
 }
 func (params *CreateComplianceInquiryParams) SetNotificationEmail(NotificationEmail string) *CreateComplianceInquiryParams {
 	params.NotificationEmail = &NotificationEmail
+	return params
+}
+func (params *CreateComplianceInquiryParams) SetThemeSetId(ThemeSetId string) *CreateComplianceInquiryParams {
+	params.ThemeSetId = &ThemeSetId
 	return params
 }
 
@@ -51,6 +57,9 @@ func (c *ApiService) CreateComplianceInquiry(params *CreateComplianceInquiryPara
 	}
 	if params != nil && params.NotificationEmail != nil {
 		data.Set("NotificationEmail", *params.NotificationEmail)
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -72,10 +81,16 @@ func (c *ApiService) CreateComplianceInquiry(params *CreateComplianceInquiryPara
 type UpdateComplianceInquiryParams struct {
 	// The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
 	PrimaryProfileSid *string `json:"PrimaryProfileSid,omitempty"`
+	// Theme id for styling the inquiry form.
+	ThemeSetId *string `json:"ThemeSetId,omitempty"`
 }
 
 func (params *UpdateComplianceInquiryParams) SetPrimaryProfileSid(PrimaryProfileSid string) *UpdateComplianceInquiryParams {
 	params.PrimaryProfileSid = &PrimaryProfileSid
+	return params
+}
+func (params *UpdateComplianceInquiryParams) SetThemeSetId(ThemeSetId string) *UpdateComplianceInquiryParams {
+	params.ThemeSetId = &ThemeSetId
 	return params
 }
 
@@ -91,6 +106,9 @@ func (c *ApiService) UpdateComplianceInquiry(CustomerId string, params *UpdateCo
 
 	if params != nil && params.PrimaryProfileSid != nil {
 		data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

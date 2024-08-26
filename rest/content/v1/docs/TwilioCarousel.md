@@ -1,11 +1,11 @@
-# CreateBillingUsageRequestBillableItems
+# TwilioCarousel
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Quantity** | **float32** |  |
-**Sid** | **string** |  |
+**Body** | **string** |  |
+**Cards** | [**[]CarouselCard**](CarouselCard.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

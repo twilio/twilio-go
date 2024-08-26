@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 
-
+This endpoint returns the data of a given Listing. To find a Listing's SID, use the [Available Add-ons resource](/docs/marketplace/api/available-add-ons) or view its Listing details page in the Console by visiting the [Catalog](https://console.twilio.com/us1/develop/add-ons/catalog) or the [My Listings tab](https://console.twilio.com/us1/develop/add-ons/publish/my-listings) and selecting the Listing.
 
 ### Path Parameters
 
@@ -23,7 +23,7 @@ Method | HTTP request | Description
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | 
+**Sid** | **string** | The unique identifier of a Listing.
 
 ### Other Parameters
 
@@ -79,6 +79,7 @@ Name | Type | Description
 **Documentation** | **string** | 
 **Policies** | **string** | 
 **Support** | **string** | 
+**Configuration** | **string** | 
 
 ### Return type
 

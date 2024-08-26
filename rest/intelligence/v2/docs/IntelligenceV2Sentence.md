@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MediaChannel** | Pointer to **int** | The channel number. |
-**SentenceIndex** | Pointer to **int** | The index of the sentence in the transcript. |
+**MediaChannel** | Pointer to **int** | The channel number. |[default to 0]
+**SentenceIndex** | Pointer to **int** | The index of the sentence in the transcript. |[default to 0]
 **StartTime** | Pointer to **float32** | Offset from the beginning of the transcript when this sentence starts. |
 **EndTime** | Pointer to **float32** | Offset from the beginning of the transcript when this sentence ends. |
 **Transcript** | Pointer to **string** | Transcript text. |
 **Sid** | Pointer to **string** | A 34 character string that uniquely identifies this Sentence. |
 **Confidence** | Pointer to **float32** |  |
+**Words** | Pointer to **[]interface{}** | Detailed information for each of the words of the given Sentence. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

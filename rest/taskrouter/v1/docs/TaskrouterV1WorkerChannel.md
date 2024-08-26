@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource. |
-**AssignedTasks** | Pointer to **int** | The total number of Tasks assigned to Worker for the TaskChannel type. |
+**AssignedTasks** | Pointer to **int** | The total number of Tasks assigned to Worker for the TaskChannel type. |[default to 0]
 **Available** | Pointer to **bool** | Whether the Worker should receive Tasks of the TaskChannel type. |
-**AvailableCapacityPercentage** | Pointer to **int** | The current percentage of capacity the TaskChannel has available. Can be a number between `0` and `100`. A value of `0` indicates that TaskChannel has no capacity available and a value of `100` means the  Worker is available to receive any Tasks of this TaskChannel type. |
-**ConfiguredCapacity** | Pointer to **int** | The current configured capacity for the WorkerChannel. TaskRouter will not create any reservations after the assigned Tasks for the Worker reaches the value. |
+**AvailableCapacityPercentage** | Pointer to **int** | The current percentage of capacity the TaskChannel has available. Can be a number between `0` and `100`. A value of `0` indicates that TaskChannel has no capacity available and a value of `100` means the  Worker is available to receive any Tasks of this TaskChannel type. |[default to 0]
+**ConfiguredCapacity** | Pointer to **int** | The current configured capacity for the WorkerChannel. TaskRouter will not create any reservations after the assigned Tasks for the Worker reaches the value. |[default to 0]
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **Sid** | Pointer to **string** | The unique string that we created to identify the WorkerChannel resource. |

@@ -35,17 +35,20 @@ type IntelligenceV2Sentence struct {
 	// A 34 character string that uniquely identifies this Sentence.
 	Sid        *string  `json:"sid,omitempty"`
 	Confidence *float32 `json:"confidence,omitempty"`
+	// Detailed information for each of the words of the given Sentence.
+	Words *[]interface{} `json:"words,omitempty"`
 }
 
 func (response *IntelligenceV2Sentence) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		MediaChannel  *int         `json:"media_channel"`
-		SentenceIndex *int         `json:"sentence_index"`
-		StartTime     *interface{} `json:"start_time"`
-		EndTime       *interface{} `json:"end_time"`
-		Transcript    *string      `json:"transcript"`
-		Sid           *string      `json:"sid"`
-		Confidence    *interface{} `json:"confidence"`
+		MediaChannel  *int           `json:"media_channel"`
+		SentenceIndex *int           `json:"sentence_index"`
+		StartTime     *interface{}   `json:"start_time"`
+		EndTime       *interface{}   `json:"end_time"`
+		Transcript    *string        `json:"transcript"`
+		Sid           *string        `json:"sid"`
+		Confidence    *interface{}   `json:"confidence"`
+		Words         *[]interface{} `json:"words"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -57,6 +60,7 @@ func (response *IntelligenceV2Sentence) UnmarshalJSON(bytes []byte) (err error) 
 		SentenceIndex: raw.SentenceIndex,
 		Transcript:    raw.Transcript,
 		Sid:           raw.Sid,
+		Words:         raw.Words,
 	}
 
 	responseStartTime, err := client.UnmarshalFloat32(raw.StartTime)

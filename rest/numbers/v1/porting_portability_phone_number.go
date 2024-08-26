@@ -22,7 +22,7 @@ import (
 
 // Optional parameters for the method 'FetchPortingPortability'
 type FetchPortingPortabilityParams struct {
-	// The SID of the account where the phone number(s) will be ported.
+	// Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
 	TargetAccountSid *string `json:"TargetAccountSid,omitempty"`
 }
 
@@ -31,7 +31,7 @@ func (params *FetchPortingPortabilityParams) SetTargetAccountSid(TargetAccountSi
 	return params
 }
 
-// Allows to check if a single phone number can be ported to Twilio or not.
+// Check if a single phone number can be ported to Twilio
 func (c *ApiService) FetchPortingPortability(PhoneNumber string, params *FetchPortingPortabilityParams) (*NumbersV1PortingPortability, error) {
 	path := "/v1/Porting/Portability/PhoneNumber/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)

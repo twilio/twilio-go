@@ -20,23 +20,22 @@ type NumbersV1PortingPortIn struct {
 	PortInRequestSid *string `json:"port_in_request_sid,omitempty"`
 	// The URL of this Port In request
 	Url *string `json:"url,omitempty"`
-	// The Account SID that the numbers will be added to after they are ported into Twilio.
+	// Account Sid or subaccount where the phone number(s) will be Ported
 	AccountSid *string `json:"account_sid,omitempty"`
-	// List of emails for getting notifications about the LOA signing process. Allowed Max 10 emails.
+	// Additional emails to send a copy of the signed LOA to.
 	NotificationEmails *[]string `json:"notification_emails,omitempty"`
-	// Minimum number of days in the future (at least 2 days) needs to be established with the Ops team for validation.
+	// Target date to port the number. We cannot guarantee that this date will be honored by the other carriers, please work with Ops to get a confirmation of the firm order commitment (FOC) date. Expected format is ISO Local Date, example: ‘2011-12-03`. This date must be at least 7 days in the future for US ports and 10 days in the future for Japanese ports. (This value is only available for custom porting customers.)
 	TargetPortInDate *string `json:"target_port_in_date,omitempty"`
-	// Minimum hour in the future needs to be established with the Ops team for validation.
+	// The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. (This value is only available for custom porting customers.)
 	TargetPortInTimeRangeStart *string `json:"target_port_in_time_range_start,omitempty"`
-	// Maximum hour in the future needs to be established with the Ops team for validation.
+	// The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'.  (This value is only available for custom porting customers.)
 	TargetPortInTimeRangeEnd *string `json:"target_port_in_time_range_end,omitempty"`
 	// The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
 	PortInRequestStatus *string `json:"port_in_request_status,omitempty"`
-	// The information for the losing carrier.
-	LosingCarrierInformation *interface{} `json:"losing_carrier_information,omitempty"`
-	// The list of phone numbers to Port in. Phone numbers are in E.164 format (e.g. +16175551212).
-	PhoneNumbers *[]interface{} `json:"phone_numbers,omitempty"`
-	// The list of documents SID referencing a utility bills
+	// Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted.
+	LosingCarrierInformation *interface{}   `json:"losing_carrier_information,omitempty"`
+	PhoneNumbers             *[]interface{} `json:"phone_numbers,omitempty"`
+	// List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
 	Documents   *[]string `json:"documents,omitempty"`
 	DateCreated *string   `json:"date_created,omitempty"`
 }

@@ -47,6 +47,7 @@ Class | Method | HTTP request | Description
 *RegulatoryComplianceBundlesApi* | [**FetchBundle**](docs/RegulatoryComplianceBundlesApi.md#fetchbundle) | **Get** /v2/RegulatoryCompliance/Bundles/{Sid} | 
 *RegulatoryComplianceBundlesApi* | [**ListBundle**](docs/RegulatoryComplianceBundlesApi.md#listbundle) | **Get** /v2/RegulatoryCompliance/Bundles | 
 *RegulatoryComplianceBundlesApi* | [**UpdateBundle**](docs/RegulatoryComplianceBundlesApi.md#updatebundle) | **Post** /v2/RegulatoryCompliance/Bundles/{Sid} | 
+*RegulatoryComplianceBundlesClonesApi* | [**CreateBundleClone**](docs/RegulatoryComplianceBundlesClonesApi.md#createbundleclone) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Clones | 
 *RegulatoryComplianceBundlesCopiesApi* | [**CreateBundleCopy**](docs/RegulatoryComplianceBundlesCopiesApi.md#createbundlecopy) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies | 
 *RegulatoryComplianceBundlesCopiesApi* | [**ListBundleCopy**](docs/RegulatoryComplianceBundlesCopiesApi.md#listbundlecopy) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies | 
 *RegulatoryComplianceBundlesEvaluationsApi* | [**CreateEvaluation**](docs/RegulatoryComplianceBundlesEvaluationsApi.md#createevaluation) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations | 
@@ -101,6 +102,7 @@ Class | Method | HTTP request | Description
  - [NumbersV2ItemAssignment](docs/NumbersV2ItemAssignment.md)
  - [NumbersV2SupportingDocumentType](docs/NumbersV2SupportingDocumentType.md)
  - [NumbersV2AuthorizationDocumentDependentHostedNumberOrderCapabilities](docs/NumbersV2AuthorizationDocumentDependentHostedNumberOrderCapabilities.md)
+ - [NumbersV2BundleClone](docs/NumbersV2BundleClone.md)
  - [ListBundleResponse](docs/ListBundleResponse.md)
  - [NumbersV2BundleCopy](docs/NumbersV2BundleCopy.md)
  - [ListBundleCopyResponse](docs/ListBundleCopyResponse.md)

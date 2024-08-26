@@ -40,6 +40,8 @@ type CreateBundleParams struct {
 	EndUserType *string `json:"EndUserType,omitempty"`
 	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
 	NumberType *string `json:"NumberType,omitempty"`
+	// Indicates that Bundle is a Test Bundle and will be Auto-Rejected
+	IsTest *bool `json:"IsTest,omitempty"`
 }
 
 func (params *CreateBundleParams) SetFriendlyName(FriendlyName string) *CreateBundleParams {
@@ -68,6 +70,10 @@ func (params *CreateBundleParams) SetEndUserType(EndUserType string) *CreateBund
 }
 func (params *CreateBundleParams) SetNumberType(NumberType string) *CreateBundleParams {
 	params.NumberType = &NumberType
+	return params
+}
+func (params *CreateBundleParams) SetIsTest(IsTest bool) *CreateBundleParams {
+	params.IsTest = &IsTest
 	return params
 }
 
@@ -100,6 +106,9 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle,
 	}
 	if params != nil && params.NumberType != nil {
 		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.IsTest != nil {
+		data.Set("IsTest", fmt.Sprint(*params.IsTest))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

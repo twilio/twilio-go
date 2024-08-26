@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format. |
 **CreatedBy** | Pointer to **string** | The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`. |
-**MembersCount** | Pointer to **int** | The number of Members in the Channel. |
-**MessagesCount** | Pointer to **int** | The number of Messages in the Channel. |
+**MembersCount** | Pointer to **int** | The number of Members in the Channel. |[default to 0]
+**MessagesCount** | Pointer to **int** | The number of Messages in the Channel. |[default to 0]
 **Url** | Pointer to **string** | The absolute URL of the Channel resource. |
 **Links** | Pointer to **map[string]interface{}** | The absolute URLs of the [Members](https://www.twilio.com/docs/chat/api/members), [Messages](https://www.twilio.com/docs/chat/api/messages) , [Invites](https://www.twilio.com/docs/chat/api/invites) and, if it exists, the last [Message](https://www.twilio.com/docs/chat/api/messages) for the Channel. |
 

@@ -31,7 +31,7 @@ func (params *CreatePortingWebhookConfigurationParams) SetBody(Body map[string]i
 	return params
 }
 
-// Allows to create a new webhook configuration
+// Create a Webhook Configuration
 func (c *ApiService) CreatePortingWebhookConfiguration(params *CreatePortingWebhookConfigurationParams) (*NumbersV1PortingWebhookConfiguration, error) {
 	path := "/v1/Porting/Configuration/Webhook"
 

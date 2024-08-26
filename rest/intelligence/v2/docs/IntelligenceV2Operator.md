@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | A human-readable description of this resource, longer than the friendly name. |
 **Author** | Pointer to **string** | The creator of the Operator. Either Twilio or the creating Account. |
 **OperatorType** | Pointer to **string** | Operator Type for this Operator. References an existing Operator Type resource. |
-**Version** | Pointer to **int** | Numeric Operator version. Incremented with each update on the resource, used to ensure integrity when updating the Operator. |
+**Version** | Pointer to **int** | Numeric Operator version. Incremented with each update on the resource, used to ensure integrity when updating the Operator. |[default to 0]
 **Availability** | Pointer to [**string**](OperatorEnumAvailability.md) |  |
 **Config** | Pointer to **interface{}** | Operator configuration, following the schema defined by the Operator Type. Only available on Custom Operators created by the Account. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this Operator was created, given in ISO 8601 format. |

@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **CreatedBy** | Pointer to **string** | The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`. |
-**MembersCount** | Pointer to **int** | The number of Members in the Channel. |
-**MessagesCount** | Pointer to **int** | The number of Messages that have been passed in the Channel. |
+**MembersCount** | Pointer to **int** | The number of Members in the Channel. |[default to 0]
+**MessagesCount** | Pointer to **int** | The number of Messages that have been passed in the Channel. |[default to 0]
 **MessagingServiceSid** | Pointer to **string** | The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to. |
 **Url** | Pointer to **string** | The absolute URL of the Channel resource. |
 

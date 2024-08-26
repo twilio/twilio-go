@@ -38,6 +38,7 @@ Name | Type | Description
 **IsoCountry** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
 **EndUserType** | **string** | 
 **NumberType** | **string** | The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+**IsTest** | **bool** | Indicates that Bundle is a Test Bundle and will be Auto-Rejected
 
 ### Return type
 

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **Url** | Pointer to **string** | The absolute URL of the Fleet resource. |
 **DataEnabled** | Pointer to **bool** | Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`. |
-**DataLimit** | Pointer to **int** | The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 250MB. |
+**DataLimit** | Pointer to **int** | The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 250MB. |[default to 0]
 **DataMetering** | Pointer to [**string**](FleetEnumDataMetering.md) |  |
 **SmsCommandsEnabled** | Pointer to **bool** | Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `false`. |
 **SmsCommandsUrl** | Pointer to **string** | The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. |

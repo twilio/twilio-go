@@ -29,7 +29,7 @@ type ApiV2010Message struct {
 	DateUpdated *string `json:"date_updated,omitempty"`
 	// The amount billed for the message in the currency specified by `price_unit`. The `price` is populated after the message has been sent/received, and may not be immediately availalble. View the [Pricing page](https://www.twilio.com/en-us/pricing) for more details.
 	Price *string `json:"price,omitempty"`
-	// The description of the `error_code` if the Message `status` is `failed` or `undelivered`. If no error was encountered, the value is `null`.
+	// The description of the `error_code` if the Message `status` is `failed` or `undelivered`. If no error was encountered, the value is `null`. The value returned in this field for a specific error cause is subject to change as Twilio improves errors. Users should not use the `error_code` and `error_message` fields programmatically.
 	ErrorMessage *string `json:"error_message,omitempty"`
 	// The URI of the Message resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
@@ -46,7 +46,7 @@ type ApiV2010Message struct {
 	DateSent *string `json:"date_sent,omitempty"`
 	// The [RFC 2822](https://datatracker.ietf.org/doc/html/rfc2822#section-3.3) timestamp (in GMT) of when the Message resource was created
 	DateCreated *string `json:"date_created,omitempty"`
-	// The [error code](https://www.twilio.com/docs/api/errors) returned if the Message `status` is `failed` or `undelivered`. If no error was encountered, the value is `null`.
+	// The [error code](https://www.twilio.com/docs/api/errors) returned if the Message `status` is `failed` or `undelivered`. If no error was encountered, the value is `null`. The value returned in this field for a specific error cause is subject to change as Twilio improves errors. Users should not use the `error_code` and `error_message` fields programmatically.
 	ErrorCode *int `json:"error_code,omitempty"`
 	// The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
 	PriceUnit *string `json:"price_unit,omitempty"`

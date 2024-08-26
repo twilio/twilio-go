@@ -20,37 +20,40 @@ import (
 
 // NumbersV1PortingPortInPhoneNumber struct for NumbersV1PortingPortInPhoneNumber
 type NumbersV1PortingPortInPhoneNumber struct {
-	// The SID of the Port In request. This is a unique identifier of the port in request.
+	// The unique identifier for the port in request that this phone number is associated with.
 	PortInRequestSid *string `json:"port_in_request_sid,omitempty"`
-	// The SID of the Port In request phone number. This is a unique identifier of the phone number.
+	// The unique identifier for this phone number associated with this port in request.
 	PhoneNumberSid *string `json:"phone_number_sid,omitempty"`
-	Url            *string `json:"url,omitempty"`
-	// The SID of the account that the phone number belongs to.
+	// URL reference for this resource.
+	Url *string `json:"url,omitempty"`
+	// Account Sid or subaccount where the phone number(s) will be Ported.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The type of the phone number.
+	// The number type of the phone number. This can be: toll-free, local, mobile or unknown. This field may be null if the number is not portable or if the portability for a number has not yet been evaluated.
 	PhoneNumberType *string `json:"phone_number_type,omitempty"`
-	// The date when the phone number was created.
+	// The timestamp for when this port in phone number was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The country of the phone number.
+	// The ISO country code that this number is associated with. This field may be null if the number is not portable or if the portability for a number has not yet been evaluated.
 	Country *string `json:"country,omitempty"`
-	// The phone number is missing required fields.
+	// Indicates if the phone number is missing required fields such as a PIN or account number. This field may be null if the number is not portable or if the portability for a number has not yet been evaluated.
 	MissingRequiredFields *bool `json:"missing_required_fields,omitempty"`
-	// The timestamp when the status was last updated.
+	// Timestamp indicating when the Port In Phone Number resource was last modified.
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
-	// The phone number.
+	// Phone number to be ported. This will be in the E164 Format.
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// The phone number is portable.
+	// If the number is portable by Twilio or not. This field may be null if the number portability has not yet been evaluated. If a number is not portable reference the `not_portability_reason_code` and `not_portability_reason` fields for more details
 	Portable *bool `json:"portable,omitempty"`
-	// The reason why the phone number is not portable.
+	// The not portability reason code description. This field may be null if the number is portable or if the portability for a number has not yet been evaluated.
 	NotPortabilityReason *string `json:"not_portability_reason,omitempty"`
-	// The code of the reason why the phone number is not portable.
+	// The not portability reason code. This field may be null if the number is portable or if the portability for a number has not yet been evaluated.
 	NotPortabilityReasonCode *int `json:"not_portability_reason_code,omitempty"`
-	// The status of the phone number in the port in request.
+	// The status of the port in phone number.
 	PortInPhoneNumberStatus *string `json:"port_in_phone_number_status,omitempty"`
-	// The pin required for the losing carrier to port out the phone number.
+	// The pin required by the losing carrier to do the port out.
 	PortOutPin *int `json:"port_out_pin,omitempty"`
-	// The rejection reason returned by the vendor.
+	// The description of the rejection reason provided by the losing carrier. This field may be null if the number has not been rejected by the losing carrier.
 	RejectionReason *string `json:"rejection_reason,omitempty"`
-	// The rejection reason code returned by the vendor.
+	// The code for the rejection reason provided by the losing carrier. This field may be null if the number has not been rejected by the losing carrier.
 	RejectionReasonCode *int `json:"rejection_reason_code,omitempty"`
+	// The timestamp the phone number will be ported. This will only be set once a port date has been confirmed. Not all carriers can guarantee a specific time on the port date. Twilio will try its best to get the port completed by this time on the port date. Please subscribe to webhooks for confirmation on when a port has actually been completed.
+	PortDate *time.Time `json:"port_date,omitempty"`
 }

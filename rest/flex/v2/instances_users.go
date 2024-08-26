@@ -45,3 +45,89 @@ func (c *ApiService) FetchFlexUser(InstanceSid string, FlexUserSid string) (*Fle
 
 	return ps, err
 }
+
+// Optional parameters for the method 'UpdateFlexUser'
+type UpdateFlexUserParams struct {
+	// First name of the User.
+	FirstName *string `json:"FirstName,omitempty"`
+	// Last name of the User.
+	LastName *string `json:"LastName,omitempty"`
+	// Email of the User.
+	Email *string `json:"Email,omitempty"`
+	// Friendly name of the User.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The unique SID identifier of the Twilio Unified User.
+	UserSid *string `json:"UserSid,omitempty"`
+	// The locale preference of the user.
+	Locale *string `json:"Locale,omitempty"`
+}
+
+func (params *UpdateFlexUserParams) SetFirstName(FirstName string) *UpdateFlexUserParams {
+	params.FirstName = &FirstName
+	return params
+}
+func (params *UpdateFlexUserParams) SetLastName(LastName string) *UpdateFlexUserParams {
+	params.LastName = &LastName
+	return params
+}
+func (params *UpdateFlexUserParams) SetEmail(Email string) *UpdateFlexUserParams {
+	params.Email = &Email
+	return params
+}
+func (params *UpdateFlexUserParams) SetFriendlyName(FriendlyName string) *UpdateFlexUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateFlexUserParams) SetUserSid(UserSid string) *UpdateFlexUserParams {
+	params.UserSid = &UserSid
+	return params
+}
+func (params *UpdateFlexUserParams) SetLocale(Locale string) *UpdateFlexUserParams {
+	params.Locale = &Locale
+	return params
+}
+
+// Update flex user for the given flex user sid
+func (c *ApiService) UpdateFlexUser(InstanceSid string, FlexUserSid string, params *UpdateFlexUserParams) (*FlexV2FlexUser, error) {
+	path := "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}"
+	path = strings.Replace(path, "{"+"InstanceSid"+"}", InstanceSid, -1)
+	path = strings.Replace(path, "{"+"FlexUserSid"+"}", FlexUserSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FirstName != nil {
+		data.Set("FirstName", *params.FirstName)
+	}
+	if params != nil && params.LastName != nil {
+		data.Set("LastName", *params.LastName)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UserSid != nil {
+		data.Set("UserSid", *params.UserSid)
+	}
+	if params != nil && params.Locale != nil {
+		data.Set("Locale", *params.Locale)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV2FlexUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}

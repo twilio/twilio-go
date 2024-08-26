@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the Flow. |
 **Definition** | Pointer to **interface{}** | JSON representation of flow definition. |
 **Status** | Pointer to [**string**](FlowEnumStatus.md) |  |
-**Revision** | Pointer to **int** | The latest revision number of the Flow's definition. |
+**Revision** | Pointer to **int** | The latest revision number of the Flow's definition. |[default to 0]
 **CommitMessage** | Pointer to **string** | Description of change made in the revision. |
 **Valid** | Pointer to **bool** | Boolean if the flow definition is valid. |
 **Errors** | Pointer to **[]interface{}** | List of error in the flow definition. |

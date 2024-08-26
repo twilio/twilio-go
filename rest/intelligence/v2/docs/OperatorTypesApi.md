@@ -23,7 +23,7 @@ Fetch a specific Operator Type.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies this Operator Type.
+**Sid** | **string** | Either a 34 character string that uniquely identifies this Operator Type or the unique name that references an Operator Type.
 
 ### Other Parameters
 

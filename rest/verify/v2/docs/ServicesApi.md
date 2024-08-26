@@ -39,7 +39,7 @@ Name | Type | Description
 **TtsName** | **string** | The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
 **Psd2Enabled** | **bool** | Whether to pass PSD2 transaction parameters when starting a verification.
 **DoNotShareWarningEnabled** | **bool** | Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-**CustomCodeEnabled** | **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+**CustomCodeEnabled** | **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one.
 **PushIncludeDate** | **bool** | Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
 **PushApnCredentialSid** | **string** | Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
 **PushFcmCredentialSid** | **string** | Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -225,7 +225,7 @@ Name | Type | Description
 **TtsName** | **string** | The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
 **Psd2Enabled** | **bool** | Whether to pass PSD2 transaction parameters when starting a verification.
 **DoNotShareWarningEnabled** | **bool** | Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
-**CustomCodeEnabled** | **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+**CustomCodeEnabled** | **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one.
 **PushIncludeDate** | **bool** | Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
 **PushApnCredentialSid** | **string** | Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
 **PushFcmCredentialSid** | **string** | Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)

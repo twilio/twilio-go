@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 
-Allows to check if a single phone number can be ported to Twilio or not.
+Check if a single phone number can be ported to Twilio
 
 ### Path Parameters
 
@@ -22,7 +22,7 @@ Allows to check if a single phone number can be ported to Twilio or not.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**PhoneNumber** | **string** | The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
+**PhoneNumber** | **string** | Phone number to check portability in e164 format.
 
 ### Other Parameters
 
@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a FetchPortingPortabilityParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**TargetAccountSid** | **string** | The SID of the account where the phone number(s) will be ported.
+**TargetAccountSid** | **string** | Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
 
 ### Return type
 

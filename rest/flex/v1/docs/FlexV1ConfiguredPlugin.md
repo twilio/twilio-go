@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ConfigurationSid** | Pointer to **string** | The SID of the Flex Plugin Configuration that this Flex Plugin belongs to. |
 **PluginSid** | Pointer to **string** | The SID of the Flex Plugin. |
 **PluginVersionSid** | Pointer to **string** | The SID of the Flex Plugin Version. |
-**Phase** | Pointer to **int** | The phase this Flex Plugin would initialize at runtime. |
+**Phase** | Pointer to **int** | The phase this Flex Plugin would initialize at runtime. |[default to 0]
 **PluginUrl** | Pointer to **string** | The URL of where the Flex Plugin Version JavaScript bundle is hosted on. |
 **UniqueName** | Pointer to **string** | The name that uniquely identifies this Flex Plugin resource. |
 **FriendlyName** | Pointer to **string** | The friendly name of this Flex Plugin resource. |

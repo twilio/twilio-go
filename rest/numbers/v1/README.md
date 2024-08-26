@@ -44,15 +44,18 @@ Class | Method | HTTP request | Description
 *PortingPortInPhoneNumberApi* | [**FetchPortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#fetchportingportinphonenumber) | **Get** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | 
 *PortingPortabilityPhoneNumberApi* | [**FetchPortingPortability**](docs/PortingPortabilityPhoneNumberApi.md#fetchportingportability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | 
 *SigningRequestConfigurationApi* | [**CreateSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#createsigningrequestconfiguration) | **Post** /v1/SigningRequest/Configuration | 
+*SigningRequestConfigurationApi* | [**ListSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#listsigningrequestconfiguration) | **Get** /v1/SigningRequest/Configuration | 
 
 
 ## Documentation For Models
 
+ - [ListSigningRequestConfigurationResponse](docs/ListSigningRequestConfigurationResponse.md)
  - [NumbersV1PortingPortability](docs/NumbersV1PortingPortability.md)
  - [NumbersV1SigningRequestConfiguration](docs/NumbersV1SigningRequestConfiguration.md)
  - [NumbersV1PortingWebhookConfiguration](docs/NumbersV1PortingWebhookConfiguration.md)
  - [NumbersV1BulkEligibility](docs/NumbersV1BulkEligibility.md)
  - [NumbersV1Eligibility](docs/NumbersV1Eligibility.md)
+ - [ListSigningRequestConfigurationResponseMeta](docs/ListSigningRequestConfigurationResponseMeta.md)
  - [NumbersV1PortingPortInPhoneNumber](docs/NumbersV1PortingPortInPhoneNumber.md)
  - [NumbersV1PortingWebhookConfigurationDelete](docs/NumbersV1PortingWebhookConfigurationDelete.md)
  - [NumbersV1PortingWebhookConfigurationFetch](docs/NumbersV1PortingWebhookConfigurationFetch.md)

@@ -58,6 +58,8 @@ Class | Method | HTTP request | Description
 *ServicesAlphaSendersApi* | [**DeleteAlphaSender**](docs/ServicesAlphaSendersApi.md#deletealphasender) | **Delete** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
 *ServicesAlphaSendersApi* | [**FetchAlphaSender**](docs/ServicesAlphaSendersApi.md#fetchalphasender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
 *ServicesAlphaSendersApi* | [**ListAlphaSender**](docs/ServicesAlphaSendersApi.md#listalphasender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders | 
+*ServicesChannelSendersApi* | [**CreateChannelSender**](docs/ServicesChannelSendersApi.md#createchannelsender) | **Post** /v1/Services/{MessagingServiceSid}/ChannelSenders | 
+*ServicesChannelSendersApi* | [**DeleteChannelSender**](docs/ServicesChannelSendersApi.md#deletechannelsender) | **Delete** /v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid} | 
 *ServicesChannelSendersApi* | [**FetchChannelSender**](docs/ServicesChannelSendersApi.md#fetchchannelsender) | **Get** /v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid} | 
 *ServicesChannelSendersApi* | [**ListChannelSender**](docs/ServicesChannelSendersApi.md#listchannelsender) | **Get** /v1/Services/{MessagingServiceSid}/ChannelSenders | 
 *ServicesComplianceUsa2pApi* | [**CreateUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#createusapptoperson) | **Post** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
