@@ -30,7 +30,7 @@ type StudioV2Flow struct {
 	Definition *interface{} `json:"definition,omitempty"`
 	Status     *string      `json:"status,omitempty"`
 	// The latest revision number of the Flow's definition.
-	Revision *int `json:"revision,omitempty"`
+	Revision int `json:"revision,omitempty"`
 	// Description of change made in the revision.
 	CommitMessage *string `json:"commit_message,omitempty"`
 	// Boolean if the flow definition is valid.

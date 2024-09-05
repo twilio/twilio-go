@@ -31,6 +31,8 @@ type NumbersV2SupportingDocument struct {
 	Status   *string `json:"status,omitempty"`
 	// The failure reason of the Supporting Document Resource.
 	FailureReason *string `json:"failure_reason,omitempty"`
+	// A list of errors that occurred during the registering RC Bundle
+	Errors *[]interface{} `json:"errors,omitempty"`
 	// The type of the Supporting Document.
 	Type *string `json:"type,omitempty"`
 	// The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types.

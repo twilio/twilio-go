@@ -33,7 +33,7 @@ type IntelligenceV2CustomOperator struct {
 	// Operator Type for this Operator. References an existing Operator Type resource.
 	OperatorType *string `json:"operator_type,omitempty"`
 	// Numeric Custom Operator version. Incremented with each update on the resource, used to ensure integrity when updating the Custom Operator.
-	Version      *int    `json:"version,omitempty"`
+	Version      int     `json:"version,omitempty"`
 	Availability *string `json:"availability,omitempty"`
 	// Operator configuration, following the schema defined by the Operator Type. Only available on Operators created by the Account.
 	Config *interface{} `json:"config,omitempty"`

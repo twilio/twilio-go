@@ -14,6 +14,10 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // NumbersV1PortingPortIn struct for NumbersV1PortingPortIn
 type NumbersV1PortingPortIn struct {
 	// The SID of the Port In request. This is a unique identifier of the port in request.
@@ -36,6 +40,6 @@ type NumbersV1PortingPortIn struct {
 	LosingCarrierInformation *interface{}   `json:"losing_carrier_information,omitempty"`
 	PhoneNumbers             *[]interface{} `json:"phone_numbers,omitempty"`
 	// List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
-	Documents   *[]string `json:"documents,omitempty"`
-	DateCreated *string   `json:"date_created,omitempty"`
+	Documents   *[]string  `json:"documents,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 }

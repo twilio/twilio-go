@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **FallbackToLongCode** | Pointer to **bool** | [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures. |
 **AreaCodeGeomatch** | Pointer to **bool** | Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. |
 **SynchronousValidation** | Pointer to **bool** | Reserved. |
-**ValidityPeriod** | Pointer to **int** | How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. |[default to 0]
+**ValidityPeriod** | **int** | How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. |[optional] [default to 0]
 **Url** | Pointer to **string** | The absolute URL of the Service resource. |
 **Links** | Pointer to **map[string]interface{}** | The absolute URLs of related resources. |
 **Usecase** | Pointer to **string** | A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`. |

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **MimeType** | Pointer to **string** | The image type uploaded in the Supporting Document container. |
 **Status** | Pointer to [**string**](SupportingDocumentEnumStatus.md) |  |
 **FailureReason** | Pointer to **string** | The failure reason of the Supporting Document Resource. |
+**Errors** | Pointer to **[]interface{}** | A list of errors that occurred during the registering RC Bundle |
 **Type** | Pointer to **string** | The type of the Supporting Document. |
 **Attributes** | Pointer to **interface{}** | The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |

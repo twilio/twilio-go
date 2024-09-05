@@ -30,15 +30,15 @@ type IpMessagingV2Service struct {
 	DefaultChannelCreatorRoleSid *string                 `json:"default_channel_creator_role_sid,omitempty"`
 	ReadStatusEnabled            *bool                   `json:"read_status_enabled,omitempty"`
 	ReachabilityEnabled          *bool                   `json:"reachability_enabled,omitempty"`
-	TypingIndicatorTimeout       *int                    `json:"typing_indicator_timeout,omitempty"`
-	ConsumptionReportInterval    *int                    `json:"consumption_report_interval,omitempty"`
+	TypingIndicatorTimeout       int                     `json:"typing_indicator_timeout,omitempty"`
+	ConsumptionReportInterval    int                     `json:"consumption_report_interval,omitempty"`
 	Limits                       *interface{}            `json:"limits,omitempty"`
 	PreWebhookUrl                *string                 `json:"pre_webhook_url,omitempty"`
 	PostWebhookUrl               *string                 `json:"post_webhook_url,omitempty"`
 	WebhookMethod                *string                 `json:"webhook_method,omitempty"`
 	WebhookFilters               *[]string               `json:"webhook_filters,omitempty"`
-	PreWebhookRetryCount         *int                    `json:"pre_webhook_retry_count,omitempty"`
-	PostWebhookRetryCount        *int                    `json:"post_webhook_retry_count,omitempty"`
+	PreWebhookRetryCount         int                     `json:"pre_webhook_retry_count,omitempty"`
+	PostWebhookRetryCount        int                     `json:"post_webhook_retry_count,omitempty"`
 	Notifications                *interface{}            `json:"notifications,omitempty"`
 	Media                        *interface{}            `json:"media,omitempty"`
 	Url                          *string                 `json:"url,omitempty"`

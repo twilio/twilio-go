@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **FallbackAssignmentCallbackUrl** | Pointer to **string** | The URL that we call when a call to the `assignment_callback_url` fails. |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the Workflow resource. For example, `Customer Support` or `2014 Election Campaign`. |
 **Sid** | Pointer to **string** | The unique string that we created to identify the Workflow resource. |
-**TaskReservationTimeout** | Pointer to **int** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`. |[default to 0]
+**TaskReservationTimeout** | **int** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`. |[optional] [default to 0]
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the Workflow. |
 **Url** | Pointer to **string** | The absolute URL of the Workflow resource. |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources. |

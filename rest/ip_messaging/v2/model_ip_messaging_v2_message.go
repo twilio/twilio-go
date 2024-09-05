@@ -32,7 +32,7 @@ type IpMessagingV2Message struct {
 	WasEdited     *bool        `json:"was_edited,omitempty"`
 	From          *string      `json:"from,omitempty"`
 	Body          *string      `json:"body,omitempty"`
-	Index         *int         `json:"index,omitempty"`
+	Index         int          `json:"index,omitempty"`
 	Type          *string      `json:"type,omitempty"`
 	Media         *interface{} `json:"media,omitempty"`
 	Url           *string      `json:"url,omitempty"`

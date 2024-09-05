@@ -23,9 +23,9 @@ import (
 // IntelligenceV2Sentence struct for IntelligenceV2Sentence
 type IntelligenceV2Sentence struct {
 	// The channel number.
-	MediaChannel *int `json:"media_channel,omitempty"`
+	MediaChannel int `json:"media_channel,omitempty"`
 	// The index of the sentence in the transcript.
-	SentenceIndex *int `json:"sentence_index,omitempty"`
+	SentenceIndex int `json:"sentence_index,omitempty"`
 	// Offset from the beginning of the transcript when this sentence starts.
 	StartTime *float32 `json:"start_time,omitempty"`
 	// Offset from the beginning of the transcript when this sentence ends.
@@ -41,8 +41,8 @@ type IntelligenceV2Sentence struct {
 
 func (response *IntelligenceV2Sentence) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		MediaChannel  *int           `json:"media_channel"`
-		SentenceIndex *int           `json:"sentence_index"`
+		MediaChannel  int            `json:"media_channel"`
+		SentenceIndex int            `json:"sentence_index"`
 		StartTime     *interface{}   `json:"start_time"`
 		EndTime       *interface{}   `json:"end_time"`
 		Transcript    *string        `json:"transcript"`

@@ -41,9 +41,9 @@ type ChatV2Service struct {
 	// Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Service instance. The default is `false`.
 	ReachabilityEnabled *bool `json:"reachability_enabled,omitempty"`
 	// How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-	TypingIndicatorTimeout *int `json:"typing_indicator_timeout,omitempty"`
+	TypingIndicatorTimeout int `json:"typing_indicator_timeout,omitempty"`
 	// DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-	ConsumptionReportInterval *int `json:"consumption_report_interval,omitempty"`
+	ConsumptionReportInterval int `json:"consumption_report_interval,omitempty"`
 	// An object that describes the limits of the service instance. The `limits` object contains  `channel_members` to describe the members/channel limit and `user_channels` to describe the channels/user limit. `channel_members` can be 1,000 or less, with a default of 250. `user_channels` can be 1,000 or less, with a default value of 100.
 	Limits *interface{} `json:"limits,omitempty"`
 	// The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
@@ -55,9 +55,9 @@ type ChatV2Service struct {
 	// The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 	WebhookFilters *[]string `json:"webhook_filters,omitempty"`
 	// The number of times to retry a call to the `pre_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won't be retried.
-	PreWebhookRetryCount *int `json:"pre_webhook_retry_count,omitempty"`
+	PreWebhookRetryCount int `json:"pre_webhook_retry_count,omitempty"`
 	// The number of times to retry a call to the `post_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won't be retried.
-	PostWebhookRetryCount *int `json:"post_webhook_retry_count,omitempty"`
+	PostWebhookRetryCount int `json:"post_webhook_retry_count,omitempty"`
 	// The notification configuration for the Service instance. See [Push Notification Configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 	Notifications *interface{} `json:"notifications,omitempty"`
 	// An object that describes the properties of media that the service supports. The object contains the `size_limit_mb` property, which describes the size of the largest media file in MB; and the `compatibility_message` property, which contains the message text to send when a media message does not have any text.

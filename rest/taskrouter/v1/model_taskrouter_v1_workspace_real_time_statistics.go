@@ -21,7 +21,7 @@ type TaskrouterV1WorkspaceRealTimeStatistics struct {
 	// The number of current Workers by Activity.
 	ActivityStatistics *[]interface{} `json:"activity_statistics,omitempty"`
 	// The age of the longest waiting Task.
-	LongestTaskWaitingAge *int `json:"longest_task_waiting_age,omitempty"`
+	LongestTaskWaitingAge int `json:"longest_task_waiting_age,omitempty"`
 	// The SID of the longest waiting Task.
 	LongestTaskWaitingSid *string `json:"longest_task_waiting_sid,omitempty"`
 	// The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
@@ -29,9 +29,9 @@ type TaskrouterV1WorkspaceRealTimeStatistics struct {
 	// The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
 	TasksByStatus *interface{} `json:"tasks_by_status,omitempty"`
 	// The total number of Tasks.
-	TotalTasks *int `json:"total_tasks,omitempty"`
+	TotalTasks int `json:"total_tasks,omitempty"`
 	// The total number of Workers in the Workspace.
-	TotalWorkers *int `json:"total_workers,omitempty"`
+	TotalWorkers int `json:"total_workers,omitempty"`
 	// The SID of the Workspace.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 	// The absolute URL of the Workspace statistics resource.

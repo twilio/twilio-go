@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource. |
 **ActivityStatistics** | Pointer to **[]interface{}** | The number of current Workers by Activity. |
-**TotalWorkers** | Pointer to **int** | The total number of Workers. |[default to 0]
+**TotalWorkers** | **int** | The total number of Workers. |[optional] [default to 0]
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the Workers. |
 **Url** | Pointer to **string** | The absolute URL of the Workers statistics resource. |
 

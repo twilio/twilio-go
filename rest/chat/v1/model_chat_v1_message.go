@@ -43,7 +43,7 @@ type ChatV1Message struct {
 	// The content of the message.
 	Body *string `json:"body,omitempty"`
 	// The index of the message within the [Channel](https://www.twilio.com/docs/chat/api/channels).
-	Index *int `json:"index,omitempty"`
+	Index int `json:"index,omitempty"`
 	// The absolute URL of the Message resource.
 	Url *string `json:"url,omitempty"`
 }

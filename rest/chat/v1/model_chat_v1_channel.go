@@ -40,9 +40,9 @@ type ChatV1Channel struct {
 	// The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`.
 	CreatedBy *string `json:"created_by,omitempty"`
 	// The number of Members in the Channel.
-	MembersCount *int `json:"members_count,omitempty"`
+	MembersCount int `json:"members_count,omitempty"`
 	// The number of Messages in the Channel.
-	MessagesCount *int `json:"messages_count,omitempty"`
+	MessagesCount int `json:"messages_count,omitempty"`
 	// The absolute URL of the Channel resource.
 	Url *string `json:"url,omitempty"`
 	// The absolute URLs of the [Members](https://www.twilio.com/docs/chat/api/members), [Messages](https://www.twilio.com/docs/chat/api/messages) , [Invites](https://www.twilio.com/docs/chat/api/invites) and, if it exists, the last [Message](https://www.twilio.com/docs/chat/api/messages) for the Channel.

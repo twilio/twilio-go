@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MediaChannel** | Pointer to **int** | The channel number. |[default to 0]
-**SentenceIndex** | Pointer to **int** | The index of the sentence in the transcript. |[default to 0]
+**MediaChannel** | **int** | The channel number. |[optional] [default to 0]
+**SentenceIndex** | **int** | The index of the sentence in the transcript. |[optional] [default to 0]
 **StartTime** | Pointer to **float32** | Offset from the beginning of the transcript when this sentence starts. |
 **EndTime** | Pointer to **float32** | Offset from the beginning of the transcript when this sentence ends. |
 **Transcript** | Pointer to **string** | Transcript text. |

@@ -50,5 +50,5 @@ type IntelligenceV2Service struct {
 	// Operator sids attached to this service, read only
 	ReadOnlyAttachedOperatorSids *[]string `json:"read_only_attached_operator_sids,omitempty"`
 	// The version number of this Service.
-	Version *int `json:"version,omitempty"`
+	Version int `json:"version,omitempty"`
 }

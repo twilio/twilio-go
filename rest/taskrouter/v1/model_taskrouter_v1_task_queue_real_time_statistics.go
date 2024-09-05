@@ -21,11 +21,11 @@ type TaskrouterV1TaskQueueRealTimeStatistics struct {
 	// The number of current Workers by Activity.
 	ActivityStatistics *[]interface{} `json:"activity_statistics,omitempty"`
 	// The age of the longest waiting Task.
-	LongestTaskWaitingAge *int `json:"longest_task_waiting_age,omitempty"`
+	LongestTaskWaitingAge int `json:"longest_task_waiting_age,omitempty"`
 	// The SID of the longest waiting Task.
 	LongestTaskWaitingSid *string `json:"longest_task_waiting_sid,omitempty"`
 	// The relative age in the TaskQueue for the longest waiting Task. Calculation is based on the time when the Task entered the TaskQueue.
-	LongestRelativeTaskAgeInQueue *int `json:"longest_relative_task_age_in_queue,omitempty"`
+	LongestRelativeTaskAgeInQueue int `json:"longest_relative_task_age_in_queue,omitempty"`
 	// The Task SID of the Task waiting in the TaskQueue the longest. Calculation is based on the time when the Task entered the TaskQueue.
 	LongestRelativeTaskSidInQueue *string `json:"longest_relative_task_sid_in_queue,omitempty"`
 	// The SID of the TaskQueue from which these statistics were calculated.
@@ -34,12 +34,12 @@ type TaskrouterV1TaskQueueRealTimeStatistics struct {
 	TasksByPriority *interface{} `json:"tasks_by_priority,omitempty"`
 	// The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
 	TasksByStatus *interface{} `json:"tasks_by_status,omitempty"`
-	// The total number of Workers available for Tasks in the TaskQueue.
-	TotalAvailableWorkers *int `json:"total_available_workers,omitempty"`
+	// The total number of Workers in the TaskQueue with an `available` status. Workers with an `available` status may already have active interactions or may have none.
+	TotalAvailableWorkers int `json:"total_available_workers,omitempty"`
 	// The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state.
-	TotalEligibleWorkers *int `json:"total_eligible_workers,omitempty"`
+	TotalEligibleWorkers int `json:"total_eligible_workers,omitempty"`
 	// The total number of Tasks.
-	TotalTasks *int `json:"total_tasks,omitempty"`
+	TotalTasks int `json:"total_tasks,omitempty"`
 	// The SID of the Workspace that contains the TaskQueue.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 	// The absolute URL of the TaskQueue statistics resource.

@@ -33,7 +33,7 @@ type SupersimV1IpCommand struct {
 	// The IP address of the device that the IP Command was sent to or received from. For an IP Command sent to a Super SIM, `device_ip` starts out as `null`, and once the IP Command is “sent”, the `device_ip` will be filled out. An IP Command sent from a Super SIM have its `device_ip` always set.
 	DeviceIp *string `json:"device_ip,omitempty"`
 	// For an IP Command sent to a Super SIM, it would be the destination port of the IP message. For an IP Command sent from a Super SIM, it would be the source port of the IP message.
-	DevicePort  *int    `json:"device_port,omitempty"`
+	DevicePort  int     `json:"device_port,omitempty"`
 	PayloadType *string `json:"payload_type,omitempty"`
 	// The payload that is carried in the IP/UDP message. The payload can be encoded in either text or binary format. For text payload, UTF-8 encoding must be used.  For an IP Command sent to a Super SIM, the payload is appended to the IP/UDP message “as is”. The payload should not exceed 1300 bytes.  For an IP Command sent from a Super SIM, the payload from the received IP/UDP message is extracted and sent in binary encoding. For an IP Command sent from a Super SIM, the payload should not exceed 1300 bytes. If it is larger than 1300 bytes, there might be fragmentation on the upstream and the message may appear truncated.
 	Payload *string `json:"payload,omitempty"`

@@ -34,7 +34,7 @@ type ConversationsV1ConversationMessageReceipt struct {
 	ParticipantSid *string `json:"participant_sid,omitempty"`
 	Status         *string `json:"status,omitempty"`
 	// The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status,
-	ErrorCode *int `json:"error_code,omitempty"`
+	ErrorCode int `json:"error_code,omitempty"`
 	// The date that this resource was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date that this resource was last updated. `null` if the delivery receipt has not been updated.

@@ -30,8 +30,8 @@ type IpMessagingV1Channel struct {
 	DateCreated   *time.Time              `json:"date_created,omitempty"`
 	DateUpdated   *time.Time              `json:"date_updated,omitempty"`
 	CreatedBy     *string                 `json:"created_by,omitempty"`
-	MembersCount  *int                    `json:"members_count,omitempty"`
-	MessagesCount *int                    `json:"messages_count,omitempty"`
+	MembersCount  int                     `json:"members_count,omitempty"`
+	MessagesCount int                     `json:"messages_count,omitempty"`
 	Url           *string                 `json:"url,omitempty"`
 	Links         *map[string]interface{} `json:"links,omitempty"`
 }

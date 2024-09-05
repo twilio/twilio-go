@@ -27,7 +27,7 @@ type VerifyV2Service struct {
 	// The name that appears in the body of your verification messages. It can be up to 30 characters long and can include letters, numbers, spaces, dashes, underscores. Phone numbers, special characters or links are NOT allowed. **This value should not contain PII.**
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The length of the verification code to generate.
-	CodeLength *int `json:"code_length,omitempty"`
+	CodeLength int `json:"code_length,omitempty"`
 	// Whether to perform a lookup with each verification started and return info about the phone number.
 	LookupEnabled *bool `json:"lookup_enabled,omitempty"`
 	// Whether to pass PSD2 transaction parameters when starting a verification.

@@ -25,6 +25,7 @@ type Types struct {
 	TwilioCard             *TwilioCard             `json:"twilio/card,omitempty"`
 	TwilioCatalog          *TwilioCatalog          `json:"twilio/catalog,omitempty"`
 	TwilioCarousel         *TwilioCarousel         `json:"twilio/carousel,omitempty"`
+	TwilioFlows            *TwilioFlows            `json:"twilio/flows,omitempty"`
 	WhatsappCard           *WhatsappCard           `json:"whatsapp/card,omitempty"`
 	WhatsappAuthentication *WhatsappAuthentication `json:"whatsapp/authentication,omitempty"`
 }

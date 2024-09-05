@@ -21,4 +21,6 @@ type CallToActionActionType string
 const (
 	CALLTOACTIONACTIONTYPE_URL          CallToActionActionType = "URL"
 	CALLTOACTIONACTIONTYPE_PHONE_NUMBER CallToActionActionType = "PHONE_NUMBER"
+	CALLTOACTIONACTIONTYPE_COPY_CODE    CallToActionActionType = "COPY_CODE"
+	CALLTOACTIONACTIONTYPE_VOICE_CALL   CallToActionActionType = "VOICE_CALL"
 )

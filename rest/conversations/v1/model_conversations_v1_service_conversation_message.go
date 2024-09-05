@@ -29,7 +29,7 @@ type ConversationsV1ServiceConversationMessage struct {
 	// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
 	// The index of the message within the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource).
-	Index *int `json:"index,omitempty"`
+	Index int `json:"index,omitempty"`
 	// The channel specific identifier of the message's author. Defaults to `system`.
 	Author *string `json:"author,omitempty"`
 	// The content of the message, can be up to 1,600 characters long.

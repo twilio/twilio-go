@@ -21,7 +21,7 @@ import (
 // SyncV1SyncListItem struct for SyncV1SyncListItem
 type SyncV1SyncListItem struct {
 	// The automatically generated index of the List Item. The `index` values of the List Items in a Sync List can have gaps in their sequence.
-	Index *int `json:"index,omitempty"`
+	Index int `json:"index,omitempty"`
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the List Item resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.

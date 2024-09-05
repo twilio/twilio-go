@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **WasEdited** | Pointer to **bool** |  |
 **From** | Pointer to **string** |  |
 **Body** | Pointer to **string** |  |
-**Index** | Pointer to **int** |  |[default to 0]
+**Index** | **int** |  |[optional] [default to 0]
 **Type** | Pointer to **string** |  |
 **Media** | Pointer to **interface{}** |  |
 **Url** | Pointer to **string** |  |

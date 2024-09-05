@@ -45,7 +45,7 @@ type ChatV2Message struct {
 	// The content of the message.
 	Body *string `json:"body,omitempty"`
 	// The index of the message within the [Channel](https://www.twilio.com/docs/chat/channels). Indices may skip numbers, but will always be in order of when the message was received.
-	Index *int `json:"index,omitempty"`
+	Index int `json:"index,omitempty"`
 	// The Message type. Can be: `text` or `media`.
 	Type *string `json:"type,omitempty"`
 	// An object that describes the Message's media, if the message contains media. The object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object's file size in bytes. If the Message has no media, this value is `null`.

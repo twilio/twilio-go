@@ -25,7 +25,7 @@ type ApiV2010SipIpAddress struct {
 	// An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
 	IpAddress *string `json:"ip_address,omitempty"`
 	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-	CidrPrefixLength *int `json:"cidr_prefix_length,omitempty"`
+	CidrPrefixLength int `json:"cidr_prefix_length,omitempty"`
 	// The unique id of the IpAccessControlList resource that includes this resource.
 	IpAccessControlListSid *string `json:"ip_access_control_list_sid,omitempty"`
 	// The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.

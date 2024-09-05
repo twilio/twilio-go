@@ -43,9 +43,9 @@ type VideoV1Room struct {
 	Duration *int    `json:"duration,omitempty"`
 	Type     *string `json:"type,omitempty"`
 	// The maximum number of concurrent Participants allowed in the room.
-	MaxParticipants *int `json:"max_participants,omitempty"`
+	MaxParticipants int `json:"max_participants,omitempty"`
 	// The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
-	MaxParticipantDuration *int `json:"max_participant_duration,omitempty"`
+	MaxParticipantDuration int `json:"max_participant_duration,omitempty"`
 	// The maximum number of published audio, video, and data tracks all participants combined are allowed to publish in the room at the same time. Check [Programmable Video Limits](https://www.twilio.com/docs/video/programmable-video-limits) for more details. If it is set to 0 it means unconstrained.
 	MaxConcurrentPublishedTracks *int `json:"max_concurrent_published_tracks,omitempty"`
 	// Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
@@ -57,9 +57,9 @@ type VideoV1Room struct {
 	// When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
 	AudioOnly *bool `json:"audio_only,omitempty"`
 	// Specifies how long (in minutes) a room will remain active after last participant leaves. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
-	EmptyRoomTimeout *int `json:"empty_room_timeout,omitempty"`
+	EmptyRoomTimeout int `json:"empty_room_timeout,omitempty"`
 	// Specifies how long (in minutes) a room will remain active if no one joins. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
-	UnusedRoomTimeout *int `json:"unused_room_timeout,omitempty"`
+	UnusedRoomTimeout int `json:"unused_room_timeout,omitempty"`
 	// Indicates if this is a large room.
 	LargeRoom *bool `json:"large_room,omitempty"`
 	// The absolute URL of the resource.

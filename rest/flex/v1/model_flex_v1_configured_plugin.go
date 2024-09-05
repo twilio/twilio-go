@@ -29,7 +29,7 @@ type FlexV1ConfiguredPlugin struct {
 	// The SID of the Flex Plugin Version.
 	PluginVersionSid *string `json:"plugin_version_sid,omitempty"`
 	// The phase this Flex Plugin would initialize at runtime.
-	Phase *int `json:"phase,omitempty"`
+	Phase int `json:"phase,omitempty"`
 	// The URL of where the Flex Plugin Version JavaScript bundle is hosted on.
 	PluginUrl *string `json:"plugin_url,omitempty"`
 	// The name that uniquely identifies this Flex Plugin resource.

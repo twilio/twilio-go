@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **LosingCarrierInformation** | Pointer to **interface{}** | Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted. |
 **PhoneNumbers** | Pointer to **[]interface{}** |  |
 **Documents** | Pointer to **[]string** | List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required. |
-**DateCreated** | Pointer to **string** |  |
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

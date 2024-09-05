@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. Supports UTF-8 characters. **This value should not have PII.** |
 **Status** | Pointer to [**string**](SessionEnumStatus.md) |  |
 **ClosedReason** | Pointer to **string** | The reason the Session ended. |
-**Ttl** | Pointer to **int** | The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction. |[default to 0]
+**Ttl** | **int** | The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction. |[optional] [default to 0]
 **Mode** | Pointer to [**string**](SessionEnumMode.md) |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated. |

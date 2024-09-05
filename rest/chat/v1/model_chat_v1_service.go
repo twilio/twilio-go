@@ -41,9 +41,9 @@ type ChatV1Service struct {
 	// Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Service instance. The default is `false`.
 	ReachabilityEnabled *bool `json:"reachability_enabled,omitempty"`
 	// How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-	TypingIndicatorTimeout *int `json:"typing_indicator_timeout,omitempty"`
+	TypingIndicatorTimeout int `json:"typing_indicator_timeout,omitempty"`
 	// DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-	ConsumptionReportInterval *int `json:"consumption_report_interval,omitempty"`
+	ConsumptionReportInterval int `json:"consumption_report_interval,omitempty"`
 	// An object that describes the limits of the service instance. The `limits` object contains  `channel_members` to describe the members/channel limit and `user_channels` to describe the channels/user limit. `channel_members` can be 1,000 or less, with a default of 250. `user_channels` can be 1,000 or less, with a default value of 100.
 	Limits *interface{} `json:"limits,omitempty"`
 	// An object that contains information about the webhooks configured for this service.

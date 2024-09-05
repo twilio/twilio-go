@@ -23,7 +23,7 @@ type TaskrouterV1Task struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Task resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The number of seconds since the Task was created.
-	Age              *int    `json:"age,omitempty"`
+	Age              int     `json:"age,omitempty"`
 	AssignmentStatus *string `json:"assignment_status,omitempty"`
 	// The JSON string with custom attributes of the work. **Note** If this property has been assigned a value, it will only be displayed in FETCH action that returns a single resource. Otherwise, it will be null.
 	Attributes *string `json:"attributes,omitempty"`
@@ -36,7 +36,7 @@ type TaskrouterV1Task struct {
 	// The date and time in GMT when the Task entered the TaskQueue, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	TaskQueueEnteredDate *time.Time `json:"task_queue_entered_date,omitempty"`
 	// The current priority score of the Task as assigned to a Worker by the workflow. Tasks with higher priority values will be assigned before Tasks with lower values.
-	Priority *int `json:"priority,omitempty"`
+	Priority int `json:"priority,omitempty"`
 	// The reason the Task was canceled or completed, if applicable.
 	Reason *string `json:"reason,omitempty"`
 	// The unique string that we created to identify the Task resource.
@@ -50,7 +50,7 @@ type TaskrouterV1Task struct {
 	// The unique name of the TaskChannel.
 	TaskChannelUniqueName *string `json:"task_channel_unique_name,omitempty"`
 	// The amount of time in seconds that the Task can live before being assigned.
-	Timeout *int `json:"timeout,omitempty"`
+	Timeout int `json:"timeout,omitempty"`
 	// The SID of the Workflow that is controlling the Task.
 	WorkflowSid *string `json:"workflow_sid,omitempty"`
 	// The friendly name of the Workflow that is controlling the Task.

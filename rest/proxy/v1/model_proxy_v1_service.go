@@ -31,7 +31,7 @@ type ProxyV1Service struct {
 	// The URL we call when the interaction status changes.
 	CallbackUrl *string `json:"callback_url,omitempty"`
 	// The default `ttl` value for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
-	DefaultTtl              *int    `json:"default_ttl,omitempty"`
+	DefaultTtl              int     `json:"default_ttl,omitempty"`
 	NumberSelectionBehavior *string `json:"number_selection_behavior,omitempty"`
 	GeoMatchLevel           *string `json:"geo_match_level,omitempty"`
 	// The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.

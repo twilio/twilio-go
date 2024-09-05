@@ -34,7 +34,7 @@ type NumbersV2BulkHostedNumberOrder struct {
 	// The URL of this BulkHostedNumberOrder resource.
 	Url *string `json:"url,omitempty"`
 	// The total count of phone numbers in this Bulk hosting request.
-	TotalCount *int `json:"total_count,omitempty"`
+	TotalCount int `json:"total_count,omitempty"`
 	// Contains a list of all the individual hosting orders and their information, for this Bulk request. Each result object is grouped by its order status. To see a complete list of order status, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
 	Results *[]interface{} `json:"results,omitempty"`
 }

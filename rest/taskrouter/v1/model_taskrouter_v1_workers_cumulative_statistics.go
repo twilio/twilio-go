@@ -29,17 +29,17 @@ type TaskrouterV1WorkersCumulativeStatistics struct {
 	// The minimum, average, maximum, and total time (in seconds) that Workers spent in each Activity.
 	ActivityDurations *[]interface{} `json:"activity_durations,omitempty"`
 	// The total number of Reservations that were created.
-	ReservationsCreated *int `json:"reservations_created,omitempty"`
+	ReservationsCreated int `json:"reservations_created,omitempty"`
 	// The total number of Reservations that were accepted.
-	ReservationsAccepted *int `json:"reservations_accepted,omitempty"`
+	ReservationsAccepted int `json:"reservations_accepted,omitempty"`
 	// The total number of Reservations that were rejected.
-	ReservationsRejected *int `json:"reservations_rejected,omitempty"`
+	ReservationsRejected int `json:"reservations_rejected,omitempty"`
 	// The total number of Reservations that were timed out.
-	ReservationsTimedOut *int `json:"reservations_timed_out,omitempty"`
+	ReservationsTimedOut int `json:"reservations_timed_out,omitempty"`
 	// The total number of Reservations that were canceled.
-	ReservationsCanceled *int `json:"reservations_canceled,omitempty"`
+	ReservationsCanceled int `json:"reservations_canceled,omitempty"`
 	// The total number of Reservations that were rescinded.
-	ReservationsRescinded *int `json:"reservations_rescinded,omitempty"`
+	ReservationsRescinded int `json:"reservations_rescinded,omitempty"`
 	// The SID of the Workspace that contains the Workers.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 	// The absolute URL of the Workers statistics resource.

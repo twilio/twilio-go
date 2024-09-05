@@ -40,7 +40,7 @@ type ProxyV1Session struct {
 	// The reason the Session ended.
 	ClosedReason *string `json:"closed_reason,omitempty"`
 	// The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-	Ttl  *int    `json:"ttl,omitempty"`
+	Ttl  int     `json:"ttl,omitempty"`
 	Mode *string `json:"mode,omitempty"`
 	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`

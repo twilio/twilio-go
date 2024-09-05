@@ -36,7 +36,7 @@ type VerifyV2AccessToken struct {
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 	// How long, in seconds, the access token is valid. Max: 5 minutes
-	Ttl *int `json:"ttl,omitempty"`
+	Ttl int `json:"ttl,omitempty"`
 	// The date that this access token was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 }

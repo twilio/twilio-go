@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | Pointer to **int** | The automatically generated index of the List Item. The `index` values of the List Items in a Sync List can have gaps in their sequence. |[default to 0]
+**Index** | **int** | The automatically generated index of the List Item. The `index` values of the List Items in a Sync List can have gaps in their sequence. |[optional] [default to 0]
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the List Item resource. |
 **ServiceSid** | Pointer to **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with. |
 **ListSid** | Pointer to **string** | The SID of the Sync List that contains the List Item. |

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **TwilioCard** | Pointer to [**TwilioCard**](TwilioCard.md) |  |
 **TwilioCatalog** | Pointer to [**TwilioCatalog**](TwilioCatalog.md) |  |
 **TwilioCarousel** | Pointer to [**TwilioCarousel**](TwilioCarousel.md) |  |
+**TwilioFlows** | Pointer to [**TwilioFlows**](TwilioFlows.md) |  |
 **WhatsappCard** | Pointer to [**WhatsappCard**](WhatsappCard.md) |  |
 **WhatsappAuthentication** | Pointer to [**WhatsappAuthentication**](WhatsappAuthentication.md) |  |
 

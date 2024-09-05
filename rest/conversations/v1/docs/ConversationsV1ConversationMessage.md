@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this message. |
 **ConversationSid** | Pointer to **string** | The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. |
 **Sid** | Pointer to **string** | A 34 character string that uniquely identifies this resource. |
-**Index** | Pointer to **int** | The index of the message within the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource).  Indices may skip numbers, but will always be in order of when the message was received. |[default to 0]
+**Index** | **int** | The index of the message within the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource).  Indices may skip numbers, but will always be in order of when the message was received. |[optional] [default to 0]
 **Author** | Pointer to **string** | The channel specific identifier of the message's author. Defaults to `system`. |
 **Body** | Pointer to **string** | The content of the message, can be up to 1,600 characters long. |
 **Media** | Pointer to **[]interface{}** | An array of objects that describe the Message's media, if the message contains media. Each object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object's file size in bytes. If the Message has no media, this value is `null`. |

@@ -53,6 +53,6 @@ type FlexV2FlexUser struct {
 	// The date that this user was updated, given in ISO 8601 format.
 	UpdatedDate *time.Time `json:"updated_date,omitempty"`
 	// The current version of the user.
-	Version *int    `json:"version,omitempty"`
+	Version int     `json:"version,omitempty"`
 	Url     *string `json:"url,omitempty"`
 }

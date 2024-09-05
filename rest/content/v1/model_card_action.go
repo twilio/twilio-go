@@ -21,4 +21,5 @@ type CardAction struct {
 	Url   string         `json:"url,omitempty"`
 	Phone string         `json:"phone,omitempty"`
 	Id    string         `json:"id,omitempty"`
+	Code  string         `json:"code,omitempty"`
 }

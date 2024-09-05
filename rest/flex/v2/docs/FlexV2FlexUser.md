@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **Roles** | Pointer to **[]string** | The roles of the user. |
 **CreatedDate** | Pointer to [**time.Time**](time.Time.md) | The date that this user was created, given in ISO 8601 format. |
 **UpdatedDate** | Pointer to [**time.Time**](time.Time.md) | The date that this user was updated, given in ISO 8601 format. |
-**Version** | Pointer to **int** | The current version of the user. |[default to 0]
+**Version** | **int** | The current version of the user. |[optional] [default to 0]
 **Url** | Pointer to **string** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

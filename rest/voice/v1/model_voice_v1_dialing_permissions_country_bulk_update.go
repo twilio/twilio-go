@@ -17,7 +17,7 @@ package openapi
 // VoiceV1DialingPermissionsCountryBulkUpdate struct for VoiceV1DialingPermissionsCountryBulkUpdate
 type VoiceV1DialingPermissionsCountryBulkUpdate struct {
 	// The number of countries updated
-	UpdateCount *int `json:"update_count,omitempty"`
+	UpdateCount int `json:"update_count,omitempty"`
 	// A bulk update request to change voice dialing country permissions stored as a URL-encoded, JSON array of update objects. For example : `[ { \"iso_code\": \"GB\", \"low_risk_numbers_enabled\": \"true\", \"high_risk_special_numbers_enabled\":\"true\", \"high_risk_tollfraud_numbers_enabled\": \"false\" } ]`
 	UpdateRequest *string `json:"update_request,omitempty"`
 }

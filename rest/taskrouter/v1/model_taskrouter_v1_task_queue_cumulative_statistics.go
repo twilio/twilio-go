@@ -23,23 +23,23 @@ type TaskrouterV1TaskQueueCumulativeStatistics struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The average time in seconds between Task creation and acceptance.
-	AvgTaskAcceptanceTime *int `json:"avg_task_acceptance_time,omitempty"`
+	AvgTaskAcceptanceTime int `json:"avg_task_acceptance_time,omitempty"`
 	// The beginning of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	StartTime *time.Time `json:"start_time,omitempty"`
 	// The end of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	EndTime *time.Time `json:"end_time,omitempty"`
 	// The total number of Reservations created for Tasks in the TaskQueue.
-	ReservationsCreated *int `json:"reservations_created,omitempty"`
+	ReservationsCreated int `json:"reservations_created,omitempty"`
 	// The total number of Reservations accepted for Tasks in the TaskQueue.
-	ReservationsAccepted *int `json:"reservations_accepted,omitempty"`
+	ReservationsAccepted int `json:"reservations_accepted,omitempty"`
 	// The total number of Reservations rejected for Tasks in the TaskQueue.
-	ReservationsRejected *int `json:"reservations_rejected,omitempty"`
+	ReservationsRejected int `json:"reservations_rejected,omitempty"`
 	// The total number of Reservations that timed out for Tasks in the TaskQueue.
-	ReservationsTimedOut *int `json:"reservations_timed_out,omitempty"`
+	ReservationsTimedOut int `json:"reservations_timed_out,omitempty"`
 	// The total number of Reservations canceled for Tasks in the TaskQueue.
-	ReservationsCanceled *int `json:"reservations_canceled,omitempty"`
+	ReservationsCanceled int `json:"reservations_canceled,omitempty"`
 	// The total number of Reservations rescinded.
-	ReservationsRescinded *int `json:"reservations_rescinded,omitempty"`
+	ReservationsRescinded int `json:"reservations_rescinded,omitempty"`
 	// A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds.
 	SplitByWaitTime *interface{} `json:"split_by_wait_time,omitempty"`
 	// The SID of the TaskQueue from which these statistics were calculated.
@@ -51,15 +51,15 @@ type TaskrouterV1TaskQueueCumulativeStatistics struct {
 	// The relative wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks entered the TaskQueue.
 	WaitDurationInQueueUntilAccepted *interface{} `json:"wait_duration_in_queue_until_accepted,omitempty"`
 	// The total number of Tasks canceled in the TaskQueue.
-	TasksCanceled *int `json:"tasks_canceled,omitempty"`
+	TasksCanceled int `json:"tasks_canceled,omitempty"`
 	// The total number of Tasks completed in the TaskQueue.
-	TasksCompleted *int `json:"tasks_completed,omitempty"`
+	TasksCompleted int `json:"tasks_completed,omitempty"`
 	// The total number of Tasks deleted in the TaskQueue.
-	TasksDeleted *int `json:"tasks_deleted,omitempty"`
+	TasksDeleted int `json:"tasks_deleted,omitempty"`
 	// The total number of Tasks entered into the TaskQueue.
-	TasksEntered *int `json:"tasks_entered,omitempty"`
+	TasksEntered int `json:"tasks_entered,omitempty"`
 	// The total number of Tasks that were moved from one queue to another.
-	TasksMoved *int `json:"tasks_moved,omitempty"`
+	TasksMoved int `json:"tasks_moved,omitempty"`
 	// The SID of the Workspace that contains the TaskQueue.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 	// The absolute URL of the TaskQueue statistics resource.

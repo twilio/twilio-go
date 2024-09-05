@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Price** | Pointer to **string** | The one-time cost of creating the recording in the `price_unit` currency. |
 **PriceUnit** | Pointer to **string** | The currency used in the `price` property. Example: `USD`. |
 **Status** | Pointer to [**string**](ConferenceRecordingEnumStatus.md) |  |
-**Channels** | Pointer to **int** | The number of channels in the final recording file.  Can be: `1`, or `2`. Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/voice/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls) record options. |[default to 0]
+**Channels** | **int** | The number of channels in the final recording file.  Can be: `1`, or `2`. Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/voice/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls) record options. |[optional] [default to 0]
 **Source** | Pointer to [**string**](ConferenceRecordingEnumSource.md) |  |
 **ErrorCode** | Pointer to **int** | The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`. |
 **EncryptionDetails** | Pointer to **interface{}** | How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature. |

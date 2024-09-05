@@ -41,9 +41,9 @@ type WirelessV1DataSession struct {
 	// An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/iot/wireless/api/datasession-resource#cell-location-estimate-object).
 	CellLocationEstimate *interface{} `json:"cell_location_estimate,omitempty"`
 	// The number of packets uploaded by the device between the `start` time and when the Data Session was last updated.
-	PacketsUploaded *int `json:"packets_uploaded,omitempty"`
+	PacketsUploaded int `json:"packets_uploaded,omitempty"`
 	// The number of packets downloaded by the device between the `start` time and when the Data Session was last updated.
-	PacketsDownloaded *int `json:"packets_downloaded,omitempty"`
+	PacketsDownloaded int `json:"packets_downloaded,omitempty"`
 	// The date that the resource was last updated, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	// The date that the Data Session started, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.

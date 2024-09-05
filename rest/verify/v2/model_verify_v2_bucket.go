@@ -29,9 +29,9 @@ type VerifyV2Bucket struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Rate Limit resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// Maximum number of requests permitted in during the interval.
-	Max *int `json:"max,omitempty"`
+	Max int `json:"max,omitempty"`
 	// Number of seconds that the rate limit will be enforced over.
-	Interval *int `json:"interval,omitempty"`
+	Interval int `json:"interval,omitempty"`
 	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.

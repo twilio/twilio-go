@@ -45,11 +45,11 @@ type VideoV1Composition struct {
 	Trim   *bool   `json:"trim,omitempty"`
 	Format *string `json:"format,omitempty"`
 	// The average bit rate of the composition's media.
-	Bitrate *int `json:"bitrate,omitempty"`
+	Bitrate int `json:"bitrate,omitempty"`
 	// The size of the composed media file in bytes.
 	Size *int64 `json:"size,omitempty"`
 	// The duration of the composition's media file in seconds.
-	Duration *int `json:"duration,omitempty"`
+	Duration int `json:"duration,omitempty"`
 	// The URL of the media file associated with the composition when stored externally. See [External S3 Compositions](/docs/video/api/external-s3-compositions) for more details.
 	MediaExternalLocation *string `json:"media_external_location,omitempty"`
 	// The URL called using the `status_callback_method` to send status information on every composition event.

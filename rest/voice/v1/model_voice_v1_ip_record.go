@@ -29,7 +29,7 @@ type VoiceV1IpRecord struct {
 	// An IP address in dotted decimal notation, IPv4 only.
 	IpAddress *string `json:"ip_address,omitempty"`
 	// An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
-	CidrPrefixLength *int `json:"cidr_prefix_length,omitempty"`
+	CidrPrefixLength int `json:"cidr_prefix_length,omitempty"`
 	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.

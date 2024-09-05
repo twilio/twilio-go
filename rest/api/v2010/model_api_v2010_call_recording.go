@@ -50,7 +50,7 @@ type ApiV2010CallRecording struct {
 	PriceUnit *string `json:"price_unit,omitempty"`
 	Status    *string `json:"status,omitempty"`
 	// The number of channels in the final recording file.  Can be: `1`, or `2`. Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/voice/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls) record options.
-	Channels *int    `json:"channels,omitempty"`
+	Channels int     `json:"channels,omitempty"`
 	Source   *string `json:"source,omitempty"`
 	// The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
 	ErrorCode *int `json:"error_code,omitempty"`
@@ -74,7 +74,7 @@ func (response *ApiV2010CallRecording) UnmarshalJSON(bytes []byte) (err error) {
 		EncryptionDetails *interface{} `json:"encryption_details"`
 		PriceUnit         *string      `json:"price_unit"`
 		Status            *string      `json:"status"`
-		Channels          *int         `json:"channels"`
+		Channels          int          `json:"channels"`
 		Source            *string      `json:"source"`
 		ErrorCode         *int         `json:"error_code"`
 		Track             *string      `json:"track"`
