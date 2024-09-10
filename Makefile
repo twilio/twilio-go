@@ -20,7 +20,7 @@ webhook-cluster-test:
 	go test -race --tags=webhook_cluster
 
 goimports:
-	go install golang.org/x/tools/cmd/goimports@latest
+	go install golang.org/x/tools/cmd/goimports@v0.24.0
 	goimports -w .
 	go mod tidy
 
