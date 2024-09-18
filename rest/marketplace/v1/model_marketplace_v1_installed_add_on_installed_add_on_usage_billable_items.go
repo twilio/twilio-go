@@ -22,16 +22,19 @@ import (
 
 // MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems struct for MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
 type MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems struct {
-	// Any floating number greater than 0.
+	// Total amount in local currency that was billed for this Billing Item. Can be any floating number greater than 0.
 	Quantity float32 `json:"quantity"`
 	// BillingSid to use for billing.
 	Sid string `json:"sid"`
+	// Whether the billing event was successfully generated for this Billable Item.
+	Submitted bool `json:"submitted,omitempty"`
 }
 
 func (response *MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		Quantity interface{} `json:"quantity"`
-		Sid      string      `json:"sid"`
+		Quantity  interface{} `json:"quantity"`
+		Sid       string      `json:"sid"`
+		Submitted bool        `json:"submitted"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -39,7 +42,8 @@ func (response *MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems) Unm
 	}
 
 	*response = MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems{
-		Sid: raw.Sid,
+		Sid:       raw.Sid,
+		Submitted: raw.Submitted,
 	}
 
 	responseQuantity, err := client.UnmarshalFloat32(&raw.Quantity)

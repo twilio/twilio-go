@@ -53,6 +53,7 @@ Class | Method | HTTP request | Description
 
  - [MarketplaceV1AvailableAddOn](docs/MarketplaceV1AvailableAddOn.md)
  - [MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems](docs/MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems.md)
+ - [MarketplaceV1ReferralRecords](docs/MarketplaceV1ReferralRecords.md)
  - [ListInstalledAddOnExtensionResponse](docs/ListInstalledAddOnExtensionResponse.md)
  - [ListAvailableAddOnResponse](docs/ListAvailableAddOnResponse.md)
  - [CreateReferralConversionRequest](docs/CreateReferralConversionRequest.md)

@@ -38,7 +38,7 @@ type CreateBundleParams struct {
 	IsoCountry *string `json:"IsoCountry,omitempty"`
 	//
 	EndUserType *string `json:"EndUserType,omitempty"`
-	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
 	NumberType *string `json:"NumberType,omitempty"`
 	// Indicates that Bundle is a Test Bundle and will be Auto-Rejected
 	IsTest *bool `json:"IsTest,omitempty"`
@@ -181,7 +181,7 @@ type ListBundleParams struct {
 	RegulationSid *string `json:"RegulationSid,omitempty"`
 	// The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
 	IsoCountry *string `json:"IsoCountry,omitempty"`
-	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
 	NumberType *string `json:"NumberType,omitempty"`
 	// Indicates that the Bundle is a valid Bundle until a specified expiration date.
 	HasValidUntilDate *bool `json:"HasValidUntilDate,omitempty"`

@@ -36,7 +36,7 @@ Class | Method | HTTP request | Description
 *ContentApi* | [**FetchContent**](docs/ContentApi.md#fetchcontent) | **Get** /v1/Content/{Sid} | 
 *ContentApi* | [**ListContent**](docs/ContentApi.md#listcontent) | **Get** /v1/Content | 
 *ContentAndApprovalsApi* | [**ListContentAndApprovals**](docs/ContentAndApprovalsApi.md#listcontentandapprovals) | **Get** /v1/ContentAndApprovals | 
-*ContentApprovalRequestsApi* | [**FetchApprovalFetch**](docs/ContentApprovalRequestsApi.md#fetchapprovalfetch) | **Get** /v1/Content/{ContentSid}/ApprovalRequests | 
+*ContentApprovalRequestsApi* | [**FetchApprovalFetch**](docs/ContentApprovalRequestsApi.md#fetchapprovalfetch) | **Get** /v1/Content/{Sid}/ApprovalRequests | 
 *ContentApprovalRequestsWhatsappApi* | [**CreateApprovalCreate**](docs/ContentApprovalRequestsWhatsappApi.md#createapprovalcreate) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | 
 *LegacyContentApi* | [**ListLegacyContent**](docs/LegacyContentApi.md#listlegacycontent) | **Get** /v1/LegacyContent | 
 

@@ -14,7 +14,38 @@
 
 package openapi
 
+import (
+	"encoding/json"
+
+	"github.com/twilio/twilio-go/client"
+)
+
 // MarketplaceV1InstalledAddOnUsage struct for MarketplaceV1InstalledAddOnUsage
 type MarketplaceV1InstalledAddOnUsage struct {
-	BillableItems []MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems `json:"billable_items"`
+	// Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
+	TotalSubmitted float32                                                       `json:"total_submitted,omitempty"`
+	BillableItems  []MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems `json:"billable_items"`
+}
+
+func (response *MarketplaceV1InstalledAddOnUsage) UnmarshalJSON(bytes []byte) (err error) {
+	raw := struct {
+		TotalSubmitted interface{}                                                   `json:"total_submitted"`
+		BillableItems  []MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems `json:"billable_items"`
+	}{}
+
+	if err = json.Unmarshal(bytes, &raw); err != nil {
+		return err
+	}
+
+	*response = MarketplaceV1InstalledAddOnUsage{
+		BillableItems: raw.BillableItems,
+	}
+
+	responseTotalSubmitted, err := client.UnmarshalFloat32(&raw.TotalSubmitted)
+	if err != nil {
+		return err
+	}
+	response.TotalSubmitted = *responseTotalSubmitted
+
+	return
 }

@@ -31,8 +31,8 @@ func (params *CreateBillingUsageParams) SetMarketplaceV1InstalledAddOnUsage(Mark
 	return params
 }
 
-//
-func (c *ApiService) CreateBillingUsage(InstalledAddOnSid string, params *CreateBillingUsageParams) (*MarketplaceV1BillingUsageResponse, error) {
+// Allows Twilio Marketplace publishers to manually report customer usage on No-code Partner Listings that they own.
+func (c *ApiService) CreateBillingUsage(InstalledAddOnSid string, params *CreateBillingUsageParams) (*MarketplaceV1InstalledAddOnUsage, error) {
 	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Usage"
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
 
@@ -57,7 +57,7 @@ func (c *ApiService) CreateBillingUsage(InstalledAddOnSid string, params *Create
 
 	defer resp.Body.Close()
 
-	ps := &MarketplaceV1BillingUsageResponse{}
+	ps := &MarketplaceV1InstalledAddOnUsage{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateBundleCloneParams struc
 Name | Type | Description
 ------------- | ------------- | -------------
 **TargetAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
-**MoveToDraft** | **bool** | This is to determine whether the cloned bundle needs to be in draft state or not.
+**MoveToDraft** | **bool** | If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
 **FriendlyName** | **string** | The string that you assigned to describe the cloned bundle.
 
 ### Return type

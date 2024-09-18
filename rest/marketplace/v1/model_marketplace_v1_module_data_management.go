@@ -32,4 +32,6 @@ type MarketplaceV1ModuleDataManagement struct {
 	Documentation *interface{} `json:"documentation,omitempty"`
 	// A JSON object for providing listing specific configuration. Contains button setup, notification url, among others.
 	Configuration *interface{} `json:"configuration,omitempty"`
+	// A JSON object for providing Listing specific pricing information.
+	Pricing *interface{} `json:"pricing,omitempty"`
 }

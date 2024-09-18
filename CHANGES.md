@@ -1,5 +1,18 @@
 twilio-go changelog
 ====================
+[2024-09-18] Version 1.23.1
+---------------------------
+**Library - Fix**
+- [PR #256](https://github.com/twilio/twilio-go/pull/256): reverting go imports to previous version. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Intelligence**
+- Remove public from operator_type
+- Update operator_type to include general-availablity and deprecated
+
+**Numbers**
+- Remove beta flag for bundle clone API
+
+
 [2024-09-05] Version 1.23.0
 ---------------------------
 **Iam**

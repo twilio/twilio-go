@@ -10,11 +10,11 @@ Method | HTTP request | Description
 
 ## CreateBillingUsage
 
-> MarketplaceV1BillingUsageResponse CreateBillingUsage(ctx, InstalledAddOnSidoptional)
+> MarketplaceV1InstalledAddOnUsage CreateBillingUsage(ctx, InstalledAddOnSidoptional)
 
 
 
-
+Allows Twilio Marketplace publishers to manually report customer usage on No-code Partner Listings that they own.
 
 ### Path Parameters
 
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**InstalledAddOnSid** | **string** | 
+**InstalledAddOnSid** | **string** | Customer Installation SID to report usage on.
 
 ### Other Parameters
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MarketplaceV1BillingUsageResponse**](MarketplaceV1BillingUsageResponse.md)
+[**MarketplaceV1InstalledAddOnUsage**](MarketplaceV1InstalledAddOnUsage.md)
 
 ### Authorization
 

@@ -25,7 +25,7 @@ import (
 type CreateBundleCloneParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
 	TargetAccountSid *string `json:"TargetAccountSid,omitempty"`
-	// This is to determine whether the cloned bundle needs to be in draft state or not.
+	// If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
 	MoveToDraft *bool `json:"MoveToDraft,omitempty"`
 	// The string that you assigned to describe the cloned bundle.
 	FriendlyName *string `json:"FriendlyName,omitempty"`

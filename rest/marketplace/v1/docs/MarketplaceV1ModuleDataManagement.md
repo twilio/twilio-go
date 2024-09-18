@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **ModuleInfo** | Pointer to **interface{}** | A JSON object containing essential attributes that define a module. This information is presented on the Module detail page in the Twilio Marketplace Catalog. You can pass the following attributes in the JSON object |
 **Documentation** | Pointer to **interface{}** | A JSON object for providing comprehensive information, instructions, and resources related to the module |
 **Configuration** | Pointer to **interface{}** | A JSON object for providing listing specific configuration. Contains button setup, notification url, among others. |
+**Pricing** | Pointer to **interface{}** | A JSON object for providing Listing specific pricing information. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

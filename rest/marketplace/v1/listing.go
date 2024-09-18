@@ -47,18 +47,20 @@ func (c *ApiService) FetchModuleDataManagement(Sid string) (*MarketplaceV1Module
 
 // Optional parameters for the method 'UpdateModuleDataManagement'
 type UpdateModuleDataManagementParams struct {
-	//
+	// A JSON object containing essential attributes that define a Listing.
 	ModuleInfo *string `json:"ModuleInfo,omitempty"`
-	//
+	// A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
 	Description *string `json:"Description,omitempty"`
-	//
+	// A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
 	Documentation *string `json:"Documentation,omitempty"`
-	//
+	// A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
 	Policies *string `json:"Policies,omitempty"`
-	//
+	// A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
 	Support *string `json:"Support,omitempty"`
-	//
+	// A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
 	Configuration *string `json:"Configuration,omitempty"`
+	// A JSON object for providing Listing's purchase options.
+	Pricing *string `json:"Pricing,omitempty"`
 }
 
 func (params *UpdateModuleDataManagementParams) SetModuleInfo(ModuleInfo string) *UpdateModuleDataManagementParams {
@@ -85,8 +87,12 @@ func (params *UpdateModuleDataManagementParams) SetConfiguration(Configuration s
 	params.Configuration = &Configuration
 	return params
 }
+func (params *UpdateModuleDataManagementParams) SetPricing(Pricing string) *UpdateModuleDataManagementParams {
+	params.Pricing = &Pricing
+	return params
+}
 
-//
+// This endpoint updates the data of a given Listing. To find a Listing's SID, use the [Available Add-ons resource](https://www.twilio.com/docs/marketplace/api/available-add-ons) or view its Listing details page in the Console by visiting the [Catalog](https://console.twilio.com/us1/develop/add-ons/catalog) or the [My Listings tab](https://console.twilio.com/us1/develop/add-ons/publish/my-listings) and selecting the Listing. Only Listing owners are allowed to update the Listing.
 func (c *ApiService) UpdateModuleDataManagement(Sid string, params *UpdateModuleDataManagementParams) (*MarketplaceV1ModuleDataManagement, error) {
 	path := "/v1/Listing/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -113,6 +119,9 @@ func (c *ApiService) UpdateModuleDataManagement(Sid string, params *UpdateModule
 	}
 	if params != nil && params.Configuration != nil {
 		data.Set("Configuration", *params.Configuration)
+	}
+	if params != nil && params.Pricing != nil {
+		data.Set("Pricing", *params.Pricing)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
