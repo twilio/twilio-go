@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The name of the knowledge source. |[optional] 
 **Status** | **string** | The status of processing the knowledge source ('QUEUED', 'PROCESSING', 'COMPLETED', 'FAILED') |[optional] 
 **Type** | **string** | The type of knowledge source ('Web', 'Database', 'Text', 'File') |[optional] 
+**Url** | **string** | The url of the knowledge resource. |[optional] 
 **DateCreated** | [**time.Time**](time.Time.md) | The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |[optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) | The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |[optional] 
 

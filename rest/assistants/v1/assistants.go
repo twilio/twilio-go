@@ -112,25 +112,25 @@ func (c *ApiService) FetchAssistant(Id string) (*AssistantsV1AssistantWithToolsA
 	return ps, err
 }
 
-// Optional parameters for the method 'ListAssistant'
-type ListAssistantParams struct {
+// Optional parameters for the method 'ListAssistants'
+type ListAssistantsParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListAssistantParams) SetPageSize(PageSize int) *ListAssistantParams {
+func (params *ListAssistantsParams) SetPageSize(PageSize int) *ListAssistantsParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAssistantParams) SetLimit(Limit int) *ListAssistantParams {
+func (params *ListAssistantsParams) SetLimit(Limit int) *ListAssistantsParams {
 	params.Limit = &Limit
 	return params
 }
 
-// Retrieve a single page of Assistant records from the API. Request is executed immediately.
-func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken, pageNumber string) (*ListAssistantResponse, error) {
+// Retrieve a single page of Assistants records from the API. Request is executed immediately.
+func (c *ApiService) PageAssistants(params *ListAssistantsParams, pageToken, pageNumber string) (*ListAssistantResponse, error) {
 	path := "/v1/Assistants"
 
 	data := url.Values{}
@@ -164,9 +164,9 @@ func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken, pageN
 	return ps, err
 }
 
-// Lists Assistant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAssistant(params *ListAssistantParams) ([]AssistantsV1Assistant, error) {
-	response, errors := c.StreamAssistant(params)
+// Lists Assistants records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAssistants(params *ListAssistantsParams) ([]AssistantsV1Assistant, error) {
+	response, errors := c.StreamAssistants(params)
 
 	records := make([]AssistantsV1Assistant, 0)
 	for record := range response {
@@ -180,29 +180,29 @@ func (c *ApiService) ListAssistant(params *ListAssistantParams) ([]AssistantsV1A
 	return records, nil
 }
 
-// Streams Assistant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAssistant(params *ListAssistantParams) (chan AssistantsV1Assistant, chan error) {
+// Streams Assistants records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAssistants(params *ListAssistantsParams) (chan AssistantsV1Assistant, chan error) {
 	if params == nil {
-		params = &ListAssistantParams{}
+		params = &ListAssistantsParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	recordChannel := make(chan AssistantsV1Assistant, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAssistant(params, "", "")
+	response, err := c.PageAssistants(params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAssistant(response, params, recordChannel, errorChannel)
+		go c.streamAssistants(response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAssistant(response *ListAssistantResponse, params *ListAssistantParams, recordChannel chan AssistantsV1Assistant, errorChannel chan error) {
+func (c *ApiService) streamAssistants(response *ListAssistantResponse, params *ListAssistantsParams, recordChannel chan AssistantsV1Assistant, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {

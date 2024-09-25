@@ -1,5 +1,16 @@
 twilio-go changelog
 ====================
+[2024-09-25] Version 1.23.2
+---------------------------
+**Accounts**
+- Update docs and mounts.
+- Change library visibility to public
+- Enable consent and contact bulk upsert APIs in prod.
+
+**Serverless**
+- Add is_plugin parameter in deployments api to check if it is plugins deployment
+
+
 [2024-09-18] Version 1.23.1
 ---------------------------
 **Library - Fix**

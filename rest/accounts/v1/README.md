@@ -34,6 +34,8 @@ Class | Method | HTTP request | Description
 *AuthTokensPromoteApi* | [**UpdateAuthTokenPromotion**](docs/AuthTokensPromoteApi.md#updateauthtokenpromotion) | **Post** /v1/AuthTokens/Promote | 
 *AuthTokensSecondaryApi* | [**CreateSecondaryAuthToken**](docs/AuthTokensSecondaryApi.md#createsecondaryauthtoken) | **Post** /v1/AuthTokens/Secondary | 
 *AuthTokensSecondaryApi* | [**DeleteSecondaryAuthToken**](docs/AuthTokensSecondaryApi.md#deletesecondaryauthtoken) | **Delete** /v1/AuthTokens/Secondary | 
+*ConsentsBulkApi* | [**CreateBulkConsents**](docs/ConsentsBulkApi.md#createbulkconsents) | **Post** /v1/Consents/Bulk | 
+*ContactsBulkApi* | [**CreateBulkContacts**](docs/ContactsBulkApi.md#createbulkcontacts) | **Post** /v1/Contacts/Bulk | 
 *CredentialsAWSApi* | [**CreateCredentialAws**](docs/CredentialsAWSApi.md#createcredentialaws) | **Post** /v1/Credentials/AWS | 
 *CredentialsAWSApi* | [**DeleteCredentialAws**](docs/CredentialsAWSApi.md#deletecredentialaws) | **Delete** /v1/Credentials/AWS/{Sid} | 
 *CredentialsAWSApi* | [**FetchCredentialAws**](docs/CredentialsAWSApi.md#fetchcredentialaws) | **Get** /v1/Credentials/AWS/{Sid} | 
@@ -51,6 +53,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AccountsV1BulkContacts](docs/AccountsV1BulkContacts.md)
+ - [AccountsV1BulkConsents](docs/AccountsV1BulkConsents.md)
  - [ListCredentialAwsResponse](docs/ListCredentialAwsResponse.md)
  - [ListCredentialPublicKeyResponse](docs/ListCredentialPublicKeyResponse.md)
  - [AccountsV1SecondaryAuthToken](docs/AccountsV1SecondaryAuthToken.md)

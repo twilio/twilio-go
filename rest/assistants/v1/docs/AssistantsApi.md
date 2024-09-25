@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**CreateAssistant**](AssistantsApi.md#CreateAssistant) | **Post** /v1/Assistants | Create a new assistant
 [**DeleteAssistant**](AssistantsApi.md#DeleteAssistant) | **Delete** /v1/Assistants/{id} | Delete an assistant by ID
 [**FetchAssistant**](AssistantsApi.md#FetchAssistant) | **Get** /v1/Assistants/{id} | Get an assistant by ID
-[**ListAssistant**](AssistantsApi.md#ListAssistant) | **Get** /v1/Assistants | List all assistants
+[**ListAssistants**](AssistantsApi.md#ListAssistants) | **Get** /v1/Assistants | List all assistants
 [**UpdateAssistant**](AssistantsApi.md#UpdateAssistant) | **Put** /v1/Assistants/{id} | Update an assistant by ID
 
 
@@ -135,9 +135,9 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## ListAssistant
+## ListAssistants
 
-> []AssistantsV1Assistant ListAssistant(ctx, optional)
+> []AssistantsV1Assistant ListAssistants(ctx, optional)
 
 List all assistants
 
@@ -149,7 +149,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListAssistantParams struct
+Other parameters are passed through a pointer to a ListAssistantsParams struct
 
 
 Name | Type | Description

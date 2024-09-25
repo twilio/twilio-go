@@ -87,6 +87,31 @@ func (c *ApiService) DeleteTool(Id string) error {
 	return nil
 }
 
+// Get tool
+func (c *ApiService) FetchTool(Id string) (*AssistantsV1ToolWithPolicies, error) {
+	path := "/v1/Tools/{id}"
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1ToolWithPolicies{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
 // Optional parameters for the method 'ListTools'
 type ListToolsParams struct {
 	//

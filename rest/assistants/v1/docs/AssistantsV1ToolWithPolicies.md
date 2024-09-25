@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The name of the tool. |
 **RequiresAuth** | **bool** | The authentication requirement for the tool. |
 **Type** | **string** | The type of the tool. ('WEBHOOK') |
+**Url** | **string** | The url of the tool resource. |[optional] 
 **DateCreated** | [**time.Time**](time.Time.md) | The date and time in GMT when the Tool was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | [**time.Time**](time.Time.md) | The date and time in GMT when the Tool was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **Policies** | [**[]AssistantsV1Policy**](AssistantsV1Policy.md) | The Policies associated with the tool. |[optional] 

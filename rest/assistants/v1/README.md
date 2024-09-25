@@ -34,22 +34,31 @@ Class | Method | HTTP request | Description
 *AssistantsApi* | [**CreateAssistant**](docs/AssistantsApi.md#createassistant) | **Post** /v1/Assistants | Create a new assistant
 *AssistantsApi* | [**DeleteAssistant**](docs/AssistantsApi.md#deleteassistant) | **Delete** /v1/Assistants/{id} | Delete an assistant by ID
 *AssistantsApi* | [**FetchAssistant**](docs/AssistantsApi.md#fetchassistant) | **Get** /v1/Assistants/{id} | Get an assistant by ID
-*AssistantsApi* | [**ListAssistant**](docs/AssistantsApi.md#listassistant) | **Get** /v1/Assistants | List all assistants
+*AssistantsApi* | [**ListAssistants**](docs/AssistantsApi.md#listassistants) | **Get** /v1/Assistants | List all assistants
 *AssistantsApi* | [**UpdateAssistant**](docs/AssistantsApi.md#updateassistant) | **Put** /v1/Assistants/{id} | Update an assistant by ID
 *AssistantsFeedbacksApi* | [**CreateFeedback**](docs/AssistantsFeedbacksApi.md#createfeedback) | **Post** /v1/Assistants/{id}/Feedbacks | Create feedback
 *AssistantsFeedbacksApi* | [**ListFeedback**](docs/AssistantsFeedbacksApi.md#listfeedback) | **Get** /v1/Assistants/{id}/Feedbacks | List feedbacks
+*AssistantsKnowledgeApi* | [**CreateAssistantKnowledgeAttachment**](docs/AssistantsKnowledgeApi.md#createassistantknowledgeattachment) | **Post** /v1/Assistants/{assistantId}/Knowledge/{id} | Attach Knowledge to Assistant
+*AssistantsKnowledgeApi* | [**DeleteAssistantKnowledgeAttachment**](docs/AssistantsKnowledgeApi.md#deleteassistantknowledgeattachment) | **Delete** /v1/Assistants/{assistantId}/Knowledge/{id} | Detach Knowledge to Assistant
+*AssistantsKnowledgeApi* | [**ListKnowledgeByAssistant**](docs/AssistantsKnowledgeApi.md#listknowledgebyassistant) | **Get** /v1/Assistants/{assistantId}/Knowledge | List all knowledge for an Assistant
+*AssistantsMessagesApi* | [**CreateMessage**](docs/AssistantsMessagesApi.md#createmessage) | **Post** /v1/Assistants/{id}/Messages | Send a message to the assistant
+*AssistantsToolsApi* | [**CreateAssistantToolAttachment**](docs/AssistantsToolsApi.md#createassistanttoolattachment) | **Post** /v1/Assistants/{assistantId}/Tools/{id} | Attach Tool to Assistant
+*AssistantsToolsApi* | [**DeleteAssistantToolAttachment**](docs/AssistantsToolsApi.md#deleteassistanttoolattachment) | **Delete** /v1/Assistants/{assistantId}/Tools/{id} | Detach Tool to Assistant
+*AssistantsToolsApi* | [**ListToolsByAssistant**](docs/AssistantsToolsApi.md#listtoolsbyassistant) | **Get** /v1/Assistants/{assistantId}/Tools | List tools for an Assistant
 *KnowledgeApi* | [**CreateKnowledge**](docs/KnowledgeApi.md#createknowledge) | **Post** /v1/Knowledge | Create knowledge
 *KnowledgeApi* | [**DeleteKnowledge**](docs/KnowledgeApi.md#deleteknowledge) | **Delete** /v1/Knowledge/{id} | Delete knowledge
 *KnowledgeApi* | [**FetchKnowledge**](docs/KnowledgeApi.md#fetchknowledge) | **Get** /v1/Knowledge/{id} | Get knowledge
 *KnowledgeApi* | [**ListKnowledge**](docs/KnowledgeApi.md#listknowledge) | **Get** /v1/Knowledge | List all knowledge
 *KnowledgeApi* | [**UpdateKnowledge**](docs/KnowledgeApi.md#updateknowledge) | **Put** /v1/Knowledge/{id} | Update knowledge
 *KnowledgeChunksApi* | [**ListKnowledgeChunks**](docs/KnowledgeChunksApi.md#listknowledgechunks) | **Get** /v1/Knowledge/{id}/Chunks | List knowledge chunks
+*KnowledgeStatusApi* | [**FetchKnowledgeStatus**](docs/KnowledgeStatusApi.md#fetchknowledgestatus) | **Get** /v1/Knowledge/{id}/Status | Get knowledge status
 *PoliciesApi* | [**ListPolicies**](docs/PoliciesApi.md#listpolicies) | **Get** /v1/Policies | List policies
 *SessionsApi* | [**FetchSession**](docs/SessionsApi.md#fetchsession) | **Get** /v1/Sessions/{id} | Get a session by ID
 *SessionsApi* | [**ListSessions**](docs/SessionsApi.md#listsessions) | **Get** /v1/Sessions | List sessions
 *SessionsMessagesApi* | [**ListMessages**](docs/SessionsMessagesApi.md#listmessages) | **Get** /v1/Sessions/{sessionId}/Messages | List messages
 *ToolsApi* | [**CreateTool**](docs/ToolsApi.md#createtool) | **Post** /v1/Tools | Create tool
 *ToolsApi* | [**DeleteTool**](docs/ToolsApi.md#deletetool) | **Delete** /v1/Tools/{id} | Delete tool
+*ToolsApi* | [**FetchTool**](docs/ToolsApi.md#fetchtool) | **Get** /v1/Tools/{id} | Get tool
 *ToolsApi* | [**ListTools**](docs/ToolsApi.md#listtools) | **Get** /v1/Tools | List tools
 *ToolsApi* | [**UpdateTool**](docs/ToolsApi.md#updatetool) | **Put** /v1/Tools/{id} | Update tool
 
@@ -59,11 +68,11 @@ Class | Method | HTTP request | Description
  - [AssistantsV1CreateAssistantRequest](docs/AssistantsV1CreateAssistantRequest.md)
  - [AssistantsV1KnowledgeChunk](docs/AssistantsV1KnowledgeChunk.md)
  - [AssistantsV1AssistantSendMessageResponse](docs/AssistantsV1AssistantSendMessageResponse.md)
- - [AssistantsV1SearchKnowledgeRequest](docs/AssistantsV1SearchKnowledgeRequest.md)
  - [AssistantsV1CreatePolicyRequest](docs/AssistantsV1CreatePolicyRequest.md)
  - [AssistantsV1SegmentCredential](docs/AssistantsV1SegmentCredential.md)
  - [AssistantsV1CustomerAi](docs/AssistantsV1CustomerAi.md)
  - [AssistantsV1Knowledge](docs/AssistantsV1Knowledge.md)
+ - [ListKnowledgeByAssistantResponse](docs/ListKnowledgeByAssistantResponse.md)
  - [AssistantsV1Message](docs/AssistantsV1Message.md)
  - [ListToolsResponse](docs/ListToolsResponse.md)
  - [AssistantsV1UpdateToolRequest](docs/AssistantsV1UpdateToolRequest.md)
@@ -75,6 +84,7 @@ Class | Method | HTTP request | Description
  - [AssistantsV1Policy](docs/AssistantsV1Policy.md)
  - [AssistantsV1ToolWithPolicies](docs/AssistantsV1ToolWithPolicies.md)
  - [ListKnowledgeChunksResponse](docs/ListKnowledgeChunksResponse.md)
+ - [ListToolsByAssistantResponse](docs/ListToolsByAssistantResponse.md)
  - [AssistantsV1AssistantWithToolsAndKnowledge](docs/AssistantsV1AssistantWithToolsAndKnowledge.md)
  - [ListKnowledgeResponse](docs/ListKnowledgeResponse.md)
  - [AssistantsV1Tool](docs/AssistantsV1Tool.md)
