@@ -36,6 +36,7 @@ Name | Type | Description
 **VerificationSid** | **string** | A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
 **Amount** | **string** | The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 **Payee** | **string** | The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+**SnaClientToken** | **string** | A sna client token received in sna url invocation response needs to be passed in Verification Check request and should match to get successful response.
 
 ### Return type
 
