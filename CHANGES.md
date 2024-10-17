@@ -1,5 +1,14 @@
 twilio-go changelog
 ====================
+[2024-10-17] Version 1.23.4
+---------------------------
+**Api**
+- Add response key `country` to fetch AvailablePhoneNumber resource by specific country.
+
+**Messaging**
+- Make library and doc public for requestManagedCert Endpoint
+
+
 [2024-10-03] Version 1.23.3
 ---------------------------
 **Messaging**

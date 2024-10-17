@@ -47,6 +47,7 @@ Class | Method | HTTP request | Description
 *LinkShorteningDomainsConfigApi* | [**UpdateDomainConfig**](docs/LinkShorteningDomainsConfigApi.md#updatedomainconfig) | **Post** /v1/LinkShortening/Domains/{DomainSid}/Config | 
 *LinkShorteningDomainsMessagingServicesApi* | [**CreateLinkshorteningMessagingService**](docs/LinkShorteningDomainsMessagingServicesApi.md#createlinkshorteningmessagingservice) | **Post** /v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid} | 
 *LinkShorteningDomainsMessagingServicesApi* | [**DeleteLinkshorteningMessagingService**](docs/LinkShorteningDomainsMessagingServicesApi.md#deletelinkshorteningmessagingservice) | **Delete** /v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid} | 
+*LinkShorteningDomainsRequestManagedCertApi* | [**UpdateRequestManagedCert**](docs/LinkShorteningDomainsRequestManagedCertApi.md#updaterequestmanagedcert) | **Post** /v1/LinkShortening/Domains/{DomainSid}/RequestManagedCert | 
 *LinkShorteningMessagingServiceDomainConfigApi* | [**FetchDomainConfigMessagingService**](docs/LinkShorteningMessagingServiceDomainConfigApi.md#fetchdomainconfigmessagingservice) | **Get** /v1/LinkShortening/MessagingService/{MessagingServiceSid}/DomainConfig | 
 *LinkShorteningMessagingServicesDomainApi* | [**FetchLinkshorteningMessagingServiceDomainAssociation**](docs/LinkShorteningMessagingServicesDomainApi.md#fetchlinkshorteningmessagingservicedomainassociation) | **Get** /v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain | 
 *ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | 
@@ -105,6 +106,7 @@ Class | Method | HTTP request | Description
  - [ListAlphaSenderResponse](docs/ListAlphaSenderResponse.md)
  - [ListUsAppToPersonResponse](docs/ListUsAppToPersonResponse.md)
  - [ListChannelSenderResponse](docs/ListChannelSenderResponse.md)
+ - [MessagingV1RequestManagedCert](docs/MessagingV1RequestManagedCert.md)
  - [MessagingV1DomainConfigMessagingService](docs/MessagingV1DomainConfigMessagingService.md)
  - [MessagingV1Service](docs/MessagingV1Service.md)
  - [MessagingV1Deactivation](docs/MessagingV1Deactivation.md)
