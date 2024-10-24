@@ -1,5 +1,11 @@
 twilio-go changelog
 ====================
+[2024-10-24] Version 1.23.5
+---------------------------
+**Conversations**
+- Expose ConversationWithParticipants resource that allows creating a conversation with participants
+
+
 [2024-10-17] Version 1.23.4
 ---------------------------
 **Api**

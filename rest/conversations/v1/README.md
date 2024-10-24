@@ -40,6 +40,7 @@ Class | Method | HTTP request | Description
 *ConfigurationAddressesApi* | [**UpdateConfigurationAddress**](docs/ConfigurationAddressesApi.md#updateconfigurationaddress) | **Post** /v1/Configuration/Addresses/{Sid} | 
 *ConfigurationWebhooksApi* | [**FetchConfigurationWebhook**](docs/ConfigurationWebhooksApi.md#fetchconfigurationwebhook) | **Get** /v1/Configuration/Webhooks | 
 *ConfigurationWebhooksApi* | [**UpdateConfigurationWebhook**](docs/ConfigurationWebhooksApi.md#updateconfigurationwebhook) | **Post** /v1/Configuration/Webhooks | 
+*ConversationWithParticipantsApi* | [**CreateConversationWithParticipants**](docs/ConversationWithParticipantsApi.md#createconversationwithparticipants) | **Post** /v1/ConversationWithParticipants | 
 *ConversationsApi* | [**CreateConversation**](docs/ConversationsApi.md#createconversation) | **Post** /v1/Conversations | 
 *ConversationsApi* | [**DeleteConversation**](docs/ConversationsApi.md#deleteconversation) | **Delete** /v1/Conversations/{Sid} | 
 *ConversationsApi* | [**FetchConversation**](docs/ConversationsApi.md#fetchconversation) | **Get** /v1/Conversations/{Sid} | 
@@ -86,6 +87,7 @@ Class | Method | HTTP request | Description
 *ServicesConfigurationNotificationsApi* | [**UpdateServiceNotification**](docs/ServicesConfigurationNotificationsApi.md#updateservicenotification) | **Post** /v1/Services/{ChatServiceSid}/Configuration/Notifications | 
 *ServicesConfigurationWebhooksApi* | [**FetchServiceWebhookConfiguration**](docs/ServicesConfigurationWebhooksApi.md#fetchservicewebhookconfiguration) | **Get** /v1/Services/{ChatServiceSid}/Configuration/Webhooks | 
 *ServicesConfigurationWebhooksApi* | [**UpdateServiceWebhookConfiguration**](docs/ServicesConfigurationWebhooksApi.md#updateservicewebhookconfiguration) | **Post** /v1/Services/{ChatServiceSid}/Configuration/Webhooks | 
+*ServicesConversationWithParticipantsApi* | [**CreateServiceConversationWithParticipants**](docs/ServicesConversationWithParticipantsApi.md#createserviceconversationwithparticipants) | **Post** /v1/Services/{ChatServiceSid}/ConversationWithParticipants | 
 *ServicesConversationsApi* | [**CreateServiceConversation**](docs/ServicesConversationsApi.md#createserviceconversation) | **Post** /v1/Services/{ChatServiceSid}/Conversations | 
 *ServicesConversationsApi* | [**DeleteServiceConversation**](docs/ServicesConversationsApi.md#deleteserviceconversation) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | 
 *ServicesConversationsApi* | [**FetchServiceConversation**](docs/ServicesConversationsApi.md#fetchserviceconversation) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | 
@@ -153,6 +155,7 @@ Class | Method | HTTP request | Description
  - [ListConversationMessageResponse](docs/ListConversationMessageResponse.md)
  - [ConversationsV1ConfigurationWebhook](docs/ConversationsV1ConfigurationWebhook.md)
  - [ConversationsV1Credential](docs/ConversationsV1Credential.md)
+ - [ConversationsV1ConversationWithParticipants](docs/ConversationsV1ConversationWithParticipants.md)
  - [ConversationsV1UserConversation](docs/ConversationsV1UserConversation.md)
  - [ConversationsV1Conversation](docs/ConversationsV1Conversation.md)
  - [ConversationsV1ServiceConversationMessageReceipt](docs/ConversationsV1ServiceConversationMessageReceipt.md)
@@ -168,6 +171,7 @@ Class | Method | HTTP request | Description
  - [ConversationsV1ServiceUser](docs/ConversationsV1ServiceUser.md)
  - [ListConversationParticipantResponse](docs/ListConversationParticipantResponse.md)
  - [ListServiceConversationParticipantResponse](docs/ListServiceConversationParticipantResponse.md)
+ - [ConversationsV1ServiceConversationWithParticipants](docs/ConversationsV1ServiceConversationWithParticipants.md)
  - [ListCredentialResponse](docs/ListCredentialResponse.md)
  - [ListServiceBindingResponse](docs/ListServiceBindingResponse.md)
  - [ListRoleResponse](docs/ListRoleResponse.md)
