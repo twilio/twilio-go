@@ -43,7 +43,7 @@ Name | Type | Description
 **TimersClosed** | **string** | ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
 **BindingsEmailAddress** | **string** | The default email address that will be used when sending outbound emails in this conversation.
 **BindingsEmailName** | **string** | The default name that will be used when sending outbound emails in this conversation.
-**Participant** | **[]string** | The participant to be added to the conversation in JSON format. The parameters are as in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10.
+**Participant** | **[]string** | The participant to be added to the conversation in JSON format. The JSON object attributes are as parameters in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10.
 
 ### Return type
 
