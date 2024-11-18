@@ -145,7 +145,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	// are added as information in the url itself. Also while Content-Type is json, we are sending
 	// json body. In that case, data variable contains all other parameters than body, which is the
 	//same case as GET method. In that case as well all parameters will be added to url
-	if method == http.MethodGet || contentType == jsonContentType {
+	if method == http.MethodGet || method == http.MethodDelete || contentType == jsonContentType {
 		if data != nil {
 			v, _ := form.EncodeToStringWith(data, delimiter, escapee, keepZeros)
 			s := delimitingRegex.ReplaceAllString(v, "")
