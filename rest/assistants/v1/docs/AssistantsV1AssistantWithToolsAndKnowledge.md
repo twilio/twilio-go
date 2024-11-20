@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Model** | **string** | The default model used by the assistant. |
 **Name** | **string** | The name of the assistant. |
 **Owner** | **string** | The owner/company of the assistant. |
+**Url** | **string** | The url of the assistant resource. |[optional] 
 **PersonalityPrompt** | **string** | The personality prompt to be used for assistant. |
 **DateCreated** | [**time.Time**](time.Time.md) | The date and time in GMT when the Assistant was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | [**time.Time**](time.Time.md) | The date and time in GMT when the Assistant was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |

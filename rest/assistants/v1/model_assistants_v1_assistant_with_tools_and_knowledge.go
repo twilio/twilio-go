@@ -32,6 +32,8 @@ type AssistantsV1AssistantWithToolsAndKnowledge struct {
 	Name string `json:"name"`
 	// The owner/company of the assistant.
 	Owner string `json:"owner"`
+	// The url of the assistant resource.
+	Url string `json:"url,omitempty"`
 	// The personality prompt to be used for assistant.
 	PersonalityPrompt string `json:"personality_prompt"`
 	// The date and time in GMT when the Assistant was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

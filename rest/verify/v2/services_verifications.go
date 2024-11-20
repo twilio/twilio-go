@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -52,6 +53,8 @@ type CreateVerificationParams struct {
 	TemplateCustomSubstitutions *string `json:"TemplateCustomSubstitutions,omitempty"`
 	// Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 	DeviceIp *string `json:"DeviceIp,omitempty"`
+	// An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
+	EnableSnaClientToken *bool `json:"EnableSnaClientToken,omitempty"`
 	//
 	RiskCheck *string `json:"RiskCheck,omitempty"`
 	// A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
@@ -116,6 +119,10 @@ func (params *CreateVerificationParams) SetTemplateCustomSubstitutions(TemplateC
 }
 func (params *CreateVerificationParams) SetDeviceIp(DeviceIp string) *CreateVerificationParams {
 	params.DeviceIp = &DeviceIp
+	return params
+}
+func (params *CreateVerificationParams) SetEnableSnaClientToken(EnableSnaClientToken bool) *CreateVerificationParams {
+	params.EnableSnaClientToken = &EnableSnaClientToken
 	return params
 }
 func (params *CreateVerificationParams) SetRiskCheck(RiskCheck string) *CreateVerificationParams {
@@ -193,6 +200,9 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	}
 	if params != nil && params.DeviceIp != nil {
 		data.Set("DeviceIp", *params.DeviceIp)
+	}
+	if params != nil && params.EnableSnaClientToken != nil {
+		data.Set("EnableSnaClientToken", fmt.Sprint(*params.EnableSnaClientToken))
 	}
 	if params != nil && params.RiskCheck != nil {
 		data.Set("RiskCheck", *params.RiskCheck)

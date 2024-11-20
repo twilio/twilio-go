@@ -24,10 +24,16 @@ import (
 type FetchPortingPortabilityParams struct {
 	// Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
 	TargetAccountSid *string `json:"TargetAccountSid,omitempty"`
+	// Address Sid of customer to which the number will be ported.
+	AddressSid *string `json:"AddressSid,omitempty"`
 }
 
 func (params *FetchPortingPortabilityParams) SetTargetAccountSid(TargetAccountSid string) *FetchPortingPortabilityParams {
 	params.TargetAccountSid = &TargetAccountSid
+	return params
+}
+func (params *FetchPortingPortabilityParams) SetAddressSid(AddressSid string) *FetchPortingPortabilityParams {
+	params.AddressSid = &AddressSid
 	return params
 }
 
@@ -43,6 +49,9 @@ func (c *ApiService) FetchPortingPortability(PhoneNumber string, params *FetchPo
 
 	if params != nil && params.TargetAccountSid != nil {
 		data.Set("TargetAccountSid", *params.TargetAccountSid)
+	}
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)

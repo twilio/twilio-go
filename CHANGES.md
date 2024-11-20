@@ -1,5 +1,55 @@
 twilio-go changelog
 ====================
+[2024-11-15] Version 1.23.6
+---------------------------
+**Api**
+- Added `ivr-virtual-agent-custom-voices` and `ivr-virtual-agent-genai` to `usage_record` API.
+- Add open-api file tag to realtime_transcriptions
+
+**Taskrouter**
+- Add `api-tag` property to workers reservation
+- Add `api-tag` property to task reservation
+
+
+[2024-10-24] Version 1.23.5
+---------------------------
+**Conversations**
+- Expose ConversationWithParticipants resource that allows creating a conversation with participants
+
+
+[2024-10-17] Version 1.23.4
+---------------------------
+**Api**
+- Add response key `country` to fetch AvailablePhoneNumber resource by specific country.
+
+**Messaging**
+- Make library and doc public for requestManagedCert Endpoint
+
+
+[2024-10-03] Version 1.23.3
+---------------------------
+**Messaging**
+- Add A2P external campaign CnpMigration flag
+
+**Numbers**
+- Add address sid to portability API
+
+**Verify**
+- Add `SnaClientToken` optional parameter on Verification check.
+- Add `EnableSnaClientToken` optional parameter for Verification creation.
+
+
+[2024-09-25] Version 1.23.2
+---------------------------
+**Accounts**
+- Update docs and mounts.
+- Change library visibility to public
+- Enable consent and contact bulk upsert APIs in prod.
+
+**Serverless**
+- Add is_plugin parameter in deployments api to check if it is plugins deployment
+
+
 [2024-09-18] Version 1.23.1
 ---------------------------
 **Library - Fix**

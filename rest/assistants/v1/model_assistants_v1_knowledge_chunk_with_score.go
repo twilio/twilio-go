@@ -35,6 +35,8 @@ type AssistantsV1KnowledgeChunkWithScore struct {
 	DateUpdated time.Time `json:"date_updated,omitempty"`
 	// The score associated with the chunk.
 	Score float32 `json:"score,omitempty"`
+	// The knowledge ID associated with the chunk.
+	KnowledgeId string `json:"knowledge_id,omitempty"`
 }
 
 func (response *AssistantsV1KnowledgeChunkWithScore) UnmarshalJSON(bytes []byte) (err error) {
@@ -45,6 +47,7 @@ func (response *AssistantsV1KnowledgeChunkWithScore) UnmarshalJSON(bytes []byte)
 		DateCreated time.Time              `json:"date_created"`
 		DateUpdated time.Time              `json:"date_updated"`
 		Score       interface{}            `json:"score"`
+		KnowledgeId string                 `json:"knowledge_id"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -57,6 +60,7 @@ func (response *AssistantsV1KnowledgeChunkWithScore) UnmarshalJSON(bytes []byte)
 		Metadata:    raw.Metadata,
 		DateCreated: raw.DateCreated,
 		DateUpdated: raw.DateUpdated,
+		KnowledgeId: raw.KnowledgeId,
 	}
 
 	responseScore, err := client.UnmarshalFloat32(&raw.Score)

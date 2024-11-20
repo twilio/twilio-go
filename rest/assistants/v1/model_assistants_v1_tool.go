@@ -36,6 +36,8 @@ type AssistantsV1Tool struct {
 	RequiresAuth bool `json:"requires_auth"`
 	// The type of the tool. ('WEBHOOK')
 	Type string `json:"type"`
+	// The url of the tool resource.
+	Url string `json:"url,omitempty"`
 	// The date and time in GMT when the Tool was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated time.Time `json:"date_created"`
 	// The date and time in GMT when the Tool was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

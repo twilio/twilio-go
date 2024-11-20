@@ -27,10 +27,16 @@ import (
 type CreateDeploymentParams struct {
 	// The SID of the Build for the Deployment.
 	BuildSid *string `json:"BuildSid,omitempty"`
+	// Whether the Deployment is a plugin.
+	IsPlugin *bool `json:"IsPlugin,omitempty"`
 }
 
 func (params *CreateDeploymentParams) SetBuildSid(BuildSid string) *CreateDeploymentParams {
 	params.BuildSid = &BuildSid
+	return params
+}
+func (params *CreateDeploymentParams) SetIsPlugin(IsPlugin bool) *CreateDeploymentParams {
+	params.IsPlugin = &IsPlugin
 	return params
 }
 
@@ -47,6 +53,9 @@ func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, 
 
 	if params != nil && params.BuildSid != nil {
 		data.Set("BuildSid", *params.BuildSid)
+	}
+	if params != nil && params.IsPlugin != nil {
+		data.Set("IsPlugin", fmt.Sprint(*params.IsPlugin))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

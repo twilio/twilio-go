@@ -32,6 +32,8 @@ type CreateVerificationCheckParams struct {
 	Amount *string `json:"Amount,omitempty"`
 	// The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 	Payee *string `json:"Payee,omitempty"`
+	// A sna client token received in sna url invocation response needs to be passed in Verification Check request and should match to get successful response.
+	SnaClientToken *string `json:"SnaClientToken,omitempty"`
 }
 
 func (params *CreateVerificationCheckParams) SetCode(Code string) *CreateVerificationCheckParams {
@@ -52,6 +54,10 @@ func (params *CreateVerificationCheckParams) SetAmount(Amount string) *CreateVer
 }
 func (params *CreateVerificationCheckParams) SetPayee(Payee string) *CreateVerificationCheckParams {
 	params.Payee = &Payee
+	return params
+}
+func (params *CreateVerificationCheckParams) SetSnaClientToken(SnaClientToken string) *CreateVerificationCheckParams {
+	params.SnaClientToken = &SnaClientToken
 	return params
 }
 
@@ -79,6 +85,9 @@ func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVe
 	}
 	if params != nil && params.Payee != nil {
 		data.Set("Payee", *params.Payee)
+	}
+	if params != nil && params.SnaClientToken != nil {
+		data.Set("SnaClientToken", *params.SnaClientToken)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

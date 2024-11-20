@@ -34,6 +34,8 @@ type AssistantsV1Knowledge struct {
 	Status string `json:"status,omitempty"`
 	// The type of knowledge source ('Web', 'Database', 'Text', 'File')
 	Type string `json:"type,omitempty"`
+	// The url of the knowledge resource.
+	Url string `json:"url,omitempty"`
 	// The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

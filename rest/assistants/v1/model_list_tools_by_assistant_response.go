@@ -14,12 +14,8 @@
 
 package openapi
 
-// AssistantsV1SearchKnowledgeRequest struct for AssistantsV1SearchKnowledgeRequest
-type AssistantsV1SearchKnowledgeRequest struct {
-	// The query to search the knowledge source.
-	Query string `json:"query"`
-	// The topK results to return.
-	Top int `json:"top"`
-	// The list of knowledge IDs to search.
-	KnowledgeIds []string `json:"knowledge_ids,omitempty"`
+// ListToolsByAssistantResponse struct for ListToolsByAssistantResponse
+type ListToolsByAssistantResponse struct {
+	Tools []AssistantsV1Tool        `json:"tools,omitempty"`
+	Meta  ListAssistantResponseMeta `json:"meta,omitempty"`
 }

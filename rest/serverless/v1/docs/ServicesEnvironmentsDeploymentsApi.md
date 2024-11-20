@@ -35,6 +35,7 @@ Other parameters are passed through a pointer to a CreateDeploymentParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **BuildSid** | **string** | The SID of the Build for the Deployment.
+**IsPlugin** | **bool** | Whether the Deployment is a plugin.
 
 ### Return type
 

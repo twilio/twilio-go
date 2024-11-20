@@ -32,6 +32,7 @@ Other parameters are passed through a pointer to a FetchPortingPortabilityParams
 Name | Type | Description
 ------------- | ------------- | -------------
 **TargetAccountSid** | **string** | Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
+**AddressSid** | **string** | Address Sid of customer to which the number will be ported.
 
 ### Return type
 
