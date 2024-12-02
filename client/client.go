@@ -164,12 +164,8 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	} else {
 		//Here the HTTP POST methods which is not having json content type are processed
 		//All the values will be added in data and encoded (all body, query, path parameters)
-		if method == http.MethodPost {
+		if method == http.MethodPost || method == http.MethodPut {
 			valueReader = strings.NewReader(data.Encode())
-		}
-		credErr := c.validateCredentials()
-		if credErr != nil {
-			return nil, credErr
 		}
 		req, err = http.NewRequest(method, u.String(), valueReader)
 		if err != nil {
@@ -178,6 +174,10 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 
 	}
 
+	credErr := c.validateCredentials()
+	if credErr != nil {
+		return nil, credErr
+	}
 	req.SetBasicAuth(c.basicAuth())
 
 	// E.g. "User-Agent": "twilio-go/1.0.0 (darwin amd64) go/go1.17.8"
