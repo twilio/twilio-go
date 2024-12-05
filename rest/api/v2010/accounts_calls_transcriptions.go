@@ -51,6 +51,8 @@ type CreateRealtimeTranscriptionParams struct {
 	Hints *string `json:"Hints,omitempty"`
 	// The provider will add punctuation to recognition result
 	EnableAutomaticPunctuation *bool `json:"EnableAutomaticPunctuation,omitempty"`
+	// The SID or the unique name of the [IntelligentService](https://www.twilio.com/docs/voice/intelligence/api/service-resource) to process the transcription.
+	IntelligenceService *string `json:"IntelligenceService,omitempty"`
 }
 
 func (params *CreateRealtimeTranscriptionParams) SetPathAccountSid(PathAccountSid string) *CreateRealtimeTranscriptionParams {
@@ -109,6 +111,10 @@ func (params *CreateRealtimeTranscriptionParams) SetEnableAutomaticPunctuation(E
 	params.EnableAutomaticPunctuation = &EnableAutomaticPunctuation
 	return params
 }
+func (params *CreateRealtimeTranscriptionParams) SetIntelligenceService(IntelligenceService string) *CreateRealtimeTranscriptionParams {
+	params.IntelligenceService = &IntelligenceService
+	return params
+}
 
 // Create a Transcription
 func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateRealtimeTranscriptionParams) (*ApiV2010RealtimeTranscription, error) {
@@ -163,6 +169,9 @@ func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateR
 	}
 	if params != nil && params.EnableAutomaticPunctuation != nil {
 		data.Set("EnableAutomaticPunctuation", fmt.Sprint(*params.EnableAutomaticPunctuation))
+	}
+	if params != nil && params.IntelligenceService != nil {
+		data.Set("IntelligenceService", *params.IntelligenceService)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
