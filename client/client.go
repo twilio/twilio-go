@@ -145,7 +145,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	// are added as information in the url itself. Also while Content-Type is json, we are sending
 	// json body. In that case, data variable contains all other parameters than body, which is the
 	//same case as GET method. In that case as well all parameters will be added to url
-	if method == http.MethodGet || contentType == jsonContentType {
+	if method == http.MethodGet || method == http.MethodDelete || contentType == jsonContentType {
 		if data != nil {
 			v, _ := form.EncodeToStringWith(data, delimiter, escapee, keepZeros)
 			s := delimitingRegex.ReplaceAllString(v, "")
@@ -164,12 +164,8 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	} else {
 		//Here the HTTP POST methods which is not having json content type are processed
 		//All the values will be added in data and encoded (all body, query, path parameters)
-		if method == http.MethodPost {
+		if method == http.MethodPost || method == http.MethodPut {
 			valueReader = strings.NewReader(data.Encode())
-		}
-		credErr := c.validateCredentials()
-		if credErr != nil {
-			return nil, credErr
 		}
 		req, err = http.NewRequest(method, u.String(), valueReader)
 		if err != nil {
@@ -178,6 +174,10 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 
 	}
 
+	credErr := c.validateCredentials()
+	if credErr != nil {
+		return nil, credErr
+	}
 	req.SetBasicAuth(c.basicAuth())
 
 	// E.g. "User-Agent": "twilio-go/1.0.0 (darwin amd64) go/go1.17.8"
