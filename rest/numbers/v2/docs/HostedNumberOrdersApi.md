@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteHostedNumberOrder**](HostedNumberOrdersApi.md#DeleteHostedNumberOrder) | **Delete** /v2/HostedNumber/Orders/{Sid} | 
 [**FetchHostedNumberOrder**](HostedNumberOrdersApi.md#FetchHostedNumberOrder) | **Get** /v2/HostedNumber/Orders/{Sid} | 
 [**ListHostedNumberOrder**](HostedNumberOrdersApi.md#ListHostedNumberOrder) | **Get** /v2/HostedNumber/Orders | 
+[**UpdateHostedNumberOrder**](HostedNumberOrdersApi.md#UpdateHostedNumberOrder) | **Post** /v2/HostedNumber/Orders/{Sid} | 
 
 
 
@@ -187,6 +188,51 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateHostedNumberOrder
+
+> NumbersV2HostedNumberOrder UpdateHostedNumberOrder(ctx, Sidoptional)
+
+
+
+Updates a specific HostedNumberOrder.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Sid** | **string** | The SID of the HostedNumberOrder resource to update.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateHostedNumberOrderParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Status** | **string** | 
+**VerificationCallDelay** | **int** | The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive.
+**VerificationCallExtension** | **string** | The numerical extension to dial when making the ownership verification call.
+
+### Return type
+
+[**NumbersV2HostedNumberOrder**](NumbersV2HostedNumberOrder.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

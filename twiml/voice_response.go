@@ -107,6 +107,7 @@ type VoiceTranscription struct {
 	// speech_model: Speech Model used by the transcription engine
 	// hints: Hints to be provided to the transcription engine
 	// enable_automatic_punctuation: Enable Automatic Punctuation
+	// intelligence_service: The SID or the unique name of the Intelligence Service to be used
 	// OptionalAttributes: additional attributes
 	Name                       string
 	Track                      string
@@ -121,6 +122,7 @@ type VoiceTranscription struct {
 	SpeechModel                string
 	Hints                      string
 	EnableAutomaticPunctuation string
+	IntelligenceService        string
 	InnerElements              []Element
 	OptionalAttributes         map[string]string
 }
@@ -148,6 +150,7 @@ func (m VoiceTranscription) GetAttr() (map[string]string, map[string]string) {
 		"SpeechModel":                m.SpeechModel,
 		"Hints":                      m.Hints,
 		"EnableAutomaticPunctuation": m.EnableAutomaticPunctuation,
+		"IntelligenceService":        m.IntelligenceService,
 	}
 	return m.OptionalAttributes, paramsAttr
 }
@@ -1297,6 +1300,7 @@ type VoiceDial struct {
 	// sequential: Used to determine if child TwiML nouns should be dialed in order, one after the other (sequential) or dial all at once (parallel). Default is false, parallel
 	// refer_url: Webhook that will receive future SIP REFER requests
 	// refer_method: The HTTP method to use for the refer Webhook
+	// events: Subscription to events
 	// OptionalAttributes: additional attributes
 	Number                        string
 	Action                        string
@@ -1316,6 +1320,7 @@ type VoiceDial struct {
 	Sequential                    string
 	ReferUrl                      string
 	ReferMethod                   string
+	Events                        string
 	InnerElements                 []Element
 	OptionalAttributes            map[string]string
 }
@@ -1347,6 +1352,7 @@ func (m VoiceDial) GetAttr() (map[string]string, map[string]string) {
 		"Sequential":                    m.Sequential,
 		"ReferUrl":                      m.ReferUrl,
 		"ReferMethod":                   m.ReferMethod,
+		"Events":                        m.Events,
 	}
 	return m.OptionalAttributes, paramsAttr
 }
@@ -1773,6 +1779,192 @@ func (m VoiceConnect) GetAttr() (map[string]string, map[string]string) {
 }
 
 func (m VoiceConnect) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
+//VoiceAssistant <Assistant> TwiML Noun
+type VoiceAssistant struct {
+	// id: The assistant ID of the AI Assistant
+	// language: Language to be used for both text-to-speech and transcription
+	// tts_language: Language to be used for text-to-speech
+	// transcription_language: Language to be used for transcription
+	// tts_provider: Provider to be used for text-to-speech
+	// voice: Voice to be used for text-to-speech
+	// transcription_provider: Provider to be used for transcription
+	// speech_model: Speech model to be used for transcription
+	// profanity_filter: Whether profanities should be filtered out of the speech transcription
+	// dtmf_detection: Whether DTMF tones should be detected and reported in speech transcription
+	// welcome_greeting: The sentence to be played automatically when the session is connected
+	// partial_prompts: Whether partial prompts should be reported to WebSocket server before the caller finishes speaking
+	// interruptible: Whether caller's speaking can interrupt the play of text-to-speech
+	// interrupt_by_dtmf: Whether DTMF tone can interrupt the play of text-to-speech
+	// welcome_greeting_interruptible: Whether caller's speaking can interrupt the welcome greeting
+	// debug: Whether debugging on the session is enabled
+	// OptionalAttributes: additional attributes
+	Id                           string
+	Language                     string
+	TtsLanguage                  string
+	TranscriptionLanguage        string
+	TtsProvider                  string
+	Voice                        string
+	TranscriptionProvider        string
+	SpeechModel                  string
+	ProfanityFilter              string
+	DtmfDetection                string
+	WelcomeGreeting              string
+	PartialPrompts               string
+	Interruptible                string
+	InterruptByDtmf              string
+	WelcomeGreetingInterruptible string
+	Debug                        string
+	InnerElements                []Element
+	OptionalAttributes           map[string]string
+}
+
+func (m VoiceAssistant) GetName() string {
+	return "Assistant"
+}
+
+func (m VoiceAssistant) GetText() string {
+	return ""
+}
+
+func (m VoiceAssistant) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Id":                           m.Id,
+		"Language":                     m.Language,
+		"TtsLanguage":                  m.TtsLanguage,
+		"TranscriptionLanguage":        m.TranscriptionLanguage,
+		"TtsProvider":                  m.TtsProvider,
+		"Voice":                        m.Voice,
+		"TranscriptionProvider":        m.TranscriptionProvider,
+		"SpeechModel":                  m.SpeechModel,
+		"ProfanityFilter":              m.ProfanityFilter,
+		"DtmfDetection":                m.DtmfDetection,
+		"WelcomeGreeting":              m.WelcomeGreeting,
+		"PartialPrompts":               m.PartialPrompts,
+		"Interruptible":                m.Interruptible,
+		"InterruptByDtmf":              m.InterruptByDtmf,
+		"WelcomeGreetingInterruptible": m.WelcomeGreetingInterruptible,
+		"Debug":                        m.Debug,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceAssistant) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
+//VoiceLanguage <Language> TwiML Noun
+type VoiceLanguage struct {
+	// code: Language code of this language setting is for
+	// tts_provider: Provider to be used for text-to-speech of this language
+	// voice: Voice to be used for text-to-speech of this language
+	// transcription_provider: Provider to be used for transcription of this language
+	// speech_model: Speech model to be used for transcription of this language
+	// OptionalAttributes: additional attributes
+	Code                  string
+	TtsProvider           string
+	Voice                 string
+	TranscriptionProvider string
+	SpeechModel           string
+	InnerElements         []Element
+	OptionalAttributes    map[string]string
+}
+
+func (m VoiceLanguage) GetName() string {
+	return "Language"
+}
+
+func (m VoiceLanguage) GetText() string {
+	return ""
+}
+
+func (m VoiceLanguage) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Code":                  m.Code,
+		"TtsProvider":           m.TtsProvider,
+		"Voice":                 m.Voice,
+		"TranscriptionProvider": m.TranscriptionProvider,
+		"SpeechModel":           m.SpeechModel,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceLanguage) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
+//VoiceConversationRelay <ConversationRelay> TwiML Noun
+type VoiceConversationRelay struct {
+	// url: URL of the remote service where the session is connected to
+	// language: Language to be used for both text-to-speech and transcription
+	// tts_language: Language to be used for text-to-speech
+	// transcription_language: Language to be used for transcription
+	// tts_provider: Provider to be used for text-to-speech
+	// voice: Voice to be used for text-to-speech
+	// transcription_provider: Provider to be used for transcription
+	// speech_model: Speech model to be used for transcription
+	// profanity_filter: Whether profanities should be filtered out of the speech transcription
+	// dtmf_detection: Whether DTMF tones should be detected and reported in speech transcription
+	// welcome_greeting: The sentence to be played automatically when the session is connected
+	// partial_prompts: Whether partial prompts should be reported to WebSocket server before the caller finishes speaking
+	// interruptible: Whether caller's speaking can interrupt the play of text-to-speech
+	// interrupt_by_dtmf: Whether DTMF tone can interrupt the play of text-to-speech
+	// welcome_greeting_interruptible: Whether caller's speaking can interrupt the welcome greeting
+	// debug: Whether debugging on the session is enabled
+	// OptionalAttributes: additional attributes
+	Url                          string
+	Language                     string
+	TtsLanguage                  string
+	TranscriptionLanguage        string
+	TtsProvider                  string
+	Voice                        string
+	TranscriptionProvider        string
+	SpeechModel                  string
+	ProfanityFilter              string
+	DtmfDetection                string
+	WelcomeGreeting              string
+	PartialPrompts               string
+	Interruptible                string
+	InterruptByDtmf              string
+	WelcomeGreetingInterruptible string
+	Debug                        string
+	InnerElements                []Element
+	OptionalAttributes           map[string]string
+}
+
+func (m VoiceConversationRelay) GetName() string {
+	return "ConversationRelay"
+}
+
+func (m VoiceConversationRelay) GetText() string {
+	return ""
+}
+
+func (m VoiceConversationRelay) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Url":                          m.Url,
+		"Language":                     m.Language,
+		"TtsLanguage":                  m.TtsLanguage,
+		"TranscriptionLanguage":        m.TranscriptionLanguage,
+		"TtsProvider":                  m.TtsProvider,
+		"Voice":                        m.Voice,
+		"TranscriptionProvider":        m.TranscriptionProvider,
+		"SpeechModel":                  m.SpeechModel,
+		"ProfanityFilter":              m.ProfanityFilter,
+		"DtmfDetection":                m.DtmfDetection,
+		"WelcomeGreeting":              m.WelcomeGreeting,
+		"PartialPrompts":               m.PartialPrompts,
+		"Interruptible":                m.Interruptible,
+		"InterruptByDtmf":              m.InterruptByDtmf,
+		"WelcomeGreetingInterruptible": m.WelcomeGreetingInterruptible,
+		"Debug":                        m.Debug,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceConversationRelay) GetInnerElements() []Element {
 	return m.InnerElements
 }
 

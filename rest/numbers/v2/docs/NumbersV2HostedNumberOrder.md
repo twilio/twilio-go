@@ -23,6 +23,12 @@ Name | Type | Description | Notes
 **ContactPhoneNumber** | Pointer to **string** | The contact phone number of the person authorized to sign the Authorization Document. |
 **BulkHostingRequestSid** | Pointer to **string** | A 34 character string that uniquely identifies the bulk hosting request associated with this HostedNumberOrder. |
 **NextStep** | Pointer to **string** | The next step you need to take to complete the hosted number order and request it successfully. |
+**VerificationAttempts** | **int** | The number of attempts made to verify ownership via a call for the hosted phone number. |[optional] [default to 0]
+**VerificationCallSids** | Pointer to **[]string** | The Call SIDs that identify the calls placed to verify ownership. |
+**VerificationCallDelay** | **int** | The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive. |[optional] [default to 0]
+**VerificationCallExtension** | Pointer to **string** | The numerical extension to dial when making the ownership verification call. |
+**VerificationCode** | Pointer to **string** | The digits the user must pass in the ownership verification call. |
+**VerificationType** | Pointer to [**string**](HostedNumberOrderEnumVerificationType.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

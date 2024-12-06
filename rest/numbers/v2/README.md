@@ -40,6 +40,7 @@ Class | Method | HTTP request | Description
 *HostedNumberOrdersApi* | [**DeleteHostedNumberOrder**](docs/HostedNumberOrdersApi.md#deletehostednumberorder) | **Delete** /v2/HostedNumber/Orders/{Sid} | 
 *HostedNumberOrdersApi* | [**FetchHostedNumberOrder**](docs/HostedNumberOrdersApi.md#fetchhostednumberorder) | **Get** /v2/HostedNumber/Orders/{Sid} | 
 *HostedNumberOrdersApi* | [**ListHostedNumberOrder**](docs/HostedNumberOrdersApi.md#listhostednumberorder) | **Get** /v2/HostedNumber/Orders | 
+*HostedNumberOrdersApi* | [**UpdateHostedNumberOrder**](docs/HostedNumberOrdersApi.md#updatehostednumberorder) | **Post** /v2/HostedNumber/Orders/{Sid} | 
 *HostedNumberOrdersBulkApi* | [**CreateBulkHostedNumberOrder**](docs/HostedNumberOrdersBulkApi.md#createbulkhostednumberorder) | **Post** /v2/HostedNumber/Orders/Bulk | 
 *HostedNumberOrdersBulkApi* | [**FetchBulkHostedNumberOrder**](docs/HostedNumberOrdersBulkApi.md#fetchbulkhostednumberorder) | **Get** /v2/HostedNumber/Orders/Bulk/{BulkHostingSid} | 
 *RegulatoryComplianceBundlesApi* | [**CreateBundle**](docs/RegulatoryComplianceBundlesApi.md#createbundle) | **Post** /v2/RegulatoryCompliance/Bundles | 
