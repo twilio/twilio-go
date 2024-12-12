@@ -1,5 +1,11 @@
 twilio-go changelog
 ====================
+[2024-12-12] Version 1.23.8
+---------------------------
+**Library - Chore**
+- [PR #257](https://github.com/twilio/twilio-go/pull/257): pass query params in delete. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+
 [2024-12-05] Version 1.23.7
 ---------------------------
 **Api**
