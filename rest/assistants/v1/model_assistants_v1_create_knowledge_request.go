@@ -27,4 +27,6 @@ type AssistantsV1CreateKnowledgeRequest struct {
 	Policy AssistantsV1CreatePolicyRequest `json:"policy,omitempty"`
 	// The type of the knowledge source.
 	Type string `json:"type"`
+	// The embedding model to be used for the knowledge source. It's required for 'Database' type but disallowed for other types.
+	EmbeddingModel string `json:"embedding_model,omitempty"`
 }

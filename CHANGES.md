@@ -1,5 +1,11 @@
 twilio-go changelog
 ====================
+[2025-01-09] Version 1.23.9
+---------------------------
+**Numbers**
+- Change beta feature flag to use v2/BulkHostedNumberOrders
+
+
 [2024-12-12] Version 1.23.8
 ---------------------------
 **Library - Chore**

@@ -16,8 +16,6 @@ package openapi
 
 // FlowsPageComponent struct for FlowsPageComponent
 type FlowsPageComponent struct {
-	Label   string                         `json:"label"`
-	Type    string                         `json:"type"`
-	Text    string                         `json:"text,omitempty"`
-	Options []FlowsPageComponentSelectItem `json:"options,omitempty"`
+	Label string `json:"label"`
+	Type  string `json:"type"`
 }

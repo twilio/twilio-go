@@ -6,8 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Label** | **string** |  |
 **Type** | **string** |  |
-**Text** | **string** |  |[optional] 
-**Options** | [**[]FlowsPageComponentSelectItem**](FlowsPageComponentSelectItem.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

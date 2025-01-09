@@ -66,7 +66,6 @@ Class | Method | HTTP request | Description
  - [ListItem](docs/ListItem.md)
  - [TwilioMedia](docs/TwilioMedia.md)
  - [Types](docs/Types.md)
- - [FlowsPageComponentSelectItem](docs/FlowsPageComponentSelectItem.md)
  - [TwilioFlows](docs/TwilioFlows.md)
  - [CallToActionAction](docs/CallToActionAction.md)
  - [TwilioQuickReply](docs/TwilioQuickReply.md)

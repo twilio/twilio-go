@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The name of the knowledge source. |[optional] 
 **Policy** | [**AssistantsV1CreatePolicyRequest**](AssistantsV1CreatePolicyRequest.md) |  |[optional] 
 **Type** | **string** | The description of the knowledge source. |[optional] 
+**EmbeddingModel** | **string** | The embedding model to be used for the knowledge source. It's only applicable to 'Database' type. |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
