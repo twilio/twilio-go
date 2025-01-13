@@ -29,7 +29,7 @@ type MarketplaceV1InstalledAddOn struct {
 	// A short description of the Add-on's functionality.
 	Description *string `json:"description,omitempty"`
 	// The JSON object that represents the current configuration of installed Add-on.
-	Configuration *interface{} `json:"configuration,omitempty"`
+	Configuration *map[string]interface{} `json:"configuration,omitempty"`
 	// An application-defined string that uniquely identifies the resource.
 	UniqueName *string `json:"unique_name,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

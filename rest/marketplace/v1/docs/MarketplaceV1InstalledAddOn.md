@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the InstalledAddOn resource. |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource. |
 **Description** | Pointer to **string** | A short description of the Add-on's functionality. |
-**Configuration** | Pointer to **interface{}** | The JSON object that represents the current configuration of installed Add-on. |
+**Configuration** | Pointer to **map[string]interface{}** | The JSON object that represents the current configuration of installed Add-on. |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource. |
 **Description** | Pointer to **string** | A short description of the Add-on's functionality. |
 **PricingType** | Pointer to **string** | How customers are charged for using this Add-on. |
-**ConfigurationSchema** | Pointer to **interface{}** | The JSON object with the configuration that must be provided when installing a given Add-on. |
+**ConfigurationSchema** | Pointer to **map[string]interface{}** | The JSON object with the configuration that must be provided when installing a given Add-on. |
 **Url** | Pointer to **string** | The absolute URL of the resource. |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources. |
 

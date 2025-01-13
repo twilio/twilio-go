@@ -46,7 +46,7 @@ Name | Type | Description
 **SpeechModel** | **string** | Recognition model used by the transcription engine, among those supported by the provider
 **Hints** | **string** | A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
 **EnableAutomaticPunctuation** | **bool** | The provider will add punctuation to recognition result
-**IntelligenceService** | **string** | The SID or the unique name of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) to process the transcription.
+**IntelligenceService** | **string** | The SID of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
 
 ### Return type
 

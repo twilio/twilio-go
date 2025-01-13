@@ -25,7 +25,7 @@ type MarketplaceV1AvailableAddOn struct {
 	// How customers are charged for using this Add-on.
 	PricingType *string `json:"pricing_type,omitempty"`
 	// The JSON object with the configuration that must be provided when installing a given Add-on.
-	ConfigurationSchema *interface{} `json:"configuration_schema,omitempty"`
+	ConfigurationSchema *map[string]interface{} `json:"configuration_schema,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 	// The URLs of related resources.
