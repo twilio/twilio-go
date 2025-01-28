@@ -52,6 +52,7 @@ Class | Method | HTTP request | Description
  - [CarouselActionType](docs/CarouselActionType.md)
  - [QuickReplyAction](docs/QuickReplyAction.md)
  - [CardActionType](docs/CardActionType.md)
+ - [TwilioSchedule](docs/TwilioSchedule.md)
  - [ContentV1ContentAndApprovals](docs/ContentV1ContentAndApprovals.md)
  - [TwilioLocation](docs/TwilioLocation.md)
  - [FlowsPage](docs/FlowsPage.md)

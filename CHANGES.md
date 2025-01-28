@@ -1,5 +1,20 @@
 twilio-go changelog
 ====================
+[2025-01-28] Version 1.23.11
+----------------------------
+**Api**
+- Add open-api file tag to `conference/call recordings` and `recording_transcriptions`.
+
+**Events**
+- Add support for subaccount subscriptions (beta)
+
+**Insights**
+- add new region to conference APIs
+
+**Lookups**
+- Add new `parnter_sub_id` query parameter to the lookup request
+
+
 [2025-01-13] Version 1.23.10
 ----------------------------
 **Messaging**
