@@ -1,5 +1,11 @@
 twilio-go changelog
 ====================
+[2025-01-31] Version 1.24.0
+---------------------------
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+
 [2025-01-28] Version 1.23.11
 ----------------------------
 **Api**

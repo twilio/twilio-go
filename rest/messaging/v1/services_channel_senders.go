@@ -34,7 +34,6 @@ func (params *CreateChannelSenderParams) SetSid(Sid string) *CreateChannelSender
 	return params
 }
 
-//
 func (c *ApiService) CreateChannelSender(MessagingServiceSid string, params *CreateChannelSenderParams) (*MessagingV1ChannelSender, error) {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -63,7 +62,6 @@ func (c *ApiService) CreateChannelSender(MessagingServiceSid string, params *Cre
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteChannelSender(MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -84,7 +82,6 @@ func (c *ApiService) DeleteChannelSender(MessagingServiceSid string, Sid string)
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannelSender(MessagingServiceSid string, Sid string) (*MessagingV1ChannelSender, error) {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
