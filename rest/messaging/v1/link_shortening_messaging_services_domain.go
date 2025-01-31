@@ -20,7 +20,6 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) FetchLinkshorteningMessagingServiceDomainAssociation(MessagingServiceSid string) (*MessagingV1LinkshorteningMessagingServiceDomainAssociation, error) {
 	path := "/v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)

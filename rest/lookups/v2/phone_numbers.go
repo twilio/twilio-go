@@ -50,8 +50,6 @@ type FetchPhoneNumberParams struct {
 	LastVerifiedDate *string `json:"LastVerifiedDate,omitempty"`
 	// The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
 	VerificationSid *string `json:"VerificationSid,omitempty"`
-	// The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
-	PartnerSubId *string `json:"PartnerSubId,omitempty"`
 }
 
 func (params *FetchPhoneNumberParams) SetFields(Fields string) *FetchPhoneNumberParams {
@@ -110,12 +108,7 @@ func (params *FetchPhoneNumberParams) SetVerificationSid(VerificationSid string)
 	params.VerificationSid = &VerificationSid
 	return params
 }
-func (params *FetchPhoneNumberParams) SetPartnerSubId(PartnerSubId string) *FetchPhoneNumberParams {
-	params.PartnerSubId = &PartnerSubId
-	return params
-}
 
-//
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV2PhoneNumber, error) {
 	path := "/v2/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
@@ -166,9 +159,6 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 	}
 	if params != nil && params.VerificationSid != nil {
 		data.Set("VerificationSid", *params.VerificationSid)
-	}
-	if params != nil && params.PartnerSubId != nil {
-		data.Set("PartnerSubId", *params.PartnerSubId)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
