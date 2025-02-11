@@ -412,7 +412,7 @@ func (c *ApiService) getNextListAddressResponse(nextPageUrl string) (interface{}
 type UpdateAddressParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// A descriptive string that you create to describe the address. It can be up to 64 characters long.
+	// A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The name to associate with the address.
 	CustomerName *string `json:"CustomerName,omitempty"`

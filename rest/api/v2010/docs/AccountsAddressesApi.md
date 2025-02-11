@@ -215,7 +215,7 @@ Other parameters are passed through a pointer to a UpdateAddressParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
-**FriendlyName** | **string** | A descriptive string that you create to describe the address. It can be up to 64 characters long.
+**FriendlyName** | **string** | A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
 **CustomerName** | **string** | The name to associate with the address.
 **Street** | **string** | The number and street address of the address.
 **City** | **string** | The city of the address.

@@ -47,6 +47,7 @@ type IntelligenceV2OperatorResult struct {
 	ExtractResults *interface{} `json:"extract_results,omitempty"`
 	// Output of a text generation operator for example Conversation Sumamary.
 	TextGenerationResults *interface{} `json:"text_generation_results,omitempty"`
+	JsonResults           *interface{} `json:"json_results,omitempty"`
 	// A 34 character string that uniquely identifies this Transcript.
 	TranscriptSid *string `json:"transcript_sid,omitempty"`
 	// The URL of this resource.
@@ -68,6 +69,7 @@ func (response *IntelligenceV2OperatorResult) UnmarshalJSON(bytes []byte) (err e
 		LabelProbabilities    *interface{}   `json:"label_probabilities"`
 		ExtractResults        *interface{}   `json:"extract_results"`
 		TextGenerationResults *interface{}   `json:"text_generation_results"`
+		JsonResults           *interface{}   `json:"json_results"`
 		TranscriptSid         *string        `json:"transcript_sid"`
 		Url                   *string        `json:"url"`
 	}{}
@@ -88,6 +90,7 @@ func (response *IntelligenceV2OperatorResult) UnmarshalJSON(bytes []byte) (err e
 		LabelProbabilities:    raw.LabelProbabilities,
 		ExtractResults:        raw.ExtractResults,
 		TextGenerationResults: raw.TextGenerationResults,
+		JsonResults:           raw.JsonResults,
 		TranscriptSid:         raw.TranscriptSid,
 		Url:                   raw.Url,
 	}
