@@ -5,6 +5,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/golang-jwt/jwt"
+	"github.com/twilio/twilio-go"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -41,6 +43,9 @@ type Client struct {
 	HTTPClient          *http.Client
 	accountSid          string
 	UserAgentExtensions []string
+	BearerToken         string
+	*twilio.OrgTokenManager
+	*twilio.ClientTokenManager
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -65,6 +70,11 @@ func (c *Client) SetTimeout(timeout time.Duration) {
 	c.HTTPClient.Timeout = timeout
 }
 
+// set BearerToken for the client
+func (c *Client) SetBearerToken(token string) {
+	c.BearerToken = token
+}
+
 func extractContentTypeHeader(headers map[string]interface{}) (cType string) {
 	headerType, ok := headers["Content-Type"]
 	if !ok {
@@ -87,6 +97,7 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 	if client == nil {
 		client = defaultHTTPClient()
 	}
+	client.Timeout = 0
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -178,7 +189,15 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if credErr != nil {
 		return nil, credErr
 	}
-	req.SetBasicAuth(c.basicAuth())
+	if c.BearerToken != "" {
+		if !CheckTokenExpiry(c.BearerToken) {
+			req.Header.Add("Authorization", "Bearer "+c.BearerToken)
+		} else {
+
+		}
+	} else if c.Username != "" {
+		req.SetBasicAuth(c.basicAuth())
+	}
 
 	// E.g. "User-Agent": "twilio-go/1.0.0 (darwin amd64) go/go1.17.8"
 	userAgent := fmt.Sprintf("twilio-go/%s (%s %s) go/%s", LibraryVersion, runtime.GOOS, runtime.GOARCH, goVersion)
@@ -203,4 +222,23 @@ func (c *Client) SetAccountSid(sid string) {
 // Returns the Account SID.
 func (c *Client) AccountSid() string {
 	return c.accountSid
+}
+
+func CheckTokenExpiry(tokenString string) bool {
+	// Parse the token without validating the signature
+	token, _, err := new(jwt.Parser).ParseUnverified(tokenString, jwt.MapClaims{})
+	if err != nil {
+		return true // Consider token expired if there's an error parsing it
+	}
+
+	// Extract the claims
+	if claims, ok := token.Claims.(jwt.MapClaims); ok {
+		// Get the expiration time
+		if exp, ok := claims["exp"].(float64); ok {
+			// Check if the token has expired
+			expirationTime := time.Unix(int64(exp), 0)
+			return time.Now().After(expirationTime)
+		}
+	}
+	return true // Consider token expired if it does not contain an exp claim or invalid claims
 }

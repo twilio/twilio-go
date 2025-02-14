@@ -94,7 +94,6 @@ func (params *CreateAddressParams) SetStreetSecondary(StreetSecondary string) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -165,7 +164,6 @@ func (params *DeleteAddressParams) SetPathAccountSid(PathAccountSid string) *Del
 	return params
 }
 
-//
 func (c *ApiService) DeleteAddress(Sid string, params *DeleteAddressParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -201,7 +199,6 @@ func (params *FetchAddressParams) SetPathAccountSid(PathAccountSid string) *Fetc
 	return params
 }
 
-//
 func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -473,7 +470,6 @@ func (params *UpdateAddressParams) SetStreetSecondary(StreetSecondary string) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

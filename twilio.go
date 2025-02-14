@@ -12,6 +12,7 @@
 package twilio
 
 import (
+	"fmt"
 	"os"
 	"time"
 
@@ -46,6 +47,7 @@ import (
 	NumbersV1 "github.com/twilio/twilio-go/rest/numbers/v1"
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
 	OauthV1 "github.com/twilio/twilio-go/rest/oauth/v1"
+	PreviewIamTemp "github.com/twilio/twilio-go/rest/preview_iam/temp"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
@@ -97,6 +99,7 @@ type RestClient struct {
 	NumbersV1       *NumbersV1.ApiService
 	NumbersV2       *NumbersV2.ApiService
 	OauthV1         *OauthV1.ApiService
+	PreviewIamToken *PreviewIamTemp.ApiService
 	PricingV1       *PricingV1.ApiService
 	PricingV2       *PricingV2.ApiService
 	ProxyV1         *ProxyV1.ApiService
@@ -128,17 +131,99 @@ type Meta struct {
 }
 
 type ClientParams struct {
-	Username   string
-	Password   string
-	AccountSid string
-	Client     client.BaseClient
+	Username                    string
+	Password                    string
+	AccountSid                  string
+	Client                      client.BaseClient
+	OrgClientCredentialProvider *OrgClientCredentialProvider
+	ClientCredentialProvider    *ClientCredentialProvider
+}
+
+// CredentialProvider for Oauth Applications
+type CredentialProvider struct {
+	AuthType string
+}
+
+type OrgClientCredentialProvider struct {
+	GrantType    string
+	ClientId     string
+	ClientSecret string
+	OrgsToken    string
+	AuthStrategy CredentialProvider
+}
+
+type ClientCredentialProvider struct {
+	GrantType    string
+	ClientId     string
+	ClientSecret string
+	AuthStrategy CredentialProvider
+}
+
+type OrgTokenManager struct {
+	GrantType    string
+	ClientId     string
+	ClientSecret string
+	Code         string
+	RedirectUri  string
+	Audience     string
+	RefreshToken string
+	Scope        string
+}
+
+type ClientTokenManager struct {
+	GrantType    string
+	ClientId     string
+	ClientSecret string
+	Code         string
+	RedirectUri  string
+	Audience     string
+	RefreshToken string
+	Scope        string
+}
+
+func GetOrgAccessToken(manager OrgTokenManager, apiService *PreviewIamTemp.ApiService) (*PreviewIamTemp.OauthV1Token, error) {
+	params := &PreviewIamTemp.CreateTokenParams{}
+	params.SetGrantType(manager.GrantType)
+	params.SetClientId(manager.ClientId)
+	params.SetClientSecret(manager.ClientSecret)
+	params.SetCode(manager.Code)
+	params.SetRedirectUri(manager.RedirectUri)
+	params.SetAudience(manager.Audience)
+	params.SetRefreshToken(manager.RefreshToken)
+	params.SetScope(manager.Scope)
+
+	token, err := apiService.CreateToken(params)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get access token: %w", err)
+	}
+
+	return token, nil
+}
+
+func GetClientAccessToken(manager ClientTokenManager, apiService *PreviewIamTemp.ApiService) (*PreviewIamTemp.OauthV1Token, error) {
+	params := &PreviewIamTemp.CreateTokenParams{}
+	params.SetGrantType(manager.GrantType)
+	params.SetClientId(manager.ClientId)
+	params.SetClientSecret(manager.ClientSecret)
+	params.SetCode(manager.Code)
+	params.SetRedirectUri(manager.RedirectUri)
+	params.SetAudience(manager.Audience)
+	params.SetRefreshToken(manager.RefreshToken)
+	params.SetScope(manager.Scope)
+
+	token, err := apiService.CreateToken(params)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get access token: %w", err)
+	}
+
+	return token, nil
 }
 
 // NewRestClientWithParams provides an initialized Twilio RestClient with params.
 func NewRestClientWithParams(params ClientParams) *RestClient {
 	requestHandler := client.NewRequestHandler(params.Client)
 
-	if params.Client == nil {
+	if params.Client == nil && params.OrgClientCredentialProvider == nil && params.ClientCredentialProvider == nil {
 		username := params.Username
 		if username == "" {
 			username = os.Getenv("TWILIO_ACCOUNT_SID")
@@ -158,6 +243,60 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 		} else {
 			defaultClient.SetAccountSid(username)
 		}
+		requestHandler = client.NewRequestHandler(defaultClient)
+	} else if params.OrgClientCredentialProvider != nil {
+		// get AccessToken
+		// set accessToken in client
+		orgTokenManager := OrgTokenManager{
+			GrantType:    params.OrgClientCredentialProvider.GrantType,
+			ClientId:     params.OrgClientCredentialProvider.ClientId,
+			ClientSecret: params.OrgClientCredentialProvider.ClientSecret,
+			Code:         "",
+			RedirectUri:  "",
+			Audience:     "",
+			RefreshToken: "",
+			Scope:        ""}
+
+		token, err := GetOrgAccessToken(orgTokenManager, NewRestClient().PreviewIamToken)
+		//fmt.Println(*token.AccessToken)
+		if err != nil {
+		}
+		fmt.Println(token)
+
+		defaultClient := &client.Client{
+			Credentials: client.NewCredentials("", ""),
+		}
+		if params.AccountSid != "" {
+			defaultClient.SetAccountSid(params.AccountSid)
+		}
+		defaultClient.SetBearerToken("eyJhbGciOiJSUzI1NiIsImtpZCI6InVmQXhySkZ5VmNSNkdnQmZNQ29BTFoiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJodHRwczovL2FwaS50d2lsaW8uY29tL3YyIiwiYXpwIjoiT1EwYmFkOWI1Yjc5ODEzNjhkOGI2NDFkNWFiY2MwOThjZCIsImlhdCI6MTczOTQ0OTIwMCwiZXhwIjoxNzM5NDUyODAwLCJpc3MiOiJodHRwczovL3ByZXZpZXctaWFtLnR3aWxpby5jb20iLCJzdWIiOiJPUTBiYWQ5YjViNzk4MTM2OGQ4YjY0MWQ1YWJjYzA5OGNkIiwiZ3R5IjoiY2xpZW50X2NyZWRlbnRpYWxzIiwiaHR0cDovL3R3aWxpby9hY3QiOnsic3ViIjoiQUM1NmM5YTA0ZDJlNjM5OTE1NWM3YzRhNTJmMDQ0YzEwNSJ9LCJodHRwOi8vdHdpbGlvL3R5cCI6InZuZC50d2lsaW8ub2F1dGguYXQrand0OyIsImh0dHA6Ly90d2lsaW8vc3ViIjoiT1EwYmFkOWI1Yjc5ODEzNjhkOGI2NDFkNWFiY2MwOThjZCIsImh0dHA6Ly90d2lsaW8vdmFsaWRyZWdpb25zIjoidXMxIn0.ColuyOS-CDSLmS0E16GU6GXHEt8Y5qxj4383S1r2j9YDI3swSKNfjpWvacevLJQBqxtBMZoawV7fyxZk-X0HmmlVJN_DUtwIY04u93BdM114chiKdL4rO49kxdzxdC6tViulWlFQzpvAg3hC1W-pgBIb8v48Z6SwpotZT3HM8VGVgEYPeFb3I6aQOpvNM9o1fNGFb4GWs6V78d9XvvjhvRsB58TfoFWEyfEwZZt-yWp__fmE-VaC5acnm3ATQ6TGInUiGzH6GqaDMtluj_TW0kefcawL7mJYjWFig9Mj27THk9ESa9H8JKm1-c0tJj0yVivp-UHN0ZfvcuDiHdhcEw")
+		requestHandler = client.NewRequestHandler(defaultClient)
+	} else if params.ClientCredentialProvider != nil {
+		// get AccessToken
+		// set accessToken in client
+		clientTokenManager := ClientTokenManager{
+			GrantType:    params.ClientCredentialProvider.GrantType,
+			ClientId:     params.ClientCredentialProvider.ClientId,
+			ClientSecret: params.ClientCredentialProvider.ClientSecret,
+			Code:         "",
+			RedirectUri:  "",
+			Audience:     "",
+			RefreshToken: "",
+			Scope:        ""}
+
+		token, err := GetClientAccessToken(clientTokenManager, NewRestClient().PreviewIamToken)
+		//fmt.Println(*token.AccessToken)
+		if err != nil {
+		}
+		fmt.Println(token)
+
+		defaultClient := &client.Client{
+			Credentials: client.NewCredentials("", ""),
+		}
+		if params.AccountSid != "" {
+			defaultClient.SetAccountSid(params.AccountSid)
+		}
+		defaultClient.SetBearerToken("eyJhbGciOiJSUzI1NiIsImtpZCI6InVmQXhySkZ5VmNSNkdnQmZNQ29BTFoiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJodHRwczovL2FwaS50d2lsaW8uY29tL3YyIiwiYXpwIjoiT1EwYmFkOWI1Yjc5ODEzNjhkOGI2NDFkNWFiY2MwOThjZCIsImlhdCI6MTczOTQ0OTIwMCwiZXhwIjoxNzM5NDUyODAwLCJpc3MiOiJodHRwczovL3ByZXZpZXctaWFtLnR3aWxpby5jb20iLCJzdWIiOiJPUTBiYWQ5YjViNzk4MTM2OGQ4YjY0MWQ1YWJjYzA5OGNkIiwiZ3R5IjoiY2xpZW50X2NyZWRlbnRpYWxzIiwiaHR0cDovL3R3aWxpby9hY3QiOnsic3ViIjoiQUM1NmM5YTA0ZDJlNjM5OTE1NWM3YzRhNTJmMDQ0YzEwNSJ9LCJodHRwOi8vdHdpbGlvL3R5cCI6InZuZC50d2lsaW8ub2F1dGguYXQrand0OyIsImh0dHA6Ly90d2lsaW8vc3ViIjoiT1EwYmFkOWI1Yjc5ODEzNjhkOGI2NDFkNWFiY2MwOThjZCIsImh0dHA6Ly90d2lsaW8vdmFsaWRyZWdpb25zIjoidXMxIn0.ColuyOS-CDSLmS0E16GU6GXHEt8Y5qxj4383S1r2j9YDI3swSKNfjpWvacevLJQBqxtBMZoawV7fyxZk-X0HmmlVJN_DUtwIY04u93BdM114chiKdL4rO49kxdzxdC6tViulWlFQzpvAg3hC1W-pgBIb8v48Z6SwpotZT3HM8VGVgEYPeFb3I6aQOpvNM9o1fNGFb4GWs6V78d9XvvjhvRsB58TfoFWEyfEwZZt-yWp__fmE-VaC5acnm3ATQ6TGInUiGzH6GqaDMtluj_TW0kefcawL7mJYjWFig9Mj27THk9ESa9H8JKm1-c0tJj0yVivp-UHN0ZfvcuDiHdhcEw")
 		requestHandler = client.NewRequestHandler(defaultClient)
 	}
 
@@ -195,6 +334,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)
 	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
 	c.OauthV1 = OauthV1.NewApiService(c.RequestHandler)
+	c.PreviewIamToken = PreviewIamTemp.NewApiService(c.RequestHandler)
 	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
 	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
 	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)
@@ -213,6 +353,30 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.WirelessV1 = WirelessV1.NewApiService(c.RequestHandler)
 
 	return c
+}
+
+func NewRestClientWithClientCredentials(params ClientCredentialProvider) {
+	// get AccessToken
+	// set accessToken in client
+	clientTokenManager := ClientTokenManager{
+		GrantType:    params.GrantType,
+		ClientId:     params.ClientId,
+		ClientSecret: params.ClientSecret,
+		Code:         "",
+		RedirectUri:  "",
+		Audience:     "",
+		RefreshToken: "",
+		Scope:        ""}
+
+	token, err := GetClientAccessToken(clientTokenManager, NewRestClient().PreviewIamToken)
+	fmt.Println(*token.AccessToken)
+	if err != nil {
+	}
+
+	defaultClient := &client.Client{
+		Credentials: client.NewCredentials("", ""),
+	}
+	defaultClient.SetBearerToken(*token.AccessToken)
 }
 
 // NewRestClient provides an initialized Twilio RestClient.

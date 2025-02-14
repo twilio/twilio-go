@@ -130,7 +130,6 @@ func (params *CreateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCou
 	return params
 }
 
-//
 func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows"
 
@@ -206,7 +205,6 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteFlexFlow(Sid string) error {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -226,7 +224,6 @@ func (c *ApiService) DeleteFlexFlow(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -505,7 +502,6 @@ func (params *UpdateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCou
 	return params
 }
 
-//
 func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

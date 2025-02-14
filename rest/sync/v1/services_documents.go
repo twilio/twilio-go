@@ -46,7 +46,6 @@ func (params *CreateDocumentParams) SetTtl(Ttl int) *CreateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -87,7 +86,6 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -108,7 +106,6 @@ func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -297,7 +294,6 @@ func (params *UpdateDocumentParams) SetTtl(Ttl int) *UpdateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
