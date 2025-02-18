@@ -30,7 +30,6 @@ func (params *CreateBulkConsentsParams) SetItems(Items []interface{}) *CreateBul
 	return params
 }
 
-//
 func (c *ApiService) CreateBulkConsents(params *CreateBulkConsentsParams) (*AccountsV1BulkConsents, error) {
 	path := "/v1/Consents/Bulk"
 

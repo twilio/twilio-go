@@ -40,7 +40,6 @@ func (params *CreateDestinationAlphaSenderParams) SetIsoCountryCode(IsoCountryCo
 	return params
 }
 
-//
 func (c *ApiService) CreateDestinationAlphaSender(ServiceSid string, params *CreateDestinationAlphaSenderParams) (*MessagingV1DestinationAlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/DestinationAlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -72,7 +71,6 @@ func (c *ApiService) CreateDestinationAlphaSender(ServiceSid string, params *Cre
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteDestinationAlphaSender(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -93,7 +91,6 @@ func (c *ApiService) DeleteDestinationAlphaSender(ServiceSid string, Sid string)
 	return nil
 }
 
-//
 func (c *ApiService) FetchDestinationAlphaSender(ServiceSid string, Sid string) (*MessagingV1DestinationAlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
