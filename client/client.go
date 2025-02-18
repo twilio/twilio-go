@@ -5,8 +5,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/golang-jwt/jwt"
-	"github.com/twilio/twilio-go"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -15,6 +13,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/golang-jwt/jwt"
 	"github.com/pkg/errors"
 	"github.com/twilio/twilio-go/client/form"
 )
@@ -44,8 +43,6 @@ type Client struct {
 	accountSid          string
 	UserAgentExtensions []string
 	BearerToken         string
-	*twilio.OrgTokenManager
-	*twilio.ClientTokenManager
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -193,7 +190,6 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 		if !CheckTokenExpiry(c.BearerToken) {
 			req.Header.Add("Authorization", "Bearer "+c.BearerToken)
 		} else {
-
 		}
 	} else if c.Username != "" {
 		req.SetBasicAuth(c.basicAuth())
