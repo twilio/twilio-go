@@ -51,16 +51,16 @@ func (c *ApiService) FetchOperatorType(Sid string) (*IntelligenceV2OperatorType,
 // Optional parameters for the method 'ListOperatorType'
 type ListOperatorTypeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListOperatorTypeParams) SetPageSize(PageSize int) *ListOperatorTypeParams {
+func (params *ListOperatorTypeParams) SetPageSize(PageSize int64) *ListOperatorTypeParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListOperatorTypeParams) SetLimit(Limit int) *ListOperatorTypeParams {
+func (params *ListOperatorTypeParams) SetLimit(Limit int64) *ListOperatorTypeParams {
 	params.Limit = &Limit
 	return params
 }
@@ -139,7 +139,7 @@ func (c *ApiService) StreamOperatorType(params *ListOperatorTypeParams) (chan In
 }
 
 func (c *ApiService) streamOperatorType(response *ListOperatorTypeResponse, params *ListOperatorTypeParams, recordChannel chan IntelligenceV2OperatorType, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.OperatorTypes

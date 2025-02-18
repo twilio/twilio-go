@@ -53,20 +53,20 @@ type ListEventTypeParams struct {
 	// A string parameter filtering the results to return only the Event Types using a given schema.
 	SchemaId *string `json:"SchemaId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListEventTypeParams) SetSchemaId(SchemaId string) *ListEventTypeParams {
 	params.SchemaId = &SchemaId
 	return params
 }
-func (params *ListEventTypeParams) SetPageSize(PageSize int) *ListEventTypeParams {
+func (params *ListEventTypeParams) SetPageSize(PageSize int64) *ListEventTypeParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListEventTypeParams) SetLimit(Limit int) *ListEventTypeParams {
+func (params *ListEventTypeParams) SetLimit(Limit int64) *ListEventTypeParams {
 	params.Limit = &Limit
 	return params
 }
@@ -148,7 +148,7 @@ func (c *ApiService) StreamEventType(params *ListEventTypeParams) (chan EventsV1
 }
 
 func (c *ApiService) streamEventType(response *ListEventTypeResponse, params *ListEventTypeParams, recordChannel chan EventsV1EventType, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Types

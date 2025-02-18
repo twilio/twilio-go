@@ -68,9 +68,9 @@ type ListVerificationAttemptParams struct {
 	// Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListVerificationAttemptParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListVerificationAttemptParams {
@@ -105,11 +105,11 @@ func (params *ListVerificationAttemptParams) SetStatus(Status string) *ListVerif
 	params.Status = &Status
 	return params
 }
-func (params *ListVerificationAttemptParams) SetPageSize(PageSize int) *ListVerificationAttemptParams {
+func (params *ListVerificationAttemptParams) SetPageSize(PageSize int64) *ListVerificationAttemptParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListVerificationAttemptParams) SetLimit(Limit int) *ListVerificationAttemptParams {
+func (params *ListVerificationAttemptParams) SetLimit(Limit int64) *ListVerificationAttemptParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +212,7 @@ func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptPa
 }
 
 func (c *ApiService) streamVerificationAttempt(response *ListVerificationAttemptResponse, params *ListVerificationAttemptParams, recordChannel chan VerifyV2VerificationAttempt, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Attempts

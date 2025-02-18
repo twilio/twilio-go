@@ -27,20 +27,20 @@ type ListVerificationTemplateParams struct {
 	// String filter used to query templates with a given friendly name.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListVerificationTemplateParams) SetFriendlyName(FriendlyName string) *ListVerificationTemplateParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListVerificationTemplateParams) SetPageSize(PageSize int) *ListVerificationTemplateParams {
+func (params *ListVerificationTemplateParams) SetPageSize(PageSize int64) *ListVerificationTemplateParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListVerificationTemplateParams) SetLimit(Limit int) *ListVerificationTemplateParams {
+func (params *ListVerificationTemplateParams) SetLimit(Limit int64) *ListVerificationTemplateParams {
 	params.Limit = &Limit
 	return params
 }
@@ -122,7 +122,7 @@ func (c *ApiService) StreamVerificationTemplate(params *ListVerificationTemplate
 }
 
 func (c *ApiService) streamVerificationTemplate(response *ListVerificationTemplateResponse, params *ListVerificationTemplateParams, recordChannel chan VerifyV2VerificationTemplate, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Templates

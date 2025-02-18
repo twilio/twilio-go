@@ -144,16 +144,16 @@ func (c *ApiService) FetchBuild(ServiceSid string, Sid string) (*ServerlessV1Bui
 // Optional parameters for the method 'ListBuild'
 type ListBuildParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListBuildParams) SetPageSize(PageSize int) *ListBuildParams {
+func (params *ListBuildParams) SetPageSize(PageSize int64) *ListBuildParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListBuildParams) SetLimit(Limit int) *ListBuildParams {
+func (params *ListBuildParams) SetLimit(Limit int64) *ListBuildParams {
 	params.Limit = &Limit
 	return params
 }
@@ -234,7 +234,7 @@ func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams) (ch
 }
 
 func (c *ApiService) streamBuild(response *ListBuildResponse, params *ListBuildParams, recordChannel chan ServerlessV1Build, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Builds

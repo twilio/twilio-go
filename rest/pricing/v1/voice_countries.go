@@ -23,7 +23,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchVoiceCountry(IsoCountry string) (*PricingV1VoiceCountryInstance, error) {
 	path := "/v1/Voice/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
@@ -51,16 +50,16 @@ func (c *ApiService) FetchVoiceCountry(IsoCountry string) (*PricingV1VoiceCountr
 // Optional parameters for the method 'ListVoiceCountry'
 type ListVoiceCountryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListVoiceCountryParams) SetPageSize(PageSize int) *ListVoiceCountryParams {
+func (params *ListVoiceCountryParams) SetPageSize(PageSize int64) *ListVoiceCountryParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListVoiceCountryParams) SetLimit(Limit int) *ListVoiceCountryParams {
+func (params *ListVoiceCountryParams) SetLimit(Limit int64) *ListVoiceCountryParams {
 	params.Limit = &Limit
 	return params
 }
@@ -139,7 +138,7 @@ func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams) (chan Pr
 }
 
 func (c *ApiService) streamVoiceCountry(response *ListVoiceCountryResponse, params *ListVoiceCountryParams, recordChannel chan PricingV1VoiceCountry, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Countries

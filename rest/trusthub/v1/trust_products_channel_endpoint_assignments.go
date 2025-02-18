@@ -126,9 +126,9 @@ type ListTrustProductChannelEndpointAssignmentParams struct {
 	// comma separated list of channel endpoint sids
 	ChannelEndpointSids *string `json:"ChannelEndpointSids,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListTrustProductChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *ListTrustProductChannelEndpointAssignmentParams {
@@ -139,11 +139,11 @@ func (params *ListTrustProductChannelEndpointAssignmentParams) SetChannelEndpoin
 	params.ChannelEndpointSids = &ChannelEndpointSids
 	return params
 }
-func (params *ListTrustProductChannelEndpointAssignmentParams) SetPageSize(PageSize int) *ListTrustProductChannelEndpointAssignmentParams {
+func (params *ListTrustProductChannelEndpointAssignmentParams) SetPageSize(PageSize int64) *ListTrustProductChannelEndpointAssignmentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTrustProductChannelEndpointAssignmentParams) SetLimit(Limit int) *ListTrustProductChannelEndpointAssignmentParams {
+func (params *ListTrustProductChannelEndpointAssignmentParams) SetLimit(Limit int64) *ListTrustProductChannelEndpointAssignmentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -230,7 +230,7 @@ func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid
 }
 
 func (c *ApiService) streamTrustProductChannelEndpointAssignment(response *ListTrustProductChannelEndpointAssignmentResponse, params *ListTrustProductChannelEndpointAssignmentParams, recordChannel chan TrusthubV1TrustProductChannelEndpointAssignment, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

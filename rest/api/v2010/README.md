@@ -352,6 +352,7 @@ Class | Method | HTTP request | Description
  - [ListMemberResponse](docs/ListMemberResponse.md)
  - [ApiV2010IncomingPhoneNumber](docs/ApiV2010IncomingPhoneNumber.md)
  - [ApiV2010ConnectApp](docs/ApiV2010ConnectApp.md)
+ - [FetchHealthCheckResponse](docs/FetchHealthCheckResponse.md)
  - [ApiV2010SipAuthCallsIpAccessControlListMapping](docs/ApiV2010SipAuthCallsIpAccessControlListMapping.md)
  - [ApiV2010UsageRecordToday](docs/ApiV2010UsageRecordToday.md)
  - [ApiV2010ConferenceRecording](docs/ApiV2010ConferenceRecording.md)

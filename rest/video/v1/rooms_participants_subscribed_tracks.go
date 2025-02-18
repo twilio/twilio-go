@@ -53,16 +53,16 @@ func (c *ApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, Partici
 // Optional parameters for the method 'ListRoomParticipantSubscribedTrack'
 type ListRoomParticipantSubscribedTrackParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListRoomParticipantSubscribedTrackParams) SetPageSize(PageSize int) *ListRoomParticipantSubscribedTrackParams {
+func (params *ListRoomParticipantSubscribedTrackParams) SetPageSize(PageSize int64) *ListRoomParticipantSubscribedTrackParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRoomParticipantSubscribedTrackParams) SetLimit(Limit int) *ListRoomParticipantSubscribedTrackParams {
+func (params *ListRoomParticipantSubscribedTrackParams) SetLimit(Limit int64) *ListRoomParticipantSubscribedTrackParams {
 	params.Limit = &Limit
 	return params
 }
@@ -144,7 +144,7 @@ func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, Partic
 }
 
 func (c *ApiService) streamRoomParticipantSubscribedTrack(response *ListRoomParticipantSubscribedTrackResponse, params *ListRoomParticipantSubscribedTrackParams, recordChannel chan VideoV1RoomParticipantSubscribedTrack, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.SubscribedTracks

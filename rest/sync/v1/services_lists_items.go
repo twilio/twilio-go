@@ -52,7 +52,6 @@ func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Cre
 	return params
 }
 
-//
 func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -108,7 +107,6 @@ func (params *DeleteSyncListItemParams) SetIfMatch(IfMatch string) *DeleteSyncLi
 	return params
 }
 
-//
 func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int, params *DeleteSyncListItemParams) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -133,7 +131,6 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 	return nil
 }
 
-//
 func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -169,9 +166,9 @@ type ListSyncListItemParams struct {
 	// Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
 	Bounds *string `json:"Bounds,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSyncListItemParams) SetOrder(Order string) *ListSyncListItemParams {
@@ -186,11 +183,11 @@ func (params *ListSyncListItemParams) SetBounds(Bounds string) *ListSyncListItem
 	params.Bounds = &Bounds
 	return params
 }
-func (params *ListSyncListItemParams) SetPageSize(PageSize int) *ListSyncListItemParams {
+func (params *ListSyncListItemParams) SetPageSize(PageSize int64) *ListSyncListItemParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSyncListItemParams) SetLimit(Limit int) *ListSyncListItemParams {
+func (params *ListSyncListItemParams) SetLimit(Limit int64) *ListSyncListItemParams {
 	params.Limit = &Limit
 	return params
 }
@@ -281,7 +278,7 @@ func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, param
 }
 
 func (c *ApiService) streamSyncListItem(response *ListSyncListItemResponse, params *ListSyncListItemParams, recordChannel chan SyncV1SyncListItem, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Items
@@ -363,7 +360,6 @@ func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Upd
 	return params
 }
 
-//
 func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

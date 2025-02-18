@@ -202,8 +202,8 @@ Name | Type | Description
 **EndTime** | **time.Time** | Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
 **EndTimeBefore** | **time.Time** | Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
 **EndTimeAfter** | **time.Time** | Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

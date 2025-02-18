@@ -71,16 +71,16 @@ func (c *ApiService) FetchFlow(Sid string) (*StudioV1Flow, error) {
 // Optional parameters for the method 'ListFlow'
 type ListFlowParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListFlowParams) SetPageSize(PageSize int) *ListFlowParams {
+func (params *ListFlowParams) SetPageSize(PageSize int64) *ListFlowParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListFlowParams) SetLimit(Limit int) *ListFlowParams {
+func (params *ListFlowParams) SetLimit(Limit int64) *ListFlowParams {
 	params.Limit = &Limit
 	return params
 }
@@ -159,7 +159,7 @@ func (c *ApiService) StreamFlow(params *ListFlowParams) (chan StudioV1Flow, chan
 }
 
 func (c *ApiService) streamFlow(response *ListFlowResponse, params *ListFlowParams, recordChannel chan StudioV1Flow, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Flows

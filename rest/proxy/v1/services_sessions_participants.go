@@ -143,16 +143,16 @@ func (c *ApiService) FetchParticipant(ServiceSid string, SessionSid string, Sid 
 // Optional parameters for the method 'ListParticipant'
 type ListParticipantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListParticipantParams) SetPageSize(PageSize int) *ListParticipantParams {
+func (params *ListParticipantParams) SetPageSize(PageSize int64) *ListParticipantParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListParticipantParams) SetLimit(Limit int) *ListParticipantParams {
+func (params *ListParticipantParams) SetLimit(Limit int64) *ListParticipantParams {
 	params.Limit = &Limit
 	return params
 }
@@ -234,7 +234,7 @@ func (c *ApiService) StreamParticipant(ServiceSid string, SessionSid string, par
 }
 
 func (c *ApiService) streamParticipant(response *ListParticipantResponse, params *ListParticipantParams, recordChannel chan ProxyV1Participant, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Participants

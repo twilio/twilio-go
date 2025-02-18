@@ -34,7 +34,6 @@ func (params *FetchAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAcco
 	return params
 }
 
-//
 func (c *ApiService) FetchAvailablePhoneNumberCountry(CountryCode string, params *FetchAvailablePhoneNumberCountryParams) (*ApiV2010AvailablePhoneNumberCountry, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -69,20 +68,20 @@ type ListAvailablePhoneNumberCountryParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberCountryParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAvailablePhoneNumberCountryParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberCountryParams {
+func (params *ListAvailablePhoneNumberCountryParams) SetPageSize(PageSize int64) *ListAvailablePhoneNumberCountryParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAvailablePhoneNumberCountryParams) SetLimit(Limit int) *ListAvailablePhoneNumberCountryParams {
+func (params *ListAvailablePhoneNumberCountryParams) SetLimit(Limit int64) *ListAvailablePhoneNumberCountryParams {
 	params.Limit = &Limit
 	return params
 }
@@ -167,7 +166,7 @@ func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhon
 }
 
 func (c *ApiService) streamAvailablePhoneNumberCountry(response *ListAvailablePhoneNumberCountryResponse, params *ListAvailablePhoneNumberCountryParams, recordChannel chan ApiV2010AvailablePhoneNumberCountry, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Countries

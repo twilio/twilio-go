@@ -33,9 +33,9 @@ type ListUsageRecordParams struct {
 	// How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
 	Granularity *string `json:"Granularity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListUsageRecordParams) SetEnd(End time.Time) *ListUsageRecordParams {
@@ -50,11 +50,11 @@ func (params *ListUsageRecordParams) SetGranularity(Granularity string) *ListUsa
 	params.Granularity = &Granularity
 	return params
 }
-func (params *ListUsageRecordParams) SetPageSize(PageSize int) *ListUsageRecordParams {
+func (params *ListUsageRecordParams) SetPageSize(PageSize int64) *ListUsageRecordParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListUsageRecordParams) SetLimit(Limit int) *ListUsageRecordParams {
+func (params *ListUsageRecordParams) SetLimit(Limit int64) *ListUsageRecordParams {
 	params.Limit = &Limit
 	return params
 }
@@ -144,7 +144,7 @@ func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordPar
 }
 
 func (c *ApiService) streamUsageRecord(response *ListUsageRecordResponse, params *ListUsageRecordParams, recordChannel chan WirelessV1UsageRecord, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.UsageRecords

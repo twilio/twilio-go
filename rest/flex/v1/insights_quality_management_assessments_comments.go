@@ -124,9 +124,9 @@ type ListInsightsAssessmentsCommentParams struct {
 	// The id of the agent.
 	AgentId *string `json:"AgentId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListInsightsAssessmentsCommentParams) SetAuthorization(Authorization string) *ListInsightsAssessmentsCommentParams {
@@ -141,11 +141,11 @@ func (params *ListInsightsAssessmentsCommentParams) SetAgentId(AgentId string) *
 	params.AgentId = &AgentId
 	return params
 }
-func (params *ListInsightsAssessmentsCommentParams) SetPageSize(PageSize int) *ListInsightsAssessmentsCommentParams {
+func (params *ListInsightsAssessmentsCommentParams) SetPageSize(PageSize int64) *ListInsightsAssessmentsCommentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListInsightsAssessmentsCommentParams) SetLimit(Limit int) *ListInsightsAssessmentsCommentParams {
+func (params *ListInsightsAssessmentsCommentParams) SetLimit(Limit int64) *ListInsightsAssessmentsCommentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -230,7 +230,7 @@ func (c *ApiService) StreamInsightsAssessmentsComment(params *ListInsightsAssess
 }
 
 func (c *ApiService) streamInsightsAssessmentsComment(response *ListInsightsAssessmentsCommentResponse, params *ListInsightsAssessmentsCommentParams, recordChannel chan FlexV1InsightsAssessmentsComment, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Comments

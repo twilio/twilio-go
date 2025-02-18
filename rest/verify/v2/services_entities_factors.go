@@ -239,16 +239,16 @@ func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string)
 // Optional parameters for the method 'ListFactor'
 type ListFactorParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListFactorParams) SetPageSize(PageSize int) *ListFactorParams {
+func (params *ListFactorParams) SetPageSize(PageSize int64) *ListFactorParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListFactorParams) SetLimit(Limit int) *ListFactorParams {
+func (params *ListFactorParams) SetLimit(Limit int64) *ListFactorParams {
 	params.Limit = &Limit
 	return params
 }
@@ -330,7 +330,7 @@ func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *Li
 }
 
 func (c *ApiService) streamFactor(response *ListFactorResponse, params *ListFactorParams, recordChannel chan VerifyV2Factor, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Factors

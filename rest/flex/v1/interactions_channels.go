@@ -52,16 +52,16 @@ func (c *ApiService) FetchInteractionChannel(InteractionSid string, Sid string) 
 // Optional parameters for the method 'ListInteractionChannel'
 type ListInteractionChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListInteractionChannelParams) SetPageSize(PageSize int) *ListInteractionChannelParams {
+func (params *ListInteractionChannelParams) SetPageSize(PageSize int64) *ListInteractionChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListInteractionChannelParams) SetLimit(Limit int) *ListInteractionChannelParams {
+func (params *ListInteractionChannelParams) SetLimit(Limit int64) *ListInteractionChannelParams {
 	params.Limit = &Limit
 	return params
 }
@@ -142,7 +142,7 @@ func (c *ApiService) StreamInteractionChannel(InteractionSid string, params *Lis
 }
 
 func (c *ApiService) streamInteractionChannel(response *ListInteractionChannelResponse, params *ListInteractionChannelParams, recordChannel chan FlexV1InteractionChannel, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Channels

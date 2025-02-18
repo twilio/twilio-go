@@ -164,8 +164,8 @@ Name | Type | Description
 **Status** | **string** | Filter by status.
 **LanguageCode** | **string** | Filter by Language Code.
 **SourceSid** | **string** | Filter by SourceSid.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

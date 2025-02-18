@@ -174,16 +174,16 @@ func (c *ApiService) FetchServiceConversationScopedWebhook(ChatServiceSid string
 // Optional parameters for the method 'ListServiceConversationScopedWebhook'
 type ListServiceConversationScopedWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListServiceConversationScopedWebhookParams) SetPageSize(PageSize int) *ListServiceConversationScopedWebhookParams {
+func (params *ListServiceConversationScopedWebhookParams) SetPageSize(PageSize int64) *ListServiceConversationScopedWebhookParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListServiceConversationScopedWebhookParams) SetLimit(Limit int) *ListServiceConversationScopedWebhookParams {
+func (params *ListServiceConversationScopedWebhookParams) SetLimit(Limit int64) *ListServiceConversationScopedWebhookParams {
 	params.Limit = &Limit
 	return params
 }
@@ -265,7 +265,7 @@ func (c *ApiService) StreamServiceConversationScopedWebhook(ChatServiceSid strin
 }
 
 func (c *ApiService) streamServiceConversationScopedWebhook(response *ListServiceConversationScopedWebhookResponse, params *ListServiceConversationScopedWebhookParams, recordChannel chan ConversationsV1ServiceConversationScopedWebhook, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Webhooks

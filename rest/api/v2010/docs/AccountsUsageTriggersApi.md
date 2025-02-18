@@ -167,8 +167,8 @@ Name | Type | Description
 **Recurring** | **string** | The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
 **TriggerBy** | **string** | The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
 **UsageCategory** | **string** | The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

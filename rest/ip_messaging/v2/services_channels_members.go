@@ -77,7 +77,6 @@ func (params *CreateMemberParams) SetAttributes(Attributes string) *CreateMember
 	return params
 }
 
-//
 func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*IpMessagingV2Member, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -139,7 +138,6 @@ func (params *DeleteMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled
 	return params
 }
 
-//
 func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid string, params *DeleteMemberParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -164,7 +162,6 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 	return nil
 }
 
-//
 func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2Member, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -196,20 +193,20 @@ type ListMemberParams struct {
 	//
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams {
 	params.Identity = &Identity
 	return params
 }
-func (params *ListMemberParams) SetPageSize(PageSize int) *ListMemberParams {
+func (params *ListMemberParams) SetPageSize(PageSize int64) *ListMemberParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
+func (params *ListMemberParams) SetLimit(Limit int64) *ListMemberParams {
 	params.Limit = &Limit
 	return params
 }
@@ -296,7 +293,7 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 }
 
 func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemberParams, recordChannel chan IpMessagingV2Member, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Members
@@ -390,7 +387,6 @@ func (params *UpdateMemberParams) SetAttributes(Attributes string) *UpdateMember
 	return params
 }
 
-//
 func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*IpMessagingV2Member, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

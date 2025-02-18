@@ -46,7 +46,6 @@ func (params *CreateSyncListParams) SetCollectionTtl(CollectionTtl int) *CreateS
 	return params
 }
 
-//
 func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListParams) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -81,7 +80,6 @@ func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListPar
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteSyncList(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -102,7 +100,6 @@ func (c *ApiService) DeleteSyncList(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -131,16 +128,16 @@ func (c *ApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1SyncLi
 // Optional parameters for the method 'ListSyncList'
 type ListSyncListParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListSyncListParams) SetPageSize(PageSize int) *ListSyncListParams {
+func (params *ListSyncListParams) SetPageSize(PageSize int64) *ListSyncListParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSyncListParams) SetLimit(Limit int) *ListSyncListParams {
+func (params *ListSyncListParams) SetLimit(Limit int64) *ListSyncListParams {
 	params.Limit = &Limit
 	return params
 }
@@ -221,7 +218,7 @@ func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParam
 }
 
 func (c *ApiService) streamSyncList(response *ListSyncListResponse, params *ListSyncListParams, recordChannel chan SyncV1SyncList, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Lists
@@ -285,7 +282,6 @@ func (params *UpdateSyncListParams) SetCollectionTtl(CollectionTtl int) *UpdateS
 	return params
 }
 
-//
 func (c *ApiService) UpdateSyncList(ServiceSid string, Sid string, params *UpdateSyncListParams) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

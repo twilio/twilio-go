@@ -23,7 +23,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) DeleteUserBinding(ServiceSid string, UserSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -45,7 +44,6 @@ func (c *ApiService) DeleteUserBinding(ServiceSid string, UserSid string, Sid st
 	return nil
 }
 
-//
 func (c *ApiService) FetchUserBinding(ServiceSid string, UserSid string, Sid string) (*ChatV2UserBinding, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -77,20 +75,20 @@ type ListUserBindingParams struct {
 	// The push technology used by the User Binding resources to read. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 	BindingType *[]string `json:"BindingType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListUserBindingParams) SetBindingType(BindingType []string) *ListUserBindingParams {
 	params.BindingType = &BindingType
 	return params
 }
-func (params *ListUserBindingParams) SetPageSize(PageSize int) *ListUserBindingParams {
+func (params *ListUserBindingParams) SetPageSize(PageSize int64) *ListUserBindingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListUserBindingParams) SetLimit(Limit int) *ListUserBindingParams {
+func (params *ListUserBindingParams) SetLimit(Limit int64) *ListUserBindingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -177,7 +175,7 @@ func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params
 }
 
 func (c *ApiService) streamUserBinding(response *ListUserBindingResponse, params *ListUserBindingParams, recordChannel chan ChatV2UserBinding, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Bindings

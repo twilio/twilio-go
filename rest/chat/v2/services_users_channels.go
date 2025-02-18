@@ -60,7 +60,6 @@ func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, Channe
 	return nil
 }
 
-//
 func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*ChatV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -90,16 +89,16 @@ func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, Channel
 // Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListUserChannelParams) SetPageSize(PageSize int) *ListUserChannelParams {
+func (params *ListUserChannelParams) SetPageSize(PageSize int64) *ListUserChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListUserChannelParams) SetLimit(Limit int) *ListUserChannelParams {
+func (params *ListUserChannelParams) SetLimit(Limit int64) *ListUserChannelParams {
 	params.Limit = &Limit
 	return params
 }
@@ -181,7 +180,7 @@ func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params
 }
 
 func (c *ApiService) streamUserChannel(response *ListUserChannelResponse, params *ListUserChannelParams, recordChannel chan ChatV2UserChannel, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Channels
@@ -251,7 +250,6 @@ func (params *UpdateUserChannelParams) SetLastConsumptionTimestamp(LastConsumpti
 	return params
 }
 
-//
 func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*ChatV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

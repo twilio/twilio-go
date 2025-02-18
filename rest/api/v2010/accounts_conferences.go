@@ -85,9 +85,9 @@ type ListConferenceParams struct {
 	// The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListConferenceParams) SetPathAccountSid(PathAccountSid string) *ListConferenceParams {
@@ -126,11 +126,11 @@ func (params *ListConferenceParams) SetStatus(Status string) *ListConferencePara
 	params.Status = &Status
 	return params
 }
-func (params *ListConferenceParams) SetPageSize(PageSize int) *ListConferenceParams {
+func (params *ListConferenceParams) SetPageSize(PageSize int64) *ListConferenceParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListConferenceParams) SetLimit(Limit int) *ListConferenceParams {
+func (params *ListConferenceParams) SetLimit(Limit int64) *ListConferenceParams {
 	params.Limit = &Limit
 	return params
 }
@@ -239,7 +239,7 @@ func (c *ApiService) StreamConference(params *ListConferenceParams) (chan ApiV20
 }
 
 func (c *ApiService) streamConference(response *ListConferenceResponse, params *ListConferenceParams, recordChannel chan ApiV2010Conference, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Conferences
@@ -315,7 +315,6 @@ func (params *UpdateConferenceParams) SetAnnounceMethod(AnnounceMethod string) *
 	return params
 }
 
-//
 func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams) (*ApiV2010Conference, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

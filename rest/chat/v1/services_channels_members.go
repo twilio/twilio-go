@@ -40,7 +40,6 @@ func (params *CreateMemberParams) SetRoleSid(RoleSid string) *CreateMemberParams
 	return params
 }
 
-//
 func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*ChatV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -73,7 +72,6 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -95,7 +93,6 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 	return nil
 }
 
-//
 func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*ChatV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -127,20 +124,20 @@ type ListMemberParams struct {
 	// The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams {
 	params.Identity = &Identity
 	return params
 }
-func (params *ListMemberParams) SetPageSize(PageSize int) *ListMemberParams {
+func (params *ListMemberParams) SetPageSize(PageSize int64) *ListMemberParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
+func (params *ListMemberParams) SetLimit(Limit int64) *ListMemberParams {
 	params.Limit = &Limit
 	return params
 }
@@ -227,7 +224,7 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 }
 
 func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemberParams, recordChannel chan ChatV1Member, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Members
@@ -291,7 +288,6 @@ func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessag
 	return params
 }
 
-//
 func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*ChatV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

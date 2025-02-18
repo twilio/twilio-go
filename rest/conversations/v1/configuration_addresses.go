@@ -213,20 +213,20 @@ type ListConfigurationAddressParams struct {
 	// Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
 	Type *string `json:"Type,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListConfigurationAddressParams) SetType(Type string) *ListConfigurationAddressParams {
 	params.Type = &Type
 	return params
 }
-func (params *ListConfigurationAddressParams) SetPageSize(PageSize int) *ListConfigurationAddressParams {
+func (params *ListConfigurationAddressParams) SetPageSize(PageSize int64) *ListConfigurationAddressParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListConfigurationAddressParams) SetLimit(Limit int) *ListConfigurationAddressParams {
+func (params *ListConfigurationAddressParams) SetLimit(Limit int64) *ListConfigurationAddressParams {
 	params.Limit = &Limit
 	return params
 }
@@ -308,7 +308,7 @@ func (c *ApiService) StreamConfigurationAddress(params *ListConfigurationAddress
 }
 
 func (c *ApiService) streamConfigurationAddress(response *ListConfigurationAddressResponse, params *ListConfigurationAddressParams, recordChannel chan ConversationsV1ConfigurationAddress, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.AddressConfigurations

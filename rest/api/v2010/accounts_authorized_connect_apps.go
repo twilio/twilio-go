@@ -69,20 +69,20 @@ type ListAuthorizedConnectAppParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid string) *ListAuthorizedConnectAppParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAuthorizedConnectAppParams) SetPageSize(PageSize int) *ListAuthorizedConnectAppParams {
+func (params *ListAuthorizedConnectAppParams) SetPageSize(PageSize int64) *ListAuthorizedConnectAppParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAuthorizedConnectAppParams) SetLimit(Limit int) *ListAuthorizedConnectAppParams {
+func (params *ListAuthorizedConnectAppParams) SetLimit(Limit int64) *ListAuthorizedConnectAppParams {
 	params.Limit = &Limit
 	return params
 }
@@ -167,7 +167,7 @@ func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectApp
 }
 
 func (c *ApiService) streamAuthorizedConnectApp(response *ListAuthorizedConnectAppResponse, params *ListAuthorizedConnectAppParams, recordChannel chan ApiV2010AuthorizedConnectApp, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.AuthorizedConnectApps

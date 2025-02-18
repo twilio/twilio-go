@@ -30,8 +30,8 @@ Name | Type | Description
 **End** | **time.Time** | Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
 **Start** | **time.Time** | Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
 **Granularity** | **string** | How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

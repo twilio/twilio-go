@@ -158,20 +158,20 @@ type ListSipIpAccessControlListMappingParams struct {
 	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAccessControlListMappingParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipIpAccessControlListMappingParams) SetPageSize(PageSize int) *ListSipIpAccessControlListMappingParams {
+func (params *ListSipIpAccessControlListMappingParams) SetPageSize(PageSize int64) *ListSipIpAccessControlListMappingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSipIpAccessControlListMappingParams) SetLimit(Limit int) *ListSipIpAccessControlListMappingParams {
+func (params *ListSipIpAccessControlListMappingParams) SetLimit(Limit int64) *ListSipIpAccessControlListMappingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -257,7 +257,7 @@ func (c *ApiService) StreamSipIpAccessControlListMapping(DomainSid string, param
 }
 
 func (c *ApiService) streamSipIpAccessControlListMapping(response *ListSipIpAccessControlListMappingResponse, params *ListSipIpAccessControlListMappingParams, recordChannel chan ApiV2010SipIpAccessControlListMapping, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.IpAccessControlListMappings

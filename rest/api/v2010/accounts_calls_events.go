@@ -28,20 +28,20 @@ type ListCallEventParams struct {
 	// The unique SID identifier of the Account.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCallEventParams) SetPathAccountSid(PathAccountSid string) *ListCallEventParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListCallEventParams) SetPageSize(PageSize int) *ListCallEventParams {
+func (params *ListCallEventParams) SetPageSize(PageSize int64) *ListCallEventParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCallEventParams) SetLimit(Limit int) *ListCallEventParams {
+func (params *ListCallEventParams) SetLimit(Limit int64) *ListCallEventParams {
 	params.Limit = &Limit
 	return params
 }
@@ -127,7 +127,7 @@ func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams
 }
 
 func (c *ApiService) streamCallEvent(response *ListCallEventResponse, params *ListCallEventParams, recordChannel chan ApiV2010CallEvent, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Events

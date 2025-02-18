@@ -75,8 +75,8 @@ Name | Type | Description
 **IsoCountry** | **string** | The ISO country code of the phone number's country.
 **NumberType** | **string** | The type of phone number that the regulatory requiremnt is restricting.
 **IncludeConstraints** | **bool** | A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

@@ -40,7 +40,6 @@ func (params *CreateDestinationAlphaSenderParams) SetIsoCountryCode(IsoCountryCo
 	return params
 }
 
-//
 func (c *ApiService) CreateDestinationAlphaSender(ServiceSid string, params *CreateDestinationAlphaSenderParams) (*MessagingV1DestinationAlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/DestinationAlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -72,7 +71,6 @@ func (c *ApiService) CreateDestinationAlphaSender(ServiceSid string, params *Cre
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteDestinationAlphaSender(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -93,7 +91,6 @@ func (c *ApiService) DeleteDestinationAlphaSender(ServiceSid string, Sid string)
 	return nil
 }
 
-//
 func (c *ApiService) FetchDestinationAlphaSender(ServiceSid string, Sid string) (*MessagingV1DestinationAlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -122,16 +119,16 @@ func (c *ApiService) FetchDestinationAlphaSender(ServiceSid string, Sid string) 
 // Optional parameters for the method 'ListDestinationAlphaSender'
 type ListDestinationAlphaSenderParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListDestinationAlphaSenderParams) SetPageSize(PageSize int) *ListDestinationAlphaSenderParams {
+func (params *ListDestinationAlphaSenderParams) SetPageSize(PageSize int64) *ListDestinationAlphaSenderParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListDestinationAlphaSenderParams) SetLimit(Limit int) *ListDestinationAlphaSenderParams {
+func (params *ListDestinationAlphaSenderParams) SetLimit(Limit int64) *ListDestinationAlphaSenderParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +209,7 @@ func (c *ApiService) StreamDestinationAlphaSender(ServiceSid string, params *Lis
 }
 
 func (c *ApiService) streamDestinationAlphaSender(response *ListDestinationAlphaSenderResponse, params *ListDestinationAlphaSenderParams, recordChannel chan MessagingV1DestinationAlphaSender, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.AlphaSenders

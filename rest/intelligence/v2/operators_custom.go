@@ -138,9 +138,9 @@ type ListCustomOperatorParams struct {
 	// Returns Custom Operators that support the provided language code.
 	LanguageCode *string `json:"LanguageCode,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCustomOperatorParams) SetAvailability(Availability string) *ListCustomOperatorParams {
@@ -151,11 +151,11 @@ func (params *ListCustomOperatorParams) SetLanguageCode(LanguageCode string) *Li
 	params.LanguageCode = &LanguageCode
 	return params
 }
-func (params *ListCustomOperatorParams) SetPageSize(PageSize int) *ListCustomOperatorParams {
+func (params *ListCustomOperatorParams) SetPageSize(PageSize int64) *ListCustomOperatorParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCustomOperatorParams) SetLimit(Limit int) *ListCustomOperatorParams {
+func (params *ListCustomOperatorParams) SetLimit(Limit int64) *ListCustomOperatorParams {
 	params.Limit = &Limit
 	return params
 }
@@ -240,7 +240,7 @@ func (c *ApiService) StreamCustomOperator(params *ListCustomOperatorParams) (cha
 }
 
 func (c *ApiService) streamCustomOperator(response *ListCustomOperatorResponse, params *ListCustomOperatorParams, recordChannel chan IntelligenceV2CustomOperator, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Operators

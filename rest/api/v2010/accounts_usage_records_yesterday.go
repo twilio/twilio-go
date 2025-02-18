@@ -36,9 +36,9 @@ type ListUsageRecordYesterdayParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListUsageRecordYesterdayParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordYesterdayParams {
@@ -61,11 +61,11 @@ func (params *ListUsageRecordYesterdayParams) SetIncludeSubaccounts(IncludeSubac
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordYesterdayParams) SetPageSize(PageSize int) *ListUsageRecordYesterdayParams {
+func (params *ListUsageRecordYesterdayParams) SetPageSize(PageSize int64) *ListUsageRecordYesterdayParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListUsageRecordYesterdayParams) SetLimit(Limit int) *ListUsageRecordYesterdayParams {
+func (params *ListUsageRecordYesterdayParams) SetLimit(Limit int64) *ListUsageRecordYesterdayParams {
 	params.Limit = &Limit
 	return params
 }
@@ -162,7 +162,7 @@ func (c *ApiService) StreamUsageRecordYesterday(params *ListUsageRecordYesterday
 }
 
 func (c *ApiService) streamUsageRecordYesterday(response *ListUsageRecordYesterdayResponse, params *ListUsageRecordYesterdayParams, recordChannel chan ApiV2010UsageRecordYesterday, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.UsageRecords

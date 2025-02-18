@@ -75,16 +75,16 @@ func (c *ApiService) FetchSyncMapPermission(ServiceSid string, MapSid string, Id
 // Optional parameters for the method 'ListSyncMapPermission'
 type ListSyncMapPermissionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListSyncMapPermissionParams) SetPageSize(PageSize int) *ListSyncMapPermissionParams {
+func (params *ListSyncMapPermissionParams) SetPageSize(PageSize int64) *ListSyncMapPermissionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSyncMapPermissionParams) SetLimit(Limit int) *ListSyncMapPermissionParams {
+func (params *ListSyncMapPermissionParams) SetLimit(Limit int64) *ListSyncMapPermissionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -166,7 +166,7 @@ func (c *ApiService) StreamSyncMapPermission(ServiceSid string, MapSid string, p
 }
 
 func (c *ApiService) streamSyncMapPermission(response *ListSyncMapPermissionResponse, params *ListSyncMapPermissionParams, recordChannel chan SyncV1SyncMapPermission, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Permissions

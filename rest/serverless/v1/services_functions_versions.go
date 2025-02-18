@@ -53,16 +53,16 @@ func (c *ApiService) FetchFunctionVersion(ServiceSid string, FunctionSid string,
 // Optional parameters for the method 'ListFunctionVersion'
 type ListFunctionVersionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListFunctionVersionParams) SetPageSize(PageSize int) *ListFunctionVersionParams {
+func (params *ListFunctionVersionParams) SetPageSize(PageSize int64) *ListFunctionVersionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListFunctionVersionParams) SetLimit(Limit int) *ListFunctionVersionParams {
+func (params *ListFunctionVersionParams) SetLimit(Limit int64) *ListFunctionVersionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -144,7 +144,7 @@ func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string
 }
 
 func (c *ApiService) streamFunctionVersion(response *ListFunctionVersionResponse, params *ListFunctionVersionParams, recordChannel chan ServerlessV1FunctionVersion, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.FunctionVersions

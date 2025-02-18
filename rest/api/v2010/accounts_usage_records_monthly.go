@@ -36,9 +36,9 @@ type ListUsageRecordMonthlyParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListUsageRecordMonthlyParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordMonthlyParams {
@@ -61,11 +61,11 @@ func (params *ListUsageRecordMonthlyParams) SetIncludeSubaccounts(IncludeSubacco
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordMonthlyParams) SetPageSize(PageSize int) *ListUsageRecordMonthlyParams {
+func (params *ListUsageRecordMonthlyParams) SetPageSize(PageSize int64) *ListUsageRecordMonthlyParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListUsageRecordMonthlyParams) SetLimit(Limit int) *ListUsageRecordMonthlyParams {
+func (params *ListUsageRecordMonthlyParams) SetLimit(Limit int64) *ListUsageRecordMonthlyParams {
 	params.Limit = &Limit
 	return params
 }
@@ -162,7 +162,7 @@ func (c *ApiService) StreamUsageRecordMonthly(params *ListUsageRecordMonthlyPara
 }
 
 func (c *ApiService) streamUsageRecordMonthly(response *ListUsageRecordMonthlyResponse, params *ListUsageRecordMonthlyParams, recordChannel chan ApiV2010UsageRecordMonthly, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.UsageRecords

@@ -53,16 +53,16 @@ func (c *ApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid s
 // Optional parameters for the method 'ListAssetVersion'
 type ListAssetVersionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListAssetVersionParams) SetPageSize(PageSize int) *ListAssetVersionParams {
+func (params *ListAssetVersionParams) SetPageSize(PageSize int64) *ListAssetVersionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAssetVersionParams) SetLimit(Limit int) *ListAssetVersionParams {
+func (params *ListAssetVersionParams) SetLimit(Limit int64) *ListAssetVersionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -144,7 +144,7 @@ func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, para
 }
 
 func (c *ApiService) streamAssetVersion(response *ListAssetVersionResponse, params *ListAssetVersionParams, recordChannel chan ServerlessV1AssetVersion, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.AssetVersions

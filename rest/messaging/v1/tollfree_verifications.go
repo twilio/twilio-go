@@ -166,7 +166,6 @@ func (params *CreateTollfreeVerificationParams) SetExternalReferenceId(ExternalR
 	return params
 }
 
-//
 func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications"
 
@@ -264,7 +263,6 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -284,7 +282,6 @@ func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -320,9 +317,9 @@ type ListTollfreeVerificationParams struct {
 	// Whether to include Tollfree Verifications from sub accounts in list response.
 	IncludeSubAccounts *bool `json:"IncludeSubAccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListTollfreeVerificationParams) SetTollfreePhoneNumberSid(TollfreePhoneNumberSid string) *ListTollfreeVerificationParams {
@@ -341,11 +338,11 @@ func (params *ListTollfreeVerificationParams) SetIncludeSubAccounts(IncludeSubAc
 	params.IncludeSubAccounts = &IncludeSubAccounts
 	return params
 }
-func (params *ListTollfreeVerificationParams) SetPageSize(PageSize int) *ListTollfreeVerificationParams {
+func (params *ListTollfreeVerificationParams) SetPageSize(PageSize int64) *ListTollfreeVerificationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTollfreeVerificationParams) SetLimit(Limit int) *ListTollfreeVerificationParams {
+func (params *ListTollfreeVerificationParams) SetLimit(Limit int64) *ListTollfreeVerificationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -436,7 +433,7 @@ func (c *ApiService) StreamTollfreeVerification(params *ListTollfreeVerification
 }
 
 func (c *ApiService) streamTollfreeVerification(response *ListTollfreeVerificationResponse, params *ListTollfreeVerificationParams, recordChannel chan MessagingV1TollfreeVerification, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Verifications
@@ -614,7 +611,6 @@ func (params *UpdateTollfreeVerificationParams) SetEditReason(EditReason string)
 	return params
 }
 
-//
 func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

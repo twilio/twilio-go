@@ -58,7 +58,6 @@ func (params *CreateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *Crea
 	return params
 }
 
-//
 func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -99,7 +98,6 @@ func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, pa
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Sid string) error {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -120,7 +118,6 @@ func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Si
 	return nil
 }
 
-//
 func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -149,16 +146,16 @@ func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid
 // Optional parameters for the method 'ListConnectionPolicyTarget'
 type ListConnectionPolicyTargetParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListConnectionPolicyTargetParams) SetPageSize(PageSize int) *ListConnectionPolicyTargetParams {
+func (params *ListConnectionPolicyTargetParams) SetPageSize(PageSize int64) *ListConnectionPolicyTargetParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListConnectionPolicyTargetParams) SetLimit(Limit int) *ListConnectionPolicyTargetParams {
+func (params *ListConnectionPolicyTargetParams) SetLimit(Limit int64) *ListConnectionPolicyTargetParams {
 	params.Limit = &Limit
 	return params
 }
@@ -239,7 +236,7 @@ func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, pa
 }
 
 func (c *ApiService) streamConnectionPolicyTarget(response *ListConnectionPolicyTargetResponse, params *ListConnectionPolicyTargetParams, recordChannel chan VoiceV1ConnectionPolicyTarget, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Targets
@@ -321,7 +318,6 @@ func (params *UpdateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)

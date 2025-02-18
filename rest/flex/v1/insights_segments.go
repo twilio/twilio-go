@@ -31,9 +31,9 @@ type ListInsightsSegmentsParams struct {
 	// The list of reservation Ids
 	ReservationId *[]string `json:"ReservationId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListInsightsSegmentsParams) SetAuthorization(Authorization string) *ListInsightsSegmentsParams {
@@ -48,11 +48,11 @@ func (params *ListInsightsSegmentsParams) SetReservationId(ReservationId []strin
 	params.ReservationId = &ReservationId
 	return params
 }
-func (params *ListInsightsSegmentsParams) SetPageSize(PageSize int) *ListInsightsSegmentsParams {
+func (params *ListInsightsSegmentsParams) SetPageSize(PageSize int64) *ListInsightsSegmentsParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListInsightsSegmentsParams) SetLimit(Limit int) *ListInsightsSegmentsParams {
+func (params *ListInsightsSegmentsParams) SetLimit(Limit int64) *ListInsightsSegmentsParams {
 	params.Limit = &Limit
 	return params
 }
@@ -139,7 +139,7 @@ func (c *ApiService) StreamInsightsSegments(params *ListInsightsSegmentsParams) 
 }
 
 func (c *ApiService) streamInsightsSegments(response *ListInsightsSegmentsResponse, params *ListInsightsSegmentsParams, recordChannel chan FlexV1InsightsSegments, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Segments

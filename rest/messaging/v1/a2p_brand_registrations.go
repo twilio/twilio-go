@@ -58,7 +58,6 @@ func (params *CreateBrandRegistrationsParams) SetSkipAutomaticSecVet(SkipAutomat
 	return params
 }
 
-//
 func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsParams) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
@@ -98,7 +97,6 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -126,16 +124,16 @@ func (c *ApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegis
 // Optional parameters for the method 'ListBrandRegistrations'
 type ListBrandRegistrationsParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListBrandRegistrationsParams) SetPageSize(PageSize int) *ListBrandRegistrationsParams {
+func (params *ListBrandRegistrationsParams) SetPageSize(PageSize int64) *ListBrandRegistrationsParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListBrandRegistrationsParams) SetLimit(Limit int) *ListBrandRegistrationsParams {
+func (params *ListBrandRegistrationsParams) SetLimit(Limit int64) *ListBrandRegistrationsParams {
 	params.Limit = &Limit
 	return params
 }
@@ -214,7 +212,7 @@ func (c *ApiService) StreamBrandRegistrations(params *ListBrandRegistrationsPara
 }
 
 func (c *ApiService) streamBrandRegistrations(response *ListBrandRegistrationsResponse, params *ListBrandRegistrationsParams, recordChannel chan MessagingV1BrandRegistrations, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Data
@@ -261,7 +259,6 @@ func (c *ApiService) getNextListBrandRegistrationsResponse(nextPageUrl string) (
 	return ps, nil
 }
 
-//
 func (c *ApiService) UpdateBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

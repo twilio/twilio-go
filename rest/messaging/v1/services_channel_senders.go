@@ -34,7 +34,6 @@ func (params *CreateChannelSenderParams) SetSid(Sid string) *CreateChannelSender
 	return params
 }
 
-//
 func (c *ApiService) CreateChannelSender(MessagingServiceSid string, params *CreateChannelSenderParams) (*MessagingV1ChannelSender, error) {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -63,7 +62,6 @@ func (c *ApiService) CreateChannelSender(MessagingServiceSid string, params *Cre
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteChannelSender(MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -84,7 +82,6 @@ func (c *ApiService) DeleteChannelSender(MessagingServiceSid string, Sid string)
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannelSender(MessagingServiceSid string, Sid string) (*MessagingV1ChannelSender, error) {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -113,16 +110,16 @@ func (c *ApiService) FetchChannelSender(MessagingServiceSid string, Sid string) 
 // Optional parameters for the method 'ListChannelSender'
 type ListChannelSenderParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListChannelSenderParams) SetPageSize(PageSize int) *ListChannelSenderParams {
+func (params *ListChannelSenderParams) SetPageSize(PageSize int64) *ListChannelSenderParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListChannelSenderParams) SetLimit(Limit int) *ListChannelSenderParams {
+func (params *ListChannelSenderParams) SetLimit(Limit int64) *ListChannelSenderParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +200,7 @@ func (c *ApiService) StreamChannelSender(MessagingServiceSid string, params *Lis
 }
 
 func (c *ApiService) streamChannelSender(response *ListChannelSenderResponse, params *ListChannelSenderParams, recordChannel chan MessagingV1ChannelSender, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Senders

@@ -29,9 +29,9 @@ type ListSettingsUpdateParams struct {
 	// Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSettingsUpdateParams) SetSim(Sim string) *ListSettingsUpdateParams {
@@ -42,11 +42,11 @@ func (params *ListSettingsUpdateParams) SetStatus(Status string) *ListSettingsUp
 	params.Status = &Status
 	return params
 }
-func (params *ListSettingsUpdateParams) SetPageSize(PageSize int) *ListSettingsUpdateParams {
+func (params *ListSettingsUpdateParams) SetPageSize(PageSize int64) *ListSettingsUpdateParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSettingsUpdateParams) SetLimit(Limit int) *ListSettingsUpdateParams {
+func (params *ListSettingsUpdateParams) SetLimit(Limit int64) *ListSettingsUpdateParams {
 	params.Limit = &Limit
 	return params
 }
@@ -131,7 +131,7 @@ func (c *ApiService) StreamSettingsUpdate(params *ListSettingsUpdateParams) (cha
 }
 
 func (c *ApiService) streamSettingsUpdate(response *ListSettingsUpdateResponse, params *ListSettingsUpdateParams, recordChannel chan SupersimV1SettingsUpdate, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.SettingsUpdates

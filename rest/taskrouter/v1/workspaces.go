@@ -64,7 +64,6 @@ func (params *CreateWorkspaceParams) SetPrioritizeQueueOrder(PrioritizeQueueOrde
 	return params
 }
 
-//
 func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces"
 
@@ -107,7 +106,6 @@ func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Taskrouter
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWorkspace(Sid string) error {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -127,7 +125,6 @@ func (c *ApiService) DeleteWorkspace(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -157,20 +154,20 @@ type ListWorkspaceParams struct {
 	// The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListWorkspaceParams) SetFriendlyName(FriendlyName string) *ListWorkspaceParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListWorkspaceParams) SetPageSize(PageSize int) *ListWorkspaceParams {
+func (params *ListWorkspaceParams) SetPageSize(PageSize int64) *ListWorkspaceParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListWorkspaceParams) SetLimit(Limit int) *ListWorkspaceParams {
+func (params *ListWorkspaceParams) SetLimit(Limit int64) *ListWorkspaceParams {
 	params.Limit = &Limit
 	return params
 }
@@ -252,7 +249,7 @@ func (c *ApiService) StreamWorkspace(params *ListWorkspaceParams) (chan Taskrout
 }
 
 func (c *ApiService) streamWorkspace(response *ListWorkspaceResponse, params *ListWorkspaceParams, recordChannel chan TaskrouterV1Workspace, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Workspaces
@@ -346,7 +343,6 @@ func (params *UpdateWorkspaceParams) SetPrioritizeQueueOrder(PrioritizeQueueOrde
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

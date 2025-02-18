@@ -196,9 +196,9 @@ type ListBundleParams struct {
 	// Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
 	ValidUntilDateAfter *time.Time `json:"ValidUntilDate&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListBundleParams) SetStatus(Status string) *ListBundleParams {
@@ -245,11 +245,11 @@ func (params *ListBundleParams) SetValidUntilDateAfter(ValidUntilDateAfter time.
 	params.ValidUntilDateAfter = &ValidUntilDateAfter
 	return params
 }
-func (params *ListBundleParams) SetPageSize(PageSize int) *ListBundleParams {
+func (params *ListBundleParams) SetPageSize(PageSize int64) *ListBundleParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListBundleParams) SetLimit(Limit int) *ListBundleParams {
+func (params *ListBundleParams) SetLimit(Limit int64) *ListBundleParams {
 	params.Limit = &Limit
 	return params
 }
@@ -361,7 +361,7 @@ func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2Bundl
 }
 
 func (c *ApiService) streamBundle(response *ListBundleResponse, params *ListBundleParams, recordChannel chan NumbersV2Bundle, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

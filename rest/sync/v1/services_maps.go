@@ -46,7 +46,6 @@ func (params *CreateSyncMapParams) SetCollectionTtl(CollectionTtl int) *CreateSy
 	return params
 }
 
-//
 func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParams) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -81,7 +80,6 @@ func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParam
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -102,7 +100,6 @@ func (c *ApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -131,16 +128,16 @@ func (c *ApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1SyncMap
 // Optional parameters for the method 'ListSyncMap'
 type ListSyncMapParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListSyncMapParams) SetPageSize(PageSize int) *ListSyncMapParams {
+func (params *ListSyncMapParams) SetPageSize(PageSize int64) *ListSyncMapParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSyncMapParams) SetLimit(Limit int) *ListSyncMapParams {
+func (params *ListSyncMapParams) SetLimit(Limit int64) *ListSyncMapParams {
 	params.Limit = &Limit
 	return params
 }
@@ -221,7 +218,7 @@ func (c *ApiService) StreamSyncMap(ServiceSid string, params *ListSyncMapParams)
 }
 
 func (c *ApiService) streamSyncMap(response *ListSyncMapResponse, params *ListSyncMapParams, recordChannel chan SyncV1SyncMap, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Maps
@@ -285,7 +282,6 @@ func (params *UpdateSyncMapParams) SetCollectionTtl(CollectionTtl int) *UpdateSy
 	return params
 }
 
-//
 func (c *ApiService) UpdateSyncMap(ServiceSid string, Sid string, params *UpdateSyncMapParams) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

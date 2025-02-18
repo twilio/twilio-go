@@ -257,9 +257,9 @@ type ListHostedNumberOrderParams struct {
 	// A human readable description of this resource, up to 128 characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListHostedNumberOrderParams) SetStatus(Status string) *ListHostedNumberOrderParams {
@@ -282,11 +282,11 @@ func (params *ListHostedNumberOrderParams) SetFriendlyName(FriendlyName string) 
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListHostedNumberOrderParams) SetPageSize(PageSize int) *ListHostedNumberOrderParams {
+func (params *ListHostedNumberOrderParams) SetPageSize(PageSize int64) *ListHostedNumberOrderParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListHostedNumberOrderParams) SetLimit(Limit int) *ListHostedNumberOrderParams {
+func (params *ListHostedNumberOrderParams) SetLimit(Limit int64) *ListHostedNumberOrderParams {
 	params.Limit = &Limit
 	return params
 }
@@ -380,7 +380,7 @@ func (c *ApiService) StreamHostedNumberOrder(params *ListHostedNumberOrderParams
 }
 
 func (c *ApiService) streamHostedNumberOrder(response *ListHostedNumberOrderResponse, params *ListHostedNumberOrderParams, recordChannel chan NumbersV2HostedNumberOrder, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Items

@@ -115,16 +115,16 @@ func (c *ApiService) FetchContent(Sid string) (*ContentV1Content, error) {
 // Optional parameters for the method 'ListContent'
 type ListContentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListContentParams) SetPageSize(PageSize int) *ListContentParams {
+func (params *ListContentParams) SetPageSize(PageSize int64) *ListContentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListContentParams) SetLimit(Limit int) *ListContentParams {
+func (params *ListContentParams) SetLimit(Limit int64) *ListContentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +203,7 @@ func (c *ApiService) StreamContent(params *ListContentParams) (chan ContentV1Con
 }
 
 func (c *ApiService) streamContent(response *ListContentResponse, params *ListContentParams, recordChannel chan ContentV1Content, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Contents

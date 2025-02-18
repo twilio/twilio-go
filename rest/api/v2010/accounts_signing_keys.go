@@ -84,7 +84,6 @@ func (params *DeleteSigningKeyParams) SetPathAccountSid(PathAccountSid string) *
 	return params
 }
 
-//
 func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -120,7 +119,6 @@ func (params *FetchSigningKeyParams) SetPathAccountSid(PathAccountSid string) *F
 	return params
 }
 
-//
 func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -155,20 +153,20 @@ type ListSigningKeyParams struct {
 	//
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSigningKeyParams) SetPathAccountSid(PathAccountSid string) *ListSigningKeyParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSigningKeyParams) SetPageSize(PageSize int) *ListSigningKeyParams {
+func (params *ListSigningKeyParams) SetPageSize(PageSize int64) *ListSigningKeyParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSigningKeyParams) SetLimit(Limit int) *ListSigningKeyParams {
+func (params *ListSigningKeyParams) SetLimit(Limit int64) *ListSigningKeyParams {
 	params.Limit = &Limit
 	return params
 }
@@ -253,7 +251,7 @@ func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV20
 }
 
 func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *ListSigningKeyParams, recordChannel chan ApiV2010SigningKey, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.SigningKeys
@@ -317,7 +315,6 @@ func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

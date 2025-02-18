@@ -117,20 +117,20 @@ type ListKnowledgeParams struct {
 	//
 	AssistantId *string `json:"AssistantId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListKnowledgeParams) SetAssistantId(AssistantId string) *ListKnowledgeParams {
 	params.AssistantId = &AssistantId
 	return params
 }
-func (params *ListKnowledgeParams) SetPageSize(PageSize int) *ListKnowledgeParams {
+func (params *ListKnowledgeParams) SetPageSize(PageSize int64) *ListKnowledgeParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListKnowledgeParams) SetLimit(Limit int) *ListKnowledgeParams {
+func (params *ListKnowledgeParams) SetLimit(Limit int64) *ListKnowledgeParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +212,7 @@ func (c *ApiService) StreamKnowledge(params *ListKnowledgeParams) (chan Assistan
 }
 
 func (c *ApiService) streamKnowledge(response *ListKnowledgeResponse, params *ListKnowledgeParams, recordChannel chan AssistantsV1Knowledge, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Knowledge

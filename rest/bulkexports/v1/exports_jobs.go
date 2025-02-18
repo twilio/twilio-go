@@ -64,7 +64,6 @@ func (params *CreateExportCustomJobParams) SetEmail(Email string) *CreateExportC
 	return params
 }
 
-//
 func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateExportCustomJobParams) (*BulkexportsV1ExportCustomJob, error) {
 	path := "/v1/Exports/{ResourceType}/Jobs"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
@@ -108,7 +107,6 @@ func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateEx
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteJob(JobSid string) error {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
@@ -128,7 +126,6 @@ func (c *ApiService) DeleteJob(JobSid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchJob(JobSid string) (*BulkexportsV1Job, error) {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
@@ -156,16 +153,16 @@ func (c *ApiService) FetchJob(JobSid string) (*BulkexportsV1Job, error) {
 // Optional parameters for the method 'ListExportCustomJob'
 type ListExportCustomJobParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListExportCustomJobParams) SetPageSize(PageSize int) *ListExportCustomJobParams {
+func (params *ListExportCustomJobParams) SetPageSize(PageSize int64) *ListExportCustomJobParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListExportCustomJobParams) SetLimit(Limit int) *ListExportCustomJobParams {
+func (params *ListExportCustomJobParams) SetLimit(Limit int64) *ListExportCustomJobParams {
 	params.Limit = &Limit
 	return params
 }
@@ -246,7 +243,7 @@ func (c *ApiService) StreamExportCustomJob(ResourceType string, params *ListExpo
 }
 
 func (c *ApiService) streamExportCustomJob(response *ListExportCustomJobResponse, params *ListExportCustomJobParams, recordChannel chan BulkexportsV1ExportCustomJob, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Jobs

@@ -23,7 +23,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchTaskReservation(WorkspaceSid string, TaskSid string, Sid string) (*TaskrouterV1TaskReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -57,9 +56,9 @@ type ListTaskReservationParams struct {
 	// The SID of the reserved Worker resource to read.
 	WorkerSid *string `json:"WorkerSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListTaskReservationParams) SetReservationStatus(ReservationStatus string) *ListTaskReservationParams {
@@ -70,11 +69,11 @@ func (params *ListTaskReservationParams) SetWorkerSid(WorkerSid string) *ListTas
 	params.WorkerSid = &WorkerSid
 	return params
 }
-func (params *ListTaskReservationParams) SetPageSize(PageSize int) *ListTaskReservationParams {
+func (params *ListTaskReservationParams) SetPageSize(PageSize int64) *ListTaskReservationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTaskReservationParams) SetLimit(Limit int) *ListTaskReservationParams {
+func (params *ListTaskReservationParams) SetLimit(Limit int64) *ListTaskReservationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -162,7 +161,7 @@ func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, 
 }
 
 func (c *ApiService) streamTaskReservation(response *ListTaskReservationResponse, params *ListTaskReservationParams, recordChannel chan TaskrouterV1TaskReservation, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Reservations
@@ -544,7 +543,6 @@ func (params *UpdateTaskReservationParams) SetJitterBufferSize(JitterBufferSize 
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid string, Sid string, params *UpdateTaskReservationParams) (*TaskrouterV1TaskReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

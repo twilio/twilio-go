@@ -163,16 +163,16 @@ func (c *ApiService) FetchServiceUser(ChatServiceSid string, Sid string) (*Conve
 // Optional parameters for the method 'ListServiceUser'
 type ListServiceUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListServiceUserParams) SetPageSize(PageSize int) *ListServiceUserParams {
+func (params *ListServiceUserParams) SetPageSize(PageSize int64) *ListServiceUserParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListServiceUserParams) SetLimit(Limit int) *ListServiceUserParams {
+func (params *ListServiceUserParams) SetLimit(Limit int64) *ListServiceUserParams {
 	params.Limit = &Limit
 	return params
 }
@@ -253,7 +253,7 @@ func (c *ApiService) StreamServiceUser(ChatServiceSid string, params *ListServic
 }
 
 func (c *ApiService) streamServiceUser(response *ListServiceUserResponse, params *ListServiceUserParams, recordChannel chan ConversationsV1ServiceUser, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Users

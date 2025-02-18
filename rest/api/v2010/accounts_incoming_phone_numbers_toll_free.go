@@ -172,7 +172,6 @@ func (params *CreateIncomingPhoneNumberTollFreeParams) SetBundleSid(BundleSid st
 	return params
 }
 
-//
 func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPhoneNumberTollFreeParams) (*ApiV2010IncomingPhoneNumberTollFree, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -284,9 +283,9 @@ type ListIncomingPhoneNumberTollFreeParams struct {
 	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
 	Origin *string `json:"Origin,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberTollFreeParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberTollFreeParams {
@@ -309,11 +308,11 @@ func (params *ListIncomingPhoneNumberTollFreeParams) SetOrigin(Origin string) *L
 	params.Origin = &Origin
 	return params
 }
-func (params *ListIncomingPhoneNumberTollFreeParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberTollFreeParams {
+func (params *ListIncomingPhoneNumberTollFreeParams) SetPageSize(PageSize int64) *ListIncomingPhoneNumberTollFreeParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListIncomingPhoneNumberTollFreeParams) SetLimit(Limit int) *ListIncomingPhoneNumberTollFreeParams {
+func (params *ListIncomingPhoneNumberTollFreeParams) SetLimit(Limit int64) *ListIncomingPhoneNumberTollFreeParams {
 	params.Limit = &Limit
 	return params
 }
@@ -410,7 +409,7 @@ func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhone
 }
 
 func (c *ApiService) streamIncomingPhoneNumberTollFree(response *ListIncomingPhoneNumberTollFreeResponse, params *ListIncomingPhoneNumberTollFreeParams, recordChannel chan ApiV2010IncomingPhoneNumberTollFree, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.IncomingPhoneNumbers

@@ -30,9 +30,9 @@ type ListSentenceParams struct {
 	// Returns word level timestamps information, if word_timestamps is enabled. The default is `false`.
 	WordTimestamps *bool `json:"WordTimestamps,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSentenceParams) SetRedacted(Redacted bool) *ListSentenceParams {
@@ -43,11 +43,11 @@ func (params *ListSentenceParams) SetWordTimestamps(WordTimestamps bool) *ListSe
 	params.WordTimestamps = &WordTimestamps
 	return params
 }
-func (params *ListSentenceParams) SetPageSize(PageSize int) *ListSentenceParams {
+func (params *ListSentenceParams) SetPageSize(PageSize int64) *ListSentenceParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSentenceParams) SetLimit(Limit int) *ListSentenceParams {
+func (params *ListSentenceParams) SetLimit(Limit int64) *ListSentenceParams {
 	params.Limit = &Limit
 	return params
 }
@@ -134,7 +134,7 @@ func (c *ApiService) StreamSentence(TranscriptSid string, params *ListSentencePa
 }
 
 func (c *ApiService) streamSentence(response *ListSentenceResponse, params *ListSentenceParams, recordChannel chan IntelligenceV2Sentence, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Sentences

@@ -29,9 +29,9 @@ type ListInsightsConversationsParams struct {
 	// Unique Id of the segment for which conversation details needs to be fetched
 	SegmentId *string `json:"SegmentId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListInsightsConversationsParams) SetAuthorization(Authorization string) *ListInsightsConversationsParams {
@@ -42,11 +42,11 @@ func (params *ListInsightsConversationsParams) SetSegmentId(SegmentId string) *L
 	params.SegmentId = &SegmentId
 	return params
 }
-func (params *ListInsightsConversationsParams) SetPageSize(PageSize int) *ListInsightsConversationsParams {
+func (params *ListInsightsConversationsParams) SetPageSize(PageSize int64) *ListInsightsConversationsParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListInsightsConversationsParams) SetLimit(Limit int) *ListInsightsConversationsParams {
+func (params *ListInsightsConversationsParams) SetLimit(Limit int64) *ListInsightsConversationsParams {
 	params.Limit = &Limit
 	return params
 }
@@ -128,7 +128,7 @@ func (c *ApiService) StreamInsightsConversations(params *ListInsightsConversatio
 }
 
 func (c *ApiService) streamInsightsConversations(response *ListInsightsConversationsResponse, params *ListInsightsConversationsParams, recordChannel chan FlexV1InsightsConversations, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Conversations

@@ -23,7 +23,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1MessagingCountryInstance, error) {
 	path := "/v1/Messaging/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
@@ -51,16 +50,16 @@ func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1Messagi
 // Optional parameters for the method 'ListMessagingCountry'
 type ListMessagingCountryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListMessagingCountryParams) SetPageSize(PageSize int) *ListMessagingCountryParams {
+func (params *ListMessagingCountryParams) SetPageSize(PageSize int64) *ListMessagingCountryParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMessagingCountryParams) SetLimit(Limit int) *ListMessagingCountryParams {
+func (params *ListMessagingCountryParams) SetLimit(Limit int64) *ListMessagingCountryParams {
 	params.Limit = &Limit
 	return params
 }
@@ -139,7 +138,7 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) 
 }
 
 func (c *ApiService) streamMessagingCountry(response *ListMessagingCountryResponse, params *ListMessagingCountryParams, recordChannel chan PricingV1MessagingCountry, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Countries

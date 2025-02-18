@@ -88,7 +88,6 @@ func (params *CreateChannelParams) SetLongLived(LongLived bool) *CreateChannelPa
 	return params
 }
 
-//
 func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel, error) {
 	path := "/v1/Channels"
 
@@ -143,7 +142,6 @@ func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel,
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteChannel(Sid string) error {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -163,7 +161,6 @@ func (c *ApiService) DeleteChannel(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -191,16 +188,16 @@ func (c *ApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 // Optional parameters for the method 'ListChannel'
 type ListChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListChannelParams) SetPageSize(PageSize int) *ListChannelParams {
+func (params *ListChannelParams) SetPageSize(PageSize int64) *ListChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListChannelParams) SetLimit(Limit int) *ListChannelParams {
+func (params *ListChannelParams) SetLimit(Limit int64) *ListChannelParams {
 	params.Limit = &Limit
 	return params
 }
@@ -279,7 +276,7 @@ func (c *ApiService) StreamChannel(params *ListChannelParams) (chan FlexV1Channe
 }
 
 func (c *ApiService) streamChannel(response *ListChannelResponse, params *ListChannelParams, recordChannel chan FlexV1Channel, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.FlexChatChannels

@@ -203,16 +203,16 @@ func (c *ApiService) FetchServiceConversationParticipant(ChatServiceSid string, 
 // Optional parameters for the method 'ListServiceConversationParticipant'
 type ListServiceConversationParticipantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListServiceConversationParticipantParams) SetPageSize(PageSize int) *ListServiceConversationParticipantParams {
+func (params *ListServiceConversationParticipantParams) SetPageSize(PageSize int64) *ListServiceConversationParticipantParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListServiceConversationParticipantParams) SetLimit(Limit int) *ListServiceConversationParticipantParams {
+func (params *ListServiceConversationParticipantParams) SetLimit(Limit int64) *ListServiceConversationParticipantParams {
 	params.Limit = &Limit
 	return params
 }
@@ -294,7 +294,7 @@ func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string,
 }
 
 func (c *ApiService) streamServiceConversationParticipant(response *ListServiceConversationParticipantResponse, params *ListServiceConversationParticipantParams, recordChannel chan ConversationsV1ServiceConversationParticipant, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Participants

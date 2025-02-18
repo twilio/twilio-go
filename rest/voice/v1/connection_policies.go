@@ -34,7 +34,6 @@ func (params *CreateConnectionPolicyParams) SetFriendlyName(FriendlyName string)
 	return params
 }
 
-//
 func (c *ApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies"
 
@@ -62,7 +61,6 @@ func (c *ApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteConnectionPolicy(Sid string) error {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -82,7 +80,6 @@ func (c *ApiService) DeleteConnectionPolicy(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchConnectionPolicy(Sid string) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -110,16 +107,16 @@ func (c *ApiService) FetchConnectionPolicy(Sid string) (*VoiceV1ConnectionPolicy
 // Optional parameters for the method 'ListConnectionPolicy'
 type ListConnectionPolicyParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListConnectionPolicyParams) SetPageSize(PageSize int) *ListConnectionPolicyParams {
+func (params *ListConnectionPolicyParams) SetPageSize(PageSize int64) *ListConnectionPolicyParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListConnectionPolicyParams) SetLimit(Limit int) *ListConnectionPolicyParams {
+func (params *ListConnectionPolicyParams) SetLimit(Limit int64) *ListConnectionPolicyParams {
 	params.Limit = &Limit
 	return params
 }
@@ -198,7 +195,7 @@ func (c *ApiService) StreamConnectionPolicy(params *ListConnectionPolicyParams) 
 }
 
 func (c *ApiService) streamConnectionPolicy(response *ListConnectionPolicyResponse, params *ListConnectionPolicyParams, recordChannel chan VoiceV1ConnectionPolicy, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.ConnectionPolicies
@@ -256,7 +253,6 @@ func (params *UpdateConnectionPolicyParams) SetFriendlyName(FriendlyName string)
 	return params
 }
 
-//
 func (c *ApiService) UpdateConnectionPolicy(Sid string, params *UpdateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -54,16 +54,16 @@ func (c *ApiService) FetchServiceConversationMessageReceipt(ChatServiceSid strin
 // Optional parameters for the method 'ListServiceConversationMessageReceipt'
 type ListServiceConversationMessageReceiptParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListServiceConversationMessageReceiptParams) SetPageSize(PageSize int) *ListServiceConversationMessageReceiptParams {
+func (params *ListServiceConversationMessageReceiptParams) SetPageSize(PageSize int64) *ListServiceConversationMessageReceiptParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListServiceConversationMessageReceiptParams) SetLimit(Limit int) *ListServiceConversationMessageReceiptParams {
+func (params *ListServiceConversationMessageReceiptParams) SetLimit(Limit int64) *ListServiceConversationMessageReceiptParams {
 	params.Limit = &Limit
 	return params
 }
@@ -146,7 +146,7 @@ func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid stri
 }
 
 func (c *ApiService) streamServiceConversationMessageReceipt(response *ListServiceConversationMessageReceiptResponse, params *ListServiceConversationMessageReceiptParams, recordChannel chan ConversationsV1ServiceConversationMessageReceipt, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.DeliveryReceipts

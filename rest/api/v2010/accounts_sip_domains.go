@@ -263,20 +263,20 @@ type ListSipDomainParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSipDomainParams) SetPathAccountSid(PathAccountSid string) *ListSipDomainParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipDomainParams) SetPageSize(PageSize int) *ListSipDomainParams {
+func (params *ListSipDomainParams) SetPageSize(PageSize int64) *ListSipDomainParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSipDomainParams) SetLimit(Limit int) *ListSipDomainParams {
+func (params *ListSipDomainParams) SetLimit(Limit int64) *ListSipDomainParams {
 	params.Limit = &Limit
 	return params
 }
@@ -361,7 +361,7 @@ func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010
 }
 
 func (c *ApiService) streamSipDomain(response *ListSipDomainResponse, params *ListSipDomainParams, recordChannel chan ApiV2010SipDomain, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Domains

@@ -46,7 +46,6 @@ func (params *CreateDocumentParams) SetTtl(Ttl int) *CreateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -87,7 +86,6 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -108,7 +106,6 @@ func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -137,16 +134,16 @@ func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Docume
 // Optional parameters for the method 'ListDocument'
 type ListDocumentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListDocumentParams) SetPageSize(PageSize int) *ListDocumentParams {
+func (params *ListDocumentParams) SetPageSize(PageSize int64) *ListDocumentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListDocumentParams) SetLimit(Limit int) *ListDocumentParams {
+func (params *ListDocumentParams) SetLimit(Limit int64) *ListDocumentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -227,7 +224,7 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 }
 
 func (c *ApiService) streamDocument(response *ListDocumentResponse, params *ListDocumentParams, recordChannel chan SyncV1Document, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Documents
@@ -297,7 +294,6 @@ func (params *UpdateDocumentParams) SetTtl(Ttl int) *UpdateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

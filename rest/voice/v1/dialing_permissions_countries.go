@@ -63,9 +63,9 @@ type ListDialingPermissionsCountryParams struct {
 	// Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`.
 	HighRiskTollfraudNumbersEnabled *bool `json:"HighRiskTollfraudNumbersEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListDialingPermissionsCountryParams) SetIsoCode(IsoCode string) *ListDialingPermissionsCountryParams {
@@ -92,11 +92,11 @@ func (params *ListDialingPermissionsCountryParams) SetHighRiskTollfraudNumbersEn
 	params.HighRiskTollfraudNumbersEnabled = &HighRiskTollfraudNumbersEnabled
 	return params
 }
-func (params *ListDialingPermissionsCountryParams) SetPageSize(PageSize int) *ListDialingPermissionsCountryParams {
+func (params *ListDialingPermissionsCountryParams) SetPageSize(PageSize int64) *ListDialingPermissionsCountryParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListDialingPermissionsCountryParams) SetLimit(Limit int) *ListDialingPermissionsCountryParams {
+func (params *ListDialingPermissionsCountryParams) SetLimit(Limit int64) *ListDialingPermissionsCountryParams {
 	params.Limit = &Limit
 	return params
 }
@@ -193,7 +193,7 @@ func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissi
 }
 
 func (c *ApiService) streamDialingPermissionsCountry(response *ListDialingPermissionsCountryResponse, params *ListDialingPermissionsCountryParams, recordChannel chan VoiceV1DialingPermissionsCountry, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Content

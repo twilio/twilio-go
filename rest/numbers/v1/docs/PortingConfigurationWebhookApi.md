@@ -4,49 +4,9 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreatePortingWebhookConfiguration**](PortingConfigurationWebhookApi.md#CreatePortingWebhookConfiguration) | **Post** /v1/Porting/Configuration/Webhook | 
 [**DeletePortingWebhookConfigurationDelete**](PortingConfigurationWebhookApi.md#DeletePortingWebhookConfigurationDelete) | **Delete** /v1/Porting/Configuration/Webhook/{WebhookType} | 
 [**FetchPortingWebhookConfigurationFetch**](PortingConfigurationWebhookApi.md#FetchPortingWebhookConfigurationFetch) | **Get** /v1/Porting/Configuration/Webhook | 
 
-
-
-## CreatePortingWebhookConfiguration
-
-> NumbersV1PortingWebhookConfiguration CreatePortingWebhookConfiguration(ctx, optional)
-
-
-
-Create a Webhook Configuration
-
-### Path Parameters
-
-This endpoint does not need any path parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a CreatePortingWebhookConfigurationParams struct
-
-
-Name | Type | Description
-------------- | ------------- | -------------
-**Body** | **map[string]interface{}** | 
-
-### Return type
-
-[**NumbersV1PortingWebhookConfiguration**](NumbersV1PortingWebhookConfiguration.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## DeletePortingWebhookConfigurationDelete

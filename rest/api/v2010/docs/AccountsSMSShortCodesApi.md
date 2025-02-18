@@ -75,8 +75,8 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read.
 **FriendlyName** | **string** | The string that identifies the ShortCode resources to read.
 **ShortCode** | **string** | Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

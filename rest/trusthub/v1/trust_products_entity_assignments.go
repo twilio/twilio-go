@@ -115,20 +115,20 @@ type ListTrustProductEntityAssignmentParams struct {
 	// A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
 	ObjectType *string `json:"ObjectType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListTrustProductEntityAssignmentParams) SetObjectType(ObjectType string) *ListTrustProductEntityAssignmentParams {
 	params.ObjectType = &ObjectType
 	return params
 }
-func (params *ListTrustProductEntityAssignmentParams) SetPageSize(PageSize int) *ListTrustProductEntityAssignmentParams {
+func (params *ListTrustProductEntityAssignmentParams) SetPageSize(PageSize int64) *ListTrustProductEntityAssignmentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTrustProductEntityAssignmentParams) SetLimit(Limit int) *ListTrustProductEntityAssignmentParams {
+func (params *ListTrustProductEntityAssignmentParams) SetLimit(Limit int64) *ListTrustProductEntityAssignmentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +212,7 @@ func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, 
 }
 
 func (c *ApiService) streamTrustProductEntityAssignment(response *ListTrustProductEntityAssignmentResponse, params *ListTrustProductEntityAssignmentParams, recordChannel chan TrusthubV1TrustProductEntityAssignment, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

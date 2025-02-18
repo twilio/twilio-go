@@ -164,20 +164,20 @@ type ListFleetParams struct {
 	// The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
 	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListFleetParams) SetNetworkAccessProfile(NetworkAccessProfile string) *ListFleetParams {
 	params.NetworkAccessProfile = &NetworkAccessProfile
 	return params
 }
-func (params *ListFleetParams) SetPageSize(PageSize int) *ListFleetParams {
+func (params *ListFleetParams) SetPageSize(PageSize int64) *ListFleetParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListFleetParams) SetLimit(Limit int) *ListFleetParams {
+func (params *ListFleetParams) SetLimit(Limit int64) *ListFleetParams {
 	params.Limit = &Limit
 	return params
 }
@@ -259,7 +259,7 @@ func (c *ApiService) StreamFleet(params *ListFleetParams) (chan SupersimV1Fleet,
 }
 
 func (c *ApiService) streamFleet(response *ListFleetResponse, params *ListFleetParams, recordChannel chan SupersimV1Fleet, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Fleets

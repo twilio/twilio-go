@@ -131,16 +131,16 @@ func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*ProxyV1Ph
 // Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListPhoneNumberParams) SetPageSize(PageSize int) *ListPhoneNumberParams {
+func (params *ListPhoneNumberParams) SetPageSize(PageSize int64) *ListPhoneNumberParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListPhoneNumberParams) SetLimit(Limit int) *ListPhoneNumberParams {
+func (params *ListPhoneNumberParams) SetLimit(Limit int64) *ListPhoneNumberParams {
 	params.Limit = &Limit
 	return params
 }
@@ -221,7 +221,7 @@ func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumbe
 }
 
 func (c *ApiService) streamPhoneNumber(response *ListPhoneNumberResponse, params *ListPhoneNumberParams, recordChannel chan ProxyV1PhoneNumber, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.PhoneNumbers

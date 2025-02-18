@@ -46,7 +46,6 @@ func (params *CreateIpRecordParams) SetCidrPrefixLength(CidrPrefixLength int) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords"
 
@@ -80,7 +79,6 @@ func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRec
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteIpRecord(Sid string) error {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -100,7 +98,6 @@ func (c *ApiService) DeleteIpRecord(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -128,16 +125,16 @@ func (c *ApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) {
 // Optional parameters for the method 'ListIpRecord'
 type ListIpRecordParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListIpRecordParams) SetPageSize(PageSize int) *ListIpRecordParams {
+func (params *ListIpRecordParams) SetPageSize(PageSize int64) *ListIpRecordParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListIpRecordParams) SetLimit(Limit int) *ListIpRecordParams {
+func (params *ListIpRecordParams) SetLimit(Limit int64) *ListIpRecordParams {
 	params.Limit = &Limit
 	return params
 }
@@ -216,7 +213,7 @@ func (c *ApiService) StreamIpRecord(params *ListIpRecordParams) (chan VoiceV1IpR
 }
 
 func (c *ApiService) streamIpRecord(response *ListIpRecordResponse, params *ListIpRecordParams, recordChannel chan VoiceV1IpRecord, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.IpRecords
@@ -274,7 +271,6 @@ func (params *UpdateIpRecordParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

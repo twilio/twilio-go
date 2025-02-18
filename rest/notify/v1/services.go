@@ -112,7 +112,6 @@ func (params *CreateServiceParams) SetDeliveryCallbackEnabled(DeliveryCallbackEn
 	return params
 }
 
-//
 func (c *ApiService) CreateService(params *CreateServiceParams) (*NotifyV1Service, error) {
 	path := "/v1/Services"
 
@@ -179,7 +178,6 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*NotifyV1Servic
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -199,7 +197,6 @@ func (c *ApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchService(Sid string) (*NotifyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -229,20 +226,20 @@ type ListServiceParams struct {
 	// The string that identifies the Service resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListServiceParams) SetFriendlyName(FriendlyName string) *ListServiceParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int64) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListServiceParams) SetLimit(Limit int) *ListServiceParams {
+func (params *ListServiceParams) SetLimit(Limit int64) *ListServiceParams {
 	params.Limit = &Limit
 	return params
 }
@@ -324,7 +321,7 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan NotifyV1Serv
 }
 
 func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan NotifyV1Service, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Services
@@ -460,7 +457,6 @@ func (params *UpdateServiceParams) SetDeliveryCallbackEnabled(DeliveryCallbackEn
 	return params
 }
 
-//
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*NotifyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

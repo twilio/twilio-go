@@ -51,16 +51,16 @@ func (c *ApiService) FetchTrunkingCountry(IsoCountry string) (*PricingV2Trunking
 // Optional parameters for the method 'ListTrunkingCountry'
 type ListTrunkingCountryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListTrunkingCountryParams) SetPageSize(PageSize int) *ListTrunkingCountryParams {
+func (params *ListTrunkingCountryParams) SetPageSize(PageSize int64) *ListTrunkingCountryParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTrunkingCountryParams) SetLimit(Limit int) *ListTrunkingCountryParams {
+func (params *ListTrunkingCountryParams) SetLimit(Limit int64) *ListTrunkingCountryParams {
 	params.Limit = &Limit
 	return params
 }
@@ -139,7 +139,7 @@ func (c *ApiService) StreamTrunkingCountry(params *ListTrunkingCountryParams) (c
 }
 
 func (c *ApiService) streamTrunkingCountry(response *ListTrunkingCountryResponse, params *ListTrunkingCountryParams, recordChannel chan PricingV2TrunkingCountry, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Countries

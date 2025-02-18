@@ -89,7 +89,6 @@ func (params *CreateCompositionHookParams) SetTrim(Trim bool) *CreateComposition
 	return params
 }
 
-//
 func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks"
 
@@ -210,9 +209,9 @@ type ListCompositionHookParams struct {
 	// Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCompositionHookParams) SetEnabled(Enabled bool) *ListCompositionHookParams {
@@ -231,11 +230,11 @@ func (params *ListCompositionHookParams) SetFriendlyName(FriendlyName string) *L
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListCompositionHookParams) SetPageSize(PageSize int) *ListCompositionHookParams {
+func (params *ListCompositionHookParams) SetPageSize(PageSize int64) *ListCompositionHookParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCompositionHookParams) SetLimit(Limit int) *ListCompositionHookParams {
+func (params *ListCompositionHookParams) SetLimit(Limit int64) *ListCompositionHookParams {
 	params.Limit = &Limit
 	return params
 }
@@ -326,7 +325,7 @@ func (c *ApiService) StreamCompositionHook(params *ListCompositionHookParams) (c
 }
 
 func (c *ApiService) streamCompositionHook(response *ListCompositionHookResponse, params *ListCompositionHookParams, recordChannel chan VideoV1CompositionHook, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.CompositionHooks
@@ -438,7 +437,6 @@ func (params *UpdateCompositionHookParams) SetStatusCallbackMethod(StatusCallbac
 	return params
 }
 
-//
 func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -34,7 +34,6 @@ func (params *CreateCredentialListParams) SetCredentialListSid(CredentialListSid
 	return params
 }
 
-//
 func (c *ApiService) CreateCredentialList(TrunkSid string, params *CreateCredentialListParams) (*TrunkingV1CredentialList, error) {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -63,7 +62,6 @@ func (c *ApiService) CreateCredentialList(TrunkSid string, params *CreateCredent
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteCredentialList(TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -84,7 +82,6 @@ func (c *ApiService) DeleteCredentialList(TrunkSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchCredentialList(TrunkSid string, Sid string) (*TrunkingV1CredentialList, error) {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -113,16 +110,16 @@ func (c *ApiService) FetchCredentialList(TrunkSid string, Sid string) (*Trunking
 // Optional parameters for the method 'ListCredentialList'
 type ListCredentialListParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListCredentialListParams) SetPageSize(PageSize int) *ListCredentialListParams {
+func (params *ListCredentialListParams) SetPageSize(PageSize int64) *ListCredentialListParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCredentialListParams) SetLimit(Limit int) *ListCredentialListParams {
+func (params *ListCredentialListParams) SetLimit(Limit int64) *ListCredentialListParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +200,7 @@ func (c *ApiService) StreamCredentialList(TrunkSid string, params *ListCredentia
 }
 
 func (c *ApiService) streamCredentialList(response *ListCredentialListResponse, params *ListCredentialListParams, recordChannel chan TrunkingV1CredentialList, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.CredentialLists

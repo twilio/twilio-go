@@ -175,8 +175,8 @@ Other parameters are passed through a pointer to a ListConversationMessageParams
 Name | Type | Description
 ------------- | ------------- | -------------
 **Order** | **string** | The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

@@ -26,16 +26,16 @@ import (
 // Optional parameters for the method 'ListBillingPeriod'
 type ListBillingPeriodParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListBillingPeriodParams) SetPageSize(PageSize int) *ListBillingPeriodParams {
+func (params *ListBillingPeriodParams) SetPageSize(PageSize int64) *ListBillingPeriodParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListBillingPeriodParams) SetLimit(Limit int) *ListBillingPeriodParams {
+func (params *ListBillingPeriodParams) SetLimit(Limit int64) *ListBillingPeriodParams {
 	params.Limit = &Limit
 	return params
 }
@@ -116,7 +116,7 @@ func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPerio
 }
 
 func (c *ApiService) streamBillingPeriod(response *ListBillingPeriodResponse, params *ListBillingPeriodParams, recordChannel chan SupersimV1BillingPeriod, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.BillingPeriods

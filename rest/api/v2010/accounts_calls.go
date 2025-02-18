@@ -486,9 +486,9 @@ type ListCallParams struct {
 	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
 	EndTimeAfter *time.Time `json:"EndTime&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCallParams) SetPathAccountSid(PathAccountSid string) *ListCallParams {
@@ -535,11 +535,11 @@ func (params *ListCallParams) SetEndTimeAfter(EndTimeAfter time.Time) *ListCallP
 	params.EndTimeAfter = &EndTimeAfter
 	return params
 }
-func (params *ListCallParams) SetPageSize(PageSize int) *ListCallParams {
+func (params *ListCallParams) SetPageSize(PageSize int64) *ListCallParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCallParams) SetLimit(Limit int) *ListCallParams {
+func (params *ListCallParams) SetLimit(Limit int64) *ListCallParams {
 	params.Limit = &Limit
 	return params
 }
@@ -654,7 +654,7 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010Call, chan
 }
 
 func (c *ApiService) streamCall(response *ListCallResponse, params *ListCallParams, recordChannel chan ApiV2010Call, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Calls

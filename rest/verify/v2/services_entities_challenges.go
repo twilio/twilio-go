@@ -160,9 +160,9 @@ type ListChallengeParams struct {
 	// The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
 	Order *string `json:"Order,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListChallengeParams) SetFactorSid(FactorSid string) *ListChallengeParams {
@@ -177,11 +177,11 @@ func (params *ListChallengeParams) SetOrder(Order string) *ListChallengeParams {
 	params.Order = &Order
 	return params
 }
-func (params *ListChallengeParams) SetPageSize(PageSize int) *ListChallengeParams {
+func (params *ListChallengeParams) SetPageSize(PageSize int64) *ListChallengeParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListChallengeParams) SetLimit(Limit int) *ListChallengeParams {
+func (params *ListChallengeParams) SetLimit(Limit int64) *ListChallengeParams {
 	params.Limit = &Limit
 	return params
 }
@@ -272,7 +272,7 @@ func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params 
 }
 
 func (c *ApiService) streamChallenge(response *ListChallengeResponse, params *ListChallengeParams, recordChannel chan VerifyV2Challenge, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Challenges

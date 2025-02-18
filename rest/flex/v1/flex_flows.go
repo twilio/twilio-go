@@ -130,7 +130,6 @@ func (params *CreateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCou
 	return params
 }
 
-//
 func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows"
 
@@ -206,7 +205,6 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteFlexFlow(Sid string) error {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -226,7 +224,6 @@ func (c *ApiService) DeleteFlexFlow(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -256,20 +253,20 @@ type ListFlexFlowParams struct {
 	// The `friendly_name` of the Flex Flow resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListFlexFlowParams) SetFriendlyName(FriendlyName string) *ListFlexFlowParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListFlexFlowParams) SetPageSize(PageSize int) *ListFlexFlowParams {
+func (params *ListFlexFlowParams) SetPageSize(PageSize int64) *ListFlexFlowParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListFlexFlowParams) SetLimit(Limit int) *ListFlexFlowParams {
+func (params *ListFlexFlowParams) SetLimit(Limit int64) *ListFlexFlowParams {
 	params.Limit = &Limit
 	return params
 }
@@ -351,7 +348,7 @@ func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams) (chan FlexV1Flex
 }
 
 func (c *ApiService) streamFlexFlow(response *ListFlexFlowResponse, params *ListFlexFlowParams, recordChannel chan FlexV1FlexFlow, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.FlexFlows
@@ -505,7 +502,6 @@ func (params *UpdateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCou
 	return params
 }
 
-//
 func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

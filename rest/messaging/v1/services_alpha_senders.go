@@ -34,7 +34,6 @@ func (params *CreateAlphaSenderParams) SetAlphaSender(AlphaSender string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSenderParams) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -63,7 +62,6 @@ func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSen
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteAlphaSender(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -84,7 +82,6 @@ func (c *ApiService) DeleteAlphaSender(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchAlphaSender(ServiceSid string, Sid string) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -113,16 +110,16 @@ func (c *ApiService) FetchAlphaSender(ServiceSid string, Sid string) (*Messaging
 // Optional parameters for the method 'ListAlphaSender'
 type ListAlphaSenderParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListAlphaSenderParams) SetPageSize(PageSize int) *ListAlphaSenderParams {
+func (params *ListAlphaSenderParams) SetPageSize(PageSize int64) *ListAlphaSenderParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAlphaSenderParams) SetLimit(Limit int) *ListAlphaSenderParams {
+func (params *ListAlphaSenderParams) SetLimit(Limit int64) *ListAlphaSenderParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +200,7 @@ func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSende
 }
 
 func (c *ApiService) streamAlphaSender(response *ListAlphaSenderResponse, params *ListAlphaSenderParams, recordChannel chan MessagingV1AlphaSender, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.AlphaSenders

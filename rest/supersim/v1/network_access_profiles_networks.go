@@ -113,16 +113,16 @@ func (c *ApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid st
 // Optional parameters for the method 'ListNetworkAccessProfileNetwork'
 type ListNetworkAccessProfileNetworkParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListNetworkAccessProfileNetworkParams) SetPageSize(PageSize int) *ListNetworkAccessProfileNetworkParams {
+func (params *ListNetworkAccessProfileNetworkParams) SetPageSize(PageSize int64) *ListNetworkAccessProfileNetworkParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListNetworkAccessProfileNetworkParams) SetLimit(Limit int) *ListNetworkAccessProfileNetworkParams {
+func (params *ListNetworkAccessProfileNetworkParams) SetLimit(Limit int64) *ListNetworkAccessProfileNetworkParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +203,7 @@ func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 }
 
 func (c *ApiService) streamNetworkAccessProfileNetwork(response *ListNetworkAccessProfileNetworkResponse, params *ListNetworkAccessProfileNetworkParams, recordChannel chan SupersimV1NetworkAccessProfileNetwork, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Networks

@@ -46,7 +46,6 @@ func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessa
 	return params
 }
 
-//
 func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*IpMessagingV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -82,7 +81,6 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -104,7 +102,6 @@ func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid str
 	return nil
 }
 
-//
 func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -136,20 +133,20 @@ type ListMessageParams struct {
 	//
 	Order *string `json:"Order,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListMessageParams) SetOrder(Order string) *ListMessageParams {
 	params.Order = &Order
 	return params
 }
-func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
+func (params *ListMessageParams) SetPageSize(PageSize int64) *ListMessageParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMessageParams) SetLimit(Limit int) *ListMessageParams {
+func (params *ListMessageParams) SetLimit(Limit int64) *ListMessageParams {
 	params.Limit = &Limit
 	return params
 }
@@ -234,7 +231,7 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 }
 
 func (c *ApiService) streamMessage(response *ListMessageResponse, params *ListMessageParams, recordChannel chan IpMessagingV1Message, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Messages
@@ -298,7 +295,6 @@ func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessa
 	return params
 }
 
-//
 func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*IpMessagingV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

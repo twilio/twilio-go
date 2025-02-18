@@ -64,7 +64,6 @@ func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivity
 	return params
 }
 
-//
 func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -108,7 +107,6 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -129,7 +127,6 @@ func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -166,9 +163,9 @@ type ListTaskQueueParams struct {
 	// Sorting parameter for TaskQueues
 	Ordering *string `json:"Ordering,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListTaskQueueParams) SetFriendlyName(FriendlyName string) *ListTaskQueueParams {
@@ -187,11 +184,11 @@ func (params *ListTaskQueueParams) SetOrdering(Ordering string) *ListTaskQueuePa
 	params.Ordering = &Ordering
 	return params
 }
-func (params *ListTaskQueueParams) SetPageSize(PageSize int) *ListTaskQueueParams {
+func (params *ListTaskQueueParams) SetPageSize(PageSize int64) *ListTaskQueueParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTaskQueueParams) SetLimit(Limit int) *ListTaskQueueParams {
+func (params *ListTaskQueueParams) SetLimit(Limit int64) *ListTaskQueueParams {
 	params.Limit = &Limit
 	return params
 }
@@ -284,7 +281,7 @@ func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueP
 }
 
 func (c *ApiService) streamTaskQueue(response *ListTaskQueueResponse, params *ListTaskQueueParams, recordChannel chan TaskrouterV1TaskQueue, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.TaskQueues
@@ -372,7 +369,6 @@ func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQ
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

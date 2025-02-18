@@ -59,7 +59,6 @@ func (params *FetchTaskQueueStatisticsParams) SetSplitByWaitTime(SplitByWaitTime
 	return params
 }
 
-//
 func (c *ApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueStatisticsParams) (*TaskrouterV1TaskQueueStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -116,9 +115,9 @@ type ListTaskQueuesStatisticsParams struct {
 	// A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
 	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListTaskQueuesStatisticsParams) SetEndDate(EndDate time.Time) *ListTaskQueuesStatisticsParams {
@@ -145,11 +144,11 @@ func (params *ListTaskQueuesStatisticsParams) SetSplitByWaitTime(SplitByWaitTime
 	params.SplitByWaitTime = &SplitByWaitTime
 	return params
 }
-func (params *ListTaskQueuesStatisticsParams) SetPageSize(PageSize int) *ListTaskQueuesStatisticsParams {
+func (params *ListTaskQueuesStatisticsParams) SetPageSize(PageSize int64) *ListTaskQueuesStatisticsParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTaskQueuesStatisticsParams) SetLimit(Limit int) *ListTaskQueuesStatisticsParams {
+func (params *ListTaskQueuesStatisticsParams) SetLimit(Limit int64) *ListTaskQueuesStatisticsParams {
 	params.Limit = &Limit
 	return params
 }
@@ -248,7 +247,7 @@ func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *Lis
 }
 
 func (c *ApiService) streamTaskQueuesStatistics(response *ListTaskQueuesStatisticsResponse, params *ListTaskQueuesStatisticsParams, recordChannel chan TaskrouterV1TaskQueuesStatistics, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.TaskQueuesStatistics

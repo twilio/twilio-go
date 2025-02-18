@@ -30,7 +30,6 @@ func (params *CreateBulkContactsParams) SetItems(Items []interface{}) *CreateBul
 	return params
 }
 
-//
 func (c *ApiService) CreateBulkContacts(params *CreateBulkContactsParams) (*AccountsV1BulkContacts, error) {
 	path := "/v1/Contacts/Bulk"
 

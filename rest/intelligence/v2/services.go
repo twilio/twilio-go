@@ -182,16 +182,16 @@ func (c *ApiService) FetchService(Sid string) (*IntelligenceV2Service, error) {
 // Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int64) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListServiceParams) SetLimit(Limit int) *ListServiceParams {
+func (params *ListServiceParams) SetLimit(Limit int64) *ListServiceParams {
 	params.Limit = &Limit
 	return params
 }
@@ -270,7 +270,7 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan Intelligence
 }
 
 func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan IntelligenceV2Service, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Services

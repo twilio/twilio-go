@@ -94,9 +94,9 @@ type ListAccountParams struct {
 	// Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListAccountParams) SetFriendlyName(FriendlyName string) *ListAccountParams {
@@ -107,11 +107,11 @@ func (params *ListAccountParams) SetStatus(Status string) *ListAccountParams {
 	params.Status = &Status
 	return params
 }
-func (params *ListAccountParams) SetPageSize(PageSize int) *ListAccountParams {
+func (params *ListAccountParams) SetPageSize(PageSize int64) *ListAccountParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAccountParams) SetLimit(Limit int) *ListAccountParams {
+func (params *ListAccountParams) SetLimit(Limit int64) *ListAccountParams {
 	params.Limit = &Limit
 	return params
 }
@@ -196,7 +196,7 @@ func (c *ApiService) StreamAccount(params *ListAccountParams) (chan ApiV2010Acco
 }
 
 func (c *ApiService) streamAccount(response *ListAccountResponse, params *ListAccountParams, recordChannel chan ApiV2010Account, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Accounts

@@ -68,16 +68,16 @@ func (c *ApiService) DeleteAssistantToolAttachment(AssistantId string, Id string
 // Optional parameters for the method 'ListToolsByAssistant'
 type ListToolsByAssistantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListToolsByAssistantParams) SetPageSize(PageSize int) *ListToolsByAssistantParams {
+func (params *ListToolsByAssistantParams) SetPageSize(PageSize int64) *ListToolsByAssistantParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListToolsByAssistantParams) SetLimit(Limit int) *ListToolsByAssistantParams {
+func (params *ListToolsByAssistantParams) SetLimit(Limit int64) *ListToolsByAssistantParams {
 	params.Limit = &Limit
 	return params
 }
@@ -158,7 +158,7 @@ func (c *ApiService) StreamToolsByAssistant(AssistantId string, params *ListTool
 }
 
 func (c *ApiService) streamToolsByAssistant(response *ListToolsByAssistantResponse, params *ListToolsByAssistantParams, recordChannel chan AssistantsV1Tool, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Tools

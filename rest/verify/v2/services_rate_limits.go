@@ -122,16 +122,16 @@ func (c *ApiService) FetchRateLimit(ServiceSid string, Sid string) (*VerifyV2Rat
 // Optional parameters for the method 'ListRateLimit'
 type ListRateLimitParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListRateLimitParams) SetPageSize(PageSize int) *ListRateLimitParams {
+func (params *ListRateLimitParams) SetPageSize(PageSize int64) *ListRateLimitParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRateLimitParams) SetLimit(Limit int) *ListRateLimitParams {
+func (params *ListRateLimitParams) SetLimit(Limit int64) *ListRateLimitParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +212,7 @@ func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitPar
 }
 
 func (c *ApiService) streamRateLimit(response *ListRateLimitResponse, params *ListRateLimitParams, recordChannel chan VerifyV2RateLimit, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.RateLimits

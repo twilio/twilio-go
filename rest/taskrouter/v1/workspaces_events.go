@@ -24,7 +24,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1Event, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Events/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -75,9 +74,9 @@ type ListEventParams struct {
 	// The SID of the Event resource to read.
 	Sid *string `json:"Sid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListEventParams) SetEndDate(EndDate time.Time) *ListEventParams {
@@ -124,11 +123,11 @@ func (params *ListEventParams) SetSid(Sid string) *ListEventParams {
 	params.Sid = &Sid
 	return params
 }
-func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
+func (params *ListEventParams) SetPageSize(PageSize int64) *ListEventParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
+func (params *ListEventParams) SetLimit(Limit int64) *ListEventParams {
 	params.Limit = &Limit
 	return params
 }
@@ -242,7 +241,7 @@ func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams) (
 }
 
 func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventParams, recordChannel chan TaskrouterV1Event, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Events

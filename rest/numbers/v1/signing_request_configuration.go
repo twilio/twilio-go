@@ -22,50 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// Optional parameters for the method 'CreateSigningRequestConfiguration'
-type CreateSigningRequestConfigurationParams struct {
-	//
-	Body *map[string]interface{} `json:"body,omitempty"`
-}
-
-func (params *CreateSigningRequestConfigurationParams) SetBody(Body map[string]interface{}) *CreateSigningRequestConfigurationParams {
-	params.Body = &Body
-	return params
-}
-
-// Synchronous operation to insert or update a configuration for the customer.
-func (c *ApiService) CreateSigningRequestConfiguration(params *CreateSigningRequestConfigurationParams) (*NumbersV1SigningRequestConfiguration, error) {
-	path := "/v1/SigningRequest/Configuration"
-
-	data := url.Values{}
-	headers := map[string]interface{}{
-		"Content-Type": "application/json",
-	}
-
-	body := []byte{}
-	if params != nil && params.Body != nil {
-		b, err := json.Marshal(*params.Body)
-		if err != nil {
-			return nil, err
-		}
-		body = b
-	}
-
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &NumbersV1SigningRequestConfiguration{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
-}
-
 // Optional parameters for the method 'ListSigningRequestConfiguration'
 type ListSigningRequestConfigurationParams struct {
 	// The country ISO code to apply this configuration, this is an optional field, Example: US, MX
@@ -73,9 +29,9 @@ type ListSigningRequestConfigurationParams struct {
 	// The product or service for which is requesting the signature, this is an optional field, Example: Porting, Hosting
 	Product *string `json:"Product,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSigningRequestConfigurationParams) SetCountry(Country string) *ListSigningRequestConfigurationParams {
@@ -86,11 +42,11 @@ func (params *ListSigningRequestConfigurationParams) SetProduct(Product string) 
 	params.Product = &Product
 	return params
 }
-func (params *ListSigningRequestConfigurationParams) SetPageSize(PageSize int) *ListSigningRequestConfigurationParams {
+func (params *ListSigningRequestConfigurationParams) SetPageSize(PageSize int64) *ListSigningRequestConfigurationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSigningRequestConfigurationParams) SetLimit(Limit int) *ListSigningRequestConfigurationParams {
+func (params *ListSigningRequestConfigurationParams) SetLimit(Limit int64) *ListSigningRequestConfigurationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -175,7 +131,7 @@ func (c *ApiService) StreamSigningRequestConfiguration(params *ListSigningReques
 }
 
 func (c *ApiService) streamSigningRequestConfiguration(response *ListSigningRequestConfigurationResponse, params *ListSigningRequestConfigurationParams, recordChannel chan NumbersV1SigningRequestConfiguration, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Configurations

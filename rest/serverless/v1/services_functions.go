@@ -113,16 +113,16 @@ func (c *ApiService) FetchFunction(ServiceSid string, Sid string) (*ServerlessV1
 // Optional parameters for the method 'ListFunction'
 type ListFunctionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListFunctionParams) SetPageSize(PageSize int) *ListFunctionParams {
+func (params *ListFunctionParams) SetPageSize(PageSize int64) *ListFunctionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListFunctionParams) SetLimit(Limit int) *ListFunctionParams {
+func (params *ListFunctionParams) SetLimit(Limit int64) *ListFunctionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +203,7 @@ func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParam
 }
 
 func (c *ApiService) streamFunction(response *ListFunctionResponse, params *ListFunctionParams, recordChannel chan ServerlessV1Function, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Functions

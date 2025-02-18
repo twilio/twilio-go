@@ -129,8 +129,8 @@ Name | Type | Description
 **UniqueName** | **string** | Read only rooms with the this `unique_name`.
 **DateCreatedAfter** | **time.Time** | Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
 **DateCreatedBefore** | **time.Time** | Read only rooms that started before this date, given as `YYYY-MM-DD`.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

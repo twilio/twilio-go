@@ -134,16 +134,16 @@ func (c *ApiService) FetchEndUser(Sid string) (*TrusthubV1EndUser, error) {
 // Optional parameters for the method 'ListEndUser'
 type ListEndUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListEndUserParams) SetPageSize(PageSize int) *ListEndUserParams {
+func (params *ListEndUserParams) SetPageSize(PageSize int64) *ListEndUserParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListEndUserParams) SetLimit(Limit int) *ListEndUserParams {
+func (params *ListEndUserParams) SetLimit(Limit int64) *ListEndUserParams {
 	params.Limit = &Limit
 	return params
 }
@@ -222,7 +222,7 @@ func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan TrusthubV1En
 }
 
 func (c *ApiService) streamEndUser(response *ListEndUserResponse, params *ListEndUserParams, recordChannel chan TrusthubV1EndUser, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

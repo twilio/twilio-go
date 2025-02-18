@@ -174,8 +174,8 @@ Name | Type | Description
 **PhoneNumber** | **string** | An E164 formatted phone number hosted by this HostedNumberOrder.
 **IncomingPhoneNumberSid** | **string** | A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
 **FriendlyName** | **string** | A human readable description of this resource, up to 128 characters.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

@@ -71,16 +71,16 @@ func (c *ApiService) CreateFeedback(Id string, params *CreateFeedbackParams) (*A
 // Optional parameters for the method 'ListFeedback'
 type ListFeedbackParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListFeedbackParams) SetPageSize(PageSize int) *ListFeedbackParams {
+func (params *ListFeedbackParams) SetPageSize(PageSize int64) *ListFeedbackParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListFeedbackParams) SetLimit(Limit int) *ListFeedbackParams {
+func (params *ListFeedbackParams) SetLimit(Limit int64) *ListFeedbackParams {
 	params.Limit = &Limit
 	return params
 }
@@ -161,7 +161,7 @@ func (c *ApiService) StreamFeedback(Id string, params *ListFeedbackParams) (chan
 }
 
 func (c *ApiService) streamFeedback(response *ListFeedbacksResponse, params *ListFeedbackParams, recordChannel chan AssistantsV1Feedback, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Feedbacks

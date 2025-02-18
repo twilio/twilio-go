@@ -143,9 +143,9 @@ type ListIpCommandParams struct {
 	// The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
 	Direction *string `json:"Direction,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListIpCommandParams) SetSim(Sim string) *ListIpCommandParams {
@@ -164,11 +164,11 @@ func (params *ListIpCommandParams) SetDirection(Direction string) *ListIpCommand
 	params.Direction = &Direction
 	return params
 }
-func (params *ListIpCommandParams) SetPageSize(PageSize int) *ListIpCommandParams {
+func (params *ListIpCommandParams) SetPageSize(PageSize int64) *ListIpCommandParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListIpCommandParams) SetLimit(Limit int) *ListIpCommandParams {
+func (params *ListIpCommandParams) SetLimit(Limit int64) *ListIpCommandParams {
 	params.Limit = &Limit
 	return params
 }
@@ -259,7 +259,7 @@ func (c *ApiService) StreamIpCommand(params *ListIpCommandParams) (chan Supersim
 }
 
 func (c *ApiService) streamIpCommand(response *ListIpCommandResponse, params *ListIpCommandParams, recordChannel chan SupersimV1IpCommand, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.IpCommands

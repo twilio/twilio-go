@@ -40,7 +40,6 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 	return params
 }
 
-//
 func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*IpMessagingV1Invite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -73,7 +72,6 @@ func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -95,7 +93,6 @@ func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid stri
 	return nil
 }
 
-//
 func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1Invite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -127,20 +124,20 @@ type ListInviteParams struct {
 	//
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListInviteParams) SetIdentity(Identity []string) *ListInviteParams {
 	params.Identity = &Identity
 	return params
 }
-func (params *ListInviteParams) SetPageSize(PageSize int) *ListInviteParams {
+func (params *ListInviteParams) SetPageSize(PageSize int64) *ListInviteParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListInviteParams) SetLimit(Limit int) *ListInviteParams {
+func (params *ListInviteParams) SetLimit(Limit int64) *ListInviteParams {
 	params.Limit = &Limit
 	return params
 }
@@ -227,7 +224,7 @@ func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *
 }
 
 func (c *ApiService) streamInvite(response *ListInviteResponse, params *ListInviteParams, recordChannel chan IpMessagingV1Invite, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Invites

@@ -103,16 +103,16 @@ func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, S
 // Optional parameters for the method 'ListDeployment'
 type ListDeploymentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListDeploymentParams) SetPageSize(PageSize int) *ListDeploymentParams {
+func (params *ListDeploymentParams) SetPageSize(PageSize int64) *ListDeploymentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListDeploymentParams) SetLimit(Limit int) *ListDeploymentParams {
+func (params *ListDeploymentParams) SetLimit(Limit int64) *ListDeploymentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -194,7 +194,7 @@ func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, 
 }
 
 func (c *ApiService) streamDeployment(response *ListDeploymentResponse, params *ListDeploymentParams, recordChannel chan ServerlessV1Deployment, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Deployments

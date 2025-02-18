@@ -233,9 +233,9 @@ type ListServiceConversationParams struct {
 	// State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
 	State *string `json:"State,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListServiceConversationParams) SetStartDate(StartDate string) *ListServiceConversationParams {
@@ -250,11 +250,11 @@ func (params *ListServiceConversationParams) SetState(State string) *ListService
 	params.State = &State
 	return params
 }
-func (params *ListServiceConversationParams) SetPageSize(PageSize int) *ListServiceConversationParams {
+func (params *ListServiceConversationParams) SetPageSize(PageSize int64) *ListServiceConversationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListServiceConversationParams) SetLimit(Limit int) *ListServiceConversationParams {
+func (params *ListServiceConversationParams) SetLimit(Limit int64) *ListServiceConversationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -344,7 +344,7 @@ func (c *ApiService) StreamServiceConversation(ChatServiceSid string, params *Li
 }
 
 func (c *ApiService) streamServiceConversation(response *ListServiceConversationResponse, params *ListServiceConversationParams, recordChannel chan ConversationsV1ServiceConversation, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Conversations

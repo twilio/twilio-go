@@ -70,7 +70,6 @@ func (params *CreateBindingParams) SetEndpoint(Endpoint string) *CreateBindingPa
 	return params
 }
 
-//
 func (c *ApiService) CreateBinding(ServiceSid string, params *CreateBindingParams) (*NotifyV1Binding, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -119,7 +118,6 @@ func (c *ApiService) CreateBinding(ServiceSid string, params *CreateBindingParam
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -140,7 +138,6 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*NotifyV1Binding, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -177,9 +174,9 @@ type ListBindingParams struct {
 	// Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
 	Tag *[]string `json:"Tag,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListBindingParams) SetStartDate(StartDate string) *ListBindingParams {
@@ -198,11 +195,11 @@ func (params *ListBindingParams) SetTag(Tag []string) *ListBindingParams {
 	params.Tag = &Tag
 	return params
 }
-func (params *ListBindingParams) SetPageSize(PageSize int) *ListBindingParams {
+func (params *ListBindingParams) SetPageSize(PageSize int64) *ListBindingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListBindingParams) SetLimit(Limit int) *ListBindingParams {
+func (params *ListBindingParams) SetLimit(Limit int64) *ListBindingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -299,7 +296,7 @@ func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams)
 }
 
 func (c *ApiService) streamBinding(response *ListBindingResponse, params *ListBindingParams, recordChannel chan NotifyV1Binding, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Bindings

@@ -34,7 +34,6 @@ func (params *CreateShortCodeParams) SetShortCodeSid(ShortCodeSid string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -63,7 +62,6 @@ func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeP
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -84,7 +82,6 @@ func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -113,16 +110,16 @@ func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1
 // Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListShortCodeParams) SetPageSize(PageSize int) *ListShortCodeParams {
+func (params *ListShortCodeParams) SetPageSize(PageSize int64) *ListShortCodeParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListShortCodeParams) SetLimit(Limit int) *ListShortCodeParams {
+func (params *ListShortCodeParams) SetLimit(Limit int64) *ListShortCodeParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +200,7 @@ func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodePar
 }
 
 func (c *ApiService) streamShortCode(response *ListShortCodeResponse, params *ListShortCodeParams, recordChannel chan MessagingV1ShortCode, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.ShortCodes

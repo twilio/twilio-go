@@ -71,16 +71,16 @@ func (c *ApiService) FetchApp(Sid string) (*MicrovisorV1App, error) {
 // Optional parameters for the method 'ListApp'
 type ListAppParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListAppParams) SetPageSize(PageSize int) *ListAppParams {
+func (params *ListAppParams) SetPageSize(PageSize int64) *ListAppParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAppParams) SetLimit(Limit int) *ListAppParams {
+func (params *ListAppParams) SetLimit(Limit int64) *ListAppParams {
 	params.Limit = &Limit
 	return params
 }
@@ -159,7 +159,7 @@ func (c *ApiService) StreamApp(params *ListAppParams) (chan MicrovisorV1App, cha
 }
 
 func (c *ApiService) streamApp(response *ListAppResponse, params *ListAppParams, recordChannel chan MicrovisorV1App, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Apps

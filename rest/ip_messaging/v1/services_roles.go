@@ -46,7 +46,6 @@ func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRolePa
 	return params
 }
 
-//
 func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*IpMessagingV1Role, error) {
 	path := "/v1/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -83,7 +82,6 @@ func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*I
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -104,7 +102,6 @@ func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV1Role, error) {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -133,16 +130,16 @@ func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV1Rol
 // Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListRoleParams) SetPageSize(PageSize int) *ListRoleParams {
+func (params *ListRoleParams) SetPageSize(PageSize int64) *ListRoleParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRoleParams) SetLimit(Limit int) *ListRoleParams {
+func (params *ListRoleParams) SetLimit(Limit int64) *ListRoleParams {
 	params.Limit = &Limit
 	return params
 }
@@ -223,7 +220,7 @@ func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan
 }
 
 func (c *ApiService) streamRole(response *ListRoleResponse, params *ListRoleParams, recordChannel chan IpMessagingV1Role, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Roles
@@ -281,7 +278,6 @@ func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRolePa
 	return params
 }
 
-//
 func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*IpMessagingV1Role, error) {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

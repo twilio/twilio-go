@@ -113,16 +113,16 @@ func (c *ApiService) FetchAsset(ServiceSid string, Sid string) (*ServerlessV1Ass
 // Optional parameters for the method 'ListAsset'
 type ListAssetParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListAssetParams) SetPageSize(PageSize int) *ListAssetParams {
+func (params *ListAssetParams) SetPageSize(PageSize int64) *ListAssetParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAssetParams) SetLimit(Limit int) *ListAssetParams {
+func (params *ListAssetParams) SetLimit(Limit int64) *ListAssetParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +203,7 @@ func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams) (ch
 }
 
 func (c *ApiService) streamAsset(response *ListAssetResponse, params *ListAssetParams, recordChannel chan ServerlessV1Asset, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Assets

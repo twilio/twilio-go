@@ -123,8 +123,8 @@ Other parameters are passed through a pointer to a ListUserBindingParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **BindingType** | [**[]UserBindingEnumBindingType**](UserBindingEnumBindingType.md) | The push technology used by the User Binding resources to read. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

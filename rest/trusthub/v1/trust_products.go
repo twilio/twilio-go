@@ -143,9 +143,9 @@ type ListTrustProductParams struct {
 	// The unique string of a policy that is associated to the Trust Product resource.
 	PolicySid *string `json:"PolicySid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListTrustProductParams) SetStatus(Status string) *ListTrustProductParams {
@@ -160,11 +160,11 @@ func (params *ListTrustProductParams) SetPolicySid(PolicySid string) *ListTrustP
 	params.PolicySid = &PolicySid
 	return params
 }
-func (params *ListTrustProductParams) SetPageSize(PageSize int) *ListTrustProductParams {
+func (params *ListTrustProductParams) SetPageSize(PageSize int64) *ListTrustProductParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTrustProductParams) SetLimit(Limit int) *ListTrustProductParams {
+func (params *ListTrustProductParams) SetLimit(Limit int64) *ListTrustProductParams {
 	params.Limit = &Limit
 	return params
 }
@@ -252,7 +252,7 @@ func (c *ApiService) StreamTrustProduct(params *ListTrustProductParams) (chan Tr
 }
 
 func (c *ApiService) streamTrustProduct(response *ListTrustProductResponse, params *ListTrustProductParams, recordChannel chan TrusthubV1TrustProduct, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

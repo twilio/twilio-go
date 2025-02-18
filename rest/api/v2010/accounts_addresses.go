@@ -94,7 +94,6 @@ func (params *CreateAddressParams) SetStreetSecondary(StreetSecondary string) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -165,7 +164,6 @@ func (params *DeleteAddressParams) SetPathAccountSid(PathAccountSid string) *Del
 	return params
 }
 
-//
 func (c *ApiService) DeleteAddress(Sid string, params *DeleteAddressParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -201,7 +199,6 @@ func (params *FetchAddressParams) SetPathAccountSid(PathAccountSid string) *Fetc
 	return params
 }
 
-//
 func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -242,9 +239,9 @@ type ListAddressParams struct {
 	// The ISO country code of the Address resources to read.
 	IsoCountry *string `json:"IsoCountry,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListAddressParams) SetPathAccountSid(PathAccountSid string) *ListAddressParams {
@@ -263,11 +260,11 @@ func (params *ListAddressParams) SetIsoCountry(IsoCountry string) *ListAddressPa
 	params.IsoCountry = &IsoCountry
 	return params
 }
-func (params *ListAddressParams) SetPageSize(PageSize int) *ListAddressParams {
+func (params *ListAddressParams) SetPageSize(PageSize int64) *ListAddressParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAddressParams) SetLimit(Limit int) *ListAddressParams {
+func (params *ListAddressParams) SetLimit(Limit int64) *ListAddressParams {
 	params.Limit = &Limit
 	return params
 }
@@ -361,7 +358,7 @@ func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Addr
 }
 
 func (c *ApiService) streamAddress(response *ListAddressResponse, params *ListAddressParams, recordChannel chan ApiV2010Address, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Addresses
@@ -473,7 +470,6 @@ func (params *UpdateAddressParams) SetStreetSecondary(StreetSecondary string) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

@@ -167,20 +167,20 @@ type ListSipCredentialParams struct {
 	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSipCredentialParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipCredentialParams) SetPageSize(PageSize int) *ListSipCredentialParams {
+func (params *ListSipCredentialParams) SetPageSize(PageSize int64) *ListSipCredentialParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSipCredentialParams) SetLimit(Limit int) *ListSipCredentialParams {
+func (params *ListSipCredentialParams) SetLimit(Limit int64) *ListSipCredentialParams {
 	params.Limit = &Limit
 	return params
 }
@@ -266,7 +266,7 @@ func (c *ApiService) StreamSipCredential(CredentialListSid string, params *ListS
 }
 
 func (c *ApiService) streamSipCredential(response *ListSipCredentialResponse, params *ListSipCredentialParams, recordChannel chan ApiV2010SipCredential, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Credentials

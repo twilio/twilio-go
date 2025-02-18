@@ -155,20 +155,20 @@ type ListSipIpAccessControlListParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSipIpAccessControlListParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAccessControlListParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipIpAccessControlListParams) SetPageSize(PageSize int) *ListSipIpAccessControlListParams {
+func (params *ListSipIpAccessControlListParams) SetPageSize(PageSize int64) *ListSipIpAccessControlListParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSipIpAccessControlListParams) SetLimit(Limit int) *ListSipIpAccessControlListParams {
+func (params *ListSipIpAccessControlListParams) SetLimit(Limit int64) *ListSipIpAccessControlListParams {
 	params.Limit = &Limit
 	return params
 }
@@ -253,7 +253,7 @@ func (c *ApiService) StreamSipIpAccessControlList(params *ListSipIpAccessControl
 }
 
 func (c *ApiService) streamSipIpAccessControlList(response *ListSipIpAccessControlListResponse, params *ListSipIpAccessControlListParams, recordChannel chan ApiV2010SipIpAccessControlList, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.IpAccessControlLists

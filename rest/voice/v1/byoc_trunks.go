@@ -88,7 +88,6 @@ func (params *CreateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *Cre
 	return params
 }
 
-//
 func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks"
 
@@ -143,7 +142,6 @@ func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1Byo
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteByocTrunk(Sid string) error {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -163,7 +161,6 @@ func (c *ApiService) DeleteByocTrunk(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -191,16 +188,16 @@ func (c *ApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 // Optional parameters for the method 'ListByocTrunk'
 type ListByocTrunkParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListByocTrunkParams) SetPageSize(PageSize int) *ListByocTrunkParams {
+func (params *ListByocTrunkParams) SetPageSize(PageSize int64) *ListByocTrunkParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListByocTrunkParams) SetLimit(Limit int) *ListByocTrunkParams {
+func (params *ListByocTrunkParams) SetLimit(Limit int64) *ListByocTrunkParams {
 	params.Limit = &Limit
 	return params
 }
@@ -279,7 +276,7 @@ func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams) (chan VoiceV1B
 }
 
 func (c *ApiService) streamByocTrunk(response *ListByocTrunkResponse, params *ListByocTrunkParams, recordChannel chan VoiceV1ByocTrunk, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.ByocTrunks
@@ -391,7 +388,6 @@ func (params *UpdateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *Upd
 	return params
 }
 
-//
 func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -123,9 +123,9 @@ type ListSmsCommandParams struct {
 	// The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
 	Direction *string `json:"Direction,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSmsCommandParams) SetSim(Sim string) *ListSmsCommandParams {
@@ -140,11 +140,11 @@ func (params *ListSmsCommandParams) SetDirection(Direction string) *ListSmsComma
 	params.Direction = &Direction
 	return params
 }
-func (params *ListSmsCommandParams) SetPageSize(PageSize int) *ListSmsCommandParams {
+func (params *ListSmsCommandParams) SetPageSize(PageSize int64) *ListSmsCommandParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSmsCommandParams) SetLimit(Limit int) *ListSmsCommandParams {
+func (params *ListSmsCommandParams) SetLimit(Limit int64) *ListSmsCommandParams {
 	params.Limit = &Limit
 	return params
 }
@@ -232,7 +232,7 @@ func (c *ApiService) StreamSmsCommand(params *ListSmsCommandParams) (chan Supers
 }
 
 func (c *ApiService) streamSmsCommand(response *ListSmsCommandResponse, params *ListSmsCommandParams, recordChannel chan SupersimV1SmsCommand, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.SmsCommands

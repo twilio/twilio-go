@@ -34,7 +34,6 @@ func (params *FetchCallNotificationParams) SetPathAccountSid(PathAccountSid stri
 	return params
 }
 
-//
 func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *FetchCallNotificationParams) (*ApiV2010CallNotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -78,9 +77,9 @@ type ListCallNotificationParams struct {
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 	MessageDateAfter *string `json:"MessageDate&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCallNotificationParams) SetPathAccountSid(PathAccountSid string) *ListCallNotificationParams {
@@ -103,11 +102,11 @@ func (params *ListCallNotificationParams) SetMessageDateAfter(MessageDateAfter s
 	params.MessageDateAfter = &MessageDateAfter
 	return params
 }
-func (params *ListCallNotificationParams) SetPageSize(PageSize int) *ListCallNotificationParams {
+func (params *ListCallNotificationParams) SetPageSize(PageSize int64) *ListCallNotificationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCallNotificationParams) SetLimit(Limit int) *ListCallNotificationParams {
+func (params *ListCallNotificationParams) SetLimit(Limit int64) *ListCallNotificationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -205,7 +204,7 @@ func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNoti
 }
 
 func (c *ApiService) streamCallNotification(response *ListCallNotificationResponse, params *ListCallNotificationParams, recordChannel chan ApiV2010CallNotification, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Notifications

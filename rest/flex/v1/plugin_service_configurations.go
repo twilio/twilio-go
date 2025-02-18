@@ -52,7 +52,6 @@ func (params *CreatePluginConfigurationParams) SetDescription(Description string
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginConfiguration(params *CreatePluginConfigurationParams) (*FlexV1PluginConfiguration, error) {
 	path := "/v1/PluginService/Configurations"
 
@@ -108,7 +107,6 @@ func (params *FetchPluginConfigurationParams) SetFlexMetadata(FlexMetadata strin
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginConfiguration(Sid string, params *FetchPluginConfigurationParams) (*FlexV1PluginConfiguration, error) {
 	path := "/v1/PluginService/Configurations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -141,20 +139,20 @@ type ListPluginConfigurationParams struct {
 	// The Flex-Metadata HTTP request header
 	FlexMetadata *string `json:"Flex-Metadata,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListPluginConfigurationParams) SetFlexMetadata(FlexMetadata string) *ListPluginConfigurationParams {
 	params.FlexMetadata = &FlexMetadata
 	return params
 }
-func (params *ListPluginConfigurationParams) SetPageSize(PageSize int) *ListPluginConfigurationParams {
+func (params *ListPluginConfigurationParams) SetPageSize(PageSize int64) *ListPluginConfigurationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListPluginConfigurationParams) SetLimit(Limit int) *ListPluginConfigurationParams {
+func (params *ListPluginConfigurationParams) SetLimit(Limit int64) *ListPluginConfigurationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -233,7 +231,7 @@ func (c *ApiService) StreamPluginConfiguration(params *ListPluginConfigurationPa
 }
 
 func (c *ApiService) streamPluginConfiguration(response *ListPluginConfigurationResponse, params *ListPluginConfigurationParams, recordChannel chan FlexV1PluginConfiguration, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Configurations

@@ -40,7 +40,6 @@ func (params *CreateNewKeyParams) SetFriendlyName(FriendlyName string) *CreateNe
 	return params
 }
 
-//
 func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010NewKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -84,7 +83,6 @@ func (params *DeleteKeyParams) SetPathAccountSid(PathAccountSid string) *DeleteK
 	return params
 }
 
-//
 func (c *ApiService) DeleteKey(Sid string, params *DeleteKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -120,7 +118,6 @@ func (params *FetchKeyParams) SetPathAccountSid(PathAccountSid string) *FetchKey
 	return params
 }
 
-//
 func (c *ApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -155,20 +152,20 @@ type ListKeyParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListKeyParams) SetPathAccountSid(PathAccountSid string) *ListKeyParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListKeyParams) SetPageSize(PageSize int) *ListKeyParams {
+func (params *ListKeyParams) SetPageSize(PageSize int64) *ListKeyParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListKeyParams) SetLimit(Limit int) *ListKeyParams {
+func (params *ListKeyParams) SetLimit(Limit int64) *ListKeyParams {
 	params.Limit = &Limit
 	return params
 }
@@ -253,7 +250,7 @@ func (c *ApiService) StreamKey(params *ListKeyParams) (chan ApiV2010Key, chan er
 }
 
 func (c *ApiService) streamKey(response *ListKeyResponse, params *ListKeyParams, recordChannel chan ApiV2010Key, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Keys
@@ -317,7 +314,6 @@ func (params *UpdateKeyParams) SetFriendlyName(FriendlyName string) *UpdateKeyPa
 	return params
 }
 
-//
 func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

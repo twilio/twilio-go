@@ -142,9 +142,9 @@ type ListExecutionParams struct {
 	// Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
 	DateCreatedTo *time.Time `json:"DateCreatedTo,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListExecutionParams) SetDateCreatedFrom(DateCreatedFrom time.Time) *ListExecutionParams {
@@ -155,11 +155,11 @@ func (params *ListExecutionParams) SetDateCreatedTo(DateCreatedTo time.Time) *Li
 	params.DateCreatedTo = &DateCreatedTo
 	return params
 }
-func (params *ListExecutionParams) SetPageSize(PageSize int) *ListExecutionParams {
+func (params *ListExecutionParams) SetPageSize(PageSize int64) *ListExecutionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListExecutionParams) SetLimit(Limit int) *ListExecutionParams {
+func (params *ListExecutionParams) SetLimit(Limit int64) *ListExecutionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -246,7 +246,7 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 }
 
 func (c *ApiService) streamExecution(response *ListExecutionResponse, params *ListExecutionParams, recordChannel chan StudioV1Execution, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Executions

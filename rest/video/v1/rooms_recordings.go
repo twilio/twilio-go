@@ -24,7 +24,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string) error {
 	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -45,7 +44,6 @@ func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchRoomRecording(RoomSid string, Sid string) (*VideoV1RoomRecording, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -82,9 +80,9 @@ type ListRoomRecordingParams struct {
 	// Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListRoomRecordingParams) SetStatus(Status string) *ListRoomRecordingParams {
@@ -103,11 +101,11 @@ func (params *ListRoomRecordingParams) SetDateCreatedBefore(DateCreatedBefore ti
 	params.DateCreatedBefore = &DateCreatedBefore
 	return params
 }
-func (params *ListRoomRecordingParams) SetPageSize(PageSize int) *ListRoomRecordingParams {
+func (params *ListRoomRecordingParams) SetPageSize(PageSize int64) *ListRoomRecordingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRoomRecordingParams) SetLimit(Limit int) *ListRoomRecordingParams {
+func (params *ListRoomRecordingParams) SetLimit(Limit int64) *ListRoomRecordingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -200,7 +198,7 @@ func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordi
 }
 
 func (c *ApiService) streamRoomRecording(response *ListRoomRecordingResponse, params *ListRoomRecordingParams, recordChannel chan VideoV1RoomRecording, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Recordings

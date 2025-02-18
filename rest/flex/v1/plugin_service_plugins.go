@@ -52,7 +52,6 @@ func (params *CreatePluginParams) SetDescription(Description string) *CreatePlug
 	return params
 }
 
-//
 func (c *ApiService) CreatePlugin(params *CreatePluginParams) (*FlexV1Plugin, error) {
 	path := "/v1/PluginService/Plugins"
 
@@ -100,7 +99,6 @@ func (params *FetchPluginParams) SetFlexMetadata(FlexMetadata string) *FetchPlug
 	return params
 }
 
-//
 func (c *ApiService) FetchPlugin(Sid string, params *FetchPluginParams) (*FlexV1Plugin, error) {
 	path := "/v1/PluginService/Plugins/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -133,20 +131,20 @@ type ListPluginParams struct {
 	// The Flex-Metadata HTTP request header
 	FlexMetadata *string `json:"Flex-Metadata,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListPluginParams) SetFlexMetadata(FlexMetadata string) *ListPluginParams {
 	params.FlexMetadata = &FlexMetadata
 	return params
 }
-func (params *ListPluginParams) SetPageSize(PageSize int) *ListPluginParams {
+func (params *ListPluginParams) SetPageSize(PageSize int64) *ListPluginParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListPluginParams) SetLimit(Limit int) *ListPluginParams {
+func (params *ListPluginParams) SetLimit(Limit int64) *ListPluginParams {
 	params.Limit = &Limit
 	return params
 }
@@ -225,7 +223,7 @@ func (c *ApiService) StreamPlugin(params *ListPluginParams) (chan FlexV1Plugin, 
 }
 
 func (c *ApiService) streamPlugin(response *ListPluginResponse, params *ListPluginParams, recordChannel chan FlexV1Plugin, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Plugins
@@ -295,7 +293,6 @@ func (params *UpdatePluginParams) SetDescription(Description string) *UpdatePlug
 	return params
 }
 
-//
 func (c *ApiService) UpdatePlugin(Sid string, params *UpdatePluginParams) (*FlexV1Plugin, error) {
 	path := "/v1/PluginService/Plugins/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

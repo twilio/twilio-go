@@ -89,9 +89,9 @@ type ListCallSummariesParams struct {
 	// A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
 	BusinessProfileType *string `json:"BusinessProfileType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCallSummariesParams) SetFrom(From string) *ListCallSummariesParams {
@@ -222,11 +222,11 @@ func (params *ListCallSummariesParams) SetBusinessProfileType(BusinessProfileTyp
 	params.BusinessProfileType = &BusinessProfileType
 	return params
 }
-func (params *ListCallSummariesParams) SetPageSize(PageSize int) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetPageSize(PageSize int64) *ListCallSummariesParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCallSummariesParams) SetLimit(Limit int) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetLimit(Limit int64) *ListCallSummariesParams {
 	params.Limit = &Limit
 	return params
 }
@@ -401,7 +401,7 @@ func (c *ApiService) StreamCallSummaries(params *ListCallSummariesParams) (chan 
 }
 
 func (c *ApiService) streamCallSummaries(response *ListCallSummariesResponse, params *ListCallSummariesParams, recordChannel chan InsightsV1CallSummaries, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.CallSummaries

@@ -34,7 +34,6 @@ func (params *DeleteRecordingTranscriptionParams) SetPathAccountSid(PathAccountS
 	return params
 }
 
-//
 func (c *ApiService) DeleteRecordingTranscription(RecordingSid string, Sid string, params *DeleteRecordingTranscriptionParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -71,7 +70,6 @@ func (params *FetchRecordingTranscriptionParams) SetPathAccountSid(PathAccountSi
 	return params
 }
 
-//
 func (c *ApiService) FetchRecordingTranscription(RecordingSid string, Sid string, params *FetchRecordingTranscriptionParams) (*ApiV2010RecordingTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -107,20 +105,20 @@ type ListRecordingTranscriptionParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListRecordingTranscriptionParams) SetPathAccountSid(PathAccountSid string) *ListRecordingTranscriptionParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListRecordingTranscriptionParams) SetPageSize(PageSize int) *ListRecordingTranscriptionParams {
+func (params *ListRecordingTranscriptionParams) SetPageSize(PageSize int64) *ListRecordingTranscriptionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRecordingTranscriptionParams) SetLimit(Limit int) *ListRecordingTranscriptionParams {
+func (params *ListRecordingTranscriptionParams) SetLimit(Limit int64) *ListRecordingTranscriptionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -206,7 +204,7 @@ func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *L
 }
 
 func (c *ApiService) streamRecordingTranscription(response *ListRecordingTranscriptionResponse, params *ListRecordingTranscriptionParams, recordChannel chan ApiV2010RecordingTranscription, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Transcriptions

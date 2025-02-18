@@ -71,9 +71,9 @@ type ListConferenceParams struct {
 	// Conference end reason; e.g. last participant left, modified by API, etc.
 	EndReason *string `json:"EndReason,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListConferenceParams) SetConferenceSid(ConferenceSid string) *ListConferenceParams {
@@ -116,11 +116,11 @@ func (params *ListConferenceParams) SetEndReason(EndReason string) *ListConferen
 	params.EndReason = &EndReason
 	return params
 }
-func (params *ListConferenceParams) SetPageSize(PageSize int) *ListConferenceParams {
+func (params *ListConferenceParams) SetPageSize(PageSize int64) *ListConferenceParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListConferenceParams) SetLimit(Limit int) *ListConferenceParams {
+func (params *ListConferenceParams) SetLimit(Limit int64) *ListConferenceParams {
 	params.Limit = &Limit
 	return params
 }
@@ -229,7 +229,7 @@ func (c *ApiService) StreamConference(params *ListConferenceParams) (chan Insigh
 }
 
 func (c *ApiService) streamConference(response *ListConferenceResponse, params *ListConferenceParams, recordChannel chan InsightsV1Conference, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Conferences

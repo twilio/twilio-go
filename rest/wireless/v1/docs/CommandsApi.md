@@ -163,8 +163,8 @@ Name | Type | Description
 **Status** | **string** | The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
 **Direction** | **string** | Only return Commands with this direction value.
 **Transport** | **string** | Only return Commands with this transport value. Can be: `sms` or `ip`.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

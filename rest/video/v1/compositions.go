@@ -83,7 +83,6 @@ func (params *CreateCompositionParams) SetTrim(Trim bool) *CreateCompositionPara
 	return params
 }
 
-//
 func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV1Composition, error) {
 	path := "/v1/Compositions"
 
@@ -201,9 +200,9 @@ type ListCompositionParams struct {
 	// Read only Composition resources with this Room SID.
 	RoomSid *string `json:"RoomSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCompositionParams) SetStatus(Status string) *ListCompositionParams {
@@ -222,11 +221,11 @@ func (params *ListCompositionParams) SetRoomSid(RoomSid string) *ListComposition
 	params.RoomSid = &RoomSid
 	return params
 }
-func (params *ListCompositionParams) SetPageSize(PageSize int) *ListCompositionParams {
+func (params *ListCompositionParams) SetPageSize(PageSize int64) *ListCompositionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCompositionParams) SetLimit(Limit int) *ListCompositionParams {
+func (params *ListCompositionParams) SetLimit(Limit int64) *ListCompositionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -317,7 +316,7 @@ func (c *ApiService) StreamComposition(params *ListCompositionParams) (chan Vide
 }
 
 func (c *ApiService) streamComposition(response *ListCompositionResponse, params *ListCompositionParams, recordChannel chan VideoV1Composition, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Compositions

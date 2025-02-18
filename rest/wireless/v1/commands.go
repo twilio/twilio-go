@@ -172,9 +172,9 @@ type ListCommandParams struct {
 	// Only return Commands with this transport value. Can be: `sms` or `ip`.
 	Transport *string `json:"Transport,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCommandParams) SetSim(Sim string) *ListCommandParams {
@@ -193,11 +193,11 @@ func (params *ListCommandParams) SetTransport(Transport string) *ListCommandPara
 	params.Transport = &Transport
 	return params
 }
-func (params *ListCommandParams) SetPageSize(PageSize int) *ListCommandParams {
+func (params *ListCommandParams) SetPageSize(PageSize int64) *ListCommandParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCommandParams) SetLimit(Limit int) *ListCommandParams {
+func (params *ListCommandParams) SetLimit(Limit int64) *ListCommandParams {
 	params.Limit = &Limit
 	return params
 }
@@ -288,7 +288,7 @@ func (c *ApiService) StreamCommand(params *ListCommandParams) (chan WirelessV1Co
 }
 
 func (c *ApiService) streamCommand(response *ListCommandResponse, params *ListCommandParams, recordChannel chan WirelessV1Command, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Commands

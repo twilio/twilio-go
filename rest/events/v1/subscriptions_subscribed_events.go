@@ -122,16 +122,16 @@ func (c *ApiService) FetchSubscribedEvent(SubscriptionSid string, Type string) (
 // Optional parameters for the method 'ListSubscribedEvent'
 type ListSubscribedEventParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListSubscribedEventParams) SetPageSize(PageSize int) *ListSubscribedEventParams {
+func (params *ListSubscribedEventParams) SetPageSize(PageSize int64) *ListSubscribedEventParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSubscribedEventParams) SetLimit(Limit int) *ListSubscribedEventParams {
+func (params *ListSubscribedEventParams) SetLimit(Limit int64) *ListSubscribedEventParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +212,7 @@ func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListS
 }
 
 func (c *ApiService) streamSubscribedEvent(response *ListSubscribedEventResponse, params *ListSubscribedEventParams, recordChannel chan EventsV1SubscribedEvent, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Types

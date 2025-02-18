@@ -34,7 +34,6 @@ func (params *FetchConfiguredPluginParams) SetFlexMetadata(FlexMetadata string) 
 	return params
 }
 
-//
 func (c *ApiService) FetchConfiguredPlugin(ConfigurationSid string, PluginSid string, params *FetchConfiguredPluginParams) (*FlexV1ConfiguredPlugin, error) {
 	path := "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins/{PluginSid}"
 	path = strings.Replace(path, "{"+"ConfigurationSid"+"}", ConfigurationSid, -1)
@@ -68,20 +67,20 @@ type ListConfiguredPluginParams struct {
 	// The Flex-Metadata HTTP request header
 	FlexMetadata *string `json:"Flex-Metadata,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListConfiguredPluginParams) SetFlexMetadata(FlexMetadata string) *ListConfiguredPluginParams {
 	params.FlexMetadata = &FlexMetadata
 	return params
 }
-func (params *ListConfiguredPluginParams) SetPageSize(PageSize int) *ListConfiguredPluginParams {
+func (params *ListConfiguredPluginParams) SetPageSize(PageSize int64) *ListConfiguredPluginParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListConfiguredPluginParams) SetLimit(Limit int) *ListConfiguredPluginParams {
+func (params *ListConfiguredPluginParams) SetLimit(Limit int64) *ListConfiguredPluginParams {
 	params.Limit = &Limit
 	return params
 }
@@ -162,7 +161,7 @@ func (c *ApiService) StreamConfiguredPlugin(ConfigurationSid string, params *Lis
 }
 
 func (c *ApiService) streamConfiguredPlugin(response *ListConfiguredPluginResponse, params *ListConfiguredPluginParams, recordChannel chan FlexV1ConfiguredPlugin, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Plugins
