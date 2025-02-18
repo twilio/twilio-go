@@ -94,7 +94,6 @@ func (params *CreateAddressParams) SetStreetSecondary(StreetSecondary string) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -165,7 +164,6 @@ func (params *DeleteAddressParams) SetPathAccountSid(PathAccountSid string) *Del
 	return params
 }
 
-//
 func (c *ApiService) DeleteAddress(Sid string, params *DeleteAddressParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -201,7 +199,6 @@ func (params *FetchAddressParams) SetPathAccountSid(PathAccountSid string) *Fetc
 	return params
 }
 
-//
 func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -412,7 +409,7 @@ func (c *ApiService) getNextListAddressResponse(nextPageUrl string) (interface{}
 type UpdateAddressParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
+	// A descriptive string that you create to describe the address. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The name to associate with the address.
 	CustomerName *string `json:"CustomerName,omitempty"`
@@ -473,7 +470,6 @@ func (params *UpdateAddressParams) SetStreetSecondary(StreetSecondary string) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

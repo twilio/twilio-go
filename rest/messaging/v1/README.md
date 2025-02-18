@@ -69,10 +69,6 @@ Class | Method | HTTP request | Description
 *ServicesComplianceUsa2pApi* | [**ListUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#listusapptoperson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
 *ServicesComplianceUsa2pApi* | [**UpdateUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#updateusapptoperson) | **Post** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 *ServicesComplianceUsa2pUsecasesApi* | [**FetchUsAppToPersonUsecase**](docs/ServicesComplianceUsa2pUsecasesApi.md#fetchusapptopersonusecase) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases | 
-*ServicesDestinationAlphaSendersApi* | [**CreateDestinationAlphaSender**](docs/ServicesDestinationAlphaSendersApi.md#createdestinationalphasender) | **Post** /v1/Services/{ServiceSid}/DestinationAlphaSenders | 
-*ServicesDestinationAlphaSendersApi* | [**DeleteDestinationAlphaSender**](docs/ServicesDestinationAlphaSendersApi.md#deletedestinationalphasender) | **Delete** /v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid} | 
-*ServicesDestinationAlphaSendersApi* | [**FetchDestinationAlphaSender**](docs/ServicesDestinationAlphaSendersApi.md#fetchdestinationalphasender) | **Get** /v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid} | 
-*ServicesDestinationAlphaSendersApi* | [**ListDestinationAlphaSender**](docs/ServicesDestinationAlphaSendersApi.md#listdestinationalphasender) | **Get** /v1/Services/{ServiceSid}/DestinationAlphaSenders | 
 *ServicesPhoneNumbersApi* | [**CreatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#createphonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
 *ServicesPhoneNumbersApi* | [**DeletePhoneNumber**](docs/ServicesPhoneNumbersApi.md#deletephonenumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
 *ServicesPhoneNumbersApi* | [**FetchPhoneNumber**](docs/ServicesPhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
@@ -98,12 +94,10 @@ Class | Method | HTTP request | Description
  - [MessagingV1UsAppToPersonUsecase](docs/MessagingV1UsAppToPersonUsecase.md)
  - [MessagingV1LinkshorteningMessagingService](docs/MessagingV1LinkshorteningMessagingService.md)
  - [MessagingV1TollfreeVerification](docs/MessagingV1TollfreeVerification.md)
- - [ListDestinationAlphaSenderResponse](docs/ListDestinationAlphaSenderResponse.md)
  - [MessagingV1DomainConfig](docs/MessagingV1DomainConfig.md)
  - [MessagingV1UsAppToPerson](docs/MessagingV1UsAppToPerson.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
  - [MessagingV1BrandRegistrationOtp](docs/MessagingV1BrandRegistrationOtp.md)
- - [MessagingV1DestinationAlphaSender](docs/MessagingV1DestinationAlphaSender.md)
  - [MessagingV1BrandRegistrations](docs/MessagingV1BrandRegistrations.md)
  - [MessagingV1ChannelSender](docs/MessagingV1ChannelSender.md)
  - [MessagingV1ShortCode](docs/MessagingV1ShortCode.md)

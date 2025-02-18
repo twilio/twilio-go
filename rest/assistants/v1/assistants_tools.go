@@ -26,8 +26,8 @@ import (
 // Attach Tool to Assistant
 func (c *ApiService) CreateAssistantToolAttachment(AssistantId string, Id string) error {
 	path := "/v1/Assistants/{assistantId}/Tools/{id}"
-	path = strings.Replace(path, "{"+"AssistantId"+"}", AssistantId, -1)
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"assistantId"+"}", AssistantId, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -47,8 +47,8 @@ func (c *ApiService) CreateAssistantToolAttachment(AssistantId string, Id string
 // Detach Tool to Assistant
 func (c *ApiService) DeleteAssistantToolAttachment(AssistantId string, Id string) error {
 	path := "/v1/Assistants/{assistantId}/Tools/{id}"
-	path = strings.Replace(path, "{"+"AssistantId"+"}", AssistantId, -1)
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"assistantId"+"}", AssistantId, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -86,7 +86,7 @@ func (params *ListToolsByAssistantParams) SetLimit(Limit int) *ListToolsByAssist
 func (c *ApiService) PageToolsByAssistant(AssistantId string, params *ListToolsByAssistantParams, pageToken, pageNumber string) (*ListToolsByAssistantResponse, error) {
 	path := "/v1/Assistants/{assistantId}/Tools"
 
-	path = strings.Replace(path, "{"+"AssistantId"+"}", AssistantId, -1)
+	path = strings.Replace(path, "{"+"assistantId"+"}", AssistantId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

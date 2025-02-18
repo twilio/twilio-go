@@ -44,7 +44,7 @@ func (params *ListMessagesParams) SetLimit(Limit int) *ListMessagesParams {
 func (c *ApiService) PageMessages(SessionId string, params *ListMessagesParams, pageToken, pageNumber string) (*ListMessagesResponse, error) {
 	path := "/v1/Sessions/{sessionId}/Messages"
 
-	path = strings.Replace(path, "{"+"SessionId"+"}", SessionId, -1)
+	path = strings.Replace(path, "{"+"sessionId"+"}", SessionId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
