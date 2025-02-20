@@ -77,6 +77,9 @@ Class | Method | HTTP request | Description
 *InteractionsChannelsParticipantsApi* | [**CreateInteractionChannelParticipant**](docs/InteractionsChannelsParticipantsApi.md#createinteractionchannelparticipant) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants | 
 *InteractionsChannelsParticipantsApi* | [**ListInteractionChannelParticipant**](docs/InteractionsChannelsParticipantsApi.md#listinteractionchannelparticipant) | **Get** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants | 
 *InteractionsChannelsParticipantsApi* | [**UpdateInteractionChannelParticipant**](docs/InteractionsChannelsParticipantsApi.md#updateinteractionchannelparticipant) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants/{Sid} | 
+*InteractionsChannelsTransfersApi* | [**CreateInteractionTransfer**](docs/InteractionsChannelsTransfersApi.md#createinteractiontransfer) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers | 
+*InteractionsChannelsTransfersApi* | [**FetchInteractionTransfer**](docs/InteractionsChannelsTransfersApi.md#fetchinteractiontransfer) | **Get** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid} | 
+*InteractionsChannelsTransfersApi* | [**UpdateInteractionTransfer**](docs/InteractionsChannelsTransfersApi.md#updateinteractiontransfer) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid} | 
 *PluginServiceConfigurationsApi* | [**CreatePluginConfiguration**](docs/PluginServiceConfigurationsApi.md#createpluginconfiguration) | **Post** /v1/PluginService/Configurations | 
 *PluginServiceConfigurationsApi* | [**FetchPluginConfiguration**](docs/PluginServiceConfigurationsApi.md#fetchpluginconfiguration) | **Get** /v1/PluginService/Configurations/{Sid} | 
 *PluginServiceConfigurationsApi* | [**ListPluginConfiguration**](docs/PluginServiceConfigurationsApi.md#listpluginconfiguration) | **Get** /v1/PluginService/Configurations | 
@@ -122,6 +125,7 @@ Class | Method | HTTP request | Description
  - [ListFlexFlowResponse](docs/ListFlexFlowResponse.md)
  - [ListConfiguredPluginResponse](docs/ListConfiguredPluginResponse.md)
  - [FlexV1InsightsAssessmentsComment](docs/FlexV1InsightsAssessmentsComment.md)
+ - [FlexV1InteractionTransfer](docs/FlexV1InteractionTransfer.md)
  - [FlexV1InteractionChannelInvite](docs/FlexV1InteractionChannelInvite.md)
  - [FlexV1InsightsUserRoles](docs/FlexV1InsightsUserRoles.md)
  - [ListPluginResponse](docs/ListPluginResponse.md)

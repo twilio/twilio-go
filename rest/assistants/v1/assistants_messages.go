@@ -34,7 +34,7 @@ func (params *CreateMessageParams) SetAssistantsV1AssistantSendMessageRequest(As
 // send a message
 func (c *ApiService) CreateMessage(Id string, params *CreateMessageParams) (*AssistantsV1AssistantSendMessageResponse, error) {
 	path := "/v1/Assistants/{id}/Messages"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
