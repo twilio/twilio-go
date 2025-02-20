@@ -149,66 +149,6 @@ type ClientCredentialProvider struct {
 	AuthStrategy CredentialProvider
 }
 
-type OrgTokenManager struct {
-	GrantType    string
-	ClientId     string
-	ClientSecret string
-	Code         string
-	RedirectUri  string
-	Audience     string
-	RefreshToken string
-	Scope        string
-}
-
-type ClientTokenManager struct {
-	GrantType    string
-	ClientId     string
-	ClientSecret string
-	Code         string
-	RedirectUri  string
-	Audience     string
-	RefreshToken string
-	Scope        string
-}
-
-func GetOrgAccessToken(manager OrgTokenManager) (*PreviewIamTemp.OauthV1Token, error) {
-	params := &PreviewIamTemp.CreateTokenParams{}
-	params.SetGrantType(manager.GrantType)
-	params.SetClientId(manager.ClientId)
-	params.SetClientSecret(manager.ClientSecret)
-	params.SetCode(manager.Code)
-	params.SetRedirectUri(manager.RedirectUri)
-	params.SetAudience(manager.Audience)
-	params.SetRefreshToken(manager.RefreshToken)
-	params.SetScope(manager.Scope)
-
-	token, err := PreviewIamTemp.NewApiService(NewRestClient().RequestHandler).CreateToken(params)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get access token: %w", err)
-	}
-
-	return token, nil
-}
-
-func GetClientAccessToken(manager ClientTokenManager) (*PreviewIamTemp.OauthV1Token, error) {
-	params := &PreviewIamTemp.CreateTokenParams{}
-	params.SetGrantType(manager.GrantType)
-	params.SetClientId(manager.ClientId)
-	params.SetClientSecret(manager.ClientSecret)
-	params.SetCode(manager.Code)
-	params.SetRedirectUri(manager.RedirectUri)
-	params.SetAudience(manager.Audience)
-	params.SetRefreshToken(manager.RefreshToken)
-	params.SetScope(manager.Scope)
-
-	token, err := PreviewIamTemp.NewApiService(NewRestClient().RequestHandler).CreateToken(params)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get access token: %w", err)
-	}
-
-	return token, nil
-}
-
 type ClientParams struct {
 	Username                    string
 	Password                    string
@@ -352,6 +292,66 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.WirelessV1 = WirelessV1.NewApiService(c.RequestHandler)
 
 	return c
+}
+
+type OrgTokenManager struct {
+	GrantType    string
+	ClientId     string
+	ClientSecret string
+	Code         string
+	RedirectUri  string
+	Audience     string
+	RefreshToken string
+	Scope        string
+}
+
+type ClientTokenManager struct {
+	GrantType    string
+	ClientId     string
+	ClientSecret string
+	Code         string
+	RedirectUri  string
+	Audience     string
+	RefreshToken string
+	Scope        string
+}
+
+func GetOrgAccessToken(manager OrgTokenManager) (*PreviewIamTemp.OauthV1Token, error) {
+	params := &PreviewIamTemp.CreateTokenParams{}
+	params.SetGrantType(manager.GrantType)
+	params.SetClientId(manager.ClientId)
+	params.SetClientSecret(manager.ClientSecret)
+	params.SetCode(manager.Code)
+	params.SetRedirectUri(manager.RedirectUri)
+	params.SetAudience(manager.Audience)
+	params.SetRefreshToken(manager.RefreshToken)
+	params.SetScope(manager.Scope)
+
+	token, err := PreviewIamTemp.NewApiService(NewRestClient().RequestHandler).CreateToken(params)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get access token: %w", err)
+	}
+
+	return token, nil
+}
+
+func GetClientAccessToken(manager ClientTokenManager) (*PreviewIamTemp.OauthV1Token, error) {
+	params := &PreviewIamTemp.CreateTokenParams{}
+	params.SetGrantType(manager.GrantType)
+	params.SetClientId(manager.ClientId)
+	params.SetClientSecret(manager.ClientSecret)
+	params.SetCode(manager.Code)
+	params.SetRedirectUri(manager.RedirectUri)
+	params.SetAudience(manager.Audience)
+	params.SetRefreshToken(manager.RefreshToken)
+	params.SetScope(manager.Scope)
+
+	token, err := PreviewIamTemp.NewApiService(NewRestClient().RequestHandler).CreateToken(params)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get access token: %w", err)
+	}
+
+	return token, nil
 }
 
 // NewRestClient provides an initialized Twilio RestClient.
