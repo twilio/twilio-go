@@ -77,7 +77,6 @@ func (params *CreateChannelParams) SetCreatedBy(CreatedBy string) *CreateChannel
 	return params
 }
 
-//
 func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*ChatV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -138,7 +137,6 @@ func (params *DeleteChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnable
 	return params
 }
 
-//
 func (c *ApiService) DeleteChannel(ServiceSid string, Sid string, params *DeleteChannelParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -162,7 +160,6 @@ func (c *ApiService) DeleteChannel(ServiceSid string, Sid string, params *Delete
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannel(ServiceSid string, Sid string) (*ChatV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -193,20 +190,20 @@ type ListChannelParams struct {
 	// The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
 	Type *[]string `json:"Type,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListChannelParams) SetType(Type []string) *ListChannelParams {
 	params.Type = &Type
 	return params
 }
-func (params *ListChannelParams) SetPageSize(PageSize int) *ListChannelParams {
+func (params *ListChannelParams) SetPageSize(PageSize int64) *ListChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListChannelParams) SetLimit(Limit int) *ListChannelParams {
+func (params *ListChannelParams) SetLimit(Limit int64) *ListChannelParams {
 	params.Limit = &Limit
 	return params
 }
@@ -292,7 +289,7 @@ func (c *ApiService) StreamChannel(ServiceSid string, params *ListChannelParams)
 }
 
 func (c *ApiService) streamChannel(response *ListChannelResponse, params *ListChannelParams, recordChannel chan ChatV2Channel, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Channels
@@ -386,7 +383,6 @@ func (params *UpdateChannelParams) SetCreatedBy(CreatedBy string) *UpdateChannel
 	return params
 }
 
-//
 func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*ChatV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

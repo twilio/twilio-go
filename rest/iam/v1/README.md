@@ -42,9 +42,12 @@ Class | Method | HTTP request | Description
 
  - [IamV1Key](docs/IamV1Key.md)
  - [IamV1NewKey](docs/IamV1NewKey.md)
+ - [FetchIndexNodeResponseVersions](docs/FetchIndexNodeResponseVersions.md)
  - [IamV1GetKeys](docs/IamV1GetKeys.md)
  - [ListGetKeysResponse](docs/ListGetKeysResponse.md)
+ - [FetchIndexNodeResponse](docs/FetchIndexNodeResponse.md)
  - [ListGetKeysResponseMeta](docs/ListGetKeysResponseMeta.md)
+ - [FetchVersionResponse](docs/FetchVersionResponse.md)
 
 
 ## Documentation For Authorization

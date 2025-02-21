@@ -53,16 +53,16 @@ func (c *ApiService) FetchExecutionStep(FlowSid string, ExecutionSid string, Sid
 // Optional parameters for the method 'ListExecutionStep'
 type ListExecutionStepParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListExecutionStepParams) SetPageSize(PageSize int) *ListExecutionStepParams {
+func (params *ListExecutionStepParams) SetPageSize(PageSize int64) *ListExecutionStepParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListExecutionStepParams) SetLimit(Limit int) *ListExecutionStepParams {
+func (params *ListExecutionStepParams) SetLimit(Limit int64) *ListExecutionStepParams {
 	params.Limit = &Limit
 	return params
 }
@@ -144,7 +144,7 @@ func (c *ApiService) StreamExecutionStep(FlowSid string, ExecutionSid string, pa
 }
 
 func (c *ApiService) streamExecutionStep(response *ListExecutionStepResponse, params *ListExecutionStepParams, recordChannel chan StudioV2ExecutionStep, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Steps

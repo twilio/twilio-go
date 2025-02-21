@@ -20,50 +20,6 @@ import (
 	"strings"
 )
 
-// Optional parameters for the method 'CreatePortingWebhookConfiguration'
-type CreatePortingWebhookConfigurationParams struct {
-	//
-	Body *map[string]interface{} `json:"body,omitempty"`
-}
-
-func (params *CreatePortingWebhookConfigurationParams) SetBody(Body map[string]interface{}) *CreatePortingWebhookConfigurationParams {
-	params.Body = &Body
-	return params
-}
-
-// Create a Webhook Configuration
-func (c *ApiService) CreatePortingWebhookConfiguration(params *CreatePortingWebhookConfigurationParams) (*NumbersV1PortingWebhookConfiguration, error) {
-	path := "/v1/Porting/Configuration/Webhook"
-
-	data := url.Values{}
-	headers := map[string]interface{}{
-		"Content-Type": "application/json",
-	}
-
-	body := []byte{}
-	if params != nil && params.Body != nil {
-		b, err := json.Marshal(*params.Body)
-		if err != nil {
-			return nil, err
-		}
-		body = b
-	}
-
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &NumbersV1PortingWebhookConfiguration{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
-}
-
 // Allows the client to delete a webhook configuration.
 func (c *ApiService) DeletePortingWebhookConfigurationDelete(WebhookType string) error {
 	path := "/v1/Porting/Configuration/Webhook/{WebhookType}"

@@ -137,16 +137,16 @@ func (c *ApiService) FetchEngagement(FlowSid string, Sid string) (*StudioV1Engag
 // Optional parameters for the method 'ListEngagement'
 type ListEngagementParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListEngagementParams) SetPageSize(PageSize int) *ListEngagementParams {
+func (params *ListEngagementParams) SetPageSize(PageSize int64) *ListEngagementParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListEngagementParams) SetLimit(Limit int) *ListEngagementParams {
+func (params *ListEngagementParams) SetLimit(Limit int64) *ListEngagementParams {
 	params.Limit = &Limit
 	return params
 }
@@ -227,7 +227,7 @@ func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementPara
 }
 
 func (c *ApiService) streamEngagement(response *ListEngagementResponse, params *ListEngagementParams, recordChannel chan StudioV1Engagement, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Engagements

@@ -46,7 +46,6 @@ func (params *CreateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimiz
 	return params
 }
 
-//
 func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -81,7 +80,6 @@ func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskCh
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -102,7 +100,6 @@ func (c *ApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -131,16 +128,16 @@ func (c *ApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*Taskrou
 // Optional parameters for the method 'ListTaskChannel'
 type ListTaskChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListTaskChannelParams) SetPageSize(PageSize int) *ListTaskChannelParams {
+func (params *ListTaskChannelParams) SetPageSize(PageSize int64) *ListTaskChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTaskChannelParams) SetLimit(Limit int) *ListTaskChannelParams {
+func (params *ListTaskChannelParams) SetLimit(Limit int64) *ListTaskChannelParams {
 	params.Limit = &Limit
 	return params
 }
@@ -221,7 +218,7 @@ func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChan
 }
 
 func (c *ApiService) streamTaskChannel(response *ListTaskChannelResponse, params *ListTaskChannelParams, recordChannel chan TaskrouterV1TaskChannel, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Channels
@@ -285,7 +282,6 @@ func (params *UpdateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimiz
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *UpdateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

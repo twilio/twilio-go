@@ -64,9 +64,9 @@ type ListAvailablePhoneNumberMachineToMachineParams struct {
 	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberMachineToMachineParams {
@@ -145,11 +145,11 @@ func (params *ListAvailablePhoneNumberMachineToMachineParams) SetFaxEnabled(FaxE
 	params.FaxEnabled = &FaxEnabled
 	return params
 }
-func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberMachineToMachineParams {
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPageSize(PageSize int64) *ListAvailablePhoneNumberMachineToMachineParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAvailablePhoneNumberMachineToMachineParams) SetLimit(Limit int) *ListAvailablePhoneNumberMachineToMachineParams {
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetLimit(Limit int64) *ListAvailablePhoneNumberMachineToMachineParams {
 	params.Limit = &Limit
 	return params
 }
@@ -289,7 +289,7 @@ func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode stri
 }
 
 func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(response *ListAvailablePhoneNumberMachineToMachineResponse, params *ListAvailablePhoneNumberMachineToMachineParams, recordChannel chan ApiV2010AvailablePhoneNumberMachineToMachine, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.AvailablePhoneNumbers

@@ -163,9 +163,9 @@ type ListAuthorizationDocumentParams struct {
 	// Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListAuthorizationDocumentParams) SetEmail(Email string) *ListAuthorizationDocumentParams {
@@ -176,11 +176,11 @@ func (params *ListAuthorizationDocumentParams) SetStatus(Status string) *ListAut
 	params.Status = &Status
 	return params
 }
-func (params *ListAuthorizationDocumentParams) SetPageSize(PageSize int) *ListAuthorizationDocumentParams {
+func (params *ListAuthorizationDocumentParams) SetPageSize(PageSize int64) *ListAuthorizationDocumentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAuthorizationDocumentParams) SetLimit(Limit int) *ListAuthorizationDocumentParams {
+func (params *ListAuthorizationDocumentParams) SetLimit(Limit int64) *ListAuthorizationDocumentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -265,7 +265,7 @@ func (c *ApiService) StreamAuthorizationDocument(params *ListAuthorizationDocume
 }
 
 func (c *ApiService) streamAuthorizationDocument(response *ListAuthorizationDocumentResponse, params *ListAuthorizationDocumentParams, recordChannel chan NumbersV2AuthorizationDocument, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Items

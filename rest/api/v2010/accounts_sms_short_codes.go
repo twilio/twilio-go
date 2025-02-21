@@ -73,9 +73,9 @@ type ListShortCodeParams struct {
 	// Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
 	ShortCode *string `json:"ShortCode,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListShortCodeParams) SetPathAccountSid(PathAccountSid string) *ListShortCodeParams {
@@ -90,11 +90,11 @@ func (params *ListShortCodeParams) SetShortCode(ShortCode string) *ListShortCode
 	params.ShortCode = &ShortCode
 	return params
 }
-func (params *ListShortCodeParams) SetPageSize(PageSize int) *ListShortCodeParams {
+func (params *ListShortCodeParams) SetPageSize(PageSize int64) *ListShortCodeParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListShortCodeParams) SetLimit(Limit int) *ListShortCodeParams {
+func (params *ListShortCodeParams) SetLimit(Limit int64) *ListShortCodeParams {
 	params.Limit = &Limit
 	return params
 }
@@ -185,7 +185,7 @@ func (c *ApiService) StreamShortCode(params *ListShortCodeParams) (chan ApiV2010
 }
 
 func (c *ApiService) streamShortCode(response *ListShortCodeResponse, params *ListShortCodeParams, recordChannel chan ApiV2010ShortCode, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.ShortCodes

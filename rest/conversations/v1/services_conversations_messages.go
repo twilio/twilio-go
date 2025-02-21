@@ -214,20 +214,20 @@ type ListServiceConversationMessageParams struct {
 	// The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
 	Order *string `json:"Order,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListServiceConversationMessageParams) SetOrder(Order string) *ListServiceConversationMessageParams {
 	params.Order = &Order
 	return params
 }
-func (params *ListServiceConversationMessageParams) SetPageSize(PageSize int) *ListServiceConversationMessageParams {
+func (params *ListServiceConversationMessageParams) SetPageSize(PageSize int64) *ListServiceConversationMessageParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListServiceConversationMessageParams) SetLimit(Limit int) *ListServiceConversationMessageParams {
+func (params *ListServiceConversationMessageParams) SetLimit(Limit int64) *ListServiceConversationMessageParams {
 	params.Limit = &Limit
 	return params
 }
@@ -312,7 +312,7 @@ func (c *ApiService) StreamServiceConversationMessage(ChatServiceSid string, Con
 }
 
 func (c *ApiService) streamServiceConversationMessage(response *ListServiceConversationMessageResponse, params *ListServiceConversationMessageParams, recordChannel chan ConversationsV1ServiceConversationMessage, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Messages

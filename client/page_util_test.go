@@ -14,18 +14,18 @@ import (
 )
 
 func TestPageUtil_ReadLimits(t *testing.T) {
-	assert.Equal(t, 5, ReadLimits(nil, setLimit(5)))
-	assert.Equal(t, 5, ReadLimits(setPageSize(10), setLimit(5)))
-	assert.Equal(t, 1000, ReadLimits(nil, setLimit(5000)))
-	assert.Equal(t, 10, ReadLimits(setPageSize(10), nil))
-	assert.Equal(t, 50, ReadLimits(nil, nil))
+	assert.Equal(t, int64(5), ReadLimits(nil, setLimit(5)))
+	assert.Equal(t, int64(5), ReadLimits(setPageSize(10), setLimit(5)))
+	assert.Equal(t, int64(1000), ReadLimits(nil, setLimit(5000)))
+	assert.Equal(t, int64(10), ReadLimits(setPageSize(10), nil))
+	assert.Equal(t, int64(50), ReadLimits(nil, nil))
 }
 
-func setLimit(limit int) *int {
+func setLimit(limit int64) *int64 {
 	return &limit
 }
 
-func setPageSize(pageSize int) *int {
+func setPageSize(pageSize int64) *int64 {
 	return &pageSize
 }
 

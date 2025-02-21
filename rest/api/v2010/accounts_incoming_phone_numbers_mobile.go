@@ -172,7 +172,6 @@ func (params *CreateIncomingPhoneNumberMobileParams) SetBundleSid(BundleSid stri
 	return params
 }
 
-//
 func (c *ApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomingPhoneNumberMobileParams) (*ApiV2010IncomingPhoneNumberMobile, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -284,9 +283,9 @@ type ListIncomingPhoneNumberMobileParams struct {
 	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
 	Origin *string `json:"Origin,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberMobileParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberMobileParams {
@@ -309,11 +308,11 @@ func (params *ListIncomingPhoneNumberMobileParams) SetOrigin(Origin string) *Lis
 	params.Origin = &Origin
 	return params
 }
-func (params *ListIncomingPhoneNumberMobileParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberMobileParams {
+func (params *ListIncomingPhoneNumberMobileParams) SetPageSize(PageSize int64) *ListIncomingPhoneNumberMobileParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListIncomingPhoneNumberMobileParams) SetLimit(Limit int) *ListIncomingPhoneNumberMobileParams {
+func (params *ListIncomingPhoneNumberMobileParams) SetLimit(Limit int64) *ListIncomingPhoneNumberMobileParams {
 	params.Limit = &Limit
 	return params
 }
@@ -410,7 +409,7 @@ func (c *ApiService) StreamIncomingPhoneNumberMobile(params *ListIncomingPhoneNu
 }
 
 func (c *ApiService) streamIncomingPhoneNumberMobile(response *ListIncomingPhoneNumberMobileResponse, params *ListIncomingPhoneNumberMobileParams, recordChannel chan ApiV2010IncomingPhoneNumberMobile, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.IncomingPhoneNumbers

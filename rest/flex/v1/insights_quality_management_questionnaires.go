@@ -180,9 +180,9 @@ type ListInsightsQuestionnairesParams struct {
 	// Flag indicating whether to include inactive questionnaires or not
 	IncludeInactive *bool `json:"IncludeInactive,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListInsightsQuestionnairesParams) SetAuthorization(Authorization string) *ListInsightsQuestionnairesParams {
@@ -193,11 +193,11 @@ func (params *ListInsightsQuestionnairesParams) SetIncludeInactive(IncludeInacti
 	params.IncludeInactive = &IncludeInactive
 	return params
 }
-func (params *ListInsightsQuestionnairesParams) SetPageSize(PageSize int) *ListInsightsQuestionnairesParams {
+func (params *ListInsightsQuestionnairesParams) SetPageSize(PageSize int64) *ListInsightsQuestionnairesParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListInsightsQuestionnairesParams) SetLimit(Limit int) *ListInsightsQuestionnairesParams {
+func (params *ListInsightsQuestionnairesParams) SetLimit(Limit int64) *ListInsightsQuestionnairesParams {
 	params.Limit = &Limit
 	return params
 }
@@ -279,7 +279,7 @@ func (c *ApiService) StreamInsightsQuestionnaires(params *ListInsightsQuestionna
 }
 
 func (c *ApiService) streamInsightsQuestionnaires(response *ListInsightsQuestionnairesResponse, params *ListInsightsQuestionnairesParams, recordChannel chan FlexV1InsightsQuestionnaires, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Questionnaires

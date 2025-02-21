@@ -115,20 +115,20 @@ type ListCustomerProfileEntityAssignmentParams struct {
 	// A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
 	ObjectType *string `json:"ObjectType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCustomerProfileEntityAssignmentParams) SetObjectType(ObjectType string) *ListCustomerProfileEntityAssignmentParams {
 	params.ObjectType = &ObjectType
 	return params
 }
-func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize int) *ListCustomerProfileEntityAssignmentParams {
+func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize int64) *ListCustomerProfileEntityAssignmentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCustomerProfileEntityAssignmentParams) SetLimit(Limit int) *ListCustomerProfileEntityAssignmentParams {
+func (params *ListCustomerProfileEntityAssignmentParams) SetLimit(Limit int64) *ListCustomerProfileEntityAssignmentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +212,7 @@ func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid st
 }
 
 func (c *ApiService) streamCustomerProfileEntityAssignment(response *ListCustomerProfileEntityAssignmentResponse, params *ListCustomerProfileEntityAssignmentParams, recordChannel chan TrusthubV1CustomerProfileEntityAssignment, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

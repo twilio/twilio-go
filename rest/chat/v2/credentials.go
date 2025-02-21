@@ -70,7 +70,6 @@ func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredential
 	return params
 }
 
-//
 func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*ChatV2Credential, error) {
 	path := "/v2/Credentials"
 
@@ -116,7 +115,6 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*ChatV2Cr
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteCredential(Sid string) error {
 	path := "/v2/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -136,7 +134,6 @@ func (c *ApiService) DeleteCredential(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchCredential(Sid string) (*ChatV2Credential, error) {
 	path := "/v2/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -164,16 +161,16 @@ func (c *ApiService) FetchCredential(Sid string) (*ChatV2Credential, error) {
 // Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListCredentialParams) SetPageSize(PageSize int) *ListCredentialParams {
+func (params *ListCredentialParams) SetPageSize(PageSize int64) *ListCredentialParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCredentialParams) SetLimit(Limit int) *ListCredentialParams {
+func (params *ListCredentialParams) SetLimit(Limit int64) *ListCredentialParams {
 	params.Limit = &Limit
 	return params
 }
@@ -252,7 +249,7 @@ func (c *ApiService) StreamCredential(params *ListCredentialParams) (chan ChatV2
 }
 
 func (c *ApiService) streamCredential(response *ListCredentialResponse, params *ListCredentialParams, recordChannel chan ChatV2Credential, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Credentials
@@ -340,7 +337,6 @@ func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredential
 	return params
 }
 
-//
 func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*ChatV2Credential, error) {
 	path := "/v2/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

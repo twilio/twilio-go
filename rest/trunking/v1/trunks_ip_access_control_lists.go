@@ -84,7 +84,6 @@ func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) erro
 	return nil
 }
 
-//
 func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*TrunkingV1IpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -113,16 +112,16 @@ func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*Tru
 // Optional parameters for the method 'ListIpAccessControlList'
 type ListIpAccessControlListParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListIpAccessControlListParams) SetPageSize(PageSize int) *ListIpAccessControlListParams {
+func (params *ListIpAccessControlListParams) SetPageSize(PageSize int64) *ListIpAccessControlListParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListIpAccessControlListParams) SetLimit(Limit int) *ListIpAccessControlListParams {
+func (params *ListIpAccessControlListParams) SetLimit(Limit int64) *ListIpAccessControlListParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +202,7 @@ func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAc
 }
 
 func (c *ApiService) streamIpAccessControlList(response *ListIpAccessControlListResponse, params *ListIpAccessControlListParams, recordChannel chan TrunkingV1IpAccessControlList, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.IpAccessControlLists

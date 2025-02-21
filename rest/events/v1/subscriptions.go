@@ -147,20 +147,20 @@ type ListSubscriptionParams struct {
 	// The SID of the sink that the list of Subscriptions should be filtered by.
 	SinkSid *string `json:"SinkSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSubscriptionParams) SetSinkSid(SinkSid string) *ListSubscriptionParams {
 	params.SinkSid = &SinkSid
 	return params
 }
-func (params *ListSubscriptionParams) SetPageSize(PageSize int) *ListSubscriptionParams {
+func (params *ListSubscriptionParams) SetPageSize(PageSize int64) *ListSubscriptionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSubscriptionParams) SetLimit(Limit int) *ListSubscriptionParams {
+func (params *ListSubscriptionParams) SetLimit(Limit int64) *ListSubscriptionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -242,7 +242,7 @@ func (c *ApiService) StreamSubscription(params *ListSubscriptionParams) (chan Ev
 }
 
 func (c *ApiService) streamSubscription(response *ListSubscriptionResponse, params *ListSubscriptionParams, recordChannel chan EventsV1Subscription, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Subscriptions

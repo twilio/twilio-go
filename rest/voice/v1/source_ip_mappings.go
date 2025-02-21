@@ -40,7 +40,6 @@ func (params *CreateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) 
 	return params
 }
 
-//
 func (c *ApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings"
 
@@ -71,7 +70,6 @@ func (c *ApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) 
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteSourceIpMapping(Sid string) error {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -91,7 +89,6 @@ func (c *ApiService) DeleteSourceIpMapping(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -119,16 +116,16 @@ func (c *ApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMapping, 
 // Optional parameters for the method 'ListSourceIpMapping'
 type ListSourceIpMappingParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListSourceIpMappingParams) SetPageSize(PageSize int) *ListSourceIpMappingParams {
+func (params *ListSourceIpMappingParams) SetPageSize(PageSize int64) *ListSourceIpMappingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSourceIpMappingParams) SetLimit(Limit int) *ListSourceIpMappingParams {
+func (params *ListSourceIpMappingParams) SetLimit(Limit int64) *ListSourceIpMappingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -207,7 +204,7 @@ func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams) (c
 }
 
 func (c *ApiService) streamSourceIpMapping(response *ListSourceIpMappingResponse, params *ListSourceIpMappingParams, recordChannel chan VoiceV1SourceIpMapping, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.SourceIpMappings
@@ -265,7 +262,6 @@ func (params *UpdateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) 
 	return params
 }
 
-//
 func (c *ApiService) UpdateSourceIpMapping(Sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

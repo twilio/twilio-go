@@ -370,9 +370,9 @@ type ListIncomingPhoneNumberParams struct {
 	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
 	Origin *string `json:"Origin,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberParams {
@@ -395,11 +395,11 @@ func (params *ListIncomingPhoneNumberParams) SetOrigin(Origin string) *ListIncom
 	params.Origin = &Origin
 	return params
 }
-func (params *ListIncomingPhoneNumberParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberParams {
+func (params *ListIncomingPhoneNumberParams) SetPageSize(PageSize int64) *ListIncomingPhoneNumberParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListIncomingPhoneNumberParams) SetLimit(Limit int) *ListIncomingPhoneNumberParams {
+func (params *ListIncomingPhoneNumberParams) SetLimit(Limit int64) *ListIncomingPhoneNumberParams {
 	params.Limit = &Limit
 	return params
 }
@@ -496,7 +496,7 @@ func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberPa
 }
 
 func (c *ApiService) streamIncomingPhoneNumber(response *ListIncomingPhoneNumberResponse, params *ListIncomingPhoneNumberParams, recordChannel chan ApiV2010IncomingPhoneNumber, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.IncomingPhoneNumbers

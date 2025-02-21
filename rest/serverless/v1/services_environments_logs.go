@@ -60,9 +60,9 @@ type ListLogParams struct {
 	// The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
 	EndDate *time.Time `json:"EndDate,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListLogParams) SetFunctionSid(FunctionSid string) *ListLogParams {
@@ -77,11 +77,11 @@ func (params *ListLogParams) SetEndDate(EndDate time.Time) *ListLogParams {
 	params.EndDate = &EndDate
 	return params
 }
-func (params *ListLogParams) SetPageSize(PageSize int) *ListLogParams {
+func (params *ListLogParams) SetPageSize(PageSize int64) *ListLogParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListLogParams) SetLimit(Limit int) *ListLogParams {
+func (params *ListLogParams) SetLimit(Limit int64) *ListLogParams {
 	params.Limit = &Limit
 	return params
 }
@@ -172,7 +172,7 @@ func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params 
 }
 
 func (c *ApiService) streamLog(response *ListLogResponse, params *ListLogParams, recordChannel chan ServerlessV1Log, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Logs

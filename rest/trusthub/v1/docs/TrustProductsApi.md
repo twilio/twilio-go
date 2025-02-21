@@ -160,8 +160,8 @@ Name | Type | Description
 **Status** | **string** | The verification status of the Trust Product resource.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **PolicySid** | **string** | The unique string of a policy that is associated to the Trust Product resource.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

@@ -138,9 +138,9 @@ type ListSinkParams struct {
 	// A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSinkParams) SetInUse(InUse bool) *ListSinkParams {
@@ -151,11 +151,11 @@ func (params *ListSinkParams) SetStatus(Status string) *ListSinkParams {
 	params.Status = &Status
 	return params
 }
-func (params *ListSinkParams) SetPageSize(PageSize int) *ListSinkParams {
+func (params *ListSinkParams) SetPageSize(PageSize int64) *ListSinkParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSinkParams) SetLimit(Limit int) *ListSinkParams {
+func (params *ListSinkParams) SetLimit(Limit int64) *ListSinkParams {
 	params.Limit = &Limit
 	return params
 }
@@ -240,7 +240,7 @@ func (c *ApiService) StreamSink(params *ListSinkParams) (chan EventsV1Sink, chan
 }
 
 func (c *ApiService) streamSink(response *ListSinkResponse, params *ListSinkParams, recordChannel chan EventsV1Sink, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Sinks

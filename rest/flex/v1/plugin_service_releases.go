@@ -40,7 +40,6 @@ func (params *CreatePluginReleaseParams) SetConfigurationId(ConfigurationId stri
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginRelease(params *CreatePluginReleaseParams) (*FlexV1PluginRelease, error) {
 	path := "/v1/PluginService/Releases"
 
@@ -82,7 +81,6 @@ func (params *FetchPluginReleaseParams) SetFlexMetadata(FlexMetadata string) *Fe
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginRelease(Sid string, params *FetchPluginReleaseParams) (*FlexV1PluginRelease, error) {
 	path := "/v1/PluginService/Releases/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -115,20 +113,20 @@ type ListPluginReleaseParams struct {
 	// The Flex-Metadata HTTP request header
 	FlexMetadata *string `json:"Flex-Metadata,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListPluginReleaseParams) SetFlexMetadata(FlexMetadata string) *ListPluginReleaseParams {
 	params.FlexMetadata = &FlexMetadata
 	return params
 }
-func (params *ListPluginReleaseParams) SetPageSize(PageSize int) *ListPluginReleaseParams {
+func (params *ListPluginReleaseParams) SetPageSize(PageSize int64) *ListPluginReleaseParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListPluginReleaseParams) SetLimit(Limit int) *ListPluginReleaseParams {
+func (params *ListPluginReleaseParams) SetLimit(Limit int64) *ListPluginReleaseParams {
 	params.Limit = &Limit
 	return params
 }
@@ -207,7 +205,7 @@ func (c *ApiService) StreamPluginRelease(params *ListPluginReleaseParams) (chan 
 }
 
 func (c *ApiService) streamPluginRelease(response *ListPluginReleaseResponse, params *ListPluginReleaseParams, recordChannel chan FlexV1PluginRelease, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Releases

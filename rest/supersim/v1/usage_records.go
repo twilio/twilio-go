@@ -42,9 +42,9 @@ type ListUsageRecordParams struct {
 	// Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
 	EndTime *time.Time `json:"EndTime,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListUsageRecordParams) SetSim(Sim string) *ListUsageRecordParams {
@@ -79,11 +79,11 @@ func (params *ListUsageRecordParams) SetEndTime(EndTime time.Time) *ListUsageRec
 	params.EndTime = &EndTime
 	return params
 }
-func (params *ListUsageRecordParams) SetPageSize(PageSize int) *ListUsageRecordParams {
+func (params *ListUsageRecordParams) SetPageSize(PageSize int64) *ListUsageRecordParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListUsageRecordParams) SetLimit(Limit int) *ListUsageRecordParams {
+func (params *ListUsageRecordParams) SetLimit(Limit int64) *ListUsageRecordParams {
 	params.Limit = &Limit
 	return params
 }
@@ -186,7 +186,7 @@ func (c *ApiService) StreamUsageRecord(params *ListUsageRecordParams) (chan Supe
 }
 
 func (c *ApiService) streamUsageRecord(response *ListUsageRecordResponse, params *ListUsageRecordParams, recordChannel chan SupersimV1UsageRecord, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.UsageRecords

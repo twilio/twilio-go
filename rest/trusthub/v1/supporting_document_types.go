@@ -51,16 +51,16 @@ func (c *ApiService) FetchSupportingDocumentType(Sid string) (*TrusthubV1Support
 // Optional parameters for the method 'ListSupportingDocumentType'
 type ListSupportingDocumentTypeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int) *ListSupportingDocumentTypeParams {
+func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int64) *ListSupportingDocumentTypeParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSupportingDocumentTypeParams) SetLimit(Limit int) *ListSupportingDocumentTypeParams {
+func (params *ListSupportingDocumentTypeParams) SetLimit(Limit int64) *ListSupportingDocumentTypeParams {
 	params.Limit = &Limit
 	return params
 }
@@ -139,7 +139,7 @@ func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocument
 }
 
 func (c *ApiService) streamSupportingDocumentType(response *ListSupportingDocumentTypeResponse, params *ListSupportingDocumentTypeParams, recordChannel chan TrusthubV1SupportingDocumentType, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.SupportingDocumentTypes

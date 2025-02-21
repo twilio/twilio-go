@@ -4,49 +4,9 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreatePortingPortIn**](PortingPortInApi.md#CreatePortingPortIn) | **Post** /v1/Porting/PortIn | 
 [**DeletePortingPortIn**](PortingPortInApi.md#DeletePortingPortIn) | **Delete** /v1/Porting/PortIn/{PortInRequestSid} | 
 [**FetchPortingPortIn**](PortingPortInApi.md#FetchPortingPortIn) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | 
 
-
-
-## CreatePortingPortIn
-
-> NumbersV1PortingPortIn CreatePortingPortIn(ctx, optional)
-
-
-
-Allows to create a new port in request
-
-### Path Parameters
-
-This endpoint does not need any path parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a CreatePortingPortInParams struct
-
-
-Name | Type | Description
-------------- | ------------- | -------------
-**Body** | **map[string]interface{}** | 
-
-### Return type
-
-[**NumbersV1PortingPortIn**](NumbersV1PortingPortIn.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## DeletePortingPortIn

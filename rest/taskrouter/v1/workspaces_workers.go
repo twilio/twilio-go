@@ -46,7 +46,6 @@ func (params *CreateWorkerParams) SetAttributes(Attributes string) *CreateWorker
 	return params
 }
 
-//
 func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParams) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -92,7 +91,6 @@ func (params *DeleteWorkerParams) SetIfMatch(IfMatch string) *DeleteWorkerParams
 	return params
 }
 
-//
 func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *DeleteWorkerParams) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -116,7 +114,6 @@ func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *Delet
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorker(WorkspaceSid string, Sid string) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -161,9 +158,9 @@ type ListWorkerParams struct {
 	// Sorting parameter for Workers
 	Ordering *string `json:"Ordering,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListWorkerParams) SetActivityName(ActivityName string) *ListWorkerParams {
@@ -198,11 +195,11 @@ func (params *ListWorkerParams) SetOrdering(Ordering string) *ListWorkerParams {
 	params.Ordering = &Ordering
 	return params
 }
-func (params *ListWorkerParams) SetPageSize(PageSize int) *ListWorkerParams {
+func (params *ListWorkerParams) SetPageSize(PageSize int64) *ListWorkerParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListWorkerParams) SetLimit(Limit int) *ListWorkerParams {
+func (params *ListWorkerParams) SetLimit(Limit int64) *ListWorkerParams {
 	params.Limit = &Limit
 	return params
 }
@@ -307,7 +304,7 @@ func (c *ApiService) StreamWorker(WorkspaceSid string, params *ListWorkerParams)
 }
 
 func (c *ApiService) streamWorker(response *ListWorkerResponse, params *ListWorkerParams, recordChannel chan TaskrouterV1Worker, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Workers
@@ -389,7 +386,6 @@ func (params *UpdateWorkerParams) SetRejectPendingReservations(RejectPendingRese
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *UpdateWorkerParams) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

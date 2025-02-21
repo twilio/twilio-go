@@ -173,8 +173,8 @@ Name | Type | Description
 **EvaluateWorkerAttributes** | **string** | The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
 **WorkerSid** | **string** | The SID of the Worker with the TaskQueue resources to read.
 **Ordering** | **string** | Sorting parameter for TaskQueues
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

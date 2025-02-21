@@ -83,7 +83,6 @@ func (params *CreateTaskParams) SetTaskQueueSid(TaskQueueSid string) *CreateTask
 	return params
 }
 
-//
 func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -147,7 +146,6 @@ func (params *DeleteTaskParams) SetIfMatch(IfMatch string) *DeleteTaskParams {
 	return params
 }
 
-//
 func (c *ApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteTaskParams) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -171,7 +169,6 @@ func (c *ApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteT
 	return nil
 }
 
-//
 func (c *ApiService) FetchTask(WorkspaceSid string, Sid string) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -220,9 +217,9 @@ type ListTaskParams struct {
 	// Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
 	HasAddons *bool `json:"HasAddons,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListTaskParams) SetPriority(Priority int) *ListTaskParams {
@@ -265,11 +262,11 @@ func (params *ListTaskParams) SetHasAddons(HasAddons bool) *ListTaskParams {
 	params.HasAddons = &HasAddons
 	return params
 }
-func (params *ListTaskParams) SetPageSize(PageSize int) *ListTaskParams {
+func (params *ListTaskParams) SetPageSize(PageSize int64) *ListTaskParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTaskParams) SetLimit(Limit int) *ListTaskParams {
+func (params *ListTaskParams) SetLimit(Limit int64) *ListTaskParams {
 	params.Limit = &Limit
 	return params
 }
@@ -382,7 +379,7 @@ func (c *ApiService) StreamTask(WorkspaceSid string, params *ListTaskParams) (ch
 }
 
 func (c *ApiService) streamTask(response *ListTaskResponse, params *ListTaskParams, recordChannel chan TaskrouterV1Task, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Tasks
@@ -476,7 +473,6 @@ func (params *UpdateTaskParams) SetVirtualStartTime(VirtualStartTime time.Time) 
 	return params
 }
 
-//
 func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateTaskParams) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

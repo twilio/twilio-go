@@ -128,16 +128,16 @@ func (c *ApiService) FetchCredentialAws(Sid string) (*AccountsV1CredentialAws, e
 // Optional parameters for the method 'ListCredentialAws'
 type ListCredentialAwsParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListCredentialAwsParams) SetPageSize(PageSize int) *ListCredentialAwsParams {
+func (params *ListCredentialAwsParams) SetPageSize(PageSize int64) *ListCredentialAwsParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCredentialAwsParams) SetLimit(Limit int) *ListCredentialAwsParams {
+func (params *ListCredentialAwsParams) SetLimit(Limit int64) *ListCredentialAwsParams {
 	params.Limit = &Limit
 	return params
 }
@@ -216,7 +216,7 @@ func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams) (chan 
 }
 
 func (c *ApiService) streamCredentialAws(response *ListCredentialAwsResponse, params *ListCredentialAwsParams, recordChannel chan AccountsV1CredentialAws, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Credentials

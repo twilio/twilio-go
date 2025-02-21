@@ -70,7 +70,6 @@ func (params *CreateChannelWebhookParams) SetConfigurationRetryCount(Configurati
 	return params
 }
 
-//
 func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -122,7 +121,6 @@ func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, 
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -144,7 +142,6 @@ func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, 
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -174,16 +171,16 @@ func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, S
 // Optional parameters for the method 'ListChannelWebhook'
 type ListChannelWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListChannelWebhookParams) SetPageSize(PageSize int) *ListChannelWebhookParams {
+func (params *ListChannelWebhookParams) SetPageSize(PageSize int64) *ListChannelWebhookParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListChannelWebhookParams) SetLimit(Limit int) *ListChannelWebhookParams {
+func (params *ListChannelWebhookParams) SetLimit(Limit int64) *ListChannelWebhookParams {
 	params.Limit = &Limit
 	return params
 }
@@ -265,7 +262,7 @@ func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, 
 }
 
 func (c *ApiService) streamChannelWebhook(response *ListChannelWebhookResponse, params *ListChannelWebhookParams, recordChannel chan ChatV2ChannelWebhook, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Webhooks
@@ -353,7 +350,6 @@ func (params *UpdateChannelWebhookParams) SetConfigurationRetryCount(Configurati
 	return params
 }
 
-//
 func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

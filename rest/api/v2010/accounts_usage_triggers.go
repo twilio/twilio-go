@@ -138,7 +138,6 @@ func (params *DeleteUsageTriggerParams) SetPathAccountSid(PathAccountSid string)
 	return params
 }
 
-//
 func (c *ApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTriggerParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -215,9 +214,9 @@ type ListUsageTriggerParams struct {
 	// The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
 	UsageCategory *string `json:"UsageCategory,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *ListUsageTriggerParams {
@@ -236,11 +235,11 @@ func (params *ListUsageTriggerParams) SetUsageCategory(UsageCategory string) *Li
 	params.UsageCategory = &UsageCategory
 	return params
 }
-func (params *ListUsageTriggerParams) SetPageSize(PageSize int) *ListUsageTriggerParams {
+func (params *ListUsageTriggerParams) SetPageSize(PageSize int64) *ListUsageTriggerParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListUsageTriggerParams) SetLimit(Limit int) *ListUsageTriggerParams {
+func (params *ListUsageTriggerParams) SetLimit(Limit int64) *ListUsageTriggerParams {
 	params.Limit = &Limit
 	return params
 }
@@ -334,7 +333,7 @@ func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams) (chan Ap
 }
 
 func (c *ApiService) streamUsageTrigger(response *ListUsageTriggerResponse, params *ListUsageTriggerParams, recordChannel chan ApiV2010UsageTrigger, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.UsageTriggers

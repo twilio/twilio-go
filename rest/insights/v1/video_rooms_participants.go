@@ -52,16 +52,16 @@ func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid
 // Optional parameters for the method 'ListVideoParticipantSummary'
 type ListVideoParticipantSummaryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListVideoParticipantSummaryParams) SetPageSize(PageSize int) *ListVideoParticipantSummaryParams {
+func (params *ListVideoParticipantSummaryParams) SetPageSize(PageSize int64) *ListVideoParticipantSummaryParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListVideoParticipantSummaryParams) SetLimit(Limit int) *ListVideoParticipantSummaryParams {
+func (params *ListVideoParticipantSummaryParams) SetLimit(Limit int64) *ListVideoParticipantSummaryParams {
 	params.Limit = &Limit
 	return params
 }
@@ -142,7 +142,7 @@ func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListV
 }
 
 func (c *ApiService) streamVideoParticipantSummary(response *ListVideoParticipantSummaryResponse, params *ListVideoParticipantSummaryParams, recordChannel chan InsightsV1VideoParticipantSummary, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Participants

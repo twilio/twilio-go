@@ -37,7 +37,6 @@ Class | Method | HTTP request | Description
 *ChannelsApi* | [**FetchChannel**](docs/ChannelsApi.md#fetchchannel) | **Get** /v1/Channels/{Sid} | 
 *ChannelsApi* | [**ListChannel**](docs/ChannelsApi.md#listchannel) | **Get** /v1/Channels | 
 *ConfigurationApi* | [**FetchConfiguration**](docs/ConfigurationApi.md#fetchconfiguration) | **Get** /v1/Configuration | 
-*ConfigurationApi* | [**UpdateConfiguration**](docs/ConfigurationApi.md#updateconfiguration) | **Post** /v1/Configuration | 
 *FlexFlowsApi* | [**CreateFlexFlow**](docs/FlexFlowsApi.md#createflexflow) | **Post** /v1/FlexFlows | 
 *FlexFlowsApi* | [**DeleteFlexFlow**](docs/FlexFlowsApi.md#deleteflexflow) | **Delete** /v1/FlexFlows/{Sid} | 
 *FlexFlowsApi* | [**FetchFlexFlow**](docs/FlexFlowsApi.md#fetchflexflow) | **Get** /v1/FlexFlows/{Sid} | 

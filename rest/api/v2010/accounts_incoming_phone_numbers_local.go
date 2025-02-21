@@ -172,7 +172,6 @@ func (params *CreateIncomingPhoneNumberLocalParams) SetBundleSid(BundleSid strin
 	return params
 }
 
-//
 func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneNumberLocalParams) (*ApiV2010IncomingPhoneNumberLocal, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -284,9 +283,9 @@ type ListIncomingPhoneNumberLocalParams struct {
 	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
 	Origin *string `json:"Origin,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberLocalParams {
@@ -309,11 +308,11 @@ func (params *ListIncomingPhoneNumberLocalParams) SetOrigin(Origin string) *List
 	params.Origin = &Origin
 	return params
 }
-func (params *ListIncomingPhoneNumberLocalParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberLocalParams {
+func (params *ListIncomingPhoneNumberLocalParams) SetPageSize(PageSize int64) *ListIncomingPhoneNumberLocalParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListIncomingPhoneNumberLocalParams) SetLimit(Limit int) *ListIncomingPhoneNumberLocalParams {
+func (params *ListIncomingPhoneNumberLocalParams) SetLimit(Limit int64) *ListIncomingPhoneNumberLocalParams {
 	params.Limit = &Limit
 	return params
 }
@@ -410,7 +409,7 @@ func (c *ApiService) StreamIncomingPhoneNumberLocal(params *ListIncomingPhoneNum
 }
 
 func (c *ApiService) streamIncomingPhoneNumberLocal(response *ListIncomingPhoneNumberLocalResponse, params *ListIncomingPhoneNumberLocalParams, recordChannel chan ApiV2010IncomingPhoneNumberLocal, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.IncomingPhoneNumbers

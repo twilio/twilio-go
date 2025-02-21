@@ -25,16 +25,16 @@ import (
 // Optional parameters for the method 'ListLegacyContent'
 type ListLegacyContentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListLegacyContentParams) SetPageSize(PageSize int) *ListLegacyContentParams {
+func (params *ListLegacyContentParams) SetPageSize(PageSize int64) *ListLegacyContentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListLegacyContentParams) SetLimit(Limit int) *ListLegacyContentParams {
+func (params *ListLegacyContentParams) SetLimit(Limit int64) *ListLegacyContentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -113,7 +113,7 @@ func (c *ApiService) StreamLegacyContent(params *ListLegacyContentParams) (chan 
 }
 
 func (c *ApiService) streamLegacyContent(response *ListLegacyContentResponse, params *ListLegacyContentParams, recordChannel chan ContentV1LegacyContent, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Contents

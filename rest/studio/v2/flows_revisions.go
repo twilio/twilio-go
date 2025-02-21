@@ -52,16 +52,16 @@ func (c *ApiService) FetchFlowRevision(Sid string, Revision string) (*StudioV2Fl
 // Optional parameters for the method 'ListFlowRevision'
 type ListFlowRevisionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListFlowRevisionParams) SetPageSize(PageSize int) *ListFlowRevisionParams {
+func (params *ListFlowRevisionParams) SetPageSize(PageSize int64) *ListFlowRevisionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListFlowRevisionParams) SetLimit(Limit int) *ListFlowRevisionParams {
+func (params *ListFlowRevisionParams) SetLimit(Limit int64) *ListFlowRevisionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -142,7 +142,7 @@ func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionPara
 }
 
 func (c *ApiService) streamFlowRevision(response *ListFlowRevisionResponse, params *ListFlowRevisionParams, recordChannel chan StudioV2FlowRevision, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Revisions

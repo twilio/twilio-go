@@ -130,16 +130,16 @@ func (c *ApiService) FetchRole(Sid string) (*ConversationsV1Role, error) {
 // Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListRoleParams) SetPageSize(PageSize int) *ListRoleParams {
+func (params *ListRoleParams) SetPageSize(PageSize int64) *ListRoleParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRoleParams) SetLimit(Limit int) *ListRoleParams {
+func (params *ListRoleParams) SetLimit(Limit int64) *ListRoleParams {
 	params.Limit = &Limit
 	return params
 }
@@ -218,7 +218,7 @@ func (c *ApiService) StreamRole(params *ListRoleParams) (chan ConversationsV1Rol
 }
 
 func (c *ApiService) streamRole(response *ListRoleResponse, params *ListRoleParams, recordChannel chan ConversationsV1Role, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Roles

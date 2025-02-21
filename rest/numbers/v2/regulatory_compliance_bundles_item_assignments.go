@@ -113,16 +113,16 @@ func (c *ApiService) FetchItemAssignment(BundleSid string, Sid string) (*Numbers
 // Optional parameters for the method 'ListItemAssignment'
 type ListItemAssignmentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListItemAssignmentParams) SetPageSize(PageSize int) *ListItemAssignmentParams {
+func (params *ListItemAssignmentParams) SetPageSize(PageSize int64) *ListItemAssignmentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListItemAssignmentParams) SetLimit(Limit int) *ListItemAssignmentParams {
+func (params *ListItemAssignmentParams) SetLimit(Limit int64) *ListItemAssignmentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +203,7 @@ func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssi
 }
 
 func (c *ApiService) streamItemAssignment(response *ListItemAssignmentResponse, params *ListItemAssignmentParams, recordChannel chan NumbersV2ItemAssignment, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

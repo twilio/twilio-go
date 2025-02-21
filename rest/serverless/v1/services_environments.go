@@ -122,16 +122,16 @@ func (c *ApiService) FetchEnvironment(ServiceSid string, Sid string) (*Serverles
 // Optional parameters for the method 'ListEnvironment'
 type ListEnvironmentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListEnvironmentParams) SetPageSize(PageSize int) *ListEnvironmentParams {
+func (params *ListEnvironmentParams) SetPageSize(PageSize int64) *ListEnvironmentParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListEnvironmentParams) SetLimit(Limit int) *ListEnvironmentParams {
+func (params *ListEnvironmentParams) SetLimit(Limit int64) *ListEnvironmentParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +212,7 @@ func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmen
 }
 
 func (c *ApiService) streamEnvironment(response *ListEnvironmentResponse, params *ListEnvironmentParams, recordChannel chan ServerlessV1Environment, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Environments

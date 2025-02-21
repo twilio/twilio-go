@@ -368,9 +368,9 @@ type ListMessageParams struct {
 	// Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
 	DateSentAfter *time.Time `json:"DateSent&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListMessageParams) SetPathAccountSid(PathAccountSid string) *ListMessageParams {
@@ -397,11 +397,11 @@ func (params *ListMessageParams) SetDateSentAfter(DateSentAfter time.Time) *List
 	params.DateSentAfter = &DateSentAfter
 	return params
 }
-func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
+func (params *ListMessageParams) SetPageSize(PageSize int64) *ListMessageParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMessageParams) SetLimit(Limit int) *ListMessageParams {
+func (params *ListMessageParams) SetLimit(Limit int64) *ListMessageParams {
 	params.Limit = &Limit
 	return params
 }
@@ -501,7 +501,7 @@ func (c *ApiService) StreamMessage(params *ListMessageParams) (chan ApiV2010Mess
 }
 
 func (c *ApiService) streamMessage(response *ListMessageResponse, params *ListMessageParams, recordChannel chan ApiV2010Message, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Messages

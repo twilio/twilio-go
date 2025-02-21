@@ -57,9 +57,9 @@ type ListNetworkParams struct {
 	// The 'mobile network code' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
 	Mnc *string `json:"Mnc,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListNetworkParams) SetIsoCountry(IsoCountry string) *ListNetworkParams {
@@ -74,11 +74,11 @@ func (params *ListNetworkParams) SetMnc(Mnc string) *ListNetworkParams {
 	params.Mnc = &Mnc
 	return params
 }
-func (params *ListNetworkParams) SetPageSize(PageSize int) *ListNetworkParams {
+func (params *ListNetworkParams) SetPageSize(PageSize int64) *ListNetworkParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListNetworkParams) SetLimit(Limit int) *ListNetworkParams {
+func (params *ListNetworkParams) SetLimit(Limit int64) *ListNetworkParams {
 	params.Limit = &Limit
 	return params
 }
@@ -166,7 +166,7 @@ func (c *ApiService) StreamNetwork(params *ListNetworkParams) (chan SupersimV1Ne
 }
 
 func (c *ApiService) streamNetwork(response *ListNetworkResponse, params *ListNetworkParams, recordChannel chan SupersimV1Network, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Networks

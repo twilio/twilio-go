@@ -151,16 +151,16 @@ func (c *ApiService) FetchWebhook(ServiceSid string, Sid string) (*VerifyV2Webho
 // Optional parameters for the method 'ListWebhook'
 type ListWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListWebhookParams) SetPageSize(PageSize int) *ListWebhookParams {
+func (params *ListWebhookParams) SetPageSize(PageSize int64) *ListWebhookParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListWebhookParams) SetLimit(Limit int) *ListWebhookParams {
+func (params *ListWebhookParams) SetLimit(Limit int64) *ListWebhookParams {
 	params.Limit = &Limit
 	return params
 }
@@ -241,7 +241,7 @@ func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams)
 }
 
 func (c *ApiService) streamWebhook(response *ListWebhookResponse, params *ListWebhookParams, recordChannel chan VerifyV2Webhook, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Webhooks
@@ -323,7 +323,6 @@ func (params *UpdateWebhookParams) SetVersion(Version string) *UpdateWebhookPara
 	return params
 }
 
-//
 func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *UpdateWebhookParams) (*VerifyV2Webhook, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

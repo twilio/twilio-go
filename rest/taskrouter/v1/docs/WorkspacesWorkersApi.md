@@ -175,8 +175,8 @@ Name | Type | Description
 **TaskQueueName** | **string** | The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
 **TaskQueueSid** | **string** | The SID of the TaskQueue that the Workers to read are eligible for.
 **Ordering** | **string** | Sorting parameter for Workers
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

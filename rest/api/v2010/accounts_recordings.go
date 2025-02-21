@@ -128,9 +128,9 @@ type ListRecordingParams struct {
 	// A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 	IncludeSoftDeleted *bool `json:"IncludeSoftDeleted,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListRecordingParams) SetPathAccountSid(PathAccountSid string) *ListRecordingParams {
@@ -161,11 +161,11 @@ func (params *ListRecordingParams) SetIncludeSoftDeleted(IncludeSoftDeleted bool
 	params.IncludeSoftDeleted = &IncludeSoftDeleted
 	return params
 }
-func (params *ListRecordingParams) SetPageSize(PageSize int) *ListRecordingParams {
+func (params *ListRecordingParams) SetPageSize(PageSize int64) *ListRecordingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRecordingParams) SetLimit(Limit int) *ListRecordingParams {
+func (params *ListRecordingParams) SetLimit(Limit int64) *ListRecordingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -268,7 +268,7 @@ func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan ApiV2010
 }
 
 func (c *ApiService) streamRecording(response *ListRecordingResponse, params *ListRecordingParams, recordChannel chan ApiV2010Recording, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Recordings

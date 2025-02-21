@@ -29,9 +29,9 @@ type ListPoliciesParams struct {
 	// The knowledge ID.
 	KnowledgeId *string `json:"KnowledgeId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListPoliciesParams) SetToolId(ToolId string) *ListPoliciesParams {
@@ -42,11 +42,11 @@ func (params *ListPoliciesParams) SetKnowledgeId(KnowledgeId string) *ListPolici
 	params.KnowledgeId = &KnowledgeId
 	return params
 }
-func (params *ListPoliciesParams) SetPageSize(PageSize int) *ListPoliciesParams {
+func (params *ListPoliciesParams) SetPageSize(PageSize int64) *ListPoliciesParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListPoliciesParams) SetLimit(Limit int) *ListPoliciesParams {
+func (params *ListPoliciesParams) SetLimit(Limit int64) *ListPoliciesParams {
 	params.Limit = &Limit
 	return params
 }
@@ -131,7 +131,7 @@ func (c *ApiService) StreamPolicies(params *ListPoliciesParams) (chan Assistants
 }
 
 func (c *ApiService) streamPolicies(response *ListPoliciesResponse, params *ListPoliciesParams, recordChannel chan AssistantsV1Policy, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Policies

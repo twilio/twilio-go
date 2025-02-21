@@ -119,7 +119,6 @@ func (params *CreateRoomParams) SetLargeRoom(LargeRoom bool) *CreateRoomParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms"
 
@@ -197,7 +196,6 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchRoom(Sid string) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -233,9 +231,9 @@ type ListRoomParams struct {
 	// Read only rooms that started before this date, given as `YYYY-MM-DD`.
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListRoomParams) SetStatus(Status string) *ListRoomParams {
@@ -254,11 +252,11 @@ func (params *ListRoomParams) SetDateCreatedBefore(DateCreatedBefore time.Time) 
 	params.DateCreatedBefore = &DateCreatedBefore
 	return params
 }
-func (params *ListRoomParams) SetPageSize(PageSize int) *ListRoomParams {
+func (params *ListRoomParams) SetPageSize(PageSize int64) *ListRoomParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRoomParams) SetLimit(Limit int) *ListRoomParams {
+func (params *ListRoomParams) SetLimit(Limit int64) *ListRoomParams {
 	params.Limit = &Limit
 	return params
 }
@@ -349,7 +347,7 @@ func (c *ApiService) StreamRoom(params *ListRoomParams) (chan VideoV1Room, chan 
 }
 
 func (c *ApiService) streamRoom(response *ListRoomResponse, params *ListRoomParams, recordChannel chan VideoV1Room, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Rooms
@@ -407,7 +405,6 @@ func (params *UpdateRoomParams) SetStatus(Status string) *UpdateRoomParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

@@ -105,9 +105,9 @@ type ListSimParams struct {
 	// The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
 	Iccid *string `json:"Iccid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSimParams) SetStatus(Status string) *ListSimParams {
@@ -122,11 +122,11 @@ func (params *ListSimParams) SetIccid(Iccid string) *ListSimParams {
 	params.Iccid = &Iccid
 	return params
 }
-func (params *ListSimParams) SetPageSize(PageSize int) *ListSimParams {
+func (params *ListSimParams) SetPageSize(PageSize int64) *ListSimParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSimParams) SetLimit(Limit int) *ListSimParams {
+func (params *ListSimParams) SetLimit(Limit int64) *ListSimParams {
 	params.Limit = &Limit
 	return params
 }
@@ -214,7 +214,7 @@ func (c *ApiService) StreamSim(params *ListSimParams) (chan SupersimV1Sim, chan 
 }
 
 func (c *ApiService) streamSim(response *ListSimResponse, params *ListSimParams, recordChannel chan SupersimV1Sim, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Sims

@@ -211,9 +211,9 @@ type ListCallRecordingParams struct {
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
 	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCallRecordingParams) SetPathAccountSid(PathAccountSid string) *ListCallRecordingParams {
@@ -232,11 +232,11 @@ func (params *ListCallRecordingParams) SetDateCreatedAfter(DateCreatedAfter stri
 	params.DateCreatedAfter = &DateCreatedAfter
 	return params
 }
-func (params *ListCallRecordingParams) SetPageSize(PageSize int) *ListCallRecordingParams {
+func (params *ListCallRecordingParams) SetPageSize(PageSize int64) *ListCallRecordingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCallRecordingParams) SetLimit(Limit int) *ListCallRecordingParams {
+func (params *ListCallRecordingParams) SetLimit(Limit int64) *ListCallRecordingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -331,7 +331,7 @@ func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordi
 }
 
 func (c *ApiService) streamCallRecording(response *ListCallRecordingResponse, params *ListCallRecordingParams, recordChannel chan ApiV2010CallRecording, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Recordings

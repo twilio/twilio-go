@@ -122,16 +122,16 @@ func (c *ApiService) FetchSyncStream(ServiceSid string, Sid string) (*SyncV1Sync
 // Optional parameters for the method 'ListSyncStream'
 type ListSyncStreamParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListSyncStreamParams) SetPageSize(PageSize int) *ListSyncStreamParams {
+func (params *ListSyncStreamParams) SetPageSize(PageSize int64) *ListSyncStreamParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSyncStreamParams) SetLimit(Limit int) *ListSyncStreamParams {
+func (params *ListSyncStreamParams) SetLimit(Limit int64) *ListSyncStreamParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +212,7 @@ func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamP
 }
 
 func (c *ApiService) streamSyncStream(response *ListSyncStreamResponse, params *ListSyncStreamParams, recordChannel chan SyncV1SyncStream, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Streams

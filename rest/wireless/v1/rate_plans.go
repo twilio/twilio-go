@@ -94,7 +94,6 @@ func (params *CreateRatePlanParams) SetInternationalRoamingDataLimit(Internation
 	return params
 }
 
-//
 func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans"
 
@@ -154,7 +153,6 @@ func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1Ra
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteRatePlan(Sid string) error {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -174,7 +172,6 @@ func (c *ApiService) DeleteRatePlan(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -202,16 +199,16 @@ func (c *ApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, error) {
 // Optional parameters for the method 'ListRatePlan'
 type ListRatePlanParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListRatePlanParams) SetPageSize(PageSize int) *ListRatePlanParams {
+func (params *ListRatePlanParams) SetPageSize(PageSize int64) *ListRatePlanParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRatePlanParams) SetLimit(Limit int) *ListRatePlanParams {
+func (params *ListRatePlanParams) SetLimit(Limit int64) *ListRatePlanParams {
 	params.Limit = &Limit
 	return params
 }
@@ -290,7 +287,7 @@ func (c *ApiService) StreamRatePlan(params *ListRatePlanParams) (chan WirelessV1
 }
 
 func (c *ApiService) streamRatePlan(response *ListRatePlanResponse, params *ListRatePlanParams, recordChannel chan WirelessV1RatePlan, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.RatePlans
@@ -354,7 +351,6 @@ func (params *UpdateRatePlanParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

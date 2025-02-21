@@ -77,9 +77,9 @@ type ListNotificationParams struct {
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 	MessageDateAfter *string `json:"MessageDate&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListNotificationParams) SetPathAccountSid(PathAccountSid string) *ListNotificationParams {
@@ -102,11 +102,11 @@ func (params *ListNotificationParams) SetMessageDateAfter(MessageDateAfter strin
 	params.MessageDateAfter = &MessageDateAfter
 	return params
 }
-func (params *ListNotificationParams) SetPageSize(PageSize int) *ListNotificationParams {
+func (params *ListNotificationParams) SetPageSize(PageSize int64) *ListNotificationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListNotificationParams) SetLimit(Limit int) *ListNotificationParams {
+func (params *ListNotificationParams) SetLimit(Limit int64) *ListNotificationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +203,7 @@ func (c *ApiService) StreamNotification(params *ListNotificationParams) (chan Ap
 }
 
 func (c *ApiService) streamNotification(response *ListNotificationResponse, params *ListNotificationParams, recordChannel chan ApiV2010Notification, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Notifications

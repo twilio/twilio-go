@@ -119,16 +119,16 @@ func (c *ApiService) FetchAccountConfig(Key string) (*MicrovisorV1AccountConfig,
 // Optional parameters for the method 'ListAccountConfig'
 type ListAccountConfigParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListAccountConfigParams) SetPageSize(PageSize int) *ListAccountConfigParams {
+func (params *ListAccountConfigParams) SetPageSize(PageSize int64) *ListAccountConfigParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAccountConfigParams) SetLimit(Limit int) *ListAccountConfigParams {
+func (params *ListAccountConfigParams) SetLimit(Limit int64) *ListAccountConfigParams {
 	params.Limit = &Limit
 	return params
 }
@@ -207,7 +207,7 @@ func (c *ApiService) StreamAccountConfig(params *ListAccountConfigParams) (chan 
 }
 
 func (c *ApiService) streamAccountConfig(response *ListAccountConfigResponse, params *ListAccountConfigParams, recordChannel chan MicrovisorV1AccountConfig, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Configs

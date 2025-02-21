@@ -64,9 +64,9 @@ type ListAvailablePhoneNumberNationalParams struct {
 	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberNationalParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberNationalParams {
@@ -145,11 +145,11 @@ func (params *ListAvailablePhoneNumberNationalParams) SetFaxEnabled(FaxEnabled b
 	params.FaxEnabled = &FaxEnabled
 	return params
 }
-func (params *ListAvailablePhoneNumberNationalParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberNationalParams {
+func (params *ListAvailablePhoneNumberNationalParams) SetPageSize(PageSize int64) *ListAvailablePhoneNumberNationalParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAvailablePhoneNumberNationalParams) SetLimit(Limit int) *ListAvailablePhoneNumberNationalParams {
+func (params *ListAvailablePhoneNumberNationalParams) SetLimit(Limit int64) *ListAvailablePhoneNumberNationalParams {
 	params.Limit = &Limit
 	return params
 }
@@ -289,7 +289,7 @@ func (c *ApiService) StreamAvailablePhoneNumberNational(CountryCode string, para
 }
 
 func (c *ApiService) streamAvailablePhoneNumberNational(response *ListAvailablePhoneNumberNationalResponse, params *ListAvailablePhoneNumberNationalParams, recordChannel chan ApiV2010AvailablePhoneNumberNational, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.AvailablePhoneNumbers

@@ -145,20 +145,20 @@ type ListGetKeysParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
 	AccountSid *string `json:"AccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListGetKeysParams) SetAccountSid(AccountSid string) *ListGetKeysParams {
 	params.AccountSid = &AccountSid
 	return params
 }
-func (params *ListGetKeysParams) SetPageSize(PageSize int) *ListGetKeysParams {
+func (params *ListGetKeysParams) SetPageSize(PageSize int64) *ListGetKeysParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListGetKeysParams) SetLimit(Limit int) *ListGetKeysParams {
+func (params *ListGetKeysParams) SetLimit(Limit int64) *ListGetKeysParams {
 	params.Limit = &Limit
 	return params
 }
@@ -240,7 +240,7 @@ func (c *ApiService) StreamGetKeys(params *ListGetKeysParams) (chan IamV1GetKeys
 }
 
 func (c *ApiService) streamGetKeys(response *ListGetKeysResponse, params *ListGetKeysParams, recordChannel chan IamV1GetKeys, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Keys

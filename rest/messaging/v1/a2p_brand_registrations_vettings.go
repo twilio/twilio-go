@@ -40,7 +40,6 @@ func (params *CreateBrandVettingParams) SetVettingId(VettingId string) *CreateBr
 	return params
 }
 
-//
 func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVettingParams) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
@@ -72,7 +71,6 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
@@ -103,20 +101,20 @@ type ListBrandVettingParams struct {
 	// The third-party provider of the vettings to read
 	VettingProvider *string `json:"VettingProvider,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListBrandVettingParams) SetVettingProvider(VettingProvider string) *ListBrandVettingParams {
 	params.VettingProvider = &VettingProvider
 	return params
 }
-func (params *ListBrandVettingParams) SetPageSize(PageSize int) *ListBrandVettingParams {
+func (params *ListBrandVettingParams) SetPageSize(PageSize int64) *ListBrandVettingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListBrandVettingParams) SetLimit(Limit int) *ListBrandVettingParams {
+func (params *ListBrandVettingParams) SetLimit(Limit int64) *ListBrandVettingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -200,7 +198,7 @@ func (c *ApiService) StreamBrandVetting(BrandSid string, params *ListBrandVettin
 }
 
 func (c *ApiService) streamBrandVetting(response *ListBrandVettingResponse, params *ListBrandVettingParams, recordChannel chan MessagingV1BrandVetting, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Data

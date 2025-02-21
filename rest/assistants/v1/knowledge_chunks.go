@@ -26,16 +26,16 @@ import (
 // Optional parameters for the method 'ListKnowledgeChunks'
 type ListKnowledgeChunksParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListKnowledgeChunksParams) SetPageSize(PageSize int) *ListKnowledgeChunksParams {
+func (params *ListKnowledgeChunksParams) SetPageSize(PageSize int64) *ListKnowledgeChunksParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListKnowledgeChunksParams) SetLimit(Limit int) *ListKnowledgeChunksParams {
+func (params *ListKnowledgeChunksParams) SetLimit(Limit int64) *ListKnowledgeChunksParams {
 	params.Limit = &Limit
 	return params
 }
@@ -116,7 +116,7 @@ func (c *ApiService) StreamKnowledgeChunks(Id string, params *ListKnowledgeChunk
 }
 
 func (c *ApiService) streamKnowledgeChunks(response *ListKnowledgeChunksResponse, params *ListKnowledgeChunksParams, recordChannel chan AssistantsV1KnowledgeChunk, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Chunks

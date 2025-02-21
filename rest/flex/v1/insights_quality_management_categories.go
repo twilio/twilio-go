@@ -82,7 +82,6 @@ func (params *DeleteInsightsQuestionnairesCategoryParams) SetAuthorization(Autho
 	return params
 }
 
-//
 func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategorySid string, params *DeleteInsightsQuestionnairesCategoryParams) error {
 	path := "/v1/Insights/QualityManagement/Categories/{CategorySid}"
 	path = strings.Replace(path, "{"+"CategorySid"+"}", CategorySid, -1)
@@ -110,20 +109,20 @@ type ListInsightsQuestionnairesCategoryParams struct {
 	// The Authorization HTTP request header
 	Authorization *string `json:"Authorization,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListInsightsQuestionnairesCategoryParams) SetAuthorization(Authorization string) *ListInsightsQuestionnairesCategoryParams {
 	params.Authorization = &Authorization
 	return params
 }
-func (params *ListInsightsQuestionnairesCategoryParams) SetPageSize(PageSize int) *ListInsightsQuestionnairesCategoryParams {
+func (params *ListInsightsQuestionnairesCategoryParams) SetPageSize(PageSize int64) *ListInsightsQuestionnairesCategoryParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListInsightsQuestionnairesCategoryParams) SetLimit(Limit int) *ListInsightsQuestionnairesCategoryParams {
+func (params *ListInsightsQuestionnairesCategoryParams) SetLimit(Limit int64) *ListInsightsQuestionnairesCategoryParams {
 	params.Limit = &Limit
 	return params
 }
@@ -202,7 +201,7 @@ func (c *ApiService) StreamInsightsQuestionnairesCategory(params *ListInsightsQu
 }
 
 func (c *ApiService) streamInsightsQuestionnairesCategory(response *ListInsightsQuestionnairesCategoryResponse, params *ListInsightsQuestionnairesCategoryParams, recordChannel chan FlexV1InsightsQuestionnairesCategory, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Categories

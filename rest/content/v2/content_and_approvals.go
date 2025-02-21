@@ -26,7 +26,7 @@ import (
 // Optional parameters for the method 'ListContentAndApprovals'
 type ListContentAndApprovalsParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Whether to sort by ascending or descending date updated
 	SortByDate *string `json:"SortByDate,omitempty"`
 	// Whether to sort by ascending or descending content name
@@ -46,10 +46,10 @@ type ListContentAndApprovalsParams struct {
 	// Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
 	ChannelEligibility *[]string `json:"ChannelEligibility,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListContentAndApprovalsParams) SetPageSize(PageSize int) *ListContentAndApprovalsParams {
+func (params *ListContentAndApprovalsParams) SetPageSize(PageSize int64) *ListContentAndApprovalsParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -89,7 +89,7 @@ func (params *ListContentAndApprovalsParams) SetChannelEligibility(ChannelEligib
 	params.ChannelEligibility = &ChannelEligibility
 	return params
 }
-func (params *ListContentAndApprovalsParams) SetLimit(Limit int) *ListContentAndApprovalsParams {
+func (params *ListContentAndApprovalsParams) SetLimit(Limit int64) *ListContentAndApprovalsParams {
 	params.Limit = &Limit
 	return params
 }
@@ -201,7 +201,7 @@ func (c *ApiService) StreamContentAndApprovals(params *ListContentAndApprovalsPa
 }
 
 func (c *ApiService) streamContentAndApprovals(response *ListContentAndApprovalsResponse, params *ListContentAndApprovalsParams, recordChannel chan ContentV1ContentAndApprovals, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Contents

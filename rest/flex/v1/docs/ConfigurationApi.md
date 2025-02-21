@@ -5,7 +5,6 @@ All URIs are relative to *https://flex-api.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**FetchConfiguration**](ConfigurationApi.md#FetchConfiguration) | **Get** /v1/Configuration | 
-[**UpdateConfiguration**](ConfigurationApi.md#UpdateConfiguration) | **Post** /v1/Configuration | 
 
 
 
@@ -41,45 +40,6 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateConfiguration
-
-> FlexV1Configuration UpdateConfiguration(ctx, optional)
-
-
-
-
-
-### Path Parameters
-
-This endpoint does not need any path parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a UpdateConfigurationParams struct
-
-
-Name | Type | Description
-------------- | ------------- | -------------
-**Body** | **map[string]interface{}** | 
-
-### Return type
-
-[**FlexV1Configuration**](FlexV1Configuration.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

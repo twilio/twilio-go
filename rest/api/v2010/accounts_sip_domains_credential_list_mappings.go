@@ -158,20 +158,20 @@ type ListSipCredentialListMappingParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListSipCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialListMappingParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipCredentialListMappingParams) SetPageSize(PageSize int) *ListSipCredentialListMappingParams {
+func (params *ListSipCredentialListMappingParams) SetPageSize(PageSize int64) *ListSipCredentialListMappingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSipCredentialListMappingParams) SetLimit(Limit int) *ListSipCredentialListMappingParams {
+func (params *ListSipCredentialListMappingParams) SetLimit(Limit int64) *ListSipCredentialListMappingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -257,7 +257,7 @@ func (c *ApiService) StreamSipCredentialListMapping(DomainSid string, params *Li
 }
 
 func (c *ApiService) streamSipCredentialListMapping(response *ListSipCredentialListMappingResponse, params *ListSipCredentialListMappingParams, recordChannel chan ApiV2010SipCredentialListMapping, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.CredentialListMappings

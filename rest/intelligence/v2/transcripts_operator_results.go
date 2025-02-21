@@ -69,20 +69,20 @@ type ListOperatorResultParams struct {
 	// Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 	Redacted *bool `json:"Redacted,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListOperatorResultParams) SetRedacted(Redacted bool) *ListOperatorResultParams {
 	params.Redacted = &Redacted
 	return params
 }
-func (params *ListOperatorResultParams) SetPageSize(PageSize int) *ListOperatorResultParams {
+func (params *ListOperatorResultParams) SetPageSize(PageSize int64) *ListOperatorResultParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListOperatorResultParams) SetLimit(Limit int) *ListOperatorResultParams {
+func (params *ListOperatorResultParams) SetLimit(Limit int64) *ListOperatorResultParams {
 	params.Limit = &Limit
 	return params
 }
@@ -166,7 +166,7 @@ func (c *ApiService) StreamOperatorResult(TranscriptSid string, params *ListOper
 }
 
 func (c *ApiService) streamOperatorResult(response *ListOperatorResultResponse, params *ListOperatorResultParams, recordChannel chan IntelligenceV2OperatorResult, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.OperatorResults

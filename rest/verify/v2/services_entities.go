@@ -113,16 +113,16 @@ func (c *ApiService) FetchEntity(ServiceSid string, Identity string) (*VerifyV2E
 // Optional parameters for the method 'ListEntity'
 type ListEntityParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListEntityParams) SetPageSize(PageSize int) *ListEntityParams {
+func (params *ListEntityParams) SetPageSize(PageSize int64) *ListEntityParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListEntityParams) SetLimit(Limit int) *ListEntityParams {
+func (params *ListEntityParams) SetLimit(Limit int64) *ListEntityParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +203,7 @@ func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (
 }
 
 func (c *ApiService) streamEntity(response *ListEntityResponse, params *ListEntityParams, recordChannel chan VerifyV2Entity, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Entities

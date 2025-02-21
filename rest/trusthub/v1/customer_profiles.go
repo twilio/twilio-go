@@ -143,9 +143,9 @@ type ListCustomerProfileParams struct {
 	// The unique string of a policy that is associated to the Customer-Profile resource.
 	PolicySid *string `json:"PolicySid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListCustomerProfileParams) SetStatus(Status string) *ListCustomerProfileParams {
@@ -160,11 +160,11 @@ func (params *ListCustomerProfileParams) SetPolicySid(PolicySid string) *ListCus
 	params.PolicySid = &PolicySid
 	return params
 }
-func (params *ListCustomerProfileParams) SetPageSize(PageSize int) *ListCustomerProfileParams {
+func (params *ListCustomerProfileParams) SetPageSize(PageSize int64) *ListCustomerProfileParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCustomerProfileParams) SetLimit(Limit int) *ListCustomerProfileParams {
+func (params *ListCustomerProfileParams) SetLimit(Limit int64) *ListCustomerProfileParams {
 	params.Limit = &Limit
 	return params
 }
@@ -252,7 +252,7 @@ func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams) (c
 }
 
 func (c *ApiService) streamCustomerProfile(response *ListCustomerProfileResponse, params *ListCustomerProfileParams, recordChannel chan TrusthubV1CustomerProfile, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

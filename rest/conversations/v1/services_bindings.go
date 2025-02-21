@@ -77,9 +77,9 @@ type ListServiceBindingParams struct {
 	// The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListServiceBindingParams) SetBindingType(BindingType []string) *ListServiceBindingParams {
@@ -90,11 +90,11 @@ func (params *ListServiceBindingParams) SetIdentity(Identity []string) *ListServ
 	params.Identity = &Identity
 	return params
 }
-func (params *ListServiceBindingParams) SetPageSize(PageSize int) *ListServiceBindingParams {
+func (params *ListServiceBindingParams) SetPageSize(PageSize int64) *ListServiceBindingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListServiceBindingParams) SetLimit(Limit int) *ListServiceBindingParams {
+func (params *ListServiceBindingParams) SetLimit(Limit int64) *ListServiceBindingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -185,7 +185,7 @@ func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListSer
 }
 
 func (c *ApiService) streamServiceBinding(response *ListServiceBindingResponse, params *ListServiceBindingParams, recordChannel chan ConversationsV1ServiceBinding, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Bindings

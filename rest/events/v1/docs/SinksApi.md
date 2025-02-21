@@ -158,8 +158,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **InUse** | **bool** | A boolean query parameter filtering the results to return sinks used/not used by a subscription.
 **Status** | **string** | A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

@@ -76,7 +76,6 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -107,16 +106,16 @@ func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid strin
 // Optional parameters for the method 'ListMessageInteraction'
 type ListMessageInteractionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListMessageInteractionParams) SetPageSize(PageSize int) *ListMessageInteractionParams {
+func (params *ListMessageInteractionParams) SetPageSize(PageSize int64) *ListMessageInteractionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMessageInteractionParams) SetLimit(Limit int) *ListMessageInteractionParams {
+func (params *ListMessageInteractionParams) SetLimit(Limit int64) *ListMessageInteractionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -199,7 +198,7 @@ func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid stri
 }
 
 func (c *ApiService) streamMessageInteraction(response *ListMessageInteractionResponse, params *ListMessageInteractionParams, recordChannel chan ProxyV1MessageInteraction, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Interactions

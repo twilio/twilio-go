@@ -322,7 +322,6 @@ func (params *CreateParticipantParams) SetCallToken(CallToken string) *CreatePar
 	return params
 }
 
-//
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -595,9 +594,9 @@ type ListParticipantParams struct {
 	// Whether to return only participants who are coaching another call. Can be: `true` or `false`.
 	Coaching *bool `json:"Coaching,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListParticipantParams) SetPathAccountSid(PathAccountSid string) *ListParticipantParams {
@@ -616,11 +615,11 @@ func (params *ListParticipantParams) SetCoaching(Coaching bool) *ListParticipant
 	params.Coaching = &Coaching
 	return params
 }
-func (params *ListParticipantParams) SetPageSize(PageSize int) *ListParticipantParams {
+func (params *ListParticipantParams) SetPageSize(PageSize int64) *ListParticipantParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListParticipantParams) SetLimit(Limit int) *ListParticipantParams {
+func (params *ListParticipantParams) SetLimit(Limit int64) *ListParticipantParams {
 	params.Limit = &Limit
 	return params
 }
@@ -715,7 +714,7 @@ func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListPartici
 }
 
 func (c *ApiService) streamParticipant(response *ListParticipantResponse, params *ListParticipantParams, recordChannel chan ApiV2010Participant, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Participants

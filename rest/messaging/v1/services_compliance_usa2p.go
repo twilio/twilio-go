@@ -124,7 +124,6 @@ func (params *CreateUsAppToPersonParams) SetDirectLending(DirectLending bool) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -206,7 +205,6 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -227,7 +225,6 @@ func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string)
 	return nil
 }
 
-//
 func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -256,16 +253,16 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) 
 // Optional parameters for the method 'ListUsAppToPerson'
 type ListUsAppToPersonParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListUsAppToPersonParams) SetPageSize(PageSize int) *ListUsAppToPersonParams {
+func (params *ListUsAppToPersonParams) SetPageSize(PageSize int64) *ListUsAppToPersonParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListUsAppToPersonParams) SetLimit(Limit int) *ListUsAppToPersonParams {
+func (params *ListUsAppToPersonParams) SetLimit(Limit int64) *ListUsAppToPersonParams {
 	params.Limit = &Limit
 	return params
 }
@@ -346,7 +343,7 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 }
 
 func (c *ApiService) streamUsAppToPerson(response *ListUsAppToPersonResponse, params *ListUsAppToPersonParams, recordChannel chan MessagingV1UsAppToPerson, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Compliance
@@ -440,7 +437,6 @@ func (params *UpdateUsAppToPersonParams) SetDirectLending(DirectLending bool) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string, params *UpdateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)

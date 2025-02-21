@@ -92,16 +92,16 @@ func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, S
 // Optional parameters for the method 'ListCustomerProfileEvaluation'
 type ListCustomerProfileEvaluationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListCustomerProfileEvaluationParams) SetPageSize(PageSize int) *ListCustomerProfileEvaluationParams {
+func (params *ListCustomerProfileEvaluationParams) SetPageSize(PageSize int64) *ListCustomerProfileEvaluationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCustomerProfileEvaluationParams) SetLimit(Limit int) *ListCustomerProfileEvaluationParams {
+func (params *ListCustomerProfileEvaluationParams) SetLimit(Limit int64) *ListCustomerProfileEvaluationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -182,7 +182,7 @@ func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, 
 }
 
 func (c *ApiService) streamCustomerProfileEvaluation(response *ListCustomerProfileEvaluationResponse, params *ListCustomerProfileEvaluationParams, recordChannel chan TrusthubV1CustomerProfileEvaluation, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

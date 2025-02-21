@@ -109,20 +109,20 @@ type ListRecordingAddOnResultPayloadParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListRecordingAddOnResultPayloadParams) SetPathAccountSid(PathAccountSid string) *ListRecordingAddOnResultPayloadParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListRecordingAddOnResultPayloadParams) SetPageSize(PageSize int) *ListRecordingAddOnResultPayloadParams {
+func (params *ListRecordingAddOnResultPayloadParams) SetPageSize(PageSize int64) *ListRecordingAddOnResultPayloadParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRecordingAddOnResultPayloadParams) SetLimit(Limit int) *ListRecordingAddOnResultPayloadParams {
+func (params *ListRecordingAddOnResultPayloadParams) SetLimit(Limit int64) *ListRecordingAddOnResultPayloadParams {
 	params.Limit = &Limit
 	return params
 }
@@ -209,7 +209,7 @@ func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddO
 }
 
 func (c *ApiService) streamRecordingAddOnResultPayload(response *ListRecordingAddOnResultPayloadResponse, params *ListRecordingAddOnResultPayloadParams, recordChannel chan ApiV2010RecordingAddOnResultPayload, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Payloads

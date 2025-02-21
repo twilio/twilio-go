@@ -70,7 +70,6 @@ func (params *CreatePluginVersionParams) SetValidateStatus(ValidateStatus string
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginVersion(PluginSid string, params *CreatePluginVersionParams) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -128,7 +127,6 @@ func (params *FetchPluginVersionParams) SetFlexMetadata(FlexMetadata string) *Fe
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginVersion(PluginSid string, Sid string, params *FetchPluginVersionParams) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -162,20 +160,20 @@ type ListPluginVersionParams struct {
 	// The Flex-Metadata HTTP request header
 	FlexMetadata *string `json:"Flex-Metadata,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListPluginVersionParams) SetFlexMetadata(FlexMetadata string) *ListPluginVersionParams {
 	params.FlexMetadata = &FlexMetadata
 	return params
 }
-func (params *ListPluginVersionParams) SetPageSize(PageSize int) *ListPluginVersionParams {
+func (params *ListPluginVersionParams) SetPageSize(PageSize int64) *ListPluginVersionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListPluginVersionParams) SetLimit(Limit int) *ListPluginVersionParams {
+func (params *ListPluginVersionParams) SetLimit(Limit int64) *ListPluginVersionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -256,7 +254,7 @@ func (c *ApiService) StreamPluginVersion(PluginSid string, params *ListPluginVer
 }
 
 func (c *ApiService) streamPluginVersion(response *ListPluginVersionResponse, params *ListPluginVersionParams, recordChannel chan FlexV1PluginVersion, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.PluginVersions

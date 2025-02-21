@@ -70,7 +70,6 @@ func (params *CreateValidationRequestParams) SetStatusCallbackMethod(StatusCallb
 	return params
 }
 
-//
 func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestParams) (*ApiV2010ValidationRequest, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -204,9 +203,9 @@ type ListOutgoingCallerIdParams struct {
 	// The string that identifies the OutgoingCallerId resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid string) *ListOutgoingCallerIdParams {
@@ -221,11 +220,11 @@ func (params *ListOutgoingCallerIdParams) SetFriendlyName(FriendlyName string) *
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListOutgoingCallerIdParams) SetPageSize(PageSize int) *ListOutgoingCallerIdParams {
+func (params *ListOutgoingCallerIdParams) SetPageSize(PageSize int64) *ListOutgoingCallerIdParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListOutgoingCallerIdParams) SetLimit(Limit int) *ListOutgoingCallerIdParams {
+func (params *ListOutgoingCallerIdParams) SetLimit(Limit int64) *ListOutgoingCallerIdParams {
 	params.Limit = &Limit
 	return params
 }
@@ -316,7 +315,7 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) 
 }
 
 func (c *ApiService) streamOutgoingCallerId(response *ListOutgoingCallerIdResponse, params *ListOutgoingCallerIdParams, recordChannel chan ApiV2010OutgoingCallerId, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.OutgoingCallerIds

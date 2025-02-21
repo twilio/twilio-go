@@ -23,7 +23,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -44,7 +43,6 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*ChatV2Binding, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -77,9 +75,9 @@ type ListBindingParams struct {
 	// The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListBindingParams) SetBindingType(BindingType []string) *ListBindingParams {
@@ -90,11 +88,11 @@ func (params *ListBindingParams) SetIdentity(Identity []string) *ListBindingPara
 	params.Identity = &Identity
 	return params
 }
-func (params *ListBindingParams) SetPageSize(PageSize int) *ListBindingParams {
+func (params *ListBindingParams) SetPageSize(PageSize int64) *ListBindingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListBindingParams) SetLimit(Limit int) *ListBindingParams {
+func (params *ListBindingParams) SetLimit(Limit int64) *ListBindingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -185,7 +183,7 @@ func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams)
 }
 
 func (c *ApiService) streamBinding(response *ListBindingResponse, params *ListBindingParams, recordChannel chan ChatV2Binding, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Bindings

@@ -58,7 +58,6 @@ func (params *CreateWorkflowParams) SetTaskReservationTimeout(TaskReservationTim
 	return params
 }
 
-//
 func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -99,7 +98,6 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -120,7 +118,6 @@ func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -151,20 +148,20 @@ type ListWorkflowParams struct {
 	// The `friendly_name` of the Workflow resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListWorkflowParams) SetFriendlyName(FriendlyName string) *ListWorkflowParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListWorkflowParams) SetPageSize(PageSize int) *ListWorkflowParams {
+func (params *ListWorkflowParams) SetPageSize(PageSize int64) *ListWorkflowParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListWorkflowParams) SetLimit(Limit int) *ListWorkflowParams {
+func (params *ListWorkflowParams) SetLimit(Limit int64) *ListWorkflowParams {
 	params.Limit = &Limit
 	return params
 }
@@ -248,7 +245,7 @@ func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowPar
 }
 
 func (c *ApiService) streamWorkflow(response *ListWorkflowResponse, params *ListWorkflowParams, recordChannel chan TaskrouterV1Workflow, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Workflows
@@ -336,7 +333,6 @@ func (params *UpdateWorkflowParams) SetReEvaluateTasks(ReEvaluateTasks string) *
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

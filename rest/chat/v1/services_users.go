@@ -52,7 +52,6 @@ func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUser
 	return params
 }
 
-//
 func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*ChatV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -90,7 +89,6 @@ func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*C
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteUser(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -111,7 +109,6 @@ func (c *ApiService) DeleteUser(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*ChatV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -140,16 +137,16 @@ func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*ChatV1User, erro
 // Optional parameters for the method 'ListUser'
 type ListUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListUserParams) SetPageSize(PageSize int) *ListUserParams {
+func (params *ListUserParams) SetPageSize(PageSize int64) *ListUserParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListUserParams) SetLimit(Limit int) *ListUserParams {
+func (params *ListUserParams) SetLimit(Limit int64) *ListUserParams {
 	params.Limit = &Limit
 	return params
 }
@@ -230,7 +227,7 @@ func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan
 }
 
 func (c *ApiService) streamUser(response *ListUserResponse, params *ListUserParams, recordChannel chan ChatV1User, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Users
@@ -300,7 +297,6 @@ func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUser
 	return params
 }
 
-//
 func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUserParams) (*ChatV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

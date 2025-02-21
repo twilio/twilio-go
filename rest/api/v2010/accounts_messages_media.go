@@ -114,9 +114,9 @@ type ListMediaParams struct {
 	// Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
 	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListMediaParams) SetPathAccountSid(PathAccountSid string) *ListMediaParams {
@@ -135,11 +135,11 @@ func (params *ListMediaParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *
 	params.DateCreatedAfter = &DateCreatedAfter
 	return params
 }
-func (params *ListMediaParams) SetPageSize(PageSize int) *ListMediaParams {
+func (params *ListMediaParams) SetPageSize(PageSize int64) *ListMediaParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMediaParams) SetLimit(Limit int) *ListMediaParams {
+func (params *ListMediaParams) SetLimit(Limit int64) *ListMediaParams {
 	params.Limit = &Limit
 	return params
 }
@@ -234,7 +234,7 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (ch
 }
 
 func (c *ApiService) streamMedia(response *ListMediaResponse, params *ListMediaParams, recordChannel chan ApiV2010Media, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.MediaList

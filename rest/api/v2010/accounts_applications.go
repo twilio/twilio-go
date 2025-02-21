@@ -292,9 +292,9 @@ type ListApplicationParams struct {
 	// The string that identifies the Application resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListApplicationParams) SetPathAccountSid(PathAccountSid string) *ListApplicationParams {
@@ -305,11 +305,11 @@ func (params *ListApplicationParams) SetFriendlyName(FriendlyName string) *ListA
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListApplicationParams) SetPageSize(PageSize int) *ListApplicationParams {
+func (params *ListApplicationParams) SetPageSize(PageSize int64) *ListApplicationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListApplicationParams) SetLimit(Limit int) *ListApplicationParams {
+func (params *ListApplicationParams) SetLimit(Limit int64) *ListApplicationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -397,7 +397,7 @@ func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV
 }
 
 func (c *ApiService) streamApplication(response *ListApplicationResponse, params *ListApplicationParams, recordChannel chan ApiV2010Application, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Applications

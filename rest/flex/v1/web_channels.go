@@ -64,7 +64,6 @@ func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData str
 	return params
 }
 
-//
 func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels"
 
@@ -107,7 +106,6 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1We
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWebChannel(Sid string) error {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -127,7 +125,6 @@ func (c *ApiService) DeleteWebChannel(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -155,16 +152,16 @@ func (c *ApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 // Optional parameters for the method 'ListWebChannel'
 type ListWebChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListWebChannelParams) SetPageSize(PageSize int) *ListWebChannelParams {
+func (params *ListWebChannelParams) SetPageSize(PageSize int64) *ListWebChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListWebChannelParams) SetLimit(Limit int) *ListWebChannelParams {
+func (params *ListWebChannelParams) SetLimit(Limit int64) *ListWebChannelParams {
 	params.Limit = &Limit
 	return params
 }
@@ -243,7 +240,7 @@ func (c *ApiService) StreamWebChannel(params *ListWebChannelParams) (chan FlexV1
 }
 
 func (c *ApiService) streamWebChannel(response *ListWebChannelResponse, params *ListWebChannelParams, recordChannel chan FlexV1WebChannel, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.FlexChatChannels
@@ -307,7 +304,6 @@ func (params *UpdateWebChannelParams) SetPostEngagementData(PostEngagementData s
 	return params
 }
 
-//
 func (c *ApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

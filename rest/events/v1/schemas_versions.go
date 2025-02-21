@@ -52,16 +52,16 @@ func (c *ApiService) FetchSchemaVersion(Id string, SchemaVersion int) (*EventsV1
 // Optional parameters for the method 'ListSchemaVersion'
 type ListSchemaVersionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListSchemaVersionParams) SetPageSize(PageSize int) *ListSchemaVersionParams {
+func (params *ListSchemaVersionParams) SetPageSize(PageSize int64) *ListSchemaVersionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListSchemaVersionParams) SetLimit(Limit int) *ListSchemaVersionParams {
+func (params *ListSchemaVersionParams) SetLimit(Limit int64) *ListSchemaVersionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -142,7 +142,7 @@ func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionPar
 }
 
 func (c *ApiService) streamSchemaVersion(response *ListSchemaVersionResponse, params *ListSchemaVersionParams, recordChannel chan EventsV1SchemaVersion, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.SchemaVersions

@@ -122,16 +122,16 @@ func (c *ApiService) FetchMessagingConfiguration(ServiceSid string, Country stri
 // Optional parameters for the method 'ListMessagingConfiguration'
 type ListMessagingConfigurationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListMessagingConfigurationParams) SetPageSize(PageSize int) *ListMessagingConfigurationParams {
+func (params *ListMessagingConfigurationParams) SetPageSize(PageSize int64) *ListMessagingConfigurationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMessagingConfigurationParams) SetLimit(Limit int) *ListMessagingConfigurationParams {
+func (params *ListMessagingConfigurationParams) SetLimit(Limit int64) *ListMessagingConfigurationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +212,7 @@ func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *Lis
 }
 
 func (c *ApiService) streamMessagingConfiguration(response *ListMessagingConfigurationResponse, params *ListMessagingConfigurationParams, recordChannel chan VerifyV2MessagingConfiguration, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.MessagingConfigurations

@@ -74,9 +74,9 @@ type ListRegulationParams struct {
 	// A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 	IncludeConstraints *bool `json:"IncludeConstraints,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListRegulationParams) SetEndUserType(EndUserType string) *ListRegulationParams {
@@ -95,11 +95,11 @@ func (params *ListRegulationParams) SetIncludeConstraints(IncludeConstraints boo
 	params.IncludeConstraints = &IncludeConstraints
 	return params
 }
-func (params *ListRegulationParams) SetPageSize(PageSize int) *ListRegulationParams {
+func (params *ListRegulationParams) SetPageSize(PageSize int64) *ListRegulationParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRegulationParams) SetLimit(Limit int) *ListRegulationParams {
+func (params *ListRegulationParams) SetLimit(Limit int64) *ListRegulationParams {
 	params.Limit = &Limit
 	return params
 }
@@ -190,7 +190,7 @@ func (c *ApiService) StreamRegulation(params *ListRegulationParams) (chan Number
 }
 
 func (c *ApiService) streamRegulation(response *ListRegulationResponse, params *ListRegulationParams, recordChannel chan NumbersV2Regulation, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

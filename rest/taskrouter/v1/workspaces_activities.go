@@ -40,7 +40,6 @@ func (params *CreateActivityParams) SetAvailable(Available bool) *CreateActivity
 	return params
 }
 
-//
 func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityParams) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -72,7 +71,6 @@ func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityP
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -93,7 +91,6 @@ func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchActivity(WorkspaceSid string, Sid string) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -126,9 +123,9 @@ type ListActivityParams struct {
 	// Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
 	Available *string `json:"Available,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListActivityParams) SetFriendlyName(FriendlyName string) *ListActivityParams {
@@ -139,11 +136,11 @@ func (params *ListActivityParams) SetAvailable(Available string) *ListActivityPa
 	params.Available = &Available
 	return params
 }
-func (params *ListActivityParams) SetPageSize(PageSize int) *ListActivityParams {
+func (params *ListActivityParams) SetPageSize(PageSize int64) *ListActivityParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListActivityParams) SetLimit(Limit int) *ListActivityParams {
+func (params *ListActivityParams) SetLimit(Limit int64) *ListActivityParams {
 	params.Limit = &Limit
 	return params
 }
@@ -230,7 +227,7 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 }
 
 func (c *ApiService) streamActivity(response *ListActivityResponse, params *ListActivityParams, recordChannel chan TaskrouterV1Activity, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Activities
@@ -288,7 +285,6 @@ func (params *UpdateActivityParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)

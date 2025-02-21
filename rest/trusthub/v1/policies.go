@@ -51,16 +51,16 @@ func (c *ApiService) FetchPolicies(Sid string) (*TrusthubV1Policies, error) {
 // Optional parameters for the method 'ListPolicies'
 type ListPoliciesParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListPoliciesParams) SetPageSize(PageSize int) *ListPoliciesParams {
+func (params *ListPoliciesParams) SetPageSize(PageSize int64) *ListPoliciesParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListPoliciesParams) SetLimit(Limit int) *ListPoliciesParams {
+func (params *ListPoliciesParams) SetLimit(Limit int64) *ListPoliciesParams {
 	params.Limit = &Limit
 	return params
 }
@@ -139,7 +139,7 @@ func (c *ApiService) StreamPolicies(params *ListPoliciesParams) (chan TrusthubV1
 }
 
 func (c *ApiService) streamPolicies(response *ListPoliciesResponse, params *ListPoliciesParams, recordChannel chan TrusthubV1Policies, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

@@ -75,16 +75,16 @@ func (c *ApiService) FetchDocumentPermission(ServiceSid string, DocumentSid stri
 // Optional parameters for the method 'ListDocumentPermission'
 type ListDocumentPermissionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListDocumentPermissionParams) SetPageSize(PageSize int) *ListDocumentPermissionParams {
+func (params *ListDocumentPermissionParams) SetPageSize(PageSize int64) *ListDocumentPermissionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListDocumentPermissionParams) SetLimit(Limit int) *ListDocumentPermissionParams {
+func (params *ListDocumentPermissionParams) SetLimit(Limit int64) *ListDocumentPermissionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -166,7 +166,7 @@ func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid str
 }
 
 func (c *ApiService) streamDocumentPermission(response *ListDocumentPermissionResponse, params *ListDocumentPermissionParams, recordChannel chan SyncV1DocumentPermission, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Permissions

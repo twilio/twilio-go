@@ -68,16 +68,16 @@ func (c *ApiService) DeleteAssistantKnowledgeAttachment(AssistantId string, Id s
 // Optional parameters for the method 'ListKnowledgeByAssistant'
 type ListKnowledgeByAssistantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListKnowledgeByAssistantParams) SetPageSize(PageSize int) *ListKnowledgeByAssistantParams {
+func (params *ListKnowledgeByAssistantParams) SetPageSize(PageSize int64) *ListKnowledgeByAssistantParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListKnowledgeByAssistantParams) SetLimit(Limit int) *ListKnowledgeByAssistantParams {
+func (params *ListKnowledgeByAssistantParams) SetLimit(Limit int64) *ListKnowledgeByAssistantParams {
 	params.Limit = &Limit
 	return params
 }
@@ -158,7 +158,7 @@ func (c *ApiService) StreamKnowledgeByAssistant(AssistantId string, params *List
 }
 
 func (c *ApiService) streamKnowledgeByAssistant(response *ListKnowledgeByAssistantResponse, params *ListKnowledgeByAssistantParams, recordChannel chan AssistantsV1Knowledge, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Knowledge

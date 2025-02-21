@@ -118,7 +118,6 @@ func (params *DeleteInsightsQuestionnairesQuestionParams) SetAuthorization(Autho
 	return params
 }
 
-//
 func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionSid string, params *DeleteInsightsQuestionnairesQuestionParams) error {
 	path := "/v1/Insights/QualityManagement/Questions/{QuestionSid}"
 	path = strings.Replace(path, "{"+"QuestionSid"+"}", QuestionSid, -1)
@@ -148,9 +147,9 @@ type ListInsightsQuestionnairesQuestionParams struct {
 	// The list of category SIDs
 	CategorySid *[]string `json:"CategorySid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListInsightsQuestionnairesQuestionParams) SetAuthorization(Authorization string) *ListInsightsQuestionnairesQuestionParams {
@@ -161,11 +160,11 @@ func (params *ListInsightsQuestionnairesQuestionParams) SetCategorySid(CategoryS
 	params.CategorySid = &CategorySid
 	return params
 }
-func (params *ListInsightsQuestionnairesQuestionParams) SetPageSize(PageSize int) *ListInsightsQuestionnairesQuestionParams {
+func (params *ListInsightsQuestionnairesQuestionParams) SetPageSize(PageSize int64) *ListInsightsQuestionnairesQuestionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListInsightsQuestionnairesQuestionParams) SetLimit(Limit int) *ListInsightsQuestionnairesQuestionParams {
+func (params *ListInsightsQuestionnairesQuestionParams) SetLimit(Limit int64) *ListInsightsQuestionnairesQuestionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -249,7 +248,7 @@ func (c *ApiService) StreamInsightsQuestionnairesQuestion(params *ListInsightsQu
 }
 
 func (c *ApiService) streamInsightsQuestionnairesQuestion(response *ListInsightsQuestionnairesQuestionResponse, params *ListInsightsQuestionnairesQuestionParams, recordChannel chan FlexV1InsightsQuestionnairesQuestion, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Questions

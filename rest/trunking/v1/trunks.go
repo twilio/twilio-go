@@ -76,7 +76,6 @@ func (params *CreateTrunkParams) SetTransferCallerId(TransferCallerId string) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks"
 
@@ -125,7 +124,6 @@ func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, e
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTrunk(Sid string) error {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -145,7 +143,6 @@ func (c *ApiService) DeleteTrunk(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -173,16 +170,16 @@ func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 // Optional parameters for the method 'ListTrunk'
 type ListTrunkParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListTrunkParams) SetPageSize(PageSize int) *ListTrunkParams {
+func (params *ListTrunkParams) SetPageSize(PageSize int64) *ListTrunkParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListTrunkParams) SetLimit(Limit int) *ListTrunkParams {
+func (params *ListTrunkParams) SetLimit(Limit int64) *ListTrunkParams {
 	params.Limit = &Limit
 	return params
 }
@@ -261,7 +258,7 @@ func (c *ApiService) StreamTrunk(params *ListTrunkParams) (chan TrunkingV1Trunk,
 }
 
 func (c *ApiService) streamTrunk(response *ListTrunkResponse, params *ListTrunkParams, recordChannel chan TrunkingV1Trunk, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Trunks
@@ -361,7 +358,6 @@ func (params *UpdateTrunkParams) SetTransferCallerId(TransferCallerId string) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

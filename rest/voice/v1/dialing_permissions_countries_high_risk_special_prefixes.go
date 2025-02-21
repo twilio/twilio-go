@@ -26,16 +26,16 @@ import (
 // Optional parameters for the method 'ListDialingPermissionsHrsPrefixes'
 type ListDialingPermissionsHrsPrefixesParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListDialingPermissionsHrsPrefixesParams) SetPageSize(PageSize int) *ListDialingPermissionsHrsPrefixesParams {
+func (params *ListDialingPermissionsHrsPrefixesParams) SetPageSize(PageSize int64) *ListDialingPermissionsHrsPrefixesParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListDialingPermissionsHrsPrefixesParams) SetLimit(Limit int) *ListDialingPermissionsHrsPrefixesParams {
+func (params *ListDialingPermissionsHrsPrefixesParams) SetLimit(Limit int64) *ListDialingPermissionsHrsPrefixesParams {
 	params.Limit = &Limit
 	return params
 }
@@ -116,7 +116,7 @@ func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params 
 }
 
 func (c *ApiService) streamDialingPermissionsHrsPrefixes(response *ListDialingPermissionsHrsPrefixesResponse, params *ListDialingPermissionsHrsPrefixesParams, recordChannel chan VoiceV1DialingPermissionsHrsPrefixes, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Content

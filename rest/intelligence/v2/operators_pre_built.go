@@ -55,9 +55,9 @@ type ListPrebuiltOperatorParams struct {
 	// Returns Pre-built Operators that support the provided language code.
 	LanguageCode *string `json:"LanguageCode,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListPrebuiltOperatorParams) SetAvailability(Availability string) *ListPrebuiltOperatorParams {
@@ -68,11 +68,11 @@ func (params *ListPrebuiltOperatorParams) SetLanguageCode(LanguageCode string) *
 	params.LanguageCode = &LanguageCode
 	return params
 }
-func (params *ListPrebuiltOperatorParams) SetPageSize(PageSize int) *ListPrebuiltOperatorParams {
+func (params *ListPrebuiltOperatorParams) SetPageSize(PageSize int64) *ListPrebuiltOperatorParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListPrebuiltOperatorParams) SetLimit(Limit int) *ListPrebuiltOperatorParams {
+func (params *ListPrebuiltOperatorParams) SetLimit(Limit int64) *ListPrebuiltOperatorParams {
 	params.Limit = &Limit
 	return params
 }
@@ -157,7 +157,7 @@ func (c *ApiService) StreamPrebuiltOperator(params *ListPrebuiltOperatorParams) 
 }
 
 func (c *ApiService) streamPrebuiltOperator(response *ListPrebuiltOperatorResponse, params *ListPrebuiltOperatorParams, recordChannel chan IntelligenceV2PrebuiltOperator, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Operators

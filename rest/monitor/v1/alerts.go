@@ -24,7 +24,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, error) {
 	path := "/v1/Alerts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -58,9 +57,9 @@ type ListAlertParams struct {
 	// Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
 	EndDate *time.Time `json:"EndDate,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListAlertParams) SetLogLevel(LogLevel string) *ListAlertParams {
@@ -75,11 +74,11 @@ func (params *ListAlertParams) SetEndDate(EndDate time.Time) *ListAlertParams {
 	params.EndDate = &EndDate
 	return params
 }
-func (params *ListAlertParams) SetPageSize(PageSize int) *ListAlertParams {
+func (params *ListAlertParams) SetPageSize(PageSize int64) *ListAlertParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAlertParams) SetLimit(Limit int) *ListAlertParams {
+func (params *ListAlertParams) SetLimit(Limit int64) *ListAlertParams {
 	params.Limit = &Limit
 	return params
 }
@@ -167,7 +166,7 @@ func (c *ApiService) StreamAlert(params *ListAlertParams) (chan MonitorV1Alert, 
 }
 
 func (c *ApiService) streamAlert(response *ListAlertResponse, params *ListAlertParams, recordChannel chan MonitorV1Alert, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Alerts

@@ -170,8 +170,8 @@ Name | Type | Description
 **CustomerName** | **string** | The `customer_name` of the Address resources to read.
 **FriendlyName** | **string** | The string that identifies the Address resources to read.
 **IsoCountry** | **string** | The ISO country code of the Address resources to read.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

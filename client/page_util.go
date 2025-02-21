@@ -7,7 +7,7 @@ import (
 )
 
 // Takes a limit on the max number of records to read and a max pageSize and calculates the max number of pages to read.
-func ReadLimits(pageSize *int, limit *int) int {
+func ReadLimits(pageSize *int64, limit *int64) int64 {
 	//don't care about pageSize
 	if pageSize == nil {
 		if limit == nil {
@@ -67,7 +67,7 @@ func getNextPageUrl(baseUrl string, response interface{}) (string, error) {
 	return "", nil
 }
 
-func min(a int, b int) int {
+func min(a int64, b int64) int64 {
 	if a > b {
 		return b
 	}

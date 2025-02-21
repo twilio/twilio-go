@@ -30,9 +30,9 @@ type ListMetricParams struct {
 	// The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`.
 	Direction *string `json:"Direction,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListMetricParams) SetEdge(Edge string) *ListMetricParams {
@@ -43,11 +43,11 @@ func (params *ListMetricParams) SetDirection(Direction string) *ListMetricParams
 	params.Direction = &Direction
 	return params
 }
-func (params *ListMetricParams) SetPageSize(PageSize int) *ListMetricParams {
+func (params *ListMetricParams) SetPageSize(PageSize int64) *ListMetricParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListMetricParams) SetLimit(Limit int) *ListMetricParams {
+func (params *ListMetricParams) SetLimit(Limit int64) *ListMetricParams {
 	params.Limit = &Limit
 	return params
 }
@@ -134,7 +134,7 @@ func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (cha
 }
 
 func (c *ApiService) streamMetric(response *ListMetricResponse, params *ListMetricParams, recordChannel chan InsightsV1Metric, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Metrics

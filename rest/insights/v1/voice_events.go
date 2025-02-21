@@ -28,20 +28,20 @@ type ListEventParams struct {
 	// The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
 	Edge *string `json:"Edge,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListEventParams) SetEdge(Edge string) *ListEventParams {
 	params.Edge = &Edge
 	return params
 }
-func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
+func (params *ListEventParams) SetPageSize(PageSize int64) *ListEventParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
+func (params *ListEventParams) SetLimit(Limit int64) *ListEventParams {
 	params.Limit = &Limit
 	return params
 }
@@ -125,7 +125,7 @@ func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan 
 }
 
 func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventParams, recordChannel chan InsightsV1Event, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Events

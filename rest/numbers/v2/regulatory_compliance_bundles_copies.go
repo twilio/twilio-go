@@ -66,16 +66,16 @@ func (c *ApiService) CreateBundleCopy(BundleSid string, params *CreateBundleCopy
 // Optional parameters for the method 'ListBundleCopy'
 type ListBundleCopyParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListBundleCopyParams) SetPageSize(PageSize int) *ListBundleCopyParams {
+func (params *ListBundleCopyParams) SetPageSize(PageSize int64) *ListBundleCopyParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListBundleCopyParams) SetLimit(Limit int) *ListBundleCopyParams {
+func (params *ListBundleCopyParams) SetLimit(Limit int64) *ListBundleCopyParams {
 	params.Limit = &Limit
 	return params
 }
@@ -156,7 +156,7 @@ func (c *ApiService) StreamBundleCopy(BundleSid string, params *ListBundleCopyPa
 }
 
 func (c *ApiService) streamBundleCopy(response *ListBundleCopyResponse, params *ListBundleCopyParams, recordChannel chan NumbersV2BundleCopy, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Results

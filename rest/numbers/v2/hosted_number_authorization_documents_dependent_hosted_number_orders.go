@@ -34,9 +34,9 @@ type ListDependentHostedNumberOrderParams struct {
 	// A human readable description of this resource, up to 128 characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListDependentHostedNumberOrderParams) SetStatus(Status string) *ListDependentHostedNumberOrderParams {
@@ -55,11 +55,11 @@ func (params *ListDependentHostedNumberOrderParams) SetFriendlyName(FriendlyName
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListDependentHostedNumberOrderParams) SetPageSize(PageSize int) *ListDependentHostedNumberOrderParams {
+func (params *ListDependentHostedNumberOrderParams) SetPageSize(PageSize int64) *ListDependentHostedNumberOrderParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListDependentHostedNumberOrderParams) SetLimit(Limit int) *ListDependentHostedNumberOrderParams {
+func (params *ListDependentHostedNumberOrderParams) SetLimit(Limit int64) *ListDependentHostedNumberOrderParams {
 	params.Limit = &Limit
 	return params
 }
@@ -152,7 +152,7 @@ func (c *ApiService) StreamDependentHostedNumberOrder(SigningDocumentSid string,
 }
 
 func (c *ApiService) streamDependentHostedNumberOrder(response *ListDependentHostedNumberOrderResponse, params *ListDependentHostedNumberOrderParams, recordChannel chan NumbersV2DependentHostedNumberOrder, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Items

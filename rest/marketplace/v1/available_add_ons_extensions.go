@@ -52,16 +52,16 @@ func (c *ApiService) FetchAvailableAddOnExtension(AvailableAddOnSid string, Sid 
 // Optional parameters for the method 'ListAvailableAddOnExtension'
 type ListAvailableAddOnExtensionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListAvailableAddOnExtensionParams) SetPageSize(PageSize int) *ListAvailableAddOnExtensionParams {
+func (params *ListAvailableAddOnExtensionParams) SetPageSize(PageSize int64) *ListAvailableAddOnExtensionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListAvailableAddOnExtensionParams) SetLimit(Limit int) *ListAvailableAddOnExtensionParams {
+func (params *ListAvailableAddOnExtensionParams) SetLimit(Limit int64) *ListAvailableAddOnExtensionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -142,7 +142,7 @@ func (c *ApiService) StreamAvailableAddOnExtension(AvailableAddOnSid string, par
 }
 
 func (c *ApiService) streamAvailableAddOnExtension(response *ListAvailableAddOnExtensionResponse, params *ListAvailableAddOnExtensionParams, recordChannel chan MarketplaceV1AvailableAddOnExtension, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Extensions

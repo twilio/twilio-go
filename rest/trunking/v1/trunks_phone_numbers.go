@@ -34,7 +34,6 @@ func (params *CreatePhoneNumberParams) SetPhoneNumberSid(PhoneNumberSid string) 
 	return params
 }
 
-//
 func (c *ApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumberParams) (*TrunkingV1PhoneNumber, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -63,7 +62,6 @@ func (c *ApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumbe
 	return ps, err
 }
 
-//
 func (c *ApiService) DeletePhoneNumber(TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -84,7 +82,6 @@ func (c *ApiService) DeletePhoneNumber(TrunkSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*TrunkingV1PhoneNumber, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -113,16 +110,16 @@ func (c *ApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*TrunkingV1P
 // Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListPhoneNumberParams) SetPageSize(PageSize int) *ListPhoneNumberParams {
+func (params *ListPhoneNumberParams) SetPageSize(PageSize int64) *ListPhoneNumberParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListPhoneNumberParams) SetLimit(Limit int) *ListPhoneNumberParams {
+func (params *ListPhoneNumberParams) SetLimit(Limit int64) *ListPhoneNumberParams {
 	params.Limit = &Limit
 	return params
 }
@@ -203,7 +200,7 @@ func (c *ApiService) StreamPhoneNumber(TrunkSid string, params *ListPhoneNumberP
 }
 
 func (c *ApiService) streamPhoneNumber(response *ListPhoneNumberResponse, params *ListPhoneNumberParams, recordChannel chan TrunkingV1PhoneNumber, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.PhoneNumbers

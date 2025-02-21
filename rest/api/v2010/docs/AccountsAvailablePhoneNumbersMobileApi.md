@@ -50,8 +50,8 @@ Name | Type | Description
 **InLata** | **string** | Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
 **InLocality** | **string** | Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
 **FaxEnabled** | **bool** | Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

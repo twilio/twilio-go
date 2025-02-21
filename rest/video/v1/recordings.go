@@ -84,9 +84,9 @@ type ListRecordingParams struct {
 	// Read only recordings that have this media type. Can be either `audio` or `video`.
 	MediaType *string `json:"MediaType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListRecordingParams) SetStatus(Status string) *ListRecordingParams {
@@ -113,11 +113,11 @@ func (params *ListRecordingParams) SetMediaType(MediaType string) *ListRecording
 	params.MediaType = &MediaType
 	return params
 }
-func (params *ListRecordingParams) SetPageSize(PageSize int) *ListRecordingParams {
+func (params *ListRecordingParams) SetPageSize(PageSize int64) *ListRecordingParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRecordingParams) SetLimit(Limit int) *ListRecordingParams {
+func (params *ListRecordingParams) SetLimit(Limit int64) *ListRecordingParams {
 	params.Limit = &Limit
 	return params
 }
@@ -216,7 +216,7 @@ func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan VideoV1R
 }
 
 func (c *ApiService) streamRecording(response *ListRecordingResponse, params *ListRecordingParams, recordChannel chan VideoV1Recording, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Recordings

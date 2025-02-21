@@ -117,20 +117,20 @@ type ListToolsParams struct {
 	//
 	AssistantId *string `json:"AssistantId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListToolsParams) SetAssistantId(AssistantId string) *ListToolsParams {
 	params.AssistantId = &AssistantId
 	return params
 }
-func (params *ListToolsParams) SetPageSize(PageSize int) *ListToolsParams {
+func (params *ListToolsParams) SetPageSize(PageSize int64) *ListToolsParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListToolsParams) SetLimit(Limit int) *ListToolsParams {
+func (params *ListToolsParams) SetLimit(Limit int64) *ListToolsParams {
 	params.Limit = &Limit
 	return params
 }
@@ -212,7 +212,7 @@ func (c *ApiService) StreamTools(params *ListToolsParams) (chan AssistantsV1Tool
 }
 
 func (c *ApiService) streamTools(response *ListToolsResponse, params *ListToolsParams, recordChannel chan AssistantsV1Tool, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Tools

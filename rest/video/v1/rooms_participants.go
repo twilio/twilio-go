@@ -24,7 +24,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1RoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -61,9 +60,9 @@ type ListRoomParticipantParams struct {
 	// Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListRoomParticipantParams) SetStatus(Status string) *ListRoomParticipantParams {
@@ -82,11 +81,11 @@ func (params *ListRoomParticipantParams) SetDateCreatedBefore(DateCreatedBefore 
 	params.DateCreatedBefore = &DateCreatedBefore
 	return params
 }
-func (params *ListRoomParticipantParams) SetPageSize(PageSize int) *ListRoomParticipantParams {
+func (params *ListRoomParticipantParams) SetPageSize(PageSize int64) *ListRoomParticipantParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListRoomParticipantParams) SetLimit(Limit int) *ListRoomParticipantParams {
+func (params *ListRoomParticipantParams) SetLimit(Limit int64) *ListRoomParticipantParams {
 	params.Limit = &Limit
 	return params
 }
@@ -179,7 +178,7 @@ func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParti
 }
 
 func (c *ApiService) streamRoomParticipant(response *ListRoomParticipantResponse, params *ListRoomParticipantParams, recordChannel chan VideoV1RoomParticipant, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Participants
@@ -237,7 +236,6 @@ func (params *UpdateRoomParticipantParams) SetStatus(Status string) *UpdateRoomP
 	return params
 }
 
-//
 func (c *ApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)

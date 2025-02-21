@@ -78,8 +78,8 @@ Name | Type | Description
 **VerifyServiceSid** | **string** | Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
 **VerificationSid** | **string** | Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
 **Status** | **string** | Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-**Limit** | **int** | Max number of records to return.
+**PageSize** | **int64** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int64** | Max number of records to return.
 
 ### Return type
 

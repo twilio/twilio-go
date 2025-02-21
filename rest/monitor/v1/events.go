@@ -24,7 +24,6 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 	path := "/v1/Events/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -64,9 +63,9 @@ type ListEventParams struct {
 	// Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	EndDate *time.Time `json:"EndDate,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListEventParams) SetActorSid(ActorSid string) *ListEventParams {
@@ -93,11 +92,11 @@ func (params *ListEventParams) SetEndDate(EndDate time.Time) *ListEventParams {
 	params.EndDate = &EndDate
 	return params
 }
-func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
+func (params *ListEventParams) SetPageSize(PageSize int64) *ListEventParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
+func (params *ListEventParams) SetLimit(Limit int64) *ListEventParams {
 	params.Limit = &Limit
 	return params
 }
@@ -194,7 +193,7 @@ func (c *ApiService) StreamEvent(params *ListEventParams) (chan MonitorV1Event, 
 }
 
 func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventParams, recordChannel chan MonitorV1Event, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Events

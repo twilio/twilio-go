@@ -128,16 +128,16 @@ func (c *ApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1Credential
 // Optional parameters for the method 'ListCredentialPublicKey'
 type ListCredentialPublicKeyParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
-func (params *ListCredentialPublicKeyParams) SetPageSize(PageSize int) *ListCredentialPublicKeyParams {
+func (params *ListCredentialPublicKeyParams) SetPageSize(PageSize int64) *ListCredentialPublicKeyParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListCredentialPublicKeyParams) SetLimit(Limit int) *ListCredentialPublicKeyParams {
+func (params *ListCredentialPublicKeyParams) SetLimit(Limit int64) *ListCredentialPublicKeyParams {
 	params.Limit = &Limit
 	return params
 }
@@ -216,7 +216,7 @@ func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyPa
 }
 
 func (c *ApiService) streamCredentialPublicKey(response *ListCredentialPublicKeyResponse, params *ListCredentialPublicKeyParams, recordChannel chan AccountsV1CredentialPublicKey, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Credentials

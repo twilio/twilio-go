@@ -123,9 +123,9 @@ type ListEsimProfileParams struct {
 	// List the eSIM Profiles that are in a given status.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListEsimProfileParams) SetEid(Eid string) *ListEsimProfileParams {
@@ -140,11 +140,11 @@ func (params *ListEsimProfileParams) SetStatus(Status string) *ListEsimProfilePa
 	params.Status = &Status
 	return params
 }
-func (params *ListEsimProfileParams) SetPageSize(PageSize int) *ListEsimProfileParams {
+func (params *ListEsimProfileParams) SetPageSize(PageSize int64) *ListEsimProfileParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListEsimProfileParams) SetLimit(Limit int) *ListEsimProfileParams {
+func (params *ListEsimProfileParams) SetLimit(Limit int64) *ListEsimProfileParams {
 	params.Limit = &Limit
 	return params
 }
@@ -232,7 +232,7 @@ func (c *ApiService) StreamEsimProfile(params *ListEsimProfileParams) (chan Supe
 }
 
 func (c *ApiService) streamEsimProfile(response *ListEsimProfileResponse, params *ListEsimProfileParams, recordChannel chan SupersimV1EsimProfile, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.EsimProfiles

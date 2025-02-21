@@ -71,20 +71,20 @@ type ListIncomingPhoneNumberAssignedAddOnExtensionParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int `json:"PageSize,omitempty"`
+	PageSize *int64 `json:"PageSize,omitempty"`
 	// Max number of records to return.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
+func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPageSize(PageSize int64) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
 	params.PageSize = &PageSize
 	return params
 }
-func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetLimit(Limit int) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
+func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetLimit(Limit int64) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
 	params.Limit = &Limit
 	return params
 }
@@ -171,7 +171,7 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOnExtension(ResourceSid
 }
 
 func (c *ApiService) streamIncomingPhoneNumberAssignedAddOnExtension(response *ListIncomingPhoneNumberAssignedAddOnExtensionResponse, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, recordChannel chan ApiV2010IncomingPhoneNumberAssignedAddOnExtension, errorChannel chan error) {
-	curRecord := 1
+	var curRecord int64 = 1
 
 	for response != nil {
 		responseRecords := response.Extensions
