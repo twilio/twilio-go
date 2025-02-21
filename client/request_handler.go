@@ -9,9 +9,10 @@ import (
 )
 
 type RequestHandler struct {
-	Client BaseClient
-	Edge   string
-	Region string
+	Client    BaseClient
+	Edge      string
+	Region    string
+	AuthToken string
 }
 
 func NewRequestHandler(client BaseClient) *RequestHandler {
