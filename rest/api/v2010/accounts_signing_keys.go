@@ -84,7 +84,6 @@ func (params *DeleteSigningKeyParams) SetPathAccountSid(PathAccountSid string) *
 	return params
 }
 
-//
 func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -120,7 +119,6 @@ func (params *FetchSigningKeyParams) SetPathAccountSid(PathAccountSid string) *F
 	return params
 }
 
-//
 func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -317,7 +315,6 @@ func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams) (*ApiV2010SigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

@@ -34,7 +34,6 @@ func (params *CreatePhoneNumberParams) SetPhoneNumberSid(PhoneNumberSid string) 
 	return params
 }
 
-//
 func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNumberParams) (*MessagingV1PhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -63,7 +62,6 @@ func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNum
 	return ps, err
 }
 
-//
 func (c *ApiService) DeletePhoneNumber(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -84,7 +82,6 @@ func (c *ApiService) DeletePhoneNumber(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*MessagingV1PhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

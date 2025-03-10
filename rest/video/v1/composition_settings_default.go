@@ -61,7 +61,6 @@ func (params *CreateCompositionSettingsParams) SetEncryptionEnabled(EncryptionEn
 	return params
 }
 
-//
 func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettingsParams) (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
@@ -104,7 +103,6 @@ func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettings
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 

@@ -89,7 +89,6 @@ func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
 	path := "/v1/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

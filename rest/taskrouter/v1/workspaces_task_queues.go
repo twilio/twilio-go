@@ -64,7 +64,6 @@ func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivity
 	return params
 }
 
-//
 func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -108,7 +107,6 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -129,7 +127,6 @@ func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -372,7 +369,6 @@ func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQ
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
