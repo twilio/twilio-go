@@ -22,14 +22,7 @@ The Go library documentation can be found [here][libdocs].
 
 ### Supported Go Versions
 
-This library supports the following Go implementations:
-
-- Go 1.15
-- Go 1.16
-- Go 1.17
-- Go 1.18
-- Go 1.19
-- Go 1.20
+This library supports Go 1.16+
 
 ## Installation
 
