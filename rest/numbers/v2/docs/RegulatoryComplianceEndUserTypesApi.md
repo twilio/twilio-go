@@ -4,8 +4,8 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchEndUserType**](RegulatoryComplianceEndUserTypesApi.md#FetchEndUserType) | **Get** /v2/RegulatoryCompliance/EndUserTypes/{Sid} | 
-[**ListEndUserType**](RegulatoryComplianceEndUserTypesApi.md#ListEndUserType) | **Get** /v2/RegulatoryCompliance/EndUserTypes | 
+[**FetchEndUserType**](RegulatoryComplianceEndUserTypesApi.md#FetchEndUserType) | **Get** /v2/RegulatoryCompliance/EndUserTypes/{Sid} | Fetch a specific End-User Type Instance.
+[**ListEndUserType**](RegulatoryComplianceEndUserTypesApi.md#ListEndUserType) | **Get** /v2/RegulatoryCompliance/EndUserTypes | Retrieve a list of all End-User Types.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > NumbersV2EndUserType FetchEndUserType(ctx, Sid)
 
-
+Fetch a specific End-User Type Instance.
 
 Fetch a specific End-User Type Instance.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []NumbersV2EndUserType ListEndUserType(ctx, optional)
 
-
+Retrieve a list of all End-User Types.
 
 Retrieve a list of all End-User Types.
 

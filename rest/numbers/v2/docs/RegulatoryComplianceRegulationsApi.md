@@ -4,8 +4,8 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchRegulation**](RegulatoryComplianceRegulationsApi.md#FetchRegulation) | **Get** /v2/RegulatoryCompliance/Regulations/{Sid} | 
-[**ListRegulation**](RegulatoryComplianceRegulationsApi.md#ListRegulation) | **Get** /v2/RegulatoryCompliance/Regulations | 
+[**FetchRegulation**](RegulatoryComplianceRegulationsApi.md#FetchRegulation) | **Get** /v2/RegulatoryCompliance/Regulations/{Sid} | Fetch specific Regulation Instance.
+[**ListRegulation**](RegulatoryComplianceRegulationsApi.md#ListRegulation) | **Get** /v2/RegulatoryCompliance/Regulations | Retrieve a list of all Regulations.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > NumbersV2Regulation FetchRegulation(ctx, Sidoptional)
 
-
+Fetch specific Regulation Instance.
 
 Fetch specific Regulation Instance.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > []NumbersV2Regulation ListRegulation(ctx, optional)
 
-
+Retrieve a list of all Regulations.
 
 Retrieve a list of all Regulations.
 

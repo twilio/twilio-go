@@ -4,9 +4,9 @@ All URIs are relative to *https://video.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteRecording**](RecordingsApi.md#DeleteRecording) | **Delete** /v1/Recordings/{Sid} | 
-[**FetchRecording**](RecordingsApi.md#FetchRecording) | **Get** /v1/Recordings/{Sid} | 
-[**ListRecording**](RecordingsApi.md#ListRecording) | **Get** /v1/Recordings | 
+[**DeleteRecording**](RecordingsApi.md#DeleteRecording) | **Delete** /v1/Recordings/{Sid} | Delete a Recording resource identified by a Recording SID.
+[**FetchRecording**](RecordingsApi.md#FetchRecording) | **Get** /v1/Recordings/{Sid} | Returns a single Recording resource identified by a Recording SID.
+[**ListRecording**](RecordingsApi.md#ListRecording) | **Get** /v1/Recordings | List of all Track recordings.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > DeleteRecording(ctx, Sid)
 
-
+Delete a Recording resource identified by a Recording SID.
 
 Delete a Recording resource identified by a Recording SID.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > VideoV1Recording FetchRecording(ctx, Sid)
 
-
+Returns a single Recording resource identified by a Recording SID.
 
 Returns a single Recording resource identified by a Recording SID.
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 > []VideoV1Recording ListRecording(ctx, optional)
 
-
+List of all Track recordings.
 
 List of all Track recordings.
 

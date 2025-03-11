@@ -16,9 +16,9 @@ Name | Type | Description | Notes
 **ExpirationDate** | Pointer to [**time.Time**](time.Time.md) | The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation. |
 **Status** | Pointer to [**string**](ChallengeEnumChallengeStatuses.md) |  |
 **RespondedReason** | Pointer to [**string**](ChallengeEnumChallengeReasons.md) |  |
-**Details** | Pointer to **interface{}** | Details provided to give context about the Challenge. Intended to be shown to the end user. |
-**HiddenDetails** | Pointer to **interface{}** | Details provided to give context about the Challenge. Intended to be hidden from the end user. It must be a stringified JSON with only strings values eg. `{\"ip\": \"172.168.1.234\"}` |
-**Metadata** | Pointer to **interface{}** | Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length. |
+**Details** | Pointer to **map[string]interface{}** | Details provided to give context about the Challenge. Intended to be shown to the end user. |
+**HiddenDetails** | Pointer to **map[string]interface{}** | Details provided to give context about the Challenge. Intended to be hidden from the end user. It must be a stringified JSON with only strings values eg. `{\"ip\": \"172.168.1.234\"}` |
+**Metadata** | Pointer to **map[string]interface{}** | Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length. |
 **FactorType** | Pointer to [**string**](ChallengeEnumFactorTypes.md) |  |
 **Url** | Pointer to **string** | The URL of this resource. |
 **Links** | Pointer to **map[string]interface{}** | Contains a dictionary of URL links to nested resources of this Challenge. |

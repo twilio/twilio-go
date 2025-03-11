@@ -4,7 +4,7 @@ All URIs are relative to *https://pricing.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchVoiceNumber**](VoiceNumbersApi.md#FetchVoiceNumber) | **Get** /v2/Voice/Numbers/{DestinationNumber} | 
+[**FetchVoiceNumber**](VoiceNumbersApi.md#FetchVoiceNumber) | **Get** /v2/Voice/Numbers/{DestinationNumber} | Fetch pricing information for a specific destination and, optionally, origination phone number.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > PricingV2VoiceNumber FetchVoiceNumber(ctx, DestinationNumberoptional)
 
-
+Fetch pricing information for a specific destination and, optionally, origination phone number.
 
 Fetch pricing information for a specific destination and, optionally, origination phone number.
 

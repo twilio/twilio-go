@@ -4,11 +4,11 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateBucket**](ServicesRateLimitsBucketsApi.md#CreateBucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | 
-[**DeleteBucket**](ServicesRateLimitsBucketsApi.md#DeleteBucket) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
-[**FetchBucket**](ServicesRateLimitsBucketsApi.md#FetchBucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
-[**ListBucket**](ServicesRateLimitsBucketsApi.md#ListBucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | 
-[**UpdateBucket**](ServicesRateLimitsBucketsApi.md#UpdateBucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
+[**CreateBucket**](ServicesRateLimitsBucketsApi.md#CreateBucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | Create a new Bucket for a Rate Limit
+[**DeleteBucket**](ServicesRateLimitsBucketsApi.md#DeleteBucket) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | Delete a specific Bucket.
+[**FetchBucket**](ServicesRateLimitsBucketsApi.md#FetchBucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | Fetch a specific Bucket.
+[**ListBucket**](ServicesRateLimitsBucketsApi.md#ListBucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | Retrieve a list of all Buckets for a Rate Limit.
+[**UpdateBucket**](ServicesRateLimitsBucketsApi.md#UpdateBucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | Update a specific Bucket.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > VerifyV2Bucket CreateBucket(ctx, ServiceSidRateLimitSidoptional)
 
-
+Create a new Bucket for a Rate Limit
 
 Create a new Bucket for a Rate Limit
 
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeleteBucket(ctx, ServiceSidRateLimitSidSid)
 
-
+Delete a specific Bucket.
 
 Delete a specific Bucket.
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 > VerifyV2Bucket FetchBucket(ctx, ServiceSidRateLimitSidSid)
 
-
+Fetch a specific Bucket.
 
 Fetch a specific Bucket.
 
@@ -149,7 +149,7 @@ Name | Type | Description
 
 > []VerifyV2Bucket ListBucket(ctx, ServiceSidRateLimitSidoptional)
 
-
+Retrieve a list of all Buckets for a Rate Limit.
 
 Retrieve a list of all Buckets for a Rate Limit.
 
@@ -194,7 +194,7 @@ Name | Type | Description
 
 > VerifyV2Bucket UpdateBucket(ctx, ServiceSidRateLimitSidSidoptional)
 
-
+Update a specific Bucket.
 
 Update a specific Bucket.
 

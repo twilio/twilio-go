@@ -4,7 +4,7 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListCallSummaries**](VoiceSummariesApi.md#ListCallSummaries) | **Get** /v1/Voice/Summaries | 
+[**ListCallSummaries**](VoiceSummariesApi.md#ListCallSummaries) | **Get** /v1/Voice/Summaries | Get a list of Call Summaries.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []InsightsV1CallSummaries ListCallSummaries(ctx, optional)
 
-
+Get a list of Call Summaries.
 
 Get a list of Call Summaries.
 

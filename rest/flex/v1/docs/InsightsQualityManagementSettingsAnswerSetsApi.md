@@ -4,7 +4,7 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchInsightsSettingsAnswersets**](InsightsQualityManagementSettingsAnswerSetsApi.md#FetchInsightsSettingsAnswersets) | **Get** /v1/Insights/QualityManagement/Settings/AnswerSets | 
+[**FetchInsightsSettingsAnswersets**](InsightsQualityManagementSettingsAnswerSetsApi.md#FetchInsightsSettingsAnswersets) | **Get** /v1/Insights/QualityManagement/Settings/AnswerSets | To get the Answer Set Settings for an Account
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > FlexV1InsightsSettingsAnswersets FetchInsightsSettingsAnswersets(ctx, optional)
 
-
+To get the Answer Set Settings for an Account
 
 To get the Answer Set Settings for an Account
 

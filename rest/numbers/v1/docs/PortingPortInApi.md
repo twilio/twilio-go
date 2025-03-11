@@ -4,9 +4,9 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreatePortingPortIn**](PortingPortInApi.md#CreatePortingPortIn) | **Post** /v1/Porting/PortIn | 
-[**DeletePortingPortIn**](PortingPortInApi.md#DeletePortingPortIn) | **Delete** /v1/Porting/PortIn/{PortInRequestSid} | 
-[**FetchPortingPortIn**](PortingPortInApi.md#FetchPortingPortIn) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | 
+[**CreatePortingPortIn**](PortingPortInApi.md#CreatePortingPortIn) | **Post** /v1/Porting/PortIn | Allows to create a new port in request
+[**DeletePortingPortIn**](PortingPortInApi.md#DeletePortingPortIn) | **Delete** /v1/Porting/PortIn/{PortInRequestSid} | Allows to cancel a port in request by SID
+[**FetchPortingPortIn**](PortingPortInApi.md#FetchPortingPortIn) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | Fetch a port in request by SID
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > NumbersV1PortingPortIn CreatePortingPortIn(ctx, optional)
 
-
+Allows to create a new port in request
 
 Allows to create a new port in request
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 > DeletePortingPortIn(ctx, PortInRequestSid)
 
-
+Allows to cancel a port in request by SID
 
 Allows to cancel a port in request by SID
 
@@ -95,7 +95,7 @@ Name | Type | Description
 
 > NumbersV1PortingPortIn FetchPortingPortIn(ctx, PortInRequestSid)
 
-
+Fetch a port in request by SID
 
 Fetch a port in request by SID
 

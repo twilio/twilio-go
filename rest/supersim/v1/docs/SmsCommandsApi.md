@@ -4,9 +4,9 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSmsCommand**](SmsCommandsApi.md#CreateSmsCommand) | **Post** /v1/SmsCommands | 
-[**FetchSmsCommand**](SmsCommandsApi.md#FetchSmsCommand) | **Get** /v1/SmsCommands/{Sid} | 
-[**ListSmsCommand**](SmsCommandsApi.md#ListSmsCommand) | **Get** /v1/SmsCommands | 
+[**CreateSmsCommand**](SmsCommandsApi.md#CreateSmsCommand) | **Post** /v1/SmsCommands | Send SMS Command to a Sim.
+[**FetchSmsCommand**](SmsCommandsApi.md#FetchSmsCommand) | **Get** /v1/SmsCommands/{Sid} | Fetch SMS Command instance from your account.
+[**ListSmsCommand**](SmsCommandsApi.md#ListSmsCommand) | **Get** /v1/SmsCommands | Retrieve a list of SMS Commands from your account.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > SupersimV1SmsCommand CreateSmsCommand(ctx, optional)
 
-
+Send SMS Command to a Sim.
 
 Send SMS Command to a Sim.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > SupersimV1SmsCommand FetchSmsCommand(ctx, Sid)
 
-
+Fetch SMS Command instance from your account.
 
 Fetch SMS Command instance from your account.
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 > []SupersimV1SmsCommand ListSmsCommand(ctx, optional)
 
-
+Retrieve a list of SMS Commands from your account.
 
 Retrieve a list of SMS Commands from your account.
 

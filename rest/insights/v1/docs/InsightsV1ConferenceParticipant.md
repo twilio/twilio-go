@@ -27,9 +27,9 @@ Name | Type | Description | Notes
 **ConferenceRegion** | Pointer to [**string**](ConferenceParticipantEnumRegion.md) |  |
 **CallType** | Pointer to [**string**](ConferenceParticipantEnumCallType.md) |  |
 **ProcessingState** | Pointer to [**string**](ConferenceParticipantEnumProcessingState.md) |  |
-**Properties** | Pointer to **interface{}** | Participant properties and metadata. |
-**Events** | Pointer to **interface{}** | Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant. |
-**Metrics** | Pointer to **interface{}** | Object. Contains participant call quality metrics. |
+**Properties** | Pointer to **map[string]interface{}** | Participant properties and metadata. |
+**Events** | Pointer to **map[string]interface{}** | Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant. |
+**Metrics** | Pointer to **map[string]interface{}** | Object. Contains participant call quality metrics. |
 **Url** | Pointer to **string** | The URL of this resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,7 +4,7 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListInsightsConversations**](InsightsConversationsApi.md#ListInsightsConversations) | **Get** /v1/Insights/Conversations | 
+[**ListInsightsConversations**](InsightsConversationsApi.md#ListInsightsConversations) | **Get** /v1/Insights/Conversations | To get conversation with segment id
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []FlexV1InsightsConversations ListInsightsConversations(ctx, optional)
 
-
+To get conversation with segment id
 
 To get conversation with segment id
 

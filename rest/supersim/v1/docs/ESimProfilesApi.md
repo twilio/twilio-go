@@ -4,9 +4,9 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEsimProfile**](ESimProfilesApi.md#CreateEsimProfile) | **Post** /v1/ESimProfiles | 
-[**FetchEsimProfile**](ESimProfilesApi.md#FetchEsimProfile) | **Get** /v1/ESimProfiles/{Sid} | 
-[**ListEsimProfile**](ESimProfilesApi.md#ListEsimProfile) | **Get** /v1/ESimProfiles | 
+[**CreateEsimProfile**](ESimProfilesApi.md#CreateEsimProfile) | **Post** /v1/ESimProfiles | Order an eSIM Profile.
+[**FetchEsimProfile**](ESimProfilesApi.md#FetchEsimProfile) | **Get** /v1/ESimProfiles/{Sid} | Fetch an eSIM Profile.
+[**ListEsimProfile**](ESimProfilesApi.md#ListEsimProfile) | **Get** /v1/ESimProfiles | Retrieve a list of eSIM Profiles.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > SupersimV1EsimProfile CreateEsimProfile(ctx, optional)
 
-
+Order an eSIM Profile.
 
 Order an eSIM Profile.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > SupersimV1EsimProfile FetchEsimProfile(ctx, Sid)
 
-
+Fetch an eSIM Profile.
 
 Fetch an eSIM Profile.
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 > []SupersimV1EsimProfile ListEsimProfile(ctx, optional)
 
-
+Retrieve a list of eSIM Profiles.
 
 Retrieve a list of eSIM Profiles.
 

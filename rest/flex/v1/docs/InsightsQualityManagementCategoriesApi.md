@@ -4,10 +4,10 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#CreateInsightsQuestionnairesCategory) | **Post** /v1/Insights/QualityManagement/Categories | 
+[**CreateInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#CreateInsightsQuestionnairesCategory) | **Post** /v1/Insights/QualityManagement/Categories | To create a category for Questions
 [**DeleteInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#DeleteInsightsQuestionnairesCategory) | **Delete** /v1/Insights/QualityManagement/Categories/{CategorySid} | 
-[**ListInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#ListInsightsQuestionnairesCategory) | **Get** /v1/Insights/QualityManagement/Categories | 
-[**UpdateInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#UpdateInsightsQuestionnairesCategory) | **Post** /v1/Insights/QualityManagement/Categories/{CategorySid} | 
+[**ListInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#ListInsightsQuestionnairesCategory) | **Get** /v1/Insights/QualityManagement/Categories | To get all the categories
+[**UpdateInsightsQuestionnairesCategory**](InsightsQualityManagementCategoriesApi.md#UpdateInsightsQuestionnairesCategory) | **Post** /v1/Insights/QualityManagement/Categories/{CategorySid} | To update the category for Questions
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > FlexV1InsightsQuestionnairesCategory CreateInsightsQuestionnairesCategory(ctx, optional)
 
-
+To create a category for Questions
 
 To create a category for Questions
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 > []FlexV1InsightsQuestionnairesCategory ListInsightsQuestionnairesCategory(ctx, optional)
 
-
+To get all the categories
 
 To get all the categories
 
@@ -139,7 +139,7 @@ Name | Type | Description
 
 > FlexV1InsightsQuestionnairesCategory UpdateInsightsQuestionnairesCategory(ctx, CategorySidoptional)
 
-
+To update the category for Questions
 
 To update the category for Questions
 

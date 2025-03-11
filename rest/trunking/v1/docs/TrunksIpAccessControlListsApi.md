@@ -4,10 +4,10 @@ All URIs are relative to *https://trunking.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateIpAccessControlList**](TrunksIpAccessControlListsApi.md#CreateIpAccessControlList) | **Post** /v1/Trunks/{TrunkSid}/IpAccessControlLists | 
-[**DeleteIpAccessControlList**](TrunksIpAccessControlListsApi.md#DeleteIpAccessControlList) | **Delete** /v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid} | 
+[**CreateIpAccessControlList**](TrunksIpAccessControlListsApi.md#CreateIpAccessControlList) | **Post** /v1/Trunks/{TrunkSid}/IpAccessControlLists | Associate an IP Access Control List with a Trunk
+[**DeleteIpAccessControlList**](TrunksIpAccessControlListsApi.md#DeleteIpAccessControlList) | **Delete** /v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid} | Remove an associated IP Access Control List from a Trunk
 [**FetchIpAccessControlList**](TrunksIpAccessControlListsApi.md#FetchIpAccessControlList) | **Get** /v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid} | 
-[**ListIpAccessControlList**](TrunksIpAccessControlListsApi.md#ListIpAccessControlList) | **Get** /v1/Trunks/{TrunkSid}/IpAccessControlLists | 
+[**ListIpAccessControlList**](TrunksIpAccessControlListsApi.md#ListIpAccessControlList) | **Get** /v1/Trunks/{TrunkSid}/IpAccessControlLists | List all IP Access Control Lists for a Trunk
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > TrunkingV1IpAccessControlList CreateIpAccessControlList(ctx, TrunkSidoptional)
 
-
+Associate an IP Access Control List with a Trunk
 
 Associate an IP Access Control List with a Trunk
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteIpAccessControlList(ctx, TrunkSidSid)
 
-
+Remove an associated IP Access Control List from a Trunk
 
 Remove an associated IP Access Control List from a Trunk
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 > []TrunkingV1IpAccessControlList ListIpAccessControlList(ctx, TrunkSidoptional)
 
-
+List all IP Access Control Lists for a Trunk
 
 List all IP Access Control Lists for a Trunk
 

@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchNotification**](AccountsNotificationsApi.md#FetchNotification) | **Get** /2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json | 
-[**ListNotification**](AccountsNotificationsApi.md#ListNotification) | **Get** /2010-04-01/Accounts/{AccountSid}/Notifications.json | 
+[**FetchNotification**](AccountsNotificationsApi.md#FetchNotification) | **Get** /2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json | Fetch a notification belonging to the account used to make the request
+[**ListNotification**](AccountsNotificationsApi.md#ListNotification) | **Get** /2010-04-01/Accounts/{AccountSid}/Notifications.json | Retrieve a list of notifications belonging to the account used to make the request
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ApiV2010NotificationInstance FetchNotification(ctx, Sidoptional)
 
-
+Fetch a notification belonging to the account used to make the request
 
 Fetch a notification belonging to the account used to make the request
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > []ApiV2010Notification ListNotification(ctx, optional)
 
-
+Retrieve a list of notifications belonging to the account used to make the request
 
 Retrieve a list of notifications belonging to the account used to make the request
 

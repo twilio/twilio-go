@@ -4,9 +4,9 @@ All URIs are relative to *https://accounts.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSafelist**](SafeListNumbersApi.md#CreateSafelist) | **Post** /v1/SafeList/Numbers | 
-[**DeleteSafelist**](SafeListNumbersApi.md#DeleteSafelist) | **Delete** /v1/SafeList/Numbers | 
-[**FetchSafelist**](SafeListNumbersApi.md#FetchSafelist) | **Get** /v1/SafeList/Numbers | 
+[**CreateSafelist**](SafeListNumbersApi.md#CreateSafelist) | **Post** /v1/SafeList/Numbers | Add a new phone number to SafeList.
+[**DeleteSafelist**](SafeListNumbersApi.md#DeleteSafelist) | **Delete** /v1/SafeList/Numbers | Remove a phone number from SafeList.
+[**FetchSafelist**](SafeListNumbersApi.md#FetchSafelist) | **Get** /v1/SafeList/Numbers | Check if a phone number exists in SafeList.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > AccountsV1Safelist CreateSafelist(ctx, optional)
 
-
+Add a new phone number to SafeList.
 
 Add a new phone number to SafeList.
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 > DeleteSafelist(ctx, optional)
 
-
+Remove a phone number from SafeList.
 
 Remove a phone number from SafeList.
 
@@ -92,7 +92,7 @@ Name | Type | Description
 
 > AccountsV1Safelist FetchSafelist(ctx, optional)
 
-
+Check if a phone number exists in SafeList.
 
 Check if a phone number exists in SafeList.
 

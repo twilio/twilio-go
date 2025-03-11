@@ -37,7 +37,7 @@ type CreateSessionParams struct {
 	//
 	Status *string `json:"Status,omitempty"`
 	// The Participant objects to include in the new session.
-	Participants *[]interface{} `json:"Participants,omitempty"`
+	Participants *[]map[string]interface{} `json:"Participants,omitempty"`
 }
 
 func (params *CreateSessionParams) SetUniqueName(UniqueName string) *CreateSessionParams {
@@ -60,7 +60,7 @@ func (params *CreateSessionParams) SetStatus(Status string) *CreateSessionParams
 	params.Status = &Status
 	return params
 }
-func (params *CreateSessionParams) SetParticipants(Participants []interface{}) *CreateSessionParams {
+func (params *CreateSessionParams) SetParticipants(Participants []map[string]interface{}) *CreateSessionParams {
 	params.Participants = &Participants
 	return params
 }

@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateConversationParticipant**](ConversationsParticipantsApi.md#CreateConversationParticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants | 
-[**DeleteConversationParticipant**](ConversationsParticipantsApi.md#DeleteConversationParticipant) | **Delete** /v1/Conversations/{ConversationSid}/Participants/{Sid} | 
-[**FetchConversationParticipant**](ConversationsParticipantsApi.md#FetchConversationParticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants/{Sid} | 
-[**ListConversationParticipant**](ConversationsParticipantsApi.md#ListConversationParticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants | 
-[**UpdateConversationParticipant**](ConversationsParticipantsApi.md#UpdateConversationParticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants/{Sid} | 
+[**CreateConversationParticipant**](ConversationsParticipantsApi.md#CreateConversationParticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants | Add a new participant to the conversation
+[**DeleteConversationParticipant**](ConversationsParticipantsApi.md#DeleteConversationParticipant) | **Delete** /v1/Conversations/{ConversationSid}/Participants/{Sid} | Remove a participant from the conversation
+[**FetchConversationParticipant**](ConversationsParticipantsApi.md#FetchConversationParticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants/{Sid} | Fetch a participant of the conversation
+[**ListConversationParticipant**](ConversationsParticipantsApi.md#ListConversationParticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants | Retrieve a list of all participants of the conversation
+[**UpdateConversationParticipant**](ConversationsParticipantsApi.md#UpdateConversationParticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants/{Sid} | Update an existing participant in the conversation
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ConversationParticipant CreateConversationParticipant(ctx, ConversationSidoptional)
 
-
+Add a new participant to the conversation
 
 Add a new participant to the conversation
 
@@ -67,7 +67,7 @@ Name | Type | Description
 
 > DeleteConversationParticipant(ctx, ConversationSidSidoptional)
 
-
+Remove a participant from the conversation
 
 Remove a participant from the conversation
 
@@ -111,7 +111,7 @@ Name | Type | Description
 
 > ConversationsV1ConversationParticipant FetchConversationParticipant(ctx, ConversationSidSid)
 
-
+Fetch a participant of the conversation
 
 Fetch a participant of the conversation
 
@@ -154,7 +154,7 @@ Name | Type | Description
 
 > []ConversationsV1ConversationParticipant ListConversationParticipant(ctx, ConversationSidoptional)
 
-
+Retrieve a list of all participants of the conversation
 
 Retrieve a list of all participants of the conversation
 
@@ -198,7 +198,7 @@ Name | Type | Description
 
 > ConversationsV1ConversationParticipant UpdateConversationParticipant(ctx, ConversationSidSidoptional)
 
-
+Update an existing participant in the conversation
 
 Update an existing participant in the conversation
 

@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateConversation**](ConversationsApi.md#CreateConversation) | **Post** /v1/Conversations | 
-[**DeleteConversation**](ConversationsApi.md#DeleteConversation) | **Delete** /v1/Conversations/{Sid} | 
-[**FetchConversation**](ConversationsApi.md#FetchConversation) | **Get** /v1/Conversations/{Sid} | 
-[**ListConversation**](ConversationsApi.md#ListConversation) | **Get** /v1/Conversations | 
-[**UpdateConversation**](ConversationsApi.md#UpdateConversation) | **Post** /v1/Conversations/{Sid} | 
+[**CreateConversation**](ConversationsApi.md#CreateConversation) | **Post** /v1/Conversations | Create a new conversation in your account&#39;s default service
+[**DeleteConversation**](ConversationsApi.md#DeleteConversation) | **Delete** /v1/Conversations/{Sid} | Remove a conversation from your account&#39;s default service
+[**FetchConversation**](ConversationsApi.md#FetchConversation) | **Get** /v1/Conversations/{Sid} | Fetch a conversation from your account&#39;s default service
+[**ListConversation**](ConversationsApi.md#ListConversation) | **Get** /v1/Conversations | Retrieve a list of conversations in your account&#39;s default service
+[**UpdateConversation**](ConversationsApi.md#UpdateConversation) | **Post** /v1/Conversations/{Sid} | Update an existing conversation in your account&#39;s default service
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1Conversation CreateConversation(ctx, optional)
 
-
+Create a new conversation in your account's default service
 
 Create a new conversation in your account's default service
 
@@ -66,7 +66,7 @@ Name | Type | Description
 
 > DeleteConversation(ctx, Sidoptional)
 
-
+Remove a conversation from your account's default service
 
 Remove a conversation from your account's default service
 
@@ -109,7 +109,7 @@ Name | Type | Description
 
 > ConversationsV1Conversation FetchConversation(ctx, Sid)
 
-
+Fetch a conversation from your account's default service
 
 Fetch a conversation from your account's default service
 
@@ -151,7 +151,7 @@ Name | Type | Description
 
 > []ConversationsV1Conversation ListConversation(ctx, optional)
 
-
+Retrieve a list of conversations in your account's default service
 
 Retrieve a list of conversations in your account's default service
 
@@ -194,7 +194,7 @@ Name | Type | Description
 
 > ConversationsV1Conversation UpdateConversation(ctx, Sidoptional)
 
-
+Update an existing conversation in your account's default service
 
 Update an existing conversation in your account's default service
 

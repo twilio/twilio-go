@@ -4,7 +4,7 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListSettingsUpdate**](SettingsUpdatesApi.md#ListSettingsUpdate) | **Get** /v1/SettingsUpdates | 
+[**ListSettingsUpdate**](SettingsUpdatesApi.md#ListSettingsUpdate) | **Get** /v1/SettingsUpdates | Retrieve a list of Settings Updates.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []SupersimV1SettingsUpdate ListSettingsUpdate(ctx, optional)
 
-
+Retrieve a list of Settings Updates.
 
 Retrieve a list of Settings Updates.
 

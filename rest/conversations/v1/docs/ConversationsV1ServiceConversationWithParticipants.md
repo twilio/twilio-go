@@ -14,9 +14,9 @@ Name | Type | Description | Notes
 **State** | Pointer to [**string**](ServiceConversationWithParticipantsEnumState.md) |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was created. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was last updated. |
-**Timers** | Pointer to **interface{}** | Timer date values representing state update for this conversation. |
+**Timers** | Pointer to **map[string]interface{}** | Timer date values representing state update for this conversation. |
 **Links** | Pointer to **map[string]interface{}** | Contains absolute URLs to access the [participants](https://www.twilio.com/docs/conversations/api/conversation-participant-resource), [messages](https://www.twilio.com/docs/conversations/api/conversation-message-resource) and [webhooks](https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource) of this conversation. |
-**Bindings** | Pointer to **interface{}** |  |
+**Bindings** | Pointer to **map[string]interface{}** |  |
 **Url** | Pointer to **string** | An absolute API resource URL for this conversation. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

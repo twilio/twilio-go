@@ -4,7 +4,7 @@ All URIs are relative to *https://events.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSinkTest**](SinksTestApi.md#CreateSinkTest) | **Post** /v1/Sinks/{Sid}/Test | 
+[**CreateSinkTest**](SinksTestApi.md#CreateSinkTest) | **Post** /v1/Sinks/{Sid}/Test | Create a new Sink Test Event for the given Sink.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > EventsV1SinkTest CreateSinkTest(ctx, Sid)
 
-
+Create a new Sink Test Event for the given Sink.
 
 Create a new Sink Test Event for the given Sink.
 

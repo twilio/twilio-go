@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCredential**](CredentialsApi.md#CreateCredential) | **Post** /v1/Credentials | 
-[**DeleteCredential**](CredentialsApi.md#DeleteCredential) | **Delete** /v1/Credentials/{Sid} | 
-[**FetchCredential**](CredentialsApi.md#FetchCredential) | **Get** /v1/Credentials/{Sid} | 
-[**ListCredential**](CredentialsApi.md#ListCredential) | **Get** /v1/Credentials | 
-[**UpdateCredential**](CredentialsApi.md#UpdateCredential) | **Post** /v1/Credentials/{Sid} | 
+[**CreateCredential**](CredentialsApi.md#CreateCredential) | **Post** /v1/Credentials | Add a new push notification credential to your account
+[**DeleteCredential**](CredentialsApi.md#DeleteCredential) | **Delete** /v1/Credentials/{Sid} | Remove a push notification credential from your account
+[**FetchCredential**](CredentialsApi.md#FetchCredential) | **Get** /v1/Credentials/{Sid} | Fetch a push notification credential from your account
+[**ListCredential**](CredentialsApi.md#ListCredential) | **Get** /v1/Credentials | Retrieve a list of all push notification credentials on your account
+[**UpdateCredential**](CredentialsApi.md#UpdateCredential) | **Post** /v1/Credentials/{Sid} | Update an existing push notification credential on your account
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1Credential CreateCredential(ctx, optional)
 
-
+Add a new push notification credential to your account
 
 Add a new push notification credential to your account
 
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeleteCredential(ctx, Sid)
 
-
+Remove a push notification credential from your account
 
 Remove a push notification credential from your account
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > ConversationsV1Credential FetchCredential(ctx, Sid)
 
-
+Fetch a push notification credential from your account
 
 Fetch a push notification credential from your account
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > []ConversationsV1Credential ListCredential(ctx, optional)
 
-
+Retrieve a list of all push notification credentials on your account
 
 Retrieve a list of all push notification credentials on your account
 
@@ -185,7 +185,7 @@ Name | Type | Description
 
 > ConversationsV1Credential UpdateCredential(ctx, Sidoptional)
 
-
+Update an existing push notification credential on your account
 
 Update an existing push notification credential on your account
 

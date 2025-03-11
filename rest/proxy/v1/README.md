@@ -31,36 +31,36 @@ All URIs are relative to *https://proxy.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | 
-*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
-*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
-*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v1/Services | 
-*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
-*ServicesPhoneNumbersApi* | [**CreatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#createphonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
-*ServicesPhoneNumbersApi* | [**DeletePhoneNumber**](docs/ServicesPhoneNumbersApi.md#deletephonenumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
-*ServicesPhoneNumbersApi* | [**FetchPhoneNumber**](docs/ServicesPhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
-*ServicesPhoneNumbersApi* | [**ListPhoneNumber**](docs/ServicesPhoneNumbersApi.md#listphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | 
-*ServicesPhoneNumbersApi* | [**UpdatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#updatephonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
-*ServicesSessionsApi* | [**CreateSession**](docs/ServicesSessionsApi.md#createsession) | **Post** /v1/Services/{ServiceSid}/Sessions | 
-*ServicesSessionsApi* | [**DeleteSession**](docs/ServicesSessionsApi.md#deletesession) | **Delete** /v1/Services/{ServiceSid}/Sessions/{Sid} | 
-*ServicesSessionsApi* | [**FetchSession**](docs/ServicesSessionsApi.md#fetchsession) | **Get** /v1/Services/{ServiceSid}/Sessions/{Sid} | 
-*ServicesSessionsApi* | [**ListSession**](docs/ServicesSessionsApi.md#listsession) | **Get** /v1/Services/{ServiceSid}/Sessions | 
-*ServicesSessionsApi* | [**UpdateSession**](docs/ServicesSessionsApi.md#updatesession) | **Post** /v1/Services/{ServiceSid}/Sessions/{Sid} | 
-*ServicesSessionsInteractionsApi* | [**DeleteInteraction**](docs/ServicesSessionsInteractionsApi.md#deleteinteraction) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | 
-*ServicesSessionsInteractionsApi* | [**FetchInteraction**](docs/ServicesSessionsInteractionsApi.md#fetchinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | 
-*ServicesSessionsInteractionsApi* | [**ListInteraction**](docs/ServicesSessionsInteractionsApi.md#listinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions | 
-*ServicesSessionsParticipantsApi* | [**CreateParticipant**](docs/ServicesSessionsParticipantsApi.md#createparticipant) | **Post** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | 
-*ServicesSessionsParticipantsApi* | [**DeleteParticipant**](docs/ServicesSessionsParticipantsApi.md#deleteparticipant) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | 
-*ServicesSessionsParticipantsApi* | [**FetchParticipant**](docs/ServicesSessionsParticipantsApi.md#fetchparticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | 
-*ServicesSessionsParticipantsApi* | [**ListParticipant**](docs/ServicesSessionsParticipantsApi.md#listparticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | 
-*ServicesSessionsParticipantsMessageInteractionsApi* | [**CreateMessageInteraction**](docs/ServicesSessionsParticipantsMessageInteractionsApi.md#createmessageinteraction) | **Post** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions | 
+*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | Create a new Service for Twilio Proxy
+*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | Delete a specific Service.
+*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v1/Services/{Sid} | Fetch a specific Service.
+*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v1/Services | Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page.
+*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v1/Services/{Sid} | Update a specific Service.
+*ServicesPhoneNumbersApi* | [**CreatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#createphonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | Add a Phone Number to a Service&#39;s Proxy Number Pool.
+*ServicesPhoneNumbersApi* | [**DeletePhoneNumber**](docs/ServicesPhoneNumbersApi.md#deletephonenumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | Delete a specific Phone Number from a Service.
+*ServicesPhoneNumbersApi* | [**FetchPhoneNumber**](docs/ServicesPhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | Fetch a specific Phone Number.
+*ServicesPhoneNumbersApi* | [**ListPhoneNumber**](docs/ServicesPhoneNumbersApi.md#listphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A maximum of 100 records will be returned per page.
+*ServicesPhoneNumbersApi* | [**UpdatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#updatephonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | Update a specific Proxy Number.
+*ServicesSessionsApi* | [**CreateSession**](docs/ServicesSessionsApi.md#createsession) | **Post** /v1/Services/{ServiceSid}/Sessions | Create a new Session
+*ServicesSessionsApi* | [**DeleteSession**](docs/ServicesSessionsApi.md#deletesession) | **Delete** /v1/Services/{ServiceSid}/Sessions/{Sid} | Delete a specific Session.
+*ServicesSessionsApi* | [**FetchSession**](docs/ServicesSessionsApi.md#fetchsession) | **Get** /v1/Services/{ServiceSid}/Sessions/{Sid} | Fetch a specific Session.
+*ServicesSessionsApi* | [**ListSession**](docs/ServicesSessionsApi.md#listsession) | **Get** /v1/Services/{ServiceSid}/Sessions | Retrieve a list of all Sessions for the Service. A maximum of 100 records will be returned per page.
+*ServicesSessionsApi* | [**UpdateSession**](docs/ServicesSessionsApi.md#updatesession) | **Post** /v1/Services/{ServiceSid}/Sessions/{Sid} | Update a specific Session.
+*ServicesSessionsInteractionsApi* | [**DeleteInteraction**](docs/ServicesSessionsInteractionsApi.md#deleteinteraction) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | Delete a specific Interaction.
+*ServicesSessionsInteractionsApi* | [**FetchInteraction**](docs/ServicesSessionsInteractionsApi.md#fetchinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | Retrieve a list of Interactions for a given [Session](https://www.twilio.com/docs/proxy/api/session).
+*ServicesSessionsInteractionsApi* | [**ListInteraction**](docs/ServicesSessionsInteractionsApi.md#listinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions | Retrieve a list of all Interactions for a Session. A maximum of 100 records will be returned per page.
+*ServicesSessionsParticipantsApi* | [**CreateParticipant**](docs/ServicesSessionsParticipantsApi.md#createparticipant) | **Post** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | Add a new Participant to the Session
+*ServicesSessionsParticipantsApi* | [**DeleteParticipant**](docs/ServicesSessionsParticipantsApi.md#deleteparticipant) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | Delete a specific Participant. This is a soft-delete. The participant remains associated with the session and cannot be re-added. Participants are only permanently deleted when the [Session](https://www.twilio.com/docs/proxy/api/session) is deleted.
+*ServicesSessionsParticipantsApi* | [**FetchParticipant**](docs/ServicesSessionsParticipantsApi.md#fetchparticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | Fetch a specific Participant.
+*ServicesSessionsParticipantsApi* | [**ListParticipant**](docs/ServicesSessionsParticipantsApi.md#listparticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | Retrieve a list of all Participants in a Session.
+*ServicesSessionsParticipantsMessageInteractionsApi* | [**CreateMessageInteraction**](docs/ServicesSessionsParticipantsMessageInteractionsApi.md#createmessageinteraction) | **Post** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions | Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The &#x60;inbound&#x60; properties for the Interaction will always be empty.
 *ServicesSessionsParticipantsMessageInteractionsApi* | [**FetchMessageInteraction**](docs/ServicesSessionsParticipantsMessageInteractionsApi.md#fetchmessageinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid} | 
 *ServicesSessionsParticipantsMessageInteractionsApi* | [**ListMessageInteraction**](docs/ServicesSessionsParticipantsMessageInteractionsApi.md#listmessageinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions | 
-*ServicesShortCodesApi* | [**CreateShortCode**](docs/ServicesShortCodesApi.md#createshortcode) | **Post** /v1/Services/{ServiceSid}/ShortCodes | 
-*ServicesShortCodesApi* | [**DeleteShortCode**](docs/ServicesShortCodesApi.md#deleteshortcode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
-*ServicesShortCodesApi* | [**FetchShortCode**](docs/ServicesShortCodesApi.md#fetchshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
-*ServicesShortCodesApi* | [**ListShortCode**](docs/ServicesShortCodesApi.md#listshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | 
-*ServicesShortCodesApi* | [**UpdateShortCode**](docs/ServicesShortCodesApi.md#updateshortcode) | **Post** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
+*ServicesShortCodesApi* | [**CreateShortCode**](docs/ServicesShortCodesApi.md#createshortcode) | **Post** /v1/Services/{ServiceSid}/ShortCodes | Add a Short Code to the Proxy Number Pool for the Service.
+*ServicesShortCodesApi* | [**DeleteShortCode**](docs/ServicesShortCodesApi.md#deleteshortcode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | Delete a specific Short Code from a Service.
+*ServicesShortCodesApi* | [**FetchShortCode**](docs/ServicesShortCodesApi.md#fetchshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | Fetch a specific Short Code.
+*ServicesShortCodesApi* | [**ListShortCode**](docs/ServicesShortCodesApi.md#listshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page.
+*ServicesShortCodesApi* | [**UpdateShortCode**](docs/ServicesShortCodesApi.md#updateshortcode) | **Post** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | Update a specific Short Code.
 
 
 ## Documentation For Models

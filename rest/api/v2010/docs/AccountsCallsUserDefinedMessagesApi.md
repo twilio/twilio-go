@@ -4,7 +4,7 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateUserDefinedMessage**](AccountsCallsUserDefinedMessagesApi.md#CreateUserDefinedMessage) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json | 
+[**CreateUserDefinedMessage**](AccountsCallsUserDefinedMessagesApi.md#CreateUserDefinedMessage) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json | Create a new User Defined Message for the given Call SID.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ApiV2010UserDefinedMessage CreateUserDefinedMessage(ctx, CallSidoptional)
 
-
+Create a new User Defined Message for the given Call SID.
 
 Create a new User Defined Message for the given Call SID.
 

@@ -34,7 +34,7 @@ Class | Method | HTTP request | Description
 *AlertsApi* | [**FetchAlert**](docs/AlertsApi.md#fetchalert) | **Get** /v1/Alerts/{Sid} | 
 *AlertsApi* | [**ListAlert**](docs/AlertsApi.md#listalert) | **Get** /v1/Alerts | 
 *EventsApi* | [**FetchEvent**](docs/EventsApi.md#fetchevent) | **Get** /v1/Events/{Sid} | 
-*EventsApi* | [**ListEvent**](docs/EventsApi.md#listevent) | **Get** /v1/Events | 
+*EventsApi* | [**ListEvent**](docs/EventsApi.md#listevent) | **Get** /v1/Events | Returns a list of events in the account, sorted by event-date.
 
 
 ## Documentation For Models

@@ -169,6 +169,7 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read.
 **CustomerName** | **string** | The `customer_name` of the Address resources to read.
 **FriendlyName** | **string** | The string that identifies the Address resources to read.
+**EmergencyEnabled** | **bool** | Whether the address can be associated to a number for emergency calling.
 **IsoCountry** | **string** | The ISO country code of the Address resources to read.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.

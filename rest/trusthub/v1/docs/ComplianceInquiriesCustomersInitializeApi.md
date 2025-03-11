@@ -4,8 +4,8 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateComplianceInquiry**](ComplianceInquiriesCustomersInitializeApi.md#CreateComplianceInquiry) | **Post** /v1/ComplianceInquiries/Customers/Initialize | 
-[**UpdateComplianceInquiry**](ComplianceInquiriesCustomersInitializeApi.md#UpdateComplianceInquiry) | **Post** /v1/ComplianceInquiries/Customers/{CustomerId}/Initialize | 
+[**CreateComplianceInquiry**](ComplianceInquiriesCustomersInitializeApi.md#CreateComplianceInquiry) | **Post** /v1/ComplianceInquiries/Customers/Initialize | Create a new Compliance Inquiry for the authenticated account. This is necessary to start a new embedded session.
+[**UpdateComplianceInquiry**](ComplianceInquiriesCustomersInitializeApi.md#UpdateComplianceInquiry) | **Post** /v1/ComplianceInquiries/Customers/{CustomerId}/Initialize | Resume a specific Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > TrusthubV1ComplianceInquiry CreateComplianceInquiry(ctx, optional)
 
-
+Create a new Compliance Inquiry for the authenticated account. This is necessary to start a new embedded session.
 
 Create a new Compliance Inquiry for the authenticated account. This is necessary to start a new embedded session.
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 > TrusthubV1ComplianceInquiry UpdateComplianceInquiry(ctx, CustomerIdoptional)
 
-
+Resume a specific Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 
 Resume a specific Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 

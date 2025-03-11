@@ -4,10 +4,10 @@ All URIs are relative to *https://proxy.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateParticipant**](ServicesSessionsParticipantsApi.md#CreateParticipant) | **Post** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | 
-[**DeleteParticipant**](ServicesSessionsParticipantsApi.md#DeleteParticipant) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | 
-[**FetchParticipant**](ServicesSessionsParticipantsApi.md#FetchParticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | 
-[**ListParticipant**](ServicesSessionsParticipantsApi.md#ListParticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | 
+[**CreateParticipant**](ServicesSessionsParticipantsApi.md#CreateParticipant) | **Post** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | Add a new Participant to the Session
+[**DeleteParticipant**](ServicesSessionsParticipantsApi.md#DeleteParticipant) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | Delete a specific Participant. This is a soft-delete. The participant remains associated with the session and cannot be re-added. Participants are only permanently deleted when the [Session](https://www.twilio.com/docs/proxy/api/session) is deleted.
+[**FetchParticipant**](ServicesSessionsParticipantsApi.md#FetchParticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | Fetch a specific Participant.
+[**ListParticipant**](ServicesSessionsParticipantsApi.md#ListParticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | Retrieve a list of all Participants in a Session.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ProxyV1Participant CreateParticipant(ctx, ServiceSidSessionSidoptional)
 
-
+Add a new Participant to the Session
 
 Add a new Participant to the Session
 
@@ -62,7 +62,7 @@ Name | Type | Description
 
 > DeleteParticipant(ctx, ServiceSidSessionSidSid)
 
-
+Delete a specific Participant. This is a soft-delete. The participant remains associated with the session and cannot be re-added. Participants are only permanently deleted when the [Session](https://www.twilio.com/docs/proxy/api/session) is deleted.
 
 Delete a specific Participant. This is a soft-delete. The participant remains associated with the session and cannot be re-added. Participants are only permanently deleted when the [Session](https://www.twilio.com/docs/proxy/api/session) is deleted.
 
@@ -106,7 +106,7 @@ Name | Type | Description
 
 > ProxyV1Participant FetchParticipant(ctx, ServiceSidSessionSidSid)
 
-
+Fetch a specific Participant.
 
 Fetch a specific Participant.
 
@@ -150,7 +150,7 @@ Name | Type | Description
 
 > []ProxyV1Participant ListParticipant(ctx, ServiceSidSessionSidoptional)
 
-
+Retrieve a list of all Participants in a Session.
 
 Retrieve a list of all Participants in a Session.
 

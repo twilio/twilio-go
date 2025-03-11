@@ -4,11 +4,11 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateVariable**](ServicesEnvironmentsVariablesApi.md#CreateVariable) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables | 
-[**DeleteVariable**](ServicesEnvironmentsVariablesApi.md#DeleteVariable) | **Delete** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | 
-[**FetchVariable**](ServicesEnvironmentsVariablesApi.md#FetchVariable) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | 
-[**ListVariable**](ServicesEnvironmentsVariablesApi.md#ListVariable) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables | 
-[**UpdateVariable**](ServicesEnvironmentsVariablesApi.md#UpdateVariable) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | 
+[**CreateVariable**](ServicesEnvironmentsVariablesApi.md#CreateVariable) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables | Create a new Variable.
+[**DeleteVariable**](ServicesEnvironmentsVariablesApi.md#DeleteVariable) | **Delete** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | Delete a specific Variable.
+[**FetchVariable**](ServicesEnvironmentsVariablesApi.md#FetchVariable) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | Retrieve a specific Variable.
+[**ListVariable**](ServicesEnvironmentsVariablesApi.md#ListVariable) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables | Retrieve a list of all Variables.
+[**UpdateVariable**](ServicesEnvironmentsVariablesApi.md#UpdateVariable) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | Update a specific Variable.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ServerlessV1Variable CreateVariable(ctx, ServiceSidEnvironmentSidoptional)
 
-
+Create a new Variable.
 
 Create a new Variable.
 
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeleteVariable(ctx, ServiceSidEnvironmentSidSid)
 
-
+Delete a specific Variable.
 
 Delete a specific Variable.
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 > ServerlessV1Variable FetchVariable(ctx, ServiceSidEnvironmentSidSid)
 
-
+Retrieve a specific Variable.
 
 Retrieve a specific Variable.
 
@@ -149,7 +149,7 @@ Name | Type | Description
 
 > []ServerlessV1Variable ListVariable(ctx, ServiceSidEnvironmentSidoptional)
 
-
+Retrieve a list of all Variables.
 
 Retrieve a list of all Variables.
 
@@ -194,7 +194,7 @@ Name | Type | Description
 
 > ServerlessV1Variable UpdateVariable(ctx, ServiceSidEnvironmentSidSidoptional)
 
-
+Update a specific Variable.
 
 Update a specific Variable.
 

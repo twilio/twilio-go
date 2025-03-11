@@ -4,8 +4,8 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchServiceConversationMessageReceipt**](ServicesConversationsMessagesReceiptsApi.md#FetchServiceConversationMessageReceipt) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid} | 
-[**ListServiceConversationMessageReceipt**](ServicesConversationsMessagesReceiptsApi.md#ListServiceConversationMessageReceipt) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts | 
+[**FetchServiceConversationMessageReceipt**](ServicesConversationsMessagesReceiptsApi.md#FetchServiceConversationMessageReceipt) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid} | Fetch the delivery and read receipts of the conversation message
+[**ListServiceConversationMessageReceipt**](ServicesConversationsMessagesReceiptsApi.md#ListServiceConversationMessageReceipt) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts | Retrieve a list of all delivery and read receipts of the conversation message
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ServiceConversationMessageReceipt FetchServiceConversationMessageReceipt(ctx, ChatServiceSidConversationSidMessageSidSid)
 
-
+Fetch the delivery and read receipts of the conversation message
 
 Fetch the delivery and read receipts of the conversation message
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > []ConversationsV1ServiceConversationMessageReceipt ListServiceConversationMessageReceipt(ctx, ChatServiceSidConversationSidMessageSidoptional)
 
-
+Retrieve a list of all delivery and read receipts of the conversation message
 
 Retrieve a list of all delivery and read receipts of the conversation message
 

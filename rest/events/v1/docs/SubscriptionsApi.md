@@ -4,11 +4,11 @@ All URIs are relative to *https://events.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSubscription**](SubscriptionsApi.md#CreateSubscription) | **Post** /v1/Subscriptions | 
-[**DeleteSubscription**](SubscriptionsApi.md#DeleteSubscription) | **Delete** /v1/Subscriptions/{Sid} | 
-[**FetchSubscription**](SubscriptionsApi.md#FetchSubscription) | **Get** /v1/Subscriptions/{Sid} | 
-[**ListSubscription**](SubscriptionsApi.md#ListSubscription) | **Get** /v1/Subscriptions | 
-[**UpdateSubscription**](SubscriptionsApi.md#UpdateSubscription) | **Post** /v1/Subscriptions/{Sid} | 
+[**CreateSubscription**](SubscriptionsApi.md#CreateSubscription) | **Post** /v1/Subscriptions | Create a new Subscription.
+[**DeleteSubscription**](SubscriptionsApi.md#DeleteSubscription) | **Delete** /v1/Subscriptions/{Sid} | Delete a specific Subscription.
+[**FetchSubscription**](SubscriptionsApi.md#FetchSubscription) | **Get** /v1/Subscriptions/{Sid} | Fetch a specific Subscription.
+[**ListSubscription**](SubscriptionsApi.md#ListSubscription) | **Get** /v1/Subscriptions | Retrieve a paginated list of Subscriptions belonging to the account used to make the request.
+[**UpdateSubscription**](SubscriptionsApi.md#UpdateSubscription) | **Post** /v1/Subscriptions/{Sid} | Update a Subscription.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > EventsV1Subscription CreateSubscription(ctx, optional)
 
-
+Create a new Subscription.
 
 Create a new Subscription.
 
@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Description** | **string** | A human readable description for the Subscription **This value should not contain PII.**
 **SinkSid** | **string** | The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-**Types** | **[]interface{}** | An array of objects containing the subscribed Event Types
+**Types** | **[]map[string]interface{}** | An array of objects containing the subscribed Event Types
 **ReceiveEventsFromSubaccounts** | **bool** | Receive events from all children accounts in the parent account subscription.
 
 ### Return type
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteSubscription(ctx, Sid)
 
-
+Delete a specific Subscription.
 
 Delete a specific Subscription.
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > EventsV1Subscription FetchSubscription(ctx, Sid)
 
-
+Fetch a specific Subscription.
 
 Fetch a specific Subscription.
 
@@ -142,7 +142,7 @@ Name | Type | Description
 
 > []EventsV1Subscription ListSubscription(ctx, optional)
 
-
+Retrieve a paginated list of Subscriptions belonging to the account used to make the request.
 
 Retrieve a paginated list of Subscriptions belonging to the account used to make the request.
 
@@ -183,7 +183,7 @@ Name | Type | Description
 
 > EventsV1Subscription UpdateSubscription(ctx, Sidoptional)
 
-
+Update a Subscription.
 
 Update a Subscription.
 

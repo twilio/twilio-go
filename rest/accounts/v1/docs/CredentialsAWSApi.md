@@ -4,11 +4,11 @@ All URIs are relative to *https://accounts.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCredentialAws**](CredentialsAWSApi.md#CreateCredentialAws) | **Post** /v1/Credentials/AWS | 
-[**DeleteCredentialAws**](CredentialsAWSApi.md#DeleteCredentialAws) | **Delete** /v1/Credentials/AWS/{Sid} | 
-[**FetchCredentialAws**](CredentialsAWSApi.md#FetchCredentialAws) | **Get** /v1/Credentials/AWS/{Sid} | 
-[**ListCredentialAws**](CredentialsAWSApi.md#ListCredentialAws) | **Get** /v1/Credentials/AWS | 
-[**UpdateCredentialAws**](CredentialsAWSApi.md#UpdateCredentialAws) | **Post** /v1/Credentials/AWS/{Sid} | 
+[**CreateCredentialAws**](CredentialsAWSApi.md#CreateCredentialAws) | **Post** /v1/Credentials/AWS | Create a new AWS Credential
+[**DeleteCredentialAws**](CredentialsAWSApi.md#DeleteCredentialAws) | **Delete** /v1/Credentials/AWS/{Sid} | Delete a Credential from your account
+[**FetchCredentialAws**](CredentialsAWSApi.md#FetchCredentialAws) | **Get** /v1/Credentials/AWS/{Sid} | Fetch the AWS credentials specified by the provided Credential Sid
+[**ListCredentialAws**](CredentialsAWSApi.md#ListCredentialAws) | **Get** /v1/Credentials/AWS | Retrieves a collection of AWS Credentials belonging to the account used to make the request
+[**UpdateCredentialAws**](CredentialsAWSApi.md#UpdateCredentialAws) | **Post** /v1/Credentials/AWS/{Sid} | Modify the properties of a given Account
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > AccountsV1CredentialAws CreateCredentialAws(ctx, optional)
 
-
+Create a new AWS Credential
 
 Create a new AWS Credential
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteCredentialAws(ctx, Sid)
 
-
+Delete a Credential from your account
 
 Delete a Credential from your account
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > AccountsV1CredentialAws FetchCredentialAws(ctx, Sid)
 
-
+Fetch the AWS credentials specified by the provided Credential Sid
 
 Fetch the AWS credentials specified by the provided Credential Sid
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 > []AccountsV1CredentialAws ListCredentialAws(ctx, optional)
 
-
+Retrieves a collection of AWS Credentials belonging to the account used to make the request
 
 Retrieves a collection of AWS Credentials belonging to the account used to make the request
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 > AccountsV1CredentialAws UpdateCredentialAws(ctx, Sidoptional)
 
-
+Modify the properties of a given Account
 
 Modify the properties of a given Account
 

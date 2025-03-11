@@ -4,9 +4,9 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchMember**](AccountsQueuesMembersApi.md#FetchMember) | **Get** /2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json | 
-[**ListMember**](AccountsQueuesMembersApi.md#ListMember) | **Get** /2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json | 
-[**UpdateMember**](AccountsQueuesMembersApi.md#UpdateMember) | **Post** /2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json | 
+[**FetchMember**](AccountsQueuesMembersApi.md#FetchMember) | **Get** /2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json | Fetch a specific member from the queue
+[**ListMember**](AccountsQueuesMembersApi.md#ListMember) | **Get** /2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json | Retrieve the members of the queue
+[**UpdateMember**](AccountsQueuesMembersApi.md#UpdateMember) | **Post** /2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json | Dequeue a member from a queue and have the member&#39;s call begin executing the TwiML document at that URL
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > ApiV2010Member FetchMember(ctx, QueueSidCallSidoptional)
 
-
+Fetch a specific member from the queue
 
 Fetch a specific member from the queue
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > []ApiV2010Member ListMember(ctx, QueueSidoptional)
 
-
+Retrieve the members of the queue
 
 Retrieve the members of the queue
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > ApiV2010Member UpdateMember(ctx, QueueSidCallSidoptional)
 
-
+Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL
 
 Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL
 

@@ -4,8 +4,8 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateComplianceRegistration**](ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi.md#CreateComplianceRegistration) | **Post** /v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize | 
-[**UpdateComplianceRegistration**](ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi.md#UpdateComplianceRegistration) | **Post** /v1/ComplianceInquiries/Registration/{RegistrationId}/RegulatoryCompliance/GB/Initialize | 
+[**CreateComplianceRegistration**](ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi.md#CreateComplianceRegistration) | **Post** /v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize | Create a new Compliance Registration Inquiry for the authenticated account. This is necessary to start a new embedded session.
+[**UpdateComplianceRegistration**](ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi.md#UpdateComplianceRegistration) | **Post** /v1/ComplianceInquiries/Registration/{RegistrationId}/RegulatoryCompliance/GB/Initialize | Resume a specific Regulatory Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > TrusthubV1ComplianceRegistration CreateComplianceRegistration(ctx, optional)
 
-
+Create a new Compliance Registration Inquiry for the authenticated account. This is necessary to start a new embedded session.
 
 Create a new Compliance Registration Inquiry for the authenticated account. This is necessary to start a new embedded session.
 
@@ -90,7 +90,7 @@ Name | Type | Description
 
 > TrusthubV1ComplianceRegistration UpdateComplianceRegistration(ctx, RegistrationIdoptional)
 
-
+Resume a specific Regulatory Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 
 Resume a specific Regulatory Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 

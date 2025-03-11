@@ -4,10 +4,10 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCustomerProfileEntityAssignment**](CustomerProfilesEntityAssignmentsApi.md#CreateCustomerProfileEntityAssignment) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments | 
-[**DeleteCustomerProfileEntityAssignment**](CustomerProfilesEntityAssignmentsApi.md#DeleteCustomerProfileEntityAssignment) | **Delete** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid} | 
-[**FetchCustomerProfileEntityAssignment**](CustomerProfilesEntityAssignmentsApi.md#FetchCustomerProfileEntityAssignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid} | 
-[**ListCustomerProfileEntityAssignment**](CustomerProfilesEntityAssignmentsApi.md#ListCustomerProfileEntityAssignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments | 
+[**CreateCustomerProfileEntityAssignment**](CustomerProfilesEntityAssignmentsApi.md#CreateCustomerProfileEntityAssignment) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments | Create a new Assigned Item.
+[**DeleteCustomerProfileEntityAssignment**](CustomerProfilesEntityAssignmentsApi.md#DeleteCustomerProfileEntityAssignment) | **Delete** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid} | Remove an Assignment Item Instance.
+[**FetchCustomerProfileEntityAssignment**](CustomerProfilesEntityAssignmentsApi.md#FetchCustomerProfileEntityAssignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid} | Fetch specific Assigned Item Instance.
+[**ListCustomerProfileEntityAssignment**](CustomerProfilesEntityAssignmentsApi.md#ListCustomerProfileEntityAssignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments | Retrieve a list of all Assigned Items for an account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > TrusthubV1CustomerProfileEntityAssignment CreateCustomerProfileEntityAssignment(ctx, CustomerProfileSidoptional)
 
-
+Create a new Assigned Item.
 
 Create a new Assigned Item.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteCustomerProfileEntityAssignment(ctx, CustomerProfileSidSid)
 
-
+Remove an Assignment Item Instance.
 
 Remove an Assignment Item Instance.
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > TrusthubV1CustomerProfileEntityAssignment FetchCustomerProfileEntityAssignment(ctx, CustomerProfileSidSid)
 
-
+Fetch specific Assigned Item Instance.
 
 Fetch specific Assigned Item Instance.
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 > []TrusthubV1CustomerProfileEntityAssignment ListCustomerProfileEntityAssignment(ctx, CustomerProfileSidoptional)
 
-
+Retrieve a list of all Assigned Items for an account.
 
 Retrieve a list of all Assigned Items for an account.
 

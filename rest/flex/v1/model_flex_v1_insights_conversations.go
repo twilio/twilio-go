@@ -23,5 +23,5 @@ type FlexV1InsightsConversations struct {
 	// The count of segments for a conversation
 	SegmentCount int `json:"segment_count,omitempty"`
 	// The Segments of a conversation
-	Segments *[]interface{} `json:"segments,omitempty"`
+	Segments *[]map[string]interface{} `json:"segments,omitempty"`
 }

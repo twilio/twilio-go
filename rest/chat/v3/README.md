@@ -31,7 +31,7 @@ All URIs are relative to *https://chat.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ServicesChannelsApi* | [**UpdateChannel**](docs/ServicesChannelsApi.md#updatechannel) | **Post** /v3/Services/{ServiceSid}/Channels/{Sid} | 
+*ServicesChannelsApi* | [**UpdateChannel**](docs/ServicesChannelsApi.md#updatechannel) | **Post** /v3/Services/{ServiceSid}/Channels/{Sid} | Update a specific Channel.
 
 
 ## Documentation For Models

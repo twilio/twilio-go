@@ -31,8 +31,8 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*InstancesUsersApi* | [**FetchFlexUser**](docs/InstancesUsersApi.md#fetchflexuser) | **Get** /v2/Instances/{InstanceSid}/Users/{FlexUserSid} | 
-*InstancesUsersApi* | [**UpdateFlexUser**](docs/InstancesUsersApi.md#updateflexuser) | **Post** /v2/Instances/{InstanceSid}/Users/{FlexUserSid} | 
+*InstancesUsersApi* | [**FetchFlexUser**](docs/InstancesUsersApi.md#fetchflexuser) | **Get** /v2/Instances/{InstanceSid}/Users/{FlexUserSid} | Fetch flex user for the given flex user sid
+*InstancesUsersApi* | [**UpdateFlexUser**](docs/InstancesUsersApi.md#updateflexuser) | **Post** /v2/Instances/{InstanceSid}/Users/{FlexUserSid} | Update flex user for the given flex user sid
 *WebChatsApi* | [**CreateWebChannel**](docs/WebChatsApi.md#createwebchannel) | **Post** /v2/WebChats | 
 
 

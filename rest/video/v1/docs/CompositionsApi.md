@@ -5,9 +5,9 @@ All URIs are relative to *https://video.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateComposition**](CompositionsApi.md#CreateComposition) | **Post** /v1/Compositions | 
-[**DeleteComposition**](CompositionsApi.md#DeleteComposition) | **Delete** /v1/Compositions/{Sid} | 
-[**FetchComposition**](CompositionsApi.md#FetchComposition) | **Get** /v1/Compositions/{Sid} | 
-[**ListComposition**](CompositionsApi.md#ListComposition) | **Get** /v1/Compositions | 
+[**DeleteComposition**](CompositionsApi.md#DeleteComposition) | **Delete** /v1/Compositions/{Sid} | Delete a Recording Composition resource identified by a Composition SID.
+[**FetchComposition**](CompositionsApi.md#FetchComposition) | **Get** /v1/Compositions/{Sid} | Returns a single Composition resource identified by a Composition SID.
+[**ListComposition**](CompositionsApi.md#ListComposition) | **Get** /v1/Compositions | List of all Recording compositions.
 
 
 
@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateCompositionParams struc
 Name | Type | Description
 ------------- | ------------- | -------------
 **RoomSid** | **string** | The SID of the Group Room with the media tracks to be used as composition sources.
-**VideoLayout** | [**interface{}**](interface{}.md) | An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+**VideoLayout** | [**map[string]interface{}**](map[string]interface{}.md) | An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
 **AudioSources** | **[]string** | An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
 **AudioSourcesExcluded** | **[]string** | An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
 **Resolution** | **string** | A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
@@ -62,7 +62,7 @@ Name | Type | Description
 
 > DeleteComposition(ctx, Sid)
 
-
+Delete a Recording Composition resource identified by a Composition SID.
 
 Delete a Recording Composition resource identified by a Composition SID.
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > VideoV1Composition FetchComposition(ctx, Sid)
 
-
+Returns a single Composition resource identified by a Composition SID.
 
 Returns a single Composition resource identified by a Composition SID.
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []VideoV1Composition ListComposition(ctx, optional)
 
-
+List of all Recording compositions.
 
 List of all Recording compositions.
 

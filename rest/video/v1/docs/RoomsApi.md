@@ -39,7 +39,7 @@ Name | Type | Description
 **RecordParticipantsOnConnect** | **bool** | Whether to start recording when Participants connect.
 **VideoCodecs** | [**[]RoomEnumVideoCodec**](RoomEnumVideoCodec.md) | An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.
 **MediaRegion** | **string** | The region for the Room's media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers).
-**RecordingRules** | [**interface{}**](interface{}.md) | A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+**RecordingRules** | [**map[string]interface{}**](map[string]interface{}.md) | A collection of Recording Rules that describe how to include or exclude matching tracks for recording
 **AudioOnly** | **bool** | When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
 **MaxParticipantDuration** | **int** | The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
 **EmptyRoomTimeout** | **int** | Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).

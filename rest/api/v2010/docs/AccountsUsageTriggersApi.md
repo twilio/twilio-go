@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateUsageTrigger**](AccountsUsageTriggersApi.md#CreateUsageTrigger) | **Post** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json | 
+[**CreateUsageTrigger**](AccountsUsageTriggersApi.md#CreateUsageTrigger) | **Post** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json | Create a new UsageTrigger
 [**DeleteUsageTrigger**](AccountsUsageTriggersApi.md#DeleteUsageTrigger) | **Delete** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | 
-[**FetchUsageTrigger**](AccountsUsageTriggersApi.md#FetchUsageTrigger) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | 
-[**ListUsageTrigger**](AccountsUsageTriggersApi.md#ListUsageTrigger) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json | 
-[**UpdateUsageTrigger**](AccountsUsageTriggersApi.md#UpdateUsageTrigger) | **Post** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | 
+[**FetchUsageTrigger**](AccountsUsageTriggersApi.md#FetchUsageTrigger) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | Fetch and instance of a usage-trigger
+[**ListUsageTrigger**](AccountsUsageTriggersApi.md#ListUsageTrigger) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json | Retrieve a list of usage-triggers belonging to the account used to make the request
+[**UpdateUsageTrigger**](AccountsUsageTriggersApi.md#UpdateUsageTrigger) | **Post** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | Update an instance of a usage trigger
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010UsageTrigger CreateUsageTrigger(ctx, optional)
 
-
+Create a new UsageTrigger
 
 Create a new UsageTrigger
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 > ApiV2010UsageTrigger FetchUsageTrigger(ctx, Sidoptional)
 
-
+Fetch and instance of a usage-trigger
 
 Fetch and instance of a usage-trigger
 
@@ -148,7 +148,7 @@ Name | Type | Description
 
 > []ApiV2010UsageTrigger ListUsageTrigger(ctx, optional)
 
-
+Retrieve a list of usage-triggers belonging to the account used to make the request
 
 Retrieve a list of usage-triggers belonging to the account used to make the request
 
@@ -192,7 +192,7 @@ Name | Type | Description
 
 > ApiV2010UsageTrigger UpdateUsageTrigger(ctx, Sidoptional)
 
-
+Update an instance of a usage trigger
 
 Update an instance of a usage trigger
 

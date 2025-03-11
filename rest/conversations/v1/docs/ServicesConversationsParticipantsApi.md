@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#CreateServiceConversationParticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | 
-[**DeleteServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#DeleteServiceConversationParticipant) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | 
-[**FetchServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#FetchServiceConversationParticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | 
-[**ListServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#ListServiceConversationParticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | 
-[**UpdateServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#UpdateServiceConversationParticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | 
+[**CreateServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#CreateServiceConversationParticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | Add a new participant to the conversation in a specific service
+[**DeleteServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#DeleteServiceConversationParticipant) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | Remove a participant from the conversation
+[**FetchServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#FetchServiceConversationParticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | Fetch a participant of the conversation
+[**ListServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#ListServiceConversationParticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | Retrieve a list of all participants of the conversation
+[**UpdateServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#UpdateServiceConversationParticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | Update an existing participant in the conversation
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ServiceConversationParticipant CreateServiceConversationParticipant(ctx, ChatServiceSidConversationSidoptional)
 
-
+Add a new participant to the conversation in a specific service
 
 Add a new participant to the conversation in a specific service
 
@@ -68,7 +68,7 @@ Name | Type | Description
 
 > DeleteServiceConversationParticipant(ctx, ChatServiceSidConversationSidSidoptional)
 
-
+Remove a participant from the conversation
 
 Remove a participant from the conversation
 
@@ -113,7 +113,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConversationParticipant FetchServiceConversationParticipant(ctx, ChatServiceSidConversationSidSid)
 
-
+Fetch a participant of the conversation
 
 Fetch a participant of the conversation
 
@@ -157,7 +157,7 @@ Name | Type | Description
 
 > []ConversationsV1ServiceConversationParticipant ListServiceConversationParticipant(ctx, ChatServiceSidConversationSidoptional)
 
-
+Retrieve a list of all participants of the conversation
 
 Retrieve a list of all participants of the conversation
 
@@ -202,7 +202,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConversationParticipant UpdateServiceConversationParticipant(ctx, ChatServiceSidConversationSidSidoptional)
 
-
+Update an existing participant in the conversation
 
 Update an existing participant in the conversation
 

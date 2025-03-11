@@ -4,9 +4,9 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInteractionTransfer**](InteractionsChannelsTransfersApi.md#CreateInteractionTransfer) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers | 
-[**FetchInteractionTransfer**](InteractionsChannelsTransfersApi.md#FetchInteractionTransfer) | **Get** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid} | 
-[**UpdateInteractionTransfer**](InteractionsChannelsTransfersApi.md#UpdateInteractionTransfer) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid} | 
+[**CreateInteractionTransfer**](InteractionsChannelsTransfersApi.md#CreateInteractionTransfer) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers | Create a new Transfer.
+[**FetchInteractionTransfer**](InteractionsChannelsTransfersApi.md#FetchInteractionTransfer) | **Get** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid} | Fetch a specific Transfer by SID.
+[**UpdateInteractionTransfer**](InteractionsChannelsTransfersApi.md#UpdateInteractionTransfer) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid} | Update an existing Transfer.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > FlexV1InteractionTransfer CreateInteractionTransfer(ctx, InteractionSidChannelSidoptional)
 
-
+Create a new Transfer.
 
 Create a new Transfer.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > FlexV1InteractionTransfer FetchInteractionTransfer(ctx, InteractionSidChannelSidSid)
 
-
+Fetch a specific Transfer by SID.
 
 Fetch a specific Transfer by SID.
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > FlexV1InteractionTransfer UpdateInteractionTransfer(ctx, InteractionSidChannelSidSidoptional)
 
-
+Update an existing Transfer.
 
 Update an existing Transfer.
 

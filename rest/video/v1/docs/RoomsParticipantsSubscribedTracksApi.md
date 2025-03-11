@@ -4,8 +4,8 @@ All URIs are relative to *https://video.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchRoomParticipantSubscribedTrack**](RoomsParticipantsSubscribedTracksApi.md#FetchRoomParticipantSubscribedTrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid} | 
-[**ListRoomParticipantSubscribedTrack**](RoomsParticipantsSubscribedTracksApi.md#ListRoomParticipantSubscribedTrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks | 
+[**FetchRoomParticipantSubscribedTrack**](RoomsParticipantsSubscribedTracksApi.md#FetchRoomParticipantSubscribedTrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid} | Returns a single Track resource represented by &#x60;track_sid&#x60;.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
+[**ListRoomParticipantSubscribedTrack**](RoomsParticipantsSubscribedTracksApi.md#ListRoomParticipantSubscribedTrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks | Returns a list of tracks that are subscribed for the participant.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > VideoV1RoomParticipantSubscribedTrack FetchRoomParticipantSubscribedTrack(ctx, RoomSidParticipantSidSid)
 
-
+Returns a single Track resource represented by `track_sid`.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
 
 Returns a single Track resource represented by `track_sid`.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []VideoV1RoomParticipantSubscribedTrack ListRoomParticipantSubscribedTrack(ctx, RoomSidParticipantSidoptional)
 
-
+Returns a list of tracks that are subscribed for the participant.
 
 Returns a list of tracks that are subscribed for the participant.
 

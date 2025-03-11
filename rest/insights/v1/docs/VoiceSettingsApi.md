@@ -4,8 +4,8 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchAccountSettings**](VoiceSettingsApi.md#FetchAccountSettings) | **Get** /v1/Voice/Settings | 
-[**UpdateAccountSettings**](VoiceSettingsApi.md#UpdateAccountSettings) | **Post** /v1/Voice/Settings | 
+[**FetchAccountSettings**](VoiceSettingsApi.md#FetchAccountSettings) | **Get** /v1/Voice/Settings | Get the Voice Insights Settings.
+[**UpdateAccountSettings**](VoiceSettingsApi.md#UpdateAccountSettings) | **Post** /v1/Voice/Settings | Update a specific Voice Insights Setting.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > InsightsV1AccountSettings FetchAccountSettings(ctx, optional)
 
-
+Get the Voice Insights Settings.
 
 Get the Voice Insights Settings.
 
@@ -52,7 +52,7 @@ Name | Type | Description
 
 > InsightsV1AccountSettings UpdateAccountSettings(ctx, optional)
 
-
+Update a specific Voice Insights Setting.
 
 Update a specific Voice Insights Setting.
 

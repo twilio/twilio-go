@@ -4,7 +4,7 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListSentence**](TranscriptsSentencesApi.md#ListSentence) | **Get** /v2/Transcripts/{TranscriptSid}/Sentences | 
+[**ListSentence**](TranscriptsSentencesApi.md#ListSentence) | **Get** /v2/Transcripts/{TranscriptSid}/Sentences | Get all Transcript Sentences by TranscriptSid
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []IntelligenceV2Sentence ListSentence(ctx, TranscriptSidoptional)
 
-
+Get all Transcript Sentences by TranscriptSid
 
 Get all Transcript Sentences by TranscriptSid
 

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Type** | Pointer to **string** | Type of Address, value can be `whatsapp` or `sms`. |
 **Address** | Pointer to **string** | The unique address to be configured. The address can be a whatsapp address or phone number |
 **FriendlyName** | Pointer to **string** | The human-readable name of this configuration, limited to 256 characters. Optional. |
-**AutoCreation** | Pointer to **interface{}** | Auto Creation configuration for the address. |
+**AutoCreation** | Pointer to **map[string]interface{}** | Auto Creation configuration for the address. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was created. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was last updated. |
 **Url** | Pointer to **string** | An absolute API resource URL for this address configuration. |

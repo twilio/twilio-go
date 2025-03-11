@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateIncomingPhoneNumber**](AccountsIncomingPhoneNumbersApi.md#CreateIncomingPhoneNumber) | **Post** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json | 
-[**DeleteIncomingPhoneNumber**](AccountsIncomingPhoneNumbersApi.md#DeleteIncomingPhoneNumber) | **Delete** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json | 
-[**FetchIncomingPhoneNumber**](AccountsIncomingPhoneNumbersApi.md#FetchIncomingPhoneNumber) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json | 
-[**ListIncomingPhoneNumber**](AccountsIncomingPhoneNumbersApi.md#ListIncomingPhoneNumber) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json | 
-[**UpdateIncomingPhoneNumber**](AccountsIncomingPhoneNumbersApi.md#UpdateIncomingPhoneNumber) | **Post** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json | 
+[**CreateIncomingPhoneNumber**](AccountsIncomingPhoneNumbersApi.md#CreateIncomingPhoneNumber) | **Post** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json | Purchase a phone-number for the account.
+[**DeleteIncomingPhoneNumber**](AccountsIncomingPhoneNumbersApi.md#DeleteIncomingPhoneNumber) | **Delete** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json | Delete a phone-numbers belonging to the account used to make the request.
+[**FetchIncomingPhoneNumber**](AccountsIncomingPhoneNumbersApi.md#FetchIncomingPhoneNumber) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json | Fetch an incoming-phone-number belonging to the account used to make the request.
+[**ListIncomingPhoneNumber**](AccountsIncomingPhoneNumbersApi.md#ListIncomingPhoneNumber) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json | Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.
+[**UpdateIncomingPhoneNumber**](AccountsIncomingPhoneNumbersApi.md#UpdateIncomingPhoneNumber) | **Post** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json | Update an incoming-phone-number instance.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010IncomingPhoneNumber CreateIncomingPhoneNumber(ctx, optional)
 
-
+Purchase a phone-number for the account.
 
 Purchase a phone-number for the account.
 
@@ -79,7 +79,7 @@ Name | Type | Description
 
 > DeleteIncomingPhoneNumber(ctx, Sidoptional)
 
-
+Delete a phone-numbers belonging to the account used to make the request.
 
 Delete a phone-numbers belonging to the account used to make the request.
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 > ApiV2010IncomingPhoneNumber FetchIncomingPhoneNumber(ctx, Sidoptional)
 
-
+Fetch an incoming-phone-number belonging to the account used to make the request.
 
 Fetch an incoming-phone-number belonging to the account used to make the request.
 
@@ -165,7 +165,7 @@ Name | Type | Description
 
 > []ApiV2010IncomingPhoneNumber ListIncomingPhoneNumber(ctx, optional)
 
-
+Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.
 
 Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.
 
@@ -210,7 +210,7 @@ Name | Type | Description
 
 > ApiV2010IncomingPhoneNumber UpdateIncomingPhoneNumber(ctx, Sidoptional)
 
-
+Update an incoming-phone-number instance.
 
 Update an incoming-phone-number instance.
 

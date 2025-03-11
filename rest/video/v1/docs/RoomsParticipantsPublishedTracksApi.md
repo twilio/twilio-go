@@ -4,8 +4,8 @@ All URIs are relative to *https://video.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchRoomParticipantPublishedTrack**](RoomsParticipantsPublishedTracksApi.md#FetchRoomParticipantPublishedTrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid} | 
-[**ListRoomParticipantPublishedTrack**](RoomsParticipantsPublishedTracksApi.md#ListRoomParticipantPublishedTrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks | 
+[**FetchRoomParticipantPublishedTrack**](RoomsParticipantsPublishedTracksApi.md#FetchRoomParticipantPublishedTrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid} | Returns a single Track resource represented by TrackName or SID.
+[**ListRoomParticipantPublishedTrack**](RoomsParticipantsPublishedTracksApi.md#ListRoomParticipantPublishedTrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks | Returns a list of tracks associated with a given Participant. Only &#x60;currently&#x60; Published Tracks are in the list resource.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > VideoV1RoomParticipantPublishedTrack FetchRoomParticipantPublishedTrack(ctx, RoomSidParticipantSidSid)
 
-
+Returns a single Track resource represented by TrackName or SID.
 
 Returns a single Track resource represented by TrackName or SID.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []VideoV1RoomParticipantPublishedTrack ListRoomParticipantPublishedTrack(ctx, RoomSidParticipantSidoptional)
 
-
+Returns a list of tracks associated with a given Participant. Only `currently` Published Tracks are in the list resource.
 
 Returns a list of tracks associated with a given Participant. Only `currently` Published Tracks are in the list resource.
 

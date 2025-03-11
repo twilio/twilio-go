@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchConference**](AccountsConferencesApi.md#FetchConference) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json | 
-[**ListConference**](AccountsConferencesApi.md#ListConference) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences.json | 
+[**FetchConference**](AccountsConferencesApi.md#FetchConference) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json | Fetch an instance of a conference
+[**ListConference**](AccountsConferencesApi.md#ListConference) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences.json | Retrieve a list of conferences belonging to the account used to make the request
 [**UpdateConference**](AccountsConferencesApi.md#UpdateConference) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json | 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > ApiV2010Conference FetchConference(ctx, Sidoptional)
 
-
+Fetch an instance of a conference
 
 Fetch an instance of a conference
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []ApiV2010Conference ListConference(ctx, optional)
 
-
+Retrieve a list of conferences belonging to the account used to make the request
 
 Retrieve a list of conferences belonging to the account used to make the request
 

@@ -4,8 +4,8 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchServiceWebhookConfiguration**](ServicesConfigurationWebhooksApi.md#FetchServiceWebhookConfiguration) | **Get** /v1/Services/{ChatServiceSid}/Configuration/Webhooks | 
-[**UpdateServiceWebhookConfiguration**](ServicesConfigurationWebhooksApi.md#UpdateServiceWebhookConfiguration) | **Post** /v1/Services/{ChatServiceSid}/Configuration/Webhooks | 
+[**FetchServiceWebhookConfiguration**](ServicesConfigurationWebhooksApi.md#FetchServiceWebhookConfiguration) | **Get** /v1/Services/{ChatServiceSid}/Configuration/Webhooks | Fetch a specific service webhook configuration.
+[**UpdateServiceWebhookConfiguration**](ServicesConfigurationWebhooksApi.md#UpdateServiceWebhookConfiguration) | **Post** /v1/Services/{ChatServiceSid}/Configuration/Webhooks | Update a specific Webhook.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ServiceWebhookConfiguration FetchServiceWebhookConfiguration(ctx, ChatServiceSid)
 
-
+Fetch a specific service webhook configuration.
 
 Fetch a specific service webhook configuration.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceWebhookConfiguration UpdateServiceWebhookConfiguration(ctx, ChatServiceSidoptional)
 
-
+Update a specific Webhook.
 
 Update a specific Webhook.
 

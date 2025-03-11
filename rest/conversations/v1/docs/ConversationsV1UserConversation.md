@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **UserSid** | Pointer to **string** | The unique string that identifies the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). |
 **FriendlyName** | Pointer to **string** | The human-readable name of this conversation, limited to 256 characters. Optional. |
 **ConversationState** | Pointer to [**string**](UserConversationEnumState.md) |  |
-**Timers** | Pointer to **interface{}** | Timer date values representing state update for this conversation. |
+**Timers** | Pointer to **map[string]interface{}** | Timer date values representing state update for this conversation. |
 **Attributes** | Pointer to **string** | An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this conversation was created, given in ISO 8601 format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this conversation was last updated, given in ISO 8601 format. |

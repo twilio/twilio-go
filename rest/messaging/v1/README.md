@@ -39,7 +39,7 @@ Class | Method | HTTP request | Description
 *A2pBrandRegistrationsVettingsApi* | [**CreateBrandVetting**](docs/A2pBrandRegistrationsVettingsApi.md#createbrandvetting) | **Post** /v1/a2p/BrandRegistrations/{BrandSid}/Vettings | 
 *A2pBrandRegistrationsVettingsApi* | [**FetchBrandVetting**](docs/A2pBrandRegistrationsVettingsApi.md#fetchbrandvetting) | **Get** /v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid} | 
 *A2pBrandRegistrationsVettingsApi* | [**ListBrandVetting**](docs/A2pBrandRegistrationsVettingsApi.md#listbrandvetting) | **Get** /v1/a2p/BrandRegistrations/{BrandSid}/Vettings | 
-*DeactivationsApi* | [**FetchDeactivation**](docs/DeactivationsApi.md#fetchdeactivation) | **Get** /v1/Deactivations | 
+*DeactivationsApi* | [**FetchDeactivation**](docs/DeactivationsApi.md#fetchdeactivation) | **Get** /v1/Deactivations | Fetch a list of all United States numbers that have been deactivated on a specific date.
 *LinkShorteningDomainsCertificateApi* | [**DeleteDomainCertV4**](docs/LinkShorteningDomainsCertificateApi.md#deletedomaincertv4) | **Delete** /v1/LinkShortening/Domains/{DomainSid}/Certificate | 
 *LinkShorteningDomainsCertificateApi* | [**FetchDomainCertV4**](docs/LinkShorteningDomainsCertificateApi.md#fetchdomaincertv4) | **Get** /v1/LinkShortening/Domains/{DomainSid}/Certificate | 
 *LinkShorteningDomainsCertificateApi* | [**UpdateDomainCertV4**](docs/LinkShorteningDomainsCertificateApi.md#updatedomaincertv4) | **Post** /v1/LinkShortening/Domains/{DomainSid}/Certificate | 

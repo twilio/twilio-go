@@ -4,7 +4,7 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListUsageRecord**](UsageRecordsApi.md#ListUsageRecord) | **Get** /v1/UsageRecords | 
+[**ListUsageRecord**](UsageRecordsApi.md#ListUsageRecord) | **Get** /v1/UsageRecords | List UsageRecords
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []SupersimV1UsageRecord ListUsageRecord(ctx, optional)
 
-
+List UsageRecords
 
 List UsageRecords
 

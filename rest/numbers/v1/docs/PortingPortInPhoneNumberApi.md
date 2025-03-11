@@ -4,8 +4,8 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeletePortingPortInPhoneNumber**](PortingPortInPhoneNumberApi.md#DeletePortingPortInPhoneNumber) | **Delete** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | 
-[**FetchPortingPortInPhoneNumber**](PortingPortInPhoneNumberApi.md#FetchPortingPortInPhoneNumber) | **Get** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | 
+[**DeletePortingPortInPhoneNumber**](PortingPortInPhoneNumberApi.md#DeletePortingPortInPhoneNumber) | **Delete** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | Allows to cancel a port in request phone number by SID
+[**FetchPortingPortInPhoneNumber**](PortingPortInPhoneNumberApi.md#FetchPortingPortInPhoneNumber) | **Get** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | Fetch a phone number by port in request SID and phone number SID
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > DeletePortingPortInPhoneNumber(ctx, PortInRequestSidPhoneNumberSid)
 
-
+Allows to cancel a port in request phone number by SID
 
 Allows to cancel a port in request phone number by SID
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > NumbersV1PortingPortInPhoneNumber FetchPortingPortInPhoneNumber(ctx, PortInRequestSidPhoneNumberSid)
 
-
+Fetch a phone number by port in request SID and phone number SID
 
 Fetch a phone number by port in request SID and phone number SID
 

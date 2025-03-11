@@ -4,7 +4,7 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchForm**](FormsApi.md#FetchForm) | **Get** /v2/Forms/{FormType} | 
+[**FetchForm**](FormsApi.md#FetchForm) | **Get** /v2/Forms/{FormType} | Fetch the forms for a specific Form Type.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > VerifyV2Form FetchForm(ctx, FormType)
 
-
+Fetch the forms for a specific Form Type.
 
 Fetch the forms for a specific Form Type.
 

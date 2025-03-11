@@ -4,7 +4,7 @@ All URIs are relative to *https://pricing.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchTrunkingCountry**](TrunkingCountriesApi.md#FetchTrunkingCountry) | **Get** /v2/Trunking/Countries/{IsoCountry} | 
+[**FetchTrunkingCountry**](TrunkingCountriesApi.md#FetchTrunkingCountry) | **Get** /v2/Trunking/Countries/{IsoCountry} | Fetch a specific Country.
 [**ListTrunkingCountry**](TrunkingCountriesApi.md#ListTrunkingCountry) | **Get** /v2/Trunking/Countries | 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > PricingV2TrunkingCountryInstance FetchTrunkingCountry(ctx, IsoCountry)
 
-
+Fetch a specific Country.
 
 Fetch a specific Country.
 

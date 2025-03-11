@@ -4,7 +4,7 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListVerificationTemplate**](TemplatesApi.md#ListVerificationTemplate) | **Get** /v2/Templates | 
+[**ListVerificationTemplate**](TemplatesApi.md#ListVerificationTemplate) | **Get** /v2/Templates | List all the available templates for a given Account.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []VerifyV2VerificationTemplate ListVerificationTemplate(ctx, optional)
 
-
+List all the available templates for a given Account.
 
 List all the available templates for a given Account.
 

@@ -4,7 +4,7 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListEvent**](VoiceEventsApi.md#ListEvent) | **Get** /v1/Voice/{CallSid}/Events | 
+[**ListEvent**](VoiceEventsApi.md#ListEvent) | **Get** /v1/Voice/{CallSid}/Events | Get a list of Call Insight Events for a Call.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []InsightsV1Event ListEvent(ctx, CallSidoptional)
 
-
+Get a list of Call Insight Events for a Call.
 
 Get a list of Call Insight Events for a Call.
 

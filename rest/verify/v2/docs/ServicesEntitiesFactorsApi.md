@@ -4,11 +4,11 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateNewFactor**](ServicesEntitiesFactorsApi.md#CreateNewFactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
-[**DeleteFactor**](ServicesEntitiesFactorsApi.md#DeleteFactor) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
-[**FetchFactor**](ServicesEntitiesFactorsApi.md#FetchFactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
-[**ListFactor**](ServicesEntitiesFactorsApi.md#ListFactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
-[**UpdateFactor**](ServicesEntitiesFactorsApi.md#UpdateFactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
+[**CreateNewFactor**](ServicesEntitiesFactorsApi.md#CreateNewFactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | Create a new Factor for the Entity
+[**DeleteFactor**](ServicesEntitiesFactorsApi.md#DeleteFactor) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | Delete a specific Factor.
+[**FetchFactor**](ServicesEntitiesFactorsApi.md#FetchFactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | Fetch a specific Factor.
+[**ListFactor**](ServicesEntitiesFactorsApi.md#ListFactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | Retrieve a list of all Factors for an Entity.
+[**UpdateFactor**](ServicesEntitiesFactorsApi.md#UpdateFactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | Update a specific Factor. This endpoint can be used to Verify a Factor if passed an &#x60;AuthPayload&#x60; param.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > VerifyV2NewFactor CreateNewFactor(ctx, ServiceSidIdentityoptional)
 
-
+Create a new Factor for the Entity
 
 Create a new Factor for the Entity
 
@@ -49,7 +49,7 @@ Name | Type | Description
 **ConfigSkew** | **int** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property `totp.skew`. If not configured defaults to 1.  Used when `factor_type` is `totp`
 **ConfigCodeLength** | **int** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
 **ConfigAlg** | **string** | 
-**Metadata** | [**interface{}**](interface{}.md) | Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+**Metadata** | [**map[string]interface{}**](map[string]interface{}.md) | Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
 ### Return type
 
@@ -73,7 +73,7 @@ Name | Type | Description
 
 > DeleteFactor(ctx, ServiceSidIdentitySid)
 
-
+Delete a specific Factor.
 
 Delete a specific Factor.
 
@@ -117,7 +117,7 @@ Name | Type | Description
 
 > VerifyV2Factor FetchFactor(ctx, ServiceSidIdentitySid)
 
-
+Fetch a specific Factor.
 
 Fetch a specific Factor.
 
@@ -161,7 +161,7 @@ Name | Type | Description
 
 > []VerifyV2Factor ListFactor(ctx, ServiceSidIdentityoptional)
 
-
+Retrieve a list of all Factors for an Entity.
 
 Retrieve a list of all Factors for an Entity.
 
@@ -206,7 +206,7 @@ Name | Type | Description
 
 > VerifyV2Factor UpdateFactor(ctx, ServiceSidIdentitySidoptional)
 
-
+Update a specific Factor. This endpoint can be used to Verify a Factor if passed an `AuthPayload` param.
 
 Update a specific Factor. This endpoint can be used to Verify a Factor if passed an `AuthPayload` param.
 

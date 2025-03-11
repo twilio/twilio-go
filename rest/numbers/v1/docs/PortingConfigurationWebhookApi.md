@@ -4,9 +4,9 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreatePortingWebhookConfiguration**](PortingConfigurationWebhookApi.md#CreatePortingWebhookConfiguration) | **Post** /v1/Porting/Configuration/Webhook | 
-[**DeletePortingWebhookConfigurationDelete**](PortingConfigurationWebhookApi.md#DeletePortingWebhookConfigurationDelete) | **Delete** /v1/Porting/Configuration/Webhook/{WebhookType} | 
-[**FetchPortingWebhookConfigurationFetch**](PortingConfigurationWebhookApi.md#FetchPortingWebhookConfigurationFetch) | **Get** /v1/Porting/Configuration/Webhook | 
+[**CreatePortingWebhookConfiguration**](PortingConfigurationWebhookApi.md#CreatePortingWebhookConfiguration) | **Post** /v1/Porting/Configuration/Webhook | Create a Webhook Configuration
+[**DeletePortingWebhookConfigurationDelete**](PortingConfigurationWebhookApi.md#DeletePortingWebhookConfigurationDelete) | **Delete** /v1/Porting/Configuration/Webhook/{WebhookType} | Allows the client to delete a webhook configuration.
+[**FetchPortingWebhookConfigurationFetch**](PortingConfigurationWebhookApi.md#FetchPortingWebhookConfigurationFetch) | **Get** /v1/Porting/Configuration/Webhook | Allows to fetch the webhook configuration
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > NumbersV1PortingWebhookConfiguration CreatePortingWebhookConfiguration(ctx, optional)
 
-
+Create a Webhook Configuration
 
 Create a Webhook Configuration
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 > DeletePortingWebhookConfigurationDelete(ctx, WebhookType)
 
-
+Allows the client to delete a webhook configuration.
 
 Allows the client to delete a webhook configuration.
 
@@ -95,7 +95,7 @@ Name | Type | Description
 
 > NumbersV1PortingWebhookConfigurationFetch FetchPortingWebhookConfigurationFetch(ctx, )
 
-
+Allows to fetch the webhook configuration
 
 Allows to fetch the webhook configuration
 

@@ -4,8 +4,8 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAccessToken**](ServicesAccessTokensApi.md#CreateAccessToken) | **Post** /v2/Services/{ServiceSid}/AccessTokens | 
-[**FetchAccessToken**](ServicesAccessTokensApi.md#FetchAccessToken) | **Get** /v2/Services/{ServiceSid}/AccessTokens/{Sid} | 
+[**CreateAccessToken**](ServicesAccessTokensApi.md#CreateAccessToken) | **Post** /v2/Services/{ServiceSid}/AccessTokens | Create a new enrollment Access Token for the Entity
+[**FetchAccessToken**](ServicesAccessTokensApi.md#FetchAccessToken) | **Get** /v2/Services/{ServiceSid}/AccessTokens/{Sid} | Fetch an Access Token for the Entity
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > VerifyV2AccessToken CreateAccessToken(ctx, ServiceSidoptional)
 
-
+Create a new enrollment Access Token for the Entity
 
 Create a new enrollment Access Token for the Entity
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > VerifyV2AccessToken FetchAccessToken(ctx, ServiceSidSid)
 
-
+Fetch an Access Token for the Entity
 
 Fetch an Access Token for the Entity
 
