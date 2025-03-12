@@ -14,6 +14,9 @@ twilio-go changelog
 **Twiml**
 - Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
 
+**DataType Changes**
+- Some attributes in multiple APIs has changed from Dictionary to Object **(breaking change)**. Please refer to the [API documentation](https://github.com/twilio/twilio-oai]) for more details.
+
 
 [2025-02-20] Version 1.23.13
 ----------------------------
