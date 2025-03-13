@@ -89,7 +89,6 @@ func (params *CreateCompositionHookParams) SetTrim(Trim bool) *CreateComposition
 	return params
 }
 
-//
 func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks"
 
@@ -438,7 +437,6 @@ func (params *UpdateCompositionHookParams) SetStatusCallbackMethod(StatusCallbac
 	return params
 }
 
-//
 func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
