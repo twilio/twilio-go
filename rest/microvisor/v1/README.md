@@ -31,33 +31,33 @@ All URIs are relative to *https://microvisor.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AppsApi* | [**DeleteApp**](docs/AppsApi.md#deleteapp) | **Delete** /v1/Apps/{Sid} | 
-*AppsApi* | [**FetchApp**](docs/AppsApi.md#fetchapp) | **Get** /v1/Apps/{Sid} | 
-*AppsApi* | [**ListApp**](docs/AppsApi.md#listapp) | **Get** /v1/Apps | 
-*AppsManifestApi* | [**FetchAppManifest**](docs/AppsManifestApi.md#fetchappmanifest) | **Get** /v1/Apps/{AppSid}/Manifest | 
-*ConfigsApi* | [**CreateAccountConfig**](docs/ConfigsApi.md#createaccountconfig) | **Post** /v1/Configs | 
-*ConfigsApi* | [**DeleteAccountConfig**](docs/ConfigsApi.md#deleteaccountconfig) | **Delete** /v1/Configs/{Key} | 
-*ConfigsApi* | [**FetchAccountConfig**](docs/ConfigsApi.md#fetchaccountconfig) | **Get** /v1/Configs/{Key} | 
-*ConfigsApi* | [**ListAccountConfig**](docs/ConfigsApi.md#listaccountconfig) | **Get** /v1/Configs | 
-*ConfigsApi* | [**UpdateAccountConfig**](docs/ConfigsApi.md#updateaccountconfig) | **Post** /v1/Configs/{Key} | 
-*DevicesApi* | [**FetchDevice**](docs/DevicesApi.md#fetchdevice) | **Get** /v1/Devices/{Sid} | 
-*DevicesApi* | [**ListDevice**](docs/DevicesApi.md#listdevice) | **Get** /v1/Devices | 
-*DevicesApi* | [**UpdateDevice**](docs/DevicesApi.md#updatedevice) | **Post** /v1/Devices/{Sid} | 
-*DevicesConfigsApi* | [**CreateDeviceConfig**](docs/DevicesConfigsApi.md#createdeviceconfig) | **Post** /v1/Devices/{DeviceSid}/Configs | 
-*DevicesConfigsApi* | [**DeleteDeviceConfig**](docs/DevicesConfigsApi.md#deletedeviceconfig) | **Delete** /v1/Devices/{DeviceSid}/Configs/{Key} | 
-*DevicesConfigsApi* | [**FetchDeviceConfig**](docs/DevicesConfigsApi.md#fetchdeviceconfig) | **Get** /v1/Devices/{DeviceSid}/Configs/{Key} | 
-*DevicesConfigsApi* | [**ListDeviceConfig**](docs/DevicesConfigsApi.md#listdeviceconfig) | **Get** /v1/Devices/{DeviceSid}/Configs | 
-*DevicesConfigsApi* | [**UpdateDeviceConfig**](docs/DevicesConfigsApi.md#updatedeviceconfig) | **Post** /v1/Devices/{DeviceSid}/Configs/{Key} | 
-*DevicesSecretsApi* | [**CreateDeviceSecret**](docs/DevicesSecretsApi.md#createdevicesecret) | **Post** /v1/Devices/{DeviceSid}/Secrets | 
-*DevicesSecretsApi* | [**DeleteDeviceSecret**](docs/DevicesSecretsApi.md#deletedevicesecret) | **Delete** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
-*DevicesSecretsApi* | [**FetchDeviceSecret**](docs/DevicesSecretsApi.md#fetchdevicesecret) | **Get** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
-*DevicesSecretsApi* | [**ListDeviceSecret**](docs/DevicesSecretsApi.md#listdevicesecret) | **Get** /v1/Devices/{DeviceSid}/Secrets | 
-*DevicesSecretsApi* | [**UpdateDeviceSecret**](docs/DevicesSecretsApi.md#updatedevicesecret) | **Post** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
-*SecretsApi* | [**CreateAccountSecret**](docs/SecretsApi.md#createaccountsecret) | **Post** /v1/Secrets | 
-*SecretsApi* | [**DeleteAccountSecret**](docs/SecretsApi.md#deleteaccountsecret) | **Delete** /v1/Secrets/{Key} | 
-*SecretsApi* | [**FetchAccountSecret**](docs/SecretsApi.md#fetchaccountsecret) | **Get** /v1/Secrets/{Key} | 
-*SecretsApi* | [**ListAccountSecret**](docs/SecretsApi.md#listaccountsecret) | **Get** /v1/Secrets | 
-*SecretsApi* | [**UpdateAccountSecret**](docs/SecretsApi.md#updateaccountsecret) | **Post** /v1/Secrets/{Key} | 
+*AppsApi* | [**DeleteApp**](docs/AppsApi.md#deleteapp) | **Delete** /v1/Apps/{Sid} | Delete a specific App.
+*AppsApi* | [**FetchApp**](docs/AppsApi.md#fetchapp) | **Get** /v1/Apps/{Sid} | Fetch a specific App.
+*AppsApi* | [**ListApp**](docs/AppsApi.md#listapp) | **Get** /v1/Apps | Retrieve a list of all Apps for an Account.
+*AppsManifestApi* | [**FetchAppManifest**](docs/AppsManifestApi.md#fetchappmanifest) | **Get** /v1/Apps/{AppSid}/Manifest | Retrieve the Manifest for an App.
+*ConfigsApi* | [**CreateAccountConfig**](docs/ConfigsApi.md#createaccountconfig) | **Post** /v1/Configs | Create a config for an Account.
+*ConfigsApi* | [**DeleteAccountConfig**](docs/ConfigsApi.md#deleteaccountconfig) | **Delete** /v1/Configs/{Key} | Delete a config for an Account.
+*ConfigsApi* | [**FetchAccountConfig**](docs/ConfigsApi.md#fetchaccountconfig) | **Get** /v1/Configs/{Key} | Retrieve a Config for an Account.
+*ConfigsApi* | [**ListAccountConfig**](docs/ConfigsApi.md#listaccountconfig) | **Get** /v1/Configs | Retrieve a list of all Configs for an Account.
+*ConfigsApi* | [**UpdateAccountConfig**](docs/ConfigsApi.md#updateaccountconfig) | **Post** /v1/Configs/{Key} | Update a config for an Account.
+*DevicesApi* | [**FetchDevice**](docs/DevicesApi.md#fetchdevice) | **Get** /v1/Devices/{Sid} | Fetch a specific Device.
+*DevicesApi* | [**ListDevice**](docs/DevicesApi.md#listdevice) | **Get** /v1/Devices | Retrieve a list of all Devices registered with the Account.
+*DevicesApi* | [**UpdateDevice**](docs/DevicesApi.md#updatedevice) | **Post** /v1/Devices/{Sid} | Update a specific Device.
+*DevicesConfigsApi* | [**CreateDeviceConfig**](docs/DevicesConfigsApi.md#createdeviceconfig) | **Post** /v1/Devices/{DeviceSid}/Configs | Create a config for a Microvisor Device.
+*DevicesConfigsApi* | [**DeleteDeviceConfig**](docs/DevicesConfigsApi.md#deletedeviceconfig) | **Delete** /v1/Devices/{DeviceSid}/Configs/{Key} | Delete a config for a Microvisor Device.
+*DevicesConfigsApi* | [**FetchDeviceConfig**](docs/DevicesConfigsApi.md#fetchdeviceconfig) | **Get** /v1/Devices/{DeviceSid}/Configs/{Key} | Retrieve a Config for a Device.
+*DevicesConfigsApi* | [**ListDeviceConfig**](docs/DevicesConfigsApi.md#listdeviceconfig) | **Get** /v1/Devices/{DeviceSid}/Configs | Retrieve a list of all Configs for a Device.
+*DevicesConfigsApi* | [**UpdateDeviceConfig**](docs/DevicesConfigsApi.md#updatedeviceconfig) | **Post** /v1/Devices/{DeviceSid}/Configs/{Key} | Update a config for a Microvisor Device.
+*DevicesSecretsApi* | [**CreateDeviceSecret**](docs/DevicesSecretsApi.md#createdevicesecret) | **Post** /v1/Devices/{DeviceSid}/Secrets | Create a secret for a Microvisor Device.
+*DevicesSecretsApi* | [**DeleteDeviceSecret**](docs/DevicesSecretsApi.md#deletedevicesecret) | **Delete** /v1/Devices/{DeviceSid}/Secrets/{Key} | Delete a secret for a Microvisor Device.
+*DevicesSecretsApi* | [**FetchDeviceSecret**](docs/DevicesSecretsApi.md#fetchdevicesecret) | **Get** /v1/Devices/{DeviceSid}/Secrets/{Key} | Retrieve a Secret for a Device.
+*DevicesSecretsApi* | [**ListDeviceSecret**](docs/DevicesSecretsApi.md#listdevicesecret) | **Get** /v1/Devices/{DeviceSid}/Secrets | Retrieve a list of all Secrets for a Device.
+*DevicesSecretsApi* | [**UpdateDeviceSecret**](docs/DevicesSecretsApi.md#updatedevicesecret) | **Post** /v1/Devices/{DeviceSid}/Secrets/{Key} | Update a secret for a Microvisor Device.
+*SecretsApi* | [**CreateAccountSecret**](docs/SecretsApi.md#createaccountsecret) | **Post** /v1/Secrets | Create a secret for an Account.
+*SecretsApi* | [**DeleteAccountSecret**](docs/SecretsApi.md#deleteaccountsecret) | **Delete** /v1/Secrets/{Key} | Delete a secret for an Account.
+*SecretsApi* | [**FetchAccountSecret**](docs/SecretsApi.md#fetchaccountsecret) | **Get** /v1/Secrets/{Key} | Retrieve a Secret for an Account.
+*SecretsApi* | [**ListAccountSecret**](docs/SecretsApi.md#listaccountsecret) | **Get** /v1/Secrets | Retrieve a list of all Secrets for an Account.
+*SecretsApi* | [**UpdateAccountSecret**](docs/SecretsApi.md#updateaccountsecret) | **Post** /v1/Secrets/{Key} | Update a secret for an Account.
 
 
 ## Documentation For Models

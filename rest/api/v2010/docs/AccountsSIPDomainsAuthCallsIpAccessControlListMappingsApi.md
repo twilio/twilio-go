@@ -4,10 +4,10 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSipAuthCallsIpAccessControlListMapping**](AccountsSIPDomainsAuthCallsIpAccessControlListMappingsApi.md#CreateSipAuthCallsIpAccessControlListMapping) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json | 
-[**DeleteSipAuthCallsIpAccessControlListMapping**](AccountsSIPDomainsAuthCallsIpAccessControlListMappingsApi.md#DeleteSipAuthCallsIpAccessControlListMapping) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json | 
-[**FetchSipAuthCallsIpAccessControlListMapping**](AccountsSIPDomainsAuthCallsIpAccessControlListMappingsApi.md#FetchSipAuthCallsIpAccessControlListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json | 
-[**ListSipAuthCallsIpAccessControlListMapping**](AccountsSIPDomainsAuthCallsIpAccessControlListMappingsApi.md#ListSipAuthCallsIpAccessControlListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json | 
+[**CreateSipAuthCallsIpAccessControlListMapping**](AccountsSIPDomainsAuthCallsIpAccessControlListMappingsApi.md#CreateSipAuthCallsIpAccessControlListMapping) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json | Create a new IP Access Control List mapping
+[**DeleteSipAuthCallsIpAccessControlListMapping**](AccountsSIPDomainsAuthCallsIpAccessControlListMappingsApi.md#DeleteSipAuthCallsIpAccessControlListMapping) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json | Delete an IP Access Control List mapping from the requested domain
+[**FetchSipAuthCallsIpAccessControlListMapping**](AccountsSIPDomainsAuthCallsIpAccessControlListMappingsApi.md#FetchSipAuthCallsIpAccessControlListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json | Fetch a specific instance of an IP Access Control List mapping
+[**ListSipAuthCallsIpAccessControlListMapping**](AccountsSIPDomainsAuthCallsIpAccessControlListMappingsApi.md#ListSipAuthCallsIpAccessControlListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json | Retrieve a list of IP Access Control List mappings belonging to the domain used in the request
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ApiV2010SipAuthCallsIpAccessControlListMapping CreateSipAuthCallsIpAccessControlListMapping(ctx, DomainSidoptional)
 
-
+Create a new IP Access Control List mapping
 
 Create a new IP Access Control List mapping
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteSipAuthCallsIpAccessControlListMapping(ctx, DomainSidSidoptional)
 
-
+Delete an IP Access Control List mapping from the requested domain
 
 Delete an IP Access Control List mapping from the requested domain
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > ApiV2010SipAuthCallsIpAccessControlListMapping FetchSipAuthCallsIpAccessControlListMapping(ctx, DomainSidSidoptional)
 
-
+Fetch a specific instance of an IP Access Control List mapping
 
 Fetch a specific instance of an IP Access Control List mapping
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []ApiV2010SipAuthCallsIpAccessControlListMapping ListSipAuthCallsIpAccessControlListMapping(ctx, DomainSidoptional)
 
-
+Retrieve a list of IP Access Control List mappings belonging to the domain used in the request
 
 Retrieve a list of IP Access Control List mappings belonging to the domain used in the request
 

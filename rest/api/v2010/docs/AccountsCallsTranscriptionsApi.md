@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateRealtimeTranscription**](AccountsCallsTranscriptionsApi.md#CreateRealtimeTranscription) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json | 
-[**UpdateRealtimeTranscription**](AccountsCallsTranscriptionsApi.md#UpdateRealtimeTranscription) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json | 
+[**CreateRealtimeTranscription**](AccountsCallsTranscriptionsApi.md#CreateRealtimeTranscription) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json | Create a Transcription
+[**UpdateRealtimeTranscription**](AccountsCallsTranscriptionsApi.md#UpdateRealtimeTranscription) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json | Stop a Transcription using either the SID of the Transcription resource or the &#x60;name&#x60; used when creating the resource
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ApiV2010RealtimeTranscription CreateRealtimeTranscription(ctx, CallSidoptional)
 
-
+Create a Transcription
 
 Create a Transcription
 
@@ -46,7 +46,7 @@ Name | Type | Description
 **SpeechModel** | **string** | Recognition model used by the transcription engine, among those supported by the provider
 **Hints** | **string** | A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
 **EnableAutomaticPunctuation** | **bool** | The provider will add punctuation to recognition result
-**IntelligenceService** | **string** | The SID of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
+**IntelligenceService** | **string** | The SID or unique name of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
 
 ### Return type
 
@@ -70,7 +70,7 @@ Name | Type | Description
 
 > ApiV2010RealtimeTranscription UpdateRealtimeTranscription(ctx, CallSidSidoptional)
 
-
+Stop a Transcription using either the SID of the Transcription resource or the `name` used when creating the resource
 
 Stop a Transcription using either the SID of the Transcription resource or the `name` used when creating the resource
 

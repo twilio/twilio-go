@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **NetworkSid** | Pointer to **string** | SID of the Network resource the usage occurred on. Value will only be present when either a value for the `Network` query parameter is provided or when UsageRecords are grouped by `network`. Otherwise, the value will be `null`. |
 **FleetSid** | Pointer to **string** | SID of the Fleet resource the usage occurred on. Value will only be present when either a value for the `Fleet` query parameter is provided or when UsageRecords are grouped by `fleet`. Otherwise, the value will be `null`. |
 **IsoCountry** | Pointer to **string** | Alpha-2 ISO Country Code that the usage occurred in. Value will only be present when either a value for the `IsoCountry` query parameter is provided or when UsageRecords are grouped by `isoCountry`. Otherwise, the value will be `null`. |
-**Period** | Pointer to **interface{}** | The time period for which the usage is reported. The period is represented as a pair of `start_time` and `end_time` timestamps specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
+**Period** | Pointer to **map[string]interface{}** | The time period for which the usage is reported. The period is represented as a pair of `start_time` and `end_time` timestamps specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DataUpload** | Pointer to **int64** | Total data uploaded in bytes, aggregated by the query parameters. |
 **DataDownload** | Pointer to **int64** | Total data downloaded in bytes, aggregated by the query parameters. |
 **DataTotal** | Pointer to **int64** | Total of data_upload and data_download. |

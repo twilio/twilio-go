@@ -1,5 +1,50 @@
 twilio-go changelog
 ====================
+[2025-03-11] Version 1.24.0
+---------------------------
+**Api**
+- Add the missing `emergency_enabled` field for `Address Service` endpoints
+
+**Messaging**
+- Add missing enums for A2P and TF
+
+**Numbers**
+- add missing enum values to hosted_number_order_status
+
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+**DataType Changes**
+- Some attributes in multiple APIs has changed from Dictionary to Object **(breaking change)**. Please refer to the [API documentation](https://github.com/twilio/twilio-oai]) for more details.
+
+
+[2025-02-20] Version 1.23.13
+----------------------------
+**Flex**
+- Adding Digital Transfers APIs under v1/Interactions
+
+**Numbers**
+- Convert webhook_type to ienum type in v1/Porting/Configuration/Webhook/{webhook_type}
+
+**Trusthub**
+- Changing TrustHub SupportingDocument status enum from lowercase to uppercase since kyc-orch returns status capitalized and rest proxy requires strict casing
+
+
+[2025-02-11] Version 1.23.12
+----------------------------
+**Api**
+- Change downstream url and change media type for file `base/api/v2010/validation_request.json`.
+
+**Intelligence**
+- Add json_results for Generative JSON operator results
+
+**Messaging**
+- Add DestinationAlphaSender API to support Country-Specific Alpha Senders
+
+**Video**
+- Change codec type from enum to case-insensitive enum in recording and room_recording apis
+
+
 [2025-01-28] Version 1.23.11
 ----------------------------
 **Api**

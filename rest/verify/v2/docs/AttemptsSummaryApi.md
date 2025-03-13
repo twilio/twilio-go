@@ -4,7 +4,7 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchVerificationAttemptsSummary**](AttemptsSummaryApi.md#FetchVerificationAttemptsSummary) | **Get** /v2/Attempts/Summary | 
+[**FetchVerificationAttemptsSummary**](AttemptsSummaryApi.md#FetchVerificationAttemptsSummary) | **Get** /v2/Attempts/Summary | Get a summary of how many attempts were made and how many were converted.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > VerifyV2VerificationAttemptsSummary FetchVerificationAttemptsSummary(ctx, optional)
 
-
+Get a summary of how many attempts were made and how many were converted.
 
 Get a summary of how many attempts were made and how many were converted.
 

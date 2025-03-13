@@ -4,7 +4,7 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListSimIpAddress**](SimsIpAddressesApi.md#ListSimIpAddress) | **Get** /v1/Sims/{SimSid}/IpAddresses | 
+[**ListSimIpAddress**](SimsIpAddressesApi.md#ListSimIpAddress) | **Get** /v1/Sims/{SimSid}/IpAddresses | Retrieve a list of IP Addresses for the given Super SIM.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []SupersimV1SimIpAddress ListSimIpAddress(ctx, SimSidoptional)
 
-
+Retrieve a list of IP Addresses for the given Super SIM.
 
 Retrieve a list of IP Addresses for the given Super SIM.
 

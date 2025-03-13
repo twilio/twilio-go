@@ -27,5 +27,5 @@ type IamV1NewKey struct {
 	// The secret your application uses to sign Access Tokens and to authenticate to the REST API (you will use this as the basic-auth `password`).  **Note that for security reasons, this field is ONLY returned when the API Key is first created.**
 	Secret *string `json:"secret,omitempty"`
 	// Collection of allow assertions.
-	Policy *interface{} `json:"policy,omitempty"`
+	Policy *map[string]interface{} `json:"policy,omitempty"`
 }

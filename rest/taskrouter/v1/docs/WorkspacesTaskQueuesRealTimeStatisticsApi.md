@@ -4,7 +4,7 @@ All URIs are relative to *https://taskrouter.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateTaskQueueBulkRealTimeStatistics**](WorkspacesTaskQueuesRealTimeStatisticsApi.md#CreateTaskQueueBulkRealTimeStatistics) | **Post** /v1/Workspaces/{WorkspaceSid}/TaskQueues/RealTimeStatistics | 
+[**CreateTaskQueueBulkRealTimeStatistics**](WorkspacesTaskQueuesRealTimeStatisticsApi.md#CreateTaskQueueBulkRealTimeStatistics) | **Post** /v1/Workspaces/{WorkspaceSid}/TaskQueues/RealTimeStatistics | Fetch a Task Queue Real Time Statistics in bulk for the array of TaskQueue SIDs, support upto 50 in a request.
 [**FetchTaskQueueRealTimeStatistics**](WorkspacesTaskQueuesRealTimeStatisticsApi.md#FetchTaskQueueRealTimeStatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics | 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > TaskrouterV1TaskQueueBulkRealTimeStatistics CreateTaskQueueBulkRealTimeStatistics(ctx, WorkspaceSidoptional)
 
-
+Fetch a Task Queue Real Time Statistics in bulk for the array of TaskQueue SIDs, support upto 50 in a request.
 
 Fetch a Task Queue Real Time Statistics in bulk for the array of TaskQueue SIDs, support upto 50 in a request.
 

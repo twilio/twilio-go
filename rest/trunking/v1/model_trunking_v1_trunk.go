@@ -33,9 +33,9 @@ type TrunkingV1Trunk struct {
 	// Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
 	Secure *bool `json:"secure,omitempty"`
 	// The recording settings for the trunk. Can be: `do-not-record`, `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing` or `record-from-answer`, all calls going through the trunk will be recorded. The only way to change recording parameters is on a sub-resource of a Trunk after it has been created. e.g.`/Trunks/[Trunk_SID]/Recording -XPOST -d'Mode=record-from-answer'`. See [Recording](https://www.twilio.com/docs/sip-trunking#recording) for more information.
-	Recording        *interface{} `json:"recording,omitempty"`
-	TransferMode     *string      `json:"transfer_mode,omitempty"`
-	TransferCallerId *string      `json:"transfer_caller_id,omitempty"`
+	Recording        *map[string]interface{} `json:"recording,omitempty"`
+	TransferMode     *string                 `json:"transfer_mode,omitempty"`
+	TransferCallerId *string                 `json:"transfer_caller_id,omitempty"`
 	// Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
 	CnamLookupEnabled *bool `json:"cnam_lookup_enabled,omitempty"`
 	// The types of authentication mapped to the domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If both are mapped, the values are returned in a comma delimited list. If empty, the domain will not receive any traffic.

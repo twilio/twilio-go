@@ -4,9 +4,9 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateOperatorAttachment**](ServicesOperatorsApi.md#CreateOperatorAttachment) | **Post** /v2/Services/{ServiceSid}/Operators/{OperatorSid} | 
-[**DeleteOperatorAttachment**](ServicesOperatorsApi.md#DeleteOperatorAttachment) | **Delete** /v2/Services/{ServiceSid}/Operators/{OperatorSid} | 
-[**FetchOperatorAttachments**](ServicesOperatorsApi.md#FetchOperatorAttachments) | **Get** /v2/Services/{ServiceSid}/Operators | 
+[**CreateOperatorAttachment**](ServicesOperatorsApi.md#CreateOperatorAttachment) | **Post** /v2/Services/{ServiceSid}/Operators/{OperatorSid} | Attach an Operator to a Service.
+[**DeleteOperatorAttachment**](ServicesOperatorsApi.md#DeleteOperatorAttachment) | **Delete** /v2/Services/{ServiceSid}/Operators/{OperatorSid} | Detach an Operator from a Service.
+[**FetchOperatorAttachments**](ServicesOperatorsApi.md#FetchOperatorAttachments) | **Get** /v2/Services/{ServiceSid}/Operators | Retrieve Operators attached to a Service.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > IntelligenceV2OperatorAttachment CreateOperatorAttachment(ctx, ServiceSidOperatorSid)
 
-
+Attach an Operator to a Service.
 
 Attach an Operator to a Service.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteOperatorAttachment(ctx, ServiceSidOperatorSid)
 
-
+Detach an Operator from a Service.
 
 Detach an Operator from a Service.
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > IntelligenceV2OperatorAttachments FetchOperatorAttachments(ctx, ServiceSid)
 
-
+Retrieve Operators attached to a Service.
 
 Retrieve Operators attached to a Service.
 

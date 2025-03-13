@@ -4,9 +4,9 @@ All URIs are relative to *https://chat.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteUserChannel**](ServicesUsersChannelsApi.md#DeleteUserChannel) | **Delete** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
+[**DeleteUserChannel**](ServicesUsersChannelsApi.md#DeleteUserChannel) | **Delete** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | Removes User from selected Channel.
 [**FetchUserChannel**](ServicesUsersChannelsApi.md#FetchUserChannel) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
-[**ListUserChannel**](ServicesUsersChannelsApi.md#ListUserChannel) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels | 
+[**ListUserChannel**](ServicesUsersChannelsApi.md#ListUserChannel) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels | List all Channels for a given User.
 [**UpdateUserChannel**](ServicesUsersChannelsApi.md#UpdateUserChannel) | **Post** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeleteUserChannel(ctx, ServiceSidUserSidChannelSidoptional)
 
-
+Removes User from selected Channel.
 
 Removes User from selected Channel.
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > []ChatV2UserChannel ListUserChannel(ctx, ServiceSidUserSidoptional)
 
-
+List all Channels for a given User.
 
 List all Channels for a given User.
 

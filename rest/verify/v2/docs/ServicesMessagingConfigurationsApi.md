@@ -4,11 +4,11 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateMessagingConfiguration**](ServicesMessagingConfigurationsApi.md#CreateMessagingConfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations | 
-[**DeleteMessagingConfiguration**](ServicesMessagingConfigurationsApi.md#DeleteMessagingConfiguration) | **Delete** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
-[**FetchMessagingConfiguration**](ServicesMessagingConfigurationsApi.md#FetchMessagingConfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
-[**ListMessagingConfiguration**](ServicesMessagingConfigurationsApi.md#ListMessagingConfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations | 
-[**UpdateMessagingConfiguration**](ServicesMessagingConfigurationsApi.md#UpdateMessagingConfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
+[**CreateMessagingConfiguration**](ServicesMessagingConfigurationsApi.md#CreateMessagingConfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations | Create a new MessagingConfiguration for a service.
+[**DeleteMessagingConfiguration**](ServicesMessagingConfigurationsApi.md#DeleteMessagingConfiguration) | **Delete** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | Delete a specific MessagingConfiguration.
+[**FetchMessagingConfiguration**](ServicesMessagingConfigurationsApi.md#FetchMessagingConfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | Fetch a specific MessagingConfiguration.
+[**ListMessagingConfiguration**](ServicesMessagingConfigurationsApi.md#ListMessagingConfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations | Retrieve a list of all Messaging Configurations for a Service.
+[**UpdateMessagingConfiguration**](ServicesMessagingConfigurationsApi.md#UpdateMessagingConfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | Update a specific MessagingConfiguration
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > VerifyV2MessagingConfiguration CreateMessagingConfiguration(ctx, ServiceSidoptional)
 
-
+Create a new MessagingConfiguration for a service.
 
 Create a new MessagingConfiguration for a service.
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 > DeleteMessagingConfiguration(ctx, ServiceSidCountry)
 
-
+Delete a specific MessagingConfiguration.
 
 Delete a specific MessagingConfiguration.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > VerifyV2MessagingConfiguration FetchMessagingConfiguration(ctx, ServiceSidCountry)
 
-
+Fetch a specific MessagingConfiguration.
 
 Fetch a specific MessagingConfiguration.
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []VerifyV2MessagingConfiguration ListMessagingConfiguration(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all Messaging Configurations for a Service.
 
 Retrieve a list of all Messaging Configurations for a Service.
 
@@ -190,7 +190,7 @@ Name | Type | Description
 
 > VerifyV2MessagingConfiguration UpdateMessagingConfiguration(ctx, ServiceSidCountryoptional)
 
-
+Update a specific MessagingConfiguration
 
 Update a specific MessagingConfiguration
 

@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchAuthorizedConnectApp**](AccountsAuthorizedConnectAppsApi.md#FetchAuthorizedConnectApp) | **Get** /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json | 
-[**ListAuthorizedConnectApp**](AccountsAuthorizedConnectAppsApi.md#ListAuthorizedConnectApp) | **Get** /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json | 
+[**FetchAuthorizedConnectApp**](AccountsAuthorizedConnectAppsApi.md#FetchAuthorizedConnectApp) | **Get** /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json | Fetch an instance of an authorized-connect-app
+[**ListAuthorizedConnectApp**](AccountsAuthorizedConnectAppsApi.md#ListAuthorizedConnectApp) | **Get** /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json | Retrieve a list of authorized-connect-apps belonging to the account used to make the request
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ApiV2010AuthorizedConnectApp FetchAuthorizedConnectApp(ctx, ConnectAppSidoptional)
 
-
+Fetch an instance of an authorized-connect-app
 
 Fetch an instance of an authorized-connect-app
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > []ApiV2010AuthorizedConnectApp ListAuthorizedConnectApp(ctx, optional)
 
-
+Retrieve a list of authorized-connect-apps belonging to the account used to make the request
 
 Retrieve a list of authorized-connect-apps belonging to the account used to make the request
 

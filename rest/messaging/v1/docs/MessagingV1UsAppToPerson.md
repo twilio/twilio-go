@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **CampaignStatus** | Pointer to **string** | Campaign status. Examples: IN_PROGRESS, VERIFIED, FAILED. |
 **CampaignId** | Pointer to **string** | The Campaign Registry (TCR) Campaign ID. |
 **IsExternallyRegistered** | Pointer to **bool** | Indicates whether the campaign was registered externally or not. |
-**RateLimits** | Pointer to **interface{}** | Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile. |
+**RateLimits** | Pointer to **map[string]interface{}** | Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile. |
 **MessageFlow** | Pointer to **string** | Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum. |
 **OptInMessage** | Pointer to **string** | If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum. |
 **OptOutMessage** | Pointer to **string** | Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum. |
@@ -31,7 +31,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **Url** | Pointer to **string** | The absolute URL of the US App to Person resource. |
 **Mock** | Pointer to **bool** | A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes. |
-**Errors** | Pointer to **[]interface{}** | Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements. |
+**Errors** | Pointer to **[]map[string]interface{}** | Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

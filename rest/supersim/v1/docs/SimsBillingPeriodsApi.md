@@ -4,7 +4,7 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListBillingPeriod**](SimsBillingPeriodsApi.md#ListBillingPeriod) | **Get** /v1/Sims/{SimSid}/BillingPeriods | 
+[**ListBillingPeriod**](SimsBillingPeriodsApi.md#ListBillingPeriod) | **Get** /v1/Sims/{SimSid}/BillingPeriods | Retrieve a list of Billing Periods for a Super SIM.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []SupersimV1BillingPeriod ListBillingPeriod(ctx, SimSidoptional)
 
-
+Retrieve a list of Billing Periods for a Super SIM.
 
 Retrieve a list of Billing Periods for a Super SIM.
 

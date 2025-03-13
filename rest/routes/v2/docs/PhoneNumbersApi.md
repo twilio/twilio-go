@@ -4,8 +4,8 @@ All URIs are relative to *https://routes.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchPhoneNumber**](PhoneNumbersApi.md#FetchPhoneNumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | 
-[**UpdatePhoneNumber**](PhoneNumbersApi.md#UpdatePhoneNumber) | **Post** /v2/PhoneNumbers/{PhoneNumber} | 
+[**FetchPhoneNumber**](PhoneNumbersApi.md#FetchPhoneNumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | Fetch the Inbound Processing Region assigned to a phone number.
+[**UpdatePhoneNumber**](PhoneNumbersApi.md#UpdatePhoneNumber) | **Post** /v2/PhoneNumbers/{PhoneNumber} | Assign an Inbound Processing Region to a phone number.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > RoutesV2PhoneNumber FetchPhoneNumber(ctx, PhoneNumber)
 
-
+Fetch the Inbound Processing Region assigned to a phone number.
 
 Fetch the Inbound Processing Region assigned to a phone number.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > RoutesV2PhoneNumber UpdatePhoneNumber(ctx, PhoneNumberoptional)
 
-
+Assign an Inbound Processing Region to a phone number.
 
 Assign an Inbound Processing Region to a phone number.
 

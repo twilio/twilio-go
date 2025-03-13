@@ -4,11 +4,11 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSupportingDocument**](SupportingDocumentsApi.md#CreateSupportingDocument) | **Post** /v1/SupportingDocuments | 
-[**DeleteSupportingDocument**](SupportingDocumentsApi.md#DeleteSupportingDocument) | **Delete** /v1/SupportingDocuments/{Sid} | 
-[**FetchSupportingDocument**](SupportingDocumentsApi.md#FetchSupportingDocument) | **Get** /v1/SupportingDocuments/{Sid} | 
-[**ListSupportingDocument**](SupportingDocumentsApi.md#ListSupportingDocument) | **Get** /v1/SupportingDocuments | 
-[**UpdateSupportingDocument**](SupportingDocumentsApi.md#UpdateSupportingDocument) | **Post** /v1/SupportingDocuments/{Sid} | 
+[**CreateSupportingDocument**](SupportingDocumentsApi.md#CreateSupportingDocument) | **Post** /v1/SupportingDocuments | Create a new Supporting Document.
+[**DeleteSupportingDocument**](SupportingDocumentsApi.md#DeleteSupportingDocument) | **Delete** /v1/SupportingDocuments/{Sid} | Delete a specific Supporting Document.
+[**FetchSupportingDocument**](SupportingDocumentsApi.md#FetchSupportingDocument) | **Get** /v1/SupportingDocuments/{Sid} | Fetch specific Supporting Document Instance.
+[**ListSupportingDocument**](SupportingDocumentsApi.md#ListSupportingDocument) | **Get** /v1/SupportingDocuments | Retrieve a list of all Supporting Document for an account.
+[**UpdateSupportingDocument**](SupportingDocumentsApi.md#UpdateSupportingDocument) | **Post** /v1/SupportingDocuments/{Sid} | Update an existing Supporting Document.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > TrusthubV1SupportingDocument CreateSupportingDocument(ctx, optional)
 
-
+Create a new Supporting Document.
 
 Create a new Supporting Document.
 
@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **Type** | **string** | The type of the Supporting Document.
-**Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
 
 ### Return type
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteSupportingDocument(ctx, Sid)
 
-
+Delete a specific Supporting Document.
 
 Delete a specific Supporting Document.
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > TrusthubV1SupportingDocument FetchSupportingDocument(ctx, Sid)
 
-
+Fetch specific Supporting Document Instance.
 
 Fetch specific Supporting Document Instance.
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 > []TrusthubV1SupportingDocument ListSupportingDocument(ctx, optional)
 
-
+Retrieve a list of all Supporting Document for an account.
 
 Retrieve a list of all Supporting Document for an account.
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 > TrusthubV1SupportingDocument UpdateSupportingDocument(ctx, Sidoptional)
 
-
+Update an existing Supporting Document.
 
 Update an existing Supporting Document.
 
@@ -201,7 +201,7 @@ Other parameters are passed through a pointer to a UpdateSupportingDocumentParam
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
 
 ### Return type
 

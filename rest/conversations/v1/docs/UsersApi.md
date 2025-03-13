@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateUser**](UsersApi.md#CreateUser) | **Post** /v1/Users | 
-[**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /v1/Users/{Sid} | 
-[**FetchUser**](UsersApi.md#FetchUser) | **Get** /v1/Users/{Sid} | 
-[**ListUser**](UsersApi.md#ListUser) | **Get** /v1/Users | 
-[**UpdateUser**](UsersApi.md#UpdateUser) | **Post** /v1/Users/{Sid} | 
+[**CreateUser**](UsersApi.md#CreateUser) | **Post** /v1/Users | Add a new conversation user to your account&#39;s default service
+[**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /v1/Users/{Sid} | Remove a conversation user from your account&#39;s default service
+[**FetchUser**](UsersApi.md#FetchUser) | **Get** /v1/Users/{Sid} | Fetch a conversation user from your account&#39;s default service
+[**ListUser**](UsersApi.md#ListUser) | **Get** /v1/Users | Retrieve a list of all conversation users in your account&#39;s default service
+[**UpdateUser**](UsersApi.md#UpdateUser) | **Post** /v1/Users/{Sid} | Update an existing conversation user in your account&#39;s default service
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1User CreateUser(ctx, optional)
 
-
+Add a new conversation user to your account's default service
 
 Add a new conversation user to your account's default service
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteUser(ctx, Sidoptional)
 
-
+Remove a conversation user from your account's default service
 
 Remove a conversation user from your account's default service
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > ConversationsV1User FetchUser(ctx, Sid)
 
-
+Fetch a conversation user from your account's default service
 
 Fetch a conversation user from your account's default service
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 > []ConversationsV1User ListUser(ctx, optional)
 
-
+Retrieve a list of all conversation users in your account's default service
 
 Retrieve a list of all conversation users in your account's default service
 
@@ -184,7 +184,7 @@ Name | Type | Description
 
 > ConversationsV1User UpdateUser(ctx, Sidoptional)
 
-
+Update an existing conversation user in your account's default service
 
 Update an existing conversation user in your account's default service
 

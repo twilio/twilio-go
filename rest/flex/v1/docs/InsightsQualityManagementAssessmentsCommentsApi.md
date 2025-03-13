@@ -4,8 +4,8 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsAssessmentsComment**](InsightsQualityManagementAssessmentsCommentsApi.md#CreateInsightsAssessmentsComment) | **Post** /v1/Insights/QualityManagement/Assessments/Comments | 
-[**ListInsightsAssessmentsComment**](InsightsQualityManagementAssessmentsCommentsApi.md#ListInsightsAssessmentsComment) | **Get** /v1/Insights/QualityManagement/Assessments/Comments | 
+[**CreateInsightsAssessmentsComment**](InsightsQualityManagementAssessmentsCommentsApi.md#CreateInsightsAssessmentsComment) | **Post** /v1/Insights/QualityManagement/Assessments/Comments | To create a comment assessment for a conversation
+[**ListInsightsAssessmentsComment**](InsightsQualityManagementAssessmentsCommentsApi.md#ListInsightsAssessmentsComment) | **Get** /v1/Insights/QualityManagement/Assessments/Comments | To create a comment assessment for a conversation
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > FlexV1InsightsAssessmentsComment CreateInsightsAssessmentsComment(ctx, optional)
 
-
+To create a comment assessment for a conversation
 
 To create a comment assessment for a conversation
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > []FlexV1InsightsAssessmentsComment ListInsightsAssessmentsComment(ctx, optional)
 
-
+To create a comment assessment for a conversation
 
 To create a comment assessment for a conversation
 

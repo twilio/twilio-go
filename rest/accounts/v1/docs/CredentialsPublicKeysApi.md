@@ -4,11 +4,11 @@ All URIs are relative to *https://accounts.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCredentialPublicKey**](CredentialsPublicKeysApi.md#CreateCredentialPublicKey) | **Post** /v1/Credentials/PublicKeys | 
-[**DeleteCredentialPublicKey**](CredentialsPublicKeysApi.md#DeleteCredentialPublicKey) | **Delete** /v1/Credentials/PublicKeys/{Sid} | 
-[**FetchCredentialPublicKey**](CredentialsPublicKeysApi.md#FetchCredentialPublicKey) | **Get** /v1/Credentials/PublicKeys/{Sid} | 
-[**ListCredentialPublicKey**](CredentialsPublicKeysApi.md#ListCredentialPublicKey) | **Get** /v1/Credentials/PublicKeys | 
-[**UpdateCredentialPublicKey**](CredentialsPublicKeysApi.md#UpdateCredentialPublicKey) | **Post** /v1/Credentials/PublicKeys/{Sid} | 
+[**CreateCredentialPublicKey**](CredentialsPublicKeysApi.md#CreateCredentialPublicKey) | **Post** /v1/Credentials/PublicKeys | Create a new Public Key Credential
+[**DeleteCredentialPublicKey**](CredentialsPublicKeysApi.md#DeleteCredentialPublicKey) | **Delete** /v1/Credentials/PublicKeys/{Sid} | Delete a Credential from your account
+[**FetchCredentialPublicKey**](CredentialsPublicKeysApi.md#FetchCredentialPublicKey) | **Get** /v1/Credentials/PublicKeys/{Sid} | Fetch the public key specified by the provided Credential Sid
+[**ListCredentialPublicKey**](CredentialsPublicKeysApi.md#ListCredentialPublicKey) | **Get** /v1/Credentials/PublicKeys | Retrieves a collection of Public Key Credentials belonging to the account used to make the request
+[**UpdateCredentialPublicKey**](CredentialsPublicKeysApi.md#UpdateCredentialPublicKey) | **Post** /v1/Credentials/PublicKeys/{Sid} | Modify the properties of a given Account
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > AccountsV1CredentialPublicKey CreateCredentialPublicKey(ctx, optional)
 
-
+Create a new Public Key Credential
 
 Create a new Public Key Credential
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteCredentialPublicKey(ctx, Sid)
 
-
+Delete a Credential from your account
 
 Delete a Credential from your account
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > AccountsV1CredentialPublicKey FetchCredentialPublicKey(ctx, Sid)
 
-
+Fetch the public key specified by the provided Credential Sid
 
 Fetch the public key specified by the provided Credential Sid
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 > []AccountsV1CredentialPublicKey ListCredentialPublicKey(ctx, optional)
 
-
+Retrieves a collection of Public Key Credentials belonging to the account used to make the request
 
 Retrieves a collection of Public Key Credentials belonging to the account used to make the request
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 > AccountsV1CredentialPublicKey UpdateCredentialPublicKey(ctx, Sidoptional)
 
-
+Modify the properties of a given Account
 
 Modify the properties of a given Account
 

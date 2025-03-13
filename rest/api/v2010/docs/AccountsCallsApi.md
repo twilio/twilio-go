@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCall**](AccountsCallsApi.md#CreateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls.json | 
-[**DeleteCall**](AccountsCallsApi.md#DeleteCall) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | 
-[**FetchCall**](AccountsCallsApi.md#FetchCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | 
-[**ListCall**](AccountsCallsApi.md#ListCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls.json | 
-[**UpdateCall**](AccountsCallsApi.md#UpdateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | 
+[**CreateCall**](AccountsCallsApi.md#CreateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls.json | Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
+[**DeleteCall**](AccountsCallsApi.md#DeleteCall) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
+[**FetchCall**](AccountsCallsApi.md#FetchCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | Fetch the call specified by the provided Call SID
+[**ListCall**](AccountsCallsApi.md#ListCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls.json | Retrieves a collection of calls made to and from your account
+[**UpdateCall**](AccountsCallsApi.md#UpdateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | Initiates a call redirect or terminates a call
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010Call CreateCall(ctx, optional)
 
-
+Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
 
 Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
 
@@ -90,7 +90,7 @@ Name | Type | Description
 
 > DeleteCall(ctx, Sidoptional)
 
-
+Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
 
 Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
 
@@ -133,7 +133,7 @@ Name | Type | Description
 
 > ApiV2010Call FetchCall(ctx, Sidoptional)
 
-
+Fetch the call specified by the provided Call SID
 
 Fetch the call specified by the provided Call SID
 
@@ -176,7 +176,7 @@ Name | Type | Description
 
 > []ApiV2010Call ListCall(ctx, optional)
 
-
+Retrieves a collection of calls made to and from your account
 
 Retrieves a collection of calls made to and from your account
 
@@ -227,7 +227,7 @@ Name | Type | Description
 
 > ApiV2010Call UpdateCall(ctx, Sidoptional)
 
-
+Initiates a call redirect or terminates a call
 
 Initiates a call redirect or terminates a call
 

@@ -4,7 +4,7 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchInsightsUserRoles**](InsightsUserRolesApi.md#FetchInsightsUserRoles) | **Get** /v1/Insights/UserRoles | 
+[**FetchInsightsUserRoles**](InsightsUserRolesApi.md#FetchInsightsUserRoles) | **Get** /v1/Insights/UserRoles | This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > FlexV1InsightsUserRoles FetchInsightsUserRoles(ctx, optional)
 
-
+This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
 
 This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
 

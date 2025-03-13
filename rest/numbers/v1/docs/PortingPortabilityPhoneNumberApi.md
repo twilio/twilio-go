@@ -4,7 +4,7 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchPortingPortability**](PortingPortabilityPhoneNumberApi.md#FetchPortingPortability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | 
+[**FetchPortingPortability**](PortingPortabilityPhoneNumberApi.md#FetchPortingPortability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | Check if a single phone number can be ported to Twilio
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > NumbersV1PortingPortability FetchPortingPortability(ctx, PhoneNumberoptional)
 
-
+Check if a single phone number can be ported to Twilio
 
 Check if a single phone number can be ported to Twilio
 

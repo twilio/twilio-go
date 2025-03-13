@@ -4,8 +4,8 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchExecutionStep**](FlowsExecutionsStepsApi.md#FetchExecutionStep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid} | 
-[**ListExecutionStep**](FlowsExecutionsStepsApi.md#ListExecutionStep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps | 
+[**FetchExecutionStep**](FlowsExecutionsStepsApi.md#FetchExecutionStep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid} | Retrieve a Step.
+[**ListExecutionStep**](FlowsExecutionsStepsApi.md#ListExecutionStep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps | Retrieve a list of all Steps for an Execution.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > StudioV2ExecutionStep FetchExecutionStep(ctx, FlowSidExecutionSidSid)
 
-
+Retrieve a Step.
 
 Retrieve a Step.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []StudioV2ExecutionStep ListExecutionStep(ctx, FlowSidExecutionSidoptional)
 
-
+Retrieve a list of all Steps for an Execution.
 
 Retrieve a list of all Steps for an Execution.
 

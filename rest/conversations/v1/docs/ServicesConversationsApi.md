@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateServiceConversation**](ServicesConversationsApi.md#CreateServiceConversation) | **Post** /v1/Services/{ChatServiceSid}/Conversations | 
-[**DeleteServiceConversation**](ServicesConversationsApi.md#DeleteServiceConversation) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | 
-[**FetchServiceConversation**](ServicesConversationsApi.md#FetchServiceConversation) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | 
-[**ListServiceConversation**](ServicesConversationsApi.md#ListServiceConversation) | **Get** /v1/Services/{ChatServiceSid}/Conversations | 
-[**UpdateServiceConversation**](ServicesConversationsApi.md#UpdateServiceConversation) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | 
+[**CreateServiceConversation**](ServicesConversationsApi.md#CreateServiceConversation) | **Post** /v1/Services/{ChatServiceSid}/Conversations | Create a new conversation in your service
+[**DeleteServiceConversation**](ServicesConversationsApi.md#DeleteServiceConversation) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | Remove a conversation from your service
+[**FetchServiceConversation**](ServicesConversationsApi.md#FetchServiceConversation) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | Fetch a conversation from your service
+[**ListServiceConversation**](ServicesConversationsApi.md#ListServiceConversation) | **Get** /v1/Services/{ChatServiceSid}/Conversations | Retrieve a list of conversations in your service
+[**UpdateServiceConversation**](ServicesConversationsApi.md#UpdateServiceConversation) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | Update an existing conversation in your service
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ServiceConversation CreateServiceConversation(ctx, ChatServiceSidoptional)
 
-
+Create a new conversation in your service
 
 Create a new conversation in your service
 
@@ -70,7 +70,7 @@ Name | Type | Description
 
 > DeleteServiceConversation(ctx, ChatServiceSidSidoptional)
 
-
+Remove a conversation from your service
 
 Remove a conversation from your service
 
@@ -114,7 +114,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConversation FetchServiceConversation(ctx, ChatServiceSidSid)
 
-
+Fetch a conversation from your service
 
 Fetch a conversation from your service
 
@@ -157,7 +157,7 @@ Name | Type | Description
 
 > []ConversationsV1ServiceConversation ListServiceConversation(ctx, ChatServiceSidoptional)
 
-
+Retrieve a list of conversations in your service
 
 Retrieve a list of conversations in your service
 
@@ -204,7 +204,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConversation UpdateServiceConversation(ctx, ChatServiceSidSidoptional)
 
-
+Update an existing conversation in your service
 
 Update an existing conversation in your service
 

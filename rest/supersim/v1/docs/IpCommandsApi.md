@@ -4,9 +4,9 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateIpCommand**](IpCommandsApi.md#CreateIpCommand) | **Post** /v1/IpCommands | 
-[**FetchIpCommand**](IpCommandsApi.md#FetchIpCommand) | **Get** /v1/IpCommands/{Sid} | 
-[**ListIpCommand**](IpCommandsApi.md#ListIpCommand) | **Get** /v1/IpCommands | 
+[**CreateIpCommand**](IpCommandsApi.md#CreateIpCommand) | **Post** /v1/IpCommands | Send an IP Command to a Super SIM.
+[**FetchIpCommand**](IpCommandsApi.md#FetchIpCommand) | **Get** /v1/IpCommands/{Sid} | Fetch IP Command instance from your account.
+[**ListIpCommand**](IpCommandsApi.md#ListIpCommand) | **Get** /v1/IpCommands | Retrieve a list of IP Commands from your account.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > SupersimV1IpCommand CreateIpCommand(ctx, optional)
 
-
+Send an IP Command to a Super SIM.
 
 Send an IP Command to a Super SIM.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > SupersimV1IpCommand FetchIpCommand(ctx, Sid)
 
-
+Fetch IP Command instance from your account.
 
 Fetch IP Command instance from your account.
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > []SupersimV1IpCommand ListIpCommand(ctx, optional)
 
-
+Retrieve a list of IP Commands from your account.
 
 Retrieve a list of IP Commands from your account.
 

@@ -4,7 +4,7 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListDependentHostedNumberOrder**](HostedNumberAuthorizationDocumentsDependentHostedNumberOrdersApi.md#ListDependentHostedNumberOrder) | **Get** /v2/HostedNumber/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders | 
+[**ListDependentHostedNumberOrder**](HostedNumberAuthorizationDocumentsDependentHostedNumberOrdersApi.md#ListDependentHostedNumberOrder) | **Get** /v2/HostedNumber/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders | Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []NumbersV2DependentHostedNumberOrder ListDependentHostedNumberOrder(ctx, SigningDocumentSidoptional)
 
-
+Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument.
 
 Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument.
 

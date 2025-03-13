@@ -4,9 +4,9 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEvaluation**](RegulatoryComplianceBundlesEvaluationsApi.md#CreateEvaluation) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations | 
-[**FetchEvaluation**](RegulatoryComplianceBundlesEvaluationsApi.md#FetchEvaluation) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid} | 
-[**ListEvaluation**](RegulatoryComplianceBundlesEvaluationsApi.md#ListEvaluation) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations | 
+[**CreateEvaluation**](RegulatoryComplianceBundlesEvaluationsApi.md#CreateEvaluation) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations | Creates an evaluation for a bundle
+[**FetchEvaluation**](RegulatoryComplianceBundlesEvaluationsApi.md#FetchEvaluation) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid} | Fetch specific Evaluation Instance.
+[**ListEvaluation**](RegulatoryComplianceBundlesEvaluationsApi.md#ListEvaluation) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations | Retrieve a list of Evaluations associated to the Bundle resource.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > NumbersV2Evaluation CreateEvaluation(ctx, BundleSid)
 
-
+Creates an evaluation for a bundle
 
 Creates an evaluation for a bundle
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > NumbersV2Evaluation FetchEvaluation(ctx, BundleSidSid)
 
-
+Fetch specific Evaluation Instance.
 
 Fetch specific Evaluation Instance.
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > []NumbersV2Evaluation ListEvaluation(ctx, BundleSidoptional)
 
-
+Retrieve a list of Evaluations associated to the Bundle resource.
 
 Retrieve a list of Evaluations associated to the Bundle resource.
 

@@ -4,8 +4,8 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchVerificationAttempt**](AttemptsApi.md#FetchVerificationAttempt) | **Get** /v2/Attempts/{Sid} | 
-[**ListVerificationAttempt**](AttemptsApi.md#ListVerificationAttempt) | **Get** /v2/Attempts | 
+[**FetchVerificationAttempt**](AttemptsApi.md#FetchVerificationAttempt) | **Get** /v2/Attempts/{Sid} | Fetch a specific verification attempt.
+[**ListVerificationAttempt**](AttemptsApi.md#ListVerificationAttempt) | **Get** /v2/Attempts | List all the verification attempts for a given Account.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > VerifyV2VerificationAttempt FetchVerificationAttempt(ctx, Sid)
 
-
+Fetch a specific verification attempt.
 
 Fetch a specific verification attempt.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []VerifyV2VerificationAttempt ListVerificationAttempt(ctx, optional)
 
-
+List all the verification attempts for a given Account.
 
 List all the verification attempts for a given Account.
 

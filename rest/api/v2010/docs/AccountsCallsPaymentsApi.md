@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreatePayments**](AccountsCallsPaymentsApi.md#CreatePayments) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json | 
-[**UpdatePayments**](AccountsCallsPaymentsApi.md#UpdatePayments) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json | 
+[**CreatePayments**](AccountsCallsPaymentsApi.md#CreatePayments) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json | create an instance of payments. This will start a new payments session
+[**UpdatePayments**](AccountsCallsPaymentsApi.md#UpdatePayments) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json | update an instance of payments with different phases of payment flows.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ApiV2010Payments CreatePayments(ctx, CallSidoptional)
 
-
+create an instance of payments. This will start a new payments session
 
 create an instance of payments. This will start a new payments session
 
@@ -41,7 +41,7 @@ Name | Type | Description
 **Description** | **string** | The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
 **Input** | **string** | A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
 **MinPostalCodeLength** | **int** | A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
-**Parameter** | [**interface{}**](interface{}.md) | A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
+**Parameter** | [**map[string]interface{}**](map[string]interface{}.md) | A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
 **PaymentConnector** | **string** | This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
 **PaymentMethod** | **string** | 
 **PostalCode** | **bool** | Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
@@ -72,7 +72,7 @@ Name | Type | Description
 
 > ApiV2010Payments UpdatePayments(ctx, CallSidSidoptional)
 
-
+update an instance of payments with different phases of payment flows.
 
 update an instance of payments with different phases of payment flows.
 

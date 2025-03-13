@@ -4,10 +4,10 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateNetworkAccessProfile**](NetworkAccessProfilesApi.md#CreateNetworkAccessProfile) | **Post** /v1/NetworkAccessProfiles | 
-[**FetchNetworkAccessProfile**](NetworkAccessProfilesApi.md#FetchNetworkAccessProfile) | **Get** /v1/NetworkAccessProfiles/{Sid} | 
-[**ListNetworkAccessProfile**](NetworkAccessProfilesApi.md#ListNetworkAccessProfile) | **Get** /v1/NetworkAccessProfiles | 
-[**UpdateNetworkAccessProfile**](NetworkAccessProfilesApi.md#UpdateNetworkAccessProfile) | **Post** /v1/NetworkAccessProfiles/{Sid} | 
+[**CreateNetworkAccessProfile**](NetworkAccessProfilesApi.md#CreateNetworkAccessProfile) | **Post** /v1/NetworkAccessProfiles | Create a new Network Access Profile
+[**FetchNetworkAccessProfile**](NetworkAccessProfilesApi.md#FetchNetworkAccessProfile) | **Get** /v1/NetworkAccessProfiles/{Sid} | Fetch a Network Access Profile instance from your account.
+[**ListNetworkAccessProfile**](NetworkAccessProfilesApi.md#ListNetworkAccessProfile) | **Get** /v1/NetworkAccessProfiles | Retrieve a list of Network Access Profiles from your account.
+[**UpdateNetworkAccessProfile**](NetworkAccessProfilesApi.md#UpdateNetworkAccessProfile) | **Post** /v1/NetworkAccessProfiles/{Sid} | Updates the given properties of a Network Access Profile in your account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > SupersimV1NetworkAccessProfile CreateNetworkAccessProfile(ctx, optional)
 
-
+Create a new Network Access Profile
 
 Create a new Network Access Profile
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > SupersimV1NetworkAccessProfile FetchNetworkAccessProfile(ctx, Sid)
 
-
+Fetch a Network Access Profile instance from your account.
 
 Fetch a Network Access Profile instance from your account.
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 > []SupersimV1NetworkAccessProfile ListNetworkAccessProfile(ctx, optional)
 
-
+Retrieve a list of Network Access Profiles from your account.
 
 Retrieve a list of Network Access Profiles from your account.
 
@@ -137,7 +137,7 @@ Name | Type | Description
 
 > SupersimV1NetworkAccessProfile UpdateNetworkAccessProfile(ctx, Sidoptional)
 
-
+Updates the given properties of a Network Access Profile in your account.
 
 Updates the given properties of a Network Access Profile in your account.
 

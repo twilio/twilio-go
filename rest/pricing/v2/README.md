@@ -31,12 +31,12 @@ All URIs are relative to *https://pricing.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*TrunkingCountriesApi* | [**FetchTrunkingCountry**](docs/TrunkingCountriesApi.md#fetchtrunkingcountry) | **Get** /v2/Trunking/Countries/{IsoCountry} | 
+*TrunkingCountriesApi* | [**FetchTrunkingCountry**](docs/TrunkingCountriesApi.md#fetchtrunkingcountry) | **Get** /v2/Trunking/Countries/{IsoCountry} | Fetch a specific Country.
 *TrunkingCountriesApi* | [**ListTrunkingCountry**](docs/TrunkingCountriesApi.md#listtrunkingcountry) | **Get** /v2/Trunking/Countries | 
-*TrunkingNumbersApi* | [**FetchTrunkingNumber**](docs/TrunkingNumbersApi.md#fetchtrunkingnumber) | **Get** /v2/Trunking/Numbers/{DestinationNumber} | 
-*VoiceCountriesApi* | [**FetchVoiceCountry**](docs/VoiceCountriesApi.md#fetchvoicecountry) | **Get** /v2/Voice/Countries/{IsoCountry} | 
+*TrunkingNumbersApi* | [**FetchTrunkingNumber**](docs/TrunkingNumbersApi.md#fetchtrunkingnumber) | **Get** /v2/Trunking/Numbers/{DestinationNumber} | Fetch pricing information for a specific destination and, optionally, origination phone number.
+*VoiceCountriesApi* | [**FetchVoiceCountry**](docs/VoiceCountriesApi.md#fetchvoicecountry) | **Get** /v2/Voice/Countries/{IsoCountry} | Fetch a specific Country.
 *VoiceCountriesApi* | [**ListVoiceCountry**](docs/VoiceCountriesApi.md#listvoicecountry) | **Get** /v2/Voice/Countries | 
-*VoiceNumbersApi* | [**FetchVoiceNumber**](docs/VoiceNumbersApi.md#fetchvoicenumber) | **Get** /v2/Voice/Numbers/{DestinationNumber} | 
+*VoiceNumbersApi* | [**FetchVoiceNumber**](docs/VoiceNumbersApi.md#fetchvoicenumber) | **Get** /v2/Voice/Numbers/{DestinationNumber} | Fetch pricing information for a specific destination and, optionally, origination phone number.
 
 
 ## Documentation For Models

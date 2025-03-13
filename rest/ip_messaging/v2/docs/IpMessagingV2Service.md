@@ -16,15 +16,15 @@ Name | Type | Description | Notes
 **ReachabilityEnabled** | Pointer to **bool** |  |
 **TypingIndicatorTimeout** | **int** |  |[optional] [default to 0]
 **ConsumptionReportInterval** | **int** |  |[optional] [default to 0]
-**Limits** | Pointer to **interface{}** |  |
+**Limits** | Pointer to **map[string]interface{}** |  |
 **PreWebhookUrl** | Pointer to **string** |  |
 **PostWebhookUrl** | Pointer to **string** |  |
 **WebhookMethod** | Pointer to **string** |  |
 **WebhookFilters** | Pointer to **[]string** |  |
 **PreWebhookRetryCount** | **int** |  |[optional] [default to 0]
 **PostWebhookRetryCount** | **int** |  |[optional] [default to 0]
-**Notifications** | Pointer to **interface{}** |  |
-**Media** | Pointer to **interface{}** |  |
+**Notifications** | Pointer to **map[string]interface{}** |  |
+**Media** | Pointer to **map[string]interface{}** |  |
 **Url** | Pointer to **string** |  |
 **Links** | Pointer to **map[string]interface{}** |  |
 

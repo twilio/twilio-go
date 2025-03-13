@@ -4,11 +4,11 @@ All URIs are relative to *https://proxy.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreatePhoneNumber**](ServicesPhoneNumbersApi.md#CreatePhoneNumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
-[**DeletePhoneNumber**](ServicesPhoneNumbersApi.md#DeletePhoneNumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
-[**FetchPhoneNumber**](ServicesPhoneNumbersApi.md#FetchPhoneNumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
-[**ListPhoneNumber**](ServicesPhoneNumbersApi.md#ListPhoneNumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | 
-[**UpdatePhoneNumber**](ServicesPhoneNumbersApi.md#UpdatePhoneNumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
+[**CreatePhoneNumber**](ServicesPhoneNumbersApi.md#CreatePhoneNumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | Add a Phone Number to a Service&#39;s Proxy Number Pool.
+[**DeletePhoneNumber**](ServicesPhoneNumbersApi.md#DeletePhoneNumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | Delete a specific Phone Number from a Service.
+[**FetchPhoneNumber**](ServicesPhoneNumbersApi.md#FetchPhoneNumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | Fetch a specific Phone Number.
+[**ListPhoneNumber**](ServicesPhoneNumbersApi.md#ListPhoneNumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A maximum of 100 records will be returned per page.
+[**UpdatePhoneNumber**](ServicesPhoneNumbersApi.md#UpdatePhoneNumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | Update a specific Proxy Number.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ProxyV1PhoneNumber CreatePhoneNumber(ctx, ServiceSidoptional)
 
-
+Add a Phone Number to a Service's Proxy Number Pool.
 
 Add a Phone Number to a Service's Proxy Number Pool.
 
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeletePhoneNumber(ctx, ServiceSidSid)
 
-
+Delete a specific Phone Number from a Service.
 
 Delete a specific Phone Number from a Service.
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > ProxyV1PhoneNumber FetchPhoneNumber(ctx, ServiceSidSid)
 
-
+Fetch a specific Phone Number.
 
 Fetch a specific Phone Number.
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []ProxyV1PhoneNumber ListPhoneNumber(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A maximum of 100 records will be returned per page.
 
 Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A maximum of 100 records will be returned per page.
 
@@ -191,7 +191,7 @@ Name | Type | Description
 
 > ProxyV1PhoneNumber UpdatePhoneNumber(ctx, ServiceSidSidoptional)
 
-
+Update a specific Proxy Number.
 
 Update a specific Proxy Number.
 

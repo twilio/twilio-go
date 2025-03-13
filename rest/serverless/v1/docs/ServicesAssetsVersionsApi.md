@@ -4,8 +4,8 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchAssetVersion**](ServicesAssetsVersionsApi.md#FetchAssetVersion) | **Get** /v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid} | 
-[**ListAssetVersion**](ServicesAssetsVersionsApi.md#ListAssetVersion) | **Get** /v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions | 
+[**FetchAssetVersion**](ServicesAssetsVersionsApi.md#FetchAssetVersion) | **Get** /v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid} | Retrieve a specific Asset Version.
+[**ListAssetVersion**](ServicesAssetsVersionsApi.md#ListAssetVersion) | **Get** /v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions | Retrieve a list of all Asset Versions.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ServerlessV1AssetVersion FetchAssetVersion(ctx, ServiceSidAssetSidSid)
 
-
+Retrieve a specific Asset Version.
 
 Retrieve a specific Asset Version.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []ServerlessV1AssetVersion ListAssetVersion(ctx, ServiceSidAssetSidoptional)
 
-
+Retrieve a list of all Asset Versions.
 
 Retrieve a list of all Asset Versions.
 

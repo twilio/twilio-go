@@ -4,11 +4,11 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateService**](ServicesApi.md#CreateService) | **Post** /v2/Services | 
-[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v2/Services/{Sid} | 
-[**FetchService**](ServicesApi.md#FetchService) | **Get** /v2/Services/{Sid} | 
-[**ListService**](ServicesApi.md#ListService) | **Get** /v2/Services | 
-[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v2/Services/{Sid} | 
+[**CreateService**](ServicesApi.md#CreateService) | **Post** /v2/Services | Create a new Verification Service.
+[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v2/Services/{Sid} | Delete a specific Verification Service Instance.
+[**FetchService**](ServicesApi.md#FetchService) | **Get** /v2/Services/{Sid} | Fetch specific Verification Service Instance.
+[**ListService**](ServicesApi.md#ListService) | **Get** /v2/Services | Retrieve a list of all Verification Services for an account.
+[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v2/Services/{Sid} | Update a specific Verification Service.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > VerifyV2Service CreateService(ctx, optional)
 
-
+Create a new Verification Service.
 
 Create a new Verification Service.
 
@@ -74,7 +74,7 @@ Name | Type | Description
 
 > DeleteService(ctx, Sid)
 
-
+Delete a specific Verification Service Instance.
 
 Delete a specific Verification Service Instance.
 
@@ -116,7 +116,7 @@ Name | Type | Description
 
 > VerifyV2Service FetchService(ctx, Sid)
 
-
+Fetch specific Verification Service Instance.
 
 Fetch specific Verification Service Instance.
 
@@ -158,7 +158,7 @@ Name | Type | Description
 
 > []VerifyV2Service ListService(ctx, optional)
 
-
+Retrieve a list of all Verification Services for an account.
 
 Retrieve a list of all Verification Services for an account.
 
@@ -198,7 +198,7 @@ Name | Type | Description
 
 > VerifyV2Service UpdateService(ctx, Sidoptional)
 
-
+Update a specific Verification Service.
 
 Update a specific Verification Service.
 

@@ -5,7 +5,7 @@ All URIs are relative to *https://monitor.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**FetchEvent**](EventsApi.md#FetchEvent) | **Get** /v1/Events/{Sid} | 
-[**ListEvent**](EventsApi.md#ListEvent) | **Get** /v1/Events | 
+[**ListEvent**](EventsApi.md#ListEvent) | **Get** /v1/Events | Returns a list of events in the account, sorted by event-date.
 
 
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []MonitorV1Event ListEvent(ctx, optional)
 
-
+Returns a list of events in the account, sorted by event-date.
 
 Returns a list of events in the account, sorted by event-date.
 

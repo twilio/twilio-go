@@ -4,10 +4,10 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateFleet**](FleetsApi.md#CreateFleet) | **Post** /v1/Fleets | 
-[**FetchFleet**](FleetsApi.md#FetchFleet) | **Get** /v1/Fleets/{Sid} | 
-[**ListFleet**](FleetsApi.md#ListFleet) | **Get** /v1/Fleets | 
-[**UpdateFleet**](FleetsApi.md#UpdateFleet) | **Post** /v1/Fleets/{Sid} | 
+[**CreateFleet**](FleetsApi.md#CreateFleet) | **Post** /v1/Fleets | Create a Fleet
+[**FetchFleet**](FleetsApi.md#FetchFleet) | **Get** /v1/Fleets/{Sid} | Fetch a Fleet instance from your account.
+[**ListFleet**](FleetsApi.md#ListFleet) | **Get** /v1/Fleets | Retrieve a list of Fleets from your account.
+[**UpdateFleet**](FleetsApi.md#UpdateFleet) | **Post** /v1/Fleets/{Sid} | Updates the given properties of a Super SIM Fleet instance from your account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > SupersimV1Fleet CreateFleet(ctx, optional)
 
-
+Create a Fleet
 
 Create a Fleet
 
@@ -62,7 +62,7 @@ Name | Type | Description
 
 > SupersimV1Fleet FetchFleet(ctx, Sid)
 
-
+Fetch a Fleet instance from your account.
 
 Fetch a Fleet instance from your account.
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > []SupersimV1Fleet ListFleet(ctx, optional)
 
-
+Retrieve a list of Fleets from your account.
 
 Retrieve a list of Fleets from your account.
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > SupersimV1Fleet UpdateFleet(ctx, Sidoptional)
 
-
+Updates the given properties of a Super SIM Fleet instance from your account.
 
 Updates the given properties of a Super SIM Fleet instance from your account.
 

@@ -4,11 +4,11 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateFlow**](FlowsApi.md#CreateFlow) | **Post** /v2/Flows | 
-[**DeleteFlow**](FlowsApi.md#DeleteFlow) | **Delete** /v2/Flows/{Sid} | 
-[**FetchFlow**](FlowsApi.md#FetchFlow) | **Get** /v2/Flows/{Sid} | 
-[**ListFlow**](FlowsApi.md#ListFlow) | **Get** /v2/Flows | 
-[**UpdateFlow**](FlowsApi.md#UpdateFlow) | **Post** /v2/Flows/{Sid} | 
+[**CreateFlow**](FlowsApi.md#CreateFlow) | **Post** /v2/Flows | Create a Flow.
+[**DeleteFlow**](FlowsApi.md#DeleteFlow) | **Delete** /v2/Flows/{Sid} | Delete a specific Flow.
+[**FetchFlow**](FlowsApi.md#FetchFlow) | **Get** /v2/Flows/{Sid} | Retrieve a specific Flow.
+[**ListFlow**](FlowsApi.md#ListFlow) | **Get** /v2/Flows | Retrieve a list of all Flows.
+[**UpdateFlow**](FlowsApi.md#UpdateFlow) | **Post** /v2/Flows/{Sid} | Update a Flow.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > StudioV2Flow CreateFlow(ctx, optional)
 
-
+Create a Flow.
 
 Create a Flow.
 
@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
 **Status** | **string** | 
-**Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
+**Definition** | [**map[string]interface{}**](map[string]interface{}.md) | JSON representation of flow definition.
 **CommitMessage** | **string** | Description of change made in the revision.
 
 ### Return type
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteFlow(ctx, Sid)
 
-
+Delete a specific Flow.
 
 Delete a specific Flow.
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > StudioV2Flow FetchFlow(ctx, Sid)
 
-
+Retrieve a specific Flow.
 
 Retrieve a specific Flow.
 
@@ -142,7 +142,7 @@ Name | Type | Description
 
 > []StudioV2Flow ListFlow(ctx, optional)
 
-
+Retrieve a list of all Flows.
 
 Retrieve a list of all Flows.
 
@@ -182,7 +182,7 @@ Name | Type | Description
 
 > StudioV2Flow UpdateFlow(ctx, Sidoptional)
 
-
+Update a Flow.
 
 Update a Flow.
 
@@ -203,7 +203,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Status** | **string** | 
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
-**Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
+**Definition** | [**map[string]interface{}**](map[string]interface{}.md) | JSON representation of flow definition.
 **CommitMessage** | **string** | Description of change made in the revision.
 
 ### Return type

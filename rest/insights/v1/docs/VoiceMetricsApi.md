@@ -4,7 +4,7 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListMetric**](VoiceMetricsApi.md#ListMetric) | **Get** /v1/Voice/{CallSid}/Metrics | 
+[**ListMetric**](VoiceMetricsApi.md#ListMetric) | **Get** /v1/Voice/{CallSid}/Metrics | Get a list of Call Metrics for a Call.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []InsightsV1Metric ListMetric(ctx, CallSidoptional)
 
-
+Get a list of Call Metrics for a Call.
 
 Get a list of Call Metrics for a Call.
 

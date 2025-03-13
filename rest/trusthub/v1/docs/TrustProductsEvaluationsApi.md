@@ -4,9 +4,9 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateTrustProductEvaluation**](TrustProductsEvaluationsApi.md#CreateTrustProductEvaluation) | **Post** /v1/TrustProducts/{TrustProductSid}/Evaluations | 
-[**FetchTrustProductEvaluation**](TrustProductsEvaluationsApi.md#FetchTrustProductEvaluation) | **Get** /v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid} | 
-[**ListTrustProductEvaluation**](TrustProductsEvaluationsApi.md#ListTrustProductEvaluation) | **Get** /v1/TrustProducts/{TrustProductSid}/Evaluations | 
+[**CreateTrustProductEvaluation**](TrustProductsEvaluationsApi.md#CreateTrustProductEvaluation) | **Post** /v1/TrustProducts/{TrustProductSid}/Evaluations | Create a new Evaluation
+[**FetchTrustProductEvaluation**](TrustProductsEvaluationsApi.md#FetchTrustProductEvaluation) | **Get** /v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid} | Fetch specific Evaluation Instance.
+[**ListTrustProductEvaluation**](TrustProductsEvaluationsApi.md#ListTrustProductEvaluation) | **Get** /v1/TrustProducts/{TrustProductSid}/Evaluations | Retrieve a list of Evaluations associated to the trust_product resource.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > TrusthubV1TrustProductEvaluation CreateTrustProductEvaluation(ctx, TrustProductSidoptional)
 
-
+Create a new Evaluation
 
 Create a new Evaluation
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > TrusthubV1TrustProductEvaluation FetchTrustProductEvaluation(ctx, TrustProductSidSid)
 
-
+Fetch specific Evaluation Instance.
 
 Fetch specific Evaluation Instance.
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > []TrusthubV1TrustProductEvaluation ListTrustProductEvaluation(ctx, TrustProductSidoptional)
 
-
+Retrieve a list of Evaluations associated to the trust_product resource.
 
 Retrieve a list of Evaluations associated to the trust_product resource.
 

@@ -40,7 +40,7 @@ type MessagingV1BrandRegistrations struct {
 	// DEPRECATED. A reason why brand registration has failed. Only applicable when status is FAILED.
 	FailureReason *string `json:"failure_reason,omitempty"`
 	// A list of errors that occurred during the brand registration process.
-	Errors *[]interface{} `json:"errors,omitempty"`
+	Errors *[]map[string]interface{} `json:"errors,omitempty"`
 	// The absolute URL of the Brand Registration resource.
 	Url *string `json:"url,omitempty"`
 	// The secondary vetting score if it was done. Otherwise, it will be the brand score if it's returned from TCR. It may be null if no score is available.

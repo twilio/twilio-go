@@ -4,7 +4,7 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateVerificationCheck**](ServicesVerificationCheckApi.md#CreateVerificationCheck) | **Post** /v2/Services/{ServiceSid}/VerificationCheck | 
+[**CreateVerificationCheck**](ServicesVerificationCheckApi.md#CreateVerificationCheck) | **Post** /v2/Services/{ServiceSid}/VerificationCheck | challenge a specific Verification Check.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > VerifyV2VerificationCheck CreateVerificationCheck(ctx, ServiceSidoptional)
 
-
+challenge a specific Verification Check.
 
 challenge a specific Verification Check.
 

@@ -4,9 +4,9 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInteractionChannelParticipant**](InteractionsChannelsParticipantsApi.md#CreateInteractionChannelParticipant) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants | 
-[**ListInteractionChannelParticipant**](InteractionsChannelsParticipantsApi.md#ListInteractionChannelParticipant) | **Get** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants | 
-[**UpdateInteractionChannelParticipant**](InteractionsChannelsParticipantsApi.md#UpdateInteractionChannelParticipant) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants/{Sid} | 
+[**CreateInteractionChannelParticipant**](InteractionsChannelsParticipantsApi.md#CreateInteractionChannelParticipant) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants | Add a Participant to a Channel.
+[**ListInteractionChannelParticipant**](InteractionsChannelsParticipantsApi.md#ListInteractionChannelParticipant) | **Get** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants | List all Participants for a Channel.
+[**UpdateInteractionChannelParticipant**](InteractionsChannelsParticipantsApi.md#UpdateInteractionChannelParticipant) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants/{Sid} | Update an existing Channel Participant.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > FlexV1InteractionChannelParticipant CreateInteractionChannelParticipant(ctx, InteractionSidChannelSidoptional)
 
-
+Add a Participant to a Channel.
 
 Add a Participant to a Channel.
 
@@ -35,8 +35,8 @@ Other parameters are passed through a pointer to a CreateInteractionChannelParti
 Name | Type | Description
 ------------- | ------------- | -------------
 **Type** | **string** | 
-**MediaProperties** | [**interface{}**](interface{}.md) | JSON representing the Media Properties for the new Participant.
-**RoutingProperties** | [**interface{}**](interface{}.md) | Object representing the Routing Properties for the new Participant.
+**MediaProperties** | [**map[string]interface{}**](map[string]interface{}.md) | JSON representing the Media Properties for the new Participant.
+**RoutingProperties** | [**map[string]interface{}**](map[string]interface{}.md) | Object representing the Routing Properties for the new Participant.
 
 ### Return type
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 > []FlexV1InteractionChannelParticipant ListInteractionChannelParticipant(ctx, InteractionSidChannelSidoptional)
 
-
+List all Participants for a Channel.
 
 List all Participants for a Channel.
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 > FlexV1InteractionChannelParticipant UpdateInteractionChannelParticipant(ctx, InteractionSidChannelSidSidoptional)
 
-
+Update an existing Channel Participant.
 
 Update an existing Channel Participant.
 

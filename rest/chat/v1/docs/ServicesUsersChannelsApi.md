@@ -4,7 +4,7 @@ All URIs are relative to *https://chat.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListUserChannel**](ServicesUsersChannelsApi.md#ListUserChannel) | **Get** /v1/Services/{ServiceSid}/Users/{UserSid}/Channels | 
+[**ListUserChannel**](ServicesUsersChannelsApi.md#ListUserChannel) | **Get** /v1/Services/{ServiceSid}/Users/{UserSid}/Channels | List all Channels for a given User.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []ChatV1UserChannel ListUserChannel(ctx, ServiceSidUserSidoptional)
 
-
+List all Channels for a given User.
 
 List all Channels for a given User.
 

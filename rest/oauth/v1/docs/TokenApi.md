@@ -4,7 +4,7 @@ All URIs are relative to *https://oauth.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateToken**](TokenApi.md#CreateToken) | **Post** /v1/token | 
+[**CreateToken**](TokenApi.md#CreateToken) | **Post** /v1/token | Issues a new Access token (optionally identity_token &amp; refresh_token) in exchange of Oauth grant
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > OauthV1Token CreateToken(ctx, optional)
 
-
+Issues a new Access token (optionally identity_token & refresh_token) in exchange of Oauth grant
 
 Issues a new Access token (optionally identity_token & refresh_token) in exchange of Oauth grant
 

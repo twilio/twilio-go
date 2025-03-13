@@ -15,10 +15,10 @@ Name | Type | Description | Notes
 **TtsName** | Pointer to **string** | The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages. |
 **DoNotShareWarningEnabled** | Pointer to **bool** | Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code` |
 **CustomCodeEnabled** | Pointer to **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one. |
-**Push** | Pointer to **interface{}** | Configurations for the Push factors (channel) created under this Service. |
-**Totp** | Pointer to **interface{}** | Configurations for the TOTP factors (channel) created under this Service. |
+**Push** | Pointer to **map[string]interface{}** | Configurations for the Push factors (channel) created under this Service. |
+**Totp** | Pointer to **map[string]interface{}** | Configurations for the TOTP factors (channel) created under this Service. |
 **DefaultTemplateSid** | Pointer to **string** |  |
-**Whatsapp** | Pointer to **interface{}** |  |
+**Whatsapp** | Pointer to **map[string]interface{}** |  |
 **VerifyEventSubscriptionEnabled** | Pointer to **bool** | Whether to allow verifications from the service to reach the stream-events sinks if configured |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |

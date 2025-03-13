@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateStream**](AccountsCallsStreamsApi.md#CreateStream) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json | 
-[**UpdateStream**](AccountsCallsStreamsApi.md#UpdateStream) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json | 
+[**CreateStream**](AccountsCallsStreamsApi.md#CreateStream) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json | Create a Stream
+[**UpdateStream**](AccountsCallsStreamsApi.md#UpdateStream) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json | Stop a Stream using either the SID of the Stream resource or the &#x60;name&#x60; used when creating the resource
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ApiV2010Stream CreateStream(ctx, CallSidoptional)
 
-
+Create a Stream
 
 Create a Stream
 
@@ -259,7 +259,7 @@ Name | Type | Description
 
 > ApiV2010Stream UpdateStream(ctx, CallSidSidoptional)
 
-
+Stop a Stream using either the SID of the Stream resource or the `name` used when creating the resource
 
 Stop a Stream using either the SID of the Stream resource or the `name` used when creating the resource
 

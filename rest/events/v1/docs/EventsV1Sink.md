@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this Sink was updated, given in ISO 8601 format. |
 **Description** | Pointer to **string** | A human readable description for the Sink |
 **Sid** | Pointer to **string** | A 34 character string that uniquely identifies this Sink. |
-**SinkConfiguration** | Pointer to **interface{}** | The information required for Twilio to connect to the provided Sink encoded as JSON. |
+**SinkConfiguration** | Pointer to **map[string]interface{}** | The information required for Twilio to connect to the provided Sink encoded as JSON. |
 **SinkType** | Pointer to [**string**](SinkEnumSinkType.md) |  |
 **Status** | Pointer to [**string**](SinkEnumStatus.md) |  |
 **Url** | Pointer to **string** | The URL of this resource. |

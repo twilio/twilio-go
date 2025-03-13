@@ -4,8 +4,8 @@ All URIs are relative to *https://bulkexports.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchExportConfiguration**](ExportsConfigurationApi.md#FetchExportConfiguration) | **Get** /v1/Exports/{ResourceType}/Configuration | 
-[**UpdateExportConfiguration**](ExportsConfigurationApi.md#UpdateExportConfiguration) | **Post** /v1/Exports/{ResourceType}/Configuration | 
+[**FetchExportConfiguration**](ExportsConfigurationApi.md#FetchExportConfiguration) | **Get** /v1/Exports/{ResourceType}/Configuration | Fetch a specific Export Configuration.
+[**UpdateExportConfiguration**](ExportsConfigurationApi.md#UpdateExportConfiguration) | **Post** /v1/Exports/{ResourceType}/Configuration | Update a specific Export Configuration.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > BulkexportsV1ExportConfiguration FetchExportConfiguration(ctx, ResourceType)
 
-
+Fetch a specific Export Configuration.
 
 Fetch a specific Export Configuration.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > BulkexportsV1ExportConfiguration UpdateExportConfiguration(ctx, ResourceTypeoptional)
 
-
+Update a specific Export Configuration.
 
 Update a specific Export Configuration.
 

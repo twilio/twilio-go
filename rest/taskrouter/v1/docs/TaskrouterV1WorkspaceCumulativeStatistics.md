@@ -14,9 +14,9 @@ Name | Type | Description | Notes
 **ReservationsTimedOut** | **int** | The total number of Reservations that were timed out. |[optional] [default to 0]
 **ReservationsCanceled** | **int** | The total number of Reservations that were canceled. |[optional] [default to 0]
 **ReservationsRescinded** | **int** | The total number of Reservations that were rescinded. |[optional] [default to 0]
-**SplitByWaitTime** | Pointer to **interface{}** | A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds. |
-**WaitDurationUntilAccepted** | Pointer to **interface{}** | The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were accepted. |
-**WaitDurationUntilCanceled** | Pointer to **interface{}** | The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were canceled. |
+**SplitByWaitTime** | Pointer to **map[string]interface{}** | A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds. |
+**WaitDurationUntilAccepted** | Pointer to **map[string]interface{}** | The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were accepted. |
+**WaitDurationUntilCanceled** | Pointer to **map[string]interface{}** | The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were canceled. |
 **TasksCanceled** | **int** | The total number of Tasks that were canceled. |[optional] [default to 0]
 **TasksCompleted** | **int** | The total number of Tasks that were completed. |[optional] [default to 0]
 **TasksCreated** | **int** | The total number of Tasks created. |[optional] [default to 0]

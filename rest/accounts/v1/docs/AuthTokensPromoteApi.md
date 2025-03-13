@@ -4,7 +4,7 @@ All URIs are relative to *https://accounts.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**UpdateAuthTokenPromotion**](AuthTokensPromoteApi.md#UpdateAuthTokenPromotion) | **Post** /v1/AuthTokens/Promote | 
+[**UpdateAuthTokenPromotion**](AuthTokensPromoteApi.md#UpdateAuthTokenPromotion) | **Post** /v1/AuthTokens/Promote | Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > AccountsV1AuthTokenPromotion UpdateAuthTokenPromotion(ctx, )
 
-
+Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
 
 Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
 

@@ -4,8 +4,8 @@ All URIs are relative to *https://video.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchRoomParticipantSubscribeRule**](RoomsParticipantsSubscribeRulesApi.md#FetchRoomParticipantSubscribeRule) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules | 
-[**UpdateRoomParticipantSubscribeRule**](RoomsParticipantsSubscribeRulesApi.md#UpdateRoomParticipantSubscribeRule) | **Post** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules | 
+[**FetchRoomParticipantSubscribeRule**](RoomsParticipantsSubscribeRulesApi.md#FetchRoomParticipantSubscribeRule) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules | Returns a list of Subscribe Rules for the Participant.
+[**UpdateRoomParticipantSubscribeRule**](RoomsParticipantsSubscribeRulesApi.md#UpdateRoomParticipantSubscribeRule) | **Post** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules | Update the Subscribe Rules for the Participant
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > VideoV1RoomParticipantSubscribeRule FetchRoomParticipantSubscribeRule(ctx, RoomSidParticipantSid)
 
-
+Returns a list of Subscribe Rules for the Participant.
 
 Returns a list of Subscribe Rules for the Participant.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > VideoV1RoomParticipantSubscribeRule UpdateRoomParticipantSubscribeRule(ctx, RoomSidParticipantSidoptional)
 
-
+Update the Subscribe Rules for the Participant
 
 Update the Subscribe Rules for the Participant
 
@@ -76,7 +76,7 @@ Other parameters are passed through a pointer to a UpdateRoomParticipantSubscrib
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Rules** | [**interface{}**](interface{}.md) | A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+**Rules** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 
 ### Return type
 

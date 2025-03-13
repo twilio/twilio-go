@@ -4,7 +4,7 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateConversationWithParticipants**](ConversationWithParticipantsApi.md#CreateConversationWithParticipants) | **Post** /v1/ConversationWithParticipants | 
+[**CreateConversationWithParticipants**](ConversationWithParticipantsApi.md#CreateConversationWithParticipants) | **Post** /v1/ConversationWithParticipants | Create a new conversation with the list of participants in your account&#39;s default service
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ConversationWithParticipants CreateConversationWithParticipants(ctx, optional)
 
-
+Create a new conversation with the list of participants in your account's default service
 
 Create a new conversation with the list of participants in your account's default service
 

@@ -26,10 +26,10 @@ import (
 // Optional parameters for the method 'CreateInteractionChannelInvite'
 type CreateInteractionChannelInviteParams struct {
 	// The Interaction's routing logic.
-	Routing *interface{} `json:"Routing,omitempty"`
+	Routing *map[string]interface{} `json:"Routing,omitempty"`
 }
 
-func (params *CreateInteractionChannelInviteParams) SetRouting(Routing interface{}) *CreateInteractionChannelInviteParams {
+func (params *CreateInteractionChannelInviteParams) SetRouting(Routing map[string]interface{}) *CreateInteractionChannelInviteParams {
 	params.Routing = &Routing
 	return params
 }

@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSipDomain**](AccountsSIPDomainsApi.md#CreateSipDomain) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains.json | 
-[**DeleteSipDomain**](AccountsSIPDomainsApi.md#DeleteSipDomain) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json | 
-[**FetchSipDomain**](AccountsSIPDomainsApi.md#FetchSipDomain) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json | 
-[**ListSipDomain**](AccountsSIPDomainsApi.md#ListSipDomain) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains.json | 
-[**UpdateSipDomain**](AccountsSIPDomainsApi.md#UpdateSipDomain) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json | 
+[**CreateSipDomain**](AccountsSIPDomainsApi.md#CreateSipDomain) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains.json | Create a new Domain
+[**DeleteSipDomain**](AccountsSIPDomainsApi.md#DeleteSipDomain) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json | Delete an instance of a Domain
+[**FetchSipDomain**](AccountsSIPDomainsApi.md#FetchSipDomain) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json | Fetch an instance of a Domain
+[**ListSipDomain**](AccountsSIPDomainsApi.md#ListSipDomain) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains.json | Retrieve a list of domains belonging to the account used to make the request
+[**UpdateSipDomain**](AccountsSIPDomainsApi.md#UpdateSipDomain) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json | Update the attributes of a domain
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010SipDomain CreateSipDomain(ctx, optional)
 
-
+Create a new Domain
 
 Create a new Domain
 
@@ -68,7 +68,7 @@ Name | Type | Description
 
 > DeleteSipDomain(ctx, Sidoptional)
 
-
+Delete an instance of a Domain
 
 Delete an instance of a Domain
 
@@ -111,7 +111,7 @@ Name | Type | Description
 
 > ApiV2010SipDomain FetchSipDomain(ctx, Sidoptional)
 
-
+Fetch an instance of a Domain
 
 Fetch an instance of a Domain
 
@@ -154,7 +154,7 @@ Name | Type | Description
 
 > []ApiV2010SipDomain ListSipDomain(ctx, optional)
 
-
+Retrieve a list of domains belonging to the account used to make the request
 
 Retrieve a list of domains belonging to the account used to make the request
 
@@ -195,7 +195,7 @@ Name | Type | Description
 
 > ApiV2010SipDomain UpdateSipDomain(ctx, Sidoptional)
 
-
+Update the attributes of a domain
 
 Update the attributes of a domain
 

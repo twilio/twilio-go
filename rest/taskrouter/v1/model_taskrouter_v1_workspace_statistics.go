@@ -17,9 +17,9 @@ package openapi
 // TaskrouterV1WorkspaceStatistics struct for TaskrouterV1WorkspaceStatistics
 type TaskrouterV1WorkspaceStatistics struct {
 	// An object that contains the real-time statistics for the Workspace.
-	Realtime *interface{} `json:"realtime,omitempty"`
+	Realtime *map[string]interface{} `json:"realtime,omitempty"`
 	// An object that contains the cumulative statistics for the Workspace.
-	Cumulative *interface{} `json:"cumulative,omitempty"`
+	Cumulative *map[string]interface{} `json:"cumulative,omitempty"`
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the Workspace.

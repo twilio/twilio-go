@@ -4,9 +4,9 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchShortCode**](AccountsSMSShortCodesApi.md#FetchShortCode) | **Get** /2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json | 
-[**ListShortCode**](AccountsSMSShortCodesApi.md#ListShortCode) | **Get** /2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json | 
-[**UpdateShortCode**](AccountsSMSShortCodesApi.md#UpdateShortCode) | **Post** /2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json | 
+[**FetchShortCode**](AccountsSMSShortCodesApi.md#FetchShortCode) | **Get** /2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json | Fetch an instance of a short code
+[**ListShortCode**](AccountsSMSShortCodesApi.md#ListShortCode) | **Get** /2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json | Retrieve a list of short-codes belonging to the account used to make the request
+[**UpdateShortCode**](AccountsSMSShortCodesApi.md#UpdateShortCode) | **Post** /2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json | Update a short code with the following parameters
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > ApiV2010ShortCode FetchShortCode(ctx, Sidoptional)
 
-
+Fetch an instance of a short code
 
 Fetch an instance of a short code
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []ApiV2010ShortCode ListShortCode(ctx, optional)
 
-
+Retrieve a list of short-codes belonging to the account used to make the request
 
 Retrieve a list of short-codes belonging to the account used to make the request
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > ApiV2010ShortCode UpdateShortCode(ctx, Sidoptional)
 
-
+Update a short code with the following parameters
 
 Update a short code with the following parameters
 

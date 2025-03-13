@@ -4,7 +4,7 @@ All URIs are relative to *https://microvisor.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchAppManifest**](AppsManifestApi.md#FetchAppManifest) | **Get** /v1/Apps/{AppSid}/Manifest | 
+[**FetchAppManifest**](AppsManifestApi.md#FetchAppManifest) | **Get** /v1/Apps/{AppSid}/Manifest | Retrieve the Manifest for an App.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > MicrovisorV1AppManifest FetchAppManifest(ctx, AppSid)
 
-
+Retrieve the Manifest for an App.
 
 Retrieve the Manifest for an App.
 

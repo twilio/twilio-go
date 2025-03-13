@@ -31,8 +31,8 @@ All URIs are relative to *https://frontline-api.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*UsersApi* | [**FetchUser**](docs/UsersApi.md#fetchuser) | **Get** /v1/Users/{Sid} | 
-*UsersApi* | [**UpdateUser**](docs/UsersApi.md#updateuser) | **Post** /v1/Users/{Sid} | 
+*UsersApi* | [**FetchUser**](docs/UsersApi.md#fetchuser) | **Get** /v1/Users/{Sid} | Fetch a frontline user
+*UsersApi* | [**UpdateUser**](docs/UsersApi.md#updateuser) | **Post** /v1/Users/{Sid} | Update an existing frontline user
 
 
 ## Documentation For Models

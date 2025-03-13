@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateConfigurationAddress**](ConfigurationAddressesApi.md#CreateConfigurationAddress) | **Post** /v1/Configuration/Addresses | 
-[**DeleteConfigurationAddress**](ConfigurationAddressesApi.md#DeleteConfigurationAddress) | **Delete** /v1/Configuration/Addresses/{Sid} | 
-[**FetchConfigurationAddress**](ConfigurationAddressesApi.md#FetchConfigurationAddress) | **Get** /v1/Configuration/Addresses/{Sid} | 
-[**ListConfigurationAddress**](ConfigurationAddressesApi.md#ListConfigurationAddress) | **Get** /v1/Configuration/Addresses | 
-[**UpdateConfigurationAddress**](ConfigurationAddressesApi.md#UpdateConfigurationAddress) | **Post** /v1/Configuration/Addresses/{Sid} | 
+[**CreateConfigurationAddress**](ConfigurationAddressesApi.md#CreateConfigurationAddress) | **Post** /v1/Configuration/Addresses | Create a new address configuration
+[**DeleteConfigurationAddress**](ConfigurationAddressesApi.md#DeleteConfigurationAddress) | **Delete** /v1/Configuration/Addresses/{Sid} | Remove an existing address configuration
+[**FetchConfigurationAddress**](ConfigurationAddressesApi.md#FetchConfigurationAddress) | **Get** /v1/Configuration/Addresses/{Sid} | Fetch an address configuration 
+[**ListConfigurationAddress**](ConfigurationAddressesApi.md#ListConfigurationAddress) | **Get** /v1/Configuration/Addresses | Retrieve a list of address configurations for an account
+[**UpdateConfigurationAddress**](ConfigurationAddressesApi.md#UpdateConfigurationAddress) | **Post** /v1/Configuration/Addresses/{Sid} | Update an existing address configuration
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ConfigurationAddress CreateConfigurationAddress(ctx, optional)
 
-
+Create a new address configuration
 
 Create a new address configuration
 
@@ -66,7 +66,7 @@ Name | Type | Description
 
 > DeleteConfigurationAddress(ctx, Sid)
 
-
+Remove an existing address configuration
 
 Remove an existing address configuration
 
@@ -108,7 +108,7 @@ Name | Type | Description
 
 > ConversationsV1ConfigurationAddress FetchConfigurationAddress(ctx, Sid)
 
-
+Fetch an address configuration 
 
 Fetch an address configuration 
 
@@ -150,7 +150,7 @@ Name | Type | Description
 
 > []ConversationsV1ConfigurationAddress ListConfigurationAddress(ctx, optional)
 
-
+Retrieve a list of address configurations for an account
 
 Retrieve a list of address configurations for an account
 
@@ -191,7 +191,7 @@ Name | Type | Description
 
 > ConversationsV1ConfigurationAddress UpdateConfigurationAddress(ctx, Sidoptional)
 
-
+Update an existing address configuration
 
 Update an existing address configuration
 

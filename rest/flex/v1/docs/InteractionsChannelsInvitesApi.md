@@ -4,8 +4,8 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInteractionChannelInvite**](InteractionsChannelsInvitesApi.md#CreateInteractionChannelInvite) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites | 
-[**ListInteractionChannelInvite**](InteractionsChannelsInvitesApi.md#ListInteractionChannelInvite) | **Get** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites | 
+[**CreateInteractionChannelInvite**](InteractionsChannelsInvitesApi.md#CreateInteractionChannelInvite) | **Post** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites | Invite an Agent or a TaskQueue to a Channel.
+[**ListInteractionChannelInvite**](InteractionsChannelsInvitesApi.md#ListInteractionChannelInvite) | **Get** /v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites | List all Invites for a Channel.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > FlexV1InteractionChannelInvite CreateInteractionChannelInvite(ctx, InteractionSidChannelSidoptional)
 
-
+Invite an Agent or a TaskQueue to a Channel.
 
 Invite an Agent or a TaskQueue to a Channel.
 
@@ -33,7 +33,7 @@ Other parameters are passed through a pointer to a CreateInteractionChannelInvit
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Routing** | [**interface{}**](interface{}.md) | The Interaction's routing logic.
+**Routing** | [**map[string]interface{}**](map[string]interface{}.md) | The Interaction's routing logic.
 
 ### Return type
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []FlexV1InteractionChannelInvite ListInteractionChannelInvite(ctx, InteractionSidChannelSidoptional)
 
-
+List all Invites for a Channel.
 
 List all Invites for a Channel.
 

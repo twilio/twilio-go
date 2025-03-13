@@ -4,11 +4,11 @@ All URIs are relative to *https://proxy.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateService**](ServicesApi.md#CreateService) | **Post** /v1/Services | 
-[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | 
-[**FetchService**](ServicesApi.md#FetchService) | **Get** /v1/Services/{Sid} | 
-[**ListService**](ServicesApi.md#ListService) | **Get** /v1/Services | 
-[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v1/Services/{Sid} | 
+[**CreateService**](ServicesApi.md#CreateService) | **Post** /v1/Services | Create a new Service for Twilio Proxy
+[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | Delete a specific Service.
+[**FetchService**](ServicesApi.md#FetchService) | **Get** /v1/Services/{Sid} | Fetch a specific Service.
+[**ListService**](ServicesApi.md#ListService) | **Get** /v1/Services | Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page.
+[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v1/Services/{Sid} | Update a specific Service.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ProxyV1Service CreateService(ctx, optional)
 
-
+Create a new Service for Twilio Proxy
 
 Create a new Service for Twilio Proxy
 
@@ -62,7 +62,7 @@ Name | Type | Description
 
 > DeleteService(ctx, Sid)
 
-
+Delete a specific Service.
 
 Delete a specific Service.
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > ProxyV1Service FetchService(ctx, Sid)
 
-
+Fetch a specific Service.
 
 Fetch a specific Service.
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []ProxyV1Service ListService(ctx, optional)
 
-
+Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page.
 
 Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page.
 
@@ -186,7 +186,7 @@ Name | Type | Description
 
 > ProxyV1Service UpdateService(ctx, Sidoptional)
 
-
+Update a specific Service.
 
 Update a specific Service.
 

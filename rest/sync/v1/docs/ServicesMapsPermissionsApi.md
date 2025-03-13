@@ -4,10 +4,10 @@ All URIs are relative to *https://sync.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteSyncMapPermission**](ServicesMapsPermissionsApi.md#DeleteSyncMapPermission) | **Delete** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | 
-[**FetchSyncMapPermission**](ServicesMapsPermissionsApi.md#FetchSyncMapPermission) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | 
-[**ListSyncMapPermission**](ServicesMapsPermissionsApi.md#ListSyncMapPermission) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions | 
-[**UpdateSyncMapPermission**](ServicesMapsPermissionsApi.md#UpdateSyncMapPermission) | **Post** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | 
+[**DeleteSyncMapPermission**](ServicesMapsPermissionsApi.md#DeleteSyncMapPermission) | **Delete** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | Delete a specific Sync Map Permission.
+[**FetchSyncMapPermission**](ServicesMapsPermissionsApi.md#FetchSyncMapPermission) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | Fetch a specific Sync Map Permission.
+[**ListSyncMapPermission**](ServicesMapsPermissionsApi.md#ListSyncMapPermission) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions | Retrieve a list of all Permissions applying to a Sync Map.
+[**UpdateSyncMapPermission**](ServicesMapsPermissionsApi.md#UpdateSyncMapPermission) | **Post** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | Update an identity&#39;s access to a specific Sync Map.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeleteSyncMapPermission(ctx, ServiceSidMapSidIdentity)
 
-
+Delete a specific Sync Map Permission.
 
 Delete a specific Sync Map Permission.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > SyncV1SyncMapPermission FetchSyncMapPermission(ctx, ServiceSidMapSidIdentity)
 
-
+Fetch a specific Sync Map Permission.
 
 Fetch a specific Sync Map Permission.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > []SyncV1SyncMapPermission ListSyncMapPermission(ctx, ServiceSidMapSidoptional)
 
-
+Retrieve a list of all Permissions applying to a Sync Map.
 
 Retrieve a list of all Permissions applying to a Sync Map.
 
@@ -148,7 +148,7 @@ Name | Type | Description
 
 > SyncV1SyncMapPermission UpdateSyncMapPermission(ctx, ServiceSidMapSidIdentityoptional)
 
-
+Update an identity's access to a specific Sync Map.
 
 Update an identity's access to a specific Sync Map.
 

@@ -31,20 +31,20 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*HostedNumberEligibilityApi* | [**CreateEligibility**](docs/HostedNumberEligibilityApi.md#createeligibility) | **Post** /v1/HostedNumber/Eligibility | 
-*HostedNumberEligibilityBulkApi* | [**CreateBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#createbulkeligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | 
-*HostedNumberEligibilityBulkApi* | [**FetchBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#fetchbulkeligibility) | **Get** /v1/HostedNumber/Eligibility/Bulk/{RequestId} | 
-*PortingConfigurationWebhookApi* | [**CreatePortingWebhookConfiguration**](docs/PortingConfigurationWebhookApi.md#createportingwebhookconfiguration) | **Post** /v1/Porting/Configuration/Webhook | 
-*PortingConfigurationWebhookApi* | [**DeletePortingWebhookConfigurationDelete**](docs/PortingConfigurationWebhookApi.md#deleteportingwebhookconfigurationdelete) | **Delete** /v1/Porting/Configuration/Webhook/{WebhookType} | 
-*PortingConfigurationWebhookApi* | [**FetchPortingWebhookConfigurationFetch**](docs/PortingConfigurationWebhookApi.md#fetchportingwebhookconfigurationfetch) | **Get** /v1/Porting/Configuration/Webhook | 
-*PortingPortInApi* | [**CreatePortingPortIn**](docs/PortingPortInApi.md#createportingportin) | **Post** /v1/Porting/PortIn | 
-*PortingPortInApi* | [**DeletePortingPortIn**](docs/PortingPortInApi.md#deleteportingportin) | **Delete** /v1/Porting/PortIn/{PortInRequestSid} | 
-*PortingPortInApi* | [**FetchPortingPortIn**](docs/PortingPortInApi.md#fetchportingportin) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | 
-*PortingPortInPhoneNumberApi* | [**DeletePortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#deleteportingportinphonenumber) | **Delete** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | 
-*PortingPortInPhoneNumberApi* | [**FetchPortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#fetchportingportinphonenumber) | **Get** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | 
-*PortingPortabilityPhoneNumberApi* | [**FetchPortingPortability**](docs/PortingPortabilityPhoneNumberApi.md#fetchportingportability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | 
-*SigningRequestConfigurationApi* | [**CreateSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#createsigningrequestconfiguration) | **Post** /v1/SigningRequest/Configuration | 
-*SigningRequestConfigurationApi* | [**ListSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#listsigningrequestconfiguration) | **Get** /v1/SigningRequest/Configuration | 
+*HostedNumberEligibilityApi* | [**CreateEligibility**](docs/HostedNumberEligibilityApi.md#createeligibility) | **Post** /v1/HostedNumber/Eligibility | Create an eligibility check for a number that you want to host in Twilio.
+*HostedNumberEligibilityBulkApi* | [**CreateBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#createbulkeligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
+*HostedNumberEligibilityBulkApi* | [**FetchBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#fetchbulkeligibility) | **Get** /v1/HostedNumber/Eligibility/Bulk/{RequestId} | Fetch an eligibility bulk check that you requested to host in Twilio.
+*PortingConfigurationWebhookApi* | [**CreatePortingWebhookConfiguration**](docs/PortingConfigurationWebhookApi.md#createportingwebhookconfiguration) | **Post** /v1/Porting/Configuration/Webhook | Create a Webhook Configuration
+*PortingConfigurationWebhookApi* | [**DeletePortingWebhookConfigurationDelete**](docs/PortingConfigurationWebhookApi.md#deleteportingwebhookconfigurationdelete) | **Delete** /v1/Porting/Configuration/Webhook/{WebhookType} | Allows the client to delete a webhook configuration.
+*PortingConfigurationWebhookApi* | [**FetchPortingWebhookConfigurationFetch**](docs/PortingConfigurationWebhookApi.md#fetchportingwebhookconfigurationfetch) | **Get** /v1/Porting/Configuration/Webhook | Allows to fetch the webhook configuration
+*PortingPortInApi* | [**CreatePortingPortIn**](docs/PortingPortInApi.md#createportingportin) | **Post** /v1/Porting/PortIn | Allows to create a new port in request
+*PortingPortInApi* | [**DeletePortingPortIn**](docs/PortingPortInApi.md#deleteportingportin) | **Delete** /v1/Porting/PortIn/{PortInRequestSid} | Allows to cancel a port in request by SID
+*PortingPortInApi* | [**FetchPortingPortIn**](docs/PortingPortInApi.md#fetchportingportin) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | Fetch a port in request by SID
+*PortingPortInPhoneNumberApi* | [**DeletePortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#deleteportingportinphonenumber) | **Delete** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | Allows to cancel a port in request phone number by SID
+*PortingPortInPhoneNumberApi* | [**FetchPortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#fetchportingportinphonenumber) | **Get** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | Fetch a phone number by port in request SID and phone number SID
+*PortingPortabilityPhoneNumberApi* | [**FetchPortingPortability**](docs/PortingPortabilityPhoneNumberApi.md#fetchportingportability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | Check if a single phone number can be ported to Twilio
+*SigningRequestConfigurationApi* | [**CreateSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#createsigningrequestconfiguration) | **Post** /v1/SigningRequest/Configuration | Synchronous operation to insert or update a configuration for the customer.
+*SigningRequestConfigurationApi* | [**ListSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#listsigningrequestconfiguration) | **Get** /v1/SigningRequest/Configuration | Synchronous operation to retrieve configurations for the customer.
 
 
 ## Documentation For Models

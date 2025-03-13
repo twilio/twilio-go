@@ -4,10 +4,10 @@ All URIs are relative to *https://sync.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteSyncListPermission**](ServicesListsPermissionsApi.md#DeleteSyncListPermission) | **Delete** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | 
-[**FetchSyncListPermission**](ServicesListsPermissionsApi.md#FetchSyncListPermission) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | 
-[**ListSyncListPermission**](ServicesListsPermissionsApi.md#ListSyncListPermission) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions | 
-[**UpdateSyncListPermission**](ServicesListsPermissionsApi.md#UpdateSyncListPermission) | **Post** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | 
+[**DeleteSyncListPermission**](ServicesListsPermissionsApi.md#DeleteSyncListPermission) | **Delete** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | Delete a specific Sync List Permission.
+[**FetchSyncListPermission**](ServicesListsPermissionsApi.md#FetchSyncListPermission) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | Fetch a specific Sync List Permission.
+[**ListSyncListPermission**](ServicesListsPermissionsApi.md#ListSyncListPermission) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions | Retrieve a list of all Permissions applying to a Sync List.
+[**UpdateSyncListPermission**](ServicesListsPermissionsApi.md#UpdateSyncListPermission) | **Post** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | Update an identity&#39;s access to a specific Sync List.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeleteSyncListPermission(ctx, ServiceSidListSidIdentity)
 
-
+Delete a specific Sync List Permission.
 
 Delete a specific Sync List Permission.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > SyncV1SyncListPermission FetchSyncListPermission(ctx, ServiceSidListSidIdentity)
 
-
+Fetch a specific Sync List Permission.
 
 Fetch a specific Sync List Permission.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > []SyncV1SyncListPermission ListSyncListPermission(ctx, ServiceSidListSidoptional)
 
-
+Retrieve a list of all Permissions applying to a Sync List.
 
 Retrieve a list of all Permissions applying to a Sync List.
 
@@ -148,7 +148,7 @@ Name | Type | Description
 
 > SyncV1SyncListPermission UpdateSyncListPermission(ctx, ServiceSidListSidIdentityoptional)
 
-
+Update an identity's access to a specific Sync List.
 
 Update an identity's access to a specific Sync List.
 

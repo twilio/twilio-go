@@ -4,10 +4,10 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConnectApp**](AccountsConnectAppsApi.md#DeleteConnectApp) | **Delete** /2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json | 
-[**FetchConnectApp**](AccountsConnectAppsApi.md#FetchConnectApp) | **Get** /2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json | 
-[**ListConnectApp**](AccountsConnectAppsApi.md#ListConnectApp) | **Get** /2010-04-01/Accounts/{AccountSid}/ConnectApps.json | 
-[**UpdateConnectApp**](AccountsConnectAppsApi.md#UpdateConnectApp) | **Post** /2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json | 
+[**DeleteConnectApp**](AccountsConnectAppsApi.md#DeleteConnectApp) | **Delete** /2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json | Delete an instance of a connect-app
+[**FetchConnectApp**](AccountsConnectAppsApi.md#FetchConnectApp) | **Get** /2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json | Fetch an instance of a connect-app
+[**ListConnectApp**](AccountsConnectAppsApi.md#ListConnectApp) | **Get** /2010-04-01/Accounts/{AccountSid}/ConnectApps.json | Retrieve a list of connect-apps belonging to the account used to make the request
+[**UpdateConnectApp**](AccountsConnectAppsApi.md#UpdateConnectApp) | **Post** /2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json | Update a connect-app with the specified parameters
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeleteConnectApp(ctx, Sidoptional)
 
-
+Delete an instance of a connect-app
 
 Delete an instance of a connect-app
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > ApiV2010ConnectApp FetchConnectApp(ctx, Sidoptional)
 
-
+Fetch an instance of a connect-app
 
 Fetch an instance of a connect-app
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > []ApiV2010ConnectApp ListConnectApp(ctx, optional)
 
-
+Retrieve a list of connect-apps belonging to the account used to make the request
 
 Retrieve a list of connect-apps belonging to the account used to make the request
 
@@ -142,7 +142,7 @@ Name | Type | Description
 
 > ApiV2010ConnectApp UpdateConnectApp(ctx, Sidoptional)
 
-
+Update a connect-app with the specified parameters
 
 Update a connect-app with the specified parameters
 

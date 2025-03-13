@@ -4,10 +4,10 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateTranscript**](TranscriptsApi.md#CreateTranscript) | **Post** /v2/Transcripts | 
-[**DeleteTranscript**](TranscriptsApi.md#DeleteTranscript) | **Delete** /v2/Transcripts/{Sid} | 
-[**FetchTranscript**](TranscriptsApi.md#FetchTranscript) | **Get** /v2/Transcripts/{Sid} | 
-[**ListTranscript**](TranscriptsApi.md#ListTranscript) | **Get** /v2/Transcripts | 
+[**CreateTranscript**](TranscriptsApi.md#CreateTranscript) | **Post** /v2/Transcripts | Create a new Transcript for the service
+[**DeleteTranscript**](TranscriptsApi.md#DeleteTranscript) | **Delete** /v2/Transcripts/{Sid} | Delete a specific Transcript.
+[**FetchTranscript**](TranscriptsApi.md#FetchTranscript) | **Get** /v2/Transcripts/{Sid} | Fetch a specific Transcript.
+[**ListTranscript**](TranscriptsApi.md#ListTranscript) | **Get** /v2/Transcripts | Retrieve a list of Transcripts for a given service.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > IntelligenceV2Transcript CreateTranscript(ctx, optional)
 
-
+Create a new Transcript for the service
 
 Create a new Transcript for the service
 
@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateTranscriptParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **ServiceSid** | **string** | The unique SID identifier of the Service.
-**Channel** | [**interface{}**](interface{}.md) | JSON object describing Media Channel including Source and Participants
+**Channel** | [**map[string]interface{}**](map[string]interface{}.md) | JSON object describing Media Channel including Source and Participants
 **CustomerKey** | **string** | Used to store client provided metadata. Maximum of 64 double-byte UTF8 characters.
 **MediaStartTime** | **time.Time** | The date that this Transcript's media was started, given in ISO 8601 format.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteTranscript(ctx, Sid)
 
-
+Delete a specific Transcript.
 
 Delete a specific Transcript.
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > IntelligenceV2Transcript FetchTranscript(ctx, Sid)
 
-
+Fetch a specific Transcript.
 
 Fetch a specific Transcript.
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 > []IntelligenceV2Transcript ListTranscript(ctx, optional)
 
-
+Retrieve a list of Transcripts for a given service.
 
 Retrieve a list of Transcripts for a given service.
 

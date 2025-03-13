@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateUserDefinedMessageSubscription**](AccountsCallsUserDefinedMessageSubscriptionsApi.md#CreateUserDefinedMessageSubscription) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json | 
-[**DeleteUserDefinedMessageSubscription**](AccountsCallsUserDefinedMessageSubscriptionsApi.md#DeleteUserDefinedMessageSubscription) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json | 
+[**CreateUserDefinedMessageSubscription**](AccountsCallsUserDefinedMessageSubscriptionsApi.md#CreateUserDefinedMessageSubscription) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json | Subscribe to User Defined Messages for a given Call SID.
+[**DeleteUserDefinedMessageSubscription**](AccountsCallsUserDefinedMessageSubscriptionsApi.md#DeleteUserDefinedMessageSubscription) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json | Delete a specific User Defined Message Subscription.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ApiV2010UserDefinedMessageSubscription CreateUserDefinedMessageSubscription(ctx, CallSidoptional)
 
-
+Subscribe to User Defined Messages for a given Call SID.
 
 Subscribe to User Defined Messages for a given Call SID.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteUserDefinedMessageSubscription(ctx, CallSidSidoptional)
 
-
+Delete a specific User Defined Message Subscription.
 
 Delete a specific User Defined Message Subscription.
 

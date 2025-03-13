@@ -4,11 +4,11 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEndUser**](RegulatoryComplianceEndUsersApi.md#CreateEndUser) | **Post** /v2/RegulatoryCompliance/EndUsers | 
-[**DeleteEndUser**](RegulatoryComplianceEndUsersApi.md#DeleteEndUser) | **Delete** /v2/RegulatoryCompliance/EndUsers/{Sid} | 
-[**FetchEndUser**](RegulatoryComplianceEndUsersApi.md#FetchEndUser) | **Get** /v2/RegulatoryCompliance/EndUsers/{Sid} | 
-[**ListEndUser**](RegulatoryComplianceEndUsersApi.md#ListEndUser) | **Get** /v2/RegulatoryCompliance/EndUsers | 
-[**UpdateEndUser**](RegulatoryComplianceEndUsersApi.md#UpdateEndUser) | **Post** /v2/RegulatoryCompliance/EndUsers/{Sid} | 
+[**CreateEndUser**](RegulatoryComplianceEndUsersApi.md#CreateEndUser) | **Post** /v2/RegulatoryCompliance/EndUsers | Create a new End User.
+[**DeleteEndUser**](RegulatoryComplianceEndUsersApi.md#DeleteEndUser) | **Delete** /v2/RegulatoryCompliance/EndUsers/{Sid} | Delete a specific End User.
+[**FetchEndUser**](RegulatoryComplianceEndUsersApi.md#FetchEndUser) | **Get** /v2/RegulatoryCompliance/EndUsers/{Sid} | Fetch specific End User Instance.
+[**ListEndUser**](RegulatoryComplianceEndUsersApi.md#ListEndUser) | **Get** /v2/RegulatoryCompliance/EndUsers | Retrieve a list of all End User for an account.
+[**UpdateEndUser**](RegulatoryComplianceEndUsersApi.md#UpdateEndUser) | **Post** /v2/RegulatoryCompliance/EndUsers/{Sid} | Update an existing End User.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > NumbersV2EndUser CreateEndUser(ctx, optional)
 
-
+Create a new End User.
 
 Create a new End User.
 
@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **Type** | **string** | 
-**Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
 ### Return type
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteEndUser(ctx, Sid)
 
-
+Delete a specific End User.
 
 Delete a specific End User.
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > NumbersV2EndUser FetchEndUser(ctx, Sid)
 
-
+Fetch specific End User Instance.
 
 Fetch specific End User Instance.
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 > []NumbersV2EndUser ListEndUser(ctx, optional)
 
-
+Retrieve a list of all End User for an account.
 
 Retrieve a list of all End User for an account.
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 > NumbersV2EndUser UpdateEndUser(ctx, Sidoptional)
 
-
+Update an existing End User.
 
 Update an existing End User.
 
@@ -201,7 +201,7 @@ Other parameters are passed through a pointer to a UpdateEndUserParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
 ### Return type
 

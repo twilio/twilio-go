@@ -87,9 +87,9 @@ type MessagingV1TollfreeVerification struct {
 	// If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
 	EditAllowed *bool `json:"edit_allowed,omitempty"`
 	// A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
-	RejectionReasons *[]interface{} `json:"rejection_reasons,omitempty"`
+	RejectionReasons *[]map[string]interface{} `json:"rejection_reasons,omitempty"`
 	// The URLs of the documents associated with the Tollfree Verification resource.
-	ResourceLinks *interface{} `json:"resource_links,omitempty"`
+	ResourceLinks *map[string]interface{} `json:"resource_links,omitempty"`
 	// An optional external reference ID supplied by customer and echoed back on status retrieval.
 	ExternalReferenceId *string `json:"external_reference_id,omitempty"`
 }

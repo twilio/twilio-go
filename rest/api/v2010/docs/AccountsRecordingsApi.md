@@ -4,9 +4,9 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteRecording**](AccountsRecordingsApi.md#DeleteRecording) | **Delete** /2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json | 
-[**FetchRecording**](AccountsRecordingsApi.md#FetchRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json | 
-[**ListRecording**](AccountsRecordingsApi.md#ListRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings.json | 
+[**DeleteRecording**](AccountsRecordingsApi.md#DeleteRecording) | **Delete** /2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json | Delete a recording from your account
+[**FetchRecording**](AccountsRecordingsApi.md#FetchRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json | Fetch an instance of a recording
+[**ListRecording**](AccountsRecordingsApi.md#ListRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings.json | Retrieve a list of recordings belonging to the account used to make the request
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > DeleteRecording(ctx, Sidoptional)
 
-
+Delete a recording from your account
 
 Delete a recording from your account
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > ApiV2010Recording FetchRecording(ctx, Sidoptional)
 
-
+Fetch an instance of a recording
 
 Fetch an instance of a recording
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > []ApiV2010Recording ListRecording(ctx, optional)
 
-
+Retrieve a list of recordings belonging to the account used to make the request
 
 Retrieve a list of recordings belonging to the account used to make the request
 
