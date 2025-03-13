@@ -18,8 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
-	"time"
 
 	"github.com/twilio/twilio-go/client"
 )

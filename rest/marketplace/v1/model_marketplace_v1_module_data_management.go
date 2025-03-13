@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // MarketplaceV1ModuleDataManagement struct for MarketplaceV1ModuleDataManagement
 type MarketplaceV1ModuleDataManagement struct {
 	// URL to query the subresource.

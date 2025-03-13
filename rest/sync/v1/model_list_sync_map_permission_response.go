@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSyncMapPermissionResponse struct for ListSyncMapPermissionResponse
 type ListSyncMapPermissionResponse struct {
 	Permissions []SyncV1SyncMapPermission `json:"permissions,omitempty"`

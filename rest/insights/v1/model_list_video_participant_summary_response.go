@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListVideoParticipantSummaryResponse struct for ListVideoParticipantSummaryResponse
 type ListVideoParticipantSummaryResponse struct {
 	Participants []InsightsV1VideoParticipantSummary `json:"participants,omitempty"`

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListAvailableAddOnResponse struct for ListAvailableAddOnResponse
 type ListAvailableAddOnResponse struct {
 	AvailableAddOns []MarketplaceV1AvailableAddOn  `json:"available_add_ons,omitempty"`

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // VideoV1RecordingSettings struct for VideoV1RecordingSettings
 type VideoV1RecordingSettings struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RecordingSettings resource.

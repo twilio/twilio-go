@@ -4,8 +4,8 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchServiceConfiguration**](ServicesConfigurationApi.md#FetchServiceConfiguration) | **Get** /v1/Services/{ChatServiceSid}/Configuration | 
-[**UpdateServiceConfiguration**](ServicesConfigurationApi.md#UpdateServiceConfiguration) | **Post** /v1/Services/{ChatServiceSid}/Configuration | 
+[**FetchServiceConfiguration**](ServicesConfigurationApi.md#FetchServiceConfiguration) | **Get** /v1/Services/{ChatServiceSid}/Configuration | Fetch the configuration of a conversation service
+[**UpdateServiceConfiguration**](ServicesConfigurationApi.md#UpdateServiceConfiguration) | **Post** /v1/Services/{ChatServiceSid}/Configuration | Update configuration settings of a conversation service
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ServiceConfiguration FetchServiceConfiguration(ctx, ChatServiceSid)
 
-
+Fetch the configuration of a conversation service
 
 Fetch the configuration of a conversation service
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConfiguration UpdateServiceConfiguration(ctx, ChatServiceSidoptional)
 
-
+Update configuration settings of a conversation service
 
 Update configuration settings of a conversation service
 

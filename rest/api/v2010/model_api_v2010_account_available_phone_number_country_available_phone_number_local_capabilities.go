@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are: `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
 type ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities struct {
 	Mms   bool `json:"mms,omitempty"`

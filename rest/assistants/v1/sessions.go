@@ -18,7 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -26,7 +25,7 @@ import (
 // get a session
 func (c *ApiService) FetchSession(Id string) (*AssistantsV1Session, error) {
 	path := "/v1/Sessions/{id}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

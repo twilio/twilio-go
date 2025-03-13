@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // MarketplaceV1TwilioServiceErrorResponse struct for MarketplaceV1TwilioServiceErrorResponse
 type MarketplaceV1TwilioServiceErrorResponse struct {
 	Code    int                     `json:"code,omitempty"`

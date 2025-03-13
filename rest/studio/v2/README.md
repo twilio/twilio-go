@@ -31,25 +31,25 @@ All URIs are relative to *https://studio.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*FlowsApi* | [**CreateFlow**](docs/FlowsApi.md#createflow) | **Post** /v2/Flows | 
-*FlowsApi* | [**DeleteFlow**](docs/FlowsApi.md#deleteflow) | **Delete** /v2/Flows/{Sid} | 
-*FlowsApi* | [**FetchFlow**](docs/FlowsApi.md#fetchflow) | **Get** /v2/Flows/{Sid} | 
-*FlowsApi* | [**ListFlow**](docs/FlowsApi.md#listflow) | **Get** /v2/Flows | 
-*FlowsApi* | [**UpdateFlow**](docs/FlowsApi.md#updateflow) | **Post** /v2/Flows/{Sid} | 
-*FlowsExecutionsApi* | [**CreateExecution**](docs/FlowsExecutionsApi.md#createexecution) | **Post** /v2/Flows/{FlowSid}/Executions | 
-*FlowsExecutionsApi* | [**DeleteExecution**](docs/FlowsExecutionsApi.md#deleteexecution) | **Delete** /v2/Flows/{FlowSid}/Executions/{Sid} | 
-*FlowsExecutionsApi* | [**FetchExecution**](docs/FlowsExecutionsApi.md#fetchexecution) | **Get** /v2/Flows/{FlowSid}/Executions/{Sid} | 
-*FlowsExecutionsApi* | [**ListExecution**](docs/FlowsExecutionsApi.md#listexecution) | **Get** /v2/Flows/{FlowSid}/Executions | 
-*FlowsExecutionsApi* | [**UpdateExecution**](docs/FlowsExecutionsApi.md#updateexecution) | **Post** /v2/Flows/{FlowSid}/Executions/{Sid} | 
-*FlowsExecutionsContextApi* | [**FetchExecutionContext**](docs/FlowsExecutionsContextApi.md#fetchexecutioncontext) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context | 
-*FlowsExecutionsStepsApi* | [**FetchExecutionStep**](docs/FlowsExecutionsStepsApi.md#fetchexecutionstep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid} | 
-*FlowsExecutionsStepsApi* | [**ListExecutionStep**](docs/FlowsExecutionsStepsApi.md#listexecutionstep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps | 
-*FlowsExecutionsStepsContextApi* | [**FetchExecutionStepContext**](docs/FlowsExecutionsStepsContextApi.md#fetchexecutionstepcontext) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context | 
-*FlowsRevisionsApi* | [**FetchFlowRevision**](docs/FlowsRevisionsApi.md#fetchflowrevision) | **Get** /v2/Flows/{Sid}/Revisions/{Revision} | 
-*FlowsRevisionsApi* | [**ListFlowRevision**](docs/FlowsRevisionsApi.md#listflowrevision) | **Get** /v2/Flows/{Sid}/Revisions | 
-*FlowsTestUsersApi* | [**FetchTestUser**](docs/FlowsTestUsersApi.md#fetchtestuser) | **Get** /v2/Flows/{Sid}/TestUsers | 
-*FlowsTestUsersApi* | [**UpdateTestUser**](docs/FlowsTestUsersApi.md#updatetestuser) | **Post** /v2/Flows/{Sid}/TestUsers | 
-*FlowsValidateApi* | [**UpdateFlowValidate**](docs/FlowsValidateApi.md#updateflowvalidate) | **Post** /v2/Flows/Validate | 
+*FlowsApi* | [**CreateFlow**](docs/FlowsApi.md#createflow) | **Post** /v2/Flows | Create a Flow.
+*FlowsApi* | [**DeleteFlow**](docs/FlowsApi.md#deleteflow) | **Delete** /v2/Flows/{Sid} | Delete a specific Flow.
+*FlowsApi* | [**FetchFlow**](docs/FlowsApi.md#fetchflow) | **Get** /v2/Flows/{Sid} | Retrieve a specific Flow.
+*FlowsApi* | [**ListFlow**](docs/FlowsApi.md#listflow) | **Get** /v2/Flows | Retrieve a list of all Flows.
+*FlowsApi* | [**UpdateFlow**](docs/FlowsApi.md#updateflow) | **Post** /v2/Flows/{Sid} | Update a Flow.
+*FlowsExecutionsApi* | [**CreateExecution**](docs/FlowsExecutionsApi.md#createexecution) | **Post** /v2/Flows/{FlowSid}/Executions | Triggers a new Execution for the Flow
+*FlowsExecutionsApi* | [**DeleteExecution**](docs/FlowsExecutionsApi.md#deleteexecution) | **Delete** /v2/Flows/{FlowSid}/Executions/{Sid} | Delete the Execution and all Steps relating to it.
+*FlowsExecutionsApi* | [**FetchExecution**](docs/FlowsExecutionsApi.md#fetchexecution) | **Get** /v2/Flows/{FlowSid}/Executions/{Sid} | Retrieve an Execution
+*FlowsExecutionsApi* | [**ListExecution**](docs/FlowsExecutionsApi.md#listexecution) | **Get** /v2/Flows/{FlowSid}/Executions | Retrieve a list of all Executions for the Flow.
+*FlowsExecutionsApi* | [**UpdateExecution**](docs/FlowsExecutionsApi.md#updateexecution) | **Post** /v2/Flows/{FlowSid}/Executions/{Sid} | Update the status of an Execution to &#x60;ended&#x60;.
+*FlowsExecutionsContextApi* | [**FetchExecutionContext**](docs/FlowsExecutionsContextApi.md#fetchexecutioncontext) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context | Retrieve the most recent context for an Execution.
+*FlowsExecutionsStepsApi* | [**FetchExecutionStep**](docs/FlowsExecutionsStepsApi.md#fetchexecutionstep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid} | Retrieve a Step.
+*FlowsExecutionsStepsApi* | [**ListExecutionStep**](docs/FlowsExecutionsStepsApi.md#listexecutionstep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps | Retrieve a list of all Steps for an Execution.
+*FlowsExecutionsStepsContextApi* | [**FetchExecutionStepContext**](docs/FlowsExecutionsStepsContextApi.md#fetchexecutionstepcontext) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context | Retrieve the context for an Execution Step.
+*FlowsRevisionsApi* | [**FetchFlowRevision**](docs/FlowsRevisionsApi.md#fetchflowrevision) | **Get** /v2/Flows/{Sid}/Revisions/{Revision} | Retrieve a specific Flow revision.
+*FlowsRevisionsApi* | [**ListFlowRevision**](docs/FlowsRevisionsApi.md#listflowrevision) | **Get** /v2/Flows/{Sid}/Revisions | Retrieve a list of all Flows revisions.
+*FlowsTestUsersApi* | [**FetchTestUser**](docs/FlowsTestUsersApi.md#fetchtestuser) | **Get** /v2/Flows/{Sid}/TestUsers | Fetch flow test users
+*FlowsTestUsersApi* | [**UpdateTestUser**](docs/FlowsTestUsersApi.md#updatetestuser) | **Post** /v2/Flows/{Sid}/TestUsers | Update flow test users
+*FlowsValidateApi* | [**UpdateFlowValidate**](docs/FlowsValidateApi.md#updateflowvalidate) | **Post** /v2/Flows/Validate | Validate flow JSON definition
 
 
 ## Documentation For Models

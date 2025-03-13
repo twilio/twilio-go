@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListBundleResponse struct for ListBundleResponse
 type ListBundleResponse struct {
 	Results []NumbersV2Bundle                     `json:"results,omitempty"`

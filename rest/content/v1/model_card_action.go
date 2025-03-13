@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // CardAction struct for CardAction
 type CardAction struct {
 	Type  CardActionType `json:"type"`

@@ -4,10 +4,10 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateItemAssignment**](RegulatoryComplianceBundlesItemAssignmentsApi.md#CreateItemAssignment) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments | 
-[**DeleteItemAssignment**](RegulatoryComplianceBundlesItemAssignmentsApi.md#DeleteItemAssignment) | **Delete** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid} | 
-[**FetchItemAssignment**](RegulatoryComplianceBundlesItemAssignmentsApi.md#FetchItemAssignment) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid} | 
-[**ListItemAssignment**](RegulatoryComplianceBundlesItemAssignmentsApi.md#ListItemAssignment) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments | 
+[**CreateItemAssignment**](RegulatoryComplianceBundlesItemAssignmentsApi.md#CreateItemAssignment) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments | Create a new Assigned Item.
+[**DeleteItemAssignment**](RegulatoryComplianceBundlesItemAssignmentsApi.md#DeleteItemAssignment) | **Delete** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid} | Remove an Assignment Item Instance.
+[**FetchItemAssignment**](RegulatoryComplianceBundlesItemAssignmentsApi.md#FetchItemAssignment) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid} | Fetch specific Assigned Item Instance.
+[**ListItemAssignment**](RegulatoryComplianceBundlesItemAssignmentsApi.md#ListItemAssignment) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments | Retrieve a list of all Assigned Items for an account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > NumbersV2ItemAssignment CreateItemAssignment(ctx, BundleSidoptional)
 
-
+Create a new Assigned Item.
 
 Create a new Assigned Item.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteItemAssignment(ctx, BundleSidSid)
 
-
+Remove an Assignment Item Instance.
 
 Remove an Assignment Item Instance.
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > NumbersV2ItemAssignment FetchItemAssignment(ctx, BundleSidSid)
 
-
+Fetch specific Assigned Item Instance.
 
 Fetch specific Assigned Item Instance.
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 > []NumbersV2ItemAssignment ListItemAssignment(ctx, BundleSidoptional)
 
-
+Retrieve a list of all Assigned Items for an account.
 
 Retrieve a list of all Assigned Items for an account.
 

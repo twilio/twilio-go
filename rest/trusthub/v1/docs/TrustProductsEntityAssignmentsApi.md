@@ -4,10 +4,10 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateTrustProductEntityAssignment**](TrustProductsEntityAssignmentsApi.md#CreateTrustProductEntityAssignment) | **Post** /v1/TrustProducts/{TrustProductSid}/EntityAssignments | 
-[**DeleteTrustProductEntityAssignment**](TrustProductsEntityAssignmentsApi.md#DeleteTrustProductEntityAssignment) | **Delete** /v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid} | 
-[**FetchTrustProductEntityAssignment**](TrustProductsEntityAssignmentsApi.md#FetchTrustProductEntityAssignment) | **Get** /v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid} | 
-[**ListTrustProductEntityAssignment**](TrustProductsEntityAssignmentsApi.md#ListTrustProductEntityAssignment) | **Get** /v1/TrustProducts/{TrustProductSid}/EntityAssignments | 
+[**CreateTrustProductEntityAssignment**](TrustProductsEntityAssignmentsApi.md#CreateTrustProductEntityAssignment) | **Post** /v1/TrustProducts/{TrustProductSid}/EntityAssignments | Create a new Assigned Item.
+[**DeleteTrustProductEntityAssignment**](TrustProductsEntityAssignmentsApi.md#DeleteTrustProductEntityAssignment) | **Delete** /v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid} | Remove an Assignment Item Instance.
+[**FetchTrustProductEntityAssignment**](TrustProductsEntityAssignmentsApi.md#FetchTrustProductEntityAssignment) | **Get** /v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid} | Fetch specific Assigned Item Instance.
+[**ListTrustProductEntityAssignment**](TrustProductsEntityAssignmentsApi.md#ListTrustProductEntityAssignment) | **Get** /v1/TrustProducts/{TrustProductSid}/EntityAssignments | Retrieve a list of all Assigned Items for an account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > TrusthubV1TrustProductEntityAssignment CreateTrustProductEntityAssignment(ctx, TrustProductSidoptional)
 
-
+Create a new Assigned Item.
 
 Create a new Assigned Item.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteTrustProductEntityAssignment(ctx, TrustProductSidSid)
 
-
+Remove an Assignment Item Instance.
 
 Remove an Assignment Item Instance.
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > TrusthubV1TrustProductEntityAssignment FetchTrustProductEntityAssignment(ctx, TrustProductSidSid)
 
-
+Fetch specific Assigned Item Instance.
 
 Fetch specific Assigned Item Instance.
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 > []TrusthubV1TrustProductEntityAssignment ListTrustProductEntityAssignment(ctx, TrustProductSidoptional)
 
-
+Retrieve a list of all Assigned Items for an account.
 
 Retrieve a list of all Assigned Items for an account.
 

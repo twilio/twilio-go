@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TrusthubV1ComplianceTollfreeInquiry struct for TrusthubV1ComplianceTollfreeInquiry
 type TrusthubV1ComplianceTollfreeInquiry struct {
 	// The unique ID used to start an embedded compliance registration session.

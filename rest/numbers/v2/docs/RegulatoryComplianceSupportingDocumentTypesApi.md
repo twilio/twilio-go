@@ -4,8 +4,8 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchSupportingDocumentType**](RegulatoryComplianceSupportingDocumentTypesApi.md#FetchSupportingDocumentType) | **Get** /v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid} | 
-[**ListSupportingDocumentType**](RegulatoryComplianceSupportingDocumentTypesApi.md#ListSupportingDocumentType) | **Get** /v2/RegulatoryCompliance/SupportingDocumentTypes | 
+[**FetchSupportingDocumentType**](RegulatoryComplianceSupportingDocumentTypesApi.md#FetchSupportingDocumentType) | **Get** /v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid} | Fetch a specific Supporting Document Type Instance.
+[**ListSupportingDocumentType**](RegulatoryComplianceSupportingDocumentTypesApi.md#ListSupportingDocumentType) | **Get** /v2/RegulatoryCompliance/SupportingDocumentTypes | Retrieve a list of all Supporting Document Types.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > NumbersV2SupportingDocumentType FetchSupportingDocumentType(ctx, Sid)
 
-
+Fetch a specific Supporting Document Type Instance.
 
 Fetch a specific Supporting Document Type Instance.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []NumbersV2SupportingDocumentType ListSupportingDocumentType(ctx, optional)
 
-
+Retrieve a list of all Supporting Document Types.
 
 Retrieve a list of all Supporting Document Types.
 

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListIpRecordResponse struct for ListIpRecordResponse
 type ListIpRecordResponse struct {
 	IpRecords []VoiceV1IpRecord         `json:"ip_records,omitempty"`

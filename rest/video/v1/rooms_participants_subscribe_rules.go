@@ -16,8 +16,10 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Returns a list of Subscribe Rules for the Participant.
@@ -49,10 +51,10 @@ func (c *ApiService) FetchRoomParticipantSubscribeRule(RoomSid string, Participa
 // Optional parameters for the method 'UpdateRoomParticipantSubscribeRule'
 type UpdateRoomParticipantSubscribeRuleParams struct {
 	// A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
-	Rules *interface{} `json:"Rules,omitempty"`
+	Rules *map[string]interface{} `json:"Rules,omitempty"`
 }
 
-func (params *UpdateRoomParticipantSubscribeRuleParams) SetRules(Rules interface{}) *UpdateRoomParticipantSubscribeRuleParams {
+func (params *UpdateRoomParticipantSubscribeRuleParams) SetRules(Rules map[string]interface{}) *UpdateRoomParticipantSubscribeRuleParams {
 	params.Rules = &Rules
 	return params
 }

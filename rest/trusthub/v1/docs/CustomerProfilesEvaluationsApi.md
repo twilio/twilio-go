@@ -4,9 +4,9 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCustomerProfileEvaluation**](CustomerProfilesEvaluationsApi.md#CreateCustomerProfileEvaluation) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations | 
-[**FetchCustomerProfileEvaluation**](CustomerProfilesEvaluationsApi.md#FetchCustomerProfileEvaluation) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid} | 
-[**ListCustomerProfileEvaluation**](CustomerProfilesEvaluationsApi.md#ListCustomerProfileEvaluation) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations | 
+[**CreateCustomerProfileEvaluation**](CustomerProfilesEvaluationsApi.md#CreateCustomerProfileEvaluation) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations | Create a new Evaluation
+[**FetchCustomerProfileEvaluation**](CustomerProfilesEvaluationsApi.md#FetchCustomerProfileEvaluation) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid} | Fetch specific Evaluation Instance.
+[**ListCustomerProfileEvaluation**](CustomerProfilesEvaluationsApi.md#ListCustomerProfileEvaluation) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations | Retrieve a list of Evaluations associated to the customer_profile resource.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > TrusthubV1CustomerProfileEvaluation CreateCustomerProfileEvaluation(ctx, CustomerProfileSidoptional)
 
-
+Create a new Evaluation
 
 Create a new Evaluation
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > TrusthubV1CustomerProfileEvaluation FetchCustomerProfileEvaluation(ctx, CustomerProfileSidSid)
 
-
+Fetch specific Evaluation Instance.
 
 Fetch specific Evaluation Instance.
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > []TrusthubV1CustomerProfileEvaluation ListCustomerProfileEvaluation(ctx, CustomerProfileSidoptional)
 
-
+Retrieve a list of Evaluations associated to the customer_profile resource.
 
 Retrieve a list of Evaluations associated to the customer_profile resource.
 

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010IncomingPhoneNumberLocal struct for ApiV2010IncomingPhoneNumberLocal
 type ApiV2010IncomingPhoneNumberLocal struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.

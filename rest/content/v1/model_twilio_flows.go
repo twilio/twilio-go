@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TwilioFlows twilio/flows templates allow you to send multiple messages in a set order with text or select options
 type TwilioFlows struct {
 	Body       string      `json:"body"`

@@ -15,6 +15,8 @@
 package openapi
 
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
 
@@ -36,7 +38,7 @@ type IntelligenceV2PrebuiltOperator struct {
 	Version      int     `json:"version,omitempty"`
 	Availability *string `json:"availability,omitempty"`
 	// Operator configuration, following the schema defined by the Operator Type. Only available on Custom Operators created by the Account, will be empty for Pre-Built Operators.
-	Config *interface{} `json:"config,omitempty"`
+	Config *map[string]interface{} `json:"config,omitempty"`
 	// The date that this Pre-built Operator was created, given in ISO 8601 format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date that this Pre-built Operator was updated, given in ISO 8601 format.

@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSipCredential**](AccountsSIPCredentialListsCredentialsApi.md#CreateSipCredential) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json | 
-[**DeleteSipCredential**](AccountsSIPCredentialListsCredentialsApi.md#DeleteSipCredential) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json | 
-[**FetchSipCredential**](AccountsSIPCredentialListsCredentialsApi.md#FetchSipCredential) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json | 
-[**ListSipCredential**](AccountsSIPCredentialListsCredentialsApi.md#ListSipCredential) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json | 
-[**UpdateSipCredential**](AccountsSIPCredentialListsCredentialsApi.md#UpdateSipCredential) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json | 
+[**CreateSipCredential**](AccountsSIPCredentialListsCredentialsApi.md#CreateSipCredential) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json | Create a new credential resource.
+[**DeleteSipCredential**](AccountsSIPCredentialListsCredentialsApi.md#DeleteSipCredential) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json | Delete a credential resource.
+[**FetchSipCredential**](AccountsSIPCredentialListsCredentialsApi.md#FetchSipCredential) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json | Fetch a single credential.
+[**ListSipCredential**](AccountsSIPCredentialListsCredentialsApi.md#ListSipCredential) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json | Retrieve a list of credentials.
+[**UpdateSipCredential**](AccountsSIPCredentialListsCredentialsApi.md#UpdateSipCredential) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json | Update a credential resource.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010SipCredential CreateSipCredential(ctx, CredentialListSidoptional)
 
-
+Create a new credential resource.
 
 Create a new credential resource.
 
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeleteSipCredential(ctx, CredentialListSidSidoptional)
 
-
+Delete a credential resource.
 
 Delete a credential resource.
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 > ApiV2010SipCredential FetchSipCredential(ctx, CredentialListSidSidoptional)
 
-
+Fetch a single credential.
 
 Fetch a single credential.
 
@@ -149,7 +149,7 @@ Name | Type | Description
 
 > []ApiV2010SipCredential ListSipCredential(ctx, CredentialListSidoptional)
 
-
+Retrieve a list of credentials.
 
 Retrieve a list of credentials.
 
@@ -194,7 +194,7 @@ Name | Type | Description
 
 > ApiV2010SipCredential UpdateSipCredential(ctx, CredentialListSidSidoptional)
 
-
+Update a credential resource.
 
 Update a credential resource.
 

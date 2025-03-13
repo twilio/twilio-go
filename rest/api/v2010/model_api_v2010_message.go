@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010Message struct for ApiV2010Message
 type ApiV2010Message struct {
 	// The text content of the message

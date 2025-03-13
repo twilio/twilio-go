@@ -14,14 +14,19 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TaskrouterV1TaskQueuesStatistics struct for TaskrouterV1TaskQueuesStatistics
 type TaskrouterV1TaskQueuesStatistics struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// An object that contains the cumulative statistics for the TaskQueues.
-	Cumulative *interface{} `json:"cumulative,omitempty"`
+	Cumulative *map[string]interface{} `json:"cumulative,omitempty"`
 	// An object that contains the real-time statistics for the TaskQueues.
-	Realtime *interface{} `json:"realtime,omitempty"`
+	Realtime *map[string]interface{} `json:"realtime,omitempty"`
 	// The SID of the TaskQueue from which these statistics were calculated.
 	TaskQueueSid *string `json:"task_queue_sid,omitempty"`
 	// The SID of the Workspace that contains the TaskQueues.

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010DependentPhoneNumber struct for ApiV2010DependentPhoneNumber
 type ApiV2010DependentPhoneNumber struct {
 	// The unique string that that we created to identify the DependentPhoneNumber resource.
@@ -48,7 +53,7 @@ type ApiV2010DependentPhoneNumber struct {
 	SmsUrl              *string `json:"sms_url,omitempty"`
 	AddressRequirements *string `json:"address_requirements,omitempty"`
 	// The set of Boolean properties that indicates whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
-	Capabilities *interface{} `json:"capabilities,omitempty"`
+	Capabilities *map[string]interface{} `json:"capabilities,omitempty"`
 	// The URL we call using the `status_callback_method` to send status information to your application.
 	StatusCallback *string `json:"status_callback,omitempty"`
 	// The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.

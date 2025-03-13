@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // CarouselCard struct for CarouselCard
 type CarouselCard struct {
 	Title   string           `json:"title,omitempty"`

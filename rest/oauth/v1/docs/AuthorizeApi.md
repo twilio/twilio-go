@@ -4,7 +4,7 @@ All URIs are relative to *https://oauth.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchAuthorize**](AuthorizeApi.md#FetchAuthorize) | **Get** /v1/authorize | 
+[**FetchAuthorize**](AuthorizeApi.md#FetchAuthorize) | **Get** /v1/authorize | Retrieves authorize uri
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > OauthV1Authorize FetchAuthorize(ctx, optional)
 
-
+Retrieves authorize uri
 
 Retrieves authorize uri
 

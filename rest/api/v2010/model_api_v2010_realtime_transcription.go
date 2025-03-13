@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010RealtimeTranscription struct for ApiV2010RealtimeTranscription
 type ApiV2010RealtimeTranscription struct {
 	// The SID of the Transcription resource.

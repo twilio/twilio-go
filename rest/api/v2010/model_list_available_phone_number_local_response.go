@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListAvailablePhoneNumberLocalResponse struct for ListAvailablePhoneNumberLocalResponse
 type ListAvailablePhoneNumberLocalResponse struct {
 	AvailablePhoneNumbers []ApiV2010AvailablePhoneNumberLocal `json:"available_phone_numbers,omitempty"`

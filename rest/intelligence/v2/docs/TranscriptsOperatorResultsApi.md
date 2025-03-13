@@ -4,8 +4,8 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchOperatorResult**](TranscriptsOperatorResultsApi.md#FetchOperatorResult) | **Get** /v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid} | 
-[**ListOperatorResult**](TranscriptsOperatorResultsApi.md#ListOperatorResult) | **Get** /v2/Transcripts/{TranscriptSid}/OperatorResults | 
+[**FetchOperatorResult**](TranscriptsOperatorResultsApi.md#FetchOperatorResult) | **Get** /v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid} | Fetch a specific Operator Result for the given Transcript.
+[**ListOperatorResult**](TranscriptsOperatorResultsApi.md#ListOperatorResult) | **Get** /v2/Transcripts/{TranscriptSid}/OperatorResults | Retrieve a list of Operator Results for the given Transcript.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > IntelligenceV2OperatorResult FetchOperatorResult(ctx, TranscriptSidOperatorSidoptional)
 
-
+Fetch a specific Operator Result for the given Transcript.
 
 Fetch a specific Operator Result for the given Transcript.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []IntelligenceV2OperatorResult ListOperatorResult(ctx, TranscriptSidoptional)
 
-
+Retrieve a list of Operator Results for the given Transcript.
 
 Retrieve a list of Operator Results for the given Transcript.
 

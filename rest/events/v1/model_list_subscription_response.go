@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSubscriptionResponse struct for ListSubscriptionResponse
 type ListSubscriptionResponse struct {
 	Subscriptions []EventsV1Subscription    `json:"subscriptions,omitempty"`

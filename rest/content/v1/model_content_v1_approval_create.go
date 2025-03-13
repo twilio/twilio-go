@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ContentV1ApprovalCreate struct for ContentV1ApprovalCreate
 type ContentV1ApprovalCreate struct {
 	Name                *string `json:"name,omitempty"`

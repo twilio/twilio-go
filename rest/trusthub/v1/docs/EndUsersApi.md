@@ -4,11 +4,11 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEndUser**](EndUsersApi.md#CreateEndUser) | **Post** /v1/EndUsers | 
-[**DeleteEndUser**](EndUsersApi.md#DeleteEndUser) | **Delete** /v1/EndUsers/{Sid} | 
-[**FetchEndUser**](EndUsersApi.md#FetchEndUser) | **Get** /v1/EndUsers/{Sid} | 
-[**ListEndUser**](EndUsersApi.md#ListEndUser) | **Get** /v1/EndUsers | 
-[**UpdateEndUser**](EndUsersApi.md#UpdateEndUser) | **Post** /v1/EndUsers/{Sid} | 
+[**CreateEndUser**](EndUsersApi.md#CreateEndUser) | **Post** /v1/EndUsers | Create a new End User.
+[**DeleteEndUser**](EndUsersApi.md#DeleteEndUser) | **Delete** /v1/EndUsers/{Sid} | Delete a specific End User.
+[**FetchEndUser**](EndUsersApi.md#FetchEndUser) | **Get** /v1/EndUsers/{Sid} | Fetch specific End User Instance.
+[**ListEndUser**](EndUsersApi.md#ListEndUser) | **Get** /v1/EndUsers | Retrieve a list of all End User for an account.
+[**UpdateEndUser**](EndUsersApi.md#UpdateEndUser) | **Post** /v1/EndUsers/{Sid} | Update an existing End User.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > TrusthubV1EndUser CreateEndUser(ctx, optional)
 
-
+Create a new End User.
 
 Create a new End User.
 
@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **Type** | **string** | The type of end user of the Bundle resource - can be `individual` or `business`.
-**Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
 ### Return type
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteEndUser(ctx, Sid)
 
-
+Delete a specific End User.
 
 Delete a specific End User.
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > TrusthubV1EndUser FetchEndUser(ctx, Sid)
 
-
+Fetch specific End User Instance.
 
 Fetch specific End User Instance.
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 > []TrusthubV1EndUser ListEndUser(ctx, optional)
 
-
+Retrieve a list of all End User for an account.
 
 Retrieve a list of all End User for an account.
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 > TrusthubV1EndUser UpdateEndUser(ctx, Sidoptional)
 
-
+Update an existing End User.
 
 Update an existing End User.
 
@@ -201,7 +201,7 @@ Other parameters are passed through a pointer to a UpdateEndUserParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Attributes** | [**interface{}**](interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
 ### Return type
 

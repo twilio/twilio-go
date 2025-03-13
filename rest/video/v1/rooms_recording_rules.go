@@ -16,8 +16,10 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Returns a list of Recording Rules for the Room.
@@ -48,10 +50,10 @@ func (c *ApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRecordi
 // Optional parameters for the method 'UpdateRoomRecordingRule'
 type UpdateRoomRecordingRuleParams struct {
 	// A JSON-encoded array of recording rules.
-	Rules *interface{} `json:"Rules,omitempty"`
+	Rules *map[string]interface{} `json:"Rules,omitempty"`
 }
 
-func (params *UpdateRoomRecordingRuleParams) SetRules(Rules interface{}) *UpdateRoomRecordingRuleParams {
+func (params *UpdateRoomRecordingRuleParams) SetRules(Rules map[string]interface{}) *UpdateRoomRecordingRuleParams {
 	params.Rules = &Rules
 	return params
 }

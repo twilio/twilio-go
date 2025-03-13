@@ -18,7 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -70,7 +69,7 @@ func (c *ApiService) CreateKnowledge(params *CreateKnowledgeParams) (*Assistants
 // Delete knowledge
 func (c *ApiService) DeleteKnowledge(Id string) error {
 	path := "/v1/Knowledge/{id}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -90,7 +89,7 @@ func (c *ApiService) DeleteKnowledge(Id string) error {
 // Get knowledge
 func (c *ApiService) FetchKnowledge(Id string) (*AssistantsV1Knowledge, error) {
 	path := "/v1/Knowledge/{id}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -273,7 +272,7 @@ func (params *UpdateKnowledgeParams) SetAssistantsV1UpdateKnowledgeRequest(Assis
 // Update knowledge
 func (c *ApiService) UpdateKnowledge(Id string, params *UpdateKnowledgeParams) (*AssistantsV1Knowledge, error) {
 	path := "/v1/Knowledge/{id}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

@@ -4,10 +4,10 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSipCredentialListMapping**](AccountsSIPDomainsCredentialListMappingsApi.md#CreateSipCredentialListMapping) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json | 
-[**DeleteSipCredentialListMapping**](AccountsSIPDomainsCredentialListMappingsApi.md#DeleteSipCredentialListMapping) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json | 
-[**FetchSipCredentialListMapping**](AccountsSIPDomainsCredentialListMappingsApi.md#FetchSipCredentialListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json | 
-[**ListSipCredentialListMapping**](AccountsSIPDomainsCredentialListMappingsApi.md#ListSipCredentialListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json | 
+[**CreateSipCredentialListMapping**](AccountsSIPDomainsCredentialListMappingsApi.md#CreateSipCredentialListMapping) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json | Create a CredentialListMapping resource for an account.
+[**DeleteSipCredentialListMapping**](AccountsSIPDomainsCredentialListMappingsApi.md#DeleteSipCredentialListMapping) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json | Delete a CredentialListMapping resource from an account.
+[**FetchSipCredentialListMapping**](AccountsSIPDomainsCredentialListMappingsApi.md#FetchSipCredentialListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json | Fetch a single CredentialListMapping resource from an account.
+[**ListSipCredentialListMapping**](AccountsSIPDomainsCredentialListMappingsApi.md#ListSipCredentialListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json | Read multiple CredentialListMapping resources from an account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ApiV2010SipCredentialListMapping CreateSipCredentialListMapping(ctx, DomainSidoptional)
 
-
+Create a CredentialListMapping resource for an account.
 
 Create a CredentialListMapping resource for an account.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteSipCredentialListMapping(ctx, DomainSidSidoptional)
 
-
+Delete a CredentialListMapping resource from an account.
 
 Delete a CredentialListMapping resource from an account.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > ApiV2010SipCredentialListMapping FetchSipCredentialListMapping(ctx, DomainSidSidoptional)
 
-
+Fetch a single CredentialListMapping resource from an account.
 
 Fetch a single CredentialListMapping resource from an account.
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []ApiV2010SipCredentialListMapping ListSipCredentialListMapping(ctx, DomainSidoptional)
 
-
+Read multiple CredentialListMapping resources from an account.
 
 Read multiple CredentialListMapping resources from an account.
 

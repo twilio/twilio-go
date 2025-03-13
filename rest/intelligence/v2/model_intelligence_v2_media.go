@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // IntelligenceV2Media struct for IntelligenceV2Media
 type IntelligenceV2Media struct {
 	// The unique SID identifier of the Account.

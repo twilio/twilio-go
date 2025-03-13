@@ -18,7 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -70,7 +69,7 @@ func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*Assistants
 // delete an assistant
 func (c *ApiService) DeleteAssistant(Id string) error {
 	path := "/v1/Assistants/{id}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -90,7 +89,7 @@ func (c *ApiService) DeleteAssistant(Id string) error {
 // get an assistant
 func (c *ApiService) FetchAssistant(Id string) (*AssistantsV1AssistantWithToolsAndKnowledge, error) {
 	path := "/v1/Assistants/{id}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -264,7 +263,7 @@ func (params *UpdateAssistantParams) SetAssistantsV1UpdateAssistantRequest(Assis
 // update an assistant
 func (c *ApiService) UpdateAssistant(Id string, params *UpdateAssistantParams) (*AssistantsV1Assistant, error) {
 	path := "/v1/Assistants/{id}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

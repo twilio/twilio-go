@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ProxyV1ServicePhoneNumberCapabilities The capabilities of the phone number.
 type ProxyV1ServicePhoneNumberCapabilities struct {
 	Fax   bool `json:"fax,omitempty"`

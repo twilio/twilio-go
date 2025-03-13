@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010SigningKey struct for ApiV2010SigningKey
 type ApiV2010SigningKey struct {
 	Sid          *string `json:"sid,omitempty"`

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListChallengeResponse struct for ListChallengeResponse
 type ListChallengeResponse struct {
 	Challenges []VerifyV2Challenge    `json:"challenges,omitempty"`

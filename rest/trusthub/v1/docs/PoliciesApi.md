@@ -4,8 +4,8 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchPolicies**](PoliciesApi.md#FetchPolicies) | **Get** /v1/Policies/{Sid} | 
-[**ListPolicies**](PoliciesApi.md#ListPolicies) | **Get** /v1/Policies | 
+[**FetchPolicies**](PoliciesApi.md#FetchPolicies) | **Get** /v1/Policies/{Sid} | Fetch specific Policy Instance.
+[**ListPolicies**](PoliciesApi.md#ListPolicies) | **Get** /v1/Policies | Retrieve a list of all Policys.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > TrusthubV1Policies FetchPolicies(ctx, Sid)
 
-
+Fetch specific Policy Instance.
 
 Fetch specific Policy Instance.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []TrusthubV1Policies ListPolicies(ctx, optional)
 
-
+Retrieve a list of all Policys.
 
 Retrieve a list of all Policys.
 

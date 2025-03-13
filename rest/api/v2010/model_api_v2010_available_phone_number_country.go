@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010AvailablePhoneNumberCountry struct for ApiV2010AvailablePhoneNumberCountry
 type ApiV2010AvailablePhoneNumberCountry struct {
 	// The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country.

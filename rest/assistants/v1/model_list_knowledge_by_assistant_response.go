@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListKnowledgeByAssistantResponse struct for ListKnowledgeByAssistantResponse
 type ListKnowledgeByAssistantResponse struct {
 	Knowledge []AssistantsV1Knowledge   `json:"knowledge,omitempty"`

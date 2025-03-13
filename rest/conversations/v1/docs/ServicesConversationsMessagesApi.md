@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateServiceConversationMessage**](ServicesConversationsMessagesApi.md#CreateServiceConversationMessage) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages | 
-[**DeleteServiceConversationMessage**](ServicesConversationsMessagesApi.md#DeleteServiceConversationMessage) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | 
-[**FetchServiceConversationMessage**](ServicesConversationsMessagesApi.md#FetchServiceConversationMessage) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | 
-[**ListServiceConversationMessage**](ServicesConversationsMessagesApi.md#ListServiceConversationMessage) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages | 
-[**UpdateServiceConversationMessage**](ServicesConversationsMessagesApi.md#UpdateServiceConversationMessage) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | 
+[**CreateServiceConversationMessage**](ServicesConversationsMessagesApi.md#CreateServiceConversationMessage) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages | Add a new message to the conversation in a specific service
+[**DeleteServiceConversationMessage**](ServicesConversationsMessagesApi.md#DeleteServiceConversationMessage) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | Remove a message from the conversation
+[**FetchServiceConversationMessage**](ServicesConversationsMessagesApi.md#FetchServiceConversationMessage) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | Fetch a message from the conversation
+[**ListServiceConversationMessage**](ServicesConversationsMessagesApi.md#ListServiceConversationMessage) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages | Retrieve a list of all messages in the conversation
+[**UpdateServiceConversationMessage**](ServicesConversationsMessagesApi.md#UpdateServiceConversationMessage) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | Update an existing message in the conversation
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ServiceConversationMessage CreateServiceConversationMessage(ctx, ChatServiceSidConversationSidoptional)
 
-
+Add a new message to the conversation in a specific service
 
 Add a new message to the conversation in a specific service
 
@@ -69,7 +69,7 @@ Name | Type | Description
 
 > DeleteServiceConversationMessage(ctx, ChatServiceSidConversationSidSidoptional)
 
-
+Remove a message from the conversation
 
 Remove a message from the conversation
 
@@ -114,7 +114,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConversationMessage FetchServiceConversationMessage(ctx, ChatServiceSidConversationSidSid)
 
-
+Fetch a message from the conversation
 
 Fetch a message from the conversation
 
@@ -158,7 +158,7 @@ Name | Type | Description
 
 > []ConversationsV1ServiceConversationMessage ListServiceConversationMessage(ctx, ChatServiceSidConversationSidoptional)
 
-
+Retrieve a list of all messages in the conversation
 
 Retrieve a list of all messages in the conversation
 
@@ -204,7 +204,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConversationMessage UpdateServiceConversationMessage(ctx, ChatServiceSidConversationSidSidoptional)
 
-
+Update an existing message in the conversation
 
 Update an existing message in the conversation
 

@@ -4,7 +4,7 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListInsightsSegments**](InsightsSegmentsApi.md#ListInsightsSegments) | **Get** /v1/Insights/Segments | 
+[**ListInsightsSegments**](InsightsSegmentsApi.md#ListInsightsSegments) | **Get** /v1/Insights/Segments | To get segments for given reservation Ids
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []FlexV1InsightsSegments ListInsightsSegments(ctx, optional)
 
-
+To get segments for given reservation Ids
 
 To get segments for given reservation Ids
 

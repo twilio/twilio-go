@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // MicrovisorV1AppManifest struct for MicrovisorV1AppManifest
 type MicrovisorV1AppManifest struct {
 	// A 34-character string that uniquely identifies this App.

@@ -15,6 +15,8 @@
 package openapi
 
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
 
@@ -27,9 +29,9 @@ type MicrovisorV1Device struct {
 	// The unique SID identifier of the Account.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// Information about the target App and the App reported by this Device. Contains the properties `target_sid`, `date_targeted`, `update_status` (one of `up-to-date`, `pending` and `error`), `update_error_code`, `reported_sid` and `date_reported`.
-	App *interface{} `json:"app,omitempty"`
+	App *map[string]interface{} `json:"app,omitempty"`
 	// Object specifying whether application logging is enabled for this Device. Contains the properties `enabled` and `date_expires`.
-	Logging *interface{} `json:"logging,omitempty"`
+	Logging *map[string]interface{} `json:"logging,omitempty"`
 	// The date that this Device was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date that this Device was last updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

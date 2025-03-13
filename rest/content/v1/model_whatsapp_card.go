@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // WhatsappCard whatsapp/card is a structured template which can be used to send a series of related information. It must include a body and at least one additional field.
 type WhatsappCard struct {
 	Body       string       `json:"body"`

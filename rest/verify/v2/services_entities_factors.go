@@ -18,7 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -52,7 +51,7 @@ type CreateNewFactorParams struct {
 	//
 	ConfigAlg *string `json:"Config.Alg,omitempty"`
 	// Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
-	Metadata *interface{} `json:"Metadata,omitempty"`
+	Metadata *map[string]interface{} `json:"Metadata,omitempty"`
 }
 
 func (params *CreateNewFactorParams) SetFriendlyName(FriendlyName string) *CreateNewFactorParams {
@@ -107,7 +106,7 @@ func (params *CreateNewFactorParams) SetConfigAlg(ConfigAlg string) *CreateNewFa
 	params.ConfigAlg = &ConfigAlg
 	return params
 }
-func (params *CreateNewFactorParams) SetMetadata(Metadata interface{}) *CreateNewFactorParams {
+func (params *CreateNewFactorParams) SetMetadata(Metadata map[string]interface{}) *CreateNewFactorParams {
 	params.Metadata = &Metadata
 	return params
 }

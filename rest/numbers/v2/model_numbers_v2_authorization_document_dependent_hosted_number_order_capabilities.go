@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // NumbersV2AuthorizationDocumentDependentHostedNumberOrderCapabilities A mapping of capabilities this hosted phone number will have enabled on Twilio's platform.
 type NumbersV2AuthorizationDocumentDependentHostedNumberOrderCapabilities struct {
 	Mms   bool `json:"mms,omitempty"`

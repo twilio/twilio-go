@@ -4,10 +4,10 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#CreateAuthorizationDocument) | **Post** /v2/HostedNumber/AuthorizationDocuments | 
-[**DeleteAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#DeleteAuthorizationDocument) | **Delete** /v2/HostedNumber/AuthorizationDocuments/{Sid} | 
-[**FetchAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#FetchAuthorizationDocument) | **Get** /v2/HostedNumber/AuthorizationDocuments/{Sid} | 
-[**ListAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#ListAuthorizationDocument) | **Get** /v2/HostedNumber/AuthorizationDocuments | 
+[**CreateAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#CreateAuthorizationDocument) | **Post** /v2/HostedNumber/AuthorizationDocuments | Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio&#39;s platform.
+[**DeleteAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#DeleteAuthorizationDocument) | **Delete** /v2/HostedNumber/AuthorizationDocuments/{Sid} | Cancel the AuthorizationDocument request.
+[**FetchAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#FetchAuthorizationDocument) | **Get** /v2/HostedNumber/AuthorizationDocuments/{Sid} | Fetch a specific AuthorizationDocument.
+[**ListAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#ListAuthorizationDocument) | **Get** /v2/HostedNumber/AuthorizationDocuments | Retrieve a list of AuthorizationDocuments belonging to the account initiating the request.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > NumbersV2AuthorizationDocument CreateAuthorizationDocument(ctx, optional)
 
-
+Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio's platform.
 
 Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio's platform.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteAuthorizationDocument(ctx, Sid)
 
-
+Cancel the AuthorizationDocument request.
 
 Cancel the AuthorizationDocument request.
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > NumbersV2AuthorizationDocument FetchAuthorizationDocument(ctx, Sid)
 
-
+Fetch a specific AuthorizationDocument.
 
 Fetch a specific AuthorizationDocument.
 
@@ -143,7 +143,7 @@ Name | Type | Description
 
 > []NumbersV2AuthorizationDocument ListAuthorizationDocument(ctx, optional)
 
-
+Retrieve a list of AuthorizationDocuments belonging to the account initiating the request.
 
 Retrieve a list of AuthorizationDocuments belonging to the account initiating the request.
 

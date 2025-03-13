@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // FlexV1InsightsSegments struct for FlexV1InsightsSegments
 type FlexV1InsightsSegments struct {
 	// To unique id of the segment
@@ -51,10 +56,10 @@ type FlexV1InsightsSegments struct {
 	// The offset value for the recording.
 	SegmentRecordingOffset *string `json:"segment_recording_offset,omitempty"`
 	// The media identifiers of the conversation.
-	Media *interface{} `json:"media,omitempty"`
+	Media *map[string]interface{} `json:"media,omitempty"`
 	// The type of the assessment.
-	AssessmentType *interface{} `json:"assessment_type,omitempty"`
+	AssessmentType *map[string]interface{} `json:"assessment_type,omitempty"`
 	// The percentage scored on the Assessments.
-	AssessmentPercentage *interface{} `json:"assessment_percentage,omitempty"`
-	Url                  *string      `json:"url,omitempty"`
+	AssessmentPercentage *map[string]interface{} `json:"assessment_percentage,omitempty"`
+	Url                  *string                 `json:"url,omitempty"`
 }

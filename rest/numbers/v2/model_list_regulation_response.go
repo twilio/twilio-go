@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListRegulationResponse struct for ListRegulationResponse
 type ListRegulationResponse struct {
 	Results []NumbersV2Regulation                 `json:"results,omitempty"`

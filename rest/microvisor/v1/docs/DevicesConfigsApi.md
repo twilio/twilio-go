@@ -4,11 +4,11 @@ All URIs are relative to *https://microvisor.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateDeviceConfig**](DevicesConfigsApi.md#CreateDeviceConfig) | **Post** /v1/Devices/{DeviceSid}/Configs | 
-[**DeleteDeviceConfig**](DevicesConfigsApi.md#DeleteDeviceConfig) | **Delete** /v1/Devices/{DeviceSid}/Configs/{Key} | 
-[**FetchDeviceConfig**](DevicesConfigsApi.md#FetchDeviceConfig) | **Get** /v1/Devices/{DeviceSid}/Configs/{Key} | 
-[**ListDeviceConfig**](DevicesConfigsApi.md#ListDeviceConfig) | **Get** /v1/Devices/{DeviceSid}/Configs | 
-[**UpdateDeviceConfig**](DevicesConfigsApi.md#UpdateDeviceConfig) | **Post** /v1/Devices/{DeviceSid}/Configs/{Key} | 
+[**CreateDeviceConfig**](DevicesConfigsApi.md#CreateDeviceConfig) | **Post** /v1/Devices/{DeviceSid}/Configs | Create a config for a Microvisor Device.
+[**DeleteDeviceConfig**](DevicesConfigsApi.md#DeleteDeviceConfig) | **Delete** /v1/Devices/{DeviceSid}/Configs/{Key} | Delete a config for a Microvisor Device.
+[**FetchDeviceConfig**](DevicesConfigsApi.md#FetchDeviceConfig) | **Get** /v1/Devices/{DeviceSid}/Configs/{Key} | Retrieve a Config for a Device.
+[**ListDeviceConfig**](DevicesConfigsApi.md#ListDeviceConfig) | **Get** /v1/Devices/{DeviceSid}/Configs | Retrieve a list of all Configs for a Device.
+[**UpdateDeviceConfig**](DevicesConfigsApi.md#UpdateDeviceConfig) | **Post** /v1/Devices/{DeviceSid}/Configs/{Key} | Update a config for a Microvisor Device.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > MicrovisorV1DeviceConfig CreateDeviceConfig(ctx, DeviceSidoptional)
 
-
+Create a config for a Microvisor Device.
 
 Create a config for a Microvisor Device.
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 > DeleteDeviceConfig(ctx, DeviceSidKey)
 
-
+Delete a config for a Microvisor Device.
 
 Delete a config for a Microvisor Device.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > MicrovisorV1DeviceConfig FetchDeviceConfig(ctx, DeviceSidKey)
 
-
+Retrieve a Config for a Device.
 
 Retrieve a Config for a Device.
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []MicrovisorV1DeviceConfig ListDeviceConfig(ctx, DeviceSidoptional)
 
-
+Retrieve a list of all Configs for a Device.
 
 Retrieve a list of all Configs for a Device.
 
@@ -190,7 +190,7 @@ Name | Type | Description
 
 > MicrovisorV1DeviceConfig UpdateDeviceConfig(ctx, DeviceSidKeyoptional)
 
-
+Update a config for a Microvisor Device.
 
 Update a config for a Microvisor Device.
 

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // EventsV1SubscribedEvent struct for EventsV1SubscribedEvent
 type EventsV1SubscribedEvent struct {
 	// The unique SID identifier of the Account.

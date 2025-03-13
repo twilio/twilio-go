@@ -14,13 +14,18 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // VerifyV2Form struct for VerifyV2Form
 type VerifyV2Form struct {
 	FormType *string `json:"form_type,omitempty"`
 	// Object that contains the available forms for this type. This available forms are given in the standard [JSON Schema](https://json-schema.org/) format
-	Forms *interface{} `json:"forms,omitempty"`
+	Forms *map[string]interface{} `json:"forms,omitempty"`
 	// Additional information for the available forms for this type. E.g. The separator string used for `binding` in a Factor push.
-	FormMeta *interface{} `json:"form_meta,omitempty"`
+	FormMeta *map[string]interface{} `json:"form_meta,omitempty"`
 	// The URL to access the forms for this type.
 	Url *string `json:"url,omitempty"`
 }

@@ -4,7 +4,7 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInteraction**](InteractionsApi.md#CreateInteraction) | **Post** /v1/Interactions | 
+[**CreateInteraction**](InteractionsApi.md#CreateInteraction) | **Post** /v1/Interactions | Create a new Interaction.
 [**FetchInteraction**](InteractionsApi.md#FetchInteraction) | **Get** /v1/Interactions/{Sid} | 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > FlexV1Interaction CreateInteraction(ctx, optional)
 
-
+Create a new Interaction.
 
 Create a new Interaction.
 
@@ -28,8 +28,8 @@ Other parameters are passed through a pointer to a CreateInteractionParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Channel** | [**interface{}**](interface{}.md) | The Interaction's channel.
-**Routing** | [**interface{}**](interface{}.md) | The Interaction's routing logic.
+**Channel** | [**map[string]interface{}**](map[string]interface{}.md) | The Interaction's channel.
+**Routing** | [**map[string]interface{}**](map[string]interface{}.md) | The Interaction's routing logic.
 **InteractionContextSid** | **string** | The Interaction context sid is used for adding a context lookup sid
 
 ### Return type

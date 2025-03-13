@@ -18,8 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
-	"time"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -45,7 +43,7 @@ type CreateRoomParams struct {
 	// The region for the Room's media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers).
 	MediaRegion *string `json:"MediaRegion,omitempty"`
 	// A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-	RecordingRules *interface{} `json:"RecordingRules,omitempty"`
+	RecordingRules *map[string]interface{} `json:"RecordingRules,omitempty"`
 	// When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
 	AudioOnly *bool `json:"AudioOnly,omitempty"`
 	// The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
@@ -94,7 +92,7 @@ func (params *CreateRoomParams) SetMediaRegion(MediaRegion string) *CreateRoomPa
 	params.MediaRegion = &MediaRegion
 	return params
 }
-func (params *CreateRoomParams) SetRecordingRules(RecordingRules interface{}) *CreateRoomParams {
+func (params *CreateRoomParams) SetRecordingRules(RecordingRules map[string]interface{}) *CreateRoomParams {
 	params.RecordingRules = &RecordingRules
 	return params
 }

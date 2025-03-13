@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // AssistantsV1AssistantSendMessageRequest struct for AssistantsV1AssistantSendMessageRequest
 type AssistantsV1AssistantSendMessageRequest struct {
 	// The unique identity of user for the session.

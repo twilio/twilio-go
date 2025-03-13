@@ -4,11 +4,11 @@ All URIs are relative to *https://microvisor.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAccountSecret**](SecretsApi.md#CreateAccountSecret) | **Post** /v1/Secrets | 
-[**DeleteAccountSecret**](SecretsApi.md#DeleteAccountSecret) | **Delete** /v1/Secrets/{Key} | 
-[**FetchAccountSecret**](SecretsApi.md#FetchAccountSecret) | **Get** /v1/Secrets/{Key} | 
-[**ListAccountSecret**](SecretsApi.md#ListAccountSecret) | **Get** /v1/Secrets | 
-[**UpdateAccountSecret**](SecretsApi.md#UpdateAccountSecret) | **Post** /v1/Secrets/{Key} | 
+[**CreateAccountSecret**](SecretsApi.md#CreateAccountSecret) | **Post** /v1/Secrets | Create a secret for an Account.
+[**DeleteAccountSecret**](SecretsApi.md#DeleteAccountSecret) | **Delete** /v1/Secrets/{Key} | Delete a secret for an Account.
+[**FetchAccountSecret**](SecretsApi.md#FetchAccountSecret) | **Get** /v1/Secrets/{Key} | Retrieve a Secret for an Account.
+[**ListAccountSecret**](SecretsApi.md#ListAccountSecret) | **Get** /v1/Secrets | Retrieve a list of all Secrets for an Account.
+[**UpdateAccountSecret**](SecretsApi.md#UpdateAccountSecret) | **Post** /v1/Secrets/{Key} | Update a secret for an Account.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > MicrovisorV1AccountSecret CreateAccountSecret(ctx, optional)
 
-
+Create a secret for an Account.
 
 Create a secret for an Account.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > DeleteAccountSecret(ctx, Key)
 
-
+Delete a secret for an Account.
 
 Delete a secret for an Account.
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 > MicrovisorV1AccountSecret FetchAccountSecret(ctx, Key)
 
-
+Retrieve a Secret for an Account.
 
 Retrieve a Secret for an Account.
 
@@ -140,7 +140,7 @@ Name | Type | Description
 
 > []MicrovisorV1AccountSecret ListAccountSecret(ctx, optional)
 
-
+Retrieve a list of all Secrets for an Account.
 
 Retrieve a list of all Secrets for an Account.
 
@@ -180,7 +180,7 @@ Name | Type | Description
 
 > MicrovisorV1AccountSecret UpdateAccountSecret(ctx, Keyoptional)
 
-
+Update a secret for an Account.
 
 Update a secret for an Account.
 

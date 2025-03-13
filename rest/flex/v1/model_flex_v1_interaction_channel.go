@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // FlexV1InteractionChannel struct for FlexV1InteractionChannel
 type FlexV1InteractionChannel struct {
 	// The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.

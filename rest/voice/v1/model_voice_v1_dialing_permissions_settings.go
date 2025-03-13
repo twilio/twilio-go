@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // VoiceV1DialingPermissionsSettings struct for VoiceV1DialingPermissionsSettings
 type VoiceV1DialingPermissionsSettings struct {
 	// `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`.

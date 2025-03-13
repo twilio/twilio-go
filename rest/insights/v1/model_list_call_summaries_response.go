@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListCallSummariesResponse struct for ListCallSummariesResponse
 type ListCallSummariesResponse struct {
 	CallSummaries []InsightsV1CallSummaries     `json:"call_summaries,omitempty"`

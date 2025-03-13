@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // AssistantsV1CustomerAi struct for AssistantsV1CustomerAi
 type AssistantsV1CustomerAi struct {
 	// True if the perception engine is enabled.

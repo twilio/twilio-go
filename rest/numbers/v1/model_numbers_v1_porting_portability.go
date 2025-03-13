@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // NumbersV1PortingPortability struct for NumbersV1PortingPortability
 type NumbersV1PortingPortability struct {
 	// The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).

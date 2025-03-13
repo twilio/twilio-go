@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // FlexV1InsightsQuestionnaires struct for FlexV1InsightsQuestionnaires
 type FlexV1InsightsQuestionnaires struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
@@ -27,6 +32,6 @@ type FlexV1InsightsQuestionnaires struct {
 	// The flag to enable or disable questionnaire
 	Active *bool `json:"active,omitempty"`
 	// The list of questions with category for a questionnaire
-	Questions *[]interface{} `json:"questions,omitempty"`
-	Url       *string        `json:"url,omitempty"`
+	Questions *[]map[string]interface{} `json:"questions,omitempty"`
+	Url       *string                   `json:"url,omitempty"`
 }

@@ -16,8 +16,10 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) UpdateRoomParticipantAnonymize(RoomSid string, Sid string) (*VideoV1RoomParticipantAnonymize, error) {

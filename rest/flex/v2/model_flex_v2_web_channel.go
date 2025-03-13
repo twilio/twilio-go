@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // FlexV2WebChannel struct for FlexV2WebChannel
 type FlexV2WebChannel struct {
 	// The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created.

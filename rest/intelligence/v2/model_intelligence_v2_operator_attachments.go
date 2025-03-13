@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // IntelligenceV2OperatorAttachments struct for IntelligenceV2OperatorAttachments
 type IntelligenceV2OperatorAttachments struct {
 	// The unique SID identifier of the Service.

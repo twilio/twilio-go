@@ -18,7 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -26,8 +25,8 @@ import (
 // Attach Knowledge to Assistant
 func (c *ApiService) CreateAssistantKnowledgeAttachment(AssistantId string, Id string) error {
 	path := "/v1/Assistants/{assistantId}/Knowledge/{id}"
-	path = strings.Replace(path, "{"+"AssistantId"+"}", AssistantId, -1)
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"assistantId"+"}", AssistantId, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -47,8 +46,8 @@ func (c *ApiService) CreateAssistantKnowledgeAttachment(AssistantId string, Id s
 // Detach Knowledge to Assistant
 func (c *ApiService) DeleteAssistantKnowledgeAttachment(AssistantId string, Id string) error {
 	path := "/v1/Assistants/{assistantId}/Knowledge/{id}"
-	path = strings.Replace(path, "{"+"AssistantId"+"}", AssistantId, -1)
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"assistantId"+"}", AssistantId, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -86,7 +85,7 @@ func (params *ListKnowledgeByAssistantParams) SetLimit(Limit int) *ListKnowledge
 func (c *ApiService) PageKnowledgeByAssistant(AssistantId string, params *ListKnowledgeByAssistantParams, pageToken, pageNumber string) (*ListKnowledgeByAssistantResponse, error) {
 	path := "/v1/Assistants/{assistantId}/Knowledge"
 
-	path = strings.Replace(path, "{"+"AssistantId"+"}", AssistantId, -1)
+	path = strings.Replace(path, "{"+"assistantId"+"}", AssistantId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

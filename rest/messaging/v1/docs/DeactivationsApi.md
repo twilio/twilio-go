@@ -4,7 +4,7 @@ All URIs are relative to *https://messaging.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchDeactivation**](DeactivationsApi.md#FetchDeactivation) | **Get** /v1/Deactivations | 
+[**FetchDeactivation**](DeactivationsApi.md#FetchDeactivation) | **Get** /v1/Deactivations | Fetch a list of all United States numbers that have been deactivated on a specific date.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > MessagingV1Deactivation FetchDeactivation(ctx, optional)
 
-
+Fetch a list of all United States numbers that have been deactivated on a specific date.
 
 Fetch a list of all United States numbers that have been deactivated on a specific date.
 

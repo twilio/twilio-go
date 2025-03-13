@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010SipIpAddress struct for ApiV2010SipIpAddress
 type ApiV2010SipIpAddress struct {
 	// A 34 character string that uniquely identifies this resource.

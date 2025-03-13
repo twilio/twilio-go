@@ -4,10 +4,10 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEngagement**](FlowsEngagementsApi.md#CreateEngagement) | **Post** /v1/Flows/{FlowSid}/Engagements | 
-[**DeleteEngagement**](FlowsEngagementsApi.md#DeleteEngagement) | **Delete** /v1/Flows/{FlowSid}/Engagements/{Sid} | 
-[**FetchEngagement**](FlowsEngagementsApi.md#FetchEngagement) | **Get** /v1/Flows/{FlowSid}/Engagements/{Sid} | 
-[**ListEngagement**](FlowsEngagementsApi.md#ListEngagement) | **Get** /v1/Flows/{FlowSid}/Engagements | 
+[**CreateEngagement**](FlowsEngagementsApi.md#CreateEngagement) | **Post** /v1/Flows/{FlowSid}/Engagements | Triggers a new Engagement for the Flow
+[**DeleteEngagement**](FlowsEngagementsApi.md#DeleteEngagement) | **Delete** /v1/Flows/{FlowSid}/Engagements/{Sid} | Delete this Engagement and all Steps relating to it.
+[**FetchEngagement**](FlowsEngagementsApi.md#FetchEngagement) | **Get** /v1/Flows/{FlowSid}/Engagements/{Sid} | Retrieve an Engagement
+[**ListEngagement**](FlowsEngagementsApi.md#ListEngagement) | **Get** /v1/Flows/{FlowSid}/Engagements | Retrieve a list of all Engagements for the Flow.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > StudioV1Engagement CreateEngagement(ctx, FlowSidoptional)
 
-
+Triggers a new Engagement for the Flow
 
 Triggers a new Engagement for the Flow
 
@@ -36,7 +36,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **To** | **string** | The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
 **From** | **string** | The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
-**Parameters** | [**interface{}**](interface{}.md) | A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
+**Parameters** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
 
 ### Return type
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 > DeleteEngagement(ctx, FlowSidSid)
 
-
+Delete this Engagement and all Steps relating to it.
 
 Delete this Engagement and all Steps relating to it.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > StudioV1Engagement FetchEngagement(ctx, FlowSidSid)
 
-
+Retrieve an Engagement
 
 Retrieve an Engagement
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []StudioV1Engagement ListEngagement(ctx, FlowSidoptional)
 
-
+Retrieve a list of all Engagements for the Flow.
 
 Retrieve a list of all Engagements for the Flow.
 

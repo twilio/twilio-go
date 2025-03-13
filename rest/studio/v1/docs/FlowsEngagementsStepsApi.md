@@ -4,8 +4,8 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchStep**](FlowsEngagementsStepsApi.md#FetchStep) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid} | 
-[**ListStep**](FlowsEngagementsStepsApi.md#ListStep) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps | 
+[**FetchStep**](FlowsEngagementsStepsApi.md#FetchStep) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid} | Retrieve a Step.
+[**ListStep**](FlowsEngagementsStepsApi.md#ListStep) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps | Retrieve a list of all Steps for an Engagement.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > StudioV1Step FetchStep(ctx, FlowSidEngagementSidSid)
 
-
+Retrieve a Step.
 
 Retrieve a Step.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []StudioV1Step ListStep(ctx, FlowSidEngagementSidoptional)
 
-
+Retrieve a list of all Steps for an Engagement.
 
 Retrieve a list of all Steps for an Engagement.
 

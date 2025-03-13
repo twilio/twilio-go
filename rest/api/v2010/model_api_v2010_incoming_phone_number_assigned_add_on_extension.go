@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010IncomingPhoneNumberAssignedAddOnExtension struct for ApiV2010IncomingPhoneNumberAssignedAddOnExtension
 type ApiV2010IncomingPhoneNumberAssignedAddOnExtension struct {
 	// The unique string that that we created to identify the resource.

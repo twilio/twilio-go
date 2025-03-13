@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListContentAndApprovalsResponse struct for ListContentAndApprovalsResponse
 type ListContentAndApprovalsResponse struct {
 	Contents []ContentV1ContentAndApprovals `json:"contents,omitempty"`

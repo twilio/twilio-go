@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSiprec**](AccountsCallsSiprecApi.md#CreateSiprec) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json | 
-[**UpdateSiprec**](AccountsCallsSiprecApi.md#UpdateSiprec) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json | 
+[**CreateSiprec**](AccountsCallsSiprecApi.md#CreateSiprec) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json | Create a Siprec
+[**UpdateSiprec**](AccountsCallsSiprecApi.md#UpdateSiprec) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json | Stop a Siprec using either the SID of the Siprec resource or the &#x60;name&#x60; used when creating the resource
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ApiV2010Siprec CreateSiprec(ctx, CallSidoptional)
 
-
+Create a Siprec
 
 Create a Siprec
 
@@ -259,7 +259,7 @@ Name | Type | Description
 
 > ApiV2010Siprec UpdateSiprec(ctx, CallSidSidoptional)
 
-
+Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource
 
 Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource
 

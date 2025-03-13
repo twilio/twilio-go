@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListDialingPermissionsHrsPrefixesResponse struct for ListDialingPermissionsHrsPrefixesResponse
 type ListDialingPermissionsHrsPrefixesResponse struct {
 	Content []VoiceV1DialingPermissionsHrsPrefixes `json:"content,omitempty"`

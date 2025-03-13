@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListExportCustomJobResponse struct for ListExportCustomJobResponse
 type ListExportCustomJobResponse struct {
 	Jobs []BulkexportsV1ExportCustomJob `json:"jobs,omitempty"`

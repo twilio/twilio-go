@@ -16,9 +16,8 @@ package openapi
 
 import (
 	"encoding/json"
-	"time"
-
 	"github.com/twilio/twilio-go/client"
+	"time"
 )
 
 // MarketplaceV1ReferralRecords struct for MarketplaceV1ReferralRecords

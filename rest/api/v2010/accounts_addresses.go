@@ -18,7 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -236,6 +235,8 @@ type ListAddressParams struct {
 	CustomerName *string `json:"CustomerName,omitempty"`
 	// The string that identifies the Address resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether the address can be associated to a number for emergency calling.
+	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
 	// The ISO country code of the Address resources to read.
 	IsoCountry *string `json:"IsoCountry,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -254,6 +255,10 @@ func (params *ListAddressParams) SetCustomerName(CustomerName string) *ListAddre
 }
 func (params *ListAddressParams) SetFriendlyName(FriendlyName string) *ListAddressParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListAddressParams) SetEmergencyEnabled(EmergencyEnabled bool) *ListAddressParams {
+	params.EmergencyEnabled = &EmergencyEnabled
 	return params
 }
 func (params *ListAddressParams) SetIsoCountry(IsoCountry string) *ListAddressParams {
@@ -289,6 +294,9 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumbe
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.EmergencyEnabled != nil {
+		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled))
 	}
 	if params != nil && params.IsoCountry != nil {
 		data.Set("IsoCountry", *params.IsoCountry)
@@ -409,7 +417,7 @@ func (c *ApiService) getNextListAddressResponse(nextPageUrl string) (interface{}
 type UpdateAddressParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// A descriptive string that you create to describe the address. It can be up to 64 characters long.
+	// A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The name to associate with the address.
 	CustomerName *string `json:"CustomerName,omitempty"`

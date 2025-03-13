@@ -14,10 +14,15 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // SyncV1StreamMessage struct for SyncV1StreamMessage
 type SyncV1StreamMessage struct {
 	// The unique string that we created to identify the Stream Message resource.
 	Sid *string `json:"sid,omitempty"`
 	// An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
-	Data *interface{} `json:"data,omitempty"`
+	Data *map[string]interface{} `json:"data,omitempty"`
 }

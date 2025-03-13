@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListEntityResponse struct for ListEntityResponse
 type ListEntityResponse struct {
 	Entities []VerifyV2Entity       `json:"entities,omitempty"`

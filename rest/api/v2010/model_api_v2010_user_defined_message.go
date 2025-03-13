@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010UserDefinedMessage struct for ApiV2010UserDefinedMessage
 type ApiV2010UserDefinedMessage struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.

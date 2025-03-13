@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010Siprec struct for ApiV2010Siprec
 type ApiV2010Siprec struct {
 	// The SID of the Siprec resource.

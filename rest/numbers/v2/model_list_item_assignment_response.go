@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListItemAssignmentResponse struct for ListItemAssignmentResponse
 type ListItemAssignmentResponse struct {
 	Results []NumbersV2ItemAssignment             `json:"results,omitempty"`

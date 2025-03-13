@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSigningRequestConfigurationResponseMeta struct for ListSigningRequestConfigurationResponseMeta
 type ListSigningRequestConfigurationResponseMeta struct {
 	FirstPageUrl    string  `json:"first_page_url,omitempty"`

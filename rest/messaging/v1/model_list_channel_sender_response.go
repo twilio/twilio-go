@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListChannelSenderResponse struct for ListChannelSenderResponse
 type ListChannelSenderResponse struct {
 	Senders []MessagingV1ChannelSender  `json:"senders,omitempty"`

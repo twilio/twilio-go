@@ -4,7 +4,7 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListUsageRecord**](AccountsUsageRecordsApi.md#ListUsageRecord) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Records.json | 
+[**ListUsageRecord**](AccountsUsageRecordsApi.md#ListUsageRecord) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Records.json | Retrieve a list of usage-records belonging to the account used to make the request
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []ApiV2010UsageRecord ListUsageRecord(ctx, optional)
 
-
+Retrieve a list of usage-records belonging to the account used to make the request
 
 Retrieve a list of usage-records belonging to the account used to make the request
 

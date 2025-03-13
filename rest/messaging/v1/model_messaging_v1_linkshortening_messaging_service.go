@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // MessagingV1LinkshorteningMessagingService struct for MessagingV1LinkshorteningMessagingService
 type MessagingV1LinkshorteningMessagingService struct {
 	// The unique string identifies the domain resource

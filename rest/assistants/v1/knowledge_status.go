@@ -16,14 +16,16 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Get knowledge status
 func (c *ApiService) FetchKnowledgeStatus(Id string) (*AssistantsV1KnowledgeStatus, error) {
 	path := "/v1/Knowledge/{id}/Status"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

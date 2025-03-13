@@ -16,7 +16,10 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Fetch the global configuration of conversations on your account

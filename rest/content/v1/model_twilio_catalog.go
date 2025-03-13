@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TwilioCatalog twilio/catalog type lets recipients view list of catalog products, ask questions about products, order products.
 type TwilioCatalog struct {
 	Title        string        `json:"title,omitempty"`

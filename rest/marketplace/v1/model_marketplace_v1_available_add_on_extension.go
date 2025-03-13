@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // MarketplaceV1AvailableAddOnExtension struct for MarketplaceV1AvailableAddOnExtension
 type MarketplaceV1AvailableAddOnExtension struct {
 	// The unique string that we created to identify the AvailableAddOnExtension resource.

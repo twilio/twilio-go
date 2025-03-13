@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSessionsResponse struct for ListSessionsResponse
 type ListSessionsResponse struct {
 	Sessions []AssistantsV1Session     `json:"sessions,omitempty"`

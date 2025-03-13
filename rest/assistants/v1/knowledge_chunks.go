@@ -18,7 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -44,7 +43,7 @@ func (params *ListKnowledgeChunksParams) SetLimit(Limit int) *ListKnowledgeChunk
 func (c *ApiService) PageKnowledgeChunks(Id string, params *ListKnowledgeChunksParams, pageToken, pageNumber string) (*ListKnowledgeChunksResponse, error) {
 	path := "/v1/Knowledge/{id}/Chunks"
 
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

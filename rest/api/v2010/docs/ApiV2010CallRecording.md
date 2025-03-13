@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string that that we created to identify the Recording resource. |
 **Price** | Pointer to **float32** | The one-time cost of creating the recording in the `price_unit` currency. |
 **Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com`. |
-**EncryptionDetails** | Pointer to **interface{}** | How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature. |
+**EncryptionDetails** | Pointer to **map[string]interface{}** | How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature. |
 **PriceUnit** | Pointer to **string** | The currency used in the `price` property. Example: `USD`. |
 **Status** | Pointer to [**string**](CallRecordingEnumStatus.md) |  |
 **Channels** | **int** | The number of channels in the final recording file.  Can be: `1`, or `2`. Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/voice/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls) record options. |[optional] [default to 0]

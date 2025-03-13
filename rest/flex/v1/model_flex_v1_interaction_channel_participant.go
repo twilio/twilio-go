@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // FlexV1InteractionChannelParticipant struct for FlexV1InteractionChannelParticipant
 type FlexV1InteractionChannelParticipant struct {
 	// The unique string created by Twilio to identify an Interaction Channel Participant resource.
@@ -25,5 +30,5 @@ type FlexV1InteractionChannelParticipant struct {
 	ChannelSid *string `json:"channel_sid,omitempty"`
 	Url        *string `json:"url,omitempty"`
 	// The Participant's routing properties.
-	RoutingProperties *interface{} `json:"routing_properties,omitempty"`
+	RoutingProperties *map[string]interface{} `json:"routing_properties,omitempty"`
 }

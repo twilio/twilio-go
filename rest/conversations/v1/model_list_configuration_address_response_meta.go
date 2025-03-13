@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListConfigurationAddressResponseMeta struct for ListConfigurationAddressResponseMeta
 type ListConfigurationAddressResponseMeta struct {
 	FirstPageUrl    string  `json:"first_page_url,omitempty"`

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // CallToActionAction struct for CallToActionAction
 type CallToActionAction struct {
 	Type  CallToActionActionType `json:"type"`

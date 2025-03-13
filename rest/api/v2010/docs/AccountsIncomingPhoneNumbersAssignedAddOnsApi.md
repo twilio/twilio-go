@@ -4,10 +4,10 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateIncomingPhoneNumberAssignedAddOn**](AccountsIncomingPhoneNumbersAssignedAddOnsApi.md#CreateIncomingPhoneNumberAssignedAddOn) | **Post** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json | 
-[**DeleteIncomingPhoneNumberAssignedAddOn**](AccountsIncomingPhoneNumbersAssignedAddOnsApi.md#DeleteIncomingPhoneNumberAssignedAddOn) | **Delete** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json | 
-[**FetchIncomingPhoneNumberAssignedAddOn**](AccountsIncomingPhoneNumbersAssignedAddOnsApi.md#FetchIncomingPhoneNumberAssignedAddOn) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json | 
-[**ListIncomingPhoneNumberAssignedAddOn**](AccountsIncomingPhoneNumbersAssignedAddOnsApi.md#ListIncomingPhoneNumberAssignedAddOn) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json | 
+[**CreateIncomingPhoneNumberAssignedAddOn**](AccountsIncomingPhoneNumbersAssignedAddOnsApi.md#CreateIncomingPhoneNumberAssignedAddOn) | **Post** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json | Assign an Add-on installation to the Number specified.
+[**DeleteIncomingPhoneNumberAssignedAddOn**](AccountsIncomingPhoneNumbersAssignedAddOnsApi.md#DeleteIncomingPhoneNumberAssignedAddOn) | **Delete** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json | Remove the assignment of an Add-on installation from the Number specified.
+[**FetchIncomingPhoneNumberAssignedAddOn**](AccountsIncomingPhoneNumbersAssignedAddOnsApi.md#FetchIncomingPhoneNumberAssignedAddOn) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json | Fetch an instance of an Add-on installation currently assigned to this Number.
+[**ListIncomingPhoneNumberAssignedAddOn**](AccountsIncomingPhoneNumbersAssignedAddOnsApi.md#ListIncomingPhoneNumberAssignedAddOn) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json | Retrieve a list of Add-on installations currently assigned to this Number.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ApiV2010IncomingPhoneNumberAssignedAddOn CreateIncomingPhoneNumberAssignedAddOn(ctx, ResourceSidoptional)
 
-
+Assign an Add-on installation to the Number specified.
 
 Assign an Add-on installation to the Number specified.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteIncomingPhoneNumberAssignedAddOn(ctx, ResourceSidSidoptional)
 
-
+Remove the assignment of an Add-on installation from the Number specified.
 
 Remove the assignment of an Add-on installation from the Number specified.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > ApiV2010IncomingPhoneNumberAssignedAddOn FetchIncomingPhoneNumberAssignedAddOn(ctx, ResourceSidSidoptional)
 
-
+Fetch an instance of an Add-on installation currently assigned to this Number.
 
 Fetch an instance of an Add-on installation currently assigned to this Number.
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []ApiV2010IncomingPhoneNumberAssignedAddOn ListIncomingPhoneNumberAssignedAddOn(ctx, ResourceSidoptional)
 
-
+Retrieve a list of Add-on installations currently assigned to this Number.
 
 Retrieve a list of Add-on installations currently assigned to this Number.
 

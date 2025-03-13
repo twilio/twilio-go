@@ -4,10 +4,10 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSim**](SimsApi.md#CreateSim) | **Post** /v1/Sims | 
-[**FetchSim**](SimsApi.md#FetchSim) | **Get** /v1/Sims/{Sid} | 
-[**ListSim**](SimsApi.md#ListSim) | **Get** /v1/Sims | 
-[**UpdateSim**](SimsApi.md#UpdateSim) | **Post** /v1/Sims/{Sid} | 
+[**CreateSim**](SimsApi.md#CreateSim) | **Post** /v1/Sims | Register a Super SIM to your Account
+[**FetchSim**](SimsApi.md#FetchSim) | **Get** /v1/Sims/{Sid} | Fetch a Super SIM instance from your account.
+[**ListSim**](SimsApi.md#ListSim) | **Get** /v1/Sims | Retrieve a list of Super SIMs from your account.
+[**UpdateSim**](SimsApi.md#UpdateSim) | **Post** /v1/Sims/{Sid} | Updates the given properties of a Super SIM instance from your account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > SupersimV1Sim CreateSim(ctx, optional)
 
-
+Register a Super SIM to your Account
 
 Register a Super SIM to your Account
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > SupersimV1Sim FetchSim(ctx, Sid)
 
-
+Fetch a Super SIM instance from your account.
 
 Fetch a Super SIM instance from your account.
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 > []SupersimV1Sim ListSim(ctx, optional)
 
-
+Retrieve a list of Super SIMs from your account.
 
 Retrieve a list of Super SIMs from your account.
 
@@ -140,7 +140,7 @@ Name | Type | Description
 
 > SupersimV1Sim UpdateSim(ctx, Sidoptional)
 
-
+Updates the given properties of a Super SIM instance from your account.
 
 Updates the given properties of a Super SIM instance from your account.
 

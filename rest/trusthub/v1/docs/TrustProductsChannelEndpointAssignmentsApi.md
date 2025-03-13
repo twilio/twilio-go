@@ -4,10 +4,10 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateTrustProductChannelEndpointAssignment**](TrustProductsChannelEndpointAssignmentsApi.md#CreateTrustProductChannelEndpointAssignment) | **Post** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments | 
-[**DeleteTrustProductChannelEndpointAssignment**](TrustProductsChannelEndpointAssignmentsApi.md#DeleteTrustProductChannelEndpointAssignment) | **Delete** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid} | 
-[**FetchTrustProductChannelEndpointAssignment**](TrustProductsChannelEndpointAssignmentsApi.md#FetchTrustProductChannelEndpointAssignment) | **Get** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid} | 
-[**ListTrustProductChannelEndpointAssignment**](TrustProductsChannelEndpointAssignmentsApi.md#ListTrustProductChannelEndpointAssignment) | **Get** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments | 
+[**CreateTrustProductChannelEndpointAssignment**](TrustProductsChannelEndpointAssignmentsApi.md#CreateTrustProductChannelEndpointAssignment) | **Post** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments | Create a new Assigned Item.
+[**DeleteTrustProductChannelEndpointAssignment**](TrustProductsChannelEndpointAssignmentsApi.md#DeleteTrustProductChannelEndpointAssignment) | **Delete** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid} | Remove an Assignment Item Instance.
+[**FetchTrustProductChannelEndpointAssignment**](TrustProductsChannelEndpointAssignmentsApi.md#FetchTrustProductChannelEndpointAssignment) | **Get** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid} | Fetch specific Assigned Item Instance.
+[**ListTrustProductChannelEndpointAssignment**](TrustProductsChannelEndpointAssignmentsApi.md#ListTrustProductChannelEndpointAssignment) | **Get** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments | Retrieve a list of all Assigned Items for an account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > TrusthubV1TrustProductChannelEndpointAssignment CreateTrustProductChannelEndpointAssignment(ctx, TrustProductSidoptional)
 
-
+Create a new Assigned Item.
 
 Create a new Assigned Item.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteTrustProductChannelEndpointAssignment(ctx, TrustProductSidSid)
 
-
+Remove an Assignment Item Instance.
 
 Remove an Assignment Item Instance.
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > TrusthubV1TrustProductChannelEndpointAssignment FetchTrustProductChannelEndpointAssignment(ctx, TrustProductSidSid)
 
-
+Fetch specific Assigned Item Instance.
 
 Fetch specific Assigned Item Instance.
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > []TrusthubV1TrustProductChannelEndpointAssignment ListTrustProductChannelEndpointAssignment(ctx, TrustProductSidoptional)
 
-
+Retrieve a list of all Assigned Items for an account.
 
 Retrieve a list of all Assigned Items for an account.
 

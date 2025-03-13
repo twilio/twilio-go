@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // IamV1NewKey struct for IamV1NewKey
 type IamV1NewKey struct {
 	// The unique string that that we created to identify the NewKey resource. You will use this as the basic-auth `user` when authenticating to the API.
@@ -27,5 +32,5 @@ type IamV1NewKey struct {
 	// The secret your application uses to sign Access Tokens and to authenticate to the REST API (you will use this as the basic-auth `password`).  **Note that for security reasons, this field is ONLY returned when the API Key is first created.**
 	Secret *string `json:"secret,omitempty"`
 	// Collection of allow assertions.
-	Policy *interface{} `json:"policy,omitempty"`
+	Policy *map[string]interface{} `json:"policy,omitempty"`
 }

@@ -15,6 +15,8 @@
 package openapi
 
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
 
@@ -34,5 +36,5 @@ type MessagingV1DomainCertV4 struct {
 	CertificateSid *string `json:"certificate_sid,omitempty"`
 	Url            *string `json:"url,omitempty"`
 	// Optional JSON field describing the status and upload date of a new certificate in the process of validation
-	CertInValidation *interface{} `json:"cert_in_validation,omitempty"`
+	CertInValidation *map[string]interface{} `json:"cert_in_validation,omitempty"`
 }

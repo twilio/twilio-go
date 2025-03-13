@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010Account struct for ApiV2010Account
 type ApiV2010Account struct {
 	// The authorization token for this account. This token should be kept a secret, so no sharing.

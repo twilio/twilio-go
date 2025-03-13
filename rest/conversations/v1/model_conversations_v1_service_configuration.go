@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ConversationsV1ServiceConfiguration struct for ConversationsV1ServiceConfiguration
 type ConversationsV1ServiceConfiguration struct {
 	// The unique string that we created to identify the Service configuration resource.

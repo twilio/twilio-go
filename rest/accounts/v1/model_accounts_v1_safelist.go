@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // AccountsV1Safelist struct for AccountsV1Safelist
 type AccountsV1Safelist struct {
 	// The unique string that we created to identify the SafeList resource.

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // VerifyV2VerificationTemplate struct for VerifyV2VerificationTemplate
 type VerifyV2VerificationTemplate struct {
 	// A 34 character string that uniquely identifies a Verification Template.
@@ -25,5 +30,5 @@ type VerifyV2VerificationTemplate struct {
 	// A list of channels that support the Template. Can include: sms, voice.
 	Channels *[]string `json:"channels,omitempty"`
 	// An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
-	Translations *interface{} `json:"translations,omitempty"`
+	Translations *map[string]interface{} `json:"translations,omitempty"`
 }

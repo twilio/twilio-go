@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // NumbersV1PortingWebhookConfiguration struct for NumbersV1PortingWebhookConfiguration
 type NumbersV1PortingWebhookConfiguration struct {
 	// The URL of the webhook configuration request

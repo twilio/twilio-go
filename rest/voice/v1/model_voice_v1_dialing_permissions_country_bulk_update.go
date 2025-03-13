@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // VoiceV1DialingPermissionsCountryBulkUpdate struct for VoiceV1DialingPermissionsCountryBulkUpdate
 type VoiceV1DialingPermissionsCountryBulkUpdate struct {
 	// The number of countries updated

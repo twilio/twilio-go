@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010ConferenceRecording struct for ApiV2010ConferenceRecording
 type ApiV2010ConferenceRecording struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource.
@@ -45,7 +50,7 @@ type ApiV2010ConferenceRecording struct {
 	// The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
 	ErrorCode *int `json:"error_code,omitempty"`
 	// How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
-	EncryptionDetails *interface{} `json:"encryption_details,omitempty"`
+	EncryptionDetails *map[string]interface{} `json:"encryption_details,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 }

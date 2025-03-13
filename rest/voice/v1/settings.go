@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Retrieve voice dialing permissions inheritance for the sub-account

@@ -4,9 +4,9 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteRecordingAddOnResultPayload**](AccountsRecordingsAddOnResultsPayloadsApi.md#DeleteRecordingAddOnResultPayload) | **Delete** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json | 
-[**FetchRecordingAddOnResultPayload**](AccountsRecordingsAddOnResultsPayloadsApi.md#FetchRecordingAddOnResultPayload) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json | 
-[**ListRecordingAddOnResultPayload**](AccountsRecordingsAddOnResultsPayloadsApi.md#ListRecordingAddOnResultPayload) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json | 
+[**DeleteRecordingAddOnResultPayload**](AccountsRecordingsAddOnResultsPayloadsApi.md#DeleteRecordingAddOnResultPayload) | **Delete** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json | Delete a payload from the result along with all associated Data
+[**FetchRecordingAddOnResultPayload**](AccountsRecordingsAddOnResultsPayloadsApi.md#FetchRecordingAddOnResultPayload) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json | Fetch an instance of a result payload
+[**ListRecordingAddOnResultPayload**](AccountsRecordingsAddOnResultsPayloadsApi.md#ListRecordingAddOnResultPayload) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json | Retrieve a list of payloads belonging to the AddOnResult
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > DeleteRecordingAddOnResultPayload(ctx, ReferenceSidAddOnResultSidSidoptional)
 
-
+Delete a payload from the result along with all associated Data
 
 Delete a payload from the result along with all associated Data
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > ApiV2010RecordingAddOnResultPayload FetchRecordingAddOnResultPayload(ctx, ReferenceSidAddOnResultSidSidoptional)
 
-
+Fetch an instance of a result payload
 
 Fetch an instance of a result payload
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > []ApiV2010RecordingAddOnResultPayload ListRecordingAddOnResultPayload(ctx, ReferenceSidAddOnResultSidoptional)
 
-
+Retrieve a list of payloads belonging to the AddOnResult
 
 Retrieve a list of payloads belonging to the AddOnResult
 

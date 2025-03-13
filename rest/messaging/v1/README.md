@@ -39,7 +39,7 @@ Class | Method | HTTP request | Description
 *A2pBrandRegistrationsVettingsApi* | [**CreateBrandVetting**](docs/A2pBrandRegistrationsVettingsApi.md#createbrandvetting) | **Post** /v1/a2p/BrandRegistrations/{BrandSid}/Vettings | 
 *A2pBrandRegistrationsVettingsApi* | [**FetchBrandVetting**](docs/A2pBrandRegistrationsVettingsApi.md#fetchbrandvetting) | **Get** /v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid} | 
 *A2pBrandRegistrationsVettingsApi* | [**ListBrandVetting**](docs/A2pBrandRegistrationsVettingsApi.md#listbrandvetting) | **Get** /v1/a2p/BrandRegistrations/{BrandSid}/Vettings | 
-*DeactivationsApi* | [**FetchDeactivation**](docs/DeactivationsApi.md#fetchdeactivation) | **Get** /v1/Deactivations | 
+*DeactivationsApi* | [**FetchDeactivation**](docs/DeactivationsApi.md#fetchdeactivation) | **Get** /v1/Deactivations | Fetch a list of all United States numbers that have been deactivated on a specific date.
 *LinkShorteningDomainsCertificateApi* | [**DeleteDomainCertV4**](docs/LinkShorteningDomainsCertificateApi.md#deletedomaincertv4) | **Delete** /v1/LinkShortening/Domains/{DomainSid}/Certificate | 
 *LinkShorteningDomainsCertificateApi* | [**FetchDomainCertV4**](docs/LinkShorteningDomainsCertificateApi.md#fetchdomaincertv4) | **Get** /v1/LinkShortening/Domains/{DomainSid}/Certificate | 
 *LinkShorteningDomainsCertificateApi* | [**UpdateDomainCertV4**](docs/LinkShorteningDomainsCertificateApi.md#updatedomaincertv4) | **Post** /v1/LinkShortening/Domains/{DomainSid}/Certificate | 
@@ -69,6 +69,10 @@ Class | Method | HTTP request | Description
 *ServicesComplianceUsa2pApi* | [**ListUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#listusapptoperson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
 *ServicesComplianceUsa2pApi* | [**UpdateUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#updateusapptoperson) | **Post** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 *ServicesComplianceUsa2pUsecasesApi* | [**FetchUsAppToPersonUsecase**](docs/ServicesComplianceUsa2pUsecasesApi.md#fetchusapptopersonusecase) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases | 
+*ServicesDestinationAlphaSendersApi* | [**CreateDestinationAlphaSender**](docs/ServicesDestinationAlphaSendersApi.md#createdestinationalphasender) | **Post** /v1/Services/{ServiceSid}/DestinationAlphaSenders | 
+*ServicesDestinationAlphaSendersApi* | [**DeleteDestinationAlphaSender**](docs/ServicesDestinationAlphaSendersApi.md#deletedestinationalphasender) | **Delete** /v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid} | 
+*ServicesDestinationAlphaSendersApi* | [**FetchDestinationAlphaSender**](docs/ServicesDestinationAlphaSendersApi.md#fetchdestinationalphasender) | **Get** /v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid} | 
+*ServicesDestinationAlphaSendersApi* | [**ListDestinationAlphaSender**](docs/ServicesDestinationAlphaSendersApi.md#listdestinationalphasender) | **Get** /v1/Services/{ServiceSid}/DestinationAlphaSenders | 
 *ServicesPhoneNumbersApi* | [**CreatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#createphonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
 *ServicesPhoneNumbersApi* | [**DeletePhoneNumber**](docs/ServicesPhoneNumbersApi.md#deletephonenumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
 *ServicesPhoneNumbersApi* | [**FetchPhoneNumber**](docs/ServicesPhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
@@ -94,10 +98,12 @@ Class | Method | HTTP request | Description
  - [MessagingV1UsAppToPersonUsecase](docs/MessagingV1UsAppToPersonUsecase.md)
  - [MessagingV1LinkshorteningMessagingService](docs/MessagingV1LinkshorteningMessagingService.md)
  - [MessagingV1TollfreeVerification](docs/MessagingV1TollfreeVerification.md)
+ - [ListDestinationAlphaSenderResponse](docs/ListDestinationAlphaSenderResponse.md)
  - [MessagingV1DomainConfig](docs/MessagingV1DomainConfig.md)
  - [MessagingV1UsAppToPerson](docs/MessagingV1UsAppToPerson.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
  - [MessagingV1BrandRegistrationOtp](docs/MessagingV1BrandRegistrationOtp.md)
+ - [MessagingV1DestinationAlphaSender](docs/MessagingV1DestinationAlphaSender.md)
  - [MessagingV1BrandRegistrations](docs/MessagingV1BrandRegistrations.md)
  - [MessagingV1ChannelSender](docs/MessagingV1ChannelSender.md)
  - [MessagingV1ShortCode](docs/MessagingV1ShortCode.md)

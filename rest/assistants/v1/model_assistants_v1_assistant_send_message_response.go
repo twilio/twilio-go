@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // AssistantsV1AssistantSendMessageResponse struct for AssistantsV1AssistantSendMessageResponse
 type AssistantsV1AssistantSendMessageResponse struct {
 	// success or failure based on whether the request successfully generated a response.

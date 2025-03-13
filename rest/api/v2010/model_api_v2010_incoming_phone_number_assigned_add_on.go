@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010IncomingPhoneNumberAssignedAddOn struct for ApiV2010IncomingPhoneNumberAssignedAddOn
 type ApiV2010IncomingPhoneNumberAssignedAddOn struct {
 	// The unique string that that we created to identify the resource.
@@ -27,7 +32,7 @@ type ApiV2010IncomingPhoneNumberAssignedAddOn struct {
 	// A short description of the functionality that the Add-on provides.
 	Description *string `json:"description,omitempty"`
 	// A JSON string that represents the current configuration of this Add-on installation.
-	Configuration *interface{} `json:"configuration,omitempty"`
+	Configuration *map[string]interface{} `json:"configuration,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 	UniqueName *string `json:"unique_name,omitempty"`
 	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.

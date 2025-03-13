@@ -16,25 +16,27 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateInteraction'
 type CreateInteractionParams struct {
 	// The Interaction's channel.
-	Channel *interface{} `json:"Channel,omitempty"`
+	Channel *map[string]interface{} `json:"Channel,omitempty"`
 	// The Interaction's routing logic.
-	Routing *interface{} `json:"Routing,omitempty"`
+	Routing *map[string]interface{} `json:"Routing,omitempty"`
 	// The Interaction context sid is used for adding a context lookup sid
 	InteractionContextSid *string `json:"InteractionContextSid,omitempty"`
 }
 
-func (params *CreateInteractionParams) SetChannel(Channel interface{}) *CreateInteractionParams {
+func (params *CreateInteractionParams) SetChannel(Channel map[string]interface{}) *CreateInteractionParams {
 	params.Channel = &Channel
 	return params
 }
-func (params *CreateInteractionParams) SetRouting(Routing interface{}) *CreateInteractionParams {
+func (params *CreateInteractionParams) SetRouting(Routing map[string]interface{}) *CreateInteractionParams {
 	params.Routing = &Routing
 	return params
 }

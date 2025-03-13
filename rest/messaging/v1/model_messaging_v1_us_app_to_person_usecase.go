@@ -14,8 +14,13 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // MessagingV1UsAppToPersonUsecase struct for MessagingV1UsAppToPersonUsecase
 type MessagingV1UsAppToPersonUsecase struct {
 	// Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases.
-	UsAppToPersonUsecases *[]interface{} `json:"us_app_to_person_usecases,omitempty"`
+	UsAppToPersonUsecases *[]map[string]interface{} `json:"us_app_to_person_usecases,omitempty"`
 }

@@ -4,10 +4,10 @@ All URIs are relative to *https://wireless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteSim**](SimsApi.md#DeleteSim) | **Delete** /v1/Sims/{Sid} | 
-[**FetchSim**](SimsApi.md#FetchSim) | **Get** /v1/Sims/{Sid} | 
-[**ListSim**](SimsApi.md#ListSim) | **Get** /v1/Sims | 
-[**UpdateSim**](SimsApi.md#UpdateSim) | **Post** /v1/Sims/{Sid} | 
+[**DeleteSim**](SimsApi.md#DeleteSim) | **Delete** /v1/Sims/{Sid} | Delete a Sim resource on your Account.
+[**FetchSim**](SimsApi.md#FetchSim) | **Get** /v1/Sims/{Sid} | Fetch a Sim resource on your Account.
+[**ListSim**](SimsApi.md#ListSim) | **Get** /v1/Sims | Retrieve a list of Sim resources on your Account.
+[**UpdateSim**](SimsApi.md#UpdateSim) | **Post** /v1/Sims/{Sid} | Updates the given properties of a Sim resource on your Account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeleteSim(ctx, Sid)
 
-
+Delete a Sim resource on your Account.
 
 Delete a Sim resource on your Account.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > WirelessV1Sim FetchSim(ctx, Sid)
 
-
+Fetch a Sim resource on your Account.
 
 Fetch a Sim resource on your Account.
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > []WirelessV1Sim ListSim(ctx, optional)
 
-
+Retrieve a list of Sim resources on your Account.
 
 Retrieve a list of Sim resources on your Account.
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 > WirelessV1Sim UpdateSim(ctx, Sidoptional)
 
-
+Updates the given properties of a Sim resource on your Account.
 
 Updates the given properties of a Sim resource on your Account.
 

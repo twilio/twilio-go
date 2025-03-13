@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListVerificationTemplateResponse struct for ListVerificationTemplateResponse
 type ListVerificationTemplateResponse struct {
 	Templates []VerifyV2VerificationTemplate `json:"templates,omitempty"`

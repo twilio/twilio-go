@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // InsightsV1Metric struct for InsightsV1Metric
 type InsightsV1Metric struct {
 	// Timestamp of metric sample. Samples are taken every 10 seconds and contain the metrics for the previous 10 seconds.
@@ -25,11 +30,11 @@ type InsightsV1Metric struct {
 	Edge       *string `json:"edge,omitempty"`
 	Direction  *string `json:"direction,omitempty"`
 	// Contains metrics and properties for the Twilio media gateway of a PSTN call.
-	CarrierEdge *interface{} `json:"carrier_edge,omitempty"`
+	CarrierEdge *map[string]interface{} `json:"carrier_edge,omitempty"`
 	// Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
-	SipEdge *interface{} `json:"sip_edge,omitempty"`
+	SipEdge *map[string]interface{} `json:"sip_edge,omitempty"`
 	// Contains metrics and properties for the SDK sensor library for Client calls.
-	SdkEdge *interface{} `json:"sdk_edge,omitempty"`
+	SdkEdge *map[string]interface{} `json:"sdk_edge,omitempty"`
 	// Contains metrics and properties for the Twilio media gateway of a Client call.
-	ClientEdge *interface{} `json:"client_edge,omitempty"`
+	ClientEdge *map[string]interface{} `json:"client_edge,omitempty"`
 }

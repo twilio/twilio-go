@@ -4,10 +4,10 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateNetworkAccessProfileNetwork**](NetworkAccessProfilesNetworksApi.md#CreateNetworkAccessProfileNetwork) | **Post** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | 
-[**DeleteNetworkAccessProfileNetwork**](NetworkAccessProfilesNetworksApi.md#DeleteNetworkAccessProfileNetwork) | **Delete** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | 
-[**FetchNetworkAccessProfileNetwork**](NetworkAccessProfilesNetworksApi.md#FetchNetworkAccessProfileNetwork) | **Get** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | 
-[**ListNetworkAccessProfileNetwork**](NetworkAccessProfilesNetworksApi.md#ListNetworkAccessProfileNetwork) | **Get** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | 
+[**CreateNetworkAccessProfileNetwork**](NetworkAccessProfilesNetworksApi.md#CreateNetworkAccessProfileNetwork) | **Post** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | Add a Network resource to the Network Access Profile resource.
+[**DeleteNetworkAccessProfileNetwork**](NetworkAccessProfilesNetworksApi.md#DeleteNetworkAccessProfileNetwork) | **Delete** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | Remove a Network resource from the Network Access Profile resource&#39;s.
+[**FetchNetworkAccessProfileNetwork**](NetworkAccessProfilesNetworksApi.md#FetchNetworkAccessProfileNetwork) | **Get** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | Fetch a Network Access Profile resource&#39;s Network resource.
+[**ListNetworkAccessProfileNetwork**](NetworkAccessProfilesNetworksApi.md#ListNetworkAccessProfileNetwork) | **Get** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | Retrieve a list of Network Access Profile resource&#39;s Network resource.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > SupersimV1NetworkAccessProfileNetwork CreateNetworkAccessProfileNetwork(ctx, NetworkAccessProfileSidoptional)
 
-
+Add a Network resource to the Network Access Profile resource.
 
 Add a Network resource to the Network Access Profile resource.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteNetworkAccessProfileNetwork(ctx, NetworkAccessProfileSidSid)
 
-
+Remove a Network resource from the Network Access Profile resource's.
 
 Remove a Network resource from the Network Access Profile resource's.
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > SupersimV1NetworkAccessProfileNetwork FetchNetworkAccessProfileNetwork(ctx, NetworkAccessProfileSidSid)
 
-
+Fetch a Network Access Profile resource's Network resource.
 
 Fetch a Network Access Profile resource's Network resource.
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 > []SupersimV1NetworkAccessProfileNetwork ListNetworkAccessProfileNetwork(ctx, NetworkAccessProfileSidoptional)
 
-
+Retrieve a list of Network Access Profile resource's Network resource.
 
 Retrieve a list of Network Access Profile resource's Network resource.
 

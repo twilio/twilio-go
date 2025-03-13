@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListTaskReservationResponse struct for ListTaskReservationResponse
 type ListTaskReservationResponse struct {
 	Reservations []TaskrouterV1TaskReservation `json:"reservations,omitempty"`

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListPluginConfigurationResponse struct for ListPluginConfigurationResponse
 type ListPluginConfigurationResponse struct {
 	Configurations []FlexV1PluginConfiguration `json:"configurations,omitempty"`

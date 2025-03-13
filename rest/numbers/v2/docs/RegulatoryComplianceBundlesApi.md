@@ -4,11 +4,11 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateBundle**](RegulatoryComplianceBundlesApi.md#CreateBundle) | **Post** /v2/RegulatoryCompliance/Bundles | 
-[**DeleteBundle**](RegulatoryComplianceBundlesApi.md#DeleteBundle) | **Delete** /v2/RegulatoryCompliance/Bundles/{Sid} | 
-[**FetchBundle**](RegulatoryComplianceBundlesApi.md#FetchBundle) | **Get** /v2/RegulatoryCompliance/Bundles/{Sid} | 
-[**ListBundle**](RegulatoryComplianceBundlesApi.md#ListBundle) | **Get** /v2/RegulatoryCompliance/Bundles | 
-[**UpdateBundle**](RegulatoryComplianceBundlesApi.md#UpdateBundle) | **Post** /v2/RegulatoryCompliance/Bundles/{Sid} | 
+[**CreateBundle**](RegulatoryComplianceBundlesApi.md#CreateBundle) | **Post** /v2/RegulatoryCompliance/Bundles | Create a new Bundle.
+[**DeleteBundle**](RegulatoryComplianceBundlesApi.md#DeleteBundle) | **Delete** /v2/RegulatoryCompliance/Bundles/{Sid} | Delete a specific Bundle.
+[**FetchBundle**](RegulatoryComplianceBundlesApi.md#FetchBundle) | **Get** /v2/RegulatoryCompliance/Bundles/{Sid} | Fetch a specific Bundle instance.
+[**ListBundle**](RegulatoryComplianceBundlesApi.md#ListBundle) | **Get** /v2/RegulatoryCompliance/Bundles | Retrieve a list of all Bundles for an account.
+[**UpdateBundle**](RegulatoryComplianceBundlesApi.md#UpdateBundle) | **Post** /v2/RegulatoryCompliance/Bundles/{Sid} | Updates a Bundle in an account.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > NumbersV2Bundle CreateBundle(ctx, optional)
 
-
+Create a new Bundle.
 
 Create a new Bundle.
 
@@ -62,7 +62,7 @@ Name | Type | Description
 
 > DeleteBundle(ctx, Sid)
 
-
+Delete a specific Bundle.
 
 Delete a specific Bundle.
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > NumbersV2Bundle FetchBundle(ctx, Sid)
 
-
+Fetch a specific Bundle instance.
 
 Fetch a specific Bundle instance.
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []NumbersV2Bundle ListBundle(ctx, optional)
 
-
+Retrieve a list of all Bundles for an account.
 
 Retrieve a list of all Bundles for an account.
 
@@ -197,7 +197,7 @@ Name | Type | Description
 
 > NumbersV2Bundle UpdateBundle(ctx, Sidoptional)
 
-
+Updates a Bundle in an account.
 
 Updates a Bundle in an account.
 

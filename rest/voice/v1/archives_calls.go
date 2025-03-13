@@ -15,9 +15,11 @@
 package openapi
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API.

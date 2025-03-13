@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListRoomParticipantPublishedTrackResponse struct for ListRoomParticipantPublishedTrackResponse
 type ListRoomParticipantPublishedTrackResponse struct {
 	PublishedTracks []VideoV1RoomParticipantPublishedTrack `json:"published_tracks,omitempty"`

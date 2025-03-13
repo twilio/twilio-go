@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **FriendlyName** | Pointer to **string** | A human readable description of this resource, up to 64 characters. For a push factor, this can be the device's name. |
 **Status** | Pointer to [**string**](FactorEnumFactorStatuses.md) |  |
 **FactorType** | Pointer to [**string**](FactorEnumFactorTypes.md) |  |
-**Config** | Pointer to **interface{}** | An object that contains configurations specific to a `factor_type`. |
-**Metadata** | Pointer to **interface{}** | Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length. |
+**Config** | Pointer to **map[string]interface{}** | An object that contains configurations specific to a `factor_type`. |
+**Metadata** | Pointer to **map[string]interface{}** | Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length. |
 **Url** | Pointer to **string** | The URL of this resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

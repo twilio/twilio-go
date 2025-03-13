@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateConversationMessage**](ConversationsMessagesApi.md#CreateConversationMessage) | **Post** /v1/Conversations/{ConversationSid}/Messages | 
-[**DeleteConversationMessage**](ConversationsMessagesApi.md#DeleteConversationMessage) | **Delete** /v1/Conversations/{ConversationSid}/Messages/{Sid} | 
-[**FetchConversationMessage**](ConversationsMessagesApi.md#FetchConversationMessage) | **Get** /v1/Conversations/{ConversationSid}/Messages/{Sid} | 
-[**ListConversationMessage**](ConversationsMessagesApi.md#ListConversationMessage) | **Get** /v1/Conversations/{ConversationSid}/Messages | 
-[**UpdateConversationMessage**](ConversationsMessagesApi.md#UpdateConversationMessage) | **Post** /v1/Conversations/{ConversationSid}/Messages/{Sid} | 
+[**CreateConversationMessage**](ConversationsMessagesApi.md#CreateConversationMessage) | **Post** /v1/Conversations/{ConversationSid}/Messages | Add a new message to the conversation
+[**DeleteConversationMessage**](ConversationsMessagesApi.md#DeleteConversationMessage) | **Delete** /v1/Conversations/{ConversationSid}/Messages/{Sid} | Remove a message from the conversation
+[**FetchConversationMessage**](ConversationsMessagesApi.md#FetchConversationMessage) | **Get** /v1/Conversations/{ConversationSid}/Messages/{Sid} | Fetch a message from the conversation
+[**ListConversationMessage**](ConversationsMessagesApi.md#ListConversationMessage) | **Get** /v1/Conversations/{ConversationSid}/Messages | Retrieve a list of all messages in the conversation
+[**UpdateConversationMessage**](ConversationsMessagesApi.md#UpdateConversationMessage) | **Post** /v1/Conversations/{ConversationSid}/Messages/{Sid} | Update an existing message in the conversation
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ConversationMessage CreateConversationMessage(ctx, ConversationSidoptional)
 
-
+Add a new message to the conversation
 
 Add a new message to the conversation
 
@@ -68,7 +68,7 @@ Name | Type | Description
 
 > DeleteConversationMessage(ctx, ConversationSidSidoptional)
 
-
+Remove a message from the conversation
 
 Remove a message from the conversation
 
@@ -112,7 +112,7 @@ Name | Type | Description
 
 > ConversationsV1ConversationMessage FetchConversationMessage(ctx, ConversationSidSid)
 
-
+Fetch a message from the conversation
 
 Fetch a message from the conversation
 
@@ -155,7 +155,7 @@ Name | Type | Description
 
 > []ConversationsV1ConversationMessage ListConversationMessage(ctx, ConversationSidoptional)
 
-
+Retrieve a list of all messages in the conversation
 
 Retrieve a list of all messages in the conversation
 
@@ -200,7 +200,7 @@ Name | Type | Description
 
 > ConversationsV1ConversationMessage UpdateConversationMessage(ctx, ConversationSidSidoptional)
 
-
+Update an existing message in the conversation
 
 Update an existing message in the conversation
 

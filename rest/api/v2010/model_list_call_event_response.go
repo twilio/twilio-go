@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListCallEventResponse struct for ListCallEventResponse
 type ListCallEventResponse struct {
 	Events          []ApiV2010CallEvent `json:"events,omitempty"`

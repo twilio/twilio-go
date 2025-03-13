@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateMessage**](AccountsMessagesApi.md#CreateMessage) | **Post** /2010-04-01/Accounts/{AccountSid}/Messages.json | 
-[**DeleteMessage**](AccountsMessagesApi.md#DeleteMessage) | **Delete** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | 
-[**FetchMessage**](AccountsMessagesApi.md#FetchMessage) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | 
-[**ListMessage**](AccountsMessagesApi.md#ListMessage) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages.json | 
-[**UpdateMessage**](AccountsMessagesApi.md#UpdateMessage) | **Post** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | 
+[**CreateMessage**](AccountsMessagesApi.md#CreateMessage) | **Post** /2010-04-01/Accounts/{AccountSid}/Messages.json | Send a message
+[**DeleteMessage**](AccountsMessagesApi.md#DeleteMessage) | **Delete** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | Deletes a Message resource from your account
+[**FetchMessage**](AccountsMessagesApi.md#FetchMessage) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | Fetch a specific Message
+[**ListMessage**](AccountsMessagesApi.md#ListMessage) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages.json | Retrieve a list of Message resources associated with a Twilio Account
+[**UpdateMessage**](AccountsMessagesApi.md#UpdateMessage) | **Post** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | Update a Message resource (used to redact Message &#x60;body&#x60; text and to cancel not-yet-sent messages)
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010Message CreateMessage(ctx, optional)
 
-
+Send a message
 
 Send a message
 
@@ -78,7 +78,7 @@ Name | Type | Description
 
 > DeleteMessage(ctx, Sidoptional)
 
-
+Deletes a Message resource from your account
 
 Deletes a Message resource from your account
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 > ApiV2010Message FetchMessage(ctx, Sidoptional)
 
-
+Fetch a specific Message
 
 Fetch a specific Message
 
@@ -164,7 +164,7 @@ Name | Type | Description
 
 > []ApiV2010Message ListMessage(ctx, optional)
 
-
+Retrieve a list of Message resources associated with a Twilio Account
 
 Retrieve a list of Message resources associated with a Twilio Account
 
@@ -210,7 +210,7 @@ Name | Type | Description
 
 > ApiV2010Message UpdateMessage(ctx, Sidoptional)
 
-
+Update a Message resource (used to redact Message `body` text and to cancel not-yet-sent messages)
 
 Update a Message resource (used to redact Message `body` text and to cancel not-yet-sent messages)
 

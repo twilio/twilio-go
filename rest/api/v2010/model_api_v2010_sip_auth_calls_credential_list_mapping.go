@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010SipAuthCallsCredentialListMapping struct for ApiV2010SipAuthCallsCredentialListMapping
 type ApiV2010SipAuthCallsCredentialListMapping struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource.

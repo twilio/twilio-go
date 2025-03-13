@@ -15,6 +15,8 @@
 package openapi
 
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
 
@@ -51,7 +53,7 @@ type MessagingV1UsAppToPerson struct {
 	// Indicates whether the campaign was registered externally or not.
 	IsExternallyRegistered *bool `json:"is_externally_registered,omitempty"`
 	// Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile.
-	RateLimits *interface{} `json:"rate_limits,omitempty"`
+	RateLimits *map[string]interface{} `json:"rate_limits,omitempty"`
 	// Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
 	MessageFlow *string `json:"message_flow,omitempty"`
 	// If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
@@ -75,5 +77,5 @@ type MessagingV1UsAppToPerson struct {
 	// A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes.
 	Mock *bool `json:"mock,omitempty"`
 	// Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
-	Errors *[]interface{} `json:"errors,omitempty"`
+	Errors *[]map[string]interface{} `json:"errors,omitempty"`
 }

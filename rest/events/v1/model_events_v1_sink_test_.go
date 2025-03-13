@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // EventsV1SinkTest struct for EventsV1SinkTest
 type EventsV1SinkTest struct {
 	// Feedback indicating whether the test event was generated.

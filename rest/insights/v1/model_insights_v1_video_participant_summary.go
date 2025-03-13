@@ -15,6 +15,8 @@
 package openapi
 
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
 
@@ -45,10 +47,10 @@ type InsightsV1VideoParticipantSummary struct {
 	ErrorCodeUrl *string `json:"error_code_url,omitempty"`
 	MediaRegion  *string `json:"media_region,omitempty"`
 	// Object containing information about the participant's data from the room. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#properties) for more information.
-	Properties   *interface{} `json:"properties,omitempty"`
-	EdgeLocation *string      `json:"edge_location,omitempty"`
+	Properties   *map[string]interface{} `json:"properties,omitempty"`
+	EdgeLocation *string                 `json:"edge_location,omitempty"`
 	// Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#publisher_info) for more information.
-	PublisherInfo *interface{} `json:"publisher_info,omitempty"`
+	PublisherInfo *map[string]interface{} `json:"publisher_info,omitempty"`
 	// URL of the participant resource.
 	Url *string `json:"url,omitempty"`
 }

@@ -4,8 +4,8 @@ All URIs are relative to *https://events.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchSchemaVersion**](SchemasVersionsApi.md#FetchSchemaVersion) | **Get** /v1/Schemas/{Id}/Versions/{SchemaVersion} | 
-[**ListSchemaVersion**](SchemasVersionsApi.md#ListSchemaVersion) | **Get** /v1/Schemas/{Id}/Versions | 
+[**FetchSchemaVersion**](SchemasVersionsApi.md#FetchSchemaVersion) | **Get** /v1/Schemas/{Id}/Versions/{SchemaVersion} | Fetch a specific schema and version.
+[**ListSchemaVersion**](SchemasVersionsApi.md#ListSchemaVersion) | **Get** /v1/Schemas/{Id}/Versions | Retrieve a paginated list of versions of the schema.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > EventsV1SchemaVersion FetchSchemaVersion(ctx, IdSchemaVersion)
 
-
+Fetch a specific schema and version.
 
 Fetch a specific schema and version.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > []EventsV1SchemaVersion ListSchemaVersion(ctx, Idoptional)
 
-
+Retrieve a paginated list of versions of the schema.
 
 Retrieve a paginated list of versions of the schema.
 

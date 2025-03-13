@@ -18,7 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateRealtimeTranscription'
@@ -51,7 +52,7 @@ type CreateRealtimeTranscriptionParams struct {
 	Hints *string `json:"Hints,omitempty"`
 	// The provider will add punctuation to recognition result
 	EnableAutomaticPunctuation *bool `json:"EnableAutomaticPunctuation,omitempty"`
-	// The SID of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
+	// The SID or unique name of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
 	IntelligenceService *string `json:"IntelligenceService,omitempty"`
 }
 

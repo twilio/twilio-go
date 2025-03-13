@@ -15,6 +15,8 @@
 package openapi
 
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
 
@@ -35,7 +37,7 @@ type SyncV1Document struct {
 	// The current revision of the Sync Document, represented as a string. The `revision` property is used with conditional updates to ensure data consistency.
 	Revision *string `json:"revision,omitempty"`
 	// An arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-	Data *interface{} `json:"data,omitempty"`
+	Data *map[string]interface{} `json:"data,omitempty"`
 	// The date and time in GMT when the Sync Document expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Sync Document does not expire, this value is `null`. The Document resource might not be deleted immediately after it expires.
 	DateExpires *time.Time `json:"date_expires,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

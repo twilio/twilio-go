@@ -18,7 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -37,7 +36,7 @@ func (params *CreateFeedbackParams) SetAssistantsV1CreateFeedbackRequest(Assista
 // Create feedback
 func (c *ApiService) CreateFeedback(Id string, params *CreateFeedbackParams) (*AssistantsV1Feedback, error) {
 	path := "/v1/Assistants/{id}/Feedbacks"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -89,7 +88,7 @@ func (params *ListFeedbackParams) SetLimit(Limit int) *ListFeedbackParams {
 func (c *ApiService) PageFeedback(Id string, params *ListFeedbackParams, pageToken, pageNumber string) (*ListFeedbacksResponse, error) {
 	path := "/v1/Assistants/{id}/Feedbacks"
 
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

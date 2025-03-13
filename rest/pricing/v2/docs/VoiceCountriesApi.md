@@ -4,7 +4,7 @@ All URIs are relative to *https://pricing.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchVoiceCountry**](VoiceCountriesApi.md#FetchVoiceCountry) | **Get** /v2/Voice/Countries/{IsoCountry} | 
+[**FetchVoiceCountry**](VoiceCountriesApi.md#FetchVoiceCountry) | **Get** /v2/Voice/Countries/{IsoCountry} | Fetch a specific Country.
 [**ListVoiceCountry**](VoiceCountriesApi.md#ListVoiceCountry) | **Get** /v2/Voice/Countries | 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > PricingV2VoiceCountryInstance FetchVoiceCountry(ctx, IsoCountry)
 
-
+Fetch a specific Country.
 
 Fetch a specific Country.
 

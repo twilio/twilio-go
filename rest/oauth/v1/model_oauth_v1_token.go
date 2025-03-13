@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // OauthV1Token struct for OauthV1Token
 type OauthV1Token struct {
 	// Token which carries the necessary information to access a Twilio resource directly.

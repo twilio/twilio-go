@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListChannelResponse struct for ListChannelResponse
 type ListChannelResponse struct {
 	Channels []ChatV2Channel         `json:"channels,omitempty"`

@@ -4,7 +4,7 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchRecordingAddOnResultPayloadData**](AccountsRecordingsAddOnResultsPayloadsDataApi.md#FetchRecordingAddOnResultPayloadData) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json | 
+[**FetchRecordingAddOnResultPayloadData**](AccountsRecordingsAddOnResultsPayloadsDataApi.md#FetchRecordingAddOnResultPayloadData) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json | Fetch an instance of a result payload
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ApiV2010RecordingAddOnResultPayloadData FetchRecordingAddOnResultPayloadData(ctx, ReferenceSidAddOnResultSidPayloadSidoptional)
 
-
+Fetch an instance of a result payload
 
 Fetch an instance of a result payload
 

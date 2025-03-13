@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // VoiceV1DialingPermissionsCountryInstance struct for VoiceV1DialingPermissionsCountryInstance
 type VoiceV1DialingPermissionsCountryInstance struct {
 	// The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).

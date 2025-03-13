@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TaskrouterV1WorkflowRealTimeStatistics struct for TaskrouterV1WorkflowRealTimeStatistics
 type TaskrouterV1WorkflowRealTimeStatistics struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
@@ -23,9 +28,9 @@ type TaskrouterV1WorkflowRealTimeStatistics struct {
 	// The SID of the longest waiting Task.
 	LongestTaskWaitingSid *string `json:"longest_task_waiting_sid,omitempty"`
 	// The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
-	TasksByPriority *interface{} `json:"tasks_by_priority,omitempty"`
+	TasksByPriority *map[string]interface{} `json:"tasks_by_priority,omitempty"`
 	// The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
-	TasksByStatus *interface{} `json:"tasks_by_status,omitempty"`
+	TasksByStatus *map[string]interface{} `json:"tasks_by_status,omitempty"`
 	// The total number of Tasks.
 	TotalTasks int `json:"total_tasks,omitempty"`
 	// Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.

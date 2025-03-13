@@ -4,9 +4,9 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteTranscription**](AccountsTranscriptionsApi.md#DeleteTranscription) | **Delete** /2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json | 
-[**FetchTranscription**](AccountsTranscriptionsApi.md#FetchTranscription) | **Get** /2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json | 
-[**ListTranscription**](AccountsTranscriptionsApi.md#ListTranscription) | **Get** /2010-04-01/Accounts/{AccountSid}/Transcriptions.json | 
+[**DeleteTranscription**](AccountsTranscriptionsApi.md#DeleteTranscription) | **Delete** /2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json | Delete a transcription from the account used to make the request
+[**FetchTranscription**](AccountsTranscriptionsApi.md#FetchTranscription) | **Get** /2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json | Fetch an instance of a Transcription
+[**ListTranscription**](AccountsTranscriptionsApi.md#ListTranscription) | **Get** /2010-04-01/Accounts/{AccountSid}/Transcriptions.json | Retrieve a list of transcriptions belonging to the account used to make the request
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > DeleteTranscription(ctx, Sidoptional)
 
-
+Delete a transcription from the account used to make the request
 
 Delete a transcription from the account used to make the request
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > ApiV2010Transcription FetchTranscription(ctx, Sidoptional)
 
-
+Fetch an instance of a Transcription
 
 Fetch an instance of a Transcription
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > []ApiV2010Transcription ListTranscription(ctx, optional)
 
-
+Retrieve a list of transcriptions belonging to the account used to make the request
 
 Retrieve a list of transcriptions belonging to the account used to make the request
 

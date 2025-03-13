@@ -4,8 +4,8 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSigningRequestConfiguration**](SigningRequestConfigurationApi.md#CreateSigningRequestConfiguration) | **Post** /v1/SigningRequest/Configuration | 
-[**ListSigningRequestConfiguration**](SigningRequestConfigurationApi.md#ListSigningRequestConfiguration) | **Get** /v1/SigningRequest/Configuration | 
+[**CreateSigningRequestConfiguration**](SigningRequestConfigurationApi.md#CreateSigningRequestConfiguration) | **Post** /v1/SigningRequest/Configuration | Synchronous operation to insert or update a configuration for the customer.
+[**ListSigningRequestConfiguration**](SigningRequestConfigurationApi.md#ListSigningRequestConfiguration) | **Get** /v1/SigningRequest/Configuration | Synchronous operation to retrieve configurations for the customer.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > NumbersV1SigningRequestConfiguration CreateSigningRequestConfiguration(ctx, optional)
 
-
+Synchronous operation to insert or update a configuration for the customer.
 
 Synchronous operation to insert or update a configuration for the customer.
 
@@ -52,7 +52,7 @@ Name | Type | Description
 
 > []NumbersV1SigningRequestConfiguration ListSigningRequestConfiguration(ctx, optional)
 
-
+Synchronous operation to retrieve configurations for the customer.
 
 Synchronous operation to retrieve configurations for the customer.
 

@@ -4,8 +4,8 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateBulkEligibility**](HostedNumberEligibilityBulkApi.md#CreateBulkEligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | 
-[**FetchBulkEligibility**](HostedNumberEligibilityBulkApi.md#FetchBulkEligibility) | **Get** /v1/HostedNumber/Eligibility/Bulk/{RequestId} | 
+[**CreateBulkEligibility**](HostedNumberEligibilityBulkApi.md#CreateBulkEligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
+[**FetchBulkEligibility**](HostedNumberEligibilityBulkApi.md#FetchBulkEligibility) | **Get** /v1/HostedNumber/Eligibility/Bulk/{RequestId} | Fetch an eligibility bulk check that you requested to host in Twilio.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > NumbersV1BulkEligibility CreateBulkEligibility(ctx, optional)
 
-
+Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
 
 Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
 
@@ -52,7 +52,7 @@ Name | Type | Description
 
 > NumbersV1BulkEligibility FetchBulkEligibility(ctx, RequestId)
 
-
+Fetch an eligibility bulk check that you requested to host in Twilio.
 
 Fetch an eligibility bulk check that you requested to host in Twilio.
 

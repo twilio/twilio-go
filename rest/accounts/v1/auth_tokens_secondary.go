@@ -16,7 +16,10 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Create a new secondary Auth Token

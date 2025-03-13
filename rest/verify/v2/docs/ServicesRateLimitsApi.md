@@ -4,11 +4,11 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateRateLimit**](ServicesRateLimitsApi.md#CreateRateLimit) | **Post** /v2/Services/{ServiceSid}/RateLimits | 
-[**DeleteRateLimit**](ServicesRateLimitsApi.md#DeleteRateLimit) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
-[**FetchRateLimit**](ServicesRateLimitsApi.md#FetchRateLimit) | **Get** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
-[**ListRateLimit**](ServicesRateLimitsApi.md#ListRateLimit) | **Get** /v2/Services/{ServiceSid}/RateLimits | 
-[**UpdateRateLimit**](ServicesRateLimitsApi.md#UpdateRateLimit) | **Post** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
+[**CreateRateLimit**](ServicesRateLimitsApi.md#CreateRateLimit) | **Post** /v2/Services/{ServiceSid}/RateLimits | Create a new Rate Limit for a Service
+[**DeleteRateLimit**](ServicesRateLimitsApi.md#DeleteRateLimit) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{Sid} | Delete a specific Rate Limit.
+[**FetchRateLimit**](ServicesRateLimitsApi.md#FetchRateLimit) | **Get** /v2/Services/{ServiceSid}/RateLimits/{Sid} | Fetch a specific Rate Limit.
+[**ListRateLimit**](ServicesRateLimitsApi.md#ListRateLimit) | **Get** /v2/Services/{ServiceSid}/RateLimits | Retrieve a list of all Rate Limits for a service.
+[**UpdateRateLimit**](ServicesRateLimitsApi.md#UpdateRateLimit) | **Post** /v2/Services/{ServiceSid}/RateLimits/{Sid} | Update a specific Rate Limit.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > VerifyV2RateLimit CreateRateLimit(ctx, ServiceSidoptional)
 
-
+Create a new Rate Limit for a Service
 
 Create a new Rate Limit for a Service
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 > DeleteRateLimit(ctx, ServiceSidSid)
 
-
+Delete a specific Rate Limit.
 
 Delete a specific Rate Limit.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > VerifyV2RateLimit FetchRateLimit(ctx, ServiceSidSid)
 
-
+Fetch a specific Rate Limit.
 
 Fetch a specific Rate Limit.
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []VerifyV2RateLimit ListRateLimit(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all Rate Limits for a service.
 
 Retrieve a list of all Rate Limits for a service.
 
@@ -190,7 +190,7 @@ Name | Type | Description
 
 > VerifyV2RateLimit UpdateRateLimit(ctx, ServiceSidSidoptional)
 
-
+Update a specific Rate Limit.
 
 Update a specific Rate Limit.
 

@@ -15,6 +15,8 @@
 package openapi
 
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
 
@@ -60,11 +62,11 @@ type InsightsV1ConferenceParticipant struct {
 	CallType            *string   `json:"call_type,omitempty"`
 	ProcessingState     *string   `json:"processing_state,omitempty"`
 	// Participant properties and metadata.
-	Properties *interface{} `json:"properties,omitempty"`
+	Properties *map[string]interface{} `json:"properties,omitempty"`
 	// Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant.
-	Events *interface{} `json:"events,omitempty"`
+	Events *map[string]interface{} `json:"events,omitempty"`
 	// Object. Contains participant call quality metrics.
-	Metrics *interface{} `json:"metrics,omitempty"`
+	Metrics *map[string]interface{} `json:"metrics,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }

@@ -4,11 +4,11 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAsset**](ServicesAssetsApi.md#CreateAsset) | **Post** /v1/Services/{ServiceSid}/Assets | 
-[**DeleteAsset**](ServicesAssetsApi.md#DeleteAsset) | **Delete** /v1/Services/{ServiceSid}/Assets/{Sid} | 
-[**FetchAsset**](ServicesAssetsApi.md#FetchAsset) | **Get** /v1/Services/{ServiceSid}/Assets/{Sid} | 
-[**ListAsset**](ServicesAssetsApi.md#ListAsset) | **Get** /v1/Services/{ServiceSid}/Assets | 
-[**UpdateAsset**](ServicesAssetsApi.md#UpdateAsset) | **Post** /v1/Services/{ServiceSid}/Assets/{Sid} | 
+[**CreateAsset**](ServicesAssetsApi.md#CreateAsset) | **Post** /v1/Services/{ServiceSid}/Assets | Create a new Asset resource.
+[**DeleteAsset**](ServicesAssetsApi.md#DeleteAsset) | **Delete** /v1/Services/{ServiceSid}/Assets/{Sid} | Delete an Asset resource.
+[**FetchAsset**](ServicesAssetsApi.md#FetchAsset) | **Get** /v1/Services/{ServiceSid}/Assets/{Sid} | Retrieve a specific Asset resource.
+[**ListAsset**](ServicesAssetsApi.md#ListAsset) | **Get** /v1/Services/{ServiceSid}/Assets | Retrieve a list of all Assets.
+[**UpdateAsset**](ServicesAssetsApi.md#UpdateAsset) | **Post** /v1/Services/{ServiceSid}/Assets/{Sid} | Update a specific Asset resource.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ServerlessV1Asset CreateAsset(ctx, ServiceSidoptional)
 
-
+Create a new Asset resource.
 
 Create a new Asset resource.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteAsset(ctx, ServiceSidSid)
 
-
+Delete an Asset resource.
 
 Delete an Asset resource.
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > ServerlessV1Asset FetchAsset(ctx, ServiceSidSid)
 
-
+Retrieve a specific Asset resource.
 
 Retrieve a specific Asset resource.
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > []ServerlessV1Asset ListAsset(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all Assets.
 
 Retrieve a list of all Assets.
 
@@ -189,7 +189,7 @@ Name | Type | Description
 
 > ServerlessV1Asset UpdateAsset(ctx, ServiceSidSidoptional)
 
-
+Update a specific Asset resource.
 
 Update a specific Asset resource.
 

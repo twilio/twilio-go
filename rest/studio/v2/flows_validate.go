@@ -16,7 +16,10 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'UpdateFlowValidate'
@@ -26,7 +29,7 @@ type UpdateFlowValidateParams struct {
 	//
 	Status *string `json:"Status,omitempty"`
 	// JSON representation of flow definition.
-	Definition *interface{} `json:"Definition,omitempty"`
+	Definition *map[string]interface{} `json:"Definition,omitempty"`
 	// Description of change made in the revision.
 	CommitMessage *string `json:"CommitMessage,omitempty"`
 }
@@ -39,7 +42,7 @@ func (params *UpdateFlowValidateParams) SetStatus(Status string) *UpdateFlowVali
 	params.Status = &Status
 	return params
 }
-func (params *UpdateFlowValidateParams) SetDefinition(Definition interface{}) *UpdateFlowValidateParams {
+func (params *UpdateFlowValidateParams) SetDefinition(Definition map[string]interface{}) *UpdateFlowValidateParams {
 	params.Definition = &Definition
 	return params
 }

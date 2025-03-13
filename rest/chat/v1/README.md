@@ -70,7 +70,7 @@ Class | Method | HTTP request | Description
 *ServicesUsersApi* | [**FetchUser**](docs/ServicesUsersApi.md#fetchuser) | **Get** /v1/Services/{ServiceSid}/Users/{Sid} | 
 *ServicesUsersApi* | [**ListUser**](docs/ServicesUsersApi.md#listuser) | **Get** /v1/Services/{ServiceSid}/Users | 
 *ServicesUsersApi* | [**UpdateUser**](docs/ServicesUsersApi.md#updateuser) | **Post** /v1/Services/{ServiceSid}/Users/{Sid} | 
-*ServicesUsersChannelsApi* | [**ListUserChannel**](docs/ServicesUsersChannelsApi.md#listuserchannel) | **Get** /v1/Services/{ServiceSid}/Users/{UserSid}/Channels | 
+*ServicesUsersChannelsApi* | [**ListUserChannel**](docs/ServicesUsersChannelsApi.md#listuserchannel) | **Get** /v1/Services/{ServiceSid}/Users/{UserSid}/Channels | List all Channels for a given User.
 
 
 ## Documentation For Models

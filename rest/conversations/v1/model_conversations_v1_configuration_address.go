@@ -15,6 +15,8 @@
 package openapi
 
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
 
@@ -31,7 +33,7 @@ type ConversationsV1ConfigurationAddress struct {
 	// The human-readable name of this configuration, limited to 256 characters. Optional.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// Auto Creation configuration for the address.
-	AutoCreation *interface{} `json:"auto_creation,omitempty"`
+	AutoCreation *map[string]interface{} `json:"auto_creation,omitempty"`
 	// The date that this resource was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date that this resource was last updated.

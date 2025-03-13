@@ -4,11 +4,11 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCustomerProfile**](CustomerProfilesApi.md#CreateCustomerProfile) | **Post** /v1/CustomerProfiles | 
-[**DeleteCustomerProfile**](CustomerProfilesApi.md#DeleteCustomerProfile) | **Delete** /v1/CustomerProfiles/{Sid} | 
-[**FetchCustomerProfile**](CustomerProfilesApi.md#FetchCustomerProfile) | **Get** /v1/CustomerProfiles/{Sid} | 
-[**ListCustomerProfile**](CustomerProfilesApi.md#ListCustomerProfile) | **Get** /v1/CustomerProfiles | 
-[**UpdateCustomerProfile**](CustomerProfilesApi.md#UpdateCustomerProfile) | **Post** /v1/CustomerProfiles/{Sid} | 
+[**CreateCustomerProfile**](CustomerProfilesApi.md#CreateCustomerProfile) | **Post** /v1/CustomerProfiles | Create a new Customer-Profile.
+[**DeleteCustomerProfile**](CustomerProfilesApi.md#DeleteCustomerProfile) | **Delete** /v1/CustomerProfiles/{Sid} | Delete a specific Customer-Profile.
+[**FetchCustomerProfile**](CustomerProfilesApi.md#FetchCustomerProfile) | **Get** /v1/CustomerProfiles/{Sid} | Fetch a specific Customer-Profile instance.
+[**ListCustomerProfile**](CustomerProfilesApi.md#ListCustomerProfile) | **Get** /v1/CustomerProfiles | Retrieve a list of all Customer-Profiles for an account.
+[**UpdateCustomerProfile**](CustomerProfilesApi.md#UpdateCustomerProfile) | **Post** /v1/CustomerProfiles/{Sid} | Updates a Customer-Profile in an account.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > TrusthubV1CustomerProfile CreateCustomerProfile(ctx, optional)
 
-
+Create a new Customer-Profile.
 
 Create a new Customer-Profile.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteCustomerProfile(ctx, Sid)
 
-
+Delete a specific Customer-Profile.
 
 Delete a specific Customer-Profile.
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > TrusthubV1CustomerProfile FetchCustomerProfile(ctx, Sid)
 
-
+Fetch a specific Customer-Profile instance.
 
 Fetch a specific Customer-Profile instance.
 
@@ -142,7 +142,7 @@ Name | Type | Description
 
 > []TrusthubV1CustomerProfile ListCustomerProfile(ctx, optional)
 
-
+Retrieve a list of all Customer-Profiles for an account.
 
 Retrieve a list of all Customer-Profiles for an account.
 
@@ -185,7 +185,7 @@ Name | Type | Description
 
 > TrusthubV1CustomerProfile UpdateCustomerProfile(ctx, Sidoptional)
 
-
+Updates a Customer-Profile in an account.
 
 Updates a Customer-Profile in an account.
 

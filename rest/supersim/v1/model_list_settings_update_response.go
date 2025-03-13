@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSettingsUpdateResponse struct for ListSettingsUpdateResponse
 type ListSettingsUpdateResponse struct {
 	SettingsUpdates []SupersimV1SettingsUpdate    `json:"settings_updates,omitempty"`

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListIncomingPhoneNumberAssignedAddOnResponse struct for ListIncomingPhoneNumberAssignedAddOnResponse
 type ListIncomingPhoneNumberAssignedAddOnResponse struct {
 	AssignedAddOns  []ApiV2010IncomingPhoneNumberAssignedAddOn `json:"assigned_add_ons,omitempty"`

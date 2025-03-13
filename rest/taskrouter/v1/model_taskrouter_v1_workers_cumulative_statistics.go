@@ -15,6 +15,8 @@
 package openapi
 
 import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 	"time"
 )
 
@@ -27,7 +29,7 @@ type TaskrouterV1WorkersCumulativeStatistics struct {
 	// The end of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	EndTime *time.Time `json:"end_time,omitempty"`
 	// The minimum, average, maximum, and total time (in seconds) that Workers spent in each Activity.
-	ActivityDurations *[]interface{} `json:"activity_durations,omitempty"`
+	ActivityDurations *[]map[string]interface{} `json:"activity_durations,omitempty"`
 	// The total number of Reservations that were created.
 	ReservationsCreated int `json:"reservations_created,omitempty"`
 	// The total number of Reservations that were accepted.

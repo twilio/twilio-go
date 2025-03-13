@@ -4,10 +4,10 @@ All URIs are relative to *https://wireless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCommand**](CommandsApi.md#CreateCommand) | **Post** /v1/Commands | 
-[**DeleteCommand**](CommandsApi.md#DeleteCommand) | **Delete** /v1/Commands/{Sid} | 
-[**FetchCommand**](CommandsApi.md#FetchCommand) | **Get** /v1/Commands/{Sid} | 
-[**ListCommand**](CommandsApi.md#ListCommand) | **Get** /v1/Commands | 
+[**CreateCommand**](CommandsApi.md#CreateCommand) | **Post** /v1/Commands | Send a Command to a Sim.
+[**DeleteCommand**](CommandsApi.md#DeleteCommand) | **Delete** /v1/Commands/{Sid} | Delete a Command instance from your account.
+[**FetchCommand**](CommandsApi.md#FetchCommand) | **Get** /v1/Commands/{Sid} | Fetch a Command instance from your account.
+[**ListCommand**](CommandsApi.md#ListCommand) | **Get** /v1/Commands | Retrieve a list of Commands from your account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > WirelessV1Command CreateCommand(ctx, optional)
 
-
+Send a Command to a Sim.
 
 Send a Command to a Sim.
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 > DeleteCommand(ctx, Sid)
 
-
+Delete a Command instance from your account.
 
 Delete a Command instance from your account.
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > WirelessV1Command FetchCommand(ctx, Sid)
 
-
+Fetch a Command instance from your account.
 
 Fetch a Command instance from your account.
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 > []WirelessV1Command ListCommand(ctx, optional)
 
-
+Retrieve a list of Commands from your account.
 
 Retrieve a list of Commands from your account.
 

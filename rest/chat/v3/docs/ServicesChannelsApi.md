@@ -4,7 +4,7 @@ All URIs are relative to *https://chat.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**UpdateChannel**](ServicesChannelsApi.md#UpdateChannel) | **Post** /v3/Services/{ServiceSid}/Channels/{Sid} | 
+[**UpdateChannel**](ServicesChannelsApi.md#UpdateChannel) | **Post** /v3/Services/{ServiceSid}/Channels/{Sid} | Update a specific Channel.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ChatV3Channel UpdateChannel(ctx, ServiceSidSidoptional)
 
-
+Update a specific Channel.
 
 Update a specific Channel.
 

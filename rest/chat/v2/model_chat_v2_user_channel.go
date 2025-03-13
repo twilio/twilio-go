@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ChatV2UserChannel struct for ChatV2UserChannel
 type ChatV2UserChannel struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the User Channel resource.

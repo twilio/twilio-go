@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ContentApprovalRequest Content approval request body
 type ContentApprovalRequest struct {
 	// Name of the template.

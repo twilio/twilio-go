@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListBundleCopyResponse struct for ListBundleCopyResponse
 type ListBundleCopyResponse struct {
 	Results []NumbersV2BundleCopy                 `json:"results,omitempty"`

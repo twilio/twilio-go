@@ -4,10 +4,10 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateWebhook**](ServicesWebhooksApi.md#CreateWebhook) | **Post** /v2/Services/{ServiceSid}/Webhooks | 
-[**DeleteWebhook**](ServicesWebhooksApi.md#DeleteWebhook) | **Delete** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
-[**FetchWebhook**](ServicesWebhooksApi.md#FetchWebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
-[**ListWebhook**](ServicesWebhooksApi.md#ListWebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks | 
+[**CreateWebhook**](ServicesWebhooksApi.md#CreateWebhook) | **Post** /v2/Services/{ServiceSid}/Webhooks | Create a new Webhook for the Service
+[**DeleteWebhook**](ServicesWebhooksApi.md#DeleteWebhook) | **Delete** /v2/Services/{ServiceSid}/Webhooks/{Sid} | Delete a specific Webhook.
+[**FetchWebhook**](ServicesWebhooksApi.md#FetchWebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks/{Sid} | Fetch a specific Webhook.
+[**ListWebhook**](ServicesWebhooksApi.md#ListWebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks | Retrieve a list of all Webhooks for a Service.
 [**UpdateWebhook**](ServicesWebhooksApi.md#UpdateWebhook) | **Post** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > VerifyV2Webhook CreateWebhook(ctx, ServiceSidoptional)
 
-
+Create a new Webhook for the Service
 
 Create a new Webhook for the Service
 
@@ -63,7 +63,7 @@ Name | Type | Description
 
 > DeleteWebhook(ctx, ServiceSidSid)
 
-
+Delete a specific Webhook.
 
 Delete a specific Webhook.
 
@@ -106,7 +106,7 @@ Name | Type | Description
 
 > VerifyV2Webhook FetchWebhook(ctx, ServiceSidSid)
 
-
+Fetch a specific Webhook.
 
 Fetch a specific Webhook.
 
@@ -149,7 +149,7 @@ Name | Type | Description
 
 > []VerifyV2Webhook ListWebhook(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all Webhooks for a Service.
 
 Retrieve a list of all Webhooks for a Service.
 

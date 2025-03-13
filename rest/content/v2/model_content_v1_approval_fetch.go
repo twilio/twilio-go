@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ContentV1ApprovalFetch struct for ContentV1ApprovalFetch
 type ContentV1ApprovalFetch struct {
 	// The unique string that that we created to identify the Content resource.

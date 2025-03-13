@@ -81,9 +81,9 @@ Class | Method | HTTP request | Description
 *ServicesUsersBindingsApi* | [**DeleteUserBinding**](docs/ServicesUsersBindingsApi.md#deleteuserbinding) | **Delete** /v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid} | 
 *ServicesUsersBindingsApi* | [**FetchUserBinding**](docs/ServicesUsersBindingsApi.md#fetchuserbinding) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid} | 
 *ServicesUsersBindingsApi* | [**ListUserBinding**](docs/ServicesUsersBindingsApi.md#listuserbinding) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Bindings | 
-*ServicesUsersChannelsApi* | [**DeleteUserChannel**](docs/ServicesUsersChannelsApi.md#deleteuserchannel) | **Delete** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
+*ServicesUsersChannelsApi* | [**DeleteUserChannel**](docs/ServicesUsersChannelsApi.md#deleteuserchannel) | **Delete** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | Removes User from selected Channel.
 *ServicesUsersChannelsApi* | [**FetchUserChannel**](docs/ServicesUsersChannelsApi.md#fetchuserchannel) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
-*ServicesUsersChannelsApi* | [**ListUserChannel**](docs/ServicesUsersChannelsApi.md#listuserchannel) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels | 
+*ServicesUsersChannelsApi* | [**ListUserChannel**](docs/ServicesUsersChannelsApi.md#listuserchannel) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels | List all Channels for a given User.
 *ServicesUsersChannelsApi* | [**UpdateUserChannel**](docs/ServicesUsersChannelsApi.md#updateuserchannel) | **Post** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
 
 

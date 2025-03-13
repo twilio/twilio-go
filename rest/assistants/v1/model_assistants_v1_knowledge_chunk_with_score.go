@@ -16,9 +16,8 @@ package openapi
 
 import (
 	"encoding/json"
-	"time"
-
 	"github.com/twilio/twilio-go/client"
+	"time"
 )
 
 // AssistantsV1KnowledgeChunkWithScore struct for AssistantsV1KnowledgeChunkWithScore

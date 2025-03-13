@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TwilioQuickReply twilio/quick-reply templates let recipients tap, rather than type, to respond to the message.
 type TwilioQuickReply struct {
 	Body    string             `json:"body"`

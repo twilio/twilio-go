@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // BulkexportsV1Day struct for BulkexportsV1Day
 type BulkexportsV1Day struct {
 	// The ISO 8601 format date of the resources in the file, for a UTC day

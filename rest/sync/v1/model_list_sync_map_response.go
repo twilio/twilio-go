@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSyncMapResponse struct for ListSyncMapResponse
 type ListSyncMapResponse struct {
 	Maps []SyncV1SyncMap          `json:"maps,omitempty"`

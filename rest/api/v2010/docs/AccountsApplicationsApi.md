@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateApplication**](AccountsApplicationsApi.md#CreateApplication) | **Post** /2010-04-01/Accounts/{AccountSid}/Applications.json | 
-[**DeleteApplication**](AccountsApplicationsApi.md#DeleteApplication) | **Delete** /2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json | 
-[**FetchApplication**](AccountsApplicationsApi.md#FetchApplication) | **Get** /2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json | 
-[**ListApplication**](AccountsApplicationsApi.md#ListApplication) | **Get** /2010-04-01/Accounts/{AccountSid}/Applications.json | 
-[**UpdateApplication**](AccountsApplicationsApi.md#UpdateApplication) | **Post** /2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json | 
+[**CreateApplication**](AccountsApplicationsApi.md#CreateApplication) | **Post** /2010-04-01/Accounts/{AccountSid}/Applications.json | Create a new application within your account
+[**DeleteApplication**](AccountsApplicationsApi.md#DeleteApplication) | **Delete** /2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json | Delete the application by the specified application sid
+[**FetchApplication**](AccountsApplicationsApi.md#FetchApplication) | **Get** /2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json | Fetch the application specified by the provided sid
+[**ListApplication**](AccountsApplicationsApi.md#ListApplication) | **Get** /2010-04-01/Accounts/{AccountSid}/Applications.json | Retrieve a list of applications representing an application within the requesting account
+[**UpdateApplication**](AccountsApplicationsApi.md#UpdateApplication) | **Post** /2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json | Updates the application&#39;s properties
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010Application CreateApplication(ctx, optional)
 
-
+Create a new application within your account
 
 Create a new application within your account
 
@@ -71,7 +71,7 @@ Name | Type | Description
 
 > DeleteApplication(ctx, Sidoptional)
 
-
+Delete the application by the specified application sid
 
 Delete the application by the specified application sid
 
@@ -114,7 +114,7 @@ Name | Type | Description
 
 > ApiV2010Application FetchApplication(ctx, Sidoptional)
 
-
+Fetch the application specified by the provided sid
 
 Fetch the application specified by the provided sid
 
@@ -157,7 +157,7 @@ Name | Type | Description
 
 > []ApiV2010Application ListApplication(ctx, optional)
 
-
+Retrieve a list of applications representing an application within the requesting account
 
 Retrieve a list of applications representing an application within the requesting account
 
@@ -199,7 +199,7 @@ Name | Type | Description
 
 > ApiV2010Application UpdateApplication(ctx, Sidoptional)
 
-
+Updates the application's properties
 
 Updates the application's properties
 

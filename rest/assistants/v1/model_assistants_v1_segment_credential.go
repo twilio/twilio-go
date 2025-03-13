@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // AssistantsV1SegmentCredential struct for AssistantsV1SegmentCredential
 type AssistantsV1SegmentCredential struct {
 	// The profile API key.

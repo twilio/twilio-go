@@ -4,10 +4,10 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCustomerProfileChannelEndpointAssignment**](CustomerProfilesChannelEndpointAssignmentsApi.md#CreateCustomerProfileChannelEndpointAssignment) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments | 
-[**DeleteCustomerProfileChannelEndpointAssignment**](CustomerProfilesChannelEndpointAssignmentsApi.md#DeleteCustomerProfileChannelEndpointAssignment) | **Delete** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid} | 
-[**FetchCustomerProfileChannelEndpointAssignment**](CustomerProfilesChannelEndpointAssignmentsApi.md#FetchCustomerProfileChannelEndpointAssignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid} | 
-[**ListCustomerProfileChannelEndpointAssignment**](CustomerProfilesChannelEndpointAssignmentsApi.md#ListCustomerProfileChannelEndpointAssignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments | 
+[**CreateCustomerProfileChannelEndpointAssignment**](CustomerProfilesChannelEndpointAssignmentsApi.md#CreateCustomerProfileChannelEndpointAssignment) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments | Create a new Assigned Item.
+[**DeleteCustomerProfileChannelEndpointAssignment**](CustomerProfilesChannelEndpointAssignmentsApi.md#DeleteCustomerProfileChannelEndpointAssignment) | **Delete** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid} | Remove an Assignment Item Instance.
+[**FetchCustomerProfileChannelEndpointAssignment**](CustomerProfilesChannelEndpointAssignmentsApi.md#FetchCustomerProfileChannelEndpointAssignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid} | Fetch specific Assigned Item Instance.
+[**ListCustomerProfileChannelEndpointAssignment**](CustomerProfilesChannelEndpointAssignmentsApi.md#ListCustomerProfileChannelEndpointAssignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments | Retrieve a list of all Assigned Items for an account.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > TrusthubV1CustomerProfileChannelEndpointAssignment CreateCustomerProfileChannelEndpointAssignment(ctx, CustomerProfileSidoptional)
 
-
+Create a new Assigned Item.
 
 Create a new Assigned Item.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteCustomerProfileChannelEndpointAssignment(ctx, CustomerProfileSidSid)
 
-
+Remove an Assignment Item Instance.
 
 Remove an Assignment Item Instance.
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > TrusthubV1CustomerProfileChannelEndpointAssignment FetchCustomerProfileChannelEndpointAssignment(ctx, CustomerProfileSidSid)
 
-
+Fetch specific Assigned Item Instance.
 
 Fetch specific Assigned Item Instance.
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > []TrusthubV1CustomerProfileChannelEndpointAssignment ListCustomerProfileChannelEndpointAssignment(ctx, CustomerProfileSidoptional)
 
-
+Retrieve a list of all Assigned Items for an account.
 
 Retrieve a list of all Assigned Items for an account.
 

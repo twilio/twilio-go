@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TrusthubV1ComplianceRegistration struct for TrusthubV1ComplianceRegistration
 type TrusthubV1ComplianceRegistration struct {
 	// The unique ID used to start an embedded compliance registration session.

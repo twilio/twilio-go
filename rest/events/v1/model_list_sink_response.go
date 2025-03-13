@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSinkResponse struct for ListSinkResponse
 type ListSinkResponse struct {
 	Sinks []EventsV1Sink            `json:"sinks,omitempty"`

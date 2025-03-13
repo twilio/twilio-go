@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListFactorResponse struct for ListFactorResponse
 type ListFactorResponse struct {
 	Factors []VerifyV2Factor       `json:"factors,omitempty"`

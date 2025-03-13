@@ -4,7 +4,7 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateBundleClone**](RegulatoryComplianceBundlesClonesApi.md#CreateBundleClone) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Clones | 
+[**CreateBundleClone**](RegulatoryComplianceBundlesClonesApi.md#CreateBundleClone) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Clones | Creates a new clone of the Bundle in target Account. It will internally create clones of all the bundle items (identities and documents) of the original bundle
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > NumbersV2BundleClone CreateBundleClone(ctx, BundleSidoptional)
 
-
+Creates a new clone of the Bundle in target Account. It will internally create clones of all the bundle items (identities and documents) of the original bundle
 
 Creates a new clone of the Bundle in target Account. It will internally create clones of all the bundle items (identities and documents) of the original bundle
 

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListUsageRecordYearlyResponse struct for ListUsageRecordYearlyResponse
 type ListUsageRecordYearlyResponse struct {
 	UsageRecords    []ApiV2010UsageRecordYearly `json:"usage_records,omitempty"`

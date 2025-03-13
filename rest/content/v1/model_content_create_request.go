@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ContentCreateRequest Content creation request body
 type ContentCreateRequest struct {
 	// User defined name of the content
