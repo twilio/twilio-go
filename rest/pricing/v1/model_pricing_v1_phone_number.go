@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // PricingV1PhoneNumber struct for PricingV1PhoneNumber
 type PricingV1PhoneNumber struct {
 	Name  *string                 `json:"name,omitempty"`

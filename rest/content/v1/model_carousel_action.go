@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // CarouselAction struct for CarouselAction
 type CarouselAction struct {
 	Type  CarouselActionType `json:"type"`

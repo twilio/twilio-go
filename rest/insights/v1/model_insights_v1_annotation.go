@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // InsightsV1Annotation struct for InsightsV1Annotation
 type InsightsV1Annotation struct {
 	// The unique SID identifier of the Call.

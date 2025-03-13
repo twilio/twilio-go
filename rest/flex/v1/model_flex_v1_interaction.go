@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // FlexV1Interaction struct for FlexV1Interaction
 type FlexV1Interaction struct {
 	// The unique string created by Twilio to identify an Interaction resource, prefixed with KD.

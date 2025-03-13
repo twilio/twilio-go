@@ -18,7 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) FetchDomainConfig(DomainSid string) (*MessagingV1DomainConfig, error) {

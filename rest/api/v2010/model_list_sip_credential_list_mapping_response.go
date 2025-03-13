@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSipCredentialListMappingResponse struct for ListSipCredentialListMappingResponse
 type ListSipCredentialListMappingResponse struct {
 	CredentialListMappings []ApiV2010SipCredentialListMapping `json:"credential_list_mappings,omitempty"`

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // StudioV1StepContext struct for StudioV1StepContext
 type StudioV1StepContext struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the StepContext resource.

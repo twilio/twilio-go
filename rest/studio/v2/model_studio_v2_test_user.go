@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // StudioV2TestUser struct for StudioV2TestUser
 type StudioV2TestUser struct {
 	// Unique identifier of the flow.

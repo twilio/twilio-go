@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // NumbersV2Regulation struct for NumbersV2Regulation
 type NumbersV2Regulation struct {
 	// The unique string that identifies the Regulation resource.

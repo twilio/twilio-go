@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TwilioSchedule twilio/schedule templates allow us to send a message with a schedule with different time slots
 type TwilioSchedule struct {
 	Id        string `json:"id"`

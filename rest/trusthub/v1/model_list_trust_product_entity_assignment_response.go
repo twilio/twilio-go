@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListTrustProductEntityAssignmentResponse struct for ListTrustProductEntityAssignmentResponse
 type ListTrustProductEntityAssignmentResponse struct {
 	Results []TrusthubV1TrustProductEntityAssignment `json:"results,omitempty"`

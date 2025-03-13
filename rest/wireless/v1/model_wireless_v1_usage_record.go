@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // WirelessV1UsageRecord struct for WirelessV1UsageRecord
 type WirelessV1UsageRecord struct {
 	// The SID of the [Sim resource](https://www.twilio.com/docs/iot/wireless/api/sim-resource) that this Usage Record is for.

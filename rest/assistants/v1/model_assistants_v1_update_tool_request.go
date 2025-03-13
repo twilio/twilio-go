@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // AssistantsV1UpdateToolRequest struct for AssistantsV1UpdateToolRequest
 type AssistantsV1UpdateToolRequest struct {
 	// The Assistant ID.

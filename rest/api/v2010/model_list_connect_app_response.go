@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListConnectAppResponse struct for ListConnectAppResponse
 type ListConnectAppResponse struct {
 	ConnectApps     []ApiV2010ConnectApp `json:"connect_apps,omitempty"`

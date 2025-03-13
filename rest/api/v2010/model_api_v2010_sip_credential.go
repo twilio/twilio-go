@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010SipCredential struct for ApiV2010SipCredential
 type ApiV2010SipCredential struct {
 	// A 34 character string that uniquely identifies this resource.

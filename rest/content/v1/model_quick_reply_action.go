@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // QuickReplyAction struct for QuickReplyAction
 type QuickReplyAction struct {
 	Type  QuickReplyActionType `json:"type"`

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // NumbersV2EndUserType struct for NumbersV2EndUserType
 type NumbersV2EndUserType struct {
 	// The unique string that identifies the End-User Type resource.

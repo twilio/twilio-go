@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // VerifyV2Safelist struct for VerifyV2Safelist
 type VerifyV2Safelist struct {
 	// The unique string that we created to identify the SafeList resource.

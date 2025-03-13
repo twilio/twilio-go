@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListConferenceRecordingResponse struct for ListConferenceRecordingResponse
 type ListConferenceRecordingResponse struct {
 	Recordings      []ApiV2010ConferenceRecording `json:"recordings,omitempty"`

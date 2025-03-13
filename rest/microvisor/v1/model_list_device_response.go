@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListDeviceResponse struct for ListDeviceResponse
 type ListDeviceResponse struct {
 	Devices []MicrovisorV1Device          `json:"devices,omitempty"`

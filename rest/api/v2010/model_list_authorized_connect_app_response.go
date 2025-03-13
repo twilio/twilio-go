@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListAuthorizedConnectAppResponse struct for ListAuthorizedConnectAppResponse
 type ListAuthorizedConnectAppResponse struct {
 	AuthorizedConnectApps []ApiV2010AuthorizedConnectApp `json:"authorized_connect_apps,omitempty"`

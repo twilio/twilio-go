@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010ConferenceRecording struct for ApiV2010ConferenceRecording
 type ApiV2010ConferenceRecording struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource.

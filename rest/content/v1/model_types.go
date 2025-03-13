@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // Types Content types
 type Types struct {
 	TwilioText             *TwilioText             `json:"twilio/text,omitempty"`

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010DependentPhoneNumber struct for ApiV2010DependentPhoneNumber
 type ApiV2010DependentPhoneNumber struct {
 	// The unique string that that we created to identify the DependentPhoneNumber resource.

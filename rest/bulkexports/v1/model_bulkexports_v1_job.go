@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // BulkexportsV1Job struct for BulkexportsV1Job
 type BulkexportsV1Job struct {
 	// The type of communication – Messages, Calls, Conferences, and Participants

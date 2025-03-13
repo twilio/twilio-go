@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListMediaResponse struct for ListMediaResponse
 type ListMediaResponse struct {
 	MediaList       []ApiV2010Media `json:"media_list,omitempty"`

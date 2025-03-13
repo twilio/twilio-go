@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // IpMessagingV2UserChannel struct for IpMessagingV2UserChannel
 type IpMessagingV2UserChannel struct {
 	AccountSid               *string                 `json:"account_sid,omitempty"`

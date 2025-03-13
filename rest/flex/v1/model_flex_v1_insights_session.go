@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // FlexV1InsightsSession struct for FlexV1InsightsSession
 type FlexV1InsightsSession struct {
 	// Unique ID to identify the user's workspace

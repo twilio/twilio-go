@@ -190,6 +190,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 		if !CheckTokenExpiry(c.BearerToken) {
 			req.Header.Add("Authorization", "Bearer "+c.BearerToken)
 		} else {
+			NewApiService(c).CreateToken(nil)
 		}
 	} else if c.Username != "" {
 		req.SetBasicAuth(c.basicAuth())
@@ -237,4 +238,16 @@ func CheckTokenExpiry(tokenString string) bool {
 		}
 	}
 	return true // Consider token expired if it does not contain an exp claim or invalid claims
+}
+
+type ApiService struct {
+	baseURL        string
+	requestHandler RequestHandler
+}
+
+func NewApiService(requestHandler RequestHandler) *ApiService {
+	return &ApiService{
+		requestHandler: requestHandler,
+		baseURL:        "https://preview-iam.twilio.com",
+	}
 }

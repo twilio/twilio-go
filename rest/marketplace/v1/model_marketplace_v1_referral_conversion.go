@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // MarketplaceV1ReferralConversion struct for MarketplaceV1ReferralConversion
 type MarketplaceV1ReferralConversion struct {
 	ConvertedAccountSid string `json:"converted_account_sid,omitempty"`

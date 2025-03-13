@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListMessageInteractionResponse struct for ListMessageInteractionResponse
 type ListMessageInteractionResponse struct {
 	Interactions []ProxyV1MessageInteraction `json:"interactions,omitempty"`

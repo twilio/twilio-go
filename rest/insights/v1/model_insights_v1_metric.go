@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // InsightsV1Metric struct for InsightsV1Metric
 type InsightsV1Metric struct {
 	// Timestamp of metric sample. Samples are taken every 10 seconds and contain the metrics for the previous 10 seconds.

@@ -16,8 +16,10 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, error) {

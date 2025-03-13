@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListUserBindingResponse struct for ListUserBindingResponse
 type ListUserBindingResponse struct {
 	Bindings []IpMessagingV2UserBinding `json:"bindings,omitempty"`

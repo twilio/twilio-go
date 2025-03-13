@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListTrunkResponse struct for ListTrunkResponse
 type ListTrunkResponse struct {
 	Trunks []TrunkingV1Trunk              `json:"trunks,omitempty"`

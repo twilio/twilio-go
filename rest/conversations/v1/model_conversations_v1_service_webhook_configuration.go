@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ConversationsV1ServiceWebhookConfiguration struct for ConversationsV1ServiceWebhookConfiguration
 type ConversationsV1ServiceWebhookConfiguration struct {
 	// The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this service.

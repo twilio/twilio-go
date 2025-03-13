@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListUsAppToPersonResponse struct for ListUsAppToPersonResponse
 type ListUsAppToPersonResponse struct {
 	Compliance []MessagingV1UsAppToPerson  `json:"compliance,omitempty"`

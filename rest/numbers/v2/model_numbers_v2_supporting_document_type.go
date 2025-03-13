@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // NumbersV2SupportingDocumentType struct for NumbersV2SupportingDocumentType
 type NumbersV2SupportingDocumentType struct {
 	// The unique string that identifies the Supporting Document Type resource.

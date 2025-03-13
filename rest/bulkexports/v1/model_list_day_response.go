@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListDayResponse struct for ListDayResponse
 type ListDayResponse struct {
 	Days []BulkexportsV1Day  `json:"days,omitempty"`

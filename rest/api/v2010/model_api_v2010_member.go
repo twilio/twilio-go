@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010Member struct for ApiV2010Member
 type ApiV2010Member struct {
 	// The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Member resource is associated with.

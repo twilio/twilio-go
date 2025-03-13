@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // LookupsV1PhoneNumber struct for LookupsV1PhoneNumber
 type LookupsV1PhoneNumber struct {
 	// The name of the phone number's owner. If `null`, that information was not available.

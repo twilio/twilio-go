@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListToolsByAssistantResponse struct for ListToolsByAssistantResponse
 type ListToolsByAssistantResponse struct {
 	Tools []AssistantsV1Tool        `json:"tools,omitempty"`

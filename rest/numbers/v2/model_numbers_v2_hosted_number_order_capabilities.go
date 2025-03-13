@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // NumbersV2HostedNumberOrderCapabilities Set of booleans describing the capabilities hosted on Twilio's platform. SMS is currently only supported.
 type NumbersV2HostedNumberOrderCapabilities struct {
 	Mms   bool `json:"mms,omitempty"`

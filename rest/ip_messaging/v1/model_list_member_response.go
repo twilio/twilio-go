@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListMemberResponse struct for ListMemberResponse
 type ListMemberResponse struct {
 	Members []IpMessagingV1Member   `json:"members,omitempty"`

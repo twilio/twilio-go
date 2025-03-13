@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // PricingV2Voice struct for PricingV2Voice
 type PricingV2Voice struct {
 	// The resource name.

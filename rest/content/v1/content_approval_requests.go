@@ -16,8 +16,10 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Fetch a Content resource's approval status by its unique Content Sid

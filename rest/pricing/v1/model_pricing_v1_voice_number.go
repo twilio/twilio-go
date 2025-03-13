@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // PricingV1VoiceNumber struct for PricingV1VoiceNumber
 type PricingV1VoiceNumber struct {
 	// The phone number.

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListDeviceSecretResponse struct for ListDeviceSecretResponse
 type ListDeviceSecretResponse struct {
 	Secrets []MicrovisorV1DeviceSecret    `json:"secrets,omitempty"`

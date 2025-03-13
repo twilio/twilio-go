@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // LookupsV2PhoneNumber struct for LookupsV2PhoneNumber
 type LookupsV2PhoneNumber struct {
 	// International dialing prefix of the phone number defined in the E.164 standard.

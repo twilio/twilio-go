@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // FlexV1InsightsSegments struct for FlexV1InsightsSegments
 type FlexV1InsightsSegments struct {
 	// To unique id of the segment

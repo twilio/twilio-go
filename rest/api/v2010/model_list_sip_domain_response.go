@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSipDomainResponse struct for ListSipDomainResponse
 type ListSipDomainResponse struct {
 	Domains         []ApiV2010SipDomain `json:"domains,omitempty"`

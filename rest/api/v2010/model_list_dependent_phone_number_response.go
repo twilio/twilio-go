@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListDependentPhoneNumberResponse struct for ListDependentPhoneNumberResponse
 type ListDependentPhoneNumberResponse struct {
 	DependentPhoneNumbers []ApiV2010DependentPhoneNumber `json:"dependent_phone_numbers,omitempty"`

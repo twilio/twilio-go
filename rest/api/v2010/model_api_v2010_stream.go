@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010Stream struct for ApiV2010Stream
 type ApiV2010Stream struct {
 	// The SID of the Stream resource.

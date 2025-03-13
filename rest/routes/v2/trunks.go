@@ -16,8 +16,10 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Fetch the Inbound Processing Region assigned to a SIP Trunk.

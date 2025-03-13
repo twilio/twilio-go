@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // CreateReferralConversionRequest struct for CreateReferralConversionRequest
 type CreateReferralConversionRequest struct {
 	ReferralAccountSid string `json:"referral_account_sid,omitempty"`

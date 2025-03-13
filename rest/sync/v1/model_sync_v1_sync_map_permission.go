@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // SyncV1SyncMapPermission struct for SyncV1SyncMapPermission
 type SyncV1SyncMapPermission struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sync Map Permission resource.

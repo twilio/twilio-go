@@ -18,7 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Get the Annotation for a specific Call.

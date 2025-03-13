@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TrusthubV1EndUserType struct for TrusthubV1EndUserType
 type TrusthubV1EndUserType struct {
 	// The unique string that identifies the End-User Type resource.

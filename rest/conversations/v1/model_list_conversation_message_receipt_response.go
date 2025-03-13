@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListConversationMessageReceiptResponse struct for ListConversationMessageReceiptResponse
 type ListConversationMessageReceiptResponse struct {
 	DeliveryReceipts []ConversationsV1ConversationMessageReceipt `json:"delivery_receipts,omitempty"`

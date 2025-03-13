@@ -16,8 +16,10 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
-	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Returns a list of Subscribe Rules for the Participant.

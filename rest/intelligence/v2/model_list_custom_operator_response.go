@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListCustomOperatorResponse struct for ListCustomOperatorResponse
 type ListCustomOperatorResponse struct {
 	Operators []IntelligenceV2CustomOperator `json:"operators,omitempty"`

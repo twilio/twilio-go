@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // AuthenticationAction struct for AuthenticationAction
 type AuthenticationAction struct {
 	Type         AuthenticationActionType `json:"type"`

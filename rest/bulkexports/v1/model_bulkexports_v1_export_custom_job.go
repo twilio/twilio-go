@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // BulkexportsV1ExportCustomJob struct for BulkexportsV1ExportCustomJob
 type BulkexportsV1ExportCustomJob struct {
 	// The friendly name specified when creating the job

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // BulkexportsV1ExportConfiguration struct for BulkexportsV1ExportConfiguration
 type BulkexportsV1ExportConfiguration struct {
 	// If true, Twilio will automatically generate every day's file when the day is over.

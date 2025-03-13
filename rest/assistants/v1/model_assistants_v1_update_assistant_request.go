@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // AssistantsV1UpdateAssistantRequest struct for AssistantsV1UpdateAssistantRequest
 type AssistantsV1UpdateAssistantRequest struct {
 	CustomerAi AssistantsV1CustomerAi `json:"customer_ai,omitempty"`

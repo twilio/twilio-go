@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListPhoneNumberCountryResponse struct for ListPhoneNumberCountryResponse
 type ListPhoneNumberCountryResponse struct {
 	Countries []PricingV1PhoneNumberCountry    `json:"countries,omitempty"`

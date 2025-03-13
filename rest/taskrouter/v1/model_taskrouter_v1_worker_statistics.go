@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TaskrouterV1WorkerStatistics struct for TaskrouterV1WorkerStatistics
 type TaskrouterV1WorkerStatistics struct {
 	// An object that contains the real-time statistics for the Worker.

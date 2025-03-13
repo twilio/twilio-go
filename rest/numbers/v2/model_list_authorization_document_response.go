@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListAuthorizationDocumentResponse struct for ListAuthorizationDocumentResponse
 type ListAuthorizationDocumentResponse struct {
 	Items []NumbersV2AuthorizationDocument      `json:"items,omitempty"`

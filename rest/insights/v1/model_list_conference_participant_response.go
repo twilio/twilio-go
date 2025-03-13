@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListConferenceParticipantResponse struct for ListConferenceParticipantResponse
 type ListConferenceParticipantResponse struct {
 	Participants []InsightsV1ConferenceParticipant `json:"participants,omitempty"`

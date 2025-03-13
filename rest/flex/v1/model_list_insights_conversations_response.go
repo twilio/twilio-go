@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListInsightsConversationsResponse struct for ListInsightsConversationsResponse
 type ListInsightsConversationsResponse struct {
 	Conversations []FlexV1InsightsConversations `json:"conversations,omitempty"`

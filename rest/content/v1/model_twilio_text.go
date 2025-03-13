@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TwilioText Type containing only plain text-based content
 type TwilioText struct {
 	Body string `json:"body"`

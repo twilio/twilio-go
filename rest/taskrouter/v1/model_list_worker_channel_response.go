@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListWorkerChannelResponse struct for ListWorkerChannelResponse
 type ListWorkerChannelResponse struct {
 	Channels []TaskrouterV1WorkerChannel `json:"channels,omitempty"`

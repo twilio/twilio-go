@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // FrontlineV1User struct for FrontlineV1User
 type FrontlineV1User struct {
 	// The unique string that we created to identify the User resource.

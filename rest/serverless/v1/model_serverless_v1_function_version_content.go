@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ServerlessV1FunctionVersionContent struct for ServerlessV1FunctionVersionContent
 type ServerlessV1FunctionVersionContent struct {
 	// The unique string that we created to identify the Function Version resource.

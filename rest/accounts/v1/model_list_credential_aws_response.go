@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListCredentialAwsResponse struct for ListCredentialAwsResponse
 type ListCredentialAwsResponse struct {
 	Credentials []AccountsV1CredentialAws     `json:"credentials,omitempty"`

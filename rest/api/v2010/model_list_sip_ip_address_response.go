@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSipIpAddressResponse struct for ListSipIpAddressResponse
 type ListSipIpAddressResponse struct {
 	IpAddresses     []ApiV2010SipIpAddress `json:"ip_addresses,omitempty"`

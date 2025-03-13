@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListInstalledAddOnExtensionResponse struct for ListInstalledAddOnExtensionResponse
 type ListInstalledAddOnExtensionResponse struct {
 	Extensions []MarketplaceV1InstalledAddOnExtension `json:"extensions,omitempty"`

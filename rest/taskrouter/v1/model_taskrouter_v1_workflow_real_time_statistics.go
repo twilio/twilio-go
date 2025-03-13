@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TaskrouterV1WorkflowRealTimeStatistics struct for TaskrouterV1WorkflowRealTimeStatistics
 type TaskrouterV1WorkflowRealTimeStatistics struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // InsightsV1Event struct for InsightsV1Event
 type InsightsV1Event struct {
 	// Event time.

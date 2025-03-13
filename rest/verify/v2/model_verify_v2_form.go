@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // VerifyV2Form struct for VerifyV2Form
 type VerifyV2Form struct {
 	FormType *string `json:"form_type,omitempty"`

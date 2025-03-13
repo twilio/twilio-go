@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListTranscriptionResponse struct for ListTranscriptionResponse
 type ListTranscriptionResponse struct {
 	Transcriptions  []ApiV2010Transcription `json:"transcriptions,omitempty"`

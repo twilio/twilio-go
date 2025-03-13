@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // AssistantsV1UpdateKnowledgeRequest struct for AssistantsV1UpdateKnowledgeRequest
 type AssistantsV1UpdateKnowledgeRequest struct {
 	// The description of the knowledge source.

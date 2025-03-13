@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010MessageFeedback struct for ApiV2010MessageFeedback
 type ApiV2010MessageFeedback struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with this MessageFeedback resource.

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010Media struct for ApiV2010Media
 type ApiV2010Media struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with this Media resource.

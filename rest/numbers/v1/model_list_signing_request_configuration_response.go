@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSigningRequestConfigurationResponse struct for ListSigningRequestConfigurationResponse
 type ListSigningRequestConfigurationResponse struct {
 	Configurations []NumbersV1SigningRequestConfiguration      `json:"configurations,omitempty"`

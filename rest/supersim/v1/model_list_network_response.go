@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListNetworkResponse struct for ListNetworkResponse
 type ListNetworkResponse struct {
 	Networks []SupersimV1Network           `json:"networks,omitempty"`

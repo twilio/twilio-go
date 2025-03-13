@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // NumbersV1PortingWebhookConfigurationDelete struct for NumbersV1PortingWebhookConfigurationDelete
 type NumbersV1PortingWebhookConfigurationDelete struct {
 	// The URL of the webhook configuration request

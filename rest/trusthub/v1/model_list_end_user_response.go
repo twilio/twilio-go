@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListEndUserResponse struct for ListEndUserResponse
 type ListEndUserResponse struct {
 	Results []TrusthubV1EndUser             `json:"results,omitempty"`

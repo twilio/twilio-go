@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ConversationsV1Configuration struct for ConversationsV1Configuration
 type ConversationsV1Configuration struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.

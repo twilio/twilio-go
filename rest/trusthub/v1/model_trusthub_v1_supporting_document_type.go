@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TrusthubV1SupportingDocumentType struct for TrusthubV1SupportingDocumentType
 type TrusthubV1SupportingDocumentType struct {
 	// The unique string that identifies the Supporting Document Type resource.

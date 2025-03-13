@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TrunkingV1Recording struct for TrunkingV1Recording
 type TrunkingV1Recording struct {
 	Mode *string `json:"mode,omitempty"`

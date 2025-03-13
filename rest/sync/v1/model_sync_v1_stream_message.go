@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // SyncV1StreamMessage struct for SyncV1StreamMessage
 type SyncV1StreamMessage struct {
 	// The unique string that we created to identify the Stream Message resource.

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListAssetVersionResponse struct for ListAssetVersionResponse
 type ListAssetVersionResponse struct {
 	AssetVersions []ServerlessV1AssetVersion `json:"asset_versions,omitempty"`

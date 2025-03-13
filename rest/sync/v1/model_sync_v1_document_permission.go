@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // SyncV1DocumentPermission struct for SyncV1DocumentPermission
 type SyncV1DocumentPermission struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Document Permission resource.

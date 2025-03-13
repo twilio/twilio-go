@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListBrandRegistrationsResponse struct for ListBrandRegistrationsResponse
 type ListBrandRegistrationsResponse struct {
 	Data []MessagingV1BrandRegistrations `json:"data,omitempty"`

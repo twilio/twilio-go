@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListSmsCommandResponse struct for ListSmsCommandResponse
 type ListSmsCommandResponse struct {
 	SmsCommands []SupersimV1SmsCommand        `json:"sms_commands,omitempty"`

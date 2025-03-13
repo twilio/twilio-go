@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010NewKey struct for ApiV2010NewKey
 type ApiV2010NewKey struct {
 	// The unique string that that we created to identify the NewKey resource. You will use this as the basic-auth `user` when authenticating to the API.

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // VerifyV2VerificationTemplate struct for VerifyV2VerificationTemplate
 type VerifyV2VerificationTemplate struct {
 	// A 34 character string that uniquely identifies a Verification Template.

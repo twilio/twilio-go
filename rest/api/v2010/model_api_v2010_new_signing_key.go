@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010NewSigningKey struct for ApiV2010NewSigningKey
 type ApiV2010NewSigningKey struct {
 	// The unique string that that we created to identify the NewSigningKey resource.

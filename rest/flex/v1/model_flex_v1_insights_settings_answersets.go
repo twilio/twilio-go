@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // FlexV1InsightsSettingsAnswersets struct for FlexV1InsightsSettingsAnswersets
 type FlexV1InsightsSettingsAnswersets struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // PricingV1PhoneNumberCountryInstance struct for PricingV1PhoneNumberCountryInstance
 type PricingV1PhoneNumberCountryInstance struct {
 	// The name of the country.

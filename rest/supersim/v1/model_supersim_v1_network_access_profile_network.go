@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // SupersimV1NetworkAccessProfileNetwork struct for SupersimV1NetworkAccessProfileNetwork
 type SupersimV1NetworkAccessProfileNetwork struct {
 	// The unique string that identifies the Network resource.

@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ListMessageResponse struct for ListMessageResponse
 type ListMessageResponse struct {
 	Messages        []ApiV2010Message `json:"messages,omitempty"`

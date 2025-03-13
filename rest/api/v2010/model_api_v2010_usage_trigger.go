@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010UsageTrigger struct for ApiV2010UsageTrigger
 type ApiV2010UsageTrigger struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the trigger monitors.

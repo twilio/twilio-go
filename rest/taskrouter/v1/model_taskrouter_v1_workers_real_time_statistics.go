@@ -14,6 +14,11 @@
 
 package openapi
 
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+
 // TaskrouterV1WorkersRealTimeStatistics struct for TaskrouterV1WorkersRealTimeStatistics
 type TaskrouterV1WorkersRealTimeStatistics struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
