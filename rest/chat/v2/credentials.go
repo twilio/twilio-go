@@ -70,6 +70,7 @@ func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredential
 	return params
 }
 
+//
 func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*ChatV2Credential, error) {
 	path := "/v2/Credentials"
 
@@ -115,6 +116,7 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*ChatV2Cr
 	return ps, err
 }
 
+//
 func (c *ApiService) DeleteCredential(Sid string) error {
 	path := "/v2/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -134,6 +136,7 @@ func (c *ApiService) DeleteCredential(Sid string) error {
 	return nil
 }
 
+//
 func (c *ApiService) FetchCredential(Sid string) (*ChatV2Credential, error) {
 	path := "/v2/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -337,6 +340,7 @@ func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredential
 	return params
 }
 
+//
 func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*ChatV2Credential, error) {
 	path := "/v2/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
