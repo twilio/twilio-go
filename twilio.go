@@ -125,18 +125,25 @@ type Meta struct {
 	URL             *string `json:"url"`
 }
 
+type ClientCredentialProvider struct {
+	GrantType    string
+	ClientId     string
+	ClientSecret string
+}
+
 type ClientParams struct {
-	Username   string
-	Password   string
-	AccountSid string
-	Client     client.BaseClient
+	Username                 string
+	Password                 string
+	AccountSid               string
+	Client                   client.BaseClient
+	ClientCredentialProvider *ClientCredentialProvider
 }
 
 // NewRestClientWithParams provides an initialized Twilio RestClient with params.
 func NewRestClientWithParams(params ClientParams) *RestClient {
 	requestHandler := client.NewRequestHandler(params.Client)
 
-	if params.Client == nil {
+	if params.Client == nil && params.ClientCredentialProvider == nil {
 		username := params.Username
 		if username == "" {
 			username = os.Getenv("TWILIO_ACCOUNT_SID")
@@ -155,6 +162,17 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 			defaultClient.SetAccountSid(params.AccountSid)
 		} else {
 			defaultClient.SetAccountSid(username)
+		}
+		requestHandler = client.NewRequestHandler(defaultClient)
+	} else if params.ClientCredentialProvider != nil {
+		defaultClient := &client.Client{
+			Credentials: client.NewCredentials("", ""),
+		}
+		handler := client.NewRequestHandler(defaultClient)
+		clientCredentials := client.NewClientCredentials(params.ClientCredentialProvider.GrantType, params.ClientCredentialProvider.ClientId, params.ClientCredentialProvider.ClientSecret, *handler)
+		defaultClient.SetClientCredentials(clientCredentials)
+		if params.AccountSid != "" {
+			defaultClient.SetAccountSid(params.AccountSid)
 		}
 		requestHandler = client.NewRequestHandler(defaultClient)
 	}
