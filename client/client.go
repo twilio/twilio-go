@@ -13,12 +13,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/golang-jwt/jwt"
 	"github.com/twilio/twilio-go/oauth"
 
 	"github.com/pkg/errors"
 	"github.com/twilio/twilio-go/client/form"
-	preview_iam "github.com/twilio/twilio-go/rest/preview_iam/v1"
 )
 
 var alphanumericRegex *regexp.Regexp
@@ -246,46 +244,4 @@ func (c *Client) SetAccountSid(sid string) {
 // Returns the Account SID.
 func (c *Client) AccountSid() string {
 	return c.accountSid
-}
-
-func GetAccessToken(grantType, clientId, clientSecret, code, redirectUri, audience, refreshToken, scope string, c RequestHandler) (string, error) {
-	params := &preview_iam.CreateTokenParams{}
-	params.SetGrantType(grantType).
-		SetClientId(clientId).
-		SetClientSecret(clientSecret).
-		SetCode(code).
-		SetRedirectUri(redirectUri).
-		SetAudience(audience).
-		SetRefreshToken(refreshToken).
-		SetScope(scope)
-
-	token, err := preview_iam.NewApiService(&c).CreateToken(params)
-	if err != nil {
-		return "", err
-	}
-
-	if token.AccessToken == nil {
-		return "", fmt.Errorf("access token is nil")
-	}
-
-	return *token.AccessToken, nil
-}
-
-func TokenExpired(tokenString string) bool {
-	// Parse the token without validating the signature
-	token, _, err := new(jwt.Parser).ParseUnverified(tokenString, jwt.MapClaims{})
-	if err != nil {
-		return true // Consider token expired if there's an error parsing it
-	}
-
-	// Extract the claims
-	if claims, ok := token.Claims.(jwt.MapClaims); ok {
-		// Get the expiration time
-		if exp, ok := claims["exp"].(float64); ok {
-			// Check if the token has expired
-			expirationTime := time.Unix(int64(exp), 0)
-			return time.Now().After(expirationTime)
-		}
-	}
-	return true // Cons
 }
