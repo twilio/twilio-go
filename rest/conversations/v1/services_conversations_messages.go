@@ -245,7 +245,7 @@ func (c *ApiService) PageServiceConversationMessage(ChatServiceSid string, Conve
 	}
 
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
+		data.Set("Order", fmt.Sprint(*params.Order))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

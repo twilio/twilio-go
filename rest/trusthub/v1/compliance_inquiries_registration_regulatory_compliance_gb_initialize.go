@@ -270,16 +270,16 @@ func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegist
 	}
 
 	if params != nil && params.EndUserType != nil {
-		data.Set("EndUserType", *params.EndUserType)
+		data.Set("EndUserType", fmt.Sprint(*params.EndUserType))
 	}
 	if params != nil && params.PhoneNumberType != nil {
-		data.Set("PhoneNumberType", *params.PhoneNumberType)
+		data.Set("PhoneNumberType", fmt.Sprint(*params.PhoneNumberType))
 	}
 	if params != nil && params.BusinessIdentityType != nil {
-		data.Set("BusinessIdentityType", *params.BusinessIdentityType)
+		data.Set("BusinessIdentityType", fmt.Sprint(*params.BusinessIdentityType))
 	}
 	if params != nil && params.BusinessRegistrationAuthority != nil {
-		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+		data.Set("BusinessRegistrationAuthority", fmt.Sprint(*params.BusinessRegistrationAuthority))
 	}
 	if params != nil && params.BusinessLegalName != nil {
 		data.Set("BusinessLegalName", *params.BusinessLegalName)

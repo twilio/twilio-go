@@ -116,7 +116,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*IntelligenceV2
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 	if params != nil && params.WebhookHttpMethod != nil {
-		data.Set("WebhookHttpMethod", *params.WebhookHttpMethod)
+		data.Set("WebhookHttpMethod", fmt.Sprint(*params.WebhookHttpMethod))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -408,7 +408,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*In
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 	if params != nil && params.WebhookHttpMethod != nil {
-		data.Set("WebhookHttpMethod", *params.WebhookHttpMethod)
+		data.Set("WebhookHttpMethod", fmt.Sprint(*params.WebhookHttpMethod))
 	}
 
 	if params != nil && params.IfMatch != nil {

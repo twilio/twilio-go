@@ -76,7 +76,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the User.
 **Avatar** | **string** | The avatar URL which will be shown in Frontline application.
-**State** | **string** | 
+**State** | [**string**](string.md) | 
 **IsAvailable** | **bool** | Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
 ### Return type

@@ -80,7 +80,7 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*Conversa
 	}
 
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", fmt.Sprint(*params.Type))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -357,7 +357,7 @@ func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams
 	}
 
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", fmt.Sprint(*params.Type))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)

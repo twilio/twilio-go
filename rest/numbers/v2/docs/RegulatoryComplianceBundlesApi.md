@@ -36,7 +36,7 @@ Name | Type | Description
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
 **RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
 **IsoCountry** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-**EndUserType** | **string** | 
+**EndUserType** | [**string**](string.md) | 
 **NumberType** | **string** | The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
 **IsTest** | **bool** | Indicates that Bundle is a Test Bundle and will be Auto-Rejected
 
@@ -161,14 +161,14 @@ Other parameters are passed through a pointer to a ListBundleParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+**Status** | [**string**](stringstring.md) | The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
 **FriendlyName** | **string** | The string that you assigned to describe the resource. The column can contain 255 variable characters.
 **RegulationSid** | **string** | The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
 **IsoCountry** | **string** | The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
 **NumberType** | **string** | The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
 **HasValidUntilDate** | **bool** | Indicates that the Bundle is a valid Bundle until a specified expiration date.
-**SortBy** | **string** | Can be `valid-until` or `date-updated`. Defaults to `date-created`.
-**SortDirection** | **string** | Default is `DESC`. Can be `ASC` or `DESC`.
+**SortBy** | [**string**](stringstring.md) | Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+**SortDirection** | [**string**](stringstring.md) | Default is `DESC`. Can be `ASC` or `DESC`.
 **ValidUntilDate** | **time.Time** | Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
 **ValidUntilDateBefore** | **time.Time** | Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
 **ValidUntilDateAfter** | **time.Time** | Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
@@ -216,7 +216,7 @@ Other parameters are passed through a pointer to a UpdateBundleParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **Email** | **string** | The email address that will receive updates when the Bundle resource changes status.

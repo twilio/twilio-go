@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateRoomParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **EnableTurn** | **bool** | Deprecated, now always considered to be true.
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
 **StatusCallback** | **string** | The URL Twilio should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
 **StatusCallbackMethod** | **string** | The HTTP method Twilio should use to call `status_callback`. Can be `POST` or `GET`.
@@ -125,7 +125,7 @@ Other parameters are passed through a pointer to a ListRoomParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+**Status** | [**string**](stringstring.md) | Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
 **UniqueName** | **string** | Read only rooms with the this `unique_name`.
 **DateCreatedAfter** | **time.Time** | Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
 **DateCreatedBefore** | **time.Time** | Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -173,7 +173,7 @@ Other parameters are passed through a pointer to a UpdateRoomParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

@@ -301,7 +301,7 @@ func (c *ApiService) PageHostedNumberOrder(params *ListHostedNumberOrderParams, 
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.SmsCapability != nil {
 		data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability))
@@ -461,7 +461,7 @@ func (c *ApiService) UpdateHostedNumberOrder(Sid string, params *UpdateHostedNum
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.VerificationCallDelay != nil {
 		data.Set("VerificationCallDelay", fmt.Sprint(*params.VerificationCallDelay))

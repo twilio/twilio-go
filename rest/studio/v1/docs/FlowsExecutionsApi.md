@@ -213,7 +213,7 @@ Other parameters are passed through a pointer to a UpdateExecutionParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

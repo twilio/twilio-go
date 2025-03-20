@@ -79,7 +79,7 @@ type CreateParticipantParams struct {
 	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
 	// The SIP password for authentication.
 	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
-	// The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+	// The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
 	Region *string `json:"Region,omitempty"`
 	// The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
 	ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`

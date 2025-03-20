@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateFlowParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **Definition** | [**map[string]interface{}**](map[string]interface{}.md) | JSON representation of flow definition.
 **CommitMessage** | **string** | Description of change made in the revision.
 
@@ -201,7 +201,7 @@ Other parameters are passed through a pointer to a UpdateFlowParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
 **Definition** | [**map[string]interface{}**](map[string]interface{}.md) | JSON representation of flow definition.
 **CommitMessage** | **string** | Description of change made in the revision.

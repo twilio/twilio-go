@@ -129,8 +129,8 @@ Other parameters are passed through a pointer to a ListChallengeParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FactorSid** | **string** | The unique SID identifier of the Factor.
-**Status** | **string** | The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
-**Order** | **string** | The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+**Status** | [**string**](stringstring.md) | The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+**Order** | [**string**](stringstring.md) | The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

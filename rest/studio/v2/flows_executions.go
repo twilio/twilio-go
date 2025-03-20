@@ -316,7 +316,7 @@ func (c *ApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateE
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a CreateServiceConversationPart
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Identity** | **string** | A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
 **MessagingBindingAddress** | **string** | The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with `proxy_address`) is only null when the participant is interacting from an SDK endpoint (see the `identity` field).
 **MessagingBindingProxyAddress** | **string** | The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the `identity` field).
@@ -89,7 +89,7 @@ Other parameters are passed through a pointer to a DeleteServiceConversationPart
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -223,7 +223,7 @@ Other parameters are passed through a pointer to a UpdateServiceConversationPart
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **DateCreated** | **time.Time** | The date on which this resource was created.
 **DateUpdated** | **time.Time** | The date on which this resource was last updated.
 **Identity** | **string** | A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.

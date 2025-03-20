@@ -42,6 +42,7 @@ Name | Type | Description
 **InternationalRoaming** | **[]string** | The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
 **NationalRoamingDataLimit** | **int** | The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming) for more info.
 **InternationalRoamingDataLimit** | **int** | The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+**DataLimitStrategy** | [**string**](string.md) | 
 
 ### Return type
 

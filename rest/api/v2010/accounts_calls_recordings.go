@@ -418,7 +418,7 @@ func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *Upd
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.PauseBehavior != nil {
 		data.Set("PauseBehavior", *params.PauseBehavior)

@@ -169,7 +169,7 @@ Other parameters are passed through a pointer to a ListHostedNumberOrderParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+**Status** | [**string**](stringstring.md) | The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
 **SmsCapability** | **bool** | Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
 **PhoneNumber** | **string** | An E164 formatted phone number hosted by this HostedNumberOrder.
 **IncomingPhoneNumberSid** | **string** | A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -218,7 +218,7 @@ Other parameters are passed through a pointer to a UpdateHostedNumberOrderParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **VerificationCallDelay** | **int** | The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive.
 **VerificationCallExtension** | **string** | The numerical extension to dial when making the ownership verification call.
 

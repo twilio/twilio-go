@@ -38,7 +38,7 @@ Name | Type | Description
 **UseCaseSummary** | **string** | Use this to further explain how messaging is used by the business or organization.
 **ProductionMessageSample** | **string** | An example of message content, i.e. a sample message.
 **OptInImageUrls** | **[]string** | Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-**OptInType** | **string** | 
+**OptInType** | [**string**](string.md) | 
 **MessageVolume** | **string** | Estimate monthly volume of messages from the Tollfree Number.
 **TollfreePhoneNumberSid** | **string** | The SID of the Phone Number associated with the Tollfree Verification.
 **CustomerProfileSid** | **string** | Customer's Profile Bundle BundleSid.
@@ -177,7 +177,7 @@ Other parameters are passed through a pointer to a ListTollfreeVerificationParam
 Name | Type | Description
 ------------- | ------------- | -------------
 **TollfreePhoneNumberSid** | **string** | The SID of the Phone Number associated with the Tollfree Verification.
-**Status** | **string** | The compliance status of the Tollfree Verification record.
+**Status** | [**string**](stringstring.md) | The compliance status of the Tollfree Verification record.
 **ExternalReferenceId** | **string** | Customer supplied reference id for the Tollfree Verification record.
 **IncludeSubAccounts** | **bool** | Whether to include Tollfree Verifications from sub accounts in list response.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -231,7 +231,7 @@ Name | Type | Description
 **UseCaseSummary** | **string** | Use this to further explain how messaging is used by the business or organization.
 **ProductionMessageSample** | **string** | An example of message content, i.e. a sample message.
 **OptInImageUrls** | **[]string** | Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-**OptInType** | **string** | 
+**OptInType** | [**string**](string.md) | 
 **MessageVolume** | **string** | Estimate monthly volume of messages from the Tollfree Number.
 **BusinessStreetAddress** | **string** | The address of the business or organization using the Tollfree number.
 **BusinessStreetAddress2** | **string** | The address of the business or organization using the Tollfree number.

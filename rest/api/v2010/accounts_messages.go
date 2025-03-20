@@ -52,6 +52,8 @@ type CreateMessageParams struct {
 	SmartEncoded *bool `json:"SmartEncoded,omitempty"`
 	// Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
 	PersistentAction *[]string `json:"PersistentAction,omitempty"`
+	//
+	TrafficType *string `json:"TrafficType,omitempty"`
 	// For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
 	ShortenUrls *bool `json:"ShortenUrls,omitempty"`
 	//
@@ -126,6 +128,10 @@ func (params *CreateMessageParams) SetSmartEncoded(SmartEncoded bool) *CreateMes
 }
 func (params *CreateMessageParams) SetPersistentAction(PersistentAction []string) *CreateMessageParams {
 	params.PersistentAction = &PersistentAction
+	return params
+}
+func (params *CreateMessageParams) SetTrafficType(TrafficType string) *CreateMessageParams {
+	params.TrafficType = &TrafficType
 	return params
 }
 func (params *CreateMessageParams) SetShortenUrls(ShortenUrls bool) *CreateMessageParams {
@@ -212,10 +218,10 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 		data.Set("ForceDelivery", fmt.Sprint(*params.ForceDelivery))
 	}
 	if params != nil && params.ContentRetention != nil {
-		data.Set("ContentRetention", *params.ContentRetention)
+		data.Set("ContentRetention", fmt.Sprint(*params.ContentRetention))
 	}
 	if params != nil && params.AddressRetention != nil {
-		data.Set("AddressRetention", *params.AddressRetention)
+		data.Set("AddressRetention", fmt.Sprint(*params.AddressRetention))
 	}
 	if params != nil && params.SmartEncoded != nil {
 		data.Set("SmartEncoded", fmt.Sprint(*params.SmartEncoded))
@@ -225,11 +231,14 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 			data.Add("PersistentAction", item)
 		}
 	}
+	if params != nil && params.TrafficType != nil {
+		data.Set("TrafficType", fmt.Sprint(*params.TrafficType))
+	}
 	if params != nil && params.ShortenUrls != nil {
 		data.Set("ShortenUrls", fmt.Sprint(*params.ShortenUrls))
 	}
 	if params != nil && params.ScheduleType != nil {
-		data.Set("ScheduleType", *params.ScheduleType)
+		data.Set("ScheduleType", fmt.Sprint(*params.ScheduleType))
 	}
 	if params != nil && params.SendAt != nil {
 		data.Set("SendAt", fmt.Sprint((*params.SendAt).Format(time.RFC3339)))
@@ -241,7 +250,7 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 		data.Set("ContentVariables", *params.ContentVariables)
 	}
 	if params != nil && params.RiskCheck != nil {
-		data.Set("RiskCheck", *params.RiskCheck)
+		data.Set("RiskCheck", fmt.Sprint(*params.RiskCheck))
 	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
@@ -590,7 +599,7 @@ func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*Ap
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

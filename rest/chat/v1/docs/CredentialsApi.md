@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
 **Certificate** | **string** | [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A== -----END CERTIFICATE-----`
 **PrivateKey** | **string** | [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR. -----END RSA PRIVATE KEY-----`

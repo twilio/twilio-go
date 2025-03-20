@@ -74,7 +74,7 @@ func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams
 		data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
 	}
 	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
+		data.Set("Granularity", fmt.Sprint(*params.Granularity))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

@@ -32,7 +32,7 @@ Name | Type | Description
 **Sim** | **string** | The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
 **Payload** | **string** | The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
 **DevicePort** | **int** | The device port to which the IP Command will be sent.
-**PayloadType** | **string** | 
+**PayloadType** | [**string**](string.md) | 
 **CallbackUrl** | **string** | The URL we should call using the `callback_method` after we have sent the IP Command.
 **CallbackMethod** | **string** | The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
 
@@ -117,8 +117,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Sim** | **string** | The SID or unique name of the Sim resource that IP Command was sent to or from.
 **SimIccid** | **string** | The ICCID of the Sim resource that IP Command was sent to or from.
-**Status** | **string** | The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each.
-**Direction** | **string** | The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+**Status** | [**string**](stringstring.md) | The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each.
+**Direction** | [**string**](stringstring.md) | The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

@@ -95,10 +95,10 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ProxyV1Service
 		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.GeoMatchLevel != nil {
-		data.Set("GeoMatchLevel", *params.GeoMatchLevel)
+		data.Set("GeoMatchLevel", fmt.Sprint(*params.GeoMatchLevel))
 	}
 	if params != nil && params.NumberSelectionBehavior != nil {
-		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
+		data.Set("NumberSelectionBehavior", fmt.Sprint(*params.NumberSelectionBehavior))
 	}
 	if params != nil && params.InterceptCallbackUrl != nil {
 		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
@@ -381,10 +381,10 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Pr
 		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.GeoMatchLevel != nil {
-		data.Set("GeoMatchLevel", *params.GeoMatchLevel)
+		data.Set("GeoMatchLevel", fmt.Sprint(*params.GeoMatchLevel))
 	}
 	if params != nil && params.NumberSelectionBehavior != nil {
-		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
+		data.Set("NumberSelectionBehavior", fmt.Sprint(*params.NumberSelectionBehavior))
 	}
 	if params != nil && params.InterceptCallbackUrl != nil {
 		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)

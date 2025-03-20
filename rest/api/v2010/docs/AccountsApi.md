@@ -112,7 +112,7 @@ Other parameters are passed through a pointer to a ListAccountParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | Only return the Account resources with friendly names that exactly match this name.
-**Status** | **string** | Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+**Status** | [**string**](stringstring.md) | Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -158,7 +158,7 @@ Other parameters are passed through a pointer to a UpdateAccountParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | Update the human-readable description of this Account
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

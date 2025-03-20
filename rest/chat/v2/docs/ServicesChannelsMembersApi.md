@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a CreateMemberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Identity** | **string** | The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
 **RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
 **LastConsumedMessageIndex** | **int** | The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read. This parameter should only be used when recreating a Member from a backup/separate source.
@@ -88,7 +88,7 @@ Other parameters are passed through a pointer to a DeleteMemberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -223,7 +223,7 @@ Other parameters are passed through a pointer to a UpdateMemberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
 **LastConsumedMessageIndex** | **int** | The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) that the Member has read within the [Channel](https://www.twilio.com/docs/chat/channels).
 **LastConsumptionTimestamp** | **time.Time** | The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).

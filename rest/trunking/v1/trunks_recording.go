@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -73,10 +74,10 @@ func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingPar
 	}
 
 	if params != nil && params.Mode != nil {
-		data.Set("Mode", *params.Mode)
+		data.Set("Mode", fmt.Sprint(*params.Mode))
 	}
 	if params != nil && params.Trim != nil {
-		data.Set("Trim", *params.Trim)
+		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

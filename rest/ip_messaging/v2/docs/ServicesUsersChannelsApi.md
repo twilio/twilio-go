@@ -169,7 +169,7 @@ Other parameters are passed through a pointer to a UpdateUserChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**NotificationLevel** | **string** | 
+**NotificationLevel** | [**string**](string.md) | 
 **LastConsumedMessageIndex** | **int** | 
 **LastConsumptionTimestamp** | **time.Time** | 
 

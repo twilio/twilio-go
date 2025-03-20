@@ -82,13 +82,13 @@ func (c *ApiService) CreateServiceConversationScopedWebhook(ChatServiceSid strin
 	}
 
 	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+		data.Set("Target", fmt.Sprint(*params.Target))
 	}
 	if params != nil && params.ConfigurationUrl != nil {
 		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("Configuration.Method", *params.ConfigurationMethod)
+		data.Set("Configuration.Method", fmt.Sprint(*params.ConfigurationMethod))
 	}
 	if params != nil && params.ConfigurationFilters != nil {
 		for _, item := range *params.ConfigurationFilters {
@@ -363,7 +363,7 @@ func (c *ApiService) UpdateServiceConversationScopedWebhook(ChatServiceSid strin
 		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("Configuration.Method", *params.ConfigurationMethod)
+		data.Set("Configuration.Method", fmt.Sprint(*params.ConfigurationMethod))
 	}
 	if params != nil && params.ConfigurationFilters != nil {
 		for _, item := range *params.ConfigurationFilters {

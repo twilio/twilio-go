@@ -34,7 +34,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Transcription resource.
 **Name** | **string** | The user-specified name of this Transcription, if one was given when the Transcription was created. This may be used to stop the Transcription.
-**Track** | **string** | 
+**Track** | [**string**](string.md) | 
 **StatusCallbackUrl** | **string** | Absolute URL of the status callback.
 **StatusCallbackMethod** | **string** | The http method for the status_callback (one of GET, POST).
 **InboundTrackLabel** | **string** | Friendly name given to the Inbound Track
@@ -91,7 +91,7 @@ Other parameters are passed through a pointer to a UpdateRealtimeTranscriptionPa
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Transcription resource.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

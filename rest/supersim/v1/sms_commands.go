@@ -162,10 +162,10 @@ func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken, pag
 		data.Set("Sim", *params.Sim)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
+		data.Set("Direction", fmt.Sprint(*params.Direction))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

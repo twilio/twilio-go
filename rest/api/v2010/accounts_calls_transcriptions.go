@@ -135,7 +135,7 @@ func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateR
 		data.Set("Name", *params.Name)
 	}
 	if params != nil && params.Track != nil {
-		data.Set("Track", *params.Track)
+		data.Set("Track", fmt.Sprint(*params.Track))
 	}
 	if params != nil && params.StatusCallbackUrl != nil {
 		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
@@ -223,7 +223,7 @@ func (c *ApiService) UpdateRealtimeTranscription(CallSid string, Sid string, par
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

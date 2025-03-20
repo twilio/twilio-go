@@ -157,7 +157,7 @@ Other parameters are passed through a pointer to a ListCustomerProfileParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The verification status of the Customer-Profile resource.
+**Status** | [**string**](stringstring.md) | The verification status of the Customer-Profile resource.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -204,7 +204,7 @@ Other parameters are passed through a pointer to a UpdateCustomerProfileParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.

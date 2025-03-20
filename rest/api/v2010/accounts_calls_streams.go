@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -1271,7 +1272,7 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 		data.Set("Name", *params.Name)
 	}
 	if params != nil && params.Track != nil {
-		data.Set("Track", *params.Track)
+		data.Set("Track", fmt.Sprint(*params.Track))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -1923,7 +1924,7 @@ func (c *ApiService) UpdateStream(CallSid string, Sid string, params *UpdateStre
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -47,12 +47,12 @@ Name | Type | Description
 **VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
 **VoiceMethod** | **string** | The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
 **VoiceUrl** | **string** | The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-**EmergencyStatus** | **string** | 
+**EmergencyStatus** | [**string**](string.md) | 
 **EmergencyAddressSid** | **string** | The SID of the emergency address configuration to use for emergency calling from the new phone number.
 **TrunkSid** | **string** | The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
 **IdentitySid** | **string** | The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
 **AddressSid** | **string** | The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-**VoiceReceiveMode** | **string** | 
+**VoiceReceiveMode** | [**string**](string.md) | 
 **BundleSid** | **string** | The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 **PhoneNumber** | **string** | The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
 **AreaCode** | **string** | The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an `area_code` or a `phone_number`.** (US and Canada only).
@@ -246,10 +246,10 @@ Name | Type | Description
 **VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
 **VoiceMethod** | **string** | The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
 **VoiceUrl** | **string** | The URL that we should call to answer a call to the phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-**EmergencyStatus** | **string** | 
+**EmergencyStatus** | [**string**](string.md) | 
 **EmergencyAddressSid** | **string** | The SID of the emergency address configuration to use for emergency calling from this phone number.
 **TrunkSid** | **string** | The SID of the Trunk we should use to handle phone calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-**VoiceReceiveMode** | **string** | 
+**VoiceReceiveMode** | [**string**](string.md) | 
 **IdentitySid** | **string** | The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
 **AddressSid** | **string** | The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
 **BundleSid** | **string** | The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.

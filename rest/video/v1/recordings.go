@@ -132,7 +132,7 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageN
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.SourceSid != nil {
 		data.Set("SourceSid", *params.SourceSid)
@@ -149,7 +149,7 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageN
 		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.MediaType != nil {
-		data.Set("MediaType", *params.MediaType)
+		data.Set("MediaType", fmt.Sprint(*params.MediaType))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

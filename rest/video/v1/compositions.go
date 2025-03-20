@@ -118,7 +118,7 @@ func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV
 		data.Set("Resolution", *params.Resolution)
 	}
 	if params != nil && params.Format != nil {
-		data.Set("Format", *params.Format)
+		data.Set("Format", fmt.Sprint(*params.Format))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -241,7 +241,7 @@ func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken, p
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
 		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))

@@ -47,10 +47,10 @@ Name | Type | Description
 **VoiceUrl** | **string** | The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
 **IdentitySid** | **string** | The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
 **AddressSid** | **string** | The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-**EmergencyStatus** | **string** | 
+**EmergencyStatus** | [**string**](string.md) | 
 **EmergencyAddressSid** | **string** | The SID of the emergency address configuration to use for emergency calling from the new phone number.
 **TrunkSid** | **string** | The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-**VoiceReceiveMode** | **string** | 
+**VoiceReceiveMode** | [**string**](string.md) | 
 **BundleSid** | **string** | The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 
 ### Return type

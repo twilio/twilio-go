@@ -217,13 +217,13 @@ func (c *ApiService) PageSyncMapItem(ServiceSid string, MapSid string, params *L
 	}
 
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
+		data.Set("Order", fmt.Sprint(*params.Order))
 	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
 	}
 	if params != nil && params.Bounds != nil {
-		data.Set("Bounds", *params.Bounds)
+		data.Set("Bounds", fmt.Sprint(*params.Bounds))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

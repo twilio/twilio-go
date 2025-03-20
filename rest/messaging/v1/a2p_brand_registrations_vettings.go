@@ -51,7 +51,7 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 	}
 
 	if params != nil && params.VettingProvider != nil {
-		data.Set("VettingProvider", *params.VettingProvider)
+		data.Set("VettingProvider", fmt.Sprint(*params.VettingProvider))
 	}
 	if params != nil && params.VettingId != nil {
 		data.Set("VettingId", *params.VettingId)
@@ -133,7 +133,7 @@ func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingP
 	}
 
 	if params != nil && params.VettingProvider != nil {
-		data.Set("VettingProvider", *params.VettingProvider)
+		data.Set("VettingProvider", fmt.Sprint(*params.VettingProvider))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

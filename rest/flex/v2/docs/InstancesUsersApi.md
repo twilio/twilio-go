@@ -76,10 +76,7 @@ Other parameters are passed through a pointer to a UpdateFlexUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FirstName** | **string** | First name of the User.
-**LastName** | **string** | Last name of the User.
 **Email** | **string** | Email of the User.
-**FriendlyName** | **string** | Friendly name of the User.
 **UserSid** | **string** | The unique SID identifier of the Twilio Unified User.
 **Locale** | **string** | The locale preference of the user.
 

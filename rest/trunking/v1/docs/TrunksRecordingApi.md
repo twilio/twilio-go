@@ -74,8 +74,8 @@ Other parameters are passed through a pointer to a UpdateRecordingParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Mode** | **string** | 
-**Trim** | **string** | 
+**Mode** | [**string**](string.md) | 
+**Trim** | [**string**](string.md) | 
 
 ### Return type
 

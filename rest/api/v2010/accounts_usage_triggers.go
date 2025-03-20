@@ -97,7 +97,7 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 		data.Set("TriggerValue", *params.TriggerValue)
 	}
 	if params != nil && params.UsageCategory != nil {
-		data.Set("UsageCategory", *params.UsageCategory)
+		data.Set("UsageCategory", fmt.Sprint(*params.UsageCategory))
 	}
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
@@ -106,10 +106,10 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Recurring != nil {
-		data.Set("Recurring", *params.Recurring)
+		data.Set("Recurring", fmt.Sprint(*params.Recurring))
 	}
 	if params != nil && params.TriggerBy != nil {
-		data.Set("TriggerBy", *params.TriggerBy)
+		data.Set("TriggerBy", fmt.Sprint(*params.TriggerBy))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -261,13 +261,13 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken,
 	}
 
 	if params != nil && params.Recurring != nil {
-		data.Set("Recurring", *params.Recurring)
+		data.Set("Recurring", fmt.Sprint(*params.Recurring))
 	}
 	if params != nil && params.TriggerBy != nil {
-		data.Set("TriggerBy", *params.TriggerBy)
+		data.Set("TriggerBy", fmt.Sprint(*params.TriggerBy))
 	}
 	if params != nil && params.UsageCategory != nil {
-		data.Set("UsageCategory", *params.UsageCategory)
+		data.Set("UsageCategory", fmt.Sprint(*params.UsageCategory))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

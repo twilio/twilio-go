@@ -172,7 +172,7 @@ Other parameters are passed through a pointer to a UpdateConferenceRecordingPara
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **PauseBehavior** | **string** | Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
 ### Return type

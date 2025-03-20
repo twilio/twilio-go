@@ -35,9 +35,9 @@ Other parameters are passed through a pointer to a CreateConversationScopedWebho
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Target** | **string** | 
+**Target** | [**string**](string.md) | 
 **ConfigurationUrl** | **string** | The absolute url the webhook request should be sent to.
-**ConfigurationMethod** | **string** | 
+**ConfigurationMethod** | [**string**](string.md) | 
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
 **ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
 **ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.
@@ -216,7 +216,7 @@ Other parameters are passed through a pointer to a UpdateConversationScopedWebho
 Name | Type | Description
 ------------- | ------------- | -------------
 **ConfigurationUrl** | **string** | The absolute url the webhook request should be sent to.
-**ConfigurationMethod** | **string** | 
+**ConfigurationMethod** | [**string**](string.md) | 
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
 **ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
 **ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.

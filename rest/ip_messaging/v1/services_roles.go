@@ -60,7 +60,7 @@ func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*I
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", fmt.Sprint(*params.Type))
 	}
 	if params != nil && params.Permission != nil {
 		for _, item := range *params.Permission {

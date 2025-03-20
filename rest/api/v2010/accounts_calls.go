@@ -569,7 +569,7 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber stri
 		data.Set("ParentCallSid", *params.ParentCallSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.StartTime != nil {
 		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
@@ -788,7 +788,7 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 		data.Set("Method", *params.Method)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.FallbackUrl != nil {
 		data.Set("FallbackUrl", *params.FallbackUrl)

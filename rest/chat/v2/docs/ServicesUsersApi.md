@@ -35,7 +35,7 @@ Other parameters are passed through a pointer to a CreateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Identity** | **string** | The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). This value is often a username or email address. See the Identity documentation for more info.
 **RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the new User.
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
@@ -213,7 +213,7 @@ Other parameters are passed through a pointer to a UpdateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is often used for display purposes.

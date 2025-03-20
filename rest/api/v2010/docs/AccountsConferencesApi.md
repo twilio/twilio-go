@@ -80,7 +80,7 @@ Name | Type | Description
 **DateUpdatedBefore** | **string** | Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
 **DateUpdatedAfter** | **string** | Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
 **FriendlyName** | **string** | The string that identifies the Conference resources to read.
-**Status** | **string** | The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+**Status** | [**string**](stringstring.md) | The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -126,7 +126,7 @@ Other parameters are passed through a pointer to a UpdateConferenceParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **AnnounceUrl** | **string** | The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
 **AnnounceMethod** | **string** | The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 

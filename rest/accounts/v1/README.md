@@ -46,9 +46,9 @@ Class | Method | HTTP request | Description
 *CredentialsPublicKeysApi* | [**FetchCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#fetchcredentialpublickey) | **Get** /v1/Credentials/PublicKeys/{Sid} | Fetch the public key specified by the provided Credential Sid
 *CredentialsPublicKeysApi* | [**ListCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#listcredentialpublickey) | **Get** /v1/Credentials/PublicKeys | Retrieves a collection of Public Key Credentials belonging to the account used to make the request
 *CredentialsPublicKeysApi* | [**UpdateCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#updatecredentialpublickey) | **Post** /v1/Credentials/PublicKeys/{Sid} | Modify the properties of a given Account
-*SafeListNumbersApi* | [**CreateSafelist**](docs/SafeListNumbersApi.md#createsafelist) | **Post** /v1/SafeList/Numbers | Add a new phone number to SafeList.
-*SafeListNumbersApi* | [**DeleteSafelist**](docs/SafeListNumbersApi.md#deletesafelist) | **Delete** /v1/SafeList/Numbers | Remove a phone number from SafeList.
-*SafeListNumbersApi* | [**FetchSafelist**](docs/SafeListNumbersApi.md#fetchsafelist) | **Get** /v1/SafeList/Numbers | Check if a phone number exists in SafeList.
+*SafeListNumbersApi* | [**CreateSafelist**](docs/SafeListNumbersApi.md#createsafelist) | **Post** /v1/SafeList/Numbers | Add a new phone number or phone number 1k prefix to SafeList.
+*SafeListNumbersApi* | [**DeleteSafelist**](docs/SafeListNumbersApi.md#deletesafelist) | **Delete** /v1/SafeList/Numbers | Remove a phone number or phone number 1k prefix from SafeList.
+*SafeListNumbersApi* | [**FetchSafelist**](docs/SafeListNumbersApi.md#fetchsafelist) | **Get** /v1/SafeList/Numbers | Check if a phone number or phone number 1k prefix exists in SafeList.
 
 
 ## Documentation For Models

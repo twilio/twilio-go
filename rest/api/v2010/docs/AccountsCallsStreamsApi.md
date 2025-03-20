@@ -35,7 +35,7 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
 **Url** | **string** | Relative or absolute URL where WebSocket connection will be established.
 **Name** | **string** | The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
-**Track** | **string** | 
+**Track** | [**string**](string.md) | 
 **StatusCallback** | **string** | Absolute URL to which Twilio sends status callback HTTP requests.
 **StatusCallbackMethod** | **string** | The HTTP method Twilio uses when sending `status_callback` requests. Possible values are `GET` and `POST`. Default is `POST`.
 **Parameter1Name** | **string** | Parameter name
@@ -280,7 +280,7 @@ Other parameters are passed through a pointer to a UpdateStreamParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

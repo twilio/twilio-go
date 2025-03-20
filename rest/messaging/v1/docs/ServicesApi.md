@@ -40,7 +40,7 @@ Name | Type | Description
 **StickySender** | **bool** | Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
 **MmsConverter** | **bool** | Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
 **SmartEncoding** | **bool** | Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
-**ScanMessageContent** | **string** | 
+**ScanMessageContent** | [**string**](string.md) | 
 **FallbackToLongCode** | **bool** | [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
 **AreaCodeGeomatch** | **bool** | Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 **ValidityPeriod** | **int** | How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
@@ -222,7 +222,7 @@ Name | Type | Description
 **StickySender** | **bool** | Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
 **MmsConverter** | **bool** | Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
 **SmartEncoding** | **bool** | Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
-**ScanMessageContent** | **string** | 
+**ScanMessageContent** | [**string**](string.md) | 
 **FallbackToLongCode** | **bool** | [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
 **AreaCodeGeomatch** | **bool** | Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 **ValidityPeriod** | **int** | How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.

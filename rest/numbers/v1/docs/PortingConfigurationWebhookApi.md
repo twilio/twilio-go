@@ -63,7 +63,7 @@ Allows the client to delete a webhook configuration.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**WebhookType** | **string** | The webhook type for the configuration to be delete. `PORT_IN`, `PORT_OUT`
+**WebhookType** | [**string**](string.md) | The webhook type for the configuration to be delete. `PORT_IN`, `PORT_OUT`
 
 ### Other Parameters
 

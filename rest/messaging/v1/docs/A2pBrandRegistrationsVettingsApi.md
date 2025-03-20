@@ -33,7 +33,7 @@ Other parameters are passed through a pointer to a CreateBrandVettingParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**VettingProvider** | **string** | 
+**VettingProvider** | [**string**](string.md) | 
 **VettingId** | **string** | The unique ID of the vetting
 
 ### Return type
@@ -120,7 +120,7 @@ Other parameters are passed through a pointer to a ListBrandVettingParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**VettingProvider** | **string** | The third-party provider of the vettings to read
+**VettingProvider** | [**string**](stringstring.md) | The third-party provider of the vettings to read
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

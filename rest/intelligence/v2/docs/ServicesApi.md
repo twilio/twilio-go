@@ -39,7 +39,7 @@ Name | Type | Description
 **AutoRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
 **MediaRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
 **WebhookUrl** | **string** | The URL Twilio will request when executing the Webhook.
-**WebhookHttpMethod** | **string** | 
+**WebhookHttpMethod** | [**string**](string.md) | 
 
 ### Return type
 
@@ -214,7 +214,7 @@ Name | Type | Description
 **AutoRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
 **MediaRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
 **WebhookUrl** | **string** | The URL Twilio will request when executing the Webhook.
-**WebhookHttpMethod** | **string** | 
+**WebhookHttpMethod** | [**string**](string.md) | 
 
 ### Return type
 

@@ -34,16 +34,10 @@ type FlexV2FlexUser struct {
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 	// The unique SID identifier of the Flex Team.
 	FlexTeamSid *string `json:"flex_team_sid,omitempty"`
-	// First name of the User.
-	FirstName *string `json:"first_name,omitempty"`
-	// Last name of the User.
-	LastName *string `json:"last_name,omitempty"`
 	// Username of the User.
 	Username *string `json:"username,omitempty"`
 	// Email of the User.
 	Email *string `json:"email,omitempty"`
-	// Friendly name of the User.
-	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The locale preference of the user.
 	Locale *string `json:"locale,omitempty"`
 	// The roles of the user.

@@ -59,7 +59,7 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2EndUs
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", fmt.Sprint(*params.Type))
 	}
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)

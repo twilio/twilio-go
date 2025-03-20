@@ -132,7 +132,7 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 		data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn))
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", fmt.Sprint(*params.Type))
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -273,7 +273,7 @@ func (c *ApiService) PageRoom(params *ListRoomParams, pageToken, pageNumber stri
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -418,7 +418,7 @@ func (c *ApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*VideoV1R
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

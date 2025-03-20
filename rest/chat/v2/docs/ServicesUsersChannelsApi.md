@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a DeleteUserChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -170,7 +170,7 @@ Other parameters are passed through a pointer to a UpdateUserChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**NotificationLevel** | **string** | 
+**NotificationLevel** | [**string**](string.md) | 
 **LastConsumedMessageIndex** | **int** | The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
 **LastConsumptionTimestamp** | **time.Time** | The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 

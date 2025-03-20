@@ -35,7 +35,7 @@ Name | Type | Description
 **UseCaseSummary** | **string** | Use this to further explain how messaging is used by the business or organization.
 **ProductionMessageSample** | **string** | An example of message content, i.e. a sample message.
 **OptInImageUrls** | **[]string** | Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-**OptInType** | **string** | 
+**OptInType** | [**string**](string.md) | 
 **MessageVolume** | **string** | Estimate monthly volume of messages from the Tollfree Number.
 **BusinessStreetAddress** | **string** | The address of the business or organization using the Tollfree number.
 **BusinessStreetAddress2** | **string** | The address of the business or organization using the Tollfree number.

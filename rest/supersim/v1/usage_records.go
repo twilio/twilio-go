@@ -110,10 +110,10 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, p
 		data.Set("IsoCountry", *params.IsoCountry)
 	}
 	if params != nil && params.Group != nil {
-		data.Set("Group", *params.Group)
+		data.Set("Group", fmt.Sprint(*params.Group))
 	}
 	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
+		data.Set("Granularity", fmt.Sprint(*params.Granularity))
 	}
 	if params != nil && params.StartTime != nil {
 		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))

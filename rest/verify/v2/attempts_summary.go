@@ -84,7 +84,7 @@ func (c *ApiService) FetchVerificationAttemptsSummary(params *FetchVerificationA
 		data.Set("Country", *params.Country)
 	}
 	if params != nil && params.Channel != nil {
-		data.Set("Channel", *params.Channel)
+		data.Set("Channel", fmt.Sprint(*params.Channel))
 	}
 	if params != nil && params.DestinationPrefix != nil {
 		data.Set("DestinationPrefix", *params.DestinationPrefix)

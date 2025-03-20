@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to a ListPrebuiltOperatorParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Availability** | **string** | Returns Pre-built Operators with the provided availability type. Possible values: internal, beta, public, retired.
+**Availability** | [**string**](stringstring.md) | Returns Pre-built Operators with the provided availability type. Possible values: internal, beta, public, retired.
 **LanguageCode** | **string** | Returns Pre-built Operators that support the provided language code.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.

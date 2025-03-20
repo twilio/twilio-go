@@ -205,7 +205,7 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 		data.Set("EnableSnaClientToken", fmt.Sprint(*params.EnableSnaClientToken))
 	}
 	if params != nil && params.RiskCheck != nil {
-		data.Set("RiskCheck", *params.RiskCheck)
+		data.Set("RiskCheck", fmt.Sprint(*params.RiskCheck))
 	}
 	if params != nil && params.Tags != nil {
 		data.Set("Tags", *params.Tags)
@@ -275,7 +275,7 @@ func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *U
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -102,7 +103,7 @@ func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebho
 		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
 	}
 	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+		data.Set("Target", fmt.Sprint(*params.Target))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

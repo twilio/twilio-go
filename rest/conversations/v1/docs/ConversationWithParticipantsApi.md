@@ -27,14 +27,14 @@ Other parameters are passed through a pointer to a CreateConversationWithPartici
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **FriendlyName** | **string** | The human-readable name of this conversation, limited to 256 characters. Optional.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 **DateCreated** | **time.Time** | The date that this resource was created.
 **DateUpdated** | **time.Time** | The date that this resource was last updated.
 **MessagingServiceSid** | **string** | The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
 **Attributes** | **string** | An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-**State** | **string** | 
+**State** | [**string**](string.md) | 
 **TimersInactive** | **string** | ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
 **TimersClosed** | **string** | ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
 **BindingsEmailAddress** | **string** | The default email address that will be used when sending outbound emails in this conversation.

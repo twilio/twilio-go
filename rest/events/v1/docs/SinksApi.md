@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Description** | **string** | A human readable description for the Sink **This value should not contain PII.**
 **SinkConfiguration** | [**map[string]interface{}**](map[string]interface{}.md) | The information required for Twilio to connect to the provided Sink encoded as JSON.
-**SinkType** | **string** | 
+**SinkType** | [**string**](string.md) | 
 
 ### Return type
 

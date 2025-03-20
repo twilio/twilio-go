@@ -47,6 +47,8 @@ type CreateRatePlanParams struct {
 	NationalRoamingDataLimit *int `json:"NationalRoamingDataLimit,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
 	InternationalRoamingDataLimit *int `json:"InternationalRoamingDataLimit,omitempty"`
+	//
+	DataLimitStrategy *string `json:"DataLimitStrategy,omitempty"`
 }
 
 func (params *CreateRatePlanParams) SetUniqueName(UniqueName string) *CreateRatePlanParams {
@@ -93,6 +95,10 @@ func (params *CreateRatePlanParams) SetInternationalRoamingDataLimit(Internation
 	params.InternationalRoamingDataLimit = &InternationalRoamingDataLimit
 	return params
 }
+func (params *CreateRatePlanParams) SetDataLimitStrategy(DataLimitStrategy string) *CreateRatePlanParams {
+	params.DataLimitStrategy = &DataLimitStrategy
+	return params
+}
 
 //
 func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
@@ -137,6 +143,9 @@ func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1Ra
 	}
 	if params != nil && params.InternationalRoamingDataLimit != nil {
 		data.Set("InternationalRoamingDataLimit", fmt.Sprint(*params.InternationalRoamingDataLimit))
+	}
+	if params != nil && params.DataLimitStrategy != nil {
+		data.Set("DataLimitStrategy", fmt.Sprint(*params.DataLimitStrategy))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

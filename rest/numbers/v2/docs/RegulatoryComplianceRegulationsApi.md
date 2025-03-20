@@ -71,7 +71,7 @@ Other parameters are passed through a pointer to a ListRegulationParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**EndUserType** | **string** | The type of End User the regulation requires - can be `individual` or `business`.
+**EndUserType** | [**string**](stringstring.md) | The type of End User the regulation requires - can be `individual` or `business`.
 **IsoCountry** | **string** | The ISO country code of the phone number's country.
 **NumberType** | **string** | The type of phone number that the regulatory requiremnt is restricting.
 **IncludeConstraints** | **bool** | A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields

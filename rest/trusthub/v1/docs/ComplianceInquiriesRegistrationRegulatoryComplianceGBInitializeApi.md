@@ -28,10 +28,10 @@ Other parameters are passed through a pointer to a CreateComplianceRegistrationP
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**EndUserType** | **string** | 
-**PhoneNumberType** | **string** | 
-**BusinessIdentityType** | **string** | 
-**BusinessRegistrationAuthority** | **string** | 
+**EndUserType** | [**string**](string.md) | 
+**PhoneNumberType** | [**string**](string.md) | 
+**BusinessIdentityType** | [**string**](string.md) | 
+**BusinessRegistrationAuthority** | [**string**](string.md) | 
 **BusinessLegalName** | **string** | he name of the business or organization using the Tollfree number.
 **NotificationEmail** | **string** | he email address to receive the notification about the verification result.
 **AcceptedNotificationReceipt** | **bool** | The email address to receive the notification about the verification result.

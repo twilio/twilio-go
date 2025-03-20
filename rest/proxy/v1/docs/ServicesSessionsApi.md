@@ -38,8 +38,8 @@ Name | Type | Description
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
 **DateExpiry** | **time.Time** | The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
 **Ttl** | **int** | The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-**Mode** | **string** | 
-**Status** | **string** | 
+**Mode** | [**string**](string.md) | 
+**Status** | [**string**](string.md) | 
 **Participants** | **[]map[string]interface{}** | The Participant objects to include in the new session.
 
 ### Return type
@@ -216,7 +216,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **DateExpiry** | **time.Time** | The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
 **Ttl** | **int** | The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

@@ -34,7 +34,7 @@ Other parameters are passed through a pointer to a CreateInteractionChannelParti
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **MediaProperties** | [**map[string]interface{}**](map[string]interface{}.md) | JSON representing the Media Properties for the new Participant.
 **RoutingProperties** | [**map[string]interface{}**](map[string]interface{}.md) | Object representing the Routing Properties for the new Participant.
 
@@ -126,7 +126,7 @@ Other parameters are passed through a pointer to a UpdateInteractionChannelParti
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

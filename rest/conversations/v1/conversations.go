@@ -129,7 +129,7 @@ func (c *ApiService) CreateConversation(params *CreateConversationParams) (*Conv
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", fmt.Sprint(*params.State))
 	}
 	if params != nil && params.TimersInactive != nil {
 		data.Set("Timers.Inactive", *params.TimersInactive)
@@ -272,7 +272,7 @@ func (c *ApiService) PageConversation(params *ListConversationParams, pageToken,
 		data.Set("EndDate", *params.EndDate)
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", fmt.Sprint(*params.State))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -489,7 +489,7 @@ func (c *ApiService) UpdateConversation(Sid string, params *UpdateConversationPa
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", fmt.Sprint(*params.State))
 	}
 	if params != nil && params.TimersInactive != nil {
 		data.Set("Timers.Inactive", *params.TimersInactive)

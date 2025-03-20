@@ -102,7 +102,7 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle,
 		data.Set("IsoCountry", *params.IsoCountry)
 	}
 	if params != nil && params.EndUserType != nil {
-		data.Set("EndUserType", *params.EndUserType)
+		data.Set("EndUserType", fmt.Sprint(*params.EndUserType))
 	}
 	if params != nil && params.NumberType != nil {
 		data.Set("NumberType", *params.NumberType)
@@ -264,7 +264,7 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -282,10 +282,10 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 		data.Set("HasValidUntilDate", fmt.Sprint(*params.HasValidUntilDate))
 	}
 	if params != nil && params.SortBy != nil {
-		data.Set("SortBy", *params.SortBy)
+		data.Set("SortBy", fmt.Sprint(*params.SortBy))
 	}
 	if params != nil && params.SortDirection != nil {
-		data.Set("SortDirection", *params.SortDirection)
+		data.Set("SortDirection", fmt.Sprint(*params.SortDirection))
 	}
 	if params != nil && params.ValidUntilDate != nil {
 		data.Set("ValidUntilDate", fmt.Sprint((*params.ValidUntilDate).Format(time.RFC3339)))
@@ -448,7 +448,7 @@ func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*Numb
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)

@@ -121,7 +121,7 @@ Other parameters are passed through a pointer to a UpdateInteractionChannelParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **Routing** | [**map[string]interface{}**](map[string]interface{}.md) | It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`.
 
 ### Return type

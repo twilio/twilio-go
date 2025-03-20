@@ -86,7 +86,7 @@ func (c *ApiService) PageUsageRecordYearly(params *ListUsageRecordYearlyParams, 
 	}
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", fmt.Sprint(*params.Category))
 	}
 	if params != nil && params.StartDate != nil {
 		data.Set("StartDate", fmt.Sprint(*params.StartDate))

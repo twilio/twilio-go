@@ -62,7 +62,7 @@ Name | Type | Description
 **RecordingStatusCallbackMethod** | **string** | The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 **SipAuthUsername** | **string** | The SIP username used for authentication.
 **SipAuthPassword** | **string** | The SIP password for authentication.
-**Region** | **string** | The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+**Region** | **string** | The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
 **ConferenceRecordingStatusCallback** | **string** | The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
 **ConferenceRecordingStatusCallbackMethod** | **string** | The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 **RecordingStatusCallbackEvent** | **[]string** | The recording state changes that should generate a call to `recording_status_callback`. Can be: `started`, `in-progress`, `paused`, `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`.

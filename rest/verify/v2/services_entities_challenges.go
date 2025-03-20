@@ -202,10 +202,10 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 		data.Set("FactorSid", *params.FactorSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
+		data.Set("Order", fmt.Sprint(*params.Order))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

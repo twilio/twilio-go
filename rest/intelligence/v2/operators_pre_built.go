@@ -87,7 +87,7 @@ func (c *ApiService) PagePrebuiltOperator(params *ListPrebuiltOperatorParams, pa
 	}
 
 	if params != nil && params.Availability != nil {
-		data.Set("Availability", *params.Availability)
+		data.Set("Availability", fmt.Sprint(*params.Availability))
 	}
 	if params != nil && params.LanguageCode != nil {
 		data.Set("LanguageCode", *params.LanguageCode)

@@ -148,7 +148,7 @@ func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotific
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", *params.Priority)
+		data.Set("Priority", fmt.Sprint(*params.Priority))
 	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))

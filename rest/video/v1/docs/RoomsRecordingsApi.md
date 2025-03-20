@@ -119,7 +119,7 @@ Other parameters are passed through a pointer to a ListRoomRecordingParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+**Status** | [**string**](stringstring.md) | Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
 **SourceSid** | **string** | Read only the recordings that have this `source_sid`.
 **DateCreatedAfter** | **time.Time** | Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
 **DateCreatedBefore** | **time.Time** | Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.

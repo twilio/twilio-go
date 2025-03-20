@@ -491,7 +491,7 @@ func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateT
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.AssignmentStatus != nil {
-		data.Set("AssignmentStatus", *params.AssignmentStatus)
+		data.Set("AssignmentStatus", fmt.Sprint(*params.AssignmentStatus))
 	}
 	if params != nil && params.Reason != nil {
 		data.Set("Reason", *params.Reason)

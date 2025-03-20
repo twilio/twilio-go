@@ -38,8 +38,8 @@ Name | Type | Description
 **FriendlyName** | **string** | The string that you assigned to describe the webhook. **This value should not contain PII.**
 **EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
 **WebhookUrl** | **string** | The URL associated with this Webhook.
-**Status** | **string** | 
-**Version** | **string** | 
+**Status** | [**string**](string.md) | 
+**Version** | [**string**](string.md) | 
 
 ### Return type
 
@@ -216,8 +216,8 @@ Name | Type | Description
 **FriendlyName** | **string** | The string that you assigned to describe the webhook. **This value should not contain PII.**
 **EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
 **WebhookUrl** | **string** | The URL associated with this Webhook.
-**Status** | **string** | 
-**Version** | **string** | 
+**Status** | [**string**](string.md) | 
+**Version** | [**string**](string.md) | 
 
 ### Return type
 

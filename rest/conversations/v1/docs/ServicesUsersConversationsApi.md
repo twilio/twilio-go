@@ -169,7 +169,7 @@ Other parameters are passed through a pointer to a UpdateServiceUserConversation
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**NotificationLevel** | **string** | 
+**NotificationLevel** | [**string**](string.md) | 
 **LastReadTimestamp** | **time.Time** | The date of the last message read in conversation by the user, given in ISO 8601 format.
 **LastReadMessageIndex** | **int** | The index of the last Message in the Conversation that the Participant has read.
 

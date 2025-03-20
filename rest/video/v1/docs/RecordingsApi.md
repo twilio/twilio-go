@@ -113,12 +113,12 @@ Other parameters are passed through a pointer to a ListRecordingParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+**Status** | [**string**](stringstring.md) | Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
 **SourceSid** | **string** | Read only the recordings that have this `source_sid`.
 **GroupingSid** | **[]string** | Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
 **DateCreatedAfter** | **time.Time** | Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
 **DateCreatedBefore** | **time.Time** | Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
-**MediaType** | **string** | Read only recordings that have this media type. Can be either `audio` or `video`.
+**MediaType** | [**string**](stringstring.md) | Read only recordings that have this media type. Can be either `audio` or `video`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

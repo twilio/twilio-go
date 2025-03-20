@@ -32,8 +32,8 @@ Other parameters are passed through a pointer to a UpdateChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Type** | **string** | 
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
+**Type** | [**string**](string.md) | 
 **MessagingServiceSid** | **string** | The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
 
 ### Return type

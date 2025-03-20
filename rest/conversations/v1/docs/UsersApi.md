@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Identity** | **string** | The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **Attributes** | **string** | The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
@@ -78,7 +78,7 @@ Other parameters are passed through a pointer to a DeleteUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a UpdateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **Attributes** | **string** | The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
 **RoleSid** | **string** | The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.

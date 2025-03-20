@@ -156,7 +156,7 @@ Other parameters are passed through a pointer to a ListCustomOperatorParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Availability** | **string** | Returns Custom Operators with the provided availability type. Possible values: internal, beta, public, retired.
+**Availability** | [**string**](stringstring.md) | Returns Custom Operators with the provided availability type. Possible values: internal, beta, public, retired.
 **LanguageCode** | **string** | Returns Custom Operators that support the provided language code.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.

@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateMessageFeedbackParams s
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resource for which to create MessageFeedback.
-**Outcome** | **string** | 
+**Outcome** | [**string**](string.md) | 
 
 ### Return type
 

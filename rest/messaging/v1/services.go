@@ -161,7 +161,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*MessagingV1Ser
 		data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding))
 	}
 	if params != nil && params.ScanMessageContent != nil {
-		data.Set("ScanMessageContent", *params.ScanMessageContent)
+		data.Set("ScanMessageContent", fmt.Sprint(*params.ScanMessageContent))
 	}
 	if params != nil && params.FallbackToLongCode != nil {
 		data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode))
@@ -519,7 +519,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Me
 		data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding))
 	}
 	if params != nil && params.ScanMessageContent != nil {
-		data.Set("ScanMessageContent", *params.ScanMessageContent)
+		data.Set("ScanMessageContent", fmt.Sprint(*params.ScanMessageContent))
 	}
 	if params != nil && params.FallbackToLongCode != nil {
 		data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode))

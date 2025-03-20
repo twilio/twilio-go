@@ -37,18 +37,18 @@ Other parameters are passed through a pointer to a CreateNewFactorParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
-**FactorType** | **string** | 
+**FactorType** | [**string**](string.md) | 
 **BindingAlg** | **string** | The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256`
 **BindingPublicKey** | **string** | The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when `factor_type` is `push`
 **ConfigAppId** | **string** | The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`. It can be up to 100 characters long.  Required when `factor_type` is `push`.
-**ConfigNotificationPlatform** | **string** | 
+**ConfigNotificationPlatform** | [**string**](string.md) | 
 **ConfigNotificationToken** | **string** | For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
 **ConfigSdkVersion** | **string** | The Verify Push SDK version used to configure the factor  Required when `factor_type` is `push`
 **BindingSecret** | **string** | The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when `factor_type` is `totp`
 **ConfigTimeStep** | **int** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property `totp.time_step`. Defaults to 30 seconds if not configured.  Used when `factor_type` is `totp`
 **ConfigSkew** | **int** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property `totp.skew`. If not configured defaults to 1.  Used when `factor_type` is `totp`
 **ConfigCodeLength** | **int** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
-**ConfigAlg** | **string** | 
+**ConfigAlg** | [**string**](string.md) | 
 **Metadata** | [**map[string]interface{}**](map[string]interface{}.md) | Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
 ### Return type
@@ -234,7 +234,7 @@ Name | Type | Description
 **ConfigTimeStep** | **int** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
 **ConfigSkew** | **int** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
 **ConfigCodeLength** | **int** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
-**ConfigAlg** | **string** | 
+**ConfigAlg** | [**string**](string.md) | 
 **ConfigNotificationPlatform** | **string** | The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
 
 ### Return type

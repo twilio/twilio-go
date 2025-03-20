@@ -201,7 +201,7 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 		}
 	}
 	if params != nil && params.OptInType != nil {
-		data.Set("OptInType", *params.OptInType)
+		data.Set("OptInType", fmt.Sprint(*params.OptInType))
 	}
 	if params != nil && params.MessageVolume != nil {
 		data.Set("MessageVolume", *params.MessageVolume)
@@ -363,7 +363,7 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
 		data.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.ExternalReferenceId != nil {
 		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
@@ -650,7 +650,7 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 		}
 	}
 	if params != nil && params.OptInType != nil {
-		data.Set("OptInType", *params.OptInType)
+		data.Set("OptInType", fmt.Sprint(*params.OptInType))
 	}
 	if params != nil && params.MessageVolume != nil {
 		data.Set("MessageVolume", *params.MessageVolume)

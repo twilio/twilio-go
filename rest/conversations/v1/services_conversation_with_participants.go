@@ -134,7 +134,7 @@ func (c *ApiService) CreateServiceConversationWithParticipants(ChatServiceSid st
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", fmt.Sprint(*params.State))
 	}
 	if params != nil && params.TimersInactive != nil {
 		data.Set("Timers.Inactive", *params.TimersInactive)

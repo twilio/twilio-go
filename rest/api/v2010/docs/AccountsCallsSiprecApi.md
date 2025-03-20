@@ -35,7 +35,7 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
 **Name** | **string** | The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
 **ConnectorName** | **string** | Unique name used when configuring the connector via Marketplace Add-on.
-**Track** | **string** | 
+**Track** | [**string**](string.md) | 
 **StatusCallback** | **string** | Absolute URL of the status callback.
 **StatusCallbackMethod** | **string** | The http method for the status_callback (one of GET, POST).
 **Parameter1Name** | **string** | Parameter name
@@ -280,7 +280,7 @@ Other parameters are passed through a pointer to a UpdateSiprecParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

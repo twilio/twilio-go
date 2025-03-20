@@ -136,7 +136,7 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 		data.Set("Country", *params.Country)
 	}
 	if params != nil && params.Channel != nil {
-		data.Set("Channel", *params.Channel)
+		data.Set("Channel", fmt.Sprint(*params.Channel))
 	}
 	if params != nil && params.VerifyServiceSid != nil {
 		data.Set("VerifyServiceSid", *params.VerifyServiceSid)
@@ -145,7 +145,7 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 		data.Set("VerificationSid", *params.VerificationSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

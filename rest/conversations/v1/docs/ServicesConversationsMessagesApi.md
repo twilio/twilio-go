@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a CreateServiceConversationMess
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Author** | **string** | The channel specific identifier of the message's author. Defaults to `system`.
 **Body** | **string** | The content of the message, can be up to 1,600 characters long.
 **DateCreated** | **time.Time** | The date that this resource was created.
@@ -90,7 +90,7 @@ Other parameters are passed through a pointer to a DeleteServiceConversationMess
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -178,7 +178,7 @@ Other parameters are passed through a pointer to a ListServiceConversationMessag
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Order** | **string** | The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+**Order** | [**string**](stringstring.md) | The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -225,7 +225,7 @@ Other parameters are passed through a pointer to a UpdateServiceConversationMess
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Author** | **string** | The channel specific identifier of the message's author. Defaults to `system`.
 **Body** | **string** | The content of the message, can be up to 1,600 characters long.
 **DateCreated** | **time.Time** | The date that this resource was created.
