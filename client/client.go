@@ -13,6 +13,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/twilio/twilio-go/oauth"
+
 	"github.com/pkg/errors"
 	"github.com/twilio/twilio-go/client/form"
 )
@@ -27,8 +29,34 @@ func init() {
 
 // Credentials store user authentication credentials.
 type Credentials struct {
-	Username string
-	Password string
+	Username          string
+	Password          string
+	ClientCredentials *ClientCredentials
+}
+
+type ClientCredentials struct {
+	GrantType      string
+	ClientId       string
+	ClientSecret   string
+	RequestHandler RequestHandler
+}
+
+func NewClientCredentials(grantType, clientId, clientSecret string, handler RequestHandler) *ClientCredentials {
+	return &ClientCredentials{GrantType: grantType, ClientId: clientId, ClientSecret: clientSecret, RequestHandler: handler}
+}
+
+func (c *ClientCredentials) GetAccessToken() (string, error) {
+	tokenManager := &oauth.TokenManager{
+		GrantType:    c.GrantType,
+		ClientId:     c.ClientId,
+		ClientSecret: c.ClientSecret,
+		Code:         "",
+		Audience:     "",
+		RefreshToken: "",
+		Scope:        "",
+	}
+	tokenAuth := oauth.NewTokenAuthInitializer("", tokenManager)
+	return tokenAuth.FetchToken(c.RequestHandler)
 }
 
 func NewCredentials(username string, password string) *Credentials {
@@ -41,6 +69,7 @@ type Client struct {
 	HTTPClient          *http.Client
 	accountSid          string
 	UserAgentExtensions []string
+	ClientCredentials   *ClientCredentials
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -63,6 +92,10 @@ func (c *Client) SetTimeout(timeout time.Duration) {
 		c.HTTPClient = defaultHTTPClient()
 	}
 	c.HTTPClient.Timeout = timeout
+}
+
+func (c *Client) SetClientCredentials(clientCredentials *ClientCredentials) {
+	c.ClientCredentials = clientCredentials
 }
 
 func extractContentTypeHeader(headers map[string]interface{}) (cType string) {
@@ -185,6 +218,14 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 
 	if len(c.UserAgentExtensions) > 0 {
 		userAgent += " " + strings.Join(c.UserAgentExtensions, " ")
+	}
+	if c.ClientCredentials != nil {
+		token, err := c.ClientCredentials.GetAccessToken()
+		if err != nil {
+			req.Header.Add("Authorization", "Bearer "+token)
+		}
+	} else if c.Username != "" {
+		req.SetBasicAuth(c.basicAuth())
 	}
 
 	req.Header.Add("User-Agent", userAgent)
