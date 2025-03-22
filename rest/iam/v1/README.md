@@ -36,6 +36,7 @@ Class | Method | HTTP request | Description
 *KeysApi* | [**FetchKey**](docs/KeysApi.md#fetchkey) | **Get** /v1/Keys/{Sid} | 
 *KeysApi* | [**ListGetKeys**](docs/KeysApi.md#listgetkeys) | **Get** /v1/Keys | 
 *KeysApi* | [**UpdateKey**](docs/KeysApi.md#updatekey) | **Post** /v1/Keys/{Sid} | 
+*TokenApi* | [**CreateToken**](docs/TokenApi.md#createtoken) | **Post** /v1/token | Issues a new Access token (optionally identity_token &amp; refresh_token) in exchange of Oauth grant
 
 
 ## Documentation For Models
@@ -43,6 +44,7 @@ Class | Method | HTTP request | Description
  - [IamV1Key](docs/IamV1Key.md)
  - [IamV1NewKey](docs/IamV1NewKey.md)
  - [IamV1GetKeys](docs/IamV1GetKeys.md)
+ - [OauthV1Token](docs/OauthV1Token.md)
  - [ListGetKeysResponse](docs/ListGetKeysResponse.md)
  - [ListGetKeysResponseMeta](docs/ListGetKeysResponseMeta.md)
 

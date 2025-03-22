@@ -204,7 +204,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 		if err == nil {
 			req.Header.Add("Authorization", "Bearer "+token)
 		}
-	} else if c.Username != "" {
+	} else if c.Username != "" && c.Password != "" {
 		req.SetBasicAuth(c.basicAuth())
 	}
 
@@ -224,4 +224,8 @@ func (c *Client) SetAccountSid(sid string) {
 // AccountSid returns the Account SID.
 func (c *Client) AccountSid() string {
 	return c.accountSid
+}
+
+func (c *Client) SetOauth(oauth OAuth) {
+	c.OAuth = oauth
 }

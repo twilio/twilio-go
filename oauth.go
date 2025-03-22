@@ -7,7 +7,7 @@ import (
 
 	"github.com/golang-jwt/jwt"
 	"github.com/twilio/twilio-go/client"
-	preview_iam "github.com/twilio/twilio-go/rest/preview_iam/v1"
+	iam "github.com/twilio/twilio-go/rest/iam/v1"
 )
 
 type TokenAuth struct {
@@ -51,20 +51,20 @@ type OAuthCredentials struct {
 }
 
 type APIOAuth struct {
-	iamService *preview_iam.ApiService
+	iamService *iam.ApiService
 	creds      *OAuthCredentials
 }
 
 func NewAPIOAuth(c *client.RequestHandler, creds *OAuthCredentials) *APIOAuth {
-	return &APIOAuth{iamService: preview_iam.NewApiService(c), creds: creds}
+	return &APIOAuth{iamService: iam.NewApiService(c), creds: creds}
 }
 
 func (a *APIOAuth) GetAccessToken(ctx context.Context) (string, error) {
-	params := &preview_iam.CreateTokenParams{}
+	params := &iam.CreateTokenParams{}
 	params.SetGrantType(a.creds.GrantType).
 		SetClientId(a.creds.ClientId).
 		SetClientSecret(a.creds.ClientSecret)
-
+	a.iamService.RequestHandler().Client.SetOauth(nil)
 	token, err := a.iamService.CreateToken(params)
 	if err != nil {
 		return "", err

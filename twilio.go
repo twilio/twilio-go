@@ -45,6 +45,7 @@ import (
 	NumbersV1 "github.com/twilio/twilio-go/rest/numbers/v1"
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
 	OauthV1 "github.com/twilio/twilio-go/rest/oauth/v1"
+	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/v1"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
@@ -97,6 +98,7 @@ type RestClient struct {
 	OauthV1         *OauthV1.ApiService
 	PricingV1       *PricingV1.ApiService
 	PricingV2       *PricingV2.ApiService
+	PreviewIam      *PreviewIam.ApiService
 	ProxyV1         *ProxyV1.ApiService
 	RoutesV2        *RoutesV2.ApiService
 	ServerlessV1    *ServerlessV1.ApiService
@@ -210,6 +212,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)
 	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
 	c.OauthV1 = OauthV1.NewApiService(c.RequestHandler)
+	c.PreviewIam = PreviewIam.NewApiService(c.RequestHandler)
 	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
 	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
 	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)
@@ -233,6 +236,19 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 // NewRestClient provides an initialized Twilio RestClient.
 func NewRestClient() *RestClient {
 	return NewRestClientWithParams(ClientParams{})
+}
+
+func NewRestNoAuthClient() *RestClient {
+	requestHandler := client.NewRequestHandler(ClientParams{}.Client)
+	defaultClient := &client.Client{
+		Credentials: client.NewCredentials("", ""),
+	}
+	requestHandler = client.NewRequestHandler(defaultClient)
+	c := &RestClient{
+		RequestHandler: requestHandler,
+	}
+	c.PreviewIam = PreviewIam.NewApiService(c.RequestHandler)
+	return c
 }
 
 // SetTimeout sets the Timeout for Twilio HTTP requests.
