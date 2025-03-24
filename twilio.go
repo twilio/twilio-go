@@ -238,19 +238,6 @@ func NewRestClient() *RestClient {
 	return NewRestClientWithParams(ClientParams{})
 }
 
-func NewRestNoAuthClient() *RestClient {
-	requestHandler := client.NewRequestHandler(ClientParams{}.Client)
-	defaultClient := &client.Client{
-		Credentials: client.NewCredentials("", ""),
-	}
-	requestHandler = client.NewRequestHandler(defaultClient)
-	c := &RestClient{
-		RequestHandler: requestHandler,
-	}
-	c.PreviewIam = PreviewIam.NewApiService(c.RequestHandler)
-	return c
-}
-
 // SetTimeout sets the Timeout for Twilio HTTP requests.
 func (c *RestClient) SetTimeout(timeout time.Duration) {
 	c.RequestHandler.Client.SetTimeout(timeout)
