@@ -15,7 +15,11 @@ type TokenAuth struct {
 	OAuth client.OAuth
 }
 
-func (t *TokenAuth) FetchToken(c client.RequestHandler) (string, error) {
+func (t *TokenAuth) NewTokenAuth(token string, o client.OAuth) *TokenAuth {
+	return &TokenAuth{token: token, OAuth: o}
+}
+
+func (t *TokenAuth) FetchToken() (string, error) {
 	if t.token != "" && !t.TokenExpired() {
 		return t.token, nil
 	}

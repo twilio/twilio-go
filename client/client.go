@@ -60,6 +60,10 @@ func defaultHTTPClient() *http.Client {
 	}
 }
 
+func (c *Client) GetOAuth() OAuth {
+	return c.OAuth
+}
+
 func (c *Client) basicAuth() (string, string) {
 	return c.Credentials.Username, c.Credentials.Password
 }
@@ -188,7 +192,9 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if credErr != nil {
 		return nil, credErr
 	}
-	req.SetBasicAuth(c.basicAuth())
+	if c.OAuth == nil && c.Username != "" && c.Password != "" {
+		req.SetBasicAuth(c.basicAuth())
+	}
 
 	// E.g. "User-Agent": "twilio-go/1.0.0 (darwin amd64) go/go1.17.8"
 	userAgentOnce.Do(func() {
