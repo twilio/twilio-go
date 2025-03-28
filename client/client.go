@@ -234,5 +234,4 @@ func (c *Client) AccountSid() string {
 
 func (c *Client) SetOauth(oauth OAuth) {
 	c.oAuth = oauth
-	fmt.Println(c)
 }

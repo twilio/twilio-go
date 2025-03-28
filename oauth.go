@@ -78,10 +78,19 @@ type APIOAuth struct {
 	creds *OAuthCredentials
 }
 
+// SetIamService sets the iamService field.
+func (a *APIOAuth) SetIamService(service *iam.ApiService) {
+	a.iamService = service
+}
+
+// SetCreds sets the creds field.
+func (a *APIOAuth) SetCreds(creds *OAuthCredentials) {
+	a.creds = creds
+}
+
 // NewAPIOAuth creates a new APIOAuth instance with the provided request handler and credentials.
 func NewAPIOAuth(c *client.RequestHandler, creds *OAuthCredentials) *APIOAuth {
 	a := &APIOAuth{iamService: iam.NewApiService(c), creds: creds}
-	a.iamService.RequestHandler().Client.SetOauth(nil)
 	return a
 }
 
@@ -97,6 +106,7 @@ func (a *APIOAuth) GetAccessToken(ctx context.Context) (string, error) {
 	params.SetGrantType(a.creds.GrantType).
 		SetClientId(a.creds.ClientId).
 		SetClientSecret(a.creds.ClientSecret)
+	a.iamService.RequestHandler().Client.SetOauth(nil)
 	token, err := a.iamService.CreateToken(params)
 	if err != nil {
 		return "", err
