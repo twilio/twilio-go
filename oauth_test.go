@@ -54,7 +54,9 @@ func TestTokenAuth_Expired(t *testing.T) {
 	expiredTokenString, _ := expiredToken.SignedString([]byte("secret"))
 
 	tokenAuth := &TokenAuth{token: expiredTokenString}
-	assert.True(t, tokenAuth.Expired())
+	hasExpired, err := tokenAuth.Expired()
+	assert.True(t, hasExpired)
+	assert.NoError(t, err)
 
 	// Test with a valid token
 	validToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
@@ -63,5 +65,7 @@ func TestTokenAuth_Expired(t *testing.T) {
 	validTokenString, _ := validToken.SignedString([]byte("secret"))
 
 	tokenAuth.token = validTokenString
-	assert.False(t, tokenAuth.Expired())
+	hasExpired, err = tokenAuth.Expired()
+	assert.False(t, hasExpired)
+	assert.NoError(t, err)
 }

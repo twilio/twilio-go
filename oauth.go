@@ -25,7 +25,11 @@ func (t *TokenAuth) NewTokenAuth(token string, o client.OAuth) *TokenAuth {
 
 // FetchToken retrieves the current token if it is valid, or fetches a new token using the OAuth client.
 func (t *TokenAuth) FetchToken() (string, error) {
-	if t.token != "" && !t.Expired() {
+	expired, err := t.Expired()
+	if err != nil {
+		return "", err
+	}
+	if t.token != "" && expired {
 		return t.token, nil
 	}
 
@@ -39,27 +43,27 @@ func (t *TokenAuth) FetchToken() (string, error) {
 }
 
 // Expired checks if the current token is expired.
-func (t *TokenAuth) Expired() bool {
+func (t *TokenAuth) Expired() (bool, error) {
 	token, _, err := new(jwt.Parser).ParseUnverified(t.token, jwt.MapClaims{})
 	if err != nil {
 		fmt.Printf("Error parsing token: %v\n", err)
-		return true
+		return true, err
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
 		fmt.Println("Error asserting token claims")
-		return true
+		return true, err
 	}
 
 	exp, ok := claims["exp"].(float64)
 	if !ok {
 		fmt.Println("Expiration time (exp) not found in token claims")
-		return true
+		return true, err
 	}
 
 	expirationTime := time.Unix(int64(exp), 0).UTC()
-	return time.Now().UTC().After(expirationTime)
+	return time.Now().UTC().After(expirationTime), nil
 }
 
 // OAuthCredentials holds the necessary credentials for OAuth authentication.
