@@ -127,17 +127,29 @@ type Meta struct {
 	URL             *string `json:"url"`
 }
 
+// ClientCredentialProvider holds the necessary credentials for client authentication.
 type ClientCredentialProvider struct {
-	GrantType    string
-	ClientId     string
+	// GrantType specifies the type of grant being used for OAuth.
+	GrantType string
+	// ClientId is the identifier for the client application.
+	ClientId string
+	// ClientSecret is the secret key for the client application.
 	ClientSecret string
 }
 
+// ClientParams holds the parameters required to initialize a Twilio RestClient.
+// Incase where the ClientCredentialProvider is provided, the Username and Password fields are ignored.
+// And when neither is provided, the environment variables TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN are used.
 type ClientParams struct {
-	Username                 string
-	Password                 string
-	AccountSid               string
-	Client                   client.BaseClient
+	// Username is the account SID for authentication.
+	Username string
+	// Password is the authentication token for the account.
+	Password string
+	// AccountSid is the specific account SID to be used.
+	AccountSid string
+	// Client is the base client used for making HTTP requests.
+	Client client.BaseClient
+	// ClientCredentialProvider holds the necessary credentials for client authentication.
 	ClientCredentialProvider *ClientCredentialProvider
 }
 
@@ -172,7 +184,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 		}
 		handler := client.NewRequestHandler(defaultClient)
 		clientCredentials := &OAuthCredentials{params.ClientCredentialProvider.GrantType, params.ClientCredentialProvider.ClientId, params.ClientCredentialProvider.ClientSecret}
-		defaultClient.OAuth = NewAPIOAuth(handler, clientCredentials)
+		defaultClient.SetOauth(NewAPIOAuth(handler, clientCredentials))
 		if params.AccountSid != "" {
 			defaultClient.SetAccountSid(params.AccountSid)
 		}
