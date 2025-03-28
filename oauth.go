@@ -110,7 +110,7 @@ func (a *APIOAuth) GetAccessToken(ctx context.Context) (string, error) {
 	params.SetGrantType(a.creds.GrantType).
 		SetClientId(a.creds.ClientId).
 		SetClientSecret(a.creds.ClientSecret)
-	a.iamService.RequestHandler().Client.SetOauth(nil)
+	a.iamService.RequestHandler().Client.SetOauth(nil) // set oauth to nil to make no-auth request
 	token, err := a.iamService.CreateToken(params)
 	if err != nil {
 		return "", err
