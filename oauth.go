@@ -20,7 +20,7 @@ func (t *TokenAuth) NewTokenAuth(token string, o client.OAuth) *TokenAuth {
 }
 
 func (t *TokenAuth) FetchToken() (string, error) {
-	if t.token != "" && !t.TokenExpired() {
+	if t.token != "" && !t.Expired() {
 		return t.token, nil
 	}
 
@@ -33,7 +33,7 @@ func (t *TokenAuth) FetchToken() (string, error) {
 	return t.token, nil
 }
 
-func (t *TokenAuth) TokenExpired() bool {
+func (t *TokenAuth) Expired() bool {
 	token, _, err := new(jwt.Parser).ParseUnverified(t.token, jwt.MapClaims{})
 	if err != nil {
 		return true
@@ -41,8 +41,8 @@ func (t *TokenAuth) TokenExpired() bool {
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok {
 		if exp, ok := claims["exp"].(float64); ok {
-			expirationTime := time.Unix(int64(exp), 0)
-			return time.Now().After(expirationTime)
+			expirationTime := time.Unix(int64(exp), 0).UTC()
+			return time.Now().UTC().After(expirationTime)
 		}
 	}
 	return true
@@ -60,20 +60,26 @@ type APIOAuth struct {
 }
 
 func NewAPIOAuth(c *client.RequestHandler, creds *OAuthCredentials) *APIOAuth {
-	return &APIOAuth{iamService: iam.NewApiService(c), creds: creds}
+	a := &APIOAuth{iamService: iam.NewApiService(c), creds: creds}
+	a.iamService.RequestHandler().Client.SetOauth(nil)
+	return a
 }
 
 func (a *APIOAuth) GetAccessToken(ctx context.Context) (string, error) {
+	if a == nil {
+		panic("twilio: API OAuth object is nil")
+	}
+	if a.creds == nil {
+		panic("twilio: API OAuth credentials are nil")
+	}
 	params := &iam.CreateTokenParams{}
 	params.SetGrantType(a.creds.GrantType).
 		SetClientId(a.creds.ClientId).
 		SetClientSecret(a.creds.ClientSecret)
-	a.iamService.RequestHandler().Client.SetOauth(nil)
 	token, err := a.iamService.CreateToken(params)
 	if err != nil {
 		return "", err
 	}
-
 	if token.AccessToken == nil {
 		return "", fmt.Errorf("twilio: API response to create a token did not return a valid token")
 	}

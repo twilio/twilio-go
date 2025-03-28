@@ -23,7 +23,7 @@ type MockTokenAuth struct {
 
 func (m *MockTokenAuth) FetchToken() (string, error) {
 	t := &TokenAuth{token: m.token, OAuth: m.OAuth}
-	return t.token, nil
+	return t.FetchToken()
 }
 
 func (m *MockTokenAuth) TokenExpired() bool {
@@ -46,22 +46,22 @@ func TestTokenAuth_FetchToken(t *testing.T) {
 	assert.Equal(t, "cached_token", token)
 }
 
-func TestTokenAuth_TokenExpired(t *testing.T) {
+func TestTokenAuth_Expired(t *testing.T) {
 	// Test with an expired token
 	expiredToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"exp": time.Now().Add(-time.Hour).Unix(),
+		"exp": time.Now().Add(-time.Hour).UTC().Unix(),
 	})
 	expiredTokenString, _ := expiredToken.SignedString([]byte("secret"))
 
 	tokenAuth := &TokenAuth{token: expiredTokenString}
-	assert.True(t, tokenAuth.TokenExpired())
+	assert.True(t, tokenAuth.Expired())
 
 	// Test with a valid token
 	validToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"exp": time.Now().Add(time.Hour).Unix(),
+		"exp": time.Now().Add(time.Hour).UTC().Unix(),
 	})
 	validTokenString, _ := validToken.SignedString([]byte("secret"))
 
 	tokenAuth.token = validTokenString
-	assert.False(t, tokenAuth.TokenExpired())
+	assert.False(t, tokenAuth.Expired())
 }
