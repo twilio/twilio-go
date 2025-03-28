@@ -10,15 +10,20 @@ import (
 	iam "github.com/twilio/twilio-go/rest/iam/v1"
 )
 
+// TokenAuth handles token-based authentication using OAuth.
 type TokenAuth struct {
+	// token is the cached OAuth token.
 	token string
+	// OAuth is the OAuth client used to fetch new tokens.
 	OAuth client.OAuth
 }
 
+// NewTokenAuth creates a new TokenAuth instance with the provided token and OAuth client.
 func (t *TokenAuth) NewTokenAuth(token string, o client.OAuth) *TokenAuth {
 	return &TokenAuth{token: token, OAuth: o}
 }
 
+// FetchToken retrieves the current token if it is valid, or fetches a new token using the OAuth client.
 func (t *TokenAuth) FetchToken() (string, error) {
 	if t.token != "" && !t.Expired() {
 		return t.token, nil
@@ -33,6 +38,7 @@ func (t *TokenAuth) FetchToken() (string, error) {
 	return t.token, nil
 }
 
+// Expired checks if the current token is expired.
 func (t *TokenAuth) Expired() bool {
 	token, _, err := new(jwt.Parser).ParseUnverified(t.token, jwt.MapClaims{})
 	if err != nil {
@@ -48,23 +54,30 @@ func (t *TokenAuth) Expired() bool {
 	return true
 }
 
+// OAuthCredentials holds the necessary credentials for OAuth authentication.
 type OAuthCredentials struct {
-	// TODO: documentation.
-	GrantType              string
+	// GrantType specifies the type of grant being used for OAuth.
+	GrantType string
+	// ClientId is the identifier for the client application. ClientSecret is the secret key for the client application.
 	ClientId, ClientSecret string
 }
 
+// APIOAuth handles OAuth authentication for the Twilio API.
 type APIOAuth struct {
+	// iamService is the service used to interact with the IAM API.
 	iamService *iam.ApiService
-	creds      *OAuthCredentials
+	// creds holds the necessary credentials for OAuth authentication.
+	creds *OAuthCredentials
 }
 
+// NewAPIOAuth creates a new APIOAuth instance with the provided request handler and credentials.
 func NewAPIOAuth(c *client.RequestHandler, creds *OAuthCredentials) *APIOAuth {
 	a := &APIOAuth{iamService: iam.NewApiService(c), creds: creds}
-	a.iamService.RequestHandler().Client.SetOauth(nil)
+	a.iamService.RequestHandler().Client.SetOauth(nil) // Remove the default OAuth client to make NoAuth requests
 	return a
 }
 
+// GetAccessToken retrieves an access token using the OAuth credentials.
 func (a *APIOAuth) GetAccessToken(ctx context.Context) (string, error) {
 	if a == nil {
 		panic("twilio: API OAuth object is nil")
