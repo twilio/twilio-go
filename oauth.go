@@ -42,16 +42,24 @@ func (t *TokenAuth) FetchToken() (string, error) {
 func (t *TokenAuth) Expired() bool {
 	token, _, err := new(jwt.Parser).ParseUnverified(t.token, jwt.MapClaims{})
 	if err != nil {
+		fmt.Printf("Error parsing token: %v\n", err)
 		return true
 	}
 
-	if claims, ok := token.Claims.(jwt.MapClaims); ok {
-		if exp, ok := claims["exp"].(float64); ok {
-			expirationTime := time.Unix(int64(exp), 0).UTC()
-			return time.Now().UTC().After(expirationTime)
-		}
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		fmt.Println("Error asserting token claims")
+		return true
 	}
-	return true
+
+	exp, ok := claims["exp"].(float64)
+	if !ok {
+		fmt.Println("Expiration time (exp) not found in token claims")
+		return true
+	}
+
+	expirationTime := time.Unix(int64(exp), 0).UTC()
+	return time.Now().UTC().After(expirationTime)
 }
 
 // OAuthCredentials holds the necessary credentials for OAuth authentication.
@@ -73,7 +81,7 @@ type APIOAuth struct {
 // NewAPIOAuth creates a new APIOAuth instance with the provided request handler and credentials.
 func NewAPIOAuth(c *client.RequestHandler, creds *OAuthCredentials) *APIOAuth {
 	a := &APIOAuth{iamService: iam.NewApiService(c), creds: creds}
-	a.iamService.RequestHandler().Client.SetOauth(nil) // Remove the default OAuth client to make NoAuth requests
+	a.iamService.RequestHandler().Client.SetOauth(nil)
 	return a
 }
 

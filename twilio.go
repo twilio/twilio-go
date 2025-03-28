@@ -184,7 +184,8 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 		}
 		handler := client.NewRequestHandler(defaultClient)
 		clientCredentials := &OAuthCredentials{params.ClientCredentialProvider.GrantType, params.ClientCredentialProvider.ClientId, params.ClientCredentialProvider.ClientSecret}
-		defaultClient.SetOauth(NewAPIOAuth(handler, clientCredentials))
+		oauth := NewAPIOAuth(handler, clientCredentials)
+		defaultClient.SetOauth(oauth)
 		if params.AccountSid != "" {
 			defaultClient.SetAccountSid(params.AccountSid)
 		}

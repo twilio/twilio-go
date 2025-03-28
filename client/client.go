@@ -205,7 +205,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if len(c.UserAgentExtensions) > 0 {
 		userAgent += " " + strings.Join(c.UserAgentExtensions, " ")
 	}
-	if c.OAuth != nil {
+	if c.oAuth != nil {
 		token, err := c.oAuth.GetAccessToken(context.TODO())
 		if err == nil {
 			req.Header.Add("Authorization", "Bearer "+token)
@@ -234,4 +234,5 @@ func (c *Client) AccountSid() string {
 
 func (c *Client) SetOauth(oauth OAuth) {
 	c.oAuth = oauth
+	fmt.Println(c)
 }
