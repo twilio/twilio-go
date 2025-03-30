@@ -47,7 +47,7 @@ type Client struct {
 	HTTPClient          *http.Client
 	accountSid          string
 	UserAgentExtensions []string
-	oAuth               OAuth
+	OAuth               OAuth
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -58,10 +58,6 @@ func defaultHTTPClient() *http.Client {
 		},
 		Timeout: time.Second * 10,
 	}
-}
-
-func (c *Client) OAuth() OAuth {
-	return c.oAuth
 }
 
 func (c *Client) basicAuth() (string, string) {
@@ -205,8 +201,8 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if len(c.UserAgentExtensions) > 0 {
 		userAgent += " " + strings.Join(c.UserAgentExtensions, " ")
 	}
-	if c.oAuth != nil {
-		token, err := c.oAuth.GetAccessToken(context.TODO())
+	if c.OAuth != nil {
+		token, err := c.OAuth.GetAccessToken(context.TODO())
 		if err == nil {
 			req.Header.Add("Authorization", "Bearer "+token)
 		}
@@ -233,5 +229,5 @@ func (c *Client) AccountSid() string {
 }
 
 func (c *Client) SetOauth(oauth OAuth) {
-	c.oAuth = oauth
+	c.OAuth = oauth
 }

@@ -12,5 +12,4 @@ type BaseClient interface {
 	SendRequest(method string, rawURL string, data url.Values,
 		headers map[string]interface{}, body ...byte) (*http.Response, error)
 	SetOauth(auth OAuth)
-	OAuth() OAuth
 }
