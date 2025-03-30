@@ -2,12 +2,12 @@ package twilio
 
 import (
 	"context"
-	"github.com/twilio/twilio-go/client"
 	"testing"
 	"time"
 
 	"github.com/golang-jwt/jwt"
 	"github.com/stretchr/testify/assert"
+	"github.com/twilio/twilio-go/client"
 )
 
 type MockOAuth struct{}
@@ -21,9 +21,9 @@ type MockTokenAuth struct {
 	OAuth client.OAuth
 }
 
-func (m *MockTokenAuth) FetchToken() (string, error) {
+func (m *MockTokenAuth) FetchToken(ctx context.Context) (string, error) {
 	t := &TokenAuth{token: m.token, OAuth: m.OAuth}
-	return t.FetchToken()
+	return t.FetchToken(ctx)
 }
 
 func (m *MockTokenAuth) TokenExpired() bool {
@@ -35,13 +35,13 @@ func TestTokenAuth_FetchToken(t *testing.T) {
 	tokenAuth := &TokenAuth{OAuth: oauth}
 
 	// Test fetching a new token
-	token, err := tokenAuth.FetchToken()
+	token, err := tokenAuth.FetchToken(t.Context())
 	assert.NoError(t, err)
 	assert.Equal(t, "mock_token", token)
 
 	// Test fetching the cached token
 	mockTokenAuth := MockTokenAuth{OAuth: oauth, token: "cached_token"}
-	token, err = mockTokenAuth.FetchToken()
+	token, err = mockTokenAuth.FetchToken(t.Context())
 	assert.NoError(t, err)
 	assert.Equal(t, "cached_token", token)
 }
@@ -51,10 +51,11 @@ func TestTokenAuth_Expired(t *testing.T) {
 	expiredToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"exp": time.Now().Add(-time.Hour).UTC().Unix(),
 	})
-	expiredTokenString, _ := expiredToken.SignedString([]byte("secret"))
+	expiredTokenString, err := expiredToken.SignedString([]byte("secret"))
+	assert.NoError(t, err)
 
 	tokenAuth := &TokenAuth{token: expiredTokenString}
-	hasExpired, err := tokenAuth.Expired()
+	hasExpired, err := tokenAuth.Expired(t.Context())
 	assert.True(t, hasExpired)
 	assert.NoError(t, err)
 
@@ -65,7 +66,7 @@ func TestTokenAuth_Expired(t *testing.T) {
 	validTokenString, _ := validToken.SignedString([]byte("secret"))
 
 	tokenAuth.token = validTokenString
-	hasExpired, err = tokenAuth.Expired()
+	hasExpired, err = tokenAuth.Expired(t.Context())
 	assert.False(t, hasExpired)
 	assert.NoError(t, err)
 }

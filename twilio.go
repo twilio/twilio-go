@@ -98,7 +98,7 @@ type RestClient struct {
 	OauthV1         *OauthV1.ApiService
 	PricingV1       *PricingV1.ApiService
 	PricingV2       *PricingV2.ApiService
-	PreviewIam      *PreviewIam.ApiService
+	PreviewIAM      *PreviewIam.ApiService
 	ProxyV1         *ProxyV1.ApiService
 	RoutesV2        *RoutesV2.ApiService
 	ServerlessV1    *ServerlessV1.ApiService
@@ -225,7 +225,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)
 	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
 	c.OauthV1 = OauthV1.NewApiService(c.RequestHandler)
-	c.PreviewIam = PreviewIam.NewApiService(c.RequestHandler)
+	c.PreviewIAM = PreviewIam.NewApiService(c.RequestHandler)
 	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
 	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
 	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)

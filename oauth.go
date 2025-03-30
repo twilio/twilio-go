@@ -24,8 +24,8 @@ func (t *TokenAuth) NewTokenAuth(token string, o client.OAuth) *TokenAuth {
 }
 
 // FetchToken retrieves the current token if it is valid, or fetches a new token using the OAuth client.
-func (t *TokenAuth) FetchToken() (string, error) {
-	expired, err := t.Expired()
+func (t *TokenAuth) FetchToken(ctx context.Context) (string, error) {
+	expired, err := t.Expired(ctx)
 	if err != nil {
 		return "", err
 	}
@@ -43,22 +43,19 @@ func (t *TokenAuth) FetchToken() (string, error) {
 }
 
 // Expired checks if the current token is expired.
-func (t *TokenAuth) Expired() (bool, error) {
+func (t *TokenAuth) Expired(ctx context.Context) (bool, error) {
 	token, _, err := new(jwt.Parser).ParseUnverified(t.token, jwt.MapClaims{})
 	if err != nil {
-		fmt.Printf("Error parsing token: %v\n", err)
 		return true, err
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
-		fmt.Println("Error asserting token claims")
 		return true, err
 	}
 
 	exp, ok := claims["exp"].(float64)
 	if !ok {
-		fmt.Println("Expiration time (exp) not found in token claims")
 		return true, err
 	}
 
@@ -83,7 +80,7 @@ type APIOAuth struct {
 }
 
 // SetIamService sets the iamService field.
-func (a *APIOAuth) SetIamService(service *iam.ApiService) {
+func (a *APIOAuth) SetIAMService(service *iam.ApiService) {
 	a.iamService = service
 }
 
