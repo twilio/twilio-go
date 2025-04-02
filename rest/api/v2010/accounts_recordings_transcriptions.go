@@ -34,7 +34,6 @@ func (params *DeleteRecordingTranscriptionParams) SetPathAccountSid(PathAccountS
 	return params
 }
 
-//
 func (c *ApiService) DeleteRecordingTranscription(RecordingSid string, Sid string, params *DeleteRecordingTranscriptionParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -71,7 +70,6 @@ func (params *FetchRecordingTranscriptionParams) SetPathAccountSid(PathAccountSi
 	return params
 }
 
-//
 func (c *ApiService) FetchRecordingTranscription(RecordingSid string, Sid string, params *FetchRecordingTranscriptionParams) (*ApiV2010RecordingTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
