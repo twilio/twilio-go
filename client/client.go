@@ -3,6 +3,7 @@ package client
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -11,6 +12,7 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/pkg/errors"
@@ -35,12 +37,17 @@ func NewCredentials(username string, password string) *Credentials {
 	return &Credentials{Username: username, Password: password}
 }
 
+type OAuth interface {
+	GetAccessToken(context.Context) (string, error)
+}
+
 // Client encapsulates a standard HTTP backend with authorization.
 type Client struct {
 	*Credentials
 	HTTPClient          *http.Client
 	accountSid          string
 	UserAgentExtensions []string
+	OAuth               OAuth
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -126,6 +133,9 @@ func (c *Client) validateCredentials() error {
 	return nil
 }
 
+var baseUserAgent string
+var userAgentOnce sync.Once
+
 // SendRequest verifies, constructs, and authorizes an HTTP request.
 func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}, body ...byte) (*http.Response, error) {
@@ -162,12 +172,12 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 			return nil, err
 		}
 	} else {
-		//Here the HTTP POST methods which is not having json content type are processed
-		//All the values will be added in data and encoded (all body, query, path parameters)
+		// Here the HTTP POST methods which do not have json content type are processed
+		// All the values will be added in data and encoded (all body, query, path parameters)
 		if method == http.MethodPost || method == http.MethodPut {
 			valueReader = strings.NewReader(data.Encode())
 		}
-		req, err = http.NewRequest(method, u.String(), valueReader)
+		req, err = http.NewRequestWithContext(context.Background(), method, u.String(), valueReader)
 		if err != nil {
 			return nil, err
 		}
@@ -178,13 +188,26 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if credErr != nil {
 		return nil, credErr
 	}
-	req.SetBasicAuth(c.basicAuth())
+	if c.OAuth == nil && c.Username != "" && c.Password != "" {
+		req.SetBasicAuth(c.basicAuth())
+	}
 
 	// E.g. "User-Agent": "twilio-go/1.0.0 (darwin amd64) go/go1.17.8"
-	userAgent := fmt.Sprintf("twilio-go/%s (%s %s) go/%s", LibraryVersion, runtime.GOOS, runtime.GOARCH, goVersion)
+	userAgentOnce.Do(func() {
+		baseUserAgent = fmt.Sprintf("twilio-go/%s (%s %s) go/%s", LibraryVersion, runtime.GOOS, runtime.GOARCH, goVersion)
+	})
+	userAgent := baseUserAgent
 
 	if len(c.UserAgentExtensions) > 0 {
 		userAgent += " " + strings.Join(c.UserAgentExtensions, " ")
+	}
+	if c.OAuth != nil {
+		token, err := c.OAuth.GetAccessToken(context.TODO())
+		if err == nil {
+			req.Header.Add("Authorization", "Bearer "+token)
+		}
+	} else if c.Username != "" && c.Password != "" {
+		req.SetBasicAuth(c.basicAuth())
 	}
 
 	req.Header.Add("User-Agent", userAgent)
@@ -200,7 +223,11 @@ func (c *Client) SetAccountSid(sid string) {
 	c.accountSid = sid
 }
 
-// Returns the Account SID.
+// AccountSid returns the Account SID.
 func (c *Client) AccountSid() string {
 	return c.accountSid
+}
+
+func (c *Client) SetOauth(oauth OAuth) {
+	c.OAuth = oauth
 }
