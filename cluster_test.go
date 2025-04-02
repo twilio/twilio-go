@@ -11,6 +11,7 @@ import (
 	Api "github.com/twilio/twilio-go/rest/api/v2010"
 	ChatV2 "github.com/twilio/twilio-go/rest/chat/v2"
 	EventsV1 "github.com/twilio/twilio-go/rest/events/v1"
+	PreviewIAM "github.com/twilio/twilio-go/rest/preview_iam/v1"
 )
 
 var from string
@@ -155,4 +156,25 @@ func TestOauth(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
 	assert.Equal(t, "Hello there", *resp.Body)
+}
+
+func TestTokenAuth_FetchToken(t *testing.T) {
+	var clientId = os.Getenv("TWILIO_CLIENT_ID")
+	var clientSecret = os.Getenv("TWILIO_CLIENT_SECRET")
+	var accountSid = os.Getenv("TWILIO_ACCOUNT_SID_OAUTH")
+
+	params := &PreviewIAM.CreateTokenParams{
+		GrantType:    &GrantType,
+		ClientId:     &ClientId,
+		ClientSecret: &ClientSecret,
+		Code:         nil,
+		RedirectUri:  nil,
+		Audience:     nil,
+		RefreshToken: nil,
+		Scope:        nil,
+	}
+
+	resp, err := testClient.PreviewIAM.CreateToken(params)
+	assert.Nil(t, err)
+	assert.NotNil(t, resp)
 }
