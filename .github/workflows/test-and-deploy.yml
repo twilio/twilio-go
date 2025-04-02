@@ -52,6 +52,11 @@ jobs:
           TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
           TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
           TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_FROM_NUMBER_OAUTH: $${{ secrets.TWILIO_FROM_NUMBER_OAUTH }}
+          TWILIO_TO_NUMBER_OAUTH: $${{ secrets.TWILIO_TO_NUMBER_OAUTH }}
+          TWILIO_CLIENT_ID: ${{ secrets.TWILIO_CLIENT_ID }}
+          TWILIO_CLIENT_SECRET: ${{ secrets.TWILIO_CLIENT_SECRET }}
+          TWILIO_ACCOUNT_SID_OAUTH: ${{ secrets.TWILIO_ACCOUNT_SID_OAUTH }}
         run: make cluster-test
 
       - name: Run Test Coverage
