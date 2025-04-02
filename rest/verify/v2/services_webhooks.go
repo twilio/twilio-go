@@ -323,7 +323,6 @@ func (params *UpdateWebhookParams) SetVersion(Version string) *UpdateWebhookPara
 	return params
 }
 
-//
 func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *UpdateWebhookParams) (*VerifyV2Webhook, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

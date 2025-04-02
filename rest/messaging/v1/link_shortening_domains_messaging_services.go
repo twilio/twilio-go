@@ -20,7 +20,6 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) (*MessagingV1LinkshorteningMessagingService, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -46,7 +45,6 @@ func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, Mess
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) error {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
