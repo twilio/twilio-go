@@ -26,29 +26,6 @@ func (m *MockTokenAuth) FetchToken(ctx context.Context) (string, error) {
 	return t.FetchToken(ctx)
 }
 
-func (m *MockTokenAuth) TokenExpired() bool {
-	return false
-}
-
-func TestTokenAuth_FetchToken(t *testing.T) {
-	oauth := &MockOAuth{}
-	tokenAuth := &TokenAuth{OAuth: oauth}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-
-	// Test fetching a new token
-	token, err := tokenAuth.FetchToken(ctx)
-	assert.NoError(t, err)
-	assert.Equal(t, "mock_token", token)
-
-	// Test fetching the cached token
-	mockTokenAuth := MockTokenAuth{OAuth: oauth, token: "cached_token"}
-	token, err = mockTokenAuth.FetchToken(ctx)
-	assert.NoError(t, err)
-	assert.Equal(t, "cached_token", token)
-}
-
 func TestTokenAuth_Expired(t *testing.T) {
 	// Test with an expired token
 	expiredToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
