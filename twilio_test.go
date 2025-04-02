@@ -37,7 +37,7 @@ func TestClientCredentialProvider(t *testing.T) {
 	},
 	)
 
-	assert.Equal(t, "client_credentials", client.Client.GetOAuth().(*APIOAuth).creds.GrantType)
-	assert.Equal(t, "mock_client_id", client.Client.GetOAuth().(*APIOAuth).creds.ClientId)
-	assert.Equal(t, "mock_client_secret", client.Client.GetOAuth().(*APIOAuth).creds.ClientSecret)
+	assert.Equal(t, "client_credentials", client.Client.OAuth().(*APIOAuth).creds.GrantType)
+	assert.Equal(t, "mock_client_id", client.Client.OAuth().(*APIOAuth).creds.ClientId)
+	assert.Equal(t, "mock_client_secret", client.Client.OAuth().(*APIOAuth).creds.ClientSecret)
 }
