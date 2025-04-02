@@ -159,14 +159,14 @@ func TestOauth(t *testing.T) {
 }
 
 func TestTokenAuth_FetchToken(t *testing.T) {
-	var GrantType = "client_credentials"
+	var grantType = "client_credentials"
 	var clientId = os.Getenv("TWILIO_CLIENT_ID")
 	var clientSecret = os.Getenv("TWILIO_CLIENT_SECRET")
 
 	params := &PreviewIAM.CreateTokenParams{
-		GrantType:    &GrantType,
-		ClientId:     &ClientId,
-		ClientSecret: &ClientSecret,
+		GrantType:    &grantType,
+		ClientId:     &clientId,
+		ClientSecret: &clientSecret,
 		Code:         nil,
 		RedirectUri:  nil,
 		Audience:     nil,
