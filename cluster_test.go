@@ -130,7 +130,7 @@ func TestListingAvailableNumber(t *testing.T) {
 	assert.Equal(t, 2, len(resp))
 }
 
-func TestOauth(m *testing.M) {
+func TestOauth(m *testing.T) {
 	from = os.Getenv("TWILIO_FROM_NUMBER_OAUTH")
 	to = os.Getenv("TWILIO_TO_NUMBER_OAUTH")
 	var clientId = os.Getenv("TWILIO_CLIENT_ID")
