@@ -188,7 +188,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if credErr != nil {
 		return nil, credErr
 	}
-	if c.OAuth == nil && c.Username != "" && c.Password != "" {
+	if c.OAuth() == nil && c.Username != "" && c.Password != "" {
 		req.SetBasicAuth(c.basicAuth())
 	}
 
