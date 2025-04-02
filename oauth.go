@@ -10,6 +10,8 @@ import (
 	iam "github.com/twilio/twilio-go/rest/iam/v1"
 )
 
+var jwtParser = new(jwt.Parser)
+
 // TokenAuth handles token-based authentication using OAuth.
 type TokenAuth struct {
 	// token is the cached OAuth token.
@@ -44,7 +46,7 @@ func (t *TokenAuth) FetchToken(ctx context.Context) (string, error) {
 
 // Expired returns true if the current token is expired, or the expiration status cannot be determined due to an error.
 func (t *TokenAuth) Expired(ctx context.Context) (bool, error) {
-	token, _, err := new(jwt.Parser).ParseUnverified(t.token, jwt.MapClaims{})
+	token, _, err := jwtParser.ParseUnverified(t.token, jwt.MapClaims{})
 	if err != nil {
 		return true, err
 	}
