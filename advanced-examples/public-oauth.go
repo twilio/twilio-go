@@ -3,9 +3,10 @@ package main
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/twilio/twilio-go"
 	api "github.com/twilio/twilio-go/rest/api/v2010"
-	"os"
 )
 
 func main() {
