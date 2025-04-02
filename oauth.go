@@ -42,7 +42,7 @@ func (t *TokenAuth) FetchToken(ctx context.Context) (string, error) {
 	return t.token, nil
 }
 
-// Expired checks if the current token is expired.
+// Expired returns true if the current token is expired, or the expiration status cannot be determined due to an error.
 func (t *TokenAuth) Expired(ctx context.Context) (bool, error) {
 	token, _, err := new(jwt.Parser).ParseUnverified(t.token, jwt.MapClaims{})
 	if err != nil {
