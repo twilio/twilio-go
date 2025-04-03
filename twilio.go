@@ -45,6 +45,7 @@ import (
 	NumbersV1 "github.com/twilio/twilio-go/rest/numbers/v1"
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
 	OauthV1 "github.com/twilio/twilio-go/rest/oauth/v1"
+	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/v1"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
@@ -97,6 +98,7 @@ type RestClient struct {
 	OauthV1         *OauthV1.ApiService
 	PricingV1       *PricingV1.ApiService
 	PricingV2       *PricingV2.ApiService
+	PreviewIAM      *PreviewIam.ApiService
 	ProxyV1         *ProxyV1.ApiService
 	RoutesV2        *RoutesV2.ApiService
 	ServerlessV1    *ServerlessV1.ApiService
@@ -125,18 +127,37 @@ type Meta struct {
 	URL             *string `json:"url"`
 }
 
+// ClientCredentialProvider holds the necessary credentials for client authentication.
+type ClientCredentialProvider struct {
+	// GrantType specifies the type of grant being used for OAuth.
+	GrantType string
+	// ClientId is the identifier for the client application.
+	ClientId string
+	// ClientSecret is the secret key for the client application.
+	ClientSecret string
+}
+
+// ClientParams holds the parameters required to initialize a Twilio RestClient.
+// Incase where the ClientCredentialProvider is provided, the Username and Password fields are ignored.
+// And when neither is provided, the environment variables TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN are used.
 type ClientParams struct {
-	Username   string
-	Password   string
+	// Username is the account SID for authentication.
+	Username string
+	// Password is the authentication token for the account.
+	Password string
+	// AccountSid is the specific account SID to be used.
 	AccountSid string
-	Client     client.BaseClient
+	// Client is the base client used for making HTTP requests.
+	Client client.BaseClient
+	// ClientCredentialProvider holds the necessary credentials for client authentication.
+	ClientCredentialProvider *ClientCredentialProvider
 }
 
 // NewRestClientWithParams provides an initialized Twilio RestClient with params.
 func NewRestClientWithParams(params ClientParams) *RestClient {
 	requestHandler := client.NewRequestHandler(params.Client)
 
-	if params.Client == nil {
+	if params.Client == nil && params.ClientCredentialProvider == nil {
 		username := params.Username
 		if username == "" {
 			username = os.Getenv("TWILIO_ACCOUNT_SID")
@@ -157,6 +178,18 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 			defaultClient.SetAccountSid(username)
 		}
 		requestHandler = client.NewRequestHandler(defaultClient)
+	} else if params.ClientCredentialProvider != nil {
+		oauthClient := &client.Client{
+			Credentials: client.NewCredentials("", ""),
+		}
+		handler := client.NewRequestHandler(oauthClient)
+		clientCredentials := &OAuthCredentials{params.ClientCredentialProvider.GrantType, params.ClientCredentialProvider.ClientId, params.ClientCredentialProvider.ClientSecret}
+		oauth := NewAPIOAuth(handler, clientCredentials)
+		oauthClient.SetOauth(oauth)
+		if params.AccountSid != "" {
+			oauthClient.SetAccountSid(params.AccountSid)
+		}
+		requestHandler = client.NewRequestHandler(oauthClient)
 	}
 
 	c := &RestClient{
@@ -192,6 +225,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)
 	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
 	c.OauthV1 = OauthV1.NewApiService(c.RequestHandler)
+	c.PreviewIAM = PreviewIam.NewApiService(c.RequestHandler)
 	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
 	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
 	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)
