@@ -11,14 +11,16 @@ import (
 
 func main() {
 	var GrantType string = "client_credentials"
-	var ClientId string = "client-id"
-	var ClientSecret string = "client-secret"
+	var ClientId string = os.Getenv("CLIENT_ID")
+	var ClientSecret string = os.Getenv("CLIENT_SECRET")
+	var AccountSid string = os.Getenv("ACCOUNT_SID")
 	clientCredentialProvider := twilio.ClientCredentialProvider{
 		GrantType:    GrantType,
 		ClientId:     ClientId,
 		ClientSecret: ClientSecret,
 	}
 	clientParams := twilio.ClientParams{
+		AccountSid:               AccountSid,
 		ClientCredentialProvider: &clientCredentialProvider,
 	}
 	client := twilio.NewRestClientWithParams(clientParams)
