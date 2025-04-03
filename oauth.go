@@ -89,8 +89,8 @@ func (a *APIOAuth) GetAccessToken(ctx context.Context) (string, error) {
 	if a.creds == nil {
 		panic("twilio: API OAuth credentials are nil")
 	}
-	expired, err := a.tokenAuth.Expired(ctx)
-	if &a.tokenAuth != nil && a.tokenAuth.Token != "" && !expired {
+	expired, _ := a.tokenAuth.Expired(ctx)
+	if a.tokenAuth.Token != "" && !expired {
 		return a.tokenAuth.Token, nil
 	}
 	params := &iam.CreateTokenParams{}
