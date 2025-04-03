@@ -14,15 +14,13 @@ var jwtParser = new(jwt.Parser)
 
 // TokenAuth handles token-based authentication using OAuth.
 type TokenAuth struct {
-	// token is the cached OAuth token.
-	token string
-	// OAuth is the OAuth client used to fetch new tokens.
-	OAuth client.OAuth
+	// Token is the cached OAuth token.
+	Token string
 }
 
 // NewTokenAuth creates a new TokenAuth instance with the provided token and OAuth client.
-func (t *TokenAuth) NewTokenAuth(token string, o client.OAuth) *TokenAuth {
-	return &TokenAuth{token: token, OAuth: o}
+func (t *TokenAuth) NewTokenAuth(token string) *TokenAuth {
+	return &TokenAuth{Token: token}
 }
 
 // FetchToken retrieves the current token if it is valid, or fetches a new token using the OAuth client.
@@ -31,22 +29,16 @@ func (t *TokenAuth) FetchToken(ctx context.Context) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if t.token != "" && expired {
-		return t.token, nil
+	if t.Token != "" && !expired {
+		return t.Token, nil
 	}
 
-	token, err := t.OAuth.GetAccessToken(context.Background())
-	if err != nil {
-		return "", err
-	}
-
-	t.token = token
-	return t.token, nil
+	return "", nil
 }
 
 // Expired returns true if the current token is expired, or the expiration status cannot be determined due to an error.
 func (t *TokenAuth) Expired(ctx context.Context) (bool, error) {
-	token, _, err := jwtParser.ParseUnverified(t.token, jwt.MapClaims{})
+	token, _, err := jwtParser.ParseUnverified(t.Token, jwt.MapClaims{})
 	if err != nil {
 		return true, err
 	}
@@ -79,20 +71,13 @@ type APIOAuth struct {
 	iamService *iam.ApiService
 	// creds holds the necessary credentials for OAuth authentication.
 	creds *OAuthCredentials
-}
-
-// SetIamService sets the iamService field.
-func (a *APIOAuth) SetIAMService(service *iam.ApiService) {
-	a.iamService = service
-}
-
-// SetCreds sets the creds field.
-func (a *APIOAuth) SetCreds(creds *OAuthCredentials) {
-	a.creds = creds
+	// tokenAuth *TokenAuth
+	tokenAuth TokenAuth
 }
 
 // NewAPIOAuth creates a new APIOAuth instance with the provided request handler and credentials.
 func NewAPIOAuth(c *client.RequestHandler, creds *OAuthCredentials) *APIOAuth {
+	//jwtToken := "eyJhbGciOiJSUzI1NiIsImtpZCI6InVmQXhySkZ5VmNSNkdnQmZNQ29BTFoiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJodHRwczovL2FwaS50d2lsaW8uY29tL3YyIiwiYXpwIjoiT1EyMDJiMmRlYWQxNDJiZGE4NDQ5OGEyMTE3ZWRkOTRlZCIsImlhdCI6MTc0MzY2MzkwMSwiZXhwIjoxNzQzNjY3NTAxLCJpc3MiOiJodHRwczovL2lhbS50d2lsaW8uY29tIiwic3ViIjoiT1EyMDJiMmRlYWQxNDJiZGE4NDQ5OGEyMTE3ZWRkOTRlZCIsImd0eSI6ImNsaWVudF9jcmVkZW50aWFscyIsImh0dHA6Ly90d2lsaW8vYWN0Ijp7InN1YiI6IkFDYjEzZGIwMmEyODUyMTE0ODg4Y2IyMTQ0ZjQxNjUyZTQifSwiaHR0cDovL3R3aWxpby90eXAiOiJ2bmQudHdpbGlvLm9hdXRoLmF0K2p3dDsiLCJodHRwOi8vdHdpbGlvL3N1YiI6Ik9RMjAyYjJkZWFkMTQyYmRhODQ0OThhMjExN2VkZDk0ZWQiLCJodHRwOi8vdHdpbGlvL3ZhbGlkcmVnaW9ucyI6InVzMSJ9.SirMzKSTlKUIcNHbGfR9ImROJqReTD9AjiY5Lm06L4vWHQuUUJSOBCv2fQv7lGuHQIcZWWhAtx767MdAAnaqMBZi6wSjdQss8dAN7ZiXLMu4Zwsg95CNQTs5Mv9zapCgCNbE64MH87VgFYvqN3dhUdRvBZOwhE7bbvRcDuWjoJCd3lc8yxLr0hWefHP5f2RSqqX5-jlVQHO08zVX0nO4C2E2NXWiFLTTVEi6-HSXB56PrRqc7pWNEtcAUrmbeVR2hzAq_Dm1dUWOs_T-uQGsnBI2d41bJa4etN-ObCyQa5qYzbCRF4RAEieDbI-WQFnFgZl3HJ4uHJAe7wdjF6fHBg"
 	a := &APIOAuth{iamService: iam.NewApiService(c), creds: creds}
 	return a
 }
@@ -105,12 +90,21 @@ func (a *APIOAuth) GetAccessToken(ctx context.Context) (string, error) {
 	if a.creds == nil {
 		panic("twilio: API OAuth credentials are nil")
 	}
+	expired, err := a.tokenAuth.Expired(ctx)
+	if &a.tokenAuth != nil && a.tokenAuth.Token != "" && !expired {
+		return a.tokenAuth.Token, nil
+	}
 	params := &iam.CreateTokenParams{}
 	params.SetGrantType(a.creds.GrantType).
 		SetClientId(a.creds.ClientId).
 		SetClientSecret(a.creds.ClientSecret)
 	a.iamService.RequestHandler().Client.SetOauth(nil) // set oauth to nil to make no-auth request
 	token, err := a.iamService.CreateToken(params)
+	if err == nil {
+		a.tokenAuth = TokenAuth{
+			Token: *token.AccessToken,
+		}
+	}
 	if err != nil {
 		return "", err
 	}

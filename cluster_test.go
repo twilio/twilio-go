@@ -156,6 +156,12 @@ func TestOauth(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
 	assert.Equal(t, "Hello there", *resp.Body)
+
+	params = &Api.ListMessageParams{Limit: 1}
+	resp, err := testClient.Api.ListMessage(params)
+	assert.Nil(t, err)
+	assert.NotNil(t, resp)
+	assert.Equal(t, 1, len(resp))
 }
 
 func TestTokenAuth_FetchToken(t *testing.T) {
