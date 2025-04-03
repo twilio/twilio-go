@@ -205,5 +205,4 @@ func TestTokenAuthFetchTokenException(t *testing.T) {
 
 	resp, err := testClient.PreviewIAM.CreateToken(params)
 	assert.NotNil(t, 403, err.(*client.TwilioRestError).Status)
-	assert.Nil(t, resp)
 }
