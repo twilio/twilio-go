@@ -204,8 +204,11 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if c.OAuth() != nil {
 		oauth := c.OAuth()
 		token, err := c.OAuth().GetAccessToken(context.TODO())
-		if err == nil {
+		if token != "" {
 			req.Header.Add("Authorization", "Bearer "+token)
+		}
+		if err != nil {
+			return nil, errors.Wrap(err, "error getting OAuth token")
 		}
 		c.SetOauth(oauth) // Set the OAuth token in the client which gets nullified after the token fetch
 	} else if c.Username != "" && c.Password != "" {
