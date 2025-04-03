@@ -4,13 +4,14 @@
 package twilio
 
 import (
+	"github.com/twilio/twilio-go/client"
+	Api "github.com/twilio/twilio-go/rest/api/v2010"
+	ChatV2 "github.com/twilio/twilio-go/rest/chat/v2"
+	EventsV1 "github.com/twilio/twilio-go/rest/events/v1"
 	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	Api "github.com/twilio/twilio-go/rest/api/v2010"
-	ChatV2 "github.com/twilio/twilio-go/rest/chat/v2"
-	EventsV1 "github.com/twilio/twilio-go/rest/events/v1"
 	PreviewIAM "github.com/twilio/twilio-go/rest/preview_iam/v1"
 )
 
@@ -157,11 +158,12 @@ func TestOauth(t *testing.T) {
 	assert.NotNil(t, resp)
 	assert.Equal(t, "Hello there", *resp.Body)
 
-	params = &Api.ListMessageParams{Limit: 1}
-	resp, err := testClient.Api.ListMessage(params)
+	listParams := &Api.ListMessageParams{}
+	listParams.SetLimit(1)
+	response, err := testClient.Api.ListMessage(listParams)
 	assert.Nil(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, 1, len(resp))
+	assert.NotNil(t, response)
+	assert.Equal(t, 1, len(response))
 }
 
 func TestTokenAuth_FetchToken(t *testing.T) {
@@ -183,4 +185,25 @@ func TestTokenAuth_FetchToken(t *testing.T) {
 	resp, err := testClient.PreviewIAM.CreateToken(params)
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
+}
+
+func TestTokenAuthFetchTokenException(t *testing.T) {
+	var grantType = "client_credentials"
+	var clientId = os.Getenv("TWILIO_CLIENT_ID")
+	var clientSecret = os.Getenv("TWILIO_CLIENT_SECRET") + "invalid"
+
+	params := &PreviewIAM.CreateTokenParams{
+		GrantType:    &grantType,
+		ClientId:     &clientId,
+		ClientSecret: &clientSecret,
+		Code:         nil,
+		RedirectUri:  nil,
+		Audience:     nil,
+		RefreshToken: nil,
+		Scope:        nil,
+	}
+
+	resp, err := testClient.PreviewIAM.CreateToken(params)
+	assert.NotNil(t, 403, err.(*client.TwilioRestError).Status)
+	assert.Nil(t, resp)
 }
