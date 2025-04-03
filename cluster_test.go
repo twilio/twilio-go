@@ -132,7 +132,34 @@ func TestListingAvailableNumber(t *testing.T) {
 	assert.Equal(t, 2, len(resp))
 }
 
-func TestOauth(t *testing.T) {
+func TestOauth_WithCreateMessage(t *testing.T) {
+	from = os.Getenv("TWILIO_FROM_NUMBER_OAUTH")
+	to = os.Getenv("TWILIO_TO_NUMBER_OAUTH")
+	var clientId = os.Getenv("TWILIO_CLIENT_ID")
+	var clientSecret = os.Getenv("TWILIO_CLIENT_SECRET")
+	var accountSid = os.Getenv("TWILIO_ACCOUNT_SID_OAUTH")
+
+	clientCredentialProvider := &ClientCredentialProvider{
+		GrantType:    "client_credentials",
+		ClientId:     clientId,
+		ClientSecret: clientSecret,
+	}
+	testClient = NewRestClientWithParams(
+		ClientParams{ClientCredentialProvider: clientCredentialProvider, AccountSid: accountSid},
+	)
+
+	params := &Api.CreateMessageParams{}
+	params.SetTo(to)
+	params.SetFrom(from)
+	params.SetBody("Hello there")
+
+	resp, err := testClient.Api.CreateMessage(params)
+	assert.Nil(t, err)
+	assert.NotNil(t, resp)
+	assert.Equal(t, "Hello there", *resp.Body)
+}
+
+func TestOauth_WithCachedToken(t *testing.T) {
 	from = os.Getenv("TWILIO_FROM_NUMBER_OAUTH")
 	to = os.Getenv("TWILIO_TO_NUMBER_OAUTH")
 	var clientId = os.Getenv("TWILIO_CLIENT_ID")
