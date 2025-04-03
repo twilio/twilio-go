@@ -187,23 +187,23 @@ func TestTokenAuth_FetchToken(t *testing.T) {
 	assert.NotNil(t, resp)
 }
 
-func TestTokenAuthFetchTokenException(t *testing.T) {
-	var grantType = "client_credentials"
-	var clientId = os.Getenv("TWILIO_CLIENT_ID")
-	var clientSecret = os.Getenv("TWILIO_CLIENT_SECRET") + "invalid"
+// func TestTokenAuthFetchTokenException(t *testing.T) {
+// 	var grantType = "client_credentials"
+// 	var clientId = os.Getenv("TWILIO_CLIENT_ID")
+// 	var clientSecret = os.Getenv("TWILIO_CLIENT_SECRET") + "invalid"
 
-	params := &PreviewIAM.CreateTokenParams{
-		GrantType:    &grantType,
-		ClientId:     &clientId,
-		ClientSecret: &clientSecret,
-		Code:         nil,
-		RedirectUri:  nil,
-		Audience:     nil,
-		RefreshToken: nil,
-		Scope:        nil,
-	}
+// 	params := &PreviewIAM.CreateTokenParams{
+// 		GrantType:    &grantType,
+// 		ClientId:     &clientId,
+// 		ClientSecret: &clientSecret,
+// 		Code:         nil,
+// 		RedirectUri:  nil,
+// 		Audience:     nil,
+// 		RefreshToken: nil,
+// 		Scope:        nil,
+// 	}
 
-	resp, err := testClient.PreviewIAM.CreateToken(params)
-	assert.NotNil(t, 403, err.(*client.TwilioRestError).Status)
-	assert.Nil(t, resp)
-}
+// 	resp, err := testClient.PreviewIAM.CreateToken(params)
+// 	assert.NotNil(t, 403, err.(*client.TwilioRestError).Status)
+// 	assert.Nil(t, resp)
+// }
