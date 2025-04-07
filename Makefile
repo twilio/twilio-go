@@ -14,7 +14,7 @@ test-docker:
 	docker run twilio/twilio-go go test -race ./...
 
 cluster-test:
-	go test -race --tags=cluster
+	go test -trimpath -race --tags=cluster ./...
 
 webhook-cluster-test:
 	go test -race --tags=webhook_cluster
