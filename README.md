@@ -708,12 +708,8 @@ Example:
 ```shell
 godoc -http=localhost:6060
 ```
-# OAuth Feature for twilio-go
-
-This document provides instructions on how to use the OAuth feature in the `twilio-go` library.
-
-## 🚀 Feature Update
-The OAuth feature allows you to authenticate API requests using OAuth 2.0 tokens instead of the traditional API keys and secrets. This enhances security by leveraging OAuth's token-based authentication.
+## OAuth Feature for twilio-go
+The Twilio Go library now includes an OAuth feature that allows you to authenticate API requests using OAuth 2.0 tokens. This feature is particularly useful for applications that require enhanced security and token-based authentication.
 
 To use the OAuth feature, you can refer to [public-oauth.go](https://github.com/twilio/twilio-go/advanced-examples/public-oauth.go) for an example of how to implement it in your application.
 
