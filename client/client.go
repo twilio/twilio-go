@@ -172,6 +172,8 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 			return nil, err
 		}
 	} else {
+		// Here the HTTP POST methods which do not have json content type are processed
+		// All the values will be added in data and encoded (all body, query, path parameters)
 		if method == http.MethodPost || method == http.MethodPut || method == http.MethodPatch {
 			valueReader = strings.NewReader(data.Encode())
 		}
