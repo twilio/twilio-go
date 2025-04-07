@@ -708,8 +708,13 @@ Example:
 ```shell
 godoc -http=localhost:6060
 ```
-
 http://localhost:6060/pkg/github.com/twilio/twilio-go
+
+## OAuth Feature for twilio-go
+The Twilio Go library now includes an OAuth feature that allows you to authenticate API requests using OAuth 2.0 tokens. This feature is particularly useful for applications that require enhanced security and token-based authentication.
+
+To use the OAuth feature, you can refer to [public-oauth.md](https://github.com/twilio/twilio-go/blob/main/advanced-examples/public-oauth.md) for an example of how to implement it in your application.
+
 
 ## Docker Image
 
