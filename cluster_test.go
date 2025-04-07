@@ -220,7 +220,7 @@ func TestTokenAuthFetchTokenException(t *testing.T) {
 	var clientId = os.Getenv("TWILIO_CLIENT_ID")
 	var clientSecret = os.Getenv("TWILIO_CLIENT_SECRET") + "invalid"
 
-	params := &IAM.CreateTokenParams{
+	params := &IamV1.CreateTokenParams{
 		GrantType:    &grantType,
 		ClientId:     &clientId,
 		ClientSecret: &clientSecret,
