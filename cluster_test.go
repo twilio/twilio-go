@@ -4,12 +4,13 @@
 package twilio
 
 import (
+	"os"
+	"testing"
+
 	"github.com/twilio/twilio-go/client"
 	Api "github.com/twilio/twilio-go/rest/api/v2010"
 	ChatV2 "github.com/twilio/twilio-go/rest/chat/v2"
 	EventsV1 "github.com/twilio/twilio-go/rest/events/v1"
-	"os"
-	"testing"
 
 	"github.com/stretchr/testify/assert"
 	PreviewIAM "github.com/twilio/twilio-go/rest/preview_iam/v1"

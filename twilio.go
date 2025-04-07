@@ -35,6 +35,7 @@ import (
 	IntelligenceV2 "github.com/twilio/twilio-go/rest/intelligence/v2"
 	IpMessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
 	IpMessagingV2 "github.com/twilio/twilio-go/rest/ip_messaging/v2"
+	KnowledgeV1 "github.com/twilio/twilio-go/rest/knowledge/v1"
 	LookupsV1 "github.com/twilio/twilio-go/rest/lookups/v1"
 	LookupsV2 "github.com/twilio/twilio-go/rest/lookups/v2"
 	MarketplaceV1 "github.com/twilio/twilio-go/rest/marketplace/v1"
@@ -45,7 +46,6 @@ import (
 	NumbersV1 "github.com/twilio/twilio-go/rest/numbers/v1"
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
 	OauthV1 "github.com/twilio/twilio-go/rest/oauth/v1"
-	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/v1"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
@@ -86,6 +86,7 @@ type RestClient struct {
 	IntelligenceV2  *IntelligenceV2.ApiService
 	IpMessagingV1   *IpMessagingV1.ApiService
 	IpMessagingV2   *IpMessagingV2.ApiService
+	KnowledgeV1     *KnowledgeV1.ApiService
 	LookupsV1       *LookupsV1.ApiService
 	LookupsV2       *LookupsV2.ApiService
 	MarketplaceV1   *MarketplaceV1.ApiService
@@ -98,7 +99,6 @@ type RestClient struct {
 	OauthV1         *OauthV1.ApiService
 	PricingV1       *PricingV1.ApiService
 	PricingV2       *PricingV2.ApiService
-	PreviewIAM      *PreviewIam.ApiService
 	ProxyV1         *ProxyV1.ApiService
 	RoutesV2        *RoutesV2.ApiService
 	ServerlessV1    *ServerlessV1.ApiService
@@ -215,6 +215,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.IntelligenceV2 = IntelligenceV2.NewApiService(c.RequestHandler)
 	c.IpMessagingV1 = IpMessagingV1.NewApiService(c.RequestHandler)
 	c.IpMessagingV2 = IpMessagingV2.NewApiService(c.RequestHandler)
+	c.KnowledgeV1 = KnowledgeV1.NewApiService(c.RequestHandler)
 	c.LookupsV1 = LookupsV1.NewApiService(c.RequestHandler)
 	c.LookupsV2 = LookupsV2.NewApiService(c.RequestHandler)
 	c.MarketplaceV1 = MarketplaceV1.NewApiService(c.RequestHandler)
@@ -225,7 +226,6 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)
 	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
 	c.OauthV1 = OauthV1.NewApiService(c.RequestHandler)
-	c.PreviewIAM = PreviewIam.NewApiService(c.RequestHandler)
 	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
 	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
 	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)

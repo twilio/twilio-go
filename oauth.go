@@ -53,7 +53,7 @@ func (t *TokenAuth) Expired(ctx context.Context) (bool, error) {
 		return true, err
 	}
 
-	expirationTime := int64(exp)+30
+	expirationTime := int64(exp) + 30
 
 	return time.Now().UTC().Unix() > expirationTime, nil
 }
