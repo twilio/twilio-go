@@ -13,7 +13,7 @@ import (
 	EventsV1 "github.com/twilio/twilio-go/rest/events/v1"
 
 	"github.com/stretchr/testify/assert"
-	PreviewIAM "github.com/twilio/twilio-go/rest/preview_iam/v1"
+	IamV1 "github.com/twilio/twilio-go/rest/iam/v1"
 )
 
 var from string
@@ -199,7 +199,7 @@ func TestTokenAuth_FetchToken(t *testing.T) {
 	var clientId = os.Getenv("TWILIO_CLIENT_ID")
 	var clientSecret = os.Getenv("TWILIO_CLIENT_SECRET")
 
-	params := &PreviewIAM.CreateTokenParams{
+	params := &IamV1.CreateTokenParams{
 		GrantType:    &grantType,
 		ClientId:     &clientId,
 		ClientSecret: &clientSecret,
@@ -210,7 +210,7 @@ func TestTokenAuth_FetchToken(t *testing.T) {
 		Scope:        nil,
 	}
 
-	resp, err := testClient.PreviewIAM.CreateToken(params)
+	resp, err := testClient.IamV1.CreateToken(params)
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
 }
@@ -220,13 +220,13 @@ func TestTokenAuthFetchTokenException(t *testing.T) {
 	var clientId = os.Getenv("TWILIO_CLIENT_ID")
 	var clientSecret = os.Getenv("TWILIO_CLIENT_SECRET") + "invalid"
 
-	params := &PreviewIAM.CreateTokenParams{
+	params := &IamV1.CreateTokenParams{
 		GrantType:    &grantType,
 		ClientId:     &clientId,
 		ClientSecret: &clientSecret,
 	}
 
-	resp, err := testClient.PreviewIAM.CreateToken(params)
+	resp, err := testClient.IamV1.CreateToken(params)
 	assert.NotNil(t, 403, err.(*client.TwilioRestError).Status)
 	assert.Nil(t, resp)
 }
