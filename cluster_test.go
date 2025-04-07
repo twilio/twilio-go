@@ -223,11 +223,6 @@ func TestTokenAuthFetchTokenException(t *testing.T) {
 		GrantType:    &grantType,
 		ClientId:     &clientId,
 		ClientSecret: &clientSecret,
-		Code:         nil,
-		RedirectUri:  nil,
-		Audience:     nil,
-		RefreshToken: nil,
-		Scope:        nil,
 	}
 
 	resp, err := testClient.PreviewIAM.CreateToken(params)

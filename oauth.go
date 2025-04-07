@@ -53,7 +53,9 @@ func (t *TokenAuth) Expired(ctx context.Context) (bool, error) {
 		return true, err
 	}
 
-	return time.Now().UTC().Unix() > int64(exp)+30, nil
+	expirationTime := int64(exp)+30
+
+	return time.Now().UTC().Unix() > expirationTime, nil
 }
 
 // OAuthCredentials holds the necessary credentials for OAuth authentication.
