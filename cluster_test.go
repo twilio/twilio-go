@@ -12,7 +12,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	IAMV1 "github.com/twilio/twilio-go/rest/iam/v1"
+	IamV1 "github.com/twilio/twilio-go/rest/iam/v1"
 )
 
 var from string
@@ -198,7 +198,7 @@ func TestTokenAuth_FetchToken(t *testing.T) {
 	var clientId = os.Getenv("TWILIO_CLIENT_ID")
 	var clientSecret = os.Getenv("TWILIO_CLIENT_SECRET")
 
-	params := &IAMV1.CreateTokenParams{
+	params := &IamV1.CreateTokenParams{
 		GrantType:    &grantType,
 		ClientId:     &clientId,
 		ClientSecret: &clientSecret,
@@ -209,7 +209,7 @@ func TestTokenAuth_FetchToken(t *testing.T) {
 		Scope:        nil,
 	}
 
-	resp, err := testClient.IAMV1.CreateToken(params)
+	resp, err := testClient.IamV1.CreateToken(params)
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
 }
