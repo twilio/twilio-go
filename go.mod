@@ -16,5 +16,6 @@ require (
 )
 
 retract (
+    v1.25.0 // Contains build issue
     v1.22.0 // Contains known bug
 )
