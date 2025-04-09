@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/golang-jwt/jwt"
+	"github.com/golang-jwt/jwt/v5"
+
 	"github.com/twilio/twilio-go/client"
 	iam "github.com/twilio/twilio-go/rest/iam/v1"
 )
