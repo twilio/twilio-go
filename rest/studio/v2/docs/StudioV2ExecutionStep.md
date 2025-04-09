@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ExecutionStep resource. |
 **FlowSid** | Pointer to **string** | The SID of the Flow. |
 **ExecutionSid** | Pointer to **string** | The SID of the Step's Execution resource. |
+**ParentStepSid** | Pointer to **string** | The SID of the parent Step. |
 **Name** | Pointer to **string** | The event that caused the Flow to transition to the Step. |
 **Context** | Pointer to **map[string]interface{}** | The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution. |
 **TransitionedFrom** | Pointer to **string** | The Widget that preceded the Widget for the Step. |

@@ -1,5 +1,24 @@
 twilio-go changelog
 ====================
+[2024-04-08] Version 1.25.1
+---------------------------
+**Library - Chore**
+- Retract v1.25.0 due to build issue [#276](https://github.com/twilio/twilio-go/issues/276)
+
+[2025-04-07] Version 1.25.0
+---------------------------
+**Library - Chore**
+- [PR #268](https://github.com/twilio/twilio-go/pull/268): Added patch method support. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #274](https://github.com/twilio/twilio-go/pull/274): Readme changes. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #273](https://github.com/twilio/twilio-go/pull/273): update readme. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Feature**
+- [PR #272](https://github.com/twilio/twilio-go/pull/272): Oauth design (#269). Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Studio**
+- Add documentation for parent_step_sid field in Step resource
+
+
 [2025-03-20] Version 1.24.1
 ---------------------------
 **Library - Chore**

@@ -22,7 +22,7 @@ import (
 type MonitorV1Event struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the actor that caused the event, if available. Can be `null`.
+	// The SID of the actor that caused the event, if available. This can be either a User ID (matching the pattern `^US[0-9a-fA-F]{32}$`) or an Account SID (matching the pattern `^AC[0-9a-fA-F]{32}$`). If the actor's SID isn't available, this field will be `null`.
 	ActorSid *string `json:"actor_sid,omitempty"`
 	// The type of actor that caused the event. Can be: `user` for a change made by a logged-in user in the Twilio Console, `account` for an event caused by an API request by an authenticating Account, `twilio-admin` for an event caused by a Twilio employee, and so on.
 	ActorType *string `json:"actor_type,omitempty"`
