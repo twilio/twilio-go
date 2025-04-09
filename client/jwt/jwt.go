@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/golang-jwt/jwt"
+	"github.com/golang-jwt/jwt/v5"
 	. "github.com/twilio/twilio-go/client/jwt/util"
 )
 
