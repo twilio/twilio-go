@@ -20,7 +20,6 @@ import (
 	"strings"
 )
 
-//
 func (c *ApiService) FetchDomainConfigMessagingService(MessagingServiceSid string) (*MessagingV1DomainConfigMessagingService, error) {
 	path := "/v1/LinkShortening/MessagingService/{MessagingServiceSid}/DomainConfig"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)

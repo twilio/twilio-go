@@ -19,7 +19,6 @@ import (
 	"net/url"
 )
 
-//
 func (c *ApiService) FetchProvisioningStatus() (*FlexV1ProvisioningStatus, error) {
 	path := "/v1/account/provision/status"
 

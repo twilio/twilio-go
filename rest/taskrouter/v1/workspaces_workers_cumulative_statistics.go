@@ -51,7 +51,6 @@ func (params *FetchWorkersCumulativeStatisticsParams) SetTaskChannel(TaskChannel
 	return params
 }
 
-//
 func (c *ApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string, params *FetchWorkersCumulativeStatisticsParams) (*TaskrouterV1WorkersCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
