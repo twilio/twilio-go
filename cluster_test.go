@@ -20,13 +20,28 @@ var from string
 var to string
 var testClient *RestClient
 
+var orgSid string
+var accountSidOrgs string
+var clientId string
+var clientSecret string
+var orgsClient *RestClient
+
 func TestMain(m *testing.M) {
 	from = os.Getenv("TWILIO_FROM_NUMBER")
 	to = os.Getenv("TWILIO_TO_NUMBER")
 	var apiKey = os.Getenv("TWILIO_API_KEY")
 	var secret = os.Getenv("TWILIO_API_SECRET")
 	var accountSid = os.Getenv("TWILIO_ACCOUNT_SID")
-
+	orgSid = os.Getenv("ORG_SID")
+	accountSidOrgs = os.Getenv("ACCOUNT_SID_ORGS")
+	clientId = os.Getenv("CLIENT_ID")
+	clientSecret = os.Getenv("CLIENT_SECRET")
+	clientCredential = twilio.ClientCredentialProvider{
+		GrantType:    "client_credentials",
+		ClientId:     clientId,
+		ClientSecret: clientSecret,
+	}
+	orgsClient = NewRestClientWithParams(ClientParams{ClientCredentialProvider: &clientCredential, AccountSid: accountSidOrgs})
 	testClient = NewRestClientWithParams(ClientParams{apiKey, secret, accountSid, nil, nil})
 	ret := m.Run()
 	os.Exit(ret)
@@ -229,4 +244,25 @@ func TestTokenAuthFetchTokenException(t *testing.T) {
 	resp, err := testClient.IamV1.CreateToken(params)
 	assert.NotNil(t, 403, err.(*client.TwilioRestError).Status)
 	assert.Nil(t, resp)
+}
+
+func TestOrgsAccountsList() {
+	listAccounts, err := orgsClient.PreviewIam.ListOrganizationAccounts(orgSid, &preview_iam.ListOrganizationAccountsParams{})
+	assert.Nil(t, err)
+	assert.NotNil(t, listAccounts)
+	accounts, err := orgsClient.PreviewIam.FetchOrganizationAccount(orgSid, &preview_iam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
+	assert.Nil(err)
+	assert.NotNil(t, accounts)
+}
+
+func TestOrgsRoleAssignmentsList() {
+	roleAssignments, err := orgsClient.PreviewIam.ListRoleAssignments(orgSid, &preview_iam.ListRoleAssignmentsParams{Scope: &accountSidOrgs})
+	assert.Nil(t, err)
+	assert.NotNil(t, roleAssignments)
+}
+
+func TestOrgsScimUerList() {
+	users, err := orgsClient.PreviewIam.ListOrganizationUsers(orgSid, &preview_iam.ListOrganizationUsersParams{})
+	assert.Nil(t, err)
+	assert.NotNil(t, users)
 }
