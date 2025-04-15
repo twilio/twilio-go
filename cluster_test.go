@@ -246,7 +246,7 @@ func TestTokenAuthFetchTokenException(t *testing.T) {
 	assert.Nil(t, resp)
 }
 
-func TestOrgsAccountsList() {
+func TestOrgsAccountsList(t *testing.T) {
 	listAccounts, err := orgsClient.PreviewIam.ListOrganizationAccounts(orgSid, &preview_iam.ListOrganizationAccountsParams{})
 	assert.Nil(t, err)
 	assert.NotNil(t, listAccounts)
@@ -255,13 +255,13 @@ func TestOrgsAccountsList() {
 	assert.NotNil(t, accounts)
 }
 
-func TestOrgsRoleAssignmentsList() {
+func TestOrgsRoleAssignmentsList(t *testing.T) {
 	roleAssignments, err := orgsClient.PreviewIam.ListRoleAssignments(orgSid, &preview_iam.ListRoleAssignmentsParams{Scope: &accountSidOrgs})
 	assert.Nil(t, err)
 	assert.NotNil(t, roleAssignments)
 }
 
-func TestOrgsScimUerList() {
+func TestOrgsScimUerList(t *testing.T) {
 	users, err := orgsClient.PreviewIam.ListOrganizationUsers(orgSid, &preview_iam.ListOrganizationUsersParams{})
 	assert.Nil(t, err)
 	assert.NotNil(t, users)
