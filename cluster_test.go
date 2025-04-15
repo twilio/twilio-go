@@ -252,7 +252,7 @@ func TestOrgsAccountsList(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotNil(t, listAccounts)
 	accounts, err := orgsClient.PreviewIam.FetchOrganizationAccount(orgSid, &PreviewIam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
-	assert.Nil(err)
+	assert.Nil(t, err)
 	assert.NotNil(t, accounts)
 }
 
