@@ -35,8 +35,8 @@ func TestMain(m *testing.M) {
 	var accountSid = os.Getenv("TWILIO_ACCOUNT_SID")
 	orgSid = os.Getenv("TWILIO_ORG_SID")
 	accountSidOrgs = os.Getenv("TWILIO_ACCOUNT_SID_OAUTH")
-	clientId = os.Getenv("TWILIO_CLIENT_ID")
-	clientSecret = os.Getenv("TWILIO_CLIENT_SECRET")
+	clientId = os.Getenv("TWILIO_ORGS_CLIENT_ID")
+	clientSecret = os.Getenv("TWILIO_ORGS_CLIENT_SECRET")
 	var clientCredential = ClientCredentialProvider{
 		GrantType:    "client_credentials",
 		ClientId:     clientId,
