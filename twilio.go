@@ -46,6 +46,7 @@ import (
 	NumbersV1 "github.com/twilio/twilio-go/rest/numbers/v1"
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
 	OauthV1 "github.com/twilio/twilio-go/rest/oauth/v1"
+	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/org"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
@@ -97,6 +98,7 @@ type RestClient struct {
 	NumbersV1       *NumbersV1.ApiService
 	NumbersV2       *NumbersV2.ApiService
 	OauthV1         *OauthV1.ApiService
+	PreviewIam      *PreviewIam.ApiService
 	PricingV1       *PricingV1.ApiService
 	PricingV2       *PricingV2.ApiService
 	ProxyV1         *ProxyV1.ApiService
@@ -226,6 +228,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)
 	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
 	c.OauthV1 = OauthV1.NewApiService(c.RequestHandler)
+	c.PreviewIam = PreviewIam.NewApiService(c.RequestHandler)
 	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
 	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
 	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)
