@@ -4,6 +4,7 @@
 package twilio
 
 import (
+	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/org"
 	"os"
 	"testing"
 
@@ -36,7 +37,7 @@ func TestMain(m *testing.M) {
 	accountSidOrgs = os.Getenv("TWILIO_ACCOUNT_SID_OAUTH")
 	clientId = os.Getenv("TWILIO_CLIENT_ID")
 	clientSecret = os.Getenv("TWILIO_CLIENT_SECRET")
-	clientCredential = twilio.ClientCredentialProvider{
+	var clientCredential = ClientCredentialProvider{
 		GrantType:    "client_credentials",
 		ClientId:     clientId,
 		ClientSecret: clientSecret,
@@ -247,22 +248,22 @@ func TestTokenAuthFetchTokenException(t *testing.T) {
 }
 
 func TestOrgsAccountsList(t *testing.T) {
-	listAccounts, err := orgsClient.PreviewIam.ListOrganizationAccounts(orgSid, &preview_iam.ListOrganizationAccountsParams{})
+	listAccounts, err := orgsClient.PreviewIam.ListOrganizationAccounts(orgSid, &PreviewIam.ListOrganizationAccountsParams{})
 	assert.Nil(t, err)
 	assert.NotNil(t, listAccounts)
-	accounts, err := orgsClient.PreviewIam.FetchOrganizationAccount(orgSid, &preview_iam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
+	accounts, err := orgsClient.PreviewIam.FetchOrganizationAccount(orgSid, &PreviewIam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
 	assert.Nil(err)
 	assert.NotNil(t, accounts)
 }
 
 func TestOrgsRoleAssignmentsList(t *testing.T) {
-	roleAssignments, err := orgsClient.PreviewIam.ListRoleAssignments(orgSid, &preview_iam.ListRoleAssignmentsParams{Scope: &accountSidOrgs})
+	roleAssignments, err := orgsClient.PreviewIam.ListRoleAssignments(orgSid, &PreviewIam.ListRoleAssignmentsParams{Scope: &accountSidOrgs})
 	assert.Nil(t, err)
 	assert.NotNil(t, roleAssignments)
 }
 
 func TestOrgsScimUerList(t *testing.T) {
-	users, err := orgsClient.PreviewIam.ListOrganizationUsers(orgSid, &preview_iam.ListOrganizationUsersParams{})
+	users, err := orgsClient.PreviewIam.ListOrganizationUsers(orgSid, &PreviewIam.ListOrganizationUsersParams{})
 	assert.Nil(t, err)
 	assert.NotNil(t, users)
 }
