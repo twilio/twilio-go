@@ -46,7 +46,7 @@ import (
 	NumbersV1 "github.com/twilio/twilio-go/rest/numbers/v1"
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
 	OauthV1 "github.com/twilio/twilio-go/rest/oauth/v1"
-	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/org"
+	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/organizations"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
