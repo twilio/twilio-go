@@ -182,6 +182,7 @@ func (c *ApiService) StreamRoleAssignments(OrganizationSid string, params *ListR
 	if params == nil {
 		params = &ListRoleAssignmentsParams{}
 	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	recordChannel := make(chan PublicApiRoleAssignmentResponse, 1)
 	errorChannel := make(chan error, 1)

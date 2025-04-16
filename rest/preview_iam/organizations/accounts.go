@@ -138,6 +138,7 @@ func (c *ApiService) StreamOrganizationAccounts(OrganizationSid string, params *
 	if params == nil {
 		params = &ListOrganizationAccountsParams{}
 	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	recordChannel := make(chan PublicApiAccountResponse, 1)
 	errorChannel := make(chan error, 1)
