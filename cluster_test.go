@@ -4,9 +4,10 @@
 package twilio
 
 import (
-	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/org"
 	"os"
 	"testing"
+
+	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/organizations"
 
 	"github.com/twilio/twilio-go/client"
 	Api "github.com/twilio/twilio-go/rest/api/v2010"
