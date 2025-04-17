@@ -21,7 +21,7 @@ import (
 // SyncV1SyncListItem struct for SyncV1SyncListItem
 type SyncV1SyncListItem struct {
 	// The automatically generated index of the List Item. The `index` values of the List Items in a Sync List can have gaps in their sequence.
-	Index *int `json:"index,omitempty"`
+	Index int `json:"index,omitempty"`
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the List Item resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
@@ -33,7 +33,7 @@ type SyncV1SyncListItem struct {
 	// The current revision of the item, represented as a string.
 	Revision *string `json:"revision,omitempty"`
 	// An arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-	Data *interface{} `json:"data,omitempty"`
+	Data *map[string]interface{} `json:"data,omitempty"`
 	// The date and time in GMT when the List Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the List Item does not expire, this value is `null`. The List Item resource might not be deleted immediately after it expires.
 	DateExpires *time.Time `json:"date_expires,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

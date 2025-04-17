@@ -4,9 +4,9 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSafelist**](SafeListNumbersApi.md#CreateSafelist) | **Post** /v2/SafeList/Numbers | 
-[**DeleteSafelist**](SafeListNumbersApi.md#DeleteSafelist) | **Delete** /v2/SafeList/Numbers/{PhoneNumber} | 
-[**FetchSafelist**](SafeListNumbersApi.md#FetchSafelist) | **Get** /v2/SafeList/Numbers/{PhoneNumber} | 
+[**CreateSafelist**](SafeListNumbersApi.md#CreateSafelist) | **Post** /v2/SafeList/Numbers | Add a new phone number to SafeList.
+[**DeleteSafelist**](SafeListNumbersApi.md#DeleteSafelist) | **Delete** /v2/SafeList/Numbers/{PhoneNumber} | Remove a phone number from SafeList.
+[**FetchSafelist**](SafeListNumbersApi.md#FetchSafelist) | **Get** /v2/SafeList/Numbers/{PhoneNumber} | Check if a phone number exists in SafeList.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > VerifyV2Safelist CreateSafelist(ctx, optional)
 
-
+Add a new phone number to SafeList.
 
 Add a new phone number to SafeList.
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 > DeleteSafelist(ctx, PhoneNumber)
 
-
+Remove a phone number from SafeList.
 
 Remove a phone number from SafeList.
 
@@ -95,7 +95,7 @@ Name | Type | Description
 
 > VerifyV2Safelist FetchSafelist(ctx, PhoneNumber)
 
-
+Check if a phone number exists in SafeList.
 
 Check if a phone number exists in SafeList.
 

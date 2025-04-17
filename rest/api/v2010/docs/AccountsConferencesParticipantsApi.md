@@ -5,10 +5,10 @@ All URIs are relative to *https://api.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateParticipant**](AccountsConferencesParticipantsApi.md#CreateParticipant) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json | 
-[**DeleteParticipant**](AccountsConferencesParticipantsApi.md#DeleteParticipant) | **Delete** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | 
-[**FetchParticipant**](AccountsConferencesParticipantsApi.md#FetchParticipant) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | 
-[**ListParticipant**](AccountsConferencesParticipantsApi.md#ListParticipant) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json | 
-[**UpdateParticipant**](AccountsConferencesParticipantsApi.md#UpdateParticipant) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | 
+[**DeleteParticipant**](AccountsConferencesParticipantsApi.md#DeleteParticipant) | **Delete** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | Kick a participant from a given conference
+[**FetchParticipant**](AccountsConferencesParticipantsApi.md#FetchParticipant) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | Fetch an instance of a participant
+[**ListParticipant**](AccountsConferencesParticipantsApi.md#ListParticipant) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json | Retrieve a list of participants belonging to the account used to make the request
+[**UpdateParticipant**](AccountsConferencesParticipantsApi.md#UpdateParticipant) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | Update the properties of the participant
 
 
 
@@ -62,7 +62,7 @@ Name | Type | Description
 **RecordingStatusCallbackMethod** | **string** | The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 **SipAuthUsername** | **string** | The SIP username used for authentication.
 **SipAuthPassword** | **string** | The SIP password for authentication.
-**Region** | **string** | The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+**Region** | **string** | The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
 **ConferenceRecordingStatusCallback** | **string** | The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
 **ConferenceRecordingStatusCallbackMethod** | **string** | The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 **RecordingStatusCallbackEvent** | **[]string** | The recording state changes that should generate a call to `recording_status_callback`. Can be: `started`, `in-progress`, `paused`, `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`.
@@ -107,7 +107,7 @@ Name | Type | Description
 
 > DeleteParticipant(ctx, ConferenceSidCallSidoptional)
 
-
+Kick a participant from a given conference
 
 Kick a participant from a given conference
 
@@ -151,7 +151,7 @@ Name | Type | Description
 
 > ApiV2010Participant FetchParticipant(ctx, ConferenceSidCallSidoptional)
 
-
+Fetch an instance of a participant
 
 Fetch an instance of a participant
 
@@ -195,7 +195,7 @@ Name | Type | Description
 
 > []ApiV2010Participant ListParticipant(ctx, ConferenceSidoptional)
 
-
+Retrieve a list of participants belonging to the account used to make the request
 
 Retrieve a list of participants belonging to the account used to make the request
 
@@ -243,7 +243,7 @@ Name | Type | Description
 
 > ApiV2010Participant UpdateParticipant(ctx, ConferenceSidCallSidoptional)
 
-
+Update the properties of the participant
 
 Update the properties of the participant
 

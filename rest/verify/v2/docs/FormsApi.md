@@ -4,7 +4,7 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchForm**](FormsApi.md#FetchForm) | **Get** /v2/Forms/{FormType} | 
+[**FetchForm**](FormsApi.md#FetchForm) | **Get** /v2/Forms/{FormType} | Fetch the forms for a specific Form Type.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > VerifyV2Form FetchForm(ctx, FormType)
 
-
+Fetch the forms for a specific Form Type.
 
 Fetch the forms for a specific Form Type.
 
@@ -22,7 +22,7 @@ Fetch the forms for a specific Form Type.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FormType** | **string** | The Type of this Form. Currently only `form-push` is supported.
+**FormType** | [**string**](string.md) | The Type of this Form. Currently only `form-push` is supported.
 
 ### Other Parameters
 

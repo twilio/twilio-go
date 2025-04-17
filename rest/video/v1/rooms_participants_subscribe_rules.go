@@ -27,7 +27,9 @@ func (c *ApiService) FetchRoomParticipantSubscribeRule(RoomSid string, Participa
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -47,10 +49,10 @@ func (c *ApiService) FetchRoomParticipantSubscribeRule(RoomSid string, Participa
 // Optional parameters for the method 'UpdateRoomParticipantSubscribeRule'
 type UpdateRoomParticipantSubscribeRuleParams struct {
 	// A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
-	Rules *interface{} `json:"Rules,omitempty"`
+	Rules *map[string]interface{} `json:"Rules,omitempty"`
 }
 
-func (params *UpdateRoomParticipantSubscribeRuleParams) SetRules(Rules interface{}) *UpdateRoomParticipantSubscribeRuleParams {
+func (params *UpdateRoomParticipantSubscribeRuleParams) SetRules(Rules map[string]interface{}) *UpdateRoomParticipantSubscribeRuleParams {
 	params.Rules = &Rules
 	return params
 }
@@ -62,7 +64,9 @@ func (c *ApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, Particip
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Rules != nil {
 		v, err := json.Marshal(params.Rules)

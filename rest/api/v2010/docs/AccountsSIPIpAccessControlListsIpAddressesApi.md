@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSipIpAddress**](AccountsSIPIpAccessControlListsIpAddressesApi.md#CreateSipIpAddress) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json | 
-[**DeleteSipIpAddress**](AccountsSIPIpAccessControlListsIpAddressesApi.md#DeleteSipIpAddress) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json | 
-[**FetchSipIpAddress**](AccountsSIPIpAccessControlListsIpAddressesApi.md#FetchSipIpAddress) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json | 
-[**ListSipIpAddress**](AccountsSIPIpAccessControlListsIpAddressesApi.md#ListSipIpAddress) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json | 
-[**UpdateSipIpAddress**](AccountsSIPIpAccessControlListsIpAddressesApi.md#UpdateSipIpAddress) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json | 
+[**CreateSipIpAddress**](AccountsSIPIpAccessControlListsIpAddressesApi.md#CreateSipIpAddress) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json | Create a new IpAddress resource.
+[**DeleteSipIpAddress**](AccountsSIPIpAccessControlListsIpAddressesApi.md#DeleteSipIpAddress) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json | Delete an IpAddress resource.
+[**FetchSipIpAddress**](AccountsSIPIpAccessControlListsIpAddressesApi.md#FetchSipIpAddress) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json | Read one IpAddress resource.
+[**ListSipIpAddress**](AccountsSIPIpAccessControlListsIpAddressesApi.md#ListSipIpAddress) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json | Read multiple IpAddress resources.
+[**UpdateSipIpAddress**](AccountsSIPIpAccessControlListsIpAddressesApi.md#UpdateSipIpAddress) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json | Update an IpAddress resource.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010SipIpAddress CreateSipIpAddress(ctx, IpAccessControlListSidoptional)
 
-
+Create a new IpAddress resource.
 
 Create a new IpAddress resource.
 
@@ -62,7 +62,7 @@ Name | Type | Description
 
 > DeleteSipIpAddress(ctx, IpAccessControlListSidSidoptional)
 
-
+Delete an IpAddress resource.
 
 Delete an IpAddress resource.
 
@@ -106,7 +106,7 @@ Name | Type | Description
 
 > ApiV2010SipIpAddress FetchSipIpAddress(ctx, IpAccessControlListSidSidoptional)
 
-
+Read one IpAddress resource.
 
 Read one IpAddress resource.
 
@@ -150,7 +150,7 @@ Name | Type | Description
 
 > []ApiV2010SipIpAddress ListSipIpAddress(ctx, IpAccessControlListSidoptional)
 
-
+Read multiple IpAddress resources.
 
 Read multiple IpAddress resources.
 
@@ -195,7 +195,7 @@ Name | Type | Description
 
 > ApiV2010SipIpAddress UpdateSipIpAddress(ctx, IpAccessControlListSidSidoptional)
 
-
+Update an IpAddress resource.
 
 Update an IpAddress resource.
 

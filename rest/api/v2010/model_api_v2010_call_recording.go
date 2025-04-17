@@ -45,12 +45,12 @@ type ApiV2010CallRecording struct {
 	// The URI of the resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 	// How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
-	EncryptionDetails *interface{} `json:"encryption_details,omitempty"`
+	EncryptionDetails *map[string]interface{} `json:"encryption_details,omitempty"`
 	// The currency used in the `price` property. Example: `USD`.
 	PriceUnit *string `json:"price_unit,omitempty"`
 	Status    *string `json:"status,omitempty"`
 	// The number of channels in the final recording file.  Can be: `1`, or `2`. Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/voice/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls) record options.
-	Channels *int    `json:"channels,omitempty"`
+	Channels int     `json:"channels,omitempty"`
 	Source   *string `json:"source,omitempty"`
 	// The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
 	ErrorCode *int `json:"error_code,omitempty"`
@@ -60,24 +60,24 @@ type ApiV2010CallRecording struct {
 
 func (response *ApiV2010CallRecording) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		AccountSid        *string      `json:"account_sid"`
-		ApiVersion        *string      `json:"api_version"`
-		CallSid           *string      `json:"call_sid"`
-		ConferenceSid     *string      `json:"conference_sid"`
-		DateCreated       *string      `json:"date_created"`
-		DateUpdated       *string      `json:"date_updated"`
-		StartTime         *string      `json:"start_time"`
-		Duration          *string      `json:"duration"`
-		Sid               *string      `json:"sid"`
-		Price             *interface{} `json:"price"`
-		Uri               *string      `json:"uri"`
-		EncryptionDetails *interface{} `json:"encryption_details"`
-		PriceUnit         *string      `json:"price_unit"`
-		Status            *string      `json:"status"`
-		Channels          *int         `json:"channels"`
-		Source            *string      `json:"source"`
-		ErrorCode         *int         `json:"error_code"`
-		Track             *string      `json:"track"`
+		AccountSid        *string                 `json:"account_sid"`
+		ApiVersion        *string                 `json:"api_version"`
+		CallSid           *string                 `json:"call_sid"`
+		ConferenceSid     *string                 `json:"conference_sid"`
+		DateCreated       *string                 `json:"date_created"`
+		DateUpdated       *string                 `json:"date_updated"`
+		StartTime         *string                 `json:"start_time"`
+		Duration          *string                 `json:"duration"`
+		Sid               *string                 `json:"sid"`
+		Price             *interface{}            `json:"price"`
+		Uri               *string                 `json:"uri"`
+		EncryptionDetails *map[string]interface{} `json:"encryption_details"`
+		PriceUnit         *string                 `json:"price_unit"`
+		Status            *string                 `json:"status"`
+		Channels          int                     `json:"channels"`
+		Source            *string                 `json:"source"`
+		ErrorCode         *int                    `json:"error_code"`
+		Track             *string                 `json:"track"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {

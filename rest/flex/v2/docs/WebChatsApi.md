@@ -27,6 +27,7 @@ Other parameters are passed through a pointer to a CreateWebChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**UiVersion** | **string** | The Ui-Version HTTP request header
 **AddressSid** | **string** | The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
 **ChatFriendlyName** | **string** | The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
 **CustomerFriendlyName** | **string** | The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.

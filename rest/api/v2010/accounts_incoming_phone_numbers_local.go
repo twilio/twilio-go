@@ -182,7 +182,9 @@ func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneN
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)
@@ -239,7 +241,7 @@ func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneN
 		data.Set("AddressSid", *params.AddressSid)
 	}
 	if params != nil && params.EmergencyStatus != nil {
-		data.Set("EmergencyStatus", *params.EmergencyStatus)
+		data.Set("EmergencyStatus", fmt.Sprint(*params.EmergencyStatus))
 	}
 	if params != nil && params.EmergencyAddressSid != nil {
 		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
@@ -248,7 +250,7 @@ func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneN
 		data.Set("TrunkSid", *params.TrunkSid)
 	}
 	if params != nil && params.VoiceReceiveMode != nil {
-		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+		data.Set("VoiceReceiveMode", fmt.Sprint(*params.VoiceReceiveMode))
 	}
 	if params != nil && params.BundleSid != nil {
 		data.Set("BundleSid", *params.BundleSid)
@@ -327,7 +329,9 @@ func (c *ApiService) PageIncomingPhoneNumberLocal(params *ListIncomingPhoneNumbe
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))

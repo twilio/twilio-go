@@ -81,10 +81,12 @@ func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", fmt.Sprint(*params.Category))
 	}
 	if params != nil && params.StartDate != nil {
 		data.Set("StartDate", fmt.Sprint(*params.StartDate))

@@ -19,7 +19,7 @@ type ConversationsV1ConfigurationWebhook struct {
 	// The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
 	AccountSid *string `json:"account_sid,omitempty"`
 	Method     *string `json:"method,omitempty"`
-	// The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+	// The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onMessageAdd`, `onMessageUpdate`, `onMessageRemove`, `onConversationUpdated`, `onConversationRemoved`, `onConversationAdd`, `onConversationAdded`, `onConversationRemove`, `onConversationUpdate`, `onConversationStateUpdated`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onParticipantAdd`, `onParticipantRemove`, `onParticipantUpdate`, `onDeliveryUpdated`, `onUserAdded`, `onUserUpdate`, `onUserUpdated`
 	Filters *[]string `json:"filters,omitempty"`
 	// The absolute url the pre-event webhook request should be sent to.
 	PreWebhookUrl *string `json:"pre_webhook_url,omitempty"`

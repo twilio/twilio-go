@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -24,7 +25,9 @@ func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationW
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -45,7 +48,7 @@ func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationW
 type UpdateConfigurationWebhookParams struct {
 	// The HTTP method to be used when sending a webhook request.
 	Method *string `json:"Method,omitempty"`
-	// The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+	// The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onMessageAdd`, `onMessageUpdate`, `onMessageRemove`, `onConversationUpdated`, `onConversationRemoved`, `onConversationAdd`, `onConversationAdded`, `onConversationRemove`, `onConversationUpdate`, `onConversationStateUpdated`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onParticipantAdd`, `onParticipantRemove`, `onParticipantUpdate`, `onDeliveryUpdated`, `onUserAdded`, `onUserUpdate`, `onUserUpdated`
 	Filters *[]string `json:"Filters,omitempty"`
 	// The absolute url the pre-event webhook request should be sent to.
 	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
@@ -81,7 +84,9 @@ func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebho
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Method != nil {
 		data.Set("Method", *params.Method)
@@ -98,7 +103,7 @@ func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebho
 		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
 	}
 	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+		data.Set("Target", fmt.Sprint(*params.Target))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -29,7 +29,7 @@ type CreateCompositionParams struct {
 	// The SID of the Group Room with the media tracks to be used as composition sources.
 	RoomSid *string `json:"RoomSid,omitempty"`
 	// An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
-	VideoLayout *interface{} `json:"VideoLayout,omitempty"`
+	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
 	// An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
 	AudioSources *[]string `json:"AudioSources,omitempty"`
 	// An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
@@ -50,7 +50,7 @@ func (params *CreateCompositionParams) SetRoomSid(RoomSid string) *CreateComposi
 	params.RoomSid = &RoomSid
 	return params
 }
-func (params *CreateCompositionParams) SetVideoLayout(VideoLayout interface{}) *CreateCompositionParams {
+func (params *CreateCompositionParams) SetVideoLayout(VideoLayout map[string]interface{}) *CreateCompositionParams {
 	params.VideoLayout = &VideoLayout
 	return params
 }
@@ -88,7 +88,9 @@ func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV
 	path := "/v1/Compositions"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.RoomSid != nil {
 		data.Set("RoomSid", *params.RoomSid)
@@ -116,7 +118,7 @@ func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV
 		data.Set("Resolution", *params.Resolution)
 	}
 	if params != nil && params.Format != nil {
-		data.Set("Format", *params.Format)
+		data.Set("Format", fmt.Sprint(*params.Format))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -149,7 +151,9 @@ func (c *ApiService) DeleteComposition(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -167,7 +171,9 @@ func (c *ApiService) FetchComposition(Sid string) (*VideoV1Composition, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -230,10 +236,12 @@ func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken, p
 	path := "/v1/Compositions"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
 		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))

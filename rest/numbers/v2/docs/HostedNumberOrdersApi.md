@@ -4,10 +4,11 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateHostedNumberOrder**](HostedNumberOrdersApi.md#CreateHostedNumberOrder) | **Post** /v2/HostedNumber/Orders | 
-[**DeleteHostedNumberOrder**](HostedNumberOrdersApi.md#DeleteHostedNumberOrder) | **Delete** /v2/HostedNumber/Orders/{Sid} | 
-[**FetchHostedNumberOrder**](HostedNumberOrdersApi.md#FetchHostedNumberOrder) | **Get** /v2/HostedNumber/Orders/{Sid} | 
-[**ListHostedNumberOrder**](HostedNumberOrdersApi.md#ListHostedNumberOrder) | **Get** /v2/HostedNumber/Orders | 
+[**CreateHostedNumberOrder**](HostedNumberOrdersApi.md#CreateHostedNumberOrder) | **Post** /v2/HostedNumber/Orders | Host a phone number&#39;s capability on Twilio&#39;s platform.
+[**DeleteHostedNumberOrder**](HostedNumberOrdersApi.md#DeleteHostedNumberOrder) | **Delete** /v2/HostedNumber/Orders/{Sid} | Cancel the HostedNumberOrder (only available when the status is in &#x60;received&#x60;).
+[**FetchHostedNumberOrder**](HostedNumberOrdersApi.md#FetchHostedNumberOrder) | **Get** /v2/HostedNumber/Orders/{Sid} | Fetch a specific HostedNumberOrder.
+[**ListHostedNumberOrder**](HostedNumberOrdersApi.md#ListHostedNumberOrder) | **Get** /v2/HostedNumber/Orders | Retrieve a list of HostedNumberOrders belonging to the account initiating the request.
+[**UpdateHostedNumberOrder**](HostedNumberOrdersApi.md#UpdateHostedNumberOrder) | **Post** /v2/HostedNumber/Orders/{Sid} | Updates a specific HostedNumberOrder.
 
 
 
@@ -15,7 +16,7 @@ Method | HTTP request | Description
 
 > NumbersV2HostedNumberOrder CreateHostedNumberOrder(ctx, optional)
 
-
+Host a phone number's capability on Twilio's platform.
 
 Host a phone number's capability on Twilio's platform.
 
@@ -69,7 +70,7 @@ Name | Type | Description
 
 > DeleteHostedNumberOrder(ctx, Sid)
 
-
+Cancel the HostedNumberOrder (only available when the status is in `received`).
 
 Cancel the HostedNumberOrder (only available when the status is in `received`).
 
@@ -111,7 +112,7 @@ Name | Type | Description
 
 > NumbersV2HostedNumberOrder FetchHostedNumberOrder(ctx, Sid)
 
-
+Fetch a specific HostedNumberOrder.
 
 Fetch a specific HostedNumberOrder.
 
@@ -153,7 +154,7 @@ Name | Type | Description
 
 > []NumbersV2HostedNumberOrder ListHostedNumberOrder(ctx, optional)
 
-
+Retrieve a list of HostedNumberOrders belonging to the account initiating the request.
 
 Retrieve a list of HostedNumberOrders belonging to the account initiating the request.
 
@@ -168,7 +169,7 @@ Other parameters are passed through a pointer to a ListHostedNumberOrderParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+**Status** | [**string**](stringstring.md) | The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
 **SmsCapability** | **bool** | Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
 **PhoneNumber** | **string** | An E164 formatted phone number hosted by this HostedNumberOrder.
 **IncomingPhoneNumberSid** | **string** | A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -187,6 +188,51 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateHostedNumberOrder
+
+> NumbersV2HostedNumberOrder UpdateHostedNumberOrder(ctx, Sidoptional)
+
+Updates a specific HostedNumberOrder.
+
+Updates a specific HostedNumberOrder.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Sid** | **string** | The SID of the HostedNumberOrder resource to update.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateHostedNumberOrderParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Status** | [**string**](string.md) | 
+**VerificationCallDelay** | **int** | The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive.
+**VerificationCallExtension** | **string** | The numerical extension to dial when making the ownership verification call.
+
+### Return type
+
+[**NumbersV2HostedNumberOrder**](NumbersV2HostedNumberOrder.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

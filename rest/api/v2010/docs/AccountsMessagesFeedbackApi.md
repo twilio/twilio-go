@@ -4,7 +4,7 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateMessageFeedback**](AccountsMessagesFeedbackApi.md#CreateMessageFeedback) | **Post** /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json | 
+[**CreateMessageFeedback**](AccountsMessagesFeedbackApi.md#CreateMessageFeedback) | **Post** /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json | Create Message Feedback to confirm a tracked user action was performed by the recipient of the associated Message
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ApiV2010MessageFeedback CreateMessageFeedback(ctx, MessageSidoptional)
 
-
+Create Message Feedback to confirm a tracked user action was performed by the recipient of the associated Message
 
 Create Message Feedback to confirm a tracked user action was performed by the recipient of the associated Message
 
@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateMessageFeedbackParams s
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resource for which to create MessageFeedback.
-**Outcome** | **string** | 
+**Outcome** | [**string**](string.md) | 
 
 ### Return type
 

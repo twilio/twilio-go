@@ -56,7 +56,7 @@ type MessagingV1TollfreeVerification struct {
 	BusinessContactLastName *string `json:"business_contact_last_name,omitempty"`
 	// The email address of the contact for the business or organization using the Tollfree number.
 	BusinessContactEmail *string `json:"business_contact_email,omitempty"`
-	// The phone number of the contact for the business or organization using the Tollfree number.
+	// The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 	BusinessContactPhone *string `json:"business_contact_phone,omitempty"`
 	// The email address to receive the notification about the verification result. .
 	NotificationEmail *string `json:"notification_email,omitempty"`
@@ -86,8 +86,10 @@ type MessagingV1TollfreeVerification struct {
 	EditExpiration *time.Time `json:"edit_expiration,omitempty"`
 	// If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
 	EditAllowed *bool `json:"edit_allowed,omitempty"`
+	// A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
+	RejectionReasons *[]map[string]interface{} `json:"rejection_reasons,omitempty"`
 	// The URLs of the documents associated with the Tollfree Verification resource.
-	ResourceLinks *interface{} `json:"resource_links,omitempty"`
+	ResourceLinks *map[string]interface{} `json:"resource_links,omitempty"`
 	// An optional external reference ID supplied by customer and echoed back on status retrieval.
 	ExternalReferenceId *string `json:"external_reference_id,omitempty"`
 }

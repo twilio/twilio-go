@@ -4,9 +4,9 @@ All URIs are relative to *https://proxy.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteInteraction**](ServicesSessionsInteractionsApi.md#DeleteInteraction) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | 
-[**FetchInteraction**](ServicesSessionsInteractionsApi.md#FetchInteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | 
-[**ListInteraction**](ServicesSessionsInteractionsApi.md#ListInteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions | 
+[**DeleteInteraction**](ServicesSessionsInteractionsApi.md#DeleteInteraction) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | Delete a specific Interaction.
+[**FetchInteraction**](ServicesSessionsInteractionsApi.md#FetchInteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | Retrieve a list of Interactions for a given [Session](https://www.twilio.com/docs/proxy/api/session).
+[**ListInteraction**](ServicesSessionsInteractionsApi.md#ListInteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions | Retrieve a list of all Interactions for a Session. A maximum of 100 records will be returned per page.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > DeleteInteraction(ctx, ServiceSidSessionSidSid)
 
-
+Delete a specific Interaction.
 
 Delete a specific Interaction.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > ProxyV1Interaction FetchInteraction(ctx, ServiceSidSessionSidSid)
 
-
+Retrieve a list of Interactions for a given [Session](https://www.twilio.com/docs/proxy/api/session).
 
 Retrieve a list of Interactions for a given [Session](https://www.twilio.com/docs/proxy/api/session).
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > []ProxyV1Interaction ListInteraction(ctx, ServiceSidSessionSidoptional)
 
-
+Retrieve a list of all Interactions for a Session. A maximum of 100 records will be returned per page.
 
 Retrieve a list of all Interactions for a Session. A maximum of 100 records will be returned per page.
 

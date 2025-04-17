@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a UpdateWebChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ChatStatus** | **string** | 
+**ChatStatus** | [**string**](string.md) | 
 **PostEngagementData** | **string** | The post-engagement data.
 
 ### Return type

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource. |
-**MaxReservedWorkers** | Pointer to **int** | The maximum number of Workers to reserve for the assignment of a task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1. |
+**MaxReservedWorkers** | **int** | The maximum number of Workers to reserve for the assignment of a task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1. |[optional] [default to 0]
 **ReservationActivitySid** | Pointer to **string** | The SID of the Activity to assign Workers once a task is reserved for them. |
 **ReservationActivityName** | Pointer to **string** | The name of the Activity to assign Workers once a task is reserved for them. |
 **Sid** | Pointer to **string** | The unique string that we created to identify the TaskQueue resource. |

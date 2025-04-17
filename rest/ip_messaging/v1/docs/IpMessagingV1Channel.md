@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
 **CreatedBy** | Pointer to **string** |  |
-**MembersCount** | Pointer to **int** |  |
-**MessagesCount** | Pointer to **int** |  |
+**MembersCount** | **int** |  |[optional] [default to 0]
+**MessagesCount** | **int** |  |[optional] [default to 0]
 **Url** | Pointer to **string** |  |
 **Links** | Pointer to **map[string]interface{}** |  |
 

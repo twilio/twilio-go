@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateQueue**](AccountsQueuesApi.md#CreateQueue) | **Post** /2010-04-01/Accounts/{AccountSid}/Queues.json | 
-[**DeleteQueue**](AccountsQueuesApi.md#DeleteQueue) | **Delete** /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json | 
-[**FetchQueue**](AccountsQueuesApi.md#FetchQueue) | **Get** /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json | 
-[**ListQueue**](AccountsQueuesApi.md#ListQueue) | **Get** /2010-04-01/Accounts/{AccountSid}/Queues.json | 
-[**UpdateQueue**](AccountsQueuesApi.md#UpdateQueue) | **Post** /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json | 
+[**CreateQueue**](AccountsQueuesApi.md#CreateQueue) | **Post** /2010-04-01/Accounts/{AccountSid}/Queues.json | Create a queue
+[**DeleteQueue**](AccountsQueuesApi.md#DeleteQueue) | **Delete** /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json | Remove an empty queue
+[**FetchQueue**](AccountsQueuesApi.md#FetchQueue) | **Get** /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json | Fetch an instance of a queue identified by the QueueSid
+[**ListQueue**](AccountsQueuesApi.md#ListQueue) | **Get** /2010-04-01/Accounts/{AccountSid}/Queues.json | Retrieve a list of queues belonging to the account used to make the request
+[**UpdateQueue**](AccountsQueuesApi.md#UpdateQueue) | **Post** /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json | Update the queue with the new parameters
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010Queue CreateQueue(ctx, optional)
 
-
+Create a queue
 
 Create a queue
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteQueue(ctx, Sidoptional)
 
-
+Remove an empty queue
 
 Remove an empty queue
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > ApiV2010Queue FetchQueue(ctx, Sidoptional)
 
-
+Fetch an instance of a queue identified by the QueueSid
 
 Fetch an instance of a queue identified by the QueueSid
 
@@ -143,7 +143,7 @@ Name | Type | Description
 
 > []ApiV2010Queue ListQueue(ctx, optional)
 
-
+Retrieve a list of queues belonging to the account used to make the request
 
 Retrieve a list of queues belonging to the account used to make the request
 
@@ -184,7 +184,7 @@ Name | Type | Description
 
 > ApiV2010Queue UpdateQueue(ctx, Sidoptional)
 
-
+Update the queue with the new parameters
 
 Update the queue with the new parameters
 

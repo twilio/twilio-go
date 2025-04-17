@@ -28,7 +28,7 @@ type StudioV1Flow struct {
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	Status       *string `json:"status,omitempty"`
 	// The latest version number of the Flow's definition.
-	Version *int `json:"version,omitempty"`
+	Version int `json:"version,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

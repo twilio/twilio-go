@@ -4,11 +4,11 @@ All URIs are relative to *https://microvisor.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateDeviceSecret**](DevicesSecretsApi.md#CreateDeviceSecret) | **Post** /v1/Devices/{DeviceSid}/Secrets | 
-[**DeleteDeviceSecret**](DevicesSecretsApi.md#DeleteDeviceSecret) | **Delete** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
-[**FetchDeviceSecret**](DevicesSecretsApi.md#FetchDeviceSecret) | **Get** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
-[**ListDeviceSecret**](DevicesSecretsApi.md#ListDeviceSecret) | **Get** /v1/Devices/{DeviceSid}/Secrets | 
-[**UpdateDeviceSecret**](DevicesSecretsApi.md#UpdateDeviceSecret) | **Post** /v1/Devices/{DeviceSid}/Secrets/{Key} | 
+[**CreateDeviceSecret**](DevicesSecretsApi.md#CreateDeviceSecret) | **Post** /v1/Devices/{DeviceSid}/Secrets | Create a secret for a Microvisor Device.
+[**DeleteDeviceSecret**](DevicesSecretsApi.md#DeleteDeviceSecret) | **Delete** /v1/Devices/{DeviceSid}/Secrets/{Key} | Delete a secret for a Microvisor Device.
+[**FetchDeviceSecret**](DevicesSecretsApi.md#FetchDeviceSecret) | **Get** /v1/Devices/{DeviceSid}/Secrets/{Key} | Retrieve a Secret for a Device.
+[**ListDeviceSecret**](DevicesSecretsApi.md#ListDeviceSecret) | **Get** /v1/Devices/{DeviceSid}/Secrets | Retrieve a list of all Secrets for a Device.
+[**UpdateDeviceSecret**](DevicesSecretsApi.md#UpdateDeviceSecret) | **Post** /v1/Devices/{DeviceSid}/Secrets/{Key} | Update a secret for a Microvisor Device.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > MicrovisorV1DeviceSecret CreateDeviceSecret(ctx, DeviceSidoptional)
 
-
+Create a secret for a Microvisor Device.
 
 Create a secret for a Microvisor Device.
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 > DeleteDeviceSecret(ctx, DeviceSidKey)
 
-
+Delete a secret for a Microvisor Device.
 
 Delete a secret for a Microvisor Device.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > MicrovisorV1DeviceSecret FetchDeviceSecret(ctx, DeviceSidKey)
 
-
+Retrieve a Secret for a Device.
 
 Retrieve a Secret for a Device.
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []MicrovisorV1DeviceSecret ListDeviceSecret(ctx, DeviceSidoptional)
 
-
+Retrieve a list of all Secrets for a Device.
 
 Retrieve a list of all Secrets for a Device.
 
@@ -190,7 +190,7 @@ Name | Type | Description
 
 > MicrovisorV1DeviceSecret UpdateDeviceSecret(ctx, DeviceSidKeyoptional)
 
-
+Update a secret for a Microvisor Device.
 
 Update a secret for a Microvisor Device.
 

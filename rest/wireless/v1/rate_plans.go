@@ -47,6 +47,8 @@ type CreateRatePlanParams struct {
 	NationalRoamingDataLimit *int `json:"NationalRoamingDataLimit,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
 	InternationalRoamingDataLimit *int `json:"InternationalRoamingDataLimit,omitempty"`
+	//
+	DataLimitStrategy *string `json:"DataLimitStrategy,omitempty"`
 }
 
 func (params *CreateRatePlanParams) SetUniqueName(UniqueName string) *CreateRatePlanParams {
@@ -93,13 +95,19 @@ func (params *CreateRatePlanParams) SetInternationalRoamingDataLimit(Internation
 	params.InternationalRoamingDataLimit = &InternationalRoamingDataLimit
 	return params
 }
+func (params *CreateRatePlanParams) SetDataLimitStrategy(DataLimitStrategy string) *CreateRatePlanParams {
+	params.DataLimitStrategy = &DataLimitStrategy
+	return params
+}
 
 //
 func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -136,6 +144,9 @@ func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1Ra
 	if params != nil && params.InternationalRoamingDataLimit != nil {
 		data.Set("InternationalRoamingDataLimit", fmt.Sprint(*params.InternationalRoamingDataLimit))
 	}
+	if params != nil && params.DataLimitStrategy != nil {
+		data.Set("DataLimitStrategy", fmt.Sprint(*params.DataLimitStrategy))
+	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -158,7 +169,9 @@ func (c *ApiService) DeleteRatePlan(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -176,7 +189,9 @@ func (c *ApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -215,7 +230,9 @@ func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken, pageNum
 	path := "/v1/RatePlans"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -352,7 +369,9 @@ func (c *ApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)

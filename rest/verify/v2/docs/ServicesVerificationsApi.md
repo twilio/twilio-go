@@ -4,9 +4,9 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateVerification**](ServicesVerificationsApi.md#CreateVerification) | **Post** /v2/Services/{ServiceSid}/Verifications | 
-[**FetchVerification**](ServicesVerificationsApi.md#FetchVerification) | **Get** /v2/Services/{ServiceSid}/Verifications/{Sid} | 
-[**UpdateVerification**](ServicesVerificationsApi.md#UpdateVerification) | **Post** /v2/Services/{ServiceSid}/Verifications/{Sid} | 
+[**CreateVerification**](ServicesVerificationsApi.md#CreateVerification) | **Post** /v2/Services/{ServiceSid}/Verifications | Create a new Verification using a Service
+[**FetchVerification**](ServicesVerificationsApi.md#FetchVerification) | **Get** /v2/Services/{ServiceSid}/Verifications/{Sid} | Fetch a specific Verification
+[**UpdateVerification**](ServicesVerificationsApi.md#UpdateVerification) | **Post** /v2/Services/{ServiceSid}/Verifications/{Sid} | Update a Verification status
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > VerifyV2Verification CreateVerification(ctx, ServiceSidoptional)
 
-
+Create a new Verification using a Service
 
 Create a new Verification using a Service
 
@@ -42,13 +42,14 @@ Name | Type | Description
 **CustomCode** | **string** | A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
 **Amount** | **string** | The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 **Payee** | **string** | The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-**RateLimits** | [**interface{}**](interface{}.md) | The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
-**ChannelConfiguration** | [**interface{}**](interface{}.md) | [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
+**RateLimits** | [**map[string]interface{}**](map[string]interface{}.md) | The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
+**ChannelConfiguration** | [**map[string]interface{}**](map[string]interface{}.md) | [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
 **AppHash** | **string** | Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
 **TemplateSid** | **string** | The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
 **TemplateCustomSubstitutions** | **string** | A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
 **DeviceIp** | **string** | Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
-**RiskCheck** | **string** | 
+**EnableSnaClientToken** | **bool** | An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
+**RiskCheck** | [**string**](string.md) | 
 **Tags** | **string** | A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
 
 ### Return type
@@ -73,7 +74,7 @@ Name | Type | Description
 
 > VerifyV2Verification FetchVerification(ctx, ServiceSidSid)
 
-
+Fetch a specific Verification
 
 Fetch a specific Verification
 
@@ -116,7 +117,7 @@ Name | Type | Description
 
 > VerifyV2Verification UpdateVerification(ctx, ServiceSidSidoptional)
 
-
+Update a Verification status
 
 Update a Verification status
 
@@ -136,7 +137,7 @@ Other parameters are passed through a pointer to a UpdateVerificationParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

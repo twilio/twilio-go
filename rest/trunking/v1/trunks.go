@@ -81,7 +81,9 @@ func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, e
 	path := "/v1/Trunks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -96,7 +98,7 @@ func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, e
 		data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
 	}
 	if params != nil && params.TransferMode != nil {
-		data.Set("TransferMode", *params.TransferMode)
+		data.Set("TransferMode", fmt.Sprint(*params.TransferMode))
 	}
 	if params != nil && params.Secure != nil {
 		data.Set("Secure", fmt.Sprint(*params.Secure))
@@ -105,7 +107,7 @@ func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, e
 		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
 	}
 	if params != nil && params.TransferCallerId != nil {
-		data.Set("TransferCallerId", *params.TransferCallerId)
+		data.Set("TransferCallerId", fmt.Sprint(*params.TransferCallerId))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -129,7 +131,9 @@ func (c *ApiService) DeleteTrunk(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -147,7 +151,9 @@ func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -186,7 +192,9 @@ func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken, pageNumber st
 	path := "/v1/Trunks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -359,7 +367,9 @@ func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*Trunki
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -374,7 +384,7 @@ func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*Trunki
 		data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
 	}
 	if params != nil && params.TransferMode != nil {
-		data.Set("TransferMode", *params.TransferMode)
+		data.Set("TransferMode", fmt.Sprint(*params.TransferMode))
 	}
 	if params != nil && params.Secure != nil {
 		data.Set("Secure", fmt.Sprint(*params.Secure))
@@ -383,7 +393,7 @@ func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*Trunki
 		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
 	}
 	if params != nil && params.TransferCallerId != nil {
-		data.Set("TransferCallerId", *params.TransferCallerId)
+		data.Set("TransferCallerId", fmt.Sprint(*params.TransferCallerId))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

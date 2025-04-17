@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -24,15 +25,15 @@ import (
 type CreateStreamParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// Relative or absolute url where WebSocket connection will be established.
+	// Relative or absolute URL where WebSocket connection will be established.
 	Url *string `json:"Url,omitempty"`
-	// The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+	// The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
 	Name *string `json:"Name,omitempty"`
 	//
 	Track *string `json:"Track,omitempty"`
-	// Absolute URL of the status callback.
+	// Absolute URL to which Twilio sends status callback HTTP requests.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
-	// The http method for the status_callback (one of GET, POST).
+	// The HTTP method Twilio uses when sending `status_callback` requests. Possible values are `GET` and `POST`. Default is `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 	// Parameter name
 	Parameter1Name *string `json:"Parameter1.Name,omitempty"`
@@ -1260,7 +1261,9 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Url != nil {
 		data.Set("Url", *params.Url)
@@ -1269,7 +1272,7 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 		data.Set("Name", *params.Name)
 	}
 	if params != nil && params.Track != nil {
-		data.Set("Track", *params.Track)
+		data.Set("Track", fmt.Sprint(*params.Track))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -1916,10 +1919,12 @@ func (c *ApiService) UpdateStream(CallSid string, Sid string, params *UpdateStre
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

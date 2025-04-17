@@ -4,10 +4,10 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEntity**](ServicesEntitiesApi.md#CreateEntity) | **Post** /v2/Services/{ServiceSid}/Entities | 
-[**DeleteEntity**](ServicesEntitiesApi.md#DeleteEntity) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity} | 
-[**FetchEntity**](ServicesEntitiesApi.md#FetchEntity) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity} | 
-[**ListEntity**](ServicesEntitiesApi.md#ListEntity) | **Get** /v2/Services/{ServiceSid}/Entities | 
+[**CreateEntity**](ServicesEntitiesApi.md#CreateEntity) | **Post** /v2/Services/{ServiceSid}/Entities | Create a new Entity for the Service
+[**DeleteEntity**](ServicesEntitiesApi.md#DeleteEntity) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity} | Delete a specific Entity.
+[**FetchEntity**](ServicesEntitiesApi.md#FetchEntity) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity} | Fetch a specific Entity.
+[**ListEntity**](ServicesEntitiesApi.md#ListEntity) | **Get** /v2/Services/{ServiceSid}/Entities | Retrieve a list of all Entities for a Service.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > VerifyV2Entity CreateEntity(ctx, ServiceSidoptional)
 
-
+Create a new Entity for the Service
 
 Create a new Entity for the Service
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteEntity(ctx, ServiceSidIdentity)
 
-
+Delete a specific Entity.
 
 Delete a specific Entity.
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > VerifyV2Entity FetchEntity(ctx, ServiceSidIdentity)
 
-
+Fetch a specific Entity.
 
 Fetch a specific Entity.
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 > []VerifyV2Entity ListEntity(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all Entities for a Service.
 
 Retrieve a list of all Entities for a Service.
 

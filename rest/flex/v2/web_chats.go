@@ -21,6 +21,8 @@ import (
 
 // Optional parameters for the method 'CreateWebChannel'
 type CreateWebChannelParams struct {
+	// The Ui-Version HTTP request header
+	UiVersion *string `json:"Ui-Version,omitempty"`
 	// The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
 	AddressSid *string `json:"AddressSid,omitempty"`
 	// The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
@@ -31,6 +33,10 @@ type CreateWebChannelParams struct {
 	PreEngagementData *string `json:"PreEngagementData,omitempty"`
 }
 
+func (params *CreateWebChannelParams) SetUiVersion(UiVersion string) *CreateWebChannelParams {
+	params.UiVersion = &UiVersion
+	return params
+}
 func (params *CreateWebChannelParams) SetAddressSid(AddressSid string) *CreateWebChannelParams {
 	params.AddressSid = &AddressSid
 	return params
@@ -53,7 +59,9 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2We
 	path := "/v2/WebChats"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
@@ -68,6 +76,9 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2We
 		data.Set("PreEngagementData", *params.PreEngagementData)
 	}
 
+	if params != nil && params.UiVersion != nil {
+		headers["Ui-Version"] = *params.UiVersion
+	}
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err

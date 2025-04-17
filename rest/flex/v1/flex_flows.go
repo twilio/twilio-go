@@ -135,7 +135,9 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -144,7 +146,7 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 		data.Set("ChatServiceSid", *params.ChatServiceSid)
 	}
 	if params != nil && params.ChannelType != nil {
-		data.Set("ChannelType", *params.ChannelType)
+		data.Set("ChannelType", fmt.Sprint(*params.ChannelType))
 	}
 	if params != nil && params.ContactIdentity != nil {
 		data.Set("ContactIdentity", *params.ContactIdentity)
@@ -153,7 +155,7 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 	if params != nil && params.IntegrationType != nil {
-		data.Set("IntegrationType", *params.IntegrationType)
+		data.Set("IntegrationType", fmt.Sprint(*params.IntegrationType))
 	}
 	if params != nil && params.IntegrationFlowSid != nil {
 		data.Set("Integration.FlowSid", *params.IntegrationFlowSid)
@@ -210,7 +212,9 @@ func (c *ApiService) DeleteFlexFlow(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -228,7 +232,9 @@ func (c *ApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -273,7 +279,9 @@ func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken, pageNum
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -503,7 +511,9 @@ func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -512,7 +522,7 @@ func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*
 		data.Set("ChatServiceSid", *params.ChatServiceSid)
 	}
 	if params != nil && params.ChannelType != nil {
-		data.Set("ChannelType", *params.ChannelType)
+		data.Set("ChannelType", fmt.Sprint(*params.ChannelType))
 	}
 	if params != nil && params.ContactIdentity != nil {
 		data.Set("ContactIdentity", *params.ContactIdentity)
@@ -521,7 +531,7 @@ func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 	if params != nil && params.IntegrationType != nil {
-		data.Set("IntegrationType", *params.IntegrationType)
+		data.Set("IntegrationType", fmt.Sprint(*params.IntegrationType))
 	}
 	if params != nil && params.IntegrationFlowSid != nil {
 		data.Set("Integration.FlowSid", *params.IntegrationFlowSid)

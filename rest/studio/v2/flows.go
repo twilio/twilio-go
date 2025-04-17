@@ -30,7 +30,7 @@ type CreateFlowParams struct {
 	//
 	Status *string `json:"Status,omitempty"`
 	// JSON representation of flow definition.
-	Definition *interface{} `json:"Definition,omitempty"`
+	Definition *map[string]interface{} `json:"Definition,omitempty"`
 	// Description of change made in the revision.
 	CommitMessage *string `json:"CommitMessage,omitempty"`
 }
@@ -43,7 +43,7 @@ func (params *CreateFlowParams) SetStatus(Status string) *CreateFlowParams {
 	params.Status = &Status
 	return params
 }
-func (params *CreateFlowParams) SetDefinition(Definition interface{}) *CreateFlowParams {
+func (params *CreateFlowParams) SetDefinition(Definition map[string]interface{}) *CreateFlowParams {
 	params.Definition = &Definition
 	return params
 }
@@ -57,13 +57,15 @@ func (c *ApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow, error)
 	path := "/v2/Flows"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Definition != nil {
 		v, err := json.Marshal(params.Definition)
@@ -99,7 +101,9 @@ func (c *ApiService) DeleteFlow(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -117,7 +121,9 @@ func (c *ApiService) FetchFlow(Sid string) (*StudioV2Flow, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -156,7 +162,9 @@ func (c *ApiService) PageFlow(params *ListFlowParams, pageToken, pageNumber stri
 	path := "/v2/Flows"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -277,7 +285,7 @@ type UpdateFlowParams struct {
 	// The string that you assigned to describe the Flow.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// JSON representation of flow definition.
-	Definition *interface{} `json:"Definition,omitempty"`
+	Definition *map[string]interface{} `json:"Definition,omitempty"`
 	// Description of change made in the revision.
 	CommitMessage *string `json:"CommitMessage,omitempty"`
 }
@@ -290,7 +298,7 @@ func (params *UpdateFlowParams) SetFriendlyName(FriendlyName string) *UpdateFlow
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateFlowParams) SetDefinition(Definition interface{}) *UpdateFlowParams {
+func (params *UpdateFlowParams) SetDefinition(Definition map[string]interface{}) *UpdateFlowParams {
 	params.Definition = &Definition
 	return params
 }
@@ -305,10 +313,12 @@ func (c *ApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*StudioV2
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)

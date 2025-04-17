@@ -4,10 +4,10 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#CreateAuthorizationDocument) | **Post** /v2/HostedNumber/AuthorizationDocuments | 
-[**DeleteAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#DeleteAuthorizationDocument) | **Delete** /v2/HostedNumber/AuthorizationDocuments/{Sid} | 
-[**FetchAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#FetchAuthorizationDocument) | **Get** /v2/HostedNumber/AuthorizationDocuments/{Sid} | 
-[**ListAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#ListAuthorizationDocument) | **Get** /v2/HostedNumber/AuthorizationDocuments | 
+[**CreateAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#CreateAuthorizationDocument) | **Post** /v2/HostedNumber/AuthorizationDocuments | Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio&#39;s platform.
+[**DeleteAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#DeleteAuthorizationDocument) | **Delete** /v2/HostedNumber/AuthorizationDocuments/{Sid} | Cancel the AuthorizationDocument request.
+[**FetchAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#FetchAuthorizationDocument) | **Get** /v2/HostedNumber/AuthorizationDocuments/{Sid} | Fetch a specific AuthorizationDocument.
+[**ListAuthorizationDocument**](HostedNumberAuthorizationDocumentsApi.md#ListAuthorizationDocument) | **Get** /v2/HostedNumber/AuthorizationDocuments | Retrieve a list of AuthorizationDocuments belonging to the account initiating the request.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > NumbersV2AuthorizationDocument CreateAuthorizationDocument(ctx, optional)
 
-
+Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio's platform.
 
 Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio's platform.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteAuthorizationDocument(ctx, Sid)
 
-
+Cancel the AuthorizationDocument request.
 
 Cancel the AuthorizationDocument request.
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > NumbersV2AuthorizationDocument FetchAuthorizationDocument(ctx, Sid)
 
-
+Fetch a specific AuthorizationDocument.
 
 Fetch a specific AuthorizationDocument.
 
@@ -143,7 +143,7 @@ Name | Type | Description
 
 > []NumbersV2AuthorizationDocument ListAuthorizationDocument(ctx, optional)
 
-
+Retrieve a list of AuthorizationDocuments belonging to the account initiating the request.
 
 Retrieve a list of AuthorizationDocuments belonging to the account initiating the request.
 
@@ -159,7 +159,7 @@ Other parameters are passed through a pointer to a ListAuthorizationDocumentPara
 Name | Type | Description
 ------------- | ------------- | -------------
 **Email** | **string** | Email that this AuthorizationDocument will be sent to for signing.
-**Status** | **string** | Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
+**Status** | [**string**](stringstring.md) | Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

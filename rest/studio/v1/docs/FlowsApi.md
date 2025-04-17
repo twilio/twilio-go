@@ -4,9 +4,9 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteFlow**](FlowsApi.md#DeleteFlow) | **Delete** /v1/Flows/{Sid} | 
-[**FetchFlow**](FlowsApi.md#FetchFlow) | **Get** /v1/Flows/{Sid} | 
-[**ListFlow**](FlowsApi.md#ListFlow) | **Get** /v1/Flows | 
+[**DeleteFlow**](FlowsApi.md#DeleteFlow) | **Delete** /v1/Flows/{Sid} | Delete a specific Flow.
+[**FetchFlow**](FlowsApi.md#FetchFlow) | **Get** /v1/Flows/{Sid} | Retrieve a specific Flow.
+[**ListFlow**](FlowsApi.md#ListFlow) | **Get** /v1/Flows | Retrieve a list of all Flows.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > DeleteFlow(ctx, Sid)
 
-
+Delete a specific Flow.
 
 Delete a specific Flow.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > StudioV1Flow FetchFlow(ctx, Sid)
 
-
+Retrieve a specific Flow.
 
 Retrieve a specific Flow.
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 > []StudioV1Flow ListFlow(ctx, optional)
 
-
+Retrieve a list of all Flows.
 
 Retrieve a list of all Flows.
 

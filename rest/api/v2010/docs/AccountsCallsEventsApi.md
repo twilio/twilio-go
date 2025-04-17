@@ -4,7 +4,7 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListCallEvent**](AccountsCallsEventsApi.md#ListCallEvent) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json | 
+[**ListCallEvent**](AccountsCallsEventsApi.md#ListCallEvent) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json | Retrieve a list of all events for a call.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []ApiV2010CallEvent ListCallEvent(ctx, CallSidoptional)
 
-
+Retrieve a list of all events for a call.
 
 Retrieve a list of all events for a call.
 

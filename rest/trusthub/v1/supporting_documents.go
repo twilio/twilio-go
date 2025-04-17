@@ -30,7 +30,7 @@ type CreateSupportingDocumentParams struct {
 	// The type of the Supporting Document.
 	Type *string `json:"Type,omitempty"`
 	// The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
-	Attributes *interface{} `json:"Attributes,omitempty"`
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
 }
 
 func (params *CreateSupportingDocumentParams) SetFriendlyName(FriendlyName string) *CreateSupportingDocumentParams {
@@ -41,7 +41,7 @@ func (params *CreateSupportingDocumentParams) SetType(Type string) *CreateSuppor
 	params.Type = &Type
 	return params
 }
-func (params *CreateSupportingDocumentParams) SetAttributes(Attributes interface{}) *CreateSupportingDocumentParams {
+func (params *CreateSupportingDocumentParams) SetAttributes(Attributes map[string]interface{}) *CreateSupportingDocumentParams {
 	params.Attributes = &Attributes
 	return params
 }
@@ -51,7 +51,9 @@ func (c *ApiService) CreateSupportingDocument(params *CreateSupportingDocumentPa
 	path := "/v1/SupportingDocuments"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -90,7 +92,9 @@ func (c *ApiService) DeleteSupportingDocument(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -108,7 +112,9 @@ func (c *ApiService) FetchSupportingDocument(Sid string) (*TrusthubV1SupportingD
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -147,7 +153,9 @@ func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams
 	path := "/v1/SupportingDocuments"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -266,14 +274,14 @@ type UpdateSupportingDocumentParams struct {
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
-	Attributes *interface{} `json:"Attributes,omitempty"`
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
 }
 
 func (params *UpdateSupportingDocumentParams) SetFriendlyName(FriendlyName string) *UpdateSupportingDocumentParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateSupportingDocumentParams) SetAttributes(Attributes interface{}) *UpdateSupportingDocumentParams {
+func (params *UpdateSupportingDocumentParams) SetAttributes(Attributes map[string]interface{}) *UpdateSupportingDocumentParams {
 	params.Attributes = &Attributes
 	return params
 }
@@ -284,7 +292,9 @@ func (c *ApiService) UpdateSupportingDocument(Sid string, params *UpdateSupporti
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)

@@ -42,7 +42,7 @@ type CreatePaymentsParams struct {
 	// A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
 	MinPostalCodeLength *int `json:"MinPostalCodeLength,omitempty"`
 	// A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
-	Parameter *interface{} `json:"Parameter,omitempty"`
+	Parameter *map[string]interface{} `json:"Parameter,omitempty"`
 	// This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
 	PaymentConnector *string `json:"PaymentConnector,omitempty"`
 	//
@@ -95,7 +95,7 @@ func (params *CreatePaymentsParams) SetMinPostalCodeLength(MinPostalCodeLength i
 	params.MinPostalCodeLength = &MinPostalCodeLength
 	return params
 }
-func (params *CreatePaymentsParams) SetParameter(Parameter interface{}) *CreatePaymentsParams {
+func (params *CreatePaymentsParams) SetParameter(Parameter map[string]interface{}) *CreatePaymentsParams {
 	params.Parameter = &Parameter
 	return params
 }
@@ -139,7 +139,9 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.IdempotencyKey != nil {
 		data.Set("IdempotencyKey", *params.IdempotencyKey)
@@ -148,7 +150,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.BankAccountType != nil {
-		data.Set("BankAccountType", *params.BankAccountType)
+		data.Set("BankAccountType", fmt.Sprint(*params.BankAccountType))
 	}
 	if params != nil && params.ChargeAmount != nil {
 		data.Set("ChargeAmount", fmt.Sprint(*params.ChargeAmount))
@@ -178,7 +180,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 		data.Set("PaymentConnector", *params.PaymentConnector)
 	}
 	if params != nil && params.PaymentMethod != nil {
-		data.Set("PaymentMethod", *params.PaymentMethod)
+		data.Set("PaymentMethod", fmt.Sprint(*params.PaymentMethod))
 	}
 	if params != nil && params.PostalCode != nil {
 		data.Set("PostalCode", fmt.Sprint(*params.PostalCode))
@@ -190,7 +192,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 		data.Set("Timeout", fmt.Sprint(*params.Timeout))
 	}
 	if params != nil && params.TokenType != nil {
-		data.Set("TokenType", *params.TokenType)
+		data.Set("TokenType", fmt.Sprint(*params.TokenType))
 	}
 	if params != nil && params.ValidCardTypes != nil {
 		data.Set("ValidCardTypes", *params.ValidCardTypes)
@@ -258,7 +260,9 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.IdempotencyKey != nil {
 		data.Set("IdempotencyKey", *params.IdempotencyKey)
@@ -267,10 +271,10 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.Capture != nil {
-		data.Set("Capture", *params.Capture)
+		data.Set("Capture", fmt.Sprint(*params.Capture))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

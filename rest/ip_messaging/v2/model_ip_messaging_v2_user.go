@@ -31,7 +31,7 @@ type IpMessagingV2User struct {
 	IsNotifiable        *bool                   `json:"is_notifiable,omitempty"`
 	DateCreated         *time.Time              `json:"date_created,omitempty"`
 	DateUpdated         *time.Time              `json:"date_updated,omitempty"`
-	JoinedChannelsCount *int                    `json:"joined_channels_count,omitempty"`
+	JoinedChannelsCount int                     `json:"joined_channels_count,omitempty"`
 	Links               *map[string]interface{} `json:"links,omitempty"`
 	Url                 *string                 `json:"url,omitempty"`
 }

@@ -4,11 +4,11 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateService**](ServicesApi.md#CreateService) | **Post** /v2/Services | 
-[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v2/Services/{Sid} | 
-[**FetchService**](ServicesApi.md#FetchService) | **Get** /v2/Services/{Sid} | 
-[**ListService**](ServicesApi.md#ListService) | **Get** /v2/Services | 
-[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v2/Services/{Sid} | 
+[**CreateService**](ServicesApi.md#CreateService) | **Post** /v2/Services | Create a new Service for the given Account
+[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v2/Services/{Sid} | Delete a specific Service.
+[**FetchService**](ServicesApi.md#FetchService) | **Get** /v2/Services/{Sid} | Fetch a specific Service.
+[**ListService**](ServicesApi.md#ListService) | **Get** /v2/Services | Retrieves a list of all Services for an account.
+[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v2/Services/{Sid} | Update a specific Service.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > IntelligenceV2Service CreateService(ctx, optional)
 
-
+Create a new Service for the given Account
 
 Create a new Service for the given Account
 
@@ -35,11 +35,11 @@ Name | Type | Description
 **AutoTranscribe** | **bool** | Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
 **DataLogging** | **bool** | Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
 **FriendlyName** | **string** | A human readable description of this resource, up to 64 characters.
-**LanguageCode** | **string** | The default language code of the audio.
+**LanguageCode** | **string** | The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it's set.
 **AutoRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
 **MediaRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
 **WebhookUrl** | **string** | The URL Twilio will request when executing the Webhook.
-**WebhookHttpMethod** | **string** | 
+**WebhookHttpMethod** | [**string**](string.md) | 
 
 ### Return type
 
@@ -63,7 +63,7 @@ Name | Type | Description
 
 > DeleteService(ctx, Sid)
 
-
+Delete a specific Service.
 
 Delete a specific Service.
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 > IntelligenceV2Service FetchService(ctx, Sid)
 
-
+Fetch a specific Service.
 
 Fetch a specific Service.
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []IntelligenceV2Service ListService(ctx, optional)
 
-
+Retrieves a list of all Services for an account.
 
 Retrieves a list of all Services for an account.
 
@@ -187,7 +187,7 @@ Name | Type | Description
 
 > IntelligenceV2Service UpdateService(ctx, Sidoptional)
 
-
+Update a specific Service.
 
 Update a specific Service.
 
@@ -210,12 +210,11 @@ Name | Type | Description
 **AutoTranscribe** | **bool** | Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
 **DataLogging** | **bool** | Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
 **FriendlyName** | **string** | A human readable description of this resource, up to 64 characters.
-**LanguageCode** | **string** | The default language code of the audio.
 **UniqueName** | **string** | Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
 **AutoRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
 **MediaRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
 **WebhookUrl** | **string** | The URL Twilio will request when executing the Webhook.
-**WebhookHttpMethod** | **string** | 
+**WebhookHttpMethod** | [**string**](string.md) | 
 
 ### Return type
 

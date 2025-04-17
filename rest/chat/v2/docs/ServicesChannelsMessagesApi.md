@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a CreateMessageParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **From** | **string** | The [Identity](https://www.twilio.com/docs/chat/identity) of the new message's author. The default value is `system`.
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
 **DateCreated** | **time.Time** | The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.
@@ -88,7 +88,7 @@ Other parameters are passed through a pointer to a DeleteMessageParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -176,7 +176,7 @@ Other parameters are passed through a pointer to a ListMessageParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Order** | **string** | The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
+**Order** | [**string**](stringstring.md) | The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -223,7 +223,7 @@ Other parameters are passed through a pointer to a UpdateMessageParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Body** | **string** | The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
 **DateCreated** | **time.Time** | The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.

@@ -4,7 +4,7 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateToken**](AccountsTokensApi.md#CreateToken) | **Post** /2010-04-01/Accounts/{AccountSid}/Tokens.json | 
+[**CreateToken**](AccountsTokensApi.md#CreateToken) | **Post** /2010-04-01/Accounts/{AccountSid}/Tokens.json | Create a new token for ICE servers
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ApiV2010Token CreateToken(ctx, optional)
 
-
+Create a new token for ICE servers
 
 Create a new token for ICE servers
 

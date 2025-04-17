@@ -14,15 +14,15 @@ Name | Type | Description | Notes
 **DefaultChannelCreatorRoleSid** | Pointer to **string** |  |
 **ReadStatusEnabled** | Pointer to **bool** |  |
 **ReachabilityEnabled** | Pointer to **bool** |  |
-**TypingIndicatorTimeout** | Pointer to **int** |  |
-**ConsumptionReportInterval** | Pointer to **int** |  |
-**Limits** | Pointer to **interface{}** |  |
-**Webhooks** | Pointer to **interface{}** |  |
+**TypingIndicatorTimeout** | **int** |  |[optional] [default to 0]
+**ConsumptionReportInterval** | **int** |  |[optional] [default to 0]
+**Limits** | Pointer to **map[string]interface{}** |  |
+**Webhooks** | Pointer to **map[string]interface{}** |  |
 **PreWebhookUrl** | Pointer to **string** |  |
 **PostWebhookUrl** | Pointer to **string** |  |
 **WebhookMethod** | Pointer to **string** |  |
 **WebhookFilters** | Pointer to **[]string** |  |
-**Notifications** | Pointer to **interface{}** |  |
+**Notifications** | Pointer to **map[string]interface{}** |  |
 **Url** | Pointer to **string** |  |
 **Links** | Pointer to **map[string]interface{}** |  |
 

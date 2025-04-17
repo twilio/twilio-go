@@ -23,13 +23,13 @@ type TaskrouterV1WorkerChannel struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The total number of Tasks assigned to Worker for the TaskChannel type.
-	AssignedTasks *int `json:"assigned_tasks,omitempty"`
+	AssignedTasks int `json:"assigned_tasks,omitempty"`
 	// Whether the Worker should receive Tasks of the TaskChannel type.
 	Available *bool `json:"available,omitempty"`
 	// The current percentage of capacity the TaskChannel has available. Can be a number between `0` and `100`. A value of `0` indicates that TaskChannel has no capacity available and a value of `100` means the  Worker is available to receive any Tasks of this TaskChannel type.
-	AvailableCapacityPercentage *int `json:"available_capacity_percentage,omitempty"`
+	AvailableCapacityPercentage int `json:"available_capacity_percentage,omitempty"`
 	// The current configured capacity for the WorkerChannel. TaskRouter will not create any reservations after the assigned Tasks for the Worker reaches the value.
-	ConfiguredCapacity *int `json:"configured_capacity,omitempty"`
+	ConfiguredCapacity int `json:"configured_capacity,omitempty"`
 	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.

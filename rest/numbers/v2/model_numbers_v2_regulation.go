@@ -26,7 +26,7 @@ type NumbersV2Regulation struct {
 	NumberType  *string `json:"number_type,omitempty"`
 	EndUserType *string `json:"end_user_type,omitempty"`
 	// The SID of an object that holds the regulatory information of the phone number country, phone number type, and end user type.
-	Requirements *interface{} `json:"requirements,omitempty"`
+	Requirements *map[string]interface{} `json:"requirements,omitempty"`
 	// The absolute URL of the Regulation resource.
 	Url *string `json:"url,omitempty"`
 }

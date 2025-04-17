@@ -14,17 +14,17 @@ Name | Type | Description | Notes
 **DefaultChannelCreatorRoleSid** | Pointer to **string** |  |
 **ReadStatusEnabled** | Pointer to **bool** |  |
 **ReachabilityEnabled** | Pointer to **bool** |  |
-**TypingIndicatorTimeout** | Pointer to **int** |  |
-**ConsumptionReportInterval** | Pointer to **int** |  |
-**Limits** | Pointer to **interface{}** |  |
+**TypingIndicatorTimeout** | **int** |  |[optional] [default to 0]
+**ConsumptionReportInterval** | **int** |  |[optional] [default to 0]
+**Limits** | Pointer to **map[string]interface{}** |  |
 **PreWebhookUrl** | Pointer to **string** |  |
 **PostWebhookUrl** | Pointer to **string** |  |
 **WebhookMethod** | Pointer to **string** |  |
 **WebhookFilters** | Pointer to **[]string** |  |
-**PreWebhookRetryCount** | Pointer to **int** |  |
-**PostWebhookRetryCount** | Pointer to **int** |  |
-**Notifications** | Pointer to **interface{}** |  |
-**Media** | Pointer to **interface{}** |  |
+**PreWebhookRetryCount** | **int** |  |[optional] [default to 0]
+**PostWebhookRetryCount** | **int** |  |[optional] [default to 0]
+**Notifications** | Pointer to **map[string]interface{}** |  |
+**Media** | Pointer to **map[string]interface{}** |  |
 **Url** | Pointer to **string** |  |
 **Links** | Pointer to **map[string]interface{}** |  |
 

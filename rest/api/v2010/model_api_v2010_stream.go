@@ -22,7 +22,7 @@ type ApiV2010Stream struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
 	CallSid *string `json:"call_sid,omitempty"`
-	// The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+	// The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
 	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.

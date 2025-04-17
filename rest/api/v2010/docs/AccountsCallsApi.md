@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCall**](AccountsCallsApi.md#CreateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls.json | 
-[**DeleteCall**](AccountsCallsApi.md#DeleteCall) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | 
-[**FetchCall**](AccountsCallsApi.md#FetchCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | 
-[**ListCall**](AccountsCallsApi.md#ListCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls.json | 
-[**UpdateCall**](AccountsCallsApi.md#UpdateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | 
+[**CreateCall**](AccountsCallsApi.md#CreateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls.json | Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
+[**DeleteCall**](AccountsCallsApi.md#DeleteCall) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
+[**FetchCall**](AccountsCallsApi.md#FetchCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | Fetch the call specified by the provided Call SID
+[**ListCall**](AccountsCallsApi.md#ListCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls.json | Retrieves a collection of calls made to and from your account
+[**UpdateCall**](AccountsCallsApi.md#UpdateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | Initiates a call redirect or terminates a call
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010Call CreateCall(ctx, optional)
 
-
+Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
 
 Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
 
@@ -90,7 +90,7 @@ Name | Type | Description
 
 > DeleteCall(ctx, Sidoptional)
 
-
+Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
 
 Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
 
@@ -133,7 +133,7 @@ Name | Type | Description
 
 > ApiV2010Call FetchCall(ctx, Sidoptional)
 
-
+Fetch the call specified by the provided Call SID
 
 Fetch the call specified by the provided Call SID
 
@@ -176,7 +176,7 @@ Name | Type | Description
 
 > []ApiV2010Call ListCall(ctx, optional)
 
-
+Retrieves a collection of calls made to and from your account
 
 Retrieves a collection of calls made to and from your account
 
@@ -195,13 +195,13 @@ Name | Type | Description
 **To** | **string** | Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
 **From** | **string** | Only include calls from this phone number, SIP address, Client identifier or SIM SID.
 **ParentCallSid** | **string** | Only include calls spawned by calls with this SID.
-**Status** | **string** | The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
-**StartTime** | **time.Time** | Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-**StartTimeBefore** | **time.Time** | Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-**StartTimeAfter** | **time.Time** | Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-**EndTime** | **time.Time** | Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-**EndTimeBefore** | **time.Time** | Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-**EndTimeAfter** | **time.Time** | Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+**Status** | [**string**](stringstring.md) | The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+**StartTime** | **time.Time** | Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+**StartTimeBefore** | **time.Time** | Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+**StartTimeAfter** | **time.Time** | Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+**EndTime** | **time.Time** | Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+**EndTimeBefore** | **time.Time** | Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+**EndTimeAfter** | **time.Time** | Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -227,7 +227,7 @@ Name | Type | Description
 
 > ApiV2010Call UpdateCall(ctx, Sidoptional)
 
-
+Initiates a call redirect or terminates a call
 
 Initiates a call redirect or terminates a call
 
@@ -249,7 +249,7 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.
 **Url** | **string** | The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
 **Method** | **string** | The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **FallbackUrl** | **string** | The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
 **FallbackMethod** | **string** | The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 **StatusCallback** | **string** | The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).

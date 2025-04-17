@@ -20,13 +20,59 @@ import (
 	"strings"
 )
 
+// Optional parameters for the method 'CreateBulkEligibility'
+type CreateBulkEligibilityParams struct {
+	//
+	Body *map[string]interface{} `json:"body,omitempty"`
+}
+
+func (params *CreateBulkEligibilityParams) SetBody(Body map[string]interface{}) *CreateBulkEligibilityParams {
+	params.Body = &Body
+	return params
+}
+
+// Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
+func (c *ApiService) CreateBulkEligibility(params *CreateBulkEligibilityParams) (*NumbersV1BulkEligibility, error) {
+	path := "/v1/HostedNumber/Eligibility/Bulk"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1BulkEligibility{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
 // Fetch an eligibility bulk check that you requested to host in Twilio.
 func (c *ApiService) FetchBulkEligibility(RequestId string) (*NumbersV1BulkEligibility, error) {
 	path := "/v1/HostedNumber/Eligibility/Bulk/{RequestId}"
 	path = strings.Replace(path, "{"+"RequestId"+"}", RequestId, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

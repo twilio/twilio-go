@@ -9,7 +9,8 @@ Name | Type | Description | Notes
 **FlowSid** | Pointer to **string** | The SID of the Flow. |
 **EngagementSid** | Pointer to **string** | The SID of the Engagement. |
 **Name** | Pointer to **string** | The event that caused the Flow to transition to the Step. |
-**Context** | Pointer to **interface{}** | The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution. |
+**Context** | Pointer to **map[string]interface{}** | The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution. |
+**ParentStepSid** | Pointer to **string** | The SID of the parent Step. |
 **TransitionedFrom** | Pointer to **string** | The Widget that preceded the Widget for the Step. |
 **TransitionedTo** | Pointer to **string** | The Widget that will follow the Widget for the Step. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |

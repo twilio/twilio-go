@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateUsageTrigger**](AccountsUsageTriggersApi.md#CreateUsageTrigger) | **Post** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json | 
+[**CreateUsageTrigger**](AccountsUsageTriggersApi.md#CreateUsageTrigger) | **Post** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json | Create a new UsageTrigger
 [**DeleteUsageTrigger**](AccountsUsageTriggersApi.md#DeleteUsageTrigger) | **Delete** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | 
-[**FetchUsageTrigger**](AccountsUsageTriggersApi.md#FetchUsageTrigger) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | 
-[**ListUsageTrigger**](AccountsUsageTriggersApi.md#ListUsageTrigger) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json | 
-[**UpdateUsageTrigger**](AccountsUsageTriggersApi.md#UpdateUsageTrigger) | **Post** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | 
+[**FetchUsageTrigger**](AccountsUsageTriggersApi.md#FetchUsageTrigger) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | Fetch and instance of a usage-trigger
+[**ListUsageTrigger**](AccountsUsageTriggersApi.md#ListUsageTrigger) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json | Retrieve a list of usage-triggers belonging to the account used to make the request
+[**UpdateUsageTrigger**](AccountsUsageTriggersApi.md#UpdateUsageTrigger) | **Post** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | Update an instance of a usage trigger
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010UsageTrigger CreateUsageTrigger(ctx, optional)
 
-
+Create a new UsageTrigger
 
 Create a new UsageTrigger
 
@@ -34,11 +34,11 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 **CallbackUrl** | **string** | The URL we should call using `callback_method` when the trigger fires.
 **TriggerValue** | **string** | The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
-**UsageCategory** | **string** | 
+**UsageCategory** | [**string**](string.md) | 
 **CallbackMethod** | **string** | The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-**Recurring** | **string** | 
-**TriggerBy** | **string** | 
+**Recurring** | [**string**](string.md) | 
+**TriggerBy** | [**string**](string.md) | 
 
 ### Return type
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 > ApiV2010UsageTrigger FetchUsageTrigger(ctx, Sidoptional)
 
-
+Fetch and instance of a usage-trigger
 
 Fetch and instance of a usage-trigger
 
@@ -148,7 +148,7 @@ Name | Type | Description
 
 > []ApiV2010UsageTrigger ListUsageTrigger(ctx, optional)
 
-
+Retrieve a list of usage-triggers belonging to the account used to make the request
 
 Retrieve a list of usage-triggers belonging to the account used to make the request
 
@@ -164,9 +164,9 @@ Other parameters are passed through a pointer to a ListUsageTriggerParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read.
-**Recurring** | **string** | The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-**TriggerBy** | **string** | The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-**UsageCategory** | **string** | The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+**Recurring** | [**string**](stringstring.md) | The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+**TriggerBy** | [**string**](stringstring.md) | The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+**UsageCategory** | [**string**](stringstring.md) | The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -192,7 +192,7 @@ Name | Type | Description
 
 > ApiV2010UsageTrigger UpdateUsageTrigger(ctx, Sidoptional)
 
-
+Update an instance of a usage trigger
 
 Update an instance of a usage trigger
 

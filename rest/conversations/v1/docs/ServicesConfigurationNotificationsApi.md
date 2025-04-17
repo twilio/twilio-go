@@ -4,8 +4,8 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchServiceNotification**](ServicesConfigurationNotificationsApi.md#FetchServiceNotification) | **Get** /v1/Services/{ChatServiceSid}/Configuration/Notifications | 
-[**UpdateServiceNotification**](ServicesConfigurationNotificationsApi.md#UpdateServiceNotification) | **Post** /v1/Services/{ChatServiceSid}/Configuration/Notifications | 
+[**FetchServiceNotification**](ServicesConfigurationNotificationsApi.md#FetchServiceNotification) | **Get** /v1/Services/{ChatServiceSid}/Configuration/Notifications | Fetch push notification service settings
+[**UpdateServiceNotification**](ServicesConfigurationNotificationsApi.md#UpdateServiceNotification) | **Post** /v1/Services/{ChatServiceSid}/Configuration/Notifications | Update push notification service settings
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ServiceNotification FetchServiceNotification(ctx, ChatServiceSid)
 
-
+Fetch push notification service settings
 
 Fetch push notification service settings
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceNotification UpdateServiceNotification(ctx, ChatServiceSidoptional)
 
-
+Update push notification service settings
 
 Update push notification service settings
 

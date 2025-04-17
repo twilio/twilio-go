@@ -30,7 +30,9 @@ func (c *ApiService) FetchInteractionChannel(InteractionSid string, Sid string) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -71,7 +73,9 @@ func (c *ApiService) PageInteractionChannel(InteractionSid string, params *ListI
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -190,14 +194,14 @@ type UpdateInteractionChannelParams struct {
 	//
 	Status *string `json:"Status,omitempty"`
 	// It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`.
-	Routing *interface{} `json:"Routing,omitempty"`
+	Routing *map[string]interface{} `json:"Routing,omitempty"`
 }
 
 func (params *UpdateInteractionChannelParams) SetStatus(Status string) *UpdateInteractionChannelParams {
 	params.Status = &Status
 	return params
 }
-func (params *UpdateInteractionChannelParams) SetRouting(Routing interface{}) *UpdateInteractionChannelParams {
+func (params *UpdateInteractionChannelParams) SetRouting(Routing map[string]interface{}) *UpdateInteractionChannelParams {
 	params.Routing = &Routing
 	return params
 }
@@ -209,10 +213,12 @@ func (c *ApiService) UpdateInteractionChannel(InteractionSid string, Sid string,
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Routing != nil {
 		v, err := json.Marshal(params.Routing)

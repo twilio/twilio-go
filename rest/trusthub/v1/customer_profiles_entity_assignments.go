@@ -40,7 +40,9 @@ func (c *ApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid st
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.ObjectSid != nil {
 		data.Set("ObjectSid", *params.ObjectSid)
@@ -68,7 +70,9 @@ func (c *ApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -87,7 +91,9 @@ func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -106,12 +112,18 @@ func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid str
 
 // Optional parameters for the method 'ListCustomerProfileEntityAssignment'
 type ListCustomerProfileEntityAssignmentParams struct {
+	// A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
+	ObjectType *string `json:"ObjectType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
+func (params *ListCustomerProfileEntityAssignmentParams) SetObjectType(ObjectType string) *ListCustomerProfileEntityAssignmentParams {
+	params.ObjectType = &ObjectType
+	return params
+}
 func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize int) *ListCustomerProfileEntityAssignmentParams {
 	params.PageSize = &PageSize
 	return params
@@ -128,8 +140,13 @@ func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid stri
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
+	if params != nil && params.ObjectType != nil {
+		data.Set("ObjectType", *params.ObjectType)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}

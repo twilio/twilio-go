@@ -30,7 +30,9 @@ func (c *ApiService) FetchVerificationAttempt(Sid string) (*VerifyV2Verification
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -117,7 +119,9 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 	path := "/v2/Attempts"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.DateCreatedAfter != nil {
 		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
@@ -132,7 +136,7 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 		data.Set("Country", *params.Country)
 	}
 	if params != nil && params.Channel != nil {
-		data.Set("Channel", *params.Channel)
+		data.Set("Channel", fmt.Sprint(*params.Channel))
 	}
 	if params != nil && params.VerifyServiceSid != nil {
 		data.Set("VerifyServiceSid", *params.VerifyServiceSid)
@@ -141,7 +145,7 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 		data.Set("VerificationSid", *params.VerificationSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

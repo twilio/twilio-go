@@ -4,11 +4,11 @@ All URIs are relative to *https://proxy.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateShortCode**](ServicesShortCodesApi.md#CreateShortCode) | **Post** /v1/Services/{ServiceSid}/ShortCodes | 
-[**DeleteShortCode**](ServicesShortCodesApi.md#DeleteShortCode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
-[**FetchShortCode**](ServicesShortCodesApi.md#FetchShortCode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
-[**ListShortCode**](ServicesShortCodesApi.md#ListShortCode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | 
-[**UpdateShortCode**](ServicesShortCodesApi.md#UpdateShortCode) | **Post** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
+[**CreateShortCode**](ServicesShortCodesApi.md#CreateShortCode) | **Post** /v1/Services/{ServiceSid}/ShortCodes | Add a Short Code to the Proxy Number Pool for the Service.
+[**DeleteShortCode**](ServicesShortCodesApi.md#DeleteShortCode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | Delete a specific Short Code from a Service.
+[**FetchShortCode**](ServicesShortCodesApi.md#FetchShortCode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | Fetch a specific Short Code.
+[**ListShortCode**](ServicesShortCodesApi.md#ListShortCode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page.
+[**UpdateShortCode**](ServicesShortCodesApi.md#UpdateShortCode) | **Post** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | Update a specific Short Code.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ProxyV1ShortCode CreateShortCode(ctx, ServiceSidoptional)
 
-
+Add a Short Code to the Proxy Number Pool for the Service.
 
 Add a Short Code to the Proxy Number Pool for the Service.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteShortCode(ctx, ServiceSidSid)
 
-
+Delete a specific Short Code from a Service.
 
 Delete a specific Short Code from a Service.
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > ProxyV1ShortCode FetchShortCode(ctx, ServiceSidSid)
 
-
+Fetch a specific Short Code.
 
 Fetch a specific Short Code.
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > []ProxyV1ShortCode ListShortCode(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page.
 
 Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page.
 
@@ -189,7 +189,7 @@ Name | Type | Description
 
 > ProxyV1ShortCode UpdateShortCode(ctx, ServiceSidSidoptional)
 
-
+Update a specific Short Code.
 
 Update a specific Short Code.
 

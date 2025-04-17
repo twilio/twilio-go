@@ -4,11 +4,11 @@ All URIs are relative to *https://microvisor.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAccountConfig**](ConfigsApi.md#CreateAccountConfig) | **Post** /v1/Configs | 
-[**DeleteAccountConfig**](ConfigsApi.md#DeleteAccountConfig) | **Delete** /v1/Configs/{Key} | 
-[**FetchAccountConfig**](ConfigsApi.md#FetchAccountConfig) | **Get** /v1/Configs/{Key} | 
-[**ListAccountConfig**](ConfigsApi.md#ListAccountConfig) | **Get** /v1/Configs | 
-[**UpdateAccountConfig**](ConfigsApi.md#UpdateAccountConfig) | **Post** /v1/Configs/{Key} | 
+[**CreateAccountConfig**](ConfigsApi.md#CreateAccountConfig) | **Post** /v1/Configs | Create a config for an Account.
+[**DeleteAccountConfig**](ConfigsApi.md#DeleteAccountConfig) | **Delete** /v1/Configs/{Key} | Delete a config for an Account.
+[**FetchAccountConfig**](ConfigsApi.md#FetchAccountConfig) | **Get** /v1/Configs/{Key} | Retrieve a Config for an Account.
+[**ListAccountConfig**](ConfigsApi.md#ListAccountConfig) | **Get** /v1/Configs | Retrieve a list of all Configs for an Account.
+[**UpdateAccountConfig**](ConfigsApi.md#UpdateAccountConfig) | **Post** /v1/Configs/{Key} | Update a config for an Account.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > MicrovisorV1AccountConfig CreateAccountConfig(ctx, optional)
 
-
+Create a config for an Account.
 
 Create a config for an Account.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > DeleteAccountConfig(ctx, Key)
 
-
+Delete a config for an Account.
 
 Delete a config for an Account.
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 > MicrovisorV1AccountConfig FetchAccountConfig(ctx, Key)
 
-
+Retrieve a Config for an Account.
 
 Retrieve a Config for an Account.
 
@@ -140,7 +140,7 @@ Name | Type | Description
 
 > []MicrovisorV1AccountConfig ListAccountConfig(ctx, optional)
 
-
+Retrieve a list of all Configs for an Account.
 
 Retrieve a list of all Configs for an Account.
 
@@ -180,7 +180,7 @@ Name | Type | Description
 
 > MicrovisorV1AccountConfig UpdateAccountConfig(ctx, Keyoptional)
 
-
+Update a config for an Account.
 
 Update a config for an Account.
 

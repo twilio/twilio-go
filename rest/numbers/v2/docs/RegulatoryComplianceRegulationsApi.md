@@ -4,16 +4,16 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchRegulation**](RegulatoryComplianceRegulationsApi.md#FetchRegulation) | **Get** /v2/RegulatoryCompliance/Regulations/{Sid} | 
-[**ListRegulation**](RegulatoryComplianceRegulationsApi.md#ListRegulation) | **Get** /v2/RegulatoryCompliance/Regulations | 
+[**FetchRegulation**](RegulatoryComplianceRegulationsApi.md#FetchRegulation) | **Get** /v2/RegulatoryCompliance/Regulations/{Sid} | Fetch specific Regulation Instance.
+[**ListRegulation**](RegulatoryComplianceRegulationsApi.md#ListRegulation) | **Get** /v2/RegulatoryCompliance/Regulations | Retrieve a list of all Regulations.
 
 
 
 ## FetchRegulation
 
-> NumbersV2Regulation FetchRegulation(ctx, Sid)
+> NumbersV2Regulation FetchRegulation(ctx, Sidoptional)
 
-
+Fetch specific Regulation Instance.
 
 Fetch specific Regulation Instance.
 
@@ -32,6 +32,7 @@ Other parameters are passed through a pointer to a FetchRegulationParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**IncludeConstraints** | **bool** | A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 
 ### Return type
 
@@ -55,7 +56,7 @@ Name | Type | Description
 
 > []NumbersV2Regulation ListRegulation(ctx, optional)
 
-
+Retrieve a list of all Regulations.
 
 Retrieve a list of all Regulations.
 
@@ -70,9 +71,10 @@ Other parameters are passed through a pointer to a ListRegulationParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**EndUserType** | **string** | The type of End User the regulation requires - can be `individual` or `business`.
+**EndUserType** | [**string**](stringstring.md) | The type of End User the regulation requires - can be `individual` or `business`.
 **IsoCountry** | **string** | The ISO country code of the phone number's country.
 **NumberType** | **string** | The type of phone number that the regulatory requiremnt is restricting.
+**IncludeConstraints** | **bool** | A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

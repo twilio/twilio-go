@@ -28,15 +28,21 @@ type CreateInteractionChannelParticipantParams struct {
 	//
 	Type *string `json:"Type,omitempty"`
 	// JSON representing the Media Properties for the new Participant.
-	MediaProperties *interface{} `json:"MediaProperties,omitempty"`
+	MediaProperties *map[string]interface{} `json:"MediaProperties,omitempty"`
+	// Object representing the Routing Properties for the new Participant.
+	RoutingProperties *map[string]interface{} `json:"RoutingProperties,omitempty"`
 }
 
 func (params *CreateInteractionChannelParticipantParams) SetType(Type string) *CreateInteractionChannelParticipantParams {
 	params.Type = &Type
 	return params
 }
-func (params *CreateInteractionChannelParticipantParams) SetMediaProperties(MediaProperties interface{}) *CreateInteractionChannelParticipantParams {
+func (params *CreateInteractionChannelParticipantParams) SetMediaProperties(MediaProperties map[string]interface{}) *CreateInteractionChannelParticipantParams {
 	params.MediaProperties = &MediaProperties
+	return params
+}
+func (params *CreateInteractionChannelParticipantParams) SetRoutingProperties(RoutingProperties map[string]interface{}) *CreateInteractionChannelParticipantParams {
+	params.RoutingProperties = &RoutingProperties
 	return params
 }
 
@@ -47,10 +53,12 @@ func (c *ApiService) CreateInteractionChannelParticipant(InteractionSid string, 
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", fmt.Sprint(*params.Type))
 	}
 	if params != nil && params.MediaProperties != nil {
 		v, err := json.Marshal(params.MediaProperties)
@@ -60,6 +68,15 @@ func (c *ApiService) CreateInteractionChannelParticipant(InteractionSid string, 
 		}
 
 		data.Set("MediaProperties", string(v))
+	}
+	if params != nil && params.RoutingProperties != nil {
+		v, err := json.Marshal(params.RoutingProperties)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("RoutingProperties", string(v))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -102,7 +119,9 @@ func (c *ApiService) PageInteractionChannelParticipant(InteractionSid string, Ch
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -235,10 +254,12 @@ func (c *ApiService) UpdateInteractionChannelParticipant(InteractionSid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

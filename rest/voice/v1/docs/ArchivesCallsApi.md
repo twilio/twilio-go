@@ -4,7 +4,7 @@ All URIs are relative to *https://voice.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteArchivedCall**](ArchivesCallsApi.md#DeleteArchivedCall) | **Delete** /v1/Archives/{Date}/Calls/{Sid} | 
+[**DeleteArchivedCall**](ArchivesCallsApi.md#DeleteArchivedCall) | **Delete** /v1/Archives/{Date}/Calls/{Sid} | Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > DeleteArchivedCall(ctx, DateSid)
 
-
+Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API.
 
 Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API.
 

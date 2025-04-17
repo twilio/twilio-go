@@ -28,7 +28,7 @@ type CreateSinkParams struct {
 	// A human readable description for the Sink **This value should not contain PII.**
 	Description *string `json:"Description,omitempty"`
 	// The information required for Twilio to connect to the provided Sink encoded as JSON.
-	SinkConfiguration *interface{} `json:"SinkConfiguration,omitempty"`
+	SinkConfiguration *map[string]interface{} `json:"SinkConfiguration,omitempty"`
 	//
 	SinkType *string `json:"SinkType,omitempty"`
 }
@@ -37,7 +37,7 @@ func (params *CreateSinkParams) SetDescription(Description string) *CreateSinkPa
 	params.Description = &Description
 	return params
 }
-func (params *CreateSinkParams) SetSinkConfiguration(SinkConfiguration interface{}) *CreateSinkParams {
+func (params *CreateSinkParams) SetSinkConfiguration(SinkConfiguration map[string]interface{}) *CreateSinkParams {
 	params.SinkConfiguration = &SinkConfiguration
 	return params
 }
@@ -51,7 +51,9 @@ func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error)
 	path := "/v1/Sinks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
@@ -66,7 +68,7 @@ func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error)
 		data.Set("SinkConfiguration", string(v))
 	}
 	if params != nil && params.SinkType != nil {
-		data.Set("SinkType", *params.SinkType)
+		data.Set("SinkType", fmt.Sprint(*params.SinkType))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -90,7 +92,9 @@ func (c *ApiService) DeleteSink(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -108,7 +112,9 @@ func (c *ApiService) FetchSink(Sid string) (*EventsV1Sink, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -159,7 +165,9 @@ func (c *ApiService) PageSink(params *ListSinkParams, pageToken, pageNumber stri
 	path := "/v1/Sinks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.InUse != nil {
 		data.Set("InUse", fmt.Sprint(*params.InUse))
@@ -296,7 +304,9 @@ func (c *ApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*EventsV1
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)

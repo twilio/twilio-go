@@ -51,6 +51,12 @@ type CreateUsAppToPersonParams struct {
 	OptOutKeywords *[]string `json:"OptOutKeywords,omitempty"`
 	// End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
 	HelpKeywords *[]string `json:"HelpKeywords,omitempty"`
+	// A boolean that specifies whether campaign has Subscriber Optin or not.
+	SubscriberOptIn *bool `json:"SubscriberOptIn,omitempty"`
+	// A boolean that specifies whether campaign is age gated or not.
+	AgeGated *bool `json:"AgeGated,omitempty"`
+	// A boolean that specifies whether campaign allows direct lending or not.
+	DirectLending *bool `json:"DirectLending,omitempty"`
 }
 
 func (params *CreateUsAppToPersonParams) SetBrandRegistrationSid(BrandRegistrationSid string) *CreateUsAppToPersonParams {
@@ -105,6 +111,18 @@ func (params *CreateUsAppToPersonParams) SetHelpKeywords(HelpKeywords []string) 
 	params.HelpKeywords = &HelpKeywords
 	return params
 }
+func (params *CreateUsAppToPersonParams) SetSubscriberOptIn(SubscriberOptIn bool) *CreateUsAppToPersonParams {
+	params.SubscriberOptIn = &SubscriberOptIn
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetAgeGated(AgeGated bool) *CreateUsAppToPersonParams {
+	params.AgeGated = &AgeGated
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetDirectLending(DirectLending bool) *CreateUsAppToPersonParams {
+	params.DirectLending = &DirectLending
+	return params
+}
 
 //
 func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
@@ -112,7 +130,9 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.BrandRegistrationSid != nil {
 		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
@@ -161,6 +181,15 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 			data.Add("HelpKeywords", item)
 		}
 	}
+	if params != nil && params.SubscriberOptIn != nil {
+		data.Set("SubscriberOptIn", fmt.Sprint(*params.SubscriberOptIn))
+	}
+	if params != nil && params.AgeGated != nil {
+		data.Set("AgeGated", fmt.Sprint(*params.AgeGated))
+	}
+	if params != nil && params.DirectLending != nil {
+		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
+	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -184,7 +213,9 @@ func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -203,7 +234,9 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -244,7 +277,9 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -356,4 +391,101 @@ func (c *ApiService) getNextListUsAppToPersonResponse(nextPageUrl string) (inter
 		return nil, err
 	}
 	return ps, nil
+}
+
+// Optional parameters for the method 'UpdateUsAppToPerson'
+type UpdateUsAppToPersonParams struct {
+	// Indicates that this SMS campaign will send messages that contain links.
+	HasEmbeddedLinks *bool `json:"HasEmbeddedLinks,omitempty"`
+	// Indicates that this SMS campaign will send messages that contain phone numbers.
+	HasEmbeddedPhone *bool `json:"HasEmbeddedPhone,omitempty"`
+	// An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
+	MessageSamples *[]string `json:"MessageSamples,omitempty"`
+	// Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+	MessageFlow *string `json:"MessageFlow,omitempty"`
+	// A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+	Description *string `json:"Description,omitempty"`
+	// A boolean that specifies whether campaign requires age gate for federally legal content.
+	AgeGated *bool `json:"AgeGated,omitempty"`
+	// A boolean that specifies whether campaign allows direct lending or not.
+	DirectLending *bool `json:"DirectLending,omitempty"`
+}
+
+func (params *UpdateUsAppToPersonParams) SetHasEmbeddedLinks(HasEmbeddedLinks bool) *UpdateUsAppToPersonParams {
+	params.HasEmbeddedLinks = &HasEmbeddedLinks
+	return params
+}
+func (params *UpdateUsAppToPersonParams) SetHasEmbeddedPhone(HasEmbeddedPhone bool) *UpdateUsAppToPersonParams {
+	params.HasEmbeddedPhone = &HasEmbeddedPhone
+	return params
+}
+func (params *UpdateUsAppToPersonParams) SetMessageSamples(MessageSamples []string) *UpdateUsAppToPersonParams {
+	params.MessageSamples = &MessageSamples
+	return params
+}
+func (params *UpdateUsAppToPersonParams) SetMessageFlow(MessageFlow string) *UpdateUsAppToPersonParams {
+	params.MessageFlow = &MessageFlow
+	return params
+}
+func (params *UpdateUsAppToPersonParams) SetDescription(Description string) *UpdateUsAppToPersonParams {
+	params.Description = &Description
+	return params
+}
+func (params *UpdateUsAppToPersonParams) SetAgeGated(AgeGated bool) *UpdateUsAppToPersonParams {
+	params.AgeGated = &AgeGated
+	return params
+}
+func (params *UpdateUsAppToPersonParams) SetDirectLending(DirectLending bool) *UpdateUsAppToPersonParams {
+	params.DirectLending = &DirectLending
+	return params
+}
+
+//
+func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string, params *UpdateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.HasEmbeddedLinks != nil {
+		data.Set("HasEmbeddedLinks", fmt.Sprint(*params.HasEmbeddedLinks))
+	}
+	if params != nil && params.HasEmbeddedPhone != nil {
+		data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
+	}
+	if params != nil && params.MessageSamples != nil {
+		for _, item := range *params.MessageSamples {
+			data.Add("MessageSamples", item)
+		}
+	}
+	if params != nil && params.MessageFlow != nil {
+		data.Set("MessageFlow", *params.MessageFlow)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.AgeGated != nil {
+		data.Set("AgeGated", fmt.Sprint(*params.AgeGated))
+	}
+	if params != nil && params.DirectLending != nil {
+		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1UsAppToPerson{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }

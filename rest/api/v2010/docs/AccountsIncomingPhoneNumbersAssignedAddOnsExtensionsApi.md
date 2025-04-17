@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchIncomingPhoneNumberAssignedAddOnExtension**](AccountsIncomingPhoneNumbersAssignedAddOnsExtensionsApi.md#FetchIncomingPhoneNumberAssignedAddOnExtension) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json | 
-[**ListIncomingPhoneNumberAssignedAddOnExtension**](AccountsIncomingPhoneNumbersAssignedAddOnsExtensionsApi.md#ListIncomingPhoneNumberAssignedAddOnExtension) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json | 
+[**FetchIncomingPhoneNumberAssignedAddOnExtension**](AccountsIncomingPhoneNumbersAssignedAddOnsExtensionsApi.md#FetchIncomingPhoneNumberAssignedAddOnExtension) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json | Fetch an instance of an Extension for the Assigned Add-on.
+[**ListIncomingPhoneNumberAssignedAddOnExtension**](AccountsIncomingPhoneNumbersAssignedAddOnsExtensionsApi.md#ListIncomingPhoneNumberAssignedAddOnExtension) | **Get** /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json | Retrieve a list of Extensions for the Assigned Add-on.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ApiV2010IncomingPhoneNumberAssignedAddOnExtension FetchIncomingPhoneNumberAssignedAddOnExtension(ctx, ResourceSidAssignedAddOnSidSidoptional)
 
-
+Fetch an instance of an Extension for the Assigned Add-on.
 
 Fetch an instance of an Extension for the Assigned Add-on.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > []ApiV2010IncomingPhoneNumberAssignedAddOnExtension ListIncomingPhoneNumberAssignedAddOnExtension(ctx, ResourceSidAssignedAddOnSidoptional)
 
-
+Retrieve a list of Extensions for the Assigned Add-on.
 
 Retrieve a list of Extensions for the Assigned Add-on.
 

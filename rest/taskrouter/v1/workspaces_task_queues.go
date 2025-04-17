@@ -70,7 +70,9 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -82,7 +84,7 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
 	}
 	if params != nil && params.TaskOrder != nil {
-		data.Set("TaskOrder", *params.TaskOrder)
+		data.Set("TaskOrder", fmt.Sprint(*params.TaskOrder))
 	}
 	if params != nil && params.ReservationActivitySid != nil {
 		data.Set("ReservationActivitySid", *params.ReservationActivitySid)
@@ -113,7 +115,9 @@ func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -132,7 +136,9 @@ func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*Taskroute
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -197,7 +203,9 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -371,7 +379,9 @@ func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *Up
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -389,7 +399,7 @@ func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *Up
 		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
 	}
 	if params != nil && params.TaskOrder != nil {
-		data.Set("TaskOrder", *params.TaskOrder)
+		data.Set("TaskOrder", fmt.Sprint(*params.TaskOrder))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

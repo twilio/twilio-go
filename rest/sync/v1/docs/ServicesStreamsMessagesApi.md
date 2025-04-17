@@ -4,7 +4,7 @@ All URIs are relative to *https://sync.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateStreamMessage**](ServicesStreamsMessagesApi.md#CreateStreamMessage) | **Post** /v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages | 
+[**CreateStreamMessage**](ServicesStreamsMessagesApi.md#CreateStreamMessage) | **Post** /v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages | Create a new Stream Message.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > SyncV1StreamMessage CreateStreamMessage(ctx, ServiceSidStreamSidoptional)
 
-
+Create a new Stream Message.
 
 Create a new Stream Message.
 
@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateStreamMessageParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Data** | [**interface{}**](interface{}.md) | A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
+**Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
 
 ### Return type
 

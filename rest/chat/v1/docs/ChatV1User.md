@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **IsNotifiable** | Pointer to **bool** | Whether the User has a potentially valid Push Notification registration (APN or GCM) for the Service instance. If at least one registration exists, `true`; otherwise `false`. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, and if the User has never had a notification registration, even if the Service's `reachability_enabled` is `true`. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format. |
-**JoinedChannelsCount** | Pointer to **int** | The number of Channels this User is a Member of. |
+**JoinedChannelsCount** | **int** | The number of Channels this User is a Member of. |[optional] [default to 0]
 **Links** | Pointer to **map[string]interface{}** | The absolute URLs of the [Channel](https://www.twilio.com/docs/chat/api/channels) and [Binding](https://www.twilio.com/docs/chat/rest/bindings-resource) resources related to the user. |
 **Url** | Pointer to **string** | The absolute URL of the User resource. |
 

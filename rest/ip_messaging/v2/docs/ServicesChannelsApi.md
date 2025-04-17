@@ -35,11 +35,11 @@ Other parameters are passed through a pointer to a CreateChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **FriendlyName** | **string** | 
 **UniqueName** | **string** | 
 **Attributes** | **string** | 
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **DateCreated** | **time.Time** | 
 **DateUpdated** | **time.Time** | 
 **CreatedBy** | **string** | 
@@ -86,7 +86,7 @@ Other parameters are passed through a pointer to a DeleteChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -218,7 +218,7 @@ Other parameters are passed through a pointer to a UpdateChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **FriendlyName** | **string** | 
 **UniqueName** | **string** | 
 **Attributes** | **string** | 

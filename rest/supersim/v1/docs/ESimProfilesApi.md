@@ -4,9 +4,9 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEsimProfile**](ESimProfilesApi.md#CreateEsimProfile) | **Post** /v1/ESimProfiles | 
-[**FetchEsimProfile**](ESimProfilesApi.md#FetchEsimProfile) | **Get** /v1/ESimProfiles/{Sid} | 
-[**ListEsimProfile**](ESimProfilesApi.md#ListEsimProfile) | **Get** /v1/ESimProfiles | 
+[**CreateEsimProfile**](ESimProfilesApi.md#CreateEsimProfile) | **Post** /v1/ESimProfiles | Order an eSIM Profile.
+[**FetchEsimProfile**](ESimProfilesApi.md#FetchEsimProfile) | **Get** /v1/ESimProfiles/{Sid} | Fetch an eSIM Profile.
+[**ListEsimProfile**](ESimProfilesApi.md#ListEsimProfile) | **Get** /v1/ESimProfiles | Retrieve a list of eSIM Profiles.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > SupersimV1EsimProfile CreateEsimProfile(ctx, optional)
 
-
+Order an eSIM Profile.
 
 Order an eSIM Profile.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > SupersimV1EsimProfile FetchEsimProfile(ctx, Sid)
 
-
+Fetch an eSIM Profile.
 
 Fetch an eSIM Profile.
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 > []SupersimV1EsimProfile ListEsimProfile(ctx, optional)
 
-
+Retrieve a list of eSIM Profiles.
 
 Retrieve a list of eSIM Profiles.
 
@@ -115,7 +115,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Eid** | **string** | List the eSIM Profiles that have been associated with an EId.
 **SimSid** | **string** | Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
-**Status** | **string** | List the eSIM Profiles that are in a given status.
+**Status** | [**string**](stringstring.md) | List the eSIM Profiles that are in a given status.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

@@ -19,7 +19,7 @@ type BulkexportsV1Day struct {
 	// The ISO 8601 format date of the resources in the file, for a UTC day
 	Day *string `json:"day,omitempty"`
 	// The size of the day's data file in bytes
-	Size *int `json:"size,omitempty"`
+	Size int `json:"size,omitempty"`
 	// The ISO 8601 format date when resources is created
 	CreateDate *string `json:"create_date,omitempty"`
 	// The friendly name specified when creating the job

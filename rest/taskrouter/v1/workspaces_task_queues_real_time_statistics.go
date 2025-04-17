@@ -20,6 +20,51 @@ import (
 	"strings"
 )
 
+// Optional parameters for the method 'CreateTaskQueueBulkRealTimeStatistics'
+type CreateTaskQueueBulkRealTimeStatisticsParams struct {
+	//
+	Body *map[string]interface{} `json:"body,omitempty"`
+}
+
+func (params *CreateTaskQueueBulkRealTimeStatisticsParams) SetBody(Body map[string]interface{}) *CreateTaskQueueBulkRealTimeStatisticsParams {
+	params.Body = &Body
+	return params
+}
+
+// Fetch a Task Queue Real Time Statistics in bulk for the array of TaskQueue SIDs, support upto 50 in a request.
+func (c *ApiService) CreateTaskQueueBulkRealTimeStatistics(WorkspaceSid string, params *CreateTaskQueueBulkRealTimeStatisticsParams) (*TaskrouterV1TaskQueueBulkRealTimeStatistics, error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/RealTimeStatistics"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskQueueBulkRealTimeStatistics{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
 // Optional parameters for the method 'FetchTaskQueueRealTimeStatistics'
 type FetchTaskQueueRealTimeStatisticsParams struct {
 	// The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
@@ -38,7 +83,9 @@ func (c *ApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQ
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)

@@ -27,9 +27,9 @@ import (
 type CreateTrustProductParams struct {
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The email address that will receive updates when the Customer-Profile resource changes status.
+	// The email address that will receive updates when the Trust Product resource changes status.
 	Email *string `json:"Email,omitempty"`
-	// The unique string of a policy that is associated to the Customer-Profile resource.
+	// The unique string of a policy that is associated to the Trust Product resource.
 	PolicySid *string `json:"PolicySid,omitempty"`
 	// The URL we call to inform your application of status changes.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
@@ -52,12 +52,14 @@ func (params *CreateTrustProductParams) SetStatusCallback(StatusCallback string)
 	return params
 }
 
-// Create a new Customer-Profile.
+// Create a new Trust Product.
 func (c *ApiService) CreateTrustProduct(params *CreateTrustProductParams) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -87,13 +89,15 @@ func (c *ApiService) CreateTrustProduct(params *CreateTrustProductParams) (*Trus
 	return ps, err
 }
 
-// Delete a specific Customer-Profile.
+// Delete a specific Trust Product.
 func (c *ApiService) DeleteTrustProduct(Sid string) error {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -105,13 +109,15 @@ func (c *ApiService) DeleteTrustProduct(Sid string) error {
 	return nil
 }
 
-// Fetch a specific Customer-Profile instance.
+// Fetch a specific Trust Product instance.
 func (c *ApiService) FetchTrustProduct(Sid string) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -130,11 +136,11 @@ func (c *ApiService) FetchTrustProduct(Sid string) (*TrusthubV1TrustProduct, err
 
 // Optional parameters for the method 'ListTrustProduct'
 type ListTrustProductParams struct {
-	// The verification status of the Customer-Profile resource.
+	// The verification status of the Trust Product resource.
 	Status *string `json:"Status,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The unique string of a policy that is associated to the Customer-Profile resource.
+	// The unique string of a policy that is associated to the Trust Product resource.
 	PolicySid *string `json:"PolicySid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
@@ -168,10 +174,12 @@ func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken,
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -299,7 +307,7 @@ type UpdateTrustProductParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The email address that will receive updates when the Customer-Profile resource changes status.
+	// The email address that will receive updates when the Trust Product resource changes status.
 	Email *string `json:"Email,omitempty"`
 }
 
@@ -320,16 +328,18 @@ func (params *UpdateTrustProductParams) SetEmail(Email string) *UpdateTrustProdu
 	return params
 }
 
-// Updates a Customer-Profile in an account.
+// Updates a Trust Product in an account.
 func (c *ApiService) UpdateTrustProduct(Sid string, params *UpdateTrustProductParams) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)

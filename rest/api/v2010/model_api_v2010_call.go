@@ -18,9 +18,9 @@ package openapi
 type ApiV2010Call struct {
 	// The unique string that we created to identify this Call resource.
 	Sid *string `json:"sid,omitempty"`
-	// The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+	// The date and time in UTC that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
-	// The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+	// The date and time in UTC that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
 	// The SID that identifies the call that created this leg.
 	ParentCallSid *string `json:"parent_call_sid,omitempty"`
@@ -37,13 +37,13 @@ type ApiV2010Call struct {
 	// If the call was inbound, this is the SID of the IncomingPhoneNumber resource that received the call. If the call was outbound, it is the SID of the OutgoingCallerId resource from which the call was placed.
 	PhoneNumberSid *string `json:"phone_number_sid,omitempty"`
 	Status         *string `json:"status,omitempty"`
-	// The start time of the call, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call has not yet been dialed.
+	// The start time of the call, given as UTC in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call has not yet been dialed.
 	StartTime *string `json:"start_time,omitempty"`
-	// The time the call ended, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call did not complete successfully.
+	// The time the call ended, given as UTC in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call did not complete successfully.
 	EndTime *string `json:"end_time,omitempty"`
 	// The length of the call in seconds. This value is empty for busy, failed, unanswered, or ongoing calls.
 	Duration *string `json:"duration,omitempty"`
-	// The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
+	// The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available. The price associated with a call only reflects the charge for connectivity.  Charges for other call-related features such as Answering Machine Detection, Text-To-Speech, and SIP REFER are not included in this value.
 	Price *string `json:"price,omitempty"`
 	// The currency in which `Price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g., `USD`, `EUR`, `JPY`). Always capitalized for calls.
 	PriceUnit *string `json:"price_unit,omitempty"`

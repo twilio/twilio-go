@@ -4,7 +4,7 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateNotification**](ServicesEntitiesChallengesNotificationsApi.md#CreateNotification) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications | 
+[**CreateNotification**](ServicesEntitiesChallengesNotificationsApi.md#CreateNotification) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications | Create a new Notification for the corresponding Challenge
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > VerifyV2Notification CreateNotification(ctx, ServiceSidIdentityChallengeSidoptional)
 
-
+Create a new Notification for the corresponding Challenge
 
 Create a new Notification for the corresponding Challenge
 

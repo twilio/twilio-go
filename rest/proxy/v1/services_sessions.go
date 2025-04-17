@@ -37,7 +37,7 @@ type CreateSessionParams struct {
 	//
 	Status *string `json:"Status,omitempty"`
 	// The Participant objects to include in the new session.
-	Participants *[]interface{} `json:"Participants,omitempty"`
+	Participants *[]map[string]interface{} `json:"Participants,omitempty"`
 }
 
 func (params *CreateSessionParams) SetUniqueName(UniqueName string) *CreateSessionParams {
@@ -60,7 +60,7 @@ func (params *CreateSessionParams) SetStatus(Status string) *CreateSessionParams
 	params.Status = &Status
 	return params
 }
-func (params *CreateSessionParams) SetParticipants(Participants []interface{}) *CreateSessionParams {
+func (params *CreateSessionParams) SetParticipants(Participants []map[string]interface{}) *CreateSessionParams {
 	params.Participants = &Participants
 	return params
 }
@@ -71,7 +71,9 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -83,10 +85,10 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 	if params != nil && params.Mode != nil {
-		data.Set("Mode", *params.Mode)
+		data.Set("Mode", fmt.Sprint(*params.Mode))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Participants != nil {
 		for _, item := range *params.Participants {
@@ -122,7 +124,9 @@ func (c *ApiService) DeleteSession(ServiceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -141,7 +145,9 @@ func (c *ApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1Sessio
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -182,7 +188,9 @@ func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, p
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -326,7 +334,9 @@ func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *Update
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.DateExpiry != nil {
 		data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
@@ -335,7 +345,7 @@ func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *Update
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

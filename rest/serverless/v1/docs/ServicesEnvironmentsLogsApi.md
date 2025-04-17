@@ -4,8 +4,8 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchLog**](ServicesEnvironmentsLogsApi.md#FetchLog) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid} | 
-[**ListLog**](ServicesEnvironmentsLogsApi.md#ListLog) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs | 
+[**FetchLog**](ServicesEnvironmentsLogsApi.md#FetchLog) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid} | Retrieve a specific log.
+[**ListLog**](ServicesEnvironmentsLogsApi.md#ListLog) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs | Retrieve a list of all logs.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ServerlessV1Log FetchLog(ctx, ServiceSidEnvironmentSidSid)
 
-
+Retrieve a specific log.
 
 Retrieve a specific log.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []ServerlessV1Log ListLog(ctx, ServiceSidEnvironmentSidoptional)
 
-
+Retrieve a list of all logs.
 
 Retrieve a list of all logs.
 

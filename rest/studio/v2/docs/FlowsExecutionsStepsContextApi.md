@@ -4,7 +4,7 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchExecutionStepContext**](FlowsExecutionsStepsContextApi.md#FetchExecutionStepContext) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context | 
+[**FetchExecutionStepContext**](FlowsExecutionsStepsContextApi.md#FetchExecutionStepContext) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context | Retrieve the context for an Execution Step.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > StudioV2ExecutionStepContext FetchExecutionStepContext(ctx, FlowSidExecutionSidStepSid)
 
-
+Retrieve the context for an Execution Step.
 
 Retrieve the context for an Execution Step.
 

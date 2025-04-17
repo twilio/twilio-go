@@ -33,7 +33,7 @@ type WirelessV1RatePlan struct {
 	// The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
 	DataMetering *string `json:"data_metering,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB.
-	DataLimit *int `json:"data_limit,omitempty"`
+	DataLimit int `json:"data_limit,omitempty"`
 	// Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/iot/wireless/api/command-resource).
 	MessagingEnabled *bool `json:"messaging_enabled,omitempty"`
 	// Deprecated. Whether SIMs can make and receive voice calls.
@@ -41,11 +41,11 @@ type WirelessV1RatePlan struct {
 	// Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming).
 	NationalRoamingEnabled *bool `json:"national_roaming_enabled,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB.
-	NationalRoamingDataLimit *int `json:"national_roaming_data_limit,omitempty"`
+	NationalRoamingDataLimit int `json:"national_roaming_data_limit,omitempty"`
 	// The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
 	InternationalRoaming *[]string `json:"international_roaming,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
-	InternationalRoamingDataLimit *int `json:"international_roaming_data_limit,omitempty"`
+	InternationalRoamingDataLimit int `json:"international_roaming_data_limit,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.

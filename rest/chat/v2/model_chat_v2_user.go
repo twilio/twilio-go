@@ -43,7 +43,7 @@ type ChatV2User struct {
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The number of Channels the User is a Member of.
-	JoinedChannelsCount *int `json:"joined_channels_count,omitempty"`
+	JoinedChannelsCount int `json:"joined_channels_count,omitempty"`
 	// The absolute URLs of the [Channel](https://www.twilio.com/docs/chat/channels) and [Binding](https://www.twilio.com/docs/chat/rest/binding-resource) resources related to the user.
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The absolute URL of the User resource.

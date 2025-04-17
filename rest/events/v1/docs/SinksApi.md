@@ -4,11 +4,11 @@ All URIs are relative to *https://events.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSink**](SinksApi.md#CreateSink) | **Post** /v1/Sinks | 
-[**DeleteSink**](SinksApi.md#DeleteSink) | **Delete** /v1/Sinks/{Sid} | 
-[**FetchSink**](SinksApi.md#FetchSink) | **Get** /v1/Sinks/{Sid} | 
-[**ListSink**](SinksApi.md#ListSink) | **Get** /v1/Sinks | 
-[**UpdateSink**](SinksApi.md#UpdateSink) | **Post** /v1/Sinks/{Sid} | 
+[**CreateSink**](SinksApi.md#CreateSink) | **Post** /v1/Sinks | Create a new Sink
+[**DeleteSink**](SinksApi.md#DeleteSink) | **Delete** /v1/Sinks/{Sid} | Delete a specific Sink.
+[**FetchSink**](SinksApi.md#FetchSink) | **Get** /v1/Sinks/{Sid} | Fetch a specific Sink.
+[**ListSink**](SinksApi.md#ListSink) | **Get** /v1/Sinks | Retrieve a paginated list of Sinks belonging to the account used to make the request.
+[**UpdateSink**](SinksApi.md#UpdateSink) | **Post** /v1/Sinks/{Sid} | Update a specific Sink
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > EventsV1Sink CreateSink(ctx, optional)
 
-
+Create a new Sink
 
 Create a new Sink
 
@@ -32,8 +32,8 @@ Other parameters are passed through a pointer to a CreateSinkParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Description** | **string** | A human readable description for the Sink **This value should not contain PII.**
-**SinkConfiguration** | [**interface{}**](interface{}.md) | The information required for Twilio to connect to the provided Sink encoded as JSON.
-**SinkType** | **string** | 
+**SinkConfiguration** | [**map[string]interface{}**](map[string]interface{}.md) | The information required for Twilio to connect to the provided Sink encoded as JSON.
+**SinkType** | [**string**](string.md) | 
 
 ### Return type
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteSink(ctx, Sid)
 
-
+Delete a specific Sink.
 
 Delete a specific Sink.
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > EventsV1Sink FetchSink(ctx, Sid)
 
-
+Fetch a specific Sink.
 
 Fetch a specific Sink.
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 > []EventsV1Sink ListSink(ctx, optional)
 
-
+Retrieve a paginated list of Sinks belonging to the account used to make the request.
 
 Retrieve a paginated list of Sinks belonging to the account used to make the request.
 
@@ -183,7 +183,7 @@ Name | Type | Description
 
 > EventsV1Sink UpdateSink(ctx, Sidoptional)
 
-
+Update a specific Sink
 
 Update a specific Sink
 

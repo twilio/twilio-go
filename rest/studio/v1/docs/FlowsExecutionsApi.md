@@ -4,11 +4,11 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateExecution**](FlowsExecutionsApi.md#CreateExecution) | **Post** /v1/Flows/{FlowSid}/Executions | 
-[**DeleteExecution**](FlowsExecutionsApi.md#DeleteExecution) | **Delete** /v1/Flows/{FlowSid}/Executions/{Sid} | 
-[**FetchExecution**](FlowsExecutionsApi.md#FetchExecution) | **Get** /v1/Flows/{FlowSid}/Executions/{Sid} | 
-[**ListExecution**](FlowsExecutionsApi.md#ListExecution) | **Get** /v1/Flows/{FlowSid}/Executions | 
-[**UpdateExecution**](FlowsExecutionsApi.md#UpdateExecution) | **Post** /v1/Flows/{FlowSid}/Executions/{Sid} | 
+[**CreateExecution**](FlowsExecutionsApi.md#CreateExecution) | **Post** /v1/Flows/{FlowSid}/Executions | Triggers a new Execution for the Flow
+[**DeleteExecution**](FlowsExecutionsApi.md#DeleteExecution) | **Delete** /v1/Flows/{FlowSid}/Executions/{Sid} | Delete the Execution and all Steps relating to it.
+[**FetchExecution**](FlowsExecutionsApi.md#FetchExecution) | **Get** /v1/Flows/{FlowSid}/Executions/{Sid} | Retrieve an Execution
+[**ListExecution**](FlowsExecutionsApi.md#ListExecution) | **Get** /v1/Flows/{FlowSid}/Executions | Retrieve a list of all Executions for the Flow.
+[**UpdateExecution**](FlowsExecutionsApi.md#UpdateExecution) | **Post** /v1/Flows/{FlowSid}/Executions/{Sid} | Update the status of an Execution to &#x60;ended&#x60;.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > StudioV1Execution CreateExecution(ctx, FlowSidoptional)
 
-
+Triggers a new Execution for the Flow
 
 Triggers a new Execution for the Flow
 
@@ -37,7 +37,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **To** | **string** | The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
 **From** | **string** | The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
-**Parameters** | [**interface{}**](interface{}.md) | JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
+**Parameters** | [**map[string]interface{}**](map[string]interface{}.md) | JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
 
 ### Return type
 
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeleteExecution(ctx, FlowSidSid)
 
-
+Delete the Execution and all Steps relating to it.
 
 Delete the Execution and all Steps relating to it.
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > StudioV1Execution FetchExecution(ctx, FlowSidSid)
 
-
+Retrieve an Execution
 
 Retrieve an Execution
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []StudioV1Execution ListExecution(ctx, FlowSidoptional)
 
-
+Retrieve a list of all Executions for the Flow.
 
 Retrieve a list of all Executions for the Flow.
 
@@ -193,7 +193,7 @@ Name | Type | Description
 
 > StudioV1Execution UpdateExecution(ctx, FlowSidSidoptional)
 
-
+Update the status of an Execution to `ended`.
 
 Update the status of an Execution to `ended`.
 
@@ -213,7 +213,7 @@ Other parameters are passed through a pointer to a UpdateExecutionParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

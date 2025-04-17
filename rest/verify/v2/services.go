@@ -41,7 +41,7 @@ type CreateServiceParams struct {
 	Psd2Enabled *bool `json:"Psd2Enabled,omitempty"`
 	// Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
 	DoNotShareWarningEnabled *bool `json:"DoNotShareWarningEnabled,omitempty"`
-	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+	// Whether to allow sending verifications with a custom code instead of a randomly generated one.
 	CustomCodeEnabled *bool `json:"CustomCodeEnabled,omitempty"`
 	// Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
 	PushIncludeDate *bool `json:"Push.IncludeDate,omitempty"`
@@ -59,6 +59,10 @@ type CreateServiceParams struct {
 	TotpSkew *int `json:"Totp.Skew,omitempty"`
 	// The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 	DefaultTemplateSid *string `json:"DefaultTemplateSid,omitempty"`
+	// The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users.
+	WhatsappMsgServiceSid *string `json:"Whatsapp.MsgServiceSid,omitempty"`
+	// The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID.
+	WhatsappFrom *string `json:"Whatsapp.From,omitempty"`
 	// Whether to allow verifications from the service to reach the stream-events sinks if configured
 	VerifyEventSubscriptionEnabled *bool `json:"VerifyEventSubscriptionEnabled,omitempty"`
 }
@@ -131,6 +135,14 @@ func (params *CreateServiceParams) SetDefaultTemplateSid(DefaultTemplateSid stri
 	params.DefaultTemplateSid = &DefaultTemplateSid
 	return params
 }
+func (params *CreateServiceParams) SetWhatsappMsgServiceSid(WhatsappMsgServiceSid string) *CreateServiceParams {
+	params.WhatsappMsgServiceSid = &WhatsappMsgServiceSid
+	return params
+}
+func (params *CreateServiceParams) SetWhatsappFrom(WhatsappFrom string) *CreateServiceParams {
+	params.WhatsappFrom = &WhatsappFrom
+	return params
+}
 func (params *CreateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEventSubscriptionEnabled bool) *CreateServiceParams {
 	params.VerifyEventSubscriptionEnabled = &VerifyEventSubscriptionEnabled
 	return params
@@ -141,7 +153,9 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -194,6 +208,12 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 	if params != nil && params.DefaultTemplateSid != nil {
 		data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
 	}
+	if params != nil && params.WhatsappMsgServiceSid != nil {
+		data.Set("Whatsapp.MsgServiceSid", *params.WhatsappMsgServiceSid)
+	}
+	if params != nil && params.WhatsappFrom != nil {
+		data.Set("Whatsapp.From", *params.WhatsappFrom)
+	}
 	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
 		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))
 	}
@@ -219,7 +239,9 @@ func (c *ApiService) DeleteService(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -237,7 +259,9 @@ func (c *ApiService) FetchService(Sid string) (*VerifyV2Service, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -276,7 +300,9 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -408,7 +434,7 @@ type UpdateServiceParams struct {
 	Psd2Enabled *bool `json:"Psd2Enabled,omitempty"`
 	// Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
 	DoNotShareWarningEnabled *bool `json:"DoNotShareWarningEnabled,omitempty"`
-	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+	// Whether to allow sending verifications with a custom code instead of a randomly generated one.
 	CustomCodeEnabled *bool `json:"CustomCodeEnabled,omitempty"`
 	// Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
 	PushIncludeDate *bool `json:"Push.IncludeDate,omitempty"`
@@ -426,6 +452,10 @@ type UpdateServiceParams struct {
 	TotpSkew *int `json:"Totp.Skew,omitempty"`
 	// The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 	DefaultTemplateSid *string `json:"DefaultTemplateSid,omitempty"`
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+	WhatsappMsgServiceSid *string `json:"Whatsapp.MsgServiceSid,omitempty"`
+	// The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
+	WhatsappFrom *string `json:"Whatsapp.From,omitempty"`
 	// Whether to allow verifications from the service to reach the stream-events sinks if configured
 	VerifyEventSubscriptionEnabled *bool `json:"VerifyEventSubscriptionEnabled,omitempty"`
 }
@@ -498,6 +528,14 @@ func (params *UpdateServiceParams) SetDefaultTemplateSid(DefaultTemplateSid stri
 	params.DefaultTemplateSid = &DefaultTemplateSid
 	return params
 }
+func (params *UpdateServiceParams) SetWhatsappMsgServiceSid(WhatsappMsgServiceSid string) *UpdateServiceParams {
+	params.WhatsappMsgServiceSid = &WhatsappMsgServiceSid
+	return params
+}
+func (params *UpdateServiceParams) SetWhatsappFrom(WhatsappFrom string) *UpdateServiceParams {
+	params.WhatsappFrom = &WhatsappFrom
+	return params
+}
 func (params *UpdateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEventSubscriptionEnabled bool) *UpdateServiceParams {
 	params.VerifyEventSubscriptionEnabled = &VerifyEventSubscriptionEnabled
 	return params
@@ -509,7 +547,9 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -561,6 +601,12 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	}
 	if params != nil && params.DefaultTemplateSid != nil {
 		data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
+	}
+	if params != nil && params.WhatsappMsgServiceSid != nil {
+		data.Set("Whatsapp.MsgServiceSid", *params.WhatsappMsgServiceSid)
+	}
+	if params != nil && params.WhatsappFrom != nil {
+		data.Set("Whatsapp.From", *params.WhatsappFrom)
 	}
 	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
 		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))

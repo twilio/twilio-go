@@ -4,10 +4,10 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteUserConversation**](UsersConversationsApi.md#DeleteUserConversation) | **Delete** /v1/Users/{UserSid}/Conversations/{ConversationSid} | 
-[**FetchUserConversation**](UsersConversationsApi.md#FetchUserConversation) | **Get** /v1/Users/{UserSid}/Conversations/{ConversationSid} | 
-[**ListUserConversation**](UsersConversationsApi.md#ListUserConversation) | **Get** /v1/Users/{UserSid}/Conversations | 
-[**UpdateUserConversation**](UsersConversationsApi.md#UpdateUserConversation) | **Post** /v1/Users/{UserSid}/Conversations/{ConversationSid} | 
+[**DeleteUserConversation**](UsersConversationsApi.md#DeleteUserConversation) | **Delete** /v1/Users/{UserSid}/Conversations/{ConversationSid} | Delete a specific User Conversation.
+[**FetchUserConversation**](UsersConversationsApi.md#FetchUserConversation) | **Get** /v1/Users/{UserSid}/Conversations/{ConversationSid} | Fetch a specific User Conversation.
+[**ListUserConversation**](UsersConversationsApi.md#ListUserConversation) | **Get** /v1/Users/{UserSid}/Conversations | Retrieve a list of all User Conversations for the User.
+[**UpdateUserConversation**](UsersConversationsApi.md#UpdateUserConversation) | **Post** /v1/Users/{UserSid}/Conversations/{ConversationSid} | Update a specific User Conversation.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeleteUserConversation(ctx, UserSidConversationSid)
 
-
+Delete a specific User Conversation.
 
 Delete a specific User Conversation.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > ConversationsV1UserConversation FetchUserConversation(ctx, UserSidConversationSid)
 
-
+Fetch a specific User Conversation.
 
 Fetch a specific User Conversation.
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > []ConversationsV1UserConversation ListUserConversation(ctx, UserSidoptional)
 
-
+Retrieve a list of all User Conversations for the User.
 
 Retrieve a list of all User Conversations for the User.
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > ConversationsV1UserConversation UpdateUserConversation(ctx, UserSidConversationSidoptional)
 
-
+Update a specific User Conversation.
 
 Update a specific User Conversation.
 
@@ -165,7 +165,7 @@ Other parameters are passed through a pointer to a UpdateUserConversationParams 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**NotificationLevel** | **string** | 
+**NotificationLevel** | [**string**](string.md) | 
 **LastReadTimestamp** | **time.Time** | The date of the last message read in conversation by the user, given in ISO 8601 format.
 **LastReadMessageIndex** | **int** | The index of the last Message in the Conversation that the Participant has read.
 

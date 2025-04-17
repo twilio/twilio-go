@@ -4,7 +4,7 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateComplianceTollfreeInquiry**](ComplianceInquiriesTollfreeInitializeApi.md#CreateComplianceTollfreeInquiry) | **Post** /v1/ComplianceInquiries/Tollfree/Initialize | 
+[**CreateComplianceTollfreeInquiry**](ComplianceInquiriesTollfreeInitializeApi.md#CreateComplianceTollfreeInquiry) | **Post** /v1/ComplianceInquiries/Tollfree/Initialize | Create a new Compliance Tollfree Verification Inquiry for the authenticated account. This is necessary to start a new embedded session.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > TrusthubV1ComplianceTollfreeInquiry CreateComplianceTollfreeInquiry(ctx, optional)
 
-
+Create a new Compliance Tollfree Verification Inquiry for the authenticated account. This is necessary to start a new embedded session.
 
 Create a new Compliance Tollfree Verification Inquiry for the authenticated account. This is necessary to start a new embedded session.
 
@@ -35,7 +35,7 @@ Name | Type | Description
 **UseCaseSummary** | **string** | Use this to further explain how messaging is used by the business or organization.
 **ProductionMessageSample** | **string** | An example of message content, i.e. a sample message.
 **OptInImageUrls** | **[]string** | Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-**OptInType** | **string** | 
+**OptInType** | [**string**](string.md) | 
 **MessageVolume** | **string** | Estimate monthly volume of messages from the Tollfree Number.
 **BusinessStreetAddress** | **string** | The address of the business or organization using the Tollfree number.
 **BusinessStreetAddress2** | **string** | The address of the business or organization using the Tollfree number.
@@ -48,6 +48,8 @@ Name | Type | Description
 **BusinessContactLastName** | **string** | The last name of the contact for the business or organization using the Tollfree number.
 **BusinessContactEmail** | **string** | The email address of the contact for the business or organization using the Tollfree number.
 **BusinessContactPhone** | **string** | The phone number of the contact for the business or organization using the Tollfree number.
+**ThemeSetId** | **string** | Theme id for styling the inquiry form.
+**SkipMessagingUseCase** | **bool** | Skip the messaging use case screen of the inquiry form.
 
 ### Return type
 

@@ -38,6 +38,12 @@ type MessagingV1UsAppToPerson struct {
 	HasEmbeddedLinks *bool `json:"has_embedded_links,omitempty"`
 	// Indicates that this SMS campaign will send messages that contain phone numbers.
 	HasEmbeddedPhone *bool `json:"has_embedded_phone,omitempty"`
+	// A boolean that specifies whether campaign has Subscriber Optin or not.
+	SubscriberOptIn *bool `json:"subscriber_opt_in,omitempty"`
+	// A boolean that specifies whether campaign is age gated or not.
+	AgeGated *bool `json:"age_gated,omitempty"`
+	// A boolean that specifies whether campaign allows direct lending or not.
+	DirectLending *bool `json:"direct_lending,omitempty"`
 	// Campaign status. Examples: IN_PROGRESS, VERIFIED, FAILED.
 	CampaignStatus *string `json:"campaign_status,omitempty"`
 	// The Campaign Registry (TCR) Campaign ID.
@@ -45,7 +51,7 @@ type MessagingV1UsAppToPerson struct {
 	// Indicates whether the campaign was registered externally or not.
 	IsExternallyRegistered *bool `json:"is_externally_registered,omitempty"`
 	// Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile.
-	RateLimits *interface{} `json:"rate_limits,omitempty"`
+	RateLimits *map[string]interface{} `json:"rate_limits,omitempty"`
 	// Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
 	MessageFlow *string `json:"message_flow,omitempty"`
 	// If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
@@ -69,5 +75,5 @@ type MessagingV1UsAppToPerson struct {
 	// A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes.
 	Mock *bool `json:"mock,omitempty"`
 	// Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
-	Errors *[]interface{} `json:"errors,omitempty"`
+	Errors *[]map[string]interface{} `json:"errors,omitempty"`
 }

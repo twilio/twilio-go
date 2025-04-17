@@ -52,7 +52,7 @@ type CreateNewFactorParams struct {
 	//
 	ConfigAlg *string `json:"Config.Alg,omitempty"`
 	// Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
-	Metadata *interface{} `json:"Metadata,omitempty"`
+	Metadata *map[string]interface{} `json:"Metadata,omitempty"`
 }
 
 func (params *CreateNewFactorParams) SetFriendlyName(FriendlyName string) *CreateNewFactorParams {
@@ -107,7 +107,7 @@ func (params *CreateNewFactorParams) SetConfigAlg(ConfigAlg string) *CreateNewFa
 	params.ConfigAlg = &ConfigAlg
 	return params
 }
-func (params *CreateNewFactorParams) SetMetadata(Metadata interface{}) *CreateNewFactorParams {
+func (params *CreateNewFactorParams) SetMetadata(Metadata map[string]interface{}) *CreateNewFactorParams {
 	params.Metadata = &Metadata
 	return params
 }
@@ -119,13 +119,15 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.FactorType != nil {
-		data.Set("FactorType", *params.FactorType)
+		data.Set("FactorType", fmt.Sprint(*params.FactorType))
 	}
 	if params != nil && params.BindingAlg != nil {
 		data.Set("Binding.Alg", *params.BindingAlg)
@@ -137,7 +139,7 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 		data.Set("Config.AppId", *params.ConfigAppId)
 	}
 	if params != nil && params.ConfigNotificationPlatform != nil {
-		data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
+		data.Set("Config.NotificationPlatform", fmt.Sprint(*params.ConfigNotificationPlatform))
 	}
 	if params != nil && params.ConfigNotificationToken != nil {
 		data.Set("Config.NotificationToken", *params.ConfigNotificationToken)
@@ -158,7 +160,7 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 		data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
 	}
 	if params != nil && params.ConfigAlg != nil {
-		data.Set("Config.Alg", *params.ConfigAlg)
+		data.Set("Config.Alg", fmt.Sprint(*params.ConfigAlg))
 	}
 	if params != nil && params.Metadata != nil {
 		v, err := json.Marshal(params.Metadata)
@@ -193,7 +195,9 @@ func (c *ApiService) DeleteFactor(ServiceSid string, Identity string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -213,7 +217,9 @@ func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -255,7 +261,9 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -436,7 +444,9 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.AuthPayload != nil {
 		data.Set("AuthPayload", *params.AuthPayload)
@@ -460,7 +470,7 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 		data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
 	}
 	if params != nil && params.ConfigAlg != nil {
-		data.Set("Config.Alg", *params.ConfigAlg)
+		data.Set("Config.Alg", fmt.Sprint(*params.ConfigAlg))
 	}
 	if params != nil && params.ConfigNotificationPlatform != nil {
 		data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)

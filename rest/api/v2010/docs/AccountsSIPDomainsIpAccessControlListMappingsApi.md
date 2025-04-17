@@ -4,10 +4,10 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSipIpAccessControlListMapping**](AccountsSIPDomainsIpAccessControlListMappingsApi.md#CreateSipIpAccessControlListMapping) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json | 
-[**DeleteSipIpAccessControlListMapping**](AccountsSIPDomainsIpAccessControlListMappingsApi.md#DeleteSipIpAccessControlListMapping) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json | 
-[**FetchSipIpAccessControlListMapping**](AccountsSIPDomainsIpAccessControlListMappingsApi.md#FetchSipIpAccessControlListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json | 
-[**ListSipIpAccessControlListMapping**](AccountsSIPDomainsIpAccessControlListMappingsApi.md#ListSipIpAccessControlListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json | 
+[**CreateSipIpAccessControlListMapping**](AccountsSIPDomainsIpAccessControlListMappingsApi.md#CreateSipIpAccessControlListMapping) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json | Create a new IpAccessControlListMapping resource.
+[**DeleteSipIpAccessControlListMapping**](AccountsSIPDomainsIpAccessControlListMappingsApi.md#DeleteSipIpAccessControlListMapping) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json | Delete an IpAccessControlListMapping resource.
+[**FetchSipIpAccessControlListMapping**](AccountsSIPDomainsIpAccessControlListMappingsApi.md#FetchSipIpAccessControlListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json | Fetch an IpAccessControlListMapping resource.
+[**ListSipIpAccessControlListMapping**](AccountsSIPDomainsIpAccessControlListMappingsApi.md#ListSipIpAccessControlListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json | Retrieve a list of IpAccessControlListMapping resources.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ApiV2010SipIpAccessControlListMapping CreateSipIpAccessControlListMapping(ctx, DomainSidoptional)
 
-
+Create a new IpAccessControlListMapping resource.
 
 Create a new IpAccessControlListMapping resource.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteSipIpAccessControlListMapping(ctx, DomainSidSidoptional)
 
-
+Delete an IpAccessControlListMapping resource.
 
 Delete an IpAccessControlListMapping resource.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > ApiV2010SipIpAccessControlListMapping FetchSipIpAccessControlListMapping(ctx, DomainSidSidoptional)
 
-
+Fetch an IpAccessControlListMapping resource.
 
 Fetch an IpAccessControlListMapping resource.
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []ApiV2010SipIpAccessControlListMapping ListSipIpAccessControlListMapping(ctx, DomainSidoptional)
 
-
+Retrieve a list of IpAccessControlListMapping resources.
 
 Retrieve a list of IpAccessControlListMapping resources.
 

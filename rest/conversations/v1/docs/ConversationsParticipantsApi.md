@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateConversationParticipant**](ConversationsParticipantsApi.md#CreateConversationParticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants | 
-[**DeleteConversationParticipant**](ConversationsParticipantsApi.md#DeleteConversationParticipant) | **Delete** /v1/Conversations/{ConversationSid}/Participants/{Sid} | 
-[**FetchConversationParticipant**](ConversationsParticipantsApi.md#FetchConversationParticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants/{Sid} | 
-[**ListConversationParticipant**](ConversationsParticipantsApi.md#ListConversationParticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants | 
-[**UpdateConversationParticipant**](ConversationsParticipantsApi.md#UpdateConversationParticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants/{Sid} | 
+[**CreateConversationParticipant**](ConversationsParticipantsApi.md#CreateConversationParticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants | Add a new participant to the conversation
+[**DeleteConversationParticipant**](ConversationsParticipantsApi.md#DeleteConversationParticipant) | **Delete** /v1/Conversations/{ConversationSid}/Participants/{Sid} | Remove a participant from the conversation
+[**FetchConversationParticipant**](ConversationsParticipantsApi.md#FetchConversationParticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants/{Sid} | Fetch a participant of the conversation
+[**ListConversationParticipant**](ConversationsParticipantsApi.md#ListConversationParticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants | Retrieve a list of all participants of the conversation
+[**UpdateConversationParticipant**](ConversationsParticipantsApi.md#UpdateConversationParticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants/{Sid} | Update an existing participant in the conversation
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ConversationParticipant CreateConversationParticipant(ctx, ConversationSidoptional)
 
-
+Add a new participant to the conversation
 
 Add a new participant to the conversation
 
@@ -35,7 +35,7 @@ Other parameters are passed through a pointer to a CreateConversationParticipant
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Identity** | **string** | A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
 **MessagingBindingAddress** | **string** | The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
 **MessagingBindingProxyAddress** | **string** | The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
@@ -67,7 +67,7 @@ Name | Type | Description
 
 > DeleteConversationParticipant(ctx, ConversationSidSidoptional)
 
-
+Remove a participant from the conversation
 
 Remove a participant from the conversation
 
@@ -87,7 +87,7 @@ Other parameters are passed through a pointer to a DeleteConversationParticipant
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -111,7 +111,7 @@ Name | Type | Description
 
 > ConversationsV1ConversationParticipant FetchConversationParticipant(ctx, ConversationSidSid)
 
-
+Fetch a participant of the conversation
 
 Fetch a participant of the conversation
 
@@ -154,7 +154,7 @@ Name | Type | Description
 
 > []ConversationsV1ConversationParticipant ListConversationParticipant(ctx, ConversationSidoptional)
 
-
+Retrieve a list of all participants of the conversation
 
 Retrieve a list of all participants of the conversation
 
@@ -198,7 +198,7 @@ Name | Type | Description
 
 > ConversationsV1ConversationParticipant UpdateConversationParticipant(ctx, ConversationSidSidoptional)
 
-
+Update an existing participant in the conversation
 
 Update an existing participant in the conversation
 
@@ -218,7 +218,7 @@ Other parameters are passed through a pointer to a UpdateConversationParticipant
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **DateCreated** | **time.Time** | The date that this resource was created.
 **DateUpdated** | **time.Time** | The date that this resource was last updated.
 **Attributes** | **string** | An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.

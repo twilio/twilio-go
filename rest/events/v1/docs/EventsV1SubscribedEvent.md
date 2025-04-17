@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The unique SID identifier of the Account. |
 **Type** | Pointer to **string** | Type of event being subscribed to. |
-**SchemaVersion** | Pointer to **int** | The schema version that the Subscription should use. |
+**SchemaVersion** | **int** | The schema version that the Subscription should use. |[optional] [default to 0]
 **SubscriptionSid** | Pointer to **string** | The unique SID identifier of the Subscription. |
 **Url** | Pointer to **string** | The URL of this resource. |
 

@@ -42,5 +42,5 @@ type ProxyV1PhoneNumber struct {
 	// Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
 	IsReserved *bool `json:"is_reserved,omitempty"`
 	// The number of open session assigned to the number. See the [How many Phone Numbers do I need?](https://www.twilio.com/docs/proxy/phone-numbers-needed) guide for more information.
-	InUse *int `json:"in_use,omitempty"`
+	InUse int `json:"in_use,omitempty"`
 }

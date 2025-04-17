@@ -4,8 +4,8 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateComplianceInquiry**](ComplianceInquiriesCustomersInitializeApi.md#CreateComplianceInquiry) | **Post** /v1/ComplianceInquiries/Customers/Initialize | 
-[**UpdateComplianceInquiry**](ComplianceInquiriesCustomersInitializeApi.md#UpdateComplianceInquiry) | **Post** /v1/ComplianceInquiries/Customers/{CustomerId}/Initialize | 
+[**CreateComplianceInquiry**](ComplianceInquiriesCustomersInitializeApi.md#CreateComplianceInquiry) | **Post** /v1/ComplianceInquiries/Customers/Initialize | Create a new Compliance Inquiry for the authenticated account. This is necessary to start a new embedded session.
+[**UpdateComplianceInquiry**](ComplianceInquiriesCustomersInitializeApi.md#UpdateComplianceInquiry) | **Post** /v1/ComplianceInquiries/Customers/{CustomerId}/Initialize | Resume a specific Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > TrusthubV1ComplianceInquiry CreateComplianceInquiry(ctx, optional)
 
-
+Create a new Compliance Inquiry for the authenticated account. This is necessary to start a new embedded session.
 
 Create a new Compliance Inquiry for the authenticated account. This is necessary to start a new embedded session.
 
@@ -29,6 +29,8 @@ Other parameters are passed through a pointer to a CreateComplianceInquiryParams
 Name | Type | Description
 ------------- | ------------- | -------------
 **PrimaryProfileSid** | **string** | The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+**NotificationEmail** | **string** | The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
+**ThemeSetId** | **string** | Theme id for styling the inquiry form.
 
 ### Return type
 
@@ -52,7 +54,7 @@ Name | Type | Description
 
 > TrusthubV1ComplianceInquiry UpdateComplianceInquiry(ctx, CustomerIdoptional)
 
-
+Resume a specific Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 
 Resume a specific Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 
@@ -72,6 +74,7 @@ Other parameters are passed through a pointer to a UpdateComplianceInquiryParams
 Name | Type | Description
 ------------- | ------------- | -------------
 **PrimaryProfileSid** | **string** | The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+**ThemeSetId** | **string** | Theme id for styling the inquiry form.
 
 ### Return type
 

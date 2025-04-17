@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCallRecording**](AccountsCallsRecordingsApi.md#CreateCallRecording) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json | 
-[**DeleteCallRecording**](AccountsCallsRecordingsApi.md#DeleteCallRecording) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json | 
-[**FetchCallRecording**](AccountsCallsRecordingsApi.md#FetchCallRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json | 
-[**ListCallRecording**](AccountsCallsRecordingsApi.md#ListCallRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json | 
-[**UpdateCallRecording**](AccountsCallsRecordingsApi.md#UpdateCallRecording) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json | 
+[**CreateCallRecording**](AccountsCallsRecordingsApi.md#CreateCallRecording) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json | Create a recording for the call
+[**DeleteCallRecording**](AccountsCallsRecordingsApi.md#DeleteCallRecording) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json | Delete a recording from your account
+[**FetchCallRecording**](AccountsCallsRecordingsApi.md#FetchCallRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json | Fetch an instance of a recording for a call
+[**ListCallRecording**](AccountsCallsRecordingsApi.md#ListCallRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json | Retrieve a list of recordings belonging to the call used to make the request
+[**UpdateCallRecording**](AccountsCallsRecordingsApi.md#UpdateCallRecording) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json | Changes the status of the recording to paused, stopped, or in-progress. Note: Pass &#x60;Twilio.CURRENT&#x60; instead of recording sid to reference current active recording.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010CallRecording CreateCallRecording(ctx, CallSidoptional)
 
-
+Create a recording for the call
 
 Create a recording for the call
 
@@ -65,7 +65,7 @@ Name | Type | Description
 
 > DeleteCallRecording(ctx, CallSidSidoptional)
 
-
+Delete a recording from your account
 
 Delete a recording from your account
 
@@ -109,7 +109,7 @@ Name | Type | Description
 
 > ApiV2010CallRecording FetchCallRecording(ctx, CallSidSidoptional)
 
-
+Fetch an instance of a recording for a call
 
 Fetch an instance of a recording for a call
 
@@ -153,7 +153,7 @@ Name | Type | Description
 
 > []ApiV2010CallRecording ListCallRecording(ctx, CallSidoptional)
 
-
+Retrieve a list of recordings belonging to the call used to make the request
 
 Retrieve a list of recordings belonging to the call used to make the request
 
@@ -201,7 +201,7 @@ Name | Type | Description
 
 > ApiV2010CallRecording UpdateCallRecording(ctx, CallSidSidoptional)
 
-
+Changes the status of the recording to paused, stopped, or in-progress. Note: Pass `Twilio.CURRENT` instead of recording sid to reference current active recording.
 
 Changes the status of the recording to paused, stopped, or in-progress. Note: Pass `Twilio.CURRENT` instead of recording sid to reference current active recording.
 
@@ -222,7 +222,7 @@ Other parameters are passed through a pointer to a UpdateCallRecordingParams str
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to update.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **PauseBehavior** | **string** | Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
 ### Return type

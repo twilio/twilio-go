@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **ContactIdentity** | Pointer to **string** | The channel contact's Identity. |
 **Enabled** | Pointer to **bool** | Whether the Flex Flow is enabled. |
 **IntegrationType** | Pointer to [**string**](FlexFlowEnumIntegrationType.md) |  |
-**Integration** | Pointer to **interface{}** | An object that contains specific parameters for the integration. |
+**Integration** | Pointer to **map[string]interface{}** | An object that contains specific parameters for the integration. |
 **LongLived** | Pointer to **bool** | When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`. |
 **JanitorEnabled** | Pointer to **bool** | When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`. |
 **Url** | Pointer to **string** | The absolute URL of the Flex Flow resource. |

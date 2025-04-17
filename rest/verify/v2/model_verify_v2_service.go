@@ -24,10 +24,10 @@ type VerifyV2Service struct {
 	Sid *string `json:"sid,omitempty"`
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The string that you assigned to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
+	// The name that appears in the body of your verification messages. It can be up to 30 characters long and can include letters, numbers, spaces, dashes, underscores. Phone numbers, special characters or links are NOT allowed. **This value should not contain PII.**
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The length of the verification code to generate.
-	CodeLength *int `json:"code_length,omitempty"`
+	CodeLength int `json:"code_length,omitempty"`
 	// Whether to perform a lookup with each verification started and return info about the phone number.
 	LookupEnabled *bool `json:"lookup_enabled,omitempty"`
 	// Whether to pass PSD2 transaction parameters when starting a verification.
@@ -40,13 +40,14 @@ type VerifyV2Service struct {
 	TtsName *string `json:"tts_name,omitempty"`
 	// Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
 	DoNotShareWarningEnabled *bool `json:"do_not_share_warning_enabled,omitempty"`
-	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+	// Whether to allow sending verifications with a custom code instead of a randomly generated one.
 	CustomCodeEnabled *bool `json:"custom_code_enabled,omitempty"`
 	// Configurations for the Push factors (channel) created under this Service.
-	Push *interface{} `json:"push,omitempty"`
+	Push *map[string]interface{} `json:"push,omitempty"`
 	// Configurations for the TOTP factors (channel) created under this Service.
-	Totp               *interface{} `json:"totp,omitempty"`
-	DefaultTemplateSid *string      `json:"default_template_sid,omitempty"`
+	Totp               *map[string]interface{} `json:"totp,omitempty"`
+	DefaultTemplateSid *string                 `json:"default_template_sid,omitempty"`
+	Whatsapp           *map[string]interface{} `json:"whatsapp,omitempty"`
 	// Whether to allow verifications from the service to reach the stream-events sinks if configured
 	VerifyEventSubscriptionEnabled *bool `json:"verify_event_subscription_enabled,omitempty"`
 	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.

@@ -28,7 +28,7 @@ type CreateSyncMapItemParams struct {
 	// The unique, user-defined key for the Map Item. Can be up to 320 characters long.
 	Key *string `json:"Key,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-	Data *interface{} `json:"Data,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 	Ttl *int `json:"Ttl,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
@@ -41,7 +41,7 @@ func (params *CreateSyncMapItemParams) SetKey(Key string) *CreateSyncMapItemPara
 	params.Key = &Key
 	return params
 }
-func (params *CreateSyncMapItemParams) SetData(Data interface{}) *CreateSyncMapItemParams {
+func (params *CreateSyncMapItemParams) SetData(Data map[string]interface{}) *CreateSyncMapItemParams {
 	params.Data = &Data
 	return params
 }
@@ -65,7 +65,9 @@ func (c *ApiService) CreateSyncMapItem(ServiceSid string, MapSid string, params 
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Key != nil {
 		data.Set("Key", *params.Key)
@@ -123,7 +125,9 @@ func (c *ApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key str
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
@@ -146,7 +150,9 @@ func (c *ApiService) FetchSyncMapItem(ServiceSid string, MapSid string, Key stri
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -206,16 +212,18 @@ func (c *ApiService) PageSyncMapItem(ServiceSid string, MapSid string, params *L
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
+		data.Set("Order", fmt.Sprint(*params.Order))
 	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
 	}
 	if params != nil && params.Bounds != nil {
-		data.Set("Bounds", *params.Bounds)
+		data.Set("Bounds", fmt.Sprint(*params.Bounds))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -334,7 +342,7 @@ type UpdateSyncMapItemParams struct {
 	// If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 	IfMatch *string `json:"If-Match,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-	Data *interface{} `json:"Data,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 	Ttl *int `json:"Ttl,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
@@ -347,7 +355,7 @@ func (params *UpdateSyncMapItemParams) SetIfMatch(IfMatch string) *UpdateSyncMap
 	params.IfMatch = &IfMatch
 	return params
 }
-func (params *UpdateSyncMapItemParams) SetData(Data interface{}) *UpdateSyncMapItemParams {
+func (params *UpdateSyncMapItemParams) SetData(Data map[string]interface{}) *UpdateSyncMapItemParams {
 	params.Data = &Data
 	return params
 }
@@ -372,7 +380,9 @@ func (c *ApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key str
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)

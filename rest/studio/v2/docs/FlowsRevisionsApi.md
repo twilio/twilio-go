@@ -4,8 +4,8 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchFlowRevision**](FlowsRevisionsApi.md#FetchFlowRevision) | **Get** /v2/Flows/{Sid}/Revisions/{Revision} | 
-[**ListFlowRevision**](FlowsRevisionsApi.md#ListFlowRevision) | **Get** /v2/Flows/{Sid}/Revisions | 
+[**FetchFlowRevision**](FlowsRevisionsApi.md#FetchFlowRevision) | **Get** /v2/Flows/{Sid}/Revisions/{Revision} | Retrieve a specific Flow revision.
+[**ListFlowRevision**](FlowsRevisionsApi.md#ListFlowRevision) | **Get** /v2/Flows/{Sid}/Revisions | Retrieve a list of all Flows revisions.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > StudioV2FlowRevision FetchFlowRevision(ctx, SidRevision)
 
-
+Retrieve a specific Flow revision.
 
 Retrieve a specific Flow revision.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > []StudioV2FlowRevision ListFlowRevision(ctx, Sidoptional)
 
-
+Retrieve a list of all Flows revisions.
 
 Retrieve a list of all Flows revisions.
 

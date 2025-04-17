@@ -36,9 +36,9 @@ Other parameters are passed through a pointer to a CreateChannelWebhookParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **ConfigurationUrl** | **string** | The URL of the webhook to call using the `configuration.method`.
-**ConfigurationMethod** | **string** | 
+**ConfigurationMethod** | [**string**](string.md) | 
 **ConfigurationFilters** | **[]string** | The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
 **ConfigurationTriggers** | **[]string** | A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
 **ConfigurationFlowSid** | **string** | The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
@@ -221,7 +221,7 @@ Other parameters are passed through a pointer to a UpdateChannelWebhookParams st
 Name | Type | Description
 ------------- | ------------- | -------------
 **ConfigurationUrl** | **string** | The URL of the webhook to call using the `configuration.method`.
-**ConfigurationMethod** | **string** | 
+**ConfigurationMethod** | [**string**](string.md) | 
 **ConfigurationFilters** | **[]string** | The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
 **ConfigurationTriggers** | **[]string** | A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
 **ConfigurationFlowSid** | **string** | The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.

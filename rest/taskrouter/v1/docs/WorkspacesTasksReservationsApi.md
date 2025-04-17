@@ -78,7 +78,7 @@ Other parameters are passed through a pointer to a ListTaskReservationParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ReservationStatus** | **string** | Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
+**ReservationStatus** | [**string**](stringstring.md) | Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
 **WorkerSid** | **string** | The SID of the reserved Worker resource to read.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
@@ -127,7 +127,7 @@ Other parameters are passed through a pointer to a UpdateTaskReservationParams s
 Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | The If-Match HTTP request header
-**ReservationStatus** | **string** | 
+**ReservationStatus** | [**string**](string.md) | 
 **WorkerActivitySid** | **string** | The new worker activity SID if rejecting a reservation.
 **Instruction** | **string** | The assignment instruction for reservation.
 **DequeuePostWorkActivitySid** | **string** | The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -171,12 +171,12 @@ Name | Type | Description
 **RecordingStatusCallbackMethod** | **string** | The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 **ConferenceRecordingStatusCallback** | **string** | The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
 **ConferenceRecordingStatusCallbackMethod** | **string** | The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-**Region** | **string** | The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+**Region** | **string** | The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
 **SipAuthUsername** | **string** | The SIP username used for authentication.
 **SipAuthPassword** | **string** | The SIP password for authentication.
 **DequeueStatusCallbackEvent** | **[]string** | The Call progress events sent via webhooks as a result of a Dequeue instruction.
 **PostWorkActivitySid** | **string** | The new worker activity SID after executing a Conference instruction.
-**SupervisorMode** | **string** | 
+**SupervisorMode** | [**string**](string.md) | 
 **Supervisor** | **string** | The Supervisor SID/URI when executing the Supervise instruction.
 **EndConferenceOnCustomerExit** | **bool** | Whether to end the conference when the customer leaves.
 **BeepOnCustomerEntrance** | **bool** | Whether to play a notification beep when the customer joins.

@@ -29,7 +29,7 @@ type VerifyV2VerificationCheck struct {
 	// The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 	To      *string `json:"to,omitempty"`
 	Channel *string `json:"channel,omitempty"`
-	// The status of the verification. Can be: `pending`, `approved`, or `canceled`.
+	// The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`.
 	Status *string `json:"status,omitempty"`
 	// Use \"status\" instead. Legacy property indicating whether the verification was successful.
 	Valid *bool `json:"valid,omitempty"`
@@ -42,5 +42,5 @@ type VerifyV2VerificationCheck struct {
 	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Verification Check resource was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// List of error codes as a result of attempting a verification using the `sna` channel. The error codes are chronologically ordered, from the first attempt to the latest attempt. This will be an empty list if no errors occured or `null` if the last channel used wasn't `sna`.
-	SnaAttemptsErrorCodes *[]interface{} `json:"sna_attempts_error_codes,omitempty"`
+	SnaAttemptsErrorCodes *[]map[string]interface{} `json:"sna_attempts_error_codes,omitempty"`
 }

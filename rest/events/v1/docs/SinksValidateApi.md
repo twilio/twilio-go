@@ -4,7 +4,7 @@ All URIs are relative to *https://events.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSinkValidate**](SinksValidateApi.md#CreateSinkValidate) | **Post** /v1/Sinks/{Sid}/Validate | 
+[**CreateSinkValidate**](SinksValidateApi.md#CreateSinkValidate) | **Post** /v1/Sinks/{Sid}/Validate | Validate that a test event for a Sink was received.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > EventsV1SinkValidate CreateSinkValidate(ctx, Sidoptional)
 
-
+Validate that a test event for a Sink was received.
 
 Validate that a test event for a Sink was received.
 

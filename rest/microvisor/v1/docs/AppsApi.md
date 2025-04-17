@@ -4,9 +4,9 @@ All URIs are relative to *https://microvisor.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteApp**](AppsApi.md#DeleteApp) | **Delete** /v1/Apps/{Sid} | 
-[**FetchApp**](AppsApi.md#FetchApp) | **Get** /v1/Apps/{Sid} | 
-[**ListApp**](AppsApi.md#ListApp) | **Get** /v1/Apps | 
+[**DeleteApp**](AppsApi.md#DeleteApp) | **Delete** /v1/Apps/{Sid} | Delete a specific App.
+[**FetchApp**](AppsApi.md#FetchApp) | **Get** /v1/Apps/{Sid} | Fetch a specific App.
+[**ListApp**](AppsApi.md#ListApp) | **Get** /v1/Apps | Retrieve a list of all Apps for an Account.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > DeleteApp(ctx, Sid)
 
-
+Delete a specific App.
 
 Delete a specific App.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > MicrovisorV1App FetchApp(ctx, Sid)
 
-
+Fetch a specific App.
 
 Fetch a specific App.
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 > []MicrovisorV1App ListApp(ctx, optional)
 
-
+Retrieve a list of all Apps for an Account.
 
 Retrieve a list of all Apps for an Account.
 

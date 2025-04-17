@@ -29,7 +29,9 @@ func (c *ApiService) DeleteSim(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -47,7 +49,9 @@ func (c *ApiService) FetchSim(Sid string) (*WirelessV1Sim, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -116,10 +120,12 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string
 	path := "/v1/Sims"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Iccid != nil {
 		data.Set("Iccid", *params.Iccid)
@@ -364,7 +370,9 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -382,7 +390,7 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1
 		data.Set("RatePlan", *params.RatePlan)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.CommandsCallbackMethod != nil {
 		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
@@ -415,7 +423,7 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 	if params != nil && params.ResetStatus != nil {
-		data.Set("ResetStatus", *params.ResetStatus)
+		data.Set("ResetStatus", fmt.Sprint(*params.ResetStatus))
 	}
 	if params != nil && params.AccountSid != nil {
 		data.Set("AccountSid", *params.AccountSid)

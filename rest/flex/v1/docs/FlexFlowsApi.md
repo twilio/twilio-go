@@ -33,10 +33,10 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the Flex Flow resource.
 **ChatServiceSid** | **string** | The SID of the chat service.
-**ChannelType** | **string** | 
+**ChannelType** | [**string**](string.md) | 
 **ContactIdentity** | **string** | The channel contact's Identity.
 **Enabled** | **bool** | Whether the new Flex Flow is enabled.
-**IntegrationType** | **string** | 
+**IntegrationType** | [**string**](string.md) | 
 **IntegrationFlowSid** | **string** | The SID of the Studio Flow. Required when `integrationType` is `studio`.
 **IntegrationUrl** | **string** | The URL of the external webhook. Required when `integrationType` is `external`.
 **IntegrationWorkspaceSid** | **string** | The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -217,10 +217,10 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the Flex Flow resource.
 **ChatServiceSid** | **string** | The SID of the chat service.
-**ChannelType** | **string** | 
+**ChannelType** | [**string**](string.md) | 
 **ContactIdentity** | **string** | The channel contact's Identity.
 **Enabled** | **bool** | Whether the new Flex Flow is enabled.
-**IntegrationType** | **string** | 
+**IntegrationType** | [**string**](string.md) | 
 **IntegrationFlowSid** | **string** | The SID of the Studio Flow. Required when `integrationType` is `studio`.
 **IntegrationUrl** | **string** | The URL of the external webhook. Required when `integrationType` is `external`.
 **IntegrationWorkspaceSid** | **string** | The Workspace SID for a new Task. Required when `integrationType` is `task`.

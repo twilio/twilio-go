@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -41,9 +42,9 @@ type CreateVerificationParams struct {
 	// The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 	Payee *string `json:"Payee,omitempty"`
 	// The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
-	RateLimits *interface{} `json:"RateLimits,omitempty"`
+	RateLimits *map[string]interface{} `json:"RateLimits,omitempty"`
 	// [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
-	ChannelConfiguration *interface{} `json:"ChannelConfiguration,omitempty"`
+	ChannelConfiguration *map[string]interface{} `json:"ChannelConfiguration,omitempty"`
 	// Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
 	AppHash *string `json:"AppHash,omitempty"`
 	// The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
@@ -52,6 +53,8 @@ type CreateVerificationParams struct {
 	TemplateCustomSubstitutions *string `json:"TemplateCustomSubstitutions,omitempty"`
 	// Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 	DeviceIp *string `json:"DeviceIp,omitempty"`
+	// An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
+	EnableSnaClientToken *bool `json:"EnableSnaClientToken,omitempty"`
 	//
 	RiskCheck *string `json:"RiskCheck,omitempty"`
 	// A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
@@ -94,11 +97,11 @@ func (params *CreateVerificationParams) SetPayee(Payee string) *CreateVerificati
 	params.Payee = &Payee
 	return params
 }
-func (params *CreateVerificationParams) SetRateLimits(RateLimits interface{}) *CreateVerificationParams {
+func (params *CreateVerificationParams) SetRateLimits(RateLimits map[string]interface{}) *CreateVerificationParams {
 	params.RateLimits = &RateLimits
 	return params
 }
-func (params *CreateVerificationParams) SetChannelConfiguration(ChannelConfiguration interface{}) *CreateVerificationParams {
+func (params *CreateVerificationParams) SetChannelConfiguration(ChannelConfiguration map[string]interface{}) *CreateVerificationParams {
 	params.ChannelConfiguration = &ChannelConfiguration
 	return params
 }
@@ -118,6 +121,10 @@ func (params *CreateVerificationParams) SetDeviceIp(DeviceIp string) *CreateVeri
 	params.DeviceIp = &DeviceIp
 	return params
 }
+func (params *CreateVerificationParams) SetEnableSnaClientToken(EnableSnaClientToken bool) *CreateVerificationParams {
+	params.EnableSnaClientToken = &EnableSnaClientToken
+	return params
+}
 func (params *CreateVerificationParams) SetRiskCheck(RiskCheck string) *CreateVerificationParams {
 	params.RiskCheck = &RiskCheck
 	return params
@@ -133,7 +140,9 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
@@ -192,8 +201,11 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	if params != nil && params.DeviceIp != nil {
 		data.Set("DeviceIp", *params.DeviceIp)
 	}
+	if params != nil && params.EnableSnaClientToken != nil {
+		data.Set("EnableSnaClientToken", fmt.Sprint(*params.EnableSnaClientToken))
+	}
 	if params != nil && params.RiskCheck != nil {
-		data.Set("RiskCheck", *params.RiskCheck)
+		data.Set("RiskCheck", fmt.Sprint(*params.RiskCheck))
 	}
 	if params != nil && params.Tags != nil {
 		data.Set("Tags", *params.Tags)
@@ -221,7 +233,9 @@ func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -256,10 +270,12 @@ func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *U
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

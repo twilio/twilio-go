@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **MimeType** | Pointer to **string** | The image type uploaded in the Supporting Document container. |
 **Status** | Pointer to [**string**](SupportingDocumentEnumStatus.md) |  |
 **Type** | Pointer to **string** | The type of the Supporting Document. |
-**Attributes** | Pointer to **interface{}** | The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types. |
+**Attributes** | Pointer to **map[string]interface{}** | The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **Url** | Pointer to **string** | The absolute URL of the Supporting Document resource. |

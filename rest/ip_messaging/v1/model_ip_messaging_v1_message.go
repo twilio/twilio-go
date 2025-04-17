@@ -31,6 +31,6 @@ type IpMessagingV1Message struct {
 	WasEdited   *bool      `json:"was_edited,omitempty"`
 	From        *string    `json:"from,omitempty"`
 	Body        *string    `json:"body,omitempty"`
-	Index       *int       `json:"index,omitempty"`
+	Index       int        `json:"index,omitempty"`
 	Url         *string    `json:"url,omitempty"`
 }

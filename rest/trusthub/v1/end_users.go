@@ -30,7 +30,7 @@ type CreateEndUserParams struct {
 	// The type of end user of the Bundle resource - can be `individual` or `business`.
 	Type *string `json:"Type,omitempty"`
 	// The set of parameters that are the attributes of the End User resource which are derived End User Types.
-	Attributes *interface{} `json:"Attributes,omitempty"`
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
 }
 
 func (params *CreateEndUserParams) SetFriendlyName(FriendlyName string) *CreateEndUserParams {
@@ -41,7 +41,7 @@ func (params *CreateEndUserParams) SetType(Type string) *CreateEndUserParams {
 	params.Type = &Type
 	return params
 }
-func (params *CreateEndUserParams) SetAttributes(Attributes interface{}) *CreateEndUserParams {
+func (params *CreateEndUserParams) SetAttributes(Attributes map[string]interface{}) *CreateEndUserParams {
 	params.Attributes = &Attributes
 	return params
 }
@@ -51,7 +51,9 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*TrusthubV1EndU
 	path := "/v1/EndUsers"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -90,7 +92,9 @@ func (c *ApiService) DeleteEndUser(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -108,7 +112,9 @@ func (c *ApiService) FetchEndUser(Sid string) (*TrusthubV1EndUser, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -147,7 +153,9 @@ func (c *ApiService) PageEndUser(params *ListEndUserParams, pageToken, pageNumbe
 	path := "/v1/EndUsers"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -266,14 +274,14 @@ type UpdateEndUserParams struct {
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The set of parameters that are the attributes of the End User resource which are derived End User Types.
-	Attributes *interface{} `json:"Attributes,omitempty"`
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
 }
 
 func (params *UpdateEndUserParams) SetFriendlyName(FriendlyName string) *UpdateEndUserParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateEndUserParams) SetAttributes(Attributes interface{}) *UpdateEndUserParams {
+func (params *UpdateEndUserParams) SetAttributes(Attributes map[string]interface{}) *UpdateEndUserParams {
 	params.Attributes = &Attributes
 	return params
 }
@@ -284,7 +292,9 @@ func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*Tr
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)

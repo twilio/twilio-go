@@ -36,9 +36,9 @@ Other parameters are passed through a pointer to a CreateChannelWebhookParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **ConfigurationUrl** | **string** | 
-**ConfigurationMethod** | **string** | 
+**ConfigurationMethod** | [**string**](string.md) | 
 **ConfigurationFilters** | **[]string** | 
 **ConfigurationTriggers** | **[]string** | 
 **ConfigurationFlowSid** | **string** | 
@@ -221,7 +221,7 @@ Other parameters are passed through a pointer to a UpdateChannelWebhookParams st
 Name | Type | Description
 ------------- | ------------- | -------------
 **ConfigurationUrl** | **string** | 
-**ConfigurationMethod** | **string** | 
+**ConfigurationMethod** | [**string**](string.md) | 
 **ConfigurationFilters** | **[]string** | 
 **ConfigurationTriggers** | **[]string** | 
 **ConfigurationFlowSid** | **string** | 

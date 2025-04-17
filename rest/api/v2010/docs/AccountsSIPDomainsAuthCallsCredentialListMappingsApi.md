@@ -4,10 +4,10 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSipAuthCallsCredentialListMapping**](AccountsSIPDomainsAuthCallsCredentialListMappingsApi.md#CreateSipAuthCallsCredentialListMapping) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json | 
-[**DeleteSipAuthCallsCredentialListMapping**](AccountsSIPDomainsAuthCallsCredentialListMappingsApi.md#DeleteSipAuthCallsCredentialListMapping) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json | 
-[**FetchSipAuthCallsCredentialListMapping**](AccountsSIPDomainsAuthCallsCredentialListMappingsApi.md#FetchSipAuthCallsCredentialListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json | 
-[**ListSipAuthCallsCredentialListMapping**](AccountsSIPDomainsAuthCallsCredentialListMappingsApi.md#ListSipAuthCallsCredentialListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json | 
+[**CreateSipAuthCallsCredentialListMapping**](AccountsSIPDomainsAuthCallsCredentialListMappingsApi.md#CreateSipAuthCallsCredentialListMapping) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json | Create a new credential list mapping resource
+[**DeleteSipAuthCallsCredentialListMapping**](AccountsSIPDomainsAuthCallsCredentialListMappingsApi.md#DeleteSipAuthCallsCredentialListMapping) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json | Delete a credential list mapping from the requested domain
+[**FetchSipAuthCallsCredentialListMapping**](AccountsSIPDomainsAuthCallsCredentialListMappingsApi.md#FetchSipAuthCallsCredentialListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json | Fetch a specific instance of a credential list mapping
+[**ListSipAuthCallsCredentialListMapping**](AccountsSIPDomainsAuthCallsCredentialListMappingsApi.md#ListSipAuthCallsCredentialListMapping) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json | Retrieve a list of credential list mappings belonging to the domain used in the request
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ApiV2010SipAuthCallsCredentialListMapping CreateSipAuthCallsCredentialListMapping(ctx, DomainSidoptional)
 
-
+Create a new credential list mapping resource
 
 Create a new credential list mapping resource
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteSipAuthCallsCredentialListMapping(ctx, DomainSidSidoptional)
 
-
+Delete a credential list mapping from the requested domain
 
 Delete a credential list mapping from the requested domain
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > ApiV2010SipAuthCallsCredentialListMapping FetchSipAuthCallsCredentialListMapping(ctx, DomainSidSidoptional)
 
-
+Fetch a specific instance of a credential list mapping
 
 Fetch a specific instance of a credential list mapping
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []ApiV2010SipAuthCallsCredentialListMapping ListSipAuthCallsCredentialListMapping(ctx, DomainSidoptional)
 
-
+Retrieve a list of credential list mappings belonging to the domain used in the request
 
 Retrieve a list of credential list mappings belonging to the domain used in the request
 

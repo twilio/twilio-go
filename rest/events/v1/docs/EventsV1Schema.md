@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Url** | Pointer to **string** | The URL of this resource. |
 **Links** | Pointer to **map[string]interface{}** | Contains a dictionary of URL links to nested resources of this schema. |
 **LatestVersionDateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that the latest schema version was created, given in ISO 8601 format. |
-**LatestVersion** | Pointer to **int** | The latest version published of this schema. |
+**LatestVersion** | **int** | The latest version published of this schema. |[optional] [default to 0]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

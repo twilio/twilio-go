@@ -63,7 +63,9 @@ func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams
 	path := "/v1/UsageRecords"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.End != nil {
 		data.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
@@ -72,7 +74,7 @@ func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams
 		data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
 	}
 	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
+		data.Set("Granularity", fmt.Sprint(*params.Granularity))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

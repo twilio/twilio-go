@@ -67,7 +67,7 @@ type CreateTollfreeVerificationParams struct {
 	BusinessContactLastName *string `json:"BusinessContactLastName,omitempty"`
 	// The email address of the contact for the business or organization using the Tollfree number.
 	BusinessContactEmail *string `json:"BusinessContactEmail,omitempty"`
-	// The phone number of the contact for the business or organization using the Tollfree number.
+	// The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
 	// An optional external reference ID supplied by customer and echoed back on status retrieval.
 	ExternalReferenceId *string `json:"ExternalReferenceId,omitempty"`
@@ -171,7 +171,9 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	path := "/v1/Tollfree/Verifications"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.BusinessName != nil {
 		data.Set("BusinessName", *params.BusinessName)
@@ -199,7 +201,7 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 		}
 	}
 	if params != nil && params.OptInType != nil {
-		data.Set("OptInType", *params.OptInType)
+		data.Set("OptInType", fmt.Sprint(*params.OptInType))
 	}
 	if params != nil && params.MessageVolume != nil {
 		data.Set("MessageVolume", *params.MessageVolume)
@@ -268,7 +270,9 @@ func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -286,7 +290,9 @@ func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1Tollfree
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -309,6 +315,10 @@ type ListTollfreeVerificationParams struct {
 	TollfreePhoneNumberSid *string `json:"TollfreePhoneNumberSid,omitempty"`
 	// The compliance status of the Tollfree Verification record.
 	Status *string `json:"Status,omitempty"`
+	// Customer supplied reference id for the Tollfree Verification record.
+	ExternalReferenceId *string `json:"ExternalReferenceId,omitempty"`
+	// Whether to include Tollfree Verifications from sub accounts in list response.
+	IncludeSubAccounts *bool `json:"IncludeSubAccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -321,6 +331,14 @@ func (params *ListTollfreeVerificationParams) SetTollfreePhoneNumberSid(Tollfree
 }
 func (params *ListTollfreeVerificationParams) SetStatus(Status string) *ListTollfreeVerificationParams {
 	params.Status = &Status
+	return params
+}
+func (params *ListTollfreeVerificationParams) SetExternalReferenceId(ExternalReferenceId string) *ListTollfreeVerificationParams {
+	params.ExternalReferenceId = &ExternalReferenceId
+	return params
+}
+func (params *ListTollfreeVerificationParams) SetIncludeSubAccounts(IncludeSubAccounts bool) *ListTollfreeVerificationParams {
+	params.IncludeSubAccounts = &IncludeSubAccounts
 	return params
 }
 func (params *ListTollfreeVerificationParams) SetPageSize(PageSize int) *ListTollfreeVerificationParams {
@@ -337,13 +355,21 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
 	path := "/v1/Tollfree/Verifications"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.TollfreePhoneNumberSid != nil {
 		data.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.ExternalReferenceId != nil {
+		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
+	}
+	if params != nil && params.IncludeSubAccounts != nil {
+		data.Set("IncludeSubAccounts", fmt.Sprint(*params.IncludeSubAccounts))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -497,7 +523,7 @@ type UpdateTollfreeVerificationParams struct {
 	BusinessContactLastName *string `json:"BusinessContactLastName,omitempty"`
 	// The email address of the contact for the business or organization using the Tollfree number.
 	BusinessContactEmail *string `json:"BusinessContactEmail,omitempty"`
-	// The phone number of the contact for the business or organization using the Tollfree number.
+	// The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
 	// Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 	EditReason *string `json:"EditReason,omitempty"`
@@ -594,7 +620,9 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.BusinessName != nil {
 		data.Set("BusinessName", *params.BusinessName)
@@ -622,7 +650,7 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 		}
 	}
 	if params != nil && params.OptInType != nil {
-		data.Set("OptInType", *params.OptInType)
+		data.Set("OptInType", fmt.Sprint(*params.OptInType))
 	}
 	if params != nil && params.MessageVolume != nil {
 		data.Set("MessageVolume", *params.MessageVolume)

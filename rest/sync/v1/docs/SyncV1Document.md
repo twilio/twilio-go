@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Url** | Pointer to **string** | The absolute URL of the Document resource. |
 **Links** | Pointer to **map[string]interface{}** | The URLs of resources related to the Sync Document. |
 **Revision** | Pointer to **string** | The current revision of the Sync Document, represented as a string. The `revision` property is used with conditional updates to ensure data consistency. |
-**Data** | Pointer to **interface{}** | An arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. |
+**Data** | Pointer to **map[string]interface{}** | An arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. |
 **DateExpires** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the Sync Document expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Sync Document does not expire, this value is `null`. The Document resource might not be deleted immediately after it expires. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |

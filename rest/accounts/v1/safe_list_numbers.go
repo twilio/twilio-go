@@ -21,7 +21,7 @@ import (
 
 // Optional parameters for the method 'CreateSafelist'
 type CreateSafelistParams struct {
-	// The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+	// The phone number or phone number 1k prefix to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 	PhoneNumber *string `json:"PhoneNumber,omitempty"`
 }
 
@@ -30,12 +30,14 @@ func (params *CreateSafelistParams) SetPhoneNumber(PhoneNumber string) *CreateSa
 	return params
 }
 
-// Add a new phone number to SafeList.
+// Add a new phone number or phone number 1k prefix to SafeList.
 func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*AccountsV1Safelist, error) {
 	path := "/v1/SafeList/Numbers"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)
@@ -58,7 +60,7 @@ func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*AccountsV1Sa
 
 // Optional parameters for the method 'DeleteSafelist'
 type DeleteSafelistParams struct {
-	// The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+	// The phone number or phone number 1k prefix to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 	PhoneNumber *string `json:"PhoneNumber,omitempty"`
 }
 
@@ -67,12 +69,14 @@ func (params *DeleteSafelistParams) SetPhoneNumber(PhoneNumber string) *DeleteSa
 	return params
 }
 
-// Remove a phone number from SafeList.
+// Remove a phone number or phone number 1k prefix from SafeList.
 func (c *ApiService) DeleteSafelist(params *DeleteSafelistParams) error {
 	path := "/v1/SafeList/Numbers"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)
@@ -90,7 +94,7 @@ func (c *ApiService) DeleteSafelist(params *DeleteSafelistParams) error {
 
 // Optional parameters for the method 'FetchSafelist'
 type FetchSafelistParams struct {
-	// The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+	// The phone number or phone number 1k prefix to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 	PhoneNumber *string `json:"PhoneNumber,omitempty"`
 }
 
@@ -99,12 +103,14 @@ func (params *FetchSafelistParams) SetPhoneNumber(PhoneNumber string) *FetchSafe
 	return params
 }
 
-// Check if a phone number exists in SafeList.
+// Check if a phone number or phone number 1k prefix exists in SafeList.
 func (c *ApiService) FetchSafelist(params *FetchSafelistParams) (*AccountsV1Safelist, error) {
 	path := "/v1/SafeList/Numbers"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)

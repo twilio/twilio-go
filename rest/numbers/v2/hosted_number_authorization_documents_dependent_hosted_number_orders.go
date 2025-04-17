@@ -71,10 +71,12 @@ func (c *ApiService) PageDependentHostedNumberOrder(SigningDocumentSid string, p
 	path = strings.Replace(path, "{"+"SigningDocumentSid"+"}", SigningDocumentSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)

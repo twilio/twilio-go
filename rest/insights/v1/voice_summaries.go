@@ -36,9 +36,7 @@ type ListCallSummariesParams struct {
 	FromCountryCode *string `json:"FromCountryCode,omitempty"`
 	// A destination country code. Based on phone number in To.
 	ToCountryCode *string `json:"ToCountryCode,omitempty"`
-	// A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
-	Branded *bool `json:"Branded,omitempty"`
-	// A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+	// A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
 	VerifiedCaller *bool `json:"VerifiedCaller,omitempty"`
 	// A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
 	HasTag *bool `json:"HasTag,omitempty"`
@@ -72,6 +70,24 @@ type ListCallSummariesParams struct {
 	SpamAnnotation *bool `json:"SpamAnnotation,omitempty"`
 	// A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
 	CallScoreAnnotation *string `json:"CallScoreAnnotation,omitempty"`
+	// A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+	BrandedEnabled *bool `json:"BrandedEnabled,omitempty"`
+	// A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+	VoiceIntegrityEnabled *bool `json:"VoiceIntegrityEnabled,omitempty"`
+	// A unique SID identifier of the Branded Call.
+	BrandedBundleSid *string `json:"BrandedBundleSid,omitempty"`
+	// A unique SID identifier of the Voice Integrity Profile.
+	VoiceIntegrityBundleSid *string `json:"VoiceIntegrityBundleSid,omitempty"`
+	// A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+	VoiceIntegrityUseCase *string `json:"VoiceIntegrityUseCase,omitempty"`
+	// A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+	BusinessProfileIdentity *string `json:"BusinessProfileIdentity,omitempty"`
+	// A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+	BusinessProfileIndustry *string `json:"BusinessProfileIndustry,omitempty"`
+	// A unique SID identifier of the Business Profile.
+	BusinessProfileBundleSid *string `json:"BusinessProfileBundleSid,omitempty"`
+	// A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
+	BusinessProfileType *string `json:"BusinessProfileType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -100,10 +116,6 @@ func (params *ListCallSummariesParams) SetFromCountryCode(FromCountryCode string
 }
 func (params *ListCallSummariesParams) SetToCountryCode(ToCountryCode string) *ListCallSummariesParams {
 	params.ToCountryCode = &ToCountryCode
-	return params
-}
-func (params *ListCallSummariesParams) SetBranded(Branded bool) *ListCallSummariesParams {
-	params.Branded = &Branded
 	return params
 }
 func (params *ListCallSummariesParams) SetVerifiedCaller(VerifiedCaller bool) *ListCallSummariesParams {
@@ -174,6 +186,42 @@ func (params *ListCallSummariesParams) SetCallScoreAnnotation(CallScoreAnnotatio
 	params.CallScoreAnnotation = &CallScoreAnnotation
 	return params
 }
+func (params *ListCallSummariesParams) SetBrandedEnabled(BrandedEnabled bool) *ListCallSummariesParams {
+	params.BrandedEnabled = &BrandedEnabled
+	return params
+}
+func (params *ListCallSummariesParams) SetVoiceIntegrityEnabled(VoiceIntegrityEnabled bool) *ListCallSummariesParams {
+	params.VoiceIntegrityEnabled = &VoiceIntegrityEnabled
+	return params
+}
+func (params *ListCallSummariesParams) SetBrandedBundleSid(BrandedBundleSid string) *ListCallSummariesParams {
+	params.BrandedBundleSid = &BrandedBundleSid
+	return params
+}
+func (params *ListCallSummariesParams) SetVoiceIntegrityBundleSid(VoiceIntegrityBundleSid string) *ListCallSummariesParams {
+	params.VoiceIntegrityBundleSid = &VoiceIntegrityBundleSid
+	return params
+}
+func (params *ListCallSummariesParams) SetVoiceIntegrityUseCase(VoiceIntegrityUseCase string) *ListCallSummariesParams {
+	params.VoiceIntegrityUseCase = &VoiceIntegrityUseCase
+	return params
+}
+func (params *ListCallSummariesParams) SetBusinessProfileIdentity(BusinessProfileIdentity string) *ListCallSummariesParams {
+	params.BusinessProfileIdentity = &BusinessProfileIdentity
+	return params
+}
+func (params *ListCallSummariesParams) SetBusinessProfileIndustry(BusinessProfileIndustry string) *ListCallSummariesParams {
+	params.BusinessProfileIndustry = &BusinessProfileIndustry
+	return params
+}
+func (params *ListCallSummariesParams) SetBusinessProfileBundleSid(BusinessProfileBundleSid string) *ListCallSummariesParams {
+	params.BusinessProfileBundleSid = &BusinessProfileBundleSid
+	return params
+}
+func (params *ListCallSummariesParams) SetBusinessProfileType(BusinessProfileType string) *ListCallSummariesParams {
+	params.BusinessProfileType = &BusinessProfileType
+	return params
+}
 func (params *ListCallSummariesParams) SetPageSize(PageSize int) *ListCallSummariesParams {
 	params.PageSize = &PageSize
 	return params
@@ -188,7 +236,9 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 	path := "/v1/Voice/Summaries"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
@@ -207,9 +257,6 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 	}
 	if params != nil && params.ToCountryCode != nil {
 		data.Set("ToCountryCode", *params.ToCountryCode)
-	}
-	if params != nil && params.Branded != nil {
-		data.Set("Branded", fmt.Sprint(*params.Branded))
 	}
 	if params != nil && params.VerifiedCaller != nil {
 		data.Set("VerifiedCaller", fmt.Sprint(*params.VerifiedCaller))
@@ -261,6 +308,33 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 	}
 	if params != nil && params.CallScoreAnnotation != nil {
 		data.Set("CallScoreAnnotation", *params.CallScoreAnnotation)
+	}
+	if params != nil && params.BrandedEnabled != nil {
+		data.Set("BrandedEnabled", fmt.Sprint(*params.BrandedEnabled))
+	}
+	if params != nil && params.VoiceIntegrityEnabled != nil {
+		data.Set("VoiceIntegrityEnabled", fmt.Sprint(*params.VoiceIntegrityEnabled))
+	}
+	if params != nil && params.BrandedBundleSid != nil {
+		data.Set("BrandedBundleSid", *params.BrandedBundleSid)
+	}
+	if params != nil && params.VoiceIntegrityBundleSid != nil {
+		data.Set("VoiceIntegrityBundleSid", *params.VoiceIntegrityBundleSid)
+	}
+	if params != nil && params.VoiceIntegrityUseCase != nil {
+		data.Set("VoiceIntegrityUseCase", *params.VoiceIntegrityUseCase)
+	}
+	if params != nil && params.BusinessProfileIdentity != nil {
+		data.Set("BusinessProfileIdentity", *params.BusinessProfileIdentity)
+	}
+	if params != nil && params.BusinessProfileIndustry != nil {
+		data.Set("BusinessProfileIndustry", *params.BusinessProfileIndustry)
+	}
+	if params != nil && params.BusinessProfileBundleSid != nil {
+		data.Set("BusinessProfileBundleSid", *params.BusinessProfileBundleSid)
+	}
+	if params != nil && params.BusinessProfileType != nil {
+		data.Set("BusinessProfileType", *params.BusinessProfileType)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

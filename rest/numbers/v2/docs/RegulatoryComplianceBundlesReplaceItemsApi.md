@@ -4,7 +4,7 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateReplaceItems**](RegulatoryComplianceBundlesReplaceItemsApi.md#CreateReplaceItems) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ReplaceItems | 
+[**CreateReplaceItems**](RegulatoryComplianceBundlesReplaceItemsApi.md#CreateReplaceItems) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ReplaceItems | Replaces all bundle items in the target bundle (specified in the path) with all the bundle items of the source bundle (specified by the from_bundle_sid body param)
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > NumbersV2ReplaceItems CreateReplaceItems(ctx, BundleSidoptional)
 
-
+Replaces all bundle items in the target bundle (specified in the path) with all the bundle items of the source bundle (specified by the from_bundle_sid body param)
 
 Replaces all bundle items in the target bundle (specified in the path) with all the bundle items of the source bundle (specified by the from_bundle_sid body param)
 

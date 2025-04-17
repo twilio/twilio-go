@@ -28,7 +28,7 @@ type CreateDocumentParams struct {
 	// An application-defined string that uniquely identifies the Sync Document
 	UniqueName *string `json:"UniqueName,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-	Data *interface{} `json:"Data,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
 	Ttl *int `json:"Ttl,omitempty"`
 }
@@ -37,7 +37,7 @@ func (params *CreateDocumentParams) SetUniqueName(UniqueName string) *CreateDocu
 	params.UniqueName = &UniqueName
 	return params
 }
-func (params *CreateDocumentParams) SetData(Data interface{}) *CreateDocumentParams {
+func (params *CreateDocumentParams) SetData(Data map[string]interface{}) *CreateDocumentParams {
 	params.Data = &Data
 	return params
 }
@@ -52,7 +52,9 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -92,7 +94,9 @@ func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -111,7 +115,9 @@ func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Docume
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -152,7 +158,9 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -271,7 +279,7 @@ type UpdateDocumentParams struct {
 	// The If-Match HTTP request header
 	IfMatch *string `json:"If-Match,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-	Data *interface{} `json:"Data,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
 	Ttl *int `json:"Ttl,omitempty"`
 }
@@ -280,7 +288,7 @@ func (params *UpdateDocumentParams) SetIfMatch(IfMatch string) *UpdateDocumentPa
 	params.IfMatch = &IfMatch
 	return params
 }
-func (params *UpdateDocumentParams) SetData(Data interface{}) *UpdateDocumentParams {
+func (params *UpdateDocumentParams) SetData(Data map[string]interface{}) *UpdateDocumentParams {
 	params.Data = &Data
 	return params
 }
@@ -296,7 +304,9 @@ func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *Updat
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)

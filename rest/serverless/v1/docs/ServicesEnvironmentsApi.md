@@ -4,10 +4,10 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEnvironment**](ServicesEnvironmentsApi.md#CreateEnvironment) | **Post** /v1/Services/{ServiceSid}/Environments | 
-[**DeleteEnvironment**](ServicesEnvironmentsApi.md#DeleteEnvironment) | **Delete** /v1/Services/{ServiceSid}/Environments/{Sid} | 
-[**FetchEnvironment**](ServicesEnvironmentsApi.md#FetchEnvironment) | **Get** /v1/Services/{ServiceSid}/Environments/{Sid} | 
-[**ListEnvironment**](ServicesEnvironmentsApi.md#ListEnvironment) | **Get** /v1/Services/{ServiceSid}/Environments | 
+[**CreateEnvironment**](ServicesEnvironmentsApi.md#CreateEnvironment) | **Post** /v1/Services/{ServiceSid}/Environments | Create a new environment.
+[**DeleteEnvironment**](ServicesEnvironmentsApi.md#DeleteEnvironment) | **Delete** /v1/Services/{ServiceSid}/Environments/{Sid} | Delete a specific environment.
+[**FetchEnvironment**](ServicesEnvironmentsApi.md#FetchEnvironment) | **Get** /v1/Services/{ServiceSid}/Environments/{Sid} | Retrieve a specific environment.
+[**ListEnvironment**](ServicesEnvironmentsApi.md#ListEnvironment) | **Get** /v1/Services/{ServiceSid}/Environments | Retrieve a list of all environments.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ServerlessV1Environment CreateEnvironment(ctx, ServiceSidoptional)
 
-
+Create a new environment.
 
 Create a new environment.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteEnvironment(ctx, ServiceSidSid)
 
-
+Delete a specific environment.
 
 Delete a specific environment.
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > ServerlessV1Environment FetchEnvironment(ctx, ServiceSidSid)
 
-
+Retrieve a specific environment.
 
 Retrieve a specific environment.
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > []ServerlessV1Environment ListEnvironment(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all environments.
 
 Retrieve a list of all environments.
 

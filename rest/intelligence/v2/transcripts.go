@@ -29,7 +29,7 @@ type CreateTranscriptParams struct {
 	// The unique SID identifier of the Service.
 	ServiceSid *string `json:"ServiceSid,omitempty"`
 	// JSON object describing Media Channel including Source and Participants
-	Channel *interface{} `json:"Channel,omitempty"`
+	Channel *map[string]interface{} `json:"Channel,omitempty"`
 	// Used to store client provided metadata. Maximum of 64 double-byte UTF8 characters.
 	CustomerKey *string `json:"CustomerKey,omitempty"`
 	// The date that this Transcript's media was started, given in ISO 8601 format.
@@ -40,7 +40,7 @@ func (params *CreateTranscriptParams) SetServiceSid(ServiceSid string) *CreateTr
 	params.ServiceSid = &ServiceSid
 	return params
 }
-func (params *CreateTranscriptParams) SetChannel(Channel interface{}) *CreateTranscriptParams {
+func (params *CreateTranscriptParams) SetChannel(Channel map[string]interface{}) *CreateTranscriptParams {
 	params.Channel = &Channel
 	return params
 }
@@ -58,7 +58,9 @@ func (c *ApiService) CreateTranscript(params *CreateTranscriptParams) (*Intellig
 	path := "/v2/Transcripts"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.ServiceSid != nil {
 		data.Set("ServiceSid", *params.ServiceSid)
@@ -100,7 +102,9 @@ func (c *ApiService) DeleteTranscript(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -118,7 +122,9 @@ func (c *ApiService) FetchTranscript(Sid string) (*IntelligenceV2Transcript, err
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -205,7 +211,9 @@ func (c *ApiService) PageTranscript(params *ListTranscriptParams, pageToken, pag
 	path := "/v2/Transcripts"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.ServiceSid != nil {
 		data.Set("ServiceSid", *params.ServiceSid)

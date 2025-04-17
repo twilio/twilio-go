@@ -4,8 +4,8 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchAnnotation**](VoiceAnnotationApi.md#FetchAnnotation) | **Get** /v1/Voice/{CallSid}/Annotation | 
-[**UpdateAnnotation**](VoiceAnnotationApi.md#UpdateAnnotation) | **Post** /v1/Voice/{CallSid}/Annotation | 
+[**FetchAnnotation**](VoiceAnnotationApi.md#FetchAnnotation) | **Get** /v1/Voice/{CallSid}/Annotation | Get the Annotation for a specific Call.
+[**UpdateAnnotation**](VoiceAnnotationApi.md#UpdateAnnotation) | **Post** /v1/Voice/{CallSid}/Annotation | Update an Annotation for a specific Call.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > InsightsV1Annotation FetchAnnotation(ctx, CallSid)
 
-
+Get the Annotation for a specific Call.
 
 Get the Annotation for a specific Call.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > InsightsV1Annotation UpdateAnnotation(ctx, CallSidoptional)
 
-
+Update an Annotation for a specific Call.
 
 Update an Annotation for a specific Call.
 

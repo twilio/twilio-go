@@ -4,8 +4,8 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchSupportingDocumentType**](SupportingDocumentTypesApi.md#FetchSupportingDocumentType) | **Get** /v1/SupportingDocumentTypes/{Sid} | 
-[**ListSupportingDocumentType**](SupportingDocumentTypesApi.md#ListSupportingDocumentType) | **Get** /v1/SupportingDocumentTypes | 
+[**FetchSupportingDocumentType**](SupportingDocumentTypesApi.md#FetchSupportingDocumentType) | **Get** /v1/SupportingDocumentTypes/{Sid} | Fetch a specific Supporting Document Type Instance.
+[**ListSupportingDocumentType**](SupportingDocumentTypesApi.md#ListSupportingDocumentType) | **Get** /v1/SupportingDocumentTypes | Retrieve a list of all Supporting Document Types.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > TrusthubV1SupportingDocumentType FetchSupportingDocumentType(ctx, Sid)
 
-
+Fetch a specific Supporting Document Type Instance.
 
 Fetch a specific Supporting Document Type Instance.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []TrusthubV1SupportingDocumentType ListSupportingDocumentType(ctx, optional)
 
-
+Retrieve a list of all Supporting Document Types.
 
 Retrieve a list of all Supporting Document Types.
 

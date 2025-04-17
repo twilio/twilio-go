@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateRole**](RolesApi.md#CreateRole) | **Post** /v1/Roles | 
-[**DeleteRole**](RolesApi.md#DeleteRole) | **Delete** /v1/Roles/{Sid} | 
-[**FetchRole**](RolesApi.md#FetchRole) | **Get** /v1/Roles/{Sid} | 
-[**ListRole**](RolesApi.md#ListRole) | **Get** /v1/Roles | 
-[**UpdateRole**](RolesApi.md#UpdateRole) | **Post** /v1/Roles/{Sid} | 
+[**CreateRole**](RolesApi.md#CreateRole) | **Post** /v1/Roles | Create a new user role in your account&#39;s default service
+[**DeleteRole**](RolesApi.md#DeleteRole) | **Delete** /v1/Roles/{Sid} | Remove a user role from your account&#39;s default service
+[**FetchRole**](RolesApi.md#FetchRole) | **Get** /v1/Roles/{Sid} | Fetch a user role from your account&#39;s default service
+[**ListRole**](RolesApi.md#ListRole) | **Get** /v1/Roles | Retrieve a list of all user roles in your account&#39;s default service
+[**UpdateRole**](RolesApi.md#UpdateRole) | **Post** /v1/Roles/{Sid} | Update an existing user role in your account&#39;s default service
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1Role CreateRole(ctx, optional)
 
-
+Create a new user role in your account's default service
 
 Create a new user role in your account's default service
 
@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateRoleParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **Permission** | **[]string** | A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
 
 ### Return type
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteRole(ctx, Sid)
 
-
+Remove a user role from your account's default service
 
 Remove a user role from your account's default service
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > ConversationsV1Role FetchRole(ctx, Sid)
 
-
+Fetch a user role from your account's default service
 
 Fetch a user role from your account's default service
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 > []ConversationsV1Role ListRole(ctx, optional)
 
-
+Retrieve a list of all user roles in your account's default service
 
 Retrieve a list of all user roles in your account's default service
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 > ConversationsV1Role UpdateRole(ctx, Sidoptional)
 
-
+Update an existing user role in your account's default service
 
 Update an existing user role in your account's default service
 

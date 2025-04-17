@@ -69,7 +69,9 @@ func (c *ApiService) CreateIpCommand(params *CreateIpCommandParams) (*SupersimV1
 	path := "/v1/IpCommands"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)
@@ -81,7 +83,7 @@ func (c *ApiService) CreateIpCommand(params *CreateIpCommandParams) (*SupersimV1
 		data.Set("DevicePort", fmt.Sprint(*params.DevicePort))
 	}
 	if params != nil && params.PayloadType != nil {
-		data.Set("PayloadType", *params.PayloadType)
+		data.Set("PayloadType", fmt.Sprint(*params.PayloadType))
 	}
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
@@ -111,7 +113,9 @@ func (c *ApiService) FetchIpCommand(Sid string) (*SupersimV1IpCommand, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -174,7 +178,9 @@ func (c *ApiService) PageIpCommand(params *ListIpCommandParams, pageToken, pageN
 	path := "/v1/IpCommands"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)
@@ -183,10 +189,10 @@ func (c *ApiService) PageIpCommand(params *ListIpCommandParams, pageToken, pageN
 		data.Set("SimIccid", *params.SimIccid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
+		data.Set("Direction", fmt.Sprint(*params.Direction))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

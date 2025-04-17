@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -1260,7 +1261,9 @@ func (c *ApiService) CreateSiprec(CallSid string, params *CreateSiprecParams) (*
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Name != nil {
 		data.Set("Name", *params.Name)
@@ -1269,7 +1272,7 @@ func (c *ApiService) CreateSiprec(CallSid string, params *CreateSiprecParams) (*
 		data.Set("ConnectorName", *params.ConnectorName)
 	}
 	if params != nil && params.Track != nil {
-		data.Set("Track", *params.Track)
+		data.Set("Track", fmt.Sprint(*params.Track))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -1916,10 +1919,12 @@ func (c *ApiService) UpdateSiprec(CallSid string, Sid string, params *UpdateSipr
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

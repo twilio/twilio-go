@@ -22,14 +22,14 @@ import (
 type MonitorV1Event struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the actor that caused the event, if available. Can be `null`.
+	// The SID of the actor that caused the event, if available. This can be either a User ID (matching the pattern `^US[0-9a-fA-F]{32}$`) or an Account SID (matching the pattern `^AC[0-9a-fA-F]{32}$`). If the actor's SID isn't available, this field will be `null`.
 	ActorSid *string `json:"actor_sid,omitempty"`
 	// The type of actor that caused the event. Can be: `user` for a change made by a logged-in user in the Twilio Console, `account` for an event caused by an API request by an authenticating Account, `twilio-admin` for an event caused by a Twilio employee, and so on.
 	ActorType *string `json:"actor_type,omitempty"`
 	// A description of the event. Can be `null`.
 	Description *string `json:"description,omitempty"`
 	// An object with additional data about the event. The  contents depend on `event_type`. For example, event-types of the form `RESOURCE.updated`, this value contains a `resource_properties` dictionary that describes the previous and updated properties of the resource.
-	EventData *interface{} `json:"event_data,omitempty"`
+	EventData *map[string]interface{} `json:"event_data,omitempty"`
 	// The date and time in GMT when the event was recorded specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	EventDate *time.Time `json:"event_date,omitempty"`
 	// The event's type. Event-types are typically in the form: `RESOURCE_TYPE.ACTION`, where `RESOURCE_TYPE` is the type of resource that was affected and `ACTION` is what happened to it. For example, `phone-number.created`. For a full list of all event-types, see the [Monitor Event Types](https://www.twilio.com/docs/usage/monitor-events#event-types).

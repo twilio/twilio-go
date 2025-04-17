@@ -29,5 +29,5 @@ type EventsV1Schema struct {
 	// The date that the latest schema version was created, given in ISO 8601 format.
 	LatestVersionDateCreated *time.Time `json:"latest_version_date_created,omitempty"`
 	// The latest version published of this schema.
-	LatestVersion *int `json:"latest_version,omitempty"`
+	LatestVersion int `json:"latest_version,omitempty"`
 }

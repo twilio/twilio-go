@@ -93,7 +93,9 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, p
 	path := "/v1/UsageRecords"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)
@@ -108,10 +110,10 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, p
 		data.Set("IsoCountry", *params.IsoCountry)
 	}
 	if params != nil && params.Group != nil {
-		data.Set("Group", *params.Group)
+		data.Set("Group", fmt.Sprint(*params.Group))
 	}
 	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
+		data.Set("Granularity", fmt.Sprint(*params.Granularity))
 	}
 	if params != nil && params.StartTime != nil {
 		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))

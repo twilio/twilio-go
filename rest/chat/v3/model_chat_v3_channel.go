@@ -40,9 +40,9 @@ type ChatV3Channel struct {
 	// The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`.
 	CreatedBy *string `json:"created_by,omitempty"`
 	// The number of Members in the Channel.
-	MembersCount *int `json:"members_count,omitempty"`
+	MembersCount int `json:"members_count,omitempty"`
 	// The number of Messages that have been passed in the Channel.
-	MessagesCount *int `json:"messages_count,omitempty"`
+	MessagesCount int `json:"messages_count,omitempty"`
 	// The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// The absolute URL of the Channel resource.

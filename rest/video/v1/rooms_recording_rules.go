@@ -26,7 +26,9 @@ func (c *ApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRecordi
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -46,10 +48,10 @@ func (c *ApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRecordi
 // Optional parameters for the method 'UpdateRoomRecordingRule'
 type UpdateRoomRecordingRuleParams struct {
 	// A JSON-encoded array of recording rules.
-	Rules *interface{} `json:"Rules,omitempty"`
+	Rules *map[string]interface{} `json:"Rules,omitempty"`
 }
 
-func (params *UpdateRoomRecordingRuleParams) SetRules(Rules interface{}) *UpdateRoomRecordingRuleParams {
+func (params *UpdateRoomRecordingRuleParams) SetRules(Rules map[string]interface{}) *UpdateRoomRecordingRuleParams {
 	params.Rules = &Rules
 	return params
 }
@@ -60,7 +62,9 @@ func (c *ApiService) UpdateRoomRecordingRule(RoomSid string, params *UpdateRoomR
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Rules != nil {
 		v, err := json.Marshal(params.Rules)

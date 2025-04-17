@@ -35,7 +35,7 @@ type VerifyV2Notification struct {
 	// The priority of the notification. For `push` Challenges it's always `high` which sends the notification immediately, and can wake up a sleeping device.
 	Priority *string `json:"priority,omitempty"`
 	// How long, in seconds, the notification is valid. Max: 5 minutes
-	Ttl *int `json:"ttl,omitempty"`
+	Ttl int `json:"ttl,omitempty"`
 	// The date that this Notification was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 }

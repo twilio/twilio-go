@@ -4,8 +4,8 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchConferenceParticipant**](ConferencesParticipantsApi.md#FetchConferenceParticipant) | **Get** /v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid} | 
-[**ListConferenceParticipant**](ConferencesParticipantsApi.md#ListConferenceParticipant) | **Get** /v1/Conferences/{ConferenceSid}/Participants | 
+[**FetchConferenceParticipant**](ConferencesParticipantsApi.md#FetchConferenceParticipant) | **Get** /v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid} | Get a specific Conference Participant Summary for a Conference.
+[**ListConferenceParticipant**](ConferencesParticipantsApi.md#ListConferenceParticipant) | **Get** /v1/Conferences/{ConferenceSid}/Participants | Get a list of Conference Participants Summaries for a Conference.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > InsightsV1ConferenceParticipant FetchConferenceParticipant(ctx, ConferenceSidParticipantSidoptional)
 
-
+Get a specific Conference Participant Summary for a Conference.
 
 Get a specific Conference Participant Summary for a Conference.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > []InsightsV1ConferenceParticipant ListConferenceParticipant(ctx, ConferenceSidoptional)
 
-
+Get a list of Conference Participants Summaries for a Conference.
 
 Get a list of Conference Participants Summaries for a Conference.
 

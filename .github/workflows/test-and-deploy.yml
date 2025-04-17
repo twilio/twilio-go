@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        go: [ '1.15', '1.16', '1.17', '1.18', '1.19' ]
+        go: [ '1.18.10', '1.19.13', '1.20', '1.21', '1.22', '1.23', '1.24' ]
     steps:
       - name: Setup Go environment
         uses: actions/setup-go@v3
@@ -37,6 +37,7 @@ jobs:
           only-new-issues: true
 
       - name: Build
+        if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         run: make install
 
       - name: Run Unit Tests
@@ -44,13 +45,18 @@ jobs:
         run: make test
 
       - name: Run Cluster Tests
-        if: (!github.event.pull_request.head.repo.fork)
+        if: (!github.event.pull_request.head.repo.fork) && matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         env:
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}
           TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
           TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
           TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_FROM_NUMBER_OAUTH: $${{ secrets.TWILIO_FROM_NUMBER_OAUTH }}
+          TWILIO_TO_NUMBER_OAUTH: $${{ secrets.TWILIO_TO_NUMBER_OAUTH }}
+          TWILIO_CLIENT_ID: ${{ secrets.TWILIO_CLIENT_ID }}
+          TWILIO_CLIENT_SECRET: ${{ secrets.TWILIO_CLIENT_SECRET }}
+          TWILIO_ACCOUNT_SID_OAUTH: ${{ secrets.TWILIO_ACCOUNT_SID_OAUTH }}
         run: make cluster-test
 
       - name: Run Test Coverage

@@ -4,8 +4,8 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchVideoRoomSummary**](VideoRoomsApi.md#FetchVideoRoomSummary) | **Get** /v1/Video/Rooms/{RoomSid} | 
-[**ListVideoRoomSummary**](VideoRoomsApi.md#ListVideoRoomSummary) | **Get** /v1/Video/Rooms | 
+[**FetchVideoRoomSummary**](VideoRoomsApi.md#FetchVideoRoomSummary) | **Get** /v1/Video/Rooms/{RoomSid} | Get Video Log Analyzer data for a Room.
+[**ListVideoRoomSummary**](VideoRoomsApi.md#ListVideoRoomSummary) | **Get** /v1/Video/Rooms | Get a list of Programmable Video Rooms.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > InsightsV1VideoRoomSummary FetchVideoRoomSummary(ctx, RoomSid)
 
-
+Get Video Log Analyzer data for a Room.
 
 Get Video Log Analyzer data for a Room.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []InsightsV1VideoRoomSummary ListVideoRoomSummary(ctx, optional)
 
-
+Get a list of Programmable Video Rooms.
 
 Get a list of Programmable Video Rooms.
 

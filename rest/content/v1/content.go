@@ -23,13 +23,59 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+// Optional parameters for the method 'CreateContent'
+type CreateContentParams struct {
+	//
+	ContentCreateRequest *ContentCreateRequest `json:"ContentCreateRequest,omitempty"`
+}
+
+func (params *CreateContentParams) SetContentCreateRequest(ContentCreateRequest ContentCreateRequest) *CreateContentParams {
+	params.ContentCreateRequest = &ContentCreateRequest
+	return params
+}
+
+// Create a Content resource
+func (c *ApiService) CreateContent(params *CreateContentParams) (*ContentV1Content, error) {
+	path := "/v1/Content"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.ContentCreateRequest != nil {
+		b, err := json.Marshal(*params.ContentCreateRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ContentV1Content{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
 // Deletes a Content resource
 func (c *ApiService) DeleteContent(Sid string) error {
 	path := "/v1/Content/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -47,7 +93,9 @@ func (c *ApiService) FetchContent(Sid string) (*ContentV1Content, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -86,7 +134,9 @@ func (c *ApiService) PageContent(params *ListContentParams, pageToken, pageNumbe
 	path := "/v1/Content"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

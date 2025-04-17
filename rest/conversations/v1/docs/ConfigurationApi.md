@@ -4,8 +4,8 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchConfiguration**](ConfigurationApi.md#FetchConfiguration) | **Get** /v1/Configuration | 
-[**UpdateConfiguration**](ConfigurationApi.md#UpdateConfiguration) | **Post** /v1/Configuration | 
+[**FetchConfiguration**](ConfigurationApi.md#FetchConfiguration) | **Get** /v1/Configuration | Fetch the global configuration of conversations on your account
+[**UpdateConfiguration**](ConfigurationApi.md#UpdateConfiguration) | **Post** /v1/Configuration | Update the global configuration of conversations on your account
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ConversationsV1Configuration FetchConfiguration(ctx, )
 
-
+Fetch the global configuration of conversations on your account
 
 Fetch the global configuration of conversations on your account
 
@@ -48,7 +48,7 @@ Other parameters are passed through a pointer to a FetchConfigurationParams stru
 
 > ConversationsV1Configuration UpdateConfiguration(ctx, optional)
 
-
+Update the global configuration of conversations on your account
 
 Update the global configuration of conversations on your account
 

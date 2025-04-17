@@ -35,13 +35,59 @@ func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*Flex
 	path := "/v1/Configuration"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.UiVersion != nil {
 		data.Set("UiVersion", *params.UiVersion)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Configuration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Optional parameters for the method 'UpdateConfiguration'
+type UpdateConfigurationParams struct {
+	//
+	Body *map[string]interface{} `json:"body,omitempty"`
+}
+
+func (params *UpdateConfigurationParams) SetBody(Body map[string]interface{}) *UpdateConfigurationParams {
+	params.Body = &Body
+	return params
+}
+
+//
+func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*FlexV1Configuration, error) {
+	path := "/v1/Configuration"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

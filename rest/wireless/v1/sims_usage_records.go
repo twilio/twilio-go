@@ -66,7 +66,9 @@ func (c *ApiService) PageUsageRecord(SimSid string, params *ListUsageRecordParam
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.End != nil {
 		data.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
@@ -75,7 +77,7 @@ func (c *ApiService) PageUsageRecord(SimSid string, params *ListUsageRecordParam
 		data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
 	}
 	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
+		data.Set("Granularity", fmt.Sprint(*params.Granularity))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

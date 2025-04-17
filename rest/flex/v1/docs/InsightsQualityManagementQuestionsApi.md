@@ -4,10 +4,10 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#CreateInsightsQuestionnairesQuestion) | **Post** /v1/Insights/QualityManagement/Questions | 
+[**CreateInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#CreateInsightsQuestionnairesQuestion) | **Post** /v1/Insights/QualityManagement/Questions | To create a question for a Category
 [**DeleteInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#DeleteInsightsQuestionnairesQuestion) | **Delete** /v1/Insights/QualityManagement/Questions/{QuestionSid} | 
-[**ListInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#ListInsightsQuestionnairesQuestion) | **Get** /v1/Insights/QualityManagement/Questions | 
-[**UpdateInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#UpdateInsightsQuestionnairesQuestion) | **Post** /v1/Insights/QualityManagement/Questions/{QuestionSid} | 
+[**ListInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#ListInsightsQuestionnairesQuestion) | **Get** /v1/Insights/QualityManagement/Questions | To get all the question for the given categories
+[**UpdateInsightsQuestionnairesQuestion**](InsightsQualityManagementQuestionsApi.md#UpdateInsightsQuestionnairesQuestion) | **Post** /v1/Insights/QualityManagement/Questions/{QuestionSid} | To update the question
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > FlexV1InsightsQuestionnairesQuestion CreateInsightsQuestionnairesQuestion(ctx, optional)
 
-
+To create a question for a Category
 
 To create a question for a Category
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > []FlexV1InsightsQuestionnairesQuestion ListInsightsQuestionnairesQuestion(ctx, optional)
 
-
+To get all the question for the given categories
 
 To get all the question for the given categories
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 > FlexV1InsightsQuestionnairesQuestion UpdateInsightsQuestionnairesQuestion(ctx, QuestionSidoptional)
 
-
+To update the question
 
 To update the question
 

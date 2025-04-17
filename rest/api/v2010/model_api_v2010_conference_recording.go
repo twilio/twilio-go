@@ -40,12 +40,12 @@ type ApiV2010ConferenceRecording struct {
 	PriceUnit *string `json:"price_unit,omitempty"`
 	Status    *string `json:"status,omitempty"`
 	// The number of channels in the final recording file.  Can be: `1`, or `2`. Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/voice/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls) record options.
-	Channels *int    `json:"channels,omitempty"`
+	Channels int     `json:"channels,omitempty"`
 	Source   *string `json:"source,omitempty"`
 	// The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
 	ErrorCode *int `json:"error_code,omitempty"`
 	// How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
-	EncryptionDetails *interface{} `json:"encryption_details,omitempty"`
+	EncryptionDetails *map[string]interface{} `json:"encryption_details,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 }

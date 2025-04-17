@@ -33,9 +33,9 @@ type CreateChallengeParams struct {
 	// Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
 	DetailsMessage *string `json:"Details.Message,omitempty"`
 	// A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
-	DetailsFields *[]interface{} `json:"Details.Fields,omitempty"`
+	DetailsFields *[]map[string]interface{} `json:"Details.Fields,omitempty"`
 	// Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
-	HiddenDetails *interface{} `json:"HiddenDetails,omitempty"`
+	HiddenDetails *map[string]interface{} `json:"HiddenDetails,omitempty"`
 	// Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
 	AuthPayload *string `json:"AuthPayload,omitempty"`
 }
@@ -52,11 +52,11 @@ func (params *CreateChallengeParams) SetDetailsMessage(DetailsMessage string) *C
 	params.DetailsMessage = &DetailsMessage
 	return params
 }
-func (params *CreateChallengeParams) SetDetailsFields(DetailsFields []interface{}) *CreateChallengeParams {
+func (params *CreateChallengeParams) SetDetailsFields(DetailsFields []map[string]interface{}) *CreateChallengeParams {
 	params.DetailsFields = &DetailsFields
 	return params
 }
-func (params *CreateChallengeParams) SetHiddenDetails(HiddenDetails interface{}) *CreateChallengeParams {
+func (params *CreateChallengeParams) SetHiddenDetails(HiddenDetails map[string]interface{}) *CreateChallengeParams {
 	params.HiddenDetails = &HiddenDetails
 	return params
 }
@@ -72,7 +72,9 @@ func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params 
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FactorSid != nil {
 		data.Set("FactorSid", *params.FactorSid)
@@ -130,7 +132,9 @@ func (c *ApiService) FetchChallenge(ServiceSid string, Identity string, Sid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -190,16 +194,18 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FactorSid != nil {
 		data.Set("FactorSid", *params.FactorSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
+		data.Set("Order", fmt.Sprint(*params.Order))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -318,14 +324,14 @@ type UpdateChallengeParams struct {
 	// The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
 	AuthPayload *string `json:"AuthPayload,omitempty"`
 	// Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
-	Metadata *interface{} `json:"Metadata,omitempty"`
+	Metadata *map[string]interface{} `json:"Metadata,omitempty"`
 }
 
 func (params *UpdateChallengeParams) SetAuthPayload(AuthPayload string) *UpdateChallengeParams {
 	params.AuthPayload = &AuthPayload
 	return params
 }
-func (params *UpdateChallengeParams) SetMetadata(Metadata interface{}) *UpdateChallengeParams {
+func (params *UpdateChallengeParams) SetMetadata(Metadata map[string]interface{}) *UpdateChallengeParams {
 	params.Metadata = &Metadata
 	return params
 }
@@ -338,7 +344,9 @@ func (c *ApiService) UpdateChallenge(ServiceSid string, Identity string, Sid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.AuthPayload != nil {
 		data.Set("AuthPayload", *params.AuthPayload)

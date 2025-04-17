@@ -4,8 +4,8 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchFunctionVersion**](ServicesFunctionsVersionsApi.md#FetchFunctionVersion) | **Get** /v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid} | 
-[**ListFunctionVersion**](ServicesFunctionsVersionsApi.md#ListFunctionVersion) | **Get** /v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions | 
+[**FetchFunctionVersion**](ServicesFunctionsVersionsApi.md#FetchFunctionVersion) | **Get** /v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid} | Retrieve a specific Function Version resource.
+[**ListFunctionVersion**](ServicesFunctionsVersionsApi.md#ListFunctionVersion) | **Get** /v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions | Retrieve a list of all Function Version resources.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ServerlessV1FunctionVersion FetchFunctionVersion(ctx, ServiceSidFunctionSidSid)
 
-
+Retrieve a specific Function Version resource.
 
 Retrieve a specific Function Version resource.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []ServerlessV1FunctionVersion ListFunctionVersion(ctx, ServiceSidFunctionSidoptional)
 
-
+Retrieve a list of all Function Version resources.
 
 Retrieve a list of all Function Version resources.
 

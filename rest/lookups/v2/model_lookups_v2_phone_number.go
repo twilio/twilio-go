@@ -29,23 +29,25 @@ type LookupsV2PhoneNumber struct {
 	// Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
 	ValidationErrors *[]string `json:"validation_errors,omitempty"`
 	// An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
-	CallerName *interface{} `json:"caller_name,omitempty"`
+	CallerName *map[string]interface{} `json:"caller_name,omitempty"`
 	// An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
-	SimSwap *interface{} `json:"sim_swap,omitempty"`
+	SimSwap *map[string]interface{} `json:"sim_swap,omitempty"`
 	// An object that contains information on the unconditional call forwarding status of mobile phone number.
-	CallForwarding *interface{} `json:"call_forwarding,omitempty"`
-	// An object that contains live activity information for a mobile phone number.
-	LiveActivity *interface{} `json:"live_activity,omitempty"`
+	CallForwarding *map[string]interface{} `json:"call_forwarding,omitempty"`
+	// An object that contains line status information for a mobile phone number.
+	LineStatus *map[string]interface{} `json:"line_status,omitempty"`
 	// An object that contains line type information including the carrier name, mobile country code, and mobile network code.
-	LineTypeIntelligence *interface{} `json:"line_type_intelligence,omitempty"`
+	LineTypeIntelligence *map[string]interface{} `json:"line_type_intelligence,omitempty"`
 	// An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
-	IdentityMatch *interface{} `json:"identity_match,omitempty"`
+	IdentityMatch *map[string]interface{} `json:"identity_match,omitempty"`
 	// An object that contains reassigned number information. Reassigned Numbers will return a phone number's reassignment status given a phone number and date
-	ReassignedNumber *interface{} `json:"reassigned_number,omitempty"`
+	ReassignedNumber *map[string]interface{} `json:"reassigned_number,omitempty"`
 	// An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
-	SmsPumpingRisk *interface{} `json:"sms_pumping_risk,omitempty"`
+	SmsPumpingRisk *map[string]interface{} `json:"sms_pumping_risk,omitempty"`
 	// An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
-	PhoneNumberQualityScore *interface{} `json:"phone_number_quality_score,omitempty"`
+	PhoneNumberQualityScore *map[string]interface{} `json:"phone_number_quality_score,omitempty"`
+	// An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code.
+	PreFill *map[string]interface{} `json:"pre_fill,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 }

@@ -4,8 +4,8 @@ All URIs are relative to *https://routes.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchTrunks**](TrunksApi.md#FetchTrunks) | **Get** /v2/Trunks/{SipTrunkDomain} | 
-[**UpdateTrunks**](TrunksApi.md#UpdateTrunks) | **Post** /v2/Trunks/{SipTrunkDomain} | 
+[**FetchTrunks**](TrunksApi.md#FetchTrunks) | **Get** /v2/Trunks/{SipTrunkDomain} | Fetch the Inbound Processing Region assigned to a SIP Trunk.
+[**UpdateTrunks**](TrunksApi.md#UpdateTrunks) | **Post** /v2/Trunks/{SipTrunkDomain} | Assign an Inbound Processing Region to a SIP Trunk
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > RoutesV2Trunks FetchTrunks(ctx, SipTrunkDomain)
 
-
+Fetch the Inbound Processing Region assigned to a SIP Trunk.
 
 Fetch the Inbound Processing Region assigned to a SIP Trunk.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > RoutesV2Trunks UpdateTrunks(ctx, SipTrunkDomainoptional)
 
-
+Assign an Inbound Processing Region to a SIP Trunk
 
 Assign an Inbound Processing Region to a SIP Trunk
 

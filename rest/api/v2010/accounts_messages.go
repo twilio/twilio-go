@@ -32,15 +32,15 @@ type CreateMessageParams struct {
 	To *string `json:"To,omitempty"`
 	// The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource).
 	StatusCallback *string `json:"StatusCallback,omitempty"`
-	// The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). If this parameter is provided, the `status_callback` parameter of this request is ignored; [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL.
+	// The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL. Note that the `status_callback` parameter of a request takes priority over the `application_sid` parameter; if both are included `application_sid` is ignored.
 	ApplicationSid *string `json:"ApplicationSid,omitempty"`
-	// The maximum price in US dollars that you are willing to pay for this Message's delivery. The value can have up to four decimal places. When the `max_price` parameter is provided, the cost of a message is checked before it is sent. If the cost exceeds `max_price`, the message is not sent and the Message `status` is `failed`.
+	// [OBSOLETE] This parameter will no longer have any effect as of 2024-06-03.
 	MaxPrice *float32 `json:"MaxPrice,omitempty"`
 	// Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.
 	ProvideFeedback *bool `json:"ProvideFeedback,omitempty"`
 	// Total number of attempts made (including this request) to send the message regardless of the provider used
 	Attempt *int `json:"Attempt,omitempty"`
-	// The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `14400`. Default value is `14400`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
+	// The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `36000`. Default value is `36000`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
 	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
 	// Reserved
 	ForceDelivery *bool `json:"ForceDelivery,omitempty"`
@@ -52,6 +52,8 @@ type CreateMessageParams struct {
 	SmartEncoded *bool `json:"SmartEncoded,omitempty"`
 	// Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
 	PersistentAction *[]string `json:"PersistentAction,omitempty"`
+	//
+	TrafficType *string `json:"TrafficType,omitempty"`
 	// For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
 	ShortenUrls *bool `json:"ShortenUrls,omitempty"`
 	//
@@ -128,6 +130,10 @@ func (params *CreateMessageParams) SetPersistentAction(PersistentAction []string
 	params.PersistentAction = &PersistentAction
 	return params
 }
+func (params *CreateMessageParams) SetTrafficType(TrafficType string) *CreateMessageParams {
+	params.TrafficType = &TrafficType
+	return params
+}
 func (params *CreateMessageParams) SetShortenUrls(ShortenUrls bool) *CreateMessageParams {
 	params.ShortenUrls = &ShortenUrls
 	return params
@@ -183,7 +189,9 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
@@ -210,10 +218,10 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 		data.Set("ForceDelivery", fmt.Sprint(*params.ForceDelivery))
 	}
 	if params != nil && params.ContentRetention != nil {
-		data.Set("ContentRetention", *params.ContentRetention)
+		data.Set("ContentRetention", fmt.Sprint(*params.ContentRetention))
 	}
 	if params != nil && params.AddressRetention != nil {
-		data.Set("AddressRetention", *params.AddressRetention)
+		data.Set("AddressRetention", fmt.Sprint(*params.AddressRetention))
 	}
 	if params != nil && params.SmartEncoded != nil {
 		data.Set("SmartEncoded", fmt.Sprint(*params.SmartEncoded))
@@ -223,11 +231,14 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 			data.Add("PersistentAction", item)
 		}
 	}
+	if params != nil && params.TrafficType != nil {
+		data.Set("TrafficType", fmt.Sprint(*params.TrafficType))
+	}
 	if params != nil && params.ShortenUrls != nil {
 		data.Set("ShortenUrls", fmt.Sprint(*params.ShortenUrls))
 	}
 	if params != nil && params.ScheduleType != nil {
-		data.Set("ScheduleType", *params.ScheduleType)
+		data.Set("ScheduleType", fmt.Sprint(*params.ScheduleType))
 	}
 	if params != nil && params.SendAt != nil {
 		data.Set("SendAt", fmt.Sprint((*params.SendAt).Format(time.RFC3339)))
@@ -239,7 +250,7 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 		data.Set("ContentVariables", *params.ContentVariables)
 	}
 	if params != nil && params.RiskCheck != nil {
-		data.Set("RiskCheck", *params.RiskCheck)
+		data.Set("RiskCheck", fmt.Sprint(*params.RiskCheck))
 	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
@@ -296,7 +307,9 @@ func (c *ApiService) DeleteMessage(Sid string, params *DeleteMessageParams) erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -330,7 +343,9 @@ func (c *ApiService) FetchMessage(Sid string, params *FetchMessageParams) (*ApiV
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -411,7 +426,9 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumbe
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
@@ -574,13 +591,15 @@ func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*Ap
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

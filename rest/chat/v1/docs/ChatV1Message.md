@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **WasEdited** | Pointer to **bool** | Whether the message has been edited since it was created. |
 **From** | Pointer to **string** | The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the message's author. The default value is `system`. |
 **Body** | Pointer to **string** | The content of the message. |
-**Index** | Pointer to **int** | The index of the message within the [Channel](https://www.twilio.com/docs/chat/api/channels). |
+**Index** | **int** | The index of the message within the [Channel](https://www.twilio.com/docs/chat/api/channels). |[optional] [default to 0]
 **Url** | Pointer to **string** | The absolute URL of the Message resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,8 +4,8 @@ All URIs are relative to *https://frontline-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchUser**](UsersApi.md#FetchUser) | **Get** /v1/Users/{Sid} | 
-[**UpdateUser**](UsersApi.md#UpdateUser) | **Post** /v1/Users/{Sid} | 
+[**FetchUser**](UsersApi.md#FetchUser) | **Get** /v1/Users/{Sid} | Fetch a frontline user
+[**UpdateUser**](UsersApi.md#UpdateUser) | **Post** /v1/Users/{Sid} | Update an existing frontline user
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > FrontlineV1User FetchUser(ctx, Sid)
 
-
+Fetch a frontline user
 
 Fetch a frontline user
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > FrontlineV1User UpdateUser(ctx, Sidoptional)
 
-
+Update an existing frontline user
 
 Update an existing frontline user
 
@@ -76,7 +76,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the User.
 **Avatar** | **string** | The avatar URL which will be shown in Frontline application.
-**State** | **string** | 
+**State** | [**string**](string.md) | 
 **IsAvailable** | **bool** | Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
 ### Return type

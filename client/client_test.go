@@ -1,6 +1,7 @@
 package client_test
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -116,6 +117,28 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 	assert.Equal(t, details, twilioError.Details)
 }
 
+func TestClient_SendRequestUsernameError(t *testing.T) {
+	newTestClient := NewClient("user1\nuser2", "pass")
+	resp, err := newTestClient.SendRequest("GET", "http://example.org", nil, nil) //nolint:bodyclose
+	twilioError := err.(*twilio.TwilioRestError)
+	assert.Nil(t, resp)
+	assert.Equal(t, 400, twilioError.Status)
+	assert.Equal(t, 21222, twilioError.Code)
+	assert.Equal(t, "https://www.twilio.com/docs/errors/21222", twilioError.MoreInfo)
+	assert.Equal(t, "Invalid Username. Illegal chars", twilioError.Message)
+}
+
+func TestClient_SendRequestPasswordError(t *testing.T) {
+	newTestClient := NewClient("user1", "pass1\npass2")
+	resp, err := newTestClient.SendRequest("GET", "http://example.org", nil, nil) //nolint:bodyclose
+	twilioError := err.(*twilio.TwilioRestError)
+	assert.Nil(t, resp)
+	assert.Equal(t, 400, twilioError.Status)
+	assert.Equal(t, 21224, twilioError.Code)
+	assert.Equal(t, "https://www.twilio.com/docs/errors/21224", twilioError.MoreInfo)
+	assert.Equal(t, "Invalid Password. Illegal chars", twilioError.Message)
+}
+
 func TestClient_SendRequestWithRedirect(t *testing.T) {
 	redirectServer := httptest.NewServer(http.HandlerFunc(
 		func(writer http.ResponseWriter, request *http.Request) {
@@ -158,7 +181,10 @@ func TestClient_SendRequestWithData(t *testing.T) {
 		t.Run(tc, func(t *testing.T) {
 			data := url.Values{}
 			data.Set("foo", "bar")
-			resp, err := testClient.SendRequest(tc, dataServer.URL, data, nil) //nolint:bodyclose
+			headers := map[string]interface{}{
+				"Content-Type": "application/x-www-form-urlencoded",
+			}
+			resp, err := testClient.SendRequest(tc, dataServer.URL, data, headers) //nolint:bodyclose
 			assert.NoError(t, err)
 			assert.Equal(t, 200, resp.StatusCode)
 		})
@@ -272,7 +298,7 @@ func TestClient_SetAccountSid(t *testing.T) {
 func TestClient_DefaultUserAgentHeaders(t *testing.T) {
 	headerServer := httptest.NewServer(http.HandlerFunc(
 		func(writer http.ResponseWriter, request *http.Request) {
-			assert.Regexp(t, regexp.MustCompile(`^twilio-go/[0-9.]+\s\(\w+\s\w+\)\sgo/\S+$`), request.Header.Get("User-Agent"))
+			assert.Regexp(t, regexp.MustCompile(`^twilio-go/[0-9.]+(-rc.[0-9])*\s\(\w+\s\w+\)\sgo/\S+$`), request.Header.Get("User-Agent"))
 		}))
 
 	resp, _ := testClient.SendRequest("GET", headerServer.URL, nil, nil)
@@ -289,4 +315,28 @@ func TestClient_UserAgentExtensionsHeaders(t *testing.T) {
 		}))
 	resp, _ := testClient.SendRequest("GET", headerServer.URL, nil, nil)
 	assert.Equal(t, 200, resp.StatusCode)
+}
+
+type MockOAuth struct{}
+
+func (m *MockOAuth) GetAccessToken(ctx context.Context) (string, error) {
+	return "mock_token", nil
+}
+
+func TestClient_SendRequestWithOAuth(t *testing.T) {
+	oauth := &MockOAuth{}
+	client := twilio.Client{
+		Credentials: twilio.NewCredentials("", ""),
+	}
+	client.SetOauth(oauth)
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "Bearer mock_token", r.Header.Get("Authorization"))
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+
+	resp, err := client.SendRequest("GET", server.URL, nil, nil)
+	assert.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
 }

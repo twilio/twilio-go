@@ -4,9 +4,9 @@ All URIs are relative to *https://microvisor.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchDevice**](DevicesApi.md#FetchDevice) | **Get** /v1/Devices/{Sid} | 
-[**ListDevice**](DevicesApi.md#ListDevice) | **Get** /v1/Devices | 
-[**UpdateDevice**](DevicesApi.md#UpdateDevice) | **Post** /v1/Devices/{Sid} | 
+[**FetchDevice**](DevicesApi.md#FetchDevice) | **Get** /v1/Devices/{Sid} | Fetch a specific Device.
+[**ListDevice**](DevicesApi.md#ListDevice) | **Get** /v1/Devices | Retrieve a list of all Devices registered with the Account.
+[**UpdateDevice**](DevicesApi.md#UpdateDevice) | **Post** /v1/Devices/{Sid} | Update a specific Device.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > MicrovisorV1Device FetchDevice(ctx, Sid)
 
-
+Fetch a specific Device.
 
 Fetch a specific Device.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > []MicrovisorV1Device ListDevice(ctx, optional)
 
-
+Retrieve a list of all Devices registered with the Account.
 
 Retrieve a list of all Devices registered with the Account.
 
@@ -96,7 +96,7 @@ Name | Type | Description
 
 > MicrovisorV1Device UpdateDevice(ctx, Sidoptional)
 
-
+Update a specific Device.
 
 Update a specific Device.
 

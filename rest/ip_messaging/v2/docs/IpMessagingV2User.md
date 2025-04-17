@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **IsNotifiable** | Pointer to **bool** |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
-**JoinedChannelsCount** | Pointer to **int** |  |
+**JoinedChannelsCount** | **int** |  |[optional] [default to 0]
 **Links** | Pointer to **map[string]interface{}** |  |
 **Url** | Pointer to **string** |  |
 

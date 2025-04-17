@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSipIpAccessControlList**](AccountsSIPIpAccessControlListsApi.md#CreateSipIpAccessControlList) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json | 
-[**DeleteSipIpAccessControlList**](AccountsSIPIpAccessControlListsApi.md#DeleteSipIpAccessControlList) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json | 
-[**FetchSipIpAccessControlList**](AccountsSIPIpAccessControlListsApi.md#FetchSipIpAccessControlList) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json | 
-[**ListSipIpAccessControlList**](AccountsSIPIpAccessControlListsApi.md#ListSipIpAccessControlList) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json | 
-[**UpdateSipIpAccessControlList**](AccountsSIPIpAccessControlListsApi.md#UpdateSipIpAccessControlList) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json | 
+[**CreateSipIpAccessControlList**](AccountsSIPIpAccessControlListsApi.md#CreateSipIpAccessControlList) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json | Create a new IpAccessControlList resource
+[**DeleteSipIpAccessControlList**](AccountsSIPIpAccessControlListsApi.md#DeleteSipIpAccessControlList) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json | Delete an IpAccessControlList from the requested account
+[**FetchSipIpAccessControlList**](AccountsSIPIpAccessControlListsApi.md#FetchSipIpAccessControlList) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json | Fetch a specific instance of an IpAccessControlList
+[**ListSipIpAccessControlList**](AccountsSIPIpAccessControlListsApi.md#ListSipIpAccessControlList) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json | Retrieve a list of IpAccessControlLists that belong to the account used to make the request
+[**UpdateSipIpAccessControlList**](AccountsSIPIpAccessControlListsApi.md#UpdateSipIpAccessControlList) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json | Rename an IpAccessControlList
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010SipIpAccessControlList CreateSipIpAccessControlList(ctx, optional)
 
-
+Create a new IpAccessControlList resource
 
 Create a new IpAccessControlList resource
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > DeleteSipIpAccessControlList(ctx, Sidoptional)
 
-
+Delete an IpAccessControlList from the requested account
 
 Delete an IpAccessControlList from the requested account
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > ApiV2010SipIpAccessControlList FetchSipIpAccessControlList(ctx, Sidoptional)
 
-
+Fetch a specific instance of an IpAccessControlList
 
 Fetch a specific instance of an IpAccessControlList
 
@@ -142,7 +142,7 @@ Name | Type | Description
 
 > []ApiV2010SipIpAccessControlList ListSipIpAccessControlList(ctx, optional)
 
-
+Retrieve a list of IpAccessControlLists that belong to the account used to make the request
 
 Retrieve a list of IpAccessControlLists that belong to the account used to make the request
 
@@ -183,7 +183,7 @@ Name | Type | Description
 
 > ApiV2010SipIpAccessControlList UpdateSipIpAccessControlList(ctx, Sidoptional)
 
-
+Rename an IpAccessControlList
 
 Rename an IpAccessControlList
 

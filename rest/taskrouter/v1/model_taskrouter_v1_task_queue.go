@@ -33,7 +33,7 @@ type TaskrouterV1TaskQueue struct {
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The maximum number of Workers to reserve for the assignment of a task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-	MaxReservedWorkers *int `json:"max_reserved_workers,omitempty"`
+	MaxReservedWorkers int `json:"max_reserved_workers,omitempty"`
 	// The SID of the Activity to assign Workers once a task is reserved for them.
 	ReservationActivitySid *string `json:"reservation_activity_sid,omitempty"`
 	// The name of the Activity to assign Workers once a task is reserved for them.

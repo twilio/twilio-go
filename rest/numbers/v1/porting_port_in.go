@@ -20,13 +20,79 @@ import (
 	"strings"
 )
 
-// Fetch a port in request by SID
-func (c *ApiService) FetchPortingPortInFetch(PortInRequestSid string) (*NumbersV1PortingPortInFetch, error) {
+// Optional parameters for the method 'CreatePortingPortIn'
+type CreatePortingPortInParams struct {
+	//
+	Body *map[string]interface{} `json:"body,omitempty"`
+}
+
+func (params *CreatePortingPortInParams) SetBody(Body map[string]interface{}) *CreatePortingPortInParams {
+	params.Body = &Body
+	return params
+}
+
+// Allows to create a new port in request
+func (c *ApiService) CreatePortingPortIn(params *CreatePortingPortInParams) (*NumbersV1PortingPortIn, error) {
+	path := "/v1/Porting/PortIn"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1PortingPortIn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Allows to cancel a port in request by SID
+func (c *ApiService) DeletePortingPortIn(PortInRequestSid string) error {
 	path := "/v1/Porting/PortIn/{PortInRequestSid}"
 	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	return nil
+}
+
+// Fetch a port in request by SID
+func (c *ApiService) FetchPortingPortIn(PortInRequestSid string) (*NumbersV1PortingPortIn, error) {
+	path := "/v1/Porting/PortIn/{PortInRequestSid}"
+	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -35,7 +101,7 @@ func (c *ApiService) FetchPortingPortInFetch(PortInRequestSid string) (*NumbersV
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV1PortingPortInFetch{}
+	ps := &NumbersV1PortingPortIn{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

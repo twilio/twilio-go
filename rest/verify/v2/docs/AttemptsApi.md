@@ -4,8 +4,8 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchVerificationAttempt**](AttemptsApi.md#FetchVerificationAttempt) | **Get** /v2/Attempts/{Sid} | 
-[**ListVerificationAttempt**](AttemptsApi.md#ListVerificationAttempt) | **Get** /v2/Attempts | 
+[**FetchVerificationAttempt**](AttemptsApi.md#FetchVerificationAttempt) | **Get** /v2/Attempts/{Sid} | Fetch a specific verification attempt.
+[**ListVerificationAttempt**](AttemptsApi.md#ListVerificationAttempt) | **Get** /v2/Attempts | List all the verification attempts for a given Account.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > VerifyV2VerificationAttempt FetchVerificationAttempt(ctx, Sid)
 
-
+Fetch a specific verification attempt.
 
 Fetch a specific verification attempt.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []VerifyV2VerificationAttempt ListVerificationAttempt(ctx, optional)
 
-
+List all the verification attempts for a given Account.
 
 List all the verification attempts for a given Account.
 
@@ -74,10 +74,10 @@ Name | Type | Description
 **DateCreatedBefore** | **time.Time** | Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
 **ChannelDataTo** | **string** | Destination of a verification. It is phone number in E.164 format.
 **Country** | **string** | Filter used to query Verification Attempts sent to the specified destination country.
-**Channel** | **string** | Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+**Channel** | [**string**](stringstring.md) | Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
 **VerifyServiceSid** | **string** | Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
 **VerificationSid** | **string** | Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-**Status** | **string** | Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+**Status** | [**string**](stringstring.md) | Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

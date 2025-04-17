@@ -4,7 +4,7 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsSession**](InsightsSessionApi.md#CreateInsightsSession) | **Post** /v1/Insights/Session | 
+[**CreateInsightsSession**](InsightsSessionApi.md#CreateInsightsSession) | **Post** /v1/Insights/Session | To obtain session details for fetching reports and dashboards
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > FlexV1InsightsSession CreateInsightsSession(ctx, optional)
 
-
+To obtain session details for fetching reports and dashboards
 
 To obtain session details for fetching reports and dashboards
 

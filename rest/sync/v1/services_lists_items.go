@@ -26,7 +26,7 @@ import (
 // Optional parameters for the method 'CreateSyncListItem'
 type CreateSyncListItemParams struct {
 	// A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-	Data *interface{} `json:"Data,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 	Ttl *int `json:"Ttl,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
@@ -35,7 +35,7 @@ type CreateSyncListItemParams struct {
 	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 }
 
-func (params *CreateSyncListItemParams) SetData(Data interface{}) *CreateSyncListItemParams {
+func (params *CreateSyncListItemParams) SetData(Data map[string]interface{}) *CreateSyncListItemParams {
 	params.Data = &Data
 	return params
 }
@@ -59,7 +59,9 @@ func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, param
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)
@@ -114,7 +116,9 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
@@ -137,7 +141,9 @@ func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index 
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -197,16 +203,18 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
+		data.Set("Order", fmt.Sprint(*params.Order))
 	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
 	}
 	if params != nil && params.Bounds != nil {
-		data.Set("Bounds", *params.Bounds)
+		data.Set("Bounds", fmt.Sprint(*params.Bounds))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -325,7 +333,7 @@ type UpdateSyncListItemParams struct {
 	// If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 	IfMatch *string `json:"If-Match,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-	Data *interface{} `json:"Data,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 	Ttl *int `json:"Ttl,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
@@ -338,7 +346,7 @@ func (params *UpdateSyncListItemParams) SetIfMatch(IfMatch string) *UpdateSyncLi
 	params.IfMatch = &IfMatch
 	return params
 }
-func (params *UpdateSyncListItemParams) SetData(Data interface{}) *UpdateSyncListItemParams {
+func (params *UpdateSyncListItemParams) SetData(Data map[string]interface{}) *UpdateSyncListItemParams {
 	params.Data = &Data
 	return params
 }
@@ -363,7 +371,9 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)

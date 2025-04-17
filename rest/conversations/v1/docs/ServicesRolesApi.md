@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateServiceRole**](ServicesRolesApi.md#CreateServiceRole) | **Post** /v1/Services/{ChatServiceSid}/Roles | 
-[**DeleteServiceRole**](ServicesRolesApi.md#DeleteServiceRole) | **Delete** /v1/Services/{ChatServiceSid}/Roles/{Sid} | 
-[**FetchServiceRole**](ServicesRolesApi.md#FetchServiceRole) | **Get** /v1/Services/{ChatServiceSid}/Roles/{Sid} | 
-[**ListServiceRole**](ServicesRolesApi.md#ListServiceRole) | **Get** /v1/Services/{ChatServiceSid}/Roles | 
-[**UpdateServiceRole**](ServicesRolesApi.md#UpdateServiceRole) | **Post** /v1/Services/{ChatServiceSid}/Roles/{Sid} | 
+[**CreateServiceRole**](ServicesRolesApi.md#CreateServiceRole) | **Post** /v1/Services/{ChatServiceSid}/Roles | Create a new user role in your service
+[**DeleteServiceRole**](ServicesRolesApi.md#DeleteServiceRole) | **Delete** /v1/Services/{ChatServiceSid}/Roles/{Sid} | Remove a user role from your service
+[**FetchServiceRole**](ServicesRolesApi.md#FetchServiceRole) | **Get** /v1/Services/{ChatServiceSid}/Roles/{Sid} | Fetch a user role from your service
+[**ListServiceRole**](ServicesRolesApi.md#ListServiceRole) | **Get** /v1/Services/{ChatServiceSid}/Roles | Retrieve a list of all user roles in your service
+[**UpdateServiceRole**](ServicesRolesApi.md#UpdateServiceRole) | **Post** /v1/Services/{ChatServiceSid}/Roles/{Sid} | Update an existing user role in your service
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ServiceRole CreateServiceRole(ctx, ChatServiceSidoptional)
 
-
+Create a new user role in your service
 
 Create a new user role in your service
 
@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a CreateServiceRoleParams struc
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **Permission** | **[]string** | A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
 
 ### Return type
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeleteServiceRole(ctx, ChatServiceSidSid)
 
-
+Remove a user role from your service
 
 Remove a user role from your service
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceRole FetchServiceRole(ctx, ChatServiceSidSid)
 
-
+Fetch a user role from your service
 
 Fetch a user role from your service
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []ConversationsV1ServiceRole ListServiceRole(ctx, ChatServiceSidoptional)
 
-
+Retrieve a list of all user roles in your service
 
 Retrieve a list of all user roles in your service
 
@@ -191,7 +191,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceRole UpdateServiceRole(ctx, ChatServiceSidSidoptional)
 
-
+Update an existing user role in your service
 
 Update an existing user role in your service
 

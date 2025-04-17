@@ -22,7 +22,7 @@ type VideoV1CompositionSettings struct {
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The SID of the stored Credential resource.
 	AwsCredentialsSid *string `json:"aws_credentials_sid,omitempty"`
-	// The URL of the AWS S3 bucket where the compositions are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+	// The URL of the AWS S3 bucket where the compositions are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2).
 	AwsS3Url *string `json:"aws_s3_url,omitempty"`
 	// Whether all compositions are written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
 	AwsStorageEnabled *bool `json:"aws_storage_enabled,omitempty"`

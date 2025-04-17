@@ -4,8 +4,8 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchConference**](ConferencesApi.md#FetchConference) | **Get** /v1/Conferences/{ConferenceSid} | 
-[**ListConference**](ConferencesApi.md#ListConference) | **Get** /v1/Conferences | 
+[**FetchConference**](ConferencesApi.md#FetchConference) | **Get** /v1/Conferences/{ConferenceSid} | Get a specific Conference Summary.
+[**ListConference**](ConferencesApi.md#ListConference) | **Get** /v1/Conferences | Get a list of Conference Summaries.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > InsightsV1Conference FetchConference(ctx, ConferenceSid)
 
-
+Get a specific Conference Summary.
 
 Get a specific Conference Summary.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []InsightsV1Conference ListConference(ctx, optional)
 
-
+Get a list of Conference Summaries.
 
 Get a list of Conference Summaries.
 

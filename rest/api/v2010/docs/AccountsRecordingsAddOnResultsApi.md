@@ -4,9 +4,9 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteRecordingAddOnResult**](AccountsRecordingsAddOnResultsApi.md#DeleteRecordingAddOnResult) | **Delete** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json | 
-[**FetchRecordingAddOnResult**](AccountsRecordingsAddOnResultsApi.md#FetchRecordingAddOnResult) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json | 
-[**ListRecordingAddOnResult**](AccountsRecordingsAddOnResultsApi.md#ListRecordingAddOnResult) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json | 
+[**DeleteRecordingAddOnResult**](AccountsRecordingsAddOnResultsApi.md#DeleteRecordingAddOnResult) | **Delete** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json | Delete a result and purge all associated Payloads
+[**FetchRecordingAddOnResult**](AccountsRecordingsAddOnResultsApi.md#FetchRecordingAddOnResult) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json | Fetch an instance of an AddOnResult
+[**ListRecordingAddOnResult**](AccountsRecordingsAddOnResultsApi.md#ListRecordingAddOnResult) | **Get** /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json | Retrieve a list of results belonging to the recording
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > DeleteRecordingAddOnResult(ctx, ReferenceSidSidoptional)
 
-
+Delete a result and purge all associated Payloads
 
 Delete a result and purge all associated Payloads
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > ApiV2010RecordingAddOnResult FetchRecordingAddOnResult(ctx, ReferenceSidSidoptional)
 
-
+Fetch an instance of an AddOnResult
 
 Fetch an instance of an AddOnResult
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > []ApiV2010RecordingAddOnResult ListRecordingAddOnResult(ctx, ReferenceSidoptional)
 
-
+Retrieve a list of results belonging to the recording
 
 Retrieve a list of results belonging to the recording
 

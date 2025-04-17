@@ -4,7 +4,7 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListDependentHostedNumberOrder**](HostedNumberAuthorizationDocumentsDependentHostedNumberOrdersApi.md#ListDependentHostedNumberOrder) | **Get** /v2/HostedNumber/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders | 
+[**ListDependentHostedNumberOrder**](HostedNumberAuthorizationDocumentsDependentHostedNumberOrdersApi.md#ListDependentHostedNumberOrder) | **Get** /v2/HostedNumber/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders | Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []NumbersV2DependentHostedNumberOrder ListDependentHostedNumberOrder(ctx, SigningDocumentSidoptional)
 
-
+Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument.
 
 Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument.
 
@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a ListDependentHostedNumberOrde
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
+**Status** | [**string**](stringstring.md) | Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
 **PhoneNumber** | **string** | An E164 formatted phone number hosted by this HostedNumberOrder.
 **IncomingPhoneNumberSid** | **string** | A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
 **FriendlyName** | **string** | A human readable description of this resource, up to 128 characters.

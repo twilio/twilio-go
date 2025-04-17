@@ -4,7 +4,7 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchBuildStatus**](ServicesBuildsStatusApi.md#FetchBuildStatus) | **Get** /v1/Services/{ServiceSid}/Builds/{Sid}/Status | 
+[**FetchBuildStatus**](ServicesBuildsStatusApi.md#FetchBuildStatus) | **Get** /v1/Services/{ServiceSid}/Builds/{Sid}/Status | Retrieve a specific Build resource.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ServerlessV1BuildStatus FetchBuildStatus(ctx, ServiceSidSid)
 
-
+Retrieve a specific Build resource.
 
 Retrieve a specific Build resource.
 

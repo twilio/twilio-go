@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -26,7 +27,7 @@ type UpdateFlowValidateParams struct {
 	//
 	Status *string `json:"Status,omitempty"`
 	// JSON representation of flow definition.
-	Definition *interface{} `json:"Definition,omitempty"`
+	Definition *map[string]interface{} `json:"Definition,omitempty"`
 	// Description of change made in the revision.
 	CommitMessage *string `json:"CommitMessage,omitempty"`
 }
@@ -39,7 +40,7 @@ func (params *UpdateFlowValidateParams) SetStatus(Status string) *UpdateFlowVali
 	params.Status = &Status
 	return params
 }
-func (params *UpdateFlowValidateParams) SetDefinition(Definition interface{}) *UpdateFlowValidateParams {
+func (params *UpdateFlowValidateParams) SetDefinition(Definition map[string]interface{}) *UpdateFlowValidateParams {
 	params.Definition = &Definition
 	return params
 }
@@ -53,13 +54,15 @@ func (c *ApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*Stud
 	path := "/v2/Flows/Validate"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Definition != nil {
 		v, err := json.Marshal(params.Definition)

@@ -22,7 +22,7 @@ import (
 
 // Optional parameters for the method 'FetchPhoneNumber'
 type FetchPhoneNumberParams struct {
-	// A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
+	// A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill.
 	Fields *string `json:"Fields,omitempty"`
 	// The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
 	CountryCode *string `json:"CountryCode,omitempty"`
@@ -48,6 +48,10 @@ type FetchPhoneNumberParams struct {
 	DateOfBirth *string `json:"DateOfBirth,omitempty"`
 	// The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
 	LastVerifiedDate *string `json:"LastVerifiedDate,omitempty"`
+	// The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
+	VerificationSid *string `json:"VerificationSid,omitempty"`
+	// The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
+	PartnerSubId *string `json:"PartnerSubId,omitempty"`
 }
 
 func (params *FetchPhoneNumberParams) SetFields(Fields string) *FetchPhoneNumberParams {
@@ -102,6 +106,14 @@ func (params *FetchPhoneNumberParams) SetLastVerifiedDate(LastVerifiedDate strin
 	params.LastVerifiedDate = &LastVerifiedDate
 	return params
 }
+func (params *FetchPhoneNumberParams) SetVerificationSid(VerificationSid string) *FetchPhoneNumberParams {
+	params.VerificationSid = &VerificationSid
+	return params
+}
+func (params *FetchPhoneNumberParams) SetPartnerSubId(PartnerSubId string) *FetchPhoneNumberParams {
+	params.PartnerSubId = &PartnerSubId
+	return params
+}
 
 //
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV2PhoneNumber, error) {
@@ -109,7 +121,9 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Fields != nil {
 		data.Set("Fields", *params.Fields)
@@ -149,6 +163,12 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 	}
 	if params != nil && params.LastVerifiedDate != nil {
 		data.Set("LastVerifiedDate", *params.LastVerifiedDate)
+	}
+	if params != nil && params.VerificationSid != nil {
+		data.Set("VerificationSid", *params.VerificationSid)
+	}
+	if params != nil && params.PartnerSubId != nil {
+		data.Set("PartnerSubId", *params.PartnerSubId)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)

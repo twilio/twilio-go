@@ -4,9 +4,9 @@ All URIs are relative to *https://accounts.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSafelist**](SafeListNumbersApi.md#CreateSafelist) | **Post** /v1/SafeList/Numbers | 
-[**DeleteSafelist**](SafeListNumbersApi.md#DeleteSafelist) | **Delete** /v1/SafeList/Numbers | 
-[**FetchSafelist**](SafeListNumbersApi.md#FetchSafelist) | **Get** /v1/SafeList/Numbers | 
+[**CreateSafelist**](SafeListNumbersApi.md#CreateSafelist) | **Post** /v1/SafeList/Numbers | Add a new phone number or phone number 1k prefix to SafeList.
+[**DeleteSafelist**](SafeListNumbersApi.md#DeleteSafelist) | **Delete** /v1/SafeList/Numbers | Remove a phone number or phone number 1k prefix from SafeList.
+[**FetchSafelist**](SafeListNumbersApi.md#FetchSafelist) | **Get** /v1/SafeList/Numbers | Check if a phone number or phone number 1k prefix exists in SafeList.
 
 
 
@@ -14,9 +14,9 @@ Method | HTTP request | Description
 
 > AccountsV1Safelist CreateSafelist(ctx, optional)
 
+Add a new phone number or phone number 1k prefix to SafeList.
 
-
-Add a new phone number to SafeList.
+Add a new phone number or phone number 1k prefix to SafeList.
 
 ### Path Parameters
 
@@ -29,7 +29,7 @@ Other parameters are passed through a pointer to a CreateSafelistParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PhoneNumber** | **string** | The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+**PhoneNumber** | **string** | The phone number or phone number 1k prefix to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 
 ### Return type
 
@@ -53,9 +53,9 @@ Name | Type | Description
 
 > DeleteSafelist(ctx, optional)
 
+Remove a phone number or phone number 1k prefix from SafeList.
 
-
-Remove a phone number from SafeList.
+Remove a phone number or phone number 1k prefix from SafeList.
 
 ### Path Parameters
 
@@ -68,7 +68,7 @@ Other parameters are passed through a pointer to a DeleteSafelistParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PhoneNumber** | **string** | The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+**PhoneNumber** | **string** | The phone number or phone number 1k prefix to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 
 ### Return type
 
@@ -92,9 +92,9 @@ Name | Type | Description
 
 > AccountsV1Safelist FetchSafelist(ctx, optional)
 
+Check if a phone number or phone number 1k prefix exists in SafeList.
 
-
-Check if a phone number exists in SafeList.
+Check if a phone number or phone number 1k prefix exists in SafeList.
 
 ### Path Parameters
 
@@ -107,7 +107,7 @@ Other parameters are passed through a pointer to a FetchSafelistParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PhoneNumber** | **string** | The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+**PhoneNumber** | **string** | The phone number or phone number 1k prefix to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 
 ### Return type
 

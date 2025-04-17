@@ -4,11 +4,11 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#CreateInsightsQuestionnaires) | **Post** /v1/Insights/QualityManagement/Questionnaires | 
-[**DeleteInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#DeleteInsightsQuestionnaires) | **Delete** /v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid} | 
-[**FetchInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#FetchInsightsQuestionnaires) | **Get** /v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid} | 
-[**ListInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#ListInsightsQuestionnaires) | **Get** /v1/Insights/QualityManagement/Questionnaires | 
-[**UpdateInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#UpdateInsightsQuestionnaires) | **Post** /v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid} | 
+[**CreateInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#CreateInsightsQuestionnaires) | **Post** /v1/Insights/QualityManagement/Questionnaires | To create a Questionnaire
+[**DeleteInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#DeleteInsightsQuestionnaires) | **Delete** /v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid} | To delete the questionnaire
+[**FetchInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#FetchInsightsQuestionnaires) | **Get** /v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid} | To get the Questionnaire Detail
+[**ListInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#ListInsightsQuestionnaires) | **Get** /v1/Insights/QualityManagement/Questionnaires | To get all questionnaires with questions
+[**UpdateInsightsQuestionnaires**](InsightsQualityManagementQuestionnairesApi.md#UpdateInsightsQuestionnaires) | **Post** /v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid} | To update the questionnaire
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > FlexV1InsightsQuestionnaires CreateInsightsQuestionnaires(ctx, optional)
 
-
+To create a Questionnaire
 
 To create a Questionnaire
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteInsightsQuestionnaires(ctx, QuestionnaireSidoptional)
 
-
+To delete the questionnaire
 
 To delete the questionnaire
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > FlexV1InsightsQuestionnaires FetchInsightsQuestionnaires(ctx, QuestionnaireSidoptional)
 
-
+To get the Questionnaire Detail
 
 To get the Questionnaire Detail
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > []FlexV1InsightsQuestionnaires ListInsightsQuestionnaires(ctx, optional)
 
-
+To get all questionnaires with questions
 
 To get all questionnaires with questions
 
@@ -187,7 +187,7 @@ Name | Type | Description
 
 > FlexV1InsightsQuestionnaires UpdateInsightsQuestionnaires(ctx, QuestionnaireSidoptional)
 
-
+To update the questionnaire
 
 To update the questionnaire
 

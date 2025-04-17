@@ -31,7 +31,7 @@ type CreateCompositionHookParams struct {
 	// Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook will never be triggered.
 	Enabled *bool `json:"Enabled,omitempty"`
 	// An object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-	VideoLayout *interface{} `json:"VideoLayout,omitempty"`
+	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
 	// An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
 	AudioSources *[]string `json:"AudioSources,omitempty"`
 	// An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
@@ -56,7 +56,7 @@ func (params *CreateCompositionHookParams) SetEnabled(Enabled bool) *CreateCompo
 	params.Enabled = &Enabled
 	return params
 }
-func (params *CreateCompositionHookParams) SetVideoLayout(VideoLayout interface{}) *CreateCompositionHookParams {
+func (params *CreateCompositionHookParams) SetVideoLayout(VideoLayout map[string]interface{}) *CreateCompositionHookParams {
 	params.VideoLayout = &VideoLayout
 	return params
 }
@@ -94,7 +94,9 @@ func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) 
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -125,7 +127,7 @@ func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) 
 		data.Set("Resolution", *params.Resolution)
 	}
 	if params != nil && params.Format != nil {
-		data.Set("Format", *params.Format)
+		data.Set("Format", fmt.Sprint(*params.Format))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -158,7 +160,9 @@ func (c *ApiService) DeleteCompositionHook(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -176,7 +180,9 @@ func (c *ApiService) FetchCompositionHook(Sid string) (*VideoV1CompositionHook, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -239,7 +245,9 @@ func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, page
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
@@ -372,7 +380,7 @@ type UpdateCompositionHookParams struct {
 	// Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook never triggers.
 	Enabled *bool `json:"Enabled,omitempty"`
 	// A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-	VideoLayout *interface{} `json:"VideoLayout,omitempty"`
+	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
 	// An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
 	AudioSources *[]string `json:"AudioSources,omitempty"`
 	// An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
@@ -397,7 +405,7 @@ func (params *UpdateCompositionHookParams) SetEnabled(Enabled bool) *UpdateCompo
 	params.Enabled = &Enabled
 	return params
 }
-func (params *UpdateCompositionHookParams) SetVideoLayout(VideoLayout interface{}) *UpdateCompositionHookParams {
+func (params *UpdateCompositionHookParams) SetVideoLayout(VideoLayout map[string]interface{}) *UpdateCompositionHookParams {
 	params.VideoLayout = &VideoLayout
 	return params
 }
@@ -436,7 +444,9 @@ func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateComposition
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -467,7 +477,7 @@ func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateComposition
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 	if params != nil && params.Format != nil {
-		data.Set("Format", *params.Format)
+		data.Set("Format", fmt.Sprint(*params.Format))
 	}
 	if params != nil && params.Resolution != nil {
 		data.Set("Resolution", *params.Resolution)

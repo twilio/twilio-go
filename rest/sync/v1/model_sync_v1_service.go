@@ -45,7 +45,7 @@ type SyncV1Service struct {
 	// Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
 	ReachabilityDebouncingEnabled *bool `json:"reachability_debouncing_enabled,omitempty"`
 	// The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before `webhook_url` is called, if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the reachability event from occurring.
-	ReachabilityDebouncingWindow *int `json:"reachability_debouncing_window,omitempty"`
+	ReachabilityDebouncingWindow int `json:"reachability_debouncing_window,omitempty"`
 	// The URLs of related resources.
 	Links *map[string]interface{} `json:"links,omitempty"`
 }

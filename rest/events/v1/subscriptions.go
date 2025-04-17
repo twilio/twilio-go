@@ -30,7 +30,9 @@ type CreateSubscriptionParams struct {
 	// The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 	SinkSid *string `json:"SinkSid,omitempty"`
 	// An array of objects containing the subscribed Event Types
-	Types *[]interface{} `json:"Types,omitempty"`
+	Types *[]map[string]interface{} `json:"Types,omitempty"`
+	// Receive events from all children accounts in the parent account subscription.
+	ReceiveEventsFromSubaccounts *bool `json:"ReceiveEventsFromSubaccounts,omitempty"`
 }
 
 func (params *CreateSubscriptionParams) SetDescription(Description string) *CreateSubscriptionParams {
@@ -41,8 +43,12 @@ func (params *CreateSubscriptionParams) SetSinkSid(SinkSid string) *CreateSubscr
 	params.SinkSid = &SinkSid
 	return params
 }
-func (params *CreateSubscriptionParams) SetTypes(Types []interface{}) *CreateSubscriptionParams {
+func (params *CreateSubscriptionParams) SetTypes(Types []map[string]interface{}) *CreateSubscriptionParams {
 	params.Types = &Types
+	return params
+}
+func (params *CreateSubscriptionParams) SetReceiveEventsFromSubaccounts(ReceiveEventsFromSubaccounts bool) *CreateSubscriptionParams {
+	params.ReceiveEventsFromSubaccounts = &ReceiveEventsFromSubaccounts
 	return params
 }
 
@@ -51,7 +57,9 @@ func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*Even
 	path := "/v1/Subscriptions"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
@@ -69,6 +77,9 @@ func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*Even
 
 			data.Add("Types", string(v))
 		}
+	}
+	if params != nil && params.ReceiveEventsFromSubaccounts != nil {
+		data.Set("ReceiveEventsFromSubaccounts", fmt.Sprint(*params.ReceiveEventsFromSubaccounts))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -92,7 +103,9 @@ func (c *ApiService) DeleteSubscription(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -110,7 +123,9 @@ func (c *ApiService) FetchSubscription(Sid string) (*EventsV1Subscription, error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -155,7 +170,9 @@ func (c *ApiService) PageSubscription(params *ListSubscriptionParams, pageToken,
 	path := "/v1/Subscriptions"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.SinkSid != nil {
 		data.Set("SinkSid", *params.SinkSid)
@@ -278,6 +295,8 @@ type UpdateSubscriptionParams struct {
 	Description *string `json:"Description,omitempty"`
 	// The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 	SinkSid *string `json:"SinkSid,omitempty"`
+	// Receive events from all children accounts in the parent account subscription.
+	ReceiveEventsFromSubaccounts *bool `json:"ReceiveEventsFromSubaccounts,omitempty"`
 }
 
 func (params *UpdateSubscriptionParams) SetDescription(Description string) *UpdateSubscriptionParams {
@@ -288,6 +307,10 @@ func (params *UpdateSubscriptionParams) SetSinkSid(SinkSid string) *UpdateSubscr
 	params.SinkSid = &SinkSid
 	return params
 }
+func (params *UpdateSubscriptionParams) SetReceiveEventsFromSubaccounts(ReceiveEventsFromSubaccounts bool) *UpdateSubscriptionParams {
+	params.ReceiveEventsFromSubaccounts = &ReceiveEventsFromSubaccounts
+	return params
+}
 
 // Update a Subscription.
 func (c *ApiService) UpdateSubscription(Sid string, params *UpdateSubscriptionParams) (*EventsV1Subscription, error) {
@@ -295,13 +318,18 @@ func (c *ApiService) UpdateSubscription(Sid string, params *UpdateSubscriptionPa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
 	}
 	if params != nil && params.SinkSid != nil {
 		data.Set("SinkSid", *params.SinkSid)
+	}
+	if params != nil && params.ReceiveEventsFromSubaccounts != nil {
+		data.Set("ReceiveEventsFromSubaccounts", fmt.Sprint(*params.ReceiveEventsFromSubaccounts))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

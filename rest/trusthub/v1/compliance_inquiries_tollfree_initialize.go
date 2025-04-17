@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -63,6 +64,10 @@ type CreateComplianceTollfreeInquiryParams struct {
 	BusinessContactEmail *string `json:"BusinessContactEmail,omitempty"`
 	// The phone number of the contact for the business or organization using the Tollfree number.
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
+	// Theme id for styling the inquiry form.
+	ThemeSetId *string `json:"ThemeSetId,omitempty"`
+	// Skip the messaging use case screen of the inquiry form.
+	SkipMessagingUseCase *bool `json:"SkipMessagingUseCase,omitempty"`
 }
 
 func (params *CreateComplianceTollfreeInquiryParams) SetTollfreePhoneNumber(TollfreePhoneNumber string) *CreateComplianceTollfreeInquiryParams {
@@ -149,13 +154,23 @@ func (params *CreateComplianceTollfreeInquiryParams) SetBusinessContactPhone(Bus
 	params.BusinessContactPhone = &BusinessContactPhone
 	return params
 }
+func (params *CreateComplianceTollfreeInquiryParams) SetThemeSetId(ThemeSetId string) *CreateComplianceTollfreeInquiryParams {
+	params.ThemeSetId = &ThemeSetId
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetSkipMessagingUseCase(SkipMessagingUseCase bool) *CreateComplianceTollfreeInquiryParams {
+	params.SkipMessagingUseCase = &SkipMessagingUseCase
+	return params
+}
 
 // Create a new Compliance Tollfree Verification Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTollfreeInquiryParams) (*TrusthubV1ComplianceTollfreeInquiry, error) {
 	path := "/v1/ComplianceInquiries/Tollfree/Initialize"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.TollfreePhoneNumber != nil {
 		data.Set("TollfreePhoneNumber", *params.TollfreePhoneNumber)
@@ -186,7 +201,7 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 		}
 	}
 	if params != nil && params.OptInType != nil {
-		data.Set("OptInType", *params.OptInType)
+		data.Set("OptInType", fmt.Sprint(*params.OptInType))
 	}
 	if params != nil && params.MessageVolume != nil {
 		data.Set("MessageVolume", *params.MessageVolume)
@@ -223,6 +238,12 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 	}
 	if params != nil && params.BusinessContactPhone != nil {
 		data.Set("BusinessContactPhone", *params.BusinessContactPhone)
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
+	}
+	if params != nil && params.SkipMessagingUseCase != nil {
+		data.Set("SkipMessagingUseCase", fmt.Sprint(*params.SkipMessagingUseCase))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -56,4 +56,15 @@ type NumbersV2HostedNumberOrder struct {
 	BulkHostingRequestSid *string `json:"bulk_hosting_request_sid,omitempty"`
 	// The next step you need to take to complete the hosted number order and request it successfully.
 	NextStep *string `json:"next_step,omitempty"`
+	// The number of attempts made to verify ownership via a call for the hosted phone number.
+	VerificationAttempts int `json:"verification_attempts,omitempty"`
+	// The Call SIDs that identify the calls placed to verify ownership.
+	VerificationCallSids *[]string `json:"verification_call_sids,omitempty"`
+	// The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive.
+	VerificationCallDelay int `json:"verification_call_delay,omitempty"`
+	// The numerical extension to dial when making the ownership verification call.
+	VerificationCallExtension *string `json:"verification_call_extension,omitempty"`
+	// The digits the user must pass in the ownership verification call.
+	VerificationCode *string `json:"verification_code,omitempty"`
+	VerificationType *string `json:"verification_type,omitempty"`
 }

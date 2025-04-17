@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -26,7 +27,9 @@ func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, erro
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -66,13 +69,15 @@ func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingPar
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Mode != nil {
-		data.Set("Mode", *params.Mode)
+		data.Set("Mode", fmt.Sprint(*params.Mode))
 	}
 	if params != nil && params.Trim != nil {
-		data.Set("Trim", *params.Trim)
+		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -19,9 +19,9 @@ type TaskrouterV1WorkersRealTimeStatistics struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The number of current Workers by Activity.
-	ActivityStatistics *[]interface{} `json:"activity_statistics,omitempty"`
+	ActivityStatistics *[]map[string]interface{} `json:"activity_statistics,omitempty"`
 	// The total number of Workers.
-	TotalWorkers *int `json:"total_workers,omitempty"`
+	TotalWorkers int `json:"total_workers,omitempty"`
 	// The SID of the Workspace that contains the Workers.
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 	// The absolute URL of the Workers statistics resource.

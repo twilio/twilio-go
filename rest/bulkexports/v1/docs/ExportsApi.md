@@ -4,7 +4,7 @@ All URIs are relative to *https://bulkexports.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchExport**](ExportsApi.md#FetchExport) | **Get** /v1/Exports/{ResourceType} | 
+[**FetchExport**](ExportsApi.md#FetchExport) | **Get** /v1/Exports/{ResourceType} | Fetch a specific Export.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > BulkexportsV1Export FetchExport(ctx, ResourceType)
 
-
+Fetch a specific Export.
 
 Fetch a specific Export.
 

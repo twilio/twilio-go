@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource. |
 **ChatInstanceSid** | Pointer to **string** | The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship. |
 **CallbackUrl** | Pointer to **string** | The URL we call when the interaction status changes. |
-**DefaultTtl** | Pointer to **int** | The default `ttl` value for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value. |
+**DefaultTtl** | **int** | The default `ttl` value for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value. |[optional] [default to 0]
 **NumberSelectionBehavior** | Pointer to [**string**](ServiceEnumNumberSelectionBehavior.md) |  |
 **GeoMatchLevel** | Pointer to [**string**](ServiceEnumGeoMatchLevel.md) |  |
 **InterceptCallbackUrl** | Pointer to **string** | The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues. |

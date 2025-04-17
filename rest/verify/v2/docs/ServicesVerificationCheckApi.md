@@ -4,7 +4,7 @@ All URIs are relative to *https://verify.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateVerificationCheck**](ServicesVerificationCheckApi.md#CreateVerificationCheck) | **Post** /v2/Services/{ServiceSid}/VerificationCheck | 
+[**CreateVerificationCheck**](ServicesVerificationCheckApi.md#CreateVerificationCheck) | **Post** /v2/Services/{ServiceSid}/VerificationCheck | challenge a specific Verification Check.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > VerifyV2VerificationCheck CreateVerificationCheck(ctx, ServiceSidoptional)
 
-
+challenge a specific Verification Check.
 
 challenge a specific Verification Check.
 
@@ -36,6 +36,7 @@ Name | Type | Description
 **VerificationSid** | **string** | A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
 **Amount** | **string** | The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 **Payee** | **string** | The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+**SnaClientToken** | **string** | A sna client token received in sna url invocation response needs to be passed in Verification Check request and should match to get successful response.
 
 ### Return type
 

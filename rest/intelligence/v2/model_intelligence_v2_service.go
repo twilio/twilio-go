@@ -36,7 +36,7 @@ type IntelligenceV2Service struct {
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// A human readable description of this resource, up to 64 characters.
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The default language code of the audio.
+	// The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it's set.
 	LanguageCode *string `json:"language_code,omitempty"`
 	// A 34 character string that uniquely identifies this Service.
 	Sid *string `json:"sid,omitempty"`
@@ -47,6 +47,8 @@ type IntelligenceV2Service struct {
 	// The URL Twilio will request when executing the Webhook.
 	WebhookUrl        *string `json:"webhook_url,omitempty"`
 	WebhookHttpMethod *string `json:"webhook_http_method,omitempty"`
+	// Operator sids attached to this service, read only
+	ReadOnlyAttachedOperatorSids *[]string `json:"read_only_attached_operator_sids,omitempty"`
 	// The version number of this Service.
-	Version *int `json:"version,omitempty"`
+	Version int `json:"version,omitempty"`
 }

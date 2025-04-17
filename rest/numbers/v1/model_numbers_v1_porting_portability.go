@@ -18,23 +18,19 @@ package openapi
 type NumbersV1PortingPortability struct {
 	// The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
 	PhoneNumber *string `json:"phone_number,omitempty"`
-	// The target account sid to which the number will be ported
+	// Account Sid that the phone number belongs to in Twilio. This is only returned for phone numbers that already exist in Twilio’s inventory and belong to your account or sub account.
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Boolean flag specifying if phone number is portable or not.
+	// Boolean flag indicates if the phone number can be ported into Twilio through the Porting API or not.
 	Portable *bool `json:"portable,omitempty"`
-	// Boolean flag specifying if PIN and account number is required for the phone number.
+	// Indicates if the port in process will require a personal identification number (PIN) and an account number for this phone number. If this is true you will be required to submit both a PIN and account number from the losing carrier for this number when opening a port in request. These fields will be required in order to complete the port in process to Twilio.
 	PinAndAccountNumberRequired *bool `json:"pin_and_account_number_required,omitempty"`
 	// Reason why the phone number cannot be ported into Twilio, `null` otherwise.
 	NotPortableReason *string `json:"not_portable_reason,omitempty"`
-	// The Portability Reason Code for the phone number if it cannot be ported into Twilio, `null` otherwise. One of `22131`, `22132`, `22130`, `22133`, `22102` or `22135`.
+	// The Portability Reason Code for the phone number if it cannot be ported into Twilio, `null` otherwise.
 	NotPortableReasonCode *int    `json:"not_portable_reason_code,omitempty"`
 	NumberType            *string `json:"number_type,omitempty"`
 	// Country the phone number belongs to.
 	Country *string `json:"country,omitempty"`
-	// Current messaging carrier of the phone number
-	MessagingCarrier *string `json:"messaging_carrier,omitempty"`
-	// Current voice carrier of the phone number
-	VoiceCarrier *string `json:"voice_carrier,omitempty"`
 	// This is the url of the request that you're trying to reach out to locate the resource.
 	Url *string `json:"url,omitempty"`
 }

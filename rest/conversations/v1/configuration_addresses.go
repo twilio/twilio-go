@@ -105,10 +105,12 @@ func (c *ApiService) CreateConfigurationAddress(params *CreateConfigurationAddre
 	path := "/v1/Configuration/Addresses"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", fmt.Sprint(*params.Type))
 	}
 	if params != nil && params.Address != nil {
 		data.Set("Address", *params.Address)
@@ -120,7 +122,7 @@ func (c *ApiService) CreateConfigurationAddress(params *CreateConfigurationAddre
 		data.Set("AutoCreation.Enabled", fmt.Sprint(*params.AutoCreationEnabled))
 	}
 	if params != nil && params.AutoCreationType != nil {
-		data.Set("AutoCreation.Type", *params.AutoCreationType)
+		data.Set("AutoCreation.Type", fmt.Sprint(*params.AutoCreationType))
 	}
 	if params != nil && params.AutoCreationConversationServiceSid != nil {
 		data.Set("AutoCreation.ConversationServiceSid", *params.AutoCreationConversationServiceSid)
@@ -129,7 +131,7 @@ func (c *ApiService) CreateConfigurationAddress(params *CreateConfigurationAddre
 		data.Set("AutoCreation.WebhookUrl", *params.AutoCreationWebhookUrl)
 	}
 	if params != nil && params.AutoCreationWebhookMethod != nil {
-		data.Set("AutoCreation.WebhookMethod", *params.AutoCreationWebhookMethod)
+		data.Set("AutoCreation.WebhookMethod", fmt.Sprint(*params.AutoCreationWebhookMethod))
 	}
 	if params != nil && params.AutoCreationWebhookFilters != nil {
 		for _, item := range *params.AutoCreationWebhookFilters {
@@ -167,7 +169,9 @@ func (c *ApiService) DeleteConfigurationAddress(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -185,7 +189,9 @@ func (c *ApiService) FetchConfigurationAddress(Sid string) (*ConversationsV1Conf
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -230,7 +236,9 @@ func (c *ApiService) PageConfigurationAddress(params *ListConfigurationAddressPa
 	path := "/v1/Configuration/Addresses"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
@@ -412,7 +420,9 @@ func (c *ApiService) UpdateConfigurationAddress(Sid string, params *UpdateConfig
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -421,7 +431,7 @@ func (c *ApiService) UpdateConfigurationAddress(Sid string, params *UpdateConfig
 		data.Set("AutoCreation.Enabled", fmt.Sprint(*params.AutoCreationEnabled))
 	}
 	if params != nil && params.AutoCreationType != nil {
-		data.Set("AutoCreation.Type", *params.AutoCreationType)
+		data.Set("AutoCreation.Type", fmt.Sprint(*params.AutoCreationType))
 	}
 	if params != nil && params.AutoCreationConversationServiceSid != nil {
 		data.Set("AutoCreation.ConversationServiceSid", *params.AutoCreationConversationServiceSid)
@@ -430,7 +440,7 @@ func (c *ApiService) UpdateConfigurationAddress(Sid string, params *UpdateConfig
 		data.Set("AutoCreation.WebhookUrl", *params.AutoCreationWebhookUrl)
 	}
 	if params != nil && params.AutoCreationWebhookMethod != nil {
-		data.Set("AutoCreation.WebhookMethod", *params.AutoCreationWebhookMethod)
+		data.Set("AutoCreation.WebhookMethod", fmt.Sprint(*params.AutoCreationWebhookMethod))
 	}
 	if params != nil && params.AutoCreationWebhookFilters != nil {
 		for _, item := range *params.AutoCreationWebhookFilters {

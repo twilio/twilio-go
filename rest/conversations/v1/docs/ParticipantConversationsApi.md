@@ -4,7 +4,7 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListParticipantConversation**](ParticipantConversationsApi.md#ListParticipantConversation) | **Get** /v1/ParticipantConversations | 
+[**ListParticipantConversation**](ParticipantConversationsApi.md#ListParticipantConversation) | **Get** /v1/ParticipantConversations | Retrieve a list of all Conversations that this Participant belongs to by identity or by address. Only one parameter should be specified.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []ConversationsV1ParticipantConversation ListParticipantConversation(ctx, optional)
 
-
+Retrieve a list of all Conversations that this Participant belongs to by identity or by address. Only one parameter should be specified.
 
 Retrieve a list of all Conversations that this Participant belongs to by identity or by address. Only one parameter should be specified.
 
