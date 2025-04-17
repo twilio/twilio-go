@@ -1,10 +1,10 @@
-# Api
+# OrganizationApi
 
 All URIs are relative to *https://preview-iam.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchOrganization**](Api.md#FetchOrganization) | **Get** /Organizations/{OrganizationSid} | List SCIM Users
+[**FetchOrganization**](OrganizationApi.md#FetchOrganization) | **Get** /Organizations/{OrganizationSid} | List SCIM Users
 
 
 

@@ -15,31 +15,25 @@
 package openapi
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/url"
-
-    "github.com/twilio/twilio-go/client"
+	"strings"
 )
 
+func (c *ApiService) FetchOrganization(OrganizationSid string) error {
+	path := "/Organizations/{OrganizationSid}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 
-func (c *ApiService) FetchOrganization(OrganizationSid string) (error) {
-    path := "/Organizations/{OrganizationSid}"
-        path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
-    data := url.Values{}
-    headers := map[string]interface{}{
-        "Content-Type": "application/x-www-form-urlencoded",
-    }
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
+	defer resp.Body.Close()
 
-
-    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
-
-    defer resp.Body.Close()
-
-    return nil
+	return nil
 }

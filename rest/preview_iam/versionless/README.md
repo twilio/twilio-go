@@ -31,9 +31,9 @@ All URIs are relative to *https://preview-iam.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*Api* | [**FetchOrganization**](docs/Api.md#fetchorganization) | **Get** /Organizations/{OrganizationSid} | List SCIM Users
 *AccountsApi* | [**FetchOrganizationAccount**](docs/AccountsApi.md#fetchorganizationaccount) | **Get** /Organizations/{OrganizationSid}/Accounts/{AccountSid} | Get details of organization account
 *AccountsApi* | [**ListOrganizationAccounts**](docs/AccountsApi.md#listorganizationaccounts) | **Get** /Organizations/{OrganizationSid}/Accounts | List organization accounts
+*OrganizationApi* | [**FetchOrganization**](docs/OrganizationApi.md#fetchorganization) | **Get** /Organizations/{OrganizationSid} | List SCIM Users
 *RoleAssignmentsApi* | [**CreateRoleAssignment**](docs/RoleAssignmentsApi.md#createroleassignment) | **Post** /Organizations/{OrganizationSid}/RoleAssignments | Create a role assignment
 *RoleAssignmentsApi* | [**DeleteRoleAssignment**](docs/RoleAssignmentsApi.md#deleteroleassignment) | **Delete** /Organizations/{OrganizationSid}/RoleAssignments/{Sid} | Delete a role assignment
 *RoleAssignmentsApi* | [**ListRoleAssignments**](docs/RoleAssignmentsApi.md#listroleassignments) | **Get** /Organizations/{OrganizationSid}/RoleAssignments | List role assignments
