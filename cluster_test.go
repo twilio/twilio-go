@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/organizations"
+	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/versionless"
 
 	"github.com/twilio/twilio-go/client"
 	Api "github.com/twilio/twilio-go/rest/api/v2010"
