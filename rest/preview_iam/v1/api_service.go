@@ -15,7 +15,7 @@
 package openapi
 
 import (
-    twilio "github.com/twilio/twilio-go/client"
+	twilio "github.com/twilio/twilio-go/client"
 )
 
 type ApiService struct {
@@ -24,16 +24,16 @@ type ApiService struct {
 }
 
 func (c *ApiService) RequestHandler() *twilio.RequestHandler {
-  return c.requestHandler
+	return c.requestHandler
 }
 
 func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
-	return &ApiService {
+	return &ApiService{
 		requestHandler: requestHandler,
 		baseURL:        "https://preview-iam.twilio.com",
 	}
 }
 
 func NewApiServiceWithClient(client twilio.BaseClient) *ApiService {
-    return NewApiService(twilio.NewRequestHandler(client))
+	return NewApiService(twilio.NewRequestHandler(client))
 }

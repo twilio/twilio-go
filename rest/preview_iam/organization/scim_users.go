@@ -18,166 +18,161 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"strings"
 
-    "github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client"
 )
-
 
 // Optional parameters for the method 'CreateOrganizationUser'
 type CreateOrganizationUserParams struct {
-    // 
-    ScimUser *ScimUser `json:"ScimUser,omitempty"`
+	//
+	ScimUser *ScimUser `json:"ScimUser,omitempty"`
 }
 
-func (params *CreateOrganizationUserParams) SetScimUser(ScimUser ScimUser) (*CreateOrganizationUserParams){
-    params.ScimUser = &ScimUser
-    return params
+func (params *CreateOrganizationUserParams) SetScimUser(ScimUser ScimUser) *CreateOrganizationUserParams {
+	params.ScimUser = &ScimUser
+	return params
 }
 
 func (c *ApiService) CreateOrganizationUser(OrganizationSid string, params *CreateOrganizationUserParams) (*ScimUser, error) {
-    path := "/Organizations/{OrganizationSid}/scim/Users"
-        path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path := "/Organizations/{OrganizationSid}/scim/Users"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 
-    data := url.Values{}
-    headers := map[string]interface{}{
-	 	"Content-Type": "application/json",
-    }
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
 
-    body := []byte{}
-    if params != nil && params.ScimUser != nil {
-        b, err := json.Marshal(*params.ScimUser)
-        if err != nil {
-            return nil, err
-        }
-        body = b
-    }
+	body := []byte{}
+	if params != nil && params.ScimUser != nil {
+		b, err := json.Marshal(*params.ScimUser)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
 
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
 
-    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
-    if err != nil {
-        return nil, err
-    }
+	defer resp.Body.Close()
 
-    defer resp.Body.Close()
+	ps := &ScimUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    ps := &ScimUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
-
-    return ps, err
+	return ps, err
 }
 
-func (c *ApiService) DeleteOrganizationUser(OrganizationSid string, Id string) (error) {
-    path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
-        path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
-    path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+func (c *ApiService) DeleteOrganizationUser(OrganizationSid string, Id string) error {
+	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 
-    data := url.Values{}
-    headers := map[string]interface{}{
-        "Content-Type": "application/x-www-form-urlencoded",
-    }
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
+	defer resp.Body.Close()
 
-    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
-
-    defer resp.Body.Close()
-
-    return nil
+	return nil
 }
 
 func (c *ApiService) FetchOrganizationUser(OrganizationSid string, Id string) (*ScimUser, error) {
-    path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
-        path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
-    path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 
-    data := url.Values{}
-    headers := map[string]interface{}{
-        "Content-Type": "application/x-www-form-urlencoded",
-    }
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
+	defer resp.Body.Close()
 
-    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	ps := &ScimUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
-
-    ps := &ScimUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
-
-    return ps, err
+	return ps, err
 }
 
 // Optional parameters for the method 'ListOrganizationUsers'
 type ListOrganizationUsersParams struct {
-    // 
-    Filter *string `json:"filter,omitempty"`
-    // Max number of records to return.
-    Limit *int `json:"limit,omitempty"`
-    // Max number of records to return in a page
-    PageSize *int `json:"PageSize,omitempty"`
+	//
+	Filter *string `json:"filter,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
+	// Max number of records to return in a page
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListOrganizationUsersParams) SetFilter(Filter string) (*ListOrganizationUsersParams){
-    params.Filter = &Filter
-    return params
+func (params *ListOrganizationUsersParams) SetFilter(Filter string) *ListOrganizationUsersParams {
+	params.Filter = &Filter
+	return params
 }
-func (params *ListOrganizationUsersParams) SetLimit(Limit int) (*ListOrganizationUsersParams){
-    params.Limit = &Limit
-    return params
+func (params *ListOrganizationUsersParams) SetLimit(Limit int) *ListOrganizationUsersParams {
+	params.Limit = &Limit
+	return params
 }
-func (params *ListOrganizationUsersParams) SetPageSize(PageSize int) (*ListOrganizationUsersParams){
-    params.PageSize = &PageSize
-    return params
+func (params *ListOrganizationUsersParams) SetPageSize(PageSize int) *ListOrganizationUsersParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // Retrieve a single page of OrganizationUsers records from the API. Request is executed immediately.
 func (c *ApiService) PageOrganizationUsers(OrganizationSid string, params *ListOrganizationUsersParams, pageToken, pageNumber string) (*ScimUserPage, error) {
-    path := "/Organizations/{OrganizationSid}/scim/Users"
+	path := "/Organizations/{OrganizationSid}/scim/Users"
 
-        path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 
-    data := url.Values{}
-    headers := map[string]interface{}{
-        "Content-Type": "application/x-www-form-urlencoded",
-    }
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
-    if params != nil && params.Filter != nil {
-        data.Set("filter", *params.Filter)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", fmt.Sprint(*params.PageSize))
-    }
+	if params != nil && params.Filter != nil {
+		data.Set("filter", *params.Filter)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
 
-    if pageToken != "" {
-        data.Set("PageToken", pageToken)
-    }
-    if pageNumber != "" {
-        data.Set("Page", pageNumber)
-    }
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
 
-    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ScimUserPage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ScimUserPage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 // Lists OrganizationUsers records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -218,7 +213,6 @@ func (c *ApiService) StreamOrganizationUsers(OrganizationSid string, params *Lis
 	return recordChannel, errorChannel
 }
 
-
 func (c *ApiService) streamOrganizationUsers(response *ScimUserPage, params *ListOrganizationUsersParams, recordChannel chan ScimUser, errorChannel chan error) {
 	curRecord := 1
 
@@ -250,75 +244,73 @@ func (c *ApiService) streamOrganizationUsers(response *ScimUserPage, params *Lis
 }
 
 func (c *ApiService) getNextScimUserPage(nextPageUrl string) (interface{}, error) {
-    if nextPageUrl == "" {
-        return nil, nil
-    }
-    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-    if err != nil {
-        return nil, err
-    }
+	if nextPageUrl == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ScimUserPage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
-    return ps, nil
+	ps := &ScimUserPage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
-
 
 // Optional parameters for the method 'UpdateOrganizationUser'
 type UpdateOrganizationUserParams struct {
-    // 
-    IfMatch *string `json:"If-Match,omitempty"`
-    // 
-    ScimUser *ScimUser `json:"ScimUser,omitempty"`
+	//
+	IfMatch *string `json:"If-Match,omitempty"`
+	//
+	ScimUser *ScimUser `json:"ScimUser,omitempty"`
 }
 
-func (params *UpdateOrganizationUserParams) SetIfMatch(IfMatch string) (*UpdateOrganizationUserParams){
-    params.IfMatch = &IfMatch
-    return params
+func (params *UpdateOrganizationUserParams) SetIfMatch(IfMatch string) *UpdateOrganizationUserParams {
+	params.IfMatch = &IfMatch
+	return params
 }
-func (params *UpdateOrganizationUserParams) SetScimUser(ScimUser ScimUser) (*UpdateOrganizationUserParams){
-    params.ScimUser = &ScimUser
-    return params
+func (params *UpdateOrganizationUserParams) SetScimUser(ScimUser ScimUser) *UpdateOrganizationUserParams {
+	params.ScimUser = &ScimUser
+	return params
 }
 
 func (c *ApiService) UpdateOrganizationUser(OrganizationSid string, Id string, params *UpdateOrganizationUserParams) (*ScimUser, error) {
-    path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
-        path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
-    path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 
-    data := url.Values{}
-    headers := map[string]interface{}{
-	 	"Content-Type": "application/json",
-    }
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
 
-    body := []byte{}
-    if params != nil && params.ScimUser != nil {
-        b, err := json.Marshal(*params.ScimUser)
-        if err != nil {
-            return nil, err
-        }
-        body = b
-    }
-
+	body := []byte{}
+	if params != nil && params.ScimUser != nil {
+		b, err := json.Marshal(*params.ScimUser)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
 
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-    resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ScimUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ScimUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

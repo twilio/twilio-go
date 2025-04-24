@@ -13,15 +13,10 @@
  */
 
 package openapi
-import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
-)
+
 // JsonPatch struct for JsonPatch
 type JsonPatch struct {
-	Op string `json:"op,omitempty"`
-	Path string `json:"path,omitempty"`
+	Op    string `json:"op,omitempty"`
+	Path  string `json:"path,omitempty"`
 	Value string `json:"value,omitempty"`
 }
-
-

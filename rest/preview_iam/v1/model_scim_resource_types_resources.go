@@ -13,20 +13,15 @@
  */
 
 package openapi
-import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
-)
+
 // ScimResourceTypesResources struct for ScimResourceTypesResources
 type ScimResourceTypesResources struct {
-		// Name of the resource type
+	// Name of the resource type
 	Name string `json:"name,omitempty"`
-		// Description of the resource type
+	// Description of the resource type
 	Description string `json:"description,omitempty"`
-		// HTTP-addressable endpoint relative to the Base URL of the service provider
+	// HTTP-addressable endpoint relative to the Base URL of the service provider
 	Endpoint string `json:"endpoint,omitempty"`
-		// Primary/base schema URI
+	// Primary/base schema URI
 	Schema string `json:"schema,omitempty"`
 }
-
-

@@ -13,23 +13,21 @@
  */
 
 package openapi
+
 import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
 	"time"
 )
+
 // PublicApiAccountResponse Page content
 type PublicApiAccountResponse struct {
-		// Twilio account sid
+	// Twilio account sid
 	AccountSid string `json:"account_sid,omitempty"`
-		// Account friendly name
+	// Account friendly name
 	FriendlyName string `json:"friendly_name,omitempty"`
-		// Account status
+	// Account status
 	Status string `json:"status,omitempty"`
-		// Twilio account sid
+	// Twilio account sid
 	OwnerSid string `json:"owner_sid,omitempty"`
-		// The date and time when the account was created in the system
+	// The date and time when the account was created in the system
 	DateCreated time.Time `json:"date_created,omitempty"`
 }
-
-

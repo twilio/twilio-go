@@ -13,18 +13,13 @@
  */
 
 package openapi
-import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
-)
+
 // ScimEmailAddress Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
 type ScimEmailAddress struct {
-		// Indicates if this email address is the primary one
+	// Indicates if this email address is the primary one
 	Primary bool `json:"primary,omitempty"`
-		// The actual email address value
+	// The actual email address value
 	Value string `json:"value,omitempty"`
-		// The type of email address (e.g., work, home, etc.)
+	// The type of email address (e.g., work, home, etc.)
 	Type string `json:"type,omitempty"`
 }
-
-

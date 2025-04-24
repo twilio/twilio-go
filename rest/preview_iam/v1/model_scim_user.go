@@ -13,32 +13,27 @@
  */
 
 package openapi
-import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
-)
+
 // ScimUser struct for ScimUser
 type ScimUser struct {
-		// Unique Twilio user sid
+	// Unique Twilio user sid
 	Id string `json:"id,omitempty"`
-		// External unique resource id defined by provisioning client
+	// External unique resource id defined by provisioning client
 	ExternalId string `json:"externalId,omitempty"`
-		// Unique username, MUST be same as primary email address
+	// Unique username, MUST be same as primary email address
 	UserName string `json:"userName"`
-		// User friendly display name
-	DisplayName string `json:"displayName,omitempty"`
-	Name ScimName `json:"name,omitempty"`
-		// Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
+	// User friendly display name
+	DisplayName string   `json:"displayName,omitempty"`
+	Name        ScimName `json:"name,omitempty"`
+	// Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
 	Emails []ScimEmailAddress `json:"emails,omitempty"`
-		// Indicates whether the user is active
+	// Indicates whether the user is active
 	Active bool `json:"active,omitempty"`
-		// User's locale
+	// User's locale
 	Locale string `json:"locale,omitempty"`
-		// User's time zone
+	// User's time zone
 	Timezone string `json:"timezone,omitempty"`
-		// An array of URIs that indicate the schemas supported for this user resource
+	// An array of URIs that indicate the schemas supported for this user resource
 	Schemas []string `json:"schemas,omitempty"`
-	Meta ScimMeta `json:"meta,omitempty"`
+	Meta    ScimMeta `json:"meta,omitempty"`
 }
-
-

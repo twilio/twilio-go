@@ -13,16 +13,11 @@
  */
 
 package openapi
-import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
-)
+
 // PublicApiCreateAccountRequest struct for PublicApiCreateAccountRequest
 type PublicApiCreateAccountRequest struct {
-		// Account friendly name
+	// Account friendly name
 	FriendlyName string `json:"friendlyName"`
-		// Optional owner sid. If not provided, the owner will be the organization owner.
+	// Optional owner sid. If not provided, the owner will be the organization owner.
 	OwnerSid string `json:"ownerSid,omitempty"`
 }
-
-

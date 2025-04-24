@@ -13,18 +13,13 @@
  */
 
 package openapi
-import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
-)
+
 // PublicApiCreateRoleAssignmentRequest struct for PublicApiCreateRoleAssignmentRequest
 type PublicApiCreateRoleAssignmentRequest struct {
-		// Twilio Role Sid representing assigned role
+	// Twilio Role Sid representing assigned role
 	RoleSid string `json:"role_sid"`
-		// Twilio Sid representing scope of this assignment
+	// Twilio Sid representing scope of this assignment
 	Scope string `json:"scope"`
-		// Twilio Sid representing identity of this assignment
+	// Twilio Sid representing identity of this assignment
 	Identity string `json:"identity"`
 }
-
-

@@ -13,21 +13,19 @@
  */
 
 package openapi
+
 import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
 	"time"
 )
+
 // ScimMeta Meta
 type ScimMeta struct {
-		// Indicates the type of the resource
+	// Indicates the type of the resource
 	ResourceType string `json:"resourceType,omitempty"`
-		// The date and time when the resource was created in the system
+	// The date and time when the resource was created in the system
 	Created time.Time `json:"created,omitempty"`
-		// The date and time when the resource was last modified
+	// The date and time when the resource was last modified
 	LastModified time.Time `json:"lastModified,omitempty"`
-		// A version identifier for the resource. This can be used to manage resource versioning and concurrency control.
+	// A version identifier for the resource. This can be used to manage resource versioning and concurrency control.
 	Version string `json:"version,omitempty"`
 }
-
-

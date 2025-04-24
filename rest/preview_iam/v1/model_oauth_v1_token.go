@@ -13,21 +13,16 @@
  */
 
 package openapi
-import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
-)
+
 // OauthV1Token struct for OauthV1Token
 type OauthV1Token struct {
-		// Token which carries the necessary information to access a Twilio resource directly.
+	// Token which carries the necessary information to access a Twilio resource directly.
 	AccessToken *string `json:"access_token,omitempty"`
-		// Token which carries the information necessary to get a new access token.
+	// Token which carries the information necessary to get a new access token.
 	RefreshToken *string `json:"refresh_token,omitempty"`
-		// Token which carries the information necessary of user profile.
+	// Token which carries the information necessary of user profile.
 	IdToken *string `json:"id_token,omitempty"`
-		// Token type
+	// Token type
 	TokenType *string `json:"token_type,omitempty"`
-	ExpiresIn *int64 `json:"expires_in,omitempty"`
+	ExpiresIn *int64  `json:"expires_in,omitempty"`
 }
-
-

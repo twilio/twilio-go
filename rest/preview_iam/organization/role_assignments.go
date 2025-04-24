@@ -18,150 +18,147 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"strings"
 
-    "github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client"
 )
-
 
 // Optional parameters for the method 'CreateRoleAssignment'
 type CreateRoleAssignmentParams struct {
-    // 
-    PublicApiCreateRoleAssignmentRequest *PublicApiCreateRoleAssignmentRequest `json:"PublicApiCreateRoleAssignmentRequest,omitempty"`
+	//
+	PublicApiCreateRoleAssignmentRequest *PublicApiCreateRoleAssignmentRequest `json:"PublicApiCreateRoleAssignmentRequest,omitempty"`
 }
 
-func (params *CreateRoleAssignmentParams) SetPublicApiCreateRoleAssignmentRequest(PublicApiCreateRoleAssignmentRequest PublicApiCreateRoleAssignmentRequest) (*CreateRoleAssignmentParams){
-    params.PublicApiCreateRoleAssignmentRequest = &PublicApiCreateRoleAssignmentRequest
-    return params
+func (params *CreateRoleAssignmentParams) SetPublicApiCreateRoleAssignmentRequest(PublicApiCreateRoleAssignmentRequest PublicApiCreateRoleAssignmentRequest) *CreateRoleAssignmentParams {
+	params.PublicApiCreateRoleAssignmentRequest = &PublicApiCreateRoleAssignmentRequest
+	return params
 }
 
 // Create a role assignment for the given organization
 func (c *ApiService) CreateRoleAssignment(OrganizationSid string, params *CreateRoleAssignmentParams) (*PublicApiRoleAssignmentResponse, error) {
-    path := "/Organizations/{OrganizationSid}/RoleAssignments"
-        path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path := "/Organizations/{OrganizationSid}/RoleAssignments"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 
-    data := url.Values{}
-    headers := map[string]interface{}{
-	 	"Content-Type": "application/json",
-    }
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
 
-    body := []byte{}
-    if params != nil && params.PublicApiCreateRoleAssignmentRequest != nil {
-        b, err := json.Marshal(*params.PublicApiCreateRoleAssignmentRequest)
-        if err != nil {
-            return nil, err
-        }
-        body = b
-    }
+	body := []byte{}
+	if params != nil && params.PublicApiCreateRoleAssignmentRequest != nil {
+		b, err := json.Marshal(*params.PublicApiCreateRoleAssignmentRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
 
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
 
-    resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
-    if err != nil {
-        return nil, err
-    }
+	defer resp.Body.Close()
 
-    defer resp.Body.Close()
+	ps := &PublicApiRoleAssignmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    ps := &PublicApiRoleAssignmentResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
-
-    return ps, err
+	return ps, err
 }
 
 // Delete a role assignment for the given organization
-func (c *ApiService) DeleteRoleAssignment(OrganizationSid string, Sid string) (error) {
-    path := "/Organizations/{OrganizationSid}/RoleAssignments/{Sid}"
-        path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteRoleAssignment(OrganizationSid string, Sid string) error {
+	path := "/Organizations/{OrganizationSid}/RoleAssignments/{Sid}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-    data := url.Values{}
-    headers := map[string]interface{}{
-        "Content-Type": "application/x-www-form-urlencoded",
-    }
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
+	defer resp.Body.Close()
 
-    resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
-
-    defer resp.Body.Close()
-
-    return nil
+	return nil
 }
 
 // Optional parameters for the method 'ListRoleAssignments'
 type ListRoleAssignmentsParams struct {
-    // 
-    PageSize *int `json:"PageSize,omitempty"`
-    // 
-    Identity *string `json:"Identity,omitempty"`
-    // 
-    Scope *string `json:"Scope,omitempty"`
-    // Max number of records to return.
-    Limit *int `json:"limit,omitempty"`
+	//
+	PageSize *int `json:"PageSize,omitempty"`
+	//
+	Identity *string `json:"Identity,omitempty"`
+	//
+	Scope *string `json:"Scope,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListRoleAssignmentsParams) SetPageSize(PageSize int) (*ListRoleAssignmentsParams){
-    params.PageSize = &PageSize
-    return params
+func (params *ListRoleAssignmentsParams) SetPageSize(PageSize int) *ListRoleAssignmentsParams {
+	params.PageSize = &PageSize
+	return params
 }
-func (params *ListRoleAssignmentsParams) SetIdentity(Identity string) (*ListRoleAssignmentsParams){
-    params.Identity = &Identity
-    return params
+func (params *ListRoleAssignmentsParams) SetIdentity(Identity string) *ListRoleAssignmentsParams {
+	params.Identity = &Identity
+	return params
 }
-func (params *ListRoleAssignmentsParams) SetScope(Scope string) (*ListRoleAssignmentsParams){
-    params.Scope = &Scope
-    return params
+func (params *ListRoleAssignmentsParams) SetScope(Scope string) *ListRoleAssignmentsParams {
+	params.Scope = &Scope
+	return params
 }
-func (params *ListRoleAssignmentsParams) SetLimit(Limit int) (*ListRoleAssignmentsParams){
-    params.Limit = &Limit
-    return params
+func (params *ListRoleAssignmentsParams) SetLimit(Limit int) *ListRoleAssignmentsParams {
+	params.Limit = &Limit
+	return params
 }
 
 // Retrieve a single page of RoleAssignments records from the API. Request is executed immediately.
 func (c *ApiService) PageRoleAssignments(OrganizationSid string, params *ListRoleAssignmentsParams, pageToken, pageNumber string) (*PublicApiCreateRoleAssignmentResponsePage, error) {
-    path := "/Organizations/{OrganizationSid}/RoleAssignments"
+	path := "/Organizations/{OrganizationSid}/RoleAssignments"
 
-        path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 
-    data := url.Values{}
-    headers := map[string]interface{}{
-        "Content-Type": "application/x-www-form-urlencoded",
-    }
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", fmt.Sprint(*params.PageSize))
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.Scope != nil {
-        data.Set("Scope", *params.Scope)
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.Scope != nil {
+		data.Set("Scope", *params.Scope)
+	}
 
-    if pageToken != "" {
-        data.Set("PageToken", pageToken)
-    }
-    if pageNumber != "" {
-        data.Set("Page", pageNumber)
-    }
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
 
-    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PublicApiCreateRoleAssignmentResponsePage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PublicApiCreateRoleAssignmentResponsePage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 // Lists RoleAssignments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
@@ -202,7 +199,6 @@ func (c *ApiService) StreamRoleAssignments(OrganizationSid string, params *ListR
 	return recordChannel, errorChannel
 }
 
-
 func (c *ApiService) streamRoleAssignments(response *PublicApiCreateRoleAssignmentResponsePage, params *ListRoleAssignmentsParams, recordChannel chan PublicApiRoleAssignmentResponse, errorChannel chan error) {
 	curRecord := 1
 
@@ -234,20 +230,19 @@ func (c *ApiService) streamRoleAssignments(response *PublicApiCreateRoleAssignme
 }
 
 func (c *ApiService) getNextPublicApiCreateRoleAssignmentResponsePage(nextPageUrl string) (interface{}, error) {
-    if nextPageUrl == "" {
-        return nil, nil
-    }
-    resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
-    if err != nil {
-        return nil, err
-    }
+	if nextPageUrl == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PublicApiCreateRoleAssignmentResponsePage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
-    return ps, nil
+	ps := &PublicApiCreateRoleAssignmentResponsePage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
-

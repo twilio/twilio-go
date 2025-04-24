@@ -13,16 +13,11 @@
  */
 
 package openapi
-import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
-)
+
 // ScimPatchOperation struct for ScimPatchOperation
 type ScimPatchOperation struct {
-		// The operation to perform
-	Op string `json:"op,omitempty"`
-	Path string `json:"path,omitempty"`
+	// The operation to perform
+	Op    string                 `json:"op,omitempty"`
+	Path  string                 `json:"path,omitempty"`
 	Value map[string]interface{} `json:"value,omitempty"`
 }
-
-

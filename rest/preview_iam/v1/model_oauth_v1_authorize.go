@@ -13,14 +13,9 @@
  */
 
 package openapi
-import (
-	"encoding/json"
-	"github.com/twilio/twilio-go/client"
-)
+
 // OauthV1Authorize struct for OauthV1Authorize
 type OauthV1Authorize struct {
-		// The callback URL
+	// The callback URL
 	RedirectTo *string `json:"redirect_to,omitempty"`
 }
-
-
