@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/twilio/twilio-go"
-	api "github.com/twilio/twilio-go/rest/api/v2010"
+	preview_iam "github.com/twilio/twilio-go/rest/preview_iam/organization"
 )
 
 func main() {
@@ -14,6 +14,7 @@ func main() {
 	var ClientId string = os.Getenv("CLIENT_ID")
 	var ClientSecret string = os.Getenv("CLIENT_SECRET")
 	var AccountSid string = os.Getenv("ACCOUNT_SID")
+	var orgSid string = os.Getenv("ORG_SID")
 	clientCredentialProvider := twilio.ClientCredentialProvider{
 		GrantType:    GrantType,
 		ClientId:     ClientId,
@@ -24,7 +25,7 @@ func main() {
 		ClientCredentialProvider: &clientCredentialProvider,
 	}
 	client := twilio.NewRestClientWithParams(clientParams)
-	listAccounts, _ := client.PreviewIam.ListOrganizationAccounts(orgSid, &preview_iam.ListOrganizationAccountsParams{})
+	listAccounts, _ := client.PreviewIamOrganization.ListOrganizationAccounts(orgSid, &preview_iam.ListOrganizationAccountsParams{})
 	for _, account := range listAccounts {
 		fmt.Println(account.AccountSid)
 		fmt.Println(account.OwnerSid)
