@@ -16,79 +16,84 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+
+    "github.com/twilio/twilio-go/client"
 )
+
 
 // Optional parameters for the method 'FetchAuthorize'
 type FetchAuthorizeParams struct {
-	// Response Type
-	ResponseType *string `json:"response_type,omitempty"`
-	// The Client Identifier
-	ClientId *string `json:"client_id,omitempty"`
-	// The url to which response will be redirected to
-	RedirectUri *string `json:"redirect_uri,omitempty"`
-	// The scope of the access request
-	Scope *string `json:"scope,omitempty"`
-	// An opaque value which can be used to maintain state between the request and callback
-	State *string `json:"state,omitempty"`
+    // Response Type
+    ResponseType *string `json:"response_type,omitempty"`
+    // The Client Identifier
+    ClientId *string `json:"client_id,omitempty"`
+    // The url to which response will be redirected to
+    RedirectUri *string `json:"redirect_uri,omitempty"`
+    // The scope of the access request
+    Scope *string `json:"scope,omitempty"`
+    // An opaque value which can be used to maintain state between the request and callback
+    State *string `json:"state,omitempty"`
 }
 
-func (params *FetchAuthorizeParams) SetResponseType(ResponseType string) *FetchAuthorizeParams {
-	params.ResponseType = &ResponseType
-	return params
+func (params *FetchAuthorizeParams) SetResponseType(ResponseType string) (*FetchAuthorizeParams){
+    params.ResponseType = &ResponseType
+    return params
 }
-func (params *FetchAuthorizeParams) SetClientId(ClientId string) *FetchAuthorizeParams {
-	params.ClientId = &ClientId
-	return params
+func (params *FetchAuthorizeParams) SetClientId(ClientId string) (*FetchAuthorizeParams){
+    params.ClientId = &ClientId
+    return params
 }
-func (params *FetchAuthorizeParams) SetRedirectUri(RedirectUri string) *FetchAuthorizeParams {
-	params.RedirectUri = &RedirectUri
-	return params
+func (params *FetchAuthorizeParams) SetRedirectUri(RedirectUri string) (*FetchAuthorizeParams){
+    params.RedirectUri = &RedirectUri
+    return params
 }
-func (params *FetchAuthorizeParams) SetScope(Scope string) *FetchAuthorizeParams {
-	params.Scope = &Scope
-	return params
+func (params *FetchAuthorizeParams) SetScope(Scope string) (*FetchAuthorizeParams){
+    params.Scope = &Scope
+    return params
 }
-func (params *FetchAuthorizeParams) SetState(State string) *FetchAuthorizeParams {
-	params.State = &State
-	return params
+func (params *FetchAuthorizeParams) SetState(State string) (*FetchAuthorizeParams){
+    params.State = &State
+    return params
 }
 
 func (c *ApiService) FetchAuthorize(params *FetchAuthorizeParams) (*OauthV1Authorize, error) {
-	path := "/v1/authorize"
+    path := "/v1/authorize"
+    
+    data := url.Values{}
+    headers := map[string]interface{}{
+        "Content-Type": "application/x-www-form-urlencoded",
+    }
 
-	data := url.Values{}
-	headers := map[string]interface{}{
-		"Content-Type": "application/x-www-form-urlencoded",
-	}
+    if params != nil && params.ResponseType != nil {
+        data.Set("response_type", *params.ResponseType)
+    }
+    if params != nil && params.ClientId != nil {
+        data.Set("client_id", *params.ClientId)
+    }
+    if params != nil && params.RedirectUri != nil {
+        data.Set("redirect_uri", *params.RedirectUri)
+    }
+    if params != nil && params.Scope != nil {
+        data.Set("scope", *params.Scope)
+    }
+    if params != nil && params.State != nil {
+        data.Set("state", *params.State)
+    }
 
-	if params != nil && params.ResponseType != nil {
-		data.Set("response_type", *params.ResponseType)
-	}
-	if params != nil && params.ClientId != nil {
-		data.Set("client_id", *params.ClientId)
-	}
-	if params != nil && params.RedirectUri != nil {
-		data.Set("redirect_uri", *params.RedirectUri)
-	}
-	if params != nil && params.Scope != nil {
-		data.Set("scope", *params.Scope)
-	}
-	if params != nil && params.State != nil {
-		data.Set("state", *params.State)
-	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return nil, err
+    }
 
-	defer resp.Body.Close()
+    defer resp.Body.Close()
 
-	ps := &OauthV1Authorize{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+    ps := &OauthV1Authorize{}
+    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+        return nil, err
+    }
 
-	return ps, err
+    return ps, err
 }

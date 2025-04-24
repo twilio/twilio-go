@@ -13,27 +13,23 @@
  */
 
 package openapi
-
 import (
-	"net/url"
-	"strings"
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+	"time"
 )
-
-func (c *ApiService) FetchOrganization(OrganizationSid string) error {
-	path := "/Organizations/{OrganizationSid}"
-	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
-
-	data := url.Values{}
-	headers := map[string]interface{}{
-		"Content-Type": "application/x-www-form-urlencoded",
-	}
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return err
-	}
-
-	defer resp.Body.Close()
-
-	return nil
+// PublicApiAccountResponse Page content
+type PublicApiAccountResponse struct {
+		// Twilio account sid
+	AccountSid string `json:"account_sid,omitempty"`
+		// Account friendly name
+	FriendlyName string `json:"friendly_name,omitempty"`
+		// Account status
+	Status string `json:"status,omitempty"`
+		// Twilio account sid
+	OwnerSid string `json:"owner_sid,omitempty"`
+		// The date and time when the account was created in the system
+	DateCreated time.Time `json:"date_created,omitempty"`
 }
+
+

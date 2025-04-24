@@ -13,8 +13,20 @@
  */
 
 package openapi
-
-// ScimResourceTypes struct for ScimResourceTypes
-type ScimResourceTypes struct {
-	Resources []ScimResourceTypesResources `json:"Resources,omitempty"`
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+// TwilioServiceErrorResponse struct for TwilioServiceErrorResponse
+type TwilioServiceErrorResponse struct {
+		// Twilio-specific error code
+	Code int `json:"code,omitempty"`
+		// Error message
+	Message string `json:"message,omitempty"`
+		// Link to Error Code References
+	MoreInfo string `json:"moreInfo,omitempty"`
+		// HTTP response status code
+	Status int `json:"status,omitempty"`
 }
+
+

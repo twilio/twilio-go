@@ -13,8 +13,13 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ScimResourceTypes struct for ScimResourceTypes
 type ScimResourceTypes struct {
 	Resources []ScimResourceTypesResources `json:"Resources,omitempty"`
 }
+
+

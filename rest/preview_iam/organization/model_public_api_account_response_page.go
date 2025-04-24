@@ -13,11 +13,15 @@
  */
 
 package openapi
-
-// ScimName User's name
-type ScimName struct {
-	// The user's first or given name
-	GivenName string `json:"givenName,omitempty"`
-	// The user's last or family name
-	FamilyName string `json:"familyName,omitempty"`
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+// PublicApiAccountResponsePage struct for PublicApiAccountResponsePage
+type PublicApiAccountResponsePage struct {
+		// Page content
+	Content []PublicApiAccountResponse `json:"content,omitempty"`
+	Meta PublicApiAccountResponsePageMeta `json:"meta,omitempty"`
 }
+
+

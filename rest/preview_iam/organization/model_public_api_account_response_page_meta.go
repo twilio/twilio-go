@@ -13,10 +13,19 @@
  */
 
 package openapi
-
-// ScimUserPage struct for ScimUserPage
-type ScimUserPage struct {
-	Resources    []ScimUser `json:"Resources,omitempty"`
-	TotalResults int        `json:"totalResults,omitempty"`
-	Schemas      []string   `json:"schemas,omitempty"`
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+// PublicApiAccountResponsePageMeta struct for PublicApiAccountResponsePageMeta
+type PublicApiAccountResponsePageMeta struct {
+	FirstPageUrl string `json:"first_page_url,omitempty"`
+	Key string `json:"key,omitempty"`
+	NextPageUrl *string `json:"next_page_url,omitempty"`
+	Page int `json:"page,omitempty"`
+	PageSize int `json:"page_size,omitempty"`
+	PreviousPageUrl *string `json:"previous_page_url,omitempty"`
+	Url string `json:"url,omitempty"`
 }
+
+

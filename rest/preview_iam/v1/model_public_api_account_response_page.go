@@ -13,10 +13,15 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // PublicApiAccountResponsePage struct for PublicApiAccountResponsePage
 type PublicApiAccountResponsePage struct {
-	// Page content
-	Content []PublicApiAccountResponse       `json:"content,omitempty"`
-	Meta    PublicApiAccountResponsePageMeta `json:"meta,omitempty"`
+		// Page content
+	Content []PublicApiAccountResponse `json:"content,omitempty"`
+	Meta PublicApiAccountResponsePageMeta `json:"meta,omitempty"`
 }
+
+

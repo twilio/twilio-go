@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/versionless"
+	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/organization"
 
 	"github.com/twilio/twilio-go/client"
 	Api "github.com/twilio/twilio-go/rest/api/v2010"
@@ -249,22 +249,22 @@ func TestTokenAuthFetchTokenException(t *testing.T) {
 }
 
 func TestOrgsAccountsList(t *testing.T) {
-	listAccounts, err := orgsClient.PreviewIamVersionless.ListOrganizationAccounts(orgSid, &PreviewIam.ListOrganizationAccountsParams{})
+	listAccounts, err := orgsClient.PreviewIamOrganization.ListOrganizationAccounts(orgSid, &PreviewIam.ListOrganizationAccountsParams{})
 	assert.Nil(t, err)
 	assert.NotNil(t, listAccounts)
-	accounts, err := orgsClient.PreviewIamVersionless.FetchOrganizationAccount(orgSid, &PreviewIam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
+	accounts, err := orgsClient.PreviewIamOrganization.FetchOrganizationAccount(orgSid, &PreviewIam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
 	assert.Nil(t, err)
 	assert.NotNil(t, accounts)
 }
 
 func TestOrgsRoleAssignmentsList(t *testing.T) {
-	roleAssignments, err := orgsClient.PreviewIamVersionless.ListRoleAssignments(orgSid, &PreviewIam.ListRoleAssignmentsParams{Scope: &accountSidOrgs})
+	roleAssignments, err := orgsClient.PreviewIamOrganization.ListRoleAssignments(orgSid, &PreviewIam.ListRoleAssignmentsParams{Scope: &accountSidOrgs})
 	assert.Nil(t, err)
 	assert.NotNil(t, roleAssignments)
 }
 
 func TestOrgsScimUerList(t *testing.T) {
-	users, err := orgsClient.PreviewIamVersionless.ListOrganizationUsers(orgSid, &PreviewIam.ListOrganizationUsersParams{})
+	users, err := orgsClient.PreviewIamOrganization.ListOrganizationUsers(orgSid, &PreviewIam.ListOrganizationUsersParams{})
 	assert.Nil(t, err)
 	assert.NotNil(t, users)
 }

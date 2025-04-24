@@ -14,9 +14,32 @@
 
 package openapi
 
-// JsonPatch struct for JsonPatch
-type JsonPatch struct {
-	Op    string `json:"op,omitempty"`
-	Path  string `json:"path,omitempty"`
-	Value string `json:"value,omitempty"`
+import (
+	"encoding/json"
+	"fmt"
+	"net/url"
+
+    "github.com/twilio/twilio-go/client"
+)
+
+
+func (c *ApiService) FetchOrganization(OrganizationSid string) (error) {
+    path := "/Organizations/{OrganizationSid}"
+        path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+
+    data := url.Values{}
+    headers := map[string]interface{}{
+        "Content-Type": "application/x-www-form-urlencoded",
+    }
+
+
+
+    resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+    if err != nil {
+        return err
+    }
+
+    defer resp.Body.Close()
+
+    return nil
 }

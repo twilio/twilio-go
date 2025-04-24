@@ -13,10 +13,15 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // PublicApiCreateRoleAssignmentResponsePage struct for PublicApiCreateRoleAssignmentResponsePage
 type PublicApiCreateRoleAssignmentResponsePage struct {
-	// Page content
+		// Page content
 	Content []PublicApiRoleAssignmentResponse `json:"content,omitempty"`
-	Meta    PublicApiAccountResponsePageMeta  `json:"meta,omitempty"`
+	Meta PublicApiAccountResponsePageMeta `json:"meta,omitempty"`
 }
+
+

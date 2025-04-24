@@ -13,11 +13,16 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ScimName User's name
 type ScimName struct {
-	// The user's first or given name
+		// The user's first or given name
 	GivenName string `json:"givenName,omitempty"`
-	// The user's last or family name
+		// The user's last or family name
 	FamilyName string `json:"familyName,omitempty"`
 }
+
+

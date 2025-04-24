@@ -13,15 +13,14 @@
  */
 
 package openapi
-
-// TwilioServiceErrorResponse struct for TwilioServiceErrorResponse
-type TwilioServiceErrorResponse struct {
-	// Twilio-specific error code
-	Code int `json:"code,omitempty"`
-	// Error message
-	Message string `json:"message,omitempty"`
-	// Link to Error Code References
-	MoreInfo string `json:"moreInfo,omitempty"`
-	// HTTP response status code
-	Status int `json:"status,omitempty"`
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+// OauthV1Authorize struct for OauthV1Authorize
+type OauthV1Authorize struct {
+		// The callback URL
+	RedirectTo *string `json:"redirect_to,omitempty"`
 }
+
+

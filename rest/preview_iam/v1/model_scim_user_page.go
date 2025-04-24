@@ -13,10 +13,15 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ScimUserPage struct for ScimUserPage
 type ScimUserPage struct {
-	Resources    []ScimUser `json:"Resources,omitempty"`
-	TotalResults int        `json:"totalResults,omitempty"`
-	Schemas      []string   `json:"schemas,omitempty"`
+	Resources []ScimUser `json:"Resources,omitempty"`
+	TotalResults int `json:"totalResults,omitempty"`
+	Schemas []string `json:"schemas,omitempty"`
 }
+
+

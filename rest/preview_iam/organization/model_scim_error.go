@@ -13,19 +13,24 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ScimError struct for ScimError
 type ScimError struct {
-	// Schema URIs that define the contents of the error structure
+		// Schema URIs that define the contents of the error structure
 	Schemas []string `json:"schemas,omitempty"`
-	// A human-readable description of the error
+		// A human-readable description of the error
 	Detail string `json:"detail,omitempty"`
-	// A scimType error code as defined in RFC7644
+		// A scimType error code as defined in RFC7644
 	ScimType string `json:"scimType,omitempty"`
-	// Http status code
+		// Http status code
 	Status string `json:"status,omitempty"`
-	// Twilio-specific error code
+		// Twilio-specific error code
 	Code int `json:"code,omitempty"`
-	// Link to Error Code References
+		// Link to Error Code References
 	MoreInfo string `json:"moreInfo,omitempty"`
 }
+
+

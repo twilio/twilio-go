@@ -13,9 +13,13 @@
  */
 
 package openapi
-
-// OauthV1Authorize struct for OauthV1Authorize
-type OauthV1Authorize struct {
-	// The callback URL
-	RedirectTo *string `json:"redirect_to,omitempty"`
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+// ScimResourceTypes struct for ScimResourceTypes
+type ScimResourceTypes struct {
+	Resources []ScimResourceTypesResources `json:"Resources,omitempty"`
 }
+
+

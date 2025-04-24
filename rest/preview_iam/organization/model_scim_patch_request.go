@@ -13,27 +13,14 @@
  */
 
 package openapi
-
 import (
-	twilio "github.com/twilio/twilio-go/client"
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
 )
-
-type ApiService struct {
-	baseURL        string
-	requestHandler *twilio.RequestHandler
+// ScimPatchRequest struct for ScimPatchRequest
+type ScimPatchRequest struct {
+	Schemas []string `json:"schemas,omitempty"`
+	Operations []ScimPatchOperation `json:"Operations,omitempty"`
 }
 
-func (c *ApiService) RequestHandler() *twilio.RequestHandler {
-	return c.requestHandler
-}
 
-func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
-	return &ApiService{
-		requestHandler: requestHandler,
-		baseURL:        "https://preview-iam.twilio.com",
-	}
-}
-
-func NewApiServiceWithClient(client twilio.BaseClient) *ApiService {
-	return NewApiService(twilio.NewRequestHandler(client))
-}

@@ -13,9 +13,14 @@
  */
 
 package openapi
-
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
 // ScimPatchRequest struct for ScimPatchRequest
 type ScimPatchRequest struct {
-	Schemas    []string             `json:"schemas,omitempty"`
+	Schemas []string `json:"schemas,omitempty"`
 	Operations []ScimPatchOperation `json:"Operations,omitempty"`
 }
+
+

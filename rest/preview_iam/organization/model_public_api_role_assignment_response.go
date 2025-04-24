@@ -13,15 +13,20 @@
  */
 
 package openapi
-
-// ScimResourceTypesResources struct for ScimResourceTypesResources
-type ScimResourceTypesResources struct {
-	// Name of the resource type
-	Name string `json:"name,omitempty"`
-	// Description of the resource type
-	Description string `json:"description,omitempty"`
-	// HTTP-addressable endpoint relative to the Base URL of the service provider
-	Endpoint string `json:"endpoint,omitempty"`
-	// Primary/base schema URI
-	Schema string `json:"schema,omitempty"`
+import (
+	"encoding/json"
+	"github.com/twilio/twilio-go/client"
+)
+// PublicApiRoleAssignmentResponse struct for PublicApiRoleAssignmentResponse
+type PublicApiRoleAssignmentResponse struct {
+		// Twilio Role Assignment Sid representing this role assignment
+	Sid string `json:"sid,omitempty"`
+		// Twilio Role Sid representing assigned role
+	RoleSid string `json:"role_sid,omitempty"`
+		// Twilio Sid representing identity of this assignment
+	Scope string `json:"scope,omitempty"`
+		// Twilio Sid representing scope of this assignment
+	Identity string `json:"identity,omitempty"`
 }
+
+

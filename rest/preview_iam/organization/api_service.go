@@ -14,10 +14,26 @@
 
 package openapi
 
-// PublicApiCreateAccountRequest struct for PublicApiCreateAccountRequest
-type PublicApiCreateAccountRequest struct {
-	// Account friendly name
-	FriendlyName string `json:"friendlyName"`
-	// Optional owner sid. If not provided, the owner will be the organization owner.
-	OwnerSid string `json:"ownerSid,omitempty"`
+import (
+    twilio "github.com/twilio/twilio-go/client"
+)
+
+type ApiService struct {
+	baseURL        string
+	requestHandler *twilio.RequestHandler
+}
+
+func (c *ApiService) RequestHandler() *twilio.RequestHandler {
+  return c.requestHandler
+}
+
+func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
+	return &ApiService {
+		requestHandler: requestHandler,
+		baseURL:        "https://preview-iam.twilio.com",
+	}
+}
+
+func NewApiServiceWithClient(client twilio.BaseClient) *ApiService {
+    return NewApiService(twilio.NewRequestHandler(client))
 }
