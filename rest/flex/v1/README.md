@@ -69,6 +69,7 @@ Class | Method | HTTP request | Description
 *InsightsUserRolesApi* | [**FetchInsightsUserRoles**](docs/InsightsUserRolesApi.md#fetchinsightsuserroles) | **Get** /v1/Insights/UserRoles | This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
 *InteractionsApi* | [**CreateInteraction**](docs/InteractionsApi.md#createinteraction) | **Post** /v1/Interactions | Create a new Interaction.
 *InteractionsApi* | [**FetchInteraction**](docs/InteractionsApi.md#fetchinteraction) | **Get** /v1/Interactions/{Sid} | 
+*InteractionsApi* | [**UpdateInteraction**](docs/InteractionsApi.md#updateinteraction) | **Post** /v1/Interactions/{Sid} | Updates an interaction.
 *InteractionsChannelsApi* | [**FetchInteractionChannel**](docs/InteractionsChannelsApi.md#fetchinteractionchannel) | **Get** /v1/Interactions/{InteractionSid}/Channels/{Sid} | Fetch a Channel for an Interaction.
 *InteractionsChannelsApi* | [**ListInteractionChannel**](docs/InteractionsChannelsApi.md#listinteractionchannel) | **Get** /v1/Interactions/{InteractionSid}/Channels | List all Channels for an Interaction.
 *InteractionsChannelsApi* | [**UpdateInteractionChannel**](docs/InteractionsChannelsApi.md#updateinteractionchannel) | **Post** /v1/Interactions/{InteractionSid}/Channels/{Sid} | Update an existing Interaction Channel.

@@ -40,6 +40,7 @@ import (
 	LookupsV2 "github.com/twilio/twilio-go/rest/lookups/v2"
 	MarketplaceV1 "github.com/twilio/twilio-go/rest/marketplace/v1"
 	MessagingV1 "github.com/twilio/twilio-go/rest/messaging/v1"
+	MessagingV2 "github.com/twilio/twilio-go/rest/messaging/v2"
 	MicrovisorV1 "github.com/twilio/twilio-go/rest/microvisor/v1"
 	MonitorV1 "github.com/twilio/twilio-go/rest/monitor/v1"
 	NotifyV1 "github.com/twilio/twilio-go/rest/notify/v1"
@@ -47,6 +48,7 @@ import (
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
 	OauthV1 "github.com/twilio/twilio-go/rest/oauth/v1"
 	PreviewIamOrganization "github.com/twilio/twilio-go/rest/preview_iam/organization"
+	PreviewIamV1 "github.com/twilio/twilio-go/rest/preview_iam/v1"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
@@ -82,6 +84,8 @@ type RestClient struct {
 	FlexV1                 *FlexV1.ApiService
 	FlexV2                 *FlexV2.ApiService
 	FrontlineV1            *FrontlineV1.ApiService
+	PreviewIamV1           *PreviewIamV1.ApiService
+	PreviewIamOrganization *PreviewIamOrganization.ApiService
 	IamV1                  *IamV1.ApiService
 	InsightsV1             *InsightsV1.ApiService
 	IntelligenceV2         *IntelligenceV2.ApiService
@@ -92,13 +96,13 @@ type RestClient struct {
 	LookupsV2              *LookupsV2.ApiService
 	MarketplaceV1          *MarketplaceV1.ApiService
 	MessagingV1            *MessagingV1.ApiService
+	MessagingV2            *MessagingV2.ApiService
 	MicrovisorV1           *MicrovisorV1.ApiService
 	MonitorV1              *MonitorV1.ApiService
 	NotifyV1               *NotifyV1.ApiService
 	NumbersV1              *NumbersV1.ApiService
 	NumbersV2              *NumbersV2.ApiService
 	OauthV1                *OauthV1.ApiService
-	PreviewIamOrganization *PreviewIamOrganization.ApiService
 	PricingV1              *PricingV1.ApiService
 	PricingV2              *PricingV2.ApiService
 	ProxyV1                *ProxyV1.ApiService
@@ -212,6 +216,8 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.FlexV1 = FlexV1.NewApiService(c.RequestHandler)
 	c.FlexV2 = FlexV2.NewApiService(c.RequestHandler)
 	c.FrontlineV1 = FrontlineV1.NewApiService(c.RequestHandler)
+	c.PreviewIamV1 = PreviewIamV1.NewApiService(c.RequestHandler)
+	c.PreviewIamOrganization = PreviewIamOrganization.NewApiService(c.RequestHandler)
 	c.IamV1 = IamV1.NewApiService(c.RequestHandler)
 	c.InsightsV1 = InsightsV1.NewApiService(c.RequestHandler)
 	c.IntelligenceV2 = IntelligenceV2.NewApiService(c.RequestHandler)
@@ -222,13 +228,13 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.LookupsV2 = LookupsV2.NewApiService(c.RequestHandler)
 	c.MarketplaceV1 = MarketplaceV1.NewApiService(c.RequestHandler)
 	c.MessagingV1 = MessagingV1.NewApiService(c.RequestHandler)
+	c.MessagingV2 = MessagingV2.NewApiService(c.RequestHandler)
 	c.MicrovisorV1 = MicrovisorV1.NewApiService(c.RequestHandler)
 	c.MonitorV1 = MonitorV1.NewApiService(c.RequestHandler)
 	c.NotifyV1 = NotifyV1.NewApiService(c.RequestHandler)
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)
 	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
 	c.OauthV1 = OauthV1.NewApiService(c.RequestHandler)
-	c.PreviewIamOrganization = PreviewIamOrganization.NewApiService(c.RequestHandler)
 	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
 	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
 	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)

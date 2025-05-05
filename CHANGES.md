@@ -1,5 +1,34 @@
 twilio-go changelog
 ====================
+[2025-05-05] Version 1.26.0
+---------------------------
+**Library - Chore**
+- [PR #282](https://github.com/twilio/twilio-go/pull/282): add access token example. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #277](https://github.com/twilio/twilio-go/pull/277): retract 1.25.0. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #275](https://github.com/twilio/twilio-go/pull/275): cluster test. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Feature**
+- [PR #281](https://github.com/twilio/twilio-go/pull/281): orgs api. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Fix**
+- [PR #280](https://github.com/twilio/twilio-go/pull/280): update github.com/golang-jwt/jwt to address vulnerability. Thanks to [@sigi-glovebox](https://github.com/sigi-glovebox)!
+
+**Api**
+- Add `response_key` for `Usage Triggers` fetch endpoint.
+
+**Flex**
+- Add Update Interaction API
+- Adding `webhook_ttid` as optional parameter in Interactions API
+
+**Serverless**
+- Add node22 as a valid Build runtime
+- Add node20 as a valid Build runtime
+
+**Video**
+- removed `transcribe_participants_on_connect` and `transcriptions_configuration` from the room resource **(breaking change)**
+- Added `transcribe_participants_on_connect` and `transcriptions_configuration` to the room resource
+
+
 [2024-04-08] Version 1.25.1
 ---------------------------
 **Library - Chore**
