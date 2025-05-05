@@ -11,7 +11,13 @@ twilio-go changelog
 - [PR #281](https://github.com/twilio/twilio-go/pull/281): orgs api. Thanks to [@manisha1997](https://github.com/manisha1997)!
 
 **Library - Fix**
-- [PR #280](https://github.com/twilio/twilio-go/pull/280): update github.com/golang-jwt/jwt to address vulnerability. Thanks to [@sigi-glovebox](https://github.com/sigi-glovebox)!
+- [PR #280](https://github.com/twilio/twilio-go/pull/280): update github.com/golang-jwt/jwt to address vulnerability. Thanks to [@sigi-glovebox](https://github.com/sigi-glovebox)! **(breaking change)**
+  - The JWT library been updated to version v5 and may require changes to your code. We recommend adding indirect dependency to your go.mod file to ensure compatibility. For example, you can add the following line to your go.mod file:
+  ```
+  require (
+        github.com/golang-jwt/jwt/v5 v5.2.2 // indirect
+    )
+  ```
 
 **Api**
 - Add `response_key` for `Usage Triggers` fetch endpoint.
