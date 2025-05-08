@@ -70,7 +70,6 @@ func (params *CreateValidationRequestParams) SetStatusCallbackMethod(StatusCallb
 	return params
 }
 
-//
 func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestParams) (*ApiV2010ValidationRequest, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 	if params != nil && params.PathAccountSid != nil {

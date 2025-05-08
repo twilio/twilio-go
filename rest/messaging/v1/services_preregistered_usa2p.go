@@ -43,7 +43,6 @@ func (params *CreateExternalCampaignParams) SetCnpMigration(CnpMigration bool) *
 	return params
 }
 
-//
 func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
 	path := "/v1/Services/PreregisteredUsa2p"
 
