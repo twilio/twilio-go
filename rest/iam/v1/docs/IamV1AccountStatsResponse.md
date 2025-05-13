@@ -1,15 +1,10 @@
-# CallToActionAction
+# IamV1AccountStatsResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | [**CallToActionActionType**](CallToActionActionType.md) |  |
-**Title** | **string** |  |
-**Url** | **string** |  |[optional] 
-**Phone** | **string** |  |[optional] 
-**Code** | **string** |  |[optional] 
-**Id** | **string** |  |[optional] 
+**NumberOfAccounts** | **int** |  |[optional] [default to 0]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

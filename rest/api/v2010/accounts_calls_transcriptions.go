@@ -51,7 +51,7 @@ type CreateRealtimeTranscriptionParams struct {
 	Hints *string `json:"Hints,omitempty"`
 	// The provider will add punctuation to recognition result
 	EnableAutomaticPunctuation *bool `json:"EnableAutomaticPunctuation,omitempty"`
-	// The SID or unique name of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
+	// The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
 	IntelligenceService *string `json:"IntelligenceService,omitempty"`
 }
 

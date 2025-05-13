@@ -45,10 +45,9 @@ type ApiV2010DependentPhoneNumber struct {
 	// The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
 	SmsMethod *string `json:"sms_method,omitempty"`
 	// The URL we call when the phone number receives an incoming SMS message.
-	SmsUrl              *string `json:"sms_url,omitempty"`
-	AddressRequirements *string `json:"address_requirements,omitempty"`
-	// The set of Boolean properties that indicates whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
-	Capabilities *map[string]interface{} `json:"capabilities,omitempty"`
+	SmsUrl              *string                                                 `json:"sms_url,omitempty"`
+	AddressRequirements *string                                                 `json:"address_requirements,omitempty"`
+	Capabilities        *ApiV2010AccountAddressDependentPhoneNumberCapabilities `json:"capabilities,omitempty"`
 	// The URL we call using the `status_callback_method` to send status information to your application.
 	StatusCallback *string `json:"status_callback,omitempty"`
 	// The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.

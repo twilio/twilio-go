@@ -1,5 +1,20 @@
 twilio-go changelog
 ====================
+[2025-05-13] Version 1.26.1
+---------------------------
+**Library - Docs**
+- [PR #285](https://github.com/twilio/twilio-go/pull/285): add changelog for jwt v5. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Accounts**
+- Changes to add date_of_consent param in Bulk Consent API
+
+**Api**
+- Change `friendly_name`, `date_created` and `date_updated` properties to type `string`.
+
+**Twiml**
+- Update twiml definition for `<ConversationRelay>` and `<Assistant>`
+
+
 [2025-05-05] Version 1.26.0
 ---------------------------
 **Library - Chore**

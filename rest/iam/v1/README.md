@@ -41,12 +41,18 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [IamV1Key](docs/IamV1Key.md)
+ - [IamV1AccountSearchRoleResponse](docs/IamV1AccountSearchRoleResponse.md)
+ - [IamV1AccountSearchRequest](docs/IamV1AccountSearchRequest.md)
+ - [TwilioServiceErrorResponse](docs/TwilioServiceErrorResponse.md)
  - [IamV1NewKey](docs/IamV1NewKey.md)
- - [IamV1GetKeys](docs/IamV1GetKeys.md)
+ - [IamV1Key](docs/IamV1Key.md)
+ - [IamV1AccountSearchListMeta](docs/IamV1AccountSearchListMeta.md)
+ - [IamV1AccountStatsResponse](docs/IamV1AccountStatsResponse.md)
  - [OauthV1Token](docs/OauthV1Token.md)
+ - [IamV1GetKeys](docs/IamV1GetKeys.md)
  - [ListGetKeysResponse](docs/ListGetKeysResponse.md)
  - [ListGetKeysResponseMeta](docs/ListGetKeysResponseMeta.md)
+ - [IamV1AccountSearchAccount](docs/IamV1AccountSearchAccount.md)
 
 
 ## Documentation For Authorization

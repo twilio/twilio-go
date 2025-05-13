@@ -25,6 +25,8 @@ type TwilioLocation struct {
 	Latitude  float32 `json:"latitude"`
 	Longitude float32 `json:"longitude"`
 	Label     string  `json:"label,omitempty"`
+	Id        string  `json:"id,omitempty"`
+	Address   string  `json:"address,omitempty"`
 }
 
 func (response *TwilioLocation) UnmarshalJSON(bytes []byte) (err error) {
@@ -32,6 +34,8 @@ func (response *TwilioLocation) UnmarshalJSON(bytes []byte) (err error) {
 		Latitude  interface{} `json:"latitude"`
 		Longitude interface{} `json:"longitude"`
 		Label     string      `json:"label"`
+		Id        string      `json:"id"`
+		Address   string      `json:"address"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -39,7 +43,9 @@ func (response *TwilioLocation) UnmarshalJSON(bytes []byte) (err error) {
 	}
 
 	*response = TwilioLocation{
-		Label: raw.Label,
+		Label:   raw.Label,
+		Id:      raw.Id,
+		Address: raw.Address,
 	}
 
 	responseLatitude, err := client.UnmarshalFloat32(&raw.Latitude)
