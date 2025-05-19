@@ -220,6 +220,89 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	return c.doWithErr(req)
 }
 
+func (c *Client) SendRequestWithCtx(ctx context.Context, method string, rawURL string, data url.Values,
+	headers map[string]interface{}, body ...byte) (*http.Response, error) {
+
+	contentType := extractContentTypeHeader(headers)
+
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		return nil, err
+	}
+
+	valueReader := &strings.Reader{}
+	goVersion := runtime.Version()
+	var req *http.Request
+
+	//For HTTP GET Method there are no body parameters. All other parameters like query, path etc
+	// are added as information in the url itself. Also while Content-Type is json, we are sending
+	// json body. In that case, data variable contains all other parameters than body, which is the
+	//same case as GET method. In that case as well all parameters will be added to url
+	if method == http.MethodGet || method == http.MethodDelete || contentType == jsonContentType {
+		if data != nil {
+			v, _ := form.EncodeToStringWith(data, delimiter, escapee, keepZeros)
+			s := delimitingRegex.ReplaceAllString(v, "")
+
+			u.RawQuery = s
+		}
+	}
+
+	//data is already processed and information will be added to u(the url) in the
+	//previous step. Now body will solely contain json payload
+	if contentType == jsonContentType {
+		req, err = http.NewRequestWithContext(ctx, method, u.String(), bytes.NewBuffer(body))
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		// Here the HTTP POST methods which do not have json content type are processed
+		// All the values will be added in data and encoded (all body, query, path parameters)
+		if method == http.MethodPost || method == http.MethodPut || method == http.MethodPatch {
+			valueReader = strings.NewReader(data.Encode())
+		}
+		req, err = http.NewRequestWithContext(context.Background(), method, u.String(), valueReader)
+		if err != nil {
+			return nil, err
+		}
+
+	}
+
+	credErr := c.validateCredentials()
+	if credErr != nil {
+		return nil, credErr
+	}
+	if c.OAuth() == nil && c.Username != "" && c.Password != "" {
+		req.SetBasicAuth(c.basicAuth())
+	}
+
+	// E.g. "User-Agent": "twilio-go/1.0.0 (darwin amd64) go/go1.17.8"
+	userAgentOnce.Do(func() {
+		baseUserAgent = fmt.Sprintf("twilio-go/%s (%s %s) go/%s", LibraryVersion, runtime.GOOS, runtime.GOARCH, goVersion)
+	})
+	userAgent := baseUserAgent
+
+	if len(c.UserAgentExtensions) > 0 {
+		userAgent += " " + strings.Join(c.UserAgentExtensions, " ")
+	}
+	if c.OAuth() != nil {
+		oauth := c.OAuth()
+		token, _ := c.OAuth().GetAccessToken(context.TODO())
+		if token != "" {
+			req.Header.Add("Authorization", "Bearer "+token)
+		}
+		c.SetOauth(oauth) // Set the OAuth token in the client which gets nullified after the token fetch
+	} else if c.Username != "" && c.Password != "" {
+		req.SetBasicAuth(c.basicAuth())
+	}
+
+	req.Header.Add("User-Agent", userAgent)
+
+	for k, v := range headers {
+		req.Header.Add(k, fmt.Sprint(v))
+	}
+	return c.doWithErr(req)
+}
+
 // SetAccountSid sets the Client's accountSid field
 func (c *Client) SetAccountSid(sid string) {
 	c.accountSid = sid

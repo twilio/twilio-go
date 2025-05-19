@@ -2,6 +2,7 @@
 package client
 
 import (
+	"context"
 	"net/http"
 	"net/url"
 	"os"
@@ -12,6 +13,7 @@ type RequestHandler struct {
 	Client BaseClient
 	Edge   string
 	Region string
+	ctx    context.Context
 }
 
 func NewRequestHandler(client BaseClient) *RequestHandler {
@@ -19,6 +21,15 @@ func NewRequestHandler(client BaseClient) *RequestHandler {
 		Client: client,
 		Edge:   os.Getenv("TWILIO_EDGE"),
 		Region: os.Getenv("TWILIO_REGION"),
+	}
+}
+
+func NewRequestHandlerWithCtx(client BaseClient) *RequestHandler {
+	return &RequestHandler{
+		Client: client,
+		Edge:   os.Getenv("TWILIO_EDGE"),
+		Region: os.Getenv("TWILIO_REGION"),
+		ctx:    context.TODO(),
 	}
 }
 
@@ -83,21 +94,41 @@ func (c *RequestHandler) BuildUrl(rawURL string) (string, error) {
 }
 
 func (c *RequestHandler) Post(path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
-	return c.sendRequest(http.MethodPost, path, bodyData, headers, body...)
+	return c.PostWithCtx(context.TODO(), path, bodyData, headers, body...)
 }
 
 func (c *RequestHandler) Put(path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
-	return c.sendRequest(http.MethodPut, path, bodyData, headers, body...)
+	return c.PutWithCtx(context.TODO(), path, bodyData, headers, body...)
 }
 
 func (c *RequestHandler) Patch(path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
-	return c.sendRequest(http.MethodPatch, path, bodyData, headers, body...)
+	return c.PatchWithCtx(context.TODO(), path, bodyData, headers, body...)
 }
 
 func (c *RequestHandler) Get(path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
-	return c.sendRequest(http.MethodGet, path, queryData, headers)
+	return c.GetWithCtx(context.TODO(), path, queryData, headers)
 }
 
 func (c *RequestHandler) Delete(path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
+	return c.DeleteWithCtx(context.TODO(), path, queryData, headers)
+}
+
+func (c *RequestHandler) PostWithCtx(ctx context.Context, path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
+	return c.sendRequest(http.MethodPost, path, bodyData, headers, body...)
+}
+
+func (c *RequestHandler) PutWithCtx(ctx context.Context, path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
+	return c.sendRequest(http.MethodPut, path, bodyData, headers, body...)
+}
+
+func (c *RequestHandler) PatchWithCtx(ctx context.Context, path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
+	return c.sendRequest(http.MethodPatch, path, bodyData, headers, body...)
+}
+
+func (c *RequestHandler) GetWithCtx(ctx context.Context, path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
+	return c.sendRequest(http.MethodGet, path, queryData, headers)
+}
+
+func (c *RequestHandler) DeleteWithCtx(ctx context.Context, path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
 	return c.sendRequest(http.MethodDelete, path, queryData, headers)
 }
