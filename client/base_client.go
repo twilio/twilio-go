@@ -14,6 +14,6 @@ type BaseClient interface {
 		headers map[string]interface{}, body ...byte) (*http.Response, error)
 	SetOauth(auth OAuth)
 	OAuth() OAuth
-	SendRequestWithCtx(ctx context.Context, method string, rawURL string, data url.Values,
+	SendRequestWithContext(ctx context.Context, method string, rawURL string, data url.Values,
 		headers map[string]interface{}, body ...byte) (*http.Response, error)
 }

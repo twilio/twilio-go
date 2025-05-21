@@ -1,6 +1,7 @@
 package client_test
 
 import (
+	"context"
 	"errors"
 	"net/http"
 	"net/http/httptest"
@@ -11,9 +12,9 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-func NewRequestHandler(accountSid string, authToken string) *client.RequestHandler {
+func NewRequestHandler(accountSid string, authToken string) *client.RequestHandlerWithContext {
 	c := NewClient(accountSid, authToken)
-	return client.NewRequestHandler(c)
+	return client.NewRequestHandlerWithContext(c)
 }
 
 func TestRequestHandler_BuildUrlSetRegion(t *testing.T) {
@@ -62,7 +63,7 @@ func TestRequestHandler_BuildUrlInvalidCTLCharacter(t *testing.T) {
 	assert.Equal(t, parsedURL, "")
 }
 
-func assertAndGetURL(t *testing.T, requestHandler *client.RequestHandler, rawURL string) string {
+func assertAndGetURL(t *testing.T, requestHandler *client.RequestHandlerWithContext, rawURL string) string {
 	parsedURL, err := requestHandler.BuildUrl(rawURL)
 	assert.Nil(t, err)
 	return parsedURL
@@ -83,7 +84,7 @@ func TestRequestHandler_SendGetRequest(t *testing.T) {
 	defer errorServer.Close()
 
 	requestHandler := NewRequestHandler("user", "pass")
-	resp, err := requestHandler.Get(errorServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := requestHandler.GetWithContext(context.TODO(), errorServer.URL, nil, nil) //nolint:bodyclose
 	twilioError := err.(*client.TwilioRestError)
 	assert.Nil(t, resp)
 	assert.Equal(t, 400, twilioError.Status)
@@ -108,7 +109,7 @@ func TestRequestHandler_SendPostRequest(t *testing.T) {
 	defer errorServer.Close()
 
 	requestHandler := NewRequestHandler("user", "pass")
-	resp, err := requestHandler.Post(errorServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := requestHandler.PostWithContext(context.TODO(), errorServer.URL, nil, nil) //nolint:bodyclose
 	twilioError := err.(*client.TwilioRestError)
 	assert.Nil(t, resp)
 	assert.Equal(t, 400, twilioError.Status)

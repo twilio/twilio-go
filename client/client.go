@@ -220,7 +220,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	return c.doWithErr(req)
 }
 
-func (c *Client) SendRequestWithCtx(ctx context.Context, method string, rawURL string, data url.Values,
+func (c *Client) SendRequestWithContext(ctx context.Context, method string, rawURL string, data url.Values,
 	headers map[string]interface{}, body ...byte) (*http.Response, error) {
 
 	contentType := extractContentTypeHeader(headers)

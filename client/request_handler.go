@@ -15,7 +15,7 @@ type RequestHandler struct {
 	Region string
 }
 
-type RequestHandlerWithCtx struct {
+type RequestHandlerWithContext struct {
 	Client BaseClient
 	Edge   string
 	Region string
@@ -30,8 +30,8 @@ func NewRequestHandler(client BaseClient) *RequestHandler {
 	}
 }
 
-func NewRequestHandlerWithCtx(client BaseClient) *RequestHandlerWithCtx {
-	return &RequestHandlerWithCtx{
+func NewRequestHandlerWithContext(client BaseClient) *RequestHandlerWithContext {
+	return &RequestHandlerWithContext{
 		Client: client,
 		Edge:   os.Getenv("TWILIO_EDGE"),
 		Region: os.Getenv("TWILIO_REGION"),
@@ -39,7 +39,7 @@ func NewRequestHandlerWithCtx(client BaseClient) *RequestHandlerWithCtx {
 	}
 }
 
-func (c *RequestHandler) sendRequest(method string, rawURL string, data url.Values,
+func (c *RequestHandlerWithContext) sendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}, body ...byte) (*http.Response, error) {
 	parsedURL, err := c.BuildUrl(rawURL)
 	if err != nil {
@@ -49,7 +49,7 @@ func (c *RequestHandler) sendRequest(method string, rawURL string, data url.Valu
 }
 
 // BuildUrl builds the target host string taking into account region and edge configurations.
-func (c *RequestHandler) BuildUrl(rawURL string) (string, error) {
+func (c *RequestHandlerWithContext) BuildUrl(rawURL string) (string, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
 		return "", err
@@ -99,42 +99,22 @@ func (c *RequestHandler) BuildUrl(rawURL string) (string, error) {
 	return u.String(), nil
 }
 
-func (c *RequestHandler) Post(path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
-	return c.sendRequest(http.MethodPost, path, bodyData, headers, body...)
+func (c *RequestHandlerWithContext) PostWithContext(ctx context.Context, path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
+	return c.Client.SendRequestWithContext(ctx, http.MethodPost, path, bodyData, headers, body...)
 }
 
-func (c *RequestHandler) Put(path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
-	return c.sendRequest(http.MethodPut, path, bodyData, headers, body...)
+func (c *RequestHandlerWithContext) PutWithContext(ctx context.Context, path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
+	return c.Client.SendRequestWithContext(ctx, http.MethodPut, path, bodyData, headers, body...)
 }
 
-func (c *RequestHandler) Patch(path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
-	return c.sendRequest(http.MethodPatch, path, bodyData, headers, body...)
+func (c *RequestHandlerWithContext) PatchWithContext(ctx context.Context, path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
+	return c.Client.SendRequestWithContext(ctx, http.MethodPatch, path, bodyData, headers, body...)
 }
 
-func (c *RequestHandler) Get(path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
-	return c.sendRequest(http.MethodGet, path, queryData, headers)
+func (c *RequestHandlerWithContext) GetWithContext(ctx context.Context, path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
+	return c.Client.SendRequestWithContext(ctx, http.MethodGet, path, queryData, headers)
 }
 
-func (c *RequestHandler) Delete(path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
-	return c.sendRequest(http.MethodDelete, path, queryData, headers)
-}
-
-func (c *RequestHandlerWithCtx) PostWithCtx(ctx context.Context, path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
-	return c.Client.SendRequestWithCtx(ctx, http.MethodPost, path, bodyData, headers, body...)
-}
-
-func (c *RequestHandlerWithCtx) PutWithCtx(ctx context.Context, path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
-	return c.Client.SendRequestWithCtx(ctx, http.MethodPut, path, bodyData, headers, body...)
-}
-
-func (c *RequestHandlerWithCtx) PatchWithCtx(ctx context.Context, path string, bodyData url.Values, headers map[string]interface{}, body ...byte) (*http.Response, error) {
-	return c.Client.SendRequestWithCtx(ctx, http.MethodPatch, path, bodyData, headers, body...)
-}
-
-func (c *RequestHandlerWithCtx) GetWithCtx(ctx context.Context, path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
-	return c.Client.SendRequestWithCtx(ctx, http.MethodGet, path, queryData, headers)
-}
-
-func (c *RequestHandlerWithCtx) DeleteWithCtx(ctx context.Context, path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
-	return c.Client.SendRequestWithCtx(ctx, http.MethodDelete, path, queryData, headers)
+func (c *RequestHandlerWithContext) DeleteWithContext(ctx context.Context, path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
+	return c.Client.SendRequestWithContext(ctx, http.MethodDelete, path, queryData, headers)
 }
