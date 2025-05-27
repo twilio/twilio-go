@@ -81,3 +81,22 @@ func (mr *MockBaseClientMockRecorder) SetTimeout(timeout interface{}) *gomock.Ca
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetTimeout", reflect.TypeOf((*MockBaseClient)(nil).SetTimeout), timeout)
 }
+
+func (m *MockBaseClient) OAuth() OAuth {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "OAuth")
+	ret0, _ := ret[0].(OAuth)
+	return ret0
+}
+
+// Oauth mocks base method.
+func (m *MockBaseClient) SetOauth(auth OAuth) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "SetOauth", auth)
+}
+
+// OAuth indicates an expected call of OAuth.
+func (mr *MockBaseClientMockRecorder) OAuth() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetOauth", reflect.TypeOf((*MockBaseClient)(nil).OAuth))
+}
