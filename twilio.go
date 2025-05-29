@@ -62,6 +62,7 @@ import (
 	TrunkingV1 "github.com/twilio/twilio-go/rest/trunking/v1"
 	TrusthubV1 "github.com/twilio/twilio-go/rest/trusthub/v1"
 	VerifyV2 "github.com/twilio/twilio-go/rest/verify/v2"
+	VerifyV3 "github.com/twilio/twilio-go/rest/verify/v3"
 	VideoV1 "github.com/twilio/twilio-go/rest/video/v1"
 	VoiceV1 "github.com/twilio/twilio-go/rest/voice/v1"
 	WirelessV1 "github.com/twilio/twilio-go/rest/wireless/v1"
@@ -116,6 +117,7 @@ type RestClient struct {
 	TrunkingV1             *TrunkingV1.ApiService
 	TrusthubV1             *TrusthubV1.ApiService
 	VerifyV2               *VerifyV2.ApiService
+	VerifyV3               *VerifyV3.ApiService
 	VideoV1                *VideoV1.ApiService
 	VoiceV1                *VoiceV1.ApiService
 	WirelessV1             *WirelessV1.ApiService
@@ -248,6 +250,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.TrunkingV1 = TrunkingV1.NewApiService(c.RequestHandler)
 	c.TrusthubV1 = TrusthubV1.NewApiService(c.RequestHandler)
 	c.VerifyV2 = VerifyV2.NewApiService(c.RequestHandler)
+	c.VerifyV3 = VerifyV3.NewApiService(c.RequestHandler)
 	c.VideoV1 = VideoV1.NewApiService(c.RequestHandler)
 	c.VoiceV1 = VoiceV1.NewApiService(c.RequestHandler)
 	c.WirelessV1 = WirelessV1.NewApiService(c.RequestHandler)
