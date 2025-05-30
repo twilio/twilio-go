@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Delete a specific Flow.
 func (c *ApiService) DeleteFlow(Sid string) error {
+	return c.DeleteFlowWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteFlowWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) DeleteFlow(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -45,6 +49,9 @@ func (c *ApiService) DeleteFlow(Sid string) error {
 
 // Retrieve a specific Flow.
 func (c *ApiService) FetchFlow(Sid string) (*StudioV1Flow, error) {
+	return c.FetchFlowWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchFlowWithContext(ctx context.Context, Sid string) (*StudioV1Flow, error) {
 	path := "/v1/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -53,7 +60,7 @@ func (c *ApiService) FetchFlow(Sid string) (*StudioV1Flow, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -87,6 +94,11 @@ func (params *ListFlowParams) SetLimit(Limit int) *ListFlowParams {
 
 // Retrieve a single page of Flow records from the API. Request is executed immediately.
 func (c *ApiService) PageFlow(params *ListFlowParams, pageToken, pageNumber string) (*ListFlowResponse, error) {
+	return c.PageFlowWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Flow records from the API. Request is executed immediately.
+func (c *ApiService) PageFlowWithContext(ctx context.Context, params *ListFlowParams, pageToken, pageNumber string) (*ListFlowResponse, error) {
 	path := "/v1/Flows"
 
 	data := url.Values{}
@@ -105,7 +117,7 @@ func (c *ApiService) PageFlow(params *ListFlowParams, pageToken, pageNumber stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +134,12 @@ func (c *ApiService) PageFlow(params *ListFlowParams, pageToken, pageNumber stri
 
 // Lists Flow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFlow(params *ListFlowParams) ([]StudioV1Flow, error) {
-	response, errors := c.StreamFlow(params)
+	return c.ListFlowWithContext(context.TODO(), params)
+}
+
+// Lists Flow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFlowWithContext(ctx context.Context, params *ListFlowParams) ([]StudioV1Flow, error) {
+	response, errors := c.StreamFlowWithContext(ctx, params)
 
 	records := make([]StudioV1Flow, 0)
 	for record := range response {
@@ -138,6 +155,11 @@ func (c *ApiService) ListFlow(params *ListFlowParams) ([]StudioV1Flow, error) {
 
 // Streams Flow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFlow(params *ListFlowParams) (chan StudioV1Flow, chan error) {
+	return c.StreamFlowWithContext(context.TODO(), params)
+}
+
+// Streams Flow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFlowWithContext(ctx context.Context, params *ListFlowParams) (chan StudioV1Flow, chan error) {
 	if params == nil {
 		params = &ListFlowParams{}
 	}
@@ -146,19 +168,19 @@ func (c *ApiService) StreamFlow(params *ListFlowParams) (chan StudioV1Flow, chan
 	recordChannel := make(chan StudioV1Flow, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageFlow(params, "", "")
+	response, err := c.PageFlowWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamFlow(response, params, recordChannel, errorChannel)
+		go c.streamFlowWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFlow(response *ListFlowResponse, params *ListFlowParams, recordChannel chan StudioV1Flow, errorChannel chan error) {
+func (c *ApiService) streamFlowWithContext(ctx context.Context, response *ListFlowResponse, params *ListFlowParams, recordChannel chan StudioV1Flow, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -173,7 +195,7 @@ func (c *ApiService) streamFlow(response *ListFlowResponse, params *ListFlowPara
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListFlowResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListFlowResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -188,11 +210,11 @@ func (c *ApiService) streamFlow(response *ListFlowResponse, params *ListFlowPara
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFlowResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFlowResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

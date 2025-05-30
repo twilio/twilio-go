@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -32,6 +33,9 @@ func (params *CreateEligibilityParams) SetBody(Body map[string]interface{}) *Cre
 
 // Create an eligibility check for a number that you want to host in Twilio.
 func (c *ApiService) CreateEligibility(params *CreateEligibilityParams) (*NumbersV1Eligibility, error) {
+	return c.CreateEligibilityWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateEligibilityWithContext(ctx context.Context, params *CreateEligibilityParams) (*NumbersV1Eligibility, error) {
 	path := "/v1/HostedNumber/Eligibility"
 
 	data := url.Values{}
@@ -48,7 +52,7 @@ func (c *ApiService) CreateEligibility(params *CreateEligibilityParams) (*Number
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

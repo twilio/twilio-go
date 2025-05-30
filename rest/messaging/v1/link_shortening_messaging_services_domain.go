@@ -15,13 +15,16 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) FetchLinkshorteningMessagingServiceDomainAssociation(MessagingServiceSid string) (*MessagingV1LinkshorteningMessagingServiceDomainAssociation, error) {
+	return c.FetchLinkshorteningMessagingServiceDomainAssociationWithContext(context.TODO(), MessagingServiceSid)
+}
+func (c *ApiService) FetchLinkshorteningMessagingServiceDomainAssociationWithContext(ctx context.Context, MessagingServiceSid string) (*MessagingV1LinkshorteningMessagingServiceDomainAssociation, error) {
 	path := "/v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
@@ -30,7 +33,7 @@ func (c *ApiService) FetchLinkshorteningMessagingServiceDomainAssociation(Messag
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

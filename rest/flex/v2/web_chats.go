@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -54,8 +55,10 @@ func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData str
 	return params
 }
 
-//
 func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2WebChannel, error) {
+	return c.CreateWebChannelWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateWebChannelWithContext(ctx context.Context, params *CreateWebChannelParams) (*FlexV2WebChannel, error) {
 	path := "/v2/WebChats"
 
 	data := url.Values{}
@@ -79,7 +82,7 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2We
 	if params != nil && params.UiVersion != nil {
 		headers["Ui-Version"] = *params.UiVersion
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

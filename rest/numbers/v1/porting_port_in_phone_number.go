@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Allows to cancel a port in request phone number by SID
 func (c *ApiService) DeletePortingPortInPhoneNumber(PortInRequestSid string, PhoneNumberSid string) error {
+	return c.DeletePortingPortInPhoneNumberWithContext(context.TODO(), PortInRequestSid, PhoneNumberSid)
+}
+func (c *ApiService) DeletePortingPortInPhoneNumberWithContext(ctx context.Context, PortInRequestSid string, PhoneNumberSid string) error {
 	path := "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}"
 	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
 	path = strings.Replace(path, "{"+"PhoneNumberSid"+"}", PhoneNumberSid, -1)
@@ -31,7 +35,7 @@ func (c *ApiService) DeletePortingPortInPhoneNumber(PortInRequestSid string, Pho
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -43,6 +47,9 @@ func (c *ApiService) DeletePortingPortInPhoneNumber(PortInRequestSid string, Pho
 
 // Fetch a phone number by port in request SID and phone number SID
 func (c *ApiService) FetchPortingPortInPhoneNumber(PortInRequestSid string, PhoneNumberSid string) (*NumbersV1PortingPortInPhoneNumber, error) {
+	return c.FetchPortingPortInPhoneNumberWithContext(context.TODO(), PortInRequestSid, PhoneNumberSid)
+}
+func (c *ApiService) FetchPortingPortInPhoneNumberWithContext(ctx context.Context, PortInRequestSid string, PhoneNumberSid string) (*NumbersV1PortingPortInPhoneNumber, error) {
 	path := "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}"
 	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
 	path = strings.Replace(path, "{"+"PhoneNumberSid"+"}", PhoneNumberSid, -1)
@@ -52,7 +59,7 @@ func (c *ApiService) FetchPortingPortInPhoneNumber(PortInRequestSid string, Phon
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -32,6 +33,9 @@ func (params *FetchInsightsUserRolesParams) SetAuthorization(Authorization strin
 
 // This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
 func (c *ApiService) FetchInsightsUserRoles(params *FetchInsightsUserRolesParams) (*FlexV1InsightsUserRoles, error) {
+	return c.FetchInsightsUserRolesWithContext(context.TODO(), params)
+}
+func (c *ApiService) FetchInsightsUserRolesWithContext(ctx context.Context, params *FetchInsightsUserRolesParams) (*FlexV1InsightsUserRoles, error) {
 	path := "/v1/Insights/UserRoles"
 
 	data := url.Values{}
@@ -42,7 +46,7 @@ func (c *ApiService) FetchInsightsUserRoles(params *FetchInsightsUserRolesParams
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *CreateFeedbackParams) SetAssistantsV1CreateFeedbackRequest(Assista
 
 // Create feedback
 func (c *ApiService) CreateFeedback(Id string, params *CreateFeedbackParams) (*AssistantsV1Feedback, error) {
+	return c.CreateFeedbackWithContext(context.TODO(), Id, params)
+}
+func (c *ApiService) CreateFeedbackWithContext(ctx context.Context, Id string, params *CreateFeedbackParams) (*AssistantsV1Feedback, error) {
 	path := "/v1/Assistants/{id}/Feedbacks"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -53,7 +57,7 @@ func (c *ApiService) CreateFeedback(Id string, params *CreateFeedbackParams) (*A
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,6 +91,11 @@ func (params *ListFeedbackParams) SetLimit(Limit int) *ListFeedbackParams {
 
 // Retrieve a single page of Feedback records from the API. Request is executed immediately.
 func (c *ApiService) PageFeedback(Id string, params *ListFeedbackParams, pageToken, pageNumber string) (*ListFeedbacksResponse, error) {
+	return c.PageFeedbackWithContext(context.TODO(), Id, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Feedback records from the API. Request is executed immediately.
+func (c *ApiService) PageFeedbackWithContext(ctx context.Context, Id string, params *ListFeedbackParams, pageToken, pageNumber string) (*ListFeedbacksResponse, error) {
 	path := "/v1/Assistants/{id}/Feedbacks"
 
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
@@ -107,7 +116,7 @@ func (c *ApiService) PageFeedback(Id string, params *ListFeedbackParams, pageTok
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +133,12 @@ func (c *ApiService) PageFeedback(Id string, params *ListFeedbackParams, pageTok
 
 // Lists Feedback records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFeedback(Id string, params *ListFeedbackParams) ([]AssistantsV1Feedback, error) {
-	response, errors := c.StreamFeedback(Id, params)
+	return c.ListFeedbackWithContext(context.TODO(), Id, params)
+}
+
+// Lists Feedback records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFeedbackWithContext(ctx context.Context, Id string, params *ListFeedbackParams) ([]AssistantsV1Feedback, error) {
+	response, errors := c.StreamFeedbackWithContext(ctx, Id, params)
 
 	records := make([]AssistantsV1Feedback, 0)
 	for record := range response {
@@ -140,6 +154,11 @@ func (c *ApiService) ListFeedback(Id string, params *ListFeedbackParams) ([]Assi
 
 // Streams Feedback records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFeedback(Id string, params *ListFeedbackParams) (chan AssistantsV1Feedback, chan error) {
+	return c.StreamFeedbackWithContext(context.TODO(), Id, params)
+}
+
+// Streams Feedback records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFeedbackWithContext(ctx context.Context, Id string, params *ListFeedbackParams) (chan AssistantsV1Feedback, chan error) {
 	if params == nil {
 		params = &ListFeedbackParams{}
 	}
@@ -148,19 +167,19 @@ func (c *ApiService) StreamFeedback(Id string, params *ListFeedbackParams) (chan
 	recordChannel := make(chan AssistantsV1Feedback, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageFeedback(Id, params, "", "")
+	response, err := c.PageFeedbackWithContext(ctx, Id, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamFeedback(response, params, recordChannel, errorChannel)
+		go c.streamFeedbackWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFeedback(response *ListFeedbacksResponse, params *ListFeedbackParams, recordChannel chan AssistantsV1Feedback, errorChannel chan error) {
+func (c *ApiService) streamFeedbackWithContext(ctx context.Context, response *ListFeedbacksResponse, params *ListFeedbackParams, recordChannel chan AssistantsV1Feedback, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -175,7 +194,7 @@ func (c *ApiService) streamFeedback(response *ListFeedbacksResponse, params *Lis
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListFeedbacksResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListFeedbacksResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -190,11 +209,11 @@ func (c *ApiService) streamFeedback(response *ListFeedbacksResponse, params *Lis
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFeedbacksResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFeedbacksResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch a specific Operator Type.
 func (c *ApiService) FetchOperatorType(Sid string) (*IntelligenceV2OperatorType, error) {
+	return c.FetchOperatorTypeWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchOperatorTypeWithContext(ctx context.Context, Sid string) (*IntelligenceV2OperatorType, error) {
 	path := "/v2/OperatorTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) FetchOperatorType(Sid string) (*IntelligenceV2OperatorType,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +71,11 @@ func (params *ListOperatorTypeParams) SetLimit(Limit int) *ListOperatorTypeParam
 
 // Retrieve a single page of OperatorType records from the API. Request is executed immediately.
 func (c *ApiService) PageOperatorType(params *ListOperatorTypeParams, pageToken, pageNumber string) (*ListOperatorTypeResponse, error) {
+	return c.PageOperatorTypeWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of OperatorType records from the API. Request is executed immediately.
+func (c *ApiService) PageOperatorTypeWithContext(ctx context.Context, params *ListOperatorTypeParams, pageToken, pageNumber string) (*ListOperatorTypeResponse, error) {
 	path := "/v2/OperatorTypes"
 
 	data := url.Values{}
@@ -85,7 +94,7 @@ func (c *ApiService) PageOperatorType(params *ListOperatorTypeParams, pageToken,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +111,12 @@ func (c *ApiService) PageOperatorType(params *ListOperatorTypeParams, pageToken,
 
 // Lists OperatorType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOperatorType(params *ListOperatorTypeParams) ([]IntelligenceV2OperatorType, error) {
-	response, errors := c.StreamOperatorType(params)
+	return c.ListOperatorTypeWithContext(context.TODO(), params)
+}
+
+// Lists OperatorType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListOperatorTypeWithContext(ctx context.Context, params *ListOperatorTypeParams) ([]IntelligenceV2OperatorType, error) {
+	response, errors := c.StreamOperatorTypeWithContext(ctx, params)
 
 	records := make([]IntelligenceV2OperatorType, 0)
 	for record := range response {
@@ -118,6 +132,11 @@ func (c *ApiService) ListOperatorType(params *ListOperatorTypeParams) ([]Intelli
 
 // Streams OperatorType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamOperatorType(params *ListOperatorTypeParams) (chan IntelligenceV2OperatorType, chan error) {
+	return c.StreamOperatorTypeWithContext(context.TODO(), params)
+}
+
+// Streams OperatorType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamOperatorTypeWithContext(ctx context.Context, params *ListOperatorTypeParams) (chan IntelligenceV2OperatorType, chan error) {
 	if params == nil {
 		params = &ListOperatorTypeParams{}
 	}
@@ -126,19 +145,19 @@ func (c *ApiService) StreamOperatorType(params *ListOperatorTypeParams) (chan In
 	recordChannel := make(chan IntelligenceV2OperatorType, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageOperatorType(params, "", "")
+	response, err := c.PageOperatorTypeWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamOperatorType(response, params, recordChannel, errorChannel)
+		go c.streamOperatorTypeWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamOperatorType(response *ListOperatorTypeResponse, params *ListOperatorTypeParams, recordChannel chan IntelligenceV2OperatorType, errorChannel chan error) {
+func (c *ApiService) streamOperatorTypeWithContext(ctx context.Context, response *ListOperatorTypeResponse, params *ListOperatorTypeParams, recordChannel chan IntelligenceV2OperatorType, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -153,7 +172,7 @@ func (c *ApiService) streamOperatorType(response *ListOperatorTypeResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListOperatorTypeResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListOperatorTypeResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -168,11 +187,11 @@ func (c *ApiService) streamOperatorType(response *ListOperatorTypeResponse, para
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListOperatorTypeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListOperatorTypeResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

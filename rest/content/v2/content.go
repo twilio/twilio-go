@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -96,6 +97,11 @@ func (params *ListContentParams) SetLimit(Limit int) *ListContentParams {
 
 // Retrieve a single page of Content records from the API. Request is executed immediately.
 func (c *ApiService) PageContent(params *ListContentParams, pageToken, pageNumber string) (*ListContentResponse, error) {
+	return c.PageContentWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Content records from the API. Request is executed immediately.
+func (c *ApiService) PageContentWithContext(ctx context.Context, params *ListContentParams, pageToken, pageNumber string) (*ListContentResponse, error) {
 	path := "/v2/Content"
 
 	data := url.Values{}
@@ -147,7 +153,7 @@ func (c *ApiService) PageContent(params *ListContentParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -164,7 +170,12 @@ func (c *ApiService) PageContent(params *ListContentParams, pageToken, pageNumbe
 
 // Lists Content records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListContent(params *ListContentParams) ([]ContentV1Content, error) {
-	response, errors := c.StreamContent(params)
+	return c.ListContentWithContext(context.TODO(), params)
+}
+
+// Lists Content records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListContentWithContext(ctx context.Context, params *ListContentParams) ([]ContentV1Content, error) {
+	response, errors := c.StreamContentWithContext(ctx, params)
 
 	records := make([]ContentV1Content, 0)
 	for record := range response {
@@ -180,6 +191,11 @@ func (c *ApiService) ListContent(params *ListContentParams) ([]ContentV1Content,
 
 // Streams Content records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamContent(params *ListContentParams) (chan ContentV1Content, chan error) {
+	return c.StreamContentWithContext(context.TODO(), params)
+}
+
+// Streams Content records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamContentWithContext(ctx context.Context, params *ListContentParams) (chan ContentV1Content, chan error) {
 	if params == nil {
 		params = &ListContentParams{}
 	}
@@ -188,19 +204,19 @@ func (c *ApiService) StreamContent(params *ListContentParams) (chan ContentV1Con
 	recordChannel := make(chan ContentV1Content, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageContent(params, "", "")
+	response, err := c.PageContentWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamContent(response, params, recordChannel, errorChannel)
+		go c.streamContentWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamContent(response *ListContentResponse, params *ListContentParams, recordChannel chan ContentV1Content, errorChannel chan error) {
+func (c *ApiService) streamContentWithContext(ctx context.Context, response *ListContentResponse, params *ListContentParams, recordChannel chan ContentV1Content, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -215,7 +231,7 @@ func (c *ApiService) streamContent(response *ListContentResponse, params *ListCo
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListContentResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListContentResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -230,11 +246,11 @@ func (c *ApiService) streamContent(response *ListContentResponse, params *ListCo
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListContentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListContentResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -72,6 +73,11 @@ func (params *ListUsageRecordAllTimeParams) SetLimit(Limit int) *ListUsageRecord
 
 // Retrieve a single page of UsageRecordAllTime records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams, pageToken, pageNumber string) (*ListUsageRecordAllTimeResponse, error) {
+	return c.PageUsageRecordAllTimeWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of UsageRecordAllTime records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecordAllTimeWithContext(ctx context.Context, params *ListUsageRecordAllTimeParams, pageToken, pageNumber string) (*ListUsageRecordAllTimeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -108,7 +114,7 @@ func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +131,12 @@ func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 
 // Lists UsageRecordAllTime records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams) ([]ApiV2010UsageRecordAllTime, error) {
-	response, errors := c.StreamUsageRecordAllTime(params)
+	return c.ListUsageRecordAllTimeWithContext(context.TODO(), params)
+}
+
+// Lists UsageRecordAllTime records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordAllTimeWithContext(ctx context.Context, params *ListUsageRecordAllTimeParams) ([]ApiV2010UsageRecordAllTime, error) {
+	response, errors := c.StreamUsageRecordAllTimeWithContext(ctx, params)
 
 	records := make([]ApiV2010UsageRecordAllTime, 0)
 	for record := range response {
@@ -141,6 +152,11 @@ func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 
 // Streams UsageRecordAllTime records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimeParams) (chan ApiV2010UsageRecordAllTime, chan error) {
+	return c.StreamUsageRecordAllTimeWithContext(context.TODO(), params)
+}
+
+// Streams UsageRecordAllTime records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordAllTimeWithContext(ctx context.Context, params *ListUsageRecordAllTimeParams) (chan ApiV2010UsageRecordAllTime, chan error) {
 	if params == nil {
 		params = &ListUsageRecordAllTimeParams{}
 	}
@@ -149,19 +165,19 @@ func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimePara
 	recordChannel := make(chan ApiV2010UsageRecordAllTime, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUsageRecordAllTime(params, "", "")
+	response, err := c.PageUsageRecordAllTimeWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUsageRecordAllTime(response, params, recordChannel, errorChannel)
+		go c.streamUsageRecordAllTimeWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordAllTime(response *ListUsageRecordAllTimeResponse, params *ListUsageRecordAllTimeParams, recordChannel chan ApiV2010UsageRecordAllTime, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordAllTimeWithContext(ctx context.Context, response *ListUsageRecordAllTimeResponse, params *ListUsageRecordAllTimeParams, recordChannel chan ApiV2010UsageRecordAllTime, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -176,7 +192,7 @@ func (c *ApiService) streamUsageRecordAllTime(response *ListUsageRecordAllTimeRe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordAllTimeResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListUsageRecordAllTimeResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -191,11 +207,11 @@ func (c *ApiService) streamUsageRecordAllTime(response *ListUsageRecordAllTimeRe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordAllTimeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordAllTimeResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

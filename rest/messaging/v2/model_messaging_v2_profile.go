@@ -25,11 +25,11 @@ type MessagingV2Profile struct {
 	// The description of the sender.
 	Description *string `json:"description,omitempty"`
 	// The emails of the sender.
-	Emails *interface{} `json:"emails,omitempty"`
+	Emails *[]MessagingV2ChannelsSenderProfileEmails `json:"emails,omitempty"`
 	// The logo URL of the sender.
 	LogoUrl *string `json:"logo_url,omitempty"`
 	// The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
 	Vertical *string `json:"vertical,omitempty"`
 	// The websites of the sender.
-	Websites *interface{} `json:"websites,omitempty"`
+	Websites *[]MessagingV2ChannelsSenderProfileWebsites `json:"websites,omitempty"`
 }

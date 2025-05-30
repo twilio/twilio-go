@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -150,6 +151,9 @@ func (params *CreateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEvent
 
 // Create a new Verification Service.
 func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Service, error) {
+	return c.CreateServiceWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateServiceWithContext(ctx context.Context, params *CreateServiceParams) (*VerifyV2Service, error) {
 	path := "/v2/Services"
 
 	data := url.Values{}
@@ -218,7 +222,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -235,6 +239,9 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 
 // Delete a specific Verification Service Instance.
 func (c *ApiService) DeleteService(Sid string) error {
+	return c.DeleteServiceWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteServiceWithContext(ctx context.Context, Sid string) error {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -243,7 +250,7 @@ func (c *ApiService) DeleteService(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -255,6 +262,9 @@ func (c *ApiService) DeleteService(Sid string) error {
 
 // Fetch specific Verification Service Instance.
 func (c *ApiService) FetchService(Sid string) (*VerifyV2Service, error) {
+	return c.FetchServiceWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchServiceWithContext(ctx context.Context, Sid string) (*VerifyV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -263,7 +273,7 @@ func (c *ApiService) FetchService(Sid string) (*VerifyV2Service, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -297,6 +307,11 @@ func (params *ListServiceParams) SetLimit(Limit int) *ListServiceParams {
 
 // Retrieve a single page of Service records from the API. Request is executed immediately.
 func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumber string) (*ListServiceResponse, error) {
+	return c.PageServiceWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Service records from the API. Request is executed immediately.
+func (c *ApiService) PageServiceWithContext(ctx context.Context, params *ListServiceParams, pageToken, pageNumber string) (*ListServiceResponse, error) {
 	path := "/v2/Services"
 
 	data := url.Values{}
@@ -315,7 +330,7 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -332,7 +347,12 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 
 // Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListService(params *ListServiceParams) ([]VerifyV2Service, error) {
-	response, errors := c.StreamService(params)
+	return c.ListServiceWithContext(context.TODO(), params)
+}
+
+// Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceWithContext(ctx context.Context, params *ListServiceParams) ([]VerifyV2Service, error) {
+	response, errors := c.StreamServiceWithContext(ctx, params)
 
 	records := make([]VerifyV2Service, 0)
 	for record := range response {
@@ -348,6 +368,11 @@ func (c *ApiService) ListService(params *ListServiceParams) ([]VerifyV2Service, 
 
 // Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamService(params *ListServiceParams) (chan VerifyV2Service, chan error) {
+	return c.StreamServiceWithContext(context.TODO(), params)
+}
+
+// Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceWithContext(ctx context.Context, params *ListServiceParams) (chan VerifyV2Service, chan error) {
 	if params == nil {
 		params = &ListServiceParams{}
 	}
@@ -356,19 +381,19 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan VerifyV2Serv
 	recordChannel := make(chan VerifyV2Service, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageService(params, "", "")
+	response, err := c.PageServiceWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamService(response, params, recordChannel, errorChannel)
+		go c.streamServiceWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan VerifyV2Service, errorChannel chan error) {
+func (c *ApiService) streamServiceWithContext(ctx context.Context, response *ListServiceResponse, params *ListServiceParams, recordChannel chan VerifyV2Service, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -383,7 +408,7 @@ func (c *ApiService) streamService(response *ListServiceResponse, params *ListSe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListServiceResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListServiceResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -398,11 +423,11 @@ func (c *ApiService) streamService(response *ListServiceResponse, params *ListSe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListServiceResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListServiceResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -543,6 +568,9 @@ func (params *UpdateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEvent
 
 // Update a specific Verification Service.
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*VerifyV2Service, error) {
+	return c.UpdateServiceWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateServiceWithContext(ctx context.Context, Sid string, params *UpdateServiceParams) (*VerifyV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -612,7 +640,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

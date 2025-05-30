@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreateReplaceItemsParams) SetFromBundleSid(FromBundleSid string) *
 
 // Replaces all bundle items in the target bundle (specified in the path) with all the bundle items of the source bundle (specified by the from_bundle_sid body param)
 func (c *ApiService) CreateReplaceItems(BundleSid string, params *CreateReplaceItemsParams) (*NumbersV2ReplaceItems, error) {
+	return c.CreateReplaceItemsWithContext(context.TODO(), BundleSid, params)
+}
+func (c *ApiService) CreateReplaceItemsWithContext(ctx context.Context, BundleSid string, params *CreateReplaceItemsParams) (*NumbersV2ReplaceItems, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ReplaceItems"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
@@ -45,7 +49,7 @@ func (c *ApiService) CreateReplaceItems(BundleSid string, params *CreateReplaceI
 		data.Set("FromBundleSid", *params.FromBundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

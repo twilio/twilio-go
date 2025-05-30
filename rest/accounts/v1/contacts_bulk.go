@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -30,8 +31,10 @@ func (params *CreateBulkContactsParams) SetItems(Items []map[string]interface{})
 	return params
 }
 
-//
 func (c *ApiService) CreateBulkContacts(params *CreateBulkContactsParams) (*AccountsV1BulkContacts, error) {
+	return c.CreateBulkContactsWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateBulkContactsWithContext(ctx context.Context, params *CreateBulkContactsParams) (*AccountsV1BulkContacts, error) {
 	path := "/v1/Contacts/Bulk"
 
 	data := url.Values{}
@@ -51,7 +54,7 @@ func (c *ApiService) CreateBulkContacts(params *CreateBulkContactsParams) (*Acco
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

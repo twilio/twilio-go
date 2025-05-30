@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -30,8 +31,10 @@ func (params *FetchConfigurationParams) SetUiVersion(UiVersion string) *FetchCon
 	return params
 }
 
-//
 func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*FlexV1Configuration, error) {
+	return c.FetchConfigurationWithContext(context.TODO(), params)
+}
+func (c *ApiService) FetchConfigurationWithContext(ctx context.Context, params *FetchConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
 	data := url.Values{}
@@ -43,7 +46,7 @@ func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*Flex
 		data.Set("UiVersion", *params.UiVersion)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -69,8 +72,10 @@ func (params *UpdateConfigurationParams) SetBody(Body map[string]interface{}) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*FlexV1Configuration, error) {
+	return c.UpdateConfigurationWithContext(context.TODO(), params)
+}
+func (c *ApiService) UpdateConfigurationWithContext(ctx context.Context, params *UpdateConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
 	data := url.Values{}
@@ -87,7 +92,7 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Fl
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

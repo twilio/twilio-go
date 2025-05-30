@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *CreateRoleAssignmentParams) SetPublicApiCreateRoleAssignmentReques
 
 // Create a role assignment for the given organization
 func (c *ApiService) CreateRoleAssignment(OrganizationSid string, params *CreateRoleAssignmentParams) (*PublicApiRoleAssignmentResponse, error) {
+	return c.CreateRoleAssignmentWithContext(context.TODO(), OrganizationSid, params)
+}
+func (c *ApiService) CreateRoleAssignmentWithContext(ctx context.Context, OrganizationSid string, params *CreateRoleAssignmentParams) (*PublicApiRoleAssignmentResponse, error) {
 	path := "/Organizations/{OrganizationSid}/RoleAssignments"
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 
@@ -53,7 +57,7 @@ func (c *ApiService) CreateRoleAssignment(OrganizationSid string, params *Create
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -70,6 +74,9 @@ func (c *ApiService) CreateRoleAssignment(OrganizationSid string, params *Create
 
 // Delete a role assignment for the given organization
 func (c *ApiService) DeleteRoleAssignment(OrganizationSid string, Sid string) error {
+	return c.DeleteRoleAssignmentWithContext(context.TODO(), OrganizationSid, Sid)
+}
+func (c *ApiService) DeleteRoleAssignmentWithContext(ctx context.Context, OrganizationSid string, Sid string) error {
 	path := "/Organizations/{OrganizationSid}/RoleAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -79,7 +86,7 @@ func (c *ApiService) DeleteRoleAssignment(OrganizationSid string, Sid string) er
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -120,6 +127,11 @@ func (params *ListRoleAssignmentsParams) SetLimit(Limit int) *ListRoleAssignment
 
 // Retrieve a single page of RoleAssignments records from the API. Request is executed immediately.
 func (c *ApiService) PageRoleAssignments(OrganizationSid string, params *ListRoleAssignmentsParams, pageToken, pageNumber string) (*PublicApiCreateRoleAssignmentResponsePage, error) {
+	return c.PageRoleAssignmentsWithContext(context.TODO(), OrganizationSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of RoleAssignments records from the API. Request is executed immediately.
+func (c *ApiService) PageRoleAssignmentsWithContext(ctx context.Context, OrganizationSid string, params *ListRoleAssignmentsParams, pageToken, pageNumber string) (*PublicApiCreateRoleAssignmentResponsePage, error) {
 	path := "/Organizations/{OrganizationSid}/RoleAssignments"
 
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
@@ -146,7 +158,7 @@ func (c *ApiService) PageRoleAssignments(OrganizationSid string, params *ListRol
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +175,12 @@ func (c *ApiService) PageRoleAssignments(OrganizationSid string, params *ListRol
 
 // Lists RoleAssignments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoleAssignments(OrganizationSid string, params *ListRoleAssignmentsParams) ([]PublicApiRoleAssignmentResponse, error) {
-	response, errors := c.StreamRoleAssignments(OrganizationSid, params)
+	return c.ListRoleAssignmentsWithContext(context.TODO(), OrganizationSid, params)
+}
+
+// Lists RoleAssignments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoleAssignmentsWithContext(ctx context.Context, OrganizationSid string, params *ListRoleAssignmentsParams) ([]PublicApiRoleAssignmentResponse, error) {
+	response, errors := c.StreamRoleAssignmentsWithContext(ctx, OrganizationSid, params)
 
 	records := make([]PublicApiRoleAssignmentResponse, 0)
 	for record := range response {
@@ -179,6 +196,11 @@ func (c *ApiService) ListRoleAssignments(OrganizationSid string, params *ListRol
 
 // Streams RoleAssignments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRoleAssignments(OrganizationSid string, params *ListRoleAssignmentsParams) (chan PublicApiRoleAssignmentResponse, chan error) {
+	return c.StreamRoleAssignmentsWithContext(context.TODO(), OrganizationSid, params)
+}
+
+// Streams RoleAssignments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoleAssignmentsWithContext(ctx context.Context, OrganizationSid string, params *ListRoleAssignmentsParams) (chan PublicApiRoleAssignmentResponse, chan error) {
 	if params == nil {
 		params = &ListRoleAssignmentsParams{}
 	}
@@ -187,19 +209,19 @@ func (c *ApiService) StreamRoleAssignments(OrganizationSid string, params *ListR
 	recordChannel := make(chan PublicApiRoleAssignmentResponse, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRoleAssignments(OrganizationSid, params, "", "")
+	response, err := c.PageRoleAssignmentsWithContext(ctx, OrganizationSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRoleAssignments(response, params, recordChannel, errorChannel)
+		go c.streamRoleAssignmentsWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRoleAssignments(response *PublicApiCreateRoleAssignmentResponsePage, params *ListRoleAssignmentsParams, recordChannel chan PublicApiRoleAssignmentResponse, errorChannel chan error) {
+func (c *ApiService) streamRoleAssignmentsWithContext(ctx context.Context, response *PublicApiCreateRoleAssignmentResponsePage, params *ListRoleAssignmentsParams, recordChannel chan PublicApiRoleAssignmentResponse, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -214,7 +236,7 @@ func (c *ApiService) streamRoleAssignments(response *PublicApiCreateRoleAssignme
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextPublicApiCreateRoleAssignmentResponsePage)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextPublicApiCreateRoleAssignmentResponsePageWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -229,11 +251,11 @@ func (c *ApiService) streamRoleAssignments(response *PublicApiCreateRoleAssignme
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextPublicApiCreateRoleAssignmentResponsePage(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextPublicApiCreateRoleAssignmentResponsePageWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

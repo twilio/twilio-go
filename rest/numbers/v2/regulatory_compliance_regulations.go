@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *FetchRegulationParams) SetIncludeConstraints(IncludeConstraints bo
 
 // Fetch specific Regulation Instance.
 func (c *ApiService) FetchRegulation(Sid string, params *FetchRegulationParams) (*NumbersV2Regulation, error) {
+	return c.FetchRegulationWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) FetchRegulationWithContext(ctx context.Context, Sid string, params *FetchRegulationParams) (*NumbersV2Regulation, error) {
 	path := "/v2/RegulatoryCompliance/Regulations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -48,7 +52,7 @@ func (c *ApiService) FetchRegulation(Sid string, params *FetchRegulationParams) 
 		data.Set("IncludeConstraints", fmt.Sprint(*params.IncludeConstraints))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -106,6 +110,11 @@ func (params *ListRegulationParams) SetLimit(Limit int) *ListRegulationParams {
 
 // Retrieve a single page of Regulation records from the API. Request is executed immediately.
 func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pageNumber string) (*ListRegulationResponse, error) {
+	return c.PageRegulationWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Regulation records from the API. Request is executed immediately.
+func (c *ApiService) PageRegulationWithContext(ctx context.Context, params *ListRegulationParams, pageToken, pageNumber string) (*ListRegulationResponse, error) {
 	path := "/v2/RegulatoryCompliance/Regulations"
 
 	data := url.Values{}
@@ -136,7 +145,7 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +162,12 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pag
 
 // Lists Regulation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRegulation(params *ListRegulationParams) ([]NumbersV2Regulation, error) {
-	response, errors := c.StreamRegulation(params)
+	return c.ListRegulationWithContext(context.TODO(), params)
+}
+
+// Lists Regulation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRegulationWithContext(ctx context.Context, params *ListRegulationParams) ([]NumbersV2Regulation, error) {
+	response, errors := c.StreamRegulationWithContext(ctx, params)
 
 	records := make([]NumbersV2Regulation, 0)
 	for record := range response {
@@ -169,6 +183,11 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams) ([]NumbersV2Re
 
 // Streams Regulation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRegulation(params *ListRegulationParams) (chan NumbersV2Regulation, chan error) {
+	return c.StreamRegulationWithContext(context.TODO(), params)
+}
+
+// Streams Regulation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRegulationWithContext(ctx context.Context, params *ListRegulationParams) (chan NumbersV2Regulation, chan error) {
 	if params == nil {
 		params = &ListRegulationParams{}
 	}
@@ -177,19 +196,19 @@ func (c *ApiService) StreamRegulation(params *ListRegulationParams) (chan Number
 	recordChannel := make(chan NumbersV2Regulation, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRegulation(params, "", "")
+	response, err := c.PageRegulationWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRegulation(response, params, recordChannel, errorChannel)
+		go c.streamRegulationWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRegulation(response *ListRegulationResponse, params *ListRegulationParams, recordChannel chan NumbersV2Regulation, errorChannel chan error) {
+func (c *ApiService) streamRegulationWithContext(ctx context.Context, response *ListRegulationResponse, params *ListRegulationParams, recordChannel chan NumbersV2Regulation, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -204,7 +223,7 @@ func (c *ApiService) streamRegulation(response *ListRegulationResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRegulationResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListRegulationResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -219,11 +238,11 @@ func (c *ApiService) streamRegulation(response *ListRegulationResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRegulationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRegulationResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

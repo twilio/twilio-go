@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -41,6 +42,11 @@ func (params *ListLegacyContentParams) SetLimit(Limit int) *ListLegacyContentPar
 
 // Retrieve a single page of LegacyContent records from the API. Request is executed immediately.
 func (c *ApiService) PageLegacyContent(params *ListLegacyContentParams, pageToken, pageNumber string) (*ListLegacyContentResponse, error) {
+	return c.PageLegacyContentWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of LegacyContent records from the API. Request is executed immediately.
+func (c *ApiService) PageLegacyContentWithContext(ctx context.Context, params *ListLegacyContentParams, pageToken, pageNumber string) (*ListLegacyContentResponse, error) {
 	path := "/v1/LegacyContent"
 
 	data := url.Values{}
@@ -59,7 +65,7 @@ func (c *ApiService) PageLegacyContent(params *ListLegacyContentParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +82,12 @@ func (c *ApiService) PageLegacyContent(params *ListLegacyContentParams, pageToke
 
 // Lists LegacyContent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListLegacyContent(params *ListLegacyContentParams) ([]ContentV1LegacyContent, error) {
-	response, errors := c.StreamLegacyContent(params)
+	return c.ListLegacyContentWithContext(context.TODO(), params)
+}
+
+// Lists LegacyContent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListLegacyContentWithContext(ctx context.Context, params *ListLegacyContentParams) ([]ContentV1LegacyContent, error) {
+	response, errors := c.StreamLegacyContentWithContext(ctx, params)
 
 	records := make([]ContentV1LegacyContent, 0)
 	for record := range response {
@@ -92,6 +103,11 @@ func (c *ApiService) ListLegacyContent(params *ListLegacyContentParams) ([]Conte
 
 // Streams LegacyContent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamLegacyContent(params *ListLegacyContentParams) (chan ContentV1LegacyContent, chan error) {
+	return c.StreamLegacyContentWithContext(context.TODO(), params)
+}
+
+// Streams LegacyContent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamLegacyContentWithContext(ctx context.Context, params *ListLegacyContentParams) (chan ContentV1LegacyContent, chan error) {
 	if params == nil {
 		params = &ListLegacyContentParams{}
 	}
@@ -100,19 +116,19 @@ func (c *ApiService) StreamLegacyContent(params *ListLegacyContentParams) (chan 
 	recordChannel := make(chan ContentV1LegacyContent, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageLegacyContent(params, "", "")
+	response, err := c.PageLegacyContentWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamLegacyContent(response, params, recordChannel, errorChannel)
+		go c.streamLegacyContentWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamLegacyContent(response *ListLegacyContentResponse, params *ListLegacyContentParams, recordChannel chan ContentV1LegacyContent, errorChannel chan error) {
+func (c *ApiService) streamLegacyContentWithContext(ctx context.Context, response *ListLegacyContentResponse, params *ListLegacyContentParams, recordChannel chan ContentV1LegacyContent, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -127,7 +143,7 @@ func (c *ApiService) streamLegacyContent(response *ListLegacyContentResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListLegacyContentResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListLegacyContentResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -142,11 +158,11 @@ func (c *ApiService) streamLegacyContent(response *ListLegacyContentResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListLegacyContentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListLegacyContentResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

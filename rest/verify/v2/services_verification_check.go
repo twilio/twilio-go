@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -63,6 +64,9 @@ func (params *CreateVerificationCheckParams) SetSnaClientToken(SnaClientToken st
 
 // challenge a specific Verification Check.
 func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVerificationCheckParams) (*VerifyV2VerificationCheck, error) {
+	return c.CreateVerificationCheckWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateVerificationCheckWithContext(ctx context.Context, ServiceSid string, params *CreateVerificationCheckParams) (*VerifyV2VerificationCheck, error) {
 	path := "/v2/Services/{ServiceSid}/VerificationCheck"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -90,7 +94,7 @@ func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVe
 		data.Set("SnaClientToken", *params.SnaClientToken)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

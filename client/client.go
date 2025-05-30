@@ -185,7 +185,7 @@ func (c *Client) SendRequestWithContext(ctx context.Context, method string, rawU
 		if method == http.MethodPost || method == http.MethodPut || method == http.MethodPatch {
 			valueReader = strings.NewReader(data.Encode())
 		}
-		req, err = http.NewRequestWithContext(context.Background(), method, u.String(), valueReader)
+		req, err = http.NewRequestWithContext(ctx, method, u.String(), valueReader)
 		if err != nil {
 			return nil, err
 		}

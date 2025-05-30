@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -47,6 +48,11 @@ func (params *ListVerificationTemplateParams) SetLimit(Limit int) *ListVerificat
 
 // Retrieve a single page of VerificationTemplate records from the API. Request is executed immediately.
 func (c *ApiService) PageVerificationTemplate(params *ListVerificationTemplateParams, pageToken, pageNumber string) (*ListVerificationTemplateResponse, error) {
+	return c.PageVerificationTemplateWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of VerificationTemplate records from the API. Request is executed immediately.
+func (c *ApiService) PageVerificationTemplateWithContext(ctx context.Context, params *ListVerificationTemplateParams, pageToken, pageNumber string) (*ListVerificationTemplateResponse, error) {
 	path := "/v2/Templates"
 
 	data := url.Values{}
@@ -68,7 +74,7 @@ func (c *ApiService) PageVerificationTemplate(params *ListVerificationTemplatePa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +91,12 @@ func (c *ApiService) PageVerificationTemplate(params *ListVerificationTemplatePa
 
 // Lists VerificationTemplate records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVerificationTemplate(params *ListVerificationTemplateParams) ([]VerifyV2VerificationTemplate, error) {
-	response, errors := c.StreamVerificationTemplate(params)
+	return c.ListVerificationTemplateWithContext(context.TODO(), params)
+}
+
+// Lists VerificationTemplate records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListVerificationTemplateWithContext(ctx context.Context, params *ListVerificationTemplateParams) ([]VerifyV2VerificationTemplate, error) {
+	response, errors := c.StreamVerificationTemplateWithContext(ctx, params)
 
 	records := make([]VerifyV2VerificationTemplate, 0)
 	for record := range response {
@@ -101,6 +112,11 @@ func (c *ApiService) ListVerificationTemplate(params *ListVerificationTemplatePa
 
 // Streams VerificationTemplate records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamVerificationTemplate(params *ListVerificationTemplateParams) (chan VerifyV2VerificationTemplate, chan error) {
+	return c.StreamVerificationTemplateWithContext(context.TODO(), params)
+}
+
+// Streams VerificationTemplate records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamVerificationTemplateWithContext(ctx context.Context, params *ListVerificationTemplateParams) (chan VerifyV2VerificationTemplate, chan error) {
 	if params == nil {
 		params = &ListVerificationTemplateParams{}
 	}
@@ -109,19 +125,19 @@ func (c *ApiService) StreamVerificationTemplate(params *ListVerificationTemplate
 	recordChannel := make(chan VerifyV2VerificationTemplate, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageVerificationTemplate(params, "", "")
+	response, err := c.PageVerificationTemplateWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamVerificationTemplate(response, params, recordChannel, errorChannel)
+		go c.streamVerificationTemplateWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamVerificationTemplate(response *ListVerificationTemplateResponse, params *ListVerificationTemplateParams, recordChannel chan VerifyV2VerificationTemplate, errorChannel chan error) {
+func (c *ApiService) streamVerificationTemplateWithContext(ctx context.Context, response *ListVerificationTemplateResponse, params *ListVerificationTemplateParams, recordChannel chan VerifyV2VerificationTemplate, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -136,7 +152,7 @@ func (c *ApiService) streamVerificationTemplate(response *ListVerificationTempla
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListVerificationTemplateResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListVerificationTemplateResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -151,11 +167,11 @@ func (c *ApiService) streamVerificationTemplate(response *ListVerificationTempla
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListVerificationTemplateResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListVerificationTemplateResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

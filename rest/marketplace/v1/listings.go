@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -38,6 +39,9 @@ func (params *CreateModuleDataParams) SetConfiguration(Configuration string) *Cr
 
 // This endpoint creates a Listing based on the given data.
 func (c *ApiService) CreateModuleData(params *CreateModuleDataParams) (*MarketplaceV1ModuleDataManagement, error) {
+	return c.CreateModuleDataWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateModuleDataWithContext(ctx context.Context, params *CreateModuleDataParams) (*MarketplaceV1ModuleDataManagement, error) {
 	path := "/v1/Listings"
 
 	data := url.Values{}
@@ -52,7 +56,7 @@ func (c *ApiService) CreateModuleData(params *CreateModuleDataParams) (*Marketpl
 		data.Set("Configuration", *params.Configuration)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -69,6 +73,9 @@ func (c *ApiService) CreateModuleData(params *CreateModuleDataParams) (*Marketpl
 
 // This endpoint returns the Listings owned by the authenticated Account.
 func (c *ApiService) FetchModuleDataForListingOwner() (*FetchModuleDataForListingOwnerResponse, error) {
+	return c.FetchModuleDataForListingOwnerWithContext(context.TODO())
+}
+func (c *ApiService) FetchModuleDataForListingOwnerWithContext(ctx context.Context) (*FetchModuleDataForListingOwnerResponse, error) {
 	path := "/v1/Listings"
 
 	data := url.Values{}
@@ -76,7 +83,7 @@ func (c *ApiService) FetchModuleDataForListingOwner() (*FetchModuleDataForListin
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

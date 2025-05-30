@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -66,6 +67,9 @@ func (params *CreateAuthorizationDocumentParams) SetCcEmails(CcEmails []string) 
 
 // Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio's platform.
 func (c *ApiService) CreateAuthorizationDocument(params *CreateAuthorizationDocumentParams) (*NumbersV2AuthorizationDocument, error) {
+	return c.CreateAuthorizationDocumentWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateAuthorizationDocumentWithContext(ctx context.Context, params *CreateAuthorizationDocumentParams) (*NumbersV2AuthorizationDocument, error) {
 	path := "/v2/HostedNumber/AuthorizationDocuments"
 
 	data := url.Values{}
@@ -96,7 +100,7 @@ func (c *ApiService) CreateAuthorizationDocument(params *CreateAuthorizationDocu
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -113,6 +117,9 @@ func (c *ApiService) CreateAuthorizationDocument(params *CreateAuthorizationDocu
 
 // Cancel the AuthorizationDocument request.
 func (c *ApiService) DeleteAuthorizationDocument(Sid string) error {
+	return c.DeleteAuthorizationDocumentWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteAuthorizationDocumentWithContext(ctx context.Context, Sid string) error {
 	path := "/v2/HostedNumber/AuthorizationDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -121,7 +128,7 @@ func (c *ApiService) DeleteAuthorizationDocument(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -133,6 +140,9 @@ func (c *ApiService) DeleteAuthorizationDocument(Sid string) error {
 
 // Fetch a specific AuthorizationDocument.
 func (c *ApiService) FetchAuthorizationDocument(Sid string) (*NumbersV2AuthorizationDocument, error) {
+	return c.FetchAuthorizationDocumentWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchAuthorizationDocumentWithContext(ctx context.Context, Sid string) (*NumbersV2AuthorizationDocument, error) {
 	path := "/v2/HostedNumber/AuthorizationDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -141,7 +151,7 @@ func (c *ApiService) FetchAuthorizationDocument(Sid string) (*NumbersV2Authoriza
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -187,6 +197,11 @@ func (params *ListAuthorizationDocumentParams) SetLimit(Limit int) *ListAuthoriz
 
 // Retrieve a single page of AuthorizationDocument records from the API. Request is executed immediately.
 func (c *ApiService) PageAuthorizationDocument(params *ListAuthorizationDocumentParams, pageToken, pageNumber string) (*ListAuthorizationDocumentResponse, error) {
+	return c.PageAuthorizationDocumentWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of AuthorizationDocument records from the API. Request is executed immediately.
+func (c *ApiService) PageAuthorizationDocumentWithContext(ctx context.Context, params *ListAuthorizationDocumentParams, pageToken, pageNumber string) (*ListAuthorizationDocumentResponse, error) {
 	path := "/v2/HostedNumber/AuthorizationDocuments"
 
 	data := url.Values{}
@@ -211,7 +226,7 @@ func (c *ApiService) PageAuthorizationDocument(params *ListAuthorizationDocument
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -228,7 +243,12 @@ func (c *ApiService) PageAuthorizationDocument(params *ListAuthorizationDocument
 
 // Lists AuthorizationDocument records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAuthorizationDocument(params *ListAuthorizationDocumentParams) ([]NumbersV2AuthorizationDocument, error) {
-	response, errors := c.StreamAuthorizationDocument(params)
+	return c.ListAuthorizationDocumentWithContext(context.TODO(), params)
+}
+
+// Lists AuthorizationDocument records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAuthorizationDocumentWithContext(ctx context.Context, params *ListAuthorizationDocumentParams) ([]NumbersV2AuthorizationDocument, error) {
+	response, errors := c.StreamAuthorizationDocumentWithContext(ctx, params)
 
 	records := make([]NumbersV2AuthorizationDocument, 0)
 	for record := range response {
@@ -244,6 +264,11 @@ func (c *ApiService) ListAuthorizationDocument(params *ListAuthorizationDocument
 
 // Streams AuthorizationDocument records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAuthorizationDocument(params *ListAuthorizationDocumentParams) (chan NumbersV2AuthorizationDocument, chan error) {
+	return c.StreamAuthorizationDocumentWithContext(context.TODO(), params)
+}
+
+// Streams AuthorizationDocument records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAuthorizationDocumentWithContext(ctx context.Context, params *ListAuthorizationDocumentParams) (chan NumbersV2AuthorizationDocument, chan error) {
 	if params == nil {
 		params = &ListAuthorizationDocumentParams{}
 	}
@@ -252,19 +277,19 @@ func (c *ApiService) StreamAuthorizationDocument(params *ListAuthorizationDocume
 	recordChannel := make(chan NumbersV2AuthorizationDocument, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAuthorizationDocument(params, "", "")
+	response, err := c.PageAuthorizationDocumentWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAuthorizationDocument(response, params, recordChannel, errorChannel)
+		go c.streamAuthorizationDocumentWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAuthorizationDocument(response *ListAuthorizationDocumentResponse, params *ListAuthorizationDocumentParams, recordChannel chan NumbersV2AuthorizationDocument, errorChannel chan error) {
+func (c *ApiService) streamAuthorizationDocumentWithContext(ctx context.Context, response *ListAuthorizationDocumentResponse, params *ListAuthorizationDocumentParams, recordChannel chan NumbersV2AuthorizationDocument, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -279,7 +304,7 @@ func (c *ApiService) streamAuthorizationDocument(response *ListAuthorizationDocu
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAuthorizationDocumentResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListAuthorizationDocumentResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -294,11 +319,11 @@ func (c *ApiService) streamAuthorizationDocument(response *ListAuthorizationDocu
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAuthorizationDocumentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAuthorizationDocumentResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

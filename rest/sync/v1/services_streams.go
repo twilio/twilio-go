@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateSyncStreamParams) SetTtl(Ttl int) *CreateSyncStreamParams {
 
 // Create a new Stream.
 func (c *ApiService) CreateSyncStream(ServiceSid string, params *CreateSyncStreamParams) (*SyncV1SyncStream, error) {
+	return c.CreateSyncStreamWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateSyncStreamWithContext(ctx context.Context, ServiceSid string, params *CreateSyncStreamParams) (*SyncV1SyncStream, error) {
 	path := "/v1/Services/{ServiceSid}/Streams"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -57,7 +61,7 @@ func (c *ApiService) CreateSyncStream(ServiceSid string, params *CreateSyncStrea
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -74,6 +78,9 @@ func (c *ApiService) CreateSyncStream(ServiceSid string, params *CreateSyncStrea
 
 // Delete a specific Stream.
 func (c *ApiService) DeleteSyncStream(ServiceSid string, Sid string) error {
+	return c.DeleteSyncStreamWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) DeleteSyncStreamWithContext(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -83,7 +90,7 @@ func (c *ApiService) DeleteSyncStream(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -95,6 +102,9 @@ func (c *ApiService) DeleteSyncStream(ServiceSid string, Sid string) error {
 
 // Fetch a specific Stream.
 func (c *ApiService) FetchSyncStream(ServiceSid string, Sid string) (*SyncV1SyncStream, error) {
+	return c.FetchSyncStreamWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchSyncStreamWithContext(ctx context.Context, ServiceSid string, Sid string) (*SyncV1SyncStream, error) {
 	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -104,7 +114,7 @@ func (c *ApiService) FetchSyncStream(ServiceSid string, Sid string) (*SyncV1Sync
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +148,11 @@ func (params *ListSyncStreamParams) SetLimit(Limit int) *ListSyncStreamParams {
 
 // Retrieve a single page of SyncStream records from the API. Request is executed immediately.
 func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamParams, pageToken, pageNumber string) (*ListSyncStreamResponse, error) {
+	return c.PageSyncStreamWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SyncStream records from the API. Request is executed immediately.
+func (c *ApiService) PageSyncStreamWithContext(ctx context.Context, ServiceSid string, params *ListSyncStreamParams, pageToken, pageNumber string) (*ListSyncStreamResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Streams"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -158,7 +173,7 @@ func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamPar
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +190,12 @@ func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamPar
 
 // Lists SyncStream records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamParams) ([]SyncV1SyncStream, error) {
-	response, errors := c.StreamSyncStream(ServiceSid, params)
+	return c.ListSyncStreamWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists SyncStream records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncStreamWithContext(ctx context.Context, ServiceSid string, params *ListSyncStreamParams) ([]SyncV1SyncStream, error) {
+	response, errors := c.StreamSyncStreamWithContext(ctx, ServiceSid, params)
 
 	records := make([]SyncV1SyncStream, 0)
 	for record := range response {
@@ -191,6 +211,11 @@ func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamPar
 
 // Streams SyncStream records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamParams) (chan SyncV1SyncStream, chan error) {
+	return c.StreamSyncStreamWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams SyncStream records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncStreamWithContext(ctx context.Context, ServiceSid string, params *ListSyncStreamParams) (chan SyncV1SyncStream, chan error) {
 	if params == nil {
 		params = &ListSyncStreamParams{}
 	}
@@ -199,19 +224,19 @@ func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamP
 	recordChannel := make(chan SyncV1SyncStream, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSyncStream(ServiceSid, params, "", "")
+	response, err := c.PageSyncStreamWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSyncStream(response, params, recordChannel, errorChannel)
+		go c.streamSyncStreamWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSyncStream(response *ListSyncStreamResponse, params *ListSyncStreamParams, recordChannel chan SyncV1SyncStream, errorChannel chan error) {
+func (c *ApiService) streamSyncStreamWithContext(ctx context.Context, response *ListSyncStreamResponse, params *ListSyncStreamParams, recordChannel chan SyncV1SyncStream, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -226,7 +251,7 @@ func (c *ApiService) streamSyncStream(response *ListSyncStreamResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSyncStreamResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSyncStreamResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -241,11 +266,11 @@ func (c *ApiService) streamSyncStream(response *ListSyncStreamResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSyncStreamResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSyncStreamResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -272,6 +297,9 @@ func (params *UpdateSyncStreamParams) SetTtl(Ttl int) *UpdateSyncStreamParams {
 
 // Update a specific Stream.
 func (c *ApiService) UpdateSyncStream(ServiceSid string, Sid string, params *UpdateSyncStreamParams) (*SyncV1SyncStream, error) {
+	return c.UpdateSyncStreamWithContext(context.TODO(), ServiceSid, Sid, params)
+}
+func (c *ApiService) UpdateSyncStreamWithContext(ctx context.Context, ServiceSid string, Sid string, params *UpdateSyncStreamParams) (*SyncV1SyncStream, error) {
 	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -285,7 +313,7 @@ func (c *ApiService) UpdateSyncStream(ServiceSid string, Sid string, params *Upd
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

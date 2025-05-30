@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Fetch flex user for the given flex user sid
 func (c *ApiService) FetchFlexUser(InstanceSid string, FlexUserSid string) (*FlexV2FlexUser, error) {
+	return c.FetchFlexUserWithContext(context.TODO(), InstanceSid, FlexUserSid)
+}
+func (c *ApiService) FetchFlexUserWithContext(ctx context.Context, InstanceSid string, FlexUserSid string) (*FlexV2FlexUser, error) {
 	path := "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}"
 	path = strings.Replace(path, "{"+"InstanceSid"+"}", InstanceSid, -1)
 	path = strings.Replace(path, "{"+"FlexUserSid"+"}", FlexUserSid, -1)
@@ -31,7 +35,7 @@ func (c *ApiService) FetchFlexUser(InstanceSid string, FlexUserSid string) (*Fle
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -71,6 +75,9 @@ func (params *UpdateFlexUserParams) SetLocale(Locale string) *UpdateFlexUserPara
 
 // Update flex user for the given flex user sid
 func (c *ApiService) UpdateFlexUser(InstanceSid string, FlexUserSid string, params *UpdateFlexUserParams) (*FlexV2FlexUser, error) {
+	return c.UpdateFlexUserWithContext(context.TODO(), InstanceSid, FlexUserSid, params)
+}
+func (c *ApiService) UpdateFlexUserWithContext(ctx context.Context, InstanceSid string, FlexUserSid string, params *UpdateFlexUserParams) (*FlexV2FlexUser, error) {
 	path := "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}"
 	path = strings.Replace(path, "{"+"InstanceSid"+"}", InstanceSid, -1)
 	path = strings.Replace(path, "{"+"FlexUserSid"+"}", FlexUserSid, -1)
@@ -90,7 +97,7 @@ func (c *ApiService) UpdateFlexUser(InstanceSid string, FlexUserSid string, para
 		data.Set("Locale", *params.Locale)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

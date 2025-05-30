@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -23,8 +24,10 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
+	return c.DeleteBindingWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) DeleteBindingWithContext(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -34,7 +37,7 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -44,8 +47,10 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*IpMessagingV2Binding, error) {
+	return c.FetchBindingWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchBindingWithContext(ctx context.Context, ServiceSid string, Sid string) (*IpMessagingV2Binding, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -55,7 +60,7 @@ func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*IpMessagingV2
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -101,6 +106,11 @@ func (params *ListBindingParams) SetLimit(Limit int) *ListBindingParams {
 
 // Retrieve a single page of Binding records from the API. Request is executed immediately.
 func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, pageToken, pageNumber string) (*ListBindingResponse, error) {
+	return c.PageBindingWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Binding records from the API. Request is executed immediately.
+func (c *ApiService) PageBindingWithContext(ctx context.Context, ServiceSid string, params *ListBindingParams, pageToken, pageNumber string) (*ListBindingResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -131,7 +141,7 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -148,7 +158,12 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 
 // Lists Binding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) ([]IpMessagingV2Binding, error) {
-	response, errors := c.StreamBinding(ServiceSid, params)
+	return c.ListBindingWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists Binding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBindingWithContext(ctx context.Context, ServiceSid string, params *ListBindingParams) ([]IpMessagingV2Binding, error) {
+	response, errors := c.StreamBindingWithContext(ctx, ServiceSid, params)
 
 	records := make([]IpMessagingV2Binding, 0)
 	for record := range response {
@@ -164,6 +179,11 @@ func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) (
 
 // Streams Binding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams) (chan IpMessagingV2Binding, chan error) {
+	return c.StreamBindingWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams Binding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBindingWithContext(ctx context.Context, ServiceSid string, params *ListBindingParams) (chan IpMessagingV2Binding, chan error) {
 	if params == nil {
 		params = &ListBindingParams{}
 	}
@@ -172,19 +192,19 @@ func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams)
 	recordChannel := make(chan IpMessagingV2Binding, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageBinding(ServiceSid, params, "", "")
+	response, err := c.PageBindingWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamBinding(response, params, recordChannel, errorChannel)
+		go c.streamBindingWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBinding(response *ListBindingResponse, params *ListBindingParams, recordChannel chan IpMessagingV2Binding, errorChannel chan error) {
+func (c *ApiService) streamBindingWithContext(ctx context.Context, response *ListBindingResponse, params *ListBindingParams, recordChannel chan IpMessagingV2Binding, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -199,7 +219,7 @@ func (c *ApiService) streamBinding(response *ListBindingResponse, params *ListBi
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListBindingResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListBindingResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -214,11 +234,11 @@ func (c *ApiService) streamBinding(response *ListBindingResponse, params *ListBi
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListBindingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListBindingResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

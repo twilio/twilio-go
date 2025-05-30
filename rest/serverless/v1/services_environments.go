@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateEnvironmentParams) SetDomainSuffix(DomainSuffix string) *Cre
 
 // Create a new environment.
 func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironmentParams) (*ServerlessV1Environment, error) {
+	return c.CreateEnvironmentWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateEnvironmentWithContext(ctx context.Context, ServiceSid string, params *CreateEnvironmentParams) (*ServerlessV1Environment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -57,7 +61,7 @@ func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironm
 		data.Set("DomainSuffix", *params.DomainSuffix)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -74,6 +78,9 @@ func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironm
 
 // Delete a specific environment.
 func (c *ApiService) DeleteEnvironment(ServiceSid string, Sid string) error {
+	return c.DeleteEnvironmentWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) DeleteEnvironmentWithContext(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Environments/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -83,7 +90,7 @@ func (c *ApiService) DeleteEnvironment(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -95,6 +102,9 @@ func (c *ApiService) DeleteEnvironment(ServiceSid string, Sid string) error {
 
 // Retrieve a specific environment.
 func (c *ApiService) FetchEnvironment(ServiceSid string, Sid string) (*ServerlessV1Environment, error) {
+	return c.FetchEnvironmentWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchEnvironmentWithContext(ctx context.Context, ServiceSid string, Sid string) (*ServerlessV1Environment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -104,7 +114,7 @@ func (c *ApiService) FetchEnvironment(ServiceSid string, Sid string) (*Serverles
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +148,11 @@ func (params *ListEnvironmentParams) SetLimit(Limit int) *ListEnvironmentParams 
 
 // Retrieve a single page of Environment records from the API. Request is executed immediately.
 func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentParams, pageToken, pageNumber string) (*ListEnvironmentResponse, error) {
+	return c.PageEnvironmentWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Environment records from the API. Request is executed immediately.
+func (c *ApiService) PageEnvironmentWithContext(ctx context.Context, ServiceSid string, params *ListEnvironmentParams, pageToken, pageNumber string) (*ListEnvironmentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -158,7 +173,7 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +190,12 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 
 // Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams) ([]ServerlessV1Environment, error) {
-	response, errors := c.StreamEnvironment(ServiceSid, params)
+	return c.ListEnvironmentWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEnvironmentWithContext(ctx context.Context, ServiceSid string, params *ListEnvironmentParams) ([]ServerlessV1Environment, error) {
+	response, errors := c.StreamEnvironmentWithContext(ctx, ServiceSid, params)
 
 	records := make([]ServerlessV1Environment, 0)
 	for record := range response {
@@ -191,6 +211,11 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 
 // Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmentParams) (chan ServerlessV1Environment, chan error) {
+	return c.StreamEnvironmentWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEnvironmentWithContext(ctx context.Context, ServiceSid string, params *ListEnvironmentParams) (chan ServerlessV1Environment, chan error) {
 	if params == nil {
 		params = &ListEnvironmentParams{}
 	}
@@ -199,19 +224,19 @@ func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmen
 	recordChannel := make(chan ServerlessV1Environment, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEnvironment(ServiceSid, params, "", "")
+	response, err := c.PageEnvironmentWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEnvironment(response, params, recordChannel, errorChannel)
+		go c.streamEnvironmentWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEnvironment(response *ListEnvironmentResponse, params *ListEnvironmentParams, recordChannel chan ServerlessV1Environment, errorChannel chan error) {
+func (c *ApiService) streamEnvironmentWithContext(ctx context.Context, response *ListEnvironmentResponse, params *ListEnvironmentParams, recordChannel chan ServerlessV1Environment, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -226,7 +251,7 @@ func (c *ApiService) streamEnvironment(response *ListEnvironmentResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListEnvironmentResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListEnvironmentResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -241,11 +266,11 @@ func (c *ApiService) streamEnvironment(response *ListEnvironmentResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEnvironmentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEnvironmentResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

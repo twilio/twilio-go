@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -32,6 +33,9 @@ func (params *CreateInsightsSessionParams) SetAuthorization(Authorization string
 
 // To obtain session details for fetching reports and dashboards
 func (c *ApiService) CreateInsightsSession(params *CreateInsightsSessionParams) (*FlexV1InsightsSession, error) {
+	return c.CreateInsightsSessionWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateInsightsSessionWithContext(ctx context.Context, params *CreateInsightsSessionParams) (*FlexV1InsightsSession, error) {
 	path := "/v1/Insights/Session"
 
 	data := url.Values{}
@@ -42,7 +46,7 @@ func (c *ApiService) CreateInsightsSession(params *CreateInsightsSessionParams) 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

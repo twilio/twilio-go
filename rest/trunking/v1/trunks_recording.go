@@ -15,14 +15,17 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, error) {
+	return c.FetchRecordingWithContext(context.TODO(), TrunkSid)
+}
+func (c *ApiService) FetchRecordingWithContext(ctx context.Context, TrunkSid string) (*TrunkingV1Recording, error) {
 	path := "/v1/Trunks/{TrunkSid}/Recording"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -31,7 +34,7 @@ func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, erro
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -63,8 +66,10 @@ func (params *UpdateRecordingParams) SetTrim(Trim string) *UpdateRecordingParams
 	return params
 }
 
-//
 func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingParams) (*TrunkingV1Recording, error) {
+	return c.UpdateRecordingWithContext(context.TODO(), TrunkSid, params)
+}
+func (c *ApiService) UpdateRecordingWithContext(ctx context.Context, TrunkSid string, params *UpdateRecordingParams) (*TrunkingV1Recording, error) {
 	path := "/v1/Trunks/{TrunkSid}/Recording"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -80,7 +85,7 @@ func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingPar
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

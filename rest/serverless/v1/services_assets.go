@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *CreateAssetParams) SetFriendlyName(FriendlyName string) *CreateAss
 
 // Create a new Asset resource.
 func (c *ApiService) CreateAsset(ServiceSid string, params *CreateAssetParams) (*ServerlessV1Asset, error) {
+	return c.CreateAssetWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateAssetWithContext(ctx context.Context, ServiceSid string, params *CreateAssetParams) (*ServerlessV1Asset, error) {
 	path := "/v1/Services/{ServiceSid}/Assets"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -48,7 +52,7 @@ func (c *ApiService) CreateAsset(ServiceSid string, params *CreateAssetParams) (
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -65,6 +69,9 @@ func (c *ApiService) CreateAsset(ServiceSid string, params *CreateAssetParams) (
 
 // Delete an Asset resource.
 func (c *ApiService) DeleteAsset(ServiceSid string, Sid string) error {
+	return c.DeleteAssetWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) DeleteAssetWithContext(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -74,7 +81,7 @@ func (c *ApiService) DeleteAsset(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -86,6 +93,9 @@ func (c *ApiService) DeleteAsset(ServiceSid string, Sid string) error {
 
 // Retrieve a specific Asset resource.
 func (c *ApiService) FetchAsset(ServiceSid string, Sid string) (*ServerlessV1Asset, error) {
+	return c.FetchAssetWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchAssetWithContext(ctx context.Context, ServiceSid string, Sid string) (*ServerlessV1Asset, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -95,7 +105,7 @@ func (c *ApiService) FetchAsset(ServiceSid string, Sid string) (*ServerlessV1Ass
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -129,6 +139,11 @@ func (params *ListAssetParams) SetLimit(Limit int) *ListAssetParams {
 
 // Retrieve a single page of Asset records from the API. Request is executed immediately.
 func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageToken, pageNumber string) (*ListAssetResponse, error) {
+	return c.PageAssetWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Asset records from the API. Request is executed immediately.
+func (c *ApiService) PageAssetWithContext(ctx context.Context, ServiceSid string, params *ListAssetParams, pageToken, pageNumber string) (*ListAssetResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -149,7 +164,7 @@ func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageT
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +181,12 @@ func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageT
 
 // Lists Asset records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams) ([]ServerlessV1Asset, error) {
-	response, errors := c.StreamAsset(ServiceSid, params)
+	return c.ListAssetWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists Asset records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAssetWithContext(ctx context.Context, ServiceSid string, params *ListAssetParams) ([]ServerlessV1Asset, error) {
+	response, errors := c.StreamAssetWithContext(ctx, ServiceSid, params)
 
 	records := make([]ServerlessV1Asset, 0)
 	for record := range response {
@@ -182,6 +202,11 @@ func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams) ([]Se
 
 // Streams Asset records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams) (chan ServerlessV1Asset, chan error) {
+	return c.StreamAssetWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams Asset records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAssetWithContext(ctx context.Context, ServiceSid string, params *ListAssetParams) (chan ServerlessV1Asset, chan error) {
 	if params == nil {
 		params = &ListAssetParams{}
 	}
@@ -190,19 +215,19 @@ func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams) (ch
 	recordChannel := make(chan ServerlessV1Asset, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAsset(ServiceSid, params, "", "")
+	response, err := c.PageAssetWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAsset(response, params, recordChannel, errorChannel)
+		go c.streamAssetWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAsset(response *ListAssetResponse, params *ListAssetParams, recordChannel chan ServerlessV1Asset, errorChannel chan error) {
+func (c *ApiService) streamAssetWithContext(ctx context.Context, response *ListAssetResponse, params *ListAssetParams, recordChannel chan ServerlessV1Asset, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -217,7 +242,7 @@ func (c *ApiService) streamAsset(response *ListAssetResponse, params *ListAssetP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAssetResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListAssetResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -232,11 +257,11 @@ func (c *ApiService) streamAsset(response *ListAssetResponse, params *ListAssetP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAssetResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAssetResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -263,6 +288,9 @@ func (params *UpdateAssetParams) SetFriendlyName(FriendlyName string) *UpdateAss
 
 // Update a specific Asset resource.
 func (c *ApiService) UpdateAsset(ServiceSid string, Sid string, params *UpdateAssetParams) (*ServerlessV1Asset, error) {
+	return c.UpdateAssetWithContext(context.TODO(), ServiceSid, Sid, params)
+}
+func (c *ApiService) UpdateAssetWithContext(ctx context.Context, ServiceSid string, Sid string, params *UpdateAssetParams) (*ServerlessV1Asset, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -276,7 +304,7 @@ func (c *ApiService) UpdateAsset(ServiceSid string, Sid string, params *UpdateAs
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,9 @@ func (params *CreateEndUserParams) SetAttributes(Attributes map[string]interface
 
 // Create a new End User.
 func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2EndUser, error) {
+	return c.CreateEndUserWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateEndUserWithContext(ctx context.Context, params *CreateEndUserParams) (*NumbersV2EndUser, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
 	data := url.Values{}
@@ -71,7 +75,7 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2EndUs
 		data.Set("Attributes", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -88,6 +92,9 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2EndUs
 
 // Delete a specific End User.
 func (c *ApiService) DeleteEndUser(Sid string) error {
+	return c.DeleteEndUserWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteEndUserWithContext(ctx context.Context, Sid string) error {
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -96,7 +103,7 @@ func (c *ApiService) DeleteEndUser(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -108,6 +115,9 @@ func (c *ApiService) DeleteEndUser(Sid string) error {
 
 // Fetch specific End User Instance.
 func (c *ApiService) FetchEndUser(Sid string) (*NumbersV2EndUser, error) {
+	return c.FetchEndUserWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchEndUserWithContext(ctx context.Context, Sid string) (*NumbersV2EndUser, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -116,7 +126,7 @@ func (c *ApiService) FetchEndUser(Sid string) (*NumbersV2EndUser, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -150,6 +160,11 @@ func (params *ListEndUserParams) SetLimit(Limit int) *ListEndUserParams {
 
 // Retrieve a single page of EndUser records from the API. Request is executed immediately.
 func (c *ApiService) PageEndUser(params *ListEndUserParams, pageToken, pageNumber string) (*ListEndUserResponse, error) {
+	return c.PageEndUserWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of EndUser records from the API. Request is executed immediately.
+func (c *ApiService) PageEndUserWithContext(ctx context.Context, params *ListEndUserParams, pageToken, pageNumber string) (*ListEndUserResponse, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
 	data := url.Values{}
@@ -168,7 +183,7 @@ func (c *ApiService) PageEndUser(params *ListEndUserParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -185,7 +200,12 @@ func (c *ApiService) PageEndUser(params *ListEndUserParams, pageToken, pageNumbe
 
 // Lists EndUser records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEndUser(params *ListEndUserParams) ([]NumbersV2EndUser, error) {
-	response, errors := c.StreamEndUser(params)
+	return c.ListEndUserWithContext(context.TODO(), params)
+}
+
+// Lists EndUser records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEndUserWithContext(ctx context.Context, params *ListEndUserParams) ([]NumbersV2EndUser, error) {
+	response, errors := c.StreamEndUserWithContext(ctx, params)
 
 	records := make([]NumbersV2EndUser, 0)
 	for record := range response {
@@ -201,6 +221,11 @@ func (c *ApiService) ListEndUser(params *ListEndUserParams) ([]NumbersV2EndUser,
 
 // Streams EndUser records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan NumbersV2EndUser, chan error) {
+	return c.StreamEndUserWithContext(context.TODO(), params)
+}
+
+// Streams EndUser records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEndUserWithContext(ctx context.Context, params *ListEndUserParams) (chan NumbersV2EndUser, chan error) {
 	if params == nil {
 		params = &ListEndUserParams{}
 	}
@@ -209,19 +234,19 @@ func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan NumbersV2End
 	recordChannel := make(chan NumbersV2EndUser, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEndUser(params, "", "")
+	response, err := c.PageEndUserWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEndUser(response, params, recordChannel, errorChannel)
+		go c.streamEndUserWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEndUser(response *ListEndUserResponse, params *ListEndUserParams, recordChannel chan NumbersV2EndUser, errorChannel chan error) {
+func (c *ApiService) streamEndUserWithContext(ctx context.Context, response *ListEndUserResponse, params *ListEndUserParams, recordChannel chan NumbersV2EndUser, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -236,7 +261,7 @@ func (c *ApiService) streamEndUser(response *ListEndUserResponse, params *ListEn
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListEndUserResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListEndUserResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -251,11 +276,11 @@ func (c *ApiService) streamEndUser(response *ListEndUserResponse, params *ListEn
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEndUserResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEndUserResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -288,6 +313,9 @@ func (params *UpdateEndUserParams) SetAttributes(Attributes map[string]interface
 
 // Update an existing End User.
 func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*NumbersV2EndUser, error) {
+	return c.UpdateEndUserWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateEndUserWithContext(ctx context.Context, Sid string, params *UpdateEndUserParams) (*NumbersV2EndUser, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -309,7 +337,7 @@ func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*Nu
 		data.Set("Attributes", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

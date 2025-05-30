@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -34,8 +35,10 @@ func (params *CreatePhoneNumberParams) SetPhoneNumberSid(PhoneNumberSid string) 
 	return params
 }
 
-//
 func (c *ApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumberParams) (*TrunkingV1PhoneNumber, error) {
+	return c.CreatePhoneNumberWithContext(context.TODO(), TrunkSid, params)
+}
+func (c *ApiService) CreatePhoneNumberWithContext(ctx context.Context, TrunkSid string, params *CreatePhoneNumberParams) (*TrunkingV1PhoneNumber, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -48,7 +51,7 @@ func (c *ApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumbe
 		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -63,8 +66,10 @@ func (c *ApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumbe
 	return ps, err
 }
 
-//
 func (c *ApiService) DeletePhoneNumber(TrunkSid string, Sid string) error {
+	return c.DeletePhoneNumberWithContext(context.TODO(), TrunkSid, Sid)
+}
+func (c *ApiService) DeletePhoneNumberWithContext(ctx context.Context, TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -74,7 +79,7 @@ func (c *ApiService) DeletePhoneNumber(TrunkSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -84,8 +89,10 @@ func (c *ApiService) DeletePhoneNumber(TrunkSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*TrunkingV1PhoneNumber, error) {
+	return c.FetchPhoneNumberWithContext(context.TODO(), TrunkSid, Sid)
+}
+func (c *ApiService) FetchPhoneNumberWithContext(ctx context.Context, TrunkSid string, Sid string) (*TrunkingV1PhoneNumber, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -95,7 +102,7 @@ func (c *ApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*TrunkingV1P
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -129,6 +136,11 @@ func (params *ListPhoneNumberParams) SetLimit(Limit int) *ListPhoneNumberParams 
 
 // Retrieve a single page of PhoneNumber records from the API. Request is executed immediately.
 func (c *ApiService) PagePhoneNumber(TrunkSid string, params *ListPhoneNumberParams, pageToken, pageNumber string) (*ListPhoneNumberResponse, error) {
+	return c.PagePhoneNumberWithContext(context.TODO(), TrunkSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of PhoneNumber records from the API. Request is executed immediately.
+func (c *ApiService) PagePhoneNumberWithContext(ctx context.Context, TrunkSid string, params *ListPhoneNumberParams, pageToken, pageNumber string) (*ListPhoneNumberResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
 
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -149,7 +161,7 @@ func (c *ApiService) PagePhoneNumber(TrunkSid string, params *ListPhoneNumberPar
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +178,12 @@ func (c *ApiService) PagePhoneNumber(TrunkSid string, params *ListPhoneNumberPar
 
 // Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNumberParams) ([]TrunkingV1PhoneNumber, error) {
-	response, errors := c.StreamPhoneNumber(TrunkSid, params)
+	return c.ListPhoneNumberWithContext(context.TODO(), TrunkSid, params)
+}
+
+// Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPhoneNumberWithContext(ctx context.Context, TrunkSid string, params *ListPhoneNumberParams) ([]TrunkingV1PhoneNumber, error) {
+	response, errors := c.StreamPhoneNumberWithContext(ctx, TrunkSid, params)
 
 	records := make([]TrunkingV1PhoneNumber, 0)
 	for record := range response {
@@ -182,6 +199,11 @@ func (c *ApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNumberPar
 
 // Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamPhoneNumber(TrunkSid string, params *ListPhoneNumberParams) (chan TrunkingV1PhoneNumber, chan error) {
+	return c.StreamPhoneNumberWithContext(context.TODO(), TrunkSid, params)
+}
+
+// Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamPhoneNumberWithContext(ctx context.Context, TrunkSid string, params *ListPhoneNumberParams) (chan TrunkingV1PhoneNumber, chan error) {
 	if params == nil {
 		params = &ListPhoneNumberParams{}
 	}
@@ -190,19 +212,19 @@ func (c *ApiService) StreamPhoneNumber(TrunkSid string, params *ListPhoneNumberP
 	recordChannel := make(chan TrunkingV1PhoneNumber, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PagePhoneNumber(TrunkSid, params, "", "")
+	response, err := c.PagePhoneNumberWithContext(ctx, TrunkSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamPhoneNumber(response, params, recordChannel, errorChannel)
+		go c.streamPhoneNumberWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPhoneNumber(response *ListPhoneNumberResponse, params *ListPhoneNumberParams, recordChannel chan TrunkingV1PhoneNumber, errorChannel chan error) {
+func (c *ApiService) streamPhoneNumberWithContext(ctx context.Context, response *ListPhoneNumberResponse, params *ListPhoneNumberParams, recordChannel chan TrunkingV1PhoneNumber, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -217,7 +239,7 @@ func (c *ApiService) streamPhoneNumber(response *ListPhoneNumberResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListPhoneNumberResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListPhoneNumberResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -232,11 +254,11 @@ func (c *ApiService) streamPhoneNumber(response *ListPhoneNumberResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListPhoneNumberResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListPhoneNumberResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

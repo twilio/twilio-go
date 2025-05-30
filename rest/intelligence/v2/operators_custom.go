@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,9 @@ func (params *CreateCustomOperatorParams) SetConfig(Config map[string]interface{
 
 // Create a new Custom Operator for the given Account
 func (c *ApiService) CreateCustomOperator(params *CreateCustomOperatorParams) (*IntelligenceV2CustomOperator, error) {
+	return c.CreateCustomOperatorWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateCustomOperatorWithContext(ctx context.Context, params *CreateCustomOperatorParams) (*IntelligenceV2CustomOperator, error) {
 	path := "/v2/Operators/Custom"
 
 	data := url.Values{}
@@ -71,7 +75,7 @@ func (c *ApiService) CreateCustomOperator(params *CreateCustomOperatorParams) (*
 		data.Set("Config", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -88,6 +92,9 @@ func (c *ApiService) CreateCustomOperator(params *CreateCustomOperatorParams) (*
 
 // Delete a specific Custom Operator.
 func (c *ApiService) DeleteCustomOperator(Sid string) error {
+	return c.DeleteCustomOperatorWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteCustomOperatorWithContext(ctx context.Context, Sid string) error {
 	path := "/v2/Operators/Custom/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -96,7 +103,7 @@ func (c *ApiService) DeleteCustomOperator(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -108,6 +115,9 @@ func (c *ApiService) DeleteCustomOperator(Sid string) error {
 
 // Fetch a specific Custom Operator.
 func (c *ApiService) FetchCustomOperator(Sid string) (*IntelligenceV2CustomOperator, error) {
+	return c.FetchCustomOperatorWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchCustomOperatorWithContext(ctx context.Context, Sid string) (*IntelligenceV2CustomOperator, error) {
 	path := "/v2/Operators/Custom/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -116,7 +126,7 @@ func (c *ApiService) FetchCustomOperator(Sid string) (*IntelligenceV2CustomOpera
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -162,6 +172,11 @@ func (params *ListCustomOperatorParams) SetLimit(Limit int) *ListCustomOperatorP
 
 // Retrieve a single page of CustomOperator records from the API. Request is executed immediately.
 func (c *ApiService) PageCustomOperator(params *ListCustomOperatorParams, pageToken, pageNumber string) (*ListCustomOperatorResponse, error) {
+	return c.PageCustomOperatorWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of CustomOperator records from the API. Request is executed immediately.
+func (c *ApiService) PageCustomOperatorWithContext(ctx context.Context, params *ListCustomOperatorParams, pageToken, pageNumber string) (*ListCustomOperatorResponse, error) {
 	path := "/v2/Operators/Custom"
 
 	data := url.Values{}
@@ -186,7 +201,7 @@ func (c *ApiService) PageCustomOperator(params *ListCustomOperatorParams, pageTo
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +218,12 @@ func (c *ApiService) PageCustomOperator(params *ListCustomOperatorParams, pageTo
 
 // Lists CustomOperator records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomOperator(params *ListCustomOperatorParams) ([]IntelligenceV2CustomOperator, error) {
-	response, errors := c.StreamCustomOperator(params)
+	return c.ListCustomOperatorWithContext(context.TODO(), params)
+}
+
+// Lists CustomOperator records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomOperatorWithContext(ctx context.Context, params *ListCustomOperatorParams) ([]IntelligenceV2CustomOperator, error) {
+	response, errors := c.StreamCustomOperatorWithContext(ctx, params)
 
 	records := make([]IntelligenceV2CustomOperator, 0)
 	for record := range response {
@@ -219,6 +239,11 @@ func (c *ApiService) ListCustomOperator(params *ListCustomOperatorParams) ([]Int
 
 // Streams CustomOperator records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCustomOperator(params *ListCustomOperatorParams) (chan IntelligenceV2CustomOperator, chan error) {
+	return c.StreamCustomOperatorWithContext(context.TODO(), params)
+}
+
+// Streams CustomOperator records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomOperatorWithContext(ctx context.Context, params *ListCustomOperatorParams) (chan IntelligenceV2CustomOperator, chan error) {
 	if params == nil {
 		params = &ListCustomOperatorParams{}
 	}
@@ -227,19 +252,19 @@ func (c *ApiService) StreamCustomOperator(params *ListCustomOperatorParams) (cha
 	recordChannel := make(chan IntelligenceV2CustomOperator, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCustomOperator(params, "", "")
+	response, err := c.PageCustomOperatorWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCustomOperator(response, params, recordChannel, errorChannel)
+		go c.streamCustomOperatorWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCustomOperator(response *ListCustomOperatorResponse, params *ListCustomOperatorParams, recordChannel chan IntelligenceV2CustomOperator, errorChannel chan error) {
+func (c *ApiService) streamCustomOperatorWithContext(ctx context.Context, response *ListCustomOperatorResponse, params *ListCustomOperatorParams, recordChannel chan IntelligenceV2CustomOperator, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -254,7 +279,7 @@ func (c *ApiService) streamCustomOperator(response *ListCustomOperatorResponse, 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCustomOperatorResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListCustomOperatorResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -269,11 +294,11 @@ func (c *ApiService) streamCustomOperator(response *ListCustomOperatorResponse, 
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCustomOperatorResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCustomOperatorResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -312,6 +337,9 @@ func (params *UpdateCustomOperatorParams) SetConfig(Config map[string]interface{
 
 // Update a specific Custom Operator.
 func (c *ApiService) UpdateCustomOperator(Sid string, params *UpdateCustomOperatorParams) (*IntelligenceV2CustomOperator, error) {
+	return c.UpdateCustomOperatorWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateCustomOperatorWithContext(ctx context.Context, Sid string, params *UpdateCustomOperatorParams) (*IntelligenceV2CustomOperator, error) {
 	path := "/v2/Operators/Custom/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -336,7 +364,7 @@ func (c *ApiService) UpdateCustomOperator(Sid string, params *UpdateCustomOperat
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

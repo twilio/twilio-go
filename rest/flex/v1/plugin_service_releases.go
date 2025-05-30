@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -40,8 +41,10 @@ func (params *CreatePluginReleaseParams) SetConfigurationId(ConfigurationId stri
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginRelease(params *CreatePluginReleaseParams) (*FlexV1PluginRelease, error) {
+	return c.CreatePluginReleaseWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreatePluginReleaseWithContext(ctx context.Context, params *CreatePluginReleaseParams) (*FlexV1PluginRelease, error) {
 	path := "/v1/PluginService/Releases"
 
 	data := url.Values{}
@@ -56,7 +59,7 @@ func (c *ApiService) CreatePluginRelease(params *CreatePluginReleaseParams) (*Fl
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -82,8 +85,10 @@ func (params *FetchPluginReleaseParams) SetFlexMetadata(FlexMetadata string) *Fe
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginRelease(Sid string, params *FetchPluginReleaseParams) (*FlexV1PluginRelease, error) {
+	return c.FetchPluginReleaseWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) FetchPluginReleaseWithContext(ctx context.Context, Sid string, params *FetchPluginReleaseParams) (*FlexV1PluginRelease, error) {
 	path := "/v1/PluginService/Releases/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -95,7 +100,7 @@ func (c *ApiService) FetchPluginRelease(Sid string, params *FetchPluginReleasePa
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -135,6 +140,11 @@ func (params *ListPluginReleaseParams) SetLimit(Limit int) *ListPluginReleasePar
 
 // Retrieve a single page of PluginRelease records from the API. Request is executed immediately.
 func (c *ApiService) PagePluginRelease(params *ListPluginReleaseParams, pageToken, pageNumber string) (*ListPluginReleaseResponse, error) {
+	return c.PagePluginReleaseWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of PluginRelease records from the API. Request is executed immediately.
+func (c *ApiService) PagePluginReleaseWithContext(ctx context.Context, params *ListPluginReleaseParams, pageToken, pageNumber string) (*ListPluginReleaseResponse, error) {
 	path := "/v1/PluginService/Releases"
 
 	data := url.Values{}
@@ -153,7 +163,7 @@ func (c *ApiService) PagePluginRelease(params *ListPluginReleaseParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +180,12 @@ func (c *ApiService) PagePluginRelease(params *ListPluginReleaseParams, pageToke
 
 // Lists PluginRelease records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPluginRelease(params *ListPluginReleaseParams) ([]FlexV1PluginRelease, error) {
-	response, errors := c.StreamPluginRelease(params)
+	return c.ListPluginReleaseWithContext(context.TODO(), params)
+}
+
+// Lists PluginRelease records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPluginReleaseWithContext(ctx context.Context, params *ListPluginReleaseParams) ([]FlexV1PluginRelease, error) {
+	response, errors := c.StreamPluginReleaseWithContext(ctx, params)
 
 	records := make([]FlexV1PluginRelease, 0)
 	for record := range response {
@@ -186,6 +201,11 @@ func (c *ApiService) ListPluginRelease(params *ListPluginReleaseParams) ([]FlexV
 
 // Streams PluginRelease records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamPluginRelease(params *ListPluginReleaseParams) (chan FlexV1PluginRelease, chan error) {
+	return c.StreamPluginReleaseWithContext(context.TODO(), params)
+}
+
+// Streams PluginRelease records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamPluginReleaseWithContext(ctx context.Context, params *ListPluginReleaseParams) (chan FlexV1PluginRelease, chan error) {
 	if params == nil {
 		params = &ListPluginReleaseParams{}
 	}
@@ -194,19 +214,19 @@ func (c *ApiService) StreamPluginRelease(params *ListPluginReleaseParams) (chan 
 	recordChannel := make(chan FlexV1PluginRelease, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PagePluginRelease(params, "", "")
+	response, err := c.PagePluginReleaseWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamPluginRelease(response, params, recordChannel, errorChannel)
+		go c.streamPluginReleaseWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPluginRelease(response *ListPluginReleaseResponse, params *ListPluginReleaseParams, recordChannel chan FlexV1PluginRelease, errorChannel chan error) {
+func (c *ApiService) streamPluginReleaseWithContext(ctx context.Context, response *ListPluginReleaseResponse, params *ListPluginReleaseParams, recordChannel chan FlexV1PluginRelease, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -221,7 +241,7 @@ func (c *ApiService) streamPluginRelease(response *ListPluginReleaseResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListPluginReleaseResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListPluginReleaseResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -236,11 +256,11 @@ func (c *ApiService) streamPluginRelease(response *ListPluginReleaseResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListPluginReleaseResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListPluginReleaseResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

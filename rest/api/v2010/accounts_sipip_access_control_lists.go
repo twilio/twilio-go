@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateSipIpAccessControlListParams) SetFriendlyName(FriendlyName s
 
 // Create a new IpAccessControlList resource
 func (c *ApiService) CreateSipIpAccessControlList(params *CreateSipIpAccessControlListParams) (*ApiV2010SipIpAccessControlList, error) {
+	return c.CreateSipIpAccessControlListWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateSipIpAccessControlListWithContext(ctx context.Context, params *CreateSipIpAccessControlListParams) (*ApiV2010SipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -58,7 +62,7 @@ func (c *ApiService) CreateSipIpAccessControlList(params *CreateSipIpAccessContr
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -86,6 +90,9 @@ func (params *DeleteSipIpAccessControlListParams) SetPathAccountSid(PathAccountS
 
 // Delete an IpAccessControlList from the requested account
 func (c *ApiService) DeleteSipIpAccessControlList(Sid string, params *DeleteSipIpAccessControlListParams) error {
+	return c.DeleteSipIpAccessControlListWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) DeleteSipIpAccessControlListWithContext(ctx context.Context, Sid string, params *DeleteSipIpAccessControlListParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -99,7 +106,7 @@ func (c *ApiService) DeleteSipIpAccessControlList(Sid string, params *DeleteSipI
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -122,6 +129,9 @@ func (params *FetchSipIpAccessControlListParams) SetPathAccountSid(PathAccountSi
 
 // Fetch a specific instance of an IpAccessControlList
 func (c *ApiService) FetchSipIpAccessControlList(Sid string, params *FetchSipIpAccessControlListParams) (*ApiV2010SipIpAccessControlList, error) {
+	return c.FetchSipIpAccessControlListWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) FetchSipIpAccessControlListWithContext(ctx context.Context, Sid string, params *FetchSipIpAccessControlListParams) (*ApiV2010SipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -135,7 +145,7 @@ func (c *ApiService) FetchSipIpAccessControlList(Sid string, params *FetchSipIpA
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -175,6 +185,11 @@ func (params *ListSipIpAccessControlListParams) SetLimit(Limit int) *ListSipIpAc
 
 // Retrieve a single page of SipIpAccessControlList records from the API. Request is executed immediately.
 func (c *ApiService) PageSipIpAccessControlList(params *ListSipIpAccessControlListParams, pageToken, pageNumber string) (*ListSipIpAccessControlListResponse, error) {
+	return c.PageSipIpAccessControlListWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SipIpAccessControlList records from the API. Request is executed immediately.
+func (c *ApiService) PageSipIpAccessControlListWithContext(ctx context.Context, params *ListSipIpAccessControlListParams, pageToken, pageNumber string) (*ListSipIpAccessControlListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -199,7 +214,7 @@ func (c *ApiService) PageSipIpAccessControlList(params *ListSipIpAccessControlLi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -216,7 +231,12 @@ func (c *ApiService) PageSipIpAccessControlList(params *ListSipIpAccessControlLi
 
 // Lists SipIpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipIpAccessControlList(params *ListSipIpAccessControlListParams) ([]ApiV2010SipIpAccessControlList, error) {
-	response, errors := c.StreamSipIpAccessControlList(params)
+	return c.ListSipIpAccessControlListWithContext(context.TODO(), params)
+}
+
+// Lists SipIpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSipIpAccessControlListWithContext(ctx context.Context, params *ListSipIpAccessControlListParams) ([]ApiV2010SipIpAccessControlList, error) {
+	response, errors := c.StreamSipIpAccessControlListWithContext(ctx, params)
 
 	records := make([]ApiV2010SipIpAccessControlList, 0)
 	for record := range response {
@@ -232,6 +252,11 @@ func (c *ApiService) ListSipIpAccessControlList(params *ListSipIpAccessControlLi
 
 // Streams SipIpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSipIpAccessControlList(params *ListSipIpAccessControlListParams) (chan ApiV2010SipIpAccessControlList, chan error) {
+	return c.StreamSipIpAccessControlListWithContext(context.TODO(), params)
+}
+
+// Streams SipIpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSipIpAccessControlListWithContext(ctx context.Context, params *ListSipIpAccessControlListParams) (chan ApiV2010SipIpAccessControlList, chan error) {
 	if params == nil {
 		params = &ListSipIpAccessControlListParams{}
 	}
@@ -240,19 +265,19 @@ func (c *ApiService) StreamSipIpAccessControlList(params *ListSipIpAccessControl
 	recordChannel := make(chan ApiV2010SipIpAccessControlList, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSipIpAccessControlList(params, "", "")
+	response, err := c.PageSipIpAccessControlListWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSipIpAccessControlList(response, params, recordChannel, errorChannel)
+		go c.streamSipIpAccessControlListWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipIpAccessControlList(response *ListSipIpAccessControlListResponse, params *ListSipIpAccessControlListParams, recordChannel chan ApiV2010SipIpAccessControlList, errorChannel chan error) {
+func (c *ApiService) streamSipIpAccessControlListWithContext(ctx context.Context, response *ListSipIpAccessControlListResponse, params *ListSipIpAccessControlListParams, recordChannel chan ApiV2010SipIpAccessControlList, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -267,7 +292,7 @@ func (c *ApiService) streamSipIpAccessControlList(response *ListSipIpAccessContr
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSipIpAccessControlListResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSipIpAccessControlListResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -282,11 +307,11 @@ func (c *ApiService) streamSipIpAccessControlList(response *ListSipIpAccessContr
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipIpAccessControlListResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSipIpAccessControlListResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -319,6 +344,9 @@ func (params *UpdateSipIpAccessControlListParams) SetFriendlyName(FriendlyName s
 
 // Rename an IpAccessControlList
 func (c *ApiService) UpdateSipIpAccessControlList(Sid string, params *UpdateSipIpAccessControlListParams) (*ApiV2010SipIpAccessControlList, error) {
+	return c.UpdateSipIpAccessControlListWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateSipIpAccessControlListWithContext(ctx context.Context, Sid string, params *UpdateSipIpAccessControlListParams) (*ApiV2010SipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -336,7 +364,7 @@ func (c *ApiService) UpdateSipIpAccessControlList(Sid string, params *UpdateSipI
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

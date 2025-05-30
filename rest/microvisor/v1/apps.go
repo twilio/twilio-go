@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Delete a specific App.
 func (c *ApiService) DeleteApp(Sid string) error {
+	return c.DeleteAppWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteAppWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Apps/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) DeleteApp(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -45,6 +49,9 @@ func (c *ApiService) DeleteApp(Sid string) error {
 
 // Fetch a specific App.
 func (c *ApiService) FetchApp(Sid string) (*MicrovisorV1App, error) {
+	return c.FetchAppWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchAppWithContext(ctx context.Context, Sid string) (*MicrovisorV1App, error) {
 	path := "/v1/Apps/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -53,7 +60,7 @@ func (c *ApiService) FetchApp(Sid string) (*MicrovisorV1App, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -87,6 +94,11 @@ func (params *ListAppParams) SetLimit(Limit int) *ListAppParams {
 
 // Retrieve a single page of App records from the API. Request is executed immediately.
 func (c *ApiService) PageApp(params *ListAppParams, pageToken, pageNumber string) (*ListAppResponse, error) {
+	return c.PageAppWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of App records from the API. Request is executed immediately.
+func (c *ApiService) PageAppWithContext(ctx context.Context, params *ListAppParams, pageToken, pageNumber string) (*ListAppResponse, error) {
 	path := "/v1/Apps"
 
 	data := url.Values{}
@@ -105,7 +117,7 @@ func (c *ApiService) PageApp(params *ListAppParams, pageToken, pageNumber string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +134,12 @@ func (c *ApiService) PageApp(params *ListAppParams, pageToken, pageNumber string
 
 // Lists App records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListApp(params *ListAppParams) ([]MicrovisorV1App, error) {
-	response, errors := c.StreamApp(params)
+	return c.ListAppWithContext(context.TODO(), params)
+}
+
+// Lists App records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAppWithContext(ctx context.Context, params *ListAppParams) ([]MicrovisorV1App, error) {
+	response, errors := c.StreamAppWithContext(ctx, params)
 
 	records := make([]MicrovisorV1App, 0)
 	for record := range response {
@@ -138,6 +155,11 @@ func (c *ApiService) ListApp(params *ListAppParams) ([]MicrovisorV1App, error) {
 
 // Streams App records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamApp(params *ListAppParams) (chan MicrovisorV1App, chan error) {
+	return c.StreamAppWithContext(context.TODO(), params)
+}
+
+// Streams App records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAppWithContext(ctx context.Context, params *ListAppParams) (chan MicrovisorV1App, chan error) {
 	if params == nil {
 		params = &ListAppParams{}
 	}
@@ -146,19 +168,19 @@ func (c *ApiService) StreamApp(params *ListAppParams) (chan MicrovisorV1App, cha
 	recordChannel := make(chan MicrovisorV1App, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageApp(params, "", "")
+	response, err := c.PageAppWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamApp(response, params, recordChannel, errorChannel)
+		go c.streamAppWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamApp(response *ListAppResponse, params *ListAppParams, recordChannel chan MicrovisorV1App, errorChannel chan error) {
+func (c *ApiService) streamAppWithContext(ctx context.Context, response *ListAppResponse, params *ListAppParams, recordChannel chan MicrovisorV1App, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -173,7 +195,7 @@ func (c *ApiService) streamApp(response *ListAppResponse, params *ListAppParams,
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAppResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListAppResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -188,11 +210,11 @@ func (c *ApiService) streamApp(response *ListAppResponse, params *ListAppParams,
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAppResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAppResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Fetch flow test users
 func (c *ApiService) FetchTestUser(Sid string) (*StudioV2TestUser, error) {
+	return c.FetchTestUserWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchTestUserWithContext(ctx context.Context, Sid string) (*StudioV2TestUser, error) {
 	path := "/v2/Flows/{Sid}/TestUsers"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -30,7 +34,7 @@ func (c *ApiService) FetchTestUser(Sid string) (*StudioV2TestUser, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -58,6 +62,9 @@ func (params *UpdateTestUserParams) SetTestUsers(TestUsers []string) *UpdateTest
 
 // Update flow test users
 func (c *ApiService) UpdateTestUser(Sid string, params *UpdateTestUserParams) (*StudioV2TestUser, error) {
+	return c.UpdateTestUserWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateTestUserWithContext(ctx context.Context, Sid string, params *UpdateTestUserParams) (*StudioV2TestUser, error) {
 	path := "/v2/Flows/{Sid}/TestUsers"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -72,7 +79,7 @@ func (c *ApiService) UpdateTestUser(Sid string, params *UpdateTestUserParams) (*
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

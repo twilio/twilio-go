@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Get knowledge status
 func (c *ApiService) FetchKnowledgeStatus(Id string) (*KnowledgeV1KnowledgeStatus, error) {
+	return c.FetchKnowledgeStatusWithContext(context.TODO(), Id)
+}
+func (c *ApiService) FetchKnowledgeStatusWithContext(ctx context.Context, Id string) (*KnowledgeV1KnowledgeStatus, error) {
 	path := "/v1/Knowledge/{id}/Status"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -30,7 +34,7 @@ func (c *ApiService) FetchKnowledgeStatus(Id string) (*KnowledgeV1KnowledgeStatu
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

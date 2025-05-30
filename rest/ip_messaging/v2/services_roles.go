@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -46,8 +47,10 @@ func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRolePa
 	return params
 }
 
-//
 func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*IpMessagingV2Role, error) {
+	return c.CreateRoleWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateRoleWithContext(ctx context.Context, ServiceSid string, params *CreateRoleParams) (*IpMessagingV2Role, error) {
 	path := "/v2/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -68,7 +71,7 @@ func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*I
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -83,8 +86,10 @@ func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*I
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
+	return c.DeleteRoleWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) DeleteRoleWithContext(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -94,7 +99,7 @@ func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -104,8 +109,10 @@ func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV2Role, error) {
+	return c.FetchRoleWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchRoleWithContext(ctx context.Context, ServiceSid string, Sid string) (*IpMessagingV2Role, error) {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -115,7 +122,7 @@ func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV2Rol
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -149,6 +156,11 @@ func (params *ListRoleParams) SetLimit(Limit int) *ListRoleParams {
 
 // Retrieve a single page of Role records from the API. Request is executed immediately.
 func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageToken, pageNumber string) (*ListRoleResponse, error) {
+	return c.PageRoleWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Role records from the API. Request is executed immediately.
+func (c *ApiService) PageRoleWithContext(ctx context.Context, ServiceSid string, params *ListRoleParams, pageToken, pageNumber string) (*ListRoleResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Roles"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -169,7 +181,7 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -186,7 +198,12 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 
 // Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]IpMessagingV2Role, error) {
-	response, errors := c.StreamRole(ServiceSid, params)
+	return c.ListRoleWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoleWithContext(ctx context.Context, ServiceSid string, params *ListRoleParams) ([]IpMessagingV2Role, error) {
+	response, errors := c.StreamRoleWithContext(ctx, ServiceSid, params)
 
 	records := make([]IpMessagingV2Role, 0)
 	for record := range response {
@@ -202,6 +219,11 @@ func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]IpMe
 
 // Streams Role records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan IpMessagingV2Role, chan error) {
+	return c.StreamRoleWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams Role records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoleWithContext(ctx context.Context, ServiceSid string, params *ListRoleParams) (chan IpMessagingV2Role, chan error) {
 	if params == nil {
 		params = &ListRoleParams{}
 	}
@@ -210,19 +232,19 @@ func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan
 	recordChannel := make(chan IpMessagingV2Role, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRole(ServiceSid, params, "", "")
+	response, err := c.PageRoleWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRole(response, params, recordChannel, errorChannel)
+		go c.streamRoleWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRole(response *ListRoleResponse, params *ListRoleParams, recordChannel chan IpMessagingV2Role, errorChannel chan error) {
+func (c *ApiService) streamRoleWithContext(ctx context.Context, response *ListRoleResponse, params *ListRoleParams, recordChannel chan IpMessagingV2Role, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -237,7 +259,7 @@ func (c *ApiService) streamRole(response *ListRoleResponse, params *ListRolePara
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRoleResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListRoleResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -252,11 +274,11 @@ func (c *ApiService) streamRole(response *ListRoleResponse, params *ListRolePara
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRoleResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRoleResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -281,8 +303,10 @@ func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRolePa
 	return params
 }
 
-//
 func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*IpMessagingV2Role, error) {
+	return c.UpdateRoleWithContext(context.TODO(), ServiceSid, Sid, params)
+}
+func (c *ApiService) UpdateRoleWithContext(ctx context.Context, ServiceSid string, Sid string, params *UpdateRoleParams) (*IpMessagingV2Role, error) {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -298,7 +322,7 @@ func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRol
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

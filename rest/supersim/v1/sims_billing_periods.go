@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *ListBillingPeriodParams) SetLimit(Limit int) *ListBillingPeriodPar
 
 // Retrieve a single page of BillingPeriod records from the API. Request is executed immediately.
 func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodParams, pageToken, pageNumber string) (*ListBillingPeriodResponse, error) {
+	return c.PageBillingPeriodWithContext(context.TODO(), SimSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of BillingPeriod records from the API. Request is executed immediately.
+func (c *ApiService) PageBillingPeriodWithContext(ctx context.Context, SimSid string, params *ListBillingPeriodParams, pageToken, pageNumber string) (*ListBillingPeriodResponse, error) {
 	path := "/v1/Sims/{SimSid}/BillingPeriods"
 
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
@@ -62,7 +68,7 @@ func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +85,12 @@ func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodP
 
 // Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams) ([]SupersimV1BillingPeriod, error) {
-	response, errors := c.StreamBillingPeriod(SimSid, params)
+	return c.ListBillingPeriodWithContext(context.TODO(), SimSid, params)
+}
+
+// Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBillingPeriodWithContext(ctx context.Context, SimSid string, params *ListBillingPeriodParams) ([]SupersimV1BillingPeriod, error) {
+	response, errors := c.StreamBillingPeriodWithContext(ctx, SimSid, params)
 
 	records := make([]SupersimV1BillingPeriod, 0)
 	for record := range response {
@@ -95,6 +106,11 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 
 // Streams BillingPeriod records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPeriodParams) (chan SupersimV1BillingPeriod, chan error) {
+	return c.StreamBillingPeriodWithContext(context.TODO(), SimSid, params)
+}
+
+// Streams BillingPeriod records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBillingPeriodWithContext(ctx context.Context, SimSid string, params *ListBillingPeriodParams) (chan SupersimV1BillingPeriod, chan error) {
 	if params == nil {
 		params = &ListBillingPeriodParams{}
 	}
@@ -103,19 +119,19 @@ func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPerio
 	recordChannel := make(chan SupersimV1BillingPeriod, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageBillingPeriod(SimSid, params, "", "")
+	response, err := c.PageBillingPeriodWithContext(ctx, SimSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamBillingPeriod(response, params, recordChannel, errorChannel)
+		go c.streamBillingPeriodWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamBillingPeriod(response *ListBillingPeriodResponse, params *ListBillingPeriodParams, recordChannel chan SupersimV1BillingPeriod, errorChannel chan error) {
+func (c *ApiService) streamBillingPeriodWithContext(ctx context.Context, response *ListBillingPeriodResponse, params *ListBillingPeriodParams, recordChannel chan SupersimV1BillingPeriod, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -130,7 +146,7 @@ func (c *ApiService) streamBillingPeriod(response *ListBillingPeriodResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListBillingPeriodResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListBillingPeriodResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -145,11 +161,11 @@ func (c *ApiService) streamBillingPeriod(response *ListBillingPeriodResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListBillingPeriodResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListBillingPeriodResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

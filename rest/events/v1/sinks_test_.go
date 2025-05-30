@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Create a new Sink Test Event for the given Sink.
 func (c *ApiService) CreateSinkTest(Sid string) (*EventsV1SinkTest, error) {
+	return c.CreateSinkTestWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) CreateSinkTestWithContext(ctx context.Context, Sid string) (*EventsV1SinkTest, error) {
 	path := "/v1/Sinks/{Sid}/Test"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -30,7 +34,7 @@ func (c *ApiService) CreateSinkTest(Sid string) (*EventsV1SinkTest, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

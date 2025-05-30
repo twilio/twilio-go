@@ -12,9 +12,9 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-func NewRequestHandler(accountSid string, authToken string) *client.RequestHandlerWithContext {
+func NewRequestHandler(accountSid string, authToken string) *client.RequestHandler {
 	c := NewClient(accountSid, authToken)
-	return client.NewRequestHandlerWithContext(c)
+	return client.NewRequestHandler(c)
 }
 
 func TestRequestHandler_BuildUrlSetRegion(t *testing.T) {
@@ -63,7 +63,7 @@ func TestRequestHandler_BuildUrlInvalidCTLCharacter(t *testing.T) {
 	assert.Equal(t, parsedURL, "")
 }
 
-func assertAndGetURL(t *testing.T, requestHandler *client.RequestHandlerWithContext, rawURL string) string {
+func assertAndGetURL(t *testing.T, requestHandler *client.RequestHandler, rawURL string) string {
 	parsedURL, err := requestHandler.BuildUrl(rawURL)
 	assert.Nil(t, err)
 	return parsedURL
