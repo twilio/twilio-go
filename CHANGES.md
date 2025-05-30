@@ -1,5 +1,20 @@
 twilio-go changelog
 ====================
+[2025-05-29] Version 1.26.2
+---------------------------
+**Library - Chore**
+- [PR #289](https://github.com/twilio/twilio-go/pull/289): add mocking for Oauth. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Added several usage category enums to `usage_record` API
+
+**Numbers**
+- Update the porting documentation
+
+**Verify**
+- Update `ienum` type for Channels in Verify Attempts API
+
+
 [2025-05-13] Version 1.26.1
 ---------------------------
 **Library - Docs**
