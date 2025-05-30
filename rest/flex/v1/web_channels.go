@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -64,8 +65,10 @@ func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData str
 	return params
 }
 
-//
 func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
+	return c.CreateWebChannelWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateWebChannelWithContext(ctx context.Context, params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels"
 
 	data := url.Values{}
@@ -92,7 +95,7 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1We
 		data.Set("PreEngagementData", *params.PreEngagementData)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -107,8 +110,10 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1We
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWebChannel(Sid string) error {
+	return c.DeleteWebChannelWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteWebChannelWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -117,7 +122,7 @@ func (c *ApiService) DeleteWebChannel(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -127,8 +132,10 @@ func (c *ApiService) DeleteWebChannel(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
+	return c.FetchWebChannelWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchWebChannelWithContext(ctx context.Context, Sid string) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -137,7 +144,7 @@ func (c *ApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -171,6 +178,11 @@ func (params *ListWebChannelParams) SetLimit(Limit int) *ListWebChannelParams {
 
 // Retrieve a single page of WebChannel records from the API. Request is executed immediately.
 func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken, pageNumber string) (*ListWebChannelResponse, error) {
+	return c.PageWebChannelWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of WebChannel records from the API. Request is executed immediately.
+func (c *ApiService) PageWebChannelWithContext(ctx context.Context, params *ListWebChannelParams, pageToken, pageNumber string) (*ListWebChannelResponse, error) {
 	path := "/v1/WebChannels"
 
 	data := url.Values{}
@@ -189,7 +201,7 @@ func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +218,12 @@ func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken, pag
 
 // Lists WebChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWebChannel(params *ListWebChannelParams) ([]FlexV1WebChannel, error) {
-	response, errors := c.StreamWebChannel(params)
+	return c.ListWebChannelWithContext(context.TODO(), params)
+}
+
+// Lists WebChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWebChannelWithContext(ctx context.Context, params *ListWebChannelParams) ([]FlexV1WebChannel, error) {
+	response, errors := c.StreamWebChannelWithContext(ctx, params)
 
 	records := make([]FlexV1WebChannel, 0)
 	for record := range response {
@@ -222,6 +239,11 @@ func (c *ApiService) ListWebChannel(params *ListWebChannelParams) ([]FlexV1WebCh
 
 // Streams WebChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWebChannel(params *ListWebChannelParams) (chan FlexV1WebChannel, chan error) {
+	return c.StreamWebChannelWithContext(context.TODO(), params)
+}
+
+// Streams WebChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWebChannelWithContext(ctx context.Context, params *ListWebChannelParams) (chan FlexV1WebChannel, chan error) {
 	if params == nil {
 		params = &ListWebChannelParams{}
 	}
@@ -230,19 +252,19 @@ func (c *ApiService) StreamWebChannel(params *ListWebChannelParams) (chan FlexV1
 	recordChannel := make(chan FlexV1WebChannel, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageWebChannel(params, "", "")
+	response, err := c.PageWebChannelWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamWebChannel(response, params, recordChannel, errorChannel)
+		go c.streamWebChannelWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamWebChannel(response *ListWebChannelResponse, params *ListWebChannelParams, recordChannel chan FlexV1WebChannel, errorChannel chan error) {
+func (c *ApiService) streamWebChannelWithContext(ctx context.Context, response *ListWebChannelResponse, params *ListWebChannelParams, recordChannel chan FlexV1WebChannel, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -257,7 +279,7 @@ func (c *ApiService) streamWebChannel(response *ListWebChannelResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListWebChannelResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListWebChannelResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -272,11 +294,11 @@ func (c *ApiService) streamWebChannel(response *ListWebChannelResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListWebChannelResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListWebChannelResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -307,8 +329,10 @@ func (params *UpdateWebChannelParams) SetPostEngagementData(PostEngagementData s
 	return params
 }
 
-//
 func (c *ApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
+	return c.UpdateWebChannelWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateWebChannelWithContext(ctx context.Context, Sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -324,7 +348,7 @@ func (c *ApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams
 		data.Set("PostEngagementData", *params.PostEngagementData)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

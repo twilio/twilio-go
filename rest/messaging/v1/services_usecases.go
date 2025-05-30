@@ -15,12 +15,15 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
 
-//
 func (c *ApiService) FetchUsecase() (*MessagingV1Usecase, error) {
+	return c.FetchUsecaseWithContext(context.TODO())
+}
+func (c *ApiService) FetchUsecaseWithContext(ctx context.Context) (*MessagingV1Usecase, error) {
 	path := "/v1/Services/Usecases"
 
 	data := url.Values{}
@@ -28,7 +31,7 @@ func (c *ApiService) FetchUsecase() (*MessagingV1Usecase, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

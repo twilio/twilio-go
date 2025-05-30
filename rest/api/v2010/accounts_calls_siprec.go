@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -1252,6 +1253,9 @@ func (params *CreateSiprecParams) SetParameter99Value(Parameter99Value string) *
 
 // Create a Siprec
 func (c *ApiService) CreateSiprec(CallSid string, params *CreateSiprecParams) (*ApiV2010Siprec, error) {
+	return c.CreateSiprecWithContext(context.TODO(), CallSid, params)
+}
+func (c *ApiService) CreateSiprecWithContext(ctx context.Context, CallSid string, params *CreateSiprecParams) (*ApiV2010Siprec, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -1875,7 +1879,7 @@ func (c *ApiService) CreateSiprec(CallSid string, params *CreateSiprecParams) (*
 		data.Set("Parameter99.Value", *params.Parameter99Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1909,6 +1913,9 @@ func (params *UpdateSiprecParams) SetStatus(Status string) *UpdateSiprecParams {
 
 // Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource
 func (c *ApiService) UpdateSiprec(CallSid string, Sid string, params *UpdateSiprecParams) (*ApiV2010Siprec, error) {
+	return c.UpdateSiprecWithContext(context.TODO(), CallSid, Sid, params)
+}
+func (c *ApiService) UpdateSiprecWithContext(ctx context.Context, CallSid string, Sid string, params *UpdateSiprecParams) (*ApiV2010Siprec, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -1927,7 +1934,7 @@ func (c *ApiService) UpdateSiprec(CallSid string, Sid string, params *UpdateSipr
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

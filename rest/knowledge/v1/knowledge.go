@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *CreateKnowledgeParams) SetKnowledgeV1CreateKnowledgeRequest(Knowle
 
 // Create knowledge
 func (c *ApiService) CreateKnowledge(params *CreateKnowledgeParams) (*KnowledgeV1Knowledge, error) {
+	return c.CreateKnowledgeWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateKnowledgeWithContext(ctx context.Context, params *CreateKnowledgeParams) (*KnowledgeV1Knowledge, error) {
 	path := "/v1/Knowledge"
 
 	data := url.Values{}
@@ -52,7 +56,7 @@ func (c *ApiService) CreateKnowledge(params *CreateKnowledgeParams) (*KnowledgeV
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,6 +73,9 @@ func (c *ApiService) CreateKnowledge(params *CreateKnowledgeParams) (*KnowledgeV
 
 // Delete knowledge
 func (c *ApiService) DeleteKnowledge(Id string) error {
+	return c.DeleteKnowledgeWithContext(context.TODO(), Id)
+}
+func (c *ApiService) DeleteKnowledgeWithContext(ctx context.Context, Id string) error {
 	path := "/v1/Knowledge/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -77,7 +84,7 @@ func (c *ApiService) DeleteKnowledge(Id string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -89,6 +96,9 @@ func (c *ApiService) DeleteKnowledge(Id string) error {
 
 // Get knowledge
 func (c *ApiService) FetchKnowledge(Id string) (*KnowledgeV1Knowledge, error) {
+	return c.FetchKnowledgeWithContext(context.TODO(), Id)
+}
+func (c *ApiService) FetchKnowledgeWithContext(ctx context.Context, Id string) (*KnowledgeV1Knowledge, error) {
 	path := "/v1/Knowledge/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -97,7 +107,7 @@ func (c *ApiService) FetchKnowledge(Id string) (*KnowledgeV1Knowledge, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -131,6 +141,11 @@ func (params *ListKnowledgeParams) SetLimit(Limit int) *ListKnowledgeParams {
 
 // Retrieve a single page of Knowledge records from the API. Request is executed immediately.
 func (c *ApiService) PageKnowledge(params *ListKnowledgeParams, pageToken, pageNumber string) (*ListKnowledgeResponse, error) {
+	return c.PageKnowledgeWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Knowledge records from the API. Request is executed immediately.
+func (c *ApiService) PageKnowledgeWithContext(ctx context.Context, params *ListKnowledgeParams, pageToken, pageNumber string) (*ListKnowledgeResponse, error) {
 	path := "/v1/Knowledge"
 
 	data := url.Values{}
@@ -149,7 +164,7 @@ func (c *ApiService) PageKnowledge(params *ListKnowledgeParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +181,12 @@ func (c *ApiService) PageKnowledge(params *ListKnowledgeParams, pageToken, pageN
 
 // Lists Knowledge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListKnowledge(params *ListKnowledgeParams) ([]ListKnowledgeResponseKnowledge, error) {
-	response, errors := c.StreamKnowledge(params)
+	return c.ListKnowledgeWithContext(context.TODO(), params)
+}
+
+// Lists Knowledge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListKnowledgeWithContext(ctx context.Context, params *ListKnowledgeParams) ([]ListKnowledgeResponseKnowledge, error) {
+	response, errors := c.StreamKnowledgeWithContext(ctx, params)
 
 	records := make([]ListKnowledgeResponseKnowledge, 0)
 	for record := range response {
@@ -182,6 +202,11 @@ func (c *ApiService) ListKnowledge(params *ListKnowledgeParams) ([]ListKnowledge
 
 // Streams Knowledge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamKnowledge(params *ListKnowledgeParams) (chan ListKnowledgeResponseKnowledge, chan error) {
+	return c.StreamKnowledgeWithContext(context.TODO(), params)
+}
+
+// Streams Knowledge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamKnowledgeWithContext(ctx context.Context, params *ListKnowledgeParams) (chan ListKnowledgeResponseKnowledge, chan error) {
 	if params == nil {
 		params = &ListKnowledgeParams{}
 	}
@@ -190,19 +215,19 @@ func (c *ApiService) StreamKnowledge(params *ListKnowledgeParams) (chan ListKnow
 	recordChannel := make(chan ListKnowledgeResponseKnowledge, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageKnowledge(params, "", "")
+	response, err := c.PageKnowledgeWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamKnowledge(response, params, recordChannel, errorChannel)
+		go c.streamKnowledgeWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamKnowledge(response *ListKnowledgeResponse, params *ListKnowledgeParams, recordChannel chan ListKnowledgeResponseKnowledge, errorChannel chan error) {
+func (c *ApiService) streamKnowledgeWithContext(ctx context.Context, response *ListKnowledgeResponse, params *ListKnowledgeParams, recordChannel chan ListKnowledgeResponseKnowledge, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -217,7 +242,7 @@ func (c *ApiService) streamKnowledge(response *ListKnowledgeResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListKnowledgeResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListKnowledgeResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -232,11 +257,11 @@ func (c *ApiService) streamKnowledge(response *ListKnowledgeResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListKnowledgeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListKnowledgeResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -263,6 +288,9 @@ func (params *UpdateKnowledgeParams) SetKnowledgeV1UpdateKnowledgeRequest(Knowle
 
 // Update knowledge
 func (c *ApiService) UpdateKnowledge(Id string, params *UpdateKnowledgeParams) (*KnowledgeV1Knowledge, error) {
+	return c.UpdateKnowledgeWithContext(context.TODO(), Id, params)
+}
+func (c *ApiService) UpdateKnowledgeWithContext(ctx context.Context, Id string, params *UpdateKnowledgeParams) (*KnowledgeV1Knowledge, error) {
 	path := "/v1/Knowledge/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -280,7 +308,7 @@ func (c *ApiService) UpdateKnowledge(Id string, params *UpdateKnowledgeParams) (
 		body = b
 	}
 
-	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PutWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

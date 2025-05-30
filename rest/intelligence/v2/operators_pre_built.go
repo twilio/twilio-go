@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch a specific Pre-built Operator.
 func (c *ApiService) FetchPrebuiltOperator(Sid string) (*IntelligenceV2PrebuiltOperator, error) {
+	return c.FetchPrebuiltOperatorWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchPrebuiltOperatorWithContext(ctx context.Context, Sid string) (*IntelligenceV2PrebuiltOperator, error) {
 	path := "/v2/Operators/PreBuilt/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) FetchPrebuiltOperator(Sid string) (*IntelligenceV2PrebuiltO
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -79,6 +83,11 @@ func (params *ListPrebuiltOperatorParams) SetLimit(Limit int) *ListPrebuiltOpera
 
 // Retrieve a single page of PrebuiltOperator records from the API. Request is executed immediately.
 func (c *ApiService) PagePrebuiltOperator(params *ListPrebuiltOperatorParams, pageToken, pageNumber string) (*ListPrebuiltOperatorResponse, error) {
+	return c.PagePrebuiltOperatorWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of PrebuiltOperator records from the API. Request is executed immediately.
+func (c *ApiService) PagePrebuiltOperatorWithContext(ctx context.Context, params *ListPrebuiltOperatorParams, pageToken, pageNumber string) (*ListPrebuiltOperatorResponse, error) {
 	path := "/v2/Operators/PreBuilt"
 
 	data := url.Values{}
@@ -103,7 +112,7 @@ func (c *ApiService) PagePrebuiltOperator(params *ListPrebuiltOperatorParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +129,12 @@ func (c *ApiService) PagePrebuiltOperator(params *ListPrebuiltOperatorParams, pa
 
 // Lists PrebuiltOperator records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPrebuiltOperator(params *ListPrebuiltOperatorParams) ([]IntelligenceV2PrebuiltOperator, error) {
-	response, errors := c.StreamPrebuiltOperator(params)
+	return c.ListPrebuiltOperatorWithContext(context.TODO(), params)
+}
+
+// Lists PrebuiltOperator records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPrebuiltOperatorWithContext(ctx context.Context, params *ListPrebuiltOperatorParams) ([]IntelligenceV2PrebuiltOperator, error) {
+	response, errors := c.StreamPrebuiltOperatorWithContext(ctx, params)
 
 	records := make([]IntelligenceV2PrebuiltOperator, 0)
 	for record := range response {
@@ -136,6 +150,11 @@ func (c *ApiService) ListPrebuiltOperator(params *ListPrebuiltOperatorParams) ([
 
 // Streams PrebuiltOperator records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamPrebuiltOperator(params *ListPrebuiltOperatorParams) (chan IntelligenceV2PrebuiltOperator, chan error) {
+	return c.StreamPrebuiltOperatorWithContext(context.TODO(), params)
+}
+
+// Streams PrebuiltOperator records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamPrebuiltOperatorWithContext(ctx context.Context, params *ListPrebuiltOperatorParams) (chan IntelligenceV2PrebuiltOperator, chan error) {
 	if params == nil {
 		params = &ListPrebuiltOperatorParams{}
 	}
@@ -144,19 +163,19 @@ func (c *ApiService) StreamPrebuiltOperator(params *ListPrebuiltOperatorParams) 
 	recordChannel := make(chan IntelligenceV2PrebuiltOperator, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PagePrebuiltOperator(params, "", "")
+	response, err := c.PagePrebuiltOperatorWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamPrebuiltOperator(response, params, recordChannel, errorChannel)
+		go c.streamPrebuiltOperatorWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPrebuiltOperator(response *ListPrebuiltOperatorResponse, params *ListPrebuiltOperatorParams, recordChannel chan IntelligenceV2PrebuiltOperator, errorChannel chan error) {
+func (c *ApiService) streamPrebuiltOperatorWithContext(ctx context.Context, response *ListPrebuiltOperatorResponse, params *ListPrebuiltOperatorParams, recordChannel chan IntelligenceV2PrebuiltOperator, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -171,7 +190,7 @@ func (c *ApiService) streamPrebuiltOperator(response *ListPrebuiltOperatorRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListPrebuiltOperatorResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListPrebuiltOperatorResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -186,11 +205,11 @@ func (c *ApiService) streamPrebuiltOperator(response *ListPrebuiltOperatorRespon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListPrebuiltOperatorResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListPrebuiltOperatorResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

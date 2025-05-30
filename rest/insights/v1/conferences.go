@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Get a specific Conference Summary.
 func (c *ApiService) FetchConference(ConferenceSid string) (*InsightsV1Conference, error) {
+	return c.FetchConferenceWithContext(context.TODO(), ConferenceSid)
+}
+func (c *ApiService) FetchConferenceWithContext(ctx context.Context, ConferenceSid string) (*InsightsV1Conference, error) {
 	path := "/v1/Conferences/{ConferenceSid}"
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) FetchConference(ConferenceSid string) (*InsightsV1Conferenc
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -127,6 +131,11 @@ func (params *ListConferenceParams) SetLimit(Limit int) *ListConferenceParams {
 
 // Retrieve a single page of Conference records from the API. Request is executed immediately.
 func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pageNumber string) (*ListConferenceResponse, error) {
+	return c.PageConferenceWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Conference records from the API. Request is executed immediately.
+func (c *ApiService) PageConferenceWithContext(ctx context.Context, params *ListConferenceParams, pageToken, pageNumber string) (*ListConferenceResponse, error) {
 	path := "/v1/Conferences"
 
 	data := url.Values{}
@@ -175,7 +184,7 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -192,7 +201,12 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pag
 
 // Lists Conference records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConference(params *ListConferenceParams) ([]InsightsV1Conference, error) {
-	response, errors := c.StreamConference(params)
+	return c.ListConferenceWithContext(context.TODO(), params)
+}
+
+// Lists Conference records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConferenceWithContext(ctx context.Context, params *ListConferenceParams) ([]InsightsV1Conference, error) {
+	response, errors := c.StreamConferenceWithContext(ctx, params)
 
 	records := make([]InsightsV1Conference, 0)
 	for record := range response {
@@ -208,6 +222,11 @@ func (c *ApiService) ListConference(params *ListConferenceParams) ([]InsightsV1C
 
 // Streams Conference records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConference(params *ListConferenceParams) (chan InsightsV1Conference, chan error) {
+	return c.StreamConferenceWithContext(context.TODO(), params)
+}
+
+// Streams Conference records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConferenceWithContext(ctx context.Context, params *ListConferenceParams) (chan InsightsV1Conference, chan error) {
 	if params == nil {
 		params = &ListConferenceParams{}
 	}
@@ -216,19 +235,19 @@ func (c *ApiService) StreamConference(params *ListConferenceParams) (chan Insigh
 	recordChannel := make(chan InsightsV1Conference, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageConference(params, "", "")
+	response, err := c.PageConferenceWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConference(response, params, recordChannel, errorChannel)
+		go c.streamConferenceWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConference(response *ListConferenceResponse, params *ListConferenceParams, recordChannel chan InsightsV1Conference, errorChannel chan error) {
+func (c *ApiService) streamConferenceWithContext(ctx context.Context, response *ListConferenceResponse, params *ListConferenceParams, recordChannel chan InsightsV1Conference, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -243,7 +262,7 @@ func (c *ApiService) streamConference(response *ListConferenceResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListConferenceResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListConferenceResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -258,11 +277,11 @@ func (c *ApiService) streamConference(response *ListConferenceResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListConferenceResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListConferenceResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -72,6 +73,11 @@ func (params *ListUsageRecordLastMonthParams) SetLimit(Limit int) *ListUsageReco
 
 // Retrieve a single page of UsageRecordLastMonth records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthParams, pageToken, pageNumber string) (*ListUsageRecordLastMonthResponse, error) {
+	return c.PageUsageRecordLastMonthWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of UsageRecordLastMonth records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecordLastMonthWithContext(ctx context.Context, params *ListUsageRecordLastMonthParams, pageToken, pageNumber string) (*ListUsageRecordLastMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -108,7 +114,7 @@ func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +131,12 @@ func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 
 // Lists UsageRecordLastMonth records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) ([]ApiV2010UsageRecordLastMonth, error) {
-	response, errors := c.StreamUsageRecordLastMonth(params)
+	return c.ListUsageRecordLastMonthWithContext(context.TODO(), params)
+}
+
+// Lists UsageRecordLastMonth records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordLastMonthWithContext(ctx context.Context, params *ListUsageRecordLastMonthParams) ([]ApiV2010UsageRecordLastMonth, error) {
+	response, errors := c.StreamUsageRecordLastMonthWithContext(ctx, params)
 
 	records := make([]ApiV2010UsageRecordLastMonth, 0)
 	for record := range response {
@@ -141,6 +152,11 @@ func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 
 // Streams UsageRecordLastMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) (chan ApiV2010UsageRecordLastMonth, chan error) {
+	return c.StreamUsageRecordLastMonthWithContext(context.TODO(), params)
+}
+
+// Streams UsageRecordLastMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordLastMonthWithContext(ctx context.Context, params *ListUsageRecordLastMonthParams) (chan ApiV2010UsageRecordLastMonth, chan error) {
 	if params == nil {
 		params = &ListUsageRecordLastMonthParams{}
 	}
@@ -149,19 +165,19 @@ func (c *ApiService) StreamUsageRecordLastMonth(params *ListUsageRecordLastMonth
 	recordChannel := make(chan ApiV2010UsageRecordLastMonth, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUsageRecordLastMonth(params, "", "")
+	response, err := c.PageUsageRecordLastMonthWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUsageRecordLastMonth(response, params, recordChannel, errorChannel)
+		go c.streamUsageRecordLastMonthWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordLastMonth(response *ListUsageRecordLastMonthResponse, params *ListUsageRecordLastMonthParams, recordChannel chan ApiV2010UsageRecordLastMonth, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordLastMonthWithContext(ctx context.Context, response *ListUsageRecordLastMonthResponse, params *ListUsageRecordLastMonthParams, recordChannel chan ApiV2010UsageRecordLastMonth, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -176,7 +192,7 @@ func (c *ApiService) streamUsageRecordLastMonth(response *ListUsageRecordLastMon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordLastMonthResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListUsageRecordLastMonthResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -191,11 +207,11 @@ func (c *ApiService) streamUsageRecordLastMonth(response *ListUsageRecordLastMon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordLastMonthResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordLastMonthResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

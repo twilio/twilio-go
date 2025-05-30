@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *CreateAssistantParams) SetAssistantsV1CreateAssistantRequest(Assis
 
 // create an assistant
 func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*AssistantsV1Assistant, error) {
+	return c.CreateAssistantWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateAssistantWithContext(ctx context.Context, params *CreateAssistantParams) (*AssistantsV1Assistant, error) {
 	path := "/v1/Assistants"
 
 	data := url.Values{}
@@ -52,7 +56,7 @@ func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*Assistants
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,6 +73,9 @@ func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*Assistants
 
 // delete an assistant
 func (c *ApiService) DeleteAssistant(Id string) error {
+	return c.DeleteAssistantWithContext(context.TODO(), Id)
+}
+func (c *ApiService) DeleteAssistantWithContext(ctx context.Context, Id string) error {
 	path := "/v1/Assistants/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -77,7 +84,7 @@ func (c *ApiService) DeleteAssistant(Id string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -89,6 +96,9 @@ func (c *ApiService) DeleteAssistant(Id string) error {
 
 // get an assistant
 func (c *ApiService) FetchAssistant(Id string) (*AssistantsV1AssistantWithToolsAndKnowledge, error) {
+	return c.FetchAssistantWithContext(context.TODO(), Id)
+}
+func (c *ApiService) FetchAssistantWithContext(ctx context.Context, Id string) (*AssistantsV1AssistantWithToolsAndKnowledge, error) {
 	path := "/v1/Assistants/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -97,7 +107,7 @@ func (c *ApiService) FetchAssistant(Id string) (*AssistantsV1AssistantWithToolsA
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -131,6 +141,11 @@ func (params *ListAssistantsParams) SetLimit(Limit int) *ListAssistantsParams {
 
 // Retrieve a single page of Assistants records from the API. Request is executed immediately.
 func (c *ApiService) PageAssistants(params *ListAssistantsParams, pageToken, pageNumber string) (*ListAssistantResponse, error) {
+	return c.PageAssistantsWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Assistants records from the API. Request is executed immediately.
+func (c *ApiService) PageAssistantsWithContext(ctx context.Context, params *ListAssistantsParams, pageToken, pageNumber string) (*ListAssistantResponse, error) {
 	path := "/v1/Assistants"
 
 	data := url.Values{}
@@ -149,7 +164,7 @@ func (c *ApiService) PageAssistants(params *ListAssistantsParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +181,12 @@ func (c *ApiService) PageAssistants(params *ListAssistantsParams, pageToken, pag
 
 // Lists Assistants records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAssistants(params *ListAssistantsParams) ([]AssistantsV1Assistant, error) {
-	response, errors := c.StreamAssistants(params)
+	return c.ListAssistantsWithContext(context.TODO(), params)
+}
+
+// Lists Assistants records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAssistantsWithContext(ctx context.Context, params *ListAssistantsParams) ([]AssistantsV1Assistant, error) {
+	response, errors := c.StreamAssistantsWithContext(ctx, params)
 
 	records := make([]AssistantsV1Assistant, 0)
 	for record := range response {
@@ -182,6 +202,11 @@ func (c *ApiService) ListAssistants(params *ListAssistantsParams) ([]AssistantsV
 
 // Streams Assistants records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAssistants(params *ListAssistantsParams) (chan AssistantsV1Assistant, chan error) {
+	return c.StreamAssistantsWithContext(context.TODO(), params)
+}
+
+// Streams Assistants records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAssistantsWithContext(ctx context.Context, params *ListAssistantsParams) (chan AssistantsV1Assistant, chan error) {
 	if params == nil {
 		params = &ListAssistantsParams{}
 	}
@@ -190,19 +215,19 @@ func (c *ApiService) StreamAssistants(params *ListAssistantsParams) (chan Assist
 	recordChannel := make(chan AssistantsV1Assistant, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAssistants(params, "", "")
+	response, err := c.PageAssistantsWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAssistants(response, params, recordChannel, errorChannel)
+		go c.streamAssistantsWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAssistants(response *ListAssistantResponse, params *ListAssistantsParams, recordChannel chan AssistantsV1Assistant, errorChannel chan error) {
+func (c *ApiService) streamAssistantsWithContext(ctx context.Context, response *ListAssistantResponse, params *ListAssistantsParams, recordChannel chan AssistantsV1Assistant, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -217,7 +242,7 @@ func (c *ApiService) streamAssistants(response *ListAssistantResponse, params *L
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAssistantResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListAssistantResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -232,11 +257,11 @@ func (c *ApiService) streamAssistants(response *ListAssistantResponse, params *L
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAssistantResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAssistantResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -263,6 +288,9 @@ func (params *UpdateAssistantParams) SetAssistantsV1UpdateAssistantRequest(Assis
 
 // update an assistant
 func (c *ApiService) UpdateAssistant(Id string, params *UpdateAssistantParams) (*AssistantsV1Assistant, error) {
+	return c.UpdateAssistantWithContext(context.TODO(), Id, params)
+}
+func (c *ApiService) UpdateAssistantWithContext(ctx context.Context, Id string, params *UpdateAssistantParams) (*AssistantsV1Assistant, error) {
 	path := "/v1/Assistants/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -280,7 +308,7 @@ func (c *ApiService) UpdateAssistant(Id string, params *UpdateAssistantParams) (
 		body = b
 	}
 
-	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PutWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

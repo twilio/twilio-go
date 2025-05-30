@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch a specific Supporting Document Type Instance.
 func (c *ApiService) FetchSupportingDocumentType(Sid string) (*TrusthubV1SupportingDocumentType, error) {
+	return c.FetchSupportingDocumentTypeWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchSupportingDocumentTypeWithContext(ctx context.Context, Sid string) (*TrusthubV1SupportingDocumentType, error) {
 	path := "/v1/SupportingDocumentTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) FetchSupportingDocumentType(Sid string) (*TrusthubV1Support
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +71,11 @@ func (params *ListSupportingDocumentTypeParams) SetLimit(Limit int) *ListSupport
 
 // Retrieve a single page of SupportingDocumentType records from the API. Request is executed immediately.
 func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTypeParams, pageToken, pageNumber string) (*ListSupportingDocumentTypeResponse, error) {
+	return c.PageSupportingDocumentTypeWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SupportingDocumentType records from the API. Request is executed immediately.
+func (c *ApiService) PageSupportingDocumentTypeWithContext(ctx context.Context, params *ListSupportingDocumentTypeParams, pageToken, pageNumber string) (*ListSupportingDocumentTypeResponse, error) {
 	path := "/v1/SupportingDocumentTypes"
 
 	data := url.Values{}
@@ -85,7 +94,7 @@ func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTy
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +111,12 @@ func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTy
 
 // Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) ([]TrusthubV1SupportingDocumentType, error) {
-	response, errors := c.StreamSupportingDocumentType(params)
+	return c.ListSupportingDocumentTypeWithContext(context.TODO(), params)
+}
+
+// Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSupportingDocumentTypeWithContext(ctx context.Context, params *ListSupportingDocumentTypeParams) ([]TrusthubV1SupportingDocumentType, error) {
+	response, errors := c.StreamSupportingDocumentTypeWithContext(ctx, params)
 
 	records := make([]TrusthubV1SupportingDocumentType, 0)
 	for record := range response {
@@ -118,6 +132,11 @@ func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTy
 
 // Streams SupportingDocumentType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocumentTypeParams) (chan TrusthubV1SupportingDocumentType, chan error) {
+	return c.StreamSupportingDocumentTypeWithContext(context.TODO(), params)
+}
+
+// Streams SupportingDocumentType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSupportingDocumentTypeWithContext(ctx context.Context, params *ListSupportingDocumentTypeParams) (chan TrusthubV1SupportingDocumentType, chan error) {
 	if params == nil {
 		params = &ListSupportingDocumentTypeParams{}
 	}
@@ -126,19 +145,19 @@ func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocument
 	recordChannel := make(chan TrusthubV1SupportingDocumentType, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSupportingDocumentType(params, "", "")
+	response, err := c.PageSupportingDocumentTypeWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSupportingDocumentType(response, params, recordChannel, errorChannel)
+		go c.streamSupportingDocumentTypeWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSupportingDocumentType(response *ListSupportingDocumentTypeResponse, params *ListSupportingDocumentTypeParams, recordChannel chan TrusthubV1SupportingDocumentType, errorChannel chan error) {
+func (c *ApiService) streamSupportingDocumentTypeWithContext(ctx context.Context, response *ListSupportingDocumentTypeResponse, params *ListSupportingDocumentTypeParams, recordChannel chan TrusthubV1SupportingDocumentType, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -153,7 +172,7 @@ func (c *ApiService) streamSupportingDocumentType(response *ListSupportingDocume
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSupportingDocumentTypeResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSupportingDocumentTypeResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -168,11 +187,11 @@ func (c *ApiService) streamSupportingDocumentType(response *ListSupportingDocume
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSupportingDocumentTypeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSupportingDocumentTypeResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

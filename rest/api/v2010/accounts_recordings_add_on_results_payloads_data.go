@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *FetchRecordingAddOnResultPayloadDataParams) SetPathAccountSid(Path
 
 // Fetch an instance of a result payload
 func (c *ApiService) FetchRecordingAddOnResultPayloadData(ReferenceSid string, AddOnResultSid string, PayloadSid string, params *FetchRecordingAddOnResultPayloadDataParams) (*ApiV2010RecordingAddOnResultPayloadData, error) {
+	return c.FetchRecordingAddOnResultPayloadDataWithContext(context.TODO(), ReferenceSid, AddOnResultSid, PayloadSid, params)
+}
+func (c *ApiService) FetchRecordingAddOnResultPayloadDataWithContext(ctx context.Context, ReferenceSid string, AddOnResultSid string, PayloadSid string, params *FetchRecordingAddOnResultPayloadDataParams) (*ApiV2010RecordingAddOnResultPayloadData, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -48,7 +52,7 @@ func (c *ApiService) FetchRecordingAddOnResultPayloadData(ReferenceSid string, A
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

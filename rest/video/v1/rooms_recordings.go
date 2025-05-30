@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -24,8 +25,10 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string) error {
+	return c.DeleteRoomRecordingWithContext(context.TODO(), RoomSid, Sid)
+}
+func (c *ApiService) DeleteRoomRecordingWithContext(ctx context.Context, RoomSid string, Sid string) error {
 	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -35,7 +38,7 @@ func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -45,8 +48,10 @@ func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchRoomRecording(RoomSid string, Sid string) (*VideoV1RoomRecording, error) {
+	return c.FetchRoomRecordingWithContext(context.TODO(), RoomSid, Sid)
+}
+func (c *ApiService) FetchRoomRecordingWithContext(ctx context.Context, RoomSid string, Sid string) (*VideoV1RoomRecording, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -56,7 +61,7 @@ func (c *ApiService) FetchRoomRecording(RoomSid string, Sid string) (*VideoV1Roo
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -114,6 +119,11 @@ func (params *ListRoomRecordingParams) SetLimit(Limit int) *ListRoomRecordingPar
 
 // Retrieve a single page of RoomRecording records from the API. Request is executed immediately.
 func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecordingParams, pageToken, pageNumber string) (*ListRoomRecordingResponse, error) {
+	return c.PageRoomRecordingWithContext(context.TODO(), RoomSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of RoomRecording records from the API. Request is executed immediately.
+func (c *ApiService) PageRoomRecordingWithContext(ctx context.Context, RoomSid string, params *ListRoomRecordingParams, pageToken, pageNumber string) (*ListRoomRecordingResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -146,7 +156,7 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +173,12 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 
 // Lists RoomRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams) ([]VideoV1RoomRecording, error) {
-	response, errors := c.StreamRoomRecording(RoomSid, params)
+	return c.ListRoomRecordingWithContext(context.TODO(), RoomSid, params)
+}
+
+// Lists RoomRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoomRecordingWithContext(ctx context.Context, RoomSid string, params *ListRoomRecordingParams) ([]VideoV1RoomRecording, error) {
+	response, errors := c.StreamRoomRecordingWithContext(ctx, RoomSid, params)
 
 	records := make([]VideoV1RoomRecording, 0)
 	for record := range response {
@@ -179,6 +194,11 @@ func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecording
 
 // Streams RoomRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordingParams) (chan VideoV1RoomRecording, chan error) {
+	return c.StreamRoomRecordingWithContext(context.TODO(), RoomSid, params)
+}
+
+// Streams RoomRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoomRecordingWithContext(ctx context.Context, RoomSid string, params *ListRoomRecordingParams) (chan VideoV1RoomRecording, chan error) {
 	if params == nil {
 		params = &ListRoomRecordingParams{}
 	}
@@ -187,19 +207,19 @@ func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordi
 	recordChannel := make(chan VideoV1RoomRecording, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRoomRecording(RoomSid, params, "", "")
+	response, err := c.PageRoomRecordingWithContext(ctx, RoomSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRoomRecording(response, params, recordChannel, errorChannel)
+		go c.streamRoomRecordingWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRoomRecording(response *ListRoomRecordingResponse, params *ListRoomRecordingParams, recordChannel chan VideoV1RoomRecording, errorChannel chan error) {
+func (c *ApiService) streamRoomRecordingWithContext(ctx context.Context, response *ListRoomRecordingResponse, params *ListRoomRecordingParams, recordChannel chan VideoV1RoomRecording, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -214,7 +234,7 @@ func (c *ApiService) streamRoomRecording(response *ListRoomRecordingResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRoomRecordingResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListRoomRecordingResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -229,11 +249,11 @@ func (c *ApiService) streamRoomRecording(response *ListRoomRecordingResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRoomRecordingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRoomRecordingResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

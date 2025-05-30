@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -156,6 +157,11 @@ func (params *ListAvailablePhoneNumberMachineToMachineParams) SetLimit(Limit int
 
 // Retrieve a single page of AvailablePhoneNumberMachineToMachine records from the API. Request is executed immediately.
 func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
+	return c.PageAvailablePhoneNumberMachineToMachineWithContext(context.TODO(), CountryCode, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of AvailablePhoneNumberMachineToMachine records from the API. Request is executed immediately.
+func (c *ApiService) PageAvailablePhoneNumberMachineToMachineWithContext(ctx context.Context, CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -235,7 +241,7 @@ func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -252,7 +258,12 @@ func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string
 
 // Lists AvailablePhoneNumberMachineToMachine records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) ([]ApiV2010AvailablePhoneNumberMachineToMachine, error) {
-	response, errors := c.StreamAvailablePhoneNumberMachineToMachine(CountryCode, params)
+	return c.ListAvailablePhoneNumberMachineToMachineWithContext(context.TODO(), CountryCode, params)
+}
+
+// Lists AvailablePhoneNumberMachineToMachine records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailablePhoneNumberMachineToMachineWithContext(ctx context.Context, CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) ([]ApiV2010AvailablePhoneNumberMachineToMachine, error) {
+	response, errors := c.StreamAvailablePhoneNumberMachineToMachineWithContext(ctx, CountryCode, params)
 
 	records := make([]ApiV2010AvailablePhoneNumberMachineToMachine, 0)
 	for record := range response {
@@ -268,6 +279,11 @@ func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string
 
 // Streams AvailablePhoneNumberMachineToMachine records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (chan ApiV2010AvailablePhoneNumberMachineToMachine, chan error) {
+	return c.StreamAvailablePhoneNumberMachineToMachineWithContext(context.TODO(), CountryCode, params)
+}
+
+// Streams AvailablePhoneNumberMachineToMachine records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailablePhoneNumberMachineToMachineWithContext(ctx context.Context, CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (chan ApiV2010AvailablePhoneNumberMachineToMachine, chan error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberMachineToMachineParams{}
 	}
@@ -276,19 +292,19 @@ func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode stri
 	recordChannel := make(chan ApiV2010AvailablePhoneNumberMachineToMachine, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAvailablePhoneNumberMachineToMachine(CountryCode, params, "", "")
+	response, err := c.PageAvailablePhoneNumberMachineToMachineWithContext(ctx, CountryCode, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAvailablePhoneNumberMachineToMachine(response, params, recordChannel, errorChannel)
+		go c.streamAvailablePhoneNumberMachineToMachineWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(response *ListAvailablePhoneNumberMachineToMachineResponse, params *ListAvailablePhoneNumberMachineToMachineParams, recordChannel chan ApiV2010AvailablePhoneNumberMachineToMachine, errorChannel chan error) {
+func (c *ApiService) streamAvailablePhoneNumberMachineToMachineWithContext(ctx context.Context, response *ListAvailablePhoneNumberMachineToMachineResponse, params *ListAvailablePhoneNumberMachineToMachineParams, recordChannel chan ApiV2010AvailablePhoneNumberMachineToMachine, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -303,7 +319,7 @@ func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(response *ListAv
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberMachineToMachineResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListAvailablePhoneNumberMachineToMachineResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -318,11 +334,11 @@ func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(response *ListAv
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberMachineToMachineResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailablePhoneNumberMachineToMachineResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

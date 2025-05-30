@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,9 @@ func (params *CreateSinkParams) SetSinkType(SinkType string) *CreateSinkParams {
 
 // Create a new Sink
 func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error) {
+	return c.CreateSinkWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateSinkWithContext(ctx context.Context, params *CreateSinkParams) (*EventsV1Sink, error) {
 	path := "/v1/Sinks"
 
 	data := url.Values{}
@@ -71,7 +75,7 @@ func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error)
 		data.Set("SinkType", fmt.Sprint(*params.SinkType))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -88,6 +92,9 @@ func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error)
 
 // Delete a specific Sink.
 func (c *ApiService) DeleteSink(Sid string) error {
+	return c.DeleteSinkWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteSinkWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Sinks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -96,7 +103,7 @@ func (c *ApiService) DeleteSink(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -108,6 +115,9 @@ func (c *ApiService) DeleteSink(Sid string) error {
 
 // Fetch a specific Sink.
 func (c *ApiService) FetchSink(Sid string) (*EventsV1Sink, error) {
+	return c.FetchSinkWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchSinkWithContext(ctx context.Context, Sid string) (*EventsV1Sink, error) {
 	path := "/v1/Sinks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -116,7 +126,7 @@ func (c *ApiService) FetchSink(Sid string) (*EventsV1Sink, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -162,6 +172,11 @@ func (params *ListSinkParams) SetLimit(Limit int) *ListSinkParams {
 
 // Retrieve a single page of Sink records from the API. Request is executed immediately.
 func (c *ApiService) PageSink(params *ListSinkParams, pageToken, pageNumber string) (*ListSinkResponse, error) {
+	return c.PageSinkWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Sink records from the API. Request is executed immediately.
+func (c *ApiService) PageSinkWithContext(ctx context.Context, params *ListSinkParams, pageToken, pageNumber string) (*ListSinkResponse, error) {
 	path := "/v1/Sinks"
 
 	data := url.Values{}
@@ -186,7 +201,7 @@ func (c *ApiService) PageSink(params *ListSinkParams, pageToken, pageNumber stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +218,12 @@ func (c *ApiService) PageSink(params *ListSinkParams, pageToken, pageNumber stri
 
 // Lists Sink records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSink(params *ListSinkParams) ([]EventsV1Sink, error) {
-	response, errors := c.StreamSink(params)
+	return c.ListSinkWithContext(context.TODO(), params)
+}
+
+// Lists Sink records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSinkWithContext(ctx context.Context, params *ListSinkParams) ([]EventsV1Sink, error) {
+	response, errors := c.StreamSinkWithContext(ctx, params)
 
 	records := make([]EventsV1Sink, 0)
 	for record := range response {
@@ -219,6 +239,11 @@ func (c *ApiService) ListSink(params *ListSinkParams) ([]EventsV1Sink, error) {
 
 // Streams Sink records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSink(params *ListSinkParams) (chan EventsV1Sink, chan error) {
+	return c.StreamSinkWithContext(context.TODO(), params)
+}
+
+// Streams Sink records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSinkWithContext(ctx context.Context, params *ListSinkParams) (chan EventsV1Sink, chan error) {
 	if params == nil {
 		params = &ListSinkParams{}
 	}
@@ -227,19 +252,19 @@ func (c *ApiService) StreamSink(params *ListSinkParams) (chan EventsV1Sink, chan
 	recordChannel := make(chan EventsV1Sink, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSink(params, "", "")
+	response, err := c.PageSinkWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSink(response, params, recordChannel, errorChannel)
+		go c.streamSinkWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSink(response *ListSinkResponse, params *ListSinkParams, recordChannel chan EventsV1Sink, errorChannel chan error) {
+func (c *ApiService) streamSinkWithContext(ctx context.Context, response *ListSinkResponse, params *ListSinkParams, recordChannel chan EventsV1Sink, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -254,7 +279,7 @@ func (c *ApiService) streamSink(response *ListSinkResponse, params *ListSinkPara
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSinkResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSinkResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -269,11 +294,11 @@ func (c *ApiService) streamSink(response *ListSinkResponse, params *ListSinkPara
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSinkResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSinkResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -300,6 +325,9 @@ func (params *UpdateSinkParams) SetDescription(Description string) *UpdateSinkPa
 
 // Update a specific Sink
 func (c *ApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*EventsV1Sink, error) {
+	return c.UpdateSinkWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateSinkWithContext(ctx context.Context, Sid string, params *UpdateSinkParams) (*EventsV1Sink, error) {
 	path := "/v1/Sinks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -312,7 +340,7 @@ func (c *ApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*EventsV1
 		data.Set("Description", *params.Description)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

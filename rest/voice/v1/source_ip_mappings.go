@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -40,8 +41,10 @@ func (params *CreateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) 
 	return params
 }
 
-//
 func (c *ApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
+	return c.CreateSourceIpMappingWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateSourceIpMappingWithContext(ctx context.Context, params *CreateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings"
 
 	data := url.Values{}
@@ -56,7 +59,7 @@ func (c *ApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) 
 		data.Set("SipDomainSid", *params.SipDomainSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -71,8 +74,10 @@ func (c *ApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) 
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteSourceIpMapping(Sid string) error {
+	return c.DeleteSourceIpMappingWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteSourceIpMappingWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -81,7 +86,7 @@ func (c *ApiService) DeleteSourceIpMapping(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -91,8 +96,10 @@ func (c *ApiService) DeleteSourceIpMapping(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMapping, error) {
+	return c.FetchSourceIpMappingWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchSourceIpMappingWithContext(ctx context.Context, Sid string) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -101,7 +108,7 @@ func (c *ApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMapping, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -135,6 +142,11 @@ func (params *ListSourceIpMappingParams) SetLimit(Limit int) *ListSourceIpMappin
 
 // Retrieve a single page of SourceIpMapping records from the API. Request is executed immediately.
 func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, pageToken, pageNumber string) (*ListSourceIpMappingResponse, error) {
+	return c.PageSourceIpMappingWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SourceIpMapping records from the API. Request is executed immediately.
+func (c *ApiService) PageSourceIpMappingWithContext(ctx context.Context, params *ListSourceIpMappingParams, pageToken, pageNumber string) (*ListSourceIpMappingResponse, error) {
 	path := "/v1/SourceIpMappings"
 
 	data := url.Values{}
@@ -153,7 +165,7 @@ func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, page
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +182,12 @@ func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, page
 
 // Lists SourceIpMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) ([]VoiceV1SourceIpMapping, error) {
-	response, errors := c.StreamSourceIpMapping(params)
+	return c.ListSourceIpMappingWithContext(context.TODO(), params)
+}
+
+// Lists SourceIpMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSourceIpMappingWithContext(ctx context.Context, params *ListSourceIpMappingParams) ([]VoiceV1SourceIpMapping, error) {
+	response, errors := c.StreamSourceIpMappingWithContext(ctx, params)
 
 	records := make([]VoiceV1SourceIpMapping, 0)
 	for record := range response {
@@ -186,6 +203,11 @@ func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) ([]V
 
 // Streams SourceIpMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams) (chan VoiceV1SourceIpMapping, chan error) {
+	return c.StreamSourceIpMappingWithContext(context.TODO(), params)
+}
+
+// Streams SourceIpMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSourceIpMappingWithContext(ctx context.Context, params *ListSourceIpMappingParams) (chan VoiceV1SourceIpMapping, chan error) {
 	if params == nil {
 		params = &ListSourceIpMappingParams{}
 	}
@@ -194,19 +216,19 @@ func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams) (c
 	recordChannel := make(chan VoiceV1SourceIpMapping, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSourceIpMapping(params, "", "")
+	response, err := c.PageSourceIpMappingWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSourceIpMapping(response, params, recordChannel, errorChannel)
+		go c.streamSourceIpMappingWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSourceIpMapping(response *ListSourceIpMappingResponse, params *ListSourceIpMappingParams, recordChannel chan VoiceV1SourceIpMapping, errorChannel chan error) {
+func (c *ApiService) streamSourceIpMappingWithContext(ctx context.Context, response *ListSourceIpMappingResponse, params *ListSourceIpMappingParams, recordChannel chan VoiceV1SourceIpMapping, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -221,7 +243,7 @@ func (c *ApiService) streamSourceIpMapping(response *ListSourceIpMappingResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSourceIpMappingResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSourceIpMappingResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -236,11 +258,11 @@ func (c *ApiService) streamSourceIpMapping(response *ListSourceIpMappingResponse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSourceIpMappingResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSourceIpMappingResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -265,8 +287,10 @@ func (params *UpdateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) 
 	return params
 }
 
-//
 func (c *ApiService) UpdateSourceIpMapping(Sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
+	return c.UpdateSourceIpMappingWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateSourceIpMappingWithContext(ctx context.Context, Sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -279,7 +303,7 @@ func (c *ApiService) UpdateSourceIpMapping(Sid string, params *UpdateSourceIpMap
 		data.Set("SipDomainSid", *params.SipDomainSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

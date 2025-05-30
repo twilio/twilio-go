@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateDeviceConfigParams) SetValue(Value string) *CreateDeviceConf
 
 // Create a config for a Microvisor Device.
 func (c *ApiService) CreateDeviceConfig(DeviceSid string, params *CreateDeviceConfigParams) (*MicrovisorV1DeviceConfig, error) {
+	return c.CreateDeviceConfigWithContext(context.TODO(), DeviceSid, params)
+}
+func (c *ApiService) CreateDeviceConfigWithContext(ctx context.Context, DeviceSid string, params *CreateDeviceConfigParams) (*MicrovisorV1DeviceConfig, error) {
 	path := "/v1/Devices/{DeviceSid}/Configs"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
@@ -57,7 +61,7 @@ func (c *ApiService) CreateDeviceConfig(DeviceSid string, params *CreateDeviceCo
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -74,6 +78,9 @@ func (c *ApiService) CreateDeviceConfig(DeviceSid string, params *CreateDeviceCo
 
 // Delete a config for a Microvisor Device.
 func (c *ApiService) DeleteDeviceConfig(DeviceSid string, Key string) error {
+	return c.DeleteDeviceConfigWithContext(context.TODO(), DeviceSid, Key)
+}
+func (c *ApiService) DeleteDeviceConfigWithContext(ctx context.Context, DeviceSid string, Key string) error {
 	path := "/v1/Devices/{DeviceSid}/Configs/{Key}"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
@@ -83,7 +90,7 @@ func (c *ApiService) DeleteDeviceConfig(DeviceSid string, Key string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -95,6 +102,9 @@ func (c *ApiService) DeleteDeviceConfig(DeviceSid string, Key string) error {
 
 // Retrieve a Config for a Device.
 func (c *ApiService) FetchDeviceConfig(DeviceSid string, Key string) (*MicrovisorV1DeviceConfig, error) {
+	return c.FetchDeviceConfigWithContext(context.TODO(), DeviceSid, Key)
+}
+func (c *ApiService) FetchDeviceConfigWithContext(ctx context.Context, DeviceSid string, Key string) (*MicrovisorV1DeviceConfig, error) {
 	path := "/v1/Devices/{DeviceSid}/Configs/{Key}"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
@@ -104,7 +114,7 @@ func (c *ApiService) FetchDeviceConfig(DeviceSid string, Key string) (*Microviso
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +148,11 @@ func (params *ListDeviceConfigParams) SetLimit(Limit int) *ListDeviceConfigParam
 
 // Retrieve a single page of DeviceConfig records from the API. Request is executed immediately.
 func (c *ApiService) PageDeviceConfig(DeviceSid string, params *ListDeviceConfigParams, pageToken, pageNumber string) (*ListDeviceConfigResponse, error) {
+	return c.PageDeviceConfigWithContext(context.TODO(), DeviceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of DeviceConfig records from the API. Request is executed immediately.
+func (c *ApiService) PageDeviceConfigWithContext(ctx context.Context, DeviceSid string, params *ListDeviceConfigParams, pageToken, pageNumber string) (*ListDeviceConfigResponse, error) {
 	path := "/v1/Devices/{DeviceSid}/Configs"
 
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
@@ -158,7 +173,7 @@ func (c *ApiService) PageDeviceConfig(DeviceSid string, params *ListDeviceConfig
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +190,12 @@ func (c *ApiService) PageDeviceConfig(DeviceSid string, params *ListDeviceConfig
 
 // Lists DeviceConfig records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDeviceConfig(DeviceSid string, params *ListDeviceConfigParams) ([]MicrovisorV1DeviceConfig, error) {
-	response, errors := c.StreamDeviceConfig(DeviceSid, params)
+	return c.ListDeviceConfigWithContext(context.TODO(), DeviceSid, params)
+}
+
+// Lists DeviceConfig records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDeviceConfigWithContext(ctx context.Context, DeviceSid string, params *ListDeviceConfigParams) ([]MicrovisorV1DeviceConfig, error) {
+	response, errors := c.StreamDeviceConfigWithContext(ctx, DeviceSid, params)
 
 	records := make([]MicrovisorV1DeviceConfig, 0)
 	for record := range response {
@@ -191,6 +211,11 @@ func (c *ApiService) ListDeviceConfig(DeviceSid string, params *ListDeviceConfig
 
 // Streams DeviceConfig records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDeviceConfig(DeviceSid string, params *ListDeviceConfigParams) (chan MicrovisorV1DeviceConfig, chan error) {
+	return c.StreamDeviceConfigWithContext(context.TODO(), DeviceSid, params)
+}
+
+// Streams DeviceConfig records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDeviceConfigWithContext(ctx context.Context, DeviceSid string, params *ListDeviceConfigParams) (chan MicrovisorV1DeviceConfig, chan error) {
 	if params == nil {
 		params = &ListDeviceConfigParams{}
 	}
@@ -199,19 +224,19 @@ func (c *ApiService) StreamDeviceConfig(DeviceSid string, params *ListDeviceConf
 	recordChannel := make(chan MicrovisorV1DeviceConfig, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDeviceConfig(DeviceSid, params, "", "")
+	response, err := c.PageDeviceConfigWithContext(ctx, DeviceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDeviceConfig(response, params, recordChannel, errorChannel)
+		go c.streamDeviceConfigWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDeviceConfig(response *ListDeviceConfigResponse, params *ListDeviceConfigParams, recordChannel chan MicrovisorV1DeviceConfig, errorChannel chan error) {
+func (c *ApiService) streamDeviceConfigWithContext(ctx context.Context, response *ListDeviceConfigResponse, params *ListDeviceConfigParams, recordChannel chan MicrovisorV1DeviceConfig, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -226,7 +251,7 @@ func (c *ApiService) streamDeviceConfig(response *ListDeviceConfigResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDeviceConfigResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListDeviceConfigResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -241,11 +266,11 @@ func (c *ApiService) streamDeviceConfig(response *ListDeviceConfigResponse, para
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDeviceConfigResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDeviceConfigResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -272,6 +297,9 @@ func (params *UpdateDeviceConfigParams) SetValue(Value string) *UpdateDeviceConf
 
 // Update a config for a Microvisor Device.
 func (c *ApiService) UpdateDeviceConfig(DeviceSid string, Key string, params *UpdateDeviceConfigParams) (*MicrovisorV1DeviceConfig, error) {
+	return c.UpdateDeviceConfigWithContext(context.TODO(), DeviceSid, Key, params)
+}
+func (c *ApiService) UpdateDeviceConfigWithContext(ctx context.Context, DeviceSid string, Key string, params *UpdateDeviceConfigParams) (*MicrovisorV1DeviceConfig, error) {
 	path := "/v1/Devices/{DeviceSid}/Configs/{Key}"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
@@ -285,7 +313,7 @@ func (c *ApiService) UpdateDeviceConfig(DeviceSid string, Key string, params *Up
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

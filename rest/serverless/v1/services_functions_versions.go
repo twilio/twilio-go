@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Retrieve a specific Function Version resource.
 func (c *ApiService) FetchFunctionVersion(ServiceSid string, FunctionSid string, Sid string) (*ServerlessV1FunctionVersion, error) {
+	return c.FetchFunctionVersionWithContext(context.TODO(), ServiceSid, FunctionSid, Sid)
+}
+func (c *ApiService) FetchFunctionVersionWithContext(ctx context.Context, ServiceSid string, FunctionSid string, Sid string) (*ServerlessV1FunctionVersion, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
@@ -35,7 +39,7 @@ func (c *ApiService) FetchFunctionVersion(ServiceSid string, FunctionSid string,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -69,6 +73,11 @@ func (params *ListFunctionVersionParams) SetLimit(Limit int) *ListFunctionVersio
 
 // Retrieve a single page of FunctionVersion records from the API. Request is executed immediately.
 func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, pageToken, pageNumber string) (*ListFunctionVersionResponse, error) {
+	return c.PageFunctionVersionWithContext(context.TODO(), ServiceSid, FunctionSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of FunctionVersion records from the API. Request is executed immediately.
+func (c *ApiService) PageFunctionVersionWithContext(ctx context.Context, ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, pageToken, pageNumber string) (*ListFunctionVersionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -90,7 +99,7 @@ func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +116,12 @@ func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, 
 
 // Lists FunctionVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) ([]ServerlessV1FunctionVersion, error) {
-	response, errors := c.StreamFunctionVersion(ServiceSid, FunctionSid, params)
+	return c.ListFunctionVersionWithContext(context.TODO(), ServiceSid, FunctionSid, params)
+}
+
+// Lists FunctionVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFunctionVersionWithContext(ctx context.Context, ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) ([]ServerlessV1FunctionVersion, error) {
+	response, errors := c.StreamFunctionVersionWithContext(ctx, ServiceSid, FunctionSid, params)
 
 	records := make([]ServerlessV1FunctionVersion, 0)
 	for record := range response {
@@ -123,6 +137,11 @@ func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, 
 
 // Streams FunctionVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) (chan ServerlessV1FunctionVersion, chan error) {
+	return c.StreamFunctionVersionWithContext(context.TODO(), ServiceSid, FunctionSid, params)
+}
+
+// Streams FunctionVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFunctionVersionWithContext(ctx context.Context, ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) (chan ServerlessV1FunctionVersion, chan error) {
 	if params == nil {
 		params = &ListFunctionVersionParams{}
 	}
@@ -131,19 +150,19 @@ func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string
 	recordChannel := make(chan ServerlessV1FunctionVersion, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageFunctionVersion(ServiceSid, FunctionSid, params, "", "")
+	response, err := c.PageFunctionVersionWithContext(ctx, ServiceSid, FunctionSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamFunctionVersion(response, params, recordChannel, errorChannel)
+		go c.streamFunctionVersionWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFunctionVersion(response *ListFunctionVersionResponse, params *ListFunctionVersionParams, recordChannel chan ServerlessV1FunctionVersion, errorChannel chan error) {
+func (c *ApiService) streamFunctionVersionWithContext(ctx context.Context, response *ListFunctionVersionResponse, params *ListFunctionVersionParams, recordChannel chan ServerlessV1FunctionVersion, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -158,7 +177,7 @@ func (c *ApiService) streamFunctionVersion(response *ListFunctionVersionResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListFunctionVersionResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListFunctionVersionResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -173,11 +192,11 @@ func (c *ApiService) streamFunctionVersion(response *ListFunctionVersionResponse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFunctionVersionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFunctionVersionResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

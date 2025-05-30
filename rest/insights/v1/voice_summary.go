@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *FetchSummaryParams) SetProcessingState(ProcessingState string) *Fe
 
 // Get a specific Call Summary.
 func (c *ApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*InsightsV1Summary, error) {
+	return c.FetchSummaryWithContext(context.TODO(), CallSid, params)
+}
+func (c *ApiService) FetchSummaryWithContext(ctx context.Context, CallSid string, params *FetchSummaryParams) (*InsightsV1Summary, error) {
 	path := "/v1/Voice/{CallSid}/Summary"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -45,7 +49,7 @@ func (c *ApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*
 		data.Set("ProcessingState", *params.ProcessingState)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

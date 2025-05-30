@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch an instance of an Extension for the Installed Add-on.
 func (c *ApiService) FetchInstalledAddOnExtension(InstalledAddOnSid string, Sid string) (*MarketplaceV1InstalledAddOnExtension, error) {
+	return c.FetchInstalledAddOnExtensionWithContext(context.TODO(), InstalledAddOnSid, Sid)
+}
+func (c *ApiService) FetchInstalledAddOnExtensionWithContext(ctx context.Context, InstalledAddOnSid string, Sid string) (*MarketplaceV1InstalledAddOnExtension, error) {
 	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -34,7 +38,7 @@ func (c *ApiService) FetchInstalledAddOnExtension(InstalledAddOnSid string, Sid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -68,6 +72,11 @@ func (params *ListInstalledAddOnExtensionParams) SetLimit(Limit int) *ListInstal
 
 // Retrieve a single page of InstalledAddOnExtension records from the API. Request is executed immediately.
 func (c *ApiService) PageInstalledAddOnExtension(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams, pageToken, pageNumber string) (*ListInstalledAddOnExtensionResponse, error) {
+	return c.PageInstalledAddOnExtensionWithContext(context.TODO(), InstalledAddOnSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of InstalledAddOnExtension records from the API. Request is executed immediately.
+func (c *ApiService) PageInstalledAddOnExtensionWithContext(ctx context.Context, InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams, pageToken, pageNumber string) (*ListInstalledAddOnExtensionResponse, error) {
 	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions"
 
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
@@ -88,7 +97,7 @@ func (c *ApiService) PageInstalledAddOnExtension(InstalledAddOnSid string, param
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +114,12 @@ func (c *ApiService) PageInstalledAddOnExtension(InstalledAddOnSid string, param
 
 // Lists InstalledAddOnExtension records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInstalledAddOnExtension(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams) ([]MarketplaceV1InstalledAddOnExtension, error) {
-	response, errors := c.StreamInstalledAddOnExtension(InstalledAddOnSid, params)
+	return c.ListInstalledAddOnExtensionWithContext(context.TODO(), InstalledAddOnSid, params)
+}
+
+// Lists InstalledAddOnExtension records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInstalledAddOnExtensionWithContext(ctx context.Context, InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams) ([]MarketplaceV1InstalledAddOnExtension, error) {
+	response, errors := c.StreamInstalledAddOnExtensionWithContext(ctx, InstalledAddOnSid, params)
 
 	records := make([]MarketplaceV1InstalledAddOnExtension, 0)
 	for record := range response {
@@ -121,6 +135,11 @@ func (c *ApiService) ListInstalledAddOnExtension(InstalledAddOnSid string, param
 
 // Streams InstalledAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInstalledAddOnExtension(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams) (chan MarketplaceV1InstalledAddOnExtension, chan error) {
+	return c.StreamInstalledAddOnExtensionWithContext(context.TODO(), InstalledAddOnSid, params)
+}
+
+// Streams InstalledAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInstalledAddOnExtensionWithContext(ctx context.Context, InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams) (chan MarketplaceV1InstalledAddOnExtension, chan error) {
 	if params == nil {
 		params = &ListInstalledAddOnExtensionParams{}
 	}
@@ -129,19 +148,19 @@ func (c *ApiService) StreamInstalledAddOnExtension(InstalledAddOnSid string, par
 	recordChannel := make(chan MarketplaceV1InstalledAddOnExtension, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInstalledAddOnExtension(InstalledAddOnSid, params, "", "")
+	response, err := c.PageInstalledAddOnExtensionWithContext(ctx, InstalledAddOnSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInstalledAddOnExtension(response, params, recordChannel, errorChannel)
+		go c.streamInstalledAddOnExtensionWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInstalledAddOnExtension(response *ListInstalledAddOnExtensionResponse, params *ListInstalledAddOnExtensionParams, recordChannel chan MarketplaceV1InstalledAddOnExtension, errorChannel chan error) {
+func (c *ApiService) streamInstalledAddOnExtensionWithContext(ctx context.Context, response *ListInstalledAddOnExtensionResponse, params *ListInstalledAddOnExtensionParams, recordChannel chan MarketplaceV1InstalledAddOnExtension, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -156,7 +175,7 @@ func (c *ApiService) streamInstalledAddOnExtension(response *ListInstalledAddOnE
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListInstalledAddOnExtensionResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListInstalledAddOnExtensionResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -171,11 +190,11 @@ func (c *ApiService) streamInstalledAddOnExtension(response *ListInstalledAddOnE
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInstalledAddOnExtensionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInstalledAddOnExtensionResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -202,6 +221,9 @@ func (params *UpdateInstalledAddOnExtensionParams) SetEnabled(Enabled bool) *Upd
 
 // Update an Extension for an Add-on installation.
 func (c *ApiService) UpdateInstalledAddOnExtension(InstalledAddOnSid string, Sid string, params *UpdateInstalledAddOnExtensionParams) (*MarketplaceV1InstalledAddOnExtension, error) {
+	return c.UpdateInstalledAddOnExtensionWithContext(context.TODO(), InstalledAddOnSid, Sid, params)
+}
+func (c *ApiService) UpdateInstalledAddOnExtensionWithContext(ctx context.Context, InstalledAddOnSid string, Sid string, params *UpdateInstalledAddOnExtensionParams) (*MarketplaceV1InstalledAddOnExtension, error) {
 	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -215,7 +237,7 @@ func (c *ApiService) UpdateInstalledAddOnExtension(InstalledAddOnSid string, Sid
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

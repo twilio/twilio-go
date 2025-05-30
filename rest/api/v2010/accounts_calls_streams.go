@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -1252,6 +1253,9 @@ func (params *CreateStreamParams) SetParameter99Value(Parameter99Value string) *
 
 // Create a Stream
 func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*ApiV2010Stream, error) {
+	return c.CreateStreamWithContext(context.TODO(), CallSid, params)
+}
+func (c *ApiService) CreateStreamWithContext(ctx context.Context, CallSid string, params *CreateStreamParams) (*ApiV2010Stream, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -1875,7 +1879,7 @@ func (c *ApiService) CreateStream(CallSid string, params *CreateStreamParams) (*
 		data.Set("Parameter99.Value", *params.Parameter99Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1909,6 +1913,9 @@ func (params *UpdateStreamParams) SetStatus(Status string) *UpdateStreamParams {
 
 // Stop a Stream using either the SID of the Stream resource or the `name` used when creating the resource
 func (c *ApiService) UpdateStream(CallSid string, Sid string, params *UpdateStreamParams) (*ApiV2010Stream, error) {
+	return c.UpdateStreamWithContext(context.TODO(), CallSid, Sid, params)
+}
+func (c *ApiService) UpdateStreamWithContext(ctx context.Context, CallSid string, Sid string, params *UpdateStreamParams) (*ApiV2010Stream, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -1927,7 +1934,7 @@ func (c *ApiService) UpdateStream(CallSid string, Sid string, params *UpdateStre
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

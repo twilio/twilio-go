@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *ListKnowledgeChunksParams) SetLimit(Limit int) *ListKnowledgeChunk
 
 // Retrieve a single page of KnowledgeChunks records from the API. Request is executed immediately.
 func (c *ApiService) PageKnowledgeChunks(Id string, params *ListKnowledgeChunksParams, pageToken, pageNumber string) (*ListKnowledgeChunksResponse, error) {
+	return c.PageKnowledgeChunksWithContext(context.TODO(), Id, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of KnowledgeChunks records from the API. Request is executed immediately.
+func (c *ApiService) PageKnowledgeChunksWithContext(ctx context.Context, Id string, params *ListKnowledgeChunksParams, pageToken, pageNumber string) (*ListKnowledgeChunksResponse, error) {
 	path := "/v1/Knowledge/{id}/Chunks"
 
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
@@ -62,7 +68,7 @@ func (c *ApiService) PageKnowledgeChunks(Id string, params *ListKnowledgeChunksP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +85,12 @@ func (c *ApiService) PageKnowledgeChunks(Id string, params *ListKnowledgeChunksP
 
 // Lists KnowledgeChunks records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListKnowledgeChunks(Id string, params *ListKnowledgeChunksParams) ([]KnowledgeV1KnowledgeChunk, error) {
-	response, errors := c.StreamKnowledgeChunks(Id, params)
+	return c.ListKnowledgeChunksWithContext(context.TODO(), Id, params)
+}
+
+// Lists KnowledgeChunks records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListKnowledgeChunksWithContext(ctx context.Context, Id string, params *ListKnowledgeChunksParams) ([]KnowledgeV1KnowledgeChunk, error) {
+	response, errors := c.StreamKnowledgeChunksWithContext(ctx, Id, params)
 
 	records := make([]KnowledgeV1KnowledgeChunk, 0)
 	for record := range response {
@@ -95,6 +106,11 @@ func (c *ApiService) ListKnowledgeChunks(Id string, params *ListKnowledgeChunksP
 
 // Streams KnowledgeChunks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamKnowledgeChunks(Id string, params *ListKnowledgeChunksParams) (chan KnowledgeV1KnowledgeChunk, chan error) {
+	return c.StreamKnowledgeChunksWithContext(context.TODO(), Id, params)
+}
+
+// Streams KnowledgeChunks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamKnowledgeChunksWithContext(ctx context.Context, Id string, params *ListKnowledgeChunksParams) (chan KnowledgeV1KnowledgeChunk, chan error) {
 	if params == nil {
 		params = &ListKnowledgeChunksParams{}
 	}
@@ -103,19 +119,19 @@ func (c *ApiService) StreamKnowledgeChunks(Id string, params *ListKnowledgeChunk
 	recordChannel := make(chan KnowledgeV1KnowledgeChunk, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageKnowledgeChunks(Id, params, "", "")
+	response, err := c.PageKnowledgeChunksWithContext(ctx, Id, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamKnowledgeChunks(response, params, recordChannel, errorChannel)
+		go c.streamKnowledgeChunksWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamKnowledgeChunks(response *ListKnowledgeChunksResponse, params *ListKnowledgeChunksParams, recordChannel chan KnowledgeV1KnowledgeChunk, errorChannel chan error) {
+func (c *ApiService) streamKnowledgeChunksWithContext(ctx context.Context, response *ListKnowledgeChunksResponse, params *ListKnowledgeChunksParams, recordChannel chan KnowledgeV1KnowledgeChunk, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -130,7 +146,7 @@ func (c *ApiService) streamKnowledgeChunks(response *ListKnowledgeChunksResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListKnowledgeChunksResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListKnowledgeChunksResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -145,11 +161,11 @@ func (c *ApiService) streamKnowledgeChunks(response *ListKnowledgeChunksResponse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListKnowledgeChunksResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListKnowledgeChunksResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

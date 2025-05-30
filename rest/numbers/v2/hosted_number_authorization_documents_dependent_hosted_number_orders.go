@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -66,6 +67,11 @@ func (params *ListDependentHostedNumberOrderParams) SetLimit(Limit int) *ListDep
 
 // Retrieve a single page of DependentHostedNumberOrder records from the API. Request is executed immediately.
 func (c *ApiService) PageDependentHostedNumberOrder(SigningDocumentSid string, params *ListDependentHostedNumberOrderParams, pageToken, pageNumber string) (*ListDependentHostedNumberOrderResponse, error) {
+	return c.PageDependentHostedNumberOrderWithContext(context.TODO(), SigningDocumentSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of DependentHostedNumberOrder records from the API. Request is executed immediately.
+func (c *ApiService) PageDependentHostedNumberOrderWithContext(ctx context.Context, SigningDocumentSid string, params *ListDependentHostedNumberOrderParams, pageToken, pageNumber string) (*ListDependentHostedNumberOrderResponse, error) {
 	path := "/v2/HostedNumber/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders"
 
 	path = strings.Replace(path, "{"+"SigningDocumentSid"+"}", SigningDocumentSid, -1)
@@ -98,7 +104,7 @@ func (c *ApiService) PageDependentHostedNumberOrder(SigningDocumentSid string, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +121,12 @@ func (c *ApiService) PageDependentHostedNumberOrder(SigningDocumentSid string, p
 
 // Lists DependentHostedNumberOrder records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDependentHostedNumberOrder(SigningDocumentSid string, params *ListDependentHostedNumberOrderParams) ([]NumbersV2DependentHostedNumberOrder, error) {
-	response, errors := c.StreamDependentHostedNumberOrder(SigningDocumentSid, params)
+	return c.ListDependentHostedNumberOrderWithContext(context.TODO(), SigningDocumentSid, params)
+}
+
+// Lists DependentHostedNumberOrder records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDependentHostedNumberOrderWithContext(ctx context.Context, SigningDocumentSid string, params *ListDependentHostedNumberOrderParams) ([]NumbersV2DependentHostedNumberOrder, error) {
+	response, errors := c.StreamDependentHostedNumberOrderWithContext(ctx, SigningDocumentSid, params)
 
 	records := make([]NumbersV2DependentHostedNumberOrder, 0)
 	for record := range response {
@@ -131,6 +142,11 @@ func (c *ApiService) ListDependentHostedNumberOrder(SigningDocumentSid string, p
 
 // Streams DependentHostedNumberOrder records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDependentHostedNumberOrder(SigningDocumentSid string, params *ListDependentHostedNumberOrderParams) (chan NumbersV2DependentHostedNumberOrder, chan error) {
+	return c.StreamDependentHostedNumberOrderWithContext(context.TODO(), SigningDocumentSid, params)
+}
+
+// Streams DependentHostedNumberOrder records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDependentHostedNumberOrderWithContext(ctx context.Context, SigningDocumentSid string, params *ListDependentHostedNumberOrderParams) (chan NumbersV2DependentHostedNumberOrder, chan error) {
 	if params == nil {
 		params = &ListDependentHostedNumberOrderParams{}
 	}
@@ -139,19 +155,19 @@ func (c *ApiService) StreamDependentHostedNumberOrder(SigningDocumentSid string,
 	recordChannel := make(chan NumbersV2DependentHostedNumberOrder, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDependentHostedNumberOrder(SigningDocumentSid, params, "", "")
+	response, err := c.PageDependentHostedNumberOrderWithContext(ctx, SigningDocumentSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDependentHostedNumberOrder(response, params, recordChannel, errorChannel)
+		go c.streamDependentHostedNumberOrderWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDependentHostedNumberOrder(response *ListDependentHostedNumberOrderResponse, params *ListDependentHostedNumberOrderParams, recordChannel chan NumbersV2DependentHostedNumberOrder, errorChannel chan error) {
+func (c *ApiService) streamDependentHostedNumberOrderWithContext(ctx context.Context, response *ListDependentHostedNumberOrderResponse, params *ListDependentHostedNumberOrderParams, recordChannel chan NumbersV2DependentHostedNumberOrder, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -166,7 +182,7 @@ func (c *ApiService) streamDependentHostedNumberOrder(response *ListDependentHos
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDependentHostedNumberOrderResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListDependentHostedNumberOrderResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -181,11 +197,11 @@ func (c *ApiService) streamDependentHostedNumberOrder(response *ListDependentHos
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDependentHostedNumberOrderResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDependentHostedNumberOrderResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

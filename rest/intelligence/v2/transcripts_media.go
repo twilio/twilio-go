@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -34,6 +35,9 @@ func (params *FetchMediaParams) SetRedacted(Redacted bool) *FetchMediaParams {
 
 // Get download URLs for media if possible
 func (c *ApiService) FetchMedia(Sid string, params *FetchMediaParams) (*IntelligenceV2Media, error) {
+	return c.FetchMediaWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) FetchMediaWithContext(ctx context.Context, Sid string, params *FetchMediaParams) (*IntelligenceV2Media, error) {
 	path := "/v2/Transcripts/{Sid}/Media"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -46,7 +50,7 @@ func (c *ApiService) FetchMedia(Sid string, params *FetchMediaParams) (*Intellig
 		data.Set("Redacted", fmt.Sprint(*params.Redacted))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

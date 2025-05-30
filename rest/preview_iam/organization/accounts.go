@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -35,6 +36,9 @@ func (params *FetchOrganizationAccountParams) SetPathAccountSid(PathAccountSid s
 }
 
 func (c *ApiService) FetchOrganizationAccount(OrganizationSid string, params *FetchOrganizationAccountParams) (*PublicApiAccountResponse, error) {
+	return c.FetchOrganizationAccountWithContext(context.TODO(), OrganizationSid, params)
+}
+func (c *ApiService) FetchOrganizationAccountWithContext(ctx context.Context, OrganizationSid string, params *FetchOrganizationAccountParams) (*PublicApiAccountResponse, error) {
 	path := "/Organizations/{OrganizationSid}/Accounts/{AccountSid}"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -48,7 +52,7 @@ func (c *ApiService) FetchOrganizationAccount(OrganizationSid string, params *Fe
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -82,6 +86,11 @@ func (params *ListOrganizationAccountsParams) SetLimit(Limit int) *ListOrganizat
 
 // Retrieve a single page of OrganizationAccounts records from the API. Request is executed immediately.
 func (c *ApiService) PageOrganizationAccounts(OrganizationSid string, params *ListOrganizationAccountsParams, pageToken, pageNumber string) (*PublicApiAccountResponsePage, error) {
+	return c.PageOrganizationAccountsWithContext(context.TODO(), OrganizationSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of OrganizationAccounts records from the API. Request is executed immediately.
+func (c *ApiService) PageOrganizationAccountsWithContext(ctx context.Context, OrganizationSid string, params *ListOrganizationAccountsParams, pageToken, pageNumber string) (*PublicApiAccountResponsePage, error) {
 	path := "/Organizations/{OrganizationSid}/Accounts"
 
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
@@ -102,7 +111,7 @@ func (c *ApiService) PageOrganizationAccounts(OrganizationSid string, params *Li
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +128,12 @@ func (c *ApiService) PageOrganizationAccounts(OrganizationSid string, params *Li
 
 // Lists OrganizationAccounts records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOrganizationAccounts(OrganizationSid string, params *ListOrganizationAccountsParams) ([]PublicApiAccountResponse, error) {
-	response, errors := c.StreamOrganizationAccounts(OrganizationSid, params)
+	return c.ListOrganizationAccountsWithContext(context.TODO(), OrganizationSid, params)
+}
+
+// Lists OrganizationAccounts records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListOrganizationAccountsWithContext(ctx context.Context, OrganizationSid string, params *ListOrganizationAccountsParams) ([]PublicApiAccountResponse, error) {
+	response, errors := c.StreamOrganizationAccountsWithContext(ctx, OrganizationSid, params)
 
 	records := make([]PublicApiAccountResponse, 0)
 	for record := range response {
@@ -135,6 +149,11 @@ func (c *ApiService) ListOrganizationAccounts(OrganizationSid string, params *Li
 
 // Streams OrganizationAccounts records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamOrganizationAccounts(OrganizationSid string, params *ListOrganizationAccountsParams) (chan PublicApiAccountResponse, chan error) {
+	return c.StreamOrganizationAccountsWithContext(context.TODO(), OrganizationSid, params)
+}
+
+// Streams OrganizationAccounts records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamOrganizationAccountsWithContext(ctx context.Context, OrganizationSid string, params *ListOrganizationAccountsParams) (chan PublicApiAccountResponse, chan error) {
 	if params == nil {
 		params = &ListOrganizationAccountsParams{}
 	}
@@ -143,19 +162,19 @@ func (c *ApiService) StreamOrganizationAccounts(OrganizationSid string, params *
 	recordChannel := make(chan PublicApiAccountResponse, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageOrganizationAccounts(OrganizationSid, params, "", "")
+	response, err := c.PageOrganizationAccountsWithContext(ctx, OrganizationSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamOrganizationAccounts(response, params, recordChannel, errorChannel)
+		go c.streamOrganizationAccountsWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamOrganizationAccounts(response *PublicApiAccountResponsePage, params *ListOrganizationAccountsParams, recordChannel chan PublicApiAccountResponse, errorChannel chan error) {
+func (c *ApiService) streamOrganizationAccountsWithContext(ctx context.Context, response *PublicApiAccountResponsePage, params *ListOrganizationAccountsParams, recordChannel chan PublicApiAccountResponse, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -170,7 +189,7 @@ func (c *ApiService) streamOrganizationAccounts(response *PublicApiAccountRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextPublicApiAccountResponsePage)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextPublicApiAccountResponsePageWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -185,11 +204,11 @@ func (c *ApiService) streamOrganizationAccounts(response *PublicApiAccountRespon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextPublicApiAccountResponsePage(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextPublicApiAccountResponsePageWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

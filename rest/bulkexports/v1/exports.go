@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Fetch a specific Export.
 func (c *ApiService) FetchExport(ResourceType string) (*BulkexportsV1Export, error) {
+	return c.FetchExportWithContext(context.TODO(), ResourceType)
+}
+func (c *ApiService) FetchExportWithContext(ctx context.Context, ResourceType string) (*BulkexportsV1Export, error) {
 	path := "/v1/Exports/{ResourceType}"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
@@ -30,7 +34,7 @@ func (c *ApiService) FetchExport(ResourceType string) (*BulkexportsV1Export, err
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

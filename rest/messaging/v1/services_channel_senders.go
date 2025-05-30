@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -34,8 +35,10 @@ func (params *CreateChannelSenderParams) SetSid(Sid string) *CreateChannelSender
 	return params
 }
 
-//
 func (c *ApiService) CreateChannelSender(MessagingServiceSid string, params *CreateChannelSenderParams) (*MessagingV1ChannelSender, error) {
+	return c.CreateChannelSenderWithContext(context.TODO(), MessagingServiceSid, params)
+}
+func (c *ApiService) CreateChannelSenderWithContext(ctx context.Context, MessagingServiceSid string, params *CreateChannelSenderParams) (*MessagingV1ChannelSender, error) {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
@@ -48,7 +51,7 @@ func (c *ApiService) CreateChannelSender(MessagingServiceSid string, params *Cre
 		data.Set("Sid", *params.Sid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -63,8 +66,10 @@ func (c *ApiService) CreateChannelSender(MessagingServiceSid string, params *Cre
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteChannelSender(MessagingServiceSid string, Sid string) error {
+	return c.DeleteChannelSenderWithContext(context.TODO(), MessagingServiceSid, Sid)
+}
+func (c *ApiService) DeleteChannelSenderWithContext(ctx context.Context, MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -74,7 +79,7 @@ func (c *ApiService) DeleteChannelSender(MessagingServiceSid string, Sid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -84,8 +89,10 @@ func (c *ApiService) DeleteChannelSender(MessagingServiceSid string, Sid string)
 	return nil
 }
 
-//
 func (c *ApiService) FetchChannelSender(MessagingServiceSid string, Sid string) (*MessagingV1ChannelSender, error) {
+	return c.FetchChannelSenderWithContext(context.TODO(), MessagingServiceSid, Sid)
+}
+func (c *ApiService) FetchChannelSenderWithContext(ctx context.Context, MessagingServiceSid string, Sid string) (*MessagingV1ChannelSender, error) {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -95,7 +102,7 @@ func (c *ApiService) FetchChannelSender(MessagingServiceSid string, Sid string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -129,6 +136,11 @@ func (params *ListChannelSenderParams) SetLimit(Limit int) *ListChannelSenderPar
 
 // Retrieve a single page of ChannelSender records from the API. Request is executed immediately.
 func (c *ApiService) PageChannelSender(MessagingServiceSid string, params *ListChannelSenderParams, pageToken, pageNumber string) (*ListChannelSenderResponse, error) {
+	return c.PageChannelSenderWithContext(context.TODO(), MessagingServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ChannelSender records from the API. Request is executed immediately.
+func (c *ApiService) PageChannelSenderWithContext(ctx context.Context, MessagingServiceSid string, params *ListChannelSenderParams, pageToken, pageNumber string) (*ListChannelSenderResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders"
 
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -149,7 +161,7 @@ func (c *ApiService) PageChannelSender(MessagingServiceSid string, params *ListC
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +178,12 @@ func (c *ApiService) PageChannelSender(MessagingServiceSid string, params *ListC
 
 // Lists ChannelSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListChannelSender(MessagingServiceSid string, params *ListChannelSenderParams) ([]MessagingV1ChannelSender, error) {
-	response, errors := c.StreamChannelSender(MessagingServiceSid, params)
+	return c.ListChannelSenderWithContext(context.TODO(), MessagingServiceSid, params)
+}
+
+// Lists ChannelSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListChannelSenderWithContext(ctx context.Context, MessagingServiceSid string, params *ListChannelSenderParams) ([]MessagingV1ChannelSender, error) {
+	response, errors := c.StreamChannelSenderWithContext(ctx, MessagingServiceSid, params)
 
 	records := make([]MessagingV1ChannelSender, 0)
 	for record := range response {
@@ -182,6 +199,11 @@ func (c *ApiService) ListChannelSender(MessagingServiceSid string, params *ListC
 
 // Streams ChannelSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamChannelSender(MessagingServiceSid string, params *ListChannelSenderParams) (chan MessagingV1ChannelSender, chan error) {
+	return c.StreamChannelSenderWithContext(context.TODO(), MessagingServiceSid, params)
+}
+
+// Streams ChannelSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamChannelSenderWithContext(ctx context.Context, MessagingServiceSid string, params *ListChannelSenderParams) (chan MessagingV1ChannelSender, chan error) {
 	if params == nil {
 		params = &ListChannelSenderParams{}
 	}
@@ -190,19 +212,19 @@ func (c *ApiService) StreamChannelSender(MessagingServiceSid string, params *Lis
 	recordChannel := make(chan MessagingV1ChannelSender, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageChannelSender(MessagingServiceSid, params, "", "")
+	response, err := c.PageChannelSenderWithContext(ctx, MessagingServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamChannelSender(response, params, recordChannel, errorChannel)
+		go c.streamChannelSenderWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamChannelSender(response *ListChannelSenderResponse, params *ListChannelSenderParams, recordChannel chan MessagingV1ChannelSender, errorChannel chan error) {
+func (c *ApiService) streamChannelSenderWithContext(ctx context.Context, response *ListChannelSenderResponse, params *ListChannelSenderParams, recordChannel chan MessagingV1ChannelSender, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -217,7 +239,7 @@ func (c *ApiService) streamChannelSender(response *ListChannelSenderResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListChannelSenderResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListChannelSenderResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -232,11 +254,11 @@ func (c *ApiService) streamChannelSender(response *ListChannelSenderResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListChannelSenderResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListChannelSenderResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

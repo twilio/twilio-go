@@ -15,12 +15,15 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
 
-//
 func (c *ApiService) FetchProvisioningStatus() (*FlexV1ProvisioningStatus, error) {
+	return c.FetchProvisioningStatusWithContext(context.TODO())
+}
+func (c *ApiService) FetchProvisioningStatusWithContext(ctx context.Context) (*FlexV1ProvisioningStatus, error) {
 	path := "/v1/account/provision/status"
 
 	data := url.Values{}
@@ -28,7 +31,7 @@ func (c *ApiService) FetchProvisioningStatus() (*FlexV1ProvisioningStatus, error
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

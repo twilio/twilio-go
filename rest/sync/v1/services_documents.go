@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -46,8 +47,10 @@ func (params *CreateDocumentParams) SetTtl(Ttl int) *CreateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*SyncV1Document, error) {
+	return c.CreateDocumentWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateDocumentWithContext(ctx context.Context, ServiceSid string, params *CreateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -72,7 +75,7 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -87,8 +90,10 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
+	return c.DeleteDocumentWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) DeleteDocumentWithContext(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -98,7 +103,7 @@ func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -108,8 +113,10 @@ func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Document, error) {
+	return c.FetchDocumentWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchDocumentWithContext(ctx context.Context, ServiceSid string, Sid string) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -119,7 +126,7 @@ func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Docume
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -153,6 +160,11 @@ func (params *ListDocumentParams) SetLimit(Limit int) *ListDocumentParams {
 
 // Retrieve a single page of Document records from the API. Request is executed immediately.
 func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams, pageToken, pageNumber string) (*ListDocumentResponse, error) {
+	return c.PageDocumentWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Document records from the API. Request is executed immediately.
+func (c *ApiService) PageDocumentWithContext(ctx context.Context, ServiceSid string, params *ListDocumentParams, pageToken, pageNumber string) (*ListDocumentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -173,7 +185,7 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -190,7 +202,12 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 
 // Lists Document records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams) ([]SyncV1Document, error) {
-	response, errors := c.StreamDocument(ServiceSid, params)
+	return c.ListDocumentWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists Document records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDocumentWithContext(ctx context.Context, ServiceSid string, params *ListDocumentParams) ([]SyncV1Document, error) {
+	response, errors := c.StreamDocumentWithContext(ctx, ServiceSid, params)
 
 	records := make([]SyncV1Document, 0)
 	for record := range response {
@@ -206,6 +223,11 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams)
 
 // Streams Document records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParams) (chan SyncV1Document, chan error) {
+	return c.StreamDocumentWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams Document records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDocumentWithContext(ctx context.Context, ServiceSid string, params *ListDocumentParams) (chan SyncV1Document, chan error) {
 	if params == nil {
 		params = &ListDocumentParams{}
 	}
@@ -214,19 +236,19 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 	recordChannel := make(chan SyncV1Document, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDocument(ServiceSid, params, "", "")
+	response, err := c.PageDocumentWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDocument(response, params, recordChannel, errorChannel)
+		go c.streamDocumentWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDocument(response *ListDocumentResponse, params *ListDocumentParams, recordChannel chan SyncV1Document, errorChannel chan error) {
+func (c *ApiService) streamDocumentWithContext(ctx context.Context, response *ListDocumentResponse, params *ListDocumentParams, recordChannel chan SyncV1Document, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -241,7 +263,7 @@ func (c *ApiService) streamDocument(response *ListDocumentResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDocumentResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListDocumentResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -256,11 +278,11 @@ func (c *ApiService) streamDocument(response *ListDocumentResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDocumentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDocumentResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -297,8 +319,10 @@ func (params *UpdateDocumentParams) SetTtl(Ttl int) *UpdateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1Document, error) {
+	return c.UpdateDocumentWithContext(context.TODO(), ServiceSid, Sid, params)
+}
+func (c *ApiService) UpdateDocumentWithContext(ctx context.Context, ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -324,7 +348,7 @@ func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *Updat
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

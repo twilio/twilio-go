@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -52,8 +53,10 @@ func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Cre
 	return params
 }
 
-//
 func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*SyncV1SyncListItem, error) {
+	return c.CreateSyncListItemWithContext(context.TODO(), ServiceSid, ListSid, params)
+}
+func (c *ApiService) CreateSyncListItemWithContext(ctx context.Context, ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -82,7 +85,7 @@ func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, param
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -108,8 +111,10 @@ func (params *DeleteSyncListItemParams) SetIfMatch(IfMatch string) *DeleteSyncLi
 	return params
 }
 
-//
 func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int, params *DeleteSyncListItemParams) error {
+	return c.DeleteSyncListItemWithContext(context.TODO(), ServiceSid, ListSid, Index, params)
+}
+func (c *ApiService) DeleteSyncListItemWithContext(ctx context.Context, ServiceSid string, ListSid string, Index int, params *DeleteSyncListItemParams) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -123,7 +128,7 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -133,8 +138,10 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 	return nil
 }
 
-//
 func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int) (*SyncV1SyncListItem, error) {
+	return c.FetchSyncListItemWithContext(context.TODO(), ServiceSid, ListSid, Index)
+}
+func (c *ApiService) FetchSyncListItemWithContext(ctx context.Context, ServiceSid string, ListSid string, Index int) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -145,7 +152,7 @@ func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -197,6 +204,11 @@ func (params *ListSyncListItemParams) SetLimit(Limit int) *ListSyncListItemParam
 
 // Retrieve a single page of SyncListItem records from the API. Request is executed immediately.
 func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams, pageToken, pageNumber string) (*ListSyncListItemResponse, error) {
+	return c.PageSyncListItemWithContext(context.TODO(), ServiceSid, ListSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SyncListItem records from the API. Request is executed immediately.
+func (c *ApiService) PageSyncListItemWithContext(ctx context.Context, ServiceSid string, ListSid string, params *ListSyncListItemParams, pageToken, pageNumber string) (*ListSyncListItemResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -227,7 +239,7 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +256,12 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 
 // Lists SyncListItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) ([]SyncV1SyncListItem, error) {
-	response, errors := c.StreamSyncListItem(ServiceSid, ListSid, params)
+	return c.ListSyncListItemWithContext(context.TODO(), ServiceSid, ListSid, params)
+}
+
+// Lists SyncListItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncListItemWithContext(ctx context.Context, ServiceSid string, ListSid string, params *ListSyncListItemParams) ([]SyncV1SyncListItem, error) {
+	response, errors := c.StreamSyncListItemWithContext(ctx, ServiceSid, ListSid, params)
 
 	records := make([]SyncV1SyncListItem, 0)
 	for record := range response {
@@ -260,6 +277,11 @@ func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params 
 
 // Streams SyncListItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) (chan SyncV1SyncListItem, chan error) {
+	return c.StreamSyncListItemWithContext(context.TODO(), ServiceSid, ListSid, params)
+}
+
+// Streams SyncListItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncListItemWithContext(ctx context.Context, ServiceSid string, ListSid string, params *ListSyncListItemParams) (chan SyncV1SyncListItem, chan error) {
 	if params == nil {
 		params = &ListSyncListItemParams{}
 	}
@@ -268,19 +290,19 @@ func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, param
 	recordChannel := make(chan SyncV1SyncListItem, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSyncListItem(ServiceSid, ListSid, params, "", "")
+	response, err := c.PageSyncListItemWithContext(ctx, ServiceSid, ListSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSyncListItem(response, params, recordChannel, errorChannel)
+		go c.streamSyncListItemWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSyncListItem(response *ListSyncListItemResponse, params *ListSyncListItemParams, recordChannel chan SyncV1SyncListItem, errorChannel chan error) {
+func (c *ApiService) streamSyncListItemWithContext(ctx context.Context, response *ListSyncListItemResponse, params *ListSyncListItemParams, recordChannel chan SyncV1SyncListItem, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -295,7 +317,7 @@ func (c *ApiService) streamSyncListItem(response *ListSyncListItemResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSyncListItemResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSyncListItemResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -310,11 +332,11 @@ func (c *ApiService) streamSyncListItem(response *ListSyncListItemResponse, para
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSyncListItemResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSyncListItemResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -363,8 +385,10 @@ func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Upd
 	return params
 }
 
-//
 func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*SyncV1SyncListItem, error) {
+	return c.UpdateSyncListItemWithContext(context.TODO(), ServiceSid, ListSid, Index, params)
+}
+func (c *ApiService) UpdateSyncListItemWithContext(ctx context.Context, ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -397,7 +421,7 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

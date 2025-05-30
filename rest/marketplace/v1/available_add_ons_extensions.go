@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch an instance of an Extension for the Available Add-on.
 func (c *ApiService) FetchAvailableAddOnExtension(AvailableAddOnSid string, Sid string) (*MarketplaceV1AvailableAddOnExtension, error) {
+	return c.FetchAvailableAddOnExtensionWithContext(context.TODO(), AvailableAddOnSid, Sid)
+}
+func (c *ApiService) FetchAvailableAddOnExtensionWithContext(ctx context.Context, AvailableAddOnSid string, Sid string) (*MarketplaceV1AvailableAddOnExtension, error) {
 	path := "/v1/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid}"
 	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", AvailableAddOnSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -34,7 +38,7 @@ func (c *ApiService) FetchAvailableAddOnExtension(AvailableAddOnSid string, Sid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -68,6 +72,11 @@ func (params *ListAvailableAddOnExtensionParams) SetLimit(Limit int) *ListAvaila
 
 // Retrieve a single page of AvailableAddOnExtension records from the API. Request is executed immediately.
 func (c *ApiService) PageAvailableAddOnExtension(AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams, pageToken, pageNumber string) (*ListAvailableAddOnExtensionResponse, error) {
+	return c.PageAvailableAddOnExtensionWithContext(context.TODO(), AvailableAddOnSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of AvailableAddOnExtension records from the API. Request is executed immediately.
+func (c *ApiService) PageAvailableAddOnExtensionWithContext(ctx context.Context, AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams, pageToken, pageNumber string) (*ListAvailableAddOnExtensionResponse, error) {
 	path := "/v1/AvailableAddOns/{AvailableAddOnSid}/Extensions"
 
 	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", AvailableAddOnSid, -1)
@@ -88,7 +97,7 @@ func (c *ApiService) PageAvailableAddOnExtension(AvailableAddOnSid string, param
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +114,12 @@ func (c *ApiService) PageAvailableAddOnExtension(AvailableAddOnSid string, param
 
 // Lists AvailableAddOnExtension records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailableAddOnExtension(AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams) ([]MarketplaceV1AvailableAddOnExtension, error) {
-	response, errors := c.StreamAvailableAddOnExtension(AvailableAddOnSid, params)
+	return c.ListAvailableAddOnExtensionWithContext(context.TODO(), AvailableAddOnSid, params)
+}
+
+// Lists AvailableAddOnExtension records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailableAddOnExtensionWithContext(ctx context.Context, AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams) ([]MarketplaceV1AvailableAddOnExtension, error) {
+	response, errors := c.StreamAvailableAddOnExtensionWithContext(ctx, AvailableAddOnSid, params)
 
 	records := make([]MarketplaceV1AvailableAddOnExtension, 0)
 	for record := range response {
@@ -121,6 +135,11 @@ func (c *ApiService) ListAvailableAddOnExtension(AvailableAddOnSid string, param
 
 // Streams AvailableAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAvailableAddOnExtension(AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams) (chan MarketplaceV1AvailableAddOnExtension, chan error) {
+	return c.StreamAvailableAddOnExtensionWithContext(context.TODO(), AvailableAddOnSid, params)
+}
+
+// Streams AvailableAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailableAddOnExtensionWithContext(ctx context.Context, AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams) (chan MarketplaceV1AvailableAddOnExtension, chan error) {
 	if params == nil {
 		params = &ListAvailableAddOnExtensionParams{}
 	}
@@ -129,19 +148,19 @@ func (c *ApiService) StreamAvailableAddOnExtension(AvailableAddOnSid string, par
 	recordChannel := make(chan MarketplaceV1AvailableAddOnExtension, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAvailableAddOnExtension(AvailableAddOnSid, params, "", "")
+	response, err := c.PageAvailableAddOnExtensionWithContext(ctx, AvailableAddOnSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAvailableAddOnExtension(response, params, recordChannel, errorChannel)
+		go c.streamAvailableAddOnExtensionWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailableAddOnExtension(response *ListAvailableAddOnExtensionResponse, params *ListAvailableAddOnExtensionParams, recordChannel chan MarketplaceV1AvailableAddOnExtension, errorChannel chan error) {
+func (c *ApiService) streamAvailableAddOnExtensionWithContext(ctx context.Context, response *ListAvailableAddOnExtensionResponse, params *ListAvailableAddOnExtensionParams, recordChannel chan MarketplaceV1AvailableAddOnExtension, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -156,7 +175,7 @@ func (c *ApiService) streamAvailableAddOnExtension(response *ListAvailableAddOnE
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailableAddOnExtensionResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListAvailableAddOnExtensionResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -171,11 +190,11 @@ func (c *ApiService) streamAvailableAddOnExtension(response *ListAvailableAddOnE
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailableAddOnExtensionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailableAddOnExtensionResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -64,8 +65,10 @@ func (params *CreateWorkspaceParams) SetPrioritizeQueueOrder(PrioritizeQueueOrde
 	return params
 }
 
-//
 func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*TaskrouterV1Workspace, error) {
+	return c.CreateWorkspaceWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateWorkspaceWithContext(ctx context.Context, params *CreateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces"
 
 	data := url.Values{}
@@ -92,7 +95,7 @@ func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Taskrouter
 		data.Set("PrioritizeQueueOrder", fmt.Sprint(*params.PrioritizeQueueOrder))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -107,8 +110,10 @@ func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Taskrouter
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteWorkspace(Sid string) error {
+	return c.DeleteWorkspaceWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteWorkspaceWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -117,7 +122,7 @@ func (c *ApiService) DeleteWorkspace(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -127,8 +132,10 @@ func (c *ApiService) DeleteWorkspace(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, error) {
+	return c.FetchWorkspaceWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchWorkspaceWithContext(ctx context.Context, Sid string) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -137,7 +144,7 @@ func (c *ApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, error) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -177,6 +184,11 @@ func (params *ListWorkspaceParams) SetLimit(Limit int) *ListWorkspaceParams {
 
 // Retrieve a single page of Workspace records from the API. Request is executed immediately.
 func (c *ApiService) PageWorkspace(params *ListWorkspaceParams, pageToken, pageNumber string) (*ListWorkspaceResponse, error) {
+	return c.PageWorkspaceWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Workspace records from the API. Request is executed immediately.
+func (c *ApiService) PageWorkspaceWithContext(ctx context.Context, params *ListWorkspaceParams, pageToken, pageNumber string) (*ListWorkspaceResponse, error) {
 	path := "/v1/Workspaces"
 
 	data := url.Values{}
@@ -198,7 +210,7 @@ func (c *ApiService) PageWorkspace(params *ListWorkspaceParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -215,7 +227,12 @@ func (c *ApiService) PageWorkspace(params *ListWorkspaceParams, pageToken, pageN
 
 // Lists Workspace records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkspace(params *ListWorkspaceParams) ([]TaskrouterV1Workspace, error) {
-	response, errors := c.StreamWorkspace(params)
+	return c.ListWorkspaceWithContext(context.TODO(), params)
+}
+
+// Lists Workspace records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWorkspaceWithContext(ctx context.Context, params *ListWorkspaceParams) ([]TaskrouterV1Workspace, error) {
+	response, errors := c.StreamWorkspaceWithContext(ctx, params)
 
 	records := make([]TaskrouterV1Workspace, 0)
 	for record := range response {
@@ -231,6 +248,11 @@ func (c *ApiService) ListWorkspace(params *ListWorkspaceParams) ([]TaskrouterV1W
 
 // Streams Workspace records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWorkspace(params *ListWorkspaceParams) (chan TaskrouterV1Workspace, chan error) {
+	return c.StreamWorkspaceWithContext(context.TODO(), params)
+}
+
+// Streams Workspace records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWorkspaceWithContext(ctx context.Context, params *ListWorkspaceParams) (chan TaskrouterV1Workspace, chan error) {
 	if params == nil {
 		params = &ListWorkspaceParams{}
 	}
@@ -239,19 +261,19 @@ func (c *ApiService) StreamWorkspace(params *ListWorkspaceParams) (chan Taskrout
 	recordChannel := make(chan TaskrouterV1Workspace, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageWorkspace(params, "", "")
+	response, err := c.PageWorkspaceWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamWorkspace(response, params, recordChannel, errorChannel)
+		go c.streamWorkspaceWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamWorkspace(response *ListWorkspaceResponse, params *ListWorkspaceParams, recordChannel chan TaskrouterV1Workspace, errorChannel chan error) {
+func (c *ApiService) streamWorkspaceWithContext(ctx context.Context, response *ListWorkspaceResponse, params *ListWorkspaceParams, recordChannel chan TaskrouterV1Workspace, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -266,7 +288,7 @@ func (c *ApiService) streamWorkspace(response *ListWorkspaceResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListWorkspaceResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListWorkspaceResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -281,11 +303,11 @@ func (c *ApiService) streamWorkspace(response *ListWorkspaceResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListWorkspaceResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListWorkspaceResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -346,8 +368,10 @@ func (params *UpdateWorkspaceParams) SetPrioritizeQueueOrder(PrioritizeQueueOrde
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) (*TaskrouterV1Workspace, error) {
+	return c.UpdateWorkspaceWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateWorkspaceWithContext(ctx context.Context, Sid string, params *UpdateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -378,7 +402,7 @@ func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) 
 		data.Set("PrioritizeQueueOrder", fmt.Sprint(*params.PrioritizeQueueOrder))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

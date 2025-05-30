@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -51,6 +52,9 @@ func (params *UpdateFlowValidateParams) SetCommitMessage(CommitMessage string) *
 
 // Validate flow JSON definition
 func (c *ApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*StudioV2FlowValidate, error) {
+	return c.UpdateFlowValidateWithContext(context.TODO(), params)
+}
+func (c *ApiService) UpdateFlowValidateWithContext(ctx context.Context, params *UpdateFlowValidateParams) (*StudioV2FlowValidate, error) {
 	path := "/v2/Flows/Validate"
 
 	data := url.Values{}
@@ -77,7 +81,7 @@ func (c *ApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*Stud
 		data.Set("CommitMessage", *params.CommitMessage)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

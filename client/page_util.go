@@ -26,6 +26,10 @@ func ReadLimits(pageSize *int, limit *int) int {
 	}
 }
 
+func GetNext(baseUrl string, response interface{}, getNextPage func(ctx context.Context, nextPageUri string) (interface{}, error)) (interface{}, error) {
+	return GetNextWithContext(context.TODO(), baseUrl, response, getNextPage)
+}
+
 func GetNextWithContext(ctx context.Context, baseUrl string, response interface{}, getNextPage func(ctx context.Context, nextPageUri string) (interface{}, error)) (interface{}, error) {
 	nextPageUrl, err := getNextPageUrl(baseUrl, response)
 	if err != nil {

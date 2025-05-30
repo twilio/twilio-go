@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -60,6 +61,9 @@ func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
 
 // Add a new conversation user to your account's default service
 func (c *ApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User, error) {
+	return c.CreateUserWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateUserWithContext(ctx context.Context, params *CreateUserParams) (*ConversationsV1User, error) {
 	path := "/v1/Users"
 
 	data := url.Values{}
@@ -83,7 +87,7 @@ func (c *ApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User,
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -111,6 +115,9 @@ func (params *DeleteUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled s
 
 // Remove a conversation user from your account's default service
 func (c *ApiService) DeleteUser(Sid string, params *DeleteUserParams) error {
+	return c.DeleteUserWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) DeleteUserWithContext(ctx context.Context, Sid string, params *DeleteUserParams) error {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -122,7 +129,7 @@ func (c *ApiService) DeleteUser(Sid string, params *DeleteUserParams) error {
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -134,6 +141,9 @@ func (c *ApiService) DeleteUser(Sid string, params *DeleteUserParams) error {
 
 // Fetch a conversation user from your account's default service
 func (c *ApiService) FetchUser(Sid string) (*ConversationsV1User, error) {
+	return c.FetchUserWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchUserWithContext(ctx context.Context, Sid string) (*ConversationsV1User, error) {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -142,7 +152,7 @@ func (c *ApiService) FetchUser(Sid string) (*ConversationsV1User, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -176,6 +186,11 @@ func (params *ListUserParams) SetLimit(Limit int) *ListUserParams {
 
 // Retrieve a single page of User records from the API. Request is executed immediately.
 func (c *ApiService) PageUser(params *ListUserParams, pageToken, pageNumber string) (*ListUserResponse, error) {
+	return c.PageUserWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of User records from the API. Request is executed immediately.
+func (c *ApiService) PageUserWithContext(ctx context.Context, params *ListUserParams, pageToken, pageNumber string) (*ListUserResponse, error) {
 	path := "/v1/Users"
 
 	data := url.Values{}
@@ -194,7 +209,7 @@ func (c *ApiService) PageUser(params *ListUserParams, pageToken, pageNumber stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +226,12 @@ func (c *ApiService) PageUser(params *ListUserParams, pageToken, pageNumber stri
 
 // Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUser(params *ListUserParams) ([]ConversationsV1User, error) {
-	response, errors := c.StreamUser(params)
+	return c.ListUserWithContext(context.TODO(), params)
+}
+
+// Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUserWithContext(ctx context.Context, params *ListUserParams) ([]ConversationsV1User, error) {
+	response, errors := c.StreamUserWithContext(ctx, params)
 
 	records := make([]ConversationsV1User, 0)
 	for record := range response {
@@ -227,6 +247,11 @@ func (c *ApiService) ListUser(params *ListUserParams) ([]ConversationsV1User, er
 
 // Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUser(params *ListUserParams) (chan ConversationsV1User, chan error) {
+	return c.StreamUserWithContext(context.TODO(), params)
+}
+
+// Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUserWithContext(ctx context.Context, params *ListUserParams) (chan ConversationsV1User, chan error) {
 	if params == nil {
 		params = &ListUserParams{}
 	}
@@ -235,19 +260,19 @@ func (c *ApiService) StreamUser(params *ListUserParams) (chan ConversationsV1Use
 	recordChannel := make(chan ConversationsV1User, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUser(params, "", "")
+	response, err := c.PageUserWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUser(response, params, recordChannel, errorChannel)
+		go c.streamUserWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUser(response *ListUserResponse, params *ListUserParams, recordChannel chan ConversationsV1User, errorChannel chan error) {
+func (c *ApiService) streamUserWithContext(ctx context.Context, response *ListUserResponse, params *ListUserParams, recordChannel chan ConversationsV1User, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -262,7 +287,7 @@ func (c *ApiService) streamUser(response *ListUserResponse, params *ListUserPara
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUserResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListUserResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -277,11 +302,11 @@ func (c *ApiService) streamUser(response *ListUserResponse, params *ListUserPara
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUserResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUserResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -326,6 +351,9 @@ func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
 
 // Update an existing conversation user in your account's default service
 func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*ConversationsV1User, error) {
+	return c.UpdateUserWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateUserWithContext(ctx context.Context, Sid string, params *UpdateUserParams) (*ConversationsV1User, error) {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -347,7 +375,7 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Conversa
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

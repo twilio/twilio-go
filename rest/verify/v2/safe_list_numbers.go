@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreateSafelistParams) SetPhoneNumber(PhoneNumber string) *CreateSa
 
 // Add a new phone number to SafeList.
 func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*VerifyV2Safelist, error) {
+	return c.CreateSafelistWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateSafelistWithContext(ctx context.Context, params *CreateSafelistParams) (*VerifyV2Safelist, error) {
 	path := "/v2/SafeList/Numbers"
 
 	data := url.Values{}
@@ -44,7 +48,7 @@ func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*VerifyV2Safe
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -61,6 +65,9 @@ func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*VerifyV2Safe
 
 // Remove a phone number from SafeList.
 func (c *ApiService) DeleteSafelist(PhoneNumber string) error {
+	return c.DeleteSafelistWithContext(context.TODO(), PhoneNumber)
+}
+func (c *ApiService) DeleteSafelistWithContext(ctx context.Context, PhoneNumber string) error {
 	path := "/v2/SafeList/Numbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
@@ -69,7 +76,7 @@ func (c *ApiService) DeleteSafelist(PhoneNumber string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -81,6 +88,9 @@ func (c *ApiService) DeleteSafelist(PhoneNumber string) error {
 
 // Check if a phone number exists in SafeList.
 func (c *ApiService) FetchSafelist(PhoneNumber string) (*VerifyV2Safelist, error) {
+	return c.FetchSafelistWithContext(context.TODO(), PhoneNumber)
+}
+func (c *ApiService) FetchSafelistWithContext(ctx context.Context, PhoneNumber string) (*VerifyV2Safelist, error) {
 	path := "/v2/SafeList/Numbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
@@ -89,7 +99,7 @@ func (c *ApiService) FetchSafelist(PhoneNumber string) (*VerifyV2Safelist, error
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -132,6 +133,9 @@ func (params *CreateApplicationParams) SetPublicApplicationConnectEnabled(Public
 
 // Create a new application within your account
 func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV2010Application, error) {
+	return c.CreateApplicationWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateApplicationWithContext(ctx context.Context, params *CreateApplicationParams) (*ApiV2010Application, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -193,7 +197,7 @@ func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV20
 		data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -221,6 +225,9 @@ func (params *DeleteApplicationParams) SetPathAccountSid(PathAccountSid string) 
 
 // Delete the application by the specified application sid
 func (c *ApiService) DeleteApplication(Sid string, params *DeleteApplicationParams) error {
+	return c.DeleteApplicationWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) DeleteApplicationWithContext(ctx context.Context, Sid string, params *DeleteApplicationParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -234,7 +241,7 @@ func (c *ApiService) DeleteApplication(Sid string, params *DeleteApplicationPara
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -257,6 +264,9 @@ func (params *FetchApplicationParams) SetPathAccountSid(PathAccountSid string) *
 
 // Fetch the application specified by the provided sid
 func (c *ApiService) FetchApplication(Sid string, params *FetchApplicationParams) (*ApiV2010Application, error) {
+	return c.FetchApplicationWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) FetchApplicationWithContext(ctx context.Context, Sid string, params *FetchApplicationParams) (*ApiV2010Application, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -270,7 +280,7 @@ func (c *ApiService) FetchApplication(Sid string, params *FetchApplicationParams
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -316,6 +326,11 @@ func (params *ListApplicationParams) SetLimit(Limit int) *ListApplicationParams 
 
 // Retrieve a single page of Application records from the API. Request is executed immediately.
 func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken, pageNumber string) (*ListApplicationResponse, error) {
+	return c.PageApplicationWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Application records from the API. Request is executed immediately.
+func (c *ApiService) PageApplicationWithContext(ctx context.Context, params *ListApplicationParams, pageToken, pageNumber string) (*ListApplicationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -343,7 +358,7 @@ func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -360,7 +375,12 @@ func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken, p
 
 // Lists Application records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListApplication(params *ListApplicationParams) ([]ApiV2010Application, error) {
-	response, errors := c.StreamApplication(params)
+	return c.ListApplicationWithContext(context.TODO(), params)
+}
+
+// Lists Application records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListApplicationWithContext(ctx context.Context, params *ListApplicationParams) ([]ApiV2010Application, error) {
+	response, errors := c.StreamApplicationWithContext(ctx, params)
 
 	records := make([]ApiV2010Application, 0)
 	for record := range response {
@@ -376,6 +396,11 @@ func (c *ApiService) ListApplication(params *ListApplicationParams) ([]ApiV2010A
 
 // Streams Application records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV2010Application, chan error) {
+	return c.StreamApplicationWithContext(context.TODO(), params)
+}
+
+// Streams Application records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamApplicationWithContext(ctx context.Context, params *ListApplicationParams) (chan ApiV2010Application, chan error) {
 	if params == nil {
 		params = &ListApplicationParams{}
 	}
@@ -384,19 +409,19 @@ func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV
 	recordChannel := make(chan ApiV2010Application, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageApplication(params, "", "")
+	response, err := c.PageApplicationWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamApplication(response, params, recordChannel, errorChannel)
+		go c.streamApplicationWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamApplication(response *ListApplicationResponse, params *ListApplicationParams, recordChannel chan ApiV2010Application, errorChannel chan error) {
+func (c *ApiService) streamApplicationWithContext(ctx context.Context, response *ListApplicationResponse, params *ListApplicationParams, recordChannel chan ApiV2010Application, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -411,7 +436,7 @@ func (c *ApiService) streamApplication(response *ListApplicationResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListApplicationResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListApplicationResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -426,11 +451,11 @@ func (c *ApiService) streamApplication(response *ListApplicationResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListApplicationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListApplicationResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -553,6 +578,9 @@ func (params *UpdateApplicationParams) SetPublicApplicationConnectEnabled(Public
 
 // Updates the application's properties
 func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationParams) (*ApiV2010Application, error) {
+	return c.UpdateApplicationWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateApplicationWithContext(ctx context.Context, Sid string, params *UpdateApplicationParams) (*ApiV2010Application, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -615,7 +643,7 @@ func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationPara
 		data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

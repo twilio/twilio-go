@@ -15,13 +15,16 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) UpdateRoomParticipantAnonymize(RoomSid string, Sid string) (*VideoV1RoomParticipantAnonymize, error) {
+	return c.UpdateRoomParticipantAnonymizeWithContext(context.TODO(), RoomSid, Sid)
+}
+func (c *ApiService) UpdateRoomParticipantAnonymizeWithContext(ctx context.Context, RoomSid string, Sid string) (*VideoV1RoomParticipantAnonymize, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}/Anonymize"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -31,7 +34,7 @@ func (c *ApiService) UpdateRoomParticipantAnonymize(RoomSid string, Sid string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

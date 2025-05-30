@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // This endpoint returns the data of a given Listing. To find a Listing's SID, use the [Available Add-ons resource](/docs/marketplace/api/available-add-ons) or view its Listing details page in the Console by visiting the [Catalog](https://console.twilio.com/us1/develop/add-ons/catalog) or the [My Listings tab](https://console.twilio.com/us1/develop/add-ons/publish/my-listings) and selecting the Listing.
 func (c *ApiService) FetchModuleDataManagement(Sid string) (*MarketplaceV1ModuleDataManagement, error) {
+	return c.FetchModuleDataManagementWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchModuleDataManagementWithContext(ctx context.Context, Sid string) (*MarketplaceV1ModuleDataManagement, error) {
 	path := "/v1/Listing/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -30,7 +34,7 @@ func (c *ApiService) FetchModuleDataManagement(Sid string) (*MarketplaceV1Module
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -94,6 +98,9 @@ func (params *UpdateModuleDataManagementParams) SetPricing(Pricing string) *Upda
 
 // This endpoint updates the data of a given Listing. To find a Listing's SID, use the [Available Add-ons resource](https://www.twilio.com/docs/marketplace/api/available-add-ons) or view its Listing details page in the Console by visiting the [Catalog](https://console.twilio.com/us1/develop/add-ons/catalog) or the [My Listings tab](https://console.twilio.com/us1/develop/add-ons/publish/my-listings) and selecting the Listing. Only Listing owners are allowed to update the Listing.
 func (c *ApiService) UpdateModuleDataManagement(Sid string, params *UpdateModuleDataManagementParams) (*MarketplaceV1ModuleDataManagement, error) {
+	return c.UpdateModuleDataManagementWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateModuleDataManagementWithContext(ctx context.Context, Sid string, params *UpdateModuleDataManagementParams) (*MarketplaceV1ModuleDataManagement, error) {
 	path := "/v1/Listing/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -124,7 +131,7 @@ func (c *ApiService) UpdateModuleDataManagement(Sid string, params *UpdateModule
 		data.Set("Pricing", *params.Pricing)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

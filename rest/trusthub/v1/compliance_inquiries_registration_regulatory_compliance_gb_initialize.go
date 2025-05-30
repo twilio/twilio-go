@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -262,6 +263,9 @@ func (params *CreateComplianceRegistrationParams) SetThemeSetId(ThemeSetId strin
 
 // Create a new Compliance Registration Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegistrationParams) (*TrusthubV1ComplianceRegistration, error) {
+	return c.CreateComplianceRegistrationWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateComplianceRegistrationWithContext(ctx context.Context, params *CreateComplianceRegistrationParams) (*TrusthubV1ComplianceRegistration, error) {
 	path := "/v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize"
 
 	data := url.Values{}
@@ -387,7 +391,7 @@ func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegist
 		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -421,6 +425,9 @@ func (params *UpdateComplianceRegistrationParams) SetThemeSetId(ThemeSetId strin
 
 // Resume a specific Regulatory Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 func (c *ApiService) UpdateComplianceRegistration(RegistrationId string, params *UpdateComplianceRegistrationParams) (*TrusthubV1ComplianceRegistration, error) {
+	return c.UpdateComplianceRegistrationWithContext(context.TODO(), RegistrationId, params)
+}
+func (c *ApiService) UpdateComplianceRegistrationWithContext(ctx context.Context, RegistrationId string, params *UpdateComplianceRegistrationParams) (*TrusthubV1ComplianceRegistration, error) {
 	path := "/v1/ComplianceInquiries/Registration/{RegistrationId}/RegulatoryCompliance/GB/Initialize"
 	path = strings.Replace(path, "{"+"RegistrationId"+"}", RegistrationId, -1)
 
@@ -436,7 +443,7 @@ func (c *ApiService) UpdateComplianceRegistration(RegistrationId string, params 
 		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

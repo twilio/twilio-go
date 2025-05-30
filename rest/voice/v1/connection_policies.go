@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -34,8 +35,10 @@ func (params *CreateConnectionPolicyParams) SetFriendlyName(FriendlyName string)
 	return params
 }
 
-//
 func (c *ApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
+	return c.CreateConnectionPolicyWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateConnectionPolicyWithContext(ctx context.Context, params *CreateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies"
 
 	data := url.Values{}
@@ -47,7 +50,7 @@ func (c *ApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -62,8 +65,10 @@ func (c *ApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteConnectionPolicy(Sid string) error {
+	return c.DeleteConnectionPolicyWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteConnectionPolicyWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -72,7 +77,7 @@ func (c *ApiService) DeleteConnectionPolicy(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -82,8 +87,10 @@ func (c *ApiService) DeleteConnectionPolicy(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchConnectionPolicy(Sid string) (*VoiceV1ConnectionPolicy, error) {
+	return c.FetchConnectionPolicyWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchConnectionPolicyWithContext(ctx context.Context, Sid string) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -92,7 +99,7 @@ func (c *ApiService) FetchConnectionPolicy(Sid string) (*VoiceV1ConnectionPolicy
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -126,6 +133,11 @@ func (params *ListConnectionPolicyParams) SetLimit(Limit int) *ListConnectionPol
 
 // Retrieve a single page of ConnectionPolicy records from the API. Request is executed immediately.
 func (c *ApiService) PageConnectionPolicy(params *ListConnectionPolicyParams, pageToken, pageNumber string) (*ListConnectionPolicyResponse, error) {
+	return c.PageConnectionPolicyWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ConnectionPolicy records from the API. Request is executed immediately.
+func (c *ApiService) PageConnectionPolicyWithContext(ctx context.Context, params *ListConnectionPolicyParams, pageToken, pageNumber string) (*ListConnectionPolicyResponse, error) {
 	path := "/v1/ConnectionPolicies"
 
 	data := url.Values{}
@@ -144,7 +156,7 @@ func (c *ApiService) PageConnectionPolicy(params *ListConnectionPolicyParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +173,12 @@ func (c *ApiService) PageConnectionPolicy(params *ListConnectionPolicyParams, pa
 
 // Lists ConnectionPolicy records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConnectionPolicy(params *ListConnectionPolicyParams) ([]VoiceV1ConnectionPolicy, error) {
-	response, errors := c.StreamConnectionPolicy(params)
+	return c.ListConnectionPolicyWithContext(context.TODO(), params)
+}
+
+// Lists ConnectionPolicy records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConnectionPolicyWithContext(ctx context.Context, params *ListConnectionPolicyParams) ([]VoiceV1ConnectionPolicy, error) {
+	response, errors := c.StreamConnectionPolicyWithContext(ctx, params)
 
 	records := make([]VoiceV1ConnectionPolicy, 0)
 	for record := range response {
@@ -177,6 +194,11 @@ func (c *ApiService) ListConnectionPolicy(params *ListConnectionPolicyParams) ([
 
 // Streams ConnectionPolicy records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConnectionPolicy(params *ListConnectionPolicyParams) (chan VoiceV1ConnectionPolicy, chan error) {
+	return c.StreamConnectionPolicyWithContext(context.TODO(), params)
+}
+
+// Streams ConnectionPolicy records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConnectionPolicyWithContext(ctx context.Context, params *ListConnectionPolicyParams) (chan VoiceV1ConnectionPolicy, chan error) {
 	if params == nil {
 		params = &ListConnectionPolicyParams{}
 	}
@@ -185,19 +207,19 @@ func (c *ApiService) StreamConnectionPolicy(params *ListConnectionPolicyParams) 
 	recordChannel := make(chan VoiceV1ConnectionPolicy, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageConnectionPolicy(params, "", "")
+	response, err := c.PageConnectionPolicyWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConnectionPolicy(response, params, recordChannel, errorChannel)
+		go c.streamConnectionPolicyWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConnectionPolicy(response *ListConnectionPolicyResponse, params *ListConnectionPolicyParams, recordChannel chan VoiceV1ConnectionPolicy, errorChannel chan error) {
+func (c *ApiService) streamConnectionPolicyWithContext(ctx context.Context, response *ListConnectionPolicyResponse, params *ListConnectionPolicyParams, recordChannel chan VoiceV1ConnectionPolicy, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -212,7 +234,7 @@ func (c *ApiService) streamConnectionPolicy(response *ListConnectionPolicyRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListConnectionPolicyResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListConnectionPolicyResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -227,11 +249,11 @@ func (c *ApiService) streamConnectionPolicy(response *ListConnectionPolicyRespon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListConnectionPolicyResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListConnectionPolicyResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -256,8 +278,10 @@ func (params *UpdateConnectionPolicyParams) SetFriendlyName(FriendlyName string)
 	return params
 }
 
-//
 func (c *ApiService) UpdateConnectionPolicy(Sid string, params *UpdateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
+	return c.UpdateConnectionPolicyWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateConnectionPolicyWithContext(ctx context.Context, Sid string, params *UpdateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -270,7 +294,7 @@ func (c *ApiService) UpdateConnectionPolicy(Sid string, params *UpdateConnection
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

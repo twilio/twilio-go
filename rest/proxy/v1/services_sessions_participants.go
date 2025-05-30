@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -54,6 +55,9 @@ func (params *CreateParticipantParams) SetProxyIdentifierSid(ProxyIdentifierSid 
 
 // Add a new Participant to the Session
 func (c *ApiService) CreateParticipant(ServiceSid string, SessionSid string, params *CreateParticipantParams) (*ProxyV1Participant, error) {
+	return c.CreateParticipantWithContext(context.TODO(), ServiceSid, SessionSid, params)
+}
+func (c *ApiService) CreateParticipantWithContext(ctx context.Context, ServiceSid string, SessionSid string, params *CreateParticipantParams) (*ProxyV1Participant, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -76,7 +80,7 @@ func (c *ApiService) CreateParticipant(ServiceSid string, SessionSid string, par
 		data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -93,6 +97,9 @@ func (c *ApiService) CreateParticipant(ServiceSid string, SessionSid string, par
 
 // Delete a specific Participant. This is a soft-delete. The participant remains associated with the session and cannot be re-added. Participants are only permanently deleted when the [Session](https://www.twilio.com/docs/proxy/api/session) is deleted.
 func (c *ApiService) DeleteParticipant(ServiceSid string, SessionSid string, Sid string) error {
+	return c.DeleteParticipantWithContext(context.TODO(), ServiceSid, SessionSid, Sid)
+}
+func (c *ApiService) DeleteParticipantWithContext(ctx context.Context, ServiceSid string, SessionSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -103,7 +110,7 @@ func (c *ApiService) DeleteParticipant(ServiceSid string, SessionSid string, Sid
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -115,6 +122,9 @@ func (c *ApiService) DeleteParticipant(ServiceSid string, SessionSid string, Sid
 
 // Fetch a specific Participant.
 func (c *ApiService) FetchParticipant(ServiceSid string, SessionSid string, Sid string) (*ProxyV1Participant, error) {
+	return c.FetchParticipantWithContext(context.TODO(), ServiceSid, SessionSid, Sid)
+}
+func (c *ApiService) FetchParticipantWithContext(ctx context.Context, ServiceSid string, SessionSid string, Sid string) (*ProxyV1Participant, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -125,7 +135,7 @@ func (c *ApiService) FetchParticipant(ServiceSid string, SessionSid string, Sid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -159,6 +169,11 @@ func (params *ListParticipantParams) SetLimit(Limit int) *ListParticipantParams 
 
 // Retrieve a single page of Participant records from the API. Request is executed immediately.
 func (c *ApiService) PageParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams, pageToken, pageNumber string) (*ListParticipantResponse, error) {
+	return c.PageParticipantWithContext(context.TODO(), ServiceSid, SessionSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Participant records from the API. Request is executed immediately.
+func (c *ApiService) PageParticipantWithContext(ctx context.Context, ServiceSid string, SessionSid string, params *ListParticipantParams, pageToken, pageNumber string) (*ListParticipantResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -180,7 +195,7 @@ func (c *ApiService) PageParticipant(ServiceSid string, SessionSid string, param
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -197,7 +212,12 @@ func (c *ApiService) PageParticipant(ServiceSid string, SessionSid string, param
 
 // Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams) ([]ProxyV1Participant, error) {
-	response, errors := c.StreamParticipant(ServiceSid, SessionSid, params)
+	return c.ListParticipantWithContext(context.TODO(), ServiceSid, SessionSid, params)
+}
+
+// Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListParticipantWithContext(ctx context.Context, ServiceSid string, SessionSid string, params *ListParticipantParams) ([]ProxyV1Participant, error) {
+	response, errors := c.StreamParticipantWithContext(ctx, ServiceSid, SessionSid, params)
 
 	records := make([]ProxyV1Participant, 0)
 	for record := range response {
@@ -213,6 +233,11 @@ func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, param
 
 // Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams) (chan ProxyV1Participant, chan error) {
+	return c.StreamParticipantWithContext(context.TODO(), ServiceSid, SessionSid, params)
+}
+
+// Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamParticipantWithContext(ctx context.Context, ServiceSid string, SessionSid string, params *ListParticipantParams) (chan ProxyV1Participant, chan error) {
 	if params == nil {
 		params = &ListParticipantParams{}
 	}
@@ -221,19 +246,19 @@ func (c *ApiService) StreamParticipant(ServiceSid string, SessionSid string, par
 	recordChannel := make(chan ProxyV1Participant, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageParticipant(ServiceSid, SessionSid, params, "", "")
+	response, err := c.PageParticipantWithContext(ctx, ServiceSid, SessionSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamParticipant(response, params, recordChannel, errorChannel)
+		go c.streamParticipantWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamParticipant(response *ListParticipantResponse, params *ListParticipantParams, recordChannel chan ProxyV1Participant, errorChannel chan error) {
+func (c *ApiService) streamParticipantWithContext(ctx context.Context, response *ListParticipantResponse, params *ListParticipantParams, recordChannel chan ProxyV1Participant, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -248,7 +273,7 @@ func (c *ApiService) streamParticipant(response *ListParticipantResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListParticipantResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListParticipantResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -263,11 +288,11 @@ func (c *ApiService) streamParticipant(response *ListParticipantResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListParticipantResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListParticipantResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

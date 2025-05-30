@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -26,6 +27,9 @@ import (
 
 // Get Video Log Analyzer data for a Room.
 func (c *ApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1VideoRoomSummary, error) {
+	return c.FetchVideoRoomSummaryWithContext(context.TODO(), RoomSid)
+}
+func (c *ApiService) FetchVideoRoomSummaryWithContext(ctx context.Context, RoomSid string) (*InsightsV1VideoRoomSummary, error) {
 	path := "/v1/Video/Rooms/{RoomSid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
@@ -34,7 +38,7 @@ func (c *ApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1VideoRoom
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -98,6 +102,11 @@ func (params *ListVideoRoomSummaryParams) SetLimit(Limit int) *ListVideoRoomSumm
 
 // Retrieve a single page of VideoRoomSummary records from the API. Request is executed immediately.
 func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pageToken, pageNumber string) (*ListVideoRoomSummaryResponse, error) {
+	return c.PageVideoRoomSummaryWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of VideoRoomSummary records from the API. Request is executed immediately.
+func (c *ApiService) PageVideoRoomSummaryWithContext(ctx context.Context, params *ListVideoRoomSummaryParams, pageToken, pageNumber string) (*ListVideoRoomSummaryResponse, error) {
 	path := "/v1/Video/Rooms"
 
 	data := url.Values{}
@@ -135,7 +144,7 @@ func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -152,7 +161,12 @@ func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pa
 
 // Lists VideoRoomSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) ([]InsightsV1VideoRoomSummary, error) {
-	response, errors := c.StreamVideoRoomSummary(params)
+	return c.ListVideoRoomSummaryWithContext(context.TODO(), params)
+}
+
+// Lists VideoRoomSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListVideoRoomSummaryWithContext(ctx context.Context, params *ListVideoRoomSummaryParams) ([]InsightsV1VideoRoomSummary, error) {
+	response, errors := c.StreamVideoRoomSummaryWithContext(ctx, params)
 
 	records := make([]InsightsV1VideoRoomSummary, 0)
 	for record := range response {
@@ -168,6 +182,11 @@ func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) ([
 
 // Streams VideoRoomSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamVideoRoomSummary(params *ListVideoRoomSummaryParams) (chan InsightsV1VideoRoomSummary, chan error) {
+	return c.StreamVideoRoomSummaryWithContext(context.TODO(), params)
+}
+
+// Streams VideoRoomSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamVideoRoomSummaryWithContext(ctx context.Context, params *ListVideoRoomSummaryParams) (chan InsightsV1VideoRoomSummary, chan error) {
 	if params == nil {
 		params = &ListVideoRoomSummaryParams{}
 	}
@@ -176,19 +195,19 @@ func (c *ApiService) StreamVideoRoomSummary(params *ListVideoRoomSummaryParams) 
 	recordChannel := make(chan InsightsV1VideoRoomSummary, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageVideoRoomSummary(params, "", "")
+	response, err := c.PageVideoRoomSummaryWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamVideoRoomSummary(response, params, recordChannel, errorChannel)
+		go c.streamVideoRoomSummaryWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamVideoRoomSummary(response *ListVideoRoomSummaryResponse, params *ListVideoRoomSummaryParams, recordChannel chan InsightsV1VideoRoomSummary, errorChannel chan error) {
+func (c *ApiService) streamVideoRoomSummaryWithContext(ctx context.Context, response *ListVideoRoomSummaryResponse, params *ListVideoRoomSummaryParams, recordChannel chan InsightsV1VideoRoomSummary, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -203,7 +222,7 @@ func (c *ApiService) streamVideoRoomSummary(response *ListVideoRoomSummaryRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListVideoRoomSummaryResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListVideoRoomSummaryResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -218,11 +237,11 @@ func (c *ApiService) streamVideoRoomSummary(response *ListVideoRoomSummaryRespon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListVideoRoomSummaryResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListVideoRoomSummaryResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

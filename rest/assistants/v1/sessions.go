@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // get a session
 func (c *ApiService) FetchSession(Id string) (*AssistantsV1Session, error) {
+	return c.FetchSessionWithContext(context.TODO(), Id)
+}
+func (c *ApiService) FetchSessionWithContext(ctx context.Context, Id string) (*AssistantsV1Session, error) {
 	path := "/v1/Sessions/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) FetchSession(Id string) (*AssistantsV1Session, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +71,11 @@ func (params *ListSessionsParams) SetLimit(Limit int) *ListSessionsParams {
 
 // Retrieve a single page of Sessions records from the API. Request is executed immediately.
 func (c *ApiService) PageSessions(params *ListSessionsParams, pageToken, pageNumber string) (*ListSessionsResponse, error) {
+	return c.PageSessionsWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Sessions records from the API. Request is executed immediately.
+func (c *ApiService) PageSessionsWithContext(ctx context.Context, params *ListSessionsParams, pageToken, pageNumber string) (*ListSessionsResponse, error) {
 	path := "/v1/Sessions"
 
 	data := url.Values{}
@@ -85,7 +94,7 @@ func (c *ApiService) PageSessions(params *ListSessionsParams, pageToken, pageNum
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +111,12 @@ func (c *ApiService) PageSessions(params *ListSessionsParams, pageToken, pageNum
 
 // Lists Sessions records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSessions(params *ListSessionsParams) ([]AssistantsV1Session, error) {
-	response, errors := c.StreamSessions(params)
+	return c.ListSessionsWithContext(context.TODO(), params)
+}
+
+// Lists Sessions records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSessionsWithContext(ctx context.Context, params *ListSessionsParams) ([]AssistantsV1Session, error) {
+	response, errors := c.StreamSessionsWithContext(ctx, params)
 
 	records := make([]AssistantsV1Session, 0)
 	for record := range response {
@@ -118,6 +132,11 @@ func (c *ApiService) ListSessions(params *ListSessionsParams) ([]AssistantsV1Ses
 
 // Streams Sessions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSessions(params *ListSessionsParams) (chan AssistantsV1Session, chan error) {
+	return c.StreamSessionsWithContext(context.TODO(), params)
+}
+
+// Streams Sessions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSessionsWithContext(ctx context.Context, params *ListSessionsParams) (chan AssistantsV1Session, chan error) {
 	if params == nil {
 		params = &ListSessionsParams{}
 	}
@@ -126,19 +145,19 @@ func (c *ApiService) StreamSessions(params *ListSessionsParams) (chan Assistants
 	recordChannel := make(chan AssistantsV1Session, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSessions(params, "", "")
+	response, err := c.PageSessionsWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSessions(response, params, recordChannel, errorChannel)
+		go c.streamSessionsWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSessions(response *ListSessionsResponse, params *ListSessionsParams, recordChannel chan AssistantsV1Session, errorChannel chan error) {
+func (c *ApiService) streamSessionsWithContext(ctx context.Context, response *ListSessionsResponse, params *ListSessionsParams, recordChannel chan AssistantsV1Session, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -153,7 +172,7 @@ func (c *ApiService) streamSessions(response *ListSessionsResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSessionsResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSessionsResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -168,11 +187,11 @@ func (c *ApiService) streamSessions(response *ListSessionsResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSessionsResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSessionsResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

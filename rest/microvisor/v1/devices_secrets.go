@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateDeviceSecretParams) SetValue(Value string) *CreateDeviceSecr
 
 // Create a secret for a Microvisor Device.
 func (c *ApiService) CreateDeviceSecret(DeviceSid string, params *CreateDeviceSecretParams) (*MicrovisorV1DeviceSecret, error) {
+	return c.CreateDeviceSecretWithContext(context.TODO(), DeviceSid, params)
+}
+func (c *ApiService) CreateDeviceSecretWithContext(ctx context.Context, DeviceSid string, params *CreateDeviceSecretParams) (*MicrovisorV1DeviceSecret, error) {
 	path := "/v1/Devices/{DeviceSid}/Secrets"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 
@@ -57,7 +61,7 @@ func (c *ApiService) CreateDeviceSecret(DeviceSid string, params *CreateDeviceSe
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -74,6 +78,9 @@ func (c *ApiService) CreateDeviceSecret(DeviceSid string, params *CreateDeviceSe
 
 // Delete a secret for a Microvisor Device.
 func (c *ApiService) DeleteDeviceSecret(DeviceSid string, Key string) error {
+	return c.DeleteDeviceSecretWithContext(context.TODO(), DeviceSid, Key)
+}
+func (c *ApiService) DeleteDeviceSecretWithContext(ctx context.Context, DeviceSid string, Key string) error {
 	path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
@@ -83,7 +90,7 @@ func (c *ApiService) DeleteDeviceSecret(DeviceSid string, Key string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -95,6 +102,9 @@ func (c *ApiService) DeleteDeviceSecret(DeviceSid string, Key string) error {
 
 // Retrieve a Secret for a Device.
 func (c *ApiService) FetchDeviceSecret(DeviceSid string, Key string) (*MicrovisorV1DeviceSecret, error) {
+	return c.FetchDeviceSecretWithContext(context.TODO(), DeviceSid, Key)
+}
+func (c *ApiService) FetchDeviceSecretWithContext(ctx context.Context, DeviceSid string, Key string) (*MicrovisorV1DeviceSecret, error) {
 	path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
@@ -104,7 +114,7 @@ func (c *ApiService) FetchDeviceSecret(DeviceSid string, Key string) (*Microviso
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +148,11 @@ func (params *ListDeviceSecretParams) SetLimit(Limit int) *ListDeviceSecretParam
 
 // Retrieve a single page of DeviceSecret records from the API. Request is executed immediately.
 func (c *ApiService) PageDeviceSecret(DeviceSid string, params *ListDeviceSecretParams, pageToken, pageNumber string) (*ListDeviceSecretResponse, error) {
+	return c.PageDeviceSecretWithContext(context.TODO(), DeviceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of DeviceSecret records from the API. Request is executed immediately.
+func (c *ApiService) PageDeviceSecretWithContext(ctx context.Context, DeviceSid string, params *ListDeviceSecretParams, pageToken, pageNumber string) (*ListDeviceSecretResponse, error) {
 	path := "/v1/Devices/{DeviceSid}/Secrets"
 
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
@@ -158,7 +173,7 @@ func (c *ApiService) PageDeviceSecret(DeviceSid string, params *ListDeviceSecret
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +190,12 @@ func (c *ApiService) PageDeviceSecret(DeviceSid string, params *ListDeviceSecret
 
 // Lists DeviceSecret records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDeviceSecret(DeviceSid string, params *ListDeviceSecretParams) ([]MicrovisorV1DeviceSecret, error) {
-	response, errors := c.StreamDeviceSecret(DeviceSid, params)
+	return c.ListDeviceSecretWithContext(context.TODO(), DeviceSid, params)
+}
+
+// Lists DeviceSecret records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDeviceSecretWithContext(ctx context.Context, DeviceSid string, params *ListDeviceSecretParams) ([]MicrovisorV1DeviceSecret, error) {
+	response, errors := c.StreamDeviceSecretWithContext(ctx, DeviceSid, params)
 
 	records := make([]MicrovisorV1DeviceSecret, 0)
 	for record := range response {
@@ -191,6 +211,11 @@ func (c *ApiService) ListDeviceSecret(DeviceSid string, params *ListDeviceSecret
 
 // Streams DeviceSecret records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDeviceSecret(DeviceSid string, params *ListDeviceSecretParams) (chan MicrovisorV1DeviceSecret, chan error) {
+	return c.StreamDeviceSecretWithContext(context.TODO(), DeviceSid, params)
+}
+
+// Streams DeviceSecret records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDeviceSecretWithContext(ctx context.Context, DeviceSid string, params *ListDeviceSecretParams) (chan MicrovisorV1DeviceSecret, chan error) {
 	if params == nil {
 		params = &ListDeviceSecretParams{}
 	}
@@ -199,19 +224,19 @@ func (c *ApiService) StreamDeviceSecret(DeviceSid string, params *ListDeviceSecr
 	recordChannel := make(chan MicrovisorV1DeviceSecret, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDeviceSecret(DeviceSid, params, "", "")
+	response, err := c.PageDeviceSecretWithContext(ctx, DeviceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDeviceSecret(response, params, recordChannel, errorChannel)
+		go c.streamDeviceSecretWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDeviceSecret(response *ListDeviceSecretResponse, params *ListDeviceSecretParams, recordChannel chan MicrovisorV1DeviceSecret, errorChannel chan error) {
+func (c *ApiService) streamDeviceSecretWithContext(ctx context.Context, response *ListDeviceSecretResponse, params *ListDeviceSecretParams, recordChannel chan MicrovisorV1DeviceSecret, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -226,7 +251,7 @@ func (c *ApiService) streamDeviceSecret(response *ListDeviceSecretResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDeviceSecretResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListDeviceSecretResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -241,11 +266,11 @@ func (c *ApiService) streamDeviceSecret(response *ListDeviceSecretResponse, para
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDeviceSecretResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDeviceSecretResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -272,6 +297,9 @@ func (params *UpdateDeviceSecretParams) SetValue(Value string) *UpdateDeviceSecr
 
 // Update a secret for a Microvisor Device.
 func (c *ApiService) UpdateDeviceSecret(DeviceSid string, Key string, params *UpdateDeviceSecretParams) (*MicrovisorV1DeviceSecret, error) {
+	return c.UpdateDeviceSecretWithContext(context.TODO(), DeviceSid, Key, params)
+}
+func (c *ApiService) UpdateDeviceSecretWithContext(ctx context.Context, DeviceSid string, Key string, params *UpdateDeviceSecretParams) (*MicrovisorV1DeviceSecret, error) {
 	path := "/v1/Devices/{DeviceSid}/Secrets/{Key}"
 	path = strings.Replace(path, "{"+"DeviceSid"+"}", DeviceSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
@@ -285,7 +313,7 @@ func (c *ApiService) UpdateDeviceSecret(DeviceSid string, Key string, params *Up
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Fetch the Inbound Processing Region assigned to a SIP Trunk.
 func (c *ApiService) FetchTrunks(SipTrunkDomain string) (*RoutesV2Trunks, error) {
+	return c.FetchTrunksWithContext(context.TODO(), SipTrunkDomain)
+}
+func (c *ApiService) FetchTrunksWithContext(ctx context.Context, SipTrunkDomain string) (*RoutesV2Trunks, error) {
 	path := "/v2/Trunks/{SipTrunkDomain}"
 	path = strings.Replace(path, "{"+"SipTrunkDomain"+"}", SipTrunkDomain, -1)
 
@@ -30,7 +34,7 @@ func (c *ApiService) FetchTrunks(SipTrunkDomain string) (*RoutesV2Trunks, error)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -64,6 +68,9 @@ func (params *UpdateTrunksParams) SetFriendlyName(FriendlyName string) *UpdateTr
 
 // Assign an Inbound Processing Region to a SIP Trunk
 func (c *ApiService) UpdateTrunks(SipTrunkDomain string, params *UpdateTrunksParams) (*RoutesV2Trunks, error) {
+	return c.UpdateTrunksWithContext(context.TODO(), SipTrunkDomain, params)
+}
+func (c *ApiService) UpdateTrunksWithContext(ctx context.Context, SipTrunkDomain string, params *UpdateTrunksParams) (*RoutesV2Trunks, error) {
 	path := "/v2/Trunks/{SipTrunkDomain}"
 	path = strings.Replace(path, "{"+"SipTrunkDomain"+"}", SipTrunkDomain, -1)
 
@@ -79,7 +86,7 @@ func (c *ApiService) UpdateTrunks(SipTrunkDomain string, params *UpdateTrunksPar
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -52,8 +53,10 @@ func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUser
 	return params
 }
 
-//
 func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*IpMessagingV1User, error) {
+	return c.CreateUserWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateUserWithContext(ctx context.Context, ServiceSid string, params *CreateUserParams) (*IpMessagingV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -75,7 +78,7 @@ func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*I
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -90,8 +93,10 @@ func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*I
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteUser(ServiceSid string, Sid string) error {
+	return c.DeleteUserWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) DeleteUserWithContext(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -101,7 +106,7 @@ func (c *ApiService) DeleteUser(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -111,8 +116,10 @@ func (c *ApiService) DeleteUser(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*IpMessagingV1User, error) {
+	return c.FetchUserWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchUserWithContext(ctx context.Context, ServiceSid string, Sid string) (*IpMessagingV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -122,7 +129,7 @@ func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*IpMessagingV1Use
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -156,6 +163,11 @@ func (params *ListUserParams) SetLimit(Limit int) *ListUserParams {
 
 // Retrieve a single page of User records from the API. Request is executed immediately.
 func (c *ApiService) PageUser(ServiceSid string, params *ListUserParams, pageToken, pageNumber string) (*ListUserResponse, error) {
+	return c.PageUserWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of User records from the API. Request is executed immediately.
+func (c *ApiService) PageUserWithContext(ctx context.Context, ServiceSid string, params *ListUserParams, pageToken, pageNumber string) (*ListUserResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Users"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -176,7 +188,7 @@ func (c *ApiService) PageUser(ServiceSid string, params *ListUserParams, pageTok
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +205,12 @@ func (c *ApiService) PageUser(ServiceSid string, params *ListUserParams, pageTok
 
 // Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams) ([]IpMessagingV1User, error) {
-	response, errors := c.StreamUser(ServiceSid, params)
+	return c.ListUserWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUserWithContext(ctx context.Context, ServiceSid string, params *ListUserParams) ([]IpMessagingV1User, error) {
+	response, errors := c.StreamUserWithContext(ctx, ServiceSid, params)
 
 	records := make([]IpMessagingV1User, 0)
 	for record := range response {
@@ -209,6 +226,11 @@ func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams) ([]IpMe
 
 // Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan IpMessagingV1User, chan error) {
+	return c.StreamUserWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUserWithContext(ctx context.Context, ServiceSid string, params *ListUserParams) (chan IpMessagingV1User, chan error) {
 	if params == nil {
 		params = &ListUserParams{}
 	}
@@ -217,19 +239,19 @@ func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan
 	recordChannel := make(chan IpMessagingV1User, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUser(ServiceSid, params, "", "")
+	response, err := c.PageUserWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUser(response, params, recordChannel, errorChannel)
+		go c.streamUserWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUser(response *ListUserResponse, params *ListUserParams, recordChannel chan IpMessagingV1User, errorChannel chan error) {
+func (c *ApiService) streamUserWithContext(ctx context.Context, response *ListUserResponse, params *ListUserParams, recordChannel chan IpMessagingV1User, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -244,7 +266,7 @@ func (c *ApiService) streamUser(response *ListUserResponse, params *ListUserPara
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUserResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListUserResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -259,11 +281,11 @@ func (c *ApiService) streamUser(response *ListUserResponse, params *ListUserPara
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUserResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUserResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -300,8 +322,10 @@ func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUser
 	return params
 }
 
-//
 func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUserParams) (*IpMessagingV1User, error) {
+	return c.UpdateUserWithContext(context.TODO(), ServiceSid, Sid, params)
+}
+func (c *ApiService) UpdateUserWithContext(ctx context.Context, ServiceSid string, Sid string, params *UpdateUserParams) (*IpMessagingV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -321,7 +345,7 @@ func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUse
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

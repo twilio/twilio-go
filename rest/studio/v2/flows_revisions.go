@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Retrieve a specific Flow revision.
 func (c *ApiService) FetchFlowRevision(Sid string, Revision string) (*StudioV2FlowRevision, error) {
+	return c.FetchFlowRevisionWithContext(context.TODO(), Sid, Revision)
+}
+func (c *ApiService) FetchFlowRevisionWithContext(ctx context.Context, Sid string, Revision string) (*StudioV2FlowRevision, error) {
 	path := "/v2/Flows/{Sid}/Revisions/{Revision}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 	path = strings.Replace(path, "{"+"Revision"+"}", Revision, -1)
@@ -34,7 +38,7 @@ func (c *ApiService) FetchFlowRevision(Sid string, Revision string) (*StudioV2Fl
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -68,6 +72,11 @@ func (params *ListFlowRevisionParams) SetLimit(Limit int) *ListFlowRevisionParam
 
 // Retrieve a single page of FlowRevision records from the API. Request is executed immediately.
 func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams, pageToken, pageNumber string) (*ListFlowRevisionResponse, error) {
+	return c.PageFlowRevisionWithContext(context.TODO(), Sid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of FlowRevision records from the API. Request is executed immediately.
+func (c *ApiService) PageFlowRevisionWithContext(ctx context.Context, Sid string, params *ListFlowRevisionParams, pageToken, pageNumber string) (*ListFlowRevisionResponse, error) {
 	path := "/v2/Flows/{Sid}/Revisions"
 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -88,7 +97,7 @@ func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +114,12 @@ func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams
 
 // Lists FlowRevision records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams) ([]StudioV2FlowRevision, error) {
-	response, errors := c.StreamFlowRevision(Sid, params)
+	return c.ListFlowRevisionWithContext(context.TODO(), Sid, params)
+}
+
+// Lists FlowRevision records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFlowRevisionWithContext(ctx context.Context, Sid string, params *ListFlowRevisionParams) ([]StudioV2FlowRevision, error) {
+	response, errors := c.StreamFlowRevisionWithContext(ctx, Sid, params)
 
 	records := make([]StudioV2FlowRevision, 0)
 	for record := range response {
@@ -121,6 +135,11 @@ func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams
 
 // Streams FlowRevision records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionParams) (chan StudioV2FlowRevision, chan error) {
+	return c.StreamFlowRevisionWithContext(context.TODO(), Sid, params)
+}
+
+// Streams FlowRevision records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFlowRevisionWithContext(ctx context.Context, Sid string, params *ListFlowRevisionParams) (chan StudioV2FlowRevision, chan error) {
 	if params == nil {
 		params = &ListFlowRevisionParams{}
 	}
@@ -129,19 +148,19 @@ func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionPara
 	recordChannel := make(chan StudioV2FlowRevision, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageFlowRevision(Sid, params, "", "")
+	response, err := c.PageFlowRevisionWithContext(ctx, Sid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamFlowRevision(response, params, recordChannel, errorChannel)
+		go c.streamFlowRevisionWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamFlowRevision(response *ListFlowRevisionResponse, params *ListFlowRevisionParams, recordChannel chan StudioV2FlowRevision, errorChannel chan error) {
+func (c *ApiService) streamFlowRevisionWithContext(ctx context.Context, response *ListFlowRevisionResponse, params *ListFlowRevisionParams, recordChannel chan StudioV2FlowRevision, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -156,7 +175,7 @@ func (c *ApiService) streamFlowRevision(response *ListFlowRevisionResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListFlowRevisionResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListFlowRevisionResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -171,11 +190,11 @@ func (c *ApiService) streamFlowRevision(response *ListFlowRevisionResponse, para
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListFlowRevisionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListFlowRevisionResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

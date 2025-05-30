@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *CreateChannelsSenderParams) SetMessagingV2Create(MessagingV2Create
 
 // Create a new sender of WhatsApp.
 func (c *ApiService) CreateChannelsSender(params *CreateChannelsSenderParams) (*MessagingV2ChannelsSender, error) {
+	return c.CreateChannelsSenderWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateChannelsSenderWithContext(ctx context.Context, params *CreateChannelsSenderParams) (*MessagingV2ChannelsSender, error) {
 	path := "/v2/Channels/Senders"
 
 	data := url.Values{}
@@ -52,7 +56,7 @@ func (c *ApiService) CreateChannelsSender(params *CreateChannelsSenderParams) (*
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,6 +73,9 @@ func (c *ApiService) CreateChannelsSender(params *CreateChannelsSenderParams) (*
 
 // Delete a specific sender by its unique identifier.
 func (c *ApiService) DeleteChannelsSender(Sid string) error {
+	return c.DeleteChannelsSenderWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteChannelsSenderWithContext(ctx context.Context, Sid string) error {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -77,7 +84,7 @@ func (c *ApiService) DeleteChannelsSender(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -89,6 +96,9 @@ func (c *ApiService) DeleteChannelsSender(Sid string) error {
 
 // Retrieve details of a specific sender by its unique identifier.
 func (c *ApiService) FetchChannelsSender(Sid string) (*MessagingV2ChannelsSender, error) {
+	return c.FetchChannelsSenderWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchChannelsSenderWithContext(ctx context.Context, Sid string) (*MessagingV2ChannelsSender, error) {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -97,7 +107,7 @@ func (c *ApiService) FetchChannelsSender(Sid string) (*MessagingV2ChannelsSender
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -137,6 +147,11 @@ func (params *ListChannelsSenderParams) SetLimit(Limit int) *ListChannelsSenderP
 
 // Retrieve a single page of ChannelsSender records from the API. Request is executed immediately.
 func (c *ApiService) PageChannelsSender(params *ListChannelsSenderParams, pageToken, pageNumber string) (*ListChannelsSenderResponse, error) {
+	return c.PageChannelsSenderWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ChannelsSender records from the API. Request is executed immediately.
+func (c *ApiService) PageChannelsSenderWithContext(ctx context.Context, params *ListChannelsSenderParams, pageToken, pageNumber string) (*ListChannelsSenderResponse, error) {
 	path := "/v2/Channels/Senders"
 
 	data := url.Values{}
@@ -158,7 +173,7 @@ func (c *ApiService) PageChannelsSender(params *ListChannelsSenderParams, pageTo
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +190,12 @@ func (c *ApiService) PageChannelsSender(params *ListChannelsSenderParams, pageTo
 
 // Lists ChannelsSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListChannelsSender(params *ListChannelsSenderParams) ([]MessagingV2ChannelsSender, error) {
-	response, errors := c.StreamChannelsSender(params)
+	return c.ListChannelsSenderWithContext(context.TODO(), params)
+}
+
+// Lists ChannelsSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListChannelsSenderWithContext(ctx context.Context, params *ListChannelsSenderParams) ([]MessagingV2ChannelsSender, error) {
+	response, errors := c.StreamChannelsSenderWithContext(ctx, params)
 
 	records := make([]MessagingV2ChannelsSender, 0)
 	for record := range response {
@@ -191,6 +211,11 @@ func (c *ApiService) ListChannelsSender(params *ListChannelsSenderParams) ([]Mes
 
 // Streams ChannelsSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamChannelsSender(params *ListChannelsSenderParams) (chan MessagingV2ChannelsSender, chan error) {
+	return c.StreamChannelsSenderWithContext(context.TODO(), params)
+}
+
+// Streams ChannelsSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamChannelsSenderWithContext(ctx context.Context, params *ListChannelsSenderParams) (chan MessagingV2ChannelsSender, chan error) {
 	if params == nil {
 		params = &ListChannelsSenderParams{}
 	}
@@ -199,19 +224,19 @@ func (c *ApiService) StreamChannelsSender(params *ListChannelsSenderParams) (cha
 	recordChannel := make(chan MessagingV2ChannelsSender, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageChannelsSender(params, "", "")
+	response, err := c.PageChannelsSenderWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamChannelsSender(response, params, recordChannel, errorChannel)
+		go c.streamChannelsSenderWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamChannelsSender(response *ListChannelsSenderResponse, params *ListChannelsSenderParams, recordChannel chan MessagingV2ChannelsSender, errorChannel chan error) {
+func (c *ApiService) streamChannelsSenderWithContext(ctx context.Context, response *ListChannelsSenderResponse, params *ListChannelsSenderParams, recordChannel chan MessagingV2ChannelsSender, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -226,7 +251,7 @@ func (c *ApiService) streamChannelsSender(response *ListChannelsSenderResponse, 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListChannelsSenderResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListChannelsSenderResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -241,11 +266,11 @@ func (c *ApiService) streamChannelsSender(response *ListChannelsSenderResponse, 
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListChannelsSenderResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListChannelsSenderResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -272,6 +297,9 @@ func (params *UpdateChannelsSenderParams) SetMessagingV2Update(MessagingV2Update
 
 // Update a specific sender information like OTP Code, Webhook, Profile information.
 func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSenderParams) (*MessagingV2ChannelsSender, error) {
+	return c.UpdateChannelsSenderWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateChannelsSenderWithContext(ctx context.Context, Sid string, params *UpdateChannelsSenderParams) (*MessagingV2ChannelsSender, error) {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -289,7 +317,7 @@ func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSend
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

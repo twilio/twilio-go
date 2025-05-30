@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateMessagingConfigurationParams) SetMessagingServiceSid(Messagi
 
 // Create a new MessagingConfiguration for a service.
 func (c *ApiService) CreateMessagingConfiguration(ServiceSid string, params *CreateMessagingConfigurationParams) (*VerifyV2MessagingConfiguration, error) {
+	return c.CreateMessagingConfigurationWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateMessagingConfigurationWithContext(ctx context.Context, ServiceSid string, params *CreateMessagingConfigurationParams) (*VerifyV2MessagingConfiguration, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -57,7 +61,7 @@ func (c *ApiService) CreateMessagingConfiguration(ServiceSid string, params *Cre
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -74,6 +78,9 @@ func (c *ApiService) CreateMessagingConfiguration(ServiceSid string, params *Cre
 
 // Delete a specific MessagingConfiguration.
 func (c *ApiService) DeleteMessagingConfiguration(ServiceSid string, Country string) error {
+	return c.DeleteMessagingConfigurationWithContext(context.TODO(), ServiceSid, Country)
+}
+func (c *ApiService) DeleteMessagingConfigurationWithContext(ctx context.Context, ServiceSid string, Country string) error {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
@@ -83,7 +90,7 @@ func (c *ApiService) DeleteMessagingConfiguration(ServiceSid string, Country str
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -95,6 +102,9 @@ func (c *ApiService) DeleteMessagingConfiguration(ServiceSid string, Country str
 
 // Fetch a specific MessagingConfiguration.
 func (c *ApiService) FetchMessagingConfiguration(ServiceSid string, Country string) (*VerifyV2MessagingConfiguration, error) {
+	return c.FetchMessagingConfigurationWithContext(context.TODO(), ServiceSid, Country)
+}
+func (c *ApiService) FetchMessagingConfigurationWithContext(ctx context.Context, ServiceSid string, Country string) (*VerifyV2MessagingConfiguration, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
@@ -104,7 +114,7 @@ func (c *ApiService) FetchMessagingConfiguration(ServiceSid string, Country stri
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +148,11 @@ func (params *ListMessagingConfigurationParams) SetLimit(Limit int) *ListMessagi
 
 // Retrieve a single page of MessagingConfiguration records from the API. Request is executed immediately.
 func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams, pageToken, pageNumber string) (*ListMessagingConfigurationResponse, error) {
+	return c.PageMessagingConfigurationWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of MessagingConfiguration records from the API. Request is executed immediately.
+func (c *ApiService) PageMessagingConfigurationWithContext(ctx context.Context, ServiceSid string, params *ListMessagingConfigurationParams, pageToken, pageNumber string) (*ListMessagingConfigurationResponse, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -158,7 +173,7 @@ func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListM
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +190,12 @@ func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListM
 
 // Lists MessagingConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) ([]VerifyV2MessagingConfiguration, error) {
-	response, errors := c.StreamMessagingConfiguration(ServiceSid, params)
+	return c.ListMessagingConfigurationWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists MessagingConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMessagingConfigurationWithContext(ctx context.Context, ServiceSid string, params *ListMessagingConfigurationParams) ([]VerifyV2MessagingConfiguration, error) {
+	response, errors := c.StreamMessagingConfigurationWithContext(ctx, ServiceSid, params)
 
 	records := make([]VerifyV2MessagingConfiguration, 0)
 	for record := range response {
@@ -191,6 +211,11 @@ func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListM
 
 // Streams MessagingConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) (chan VerifyV2MessagingConfiguration, chan error) {
+	return c.StreamMessagingConfigurationWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams MessagingConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMessagingConfigurationWithContext(ctx context.Context, ServiceSid string, params *ListMessagingConfigurationParams) (chan VerifyV2MessagingConfiguration, chan error) {
 	if params == nil {
 		params = &ListMessagingConfigurationParams{}
 	}
@@ -199,19 +224,19 @@ func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *Lis
 	recordChannel := make(chan VerifyV2MessagingConfiguration, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMessagingConfiguration(ServiceSid, params, "", "")
+	response, err := c.PageMessagingConfigurationWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMessagingConfiguration(response, params, recordChannel, errorChannel)
+		go c.streamMessagingConfigurationWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMessagingConfiguration(response *ListMessagingConfigurationResponse, params *ListMessagingConfigurationParams, recordChannel chan VerifyV2MessagingConfiguration, errorChannel chan error) {
+func (c *ApiService) streamMessagingConfigurationWithContext(ctx context.Context, response *ListMessagingConfigurationResponse, params *ListMessagingConfigurationParams, recordChannel chan VerifyV2MessagingConfiguration, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -226,7 +251,7 @@ func (c *ApiService) streamMessagingConfiguration(response *ListMessagingConfigu
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMessagingConfigurationResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListMessagingConfigurationResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -241,11 +266,11 @@ func (c *ApiService) streamMessagingConfiguration(response *ListMessagingConfigu
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMessagingConfigurationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMessagingConfigurationResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -272,6 +297,9 @@ func (params *UpdateMessagingConfigurationParams) SetMessagingServiceSid(Messagi
 
 // Update a specific MessagingConfiguration
 func (c *ApiService) UpdateMessagingConfiguration(ServiceSid string, Country string, params *UpdateMessagingConfigurationParams) (*VerifyV2MessagingConfiguration, error) {
+	return c.UpdateMessagingConfigurationWithContext(context.TODO(), ServiceSid, Country, params)
+}
+func (c *ApiService) UpdateMessagingConfigurationWithContext(ctx context.Context, ServiceSid string, Country string, params *UpdateMessagingConfigurationParams) (*VerifyV2MessagingConfiguration, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
@@ -285,7 +313,7 @@ func (c *ApiService) UpdateMessagingConfiguration(ServiceSid string, Country str
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

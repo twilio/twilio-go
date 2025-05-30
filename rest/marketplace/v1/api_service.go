@@ -37,3 +37,10 @@ func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
 func NewApiServiceWithClient(client twilio.BaseClient) *ApiService {
 	return NewApiService(twilio.NewRequestHandler(client))
 }
+
+func NewApiServiceWithCtx(requestHandler *twilio.RequestHandler) *ApiService {
+	return &ApiService{
+		requestHandler: requestHandler,
+		baseURL:        "https://marketplace.twilio.com",
+	}
+}

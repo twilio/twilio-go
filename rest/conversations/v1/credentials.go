@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -72,6 +73,9 @@ func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredential
 
 // Add a new push notification credential to your account
 func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*ConversationsV1Credential, error) {
+	return c.CreateCredentialWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateCredentialWithContext(ctx context.Context, params *CreateCredentialParams) (*ConversationsV1Credential, error) {
 	path := "/v1/Credentials"
 
 	data := url.Values{}
@@ -101,7 +105,7 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*Conversa
 		data.Set("Secret", *params.Secret)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -118,6 +122,9 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*Conversa
 
 // Remove a push notification credential from your account
 func (c *ApiService) DeleteCredential(Sid string) error {
+	return c.DeleteCredentialWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteCredentialWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -126,7 +133,7 @@ func (c *ApiService) DeleteCredential(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -138,6 +145,9 @@ func (c *ApiService) DeleteCredential(Sid string) error {
 
 // Fetch a push notification credential from your account
 func (c *ApiService) FetchCredential(Sid string) (*ConversationsV1Credential, error) {
+	return c.FetchCredentialWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchCredentialWithContext(ctx context.Context, Sid string) (*ConversationsV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -146,7 +156,7 @@ func (c *ApiService) FetchCredential(Sid string) (*ConversationsV1Credential, er
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -180,6 +190,11 @@ func (params *ListCredentialParams) SetLimit(Limit int) *ListCredentialParams {
 
 // Retrieve a single page of Credential records from the API. Request is executed immediately.
 func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken, pageNumber string) (*ListCredentialResponse, error) {
+	return c.PageCredentialWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Credential records from the API. Request is executed immediately.
+func (c *ApiService) PageCredentialWithContext(ctx context.Context, params *ListCredentialParams, pageToken, pageNumber string) (*ListCredentialResponse, error) {
 	path := "/v1/Credentials"
 
 	data := url.Values{}
@@ -198,7 +213,7 @@ func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -215,7 +230,12 @@ func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken, pag
 
 // Lists Credential records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredential(params *ListCredentialParams) ([]ConversationsV1Credential, error) {
-	response, errors := c.StreamCredential(params)
+	return c.ListCredentialWithContext(context.TODO(), params)
+}
+
+// Lists Credential records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCredentialWithContext(ctx context.Context, params *ListCredentialParams) ([]ConversationsV1Credential, error) {
+	response, errors := c.StreamCredentialWithContext(ctx, params)
 
 	records := make([]ConversationsV1Credential, 0)
 	for record := range response {
@@ -231,6 +251,11 @@ func (c *ApiService) ListCredential(params *ListCredentialParams) ([]Conversatio
 
 // Streams Credential records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCredential(params *ListCredentialParams) (chan ConversationsV1Credential, chan error) {
+	return c.StreamCredentialWithContext(context.TODO(), params)
+}
+
+// Streams Credential records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCredentialWithContext(ctx context.Context, params *ListCredentialParams) (chan ConversationsV1Credential, chan error) {
 	if params == nil {
 		params = &ListCredentialParams{}
 	}
@@ -239,19 +264,19 @@ func (c *ApiService) StreamCredential(params *ListCredentialParams) (chan Conver
 	recordChannel := make(chan ConversationsV1Credential, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCredential(params, "", "")
+	response, err := c.PageCredentialWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCredential(response, params, recordChannel, errorChannel)
+		go c.streamCredentialWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCredential(response *ListCredentialResponse, params *ListCredentialParams, recordChannel chan ConversationsV1Credential, errorChannel chan error) {
+func (c *ApiService) streamCredentialWithContext(ctx context.Context, response *ListCredentialResponse, params *ListCredentialParams, recordChannel chan ConversationsV1Credential, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -266,7 +291,7 @@ func (c *ApiService) streamCredential(response *ListCredentialResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCredentialResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListCredentialResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -281,11 +306,11 @@ func (c *ApiService) streamCredential(response *ListCredentialResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCredentialResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCredentialResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -348,6 +373,9 @@ func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredential
 
 // Update an existing push notification credential on your account
 func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*ConversationsV1Credential, error) {
+	return c.UpdateCredentialWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateCredentialWithContext(ctx context.Context, Sid string, params *UpdateCredentialParams) (*ConversationsV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -378,7 +406,7 @@ func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams
 		data.Set("Secret", *params.Secret)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

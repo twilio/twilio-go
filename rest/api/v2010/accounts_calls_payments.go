@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -130,6 +131,9 @@ func (params *CreatePaymentsParams) SetValidCardTypes(ValidCardTypes string) *Cr
 
 // create an instance of payments. This will start a new payments session
 func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams) (*ApiV2010Payments, error) {
+	return c.CreatePaymentsWithContext(context.TODO(), CallSid, params)
+}
+func (c *ApiService) CreatePaymentsWithContext(ctx context.Context, CallSid string, params *CreatePaymentsParams) (*ApiV2010Payments, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -198,7 +202,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 		data.Set("ValidCardTypes", *params.ValidCardTypes)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -250,6 +254,9 @@ func (params *UpdatePaymentsParams) SetStatus(Status string) *UpdatePaymentsPara
 
 // update an instance of payments with different phases of payment flows.
 func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePaymentsParams) (*ApiV2010Payments, error) {
+	return c.UpdatePaymentsWithContext(context.TODO(), CallSid, Sid, params)
+}
+func (c *ApiService) UpdatePaymentsWithContext(ctx context.Context, CallSid string, Sid string, params *UpdatePaymentsParams) (*ApiV2010Payments, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -277,7 +284,7 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

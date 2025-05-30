@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreateBulkEligibilityParams) SetBody(Body map[string]interface{}) 
 
 // Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
 func (c *ApiService) CreateBulkEligibility(params *CreateBulkEligibilityParams) (*NumbersV1BulkEligibility, error) {
+	return c.CreateBulkEligibilityWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateBulkEligibilityWithContext(ctx context.Context, params *CreateBulkEligibilityParams) (*NumbersV1BulkEligibility, error) {
 	path := "/v1/HostedNumber/Eligibility/Bulk"
 
 	data := url.Values{}
@@ -49,7 +53,7 @@ func (c *ApiService) CreateBulkEligibility(params *CreateBulkEligibilityParams) 
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,6 +70,9 @@ func (c *ApiService) CreateBulkEligibility(params *CreateBulkEligibilityParams) 
 
 // Fetch an eligibility bulk check that you requested to host in Twilio.
 func (c *ApiService) FetchBulkEligibility(RequestId string) (*NumbersV1BulkEligibility, error) {
+	return c.FetchBulkEligibilityWithContext(context.TODO(), RequestId)
+}
+func (c *ApiService) FetchBulkEligibilityWithContext(ctx context.Context, RequestId string) (*NumbersV1BulkEligibility, error) {
 	path := "/v1/HostedNumber/Eligibility/Bulk/{RequestId}"
 	path = strings.Replace(path, "{"+"RequestId"+"}", RequestId, -1)
 
@@ -74,7 +81,7 @@ func (c *ApiService) FetchBulkEligibility(RequestId string) (*NumbersV1BulkEligi
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

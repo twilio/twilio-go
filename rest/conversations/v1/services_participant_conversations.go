@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -54,6 +55,11 @@ func (params *ListServiceParticipantConversationParams) SetLimit(Limit int) *Lis
 
 // Retrieve a single page of ServiceParticipantConversation records from the API. Request is executed immediately.
 func (c *ApiService) PageServiceParticipantConversation(ChatServiceSid string, params *ListServiceParticipantConversationParams, pageToken, pageNumber string) (*ListServiceParticipantConversationResponse, error) {
+	return c.PageServiceParticipantConversationWithContext(context.TODO(), ChatServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ServiceParticipantConversation records from the API. Request is executed immediately.
+func (c *ApiService) PageServiceParticipantConversationWithContext(ctx context.Context, ChatServiceSid string, params *ListServiceParticipantConversationParams, pageToken, pageNumber string) (*ListServiceParticipantConversationResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/ParticipantConversations"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -80,7 +86,7 @@ func (c *ApiService) PageServiceParticipantConversation(ChatServiceSid string, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +103,12 @@ func (c *ApiService) PageServiceParticipantConversation(ChatServiceSid string, p
 
 // Lists ServiceParticipantConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceParticipantConversation(ChatServiceSid string, params *ListServiceParticipantConversationParams) ([]ConversationsV1ServiceParticipantConversation, error) {
-	response, errors := c.StreamServiceParticipantConversation(ChatServiceSid, params)
+	return c.ListServiceParticipantConversationWithContext(context.TODO(), ChatServiceSid, params)
+}
+
+// Lists ServiceParticipantConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceParticipantConversationWithContext(ctx context.Context, ChatServiceSid string, params *ListServiceParticipantConversationParams) ([]ConversationsV1ServiceParticipantConversation, error) {
+	response, errors := c.StreamServiceParticipantConversationWithContext(ctx, ChatServiceSid, params)
 
 	records := make([]ConversationsV1ServiceParticipantConversation, 0)
 	for record := range response {
@@ -113,6 +124,11 @@ func (c *ApiService) ListServiceParticipantConversation(ChatServiceSid string, p
 
 // Streams ServiceParticipantConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamServiceParticipantConversation(ChatServiceSid string, params *ListServiceParticipantConversationParams) (chan ConversationsV1ServiceParticipantConversation, chan error) {
+	return c.StreamServiceParticipantConversationWithContext(context.TODO(), ChatServiceSid, params)
+}
+
+// Streams ServiceParticipantConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceParticipantConversationWithContext(ctx context.Context, ChatServiceSid string, params *ListServiceParticipantConversationParams) (chan ConversationsV1ServiceParticipantConversation, chan error) {
 	if params == nil {
 		params = &ListServiceParticipantConversationParams{}
 	}
@@ -121,19 +137,19 @@ func (c *ApiService) StreamServiceParticipantConversation(ChatServiceSid string,
 	recordChannel := make(chan ConversationsV1ServiceParticipantConversation, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageServiceParticipantConversation(ChatServiceSid, params, "", "")
+	response, err := c.PageServiceParticipantConversationWithContext(ctx, ChatServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamServiceParticipantConversation(response, params, recordChannel, errorChannel)
+		go c.streamServiceParticipantConversationWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamServiceParticipantConversation(response *ListServiceParticipantConversationResponse, params *ListServiceParticipantConversationParams, recordChannel chan ConversationsV1ServiceParticipantConversation, errorChannel chan error) {
+func (c *ApiService) streamServiceParticipantConversationWithContext(ctx context.Context, response *ListServiceParticipantConversationResponse, params *ListServiceParticipantConversationParams, recordChannel chan ConversationsV1ServiceParticipantConversation, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -148,7 +164,7 @@ func (c *ApiService) streamServiceParticipantConversation(response *ListServiceP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListServiceParticipantConversationResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListServiceParticipantConversationResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -163,11 +179,11 @@ func (c *ApiService) streamServiceParticipantConversation(response *ListServiceP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListServiceParticipantConversationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListServiceParticipantConversationResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
