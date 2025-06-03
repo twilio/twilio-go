@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -48,6 +49,9 @@ func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRolePa
 
 // Create a new user role in your account's default service
 func (c *ApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role, error) {
+	return c.CreateRoleWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateRoleWithContext(ctx context.Context, params *CreateRoleParams) (*ConversationsV1Role, error) {
 	path := "/v1/Roles"
 
 	data := url.Values{}
@@ -67,7 +71,7 @@ func (c *ApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role,
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -84,6 +88,9 @@ func (c *ApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role,
 
 // Remove a user role from your account's default service
 func (c *ApiService) DeleteRole(Sid string) error {
+	return c.DeleteRoleWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteRoleWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -92,7 +99,7 @@ func (c *ApiService) DeleteRole(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -104,6 +111,9 @@ func (c *ApiService) DeleteRole(Sid string) error {
 
 // Fetch a user role from your account's default service
 func (c *ApiService) FetchRole(Sid string) (*ConversationsV1Role, error) {
+	return c.FetchRoleWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchRoleWithContext(ctx context.Context, Sid string) (*ConversationsV1Role, error) {
 	path := "/v1/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -112,7 +122,7 @@ func (c *ApiService) FetchRole(Sid string) (*ConversationsV1Role, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -146,6 +156,11 @@ func (params *ListRoleParams) SetLimit(Limit int) *ListRoleParams {
 
 // Retrieve a single page of Role records from the API. Request is executed immediately.
 func (c *ApiService) PageRole(params *ListRoleParams, pageToken, pageNumber string) (*ListRoleResponse, error) {
+	return c.PageRoleWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Role records from the API. Request is executed immediately.
+func (c *ApiService) PageRoleWithContext(ctx context.Context, params *ListRoleParams, pageToken, pageNumber string) (*ListRoleResponse, error) {
 	path := "/v1/Roles"
 
 	data := url.Values{}
@@ -164,7 +179,7 @@ func (c *ApiService) PageRole(params *ListRoleParams, pageToken, pageNumber stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -181,7 +196,12 @@ func (c *ApiService) PageRole(params *ListRoleParams, pageToken, pageNumber stri
 
 // Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRole(params *ListRoleParams) ([]ConversationsV1Role, error) {
-	response, errors := c.StreamRole(params)
+	return c.ListRoleWithContext(context.TODO(), params)
+}
+
+// Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoleWithContext(ctx context.Context, params *ListRoleParams) ([]ConversationsV1Role, error) {
+	response, errors := c.StreamRoleWithContext(ctx, params)
 
 	records := make([]ConversationsV1Role, 0)
 	for record := range response {
@@ -197,6 +217,11 @@ func (c *ApiService) ListRole(params *ListRoleParams) ([]ConversationsV1Role, er
 
 // Streams Role records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRole(params *ListRoleParams) (chan ConversationsV1Role, chan error) {
+	return c.StreamRoleWithContext(context.TODO(), params)
+}
+
+// Streams Role records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoleWithContext(ctx context.Context, params *ListRoleParams) (chan ConversationsV1Role, chan error) {
 	if params == nil {
 		params = &ListRoleParams{}
 	}
@@ -205,19 +230,19 @@ func (c *ApiService) StreamRole(params *ListRoleParams) (chan ConversationsV1Rol
 	recordChannel := make(chan ConversationsV1Role, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRole(params, "", "")
+	response, err := c.PageRoleWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRole(response, params, recordChannel, errorChannel)
+		go c.streamRoleWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRole(response *ListRoleResponse, params *ListRoleParams, recordChannel chan ConversationsV1Role, errorChannel chan error) {
+func (c *ApiService) streamRoleWithContext(ctx context.Context, response *ListRoleResponse, params *ListRoleParams, recordChannel chan ConversationsV1Role, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -232,7 +257,7 @@ func (c *ApiService) streamRole(response *ListRoleResponse, params *ListRolePara
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRoleResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListRoleResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -247,11 +272,11 @@ func (c *ApiService) streamRole(response *ListRoleResponse, params *ListRolePara
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRoleResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRoleResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -278,6 +303,9 @@ func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRolePa
 
 // Update an existing user role in your account's default service
 func (c *ApiService) UpdateRole(Sid string, params *UpdateRoleParams) (*ConversationsV1Role, error) {
+	return c.UpdateRoleWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateRoleWithContext(ctx context.Context, Sid string, params *UpdateRoleParams) (*ConversationsV1Role, error) {
 	path := "/v1/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -292,7 +320,7 @@ func (c *ApiService) UpdateRole(Sid string, params *UpdateRoleParams) (*Conversa
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

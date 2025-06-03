@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -31,8 +32,10 @@ func (params *UpdatePluginVersionArchiveParams) SetFlexMetadata(FlexMetadata str
 	return params
 }
 
-//
 func (c *ApiService) UpdatePluginVersionArchive(PluginSid string, Sid string, params *UpdatePluginVersionArchiveParams) (*FlexV1PluginVersionArchive, error) {
+	return c.UpdatePluginVersionArchiveWithContext(context.TODO(), PluginSid, Sid, params)
+}
+func (c *ApiService) UpdatePluginVersionArchiveWithContext(ctx context.Context, PluginSid string, Sid string, params *UpdatePluginVersionArchiveParams) (*FlexV1PluginVersionArchive, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}/Archive"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -45,7 +48,7 @@ func (c *ApiService) UpdatePluginVersionArchive(PluginSid string, Sid string, pa
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

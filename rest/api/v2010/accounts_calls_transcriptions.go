@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -118,6 +119,9 @@ func (params *CreateRealtimeTranscriptionParams) SetIntelligenceService(Intellig
 
 // Create a Transcription
 func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateRealtimeTranscriptionParams) (*ApiV2010RealtimeTranscription, error) {
+	return c.CreateRealtimeTranscriptionWithContext(context.TODO(), CallSid, params)
+}
+func (c *ApiService) CreateRealtimeTranscriptionWithContext(ctx context.Context, CallSid string, params *CreateRealtimeTranscriptionParams) (*ApiV2010RealtimeTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -174,7 +178,7 @@ func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateR
 		data.Set("IntelligenceService", *params.IntelligenceService)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -208,6 +212,9 @@ func (params *UpdateRealtimeTranscriptionParams) SetStatus(Status string) *Updat
 
 // Stop a Transcription using either the SID of the Transcription resource or the `name` used when creating the resource
 func (c *ApiService) UpdateRealtimeTranscription(CallSid string, Sid string, params *UpdateRealtimeTranscriptionParams) (*ApiV2010RealtimeTranscription, error) {
+	return c.UpdateRealtimeTranscriptionWithContext(context.TODO(), CallSid, Sid, params)
+}
+func (c *ApiService) UpdateRealtimeTranscriptionWithContext(ctx context.Context, CallSid string, Sid string, params *UpdateRealtimeTranscriptionParams) (*ApiV2010RealtimeTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -226,7 +233,7 @@ func (c *ApiService) UpdateRealtimeTranscription(CallSid string, Sid string, par
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

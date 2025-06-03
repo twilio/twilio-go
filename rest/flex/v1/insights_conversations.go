@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -53,6 +54,11 @@ func (params *ListInsightsConversationsParams) SetLimit(Limit int) *ListInsights
 
 // Retrieve a single page of InsightsConversations records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsConversations(params *ListInsightsConversationsParams, pageToken, pageNumber string) (*ListInsightsConversationsResponse, error) {
+	return c.PageInsightsConversationsWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of InsightsConversations records from the API. Request is executed immediately.
+func (c *ApiService) PageInsightsConversationsWithContext(ctx context.Context, params *ListInsightsConversationsParams, pageToken, pageNumber string) (*ListInsightsConversationsResponse, error) {
 	path := "/v1/Insights/Conversations"
 
 	data := url.Values{}
@@ -74,7 +80,7 @@ func (c *ApiService) PageInsightsConversations(params *ListInsightsConversations
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +97,12 @@ func (c *ApiService) PageInsightsConversations(params *ListInsightsConversations
 
 // Lists InsightsConversations records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInsightsConversations(params *ListInsightsConversationsParams) ([]FlexV1InsightsConversations, error) {
-	response, errors := c.StreamInsightsConversations(params)
+	return c.ListInsightsConversationsWithContext(context.TODO(), params)
+}
+
+// Lists InsightsConversations records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInsightsConversationsWithContext(ctx context.Context, params *ListInsightsConversationsParams) ([]FlexV1InsightsConversations, error) {
+	response, errors := c.StreamInsightsConversationsWithContext(ctx, params)
 
 	records := make([]FlexV1InsightsConversations, 0)
 	for record := range response {
@@ -107,6 +118,11 @@ func (c *ApiService) ListInsightsConversations(params *ListInsightsConversations
 
 // Streams InsightsConversations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInsightsConversations(params *ListInsightsConversationsParams) (chan FlexV1InsightsConversations, chan error) {
+	return c.StreamInsightsConversationsWithContext(context.TODO(), params)
+}
+
+// Streams InsightsConversations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInsightsConversationsWithContext(ctx context.Context, params *ListInsightsConversationsParams) (chan FlexV1InsightsConversations, chan error) {
 	if params == nil {
 		params = &ListInsightsConversationsParams{}
 	}
@@ -115,19 +131,19 @@ func (c *ApiService) StreamInsightsConversations(params *ListInsightsConversatio
 	recordChannel := make(chan FlexV1InsightsConversations, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInsightsConversations(params, "", "")
+	response, err := c.PageInsightsConversationsWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInsightsConversations(response, params, recordChannel, errorChannel)
+		go c.streamInsightsConversationsWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInsightsConversations(response *ListInsightsConversationsResponse, params *ListInsightsConversationsParams, recordChannel chan FlexV1InsightsConversations, errorChannel chan error) {
+func (c *ApiService) streamInsightsConversationsWithContext(ctx context.Context, response *ListInsightsConversationsResponse, params *ListInsightsConversationsParams, recordChannel chan FlexV1InsightsConversations, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -142,7 +158,7 @@ func (c *ApiService) streamInsightsConversations(response *ListInsightsConversat
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListInsightsConversationsResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListInsightsConversationsResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -157,11 +173,11 @@ func (c *ApiService) streamInsightsConversations(response *ListInsightsConversat
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInsightsConversationsResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInsightsConversationsResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

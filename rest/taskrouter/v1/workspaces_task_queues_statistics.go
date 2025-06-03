@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -59,8 +60,10 @@ func (params *FetchTaskQueueStatisticsParams) SetSplitByWaitTime(SplitByWaitTime
 	return params
 }
 
-//
 func (c *ApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueStatisticsParams) (*TaskrouterV1TaskQueueStatistics, error) {
+	return c.FetchTaskQueueStatisticsWithContext(context.TODO(), WorkspaceSid, TaskQueueSid, params)
+}
+func (c *ApiService) FetchTaskQueueStatisticsWithContext(ctx context.Context, WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueStatisticsParams) (*TaskrouterV1TaskQueueStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
@@ -86,7 +89,7 @@ func (c *ApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid 
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -156,6 +159,11 @@ func (params *ListTaskQueuesStatisticsParams) SetLimit(Limit int) *ListTaskQueue
 
 // Retrieve a single page of TaskQueuesStatistics records from the API. Request is executed immediately.
 func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken, pageNumber string) (*ListTaskQueuesStatisticsResponse, error) {
+	return c.PageTaskQueuesStatisticsWithContext(context.TODO(), WorkspaceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of TaskQueuesStatistics records from the API. Request is executed immediately.
+func (c *ApiService) PageTaskQueuesStatisticsWithContext(ctx context.Context, WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken, pageNumber string) (*ListTaskQueuesStatisticsResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -194,7 +202,7 @@ func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListT
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +219,12 @@ func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListT
 
 // Lists TaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) ([]TaskrouterV1TaskQueuesStatistics, error) {
-	response, errors := c.StreamTaskQueuesStatistics(WorkspaceSid, params)
+	return c.ListTaskQueuesStatisticsWithContext(context.TODO(), WorkspaceSid, params)
+}
+
+// Lists TaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTaskQueuesStatisticsWithContext(ctx context.Context, WorkspaceSid string, params *ListTaskQueuesStatisticsParams) ([]TaskrouterV1TaskQueuesStatistics, error) {
+	response, errors := c.StreamTaskQueuesStatisticsWithContext(ctx, WorkspaceSid, params)
 
 	records := make([]TaskrouterV1TaskQueuesStatistics, 0)
 	for record := range response {
@@ -227,6 +240,11 @@ func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListT
 
 // Streams TaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (chan TaskrouterV1TaskQueuesStatistics, chan error) {
+	return c.StreamTaskQueuesStatisticsWithContext(context.TODO(), WorkspaceSid, params)
+}
+
+// Streams TaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTaskQueuesStatisticsWithContext(ctx context.Context, WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (chan TaskrouterV1TaskQueuesStatistics, chan error) {
 	if params == nil {
 		params = &ListTaskQueuesStatisticsParams{}
 	}
@@ -235,19 +253,19 @@ func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *Lis
 	recordChannel := make(chan TaskrouterV1TaskQueuesStatistics, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTaskQueuesStatistics(WorkspaceSid, params, "", "")
+	response, err := c.PageTaskQueuesStatisticsWithContext(ctx, WorkspaceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTaskQueuesStatistics(response, params, recordChannel, errorChannel)
+		go c.streamTaskQueuesStatisticsWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTaskQueuesStatistics(response *ListTaskQueuesStatisticsResponse, params *ListTaskQueuesStatisticsParams, recordChannel chan TaskrouterV1TaskQueuesStatistics, errorChannel chan error) {
+func (c *ApiService) streamTaskQueuesStatisticsWithContext(ctx context.Context, response *ListTaskQueuesStatisticsResponse, params *ListTaskQueuesStatisticsParams, recordChannel chan TaskrouterV1TaskQueuesStatistics, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -262,7 +280,7 @@ func (c *ApiService) streamTaskQueuesStatistics(response *ListTaskQueuesStatisti
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListTaskQueuesStatisticsResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListTaskQueuesStatisticsResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -277,11 +295,11 @@ func (c *ApiService) streamTaskQueuesStatistics(response *ListTaskQueuesStatisti
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTaskQueuesStatisticsResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTaskQueuesStatisticsResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

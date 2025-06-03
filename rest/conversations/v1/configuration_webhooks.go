@@ -15,13 +15,16 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
 )
 
-//
 func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationWebhook, error) {
+	return c.FetchConfigurationWebhookWithContext(context.TODO())
+}
+func (c *ApiService) FetchConfigurationWebhookWithContext(ctx context.Context) (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
@@ -29,7 +32,7 @@ func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationW
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -79,8 +82,10 @@ func (params *UpdateConfigurationWebhookParams) SetTarget(Target string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationWebhook, error) {
+	return c.UpdateConfigurationWebhookWithContext(context.TODO(), params)
+}
+func (c *ApiService) UpdateConfigurationWebhookWithContext(ctx context.Context, params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
@@ -106,7 +111,7 @@ func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebho
 		data.Set("Target", fmt.Sprint(*params.Target))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

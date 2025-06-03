@@ -4,6 +4,7 @@
 package twilio
 
 import (
+	"context"
 	"os"
 	"testing"
 
@@ -267,4 +268,27 @@ func TestOrgsScimUerList(t *testing.T) {
 	users, err := orgsClient.PreviewIamOrganization.ListOrganizationUsers(orgSid, &PreviewIam.ListOrganizationUsersParams{})
 	assert.Nil(t, err)
 	assert.NotNil(t, users)
+}
+
+func TestSendingATextWithContext(t *testing.T) {
+	params := &Api.CreateMessageParams{}
+	params.SetTo(to)
+	params.SetFrom(from)
+	params.SetBody("Hello there")
+
+	resp, err := testClient.Api.CreateMessageWithContext(context.TODO(), params)
+	assert.Nil(t, err)
+	assert.NotNil(t, resp)
+	assert.Equal(t, "Hello there", *resp.Body)
+	assert.Equal(t, from, *resp.From)
+	assert.Equal(t, to, *resp.To)
+}
+
+func TestOrgsAccountsListWithContext(t *testing.T) {
+	listAccounts, err := orgsClient.PreviewIamOrganization.ListOrganizationAccountsWithContext(context.TODO(), orgSid, &PreviewIam.ListOrganizationAccountsParams{})
+	assert.Nil(t, err)
+	assert.NotNil(t, listAccounts)
+	accounts, err := orgsClient.PreviewIamOrganization.FetchOrganizationAccountWithContext(context.TODO(), orgSid, &PreviewIam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
+	assert.Nil(t, err)
+	assert.NotNil(t, accounts)
 }

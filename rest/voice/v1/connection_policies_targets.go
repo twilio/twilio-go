@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -58,8 +59,10 @@ func (params *CreateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *Crea
 	return params
 }
 
-//
 func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
+	return c.CreateConnectionPolicyTargetWithContext(context.TODO(), ConnectionPolicySid, params)
+}
+func (c *ApiService) CreateConnectionPolicyTargetWithContext(ctx context.Context, ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 
@@ -84,7 +87,7 @@ func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, pa
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -99,8 +102,10 @@ func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, pa
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Sid string) error {
+	return c.DeleteConnectionPolicyTargetWithContext(context.TODO(), ConnectionPolicySid, Sid)
+}
+func (c *ApiService) DeleteConnectionPolicyTargetWithContext(ctx context.Context, ConnectionPolicySid string, Sid string) error {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -110,7 +115,7 @@ func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Si
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -120,8 +125,10 @@ func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Si
 	return nil
 }
 
-//
 func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyTarget, error) {
+	return c.FetchConnectionPolicyTargetWithContext(context.TODO(), ConnectionPolicySid, Sid)
+}
+func (c *ApiService) FetchConnectionPolicyTargetWithContext(ctx context.Context, ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -131,7 +138,7 @@ func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -165,6 +172,11 @@ func (params *ListConnectionPolicyTargetParams) SetLimit(Limit int) *ListConnect
 
 // Retrieve a single page of ConnectionPolicyTarget records from the API. Request is executed immediately.
 func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, pageToken, pageNumber string) (*ListConnectionPolicyTargetResponse, error) {
+	return c.PageConnectionPolicyTargetWithContext(context.TODO(), ConnectionPolicySid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ConnectionPolicyTarget records from the API. Request is executed immediately.
+func (c *ApiService) PageConnectionPolicyTargetWithContext(ctx context.Context, ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, pageToken, pageNumber string) (*ListConnectionPolicyTargetResponse, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -185,7 +197,7 @@ func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, para
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -202,7 +214,12 @@ func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, para
 
 // Lists ConnectionPolicyTarget records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) ([]VoiceV1ConnectionPolicyTarget, error) {
-	response, errors := c.StreamConnectionPolicyTarget(ConnectionPolicySid, params)
+	return c.ListConnectionPolicyTargetWithContext(context.TODO(), ConnectionPolicySid, params)
+}
+
+// Lists ConnectionPolicyTarget records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConnectionPolicyTargetWithContext(ctx context.Context, ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) ([]VoiceV1ConnectionPolicyTarget, error) {
+	response, errors := c.StreamConnectionPolicyTargetWithContext(ctx, ConnectionPolicySid, params)
 
 	records := make([]VoiceV1ConnectionPolicyTarget, 0)
 	for record := range response {
@@ -218,6 +235,11 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 
 // Streams ConnectionPolicyTarget records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (chan VoiceV1ConnectionPolicyTarget, chan error) {
+	return c.StreamConnectionPolicyTargetWithContext(context.TODO(), ConnectionPolicySid, params)
+}
+
+// Streams ConnectionPolicyTarget records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConnectionPolicyTargetWithContext(ctx context.Context, ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (chan VoiceV1ConnectionPolicyTarget, chan error) {
 	if params == nil {
 		params = &ListConnectionPolicyTargetParams{}
 	}
@@ -226,19 +248,19 @@ func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, pa
 	recordChannel := make(chan VoiceV1ConnectionPolicyTarget, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageConnectionPolicyTarget(ConnectionPolicySid, params, "", "")
+	response, err := c.PageConnectionPolicyTargetWithContext(ctx, ConnectionPolicySid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConnectionPolicyTarget(response, params, recordChannel, errorChannel)
+		go c.streamConnectionPolicyTargetWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConnectionPolicyTarget(response *ListConnectionPolicyTargetResponse, params *ListConnectionPolicyTargetParams, recordChannel chan VoiceV1ConnectionPolicyTarget, errorChannel chan error) {
+func (c *ApiService) streamConnectionPolicyTargetWithContext(ctx context.Context, response *ListConnectionPolicyTargetResponse, params *ListConnectionPolicyTargetParams, recordChannel chan VoiceV1ConnectionPolicyTarget, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -253,7 +275,7 @@ func (c *ApiService) streamConnectionPolicyTarget(response *ListConnectionPolicy
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListConnectionPolicyTargetResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListConnectionPolicyTargetResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -268,11 +290,11 @@ func (c *ApiService) streamConnectionPolicyTarget(response *ListConnectionPolicy
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListConnectionPolicyTargetResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListConnectionPolicyTargetResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -321,8 +343,10 @@ func (params *UpdateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
+	return c.UpdateConnectionPolicyTargetWithContext(context.TODO(), ConnectionPolicySid, Sid, params)
+}
+func (c *ApiService) UpdateConnectionPolicyTargetWithContext(ctx context.Context, ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -348,7 +372,7 @@ func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Si
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

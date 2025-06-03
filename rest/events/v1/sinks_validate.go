@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreateSinkValidateParams) SetTestId(TestId string) *CreateSinkVali
 
 // Validate that a test event for a Sink was received.
 func (c *ApiService) CreateSinkValidate(Sid string, params *CreateSinkValidateParams) (*EventsV1SinkValidate, error) {
+	return c.CreateSinkValidateWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) CreateSinkValidateWithContext(ctx context.Context, Sid string, params *CreateSinkValidateParams) (*EventsV1SinkValidate, error) {
 	path := "/v1/Sinks/{Sid}/Validate"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -45,7 +49,7 @@ func (c *ApiService) CreateSinkValidate(Sid string, params *CreateSinkValidatePa
 		data.Set("TestId", *params.TestId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -54,6 +55,9 @@ func (params *CreateCustomerProfileParams) SetStatusCallback(StatusCallback stri
 
 // Create a new Customer-Profile.
 func (c *ApiService) CreateCustomerProfile(params *CreateCustomerProfileParams) (*TrusthubV1CustomerProfile, error) {
+	return c.CreateCustomerProfileWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateCustomerProfileWithContext(ctx context.Context, params *CreateCustomerProfileParams) (*TrusthubV1CustomerProfile, error) {
 	path := "/v1/CustomerProfiles"
 
 	data := url.Values{}
@@ -74,7 +78,7 @@ func (c *ApiService) CreateCustomerProfile(params *CreateCustomerProfileParams) 
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -91,6 +95,9 @@ func (c *ApiService) CreateCustomerProfile(params *CreateCustomerProfileParams) 
 
 // Delete a specific Customer-Profile.
 func (c *ApiService) DeleteCustomerProfile(Sid string) error {
+	return c.DeleteCustomerProfileWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteCustomerProfileWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/CustomerProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -99,7 +106,7 @@ func (c *ApiService) DeleteCustomerProfile(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -111,6 +118,9 @@ func (c *ApiService) DeleteCustomerProfile(Sid string) error {
 
 // Fetch a specific Customer-Profile instance.
 func (c *ApiService) FetchCustomerProfile(Sid string) (*TrusthubV1CustomerProfile, error) {
+	return c.FetchCustomerProfileWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchCustomerProfileWithContext(ctx context.Context, Sid string) (*TrusthubV1CustomerProfile, error) {
 	path := "/v1/CustomerProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -119,7 +129,7 @@ func (c *ApiService) FetchCustomerProfile(Sid string) (*TrusthubV1CustomerProfil
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -171,6 +181,11 @@ func (params *ListCustomerProfileParams) SetLimit(Limit int) *ListCustomerProfil
 
 // Retrieve a single page of CustomerProfile records from the API. Request is executed immediately.
 func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, pageToken, pageNumber string) (*ListCustomerProfileResponse, error) {
+	return c.PageCustomerProfileWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of CustomerProfile records from the API. Request is executed immediately.
+func (c *ApiService) PageCustomerProfileWithContext(ctx context.Context, params *ListCustomerProfileParams, pageToken, pageNumber string) (*ListCustomerProfileResponse, error) {
 	path := "/v1/CustomerProfiles"
 
 	data := url.Values{}
@@ -198,7 +213,7 @@ func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, page
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -215,7 +230,12 @@ func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, page
 
 // Lists CustomerProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams) ([]TrusthubV1CustomerProfile, error) {
-	response, errors := c.StreamCustomerProfile(params)
+	return c.ListCustomerProfileWithContext(context.TODO(), params)
+}
+
+// Lists CustomerProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomerProfileWithContext(ctx context.Context, params *ListCustomerProfileParams) ([]TrusthubV1CustomerProfile, error) {
+	response, errors := c.StreamCustomerProfileWithContext(ctx, params)
 
 	records := make([]TrusthubV1CustomerProfile, 0)
 	for record := range response {
@@ -231,6 +251,11 @@ func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams) ([]T
 
 // Streams CustomerProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams) (chan TrusthubV1CustomerProfile, chan error) {
+	return c.StreamCustomerProfileWithContext(context.TODO(), params)
+}
+
+// Streams CustomerProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomerProfileWithContext(ctx context.Context, params *ListCustomerProfileParams) (chan TrusthubV1CustomerProfile, chan error) {
 	if params == nil {
 		params = &ListCustomerProfileParams{}
 	}
@@ -239,19 +264,19 @@ func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams) (c
 	recordChannel := make(chan TrusthubV1CustomerProfile, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCustomerProfile(params, "", "")
+	response, err := c.PageCustomerProfileWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCustomerProfile(response, params, recordChannel, errorChannel)
+		go c.streamCustomerProfileWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCustomerProfile(response *ListCustomerProfileResponse, params *ListCustomerProfileParams, recordChannel chan TrusthubV1CustomerProfile, errorChannel chan error) {
+func (c *ApiService) streamCustomerProfileWithContext(ctx context.Context, response *ListCustomerProfileResponse, params *ListCustomerProfileParams, recordChannel chan TrusthubV1CustomerProfile, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -266,7 +291,7 @@ func (c *ApiService) streamCustomerProfile(response *ListCustomerProfileResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCustomerProfileResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListCustomerProfileResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -281,11 +306,11 @@ func (c *ApiService) streamCustomerProfile(response *ListCustomerProfileResponse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCustomerProfileResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCustomerProfileResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -330,6 +355,9 @@ func (params *UpdateCustomerProfileParams) SetEmail(Email string) *UpdateCustome
 
 // Updates a Customer-Profile in an account.
 func (c *ApiService) UpdateCustomerProfile(Sid string, params *UpdateCustomerProfileParams) (*TrusthubV1CustomerProfile, error) {
+	return c.UpdateCustomerProfileWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateCustomerProfileWithContext(ctx context.Context, Sid string, params *UpdateCustomerProfileParams) (*TrusthubV1CustomerProfile, error) {
 	path := "/v1/CustomerProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -351,7 +379,7 @@ func (c *ApiService) UpdateCustomerProfile(Sid string, params *UpdateCustomerPro
 		data.Set("Email", *params.Email)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

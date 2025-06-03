@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -35,6 +36,9 @@ func (params *CreateOrganizationUserParams) SetScimUser(ScimUser ScimUser) *Crea
 }
 
 func (c *ApiService) CreateOrganizationUser(OrganizationSid string, params *CreateOrganizationUserParams) (*ScimUser, error) {
+	return c.CreateOrganizationUserWithContext(context.TODO(), OrganizationSid, params)
+}
+func (c *ApiService) CreateOrganizationUserWithContext(ctx context.Context, OrganizationSid string, params *CreateOrganizationUserParams) (*ScimUser, error) {
 	path := "/Organizations/{OrganizationSid}/scim/Users"
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 
@@ -52,7 +56,7 @@ func (c *ApiService) CreateOrganizationUser(OrganizationSid string, params *Crea
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -68,6 +72,9 @@ func (c *ApiService) CreateOrganizationUser(OrganizationSid string, params *Crea
 }
 
 func (c *ApiService) DeleteOrganizationUser(OrganizationSid string, Id string) error {
+	return c.DeleteOrganizationUserWithContext(context.TODO(), OrganizationSid, Id)
+}
+func (c *ApiService) DeleteOrganizationUserWithContext(ctx context.Context, OrganizationSid string, Id string) error {
 	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
@@ -77,7 +84,7 @@ func (c *ApiService) DeleteOrganizationUser(OrganizationSid string, Id string) e
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -88,6 +95,9 @@ func (c *ApiService) DeleteOrganizationUser(OrganizationSid string, Id string) e
 }
 
 func (c *ApiService) FetchOrganizationUser(OrganizationSid string, Id string) (*ScimUser, error) {
+	return c.FetchOrganizationUserWithContext(context.TODO(), OrganizationSid, Id)
+}
+func (c *ApiService) FetchOrganizationUserWithContext(ctx context.Context, OrganizationSid string, Id string) (*ScimUser, error) {
 	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
@@ -97,7 +107,7 @@ func (c *ApiService) FetchOrganizationUser(OrganizationSid string, Id string) (*
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -137,6 +147,11 @@ func (params *ListOrganizationUsersParams) SetPageSize(PageSize int) *ListOrgani
 
 // Retrieve a single page of OrganizationUsers records from the API. Request is executed immediately.
 func (c *ApiService) PageOrganizationUsers(OrganizationSid string, params *ListOrganizationUsersParams, pageToken, pageNumber string) (*ScimUserPage, error) {
+	return c.PageOrganizationUsersWithContext(context.TODO(), OrganizationSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of OrganizationUsers records from the API. Request is executed immediately.
+func (c *ApiService) PageOrganizationUsersWithContext(ctx context.Context, OrganizationSid string, params *ListOrganizationUsersParams, pageToken, pageNumber string) (*ScimUserPage, error) {
 	path := "/Organizations/{OrganizationSid}/scim/Users"
 
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
@@ -160,7 +175,7 @@ func (c *ApiService) PageOrganizationUsers(OrganizationSid string, params *ListO
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +192,12 @@ func (c *ApiService) PageOrganizationUsers(OrganizationSid string, params *ListO
 
 // Lists OrganizationUsers records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOrganizationUsers(OrganizationSid string, params *ListOrganizationUsersParams) ([]ScimUser, error) {
-	response, errors := c.StreamOrganizationUsers(OrganizationSid, params)
+	return c.ListOrganizationUsersWithContext(context.TODO(), OrganizationSid, params)
+}
+
+// Lists OrganizationUsers records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListOrganizationUsersWithContext(ctx context.Context, OrganizationSid string, params *ListOrganizationUsersParams) ([]ScimUser, error) {
+	response, errors := c.StreamOrganizationUsersWithContext(ctx, OrganizationSid, params)
 
 	records := make([]ScimUser, 0)
 	for record := range response {
@@ -193,6 +213,11 @@ func (c *ApiService) ListOrganizationUsers(OrganizationSid string, params *ListO
 
 // Streams OrganizationUsers records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamOrganizationUsers(OrganizationSid string, params *ListOrganizationUsersParams) (chan ScimUser, chan error) {
+	return c.StreamOrganizationUsersWithContext(context.TODO(), OrganizationSid, params)
+}
+
+// Streams OrganizationUsers records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamOrganizationUsersWithContext(ctx context.Context, OrganizationSid string, params *ListOrganizationUsersParams) (chan ScimUser, chan error) {
 	if params == nil {
 		params = &ListOrganizationUsersParams{}
 	}
@@ -201,19 +226,19 @@ func (c *ApiService) StreamOrganizationUsers(OrganizationSid string, params *Lis
 	recordChannel := make(chan ScimUser, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageOrganizationUsers(OrganizationSid, params, "", "")
+	response, err := c.PageOrganizationUsersWithContext(ctx, OrganizationSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamOrganizationUsers(response, params, recordChannel, errorChannel)
+		go c.streamOrganizationUsersWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamOrganizationUsers(response *ScimUserPage, params *ListOrganizationUsersParams, recordChannel chan ScimUser, errorChannel chan error) {
+func (c *ApiService) streamOrganizationUsersWithContext(ctx context.Context, response *ScimUserPage, params *ListOrganizationUsersParams, recordChannel chan ScimUser, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -228,7 +253,7 @@ func (c *ApiService) streamOrganizationUsers(response *ScimUserPage, params *Lis
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextScimUserPage)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextScimUserPageWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -243,11 +268,11 @@ func (c *ApiService) streamOrganizationUsers(response *ScimUserPage, params *Lis
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextScimUserPage(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextScimUserPageWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -279,6 +304,9 @@ func (params *UpdateOrganizationUserParams) SetScimUser(ScimUser ScimUser) *Upda
 }
 
 func (c *ApiService) UpdateOrganizationUser(OrganizationSid string, Id string, params *UpdateOrganizationUserParams) (*ScimUser, error) {
+	return c.UpdateOrganizationUserWithContext(context.TODO(), OrganizationSid, Id, params)
+}
+func (c *ApiService) UpdateOrganizationUserWithContext(ctx context.Context, OrganizationSid string, Id string, params *UpdateOrganizationUserParams) (*ScimUser, error) {
 	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
@@ -300,7 +328,7 @@ func (c *ApiService) UpdateOrganizationUser(OrganizationSid string, Id string, p
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PutWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

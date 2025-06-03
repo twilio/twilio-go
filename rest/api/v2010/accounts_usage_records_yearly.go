@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -72,6 +73,11 @@ func (params *ListUsageRecordYearlyParams) SetLimit(Limit int) *ListUsageRecordY
 
 // Retrieve a single page of UsageRecordYearly records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecordYearly(params *ListUsageRecordYearlyParams, pageToken, pageNumber string) (*ListUsageRecordYearlyResponse, error) {
+	return c.PageUsageRecordYearlyWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of UsageRecordYearly records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecordYearlyWithContext(ctx context.Context, params *ListUsageRecordYearlyParams, pageToken, pageNumber string) (*ListUsageRecordYearlyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -108,7 +114,7 @@ func (c *ApiService) PageUsageRecordYearly(params *ListUsageRecordYearlyParams, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +131,12 @@ func (c *ApiService) PageUsageRecordYearly(params *ListUsageRecordYearlyParams, 
 
 // Lists UsageRecordYearly records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyParams) ([]ApiV2010UsageRecordYearly, error) {
-	response, errors := c.StreamUsageRecordYearly(params)
+	return c.ListUsageRecordYearlyWithContext(context.TODO(), params)
+}
+
+// Lists UsageRecordYearly records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordYearlyWithContext(ctx context.Context, params *ListUsageRecordYearlyParams) ([]ApiV2010UsageRecordYearly, error) {
+	response, errors := c.StreamUsageRecordYearlyWithContext(ctx, params)
 
 	records := make([]ApiV2010UsageRecordYearly, 0)
 	for record := range response {
@@ -141,6 +152,11 @@ func (c *ApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyParams) 
 
 // Streams UsageRecordYearly records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecordYearly(params *ListUsageRecordYearlyParams) (chan ApiV2010UsageRecordYearly, chan error) {
+	return c.StreamUsageRecordYearlyWithContext(context.TODO(), params)
+}
+
+// Streams UsageRecordYearly records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordYearlyWithContext(ctx context.Context, params *ListUsageRecordYearlyParams) (chan ApiV2010UsageRecordYearly, chan error) {
 	if params == nil {
 		params = &ListUsageRecordYearlyParams{}
 	}
@@ -149,19 +165,19 @@ func (c *ApiService) StreamUsageRecordYearly(params *ListUsageRecordYearlyParams
 	recordChannel := make(chan ApiV2010UsageRecordYearly, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUsageRecordYearly(params, "", "")
+	response, err := c.PageUsageRecordYearlyWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUsageRecordYearly(response, params, recordChannel, errorChannel)
+		go c.streamUsageRecordYearlyWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordYearly(response *ListUsageRecordYearlyResponse, params *ListUsageRecordYearlyParams, recordChannel chan ApiV2010UsageRecordYearly, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordYearlyWithContext(ctx context.Context, response *ListUsageRecordYearlyResponse, params *ListUsageRecordYearlyParams, recordChannel chan ApiV2010UsageRecordYearly, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -176,7 +192,7 @@ func (c *ApiService) streamUsageRecordYearly(response *ListUsageRecordYearlyResp
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordYearlyResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListUsageRecordYearlyResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -191,11 +207,11 @@ func (c *ApiService) streamUsageRecordYearly(response *ListUsageRecordYearlyResp
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordYearlyResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordYearlyResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

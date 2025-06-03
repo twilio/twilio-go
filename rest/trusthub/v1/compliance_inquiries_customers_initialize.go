@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -45,6 +46,9 @@ func (params *CreateComplianceInquiryParams) SetThemeSetId(ThemeSetId string) *C
 
 // Create a new Compliance Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceInquiry(params *CreateComplianceInquiryParams) (*TrusthubV1ComplianceInquiry, error) {
+	return c.CreateComplianceInquiryWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateComplianceInquiryWithContext(ctx context.Context, params *CreateComplianceInquiryParams) (*TrusthubV1ComplianceInquiry, error) {
 	path := "/v1/ComplianceInquiries/Customers/Initialize"
 
 	data := url.Values{}
@@ -62,7 +66,7 @@ func (c *ApiService) CreateComplianceInquiry(params *CreateComplianceInquiryPara
 		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -96,6 +100,9 @@ func (params *UpdateComplianceInquiryParams) SetThemeSetId(ThemeSetId string) *U
 
 // Resume a specific Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 func (c *ApiService) UpdateComplianceInquiry(CustomerId string, params *UpdateComplianceInquiryParams) (*TrusthubV1ComplianceInquiry, error) {
+	return c.UpdateComplianceInquiryWithContext(context.TODO(), CustomerId, params)
+}
+func (c *ApiService) UpdateComplianceInquiryWithContext(ctx context.Context, CustomerId string, params *UpdateComplianceInquiryParams) (*TrusthubV1ComplianceInquiry, error) {
 	path := "/v1/ComplianceInquiries/Customers/{CustomerId}/Initialize"
 	path = strings.Replace(path, "{"+"CustomerId"+"}", CustomerId, -1)
 
@@ -111,7 +118,7 @@ func (c *ApiService) UpdateComplianceInquiry(CustomerId string, params *UpdateCo
 		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

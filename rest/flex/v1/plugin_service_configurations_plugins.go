@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -34,8 +35,10 @@ func (params *FetchConfiguredPluginParams) SetFlexMetadata(FlexMetadata string) 
 	return params
 }
 
-//
 func (c *ApiService) FetchConfiguredPlugin(ConfigurationSid string, PluginSid string, params *FetchConfiguredPluginParams) (*FlexV1ConfiguredPlugin, error) {
+	return c.FetchConfiguredPluginWithContext(context.TODO(), ConfigurationSid, PluginSid, params)
+}
+func (c *ApiService) FetchConfiguredPluginWithContext(ctx context.Context, ConfigurationSid string, PluginSid string, params *FetchConfiguredPluginParams) (*FlexV1ConfiguredPlugin, error) {
 	path := "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins/{PluginSid}"
 	path = strings.Replace(path, "{"+"ConfigurationSid"+"}", ConfigurationSid, -1)
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -48,7 +51,7 @@ func (c *ApiService) FetchConfiguredPlugin(ConfigurationSid string, PluginSid st
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -88,6 +91,11 @@ func (params *ListConfiguredPluginParams) SetLimit(Limit int) *ListConfiguredPlu
 
 // Retrieve a single page of ConfiguredPlugin records from the API. Request is executed immediately.
 func (c *ApiService) PageConfiguredPlugin(ConfigurationSid string, params *ListConfiguredPluginParams, pageToken, pageNumber string) (*ListConfiguredPluginResponse, error) {
+	return c.PageConfiguredPluginWithContext(context.TODO(), ConfigurationSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ConfiguredPlugin records from the API. Request is executed immediately.
+func (c *ApiService) PageConfiguredPluginWithContext(ctx context.Context, ConfigurationSid string, params *ListConfiguredPluginParams, pageToken, pageNumber string) (*ListConfiguredPluginResponse, error) {
 	path := "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins"
 
 	path = strings.Replace(path, "{"+"ConfigurationSid"+"}", ConfigurationSid, -1)
@@ -108,7 +116,7 @@ func (c *ApiService) PageConfiguredPlugin(ConfigurationSid string, params *ListC
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +133,12 @@ func (c *ApiService) PageConfiguredPlugin(ConfigurationSid string, params *ListC
 
 // Lists ConfiguredPlugin records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConfiguredPlugin(ConfigurationSid string, params *ListConfiguredPluginParams) ([]FlexV1ConfiguredPlugin, error) {
-	response, errors := c.StreamConfiguredPlugin(ConfigurationSid, params)
+	return c.ListConfiguredPluginWithContext(context.TODO(), ConfigurationSid, params)
+}
+
+// Lists ConfiguredPlugin records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConfiguredPluginWithContext(ctx context.Context, ConfigurationSid string, params *ListConfiguredPluginParams) ([]FlexV1ConfiguredPlugin, error) {
+	response, errors := c.StreamConfiguredPluginWithContext(ctx, ConfigurationSid, params)
 
 	records := make([]FlexV1ConfiguredPlugin, 0)
 	for record := range response {
@@ -141,6 +154,11 @@ func (c *ApiService) ListConfiguredPlugin(ConfigurationSid string, params *ListC
 
 // Streams ConfiguredPlugin records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConfiguredPlugin(ConfigurationSid string, params *ListConfiguredPluginParams) (chan FlexV1ConfiguredPlugin, chan error) {
+	return c.StreamConfiguredPluginWithContext(context.TODO(), ConfigurationSid, params)
+}
+
+// Streams ConfiguredPlugin records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConfiguredPluginWithContext(ctx context.Context, ConfigurationSid string, params *ListConfiguredPluginParams) (chan FlexV1ConfiguredPlugin, chan error) {
 	if params == nil {
 		params = &ListConfiguredPluginParams{}
 	}
@@ -149,19 +167,19 @@ func (c *ApiService) StreamConfiguredPlugin(ConfigurationSid string, params *Lis
 	recordChannel := make(chan FlexV1ConfiguredPlugin, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageConfiguredPlugin(ConfigurationSid, params, "", "")
+	response, err := c.PageConfiguredPluginWithContext(ctx, ConfigurationSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConfiguredPlugin(response, params, recordChannel, errorChannel)
+		go c.streamConfiguredPluginWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamConfiguredPlugin(response *ListConfiguredPluginResponse, params *ListConfiguredPluginParams, recordChannel chan FlexV1ConfiguredPlugin, errorChannel chan error) {
+func (c *ApiService) streamConfiguredPluginWithContext(ctx context.Context, response *ListConfiguredPluginResponse, params *ListConfiguredPluginParams, recordChannel chan FlexV1ConfiguredPlugin, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -176,7 +194,7 @@ func (c *ApiService) streamConfiguredPlugin(response *ListConfiguredPluginRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListConfiguredPluginResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListConfiguredPluginResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -191,11 +209,11 @@ func (c *ApiService) streamConfiguredPlugin(response *ListConfiguredPluginRespon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListConfiguredPluginResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListConfiguredPluginResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

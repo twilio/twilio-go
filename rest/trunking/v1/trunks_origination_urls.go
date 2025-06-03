@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -58,8 +59,10 @@ func (params *CreateOriginationUrlParams) SetSipUrl(SipUrl string) *CreateOrigin
 	return params
 }
 
-//
 func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
+	return c.CreateOriginationUrlWithContext(context.TODO(), TrunkSid, params)
+}
+func (c *ApiService) CreateOriginationUrlWithContext(ctx context.Context, TrunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -84,7 +87,7 @@ func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOrigina
 		data.Set("SipUrl", *params.SipUrl)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -99,8 +102,10 @@ func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOrigina
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
+	return c.DeleteOriginationUrlWithContext(context.TODO(), TrunkSid, Sid)
+}
+func (c *ApiService) DeleteOriginationUrlWithContext(ctx context.Context, TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -110,7 +115,7 @@ func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -120,8 +125,10 @@ func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*TrunkingV1OriginationUrl, error) {
+	return c.FetchOriginationUrlWithContext(context.TODO(), TrunkSid, Sid)
+}
+func (c *ApiService) FetchOriginationUrlWithContext(ctx context.Context, TrunkSid string, Sid string) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -131,7 +138,7 @@ func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*Trunking
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -165,6 +172,11 @@ func (params *ListOriginationUrlParams) SetLimit(Limit int) *ListOriginationUrlP
 
 // Retrieve a single page of OriginationUrl records from the API. Request is executed immediately.
 func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, pageToken, pageNumber string) (*ListOriginationUrlResponse, error) {
+	return c.PageOriginationUrlWithContext(context.TODO(), TrunkSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of OriginationUrl records from the API. Request is executed immediately.
+func (c *ApiService) PageOriginationUrlWithContext(ctx context.Context, TrunkSid string, params *ListOriginationUrlParams, pageToken, pageNumber string) (*ListOriginationUrlResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -185,7 +197,7 @@ func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOrigination
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -202,7 +214,12 @@ func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOrigination
 
 // Lists OriginationUrl records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOriginationUrlParams) ([]TrunkingV1OriginationUrl, error) {
-	response, errors := c.StreamOriginationUrl(TrunkSid, params)
+	return c.ListOriginationUrlWithContext(context.TODO(), TrunkSid, params)
+}
+
+// Lists OriginationUrl records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListOriginationUrlWithContext(ctx context.Context, TrunkSid string, params *ListOriginationUrlParams) ([]TrunkingV1OriginationUrl, error) {
+	response, errors := c.StreamOriginationUrlWithContext(ctx, TrunkSid, params)
 
 	records := make([]TrunkingV1OriginationUrl, 0)
 	for record := range response {
@@ -218,6 +235,11 @@ func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOrigination
 
 // Streams OriginationUrl records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginationUrlParams) (chan TrunkingV1OriginationUrl, chan error) {
+	return c.StreamOriginationUrlWithContext(context.TODO(), TrunkSid, params)
+}
+
+// Streams OriginationUrl records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamOriginationUrlWithContext(ctx context.Context, TrunkSid string, params *ListOriginationUrlParams) (chan TrunkingV1OriginationUrl, chan error) {
 	if params == nil {
 		params = &ListOriginationUrlParams{}
 	}
@@ -226,19 +248,19 @@ func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginati
 	recordChannel := make(chan TrunkingV1OriginationUrl, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageOriginationUrl(TrunkSid, params, "", "")
+	response, err := c.PageOriginationUrlWithContext(ctx, TrunkSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamOriginationUrl(response, params, recordChannel, errorChannel)
+		go c.streamOriginationUrlWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamOriginationUrl(response *ListOriginationUrlResponse, params *ListOriginationUrlParams, recordChannel chan TrunkingV1OriginationUrl, errorChannel chan error) {
+func (c *ApiService) streamOriginationUrlWithContext(ctx context.Context, response *ListOriginationUrlResponse, params *ListOriginationUrlParams, recordChannel chan TrunkingV1OriginationUrl, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -253,7 +275,7 @@ func (c *ApiService) streamOriginationUrl(response *ListOriginationUrlResponse, 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListOriginationUrlResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListOriginationUrlResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -268,11 +290,11 @@ func (c *ApiService) streamOriginationUrl(response *ListOriginationUrlResponse, 
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListOriginationUrlResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListOriginationUrlResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -321,8 +343,10 @@ func (params *UpdateOriginationUrlParams) SetSipUrl(SipUrl string) *UpdateOrigin
 	return params
 }
 
-//
 func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *UpdateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
+	return c.UpdateOriginationUrlWithContext(context.TODO(), TrunkSid, Sid, params)
+}
+func (c *ApiService) UpdateOriginationUrlWithContext(ctx context.Context, TrunkSid string, Sid string, params *UpdateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -348,7 +372,7 @@ func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *U
 		data.Set("SipUrl", *params.SipUrl)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

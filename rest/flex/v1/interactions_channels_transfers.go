@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreateInteractionTransferParams) SetBody(Body map[string]interface
 
 // Create a new Transfer.
 func (c *ApiService) CreateInteractionTransfer(InteractionSid string, ChannelSid string, params *CreateInteractionTransferParams) (*FlexV1InteractionTransfer, error) {
+	return c.CreateInteractionTransferWithContext(context.TODO(), InteractionSid, ChannelSid, params)
+}
+func (c *ApiService) CreateInteractionTransferWithContext(ctx context.Context, InteractionSid string, ChannelSid string, params *CreateInteractionTransferParams) (*FlexV1InteractionTransfer, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -51,7 +55,7 @@ func (c *ApiService) CreateInteractionTransfer(InteractionSid string, ChannelSid
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -68,6 +72,9 @@ func (c *ApiService) CreateInteractionTransfer(InteractionSid string, ChannelSid
 
 // Fetch a specific Transfer by SID.
 func (c *ApiService) FetchInteractionTransfer(InteractionSid string, ChannelSid string, Sid string) (*FlexV1InteractionTransfer, error) {
+	return c.FetchInteractionTransferWithContext(context.TODO(), InteractionSid, ChannelSid, Sid)
+}
+func (c *ApiService) FetchInteractionTransferWithContext(ctx context.Context, InteractionSid string, ChannelSid string, Sid string) (*FlexV1InteractionTransfer, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -78,7 +85,7 @@ func (c *ApiService) FetchInteractionTransfer(InteractionSid string, ChannelSid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -106,6 +113,9 @@ func (params *UpdateInteractionTransferParams) SetBody(Body map[string]interface
 
 // Update an existing Transfer.
 func (c *ApiService) UpdateInteractionTransfer(InteractionSid string, ChannelSid string, Sid string, params *UpdateInteractionTransferParams) (*FlexV1InteractionTransfer, error) {
+	return c.UpdateInteractionTransferWithContext(context.TODO(), InteractionSid, ChannelSid, Sid, params)
+}
+func (c *ApiService) UpdateInteractionTransferWithContext(ctx context.Context, InteractionSid string, ChannelSid string, Sid string, params *UpdateInteractionTransferParams) (*FlexV1InteractionTransfer, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}"
 	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -125,7 +135,7 @@ func (c *ApiService) UpdateInteractionTransfer(InteractionSid string, ChannelSid
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

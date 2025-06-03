@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -35,6 +36,9 @@ func (params *CreateSigningRequestConfigurationParams) SetBody(Body map[string]i
 
 // Synchronous operation to insert or update a configuration for the customer.
 func (c *ApiService) CreateSigningRequestConfiguration(params *CreateSigningRequestConfigurationParams) (*NumbersV1SigningRequestConfiguration, error) {
+	return c.CreateSigningRequestConfigurationWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateSigningRequestConfigurationWithContext(ctx context.Context, params *CreateSigningRequestConfigurationParams) (*NumbersV1SigningRequestConfiguration, error) {
 	path := "/v1/SigningRequest/Configuration"
 
 	data := url.Values{}
@@ -51,7 +55,7 @@ func (c *ApiService) CreateSigningRequestConfiguration(params *CreateSigningRequ
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -97,6 +101,11 @@ func (params *ListSigningRequestConfigurationParams) SetLimit(Limit int) *ListSi
 
 // Retrieve a single page of SigningRequestConfiguration records from the API. Request is executed immediately.
 func (c *ApiService) PageSigningRequestConfiguration(params *ListSigningRequestConfigurationParams, pageToken, pageNumber string) (*ListSigningRequestConfigurationResponse, error) {
+	return c.PageSigningRequestConfigurationWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SigningRequestConfiguration records from the API. Request is executed immediately.
+func (c *ApiService) PageSigningRequestConfigurationWithContext(ctx context.Context, params *ListSigningRequestConfigurationParams, pageToken, pageNumber string) (*ListSigningRequestConfigurationResponse, error) {
 	path := "/v1/SigningRequest/Configuration"
 
 	data := url.Values{}
@@ -121,7 +130,7 @@ func (c *ApiService) PageSigningRequestConfiguration(params *ListSigningRequestC
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +147,12 @@ func (c *ApiService) PageSigningRequestConfiguration(params *ListSigningRequestC
 
 // Lists SigningRequestConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSigningRequestConfiguration(params *ListSigningRequestConfigurationParams) ([]NumbersV1SigningRequestConfiguration, error) {
-	response, errors := c.StreamSigningRequestConfiguration(params)
+	return c.ListSigningRequestConfigurationWithContext(context.TODO(), params)
+}
+
+// Lists SigningRequestConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSigningRequestConfigurationWithContext(ctx context.Context, params *ListSigningRequestConfigurationParams) ([]NumbersV1SigningRequestConfiguration, error) {
+	response, errors := c.StreamSigningRequestConfigurationWithContext(ctx, params)
 
 	records := make([]NumbersV1SigningRequestConfiguration, 0)
 	for record := range response {
@@ -154,6 +168,11 @@ func (c *ApiService) ListSigningRequestConfiguration(params *ListSigningRequestC
 
 // Streams SigningRequestConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSigningRequestConfiguration(params *ListSigningRequestConfigurationParams) (chan NumbersV1SigningRequestConfiguration, chan error) {
+	return c.StreamSigningRequestConfigurationWithContext(context.TODO(), params)
+}
+
+// Streams SigningRequestConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSigningRequestConfigurationWithContext(ctx context.Context, params *ListSigningRequestConfigurationParams) (chan NumbersV1SigningRequestConfiguration, chan error) {
 	if params == nil {
 		params = &ListSigningRequestConfigurationParams{}
 	}
@@ -162,19 +181,19 @@ func (c *ApiService) StreamSigningRequestConfiguration(params *ListSigningReques
 	recordChannel := make(chan NumbersV1SigningRequestConfiguration, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSigningRequestConfiguration(params, "", "")
+	response, err := c.PageSigningRequestConfigurationWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSigningRequestConfiguration(response, params, recordChannel, errorChannel)
+		go c.streamSigningRequestConfigurationWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSigningRequestConfiguration(response *ListSigningRequestConfigurationResponse, params *ListSigningRequestConfigurationParams, recordChannel chan NumbersV1SigningRequestConfiguration, errorChannel chan error) {
+func (c *ApiService) streamSigningRequestConfigurationWithContext(ctx context.Context, response *ListSigningRequestConfigurationResponse, params *ListSigningRequestConfigurationParams, recordChannel chan NumbersV1SigningRequestConfiguration, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -189,7 +208,7 @@ func (c *ApiService) streamSigningRequestConfiguration(response *ListSigningRequ
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSigningRequestConfigurationResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSigningRequestConfigurationResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -204,11 +223,11 @@ func (c *ApiService) streamSigningRequestConfiguration(response *ListSigningRequ
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSigningRequestConfigurationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSigningRequestConfigurationResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

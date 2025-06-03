@@ -15,12 +15,16 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
 
 // Fetch the global configuration of conversations on your account
 func (c *ApiService) FetchConfiguration() (*ConversationsV1Configuration, error) {
+	return c.FetchConfigurationWithContext(context.TODO())
+}
+func (c *ApiService) FetchConfigurationWithContext(ctx context.Context) (*ConversationsV1Configuration, error) {
 	path := "/v1/Configuration"
 
 	data := url.Values{}
@@ -28,7 +32,7 @@ func (c *ApiService) FetchConfiguration() (*ConversationsV1Configuration, error)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -74,6 +78,9 @@ func (params *UpdateConfigurationParams) SetDefaultClosedTimer(DefaultClosedTime
 
 // Update the global configuration of conversations on your account
 func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*ConversationsV1Configuration, error) {
+	return c.UpdateConfigurationWithContext(context.TODO(), params)
+}
+func (c *ApiService) UpdateConfigurationWithContext(ctx context.Context, params *UpdateConfigurationParams) (*ConversationsV1Configuration, error) {
 	path := "/v1/Configuration"
 
 	data := url.Values{}
@@ -94,7 +101,7 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Co
 		data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

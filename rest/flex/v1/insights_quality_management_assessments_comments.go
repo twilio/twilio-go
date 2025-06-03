@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -71,6 +72,9 @@ func (params *CreateInsightsAssessmentsCommentParams) SetOffset(Offset float32) 
 
 // To create a comment assessment for a conversation
 func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAssessmentsCommentParams) (*FlexV1InsightsAssessmentsComment, error) {
+	return c.CreateInsightsAssessmentsCommentWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateInsightsAssessmentsCommentWithContext(ctx context.Context, params *CreateInsightsAssessmentsCommentParams) (*FlexV1InsightsAssessmentsComment, error) {
 	path := "/v1/Insights/QualityManagement/Assessments/Comments"
 
 	data := url.Values{}
@@ -100,7 +104,7 @@ func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAsse
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -152,6 +156,11 @@ func (params *ListInsightsAssessmentsCommentParams) SetLimit(Limit int) *ListIns
 
 // Retrieve a single page of InsightsAssessmentsComment records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsAssessmentsComment(params *ListInsightsAssessmentsCommentParams, pageToken, pageNumber string) (*ListInsightsAssessmentsCommentResponse, error) {
+	return c.PageInsightsAssessmentsCommentWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of InsightsAssessmentsComment records from the API. Request is executed immediately.
+func (c *ApiService) PageInsightsAssessmentsCommentWithContext(ctx context.Context, params *ListInsightsAssessmentsCommentParams, pageToken, pageNumber string) (*ListInsightsAssessmentsCommentResponse, error) {
 	path := "/v1/Insights/QualityManagement/Assessments/Comments"
 
 	data := url.Values{}
@@ -176,7 +185,7 @@ func (c *ApiService) PageInsightsAssessmentsComment(params *ListInsightsAssessme
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +202,12 @@ func (c *ApiService) PageInsightsAssessmentsComment(params *ListInsightsAssessme
 
 // Lists InsightsAssessmentsComment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInsightsAssessmentsComment(params *ListInsightsAssessmentsCommentParams) ([]FlexV1InsightsAssessmentsComment, error) {
-	response, errors := c.StreamInsightsAssessmentsComment(params)
+	return c.ListInsightsAssessmentsCommentWithContext(context.TODO(), params)
+}
+
+// Lists InsightsAssessmentsComment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInsightsAssessmentsCommentWithContext(ctx context.Context, params *ListInsightsAssessmentsCommentParams) ([]FlexV1InsightsAssessmentsComment, error) {
+	response, errors := c.StreamInsightsAssessmentsCommentWithContext(ctx, params)
 
 	records := make([]FlexV1InsightsAssessmentsComment, 0)
 	for record := range response {
@@ -209,6 +223,11 @@ func (c *ApiService) ListInsightsAssessmentsComment(params *ListInsightsAssessme
 
 // Streams InsightsAssessmentsComment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInsightsAssessmentsComment(params *ListInsightsAssessmentsCommentParams) (chan FlexV1InsightsAssessmentsComment, chan error) {
+	return c.StreamInsightsAssessmentsCommentWithContext(context.TODO(), params)
+}
+
+// Streams InsightsAssessmentsComment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInsightsAssessmentsCommentWithContext(ctx context.Context, params *ListInsightsAssessmentsCommentParams) (chan FlexV1InsightsAssessmentsComment, chan error) {
 	if params == nil {
 		params = &ListInsightsAssessmentsCommentParams{}
 	}
@@ -217,19 +236,19 @@ func (c *ApiService) StreamInsightsAssessmentsComment(params *ListInsightsAssess
 	recordChannel := make(chan FlexV1InsightsAssessmentsComment, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInsightsAssessmentsComment(params, "", "")
+	response, err := c.PageInsightsAssessmentsCommentWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInsightsAssessmentsComment(response, params, recordChannel, errorChannel)
+		go c.streamInsightsAssessmentsCommentWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInsightsAssessmentsComment(response *ListInsightsAssessmentsCommentResponse, params *ListInsightsAssessmentsCommentParams, recordChannel chan FlexV1InsightsAssessmentsComment, errorChannel chan error) {
+func (c *ApiService) streamInsightsAssessmentsCommentWithContext(ctx context.Context, response *ListInsightsAssessmentsCommentResponse, params *ListInsightsAssessmentsCommentParams, recordChannel chan FlexV1InsightsAssessmentsComment, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -244,7 +263,7 @@ func (c *ApiService) streamInsightsAssessmentsComment(response *ListInsightsAsse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListInsightsAssessmentsCommentResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListInsightsAssessmentsCommentResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -259,11 +278,11 @@ func (c *ApiService) streamInsightsAssessmentsComment(response *ListInsightsAsse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInsightsAssessmentsCommentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInsightsAssessmentsCommentResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

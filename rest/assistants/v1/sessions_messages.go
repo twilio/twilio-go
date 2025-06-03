@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,11 @@ func (params *ListMessagesParams) SetLimit(Limit int) *ListMessagesParams {
 
 // Retrieve a single page of Messages records from the API. Request is executed immediately.
 func (c *ApiService) PageMessages(SessionId string, params *ListMessagesParams, pageToken, pageNumber string) (*ListMessagesResponse, error) {
+	return c.PageMessagesWithContext(context.TODO(), SessionId, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Messages records from the API. Request is executed immediately.
+func (c *ApiService) PageMessagesWithContext(ctx context.Context, SessionId string, params *ListMessagesParams, pageToken, pageNumber string) (*ListMessagesResponse, error) {
 	path := "/v1/Sessions/{sessionId}/Messages"
 
 	path = strings.Replace(path, "{"+"sessionId"+"}", SessionId, -1)
@@ -62,7 +68,7 @@ func (c *ApiService) PageMessages(SessionId string, params *ListMessagesParams, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +85,12 @@ func (c *ApiService) PageMessages(SessionId string, params *ListMessagesParams, 
 
 // Lists Messages records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessages(SessionId string, params *ListMessagesParams) ([]AssistantsV1Message, error) {
-	response, errors := c.StreamMessages(SessionId, params)
+	return c.ListMessagesWithContext(context.TODO(), SessionId, params)
+}
+
+// Lists Messages records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMessagesWithContext(ctx context.Context, SessionId string, params *ListMessagesParams) ([]AssistantsV1Message, error) {
+	response, errors := c.StreamMessagesWithContext(ctx, SessionId, params)
 
 	records := make([]AssistantsV1Message, 0)
 	for record := range response {
@@ -95,6 +106,11 @@ func (c *ApiService) ListMessages(SessionId string, params *ListMessagesParams) 
 
 // Streams Messages records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMessages(SessionId string, params *ListMessagesParams) (chan AssistantsV1Message, chan error) {
+	return c.StreamMessagesWithContext(context.TODO(), SessionId, params)
+}
+
+// Streams Messages records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMessagesWithContext(ctx context.Context, SessionId string, params *ListMessagesParams) (chan AssistantsV1Message, chan error) {
 	if params == nil {
 		params = &ListMessagesParams{}
 	}
@@ -103,19 +119,19 @@ func (c *ApiService) StreamMessages(SessionId string, params *ListMessagesParams
 	recordChannel := make(chan AssistantsV1Message, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMessages(SessionId, params, "", "")
+	response, err := c.PageMessagesWithContext(ctx, SessionId, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMessages(response, params, recordChannel, errorChannel)
+		go c.streamMessagesWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMessages(response *ListMessagesResponse, params *ListMessagesParams, recordChannel chan AssistantsV1Message, errorChannel chan error) {
+func (c *ApiService) streamMessagesWithContext(ctx context.Context, response *ListMessagesResponse, params *ListMessagesParams, recordChannel chan AssistantsV1Message, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -130,7 +146,7 @@ func (c *ApiService) streamMessages(response *ListMessagesResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMessagesResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListMessagesResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -145,11 +161,11 @@ func (c *ApiService) streamMessages(response *ListMessagesResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMessagesResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMessagesResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

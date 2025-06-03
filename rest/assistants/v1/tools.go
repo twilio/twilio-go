@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *CreateToolParams) SetAssistantsV1CreateToolRequest(AssistantsV1Cre
 
 // Create tool
 func (c *ApiService) CreateTool(params *CreateToolParams) (*AssistantsV1Tool, error) {
+	return c.CreateToolWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateToolWithContext(ctx context.Context, params *CreateToolParams) (*AssistantsV1Tool, error) {
 	path := "/v1/Tools"
 
 	data := url.Values{}
@@ -52,7 +56,7 @@ func (c *ApiService) CreateTool(params *CreateToolParams) (*AssistantsV1Tool, er
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,6 +73,9 @@ func (c *ApiService) CreateTool(params *CreateToolParams) (*AssistantsV1Tool, er
 
 // delete a tool
 func (c *ApiService) DeleteTool(Id string) error {
+	return c.DeleteToolWithContext(context.TODO(), Id)
+}
+func (c *ApiService) DeleteToolWithContext(ctx context.Context, Id string) error {
 	path := "/v1/Tools/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -77,7 +84,7 @@ func (c *ApiService) DeleteTool(Id string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -89,6 +96,9 @@ func (c *ApiService) DeleteTool(Id string) error {
 
 // Get tool
 func (c *ApiService) FetchTool(Id string) (*AssistantsV1ToolWithPolicies, error) {
+	return c.FetchToolWithContext(context.TODO(), Id)
+}
+func (c *ApiService) FetchToolWithContext(ctx context.Context, Id string) (*AssistantsV1ToolWithPolicies, error) {
 	path := "/v1/Tools/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -97,7 +107,7 @@ func (c *ApiService) FetchTool(Id string) (*AssistantsV1ToolWithPolicies, error)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -137,6 +147,11 @@ func (params *ListToolsParams) SetLimit(Limit int) *ListToolsParams {
 
 // Retrieve a single page of Tools records from the API. Request is executed immediately.
 func (c *ApiService) PageTools(params *ListToolsParams, pageToken, pageNumber string) (*ListToolsResponse, error) {
+	return c.PageToolsWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Tools records from the API. Request is executed immediately.
+func (c *ApiService) PageToolsWithContext(ctx context.Context, params *ListToolsParams, pageToken, pageNumber string) (*ListToolsResponse, error) {
 	path := "/v1/Tools"
 
 	data := url.Values{}
@@ -158,7 +173,7 @@ func (c *ApiService) PageTools(params *ListToolsParams, pageToken, pageNumber st
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +190,12 @@ func (c *ApiService) PageTools(params *ListToolsParams, pageToken, pageNumber st
 
 // Lists Tools records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTools(params *ListToolsParams) ([]AssistantsV1Tool, error) {
-	response, errors := c.StreamTools(params)
+	return c.ListToolsWithContext(context.TODO(), params)
+}
+
+// Lists Tools records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListToolsWithContext(ctx context.Context, params *ListToolsParams) ([]AssistantsV1Tool, error) {
+	response, errors := c.StreamToolsWithContext(ctx, params)
 
 	records := make([]AssistantsV1Tool, 0)
 	for record := range response {
@@ -191,6 +211,11 @@ func (c *ApiService) ListTools(params *ListToolsParams) ([]AssistantsV1Tool, err
 
 // Streams Tools records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTools(params *ListToolsParams) (chan AssistantsV1Tool, chan error) {
+	return c.StreamToolsWithContext(context.TODO(), params)
+}
+
+// Streams Tools records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamToolsWithContext(ctx context.Context, params *ListToolsParams) (chan AssistantsV1Tool, chan error) {
 	if params == nil {
 		params = &ListToolsParams{}
 	}
@@ -199,19 +224,19 @@ func (c *ApiService) StreamTools(params *ListToolsParams) (chan AssistantsV1Tool
 	recordChannel := make(chan AssistantsV1Tool, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTools(params, "", "")
+	response, err := c.PageToolsWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTools(response, params, recordChannel, errorChannel)
+		go c.streamToolsWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTools(response *ListToolsResponse, params *ListToolsParams, recordChannel chan AssistantsV1Tool, errorChannel chan error) {
+func (c *ApiService) streamToolsWithContext(ctx context.Context, response *ListToolsResponse, params *ListToolsParams, recordChannel chan AssistantsV1Tool, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -226,7 +251,7 @@ func (c *ApiService) streamTools(response *ListToolsResponse, params *ListToolsP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListToolsResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListToolsResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -241,11 +266,11 @@ func (c *ApiService) streamTools(response *ListToolsResponse, params *ListToolsP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListToolsResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListToolsResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -272,6 +297,9 @@ func (params *UpdateToolParams) SetAssistantsV1UpdateToolRequest(AssistantsV1Upd
 
 // Update tool
 func (c *ApiService) UpdateTool(Id string, params *UpdateToolParams) (*AssistantsV1Tool, error) {
+	return c.UpdateToolWithContext(context.TODO(), Id, params)
+}
+func (c *ApiService) UpdateToolWithContext(ctx context.Context, Id string, params *UpdateToolParams) (*AssistantsV1Tool, error) {
 	path := "/v1/Tools/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -289,7 +317,7 @@ func (c *ApiService) UpdateTool(Id string, params *UpdateToolParams) (*Assistant
 		body = b
 	}
 
-	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PutWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

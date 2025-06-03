@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreateBillingUsageParams) SetMarketplaceV1InstalledAddOnUsage(Mark
 
 // Allows Twilio Marketplace publishers to manually report customer usage on No-code Partner Listings that they own.
 func (c *ApiService) CreateBillingUsage(InstalledAddOnSid string, params *CreateBillingUsageParams) (*MarketplaceV1InstalledAddOnUsage, error) {
+	return c.CreateBillingUsageWithContext(context.TODO(), InstalledAddOnSid, params)
+}
+func (c *ApiService) CreateBillingUsageWithContext(ctx context.Context, InstalledAddOnSid string, params *CreateBillingUsageParams) (*MarketplaceV1InstalledAddOnUsage, error) {
 	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Usage"
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
 
@@ -50,7 +54,7 @@ func (c *ApiService) CreateBillingUsage(InstalledAddOnSid string, params *Create
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

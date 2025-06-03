@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -54,6 +55,11 @@ func (params *ListMetricParams) SetLimit(Limit int) *ListMetricParams {
 
 // Retrieve a single page of Metric records from the API. Request is executed immediately.
 func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageToken, pageNumber string) (*ListMetricResponse, error) {
+	return c.PageMetricWithContext(context.TODO(), CallSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Metric records from the API. Request is executed immediately.
+func (c *ApiService) PageMetricWithContext(ctx context.Context, CallSid string, params *ListMetricParams, pageToken, pageNumber string) (*ListMetricResponse, error) {
 	path := "/v1/Voice/{CallSid}/Metrics"
 
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -80,7 +86,7 @@ func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageTo
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +103,12 @@ func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageTo
 
 // Lists Metric records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) ([]InsightsV1Metric, error) {
-	response, errors := c.StreamMetric(CallSid, params)
+	return c.ListMetricWithContext(context.TODO(), CallSid, params)
+}
+
+// Lists Metric records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMetricWithContext(ctx context.Context, CallSid string, params *ListMetricParams) ([]InsightsV1Metric, error) {
+	response, errors := c.StreamMetricWithContext(ctx, CallSid, params)
 
 	records := make([]InsightsV1Metric, 0)
 	for record := range response {
@@ -113,6 +124,11 @@ func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) ([]Ins
 
 // Streams Metric records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (chan InsightsV1Metric, chan error) {
+	return c.StreamMetricWithContext(context.TODO(), CallSid, params)
+}
+
+// Streams Metric records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMetricWithContext(ctx context.Context, CallSid string, params *ListMetricParams) (chan InsightsV1Metric, chan error) {
 	if params == nil {
 		params = &ListMetricParams{}
 	}
@@ -121,19 +137,19 @@ func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (cha
 	recordChannel := make(chan InsightsV1Metric, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMetric(CallSid, params, "", "")
+	response, err := c.PageMetricWithContext(ctx, CallSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMetric(response, params, recordChannel, errorChannel)
+		go c.streamMetricWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMetric(response *ListMetricResponse, params *ListMetricParams, recordChannel chan InsightsV1Metric, errorChannel chan error) {
+func (c *ApiService) streamMetricWithContext(ctx context.Context, response *ListMetricResponse, params *ListMetricParams, recordChannel chan InsightsV1Metric, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -148,7 +164,7 @@ func (c *ApiService) streamMetric(response *ListMetricResponse, params *ListMetr
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMetricResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListMetricResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -163,11 +179,11 @@ func (c *ApiService) streamMetric(response *ListMetricResponse, params *ListMetr
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMetricResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMetricResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

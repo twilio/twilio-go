@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -23,6 +24,9 @@ import (
 
 // Fetch the configuration of a conversation service
 func (c *ApiService) FetchServiceConfiguration(ChatServiceSid string) (*ConversationsV1ServiceConfiguration, error) {
+	return c.FetchServiceConfigurationWithContext(context.TODO(), ChatServiceSid)
+}
+func (c *ApiService) FetchServiceConfigurationWithContext(ctx context.Context, ChatServiceSid string) (*ConversationsV1ServiceConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -31,7 +35,7 @@ func (c *ApiService) FetchServiceConfiguration(ChatServiceSid string) (*Conversa
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -77,6 +81,9 @@ func (params *UpdateServiceConfigurationParams) SetReachabilityEnabled(Reachabil
 
 // Update configuration settings of a conversation service
 func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *UpdateServiceConfigurationParams) (*ConversationsV1ServiceConfiguration, error) {
+	return c.UpdateServiceConfigurationWithContext(context.TODO(), ChatServiceSid, params)
+}
+func (c *ApiService) UpdateServiceConfigurationWithContext(ctx context.Context, ChatServiceSid string, params *UpdateServiceConfigurationParams) (*ConversationsV1ServiceConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -98,7 +105,7 @@ func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *U
 		data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

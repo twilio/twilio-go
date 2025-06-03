@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -55,6 +56,9 @@ func (params *FetchAuthorizeParams) SetState(State string) *FetchAuthorizeParams
 }
 
 func (c *ApiService) FetchAuthorize(params *FetchAuthorizeParams) (*OauthV1Authorize, error) {
+	return c.FetchAuthorizeWithContext(context.TODO(), params)
+}
+func (c *ApiService) FetchAuthorizeWithContext(ctx context.Context, params *FetchAuthorizeParams) (*OauthV1Authorize, error) {
 	path := "/v1/authorize"
 
 	data := url.Values{}
@@ -78,7 +82,7 @@ func (c *ApiService) FetchAuthorize(params *FetchAuthorizeParams) (*OauthV1Autho
 		data.Set("state", *params.State)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

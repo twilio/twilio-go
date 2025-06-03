@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *DeleteRecordingAddOnResultParams) SetPathAccountSid(PathAccountSid
 
 // Delete a result and purge all associated Payloads
 func (c *ApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid string, params *DeleteRecordingAddOnResultParams) error {
+	return c.DeleteRecordingAddOnResultWithContext(context.TODO(), ReferenceSid, Sid, params)
+}
+func (c *ApiService) DeleteRecordingAddOnResultWithContext(ctx context.Context, ReferenceSid string, Sid string, params *DeleteRecordingAddOnResultParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -50,7 +54,7 @@ func (c *ApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid string,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -73,6 +77,9 @@ func (params *FetchRecordingAddOnResultParams) SetPathAccountSid(PathAccountSid 
 
 // Fetch an instance of an AddOnResult
 func (c *ApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid string, params *FetchRecordingAddOnResultParams) (*ApiV2010RecordingAddOnResult, error) {
+	return c.FetchRecordingAddOnResultWithContext(context.TODO(), ReferenceSid, Sid, params)
+}
+func (c *ApiService) FetchRecordingAddOnResultWithContext(ctx context.Context, ReferenceSid string, Sid string, params *FetchRecordingAddOnResultParams) (*ApiV2010RecordingAddOnResult, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -87,7 +94,7 @@ func (c *ApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid string, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -127,6 +134,11 @@ func (params *ListRecordingAddOnResultParams) SetLimit(Limit int) *ListRecording
 
 // Retrieve a single page of RecordingAddOnResult records from the API. Request is executed immediately.
 func (c *ApiService) PageRecordingAddOnResult(ReferenceSid string, params *ListRecordingAddOnResultParams, pageToken, pageNumber string) (*ListRecordingAddOnResultResponse, error) {
+	return c.PageRecordingAddOnResultWithContext(context.TODO(), ReferenceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of RecordingAddOnResult records from the API. Request is executed immediately.
+func (c *ApiService) PageRecordingAddOnResultWithContext(ctx context.Context, ReferenceSid string, params *ListRecordingAddOnResultParams, pageToken, pageNumber string) (*ListRecordingAddOnResultResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -152,7 +164,7 @@ func (c *ApiService) PageRecordingAddOnResult(ReferenceSid string, params *ListR
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -169,7 +181,12 @@ func (c *ApiService) PageRecordingAddOnResult(ReferenceSid string, params *ListR
 
 // Lists RecordingAddOnResult records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRecordingAddOnResult(ReferenceSid string, params *ListRecordingAddOnResultParams) ([]ApiV2010RecordingAddOnResult, error) {
-	response, errors := c.StreamRecordingAddOnResult(ReferenceSid, params)
+	return c.ListRecordingAddOnResultWithContext(context.TODO(), ReferenceSid, params)
+}
+
+// Lists RecordingAddOnResult records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRecordingAddOnResultWithContext(ctx context.Context, ReferenceSid string, params *ListRecordingAddOnResultParams) ([]ApiV2010RecordingAddOnResult, error) {
+	response, errors := c.StreamRecordingAddOnResultWithContext(ctx, ReferenceSid, params)
 
 	records := make([]ApiV2010RecordingAddOnResult, 0)
 	for record := range response {
@@ -185,6 +202,11 @@ func (c *ApiService) ListRecordingAddOnResult(ReferenceSid string, params *ListR
 
 // Streams RecordingAddOnResult records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRecordingAddOnResult(ReferenceSid string, params *ListRecordingAddOnResultParams) (chan ApiV2010RecordingAddOnResult, chan error) {
+	return c.StreamRecordingAddOnResultWithContext(context.TODO(), ReferenceSid, params)
+}
+
+// Streams RecordingAddOnResult records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRecordingAddOnResultWithContext(ctx context.Context, ReferenceSid string, params *ListRecordingAddOnResultParams) (chan ApiV2010RecordingAddOnResult, chan error) {
 	if params == nil {
 		params = &ListRecordingAddOnResultParams{}
 	}
@@ -193,19 +215,19 @@ func (c *ApiService) StreamRecordingAddOnResult(ReferenceSid string, params *Lis
 	recordChannel := make(chan ApiV2010RecordingAddOnResult, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRecordingAddOnResult(ReferenceSid, params, "", "")
+	response, err := c.PageRecordingAddOnResultWithContext(ctx, ReferenceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRecordingAddOnResult(response, params, recordChannel, errorChannel)
+		go c.streamRecordingAddOnResultWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRecordingAddOnResult(response *ListRecordingAddOnResultResponse, params *ListRecordingAddOnResultParams, recordChannel chan ApiV2010RecordingAddOnResult, errorChannel chan error) {
+func (c *ApiService) streamRecordingAddOnResultWithContext(ctx context.Context, response *ListRecordingAddOnResultResponse, params *ListRecordingAddOnResultParams, recordChannel chan ApiV2010RecordingAddOnResult, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -220,7 +242,7 @@ func (c *ApiService) streamRecordingAddOnResult(response *ListRecordingAddOnResu
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRecordingAddOnResultResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListRecordingAddOnResultResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -235,11 +257,11 @@ func (c *ApiService) streamRecordingAddOnResult(response *ListRecordingAddOnResu
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRecordingAddOnResultResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRecordingAddOnResultResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

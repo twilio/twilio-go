@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -57,8 +58,10 @@ func (params *FetchTaskQueueCumulativeStatisticsParams) SetSplitByWaitTime(Split
 	return params
 }
 
-//
 func (c *ApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueCumulativeStatisticsParams) (*TaskrouterV1TaskQueueCumulativeStatistics, error) {
+	return c.FetchTaskQueueCumulativeStatisticsWithContext(context.TODO(), WorkspaceSid, TaskQueueSid, params)
+}
+func (c *ApiService) FetchTaskQueueCumulativeStatisticsWithContext(ctx context.Context, WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueCumulativeStatisticsParams) (*TaskrouterV1TaskQueueCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
@@ -84,7 +87,7 @@ func (c *ApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid string, Tas
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

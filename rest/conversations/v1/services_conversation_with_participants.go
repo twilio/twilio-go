@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -107,6 +108,9 @@ func (params *CreateServiceConversationWithParticipantsParams) SetParticipant(Pa
 
 // Create a new conversation with the list of participants in your account's default service
 func (c *ApiService) CreateServiceConversationWithParticipants(ChatServiceSid string, params *CreateServiceConversationWithParticipantsParams) (*ConversationsV1ServiceConversationWithParticipants, error) {
+	return c.CreateServiceConversationWithParticipantsWithContext(context.TODO(), ChatServiceSid, params)
+}
+func (c *ApiService) CreateServiceConversationWithParticipantsWithContext(ctx context.Context, ChatServiceSid string, params *CreateServiceConversationWithParticipantsParams) (*ConversationsV1ServiceConversationWithParticipants, error) {
 	path := "/v1/Services/{ChatServiceSid}/ConversationWithParticipants"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -157,7 +161,7 @@ func (c *ApiService) CreateServiceConversationWithParticipants(ChatServiceSid st
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

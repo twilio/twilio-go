@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreateTaskQueueBulkRealTimeStatisticsParams) SetBody(Body map[stri
 
 // Fetch a Task Queue Real Time Statistics in bulk for the array of TaskQueue SIDs, support upto 50 in a request.
 func (c *ApiService) CreateTaskQueueBulkRealTimeStatistics(WorkspaceSid string, params *CreateTaskQueueBulkRealTimeStatisticsParams) (*TaskrouterV1TaskQueueBulkRealTimeStatistics, error) {
+	return c.CreateTaskQueueBulkRealTimeStatisticsWithContext(context.TODO(), WorkspaceSid, params)
+}
+func (c *ApiService) CreateTaskQueueBulkRealTimeStatisticsWithContext(ctx context.Context, WorkspaceSid string, params *CreateTaskQueueBulkRealTimeStatisticsParams) (*TaskrouterV1TaskQueueBulkRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -50,7 +54,7 @@ func (c *ApiService) CreateTaskQueueBulkRealTimeStatistics(WorkspaceSid string, 
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,8 +80,10 @@ func (params *FetchTaskQueueRealTimeStatisticsParams) SetTaskChannel(TaskChannel
 	return params
 }
 
-//
 func (c *ApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueRealTimeStatisticsParams) (*TaskrouterV1TaskQueueRealTimeStatistics, error) {
+	return c.FetchTaskQueueRealTimeStatisticsWithContext(context.TODO(), WorkspaceSid, TaskQueueSid, params)
+}
+func (c *ApiService) FetchTaskQueueRealTimeStatisticsWithContext(ctx context.Context, WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueRealTimeStatisticsParams) (*TaskrouterV1TaskQueueRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
@@ -91,7 +97,7 @@ func (c *ApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQ
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

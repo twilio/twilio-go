@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Retrieve a specific Build resource.
 func (c *ApiService) FetchBuildStatus(ServiceSid string, Sid string) (*ServerlessV1BuildStatus, error) {
+	return c.FetchBuildStatusWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchBuildStatusWithContext(ctx context.Context, ServiceSid string, Sid string) (*ServerlessV1BuildStatus, error) {
 	path := "/v1/Services/{ServiceSid}/Builds/{Sid}/Status"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -31,7 +35,7 @@ func (c *ApiService) FetchBuildStatus(ServiceSid string, Sid string) (*Serverles
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

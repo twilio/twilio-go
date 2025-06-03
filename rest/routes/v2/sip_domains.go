@@ -15,13 +15,16 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) FetchSipDomain(SipDomain string) (*RoutesV2SipDomain, error) {
+	return c.FetchSipDomainWithContext(context.TODO(), SipDomain)
+}
+func (c *ApiService) FetchSipDomainWithContext(ctx context.Context, SipDomain string) (*RoutesV2SipDomain, error) {
 	path := "/v2/SipDomains/{SipDomain}"
 	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
 
@@ -30,7 +33,7 @@ func (c *ApiService) FetchSipDomain(SipDomain string) (*RoutesV2SipDomain, error
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -62,8 +65,10 @@ func (params *UpdateSipDomainParams) SetFriendlyName(FriendlyName string) *Updat
 	return params
 }
 
-//
 func (c *ApiService) UpdateSipDomain(SipDomain string, params *UpdateSipDomainParams) (*RoutesV2SipDomain, error) {
+	return c.UpdateSipDomainWithContext(context.TODO(), SipDomain, params)
+}
+func (c *ApiService) UpdateSipDomainWithContext(ctx context.Context, SipDomain string, params *UpdateSipDomainParams) (*RoutesV2SipDomain, error) {
 	path := "/v2/SipDomains/{SipDomain}"
 	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
 
@@ -79,7 +84,7 @@ func (c *ApiService) UpdateSipDomain(SipDomain string, params *UpdateSipDomainPa
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

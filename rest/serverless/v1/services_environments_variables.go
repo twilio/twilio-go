@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateVariableParams) SetValue(Value string) *CreateVariableParams
 
 // Create a new Variable.
 func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, params *CreateVariableParams) (*ServerlessV1Variable, error) {
+	return c.CreateVariableWithContext(context.TODO(), ServiceSid, EnvironmentSid, params)
+}
+func (c *ApiService) CreateVariableWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, params *CreateVariableParams) (*ServerlessV1Variable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -58,7 +62,7 @@ func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, pa
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -75,6 +79,9 @@ func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, pa
 
 // Delete a specific Variable.
 func (c *ApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Sid string) error {
+	return c.DeleteVariableWithContext(context.TODO(), ServiceSid, EnvironmentSid, Sid)
+}
+func (c *ApiService) DeleteVariableWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -85,7 +92,7 @@ func (c *ApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Si
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -97,6 +104,9 @@ func (c *ApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Si
 
 // Retrieve a specific Variable.
 func (c *ApiService) FetchVariable(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Variable, error) {
+	return c.FetchVariableWithContext(context.TODO(), ServiceSid, EnvironmentSid, Sid)
+}
+func (c *ApiService) FetchVariableWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Variable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -107,7 +117,7 @@ func (c *ApiService) FetchVariable(ServiceSid string, EnvironmentSid string, Sid
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -141,6 +151,11 @@ func (params *ListVariableParams) SetLimit(Limit int) *ListVariableParams {
 
 // Retrieve a single page of Variable records from the API. Request is executed immediately.
 func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, pageToken, pageNumber string) (*ListVariableResponse, error) {
+	return c.PageVariableWithContext(context.TODO(), ServiceSid, EnvironmentSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Variable records from the API. Request is executed immediately.
+func (c *ApiService) PageVariableWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, params *ListVariableParams, pageToken, pageNumber string) (*ListVariableResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -162,7 +177,7 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -179,7 +194,12 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 
 // Lists Variable records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams) ([]ServerlessV1Variable, error) {
-	response, errors := c.StreamVariable(ServiceSid, EnvironmentSid, params)
+	return c.ListVariableWithContext(context.TODO(), ServiceSid, EnvironmentSid, params)
+}
+
+// Lists Variable records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListVariableWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, params *ListVariableParams) ([]ServerlessV1Variable, error) {
+	response, errors := c.StreamVariableWithContext(ctx, ServiceSid, EnvironmentSid, params)
 
 	records := make([]ServerlessV1Variable, 0)
 	for record := range response {
@@ -195,6 +215,11 @@ func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, para
 
 // Streams Variable records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams) (chan ServerlessV1Variable, chan error) {
+	return c.StreamVariableWithContext(context.TODO(), ServiceSid, EnvironmentSid, params)
+}
+
+// Streams Variable records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamVariableWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, params *ListVariableParams) (chan ServerlessV1Variable, chan error) {
 	if params == nil {
 		params = &ListVariableParams{}
 	}
@@ -203,19 +228,19 @@ func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, pa
 	recordChannel := make(chan ServerlessV1Variable, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageVariable(ServiceSid, EnvironmentSid, params, "", "")
+	response, err := c.PageVariableWithContext(ctx, ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamVariable(response, params, recordChannel, errorChannel)
+		go c.streamVariableWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamVariable(response *ListVariableResponse, params *ListVariableParams, recordChannel chan ServerlessV1Variable, errorChannel chan error) {
+func (c *ApiService) streamVariableWithContext(ctx context.Context, response *ListVariableResponse, params *ListVariableParams, recordChannel chan ServerlessV1Variable, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -230,7 +255,7 @@ func (c *ApiService) streamVariable(response *ListVariableResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListVariableResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListVariableResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -245,11 +270,11 @@ func (c *ApiService) streamVariable(response *ListVariableResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListVariableResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListVariableResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -282,6 +307,9 @@ func (params *UpdateVariableParams) SetValue(Value string) *UpdateVariableParams
 
 // Update a specific Variable.
 func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Sid string, params *UpdateVariableParams) (*ServerlessV1Variable, error) {
+	return c.UpdateVariableWithContext(context.TODO(), ServiceSid, EnvironmentSid, Sid, params)
+}
+func (c *ApiService) UpdateVariableWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, Sid string, params *UpdateVariableParams) (*ServerlessV1Variable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -299,7 +327,7 @@ func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Si
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

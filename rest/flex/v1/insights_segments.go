@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -59,6 +60,11 @@ func (params *ListInsightsSegmentsParams) SetLimit(Limit int) *ListInsightsSegme
 
 // Retrieve a single page of InsightsSegments records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsSegments(params *ListInsightsSegmentsParams, pageToken, pageNumber string) (*ListInsightsSegmentsResponse, error) {
+	return c.PageInsightsSegmentsWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of InsightsSegments records from the API. Request is executed immediately.
+func (c *ApiService) PageInsightsSegmentsWithContext(ctx context.Context, params *ListInsightsSegmentsParams, pageToken, pageNumber string) (*ListInsightsSegmentsResponse, error) {
 	path := "/v1/Insights/Segments"
 
 	data := url.Values{}
@@ -85,7 +91,7 @@ func (c *ApiService) PageInsightsSegments(params *ListInsightsSegmentsParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +108,12 @@ func (c *ApiService) PageInsightsSegments(params *ListInsightsSegmentsParams, pa
 
 // Lists InsightsSegments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInsightsSegments(params *ListInsightsSegmentsParams) ([]FlexV1InsightsSegments, error) {
-	response, errors := c.StreamInsightsSegments(params)
+	return c.ListInsightsSegmentsWithContext(context.TODO(), params)
+}
+
+// Lists InsightsSegments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInsightsSegmentsWithContext(ctx context.Context, params *ListInsightsSegmentsParams) ([]FlexV1InsightsSegments, error) {
+	response, errors := c.StreamInsightsSegmentsWithContext(ctx, params)
 
 	records := make([]FlexV1InsightsSegments, 0)
 	for record := range response {
@@ -118,6 +129,11 @@ func (c *ApiService) ListInsightsSegments(params *ListInsightsSegmentsParams) ([
 
 // Streams InsightsSegments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInsightsSegments(params *ListInsightsSegmentsParams) (chan FlexV1InsightsSegments, chan error) {
+	return c.StreamInsightsSegmentsWithContext(context.TODO(), params)
+}
+
+// Streams InsightsSegments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInsightsSegmentsWithContext(ctx context.Context, params *ListInsightsSegmentsParams) (chan FlexV1InsightsSegments, chan error) {
 	if params == nil {
 		params = &ListInsightsSegmentsParams{}
 	}
@@ -126,19 +142,19 @@ func (c *ApiService) StreamInsightsSegments(params *ListInsightsSegmentsParams) 
 	recordChannel := make(chan FlexV1InsightsSegments, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInsightsSegments(params, "", "")
+	response, err := c.PageInsightsSegmentsWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInsightsSegments(response, params, recordChannel, errorChannel)
+		go c.streamInsightsSegmentsWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInsightsSegments(response *ListInsightsSegmentsResponse, params *ListInsightsSegmentsParams, recordChannel chan FlexV1InsightsSegments, errorChannel chan error) {
+func (c *ApiService) streamInsightsSegmentsWithContext(ctx context.Context, response *ListInsightsSegmentsResponse, params *ListInsightsSegmentsParams, recordChannel chan FlexV1InsightsSegments, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -153,7 +169,7 @@ func (c *ApiService) streamInsightsSegments(response *ListInsightsSegmentsRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListInsightsSegmentsResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListInsightsSegmentsResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -168,11 +184,11 @@ func (c *ApiService) streamInsightsSegments(response *ListInsightsSegmentsRespon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInsightsSegmentsResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInsightsSegmentsResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

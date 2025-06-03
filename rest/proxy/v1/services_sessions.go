@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -67,6 +68,9 @@ func (params *CreateSessionParams) SetParticipants(Participants []map[string]int
 
 // Create a new Session
 func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParams) (*ProxyV1Session, error) {
+	return c.CreateSessionWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateSessionWithContext(ctx context.Context, ServiceSid string, params *CreateSessionParams) (*ProxyV1Session, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -102,7 +106,7 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -119,6 +123,9 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 
 // Delete a specific Session.
 func (c *ApiService) DeleteSession(ServiceSid string, Sid string) error {
+	return c.DeleteSessionWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) DeleteSessionWithContext(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -128,7 +135,7 @@ func (c *ApiService) DeleteSession(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -140,6 +147,9 @@ func (c *ApiService) DeleteSession(ServiceSid string, Sid string) error {
 
 // Fetch a specific Session.
 func (c *ApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1Session, error) {
+	return c.FetchSessionWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchSessionWithContext(ctx context.Context, ServiceSid string, Sid string) (*ProxyV1Session, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -149,7 +159,7 @@ func (c *ApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1Sessio
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -183,6 +193,11 @@ func (params *ListSessionParams) SetLimit(Limit int) *ListSessionParams {
 
 // Retrieve a single page of Session records from the API. Request is executed immediately.
 func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, pageToken, pageNumber string) (*ListSessionResponse, error) {
+	return c.PageSessionWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Session records from the API. Request is executed immediately.
+func (c *ApiService) PageSessionWithContext(ctx context.Context, ServiceSid string, params *ListSessionParams, pageToken, pageNumber string) (*ListSessionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -203,7 +218,7 @@ func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -220,7 +235,12 @@ func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, p
 
 // Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) ([]ProxyV1Session, error) {
-	response, errors := c.StreamSession(ServiceSid, params)
+	return c.ListSessionWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSessionWithContext(ctx context.Context, ServiceSid string, params *ListSessionParams) ([]ProxyV1Session, error) {
+	response, errors := c.StreamSessionWithContext(ctx, ServiceSid, params)
 
 	records := make([]ProxyV1Session, 0)
 	for record := range response {
@@ -236,6 +256,11 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) (
 
 // Streams Session records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams) (chan ProxyV1Session, chan error) {
+	return c.StreamSessionWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams Session records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSessionWithContext(ctx context.Context, ServiceSid string, params *ListSessionParams) (chan ProxyV1Session, chan error) {
 	if params == nil {
 		params = &ListSessionParams{}
 	}
@@ -244,19 +269,19 @@ func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams)
 	recordChannel := make(chan ProxyV1Session, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSession(ServiceSid, params, "", "")
+	response, err := c.PageSessionWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSession(response, params, recordChannel, errorChannel)
+		go c.streamSessionWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSession(response *ListSessionResponse, params *ListSessionParams, recordChannel chan ProxyV1Session, errorChannel chan error) {
+func (c *ApiService) streamSessionWithContext(ctx context.Context, response *ListSessionResponse, params *ListSessionParams, recordChannel chan ProxyV1Session, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -271,7 +296,7 @@ func (c *ApiService) streamSession(response *ListSessionResponse, params *ListSe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSessionResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSessionResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -286,11 +311,11 @@ func (c *ApiService) streamSession(response *ListSessionResponse, params *ListSe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSessionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSessionResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -329,6 +354,9 @@ func (params *UpdateSessionParams) SetStatus(Status string) *UpdateSessionParams
 
 // Update a specific Session.
 func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *UpdateSessionParams) (*ProxyV1Session, error) {
+	return c.UpdateSessionWithContext(context.TODO(), ServiceSid, Sid, params)
+}
+func (c *ApiService) UpdateSessionWithContext(ctx context.Context, ServiceSid string, Sid string, params *UpdateSessionParams) (*ProxyV1Session, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -348,7 +376,7 @@ func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *Update
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -54,6 +55,9 @@ func (params *CreateTrustProductParams) SetStatusCallback(StatusCallback string)
 
 // Create a new Trust Product.
 func (c *ApiService) CreateTrustProduct(params *CreateTrustProductParams) (*TrusthubV1TrustProduct, error) {
+	return c.CreateTrustProductWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateTrustProductWithContext(ctx context.Context, params *CreateTrustProductParams) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
@@ -74,7 +78,7 @@ func (c *ApiService) CreateTrustProduct(params *CreateTrustProductParams) (*Trus
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -91,6 +95,9 @@ func (c *ApiService) CreateTrustProduct(params *CreateTrustProductParams) (*Trus
 
 // Delete a specific Trust Product.
 func (c *ApiService) DeleteTrustProduct(Sid string) error {
+	return c.DeleteTrustProductWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteTrustProductWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -99,7 +106,7 @@ func (c *ApiService) DeleteTrustProduct(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -111,6 +118,9 @@ func (c *ApiService) DeleteTrustProduct(Sid string) error {
 
 // Fetch a specific Trust Product instance.
 func (c *ApiService) FetchTrustProduct(Sid string) (*TrusthubV1TrustProduct, error) {
+	return c.FetchTrustProductWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchTrustProductWithContext(ctx context.Context, Sid string) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -119,7 +129,7 @@ func (c *ApiService) FetchTrustProduct(Sid string) (*TrusthubV1TrustProduct, err
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -171,6 +181,11 @@ func (params *ListTrustProductParams) SetLimit(Limit int) *ListTrustProductParam
 
 // Retrieve a single page of TrustProduct records from the API. Request is executed immediately.
 func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken, pageNumber string) (*ListTrustProductResponse, error) {
+	return c.PageTrustProductWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of TrustProduct records from the API. Request is executed immediately.
+func (c *ApiService) PageTrustProductWithContext(ctx context.Context, params *ListTrustProductParams, pageToken, pageNumber string) (*ListTrustProductResponse, error) {
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
@@ -198,7 +213,7 @@ func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -215,7 +230,12 @@ func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken,
 
 // Lists TrustProduct records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrustProduct(params *ListTrustProductParams) ([]TrusthubV1TrustProduct, error) {
-	response, errors := c.StreamTrustProduct(params)
+	return c.ListTrustProductWithContext(context.TODO(), params)
+}
+
+// Lists TrustProduct records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTrustProductWithContext(ctx context.Context, params *ListTrustProductParams) ([]TrusthubV1TrustProduct, error) {
+	response, errors := c.StreamTrustProductWithContext(ctx, params)
 
 	records := make([]TrusthubV1TrustProduct, 0)
 	for record := range response {
@@ -231,6 +251,11 @@ func (c *ApiService) ListTrustProduct(params *ListTrustProductParams) ([]Trusthu
 
 // Streams TrustProduct records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTrustProduct(params *ListTrustProductParams) (chan TrusthubV1TrustProduct, chan error) {
+	return c.StreamTrustProductWithContext(context.TODO(), params)
+}
+
+// Streams TrustProduct records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTrustProductWithContext(ctx context.Context, params *ListTrustProductParams) (chan TrusthubV1TrustProduct, chan error) {
 	if params == nil {
 		params = &ListTrustProductParams{}
 	}
@@ -239,19 +264,19 @@ func (c *ApiService) StreamTrustProduct(params *ListTrustProductParams) (chan Tr
 	recordChannel := make(chan TrusthubV1TrustProduct, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTrustProduct(params, "", "")
+	response, err := c.PageTrustProductWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTrustProduct(response, params, recordChannel, errorChannel)
+		go c.streamTrustProductWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTrustProduct(response *ListTrustProductResponse, params *ListTrustProductParams, recordChannel chan TrusthubV1TrustProduct, errorChannel chan error) {
+func (c *ApiService) streamTrustProductWithContext(ctx context.Context, response *ListTrustProductResponse, params *ListTrustProductParams, recordChannel chan TrusthubV1TrustProduct, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -266,7 +291,7 @@ func (c *ApiService) streamTrustProduct(response *ListTrustProductResponse, para
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListTrustProductResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListTrustProductResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -281,11 +306,11 @@ func (c *ApiService) streamTrustProduct(response *ListTrustProductResponse, para
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTrustProductResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTrustProductResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -330,6 +355,9 @@ func (params *UpdateTrustProductParams) SetEmail(Email string) *UpdateTrustProdu
 
 // Updates a Trust Product in an account.
 func (c *ApiService) UpdateTrustProduct(Sid string, params *UpdateTrustProductParams) (*TrusthubV1TrustProduct, error) {
+	return c.UpdateTrustProductWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateTrustProductWithContext(ctx context.Context, Sid string, params *UpdateTrustProductParams) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -351,7 +379,7 @@ func (c *ApiService) UpdateTrustProduct(Sid string, params *UpdateTrustProductPa
 		data.Set("Email", *params.Email)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

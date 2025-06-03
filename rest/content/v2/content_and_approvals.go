@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -96,6 +97,11 @@ func (params *ListContentAndApprovalsParams) SetLimit(Limit int) *ListContentAnd
 
 // Retrieve a single page of ContentAndApprovals records from the API. Request is executed immediately.
 func (c *ApiService) PageContentAndApprovals(params *ListContentAndApprovalsParams, pageToken, pageNumber string) (*ListContentAndApprovalsResponse, error) {
+	return c.PageContentAndApprovalsWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ContentAndApprovals records from the API. Request is executed immediately.
+func (c *ApiService) PageContentAndApprovalsWithContext(ctx context.Context, params *ListContentAndApprovalsParams, pageToken, pageNumber string) (*ListContentAndApprovalsResponse, error) {
 	path := "/v2/ContentAndApprovals"
 
 	data := url.Values{}
@@ -147,7 +153,7 @@ func (c *ApiService) PageContentAndApprovals(params *ListContentAndApprovalsPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -164,7 +170,12 @@ func (c *ApiService) PageContentAndApprovals(params *ListContentAndApprovalsPara
 
 // Lists ContentAndApprovals records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListContentAndApprovals(params *ListContentAndApprovalsParams) ([]ContentV1ContentAndApprovals, error) {
-	response, errors := c.StreamContentAndApprovals(params)
+	return c.ListContentAndApprovalsWithContext(context.TODO(), params)
+}
+
+// Lists ContentAndApprovals records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListContentAndApprovalsWithContext(ctx context.Context, params *ListContentAndApprovalsParams) ([]ContentV1ContentAndApprovals, error) {
+	response, errors := c.StreamContentAndApprovalsWithContext(ctx, params)
 
 	records := make([]ContentV1ContentAndApprovals, 0)
 	for record := range response {
@@ -180,6 +191,11 @@ func (c *ApiService) ListContentAndApprovals(params *ListContentAndApprovalsPara
 
 // Streams ContentAndApprovals records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamContentAndApprovals(params *ListContentAndApprovalsParams) (chan ContentV1ContentAndApprovals, chan error) {
+	return c.StreamContentAndApprovalsWithContext(context.TODO(), params)
+}
+
+// Streams ContentAndApprovals records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamContentAndApprovalsWithContext(ctx context.Context, params *ListContentAndApprovalsParams) (chan ContentV1ContentAndApprovals, chan error) {
 	if params == nil {
 		params = &ListContentAndApprovalsParams{}
 	}
@@ -188,19 +204,19 @@ func (c *ApiService) StreamContentAndApprovals(params *ListContentAndApprovalsPa
 	recordChannel := make(chan ContentV1ContentAndApprovals, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageContentAndApprovals(params, "", "")
+	response, err := c.PageContentAndApprovalsWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamContentAndApprovals(response, params, recordChannel, errorChannel)
+		go c.streamContentAndApprovalsWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamContentAndApprovals(response *ListContentAndApprovalsResponse, params *ListContentAndApprovalsParams, recordChannel chan ContentV1ContentAndApprovals, errorChannel chan error) {
+func (c *ApiService) streamContentAndApprovalsWithContext(ctx context.Context, response *ListContentAndApprovalsResponse, params *ListContentAndApprovalsParams, recordChannel chan ContentV1ContentAndApprovals, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -215,7 +231,7 @@ func (c *ApiService) streamContentAndApprovals(response *ListContentAndApprovals
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListContentAndApprovalsResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListContentAndApprovalsResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -230,11 +246,11 @@ func (c *ApiService) streamContentAndApprovals(response *ListContentAndApprovals
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListContentAndApprovalsResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListContentAndApprovalsResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

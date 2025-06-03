@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -46,6 +47,9 @@ func (params *CreateBundleCloneParams) SetFriendlyName(FriendlyName string) *Cre
 
 // Creates a new clone of the Bundle in target Account. It will internally create clones of all the bundle items (identities and documents) of the original bundle
 func (c *ApiService) CreateBundleClone(BundleSid string, params *CreateBundleCloneParams) (*NumbersV2BundleClone, error) {
+	return c.CreateBundleCloneWithContext(context.TODO(), BundleSid, params)
+}
+func (c *ApiService) CreateBundleCloneWithContext(ctx context.Context, BundleSid string, params *CreateBundleCloneParams) (*NumbersV2BundleClone, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Clones"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
@@ -64,7 +68,7 @@ func (c *ApiService) CreateBundleClone(BundleSid string, params *CreateBundleClo
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

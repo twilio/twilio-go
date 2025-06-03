@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -46,8 +47,10 @@ func (params *CreateSyncListParams) SetCollectionTtl(CollectionTtl int) *CreateS
 	return params
 }
 
-//
 func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListParams) (*SyncV1SyncList, error) {
+	return c.CreateSyncListWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateSyncListWithContext(ctx context.Context, ServiceSid string, params *CreateSyncListParams) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -66,7 +69,7 @@ func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListPar
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -81,8 +84,10 @@ func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListPar
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteSyncList(ServiceSid string, Sid string) error {
+	return c.DeleteSyncListWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) DeleteSyncListWithContext(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -92,7 +97,7 @@ func (c *ApiService) DeleteSyncList(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -102,8 +107,10 @@ func (c *ApiService) DeleteSyncList(ServiceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1SyncList, error) {
+	return c.FetchSyncListWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchSyncListWithContext(ctx context.Context, ServiceSid string, Sid string) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -113,7 +120,7 @@ func (c *ApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1SyncLi
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -147,6 +154,11 @@ func (params *ListSyncListParams) SetLimit(Limit int) *ListSyncListParams {
 
 // Retrieve a single page of SyncList records from the API. Request is executed immediately.
 func (c *ApiService) PageSyncList(ServiceSid string, params *ListSyncListParams, pageToken, pageNumber string) (*ListSyncListResponse, error) {
+	return c.PageSyncListWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SyncList records from the API. Request is executed immediately.
+func (c *ApiService) PageSyncListWithContext(ctx context.Context, ServiceSid string, params *ListSyncListParams, pageToken, pageNumber string) (*ListSyncListResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -167,7 +179,7 @@ func (c *ApiService) PageSyncList(ServiceSid string, params *ListSyncListParams,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -184,7 +196,12 @@ func (c *ApiService) PageSyncList(ServiceSid string, params *ListSyncListParams,
 
 // Lists SyncList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams) ([]SyncV1SyncList, error) {
-	response, errors := c.StreamSyncList(ServiceSid, params)
+	return c.ListSyncListWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists SyncList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncListWithContext(ctx context.Context, ServiceSid string, params *ListSyncListParams) ([]SyncV1SyncList, error) {
+	response, errors := c.StreamSyncListWithContext(ctx, ServiceSid, params)
 
 	records := make([]SyncV1SyncList, 0)
 	for record := range response {
@@ -200,6 +217,11 @@ func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams)
 
 // Streams SyncList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParams) (chan SyncV1SyncList, chan error) {
+	return c.StreamSyncListWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams SyncList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncListWithContext(ctx context.Context, ServiceSid string, params *ListSyncListParams) (chan SyncV1SyncList, chan error) {
 	if params == nil {
 		params = &ListSyncListParams{}
 	}
@@ -208,19 +230,19 @@ func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParam
 	recordChannel := make(chan SyncV1SyncList, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSyncList(ServiceSid, params, "", "")
+	response, err := c.PageSyncListWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSyncList(response, params, recordChannel, errorChannel)
+		go c.streamSyncListWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSyncList(response *ListSyncListResponse, params *ListSyncListParams, recordChannel chan SyncV1SyncList, errorChannel chan error) {
+func (c *ApiService) streamSyncListWithContext(ctx context.Context, response *ListSyncListResponse, params *ListSyncListParams, recordChannel chan SyncV1SyncList, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -235,7 +257,7 @@ func (c *ApiService) streamSyncList(response *ListSyncListResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSyncListResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSyncListResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -250,11 +272,11 @@ func (c *ApiService) streamSyncList(response *ListSyncListResponse, params *List
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSyncListResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSyncListResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -285,8 +307,10 @@ func (params *UpdateSyncListParams) SetCollectionTtl(CollectionTtl int) *UpdateS
 	return params
 }
 
-//
 func (c *ApiService) UpdateSyncList(ServiceSid string, Sid string, params *UpdateSyncListParams) (*SyncV1SyncList, error) {
+	return c.UpdateSyncListWithContext(context.TODO(), ServiceSid, Sid, params)
+}
+func (c *ApiService) UpdateSyncListWithContext(ctx context.Context, ServiceSid string, Sid string, params *UpdateSyncListParams) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -303,7 +327,7 @@ func (c *ApiService) UpdateSyncList(ServiceSid string, Sid string, params *Updat
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

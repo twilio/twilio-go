@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -40,6 +41,9 @@ func (params *CreateMessageFeedbackParams) SetOutcome(Outcome string) *CreateMes
 
 // Create Message Feedback to confirm a tracked user action was performed by the recipient of the associated Message
 func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMessageFeedbackParams) (*ApiV2010MessageFeedback, error) {
+	return c.CreateMessageFeedbackWithContext(context.TODO(), MessageSid, params)
+}
+func (c *ApiService) CreateMessageFeedbackWithContext(ctx context.Context, MessageSid string, params *CreateMessageFeedbackParams) (*ApiV2010MessageFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -57,7 +61,7 @@ func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMess
 		data.Set("Outcome", fmt.Sprint(*params.Outcome))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

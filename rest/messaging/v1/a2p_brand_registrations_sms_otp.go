@@ -15,13 +15,16 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) CreateBrandRegistrationOtp(BrandRegistrationSid string) (*MessagingV1BrandRegistrationOtp, error) {
+	return c.CreateBrandRegistrationOtpWithContext(context.TODO(), BrandRegistrationSid)
+}
+func (c *ApiService) CreateBrandRegistrationOtpWithContext(ctx context.Context, BrandRegistrationSid string) (*MessagingV1BrandRegistrationOtp, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp"
 	path = strings.Replace(path, "{"+"BrandRegistrationSid"+"}", BrandRegistrationSid, -1)
 
@@ -30,7 +33,7 @@ func (c *ApiService) CreateBrandRegistrationOtp(BrandRegistrationSid string) (*M
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

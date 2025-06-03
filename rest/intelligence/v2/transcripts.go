@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -55,6 +56,9 @@ func (params *CreateTranscriptParams) SetMediaStartTime(MediaStartTime time.Time
 
 // Create a new Transcript for the service
 func (c *ApiService) CreateTranscript(params *CreateTranscriptParams) (*IntelligenceV2Transcript, error) {
+	return c.CreateTranscriptWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateTranscriptWithContext(ctx context.Context, params *CreateTranscriptParams) (*IntelligenceV2Transcript, error) {
 	path := "/v2/Transcripts"
 
 	data := url.Values{}
@@ -81,7 +85,7 @@ func (c *ApiService) CreateTranscript(params *CreateTranscriptParams) (*Intellig
 		data.Set("MediaStartTime", fmt.Sprint((*params.MediaStartTime).Format(time.RFC3339)))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -98,6 +102,9 @@ func (c *ApiService) CreateTranscript(params *CreateTranscriptParams) (*Intellig
 
 // Delete a specific Transcript.
 func (c *ApiService) DeleteTranscript(Sid string) error {
+	return c.DeleteTranscriptWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteTranscriptWithContext(ctx context.Context, Sid string) error {
 	path := "/v2/Transcripts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -106,7 +113,7 @@ func (c *ApiService) DeleteTranscript(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -118,6 +125,9 @@ func (c *ApiService) DeleteTranscript(Sid string) error {
 
 // Fetch a specific Transcript.
 func (c *ApiService) FetchTranscript(Sid string) (*IntelligenceV2Transcript, error) {
+	return c.FetchTranscriptWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchTranscriptWithContext(ctx context.Context, Sid string) (*IntelligenceV2Transcript, error) {
 	path := "/v2/Transcripts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -126,7 +136,7 @@ func (c *ApiService) FetchTranscript(Sid string) (*IntelligenceV2Transcript, err
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -208,6 +218,11 @@ func (params *ListTranscriptParams) SetLimit(Limit int) *ListTranscriptParams {
 
 // Retrieve a single page of Transcript records from the API. Request is executed immediately.
 func (c *ApiService) PageTranscript(params *ListTranscriptParams, pageToken, pageNumber string) (*ListTranscriptResponse, error) {
+	return c.PageTranscriptWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Transcript records from the API. Request is executed immediately.
+func (c *ApiService) PageTranscriptWithContext(ctx context.Context, params *ListTranscriptParams, pageToken, pageNumber string) (*ListTranscriptResponse, error) {
 	path := "/v2/Transcripts"
 
 	data := url.Values{}
@@ -250,7 +265,7 @@ func (c *ApiService) PageTranscript(params *ListTranscriptParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -267,7 +282,12 @@ func (c *ApiService) PageTranscript(params *ListTranscriptParams, pageToken, pag
 
 // Lists Transcript records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTranscript(params *ListTranscriptParams) ([]IntelligenceV2Transcript, error) {
-	response, errors := c.StreamTranscript(params)
+	return c.ListTranscriptWithContext(context.TODO(), params)
+}
+
+// Lists Transcript records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTranscriptWithContext(ctx context.Context, params *ListTranscriptParams) ([]IntelligenceV2Transcript, error) {
+	response, errors := c.StreamTranscriptWithContext(ctx, params)
 
 	records := make([]IntelligenceV2Transcript, 0)
 	for record := range response {
@@ -283,6 +303,11 @@ func (c *ApiService) ListTranscript(params *ListTranscriptParams) ([]Intelligenc
 
 // Streams Transcript records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTranscript(params *ListTranscriptParams) (chan IntelligenceV2Transcript, chan error) {
+	return c.StreamTranscriptWithContext(context.TODO(), params)
+}
+
+// Streams Transcript records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTranscriptWithContext(ctx context.Context, params *ListTranscriptParams) (chan IntelligenceV2Transcript, chan error) {
 	if params == nil {
 		params = &ListTranscriptParams{}
 	}
@@ -291,19 +316,19 @@ func (c *ApiService) StreamTranscript(params *ListTranscriptParams) (chan Intell
 	recordChannel := make(chan IntelligenceV2Transcript, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTranscript(params, "", "")
+	response, err := c.PageTranscriptWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTranscript(response, params, recordChannel, errorChannel)
+		go c.streamTranscriptWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTranscript(response *ListTranscriptResponse, params *ListTranscriptParams, recordChannel chan IntelligenceV2Transcript, errorChannel chan error) {
+func (c *ApiService) streamTranscriptWithContext(ctx context.Context, response *ListTranscriptResponse, params *ListTranscriptParams, recordChannel chan IntelligenceV2Transcript, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -318,7 +343,7 @@ func (c *ApiService) streamTranscript(response *ListTranscriptResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListTranscriptResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListTranscriptResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -333,11 +358,11 @@ func (c *ApiService) streamTranscript(response *ListTranscriptResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTranscriptResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTranscriptResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

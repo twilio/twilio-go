@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -126,6 +127,9 @@ func (params *CreateHostedNumberOrderParams) SetContactTitle(ContactTitle string
 
 // Host a phone number's capability on Twilio's platform.
 func (c *ApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderParams) (*NumbersV2HostedNumberOrder, error) {
+	return c.CreateHostedNumberOrderWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateHostedNumberOrderWithContext(ctx context.Context, params *CreateHostedNumberOrderParams) (*NumbersV2HostedNumberOrder, error) {
 	path := "/v2/HostedNumber/Orders"
 
 	data := url.Values{}
@@ -184,7 +188,7 @@ func (c *ApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderPara
 		data.Set("ContactTitle", *params.ContactTitle)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -201,6 +205,9 @@ func (c *ApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderPara
 
 // Cancel the HostedNumberOrder (only available when the status is in `received`).
 func (c *ApiService) DeleteHostedNumberOrder(Sid string) error {
+	return c.DeleteHostedNumberOrderWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteHostedNumberOrderWithContext(ctx context.Context, Sid string) error {
 	path := "/v2/HostedNumber/Orders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -209,7 +216,7 @@ func (c *ApiService) DeleteHostedNumberOrder(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -221,6 +228,9 @@ func (c *ApiService) DeleteHostedNumberOrder(Sid string) error {
 
 // Fetch a specific HostedNumberOrder.
 func (c *ApiService) FetchHostedNumberOrder(Sid string) (*NumbersV2HostedNumberOrder, error) {
+	return c.FetchHostedNumberOrderWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchHostedNumberOrderWithContext(ctx context.Context, Sid string) (*NumbersV2HostedNumberOrder, error) {
 	path := "/v2/HostedNumber/Orders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -229,7 +239,7 @@ func (c *ApiService) FetchHostedNumberOrder(Sid string) (*NumbersV2HostedNumberO
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -293,6 +303,11 @@ func (params *ListHostedNumberOrderParams) SetLimit(Limit int) *ListHostedNumber
 
 // Retrieve a single page of HostedNumberOrder records from the API. Request is executed immediately.
 func (c *ApiService) PageHostedNumberOrder(params *ListHostedNumberOrderParams, pageToken, pageNumber string) (*ListHostedNumberOrderResponse, error) {
+	return c.PageHostedNumberOrderWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of HostedNumberOrder records from the API. Request is executed immediately.
+func (c *ApiService) PageHostedNumberOrderWithContext(ctx context.Context, params *ListHostedNumberOrderParams, pageToken, pageNumber string) (*ListHostedNumberOrderResponse, error) {
 	path := "/v2/HostedNumber/Orders"
 
 	data := url.Values{}
@@ -326,7 +341,7 @@ func (c *ApiService) PageHostedNumberOrder(params *ListHostedNumberOrderParams, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -343,7 +358,12 @@ func (c *ApiService) PageHostedNumberOrder(params *ListHostedNumberOrderParams, 
 
 // Lists HostedNumberOrder records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListHostedNumberOrder(params *ListHostedNumberOrderParams) ([]NumbersV2HostedNumberOrder, error) {
-	response, errors := c.StreamHostedNumberOrder(params)
+	return c.ListHostedNumberOrderWithContext(context.TODO(), params)
+}
+
+// Lists HostedNumberOrder records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListHostedNumberOrderWithContext(ctx context.Context, params *ListHostedNumberOrderParams) ([]NumbersV2HostedNumberOrder, error) {
+	response, errors := c.StreamHostedNumberOrderWithContext(ctx, params)
 
 	records := make([]NumbersV2HostedNumberOrder, 0)
 	for record := range response {
@@ -359,6 +379,11 @@ func (c *ApiService) ListHostedNumberOrder(params *ListHostedNumberOrderParams) 
 
 // Streams HostedNumberOrder records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamHostedNumberOrder(params *ListHostedNumberOrderParams) (chan NumbersV2HostedNumberOrder, chan error) {
+	return c.StreamHostedNumberOrderWithContext(context.TODO(), params)
+}
+
+// Streams HostedNumberOrder records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamHostedNumberOrderWithContext(ctx context.Context, params *ListHostedNumberOrderParams) (chan NumbersV2HostedNumberOrder, chan error) {
 	if params == nil {
 		params = &ListHostedNumberOrderParams{}
 	}
@@ -367,19 +392,19 @@ func (c *ApiService) StreamHostedNumberOrder(params *ListHostedNumberOrderParams
 	recordChannel := make(chan NumbersV2HostedNumberOrder, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageHostedNumberOrder(params, "", "")
+	response, err := c.PageHostedNumberOrderWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamHostedNumberOrder(response, params, recordChannel, errorChannel)
+		go c.streamHostedNumberOrderWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamHostedNumberOrder(response *ListHostedNumberOrderResponse, params *ListHostedNumberOrderParams, recordChannel chan NumbersV2HostedNumberOrder, errorChannel chan error) {
+func (c *ApiService) streamHostedNumberOrderWithContext(ctx context.Context, response *ListHostedNumberOrderResponse, params *ListHostedNumberOrderParams, recordChannel chan NumbersV2HostedNumberOrder, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -394,7 +419,7 @@ func (c *ApiService) streamHostedNumberOrder(response *ListHostedNumberOrderResp
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListHostedNumberOrderResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListHostedNumberOrderResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -409,11 +434,11 @@ func (c *ApiService) streamHostedNumberOrder(response *ListHostedNumberOrderResp
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListHostedNumberOrderResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListHostedNumberOrderResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -452,6 +477,9 @@ func (params *UpdateHostedNumberOrderParams) SetVerificationCallExtension(Verifi
 
 // Updates a specific HostedNumberOrder.
 func (c *ApiService) UpdateHostedNumberOrder(Sid string, params *UpdateHostedNumberOrderParams) (*NumbersV2HostedNumberOrder, error) {
+	return c.UpdateHostedNumberOrderWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateHostedNumberOrderWithContext(ctx context.Context, Sid string, params *UpdateHostedNumberOrderParams) (*NumbersV2HostedNumberOrder, error) {
 	path := "/v2/HostedNumber/Orders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -470,7 +498,7 @@ func (c *ApiService) UpdateHostedNumberOrder(Sid string, params *UpdateHostedNum
 		data.Set("VerificationCallExtension", *params.VerificationCallExtension)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -23,6 +24,9 @@ import (
 
 // Fetch push notification service settings
 func (c *ApiService) FetchServiceNotification(ChatServiceSid string) (*ConversationsV1ServiceNotification, error) {
+	return c.FetchServiceNotificationWithContext(context.TODO(), ChatServiceSid)
+}
+func (c *ApiService) FetchServiceNotificationWithContext(ctx context.Context, ChatServiceSid string) (*ConversationsV1ServiceNotification, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -31,7 +35,7 @@ func (c *ApiService) FetchServiceNotification(ChatServiceSid string) (*Conversat
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -131,6 +135,9 @@ func (params *UpdateServiceNotificationParams) SetNewMessageWithMediaTemplate(Ne
 
 // Update push notification service settings
 func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceNotification, error) {
+	return c.UpdateServiceNotificationWithContext(context.TODO(), ChatServiceSid, params)
+}
+func (c *ApiService) UpdateServiceNotificationWithContext(ctx context.Context, ChatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceNotification, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -179,7 +186,7 @@ func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *Up
 		data.Set("NewMessage.WithMedia.Template", *params.NewMessageWithMediaTemplate)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Fetch a specific schema with its nested versions.
 func (c *ApiService) FetchSchema(Id string) (*EventsV1Schema, error) {
+	return c.FetchSchemaWithContext(context.TODO(), Id)
+}
+func (c *ApiService) FetchSchemaWithContext(ctx context.Context, Id string) (*EventsV1Schema, error) {
 	path := "/v1/Schemas/{Id}"
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 
@@ -30,7 +34,7 @@ func (c *ApiService) FetchSchema(Id string) (*EventsV1Schema, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

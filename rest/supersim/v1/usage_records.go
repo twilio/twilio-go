@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -90,6 +91,11 @@ func (params *ListUsageRecordParams) SetLimit(Limit int) *ListUsageRecordParams 
 
 // Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, pageNumber string) (*ListUsageRecordResponse, error) {
+	return c.PageUsageRecordWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecordWithContext(ctx context.Context, params *ListUsageRecordParams, pageToken, pageNumber string) (*ListUsageRecordResponse, error) {
 	path := "/v1/UsageRecords"
 
 	data := url.Values{}
@@ -132,7 +138,7 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -149,7 +155,12 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, p
 
 // Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecord(params *ListUsageRecordParams) ([]SupersimV1UsageRecord, error) {
-	response, errors := c.StreamUsageRecord(params)
+	return c.ListUsageRecordWithContext(context.TODO(), params)
+}
+
+// Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordWithContext(ctx context.Context, params *ListUsageRecordParams) ([]SupersimV1UsageRecord, error) {
+	response, errors := c.StreamUsageRecordWithContext(ctx, params)
 
 	records := make([]SupersimV1UsageRecord, 0)
 	for record := range response {
@@ -165,6 +176,11 @@ func (c *ApiService) ListUsageRecord(params *ListUsageRecordParams) ([]SupersimV
 
 // Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecord(params *ListUsageRecordParams) (chan SupersimV1UsageRecord, chan error) {
+	return c.StreamUsageRecordWithContext(context.TODO(), params)
+}
+
+// Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordWithContext(ctx context.Context, params *ListUsageRecordParams) (chan SupersimV1UsageRecord, chan error) {
 	if params == nil {
 		params = &ListUsageRecordParams{}
 	}
@@ -173,19 +189,19 @@ func (c *ApiService) StreamUsageRecord(params *ListUsageRecordParams) (chan Supe
 	recordChannel := make(chan SupersimV1UsageRecord, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUsageRecord(params, "", "")
+	response, err := c.PageUsageRecordWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUsageRecord(response, params, recordChannel, errorChannel)
+		go c.streamUsageRecordWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecord(response *ListUsageRecordResponse, params *ListUsageRecordParams, recordChannel chan SupersimV1UsageRecord, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordWithContext(ctx context.Context, response *ListUsageRecordResponse, params *ListUsageRecordParams, recordChannel chan SupersimV1UsageRecord, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -200,7 +216,7 @@ func (c *ApiService) streamUsageRecord(response *ListUsageRecordResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListUsageRecordResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -215,11 +231,11 @@ func (c *ApiService) streamUsageRecord(response *ListUsageRecordResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

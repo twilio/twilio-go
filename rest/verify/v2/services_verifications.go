@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -136,6 +137,9 @@ func (params *CreateVerificationParams) SetTags(Tags string) *CreateVerification
 
 // Create a new Verification using a Service
 func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerificationParams) (*VerifyV2Verification, error) {
+	return c.CreateVerificationWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateVerificationWithContext(ctx context.Context, ServiceSid string, params *CreateVerificationParams) (*VerifyV2Verification, error) {
 	path := "/v2/Services/{ServiceSid}/Verifications"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -211,7 +215,7 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 		data.Set("Tags", *params.Tags)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -228,6 +232,9 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 
 // Fetch a specific Verification
 func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2Verification, error) {
+	return c.FetchVerificationWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchVerificationWithContext(ctx context.Context, ServiceSid string, Sid string) (*VerifyV2Verification, error) {
 	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -237,7 +244,7 @@ func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -265,6 +272,9 @@ func (params *UpdateVerificationParams) SetStatus(Status string) *UpdateVerifica
 
 // Update a Verification status
 func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *UpdateVerificationParams) (*VerifyV2Verification, error) {
+	return c.UpdateVerificationWithContext(context.TODO(), ServiceSid, Sid, params)
+}
+func (c *ApiService) UpdateVerificationWithContext(ctx context.Context, ServiceSid string, Sid string, params *UpdateVerificationParams) (*VerifyV2Verification, error) {
 	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -278,7 +288,7 @@ func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *U
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

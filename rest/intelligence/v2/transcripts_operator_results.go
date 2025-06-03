@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *FetchOperatorResultParams) SetRedacted(Redacted bool) *FetchOperat
 
 // Fetch a specific Operator Result for the given Transcript.
 func (c *ApiService) FetchOperatorResult(TranscriptSid string, OperatorSid string, params *FetchOperatorResultParams) (*IntelligenceV2OperatorResult, error) {
+	return c.FetchOperatorResultWithContext(context.TODO(), TranscriptSid, OperatorSid, params)
+}
+func (c *ApiService) FetchOperatorResultWithContext(ctx context.Context, TranscriptSid string, OperatorSid string, params *FetchOperatorResultParams) (*IntelligenceV2OperatorResult, error) {
 	path := "/v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid}"
 	path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
 	path = strings.Replace(path, "{"+"OperatorSid"+"}", OperatorSid, -1)
@@ -49,7 +53,7 @@ func (c *ApiService) FetchOperatorResult(TranscriptSid string, OperatorSid strin
 		data.Set("Redacted", fmt.Sprint(*params.Redacted))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -89,6 +93,11 @@ func (params *ListOperatorResultParams) SetLimit(Limit int) *ListOperatorResultP
 
 // Retrieve a single page of OperatorResult records from the API. Request is executed immediately.
 func (c *ApiService) PageOperatorResult(TranscriptSid string, params *ListOperatorResultParams, pageToken, pageNumber string) (*ListOperatorResultResponse, error) {
+	return c.PageOperatorResultWithContext(context.TODO(), TranscriptSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of OperatorResult records from the API. Request is executed immediately.
+func (c *ApiService) PageOperatorResultWithContext(ctx context.Context, TranscriptSid string, params *ListOperatorResultParams, pageToken, pageNumber string) (*ListOperatorResultResponse, error) {
 	path := "/v2/Transcripts/{TranscriptSid}/OperatorResults"
 
 	path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
@@ -112,7 +121,7 @@ func (c *ApiService) PageOperatorResult(TranscriptSid string, params *ListOperat
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -129,7 +138,12 @@ func (c *ApiService) PageOperatorResult(TranscriptSid string, params *ListOperat
 
 // Lists OperatorResult records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOperatorResult(TranscriptSid string, params *ListOperatorResultParams) ([]IntelligenceV2OperatorResult, error) {
-	response, errors := c.StreamOperatorResult(TranscriptSid, params)
+	return c.ListOperatorResultWithContext(context.TODO(), TranscriptSid, params)
+}
+
+// Lists OperatorResult records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListOperatorResultWithContext(ctx context.Context, TranscriptSid string, params *ListOperatorResultParams) ([]IntelligenceV2OperatorResult, error) {
+	response, errors := c.StreamOperatorResultWithContext(ctx, TranscriptSid, params)
 
 	records := make([]IntelligenceV2OperatorResult, 0)
 	for record := range response {
@@ -145,6 +159,11 @@ func (c *ApiService) ListOperatorResult(TranscriptSid string, params *ListOperat
 
 // Streams OperatorResult records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamOperatorResult(TranscriptSid string, params *ListOperatorResultParams) (chan IntelligenceV2OperatorResult, chan error) {
+	return c.StreamOperatorResultWithContext(context.TODO(), TranscriptSid, params)
+}
+
+// Streams OperatorResult records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamOperatorResultWithContext(ctx context.Context, TranscriptSid string, params *ListOperatorResultParams) (chan IntelligenceV2OperatorResult, chan error) {
 	if params == nil {
 		params = &ListOperatorResultParams{}
 	}
@@ -153,19 +172,19 @@ func (c *ApiService) StreamOperatorResult(TranscriptSid string, params *ListOper
 	recordChannel := make(chan IntelligenceV2OperatorResult, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageOperatorResult(TranscriptSid, params, "", "")
+	response, err := c.PageOperatorResultWithContext(ctx, TranscriptSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamOperatorResult(response, params, recordChannel, errorChannel)
+		go c.streamOperatorResultWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamOperatorResult(response *ListOperatorResultResponse, params *ListOperatorResultParams, recordChannel chan IntelligenceV2OperatorResult, errorChannel chan error) {
+func (c *ApiService) streamOperatorResultWithContext(ctx context.Context, response *ListOperatorResultResponse, params *ListOperatorResultParams, recordChannel chan IntelligenceV2OperatorResult, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -180,7 +199,7 @@ func (c *ApiService) streamOperatorResult(response *ListOperatorResultResponse, 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListOperatorResultResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListOperatorResultResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -195,11 +214,11 @@ func (c *ApiService) streamOperatorResult(response *ListOperatorResultResponse, 
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListOperatorResultResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListOperatorResultResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

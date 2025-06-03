@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Attach Knowledge to Assistant
 func (c *ApiService) CreateAssistantKnowledgeAttachment(AssistantId string, Id string) error {
+	return c.CreateAssistantKnowledgeAttachmentWithContext(context.TODO(), AssistantId, Id)
+}
+func (c *ApiService) CreateAssistantKnowledgeAttachmentWithContext(ctx context.Context, AssistantId string, Id string) error {
 	path := "/v1/Assistants/{assistantId}/Knowledge/{id}"
 	path = strings.Replace(path, "{"+"assistantId"+"}", AssistantId, -1)
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
@@ -34,7 +38,7 @@ func (c *ApiService) CreateAssistantKnowledgeAttachment(AssistantId string, Id s
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -46,6 +50,9 @@ func (c *ApiService) CreateAssistantKnowledgeAttachment(AssistantId string, Id s
 
 // Detach Knowledge to Assistant
 func (c *ApiService) DeleteAssistantKnowledgeAttachment(AssistantId string, Id string) error {
+	return c.DeleteAssistantKnowledgeAttachmentWithContext(context.TODO(), AssistantId, Id)
+}
+func (c *ApiService) DeleteAssistantKnowledgeAttachmentWithContext(ctx context.Context, AssistantId string, Id string) error {
 	path := "/v1/Assistants/{assistantId}/Knowledge/{id}"
 	path = strings.Replace(path, "{"+"assistantId"+"}", AssistantId, -1)
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
@@ -55,7 +62,7 @@ func (c *ApiService) DeleteAssistantKnowledgeAttachment(AssistantId string, Id s
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -84,6 +91,11 @@ func (params *ListKnowledgeByAssistantParams) SetLimit(Limit int) *ListKnowledge
 
 // Retrieve a single page of KnowledgeByAssistant records from the API. Request is executed immediately.
 func (c *ApiService) PageKnowledgeByAssistant(AssistantId string, params *ListKnowledgeByAssistantParams, pageToken, pageNumber string) (*ListKnowledgeByAssistantResponse, error) {
+	return c.PageKnowledgeByAssistantWithContext(context.TODO(), AssistantId, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of KnowledgeByAssistant records from the API. Request is executed immediately.
+func (c *ApiService) PageKnowledgeByAssistantWithContext(ctx context.Context, AssistantId string, params *ListKnowledgeByAssistantParams, pageToken, pageNumber string) (*ListKnowledgeByAssistantResponse, error) {
 	path := "/v1/Assistants/{assistantId}/Knowledge"
 
 	path = strings.Replace(path, "{"+"assistantId"+"}", AssistantId, -1)
@@ -104,7 +116,7 @@ func (c *ApiService) PageKnowledgeByAssistant(AssistantId string, params *ListKn
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +133,12 @@ func (c *ApiService) PageKnowledgeByAssistant(AssistantId string, params *ListKn
 
 // Lists KnowledgeByAssistant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListKnowledgeByAssistant(AssistantId string, params *ListKnowledgeByAssistantParams) ([]AssistantsV1Knowledge, error) {
-	response, errors := c.StreamKnowledgeByAssistant(AssistantId, params)
+	return c.ListKnowledgeByAssistantWithContext(context.TODO(), AssistantId, params)
+}
+
+// Lists KnowledgeByAssistant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListKnowledgeByAssistantWithContext(ctx context.Context, AssistantId string, params *ListKnowledgeByAssistantParams) ([]AssistantsV1Knowledge, error) {
+	response, errors := c.StreamKnowledgeByAssistantWithContext(ctx, AssistantId, params)
 
 	records := make([]AssistantsV1Knowledge, 0)
 	for record := range response {
@@ -137,6 +154,11 @@ func (c *ApiService) ListKnowledgeByAssistant(AssistantId string, params *ListKn
 
 // Streams KnowledgeByAssistant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamKnowledgeByAssistant(AssistantId string, params *ListKnowledgeByAssistantParams) (chan AssistantsV1Knowledge, chan error) {
+	return c.StreamKnowledgeByAssistantWithContext(context.TODO(), AssistantId, params)
+}
+
+// Streams KnowledgeByAssistant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamKnowledgeByAssistantWithContext(ctx context.Context, AssistantId string, params *ListKnowledgeByAssistantParams) (chan AssistantsV1Knowledge, chan error) {
 	if params == nil {
 		params = &ListKnowledgeByAssistantParams{}
 	}
@@ -145,19 +167,19 @@ func (c *ApiService) StreamKnowledgeByAssistant(AssistantId string, params *List
 	recordChannel := make(chan AssistantsV1Knowledge, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageKnowledgeByAssistant(AssistantId, params, "", "")
+	response, err := c.PageKnowledgeByAssistantWithContext(ctx, AssistantId, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamKnowledgeByAssistant(response, params, recordChannel, errorChannel)
+		go c.streamKnowledgeByAssistantWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamKnowledgeByAssistant(response *ListKnowledgeByAssistantResponse, params *ListKnowledgeByAssistantParams, recordChannel chan AssistantsV1Knowledge, errorChannel chan error) {
+func (c *ApiService) streamKnowledgeByAssistantWithContext(ctx context.Context, response *ListKnowledgeByAssistantResponse, params *ListKnowledgeByAssistantParams, recordChannel chan AssistantsV1Knowledge, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -172,7 +194,7 @@ func (c *ApiService) streamKnowledgeByAssistant(response *ListKnowledgeByAssista
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListKnowledgeByAssistantResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListKnowledgeByAssistantResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -187,11 +209,11 @@ func (c *ApiService) streamKnowledgeByAssistant(response *ListKnowledgeByAssista
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListKnowledgeByAssistantResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListKnowledgeByAssistantResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,14 +15,17 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) FetchDomainConfig(DomainSid string) (*MessagingV1DomainConfig, error) {
+	return c.FetchDomainConfigWithContext(context.TODO(), DomainSid)
+}
+func (c *ApiService) FetchDomainConfigWithContext(ctx context.Context, DomainSid string) (*MessagingV1DomainConfig, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -31,7 +34,7 @@ func (c *ApiService) FetchDomainConfig(DomainSid string) (*MessagingV1DomainConf
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -75,8 +78,10 @@ func (params *UpdateDomainConfigParams) SetDisableHttps(DisableHttps bool) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateDomainConfig(DomainSid string, params *UpdateDomainConfigParams) (*MessagingV1DomainConfig, error) {
+	return c.UpdateDomainConfigWithContext(context.TODO(), DomainSid, params)
+}
+func (c *ApiService) UpdateDomainConfigWithContext(ctx context.Context, DomainSid string, params *UpdateDomainConfigParams) (*MessagingV1DomainConfig, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -98,7 +103,7 @@ func (c *ApiService) UpdateDomainConfig(DomainSid string, params *UpdateDomainCo
 		data.Set("DisableHttps", fmt.Sprint(*params.DisableHttps))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

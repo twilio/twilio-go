@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *CreateContentParams) SetContentCreateRequest(ContentCreateRequest 
 
 // Create a Content resource
 func (c *ApiService) CreateContent(params *CreateContentParams) (*ContentV1Content, error) {
+	return c.CreateContentWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateContentWithContext(ctx context.Context, params *CreateContentParams) (*ContentV1Content, error) {
 	path := "/v1/Content"
 
 	data := url.Values{}
@@ -52,7 +56,7 @@ func (c *ApiService) CreateContent(params *CreateContentParams) (*ContentV1Conte
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,6 +73,9 @@ func (c *ApiService) CreateContent(params *CreateContentParams) (*ContentV1Conte
 
 // Deletes a Content resource
 func (c *ApiService) DeleteContent(Sid string) error {
+	return c.DeleteContentWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteContentWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Content/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -77,7 +84,7 @@ func (c *ApiService) DeleteContent(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -89,6 +96,9 @@ func (c *ApiService) DeleteContent(Sid string) error {
 
 // Fetch a Content resource by its unique Content Sid
 func (c *ApiService) FetchContent(Sid string) (*ContentV1Content, error) {
+	return c.FetchContentWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchContentWithContext(ctx context.Context, Sid string) (*ContentV1Content, error) {
 	path := "/v1/Content/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -97,7 +107,7 @@ func (c *ApiService) FetchContent(Sid string) (*ContentV1Content, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -131,6 +141,11 @@ func (params *ListContentParams) SetLimit(Limit int) *ListContentParams {
 
 // Retrieve a single page of Content records from the API. Request is executed immediately.
 func (c *ApiService) PageContent(params *ListContentParams, pageToken, pageNumber string) (*ListContentResponse, error) {
+	return c.PageContentWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Content records from the API. Request is executed immediately.
+func (c *ApiService) PageContentWithContext(ctx context.Context, params *ListContentParams, pageToken, pageNumber string) (*ListContentResponse, error) {
 	path := "/v1/Content"
 
 	data := url.Values{}
@@ -149,7 +164,7 @@ func (c *ApiService) PageContent(params *ListContentParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +181,12 @@ func (c *ApiService) PageContent(params *ListContentParams, pageToken, pageNumbe
 
 // Lists Content records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListContent(params *ListContentParams) ([]ContentV1Content, error) {
-	response, errors := c.StreamContent(params)
+	return c.ListContentWithContext(context.TODO(), params)
+}
+
+// Lists Content records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListContentWithContext(ctx context.Context, params *ListContentParams) ([]ContentV1Content, error) {
+	response, errors := c.StreamContentWithContext(ctx, params)
 
 	records := make([]ContentV1Content, 0)
 	for record := range response {
@@ -182,6 +202,11 @@ func (c *ApiService) ListContent(params *ListContentParams) ([]ContentV1Content,
 
 // Streams Content records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamContent(params *ListContentParams) (chan ContentV1Content, chan error) {
+	return c.StreamContentWithContext(context.TODO(), params)
+}
+
+// Streams Content records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamContentWithContext(ctx context.Context, params *ListContentParams) (chan ContentV1Content, chan error) {
 	if params == nil {
 		params = &ListContentParams{}
 	}
@@ -190,19 +215,19 @@ func (c *ApiService) StreamContent(params *ListContentParams) (chan ContentV1Con
 	recordChannel := make(chan ContentV1Content, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageContent(params, "", "")
+	response, err := c.PageContentWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamContent(response, params, recordChannel, errorChannel)
+		go c.streamContentWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamContent(response *ListContentResponse, params *ListContentParams, recordChannel chan ContentV1Content, errorChannel chan error) {
+func (c *ApiService) streamContentWithContext(ctx context.Context, response *ListContentResponse, params *ListContentParams, recordChannel chan ContentV1Content, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -217,7 +242,7 @@ func (c *ApiService) streamContent(response *ListContentResponse, params *ListCo
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListContentResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListContentResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -232,11 +257,11 @@ func (c *ApiService) streamContent(response *ListContentResponse, params *ListCo
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListContentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListContentResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -39,6 +40,9 @@ func (params *FetchPortingPortabilityParams) SetAddressSid(AddressSid string) *F
 
 // Check if a single phone number can be ported to Twilio
 func (c *ApiService) FetchPortingPortability(PhoneNumber string, params *FetchPortingPortabilityParams) (*NumbersV1PortingPortability, error) {
+	return c.FetchPortingPortabilityWithContext(context.TODO(), PhoneNumber, params)
+}
+func (c *ApiService) FetchPortingPortabilityWithContext(ctx context.Context, PhoneNumber string, params *FetchPortingPortabilityParams) (*NumbersV1PortingPortability, error) {
 	path := "/v1/Porting/Portability/PhoneNumber/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
@@ -54,7 +58,7 @@ func (c *ApiService) FetchPortingPortability(PhoneNumber string, params *FetchPo
 		data.Set("AddressSid", *params.AddressSid)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

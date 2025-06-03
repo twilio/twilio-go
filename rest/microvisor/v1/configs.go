@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateAccountConfigParams) SetValue(Value string) *CreateAccountCo
 
 // Create a config for an Account.
 func (c *ApiService) CreateAccountConfig(params *CreateAccountConfigParams) (*MicrovisorV1AccountConfig, error) {
+	return c.CreateAccountConfigWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateAccountConfigWithContext(ctx context.Context, params *CreateAccountConfigParams) (*MicrovisorV1AccountConfig, error) {
 	path := "/v1/Configs"
 
 	data := url.Values{}
@@ -56,7 +60,7 @@ func (c *ApiService) CreateAccountConfig(params *CreateAccountConfigParams) (*Mi
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -73,6 +77,9 @@ func (c *ApiService) CreateAccountConfig(params *CreateAccountConfigParams) (*Mi
 
 // Delete a config for an Account.
 func (c *ApiService) DeleteAccountConfig(Key string) error {
+	return c.DeleteAccountConfigWithContext(context.TODO(), Key)
+}
+func (c *ApiService) DeleteAccountConfigWithContext(ctx context.Context, Key string) error {
 	path := "/v1/Configs/{Key}"
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
@@ -81,7 +88,7 @@ func (c *ApiService) DeleteAccountConfig(Key string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -93,6 +100,9 @@ func (c *ApiService) DeleteAccountConfig(Key string) error {
 
 // Retrieve a Config for an Account.
 func (c *ApiService) FetchAccountConfig(Key string) (*MicrovisorV1AccountConfig, error) {
+	return c.FetchAccountConfigWithContext(context.TODO(), Key)
+}
+func (c *ApiService) FetchAccountConfigWithContext(ctx context.Context, Key string) (*MicrovisorV1AccountConfig, error) {
 	path := "/v1/Configs/{Key}"
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
@@ -101,7 +111,7 @@ func (c *ApiService) FetchAccountConfig(Key string) (*MicrovisorV1AccountConfig,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -135,6 +145,11 @@ func (params *ListAccountConfigParams) SetLimit(Limit int) *ListAccountConfigPar
 
 // Retrieve a single page of AccountConfig records from the API. Request is executed immediately.
 func (c *ApiService) PageAccountConfig(params *ListAccountConfigParams, pageToken, pageNumber string) (*ListAccountConfigResponse, error) {
+	return c.PageAccountConfigWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of AccountConfig records from the API. Request is executed immediately.
+func (c *ApiService) PageAccountConfigWithContext(ctx context.Context, params *ListAccountConfigParams, pageToken, pageNumber string) (*ListAccountConfigResponse, error) {
 	path := "/v1/Configs"
 
 	data := url.Values{}
@@ -153,7 +168,7 @@ func (c *ApiService) PageAccountConfig(params *ListAccountConfigParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +185,12 @@ func (c *ApiService) PageAccountConfig(params *ListAccountConfigParams, pageToke
 
 // Lists AccountConfig records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAccountConfig(params *ListAccountConfigParams) ([]MicrovisorV1AccountConfig, error) {
-	response, errors := c.StreamAccountConfig(params)
+	return c.ListAccountConfigWithContext(context.TODO(), params)
+}
+
+// Lists AccountConfig records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAccountConfigWithContext(ctx context.Context, params *ListAccountConfigParams) ([]MicrovisorV1AccountConfig, error) {
+	response, errors := c.StreamAccountConfigWithContext(ctx, params)
 
 	records := make([]MicrovisorV1AccountConfig, 0)
 	for record := range response {
@@ -186,6 +206,11 @@ func (c *ApiService) ListAccountConfig(params *ListAccountConfigParams) ([]Micro
 
 // Streams AccountConfig records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAccountConfig(params *ListAccountConfigParams) (chan MicrovisorV1AccountConfig, chan error) {
+	return c.StreamAccountConfigWithContext(context.TODO(), params)
+}
+
+// Streams AccountConfig records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAccountConfigWithContext(ctx context.Context, params *ListAccountConfigParams) (chan MicrovisorV1AccountConfig, chan error) {
 	if params == nil {
 		params = &ListAccountConfigParams{}
 	}
@@ -194,19 +219,19 @@ func (c *ApiService) StreamAccountConfig(params *ListAccountConfigParams) (chan 
 	recordChannel := make(chan MicrovisorV1AccountConfig, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAccountConfig(params, "", "")
+	response, err := c.PageAccountConfigWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAccountConfig(response, params, recordChannel, errorChannel)
+		go c.streamAccountConfigWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAccountConfig(response *ListAccountConfigResponse, params *ListAccountConfigParams, recordChannel chan MicrovisorV1AccountConfig, errorChannel chan error) {
+func (c *ApiService) streamAccountConfigWithContext(ctx context.Context, response *ListAccountConfigResponse, params *ListAccountConfigParams, recordChannel chan MicrovisorV1AccountConfig, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -221,7 +246,7 @@ func (c *ApiService) streamAccountConfig(response *ListAccountConfigResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAccountConfigResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListAccountConfigResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -236,11 +261,11 @@ func (c *ApiService) streamAccountConfig(response *ListAccountConfigResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAccountConfigResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAccountConfigResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -267,6 +292,9 @@ func (params *UpdateAccountConfigParams) SetValue(Value string) *UpdateAccountCo
 
 // Update a config for an Account.
 func (c *ApiService) UpdateAccountConfig(Key string, params *UpdateAccountConfigParams) (*MicrovisorV1AccountConfig, error) {
+	return c.UpdateAccountConfigWithContext(context.TODO(), Key, params)
+}
+func (c *ApiService) UpdateAccountConfigWithContext(ctx context.Context, Key string, params *UpdateAccountConfigParams) (*MicrovisorV1AccountConfig, error) {
 	path := "/v1/Configs/{Key}"
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
@@ -279,7 +307,7 @@ func (c *ApiService) UpdateAccountConfig(Key string, params *UpdateAccountConfig
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

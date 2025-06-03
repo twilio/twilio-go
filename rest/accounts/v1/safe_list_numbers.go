@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -32,6 +33,9 @@ func (params *CreateSafelistParams) SetPhoneNumber(PhoneNumber string) *CreateSa
 
 // Add a new phone number or phone number 1k prefix to SafeList.
 func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*AccountsV1Safelist, error) {
+	return c.CreateSafelistWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateSafelistWithContext(ctx context.Context, params *CreateSafelistParams) (*AccountsV1Safelist, error) {
 	path := "/v1/SafeList/Numbers"
 
 	data := url.Values{}
@@ -43,7 +47,7 @@ func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*AccountsV1Sa
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -71,6 +75,9 @@ func (params *DeleteSafelistParams) SetPhoneNumber(PhoneNumber string) *DeleteSa
 
 // Remove a phone number or phone number 1k prefix from SafeList.
 func (c *ApiService) DeleteSafelist(params *DeleteSafelistParams) error {
+	return c.DeleteSafelistWithContext(context.TODO(), params)
+}
+func (c *ApiService) DeleteSafelistWithContext(ctx context.Context, params *DeleteSafelistParams) error {
 	path := "/v1/SafeList/Numbers"
 
 	data := url.Values{}
@@ -82,7 +89,7 @@ func (c *ApiService) DeleteSafelist(params *DeleteSafelistParams) error {
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -105,6 +112,9 @@ func (params *FetchSafelistParams) SetPhoneNumber(PhoneNumber string) *FetchSafe
 
 // Check if a phone number or phone number 1k prefix exists in SafeList.
 func (c *ApiService) FetchSafelist(params *FetchSafelistParams) (*AccountsV1Safelist, error) {
+	return c.FetchSafelistWithContext(context.TODO(), params)
+}
+func (c *ApiService) FetchSafelistWithContext(ctx context.Context, params *FetchSafelistParams) (*AccountsV1Safelist, error) {
 	path := "/v1/SafeList/Numbers"
 
 	data := url.Values{}
@@ -116,7 +126,7 @@ func (c *ApiService) FetchSafelist(params *FetchSafelistParams) (*AccountsV1Safe
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
