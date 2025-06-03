@@ -4,6 +4,7 @@
 package twilio
 
 import (
+	"context"
 	"os"
 	"testing"
 
@@ -267,4 +268,18 @@ func TestOrgsScimUerList(t *testing.T) {
 	users, err := orgsClient.PreviewIamOrganization.ListOrganizationUsers(orgSid, &PreviewIam.ListOrganizationUsersParams{})
 	assert.Nil(t, err)
 	assert.NotNil(t, users)
+}
+
+func TestSendingAText(t *testing.T) {
+	params := &Api.CreateMessageParams{}
+	params.SetTo(to)
+	params.SetFrom(from)
+	params.SetBody("Hello there")
+
+	resp, err := testClient.Api.CreateMessageWithContext(context.TODO(), params)
+	assert.Nil(t, err)
+	assert.NotNil(t, resp)
+	assert.Equal(t, "Hello there", *resp.Body)
+	assert.Equal(t, from, *resp.From)
+	assert.Equal(t, to, *resp.To)
 }
