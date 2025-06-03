@@ -285,10 +285,10 @@ func TestSendingATextWithContext(t *testing.T) {
 }
 
 func TestOrgsAccountsListWithContext(t *testing.T) {
-	listAccounts, err := orgsClient.PreviewIamOrganization.ListOrganizationAccountsWithContext(orgSid, &PreviewIam.ListOrganizationAccountsParams{})
+	listAccounts, err := orgsClient.PreviewIamOrganization.ListOrganizationAccountsWithContext(context.TODO(), orgSid, &PreviewIam.ListOrganizationAccountsParams{})
 	assert.Nil(t, err)
 	assert.NotNil(t, listAccounts)
-	accounts, err := orgsClient.PreviewIamOrganization.FetchOrganizationAccountWithContext(orgSid, &PreviewIam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
+	accounts, err := orgsClient.PreviewIamOrganization.FetchOrganizationAccountWithContext(context.TODO(), orgSid, &PreviewIam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
 	assert.Nil(t, err)
 	assert.NotNil(t, accounts)
 }
