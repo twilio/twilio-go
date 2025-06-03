@@ -21,8 +21,6 @@ import (
 
 var alphanumericRegex *regexp.Regexp
 var delimitingRegex *regexp.Regexp
-var goVersion string
-var goVersionOnce sync.Once
 
 func init() {
 	alphanumericRegex = regexp.MustCompile(`^[a-zA-Z0-9]*$`)
@@ -244,11 +242,4 @@ func (c *Client) SetOauth(oauth OAuth) {
 
 func (c *Client) OAuth() OAuth {
 	return c.oAuth
-}
-
-func getGoVersion() string {
-	goVersionOnce.Do(func() {
-		goVersion = runtime.Version()
-	})
-	return goVersion
 }
