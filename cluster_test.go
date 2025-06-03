@@ -270,7 +270,7 @@ func TestOrgsScimUerList(t *testing.T) {
 	assert.NotNil(t, users)
 }
 
-func TestSendingAText(t *testing.T) {
+func TestSendingATextWithContext(t *testing.T) {
 	params := &Api.CreateMessageParams{}
 	params.SetTo(to)
 	params.SetFrom(from)
@@ -282,4 +282,13 @@ func TestSendingAText(t *testing.T) {
 	assert.Equal(t, "Hello there", *resp.Body)
 	assert.Equal(t, from, *resp.From)
 	assert.Equal(t, to, *resp.To)
+}
+
+func TestOrgsAccountsListWithContext(t *testing.T) {
+	listAccounts, err := orgsClient.PreviewIamOrganization.ListOrganizationAccountsWithContext(orgSid, &PreviewIam.ListOrganizationAccountsParams{})
+	assert.Nil(t, err)
+	assert.NotNil(t, listAccounts)
+	accounts, err := orgsClient.PreviewIamOrganization.FetchOrganizationAccountWithContext(orgSid, &PreviewIam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
+	assert.Nil(t, err)
+	assert.NotNil(t, accounts)
 }
