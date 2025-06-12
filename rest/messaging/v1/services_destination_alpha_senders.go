@@ -121,12 +121,18 @@ func (c *ApiService) FetchDestinationAlphaSender(ServiceSid string, Sid string) 
 
 // Optional parameters for the method 'ListDestinationAlphaSender'
 type ListDestinationAlphaSenderParams struct {
+	// Optional filter to return only alphanumeric sender IDs associated with the specified two-character ISO country code.
+	IsoCountryCode *string `json:"IsoCountryCode,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
+func (params *ListDestinationAlphaSenderParams) SetIsoCountryCode(IsoCountryCode string) *ListDestinationAlphaSenderParams {
+	params.IsoCountryCode = &IsoCountryCode
+	return params
+}
 func (params *ListDestinationAlphaSenderParams) SetPageSize(PageSize int) *ListDestinationAlphaSenderParams {
 	params.PageSize = &PageSize
 	return params
@@ -147,6 +153,9 @@ func (c *ApiService) PageDestinationAlphaSender(ServiceSid string, params *ListD
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
+	if params != nil && params.IsoCountryCode != nil {
+		data.Set("IsoCountryCode", *params.IsoCountryCode)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}

@@ -16,5 +16,7 @@ package openapi
 
 // FlexV1FlexTeamContext struct for FlexV1FlexTeamContext
 type FlexV1FlexTeamContext struct {
-	TeamSetupComplete *bool `json:"team_setup_complete,omitempty"`
+	TeamSetupComplete             *bool `json:"team_setup_complete,omitempty"`
+	ConversationalInsightsEnabled *bool `json:"conversational_insights_enabled,omitempty"`
+	HistoricalReportingEnabled    *bool `json:"historical_reporting_enabled,omitempty"`
 }

@@ -332,7 +332,6 @@ Class | Method | HTTP request | Description
  - [ApiV2010Message](docs/ApiV2010Message.md)
  - [ListUsageTriggerResponse](docs/ListUsageTriggerResponse.md)
  - [ApiV2010UsageRecordLastMonth](docs/ApiV2010UsageRecordLastMonth.md)
- - [ApiV2010AccountAddressDependentPhoneNumberCapabilities](docs/ApiV2010AccountAddressDependentPhoneNumberCapabilities.md)
  - [ApiV2010RecordingAddOnResult](docs/ApiV2010RecordingAddOnResult.md)
  - [ListSipCredentialListResponse](docs/ListSipCredentialListResponse.md)
  - [ListAvailablePhoneNumberCountryResponse](docs/ListAvailablePhoneNumberCountryResponse.md)

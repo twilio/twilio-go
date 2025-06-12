@@ -42,15 +42,22 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [KnowledgeV1TagValue](docs/KnowledgeV1TagValue.md)
  - [ListKnowledgeResponseMeta](docs/ListKnowledgeResponseMeta.md)
- - [KnowledgeV1Knowledge](docs/KnowledgeV1Knowledge.md)
  - [KnowledgeV1CreateKnowledgeRequest](docs/KnowledgeV1CreateKnowledgeRequest.md)
  - [KnowledgeV1UpdateKnowledgeRequest](docs/KnowledgeV1UpdateKnowledgeRequest.md)
  - [ListKnowledgeChunksResponse](docs/ListKnowledgeChunksResponse.md)
  - [ListKnowledgeResponse](docs/ListKnowledgeResponse.md)
+ - [KnowledgeV1CreateTagRequest](docs/KnowledgeV1CreateTagRequest.md)
  - [KnowledgeV1KnowledgeChunkWithScore](docs/KnowledgeV1KnowledgeChunkWithScore.md)
- - [KnowledgeV1KnowledgeStatus](docs/KnowledgeV1KnowledgeStatus.md)
+ - [KnowledgeV1Tag](docs/KnowledgeV1Tag.md)
  - [KnowledgeV1CreatePolicyRequest](docs/KnowledgeV1CreatePolicyRequest.md)
+ - [Tags1](docs/Tags1.md)
+ - [KnowledgeV1UpdateTagRequest](docs/KnowledgeV1UpdateTagRequest.md)
+ - [KnowledgeV1Knowledge](docs/KnowledgeV1Knowledge.md)
+ - [KnowledgeV1CreateTagValueRequest](docs/KnowledgeV1CreateTagValueRequest.md)
+ - [KnowledgeV1KnowledgeStatus](docs/KnowledgeV1KnowledgeStatus.md)
+ - [KnowledgeV1UpdateTagValueRequest](docs/KnowledgeV1UpdateTagValueRequest.md)
  - [KnowledgeV1KnowledgeChunk](docs/KnowledgeV1KnowledgeChunk.md)
  - [ListKnowledgeResponseKnowledge](docs/ListKnowledgeResponseKnowledge.md)
 

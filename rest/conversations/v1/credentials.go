@@ -163,7 +163,7 @@ func (c *ApiService) FetchCredential(Sid string) (*ConversationsV1Credential, er
 
 // Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// How many resources to return in each list page. The default is 50, and the maximum is 100.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`

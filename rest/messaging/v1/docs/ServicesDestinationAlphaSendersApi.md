@@ -164,6 +164,7 @@ Other parameters are passed through a pointer to a ListDestinationAlphaSenderPar
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**IsoCountryCode** | **string** | Optional filter to return only alphanumeric sender IDs associated with the specified two-character ISO country code.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

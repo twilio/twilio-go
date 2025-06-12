@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **SmsMethod** | Pointer to **string** | The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`. |
 **SmsUrl** | Pointer to **string** | The URL we call when the phone number receives an incoming SMS message. |
 **AddressRequirements** | Pointer to [**string**](DependentPhoneNumberEnumAddressRequirement.md) |  |
-**Capabilities** | Pointer to [**ApiV2010AccountAddressDependentPhoneNumberCapabilities**](ApiV2010AccountAddressDependentPhoneNumberCapabilities.md) |  |
+**Capabilities** | Pointer to **map[string]interface{}** | The set of Boolean properties that indicates whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`. |
 **StatusCallback** | Pointer to **string** | The URL we call using the `status_callback_method` to send status information to your application. |
 **StatusCallbackMethod** | Pointer to **string** | The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`. |
 **ApiVersion** | Pointer to **string** | The API version used to start a new TwiML session. |

@@ -73,7 +73,7 @@ func (c *ApiService) FetchUserConversation(UserSid string, ConversationSid strin
 
 // Optional parameters for the method 'ListUserConversation'
 type ListUserConversationParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// How many resources to return in each list page. The default is 50, and the maximum is 50.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`

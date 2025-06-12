@@ -116,12 +116,18 @@ func (c *ApiService) FetchKnowledge(Id string) (*KnowledgeV1Knowledge, error) {
 type ListKnowledgeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Json array of tag and value pairs for tag filtering.
+	Tags *string `json:"Tags,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListKnowledgeParams) SetPageSize(PageSize int) *ListKnowledgeParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListKnowledgeParams) SetTags(Tags string) *ListKnowledgeParams {
+	params.Tags = &Tags
 	return params
 }
 func (params *ListKnowledgeParams) SetLimit(Limit int) *ListKnowledgeParams {
@@ -140,6 +146,9 @@ func (c *ApiService) PageKnowledge(params *ListKnowledgeParams, pageToken, pageN
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+	if params != nil && params.Tags != nil {
+		data.Set("Tags", *params.Tags)
 	}
 
 	if pageToken != "" {

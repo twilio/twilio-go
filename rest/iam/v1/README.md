@@ -42,17 +42,29 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [IamV1AccountSearchRoleResponse](docs/IamV1AccountSearchRoleResponse.md)
+ - [IamV1SocialConnection](docs/IamV1SocialConnection.md)
+ - [IamV1User](docs/IamV1User.md)
+ - [IamV1TwilioServiceErrorResponse](docs/IamV1TwilioServiceErrorResponse.md)
  - [IamV1AccountSearchRequest](docs/IamV1AccountSearchRequest.md)
  - [TwilioServiceErrorResponse](docs/TwilioServiceErrorResponse.md)
  - [IamV1NewKey](docs/IamV1NewKey.md)
- - [IamV1Key](docs/IamV1Key.md)
  - [IamV1AccountSearchListMeta](docs/IamV1AccountSearchListMeta.md)
- - [IamV1AccountStatsResponse](docs/IamV1AccountStatsResponse.md)
+ - [IamV1EmailChangeInitiateResponse](docs/IamV1EmailChangeInitiateResponse.md)
  - [OauthV1Token](docs/OauthV1Token.md)
- - [IamV1GetKeys](docs/IamV1GetKeys.md)
- - [ListGetKeysResponse](docs/ListGetKeysResponse.md)
+ - [IamV1AccountStatsResponse](docs/IamV1AccountStatsResponse.md)
+ - [IamV1EmailChangeResendRequest](docs/IamV1EmailChangeResendRequest.md)
  - [ListGetKeysResponseMeta](docs/ListGetKeysResponseMeta.md)
  - [IamV1AccountSearchAccount](docs/IamV1AccountSearchAccount.md)
+ - [IamV1Key](docs/IamV1Key.md)
+ - [IamV1UserPatchRequest](docs/IamV1UserPatchRequest.md)
+ - [IamV1ChallengeMethod](docs/IamV1ChallengeMethod.md)
+ - [IamV1EmailChangeVerifyRequest](docs/IamV1EmailChangeVerifyRequest.md)
+ - [IamV1UserPatchResponse](docs/IamV1UserPatchResponse.md)
+ - [IamV1MfaInfo](docs/IamV1MfaInfo.md)
+ - [IamV1EmailChangeInitiateRequest](docs/IamV1EmailChangeInitiateRequest.md)
+ - [IamV1GetKeys](docs/IamV1GetKeys.md)
+ - [ListGetKeysResponse](docs/ListGetKeysResponse.md)
+ - [IamV1OneConsoleProvisioningStatus](docs/IamV1OneConsoleProvisioningStatus.md)
 
 
 ## Documentation For Authorization
