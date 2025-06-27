@@ -21,6 +21,8 @@ import (
 
 var alphanumericRegex *regexp.Regexp
 var delimitingRegex *regexp.Regexp
+var goVersion string
+var goVersionOnce sync.Once
 
 func init() {
 	alphanumericRegex = regexp.MustCompile(`^[a-zA-Z0-9]*$`)
@@ -140,6 +142,12 @@ var userAgentOnce sync.Once
 func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}, body ...byte) (*http.Response, error) {
 
+	return c.SendRequestWithContext(context.TODO(), method, rawURL, data, headers, body...)
+}
+
+func (c *Client) SendRequestWithContext(ctx context.Context, method string, rawURL string, data url.Values,
+	headers map[string]interface{}, body ...byte) (*http.Response, error) {
+
 	contentType := extractContentTypeHeader(headers)
 
 	u, err := url.Parse(rawURL)
@@ -167,7 +175,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	//data is already processed and information will be added to u(the url) in the
 	//previous step. Now body will solely contain json payload
 	if contentType == jsonContentType {
-		req, err = http.NewRequest(method, u.String(), bytes.NewBuffer(body))
+		req, err = http.NewRequestWithContext(ctx, method, u.String(), bytes.NewBuffer(body))
 		if err != nil {
 			return nil, err
 		}
@@ -203,7 +211,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	}
 	if c.OAuth() != nil {
 		oauth := c.OAuth()
-		token, _ := c.OAuth().GetAccessToken(context.TODO())
+		token, _ := c.OAuth().GetAccessToken(ctx)
 		if token != "" {
 			req.Header.Add("Authorization", "Bearer "+token)
 		}
@@ -236,4 +244,11 @@ func (c *Client) SetOauth(oauth OAuth) {
 
 func (c *Client) OAuth() OAuth {
 	return c.oAuth
+}
+
+func getGoVersion() string {
+	goVersionOnce.Do(func() {
+		goVersion = runtime.Version()
+	})
+	return goVersion
 }
