@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -40,8 +41,10 @@ func (params *CreateMemberParams) SetRoleSid(RoleSid string) *CreateMemberParams
 	return params
 }
 
-//
 func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*ChatV1Member, error) {
+	return c.CreateMemberWithContext(context.TODO(), ServiceSid, ChannelSid, params)
+}
+func (c *ApiService) CreateMemberWithContext(ctx context.Context, ServiceSid string, ChannelSid string, params *CreateMemberParams) (*ChatV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -58,7 +61,7 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 		data.Set("RoleSid", *params.RoleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -73,8 +76,10 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid string) error {
+	return c.DeleteMemberWithContext(context.TODO(), ServiceSid, ChannelSid, Sid)
+}
+func (c *ApiService) DeleteMemberWithContext(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -85,7 +90,7 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -95,8 +100,10 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 	return nil
 }
 
-//
 func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*ChatV1Member, error) {
+	return c.FetchMemberWithContext(context.TODO(), ServiceSid, ChannelSid, Sid)
+}
+func (c *ApiService) FetchMemberWithContext(ctx context.Context, ServiceSid string, ChannelSid string, Sid string) (*ChatV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -107,7 +114,7 @@ func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid strin
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -147,6 +154,11 @@ func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
 
 // Retrieve a single page of Member records from the API. Request is executed immediately.
 func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMemberResponse, error) {
+	return c.PageMemberWithContext(context.TODO(), ServiceSid, ChannelSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Member records from the API. Request is executed immediately.
+func (c *ApiService) PageMemberWithContext(ctx context.Context, ServiceSid string, ChannelSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMemberResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -173,7 +185,7 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -190,7 +202,12 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) ([]ChatV1Member, error) {
-	response, errors := c.StreamMember(ServiceSid, ChannelSid, params)
+	return c.ListMemberWithContext(context.TODO(), ServiceSid, ChannelSid, params)
+}
+
+// Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMemberWithContext(ctx context.Context, ServiceSid string, ChannelSid string, params *ListMemberParams) ([]ChatV1Member, error) {
+	response, errors := c.StreamMemberWithContext(ctx, ServiceSid, ChannelSid, params)
 
 	records := make([]ChatV1Member, 0)
 	for record := range response {
@@ -206,6 +223,11 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 
 // Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (chan ChatV1Member, chan error) {
+	return c.StreamMemberWithContext(context.TODO(), ServiceSid, ChannelSid, params)
+}
+
+// Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMemberWithContext(ctx context.Context, ServiceSid string, ChannelSid string, params *ListMemberParams) (chan ChatV1Member, chan error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
@@ -214,19 +236,19 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 	recordChannel := make(chan ChatV1Member, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")
+	response, err := c.PageMemberWithContext(ctx, ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMember(response, params, recordChannel, errorChannel)
+		go c.streamMemberWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemberParams, recordChannel chan ChatV1Member, errorChannel chan error) {
+func (c *ApiService) streamMemberWithContext(ctx context.Context, response *ListMemberResponse, params *ListMemberParams, recordChannel chan ChatV1Member, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -241,7 +263,7 @@ func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemb
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMemberResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListMemberResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -256,11 +278,11 @@ func (c *ApiService) streamMember(response *ListMemberResponse, params *ListMemb
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMemberResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMemberResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -291,8 +313,10 @@ func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessag
 	return params
 }
 
-//
 func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*ChatV1Member, error) {
+	return c.UpdateMemberWithContext(context.TODO(), ServiceSid, ChannelSid, Sid, params)
+}
+func (c *ApiService) UpdateMemberWithContext(ctx context.Context, ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*ChatV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -310,7 +334,7 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

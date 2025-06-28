@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateNetworkAccessProfileParams) SetNetworks(Networks []string) *
 
 // Create a new Network Access Profile
 func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
+	return c.CreateNetworkAccessProfileWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateNetworkAccessProfileWithContext(ctx context.Context, params *CreateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
@@ -58,7 +62,7 @@ func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfi
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -75,6 +79,9 @@ func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfi
 
 // Fetch a Network Access Profile instance from your account.
 func (c *ApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1NetworkAccessProfile, error) {
+	return c.FetchNetworkAccessProfileWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchNetworkAccessProfileWithContext(ctx context.Context, Sid string) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -83,7 +90,7 @@ func (c *ApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1NetworkAc
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -117,6 +124,11 @@ func (params *ListNetworkAccessProfileParams) SetLimit(Limit int) *ListNetworkAc
 
 // Retrieve a single page of NetworkAccessProfile records from the API. Request is executed immediately.
 func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfileParams, pageToken, pageNumber string) (*ListNetworkAccessProfileResponse, error) {
+	return c.PageNetworkAccessProfileWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of NetworkAccessProfile records from the API. Request is executed immediately.
+func (c *ApiService) PageNetworkAccessProfileWithContext(ctx context.Context, params *ListNetworkAccessProfileParams, pageToken, pageNumber string) (*ListNetworkAccessProfileResponse, error) {
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
@@ -135,7 +147,7 @@ func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfilePa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -152,7 +164,12 @@ func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfilePa
 
 // Lists NetworkAccessProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfileParams) ([]SupersimV1NetworkAccessProfile, error) {
-	response, errors := c.StreamNetworkAccessProfile(params)
+	return c.ListNetworkAccessProfileWithContext(context.TODO(), params)
+}
+
+// Lists NetworkAccessProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListNetworkAccessProfileWithContext(ctx context.Context, params *ListNetworkAccessProfileParams) ([]SupersimV1NetworkAccessProfile, error) {
+	response, errors := c.StreamNetworkAccessProfileWithContext(ctx, params)
 
 	records := make([]SupersimV1NetworkAccessProfile, 0)
 	for record := range response {
@@ -168,6 +185,11 @@ func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfilePa
 
 // Streams NetworkAccessProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamNetworkAccessProfile(params *ListNetworkAccessProfileParams) (chan SupersimV1NetworkAccessProfile, chan error) {
+	return c.StreamNetworkAccessProfileWithContext(context.TODO(), params)
+}
+
+// Streams NetworkAccessProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamNetworkAccessProfileWithContext(ctx context.Context, params *ListNetworkAccessProfileParams) (chan SupersimV1NetworkAccessProfile, chan error) {
 	if params == nil {
 		params = &ListNetworkAccessProfileParams{}
 	}
@@ -176,19 +198,19 @@ func (c *ApiService) StreamNetworkAccessProfile(params *ListNetworkAccessProfile
 	recordChannel := make(chan SupersimV1NetworkAccessProfile, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageNetworkAccessProfile(params, "", "")
+	response, err := c.PageNetworkAccessProfileWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamNetworkAccessProfile(response, params, recordChannel, errorChannel)
+		go c.streamNetworkAccessProfileWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamNetworkAccessProfile(response *ListNetworkAccessProfileResponse, params *ListNetworkAccessProfileParams, recordChannel chan SupersimV1NetworkAccessProfile, errorChannel chan error) {
+func (c *ApiService) streamNetworkAccessProfileWithContext(ctx context.Context, response *ListNetworkAccessProfileResponse, params *ListNetworkAccessProfileParams, recordChannel chan SupersimV1NetworkAccessProfile, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -203,7 +225,7 @@ func (c *ApiService) streamNetworkAccessProfile(response *ListNetworkAccessProfi
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListNetworkAccessProfileResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListNetworkAccessProfileResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -218,11 +240,11 @@ func (c *ApiService) streamNetworkAccessProfile(response *ListNetworkAccessProfi
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListNetworkAccessProfileResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListNetworkAccessProfileResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -249,6 +271,9 @@ func (params *UpdateNetworkAccessProfileParams) SetUniqueName(UniqueName string)
 
 // Updates the given properties of a Network Access Profile in your account.
 func (c *ApiService) UpdateNetworkAccessProfile(Sid string, params *UpdateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
+	return c.UpdateNetworkAccessProfileWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateNetworkAccessProfileWithContext(ctx context.Context, Sid string, params *UpdateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -261,7 +286,7 @@ func (c *ApiService) UpdateNetworkAccessProfile(Sid string, params *UpdateNetwor
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

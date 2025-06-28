@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateMessageInteractionParams) SetMediaUrl(MediaUrl []string) *Cr
 
 // Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The `inbound` properties for the Interaction will always be empty.
 func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *CreateMessageInteractionParams) (*ProxyV1MessageInteraction, error) {
+	return c.CreateMessageInteractionWithContext(context.TODO(), ServiceSid, SessionSid, ParticipantSid, params)
+}
+func (c *ApiService) CreateMessageInteractionWithContext(ctx context.Context, ServiceSid string, SessionSid string, ParticipantSid string, params *CreateMessageInteractionParams) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -61,7 +65,7 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -76,8 +80,10 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1MessageInteraction, error) {
+	return c.FetchMessageInteractionWithContext(context.TODO(), ServiceSid, SessionSid, ParticipantSid, Sid)
+}
+func (c *ApiService) FetchMessageInteractionWithContext(ctx context.Context, ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -89,7 +95,7 @@ func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid strin
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -123,6 +129,11 @@ func (params *ListMessageInteractionParams) SetLimit(Limit int) *ListMessageInte
 
 // Retrieve a single page of MessageInteraction records from the API. Request is executed immediately.
 func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams, pageToken, pageNumber string) (*ListMessageInteractionResponse, error) {
+	return c.PageMessageInteractionWithContext(context.TODO(), ServiceSid, SessionSid, ParticipantSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of MessageInteraction records from the API. Request is executed immediately.
+func (c *ApiService) PageMessageInteractionWithContext(ctx context.Context, ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams, pageToken, pageNumber string) (*ListMessageInteractionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -145,7 +156,7 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +173,12 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 
 // Lists MessageInteraction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) ([]ProxyV1MessageInteraction, error) {
-	response, errors := c.StreamMessageInteraction(ServiceSid, SessionSid, ParticipantSid, params)
+	return c.ListMessageInteractionWithContext(context.TODO(), ServiceSid, SessionSid, ParticipantSid, params)
+}
+
+// Lists MessageInteraction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMessageInteractionWithContext(ctx context.Context, ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) ([]ProxyV1MessageInteraction, error) {
+	response, errors := c.StreamMessageInteractionWithContext(ctx, ServiceSid, SessionSid, ParticipantSid, params)
 
 	records := make([]ProxyV1MessageInteraction, 0)
 	for record := range response {
@@ -178,6 +194,11 @@ func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string
 
 // Streams MessageInteraction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (chan ProxyV1MessageInteraction, chan error) {
+	return c.StreamMessageInteractionWithContext(context.TODO(), ServiceSid, SessionSid, ParticipantSid, params)
+}
+
+// Streams MessageInteraction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMessageInteractionWithContext(ctx context.Context, ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (chan ProxyV1MessageInteraction, chan error) {
 	if params == nil {
 		params = &ListMessageInteractionParams{}
 	}
@@ -186,19 +207,19 @@ func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid stri
 	recordChannel := make(chan ProxyV1MessageInteraction, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageMessageInteraction(ServiceSid, SessionSid, ParticipantSid, params, "", "")
+	response, err := c.PageMessageInteractionWithContext(ctx, ServiceSid, SessionSid, ParticipantSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamMessageInteraction(response, params, recordChannel, errorChannel)
+		go c.streamMessageInteractionWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamMessageInteraction(response *ListMessageInteractionResponse, params *ListMessageInteractionParams, recordChannel chan ProxyV1MessageInteraction, errorChannel chan error) {
+func (c *ApiService) streamMessageInteractionWithContext(ctx context.Context, response *ListMessageInteractionResponse, params *ListMessageInteractionParams, recordChannel chan ProxyV1MessageInteraction, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -213,7 +234,7 @@ func (c *ApiService) streamMessageInteraction(response *ListMessageInteractionRe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListMessageInteractionResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListMessageInteractionResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -228,11 +249,11 @@ func (c *ApiService) streamMessageInteraction(response *ListMessageInteractionRe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListMessageInteractionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListMessageInteractionResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

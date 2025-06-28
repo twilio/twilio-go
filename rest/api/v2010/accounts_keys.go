@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -40,8 +41,10 @@ func (params *CreateNewKeyParams) SetFriendlyName(FriendlyName string) *CreateNe
 	return params
 }
 
-//
 func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010NewKey, error) {
+	return c.CreateNewKeyWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateNewKeyWithContext(ctx context.Context, params *CreateNewKeyParams) (*ApiV2010NewKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -58,7 +61,7 @@ func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010NewKey, 
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -84,8 +87,10 @@ func (params *DeleteKeyParams) SetPathAccountSid(PathAccountSid string) *DeleteK
 	return params
 }
 
-//
 func (c *ApiService) DeleteKey(Sid string, params *DeleteKeyParams) error {
+	return c.DeleteKeyWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) DeleteKeyWithContext(ctx context.Context, Sid string, params *DeleteKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -99,7 +104,7 @@ func (c *ApiService) DeleteKey(Sid string, params *DeleteKeyParams) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -120,8 +125,10 @@ func (params *FetchKeyParams) SetPathAccountSid(PathAccountSid string) *FetchKey
 	return params
 }
 
-//
 func (c *ApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010Key, error) {
+	return c.FetchKeyWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) FetchKeyWithContext(ctx context.Context, Sid string, params *FetchKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -135,7 +142,7 @@ func (c *ApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010Key,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -175,6 +182,11 @@ func (params *ListKeyParams) SetLimit(Limit int) *ListKeyParams {
 
 // Retrieve a single page of Key records from the API. Request is executed immediately.
 func (c *ApiService) PageKey(params *ListKeyParams, pageToken, pageNumber string) (*ListKeyResponse, error) {
+	return c.PageKeyWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Key records from the API. Request is executed immediately.
+func (c *ApiService) PageKeyWithContext(ctx context.Context, params *ListKeyParams, pageToken, pageNumber string) (*ListKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -199,7 +211,7 @@ func (c *ApiService) PageKey(params *ListKeyParams, pageToken, pageNumber string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -216,7 +228,12 @@ func (c *ApiService) PageKey(params *ListKeyParams, pageToken, pageNumber string
 
 // Lists Key records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListKey(params *ListKeyParams) ([]ApiV2010Key, error) {
-	response, errors := c.StreamKey(params)
+	return c.ListKeyWithContext(context.TODO(), params)
+}
+
+// Lists Key records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListKeyWithContext(ctx context.Context, params *ListKeyParams) ([]ApiV2010Key, error) {
+	response, errors := c.StreamKeyWithContext(ctx, params)
 
 	records := make([]ApiV2010Key, 0)
 	for record := range response {
@@ -232,6 +249,11 @@ func (c *ApiService) ListKey(params *ListKeyParams) ([]ApiV2010Key, error) {
 
 // Streams Key records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamKey(params *ListKeyParams) (chan ApiV2010Key, chan error) {
+	return c.StreamKeyWithContext(context.TODO(), params)
+}
+
+// Streams Key records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamKeyWithContext(ctx context.Context, params *ListKeyParams) (chan ApiV2010Key, chan error) {
 	if params == nil {
 		params = &ListKeyParams{}
 	}
@@ -240,19 +262,19 @@ func (c *ApiService) StreamKey(params *ListKeyParams) (chan ApiV2010Key, chan er
 	recordChannel := make(chan ApiV2010Key, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageKey(params, "", "")
+	response, err := c.PageKeyWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamKey(response, params, recordChannel, errorChannel)
+		go c.streamKeyWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamKey(response *ListKeyResponse, params *ListKeyParams, recordChannel chan ApiV2010Key, errorChannel chan error) {
+func (c *ApiService) streamKeyWithContext(ctx context.Context, response *ListKeyResponse, params *ListKeyParams, recordChannel chan ApiV2010Key, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -267,7 +289,7 @@ func (c *ApiService) streamKey(response *ListKeyResponse, params *ListKeyParams,
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListKeyResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListKeyResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -282,11 +304,11 @@ func (c *ApiService) streamKey(response *ListKeyResponse, params *ListKeyParams,
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListKeyResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListKeyResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -317,8 +339,10 @@ func (params *UpdateKeyParams) SetFriendlyName(FriendlyName string) *UpdateKeyPa
 	return params
 }
 
-//
 func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010Key, error) {
+	return c.UpdateKeyWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateKeyWithContext(ctx context.Context, Sid string, params *UpdateKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -336,7 +360,7 @@ func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010Ke
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -32,6 +33,9 @@ func (params *FetchInsightsSettingsCommentParams) SetAuthorization(Authorization
 
 // To get the Comment Settings for an Account
 func (c *ApiService) FetchInsightsSettingsComment(params *FetchInsightsSettingsCommentParams) (*FlexV1InsightsSettingsComment, error) {
+	return c.FetchInsightsSettingsCommentWithContext(context.TODO(), params)
+}
+func (c *ApiService) FetchInsightsSettingsCommentWithContext(ctx context.Context, params *FetchInsightsSettingsCommentParams) (*FlexV1InsightsSettingsComment, error) {
 	path := "/v1/Insights/QualityManagement/Settings/CommentTags"
 
 	data := url.Values{}
@@ -42,7 +46,7 @@ func (c *ApiService) FetchInsightsSettingsComment(params *FetchInsightsSettingsC
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

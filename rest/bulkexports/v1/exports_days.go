@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch a specific Day.
 func (c *ApiService) FetchDay(ResourceType string, Day string) (*BulkexportsV1DayInstance, error) {
+	return c.FetchDayWithContext(context.TODO(), ResourceType, Day)
+}
+func (c *ApiService) FetchDayWithContext(ctx context.Context, ResourceType string, Day string) (*BulkexportsV1DayInstance, error) {
 	path := "/v1/Exports/{ResourceType}/Days/{Day}"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 	path = strings.Replace(path, "{"+"Day"+"}", Day, -1)
@@ -34,7 +38,7 @@ func (c *ApiService) FetchDay(ResourceType string, Day string) (*BulkexportsV1Da
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -68,6 +72,11 @@ func (params *ListDayParams) SetLimit(Limit int) *ListDayParams {
 
 // Retrieve a single page of Day records from the API. Request is executed immediately.
 func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageToken, pageNumber string) (*ListDayResponse, error) {
+	return c.PageDayWithContext(context.TODO(), ResourceType, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Day records from the API. Request is executed immediately.
+func (c *ApiService) PageDayWithContext(ctx context.Context, ResourceType string, params *ListDayParams, pageToken, pageNumber string) (*ListDayResponse, error) {
 	path := "/v1/Exports/{ResourceType}/Days"
 
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
@@ -88,7 +97,7 @@ func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageTok
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +114,12 @@ func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageTok
 
 // Lists Day records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) ([]BulkexportsV1Day, error) {
-	response, errors := c.StreamDay(ResourceType, params)
+	return c.ListDayWithContext(context.TODO(), ResourceType, params)
+}
+
+// Lists Day records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDayWithContext(ctx context.Context, ResourceType string, params *ListDayParams) ([]BulkexportsV1Day, error) {
+	response, errors := c.StreamDayWithContext(ctx, ResourceType, params)
 
 	records := make([]BulkexportsV1Day, 0)
 	for record := range response {
@@ -121,6 +135,11 @@ func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) ([]Bulk
 
 // Streams Day records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams) (chan BulkexportsV1Day, chan error) {
+	return c.StreamDayWithContext(context.TODO(), ResourceType, params)
+}
+
+// Streams Day records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDayWithContext(ctx context.Context, ResourceType string, params *ListDayParams) (chan BulkexportsV1Day, chan error) {
 	if params == nil {
 		params = &ListDayParams{}
 	}
@@ -129,19 +148,19 @@ func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams) (chan
 	recordChannel := make(chan BulkexportsV1Day, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDay(ResourceType, params, "", "")
+	response, err := c.PageDayWithContext(ctx, ResourceType, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDay(response, params, recordChannel, errorChannel)
+		go c.streamDayWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDay(response *ListDayResponse, params *ListDayParams, recordChannel chan BulkexportsV1Day, errorChannel chan error) {
+func (c *ApiService) streamDayWithContext(ctx context.Context, response *ListDayResponse, params *ListDayParams, recordChannel chan BulkexportsV1Day, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -156,7 +175,7 @@ func (c *ApiService) streamDay(response *ListDayResponse, params *ListDayParams,
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDayResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListDayResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -171,11 +190,11 @@ func (c *ApiService) streamDay(response *ListDayResponse, params *ListDayParams,
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDayResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDayResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

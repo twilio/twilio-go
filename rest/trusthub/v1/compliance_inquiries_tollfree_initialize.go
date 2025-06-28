@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -165,6 +166,9 @@ func (params *CreateComplianceTollfreeInquiryParams) SetSkipMessagingUseCase(Ski
 
 // Create a new Compliance Tollfree Verification Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTollfreeInquiryParams) (*TrusthubV1ComplianceTollfreeInquiry, error) {
+	return c.CreateComplianceTollfreeInquiryWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateComplianceTollfreeInquiryWithContext(ctx context.Context, params *CreateComplianceTollfreeInquiryParams) (*TrusthubV1ComplianceTollfreeInquiry, error) {
 	path := "/v1/ComplianceInquiries/Tollfree/Initialize"
 
 	data := url.Values{}
@@ -246,7 +250,7 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 		data.Set("SkipMessagingUseCase", fmt.Sprint(*params.SkipMessagingUseCase))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

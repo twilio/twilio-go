@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -64,6 +65,9 @@ func (params *FetchVerificationAttemptsSummaryParams) SetDestinationPrefix(Desti
 
 // Get a summary of how many attempts were made and how many were converted.
 func (c *ApiService) FetchVerificationAttemptsSummary(params *FetchVerificationAttemptsSummaryParams) (*VerifyV2VerificationAttemptsSummary, error) {
+	return c.FetchVerificationAttemptsSummaryWithContext(context.TODO(), params)
+}
+func (c *ApiService) FetchVerificationAttemptsSummaryWithContext(ctx context.Context, params *FetchVerificationAttemptsSummaryParams) (*VerifyV2VerificationAttemptsSummary, error) {
 	path := "/v2/Attempts/Summary"
 
 	data := url.Values{}
@@ -90,7 +94,7 @@ func (c *ApiService) FetchVerificationAttemptsSummary(params *FetchVerificationA
 		data.Set("DestinationPrefix", *params.DestinationPrefix)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreateMessageParams) SetAssistantsV1AssistantSendMessageRequest(As
 
 // send a message
 func (c *ApiService) CreateMessage(Id string, params *CreateMessageParams) (*AssistantsV1AssistantSendMessageResponse, error) {
+	return c.CreateMessageWithContext(context.TODO(), Id, params)
+}
+func (c *ApiService) CreateMessageWithContext(ctx context.Context, Id string, params *CreateMessageParams) (*AssistantsV1AssistantSendMessageResponse, error) {
 	path := "/v1/Assistants/{id}/Messages"
 	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
@@ -50,7 +54,7 @@ func (c *ApiService) CreateMessage(Id string, params *CreateMessageParams) (*Ass
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

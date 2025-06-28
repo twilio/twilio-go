@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -23,6 +24,9 @@ import (
 
 // Get the Annotation for a specific Call.
 func (c *ApiService) FetchAnnotation(CallSid string) (*InsightsV1Annotation, error) {
+	return c.FetchAnnotationWithContext(context.TODO(), CallSid)
+}
+func (c *ApiService) FetchAnnotationWithContext(ctx context.Context, CallSid string) (*InsightsV1Annotation, error) {
 	path := "/v1/Voice/{CallSid}/Annotation"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -31,7 +35,7 @@ func (c *ApiService) FetchAnnotation(CallSid string) (*InsightsV1Annotation, err
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -95,6 +99,9 @@ func (params *UpdateAnnotationParams) SetIncident(Incident string) *UpdateAnnota
 
 // Update an Annotation for a specific Call.
 func (c *ApiService) UpdateAnnotation(CallSid string, params *UpdateAnnotationParams) (*InsightsV1Annotation, error) {
+	return c.UpdateAnnotationWithContext(context.TODO(), CallSid, params)
+}
+func (c *ApiService) UpdateAnnotationWithContext(ctx context.Context, CallSid string, params *UpdateAnnotationParams) (*InsightsV1Annotation, error) {
 	path := "/v1/Voice/{CallSid}/Annotation"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -125,7 +132,7 @@ func (c *ApiService) UpdateAnnotation(CallSid string, params *UpdateAnnotationPa
 		data.Set("Incident", *params.Incident)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -96,6 +97,9 @@ func (params *CreateInsightsAssessmentsParams) SetQuestionnaireSid(Questionnaire
 
 // Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question.
 func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessmentsParams) (*FlexV1InsightsAssessments, error) {
+	return c.CreateInsightsAssessmentsWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateInsightsAssessmentsWithContext(ctx context.Context, params *CreateInsightsAssessmentsParams) (*FlexV1InsightsAssessments, error) {
 	path := "/v1/Insights/QualityManagement/Assessments"
 
 	data := url.Values{}
@@ -137,7 +141,7 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -183,6 +187,11 @@ func (params *ListInsightsAssessmentsParams) SetLimit(Limit int) *ListInsightsAs
 
 // Retrieve a single page of InsightsAssessments records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsAssessments(params *ListInsightsAssessmentsParams, pageToken, pageNumber string) (*ListInsightsAssessmentsResponse, error) {
+	return c.PageInsightsAssessmentsWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of InsightsAssessments records from the API. Request is executed immediately.
+func (c *ApiService) PageInsightsAssessmentsWithContext(ctx context.Context, params *ListInsightsAssessmentsParams, pageToken, pageNumber string) (*ListInsightsAssessmentsResponse, error) {
 	path := "/v1/Insights/QualityManagement/Assessments"
 
 	data := url.Values{}
@@ -204,7 +213,7 @@ func (c *ApiService) PageInsightsAssessments(params *ListInsightsAssessmentsPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +230,12 @@ func (c *ApiService) PageInsightsAssessments(params *ListInsightsAssessmentsPara
 
 // Lists InsightsAssessments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInsightsAssessments(params *ListInsightsAssessmentsParams) ([]FlexV1InsightsAssessments, error) {
-	response, errors := c.StreamInsightsAssessments(params)
+	return c.ListInsightsAssessmentsWithContext(context.TODO(), params)
+}
+
+// Lists InsightsAssessments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInsightsAssessmentsWithContext(ctx context.Context, params *ListInsightsAssessmentsParams) ([]FlexV1InsightsAssessments, error) {
+	response, errors := c.StreamInsightsAssessmentsWithContext(ctx, params)
 
 	records := make([]FlexV1InsightsAssessments, 0)
 	for record := range response {
@@ -237,6 +251,11 @@ func (c *ApiService) ListInsightsAssessments(params *ListInsightsAssessmentsPara
 
 // Streams InsightsAssessments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInsightsAssessments(params *ListInsightsAssessmentsParams) (chan FlexV1InsightsAssessments, chan error) {
+	return c.StreamInsightsAssessmentsWithContext(context.TODO(), params)
+}
+
+// Streams InsightsAssessments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInsightsAssessmentsWithContext(ctx context.Context, params *ListInsightsAssessmentsParams) (chan FlexV1InsightsAssessments, chan error) {
 	if params == nil {
 		params = &ListInsightsAssessmentsParams{}
 	}
@@ -245,19 +264,19 @@ func (c *ApiService) StreamInsightsAssessments(params *ListInsightsAssessmentsPa
 	recordChannel := make(chan FlexV1InsightsAssessments, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInsightsAssessments(params, "", "")
+	response, err := c.PageInsightsAssessmentsWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInsightsAssessments(response, params, recordChannel, errorChannel)
+		go c.streamInsightsAssessmentsWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInsightsAssessments(response *ListInsightsAssessmentsResponse, params *ListInsightsAssessmentsParams, recordChannel chan FlexV1InsightsAssessments, errorChannel chan error) {
+func (c *ApiService) streamInsightsAssessmentsWithContext(ctx context.Context, response *ListInsightsAssessmentsResponse, params *ListInsightsAssessmentsParams, recordChannel chan FlexV1InsightsAssessments, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -272,7 +291,7 @@ func (c *ApiService) streamInsightsAssessments(response *ListInsightsAssessments
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListInsightsAssessmentsResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListInsightsAssessmentsResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -287,11 +306,11 @@ func (c *ApiService) streamInsightsAssessments(response *ListInsightsAssessments
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInsightsAssessmentsResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInsightsAssessmentsResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -336,6 +355,9 @@ func (params *UpdateInsightsAssessmentsParams) SetAnswerId(AnswerId string) *Upd
 
 // Update a specific Assessment assessed earlier
 func (c *ApiService) UpdateInsightsAssessments(AssessmentSid string, params *UpdateInsightsAssessmentsParams) (*FlexV1InsightsAssessments, error) {
+	return c.UpdateInsightsAssessmentsWithContext(context.TODO(), AssessmentSid, params)
+}
+func (c *ApiService) UpdateInsightsAssessmentsWithContext(ctx context.Context, AssessmentSid string, params *UpdateInsightsAssessmentsParams) (*FlexV1InsightsAssessments, error) {
 	path := "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}"
 	path = strings.Replace(path, "{"+"AssessmentSid"+"}", AssessmentSid, -1)
 
@@ -357,7 +379,7 @@ func (c *ApiService) UpdateInsightsAssessments(AssessmentSid string, params *Upd
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Retrieve the context for an Execution Step.
 func (c *ApiService) FetchExecutionStepContext(FlowSid string, ExecutionSid string, StepSid string) (*StudioV1ExecutionStepContext, error) {
+	return c.FetchExecutionStepContextWithContext(context.TODO(), FlowSid, ExecutionSid, StepSid)
+}
+func (c *ApiService) FetchExecutionStepContextWithContext(ctx context.Context, FlowSid string, ExecutionSid string, StepSid string) (*StudioV1ExecutionStepContext, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
@@ -32,7 +36,7 @@ func (c *ApiService) FetchExecutionStepContext(FlowSid string, ExecutionSid stri
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

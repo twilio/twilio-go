@@ -15,13 +15,16 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) (*MessagingV1LinkshorteningMessagingService, error) {
+	return c.CreateLinkshorteningMessagingServiceWithContext(context.TODO(), DomainSid, MessagingServiceSid)
+}
+func (c *ApiService) CreateLinkshorteningMessagingServiceWithContext(ctx context.Context, DomainSid string, MessagingServiceSid string) (*MessagingV1LinkshorteningMessagingService, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -31,7 +34,7 @@ func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, Mess
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -46,8 +49,10 @@ func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, Mess
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) error {
+	return c.DeleteLinkshorteningMessagingServiceWithContext(context.TODO(), DomainSid, MessagingServiceSid)
+}
+func (c *ApiService) DeleteLinkshorteningMessagingServiceWithContext(ctx context.Context, DomainSid string, MessagingServiceSid string) error {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -57,7 +62,7 @@ func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, Mess
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}

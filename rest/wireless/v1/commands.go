@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -72,6 +73,9 @@ func (params *CreateCommandParams) SetDeliveryReceiptRequested(DeliveryReceiptRe
 
 // Send a Command to a Sim.
 func (c *ApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Command, error) {
+	return c.CreateCommandWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateCommandWithContext(ctx context.Context, params *CreateCommandParams) (*WirelessV1Command, error) {
 	path := "/v1/Commands"
 
 	data := url.Values{}
@@ -101,7 +105,7 @@ func (c *ApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Comm
 		data.Set("DeliveryReceiptRequested", fmt.Sprint(*params.DeliveryReceiptRequested))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -118,6 +122,9 @@ func (c *ApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Comm
 
 // Delete a Command instance from your account.
 func (c *ApiService) DeleteCommand(Sid string) error {
+	return c.DeleteCommandWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteCommandWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Commands/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -126,7 +133,7 @@ func (c *ApiService) DeleteCommand(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -138,6 +145,9 @@ func (c *ApiService) DeleteCommand(Sid string) error {
 
 // Fetch a Command instance from your account.
 func (c *ApiService) FetchCommand(Sid string) (*WirelessV1Command, error) {
+	return c.FetchCommandWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchCommandWithContext(ctx context.Context, Sid string) (*WirelessV1Command, error) {
 	path := "/v1/Commands/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -146,7 +156,7 @@ func (c *ApiService) FetchCommand(Sid string) (*WirelessV1Command, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -204,6 +214,11 @@ func (params *ListCommandParams) SetLimit(Limit int) *ListCommandParams {
 
 // Retrieve a single page of Command records from the API. Request is executed immediately.
 func (c *ApiService) PageCommand(params *ListCommandParams, pageToken, pageNumber string) (*ListCommandResponse, error) {
+	return c.PageCommandWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Command records from the API. Request is executed immediately.
+func (c *ApiService) PageCommandWithContext(ctx context.Context, params *ListCommandParams, pageToken, pageNumber string) (*ListCommandResponse, error) {
 	path := "/v1/Commands"
 
 	data := url.Values{}
@@ -234,7 +249,7 @@ func (c *ApiService) PageCommand(params *ListCommandParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -251,7 +266,12 @@ func (c *ApiService) PageCommand(params *ListCommandParams, pageToken, pageNumbe
 
 // Lists Command records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCommand(params *ListCommandParams) ([]WirelessV1Command, error) {
-	response, errors := c.StreamCommand(params)
+	return c.ListCommandWithContext(context.TODO(), params)
+}
+
+// Lists Command records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCommandWithContext(ctx context.Context, params *ListCommandParams) ([]WirelessV1Command, error) {
+	response, errors := c.StreamCommandWithContext(ctx, params)
 
 	records := make([]WirelessV1Command, 0)
 	for record := range response {
@@ -267,6 +287,11 @@ func (c *ApiService) ListCommand(params *ListCommandParams) ([]WirelessV1Command
 
 // Streams Command records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCommand(params *ListCommandParams) (chan WirelessV1Command, chan error) {
+	return c.StreamCommandWithContext(context.TODO(), params)
+}
+
+// Streams Command records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCommandWithContext(ctx context.Context, params *ListCommandParams) (chan WirelessV1Command, chan error) {
 	if params == nil {
 		params = &ListCommandParams{}
 	}
@@ -275,19 +300,19 @@ func (c *ApiService) StreamCommand(params *ListCommandParams) (chan WirelessV1Co
 	recordChannel := make(chan WirelessV1Command, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCommand(params, "", "")
+	response, err := c.PageCommandWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamCommand(response, params, recordChannel, errorChannel)
+		go c.streamCommandWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamCommand(response *ListCommandResponse, params *ListCommandParams, recordChannel chan WirelessV1Command, errorChannel chan error) {
+func (c *ApiService) streamCommandWithContext(ctx context.Context, response *ListCommandResponse, params *ListCommandParams, recordChannel chan WirelessV1Command, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -302,7 +327,7 @@ func (c *ApiService) streamCommand(response *ListCommandResponse, params *ListCo
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListCommandResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListCommandResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -317,11 +342,11 @@ func (c *ApiService) streamCommand(response *ListCommandResponse, params *ListCo
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListCommandResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListCommandResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

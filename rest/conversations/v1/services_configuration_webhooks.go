@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Fetch a specific service webhook configuration.
 func (c *ApiService) FetchServiceWebhookConfiguration(ChatServiceSid string) (*ConversationsV1ServiceWebhookConfiguration, error) {
+	return c.FetchServiceWebhookConfigurationWithContext(context.TODO(), ChatServiceSid)
+}
+func (c *ApiService) FetchServiceWebhookConfigurationWithContext(ctx context.Context, ChatServiceSid string) (*ConversationsV1ServiceWebhookConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Webhooks"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -30,7 +34,7 @@ func (c *ApiService) FetchServiceWebhookConfiguration(ChatServiceSid string) (*C
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -76,6 +80,9 @@ func (params *UpdateServiceWebhookConfigurationParams) SetMethod(Method string) 
 
 // Update a specific Webhook.
 func (c *ApiService) UpdateServiceWebhookConfiguration(ChatServiceSid string, params *UpdateServiceWebhookConfigurationParams) (*ConversationsV1ServiceWebhookConfiguration, error) {
+	return c.UpdateServiceWebhookConfigurationWithContext(context.TODO(), ChatServiceSid, params)
+}
+func (c *ApiService) UpdateServiceWebhookConfigurationWithContext(ctx context.Context, ChatServiceSid string, params *UpdateServiceWebhookConfigurationParams) (*ConversationsV1ServiceWebhookConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Webhooks"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -99,7 +106,7 @@ func (c *ApiService) UpdateServiceWebhookConfiguration(ChatServiceSid string, pa
 		data.Set("Method", *params.Method)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

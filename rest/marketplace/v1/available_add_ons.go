@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch an instance of an Add-on currently available to be installed.
 func (c *ApiService) FetchAvailableAddOn(Sid string) (*MarketplaceV1AvailableAddOn, error) {
+	return c.FetchAvailableAddOnWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchAvailableAddOnWithContext(ctx context.Context, Sid string) (*MarketplaceV1AvailableAddOn, error) {
 	path := "/v1/AvailableAddOns/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) FetchAvailableAddOn(Sid string) (*MarketplaceV1AvailableAdd
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +71,11 @@ func (params *ListAvailableAddOnParams) SetLimit(Limit int) *ListAvailableAddOnP
 
 // Retrieve a single page of AvailableAddOn records from the API. Request is executed immediately.
 func (c *ApiService) PageAvailableAddOn(params *ListAvailableAddOnParams, pageToken, pageNumber string) (*ListAvailableAddOnResponse, error) {
+	return c.PageAvailableAddOnWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of AvailableAddOn records from the API. Request is executed immediately.
+func (c *ApiService) PageAvailableAddOnWithContext(ctx context.Context, params *ListAvailableAddOnParams, pageToken, pageNumber string) (*ListAvailableAddOnResponse, error) {
 	path := "/v1/AvailableAddOns"
 
 	data := url.Values{}
@@ -85,7 +94,7 @@ func (c *ApiService) PageAvailableAddOn(params *ListAvailableAddOnParams, pageTo
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +111,12 @@ func (c *ApiService) PageAvailableAddOn(params *ListAvailableAddOnParams, pageTo
 
 // Lists AvailableAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailableAddOn(params *ListAvailableAddOnParams) ([]MarketplaceV1AvailableAddOn, error) {
-	response, errors := c.StreamAvailableAddOn(params)
+	return c.ListAvailableAddOnWithContext(context.TODO(), params)
+}
+
+// Lists AvailableAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailableAddOnWithContext(ctx context.Context, params *ListAvailableAddOnParams) ([]MarketplaceV1AvailableAddOn, error) {
+	response, errors := c.StreamAvailableAddOnWithContext(ctx, params)
 
 	records := make([]MarketplaceV1AvailableAddOn, 0)
 	for record := range response {
@@ -118,6 +132,11 @@ func (c *ApiService) ListAvailableAddOn(params *ListAvailableAddOnParams) ([]Mar
 
 // Streams AvailableAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAvailableAddOn(params *ListAvailableAddOnParams) (chan MarketplaceV1AvailableAddOn, chan error) {
+	return c.StreamAvailableAddOnWithContext(context.TODO(), params)
+}
+
+// Streams AvailableAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailableAddOnWithContext(ctx context.Context, params *ListAvailableAddOnParams) (chan MarketplaceV1AvailableAddOn, chan error) {
 	if params == nil {
 		params = &ListAvailableAddOnParams{}
 	}
@@ -126,19 +145,19 @@ func (c *ApiService) StreamAvailableAddOn(params *ListAvailableAddOnParams) (cha
 	recordChannel := make(chan MarketplaceV1AvailableAddOn, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageAvailableAddOn(params, "", "")
+	response, err := c.PageAvailableAddOnWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamAvailableAddOn(response, params, recordChannel, errorChannel)
+		go c.streamAvailableAddOnWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamAvailableAddOn(response *ListAvailableAddOnResponse, params *ListAvailableAddOnParams, recordChannel chan MarketplaceV1AvailableAddOn, errorChannel chan error) {
+func (c *ApiService) streamAvailableAddOnWithContext(ctx context.Context, response *ListAvailableAddOnResponse, params *ListAvailableAddOnParams, recordChannel chan MarketplaceV1AvailableAddOn, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -153,7 +172,7 @@ func (c *ApiService) streamAvailableAddOn(response *ListAvailableAddOnResponse, 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListAvailableAddOnResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListAvailableAddOnResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -168,11 +187,11 @@ func (c *ApiService) streamAvailableAddOn(response *ListAvailableAddOnResponse, 
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListAvailableAddOnResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListAvailableAddOnResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

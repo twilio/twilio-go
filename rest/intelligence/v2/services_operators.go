@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Attach an Operator to a Service.
 func (c *ApiService) CreateOperatorAttachment(ServiceSid string, OperatorSid string) (*IntelligenceV2OperatorAttachment, error) {
+	return c.CreateOperatorAttachmentWithContext(context.TODO(), ServiceSid, OperatorSid)
+}
+func (c *ApiService) CreateOperatorAttachmentWithContext(ctx context.Context, ServiceSid string, OperatorSid string) (*IntelligenceV2OperatorAttachment, error) {
 	path := "/v2/Services/{ServiceSid}/Operators/{OperatorSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"OperatorSid"+"}", OperatorSid, -1)
@@ -31,7 +35,7 @@ func (c *ApiService) CreateOperatorAttachment(ServiceSid string, OperatorSid str
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -48,6 +52,9 @@ func (c *ApiService) CreateOperatorAttachment(ServiceSid string, OperatorSid str
 
 // Detach an Operator from a Service.
 func (c *ApiService) DeleteOperatorAttachment(ServiceSid string, OperatorSid string) error {
+	return c.DeleteOperatorAttachmentWithContext(context.TODO(), ServiceSid, OperatorSid)
+}
+func (c *ApiService) DeleteOperatorAttachmentWithContext(ctx context.Context, ServiceSid string, OperatorSid string) error {
 	path := "/v2/Services/{ServiceSid}/Operators/{OperatorSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"OperatorSid"+"}", OperatorSid, -1)
@@ -57,7 +64,7 @@ func (c *ApiService) DeleteOperatorAttachment(ServiceSid string, OperatorSid str
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -69,6 +76,9 @@ func (c *ApiService) DeleteOperatorAttachment(ServiceSid string, OperatorSid str
 
 // Retrieve Operators attached to a Service.
 func (c *ApiService) FetchOperatorAttachments(ServiceSid string) (*IntelligenceV2OperatorAttachments, error) {
+	return c.FetchOperatorAttachmentsWithContext(context.TODO(), ServiceSid)
+}
+func (c *ApiService) FetchOperatorAttachmentsWithContext(ctx context.Context, ServiceSid string) (*IntelligenceV2OperatorAttachments, error) {
 	path := "/v2/Services/{ServiceSid}/Operators"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -77,7 +87,7 @@ func (c *ApiService) FetchOperatorAttachments(ServiceSid string) (*IntelligenceV
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

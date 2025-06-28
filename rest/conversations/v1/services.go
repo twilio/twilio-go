@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -36,6 +37,9 @@ func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateS
 
 // Create a new conversation service on your account
 func (c *ApiService) CreateService(params *CreateServiceParams) (*ConversationsV1Service, error) {
+	return c.CreateServiceWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateServiceWithContext(ctx context.Context, params *CreateServiceParams) (*ConversationsV1Service, error) {
 	path := "/v1/Services"
 
 	data := url.Values{}
@@ -47,7 +51,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ConversationsV
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -64,6 +68,9 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ConversationsV
 
 // Remove a conversation service with all its nested resources from your account
 func (c *ApiService) DeleteService(Sid string) error {
+	return c.DeleteServiceWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteServiceWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -72,7 +79,7 @@ func (c *ApiService) DeleteService(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -84,6 +91,9 @@ func (c *ApiService) DeleteService(Sid string) error {
 
 // Fetch a conversation service from your account
 func (c *ApiService) FetchService(Sid string) (*ConversationsV1Service, error) {
+	return c.FetchServiceWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchServiceWithContext(ctx context.Context, Sid string) (*ConversationsV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -92,7 +102,7 @@ func (c *ApiService) FetchService(Sid string) (*ConversationsV1Service, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -126,6 +136,11 @@ func (params *ListServiceParams) SetLimit(Limit int) *ListServiceParams {
 
 // Retrieve a single page of Service records from the API. Request is executed immediately.
 func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumber string) (*ListServiceResponse, error) {
+	return c.PageServiceWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Service records from the API. Request is executed immediately.
+func (c *ApiService) PageServiceWithContext(ctx context.Context, params *ListServiceParams, pageToken, pageNumber string) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
 	data := url.Values{}
@@ -144,7 +159,7 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +176,12 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 
 // Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListService(params *ListServiceParams) ([]ConversationsV1Service, error) {
-	response, errors := c.StreamService(params)
+	return c.ListServiceWithContext(context.TODO(), params)
+}
+
+// Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceWithContext(ctx context.Context, params *ListServiceParams) ([]ConversationsV1Service, error) {
+	response, errors := c.StreamServiceWithContext(ctx, params)
 
 	records := make([]ConversationsV1Service, 0)
 	for record := range response {
@@ -177,6 +197,11 @@ func (c *ApiService) ListService(params *ListServiceParams) ([]ConversationsV1Se
 
 // Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamService(params *ListServiceParams) (chan ConversationsV1Service, chan error) {
+	return c.StreamServiceWithContext(context.TODO(), params)
+}
+
+// Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceWithContext(ctx context.Context, params *ListServiceParams) (chan ConversationsV1Service, chan error) {
 	if params == nil {
 		params = &ListServiceParams{}
 	}
@@ -185,19 +210,19 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan Conversation
 	recordChannel := make(chan ConversationsV1Service, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageService(params, "", "")
+	response, err := c.PageServiceWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamService(response, params, recordChannel, errorChannel)
+		go c.streamServiceWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan ConversationsV1Service, errorChannel chan error) {
+func (c *ApiService) streamServiceWithContext(ctx context.Context, response *ListServiceResponse, params *ListServiceParams, recordChannel chan ConversationsV1Service, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -212,7 +237,7 @@ func (c *ApiService) streamService(response *ListServiceResponse, params *ListSe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListServiceResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListServiceResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -227,11 +252,11 @@ func (c *ApiService) streamService(response *ListServiceResponse, params *ListSe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListServiceResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListServiceResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

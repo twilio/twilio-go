@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *
 
 // Add an event type to a Subscription.
 func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *CreateSubscribedEventParams) (*EventsV1SubscribedEvent, error) {
+	return c.CreateSubscribedEventWithContext(context.TODO(), SubscriptionSid, params)
+}
+func (c *ApiService) CreateSubscribedEventWithContext(ctx context.Context, SubscriptionSid string, params *CreateSubscribedEventParams) (*EventsV1SubscribedEvent, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 
@@ -57,7 +61,7 @@ func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *Creat
 		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -74,6 +78,9 @@ func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *Creat
 
 // Remove an event type from a Subscription.
 func (c *ApiService) DeleteSubscribedEvent(SubscriptionSid string, Type string) error {
+	return c.DeleteSubscribedEventWithContext(context.TODO(), SubscriptionSid, Type)
+}
+func (c *ApiService) DeleteSubscribedEventWithContext(ctx context.Context, SubscriptionSid string, Type string) error {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
@@ -83,7 +90,7 @@ func (c *ApiService) DeleteSubscribedEvent(SubscriptionSid string, Type string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -95,6 +102,9 @@ func (c *ApiService) DeleteSubscribedEvent(SubscriptionSid string, Type string) 
 
 // Read an Event for a Subscription.
 func (c *ApiService) FetchSubscribedEvent(SubscriptionSid string, Type string) (*EventsV1SubscribedEvent, error) {
+	return c.FetchSubscribedEventWithContext(context.TODO(), SubscriptionSid, Type)
+}
+func (c *ApiService) FetchSubscribedEventWithContext(ctx context.Context, SubscriptionSid string, Type string) (*EventsV1SubscribedEvent, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
@@ -104,7 +114,7 @@ func (c *ApiService) FetchSubscribedEvent(SubscriptionSid string, Type string) (
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +148,11 @@ func (params *ListSubscribedEventParams) SetLimit(Limit int) *ListSubscribedEven
 
 // Retrieve a single page of SubscribedEvent records from the API. Request is executed immediately.
 func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, pageToken, pageNumber string) (*ListSubscribedEventResponse, error) {
+	return c.PageSubscribedEventWithContext(context.TODO(), SubscriptionSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SubscribedEvent records from the API. Request is executed immediately.
+func (c *ApiService) PageSubscribedEventWithContext(ctx context.Context, SubscriptionSid string, params *ListSubscribedEventParams, pageToken, pageNumber string) (*ListSubscribedEventResponse, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
 
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
@@ -158,7 +173,7 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +190,12 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 
 // Lists SubscribedEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) ([]EventsV1SubscribedEvent, error) {
-	response, errors := c.StreamSubscribedEvent(SubscriptionSid, params)
+	return c.ListSubscribedEventWithContext(context.TODO(), SubscriptionSid, params)
+}
+
+// Lists SubscribedEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSubscribedEventWithContext(ctx context.Context, SubscriptionSid string, params *ListSubscribedEventParams) ([]EventsV1SubscribedEvent, error) {
+	response, errors := c.StreamSubscribedEventWithContext(ctx, SubscriptionSid, params)
 
 	records := make([]EventsV1SubscribedEvent, 0)
 	for record := range response {
@@ -191,6 +211,11 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 
 // Streams SubscribedEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) (chan EventsV1SubscribedEvent, chan error) {
+	return c.StreamSubscribedEventWithContext(context.TODO(), SubscriptionSid, params)
+}
+
+// Streams SubscribedEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSubscribedEventWithContext(ctx context.Context, SubscriptionSid string, params *ListSubscribedEventParams) (chan EventsV1SubscribedEvent, chan error) {
 	if params == nil {
 		params = &ListSubscribedEventParams{}
 	}
@@ -199,19 +224,19 @@ func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListS
 	recordChannel := make(chan EventsV1SubscribedEvent, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSubscribedEvent(SubscriptionSid, params, "", "")
+	response, err := c.PageSubscribedEventWithContext(ctx, SubscriptionSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSubscribedEvent(response, params, recordChannel, errorChannel)
+		go c.streamSubscribedEventWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSubscribedEvent(response *ListSubscribedEventResponse, params *ListSubscribedEventParams, recordChannel chan EventsV1SubscribedEvent, errorChannel chan error) {
+func (c *ApiService) streamSubscribedEventWithContext(ctx context.Context, response *ListSubscribedEventResponse, params *ListSubscribedEventParams, recordChannel chan EventsV1SubscribedEvent, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -226,7 +251,7 @@ func (c *ApiService) streamSubscribedEvent(response *ListSubscribedEventResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSubscribedEventResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSubscribedEventResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -241,11 +266,11 @@ func (c *ApiService) streamSubscribedEvent(response *ListSubscribedEventResponse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSubscribedEventResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSubscribedEventResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -272,6 +297,9 @@ func (params *UpdateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *
 
 // Update an Event for a Subscription.
 func (c *ApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, params *UpdateSubscribedEventParams) (*EventsV1SubscribedEvent, error) {
+	return c.UpdateSubscribedEventWithContext(context.TODO(), SubscriptionSid, Type, params)
+}
+func (c *ApiService) UpdateSubscribedEventWithContext(ctx context.Context, SubscriptionSid string, Type string, params *UpdateSubscribedEventParams) (*EventsV1SubscribedEvent, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
@@ -285,7 +313,7 @@ func (c *ApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, 
 		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

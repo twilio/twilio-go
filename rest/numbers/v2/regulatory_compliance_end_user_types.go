@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch a specific End-User Type Instance.
 func (c *ApiService) FetchEndUserType(Sid string) (*NumbersV2EndUserType, error) {
+	return c.FetchEndUserTypeWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchEndUserTypeWithContext(ctx context.Context, Sid string) (*NumbersV2EndUserType, error) {
 	path := "/v2/RegulatoryCompliance/EndUserTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) FetchEndUserType(Sid string) (*NumbersV2EndUserType, error)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +71,11 @@ func (params *ListEndUserTypeParams) SetLimit(Limit int) *ListEndUserTypeParams 
 
 // Retrieve a single page of EndUserType records from the API. Request is executed immediately.
 func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken, pageNumber string) (*ListEndUserTypeResponse, error) {
+	return c.PageEndUserTypeWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of EndUserType records from the API. Request is executed immediately.
+func (c *ApiService) PageEndUserTypeWithContext(ctx context.Context, params *ListEndUserTypeParams, pageToken, pageNumber string) (*ListEndUserTypeResponse, error) {
 	path := "/v2/RegulatoryCompliance/EndUserTypes"
 
 	data := url.Values{}
@@ -85,7 +94,7 @@ func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +111,12 @@ func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken, p
 
 // Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) ([]NumbersV2EndUserType, error) {
-	response, errors := c.StreamEndUserType(params)
+	return c.ListEndUserTypeWithContext(context.TODO(), params)
+}
+
+// Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEndUserTypeWithContext(ctx context.Context, params *ListEndUserTypeParams) ([]NumbersV2EndUserType, error) {
+	response, errors := c.StreamEndUserTypeWithContext(ctx, params)
 
 	records := make([]NumbersV2EndUserType, 0)
 	for record := range response {
@@ -118,6 +132,11 @@ func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) ([]NumbersV2
 
 // Streams EndUserType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan NumbersV2EndUserType, chan error) {
+	return c.StreamEndUserTypeWithContext(context.TODO(), params)
+}
+
+// Streams EndUserType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEndUserTypeWithContext(ctx context.Context, params *ListEndUserTypeParams) (chan NumbersV2EndUserType, chan error) {
 	if params == nil {
 		params = &ListEndUserTypeParams{}
 	}
@@ -126,19 +145,19 @@ func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan Numb
 	recordChannel := make(chan NumbersV2EndUserType, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEndUserType(params, "", "")
+	response, err := c.PageEndUserTypeWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEndUserType(response, params, recordChannel, errorChannel)
+		go c.streamEndUserTypeWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEndUserType(response *ListEndUserTypeResponse, params *ListEndUserTypeParams, recordChannel chan NumbersV2EndUserType, errorChannel chan error) {
+func (c *ApiService) streamEndUserTypeWithContext(ctx context.Context, response *ListEndUserTypeResponse, params *ListEndUserTypeParams, recordChannel chan NumbersV2EndUserType, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -153,7 +172,7 @@ func (c *ApiService) streamEndUserType(response *ListEndUserTypeResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListEndUserTypeResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListEndUserTypeResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -168,11 +187,11 @@ func (c *ApiService) streamEndUserType(response *ListEndUserTypeResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEndUserTypeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEndUserTypeResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

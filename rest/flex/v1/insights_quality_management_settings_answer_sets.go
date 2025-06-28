@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -32,6 +33,9 @@ func (params *FetchInsightsSettingsAnswersetsParams) SetAuthorization(Authorizat
 
 // To get the Answer Set Settings for an Account
 func (c *ApiService) FetchInsightsSettingsAnswersets(params *FetchInsightsSettingsAnswersetsParams) (*FlexV1InsightsSettingsAnswersets, error) {
+	return c.FetchInsightsSettingsAnswersetsWithContext(context.TODO(), params)
+}
+func (c *ApiService) FetchInsightsSettingsAnswersetsWithContext(ctx context.Context, params *FetchInsightsSettingsAnswersetsParams) (*FlexV1InsightsSettingsAnswersets, error) {
 	path := "/v1/Insights/QualityManagement/Settings/AnswerSets"
 
 	data := url.Values{}
@@ -42,7 +46,7 @@ func (c *ApiService) FetchInsightsSettingsAnswersets(params *FetchInsightsSettin
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

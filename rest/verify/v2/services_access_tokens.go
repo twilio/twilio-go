@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -52,6 +53,9 @@ func (params *CreateAccessTokenParams) SetTtl(Ttl int) *CreateAccessTokenParams 
 
 // Create a new enrollment Access Token for the Entity
 func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTokenParams) (*VerifyV2AccessToken, error) {
+	return c.CreateAccessTokenWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateAccessTokenWithContext(ctx context.Context, ServiceSid string, params *CreateAccessTokenParams) (*VerifyV2AccessToken, error) {
 	path := "/v2/Services/{ServiceSid}/AccessTokens"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -73,7 +77,7 @@ func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTo
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -90,6 +94,9 @@ func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTo
 
 // Fetch an Access Token for the Entity
 func (c *ApiService) FetchAccessToken(ServiceSid string, Sid string) (*VerifyV2AccessToken, error) {
+	return c.FetchAccessTokenWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchAccessTokenWithContext(ctx context.Context, ServiceSid string, Sid string) (*VerifyV2AccessToken, error) {
 	path := "/v2/Services/{ServiceSid}/AccessTokens/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -99,7 +106,7 @@ func (c *ApiService) FetchAccessToken(ServiceSid string, Sid string) (*VerifyV2A
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

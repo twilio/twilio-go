@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -51,6 +52,9 @@ func (params *CreateInteractionParams) SetWebhookTtid(WebhookTtid string) *Creat
 
 // Create a new Interaction.
 func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1Interaction, error) {
+	return c.CreateInteractionWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateInteractionWithContext(ctx context.Context, params *CreateInteractionParams) (*FlexV1Interaction, error) {
 	path := "/v1/Interactions"
 
 	data := url.Values{}
@@ -83,7 +87,7 @@ func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1
 		data.Set("WebhookTtid", *params.WebhookTtid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -98,8 +102,10 @@ func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
+	return c.FetchInteractionWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchInteractionWithContext(ctx context.Context, Sid string) (*FlexV1Interaction, error) {
 	path := "/v1/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -108,7 +114,7 @@ func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -136,6 +142,9 @@ func (params *UpdateInteractionParams) SetWebhookTtid(WebhookTtid string) *Updat
 
 // Updates an interaction.
 func (c *ApiService) UpdateInteraction(Sid string, params *UpdateInteractionParams) (*FlexV1Interaction, error) {
+	return c.UpdateInteractionWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateInteractionWithContext(ctx context.Context, Sid string, params *UpdateInteractionParams) (*FlexV1Interaction, error) {
 	path := "/v1/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -148,7 +157,7 @@ func (c *ApiService) UpdateInteraction(Sid string, params *UpdateInteractionPara
 		data.Set("WebhookTtid", *params.WebhookTtid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

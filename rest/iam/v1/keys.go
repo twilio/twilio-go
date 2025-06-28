@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -54,6 +55,9 @@ func (params *CreateNewKeyParams) SetPolicy(Policy interface{}) *CreateNewKeyPar
 
 // Create a new Signing Key for the account making the request.
 func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*IamV1NewKey, error) {
+	return c.CreateNewKeyWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateNewKeyWithContext(ctx context.Context, params *CreateNewKeyParams) (*IamV1NewKey, error) {
 	path := "/v1/Keys"
 
 	data := url.Values{}
@@ -80,7 +84,7 @@ func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*IamV1NewKey, err
 		data.Set("Policy", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -97,6 +101,9 @@ func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*IamV1NewKey, err
 
 // Delete a specific Key.
 func (c *ApiService) DeleteKey(Sid string) error {
+	return c.DeleteKeyWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteKeyWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Keys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -105,7 +112,7 @@ func (c *ApiService) DeleteKey(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -117,6 +124,9 @@ func (c *ApiService) DeleteKey(Sid string) error {
 
 // Fetch a specific Key.
 func (c *ApiService) FetchKey(Sid string) (*IamV1Key, error) {
+	return c.FetchKeyWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchKeyWithContext(ctx context.Context, Sid string) (*IamV1Key, error) {
 	path := "/v1/Keys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -125,7 +135,7 @@ func (c *ApiService) FetchKey(Sid string) (*IamV1Key, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -165,6 +175,11 @@ func (params *ListGetKeysParams) SetLimit(Limit int) *ListGetKeysParams {
 
 // Retrieve a single page of GetKeys records from the API. Request is executed immediately.
 func (c *ApiService) PageGetKeys(params *ListGetKeysParams, pageToken, pageNumber string) (*ListGetKeysResponse, error) {
+	return c.PageGetKeysWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of GetKeys records from the API. Request is executed immediately.
+func (c *ApiService) PageGetKeysWithContext(ctx context.Context, params *ListGetKeysParams, pageToken, pageNumber string) (*ListGetKeysResponse, error) {
 	path := "/v1/Keys"
 
 	data := url.Values{}
@@ -186,7 +201,7 @@ func (c *ApiService) PageGetKeys(params *ListGetKeysParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +218,12 @@ func (c *ApiService) PageGetKeys(params *ListGetKeysParams, pageToken, pageNumbe
 
 // Lists GetKeys records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListGetKeys(params *ListGetKeysParams) ([]IamV1GetKeys, error) {
-	response, errors := c.StreamGetKeys(params)
+	return c.ListGetKeysWithContext(context.TODO(), params)
+}
+
+// Lists GetKeys records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListGetKeysWithContext(ctx context.Context, params *ListGetKeysParams) ([]IamV1GetKeys, error) {
+	response, errors := c.StreamGetKeysWithContext(ctx, params)
 
 	records := make([]IamV1GetKeys, 0)
 	for record := range response {
@@ -219,6 +239,11 @@ func (c *ApiService) ListGetKeys(params *ListGetKeysParams) ([]IamV1GetKeys, err
 
 // Streams GetKeys records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamGetKeys(params *ListGetKeysParams) (chan IamV1GetKeys, chan error) {
+	return c.StreamGetKeysWithContext(context.TODO(), params)
+}
+
+// Streams GetKeys records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamGetKeysWithContext(ctx context.Context, params *ListGetKeysParams) (chan IamV1GetKeys, chan error) {
 	if params == nil {
 		params = &ListGetKeysParams{}
 	}
@@ -227,19 +252,19 @@ func (c *ApiService) StreamGetKeys(params *ListGetKeysParams) (chan IamV1GetKeys
 	recordChannel := make(chan IamV1GetKeys, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageGetKeys(params, "", "")
+	response, err := c.PageGetKeysWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamGetKeys(response, params, recordChannel, errorChannel)
+		go c.streamGetKeysWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamGetKeys(response *ListGetKeysResponse, params *ListGetKeysParams, recordChannel chan IamV1GetKeys, errorChannel chan error) {
+func (c *ApiService) streamGetKeysWithContext(ctx context.Context, response *ListGetKeysResponse, params *ListGetKeysParams, recordChannel chan IamV1GetKeys, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -254,7 +279,7 @@ func (c *ApiService) streamGetKeys(response *ListGetKeysResponse, params *ListGe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListGetKeysResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListGetKeysResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -269,11 +294,11 @@ func (c *ApiService) streamGetKeys(response *ListGetKeysResponse, params *ListGe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListGetKeysResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListGetKeysResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -306,6 +331,9 @@ func (params *UpdateKeyParams) SetPolicy(Policy interface{}) *UpdateKeyParams {
 
 // Update a specific Key.
 func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*IamV1Key, error) {
+	return c.UpdateKeyWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateKeyWithContext(ctx context.Context, Sid string, params *UpdateKeyParams) (*IamV1Key, error) {
 	path := "/v1/Keys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -327,7 +355,7 @@ func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*IamV1Key, 
 		data.Set("Policy", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

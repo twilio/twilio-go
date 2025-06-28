@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateInsightsQuestionnairesCategoryParams) SetName(Name string) *
 
 // To create a category for Questions
 func (c *ApiService) CreateInsightsQuestionnairesCategory(params *CreateInsightsQuestionnairesCategoryParams) (*FlexV1InsightsQuestionnairesCategory, error) {
+	return c.CreateInsightsQuestionnairesCategoryWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateInsightsQuestionnairesCategoryWithContext(ctx context.Context, params *CreateInsightsQuestionnairesCategoryParams) (*FlexV1InsightsQuestionnairesCategory, error) {
 	path := "/v1/Insights/QualityManagement/Categories"
 
 	data := url.Values{}
@@ -56,7 +60,7 @@ func (c *ApiService) CreateInsightsQuestionnairesCategory(params *CreateInsights
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -82,8 +86,10 @@ func (params *DeleteInsightsQuestionnairesCategoryParams) SetAuthorization(Autho
 	return params
 }
 
-//
 func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategorySid string, params *DeleteInsightsQuestionnairesCategoryParams) error {
+	return c.DeleteInsightsQuestionnairesCategoryWithContext(context.TODO(), CategorySid, params)
+}
+func (c *ApiService) DeleteInsightsQuestionnairesCategoryWithContext(ctx context.Context, CategorySid string, params *DeleteInsightsQuestionnairesCategoryParams) error {
 	path := "/v1/Insights/QualityManagement/Categories/{CategorySid}"
 	path = strings.Replace(path, "{"+"CategorySid"+"}", CategorySid, -1)
 
@@ -95,7 +101,7 @@ func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategorySid string, pa
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -130,6 +136,11 @@ func (params *ListInsightsQuestionnairesCategoryParams) SetLimit(Limit int) *Lis
 
 // Retrieve a single page of InsightsQuestionnairesCategory records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsQuestionnairesCategory(params *ListInsightsQuestionnairesCategoryParams, pageToken, pageNumber string) (*ListInsightsQuestionnairesCategoryResponse, error) {
+	return c.PageInsightsQuestionnairesCategoryWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of InsightsQuestionnairesCategory records from the API. Request is executed immediately.
+func (c *ApiService) PageInsightsQuestionnairesCategoryWithContext(ctx context.Context, params *ListInsightsQuestionnairesCategoryParams, pageToken, pageNumber string) (*ListInsightsQuestionnairesCategoryResponse, error) {
 	path := "/v1/Insights/QualityManagement/Categories"
 
 	data := url.Values{}
@@ -148,7 +159,7 @@ func (c *ApiService) PageInsightsQuestionnairesCategory(params *ListInsightsQues
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -165,7 +176,12 @@ func (c *ApiService) PageInsightsQuestionnairesCategory(params *ListInsightsQues
 
 // Lists InsightsQuestionnairesCategory records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInsightsQuestionnairesCategory(params *ListInsightsQuestionnairesCategoryParams) ([]FlexV1InsightsQuestionnairesCategory, error) {
-	response, errors := c.StreamInsightsQuestionnairesCategory(params)
+	return c.ListInsightsQuestionnairesCategoryWithContext(context.TODO(), params)
+}
+
+// Lists InsightsQuestionnairesCategory records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInsightsQuestionnairesCategoryWithContext(ctx context.Context, params *ListInsightsQuestionnairesCategoryParams) ([]FlexV1InsightsQuestionnairesCategory, error) {
+	response, errors := c.StreamInsightsQuestionnairesCategoryWithContext(ctx, params)
 
 	records := make([]FlexV1InsightsQuestionnairesCategory, 0)
 	for record := range response {
@@ -181,6 +197,11 @@ func (c *ApiService) ListInsightsQuestionnairesCategory(params *ListInsightsQues
 
 // Streams InsightsQuestionnairesCategory records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInsightsQuestionnairesCategory(params *ListInsightsQuestionnairesCategoryParams) (chan FlexV1InsightsQuestionnairesCategory, chan error) {
+	return c.StreamInsightsQuestionnairesCategoryWithContext(context.TODO(), params)
+}
+
+// Streams InsightsQuestionnairesCategory records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInsightsQuestionnairesCategoryWithContext(ctx context.Context, params *ListInsightsQuestionnairesCategoryParams) (chan FlexV1InsightsQuestionnairesCategory, chan error) {
 	if params == nil {
 		params = &ListInsightsQuestionnairesCategoryParams{}
 	}
@@ -189,19 +210,19 @@ func (c *ApiService) StreamInsightsQuestionnairesCategory(params *ListInsightsQu
 	recordChannel := make(chan FlexV1InsightsQuestionnairesCategory, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInsightsQuestionnairesCategory(params, "", "")
+	response, err := c.PageInsightsQuestionnairesCategoryWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInsightsQuestionnairesCategory(response, params, recordChannel, errorChannel)
+		go c.streamInsightsQuestionnairesCategoryWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInsightsQuestionnairesCategory(response *ListInsightsQuestionnairesCategoryResponse, params *ListInsightsQuestionnairesCategoryParams, recordChannel chan FlexV1InsightsQuestionnairesCategory, errorChannel chan error) {
+func (c *ApiService) streamInsightsQuestionnairesCategoryWithContext(ctx context.Context, response *ListInsightsQuestionnairesCategoryResponse, params *ListInsightsQuestionnairesCategoryParams, recordChannel chan FlexV1InsightsQuestionnairesCategory, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -216,7 +237,7 @@ func (c *ApiService) streamInsightsQuestionnairesCategory(response *ListInsights
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListInsightsQuestionnairesCategoryResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListInsightsQuestionnairesCategoryResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -231,11 +252,11 @@ func (c *ApiService) streamInsightsQuestionnairesCategory(response *ListInsights
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInsightsQuestionnairesCategoryResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInsightsQuestionnairesCategoryResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -268,6 +289,9 @@ func (params *UpdateInsightsQuestionnairesCategoryParams) SetName(Name string) *
 
 // To update the category for Questions
 func (c *ApiService) UpdateInsightsQuestionnairesCategory(CategorySid string, params *UpdateInsightsQuestionnairesCategoryParams) (*FlexV1InsightsQuestionnairesCategory, error) {
+	return c.UpdateInsightsQuestionnairesCategoryWithContext(context.TODO(), CategorySid, params)
+}
+func (c *ApiService) UpdateInsightsQuestionnairesCategoryWithContext(ctx context.Context, CategorySid string, params *UpdateInsightsQuestionnairesCategoryParams) (*FlexV1InsightsQuestionnairesCategory, error) {
 	path := "/v1/Insights/QualityManagement/Categories/{CategorySid}"
 	path = strings.Replace(path, "{"+"CategorySid"+"}", CategorySid, -1)
 
@@ -283,7 +307,7 @@ func (c *ApiService) UpdateInsightsQuestionnairesCategory(CategorySid string, pa
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

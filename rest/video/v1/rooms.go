@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -131,8 +132,10 @@ func (params *CreateRoomParams) SetLargeRoom(LargeRoom bool) *CreateRoomParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) {
+	return c.CreateRoomWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateRoomWithContext(ctx context.Context, params *CreateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms"
 
 	data := url.Values{}
@@ -206,7 +209,7 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 		data.Set("LargeRoom", fmt.Sprint(*params.LargeRoom))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -221,8 +224,10 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 	return ps, err
 }
 
-//
 func (c *ApiService) FetchRoom(Sid string) (*VideoV1Room, error) {
+	return c.FetchRoomWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchRoomWithContext(ctx context.Context, Sid string) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -231,7 +236,7 @@ func (c *ApiService) FetchRoom(Sid string) (*VideoV1Room, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -289,6 +294,11 @@ func (params *ListRoomParams) SetLimit(Limit int) *ListRoomParams {
 
 // Retrieve a single page of Room records from the API. Request is executed immediately.
 func (c *ApiService) PageRoom(params *ListRoomParams, pageToken, pageNumber string) (*ListRoomResponse, error) {
+	return c.PageRoomWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Room records from the API. Request is executed immediately.
+func (c *ApiService) PageRoomWithContext(ctx context.Context, params *ListRoomParams, pageToken, pageNumber string) (*ListRoomResponse, error) {
 	path := "/v1/Rooms"
 
 	data := url.Values{}
@@ -319,7 +329,7 @@ func (c *ApiService) PageRoom(params *ListRoomParams, pageToken, pageNumber stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -336,7 +346,12 @@ func (c *ApiService) PageRoom(params *ListRoomParams, pageToken, pageNumber stri
 
 // Lists Room records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoom(params *ListRoomParams) ([]VideoV1Room, error) {
-	response, errors := c.StreamRoom(params)
+	return c.ListRoomWithContext(context.TODO(), params)
+}
+
+// Lists Room records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoomWithContext(ctx context.Context, params *ListRoomParams) ([]VideoV1Room, error) {
+	response, errors := c.StreamRoomWithContext(ctx, params)
 
 	records := make([]VideoV1Room, 0)
 	for record := range response {
@@ -352,6 +367,11 @@ func (c *ApiService) ListRoom(params *ListRoomParams) ([]VideoV1Room, error) {
 
 // Streams Room records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRoom(params *ListRoomParams) (chan VideoV1Room, chan error) {
+	return c.StreamRoomWithContext(context.TODO(), params)
+}
+
+// Streams Room records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoomWithContext(ctx context.Context, params *ListRoomParams) (chan VideoV1Room, chan error) {
 	if params == nil {
 		params = &ListRoomParams{}
 	}
@@ -360,19 +380,19 @@ func (c *ApiService) StreamRoom(params *ListRoomParams) (chan VideoV1Room, chan 
 	recordChannel := make(chan VideoV1Room, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageRoom(params, "", "")
+	response, err := c.PageRoomWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamRoom(response, params, recordChannel, errorChannel)
+		go c.streamRoomWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamRoom(response *ListRoomResponse, params *ListRoomParams, recordChannel chan VideoV1Room, errorChannel chan error) {
+func (c *ApiService) streamRoomWithContext(ctx context.Context, response *ListRoomResponse, params *ListRoomParams, recordChannel chan VideoV1Room, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -387,7 +407,7 @@ func (c *ApiService) streamRoom(response *ListRoomResponse, params *ListRoomPara
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListRoomResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListRoomResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -402,11 +422,11 @@ func (c *ApiService) streamRoom(response *ListRoomResponse, params *ListRoomPara
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListRoomResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListRoomResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -431,8 +451,10 @@ func (params *UpdateRoomParams) SetStatus(Status string) *UpdateRoomParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*VideoV1Room, error) {
+	return c.UpdateRoomWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateRoomWithContext(ctx context.Context, Sid string, params *UpdateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -445,7 +467,7 @@ func (c *ApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*VideoV1R
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

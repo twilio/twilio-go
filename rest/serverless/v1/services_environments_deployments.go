@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateDeploymentParams) SetIsPlugin(IsPlugin bool) *CreateDeployme
 
 // Create a new Deployment.
 func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, params *CreateDeploymentParams) (*ServerlessV1Deployment, error) {
+	return c.CreateDeploymentWithContext(context.TODO(), ServiceSid, EnvironmentSid, params)
+}
+func (c *ApiService) CreateDeploymentWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, params *CreateDeploymentParams) (*ServerlessV1Deployment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -58,7 +62,7 @@ func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, 
 		data.Set("IsPlugin", fmt.Sprint(*params.IsPlugin))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -75,6 +79,9 @@ func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, 
 
 // Retrieve a specific Deployment.
 func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Deployment, error) {
+	return c.FetchDeploymentWithContext(context.TODO(), ServiceSid, EnvironmentSid, Sid)
+}
+func (c *ApiService) FetchDeploymentWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Deployment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -85,7 +92,7 @@ func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, S
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -119,6 +126,11 @@ func (params *ListDeploymentParams) SetLimit(Limit int) *ListDeploymentParams {
 
 // Retrieve a single page of Deployment records from the API. Request is executed immediately.
 func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, pageToken, pageNumber string) (*ListDeploymentResponse, error) {
+	return c.PageDeploymentWithContext(context.TODO(), ServiceSid, EnvironmentSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Deployment records from the API. Request is executed immediately.
+func (c *ApiService) PageDeploymentWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, pageToken, pageNumber string) (*ListDeploymentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -140,7 +152,7 @@ func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -157,7 +169,12 @@ func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, pa
 
 // Lists Deployment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) ([]ServerlessV1Deployment, error) {
-	response, errors := c.StreamDeployment(ServiceSid, EnvironmentSid, params)
+	return c.ListDeploymentWithContext(context.TODO(), ServiceSid, EnvironmentSid, params)
+}
+
+// Lists Deployment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDeploymentWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) ([]ServerlessV1Deployment, error) {
+	response, errors := c.StreamDeploymentWithContext(ctx, ServiceSid, EnvironmentSid, params)
 
 	records := make([]ServerlessV1Deployment, 0)
 	for record := range response {
@@ -173,6 +190,11 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 
 // Streams Deployment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) (chan ServerlessV1Deployment, chan error) {
+	return c.StreamDeploymentWithContext(context.TODO(), ServiceSid, EnvironmentSid, params)
+}
+
+// Streams Deployment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDeploymentWithContext(ctx context.Context, ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) (chan ServerlessV1Deployment, chan error) {
 	if params == nil {
 		params = &ListDeploymentParams{}
 	}
@@ -181,19 +203,19 @@ func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, 
 	recordChannel := make(chan ServerlessV1Deployment, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDeployment(ServiceSid, EnvironmentSid, params, "", "")
+	response, err := c.PageDeploymentWithContext(ctx, ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDeployment(response, params, recordChannel, errorChannel)
+		go c.streamDeploymentWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDeployment(response *ListDeploymentResponse, params *ListDeploymentParams, recordChannel chan ServerlessV1Deployment, errorChannel chan error) {
+func (c *ApiService) streamDeploymentWithContext(ctx context.Context, response *ListDeploymentResponse, params *ListDeploymentParams, recordChannel chan ServerlessV1Deployment, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -208,7 +230,7 @@ func (c *ApiService) streamDeployment(response *ListDeploymentResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDeploymentResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListDeploymentResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -223,11 +245,11 @@ func (c *ApiService) streamDeployment(response *ListDeploymentResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDeploymentResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDeploymentResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

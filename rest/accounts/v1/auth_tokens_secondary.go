@@ -15,12 +15,16 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
 
 // Create a new secondary Auth Token
 func (c *ApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, error) {
+	return c.CreateSecondaryAuthTokenWithContext(context.TODO())
+}
+func (c *ApiService) CreateSecondaryAuthTokenWithContext(ctx context.Context) (*AccountsV1SecondaryAuthToken, error) {
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
@@ -28,7 +32,7 @@ func (c *ApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -45,6 +49,9 @@ func (c *ApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, 
 
 // Delete the secondary Auth Token from your account
 func (c *ApiService) DeleteSecondaryAuthToken() error {
+	return c.DeleteSecondaryAuthTokenWithContext(context.TODO())
+}
+func (c *ApiService) DeleteSecondaryAuthTokenWithContext(ctx context.Context) error {
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
@@ -52,7 +59,7 @@ func (c *ApiService) DeleteSecondaryAuthToken() error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}

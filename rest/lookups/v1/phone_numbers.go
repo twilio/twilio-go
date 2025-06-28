@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -49,8 +50,10 @@ func (params *FetchPhoneNumberParams) SetAddOnsData(AddOnsData map[string]interf
 	return params
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV1PhoneNumber, error) {
+	return c.FetchPhoneNumberWithContext(context.TODO(), PhoneNumber, params)
+}
+func (c *ApiService) FetchPhoneNumberWithContext(ctx context.Context, PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV1PhoneNumber, error) {
 	path := "/v1/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
@@ -82,7 +85,7 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 		data.Set("AddOnsData", string(v))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

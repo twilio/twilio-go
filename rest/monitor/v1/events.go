@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -24,8 +25,10 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-//
 func (c *ApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
+	return c.FetchEventWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchEventWithContext(ctx context.Context, Sid string) (*MonitorV1Event, error) {
 	path := "/v1/Events/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -34,7 +37,7 @@ func (c *ApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -104,6 +107,11 @@ func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
 
 // Retrieve a single page of Event records from the API. Request is executed immediately.
 func (c *ApiService) PageEvent(params *ListEventParams, pageToken, pageNumber string) (*ListEventResponse, error) {
+	return c.PageEventWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Event records from the API. Request is executed immediately.
+func (c *ApiService) PageEventWithContext(ctx context.Context, params *ListEventParams, pageToken, pageNumber string) (*ListEventResponse, error) {
 	path := "/v1/Events"
 
 	data := url.Values{}
@@ -140,7 +148,7 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken, pageNumber st
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -157,7 +165,12 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken, pageNumber st
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvent(params *ListEventParams) ([]MonitorV1Event, error) {
-	response, errors := c.StreamEvent(params)
+	return c.ListEventWithContext(context.TODO(), params)
+}
+
+// Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEventWithContext(ctx context.Context, params *ListEventParams) ([]MonitorV1Event, error) {
+	response, errors := c.StreamEventWithContext(ctx, params)
 
 	records := make([]MonitorV1Event, 0)
 	for record := range response {
@@ -173,6 +186,11 @@ func (c *ApiService) ListEvent(params *ListEventParams) ([]MonitorV1Event, error
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEvent(params *ListEventParams) (chan MonitorV1Event, chan error) {
+	return c.StreamEventWithContext(context.TODO(), params)
+}
+
+// Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEventWithContext(ctx context.Context, params *ListEventParams) (chan MonitorV1Event, chan error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
@@ -181,19 +199,19 @@ func (c *ApiService) StreamEvent(params *ListEventParams) (chan MonitorV1Event, 
 	recordChannel := make(chan MonitorV1Event, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEvent(params, "", "")
+	response, err := c.PageEventWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEvent(response, params, recordChannel, errorChannel)
+		go c.streamEventWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventParams, recordChannel chan MonitorV1Event, errorChannel chan error) {
+func (c *ApiService) streamEventWithContext(ctx context.Context, response *ListEventResponse, params *ListEventParams, recordChannel chan MonitorV1Event, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -208,7 +226,7 @@ func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventP
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListEventResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListEventResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -223,11 +241,11 @@ func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventP
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEventResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEventResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

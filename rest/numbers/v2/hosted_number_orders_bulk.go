@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreateBulkHostedNumberOrderParams) SetBody(Body map[string]interfa
 
 // Host multiple phone numbers on Twilio's platform.
 func (c *ApiService) CreateBulkHostedNumberOrder(params *CreateBulkHostedNumberOrderParams) (*NumbersV2BulkHostedNumberOrder, error) {
+	return c.CreateBulkHostedNumberOrderWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateBulkHostedNumberOrderWithContext(ctx context.Context, params *CreateBulkHostedNumberOrderParams) (*NumbersV2BulkHostedNumberOrder, error) {
 	path := "/v2/HostedNumber/Orders/Bulk"
 
 	data := url.Values{}
@@ -49,7 +53,7 @@ func (c *ApiService) CreateBulkHostedNumberOrder(params *CreateBulkHostedNumberO
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,6 +81,9 @@ func (params *FetchBulkHostedNumberOrderParams) SetOrderStatus(OrderStatus strin
 
 // Fetch a specific BulkHostedNumberOrder.
 func (c *ApiService) FetchBulkHostedNumberOrder(BulkHostingSid string, params *FetchBulkHostedNumberOrderParams) (*NumbersV2BulkHostedNumberOrder, error) {
+	return c.FetchBulkHostedNumberOrderWithContext(context.TODO(), BulkHostingSid, params)
+}
+func (c *ApiService) FetchBulkHostedNumberOrderWithContext(ctx context.Context, BulkHostingSid string, params *FetchBulkHostedNumberOrderParams) (*NumbersV2BulkHostedNumberOrder, error) {
 	path := "/v2/HostedNumber/Orders/Bulk/{BulkHostingSid}"
 	path = strings.Replace(path, "{"+"BulkHostingSid"+"}", BulkHostingSid, -1)
 
@@ -89,7 +96,7 @@ func (c *ApiService) FetchBulkHostedNumberOrder(BulkHostingSid string, params *F
 		data.Set("OrderStatus", *params.OrderStatus)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

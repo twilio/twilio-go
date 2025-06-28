@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -114,6 +115,9 @@ func (params *CreateSipDomainParams) SetEmergencyCallerSid(EmergencyCallerSid st
 
 // Create a new Domain
 func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010SipDomain, error) {
+	return c.CreateSipDomainWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateSipDomainWithContext(ctx context.Context, params *CreateSipDomainParams) (*ApiV2010SipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -166,7 +170,7 @@ func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010Si
 		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -194,6 +198,9 @@ func (params *DeleteSipDomainParams) SetPathAccountSid(PathAccountSid string) *D
 
 // Delete an instance of a Domain
 func (c *ApiService) DeleteSipDomain(Sid string, params *DeleteSipDomainParams) error {
+	return c.DeleteSipDomainWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) DeleteSipDomainWithContext(ctx context.Context, Sid string, params *DeleteSipDomainParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -207,7 +214,7 @@ func (c *ApiService) DeleteSipDomain(Sid string, params *DeleteSipDomainParams) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -230,6 +237,9 @@ func (params *FetchSipDomainParams) SetPathAccountSid(PathAccountSid string) *Fe
 
 // Fetch an instance of a Domain
 func (c *ApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*ApiV2010SipDomain, error) {
+	return c.FetchSipDomainWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) FetchSipDomainWithContext(ctx context.Context, Sid string, params *FetchSipDomainParams) (*ApiV2010SipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -243,7 +253,7 @@ func (c *ApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -283,6 +293,11 @@ func (params *ListSipDomainParams) SetLimit(Limit int) *ListSipDomainParams {
 
 // Retrieve a single page of SipDomain records from the API. Request is executed immediately.
 func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageNumber string) (*ListSipDomainResponse, error) {
+	return c.PageSipDomainWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of SipDomain records from the API. Request is executed immediately.
+func (c *ApiService) PageSipDomainWithContext(ctx context.Context, params *ListSipDomainParams, pageToken, pageNumber string) (*ListSipDomainResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -307,7 +322,7 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -324,7 +339,12 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageN
 
 // Lists SipDomain records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipDomain(params *ListSipDomainParams) ([]ApiV2010SipDomain, error) {
-	response, errors := c.StreamSipDomain(params)
+	return c.ListSipDomainWithContext(context.TODO(), params)
+}
+
+// Lists SipDomain records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSipDomainWithContext(ctx context.Context, params *ListSipDomainParams) ([]ApiV2010SipDomain, error) {
+	response, errors := c.StreamSipDomainWithContext(ctx, params)
 
 	records := make([]ApiV2010SipDomain, 0)
 	for record := range response {
@@ -340,6 +360,11 @@ func (c *ApiService) ListSipDomain(params *ListSipDomainParams) ([]ApiV2010SipDo
 
 // Streams SipDomain records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010SipDomain, chan error) {
+	return c.StreamSipDomainWithContext(context.TODO(), params)
+}
+
+// Streams SipDomain records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSipDomainWithContext(ctx context.Context, params *ListSipDomainParams) (chan ApiV2010SipDomain, chan error) {
 	if params == nil {
 		params = &ListSipDomainParams{}
 	}
@@ -348,19 +373,19 @@ func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010
 	recordChannel := make(chan ApiV2010SipDomain, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSipDomain(params, "", "")
+	response, err := c.PageSipDomainWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSipDomain(response, params, recordChannel, errorChannel)
+		go c.streamSipDomainWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSipDomain(response *ListSipDomainResponse, params *ListSipDomainParams, recordChannel chan ApiV2010SipDomain, errorChannel chan error) {
+func (c *ApiService) streamSipDomainWithContext(ctx context.Context, response *ListSipDomainResponse, params *ListSipDomainParams, recordChannel chan ApiV2010SipDomain, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -375,7 +400,7 @@ func (c *ApiService) streamSipDomain(response *ListSipDomainResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSipDomainResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSipDomainResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -390,11 +415,11 @@ func (c *ApiService) streamSipDomain(response *ListSipDomainResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSipDomainResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSipDomainResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -499,6 +524,9 @@ func (params *UpdateSipDomainParams) SetEmergencyCallerSid(EmergencyCallerSid st
 
 // Update the attributes of a domain
 func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) (*ApiV2010SipDomain, error) {
+	return c.UpdateSipDomainWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateSipDomainWithContext(ctx context.Context, Sid string, params *UpdateSipDomainParams) (*ApiV2010SipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -552,7 +580,7 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

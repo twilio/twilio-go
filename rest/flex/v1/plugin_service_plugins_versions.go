@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -70,8 +71,10 @@ func (params *CreatePluginVersionParams) SetValidateStatus(ValidateStatus string
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginVersion(PluginSid string, params *CreatePluginVersionParams) (*FlexV1PluginVersion, error) {
+	return c.CreatePluginVersionWithContext(context.TODO(), PluginSid, params)
+}
+func (c *ApiService) CreatePluginVersionWithContext(ctx context.Context, PluginSid string, params *CreatePluginVersionParams) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
 
@@ -102,7 +105,7 @@ func (c *ApiService) CreatePluginVersion(PluginSid string, params *CreatePluginV
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -128,8 +131,10 @@ func (params *FetchPluginVersionParams) SetFlexMetadata(FlexMetadata string) *Fe
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginVersion(PluginSid string, Sid string, params *FetchPluginVersionParams) (*FlexV1PluginVersion, error) {
+	return c.FetchPluginVersionWithContext(context.TODO(), PluginSid, Sid, params)
+}
+func (c *ApiService) FetchPluginVersionWithContext(ctx context.Context, PluginSid string, Sid string, params *FetchPluginVersionParams) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -142,7 +147,7 @@ func (c *ApiService) FetchPluginVersion(PluginSid string, Sid string, params *Fe
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -182,6 +187,11 @@ func (params *ListPluginVersionParams) SetLimit(Limit int) *ListPluginVersionPar
 
 // Retrieve a single page of PluginVersion records from the API. Request is executed immediately.
 func (c *ApiService) PagePluginVersion(PluginSid string, params *ListPluginVersionParams, pageToken, pageNumber string) (*ListPluginVersionResponse, error) {
+	return c.PagePluginVersionWithContext(context.TODO(), PluginSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of PluginVersion records from the API. Request is executed immediately.
+func (c *ApiService) PagePluginVersionWithContext(ctx context.Context, PluginSid string, params *ListPluginVersionParams, pageToken, pageNumber string) (*ListPluginVersionResponse, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions"
 
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -202,7 +212,7 @@ func (c *ApiService) PagePluginVersion(PluginSid string, params *ListPluginVersi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -219,7 +229,12 @@ func (c *ApiService) PagePluginVersion(PluginSid string, params *ListPluginVersi
 
 // Lists PluginVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPluginVersion(PluginSid string, params *ListPluginVersionParams) ([]FlexV1PluginVersion, error) {
-	response, errors := c.StreamPluginVersion(PluginSid, params)
+	return c.ListPluginVersionWithContext(context.TODO(), PluginSid, params)
+}
+
+// Lists PluginVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPluginVersionWithContext(ctx context.Context, PluginSid string, params *ListPluginVersionParams) ([]FlexV1PluginVersion, error) {
+	response, errors := c.StreamPluginVersionWithContext(ctx, PluginSid, params)
 
 	records := make([]FlexV1PluginVersion, 0)
 	for record := range response {
@@ -235,6 +250,11 @@ func (c *ApiService) ListPluginVersion(PluginSid string, params *ListPluginVersi
 
 // Streams PluginVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamPluginVersion(PluginSid string, params *ListPluginVersionParams) (chan FlexV1PluginVersion, chan error) {
+	return c.StreamPluginVersionWithContext(context.TODO(), PluginSid, params)
+}
+
+// Streams PluginVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamPluginVersionWithContext(ctx context.Context, PluginSid string, params *ListPluginVersionParams) (chan FlexV1PluginVersion, chan error) {
 	if params == nil {
 		params = &ListPluginVersionParams{}
 	}
@@ -243,19 +263,19 @@ func (c *ApiService) StreamPluginVersion(PluginSid string, params *ListPluginVer
 	recordChannel := make(chan FlexV1PluginVersion, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PagePluginVersion(PluginSid, params, "", "")
+	response, err := c.PagePluginVersionWithContext(ctx, PluginSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamPluginVersion(response, params, recordChannel, errorChannel)
+		go c.streamPluginVersionWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPluginVersion(response *ListPluginVersionResponse, params *ListPluginVersionParams, recordChannel chan FlexV1PluginVersion, errorChannel chan error) {
+func (c *ApiService) streamPluginVersionWithContext(ctx context.Context, response *ListPluginVersionResponse, params *ListPluginVersionParams, recordChannel chan FlexV1PluginVersion, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -270,7 +290,7 @@ func (c *ApiService) streamPluginVersion(response *ListPluginVersionResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListPluginVersionResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListPluginVersionResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -285,11 +305,11 @@ func (c *ApiService) streamPluginVersion(response *ListPluginVersionResponse, pa
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListPluginVersionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListPluginVersionResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

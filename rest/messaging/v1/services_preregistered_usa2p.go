@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -43,8 +44,10 @@ func (params *CreateExternalCampaignParams) SetCnpMigration(CnpMigration bool) *
 	return params
 }
 
-//
 func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
+	return c.CreateExternalCampaignWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateExternalCampaignWithContext(ctx context.Context, params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
 	path := "/v1/Services/PreregisteredUsa2p"
 
 	data := url.Values{}
@@ -62,7 +65,7 @@ func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams
 		data.Set("CnpMigration", fmt.Sprint(*params.CnpMigration))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

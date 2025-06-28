@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -34,6 +35,9 @@ func (params *CreatePortingWebhookConfigurationParams) SetBody(Body map[string]i
 
 // Create a Webhook Configuration
 func (c *ApiService) CreatePortingWebhookConfiguration(params *CreatePortingWebhookConfigurationParams) (*NumbersV1PortingWebhookConfiguration, error) {
+	return c.CreatePortingWebhookConfigurationWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreatePortingWebhookConfigurationWithContext(ctx context.Context, params *CreatePortingWebhookConfigurationParams) (*NumbersV1PortingWebhookConfiguration, error) {
 	path := "/v1/Porting/Configuration/Webhook"
 
 	data := url.Values{}
@@ -50,7 +54,7 @@ func (c *ApiService) CreatePortingWebhookConfiguration(params *CreatePortingWebh
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +71,9 @@ func (c *ApiService) CreatePortingWebhookConfiguration(params *CreatePortingWebh
 
 // Allows the client to delete a webhook configuration.
 func (c *ApiService) DeletePortingWebhookConfigurationDelete(WebhookType string) error {
+	return c.DeletePortingWebhookConfigurationDeleteWithContext(context.TODO(), WebhookType)
+}
+func (c *ApiService) DeletePortingWebhookConfigurationDeleteWithContext(ctx context.Context, WebhookType string) error {
 	path := "/v1/Porting/Configuration/Webhook/{WebhookType}"
 	path = strings.Replace(path, "{"+"WebhookType"+"}", fmt.Sprint(WebhookType), -1)
 
@@ -75,7 +82,7 @@ func (c *ApiService) DeletePortingWebhookConfigurationDelete(WebhookType string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -87,6 +94,9 @@ func (c *ApiService) DeletePortingWebhookConfigurationDelete(WebhookType string)
 
 // Allows to fetch the webhook configuration
 func (c *ApiService) FetchPortingWebhookConfigurationFetch() (*NumbersV1PortingWebhookConfigurationFetch, error) {
+	return c.FetchPortingWebhookConfigurationFetchWithContext(context.TODO())
+}
+func (c *ApiService) FetchPortingWebhookConfigurationFetchWithContext(ctx context.Context) (*NumbersV1PortingWebhookConfigurationFetch, error) {
 	path := "/v1/Porting/Configuration/Webhook"
 
 	data := url.Values{}
@@ -94,7 +104,7 @@ func (c *ApiService) FetchPortingWebhookConfigurationFetch() (*NumbersV1PortingW
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

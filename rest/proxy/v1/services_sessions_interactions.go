@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Delete a specific Interaction.
 func (c *ApiService) DeleteInteraction(ServiceSid string, SessionSid string, Sid string) error {
+	return c.DeleteInteractionWithContext(context.TODO(), ServiceSid, SessionSid, Sid)
+}
+func (c *ApiService) DeleteInteractionWithContext(ctx context.Context, ServiceSid string, SessionSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -35,7 +39,7 @@ func (c *ApiService) DeleteInteraction(ServiceSid string, SessionSid string, Sid
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -47,6 +51,9 @@ func (c *ApiService) DeleteInteraction(ServiceSid string, SessionSid string, Sid
 
 // Retrieve a list of Interactions for a given [Session](https://www.twilio.com/docs/proxy/api/session).
 func (c *ApiService) FetchInteraction(ServiceSid string, SessionSid string, Sid string) (*ProxyV1Interaction, error) {
+	return c.FetchInteractionWithContext(context.TODO(), ServiceSid, SessionSid, Sid)
+}
+func (c *ApiService) FetchInteractionWithContext(ctx context.Context, ServiceSid string, SessionSid string, Sid string) (*ProxyV1Interaction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -57,7 +64,7 @@ func (c *ApiService) FetchInteraction(ServiceSid string, SessionSid string, Sid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -91,6 +98,11 @@ func (params *ListInteractionParams) SetLimit(Limit int) *ListInteractionParams 
 
 // Retrieve a single page of Interaction records from the API. Request is executed immediately.
 func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, pageToken, pageNumber string) (*ListInteractionResponse, error) {
+	return c.PageInteractionWithContext(context.TODO(), ServiceSid, SessionSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Interaction records from the API. Request is executed immediately.
+func (c *ApiService) PageInteractionWithContext(ctx context.Context, ServiceSid string, SessionSid string, params *ListInteractionParams, pageToken, pageNumber string) (*ListInteractionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -112,7 +124,7 @@ func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, param
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -129,7 +141,12 @@ func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, param
 
 // Lists Interaction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) ([]ProxyV1Interaction, error) {
-	response, errors := c.StreamInteraction(ServiceSid, SessionSid, params)
+	return c.ListInteractionWithContext(context.TODO(), ServiceSid, SessionSid, params)
+}
+
+// Lists Interaction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInteractionWithContext(ctx context.Context, ServiceSid string, SessionSid string, params *ListInteractionParams) ([]ProxyV1Interaction, error) {
+	response, errors := c.StreamInteractionWithContext(ctx, ServiceSid, SessionSid, params)
 
 	records := make([]ProxyV1Interaction, 0)
 	for record := range response {
@@ -145,6 +162,11 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 
 // Streams Interaction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) (chan ProxyV1Interaction, chan error) {
+	return c.StreamInteractionWithContext(context.TODO(), ServiceSid, SessionSid, params)
+}
+
+// Streams Interaction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInteractionWithContext(ctx context.Context, ServiceSid string, SessionSid string, params *ListInteractionParams) (chan ProxyV1Interaction, chan error) {
 	if params == nil {
 		params = &ListInteractionParams{}
 	}
@@ -153,19 +175,19 @@ func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, par
 	recordChannel := make(chan ProxyV1Interaction, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInteraction(ServiceSid, SessionSid, params, "", "")
+	response, err := c.PageInteractionWithContext(ctx, ServiceSid, SessionSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInteraction(response, params, recordChannel, errorChannel)
+		go c.streamInteractionWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInteraction(response *ListInteractionResponse, params *ListInteractionParams, recordChannel chan ProxyV1Interaction, errorChannel chan error) {
+func (c *ApiService) streamInteractionWithContext(ctx context.Context, response *ListInteractionResponse, params *ListInteractionParams, recordChannel chan ProxyV1Interaction, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -180,7 +202,7 @@ func (c *ApiService) streamInteraction(response *ListInteractionResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListInteractionResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListInteractionResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -195,11 +217,11 @@ func (c *ApiService) streamInteraction(response *ListInteractionResponse, params
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInteractionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInteractionResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

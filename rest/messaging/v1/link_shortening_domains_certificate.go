@@ -15,13 +15,16 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) DeleteDomainCertV4(DomainSid string) error {
+	return c.DeleteDomainCertV4WithContext(context.TODO(), DomainSid)
+}
+func (c *ApiService) DeleteDomainCertV4WithContext(ctx context.Context, DomainSid string) error {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -30,7 +33,7 @@ func (c *ApiService) DeleteDomainCertV4(DomainSid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -40,8 +43,10 @@ func (c *ApiService) DeleteDomainCertV4(DomainSid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchDomainCertV4(DomainSid string) (*MessagingV1DomainCertV4, error) {
+	return c.FetchDomainCertV4WithContext(context.TODO(), DomainSid)
+}
+func (c *ApiService) FetchDomainCertV4WithContext(ctx context.Context, DomainSid string) (*MessagingV1DomainCertV4, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -50,7 +55,7 @@ func (c *ApiService) FetchDomainCertV4(DomainSid string) (*MessagingV1DomainCert
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -76,8 +81,10 @@ func (params *UpdateDomainCertV4Params) SetTlsCert(TlsCert string) *UpdateDomain
 	return params
 }
 
-//
 func (c *ApiService) UpdateDomainCertV4(DomainSid string, params *UpdateDomainCertV4Params) (*MessagingV1DomainCertV4, error) {
+	return c.UpdateDomainCertV4WithContext(context.TODO(), DomainSid, params)
+}
+func (c *ApiService) UpdateDomainCertV4WithContext(ctx context.Context, DomainSid string, params *UpdateDomainCertV4Params) (*MessagingV1DomainCertV4, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -90,7 +97,7 @@ func (c *ApiService) UpdateDomainCertV4(DomainSid string, params *UpdateDomainCe
 		data.Set("TlsCert", *params.TlsCert)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

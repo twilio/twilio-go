@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -73,6 +74,9 @@ func (params *CreateTokenParams) SetScope(Scope string) *CreateTokenParams {
 }
 
 func (c *ApiService) CreateToken(params *CreateTokenParams) (*OauthV1Token, error) {
+	return c.CreateTokenWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateTokenWithContext(ctx context.Context, params *CreateTokenParams) (*OauthV1Token, error) {
 	path := "/v1/token"
 
 	data := url.Values{}
@@ -105,7 +109,7 @@ func (c *ApiService) CreateToken(params *CreateTokenParams) (*OauthV1Token, erro
 		data.Set("scope", *params.Scope)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

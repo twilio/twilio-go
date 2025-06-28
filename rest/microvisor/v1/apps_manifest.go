@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -22,6 +23,9 @@ import (
 
 // Retrieve the Manifest for an App.
 func (c *ApiService) FetchAppManifest(AppSid string) (*MicrovisorV1AppManifest, error) {
+	return c.FetchAppManifestWithContext(context.TODO(), AppSid)
+}
+func (c *ApiService) FetchAppManifestWithContext(ctx context.Context, AppSid string) (*MicrovisorV1AppManifest, error) {
 	path := "/v1/Apps/{AppSid}/Manifest"
 	path = strings.Replace(path, "{"+"AppSid"+"}", AppSid, -1)
 
@@ -30,7 +34,7 @@ func (c *ApiService) FetchAppManifest(AppSid string) (*MicrovisorV1AppManifest, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

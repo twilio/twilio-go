@@ -15,13 +15,16 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
 )
 
-//
 func (c *ApiService) FetchCall(Sid string) (*InsightsV1Call, error) {
+	return c.FetchCallWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchCallWithContext(ctx context.Context, Sid string) (*InsightsV1Call, error) {
 	path := "/v1/Voice/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -30,7 +33,7 @@ func (c *ApiService) FetchCall(Sid string) (*InsightsV1Call, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -72,6 +73,11 @@ func (params *ListUsageRecordDailyParams) SetLimit(Limit int) *ListUsageRecordDa
 
 // Retrieve a single page of UsageRecordDaily records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecordDaily(params *ListUsageRecordDailyParams, pageToken, pageNumber string) (*ListUsageRecordDailyResponse, error) {
+	return c.PageUsageRecordDailyWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of UsageRecordDaily records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecordDailyWithContext(ctx context.Context, params *ListUsageRecordDailyParams, pageToken, pageNumber string) (*ListUsageRecordDailyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -108,7 +114,7 @@ func (c *ApiService) PageUsageRecordDaily(params *ListUsageRecordDailyParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +131,12 @@ func (c *ApiService) PageUsageRecordDaily(params *ListUsageRecordDailyParams, pa
 
 // Lists UsageRecordDaily records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordDaily(params *ListUsageRecordDailyParams) ([]ApiV2010UsageRecordDaily, error) {
-	response, errors := c.StreamUsageRecordDaily(params)
+	return c.ListUsageRecordDailyWithContext(context.TODO(), params)
+}
+
+// Lists UsageRecordDaily records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordDailyWithContext(ctx context.Context, params *ListUsageRecordDailyParams) ([]ApiV2010UsageRecordDaily, error) {
+	response, errors := c.StreamUsageRecordDailyWithContext(ctx, params)
 
 	records := make([]ApiV2010UsageRecordDaily, 0)
 	for record := range response {
@@ -141,6 +152,11 @@ func (c *ApiService) ListUsageRecordDaily(params *ListUsageRecordDailyParams) ([
 
 // Streams UsageRecordDaily records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecordDaily(params *ListUsageRecordDailyParams) (chan ApiV2010UsageRecordDaily, chan error) {
+	return c.StreamUsageRecordDailyWithContext(context.TODO(), params)
+}
+
+// Streams UsageRecordDaily records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordDailyWithContext(ctx context.Context, params *ListUsageRecordDailyParams) (chan ApiV2010UsageRecordDaily, chan error) {
 	if params == nil {
 		params = &ListUsageRecordDailyParams{}
 	}
@@ -149,19 +165,19 @@ func (c *ApiService) StreamUsageRecordDaily(params *ListUsageRecordDailyParams) 
 	recordChannel := make(chan ApiV2010UsageRecordDaily, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageUsageRecordDaily(params, "", "")
+	response, err := c.PageUsageRecordDailyWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamUsageRecordDaily(response, params, recordChannel, errorChannel)
+		go c.streamUsageRecordDailyWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamUsageRecordDaily(response *ListUsageRecordDailyResponse, params *ListUsageRecordDailyParams, recordChannel chan ApiV2010UsageRecordDaily, errorChannel chan error) {
+func (c *ApiService) streamUsageRecordDailyWithContext(ctx context.Context, response *ListUsageRecordDailyResponse, params *ListUsageRecordDailyParams, recordChannel chan ApiV2010UsageRecordDaily, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -176,7 +192,7 @@ func (c *ApiService) streamUsageRecordDaily(response *ListUsageRecordDailyRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListUsageRecordDailyResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListUsageRecordDailyResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -191,11 +207,11 @@ func (c *ApiService) streamUsageRecordDaily(response *ListUsageRecordDailyRespon
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListUsageRecordDailyResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListUsageRecordDailyResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

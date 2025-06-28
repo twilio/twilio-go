@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -40,8 +41,10 @@ func (params *CreateDestinationAlphaSenderParams) SetIsoCountryCode(IsoCountryCo
 	return params
 }
 
-//
 func (c *ApiService) CreateDestinationAlphaSender(ServiceSid string, params *CreateDestinationAlphaSenderParams) (*MessagingV1DestinationAlphaSender, error) {
+	return c.CreateDestinationAlphaSenderWithContext(context.TODO(), ServiceSid, params)
+}
+func (c *ApiService) CreateDestinationAlphaSenderWithContext(ctx context.Context, ServiceSid string, params *CreateDestinationAlphaSenderParams) (*MessagingV1DestinationAlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/DestinationAlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -57,7 +60,7 @@ func (c *ApiService) CreateDestinationAlphaSender(ServiceSid string, params *Cre
 		data.Set("IsoCountryCode", *params.IsoCountryCode)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -72,8 +75,10 @@ func (c *ApiService) CreateDestinationAlphaSender(ServiceSid string, params *Cre
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteDestinationAlphaSender(ServiceSid string, Sid string) error {
+	return c.DeleteDestinationAlphaSenderWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) DeleteDestinationAlphaSenderWithContext(ctx context.Context, ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -83,7 +88,7 @@ func (c *ApiService) DeleteDestinationAlphaSender(ServiceSid string, Sid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -93,8 +98,10 @@ func (c *ApiService) DeleteDestinationAlphaSender(ServiceSid string, Sid string)
 	return nil
 }
 
-//
 func (c *ApiService) FetchDestinationAlphaSender(ServiceSid string, Sid string) (*MessagingV1DestinationAlphaSender, error) {
+	return c.FetchDestinationAlphaSenderWithContext(context.TODO(), ServiceSid, Sid)
+}
+func (c *ApiService) FetchDestinationAlphaSenderWithContext(ctx context.Context, ServiceSid string, Sid string) (*MessagingV1DestinationAlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -104,7 +111,7 @@ func (c *ApiService) FetchDestinationAlphaSender(ServiceSid string, Sid string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -144,6 +151,11 @@ func (params *ListDestinationAlphaSenderParams) SetLimit(Limit int) *ListDestina
 
 // Retrieve a single page of DestinationAlphaSender records from the API. Request is executed immediately.
 func (c *ApiService) PageDestinationAlphaSender(ServiceSid string, params *ListDestinationAlphaSenderParams, pageToken, pageNumber string) (*ListDestinationAlphaSenderResponse, error) {
+	return c.PageDestinationAlphaSenderWithContext(context.TODO(), ServiceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of DestinationAlphaSender records from the API. Request is executed immediately.
+func (c *ApiService) PageDestinationAlphaSenderWithContext(ctx context.Context, ServiceSid string, params *ListDestinationAlphaSenderParams, pageToken, pageNumber string) (*ListDestinationAlphaSenderResponse, error) {
 	path := "/v1/Services/{ServiceSid}/DestinationAlphaSenders"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -167,7 +179,7 @@ func (c *ApiService) PageDestinationAlphaSender(ServiceSid string, params *ListD
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -184,7 +196,12 @@ func (c *ApiService) PageDestinationAlphaSender(ServiceSid string, params *ListD
 
 // Lists DestinationAlphaSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDestinationAlphaSender(ServiceSid string, params *ListDestinationAlphaSenderParams) ([]MessagingV1DestinationAlphaSender, error) {
-	response, errors := c.StreamDestinationAlphaSender(ServiceSid, params)
+	return c.ListDestinationAlphaSenderWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Lists DestinationAlphaSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDestinationAlphaSenderWithContext(ctx context.Context, ServiceSid string, params *ListDestinationAlphaSenderParams) ([]MessagingV1DestinationAlphaSender, error) {
+	response, errors := c.StreamDestinationAlphaSenderWithContext(ctx, ServiceSid, params)
 
 	records := make([]MessagingV1DestinationAlphaSender, 0)
 	for record := range response {
@@ -200,6 +217,11 @@ func (c *ApiService) ListDestinationAlphaSender(ServiceSid string, params *ListD
 
 // Streams DestinationAlphaSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDestinationAlphaSender(ServiceSid string, params *ListDestinationAlphaSenderParams) (chan MessagingV1DestinationAlphaSender, chan error) {
+	return c.StreamDestinationAlphaSenderWithContext(context.TODO(), ServiceSid, params)
+}
+
+// Streams DestinationAlphaSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDestinationAlphaSenderWithContext(ctx context.Context, ServiceSid string, params *ListDestinationAlphaSenderParams) (chan MessagingV1DestinationAlphaSender, chan error) {
 	if params == nil {
 		params = &ListDestinationAlphaSenderParams{}
 	}
@@ -208,19 +230,19 @@ func (c *ApiService) StreamDestinationAlphaSender(ServiceSid string, params *Lis
 	recordChannel := make(chan MessagingV1DestinationAlphaSender, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDestinationAlphaSender(ServiceSid, params, "", "")
+	response, err := c.PageDestinationAlphaSenderWithContext(ctx, ServiceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDestinationAlphaSender(response, params, recordChannel, errorChannel)
+		go c.streamDestinationAlphaSenderWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDestinationAlphaSender(response *ListDestinationAlphaSenderResponse, params *ListDestinationAlphaSenderParams, recordChannel chan MessagingV1DestinationAlphaSender, errorChannel chan error) {
+func (c *ApiService) streamDestinationAlphaSenderWithContext(ctx context.Context, response *ListDestinationAlphaSenderResponse, params *ListDestinationAlphaSenderParams, recordChannel chan MessagingV1DestinationAlphaSender, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -235,7 +257,7 @@ func (c *ApiService) streamDestinationAlphaSender(response *ListDestinationAlpha
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDestinationAlphaSenderResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListDestinationAlphaSenderResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -250,11 +272,11 @@ func (c *ApiService) streamDestinationAlphaSender(response *ListDestinationAlpha
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDestinationAlphaSenderResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDestinationAlphaSenderResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

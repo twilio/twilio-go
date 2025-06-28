@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -88,8 +89,10 @@ func (params *CreateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *Cre
 	return params
 }
 
-//
 func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
+	return c.CreateByocTrunkWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateByocTrunkWithContext(ctx context.Context, params *CreateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks"
 
 	data := url.Values{}
@@ -128,7 +131,7 @@ func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1Byo
 		data.Set("FromDomainSid", *params.FromDomainSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -143,8 +146,10 @@ func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1Byo
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteByocTrunk(Sid string) error {
+	return c.DeleteByocTrunkWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteByocTrunkWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -153,7 +158,7 @@ func (c *ApiService) DeleteByocTrunk(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -163,8 +168,10 @@ func (c *ApiService) DeleteByocTrunk(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
+	return c.FetchByocTrunkWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchByocTrunkWithContext(ctx context.Context, Sid string) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -173,7 +180,7 @@ func (c *ApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -207,6 +214,11 @@ func (params *ListByocTrunkParams) SetLimit(Limit int) *ListByocTrunkParams {
 
 // Retrieve a single page of ByocTrunk records from the API. Request is executed immediately.
 func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken, pageNumber string) (*ListByocTrunkResponse, error) {
+	return c.PageByocTrunkWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ByocTrunk records from the API. Request is executed immediately.
+func (c *ApiService) PageByocTrunkWithContext(ctx context.Context, params *ListByocTrunkParams, pageToken, pageNumber string) (*ListByocTrunkResponse, error) {
 	path := "/v1/ByocTrunks"
 
 	data := url.Values{}
@@ -225,7 +237,7 @@ func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -242,7 +254,12 @@ func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken, pageN
 
 // Lists ByocTrunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams) ([]VoiceV1ByocTrunk, error) {
-	response, errors := c.StreamByocTrunk(params)
+	return c.ListByocTrunkWithContext(context.TODO(), params)
+}
+
+// Lists ByocTrunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListByocTrunkWithContext(ctx context.Context, params *ListByocTrunkParams) ([]VoiceV1ByocTrunk, error) {
+	response, errors := c.StreamByocTrunkWithContext(ctx, params)
 
 	records := make([]VoiceV1ByocTrunk, 0)
 	for record := range response {
@@ -258,6 +275,11 @@ func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams) ([]VoiceV1ByocTr
 
 // Streams ByocTrunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams) (chan VoiceV1ByocTrunk, chan error) {
+	return c.StreamByocTrunkWithContext(context.TODO(), params)
+}
+
+// Streams ByocTrunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamByocTrunkWithContext(ctx context.Context, params *ListByocTrunkParams) (chan VoiceV1ByocTrunk, chan error) {
 	if params == nil {
 		params = &ListByocTrunkParams{}
 	}
@@ -266,19 +288,19 @@ func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams) (chan VoiceV1B
 	recordChannel := make(chan VoiceV1ByocTrunk, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageByocTrunk(params, "", "")
+	response, err := c.PageByocTrunkWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamByocTrunk(response, params, recordChannel, errorChannel)
+		go c.streamByocTrunkWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamByocTrunk(response *ListByocTrunkResponse, params *ListByocTrunkParams, recordChannel chan VoiceV1ByocTrunk, errorChannel chan error) {
+func (c *ApiService) streamByocTrunkWithContext(ctx context.Context, response *ListByocTrunkResponse, params *ListByocTrunkParams, recordChannel chan VoiceV1ByocTrunk, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -293,7 +315,7 @@ func (c *ApiService) streamByocTrunk(response *ListByocTrunkResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListByocTrunkResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListByocTrunkResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -308,11 +330,11 @@ func (c *ApiService) streamByocTrunk(response *ListByocTrunkResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListByocTrunkResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListByocTrunkResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -391,8 +413,10 @@ func (params *UpdateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *Upd
 	return params
 }
 
-//
 func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
+	return c.UpdateByocTrunkWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateByocTrunkWithContext(ctx context.Context, Sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -432,7 +456,7 @@ func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) 
 		data.Set("FromDomainSid", *params.FromDomainSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

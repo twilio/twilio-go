@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreatePortingPortInParams) SetBody(Body map[string]interface{}) *C
 
 // Allows to create a new port in request
 func (c *ApiService) CreatePortingPortIn(params *CreatePortingPortInParams) (*NumbersV1PortingPortIn, error) {
+	return c.CreatePortingPortInWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreatePortingPortInWithContext(ctx context.Context, params *CreatePortingPortInParams) (*NumbersV1PortingPortIn, error) {
 	path := "/v1/Porting/PortIn"
 
 	data := url.Values{}
@@ -49,7 +53,7 @@ func (c *ApiService) CreatePortingPortIn(params *CreatePortingPortInParams) (*Nu
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,6 +70,9 @@ func (c *ApiService) CreatePortingPortIn(params *CreatePortingPortInParams) (*Nu
 
 // Allows to cancel a port in request by SID
 func (c *ApiService) DeletePortingPortIn(PortInRequestSid string) error {
+	return c.DeletePortingPortInWithContext(context.TODO(), PortInRequestSid)
+}
+func (c *ApiService) DeletePortingPortInWithContext(ctx context.Context, PortInRequestSid string) error {
 	path := "/v1/Porting/PortIn/{PortInRequestSid}"
 	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
 
@@ -74,7 +81,7 @@ func (c *ApiService) DeletePortingPortIn(PortInRequestSid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -86,6 +93,9 @@ func (c *ApiService) DeletePortingPortIn(PortInRequestSid string) error {
 
 // Fetch a port in request by SID
 func (c *ApiService) FetchPortingPortIn(PortInRequestSid string) (*NumbersV1PortingPortIn, error) {
+	return c.FetchPortingPortInWithContext(context.TODO(), PortInRequestSid)
+}
+func (c *ApiService) FetchPortingPortInWithContext(ctx context.Context, PortInRequestSid string) (*NumbersV1PortingPortIn, error) {
 	path := "/v1/Porting/PortIn/{PortInRequestSid}"
 	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
 
@@ -94,7 +104,7 @@ func (c *ApiService) FetchPortingPortIn(PortInRequestSid string) (*NumbersV1Port
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

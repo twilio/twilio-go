@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -64,8 +65,10 @@ func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivity
 	return params
 }
 
-//
 func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
+	return c.CreateTaskQueueWithContext(context.TODO(), WorkspaceSid, params)
+}
+func (c *ApiService) CreateTaskQueueWithContext(ctx context.Context, WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -93,7 +96,7 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -108,8 +111,10 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
+	return c.DeleteTaskQueueWithContext(context.TODO(), WorkspaceSid, Sid)
+}
+func (c *ApiService) DeleteTaskQueueWithContext(ctx context.Context, WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -119,7 +124,7 @@ func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -129,8 +134,10 @@ func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*TaskrouterV1TaskQueue, error) {
+	return c.FetchTaskQueueWithContext(context.TODO(), WorkspaceSid, Sid)
+}
+func (c *ApiService) FetchTaskQueueWithContext(ctx context.Context, WorkspaceSid string, Sid string) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -140,7 +147,7 @@ func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*Taskroute
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -198,6 +205,11 @@ func (params *ListTaskQueueParams) SetLimit(Limit int) *ListTaskQueueParams {
 
 // Retrieve a single page of TaskQueue records from the API. Request is executed immediately.
 func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueueParams, pageToken, pageNumber string) (*ListTaskQueueResponse, error) {
+	return c.PageTaskQueueWithContext(context.TODO(), WorkspaceSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of TaskQueue records from the API. Request is executed immediately.
+func (c *ApiService) PageTaskQueueWithContext(ctx context.Context, WorkspaceSid string, params *ListTaskQueueParams, pageToken, pageNumber string) (*ListTaskQueueResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -230,7 +242,7 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -247,7 +259,12 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 
 // Lists TaskQueue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) ([]TaskrouterV1TaskQueue, error) {
-	response, errors := c.StreamTaskQueue(WorkspaceSid, params)
+	return c.ListTaskQueueWithContext(context.TODO(), WorkspaceSid, params)
+}
+
+// Lists TaskQueue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTaskQueueWithContext(ctx context.Context, WorkspaceSid string, params *ListTaskQueueParams) ([]TaskrouterV1TaskQueue, error) {
+	response, errors := c.StreamTaskQueueWithContext(ctx, WorkspaceSid, params)
 
 	records := make([]TaskrouterV1TaskQueue, 0)
 	for record := range response {
@@ -263,6 +280,11 @@ func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 
 // Streams TaskQueue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) (chan TaskrouterV1TaskQueue, chan error) {
+	return c.StreamTaskQueueWithContext(context.TODO(), WorkspaceSid, params)
+}
+
+// Streams TaskQueue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTaskQueueWithContext(ctx context.Context, WorkspaceSid string, params *ListTaskQueueParams) (chan TaskrouterV1TaskQueue, chan error) {
 	if params == nil {
 		params = &ListTaskQueueParams{}
 	}
@@ -271,19 +293,19 @@ func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueP
 	recordChannel := make(chan TaskrouterV1TaskQueue, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTaskQueue(WorkspaceSid, params, "", "")
+	response, err := c.PageTaskQueueWithContext(ctx, WorkspaceSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTaskQueue(response, params, recordChannel, errorChannel)
+		go c.streamTaskQueueWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTaskQueue(response *ListTaskQueueResponse, params *ListTaskQueueParams, recordChannel chan TaskrouterV1TaskQueue, errorChannel chan error) {
+func (c *ApiService) streamTaskQueueWithContext(ctx context.Context, response *ListTaskQueueResponse, params *ListTaskQueueParams, recordChannel chan TaskrouterV1TaskQueue, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -298,7 +320,7 @@ func (c *ApiService) streamTaskQueue(response *ListTaskQueueResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListTaskQueueResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListTaskQueueResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -313,11 +335,11 @@ func (c *ApiService) streamTaskQueue(response *ListTaskQueueResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTaskQueueResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTaskQueueResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -372,8 +394,10 @@ func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQ
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
+	return c.UpdateTaskQueueWithContext(context.TODO(), WorkspaceSid, Sid, params)
+}
+func (c *ApiService) UpdateTaskQueueWithContext(ctx context.Context, WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -402,7 +426,7 @@ func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *Up
 		data.Set("TaskOrder", fmt.Sprint(*params.TaskOrder))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

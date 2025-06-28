@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 )
@@ -30,8 +31,10 @@ func (params *CreateReferralConversionParams) SetCreateReferralConversionRequest
 	return params
 }
 
-//
 func (c *ApiService) CreateReferralConversion(params *CreateReferralConversionParams) (*MarketplaceV1ReferralConversion, error) {
+	return c.CreateReferralConversionWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateReferralConversionWithContext(ctx context.Context, params *CreateReferralConversionParams) (*MarketplaceV1ReferralConversion, error) {
 	path := "/v1/ReferralConversion"
 
 	data := url.Values{}
@@ -48,7 +51,7 @@ func (c *ApiService) CreateReferralConversion(params *CreateReferralConversionPa
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

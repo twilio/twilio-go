@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -49,6 +50,9 @@ func (params *CreateExecutionParams) SetParameters(Parameters map[string]interfa
 
 // Triggers a new Execution for the Flow
 func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionParams) (*StudioV1Execution, error) {
+	return c.CreateExecutionWithContext(context.TODO(), FlowSid, params)
+}
+func (c *ApiService) CreateExecutionWithContext(ctx context.Context, FlowSid string, params *CreateExecutionParams) (*StudioV1Execution, error) {
 	path := "/v1/Flows/{FlowSid}/Executions"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
@@ -73,7 +77,7 @@ func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionPara
 		data.Set("Parameters", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -90,6 +94,9 @@ func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionPara
 
 // Delete the Execution and all Steps relating to it.
 func (c *ApiService) DeleteExecution(FlowSid string, Sid string) error {
+	return c.DeleteExecutionWithContext(context.TODO(), FlowSid, Sid)
+}
+func (c *ApiService) DeleteExecutionWithContext(ctx context.Context, FlowSid string, Sid string) error {
 	path := "/v1/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -99,7 +106,7 @@ func (c *ApiService) DeleteExecution(FlowSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -111,6 +118,9 @@ func (c *ApiService) DeleteExecution(FlowSid string, Sid string) error {
 
 // Retrieve an Execution
 func (c *ApiService) FetchExecution(FlowSid string, Sid string) (*StudioV1Execution, error) {
+	return c.FetchExecutionWithContext(context.TODO(), FlowSid, Sid)
+}
+func (c *ApiService) FetchExecutionWithContext(ctx context.Context, FlowSid string, Sid string) (*StudioV1Execution, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -120,7 +130,7 @@ func (c *ApiService) FetchExecution(FlowSid string, Sid string) (*StudioV1Execut
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,6 +176,11 @@ func (params *ListExecutionParams) SetLimit(Limit int) *ListExecutionParams {
 
 // Retrieve a single page of Execution records from the API. Request is executed immediately.
 func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, pageToken, pageNumber string) (*ListExecutionResponse, error) {
+	return c.PageExecutionWithContext(context.TODO(), FlowSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Execution records from the API. Request is executed immediately.
+func (c *ApiService) PageExecutionWithContext(ctx context.Context, FlowSid string, params *ListExecutionParams, pageToken, pageNumber string) (*ListExecutionResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Executions"
 
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -192,7 +207,7 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -209,7 +224,12 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 
 // Lists Execution records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) ([]StudioV1Execution, error) {
-	response, errors := c.StreamExecution(FlowSid, params)
+	return c.ListExecutionWithContext(context.TODO(), FlowSid, params)
+}
+
+// Lists Execution records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListExecutionWithContext(ctx context.Context, FlowSid string, params *ListExecutionParams) ([]StudioV1Execution, error) {
+	response, errors := c.StreamExecutionWithContext(ctx, FlowSid, params)
 
 	records := make([]StudioV1Execution, 0)
 	for record := range response {
@@ -225,6 +245,11 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) 
 
 // Streams Execution records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams) (chan StudioV1Execution, chan error) {
+	return c.StreamExecutionWithContext(context.TODO(), FlowSid, params)
+}
+
+// Streams Execution records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamExecutionWithContext(ctx context.Context, FlowSid string, params *ListExecutionParams) (chan StudioV1Execution, chan error) {
 	if params == nil {
 		params = &ListExecutionParams{}
 	}
@@ -233,19 +258,19 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 	recordChannel := make(chan StudioV1Execution, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageExecution(FlowSid, params, "", "")
+	response, err := c.PageExecutionWithContext(ctx, FlowSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamExecution(response, params, recordChannel, errorChannel)
+		go c.streamExecutionWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamExecution(response *ListExecutionResponse, params *ListExecutionParams, recordChannel chan StudioV1Execution, errorChannel chan error) {
+func (c *ApiService) streamExecutionWithContext(ctx context.Context, response *ListExecutionResponse, params *ListExecutionParams, recordChannel chan StudioV1Execution, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -260,7 +285,7 @@ func (c *ApiService) streamExecution(response *ListExecutionResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListExecutionResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListExecutionResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -275,11 +300,11 @@ func (c *ApiService) streamExecution(response *ListExecutionResponse, params *Li
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListExecutionResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListExecutionResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -306,6 +331,9 @@ func (params *UpdateExecutionParams) SetStatus(Status string) *UpdateExecutionPa
 
 // Update the status of an Execution to `ended`.
 func (c *ApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateExecutionParams) (*StudioV1Execution, error) {
+	return c.UpdateExecutionWithContext(context.TODO(), FlowSid, Sid, params)
+}
+func (c *ApiService) UpdateExecutionWithContext(ctx context.Context, FlowSid string, Sid string, params *UpdateExecutionParams) (*StudioV1Execution, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -319,7 +347,7 @@ func (c *ApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateE
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

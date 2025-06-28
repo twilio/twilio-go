@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -52,8 +53,10 @@ func (params *CreatePluginConfigurationParams) SetDescription(Description string
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginConfiguration(params *CreatePluginConfigurationParams) (*FlexV1PluginConfiguration, error) {
+	return c.CreatePluginConfigurationWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreatePluginConfigurationWithContext(ctx context.Context, params *CreatePluginConfigurationParams) (*FlexV1PluginConfiguration, error) {
 	path := "/v1/PluginService/Configurations"
 
 	data := url.Values{}
@@ -82,7 +85,7 @@ func (c *ApiService) CreatePluginConfiguration(params *CreatePluginConfiguration
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -108,8 +111,10 @@ func (params *FetchPluginConfigurationParams) SetFlexMetadata(FlexMetadata strin
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginConfiguration(Sid string, params *FetchPluginConfigurationParams) (*FlexV1PluginConfiguration, error) {
+	return c.FetchPluginConfigurationWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) FetchPluginConfigurationWithContext(ctx context.Context, Sid string, params *FetchPluginConfigurationParams) (*FlexV1PluginConfiguration, error) {
 	path := "/v1/PluginService/Configurations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -121,7 +126,7 @@ func (c *ApiService) FetchPluginConfiguration(Sid string, params *FetchPluginCon
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -161,6 +166,11 @@ func (params *ListPluginConfigurationParams) SetLimit(Limit int) *ListPluginConf
 
 // Retrieve a single page of PluginConfiguration records from the API. Request is executed immediately.
 func (c *ApiService) PagePluginConfiguration(params *ListPluginConfigurationParams, pageToken, pageNumber string) (*ListPluginConfigurationResponse, error) {
+	return c.PagePluginConfigurationWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of PluginConfiguration records from the API. Request is executed immediately.
+func (c *ApiService) PagePluginConfigurationWithContext(ctx context.Context, params *ListPluginConfigurationParams, pageToken, pageNumber string) (*ListPluginConfigurationResponse, error) {
 	path := "/v1/PluginService/Configurations"
 
 	data := url.Values{}
@@ -179,7 +189,7 @@ func (c *ApiService) PagePluginConfiguration(params *ListPluginConfigurationPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +206,12 @@ func (c *ApiService) PagePluginConfiguration(params *ListPluginConfigurationPara
 
 // Lists PluginConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPluginConfiguration(params *ListPluginConfigurationParams) ([]FlexV1PluginConfiguration, error) {
-	response, errors := c.StreamPluginConfiguration(params)
+	return c.ListPluginConfigurationWithContext(context.TODO(), params)
+}
+
+// Lists PluginConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPluginConfigurationWithContext(ctx context.Context, params *ListPluginConfigurationParams) ([]FlexV1PluginConfiguration, error) {
+	response, errors := c.StreamPluginConfigurationWithContext(ctx, params)
 
 	records := make([]FlexV1PluginConfiguration, 0)
 	for record := range response {
@@ -212,6 +227,11 @@ func (c *ApiService) ListPluginConfiguration(params *ListPluginConfigurationPara
 
 // Streams PluginConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamPluginConfiguration(params *ListPluginConfigurationParams) (chan FlexV1PluginConfiguration, chan error) {
+	return c.StreamPluginConfigurationWithContext(context.TODO(), params)
+}
+
+// Streams PluginConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamPluginConfigurationWithContext(ctx context.Context, params *ListPluginConfigurationParams) (chan FlexV1PluginConfiguration, chan error) {
 	if params == nil {
 		params = &ListPluginConfigurationParams{}
 	}
@@ -220,19 +240,19 @@ func (c *ApiService) StreamPluginConfiguration(params *ListPluginConfigurationPa
 	recordChannel := make(chan FlexV1PluginConfiguration, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PagePluginConfiguration(params, "", "")
+	response, err := c.PagePluginConfigurationWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamPluginConfiguration(response, params, recordChannel, errorChannel)
+		go c.streamPluginConfigurationWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamPluginConfiguration(response *ListPluginConfigurationResponse, params *ListPluginConfigurationParams, recordChannel chan FlexV1PluginConfiguration, errorChannel chan error) {
+func (c *ApiService) streamPluginConfigurationWithContext(ctx context.Context, response *ListPluginConfigurationResponse, params *ListPluginConfigurationParams, recordChannel chan FlexV1PluginConfiguration, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -247,7 +267,7 @@ func (c *ApiService) streamPluginConfiguration(response *ListPluginConfiguration
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListPluginConfigurationResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListPluginConfigurationResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -262,11 +282,11 @@ func (c *ApiService) streamPluginConfiguration(response *ListPluginConfiguration
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListPluginConfigurationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListPluginConfigurationResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -166,8 +167,10 @@ func (params *CreateTollfreeVerificationParams) SetExternalReferenceId(ExternalR
 	return params
 }
 
-//
 func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
+	return c.CreateTollfreeVerificationWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateTollfreeVerificationWithContext(ctx context.Context, params *CreateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications"
 
 	data := url.Values{}
@@ -249,7 +252,7 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -264,8 +267,10 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	return ps, err
 }
 
-//
 func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
+	return c.DeleteTollfreeVerificationWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) DeleteTollfreeVerificationWithContext(ctx context.Context, Sid string) error {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -274,7 +279,7 @@ func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -284,8 +289,10 @@ func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	return nil
 }
 
-//
 func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1TollfreeVerification, error) {
+	return c.FetchTollfreeVerificationWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchTollfreeVerificationWithContext(ctx context.Context, Sid string) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -294,7 +301,7 @@ func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1Tollfree
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -352,6 +359,11 @@ func (params *ListTollfreeVerificationParams) SetLimit(Limit int) *ListTollfreeV
 
 // Retrieve a single page of TollfreeVerification records from the API. Request is executed immediately.
 func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationParams, pageToken, pageNumber string) (*ListTollfreeVerificationResponse, error) {
+	return c.PageTollfreeVerificationWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of TollfreeVerification records from the API. Request is executed immediately.
+func (c *ApiService) PageTollfreeVerificationWithContext(ctx context.Context, params *ListTollfreeVerificationParams, pageToken, pageNumber string) (*ListTollfreeVerificationResponse, error) {
 	path := "/v1/Tollfree/Verifications"
 
 	data := url.Values{}
@@ -382,7 +394,7 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -399,7 +411,12 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
 
 // Lists TollfreeVerification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTollfreeVerification(params *ListTollfreeVerificationParams) ([]MessagingV1TollfreeVerification, error) {
-	response, errors := c.StreamTollfreeVerification(params)
+	return c.ListTollfreeVerificationWithContext(context.TODO(), params)
+}
+
+// Lists TollfreeVerification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTollfreeVerificationWithContext(ctx context.Context, params *ListTollfreeVerificationParams) ([]MessagingV1TollfreeVerification, error) {
+	response, errors := c.StreamTollfreeVerificationWithContext(ctx, params)
 
 	records := make([]MessagingV1TollfreeVerification, 0)
 	for record := range response {
@@ -415,6 +432,11 @@ func (c *ApiService) ListTollfreeVerification(params *ListTollfreeVerificationPa
 
 // Streams TollfreeVerification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTollfreeVerification(params *ListTollfreeVerificationParams) (chan MessagingV1TollfreeVerification, chan error) {
+	return c.StreamTollfreeVerificationWithContext(context.TODO(), params)
+}
+
+// Streams TollfreeVerification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTollfreeVerificationWithContext(ctx context.Context, params *ListTollfreeVerificationParams) (chan MessagingV1TollfreeVerification, chan error) {
 	if params == nil {
 		params = &ListTollfreeVerificationParams{}
 	}
@@ -423,19 +445,19 @@ func (c *ApiService) StreamTollfreeVerification(params *ListTollfreeVerification
 	recordChannel := make(chan MessagingV1TollfreeVerification, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTollfreeVerification(params, "", "")
+	response, err := c.PageTollfreeVerificationWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTollfreeVerification(response, params, recordChannel, errorChannel)
+		go c.streamTollfreeVerificationWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTollfreeVerification(response *ListTollfreeVerificationResponse, params *ListTollfreeVerificationParams, recordChannel chan MessagingV1TollfreeVerification, errorChannel chan error) {
+func (c *ApiService) streamTollfreeVerificationWithContext(ctx context.Context, response *ListTollfreeVerificationResponse, params *ListTollfreeVerificationParams, recordChannel chan MessagingV1TollfreeVerification, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -450,7 +472,7 @@ func (c *ApiService) streamTollfreeVerification(response *ListTollfreeVerificati
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListTollfreeVerificationResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListTollfreeVerificationResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -465,11 +487,11 @@ func (c *ApiService) streamTollfreeVerification(response *ListTollfreeVerificati
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTollfreeVerificationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTollfreeVerificationResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -614,8 +636,10 @@ func (params *UpdateTollfreeVerificationParams) SetEditReason(EditReason string)
 	return params
 }
 
-//
 func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
+	return c.UpdateTollfreeVerificationWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateTollfreeVerificationWithContext(ctx context.Context, Sid string, params *UpdateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -692,7 +716,7 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 		data.Set("EditReason", *params.EditReason)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

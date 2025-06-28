@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Creates an evaluation for a bundle
 func (c *ApiService) CreateEvaluation(BundleSid string) (*NumbersV2Evaluation, error) {
+	return c.CreateEvaluationWithContext(context.TODO(), BundleSid)
+}
+func (c *ApiService) CreateEvaluationWithContext(ctx context.Context, BundleSid string) (*NumbersV2Evaluation, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) CreateEvaluation(BundleSid string) (*NumbersV2Evaluation, e
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -50,6 +54,9 @@ func (c *ApiService) CreateEvaluation(BundleSid string) (*NumbersV2Evaluation, e
 
 // Fetch specific Evaluation Instance.
 func (c *ApiService) FetchEvaluation(BundleSid string, Sid string) (*NumbersV2Evaluation, error) {
+	return c.FetchEvaluationWithContext(context.TODO(), BundleSid, Sid)
+}
+func (c *ApiService) FetchEvaluationWithContext(ctx context.Context, BundleSid string, Sid string) (*NumbersV2Evaluation, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -59,7 +66,7 @@ func (c *ApiService) FetchEvaluation(BundleSid string, Sid string) (*NumbersV2Ev
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -93,6 +100,11 @@ func (params *ListEvaluationParams) SetLimit(Limit int) *ListEvaluationParams {
 
 // Retrieve a single page of Evaluation records from the API. Request is executed immediately.
 func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationParams, pageToken, pageNumber string) (*ListEvaluationResponse, error) {
+	return c.PageEvaluationWithContext(context.TODO(), BundleSid, params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Evaluation records from the API. Request is executed immediately.
+func (c *ApiService) PageEvaluationWithContext(ctx context.Context, BundleSid string, params *ListEvaluationParams, pageToken, pageNumber string) (*ListEvaluationResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
 
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
@@ -113,7 +125,7 @@ func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +142,12 @@ func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationPara
 
 // Lists Evaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationParams) ([]NumbersV2Evaluation, error) {
-	response, errors := c.StreamEvaluation(BundleSid, params)
+	return c.ListEvaluationWithContext(context.TODO(), BundleSid, params)
+}
+
+// Lists Evaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEvaluationWithContext(ctx context.Context, BundleSid string, params *ListEvaluationParams) ([]NumbersV2Evaluation, error) {
+	response, errors := c.StreamEvaluationWithContext(ctx, BundleSid, params)
 
 	records := make([]NumbersV2Evaluation, 0)
 	for record := range response {
@@ -146,6 +163,11 @@ func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationPara
 
 // Streams Evaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationParams) (chan NumbersV2Evaluation, chan error) {
+	return c.StreamEvaluationWithContext(context.TODO(), BundleSid, params)
+}
+
+// Streams Evaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEvaluationWithContext(ctx context.Context, BundleSid string, params *ListEvaluationParams) (chan NumbersV2Evaluation, chan error) {
 	if params == nil {
 		params = &ListEvaluationParams{}
 	}
@@ -154,19 +176,19 @@ func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationPa
 	recordChannel := make(chan NumbersV2Evaluation, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageEvaluation(BundleSid, params, "", "")
+	response, err := c.PageEvaluationWithContext(ctx, BundleSid, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamEvaluation(response, params, recordChannel, errorChannel)
+		go c.streamEvaluationWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamEvaluation(response *ListEvaluationResponse, params *ListEvaluationParams, recordChannel chan NumbersV2Evaluation, errorChannel chan error) {
+func (c *ApiService) streamEvaluationWithContext(ctx context.Context, response *ListEvaluationResponse, params *ListEvaluationParams, recordChannel chan NumbersV2Evaluation, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -181,7 +203,7 @@ func (c *ApiService) streamEvaluation(response *ListEvaluationResponse, params *
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListEvaluationResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListEvaluationResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -196,11 +218,11 @@ func (c *ApiService) streamEvaluation(response *ListEvaluationResponse, params *
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListEvaluationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListEvaluationResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

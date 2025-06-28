@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch a Network resource.
 func (c *ApiService) FetchNetwork(Sid string) (*SupersimV1Network, error) {
+	return c.FetchNetworkWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchNetworkWithContext(ctx context.Context, Sid string) (*SupersimV1Network, error) {
 	path := "/v1/Networks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) FetchNetwork(Sid string) (*SupersimV1Network, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -85,6 +89,11 @@ func (params *ListNetworkParams) SetLimit(Limit int) *ListNetworkParams {
 
 // Retrieve a single page of Network records from the API. Request is executed immediately.
 func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken, pageNumber string) (*ListNetworkResponse, error) {
+	return c.PageNetworkWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Network records from the API. Request is executed immediately.
+func (c *ApiService) PageNetworkWithContext(ctx context.Context, params *ListNetworkParams, pageToken, pageNumber string) (*ListNetworkResponse, error) {
 	path := "/v1/Networks"
 
 	data := url.Values{}
@@ -112,7 +121,7 @@ func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -129,7 +138,12 @@ func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken, pageNumbe
 
 // Lists Network records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNetwork(params *ListNetworkParams) ([]SupersimV1Network, error) {
-	response, errors := c.StreamNetwork(params)
+	return c.ListNetworkWithContext(context.TODO(), params)
+}
+
+// Lists Network records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListNetworkWithContext(ctx context.Context, params *ListNetworkParams) ([]SupersimV1Network, error) {
+	response, errors := c.StreamNetworkWithContext(ctx, params)
 
 	records := make([]SupersimV1Network, 0)
 	for record := range response {
@@ -145,6 +159,11 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams) ([]SupersimV1Network
 
 // Streams Network records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamNetwork(params *ListNetworkParams) (chan SupersimV1Network, chan error) {
+	return c.StreamNetworkWithContext(context.TODO(), params)
+}
+
+// Streams Network records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamNetworkWithContext(ctx context.Context, params *ListNetworkParams) (chan SupersimV1Network, chan error) {
 	if params == nil {
 		params = &ListNetworkParams{}
 	}
@@ -153,19 +172,19 @@ func (c *ApiService) StreamNetwork(params *ListNetworkParams) (chan SupersimV1Ne
 	recordChannel := make(chan SupersimV1Network, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageNetwork(params, "", "")
+	response, err := c.PageNetworkWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamNetwork(response, params, recordChannel, errorChannel)
+		go c.streamNetworkWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamNetwork(response *ListNetworkResponse, params *ListNetworkParams, recordChannel chan SupersimV1Network, errorChannel chan error) {
+func (c *ApiService) streamNetworkWithContext(ctx context.Context, response *ListNetworkResponse, params *ListNetworkParams, recordChannel chan SupersimV1Network, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -180,7 +199,7 @@ func (c *ApiService) streamNetwork(response *ListNetworkResponse, params *ListNe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListNetworkResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListNetworkResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -195,11 +214,11 @@ func (c *ApiService) streamNetwork(response *ListNetworkResponse, params *ListNe
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListNetworkResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListNetworkResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

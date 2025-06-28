@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -31,8 +32,10 @@ func (params *CreateApprovalCreateParams) SetContentApprovalRequest(ContentAppro
 	return params
 }
 
-//
 func (c *ApiService) CreateApprovalCreate(ContentSid string, params *CreateApprovalCreateParams) (*ContentV1ApprovalCreate, error) {
+	return c.CreateApprovalCreateWithContext(context.TODO(), ContentSid, params)
+}
+func (c *ApiService) CreateApprovalCreateWithContext(ctx context.Context, ContentSid string, params *CreateApprovalCreateParams) (*ContentV1ApprovalCreate, error) {
 	path := "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp"
 	path = strings.Replace(path, "{"+"ContentSid"+"}", ContentSid, -1)
 
@@ -50,7 +53,7 @@ func (c *ApiService) CreateApprovalCreate(ContentSid string, params *CreateAppro
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers, body...)
 	if err != nil {
 		return nil, err
 	}

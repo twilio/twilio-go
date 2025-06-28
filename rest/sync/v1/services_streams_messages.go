@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -33,6 +34,9 @@ func (params *CreateStreamMessageParams) SetData(Data map[string]interface{}) *C
 
 // Create a new Stream Message.
 func (c *ApiService) CreateStreamMessage(ServiceSid string, StreamSid string, params *CreateStreamMessageParams) (*SyncV1StreamMessage, error) {
+	return c.CreateStreamMessageWithContext(context.TODO(), ServiceSid, StreamSid, params)
+}
+func (c *ApiService) CreateStreamMessageWithContext(ctx context.Context, ServiceSid string, StreamSid string, params *CreateStreamMessageParams) (*SyncV1StreamMessage, error) {
 	path := "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"StreamSid"+"}", StreamSid, -1)
@@ -52,7 +56,7 @@ func (c *ApiService) CreateStreamMessage(ServiceSid string, StreamSid string, pa
 		data.Set("Data", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

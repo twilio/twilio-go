@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -60,6 +61,9 @@ func (params *CreateInsightsQuestionnairesParams) SetQuestionSids(QuestionSids [
 
 // To create a Questionnaire
 func (c *ApiService) CreateInsightsQuestionnaires(params *CreateInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
+	return c.CreateInsightsQuestionnairesWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateInsightsQuestionnairesWithContext(ctx context.Context, params *CreateInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
 	path := "/v1/Insights/QualityManagement/Questionnaires"
 
 	data := url.Values{}
@@ -85,7 +89,7 @@ func (c *ApiService) CreateInsightsQuestionnaires(params *CreateInsightsQuestion
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -113,6 +117,9 @@ func (params *DeleteInsightsQuestionnairesParams) SetAuthorization(Authorization
 
 // To delete the questionnaire
 func (c *ApiService) DeleteInsightsQuestionnaires(QuestionnaireSid string, params *DeleteInsightsQuestionnairesParams) error {
+	return c.DeleteInsightsQuestionnairesWithContext(context.TODO(), QuestionnaireSid, params)
+}
+func (c *ApiService) DeleteInsightsQuestionnairesWithContext(ctx context.Context, QuestionnaireSid string, params *DeleteInsightsQuestionnairesParams) error {
 	path := "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}"
 	path = strings.Replace(path, "{"+"QuestionnaireSid"+"}", QuestionnaireSid, -1)
 
@@ -124,7 +131,7 @@ func (c *ApiService) DeleteInsightsQuestionnaires(QuestionnaireSid string, param
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.DeleteWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -147,6 +154,9 @@ func (params *FetchInsightsQuestionnairesParams) SetAuthorization(Authorization 
 
 // To get the Questionnaire Detail
 func (c *ApiService) FetchInsightsQuestionnaires(QuestionnaireSid string, params *FetchInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
+	return c.FetchInsightsQuestionnairesWithContext(context.TODO(), QuestionnaireSid, params)
+}
+func (c *ApiService) FetchInsightsQuestionnairesWithContext(ctx context.Context, QuestionnaireSid string, params *FetchInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
 	path := "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}"
 	path = strings.Replace(path, "{"+"QuestionnaireSid"+"}", QuestionnaireSid, -1)
 
@@ -158,7 +168,7 @@ func (c *ApiService) FetchInsightsQuestionnaires(QuestionnaireSid string, params
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -204,6 +214,11 @@ func (params *ListInsightsQuestionnairesParams) SetLimit(Limit int) *ListInsight
 
 // Retrieve a single page of InsightsQuestionnaires records from the API. Request is executed immediately.
 func (c *ApiService) PageInsightsQuestionnaires(params *ListInsightsQuestionnairesParams, pageToken, pageNumber string) (*ListInsightsQuestionnairesResponse, error) {
+	return c.PageInsightsQuestionnairesWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of InsightsQuestionnaires records from the API. Request is executed immediately.
+func (c *ApiService) PageInsightsQuestionnairesWithContext(ctx context.Context, params *ListInsightsQuestionnairesParams, pageToken, pageNumber string) (*ListInsightsQuestionnairesResponse, error) {
 	path := "/v1/Insights/QualityManagement/Questionnaires"
 
 	data := url.Values{}
@@ -225,7 +240,7 @@ func (c *ApiService) PageInsightsQuestionnaires(params *ListInsightsQuestionnair
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -242,7 +257,12 @@ func (c *ApiService) PageInsightsQuestionnaires(params *ListInsightsQuestionnair
 
 // Lists InsightsQuestionnaires records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInsightsQuestionnaires(params *ListInsightsQuestionnairesParams) ([]FlexV1InsightsQuestionnaires, error) {
-	response, errors := c.StreamInsightsQuestionnaires(params)
+	return c.ListInsightsQuestionnairesWithContext(context.TODO(), params)
+}
+
+// Lists InsightsQuestionnaires records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInsightsQuestionnairesWithContext(ctx context.Context, params *ListInsightsQuestionnairesParams) ([]FlexV1InsightsQuestionnaires, error) {
+	response, errors := c.StreamInsightsQuestionnairesWithContext(ctx, params)
 
 	records := make([]FlexV1InsightsQuestionnaires, 0)
 	for record := range response {
@@ -258,6 +278,11 @@ func (c *ApiService) ListInsightsQuestionnaires(params *ListInsightsQuestionnair
 
 // Streams InsightsQuestionnaires records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInsightsQuestionnaires(params *ListInsightsQuestionnairesParams) (chan FlexV1InsightsQuestionnaires, chan error) {
+	return c.StreamInsightsQuestionnairesWithContext(context.TODO(), params)
+}
+
+// Streams InsightsQuestionnaires records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInsightsQuestionnairesWithContext(ctx context.Context, params *ListInsightsQuestionnairesParams) (chan FlexV1InsightsQuestionnaires, chan error) {
 	if params == nil {
 		params = &ListInsightsQuestionnairesParams{}
 	}
@@ -266,19 +291,19 @@ func (c *ApiService) StreamInsightsQuestionnaires(params *ListInsightsQuestionna
 	recordChannel := make(chan FlexV1InsightsQuestionnaires, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageInsightsQuestionnaires(params, "", "")
+	response, err := c.PageInsightsQuestionnairesWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamInsightsQuestionnaires(response, params, recordChannel, errorChannel)
+		go c.streamInsightsQuestionnairesWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamInsightsQuestionnaires(response *ListInsightsQuestionnairesResponse, params *ListInsightsQuestionnairesParams, recordChannel chan FlexV1InsightsQuestionnaires, errorChannel chan error) {
+func (c *ApiService) streamInsightsQuestionnairesWithContext(ctx context.Context, response *ListInsightsQuestionnairesResponse, params *ListInsightsQuestionnairesParams, recordChannel chan FlexV1InsightsQuestionnaires, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -293,7 +318,7 @@ func (c *ApiService) streamInsightsQuestionnaires(response *ListInsightsQuestion
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListInsightsQuestionnairesResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListInsightsQuestionnairesResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -308,11 +333,11 @@ func (c *ApiService) streamInsightsQuestionnaires(response *ListInsightsQuestion
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListInsightsQuestionnairesResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListInsightsQuestionnairesResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -363,6 +388,9 @@ func (params *UpdateInsightsQuestionnairesParams) SetQuestionSids(QuestionSids [
 
 // To update the questionnaire
 func (c *ApiService) UpdateInsightsQuestionnaires(QuestionnaireSid string, params *UpdateInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
+	return c.UpdateInsightsQuestionnairesWithContext(context.TODO(), QuestionnaireSid, params)
+}
+func (c *ApiService) UpdateInsightsQuestionnairesWithContext(ctx context.Context, QuestionnaireSid string, params *UpdateInsightsQuestionnairesParams) (*FlexV1InsightsQuestionnaires, error) {
 	path := "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}"
 	path = strings.Replace(path, "{"+"QuestionnaireSid"+"}", QuestionnaireSid, -1)
 
@@ -389,7 +417,7 @@ func (c *ApiService) UpdateInsightsQuestionnaires(QuestionnaireSid string, param
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -172,8 +173,10 @@ func (params *CreateIncomingPhoneNumberTollFreeParams) SetBundleSid(BundleSid st
 	return params
 }
 
-//
 func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPhoneNumberTollFreeParams) (*ApiV2010IncomingPhoneNumberTollFree, error) {
+	return c.CreateIncomingPhoneNumberTollFreeWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateIncomingPhoneNumberTollFreeWithContext(ctx context.Context, params *CreateIncomingPhoneNumberTollFreeParams) (*ApiV2010IncomingPhoneNumberTollFree, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -256,7 +259,7 @@ func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPho
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -320,6 +323,11 @@ func (params *ListIncomingPhoneNumberTollFreeParams) SetLimit(Limit int) *ListIn
 
 // Retrieve a single page of IncomingPhoneNumberTollFree records from the API. Request is executed immediately.
 func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberTollFreeResponse, error) {
+	return c.PageIncomingPhoneNumberTollFreeWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of IncomingPhoneNumberTollFree records from the API. Request is executed immediately.
+func (c *ApiService) PageIncomingPhoneNumberTollFreeWithContext(ctx context.Context, params *ListIncomingPhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -356,7 +364,7 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -373,7 +381,12 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 
 // Lists IncomingPhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) ([]ApiV2010IncomingPhoneNumberTollFree, error) {
-	response, errors := c.StreamIncomingPhoneNumberTollFree(params)
+	return c.ListIncomingPhoneNumberTollFreeWithContext(context.TODO(), params)
+}
+
+// Lists IncomingPhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIncomingPhoneNumberTollFreeWithContext(ctx context.Context, params *ListIncomingPhoneNumberTollFreeParams) ([]ApiV2010IncomingPhoneNumberTollFree, error) {
+	response, errors := c.StreamIncomingPhoneNumberTollFreeWithContext(ctx, params)
 
 	records := make([]ApiV2010IncomingPhoneNumberTollFree, 0)
 	for record := range response {
@@ -389,6 +402,11 @@ func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 
 // Streams IncomingPhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) (chan ApiV2010IncomingPhoneNumberTollFree, chan error) {
+	return c.StreamIncomingPhoneNumberTollFreeWithContext(context.TODO(), params)
+}
+
+// Streams IncomingPhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIncomingPhoneNumberTollFreeWithContext(ctx context.Context, params *ListIncomingPhoneNumberTollFreeParams) (chan ApiV2010IncomingPhoneNumberTollFree, chan error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberTollFreeParams{}
 	}
@@ -397,19 +415,19 @@ func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhone
 	recordChannel := make(chan ApiV2010IncomingPhoneNumberTollFree, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageIncomingPhoneNumberTollFree(params, "", "")
+	response, err := c.PageIncomingPhoneNumberTollFreeWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamIncomingPhoneNumberTollFree(response, params, recordChannel, errorChannel)
+		go c.streamIncomingPhoneNumberTollFreeWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamIncomingPhoneNumberTollFree(response *ListIncomingPhoneNumberTollFreeResponse, params *ListIncomingPhoneNumberTollFreeParams, recordChannel chan ApiV2010IncomingPhoneNumberTollFree, errorChannel chan error) {
+func (c *ApiService) streamIncomingPhoneNumberTollFreeWithContext(ctx context.Context, response *ListIncomingPhoneNumberTollFreeResponse, params *ListIncomingPhoneNumberTollFreeParams, recordChannel chan ApiV2010IncomingPhoneNumberTollFree, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -424,7 +442,7 @@ func (c *ApiService) streamIncomingPhoneNumberTollFree(response *ListIncomingPho
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberTollFreeResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListIncomingPhoneNumberTollFreeResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -439,11 +457,11 @@ func (c *ApiService) streamIncomingPhoneNumberTollFree(response *ListIncomingPho
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumberTollFreeResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListIncomingPhoneNumberTollFreeResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

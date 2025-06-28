@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -42,6 +43,9 @@ func (params *CreateSimParams) SetRegistrationCode(RegistrationCode string) *Cre
 
 // Register a Super SIM to your Account
 func (c *ApiService) CreateSim(params *CreateSimParams) (*SupersimV1Sim, error) {
+	return c.CreateSimWithContext(context.TODO(), params)
+}
+func (c *ApiService) CreateSimWithContext(ctx context.Context, params *CreateSimParams) (*SupersimV1Sim, error) {
 	path := "/v1/Sims"
 
 	data := url.Values{}
@@ -56,7 +60,7 @@ func (c *ApiService) CreateSim(params *CreateSimParams) (*SupersimV1Sim, error) 
 		data.Set("RegistrationCode", *params.RegistrationCode)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -73,6 +77,9 @@ func (c *ApiService) CreateSim(params *CreateSimParams) (*SupersimV1Sim, error) 
 
 // Fetch a Super SIM instance from your account.
 func (c *ApiService) FetchSim(Sid string) (*SupersimV1Sim, error) {
+	return c.FetchSimWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchSimWithContext(ctx context.Context, Sid string) (*SupersimV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -81,7 +88,7 @@ func (c *ApiService) FetchSim(Sid string) (*SupersimV1Sim, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -133,6 +140,11 @@ func (params *ListSimParams) SetLimit(Limit int) *ListSimParams {
 
 // Retrieve a single page of Sim records from the API. Request is executed immediately.
 func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string) (*ListSimResponse, error) {
+	return c.PageSimWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Sim records from the API. Request is executed immediately.
+func (c *ApiService) PageSimWithContext(ctx context.Context, params *ListSimParams, pageToken, pageNumber string) (*ListSimResponse, error) {
 	path := "/v1/Sims"
 
 	data := url.Values{}
@@ -160,7 +172,7 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +189,12 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string
 
 // Lists Sim records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSim(params *ListSimParams) ([]SupersimV1Sim, error) {
-	response, errors := c.StreamSim(params)
+	return c.ListSimWithContext(context.TODO(), params)
+}
+
+// Lists Sim records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSimWithContext(ctx context.Context, params *ListSimParams) ([]SupersimV1Sim, error) {
+	response, errors := c.StreamSimWithContext(ctx, params)
 
 	records := make([]SupersimV1Sim, 0)
 	for record := range response {
@@ -193,6 +210,11 @@ func (c *ApiService) ListSim(params *ListSimParams) ([]SupersimV1Sim, error) {
 
 // Streams Sim records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSim(params *ListSimParams) (chan SupersimV1Sim, chan error) {
+	return c.StreamSimWithContext(context.TODO(), params)
+}
+
+// Streams Sim records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSimWithContext(ctx context.Context, params *ListSimParams) (chan SupersimV1Sim, chan error) {
 	if params == nil {
 		params = &ListSimParams{}
 	}
@@ -201,19 +223,19 @@ func (c *ApiService) StreamSim(params *ListSimParams) (chan SupersimV1Sim, chan 
 	recordChannel := make(chan SupersimV1Sim, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageSim(params, "", "")
+	response, err := c.PageSimWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamSim(response, params, recordChannel, errorChannel)
+		go c.streamSimWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamSim(response *ListSimResponse, params *ListSimParams, recordChannel chan SupersimV1Sim, errorChannel chan error) {
+func (c *ApiService) streamSimWithContext(ctx context.Context, response *ListSimResponse, params *ListSimParams, recordChannel chan SupersimV1Sim, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -228,7 +250,7 @@ func (c *ApiService) streamSim(response *ListSimResponse, params *ListSimParams,
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListSimResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListSimResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -243,11 +265,11 @@ func (c *ApiService) streamSim(response *ListSimResponse, params *ListSimParams,
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListSimResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListSimResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -304,6 +326,9 @@ func (params *UpdateSimParams) SetAccountSid(AccountSid string) *UpdateSimParams
 
 // Updates the given properties of a Super SIM instance from your account.
 func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*SupersimV1Sim, error) {
+	return c.UpdateSimWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateSimWithContext(ctx context.Context, Sid string, params *UpdateSimParams) (*SupersimV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -331,7 +356,7 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*SupersimV1
 		data.Set("AccountSid", *params.AccountSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

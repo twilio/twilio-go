@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/url"
 	"strings"
@@ -115,8 +116,10 @@ func (params *FetchPhoneNumberParams) SetPartnerSubId(PartnerSubId string) *Fetc
 	return params
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV2PhoneNumber, error) {
+	return c.FetchPhoneNumberWithContext(context.TODO(), PhoneNumber, params)
+}
+func (c *ApiService) FetchPhoneNumberWithContext(ctx context.Context, PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV2PhoneNumber, error) {
 	path := "/v2/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
@@ -171,7 +174,7 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 		data.Set("PartnerSubId", *params.PartnerSubId)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

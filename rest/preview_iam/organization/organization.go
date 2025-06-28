@@ -15,11 +15,15 @@
 package openapi
 
 import (
+	"context"
 	"net/url"
 	"strings"
 )
 
 func (c *ApiService) FetchOrganization(OrganizationSid string) error {
+	return c.FetchOrganizationWithContext(context.TODO(), OrganizationSid)
+}
+func (c *ApiService) FetchOrganizationWithContext(ctx context.Context, OrganizationSid string) error {
 	path := "/Organizations/{OrganizationSid}"
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
 
@@ -28,7 +32,7 @@ func (c *ApiService) FetchOrganization(OrganizationSid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}

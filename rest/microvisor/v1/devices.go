@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch a specific Device.
 func (c *ApiService) FetchDevice(Sid string) (*MicrovisorV1Device, error) {
+	return c.FetchDeviceWithContext(context.TODO(), Sid)
+}
+func (c *ApiService) FetchDeviceWithContext(ctx context.Context, Sid string) (*MicrovisorV1Device, error) {
 	path := "/v1/Devices/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) FetchDevice(Sid string) (*MicrovisorV1Device, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +71,11 @@ func (params *ListDeviceParams) SetLimit(Limit int) *ListDeviceParams {
 
 // Retrieve a single page of Device records from the API. Request is executed immediately.
 func (c *ApiService) PageDevice(params *ListDeviceParams, pageToken, pageNumber string) (*ListDeviceResponse, error) {
+	return c.PageDeviceWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of Device records from the API. Request is executed immediately.
+func (c *ApiService) PageDeviceWithContext(ctx context.Context, params *ListDeviceParams, pageToken, pageNumber string) (*ListDeviceResponse, error) {
 	path := "/v1/Devices"
 
 	data := url.Values{}
@@ -85,7 +94,7 @@ func (c *ApiService) PageDevice(params *ListDeviceParams, pageToken, pageNumber 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +111,12 @@ func (c *ApiService) PageDevice(params *ListDeviceParams, pageToken, pageNumber 
 
 // Lists Device records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDevice(params *ListDeviceParams) ([]MicrovisorV1Device, error) {
-	response, errors := c.StreamDevice(params)
+	return c.ListDeviceWithContext(context.TODO(), params)
+}
+
+// Lists Device records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDeviceWithContext(ctx context.Context, params *ListDeviceParams) ([]MicrovisorV1Device, error) {
+	response, errors := c.StreamDeviceWithContext(ctx, params)
 
 	records := make([]MicrovisorV1Device, 0)
 	for record := range response {
@@ -118,6 +132,11 @@ func (c *ApiService) ListDevice(params *ListDeviceParams) ([]MicrovisorV1Device,
 
 // Streams Device records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDevice(params *ListDeviceParams) (chan MicrovisorV1Device, chan error) {
+	return c.StreamDeviceWithContext(context.TODO(), params)
+}
+
+// Streams Device records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDeviceWithContext(ctx context.Context, params *ListDeviceParams) (chan MicrovisorV1Device, chan error) {
 	if params == nil {
 		params = &ListDeviceParams{}
 	}
@@ -126,19 +145,19 @@ func (c *ApiService) StreamDevice(params *ListDeviceParams) (chan MicrovisorV1De
 	recordChannel := make(chan MicrovisorV1Device, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageDevice(params, "", "")
+	response, err := c.PageDeviceWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDevice(response, params, recordChannel, errorChannel)
+		go c.streamDeviceWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamDevice(response *ListDeviceResponse, params *ListDeviceParams, recordChannel chan MicrovisorV1Device, errorChannel chan error) {
+func (c *ApiService) streamDeviceWithContext(ctx context.Context, response *ListDeviceResponse, params *ListDeviceParams, recordChannel chan MicrovisorV1Device, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -153,7 +172,7 @@ func (c *ApiService) streamDevice(response *ListDeviceResponse, params *ListDevi
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListDeviceResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListDeviceResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -168,11 +187,11 @@ func (c *ApiService) streamDevice(response *ListDeviceResponse, params *ListDevi
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListDeviceResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListDeviceResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -217,6 +236,9 @@ func (params *UpdateDeviceParams) SetRestartApp(RestartApp bool) *UpdateDevicePa
 
 // Update a specific Device.
 func (c *ApiService) UpdateDevice(Sid string, params *UpdateDeviceParams) (*MicrovisorV1Device, error) {
+	return c.UpdateDeviceWithContext(context.TODO(), Sid, params)
+}
+func (c *ApiService) UpdateDeviceWithContext(ctx context.Context, Sid string, params *UpdateDeviceParams) (*MicrovisorV1Device, error) {
 	path := "/v1/Devices/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -238,7 +260,7 @@ func (c *ApiService) UpdateDevice(Sid string, params *UpdateDeviceParams) (*Micr
 		data.Set("RestartApp", fmt.Sprint(*params.RestartApp))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.PostWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

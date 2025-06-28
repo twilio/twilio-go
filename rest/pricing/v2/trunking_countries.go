@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -25,6 +26,9 @@ import (
 
 // Fetch a specific Country.
 func (c *ApiService) FetchTrunkingCountry(IsoCountry string) (*PricingV2TrunkingCountryInstance, error) {
+	return c.FetchTrunkingCountryWithContext(context.TODO(), IsoCountry)
+}
+func (c *ApiService) FetchTrunkingCountryWithContext(ctx context.Context, IsoCountry string) (*PricingV2TrunkingCountryInstance, error) {
 	path := "/v2/Trunking/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
@@ -33,7 +37,7 @@ func (c *ApiService) FetchTrunkingCountry(IsoCountry string) (*PricingV2Trunking
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +71,11 @@ func (params *ListTrunkingCountryParams) SetLimit(Limit int) *ListTrunkingCountr
 
 // Retrieve a single page of TrunkingCountry records from the API. Request is executed immediately.
 func (c *ApiService) PageTrunkingCountry(params *ListTrunkingCountryParams, pageToken, pageNumber string) (*ListTrunkingCountryResponse, error) {
+	return c.PageTrunkingCountryWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of TrunkingCountry records from the API. Request is executed immediately.
+func (c *ApiService) PageTrunkingCountryWithContext(ctx context.Context, params *ListTrunkingCountryParams, pageToken, pageNumber string) (*ListTrunkingCountryResponse, error) {
 	path := "/v2/Trunking/Countries"
 
 	data := url.Values{}
@@ -85,7 +94,7 @@ func (c *ApiService) PageTrunkingCountry(params *ListTrunkingCountryParams, page
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +111,12 @@ func (c *ApiService) PageTrunkingCountry(params *ListTrunkingCountryParams, page
 
 // Lists TrunkingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrunkingCountry(params *ListTrunkingCountryParams) ([]PricingV2TrunkingCountry, error) {
-	response, errors := c.StreamTrunkingCountry(params)
+	return c.ListTrunkingCountryWithContext(context.TODO(), params)
+}
+
+// Lists TrunkingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTrunkingCountryWithContext(ctx context.Context, params *ListTrunkingCountryParams) ([]PricingV2TrunkingCountry, error) {
+	response, errors := c.StreamTrunkingCountryWithContext(ctx, params)
 
 	records := make([]PricingV2TrunkingCountry, 0)
 	for record := range response {
@@ -118,6 +132,11 @@ func (c *ApiService) ListTrunkingCountry(params *ListTrunkingCountryParams) ([]P
 
 // Streams TrunkingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTrunkingCountry(params *ListTrunkingCountryParams) (chan PricingV2TrunkingCountry, chan error) {
+	return c.StreamTrunkingCountryWithContext(context.TODO(), params)
+}
+
+// Streams TrunkingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTrunkingCountryWithContext(ctx context.Context, params *ListTrunkingCountryParams) (chan PricingV2TrunkingCountry, chan error) {
 	if params == nil {
 		params = &ListTrunkingCountryParams{}
 	}
@@ -126,19 +145,19 @@ func (c *ApiService) StreamTrunkingCountry(params *ListTrunkingCountryParams) (c
 	recordChannel := make(chan PricingV2TrunkingCountry, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageTrunkingCountry(params, "", "")
+	response, err := c.PageTrunkingCountryWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTrunkingCountry(response, params, recordChannel, errorChannel)
+		go c.streamTrunkingCountryWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamTrunkingCountry(response *ListTrunkingCountryResponse, params *ListTrunkingCountryParams, recordChannel chan PricingV2TrunkingCountry, errorChannel chan error) {
+func (c *ApiService) streamTrunkingCountryWithContext(ctx context.Context, response *ListTrunkingCountryResponse, params *ListTrunkingCountryParams, recordChannel chan PricingV2TrunkingCountry, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -153,7 +172,7 @@ func (c *ApiService) streamTrunkingCountry(response *ListTrunkingCountryResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListTrunkingCountryResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListTrunkingCountryResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -168,11 +187,11 @@ func (c *ApiService) streamTrunkingCountry(response *ListTrunkingCountryResponse
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListTrunkingCountryResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListTrunkingCountryResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

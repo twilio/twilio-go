@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -53,6 +54,11 @@ func (params *ListParticipantConversationParams) SetLimit(Limit int) *ListPartic
 
 // Retrieve a single page of ParticipantConversation records from the API. Request is executed immediately.
 func (c *ApiService) PageParticipantConversation(params *ListParticipantConversationParams, pageToken, pageNumber string) (*ListParticipantConversationResponse, error) {
+	return c.PageParticipantConversationWithContext(context.TODO(), params, pageToken, pageNumber)
+}
+
+// Retrieve a single page of ParticipantConversation records from the API. Request is executed immediately.
+func (c *ApiService) PageParticipantConversationWithContext(ctx context.Context, params *ListParticipantConversationParams, pageToken, pageNumber string) (*ListParticipantConversationResponse, error) {
 	path := "/v1/ParticipantConversations"
 
 	data := url.Values{}
@@ -77,7 +83,7 @@ func (c *ApiService) PageParticipantConversation(params *ListParticipantConversa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.GetWithContext(ctx, c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +100,12 @@ func (c *ApiService) PageParticipantConversation(params *ListParticipantConversa
 
 // Lists ParticipantConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListParticipantConversation(params *ListParticipantConversationParams) ([]ConversationsV1ParticipantConversation, error) {
-	response, errors := c.StreamParticipantConversation(params)
+	return c.ListParticipantConversationWithContext(context.TODO(), params)
+}
+
+// Lists ParticipantConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListParticipantConversationWithContext(ctx context.Context, params *ListParticipantConversationParams) ([]ConversationsV1ParticipantConversation, error) {
+	response, errors := c.StreamParticipantConversationWithContext(ctx, params)
 
 	records := make([]ConversationsV1ParticipantConversation, 0)
 	for record := range response {
@@ -110,6 +121,11 @@ func (c *ApiService) ListParticipantConversation(params *ListParticipantConversa
 
 // Streams ParticipantConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamParticipantConversation(params *ListParticipantConversationParams) (chan ConversationsV1ParticipantConversation, chan error) {
+	return c.StreamParticipantConversationWithContext(context.TODO(), params)
+}
+
+// Streams ParticipantConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamParticipantConversationWithContext(ctx context.Context, params *ListParticipantConversationParams) (chan ConversationsV1ParticipantConversation, chan error) {
 	if params == nil {
 		params = &ListParticipantConversationParams{}
 	}
@@ -118,19 +134,19 @@ func (c *ApiService) StreamParticipantConversation(params *ListParticipantConver
 	recordChannel := make(chan ConversationsV1ParticipantConversation, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageParticipantConversation(params, "", "")
+	response, err := c.PageParticipantConversationWithContext(ctx, params, "", "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamParticipantConversation(response, params, recordChannel, errorChannel)
+		go c.streamParticipantConversationWithContext(ctx, response, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamParticipantConversation(response *ListParticipantConversationResponse, params *ListParticipantConversationParams, recordChannel chan ConversationsV1ParticipantConversation, errorChannel chan error) {
+func (c *ApiService) streamParticipantConversationWithContext(ctx context.Context, response *ListParticipantConversationResponse, params *ListParticipantConversationParams, recordChannel chan ConversationsV1ParticipantConversation, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -145,7 +161,7 @@ func (c *ApiService) streamParticipantConversation(response *ListParticipantConv
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL, response, c.getNextListParticipantConversationResponse)
+		record, err := client.GetNextWithContext(ctx, c.baseURL, response, c.getNextListParticipantConversationResponseWithContext)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -160,11 +176,11 @@ func (c *ApiService) streamParticipantConversation(response *ListParticipantConv
 	close(errorChannel)
 }
 
-func (c *ApiService) getNextListParticipantConversationResponse(nextPageUrl string) (interface{}, error) {
+func (c *ApiService) getNextListParticipantConversationResponseWithContext(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.GetWithContext(ctx, nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
