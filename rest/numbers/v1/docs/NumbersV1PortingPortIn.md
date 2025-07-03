@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **TargetPortInTimeRangeStart** | Pointer to **string** | The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier |
 **TargetPortInTimeRangeEnd** | Pointer to **string** | The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier |
 **PortInRequestStatus** | Pointer to **string** | The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled. |
-**LosingCarrierInformation** | Pointer to **map[string]interface{}** | Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted. |
-**PhoneNumbers** | Pointer to **[]map[string]interface{}** |  |
+**LosingCarrierInformation** | Pointer to **interface{}** | Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted. |
+**PhoneNumbers** | Pointer to **[]interface{}** |  |
 **Documents** | Pointer to **[]string** | List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 

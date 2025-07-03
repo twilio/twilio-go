@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource. |
 **StartTime** | Pointer to [**time.Time**](time.Time.md) | The beginning of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | The end of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
-**ActivityDurations** | Pointer to **[]map[string]interface{}** | The minimum, average, maximum, and total time (in seconds) that Workers spent in each Activity. |
+**ActivityDurations** | Pointer to **[]interface{}** | The minimum, average, maximum, and total time (in seconds) that Workers spent in each Activity. |
 **ReservationsCreated** | **int** | The total number of Reservations that were created. |[optional] [default to 0]
 **ReservationsAccepted** | **int** | The total number of Reservations that were accepted. |[optional] [default to 0]
 **ReservationsRejected** | **int** | The total number of Reservations that were rejected. |[optional] [default to 0]

@@ -29,8 +29,8 @@ Other parameters are passed through a pointer to a CreateInteractionParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Channel** | [**map[string]interface{}**](map[string]interface{}.md) | The Interaction's channel.
-**Routing** | [**map[string]interface{}**](map[string]interface{}.md) | The Interaction's routing logic.
+**Channel** | [**interface{}**](interface{}.md) | The Interaction's channel.
+**Routing** | [**interface{}**](interface{}.md) | The Interaction's routing logic.
 **InteractionContextSid** | **string** | The Interaction context sid is used for adding a context lookup sid
 **WebhookTtid** | **string** | The unique identifier for Interaction level webhook
 

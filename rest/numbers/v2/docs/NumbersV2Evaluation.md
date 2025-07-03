@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **RegulationSid** | Pointer to **string** | The unique string of a regulation that is associated to the Bundle resource. |
 **BundleSid** | Pointer to **string** | The unique string that we created to identify the Bundle resource. |
 **Status** | Pointer to [**string**](EvaluationEnumStatus.md) |  |
-**Results** | Pointer to **[]map[string]interface{}** | The results of the Evaluation which includes the valid and invalid attributes. |
+**Results** | Pointer to **[]interface{}** | The results of the Evaluation which includes the valid and invalid attributes. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **Url** | Pointer to **string** |  |
 

@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Body** | Pointer to **string** |  |
 **Index** | **int** |  |[optional] [default to 0]
 **Type** | Pointer to **string** |  |
-**Media** | Pointer to **map[string]interface{}** |  |
+**Media** | Pointer to **interface{}** |  |
 **Url** | Pointer to **string** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

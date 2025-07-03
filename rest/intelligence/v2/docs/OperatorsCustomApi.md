@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A human readable description of the new Operator, up to 64 characters.
 **OperatorType** | **string** | Operator Type for this Operator. References an existing Operator Type resource.
-**Config** | [**map[string]interface{}**](map[string]interface{}.md) | Operator configuration, following the schema defined by the Operator Type.
+**Config** | [**interface{}**](interface{}.md) | Operator configuration, following the schema defined by the Operator Type.
 
 ### Return type
 
@@ -204,7 +204,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | The If-Match HTTP request header
 **FriendlyName** | **string** | A human-readable name of this resource, up to 64 characters.
-**Config** | [**map[string]interface{}**](map[string]interface{}.md) | Operator configuration, following the schema defined by the Operator Type.
+**Config** | [**interface{}**](interface{}.md) | Operator configuration, following the schema defined by the Operator Type.
 
 ### Return type
 

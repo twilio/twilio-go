@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **ChannelSid** | Pointer to **string** | The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resource belongs to. |
 **Type** | Pointer to **string** | The type of webhook. Can be: `webhook`, `studio`, or `trigger`. |
 **Url** | Pointer to **string** | The absolute URL of the Channel Webhook resource. |
-**Configuration** | Pointer to **map[string]interface{}** | The JSON string that describes how the channel webhook is configured. The configuration object contains the `url`, `method`, `filters`, and `retry_count` values that are configured by the create and update actions. |
+**Configuration** | Pointer to **interface{}** | The JSON string that describes how the channel webhook is configured. The configuration object contains the `url`, `method`, `filters`, and `retry_count` values that are configured by the create and update actions. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 

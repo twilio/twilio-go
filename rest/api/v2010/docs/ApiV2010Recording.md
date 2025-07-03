@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **Source** | Pointer to [**string**](RecordingEnumSource.md) |  |
 **ErrorCode** | Pointer to **int** | The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`. |
 **Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com`. |
-**EncryptionDetails** | Pointer to **map[string]interface{}** | How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature. |
+**EncryptionDetails** | Pointer to **interface{}** | How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature. |
 **SubresourceUris** | Pointer to **map[string]interface{}** | A list of related resources identified by their relative URIs. |
 **MediaUrl** | Pointer to **string** | The URL of the media file associated with this recording resource. When stored externally, this is the full URL location of the media file. |
 

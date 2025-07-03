@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **Index** | **int** | The index of the message within the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource).  Indices may skip numbers, but will always be in order of when the message was received. |[optional] [default to 0]
 **Author** | Pointer to **string** | The channel specific identifier of the message's author. Defaults to `system`. |
 **Body** | Pointer to **string** | The content of the message, can be up to 1,600 characters long. |
-**Media** | Pointer to **[]map[string]interface{}** | An array of objects that describe the Message's media, if the message contains media. Each object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object's file size in bytes. If the Message has no media, this value is `null`. |
+**Media** | Pointer to **[]interface{}** | An array of objects that describe the Message's media, if the message contains media. Each object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object's file size in bytes. If the Message has no media, this value is `null`. |
 **Attributes** | Pointer to **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned. |
 **ParticipantSid** | Pointer to **string** | The unique ID of messages's author participant. Null in case of `system` sent message. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was created. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was last updated. `null` if the message has not been edited. |
 **Url** | Pointer to **string** | An absolute API resource API URL for this message. |
-**Delivery** | Pointer to **map[string]interface{}** | An object that contains the summary of delivery statuses for the message to non-chat participants. |
+**Delivery** | Pointer to **interface{}** | An object that contains the summary of delivery statuses for the message to non-chat participants. |
 **Links** | Pointer to **map[string]interface{}** | Contains an absolute API resource URL to access the delivery & read receipts of this message. |
 **ContentSid** | Pointer to **string** | The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template. |
 

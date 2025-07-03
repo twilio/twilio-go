@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ActorType** | Pointer to **string** | The type of resource that triggered the event. |
 **ActorUrl** | Pointer to **string** | The absolute URL of the resource that triggered the event. |
 **Description** | Pointer to **string** | A description of the event. |
-**EventData** | Pointer to **map[string]interface{}** | Data about the event. For more information, see [Event types](https://www.twilio.com/docs/taskrouter/api/event#event-types). |
+**EventData** | Pointer to **interface{}** | Data about the event. For more information, see [Event types](https://www.twilio.com/docs/taskrouter/api/event#event-types). |
 **EventDate** | Pointer to [**time.Time**](time.Time.md) | The time the event was sent, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **EventDateMs** | Pointer to **int64** | The time the event was sent in milliseconds. |
 **EventType** | Pointer to **string** | The identifier for the event. |

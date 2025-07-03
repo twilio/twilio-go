@@ -31,7 +31,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FlexMetadata** | **string** | The Flex-Metadata HTTP request header
 **Name** | **string** | The Flex Plugin Configuration's name.
-**Plugins** | **[]map[string]interface{}** | A list of objects that describe the plugin versions included in the configuration. Each object contains the sid of the plugin version.
+**Plugins** | **[]interface{}** | A list of objects that describe the plugin versions included in the configuration. Each object contains the sid of the plugin version.
 **Description** | **string** | The Flex Plugin Configuration's description.
 
 ### Return type

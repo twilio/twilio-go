@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Transcript** | Pointer to **string** | Transcript text. |
 **Sid** | Pointer to **string** | A 34 character string that uniquely identifies this Sentence. |
 **Confidence** | Pointer to **float32** |  |
-**Words** | Pointer to **[]map[string]interface{}** | Detailed information for each of the words of the given Sentence. |
+**Words** | Pointer to **[]interface{}** | Detailed information for each of the words of the given Sentence. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

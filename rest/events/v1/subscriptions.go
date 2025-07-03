@@ -30,7 +30,7 @@ type CreateSubscriptionParams struct {
 	// The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 	SinkSid *string `json:"SinkSid,omitempty"`
 	// An array of objects containing the subscribed Event Types
-	Types *[]map[string]interface{} `json:"Types,omitempty"`
+	Types *[]interface{} `json:"Types,omitempty"`
 }
 
 func (params *CreateSubscriptionParams) SetDescription(Description string) *CreateSubscriptionParams {
@@ -41,7 +41,7 @@ func (params *CreateSubscriptionParams) SetSinkSid(SinkSid string) *CreateSubscr
 	params.SinkSid = &SinkSid
 	return params
 }
-func (params *CreateSubscriptionParams) SetTypes(Types []map[string]interface{}) *CreateSubscriptionParams {
+func (params *CreateSubscriptionParams) SetTypes(Types []interface{}) *CreateSubscriptionParams {
 	params.Types = &Types
 	return params
 }

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **ChannelSid** | Pointer to **string** |  |
 **Type** | Pointer to **string** |  |
 **Url** | Pointer to **string** |  |
-**Configuration** | Pointer to **map[string]interface{}** |  |
+**Configuration** | Pointer to **interface{}** |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
 

@@ -1361,6 +1361,48 @@ func (m VoiceDial) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
+//VoiceWhatsApp <WhatsApp> TwiML Noun
+type VoiceWhatsApp struct {
+	// phone_number: WhatsApp Phone Number to dial
+	// url: TwiML URL
+	// method: TwiML URL Method
+	// status_callback_event: Events to trigger status callback
+	// status_callback: Status Callback URL
+	// status_callback_method: Status Callback URL Method
+	// OptionalAttributes: additional attributes
+	PhoneNumber          string
+	Url                  string
+	Method               string
+	StatusCallbackEvent  string
+	StatusCallback       string
+	StatusCallbackMethod string
+	InnerElements        []Element
+	OptionalAttributes   map[string]string
+}
+
+func (m VoiceWhatsApp) GetName() string {
+	return "WhatsApp"
+}
+
+func (m VoiceWhatsApp) GetText() string {
+	return m.PhoneNumber
+}
+
+func (m VoiceWhatsApp) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Url":                  m.Url,
+		"Method":               m.Method,
+		"StatusCallbackEvent":  m.StatusCallbackEvent,
+		"StatusCallback":       m.StatusCallback,
+		"StatusCallbackMethod": m.StatusCallbackMethod,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceWhatsApp) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
 //VoiceApplication <Application> TwiML Noun
 type VoiceApplication struct {
 	// application_sid: Application sid

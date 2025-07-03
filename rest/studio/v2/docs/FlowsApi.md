@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
 **Status** | [**string**](string.md) | 
-**Definition** | [**map[string]interface{}**](map[string]interface{}.md) | JSON representation of flow definition.
+**Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
 **CommitMessage** | **string** | Description of change made in the revision.
 
 ### Return type
@@ -203,7 +203,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Status** | [**string**](string.md) | 
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
-**Definition** | [**map[string]interface{}**](map[string]interface{}.md) | JSON representation of flow definition.
+**Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
 **CommitMessage** | **string** | Description of change made in the revision.
 
 ### Return type

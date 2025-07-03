@@ -28,7 +28,7 @@ type NumbersV2EndUser struct {
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	Type         *string `json:"type,omitempty"`
 	// The set of parameters that are the attributes of the End Users resource which are listed in the End User Types.
-	Attributes *map[string]interface{} `json:"attributes,omitempty"`
+	Attributes *interface{} `json:"attributes,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

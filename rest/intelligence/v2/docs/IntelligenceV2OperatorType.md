@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Provider** | Pointer to [**string**](OperatorTypeEnumProvider.md) |  |
 **Availability** | Pointer to [**string**](OperatorTypeEnumAvailability.md) |  |
 **Configurable** | Pointer to **bool** | Operators can be created from configurable Operator Types. |
-**ConfigSchema** | Pointer to **map[string]interface{}** | JSON Schema for configuring an Operator with this Operator Type. Following https://json-schema.org/ |
+**ConfigSchema** | Pointer to **interface{}** | JSON Schema for configuring an Operator with this Operator Type. Following https://json-schema.org/ |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this Operator Type was created, given in ISO 8601 format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this Operator Type was updated, given in ISO 8601 format. |
 **Url** | Pointer to **string** | The URL of this resource. |
