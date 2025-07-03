@@ -117,11 +117,11 @@ func TestListParams(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotNil(t, sink)
 
-	types := []map[string]interface{}{
-		{
+	types := []interface{}{
+		map[string]interface{}{
 			"type": "com.twilio.messaging.message.delivered",
 		},
-		{
+		map[string]interface{}{
 			"type": "com.twilio.messaging.message.sent",
 		},
 	}
