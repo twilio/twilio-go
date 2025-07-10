@@ -1,5 +1,14 @@
 twilio-go changelog
 ====================
+[2025-07-10] Version 1.26.5
+---------------------------
+**Library - Fix**
+- [PR #291](https://github.com/twilio/twilio-go/pull/291): revert cluster test change to interface. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Flex**
+- update team name for web_channel, webchat_init_token, webchat_refresh_token
+
+
 [2025-07-03] Version 1.26.4
 ---------------------------
 **Bulkexports**

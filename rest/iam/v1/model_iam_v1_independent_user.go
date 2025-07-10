@@ -16,6 +16,8 @@ package openapi
 
 // IamV1IndependentUser struct for IamV1IndependentUser
 type IamV1IndependentUser struct {
+	// Unique identifier of the user-organization mapping
+	Id string `json:"id,omitempty"`
 	// Unique Twilio organization sid
 	OrganizationSid string `json:"organizationSid,omitempty"`
 	// Unique Twilio user sid

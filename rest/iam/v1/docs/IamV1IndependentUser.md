@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | **string** | Unique identifier of the user-organization mapping |[optional] 
 **OrganizationSid** | **string** | Unique Twilio organization sid |[optional] 
 **UserSid** | **string** | Unique Twilio user sid |[optional] 
 **FirstName** | **string** | User first name |[optional] 

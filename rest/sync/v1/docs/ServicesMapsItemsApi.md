@@ -37,7 +37,7 @@ Other parameters are passed through a pointer to a CreateSyncMapItemParams struc
 Name | Type | Description
 ------------- | ------------- | -------------
 **Key** | **string** | The unique, user-defined key for the Map Item. Can be up to 320 characters long.
-**Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+**Data** | [**interface{}**](interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
 **Ttl** | **int** | An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 **ItemTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
 **CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
@@ -223,7 +223,7 @@ Other parameters are passed through a pointer to a UpdateSyncMapItemParams struc
 Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-**Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+**Data** | [**interface{}**](interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
 **Ttl** | **int** | An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 **ItemTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
 **CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.

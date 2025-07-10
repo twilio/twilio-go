@@ -191,7 +191,7 @@ func (c *ApiService) streamRoomTranscriptions(response *ListRoomTranscriptionsRe
 	curRecord := 1
 
 	for response != nil {
-		responseRecords := response.Extensions
+		responseRecords := response.Transcriptions
 		for item := range responseRecords {
 			recordChannel <- responseRecords[item]
 			curRecord += 1

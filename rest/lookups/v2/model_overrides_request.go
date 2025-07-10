@@ -16,6 +16,8 @@ package openapi
 
 // OverridesRequest struct for OverridesRequest
 type OverridesRequest struct {
+	// The new line type to override the original line type
 	LineType string `json:"line_type,omitempty"`
-	Reason   string `json:"reason,omitempty"`
+	// The reason for the override
+	Reason string `json:"reason,omitempty"`
 }

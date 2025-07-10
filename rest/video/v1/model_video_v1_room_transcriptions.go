@@ -27,8 +27,6 @@ type VideoV1RoomTranscriptions struct {
 	// The SID of the transcriptions's room.
 	RoomSid *string `json:"room_sid,omitempty"`
 	Status  *string `json:"status,omitempty"`
-	// The application-defined string that uniquely identifies the resource's User within a Room. If a client joins with an existing Identity, the existing client is disconnected. See [access tokens](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens) and [limits](https://www.twilio.com/docs/video/programmable-video-limits) for more info.
-	Identity *string `json:"identity,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -41,4 +39,6 @@ type VideoV1RoomTranscriptions struct {
 	Duration *int `json:"duration,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
+	// An JSON object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+	Configuration *map[string]interface{} `json:"configuration,omitempty"`
 }

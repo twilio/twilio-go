@@ -20,12 +20,15 @@ import (
 
 // OverridesResponse struct for OverridesResponse
 type OverridesResponse struct {
-	PhoneNumber        string `json:"phone_number,omitempty"`
-	OriginalLineType   string `json:"original_line_type,omitempty"`
+	// The phone number for which the override was created
+	PhoneNumber string `json:"phone_number,omitempty"`
+	// The original line type
+	OriginalLineType string `json:"original_line_type,omitempty"`
+	// The new line type after the override
 	OverriddenLineType string `json:"overridden_line_type,omitempty"`
 	// The reason for the override
 	OverrideReason    string    `json:"override_reason,omitempty"`
 	OverrideTimestamp time.Time `json:"override_timestamp,omitempty"`
-	// The user who overrode the line type
+	// The Account SID for the user who made the override
 	OverriddenByAccountSid string `json:"overridden_by_account_sid,omitempty"`
 }
