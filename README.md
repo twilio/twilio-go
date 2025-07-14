@@ -302,48 +302,6 @@ func main() {
 }
 ```
 
-### Send Bulk Message <a id="messaging-bulk"></a>
-
-Try sending a message to multiple recipients with JSON request body support.
-
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-
-	"github.com/twilio/twilio-go"
-	previewMessaging "github.com/twilio/twilio-go/rest/preview_messaging/v1"
-)
-
-func main() {
-	accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	authToken := "f2xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
-	client := twilio.NewRestClientWithParams(twilio.ClientParams{
-		Username: accountSid,
-		Password: authToken,
-	})
-
-	// create multiple recipients
-	msg1 := previewMessaging.MessagingV1Message{To: "+XXXXXXXXXX"}
-	msg2 := previewMessaging.MessagingV1Message{To: "+XXXXXXXXXX"}
-	
-	// create message request object
-	req := &previewMessaging.CreateMessagesRequest{Messages: []previewMessaging.MessagingV1Message{msg1, msg2}, Body: "Hello from Go!", From: "+XXXXXXXXXX"}
-	params := &previewMessaging.CreateMessagesParams{CreateMessagesRequest: req}
-
-	resp, err := client.PreviewMessagingV1.CreateMessages(params)
-	if err != nil {
-		fmt.Println("Error sending SMS message: " + err.Error())
-	} else {
-		response, _ := json.Marshal(*resp)
-		fmt.Println("Response: " + string(response))
-	}
-}
-```
-
 ### Iterate through records
 
 This library also offers paging functionality. Collections such as calls and messages have `ListXxx` and `StreamXxx`
@@ -728,3 +686,4 @@ If you've instead found a bug in the library or would like new features added, g
 
 [apidocs]: https://www.twilio.com/docs/api
 [libdocs]: https://pkg.go.dev/github.com/twilio/twilio-go?tab=versions
+[content-api-example]: https://github.com/twilio/twilio-go/blob/main/advanced-examples/content.md
