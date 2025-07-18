@@ -14,11 +14,11 @@ Name | Type | Description | Notes
 **ReservationsTimedOut** | **int** | The total number of Reservations that timed out for Tasks in the TaskQueue. |[optional] [default to 0]
 **ReservationsCanceled** | **int** | The total number of Reservations canceled for Tasks in the TaskQueue. |[optional] [default to 0]
 **ReservationsRescinded** | **int** | The total number of Reservations rescinded. |[optional] [default to 0]
-**SplitByWaitTime** | Pointer to **map[string]interface{}** | A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds. |
+**SplitByWaitTime** | Pointer to **interface{}** | A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds. |
 **TaskQueueSid** | Pointer to **string** | The SID of the TaskQueue from which these statistics were calculated. |
-**WaitDurationUntilAccepted** | Pointer to **map[string]interface{}** | The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks were created. For transfers, the wait duration is counted from the moment ***the Task was created***, and not from when the transfer was initiated. |
-**WaitDurationUntilCanceled** | Pointer to **map[string]interface{}** | The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks canceled while in the TaskQueue. |
-**WaitDurationInQueueUntilAccepted** | Pointer to **map[string]interface{}** | The relative wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks entered the TaskQueue. |
+**WaitDurationUntilAccepted** | Pointer to **interface{}** | The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks were created. For transfers, the wait duration is counted from the moment ***the Task was created***, and not from when the transfer was initiated. |
+**WaitDurationUntilCanceled** | Pointer to **interface{}** | The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks canceled while in the TaskQueue. |
+**WaitDurationInQueueUntilAccepted** | Pointer to **interface{}** | The relative wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks entered the TaskQueue. |
 **TasksCanceled** | **int** | The total number of Tasks canceled in the TaskQueue. |[optional] [default to 0]
 **TasksCompleted** | **int** | The total number of Tasks completed in the TaskQueue. |[optional] [default to 0]
 **TasksDeleted** | **int** | The total number of Tasks deleted in the TaskQueue. |[optional] [default to 0]

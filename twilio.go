@@ -31,21 +31,23 @@ import (
 	FlexV2 "github.com/twilio/twilio-go/rest/flex/v2"
 	FrontlineV1 "github.com/twilio/twilio-go/rest/frontline/v1"
 	IamV1 "github.com/twilio/twilio-go/rest/iam/v1"
+	IamV2 "github.com/twilio/twilio-go/rest/iam/v2"
 	InsightsV1 "github.com/twilio/twilio-go/rest/insights/v1"
 	IntelligenceV2 "github.com/twilio/twilio-go/rest/intelligence/v2"
 	IpMessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
 	IpMessagingV2 "github.com/twilio/twilio-go/rest/ip_messaging/v2"
-	KnowledgeV1 "github.com/twilio/twilio-go/rest/knowledge/v1"
 	LookupsV1 "github.com/twilio/twilio-go/rest/lookups/v1"
 	LookupsV2 "github.com/twilio/twilio-go/rest/lookups/v2"
 	MarketplaceV1 "github.com/twilio/twilio-go/rest/marketplace/v1"
 	MessagingV1 "github.com/twilio/twilio-go/rest/messaging/v1"
-	MicrovisorV1 "github.com/twilio/twilio-go/rest/microvisor/v1"
+	MessagingV2 "github.com/twilio/twilio-go/rest/messaging/v2"
 	MonitorV1 "github.com/twilio/twilio-go/rest/monitor/v1"
 	NotifyV1 "github.com/twilio/twilio-go/rest/notify/v1"
 	NumbersV1 "github.com/twilio/twilio-go/rest/numbers/v1"
 	NumbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
 	OauthV1 "github.com/twilio/twilio-go/rest/oauth/v1"
+	PreviewIamOrganization "github.com/twilio/twilio-go/rest/preview_iam/organization"
+	PreviewIamV1 "github.com/twilio/twilio-go/rest/preview_iam/v1"
 	PricingV1 "github.com/twilio/twilio-go/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/rest/proxy/v1"
@@ -59,6 +61,7 @@ import (
 	TrunkingV1 "github.com/twilio/twilio-go/rest/trunking/v1"
 	TrusthubV1 "github.com/twilio/twilio-go/rest/trusthub/v1"
 	VerifyV2 "github.com/twilio/twilio-go/rest/verify/v2"
+	VerifyV3 "github.com/twilio/twilio-go/rest/verify/v3"
 	VideoV1 "github.com/twilio/twilio-go/rest/video/v1"
 	VoiceV1 "github.com/twilio/twilio-go/rest/voice/v1"
 	WirelessV1 "github.com/twilio/twilio-go/rest/wireless/v1"
@@ -67,52 +70,55 @@ import (
 // RestClient provides access to Twilio services.
 type RestClient struct {
 	*client.RequestHandler
-	AccountsV1      *AccountsV1.ApiService
-	Api             *Api.ApiService
-	AssistantsV1    *AssistantsV1.ApiService
-	BulkexportsV1   *BulkexportsV1.ApiService
-	ChatV1          *ChatV1.ApiService
-	ChatV2          *ChatV2.ApiService
-	ChatV3          *ChatV3.ApiService
-	ContentV1       *ContentV1.ApiService
-	ContentV2       *ContentV2.ApiService
-	ConversationsV1 *ConversationsV1.ApiService
-	EventsV1        *EventsV1.ApiService
-	FlexV1          *FlexV1.ApiService
-	FlexV2          *FlexV2.ApiService
-	FrontlineV1     *FrontlineV1.ApiService
-	IamV1           *IamV1.ApiService
-	InsightsV1      *InsightsV1.ApiService
-	IntelligenceV2  *IntelligenceV2.ApiService
-	IpMessagingV1   *IpMessagingV1.ApiService
-	IpMessagingV2   *IpMessagingV2.ApiService
-	KnowledgeV1     *KnowledgeV1.ApiService
-	LookupsV1       *LookupsV1.ApiService
-	LookupsV2       *LookupsV2.ApiService
-	MarketplaceV1   *MarketplaceV1.ApiService
-	MessagingV1     *MessagingV1.ApiService
-	MicrovisorV1    *MicrovisorV1.ApiService
-	MonitorV1       *MonitorV1.ApiService
-	NotifyV1        *NotifyV1.ApiService
-	NumbersV1       *NumbersV1.ApiService
-	NumbersV2       *NumbersV2.ApiService
-	OauthV1         *OauthV1.ApiService
-	PricingV1       *PricingV1.ApiService
-	PricingV2       *PricingV2.ApiService
-	ProxyV1         *ProxyV1.ApiService
-	RoutesV2        *RoutesV2.ApiService
-	ServerlessV1    *ServerlessV1.ApiService
-	StudioV1        *StudioV1.ApiService
-	StudioV2        *StudioV2.ApiService
-	SupersimV1      *SupersimV1.ApiService
-	SyncV1          *SyncV1.ApiService
-	TaskrouterV1    *TaskrouterV1.ApiService
-	TrunkingV1      *TrunkingV1.ApiService
-	TrusthubV1      *TrusthubV1.ApiService
-	VerifyV2        *VerifyV2.ApiService
-	VideoV1         *VideoV1.ApiService
-	VoiceV1         *VoiceV1.ApiService
-	WirelessV1      *WirelessV1.ApiService
+	AccountsV1             *AccountsV1.ApiService
+	Api                    *Api.ApiService
+	AssistantsV1           *AssistantsV1.ApiService
+	BulkexportsV1          *BulkexportsV1.ApiService
+	ChatV1                 *ChatV1.ApiService
+	ChatV2                 *ChatV2.ApiService
+	ChatV3                 *ChatV3.ApiService
+	ContentV1              *ContentV1.ApiService
+	ContentV2              *ContentV2.ApiService
+	ConversationsV1        *ConversationsV1.ApiService
+	EventsV1               *EventsV1.ApiService
+	FlexV1                 *FlexV1.ApiService
+	FlexV2                 *FlexV2.ApiService
+	FrontlineV1            *FrontlineV1.ApiService
+	PreviewIamV1           *PreviewIamV1.ApiService
+	PreviewIamOrganization *PreviewIamOrganization.ApiService
+	IamV1                  *IamV1.ApiService
+	IamV2                  *IamV2.ApiService
+	InsightsV1             *InsightsV1.ApiService
+	IntelligenceV2         *IntelligenceV2.ApiService
+	IpMessagingV1          *IpMessagingV1.ApiService
+	IpMessagingV2          *IpMessagingV2.ApiService
+	LookupsV1              *LookupsV1.ApiService
+	LookupsV2              *LookupsV2.ApiService
+	MarketplaceV1          *MarketplaceV1.ApiService
+	MessagingV1            *MessagingV1.ApiService
+	MessagingV2            *MessagingV2.ApiService
+	MonitorV1              *MonitorV1.ApiService
+	NotifyV1               *NotifyV1.ApiService
+	NumbersV1              *NumbersV1.ApiService
+	NumbersV2              *NumbersV2.ApiService
+	OauthV1                *OauthV1.ApiService
+	PricingV1              *PricingV1.ApiService
+	PricingV2              *PricingV2.ApiService
+	ProxyV1                *ProxyV1.ApiService
+	RoutesV2               *RoutesV2.ApiService
+	ServerlessV1           *ServerlessV1.ApiService
+	StudioV1               *StudioV1.ApiService
+	StudioV2               *StudioV2.ApiService
+	SupersimV1             *SupersimV1.ApiService
+	SyncV1                 *SyncV1.ApiService
+	TaskrouterV1           *TaskrouterV1.ApiService
+	TrunkingV1             *TrunkingV1.ApiService
+	TrusthubV1             *TrusthubV1.ApiService
+	VerifyV2               *VerifyV2.ApiService
+	VerifyV3               *VerifyV3.ApiService
+	VideoV1                *VideoV1.ApiService
+	VoiceV1                *VoiceV1.ApiService
+	WirelessV1             *WirelessV1.ApiService
 }
 
 // Meta holds relevant pagination resources.
@@ -210,17 +216,19 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.FlexV1 = FlexV1.NewApiService(c.RequestHandler)
 	c.FlexV2 = FlexV2.NewApiService(c.RequestHandler)
 	c.FrontlineV1 = FrontlineV1.NewApiService(c.RequestHandler)
+	c.PreviewIamV1 = PreviewIamV1.NewApiService(c.RequestHandler)
+	c.PreviewIamOrganization = PreviewIamOrganization.NewApiService(c.RequestHandler)
 	c.IamV1 = IamV1.NewApiService(c.RequestHandler)
+	c.IamV2 = IamV2.NewApiService(c.RequestHandler)
 	c.InsightsV1 = InsightsV1.NewApiService(c.RequestHandler)
 	c.IntelligenceV2 = IntelligenceV2.NewApiService(c.RequestHandler)
 	c.IpMessagingV1 = IpMessagingV1.NewApiService(c.RequestHandler)
 	c.IpMessagingV2 = IpMessagingV2.NewApiService(c.RequestHandler)
-	c.KnowledgeV1 = KnowledgeV1.NewApiService(c.RequestHandler)
 	c.LookupsV1 = LookupsV1.NewApiService(c.RequestHandler)
 	c.LookupsV2 = LookupsV2.NewApiService(c.RequestHandler)
 	c.MarketplaceV1 = MarketplaceV1.NewApiService(c.RequestHandler)
 	c.MessagingV1 = MessagingV1.NewApiService(c.RequestHandler)
-	c.MicrovisorV1 = MicrovisorV1.NewApiService(c.RequestHandler)
+	c.MessagingV2 = MessagingV2.NewApiService(c.RequestHandler)
 	c.MonitorV1 = MonitorV1.NewApiService(c.RequestHandler)
 	c.NotifyV1 = NotifyV1.NewApiService(c.RequestHandler)
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)
@@ -239,6 +247,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.TrunkingV1 = TrunkingV1.NewApiService(c.RequestHandler)
 	c.TrusthubV1 = TrusthubV1.NewApiService(c.RequestHandler)
 	c.VerifyV2 = VerifyV2.NewApiService(c.RequestHandler)
+	c.VerifyV3 = VerifyV3.NewApiService(c.RequestHandler)
 	c.VideoV1 = VideoV1.NewApiService(c.RequestHandler)
 	c.VoiceV1 = VoiceV1.NewApiService(c.RequestHandler)
 	c.WirelessV1 = WirelessV1.NewApiService(c.RequestHandler)

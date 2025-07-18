@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ResourceSid** | Pointer to **string** | The SID of the Phone Number to which the Add-on is assigned. |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource. |
 **Description** | Pointer to **string** | A short description of the functionality that the Add-on provides. |
-**Configuration** | Pointer to **map[string]interface{}** | A JSON string that represents the current configuration of this Add-on installation. |
+**Configuration** | Pointer to **interface{}** | A JSON string that represents the current configuration of this Add-on installation. |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. |
 **DateCreated** | Pointer to **string** | The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **DateUpdated** | Pointer to **string** | The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |

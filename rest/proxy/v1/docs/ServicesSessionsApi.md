@@ -40,7 +40,7 @@ Name | Type | Description
 **Ttl** | **int** | The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
 **Mode** | [**string**](string.md) | 
 **Status** | [**string**](string.md) | 
-**Participants** | **[]map[string]interface{}** | The Participant objects to include in the new session.
+**Participants** | **[]interface{}** | The Participant objects to include in the new session.
 
 ### Return type
 

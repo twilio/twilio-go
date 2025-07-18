@@ -20,4 +20,5 @@ type IamV1AccountSearchListMeta struct {
 	NextToken     *string `json:"nextToken,omitempty"`
 	PageSize      int     `json:"pageSize,omitempty"`
 	TotalPages    int     `json:"totalPages,omitempty"`
+	TotalResults  int     `json:"totalResults,omitempty"`
 }

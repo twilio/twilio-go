@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **DeploymentSid** | Pointer to **string** | The SID of the deployment that corresponds to the log. |
 **FunctionSid** | Pointer to **string** | The SID of the function whose invocation produced the log. |
 **RequestSid** | Pointer to **string** | The SID of the request associated with the log. |
-**Level** | Pointer to [**string**](LogEnumLevel.md) |  |
+**Level** | Pointer to **string** | The log level. |
 **Message** | Pointer to **string** | The log message. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the Log resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **Url** | Pointer to **string** | The absolute URL of the Log resource. |

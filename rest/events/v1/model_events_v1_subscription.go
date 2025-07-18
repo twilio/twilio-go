@@ -36,6 +36,4 @@ type EventsV1Subscription struct {
 	Url *string `json:"url,omitempty"`
 	// Contains a dictionary of URL links to nested resources of this Subscription.
 	Links *map[string]interface{} `json:"links,omitempty"`
-	// Receive events from all children accounts in the parent account subscription.
-	ReceiveEventsFromSubaccounts *bool `json:"receive_events_from_subaccounts,omitempty"`
 }

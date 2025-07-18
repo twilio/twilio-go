@@ -199,7 +199,7 @@ func (c *ApiService) FetchConversationParticipant(ConversationSid string, Sid st
 
 // Optional parameters for the method 'ListConversationParticipant'
 type ListConversationParticipantParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// How many resources to return in each list page. The default is 50, and the maximum is 100.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`

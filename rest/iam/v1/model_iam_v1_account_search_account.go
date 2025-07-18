@@ -23,4 +23,5 @@ type IamV1AccountSearchAccount struct {
 	Trial          *bool   `json:"trial,omitempty"`
 	MemberPlatform *string `json:"memberPlatform,omitempty"`
 	FriendlyName   *string `json:"friendlyName,omitempty"`
+	Subaccount     *bool   `json:"subaccount,omitempty"`
 }

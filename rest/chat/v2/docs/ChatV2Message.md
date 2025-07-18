@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Body** | Pointer to **string** | The content of the message. |
 **Index** | **int** | The index of the message within the [Channel](https://www.twilio.com/docs/chat/channels). Indices may skip numbers, but will always be in order of when the message was received. |[optional] [default to 0]
 **Type** | Pointer to **string** | The Message type. Can be: `text` or `media`. |
-**Media** | Pointer to **map[string]interface{}** | An object that describes the Message's media, if the message contains media. The object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object's file size in bytes. If the Message has no media, this value is `null`. |
+**Media** | Pointer to **interface{}** | An object that describes the Message's media, if the message contains media. The object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object's file size in bytes. If the Message has no media, this value is `null`. |
 **Url** | Pointer to **string** | The absolute URL of the Message resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -21,4 +21,5 @@ type CallToActionAction struct {
 	Url   string                 `json:"url,omitempty"`
 	Phone string                 `json:"phone,omitempty"`
 	Code  string                 `json:"code,omitempty"`
+	Id    string                 `json:"id,omitempty"`
 }

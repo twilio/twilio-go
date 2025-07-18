@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **PolicySid** | Pointer to **string** | The unique string of a policy that is associated to the customer_profile resource. |
 **CustomerProfileSid** | Pointer to **string** | The unique string that we created to identify the customer_profile resource. |
 **Status** | Pointer to [**string**](CustomerProfileEvaluationEnumStatus.md) |  |
-**Results** | Pointer to **[]map[string]interface{}** | The results of the Evaluation which includes the valid and invalid attributes. |
+**Results** | Pointer to **[]interface{}** | The results of the Evaluation which includes the valid and invalid attributes. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **Url** | Pointer to **string** |  |
 

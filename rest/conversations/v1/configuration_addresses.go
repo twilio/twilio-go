@@ -212,7 +212,7 @@ func (c *ApiService) FetchConfigurationAddress(Sid string) (*ConversationsV1Conf
 type ListConfigurationAddressParams struct {
 	// Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
 	Type *string `json:"Type,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// How many resources to return in each list page. The default is 50, and the maximum is 50.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`

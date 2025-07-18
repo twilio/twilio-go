@@ -170,7 +170,7 @@ Other parameters are passed through a pointer to a ListConversationScopedWebhook
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 5, and the maximum is 5.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

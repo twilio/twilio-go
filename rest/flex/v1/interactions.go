@@ -23,23 +23,29 @@ import (
 // Optional parameters for the method 'CreateInteraction'
 type CreateInteractionParams struct {
 	// The Interaction's channel.
-	Channel *map[string]interface{} `json:"Channel,omitempty"`
+	Channel *interface{} `json:"Channel,omitempty"`
 	// The Interaction's routing logic.
-	Routing *map[string]interface{} `json:"Routing,omitempty"`
+	Routing *interface{} `json:"Routing,omitempty"`
 	// The Interaction context sid is used for adding a context lookup sid
 	InteractionContextSid *string `json:"InteractionContextSid,omitempty"`
+	// The unique identifier for Interaction level webhook
+	WebhookTtid *string `json:"WebhookTtid,omitempty"`
 }
 
-func (params *CreateInteractionParams) SetChannel(Channel map[string]interface{}) *CreateInteractionParams {
+func (params *CreateInteractionParams) SetChannel(Channel interface{}) *CreateInteractionParams {
 	params.Channel = &Channel
 	return params
 }
-func (params *CreateInteractionParams) SetRouting(Routing map[string]interface{}) *CreateInteractionParams {
+func (params *CreateInteractionParams) SetRouting(Routing interface{}) *CreateInteractionParams {
 	params.Routing = &Routing
 	return params
 }
 func (params *CreateInteractionParams) SetInteractionContextSid(InteractionContextSid string) *CreateInteractionParams {
 	params.InteractionContextSid = &InteractionContextSid
+	return params
+}
+func (params *CreateInteractionParams) SetWebhookTtid(WebhookTtid string) *CreateInteractionParams {
+	params.WebhookTtid = &WebhookTtid
 	return params
 }
 
@@ -73,6 +79,9 @@ func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1
 	if params != nil && params.InteractionContextSid != nil {
 		data.Set("InteractionContextSid", *params.InteractionContextSid)
 	}
+	if params != nil && params.WebhookTtid != nil {
+		data.Set("WebhookTtid", *params.WebhookTtid)
+	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -100,6 +109,46 @@ func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Interaction{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Optional parameters for the method 'UpdateInteraction'
+type UpdateInteractionParams struct {
+	// The unique identifier for Interaction level webhook
+	WebhookTtid *string `json:"WebhookTtid,omitempty"`
+}
+
+func (params *UpdateInteractionParams) SetWebhookTtid(WebhookTtid string) *UpdateInteractionParams {
+	params.WebhookTtid = &WebhookTtid
+	return params
+}
+
+// Updates an interaction.
+func (c *ApiService) UpdateInteraction(Sid string, params *UpdateInteractionParams) (*FlexV1Interaction, error) {
+	path := "/v1/Interactions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.WebhookTtid != nil {
+		data.Set("WebhookTtid", *params.WebhookTtid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

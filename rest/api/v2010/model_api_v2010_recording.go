@@ -39,15 +39,15 @@ type ApiV2010Recording struct {
 	// The currency used in the `price` property. Example: `USD`.
 	PriceUnit *string `json:"price_unit,omitempty"`
 	Status    *string `json:"status,omitempty"`
-	// The number of channels in the final recording file. Can be: `1` or `2`.
-	Channels int     `json:"channels,omitempty"`
+	// The number of channels in the final recording file. Can be: `1` or `2`. Default: `1`.
+	Channels *int    `json:"channels,omitempty"`
 	Source   *string `json:"source,omitempty"`
 	// The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
 	ErrorCode *int `json:"error_code,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`.
 	Uri *string `json:"uri,omitempty"`
 	// How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
-	EncryptionDetails *map[string]interface{} `json:"encryption_details,omitempty"`
+	EncryptionDetails *interface{} `json:"encryption_details,omitempty"`
 	// A list of related resources identified by their relative URIs.
 	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
 	// The URL of the media file associated with this recording resource. When stored externally, this is the full URL location of the media file.

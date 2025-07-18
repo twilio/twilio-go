@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **UserEmail** | Pointer to **string** | The email id of the user. |
 **AnswerText** | Pointer to **string** | The answer text selected by user |
 **AnswerId** | Pointer to **string** | The id of the answer selected by user |
-**Assessment** | Pointer to **map[string]interface{}** | Assessment Details associated with an assessment |
+**Assessment** | Pointer to **interface{}** | Assessment Details associated with an assessment |
 **Timestamp** | Pointer to **float32** |  |
 **Url** | Pointer to **string** |  |
 

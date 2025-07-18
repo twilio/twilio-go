@@ -38,8 +38,8 @@ Name | Type | Description
 **FactorSid** | **string** | The unique SID identifier of the Factor.
 **ExpirationDate** | **time.Time** | The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
 **DetailsMessage** | **string** | Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
-**DetailsFields** | **[]map[string]interface{}** | A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
-**HiddenDetails** | [**map[string]interface{}**](map[string]interface{}.md) | Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
+**DetailsFields** | **[]interface{}** | A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
+**HiddenDetails** | [**interface{}**](interface{}.md) | Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
 **AuthPayload** | **string** | Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
 
 ### Return type
@@ -178,7 +178,7 @@ Other parameters are passed through a pointer to a UpdateChallengeParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **AuthPayload** | **string** | The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
-**Metadata** | [**map[string]interface{}**](map[string]interface{}.md) | Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+**Metadata** | [**interface{}**](interface{}.md) | Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
 ### Return type
 

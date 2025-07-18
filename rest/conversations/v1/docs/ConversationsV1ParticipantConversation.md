@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ParticipantSid** | Pointer to **string** | The unique ID of the [Participant](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). |
 **ParticipantUserSid** | Pointer to **string** | The unique string that identifies the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). |
 **ParticipantIdentity** | Pointer to **string** | A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. |
-**ParticipantMessagingBinding** | Pointer to **map[string]interface{}** | Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant. |
+**ParticipantMessagingBinding** | Pointer to **interface{}** | Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant. |
 **ConversationSid** | Pointer to **string** | The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) this Participant belongs to. |
 **ConversationUniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the Conversation resource. |
 **ConversationFriendlyName** | Pointer to **string** | The human-readable name of this conversation, limited to 256 characters. Optional. |
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **ConversationDateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this conversation was last updated, given in ISO 8601 format. |
 **ConversationCreatedBy** | Pointer to **string** | Identity of the creator of this Conversation. |
 **ConversationState** | Pointer to [**string**](ParticipantConversationEnumState.md) |  |
-**ConversationTimers** | Pointer to **map[string]interface{}** | Timer date values representing state update for this conversation. |
+**ConversationTimers** | Pointer to **interface{}** | Timer date values representing state update for this conversation. |
 **Links** | Pointer to **map[string]interface{}** | Contains absolute URLs to access the [participant](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) and [conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) of this conversation. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

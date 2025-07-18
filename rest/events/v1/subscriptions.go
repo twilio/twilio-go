@@ -30,9 +30,7 @@ type CreateSubscriptionParams struct {
 	// The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 	SinkSid *string `json:"SinkSid,omitempty"`
 	// An array of objects containing the subscribed Event Types
-	Types *[]map[string]interface{} `json:"Types,omitempty"`
-	// Receive events from all children accounts in the parent account subscription.
-	ReceiveEventsFromSubaccounts *bool `json:"ReceiveEventsFromSubaccounts,omitempty"`
+	Types *[]interface{} `json:"Types,omitempty"`
 }
 
 func (params *CreateSubscriptionParams) SetDescription(Description string) *CreateSubscriptionParams {
@@ -43,12 +41,8 @@ func (params *CreateSubscriptionParams) SetSinkSid(SinkSid string) *CreateSubscr
 	params.SinkSid = &SinkSid
 	return params
 }
-func (params *CreateSubscriptionParams) SetTypes(Types []map[string]interface{}) *CreateSubscriptionParams {
+func (params *CreateSubscriptionParams) SetTypes(Types []interface{}) *CreateSubscriptionParams {
 	params.Types = &Types
-	return params
-}
-func (params *CreateSubscriptionParams) SetReceiveEventsFromSubaccounts(ReceiveEventsFromSubaccounts bool) *CreateSubscriptionParams {
-	params.ReceiveEventsFromSubaccounts = &ReceiveEventsFromSubaccounts
 	return params
 }
 
@@ -77,9 +71,6 @@ func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*Even
 
 			data.Add("Types", string(v))
 		}
-	}
-	if params != nil && params.ReceiveEventsFromSubaccounts != nil {
-		data.Set("ReceiveEventsFromSubaccounts", fmt.Sprint(*params.ReceiveEventsFromSubaccounts))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -295,8 +286,6 @@ type UpdateSubscriptionParams struct {
 	Description *string `json:"Description,omitempty"`
 	// The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 	SinkSid *string `json:"SinkSid,omitempty"`
-	// Receive events from all children accounts in the parent account subscription.
-	ReceiveEventsFromSubaccounts *bool `json:"ReceiveEventsFromSubaccounts,omitempty"`
 }
 
 func (params *UpdateSubscriptionParams) SetDescription(Description string) *UpdateSubscriptionParams {
@@ -305,10 +294,6 @@ func (params *UpdateSubscriptionParams) SetDescription(Description string) *Upda
 }
 func (params *UpdateSubscriptionParams) SetSinkSid(SinkSid string) *UpdateSubscriptionParams {
 	params.SinkSid = &SinkSid
-	return params
-}
-func (params *UpdateSubscriptionParams) SetReceiveEventsFromSubaccounts(ReceiveEventsFromSubaccounts bool) *UpdateSubscriptionParams {
-	params.ReceiveEventsFromSubaccounts = &ReceiveEventsFromSubaccounts
 	return params
 }
 
@@ -327,9 +312,6 @@ func (c *ApiService) UpdateSubscription(Sid string, params *UpdateSubscriptionPa
 	}
 	if params != nil && params.SinkSid != nil {
 		data.Set("SinkSid", *params.SinkSid)
-	}
-	if params != nil && params.ReceiveEventsFromSubaccounts != nil {
-		data.Set("ReceiveEventsFromSubaccounts", fmt.Sprint(*params.ReceiveEventsFromSubaccounts))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

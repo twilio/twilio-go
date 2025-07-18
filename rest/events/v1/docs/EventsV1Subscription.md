@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **SinkSid** | Pointer to **string** | The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. |
 **Url** | Pointer to **string** | The URL of this resource. |
 **Links** | Pointer to **map[string]interface{}** | Contains a dictionary of URL links to nested resources of this Subscription. |
-**ReceiveEventsFromSubaccounts** | Pointer to **bool** | Receive events from all children accounts in the parent account subscription. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

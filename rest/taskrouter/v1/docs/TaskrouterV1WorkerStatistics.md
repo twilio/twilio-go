@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Realtime** | Pointer to **map[string]interface{}** | An object that contains the real-time statistics for the Worker. |
-**Cumulative** | Pointer to **map[string]interface{}** | An object that contains the cumulative statistics for the Worker. |
+**Realtime** | Pointer to **interface{}** | An object that contains the real-time statistics for the Worker. |
+**Cumulative** | Pointer to **interface{}** | An object that contains the cumulative statistics for the Worker. |
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource. |
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the Worker. |
 **Url** | Pointer to **string** | The absolute URL of the Worker statistics resource. |

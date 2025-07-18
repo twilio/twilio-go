@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateTranscriptParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **ServiceSid** | **string** | The unique SID identifier of the Service.
-**Channel** | [**map[string]interface{}**](map[string]interface{}.md) | JSON object describing Media Channel including Source and Participants
+**Channel** | [**interface{}**](interface{}.md) | JSON object describing Media Channel including Source and Participants
 **CustomerKey** | **string** | Used to store client provided metadata. Maximum of 64 double-byte UTF8 characters.
 **MediaStartTime** | **time.Time** | The date that this Transcript's media was started, given in ISO 8601 format.
 

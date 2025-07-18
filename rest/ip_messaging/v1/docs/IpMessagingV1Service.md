@@ -16,13 +16,13 @@ Name | Type | Description | Notes
 **ReachabilityEnabled** | Pointer to **bool** |  |
 **TypingIndicatorTimeout** | **int** |  |[optional] [default to 0]
 **ConsumptionReportInterval** | **int** |  |[optional] [default to 0]
-**Limits** | Pointer to **map[string]interface{}** |  |
-**Webhooks** | Pointer to **map[string]interface{}** |  |
+**Limits** | Pointer to **interface{}** |  |
+**Webhooks** | Pointer to **interface{}** |  |
 **PreWebhookUrl** | Pointer to **string** |  |
 **PostWebhookUrl** | Pointer to **string** |  |
 **WebhookMethod** | Pointer to **string** |  |
 **WebhookFilters** | Pointer to **[]string** |  |
-**Notifications** | Pointer to **map[string]interface{}** |  |
+**Notifications** | Pointer to **interface{}** |  |
 **Url** | Pointer to **string** |  |
 **Links** | Pointer to **map[string]interface{}** |  |
 

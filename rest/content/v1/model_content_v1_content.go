@@ -33,9 +33,9 @@ type ContentV1Content struct {
 	// Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
 	Language *string `json:"language,omitempty"`
 	// Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
-	Variables *interface{} `json:"variables,omitempty"`
+	Variables *map[string]interface{} `json:"variables,omitempty"`
 	// The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
-	Types *interface{} `json:"types,omitempty"`
+	Types *map[string]interface{} `json:"types,omitempty"`
 	// The URL of the resource, relative to `https://content.twilio.com`.
 	Url *string `json:"url,omitempty"`
 	// A list of links related to the Content resource, such as approval_fetch and approval_create

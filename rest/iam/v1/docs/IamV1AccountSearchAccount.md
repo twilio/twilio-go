@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Trial** | Pointer to **bool** |  |
 **MemberPlatform** | Pointer to **string** |  |
 **FriendlyName** | Pointer to **string** |  |
+**Subaccount** | Pointer to **bool** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

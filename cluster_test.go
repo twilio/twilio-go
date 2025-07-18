@@ -7,6 +7,8 @@ import (
 	"os"
 	"testing"
 
+	PreviewIam "github.com/twilio/twilio-go/rest/preview_iam/organization"
+
 	"github.com/twilio/twilio-go/client"
 	Api "github.com/twilio/twilio-go/rest/api/v2010"
 	ChatV2 "github.com/twilio/twilio-go/rest/chat/v2"
@@ -20,13 +22,28 @@ var from string
 var to string
 var testClient *RestClient
 
+var orgSid string
+var accountSidOrgs string
+var clientId string
+var clientSecret string
+var orgsClient *RestClient
+
 func TestMain(m *testing.M) {
 	from = os.Getenv("TWILIO_FROM_NUMBER")
 	to = os.Getenv("TWILIO_TO_NUMBER")
 	var apiKey = os.Getenv("TWILIO_API_KEY")
 	var secret = os.Getenv("TWILIO_API_SECRET")
 	var accountSid = os.Getenv("TWILIO_ACCOUNT_SID")
-
+	orgSid = os.Getenv("TWILIO_ORG_SID")
+	accountSidOrgs = os.Getenv("TWILIO_ACCOUNT_SID_OAUTH")
+	clientId = os.Getenv("TWILIO_ORGS_CLIENT_ID")
+	clientSecret = os.Getenv("TWILIO_ORGS_CLIENT_SECRET")
+	var clientCredential = ClientCredentialProvider{
+		GrantType:    "client_credentials",
+		ClientId:     clientId,
+		ClientSecret: clientSecret,
+	}
+	orgsClient = NewRestClientWithParams(ClientParams{ClientCredentialProvider: &clientCredential, AccountSid: accountSidOrgs})
 	testClient = NewRestClientWithParams(ClientParams{apiKey, secret, accountSid, nil, nil})
 	ret := m.Run()
 	os.Exit(ret)
@@ -100,11 +117,11 @@ func TestListParams(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotNil(t, sink)
 
-	types := []map[string]interface{}{
-		{
+	types := []interface{}{
+		map[string]interface{}{
 			"type": "com.twilio.messaging.message.delivered",
 		},
-		{
+		map[string]interface{}{
 			"type": "com.twilio.messaging.message.sent",
 		},
 	}
@@ -229,4 +246,25 @@ func TestTokenAuthFetchTokenException(t *testing.T) {
 	resp, err := testClient.IamV1.CreateToken(params)
 	assert.NotNil(t, 403, err.(*client.TwilioRestError).Status)
 	assert.Nil(t, resp)
+}
+
+func TestOrgsAccountsList(t *testing.T) {
+	listAccounts, err := orgsClient.PreviewIamOrganization.ListOrganizationAccounts(orgSid, &PreviewIam.ListOrganizationAccountsParams{})
+	assert.Nil(t, err)
+	assert.NotNil(t, listAccounts)
+	accounts, err := orgsClient.PreviewIamOrganization.FetchOrganizationAccount(orgSid, &PreviewIam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
+	assert.Nil(t, err)
+	assert.NotNil(t, accounts)
+}
+
+func TestOrgsRoleAssignmentsList(t *testing.T) {
+	roleAssignments, err := orgsClient.PreviewIamOrganization.ListRoleAssignments(orgSid, &PreviewIam.ListRoleAssignmentsParams{Scope: &accountSidOrgs})
+	assert.Nil(t, err)
+	assert.NotNil(t, roleAssignments)
+}
+
+func TestOrgsScimUerList(t *testing.T) {
+	users, err := orgsClient.PreviewIamOrganization.ListOrganizationUsers(orgSid, &PreviewIam.ListOrganizationUsersParams{})
+	assert.Nil(t, err)
+	assert.NotNil(t, users)
 }

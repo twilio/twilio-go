@@ -1,5 +1,120 @@
 twilio-go changelog
 ====================
+[2025-07-10] Version 1.26.5
+---------------------------
+**Library - Fix**
+- [PR #291](https://github.com/twilio/twilio-go/pull/291): revert cluster test change to interface. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Flex**
+- update team name for web_channel, webchat_init_token, webchat_refresh_token
+
+
+[2025-07-03] Version 1.26.4
+---------------------------
+**Bulkexports**
+- Changed the type of 'details' field to be a list of objects instead of a single object
+
+**Conversations**
+- Updates to `method` casing for ConfgurationAddress, ConversationScopedWebhook, and ServiceConversationScopedWebhook for RestProxy compatibility
+
+**Proxy**
+- remove shortcodes resource as its no longer used
+
+**Serverless**
+- Change log field level from type `ienum` to `string` in Logs api
+
+**Taskrouter**
+- Remove `URL-encoded` from attributes param definition in tasks
+
+**Trunking**
+- Added `symmetric_rtp_enabled` property on Trunks.
+
+**Twiml**
+- Add support for `<WhatsApp>` noun under `<Dial>` verb
+
+
+[2025-06-12] Version 1.26.3
+---------------------------
+**Api**
+- Change DependentPhoneNumber `capabilities` type `object` and `date_created`, `date_updated` to `date_time<rfc2822>`
+- Updated the `Default` value from 0 to 1 in the Recordings Resource `channels` property
+
+**Serverless**
+- Update `ienum` type level in Logs api
+
+**Verify**
+- Update Channel list in Verify Attempst API
+- Update `ienum` type for Conversion_Status in Verify Attempts API
+
+**Twiml**
+- Add `us2` to the list of supported values for the region attribute in the `<Conference>` TwiML noun.
+
+
+[2025-05-29] Version 1.26.2
+---------------------------
+**Library - Chore**
+- [PR #289](https://github.com/twilio/twilio-go/pull/289): add mocking for Oauth. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Added several usage category enums to `usage_record` API
+
+**Numbers**
+- Update the porting documentation
+
+**Verify**
+- Update `ienum` type for Channels in Verify Attempts API
+
+
+[2025-05-13] Version 1.26.1
+---------------------------
+**Library - Docs**
+- [PR #285](https://github.com/twilio/twilio-go/pull/285): add changelog for jwt v5. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Accounts**
+- Changes to add date_of_consent param in Bulk Consent API
+
+**Api**
+- Change `friendly_name`, `date_created` and `date_updated` properties to type `string`.
+
+**Twiml**
+- Update twiml definition for `<ConversationRelay>` and `<Assistant>`
+
+
+[2025-05-05] Version 1.26.0
+---------------------------
+**Library - Chore**
+- [PR #282](https://github.com/twilio/twilio-go/pull/282): add access token example. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #277](https://github.com/twilio/twilio-go/pull/277): retract 1.25.0. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #275](https://github.com/twilio/twilio-go/pull/275): cluster test. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Feature**
+- [PR #281](https://github.com/twilio/twilio-go/pull/281): orgs api. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Fix**
+- [PR #280](https://github.com/twilio/twilio-go/pull/280): update github.com/golang-jwt/jwt to address vulnerability. Thanks to [@sigi-glovebox](https://github.com/sigi-glovebox)! **(breaking change)**
+  - The JWT library been updated to version v5 and may require changes to your code. We recommend adding indirect dependency to your go.mod file to ensure compatibility. For example, you can add the following line to your go.mod file:
+  ```
+  require (
+        github.com/golang-jwt/jwt/v5 v5.2.2 // indirect
+    )
+  ```
+
+**Api**
+- Add `response_key` for `Usage Triggers` fetch endpoint.
+
+**Flex**
+- Add Update Interaction API
+- Adding `webhook_ttid` as optional parameter in Interactions API
+
+**Serverless**
+- Add node22 as a valid Build runtime
+- Add node20 as a valid Build runtime
+
+**Video**
+- removed `transcribe_participants_on_connect` and `transcriptions_configuration` from the room resource **(breaking change)**
+- Added `transcribe_participants_on_connect` and `transcriptions_configuration` to the room resource
+
+
 [2024-04-08] Version 1.25.1
 ---------------------------
 **Library - Chore**
