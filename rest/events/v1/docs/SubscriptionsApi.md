@@ -202,7 +202,6 @@ Other parameters are passed through a pointer to a UpdateSubscriptionParams stru
 Name | Type | Description
 ------------- | ------------- | -------------
 **Description** | **string** | A human readable description for the Subscription.
-**SinkSid** | **string** | The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
 ### Return type
 
