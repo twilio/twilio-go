@@ -14,14 +14,10 @@
 
 package openapi
 
-// IamV1TwilioServiceErrorResponse struct for IamV1TwilioServiceErrorResponse
-type IamV1TwilioServiceErrorResponse struct {
-	// Twilio-specific error code
-	Code int `json:"code,omitempty"`
-	// Error message
-	Message string `json:"message,omitempty"`
-	// Link to Error Code References
-	MoreInfo string `json:"more_info,omitempty"`
-	// HTTP response status code
-	Status int `json:"status,omitempty"`
+// IamV1CreateDomainResponse struct for IamV1CreateDomainResponse
+type IamV1CreateDomainResponse struct {
+	// Unique Twilio domain sid
+	Sid string `json:"sid,omitempty"`
+	// Verification token for the domain
+	Token string `json:"token,omitempty"`
 }

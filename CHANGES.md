@@ -1,5 +1,19 @@
 twilio-go changelog
 ====================
+[2025-07-24] Version 1.27.0
+---------------------------
+**Library - Docs**
+- [PR #294](https://github.com/twilio/twilio-go/pull/294): Remove preview messaging reference. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Events**
+- Remove `SinkSid` parameter when updating subscriptions. **(breaking change)**
+
+**Twiml**
+- Remove Duplicates.
+- Add Polly Generative voices.
+- Add Latest Google (Chirp3-HD) voices.
+
+
 [2025-07-10] Version 1.26.5
 ---------------------------
 **Library - Fix**

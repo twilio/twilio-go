@@ -14,14 +14,8 @@
 
 package openapi
 
-// TwilioServiceErrorResponse struct for TwilioServiceErrorResponse
-type TwilioServiceErrorResponse struct {
-	// Twilio-specific error code
-	Code int `json:"code,omitempty"`
-	// Error message
-	Message string `json:"message,omitempty"`
-	// Link to Error Code References
-	MoreInfo string `json:"more_info,omitempty"`
-	// HTTP response status code
-	Status int `json:"status,omitempty"`
+// IamV1ChangeAccountOwnerRequest struct for IamV1ChangeAccountOwnerRequest
+type IamV1ChangeAccountOwnerRequest struct {
+	// The SID of the new owner to transfer the account to
+	NewOwnerSid string `json:"newOwnerSid,omitempty"`
 }

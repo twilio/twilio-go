@@ -14,18 +14,8 @@
 
 package openapi
 
-import (
-	"time"
-)
-
-// IamV1Organization struct for IamV1Organization
-type IamV1Organization struct {
-	// Unique Twilio organization sid
-	OrganizationSid string `json:"organizationSid,omitempty"`
-	// Organization friendly name
-	FriendlyName string `json:"friendlyName,omitempty"`
-	// User sign-up type for Organization domains
-	DomainSignupType string `json:"domainSignupType,omitempty"`
-	// Creation date of the organization
-	DateCreated time.Time `json:"dateCreated,omitempty"`
+// IamV1ChangeAccountOwnerResponse struct for IamV1ChangeAccountOwnerResponse
+type IamV1ChangeAccountOwnerResponse struct {
+	// The SID of the workflow that will handle the account ownership change
+	ExecutionSid string `json:"executionSid,omitempty"`
 }
