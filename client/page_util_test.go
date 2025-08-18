@@ -2,6 +2,7 @@ package client
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -140,7 +141,7 @@ type testMessage struct {
 	To *string `json:"to,omitempty"`
 }
 
-func getSomething(nextPageUrl string) (interface{}, error) {
+func getSomething(ctx context.Context, nextPageUrl string) (interface{}, error) {
 	return nextPageUrl, nil
 }
 
@@ -151,11 +152,11 @@ func TestPageUtil_GetNext(t *testing.T) {
 	ps := &testResponse{}
 	_ = json.NewDecoder(response.Body).Decode(ps)
 
-	nextPageUrl, err := GetNext(baseUrl, ps, getSomething)
+	nextPageUrl, err := GetNextWithContext(context.TODO(), baseUrl, ps, getSomething)
 	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=2&Page=1&PageToken=PASMXX", nextPageUrl)
 	assert.Nil(t, err)
 
-	nextPageUrl, err = GetNext(baseUrl, nil, getSomething)
+	nextPageUrl, err = GetNextWithContext(context.TODO(), baseUrl, nil, getSomething)
 	assert.Empty(t, nextPageUrl)
 	assert.Nil(t, err)
 }
