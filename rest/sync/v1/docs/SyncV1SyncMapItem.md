@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **MapSid** | Pointer to **string** | The SID of the Sync Map that contains the Map Item. |
 **Url** | Pointer to **string** | The absolute URL of the Map Item resource. |
 **Revision** | Pointer to **string** | The current revision of the Map Item, represented as a string. |
-**Data** | Pointer to **map[string]interface{}** | An arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. |
+**Data** | Pointer to **interface{}** | An arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. |
 **DateExpires** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the Map Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Map Item does not expire, this value is `null`.  The Map Item might not be deleted immediately after it expires. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |

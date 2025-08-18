@@ -35,7 +35,7 @@ func (params *CreateChannelsSenderParams) SetMessagingV2Create(MessagingV2Create
 }
 
 // Create a new sender of WhatsApp.
-func (c *ApiService) CreateChannelsSender(params *CreateChannelsSenderParams) (*MessagingV2ChannelsSender, error) {
+func (c *ApiService) CreateChannelsSender(params *CreateChannelsSenderParams) (*MessagingV2ChannelsSenderResponse, error) {
 	path := "/v2/Channels/Senders"
 
 	data := url.Values{}
@@ -59,7 +59,7 @@ func (c *ApiService) CreateChannelsSender(params *CreateChannelsSenderParams) (*
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV2ChannelsSender{}
+	ps := &MessagingV2ChannelsSenderResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *ApiService) DeleteChannelsSender(Sid string) error {
 }
 
 // Retrieve details of a specific sender by its unique identifier.
-func (c *ApiService) FetchChannelsSender(Sid string) (*MessagingV2ChannelsSender, error) {
+func (c *ApiService) FetchChannelsSender(Sid string) (*MessagingV2ChannelsSenderResponse, error) {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -104,7 +104,7 @@ func (c *ApiService) FetchChannelsSender(Sid string) (*MessagingV2ChannelsSender
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV2ChannelsSender{}
+	ps := &MessagingV2ChannelsSenderResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -174,10 +174,10 @@ func (c *ApiService) PageChannelsSender(params *ListChannelsSenderParams, pageTo
 }
 
 // Lists ChannelsSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChannelsSender(params *ListChannelsSenderParams) ([]MessagingV2ChannelsSender, error) {
+func (c *ApiService) ListChannelsSender(params *ListChannelsSenderParams) ([]MessagingV2ChannelsSenderResponse, error) {
 	response, errors := c.StreamChannelsSender(params)
 
-	records := make([]MessagingV2ChannelsSender, 0)
+	records := make([]MessagingV2ChannelsSenderResponse, 0)
 	for record := range response {
 		records = append(records, record)
 	}
@@ -190,13 +190,13 @@ func (c *ApiService) ListChannelsSender(params *ListChannelsSenderParams) ([]Mes
 }
 
 // Streams ChannelsSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChannelsSender(params *ListChannelsSenderParams) (chan MessagingV2ChannelsSender, chan error) {
+func (c *ApiService) StreamChannelsSender(params *ListChannelsSenderParams) (chan MessagingV2ChannelsSenderResponse, chan error) {
 	if params == nil {
 		params = &ListChannelsSenderParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
-	recordChannel := make(chan MessagingV2ChannelsSender, 1)
+	recordChannel := make(chan MessagingV2ChannelsSenderResponse, 1)
 	errorChannel := make(chan error, 1)
 
 	response, err := c.PageChannelsSender(params, "", "")
@@ -211,7 +211,7 @@ func (c *ApiService) StreamChannelsSender(params *ListChannelsSenderParams) (cha
 	return recordChannel, errorChannel
 }
 
-func (c *ApiService) streamChannelsSender(response *ListChannelsSenderResponse, params *ListChannelsSenderParams, recordChannel chan MessagingV2ChannelsSender, errorChannel chan error) {
+func (c *ApiService) streamChannelsSender(response *ListChannelsSenderResponse, params *ListChannelsSenderParams, recordChannel chan MessagingV2ChannelsSenderResponse, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -271,7 +271,7 @@ func (params *UpdateChannelsSenderParams) SetMessagingV2Update(MessagingV2Update
 }
 
 // Update a specific sender information like OTP Code, Webhook, Profile information.
-func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSenderParams) (*MessagingV2ChannelsSender, error) {
+func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSenderParams) (*MessagingV2ChannelsSenderResponse, error) {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -296,7 +296,7 @@ func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSend
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV2ChannelsSender{}
+	ps := &MessagingV2ChannelsSenderResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Duration** | Pointer to **int** | The duration of the recording rounded to the nearest second. Sub-second duration tracks have a `duration` of 1 second |
 **ContainerFormat** | Pointer to [**string**](RoomRecordingEnumFormat.md) |  |
 **Codec** | Pointer to [**string**](RoomRecordingEnumCodec.md) |  |
-**GroupingSids** | Pointer to **map[string]interface{}** | A list of SIDs related to the Recording. Includes the `room_sid` and `participant_sid`. |
+**GroupingSids** | Pointer to **interface{}** | A list of SIDs related to the Recording. Includes the `room_sid` and `participant_sid`. |
 **TrackName** | Pointer to **string** | The name that was given to the source track of the recording. If no name is given, the `source_sid` is used. |
 **Offset** | Pointer to **int64** | The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room. |
 **MediaExternalLocation** | Pointer to **string** | The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details. |

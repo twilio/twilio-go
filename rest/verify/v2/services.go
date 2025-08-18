@@ -63,6 +63,18 @@ type CreateServiceParams struct {
 	WhatsappMsgServiceSid *string `json:"Whatsapp.MsgServiceSid,omitempty"`
 	// The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID.
 	WhatsappFrom *string `json:"Whatsapp.From,omitempty"`
+	// The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+	PasskeysRelyingPartyId *string `json:"Passkeys.RelyingParty.Id,omitempty"`
+	// The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+	PasskeysRelyingPartyName *string `json:"Passkeys.RelyingParty.Name,omitempty"`
+	// The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+	PasskeysRelyingPartyOrigins *string `json:"Passkeys.RelyingParty.Origins,omitempty"`
+	// The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+	PasskeysAuthenticatorAttachment *string `json:"Passkeys.AuthenticatorAttachment,omitempty"`
+	// Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+	PasskeysDiscoverableCredentials *string `json:"Passkeys.DiscoverableCredentials,omitempty"`
+	// The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+	PasskeysUserVerification *string `json:"Passkeys.UserVerification,omitempty"`
 	// Whether to allow verifications from the service to reach the stream-events sinks if configured
 	VerifyEventSubscriptionEnabled *bool `json:"VerifyEventSubscriptionEnabled,omitempty"`
 }
@@ -143,6 +155,30 @@ func (params *CreateServiceParams) SetWhatsappFrom(WhatsappFrom string) *CreateS
 	params.WhatsappFrom = &WhatsappFrom
 	return params
 }
+func (params *CreateServiceParams) SetPasskeysRelyingPartyId(PasskeysRelyingPartyId string) *CreateServiceParams {
+	params.PasskeysRelyingPartyId = &PasskeysRelyingPartyId
+	return params
+}
+func (params *CreateServiceParams) SetPasskeysRelyingPartyName(PasskeysRelyingPartyName string) *CreateServiceParams {
+	params.PasskeysRelyingPartyName = &PasskeysRelyingPartyName
+	return params
+}
+func (params *CreateServiceParams) SetPasskeysRelyingPartyOrigins(PasskeysRelyingPartyOrigins string) *CreateServiceParams {
+	params.PasskeysRelyingPartyOrigins = &PasskeysRelyingPartyOrigins
+	return params
+}
+func (params *CreateServiceParams) SetPasskeysAuthenticatorAttachment(PasskeysAuthenticatorAttachment string) *CreateServiceParams {
+	params.PasskeysAuthenticatorAttachment = &PasskeysAuthenticatorAttachment
+	return params
+}
+func (params *CreateServiceParams) SetPasskeysDiscoverableCredentials(PasskeysDiscoverableCredentials string) *CreateServiceParams {
+	params.PasskeysDiscoverableCredentials = &PasskeysDiscoverableCredentials
+	return params
+}
+func (params *CreateServiceParams) SetPasskeysUserVerification(PasskeysUserVerification string) *CreateServiceParams {
+	params.PasskeysUserVerification = &PasskeysUserVerification
+	return params
+}
 func (params *CreateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEventSubscriptionEnabled bool) *CreateServiceParams {
 	params.VerifyEventSubscriptionEnabled = &VerifyEventSubscriptionEnabled
 	return params
@@ -213,6 +249,24 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 	}
 	if params != nil && params.WhatsappFrom != nil {
 		data.Set("Whatsapp.From", *params.WhatsappFrom)
+	}
+	if params != nil && params.PasskeysRelyingPartyId != nil {
+		data.Set("Passkeys.RelyingParty.Id", *params.PasskeysRelyingPartyId)
+	}
+	if params != nil && params.PasskeysRelyingPartyName != nil {
+		data.Set("Passkeys.RelyingParty.Name", *params.PasskeysRelyingPartyName)
+	}
+	if params != nil && params.PasskeysRelyingPartyOrigins != nil {
+		data.Set("Passkeys.RelyingParty.Origins", *params.PasskeysRelyingPartyOrigins)
+	}
+	if params != nil && params.PasskeysAuthenticatorAttachment != nil {
+		data.Set("Passkeys.AuthenticatorAttachment", *params.PasskeysAuthenticatorAttachment)
+	}
+	if params != nil && params.PasskeysDiscoverableCredentials != nil {
+		data.Set("Passkeys.DiscoverableCredentials", *params.PasskeysDiscoverableCredentials)
+	}
+	if params != nil && params.PasskeysUserVerification != nil {
+		data.Set("Passkeys.UserVerification", *params.PasskeysUserVerification)
 	}
 	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
 		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))
@@ -456,6 +510,12 @@ type UpdateServiceParams struct {
 	WhatsappMsgServiceSid *string `json:"Whatsapp.MsgServiceSid,omitempty"`
 	// The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
 	WhatsappFrom *string `json:"Whatsapp.From,omitempty"`
+	// The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+	PasskeysRelyingPartyId *string `json:"Passkeys.RelyingParty.Id,omitempty"`
+	// The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+	PasskeysRelyingPartyName *string `json:"Passkeys.RelyingParty.Name,omitempty"`
+	// The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+	PasskeysRelyingPartyOrigins *string `json:"Passkeys.RelyingParty.Origins,omitempty"`
 	// Whether to allow verifications from the service to reach the stream-events sinks if configured
 	VerifyEventSubscriptionEnabled *bool `json:"VerifyEventSubscriptionEnabled,omitempty"`
 }
@@ -536,6 +596,18 @@ func (params *UpdateServiceParams) SetWhatsappFrom(WhatsappFrom string) *UpdateS
 	params.WhatsappFrom = &WhatsappFrom
 	return params
 }
+func (params *UpdateServiceParams) SetPasskeysRelyingPartyId(PasskeysRelyingPartyId string) *UpdateServiceParams {
+	params.PasskeysRelyingPartyId = &PasskeysRelyingPartyId
+	return params
+}
+func (params *UpdateServiceParams) SetPasskeysRelyingPartyName(PasskeysRelyingPartyName string) *UpdateServiceParams {
+	params.PasskeysRelyingPartyName = &PasskeysRelyingPartyName
+	return params
+}
+func (params *UpdateServiceParams) SetPasskeysRelyingPartyOrigins(PasskeysRelyingPartyOrigins string) *UpdateServiceParams {
+	params.PasskeysRelyingPartyOrigins = &PasskeysRelyingPartyOrigins
+	return params
+}
 func (params *UpdateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEventSubscriptionEnabled bool) *UpdateServiceParams {
 	params.VerifyEventSubscriptionEnabled = &VerifyEventSubscriptionEnabled
 	return params
@@ -607,6 +679,15 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	}
 	if params != nil && params.WhatsappFrom != nil {
 		data.Set("Whatsapp.From", *params.WhatsappFrom)
+	}
+	if params != nil && params.PasskeysRelyingPartyId != nil {
+		data.Set("Passkeys.RelyingParty.Id", *params.PasskeysRelyingPartyId)
+	}
+	if params != nil && params.PasskeysRelyingPartyName != nil {
+		data.Set("Passkeys.RelyingParty.Name", *params.PasskeysRelyingPartyName)
+	}
+	if params != nil && params.PasskeysRelyingPartyOrigins != nil {
+		data.Set("Passkeys.RelyingParty.Origins", *params.PasskeysRelyingPartyOrigins)
 	}
 	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
 		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateChannelsSender
 
-> MessagingV2ChannelsSender CreateChannelsSender(ctx, optional)
+> MessagingV2ChannelsSenderResponse CreateChannelsSender(ctx, optional)
 
 Create a new sender of WhatsApp.
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV2ChannelsSender**](MessagingV2ChannelsSender.md)
+[**MessagingV2ChannelsSenderResponse**](MessagingV2ChannelsSenderResponse.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## FetchChannelsSender
 
-> MessagingV2ChannelsSender FetchChannelsSender(ctx, Sid)
+> MessagingV2ChannelsSenderResponse FetchChannelsSender(ctx, Sid)
 
 Retrieve details of a specific sender by its unique identifier.
 
@@ -119,7 +119,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV2ChannelsSender**](MessagingV2ChannelsSender.md)
+[**MessagingV2ChannelsSenderResponse**](MessagingV2ChannelsSenderResponse.md)
 
 ### Authorization
 
@@ -137,7 +137,7 @@ Name | Type | Description
 
 ## ListChannelsSender
 
-> []MessagingV2ChannelsSender ListChannelsSender(ctx, optional)
+> []MessagingV2ChannelsSenderResponse ListChannelsSender(ctx, optional)
 
 Get a list of Senders for an account.
 
@@ -160,7 +160,7 @@ Name | Type | Description
 
 ### Return type
 
-[**[]MessagingV2ChannelsSender**](MessagingV2ChannelsSender.md)
+[**[]MessagingV2ChannelsSenderResponse**](MessagingV2ChannelsSenderResponse.md)
 
 ### Authorization
 
@@ -178,7 +178,7 @@ Name | Type | Description
 
 ## UpdateChannelsSender
 
-> MessagingV2ChannelsSender UpdateChannelsSender(ctx, Sidoptional)
+> MessagingV2ChannelsSenderResponse UpdateChannelsSender(ctx, Sidoptional)
 
 Update a specific sender information like OTP Code, Webhook, Profile information.
 
@@ -203,7 +203,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV2ChannelsSender**](MessagingV2ChannelsSender.md)
+[**MessagingV2ChannelsSenderResponse**](MessagingV2ChannelsSenderResponse.md)
 
 ### Authorization
 

@@ -33,7 +33,7 @@ type SyncV1SyncMapItem struct {
 	// The current revision of the Map Item, represented as a string.
 	Revision *string `json:"revision,omitempty"`
 	// An arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-	Data *map[string]interface{} `json:"data,omitempty"`
+	Data *interface{} `json:"data,omitempty"`
 	// The date and time in GMT when the Map Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Map Item does not expire, this value is `null`.  The Map Item might not be deleted immediately after it expires.
 	DateExpires *time.Time `json:"date_expires,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

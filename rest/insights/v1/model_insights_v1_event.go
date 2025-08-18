@@ -29,11 +29,11 @@ type InsightsV1Event struct {
 	// Event name.
 	Name *string `json:"name,omitempty"`
 	// Represents the connection between Twilio and our immediate carrier partners. The events here describe the call lifecycle as reported by Twilio's carrier media gateways.
-	CarrierEdge *map[string]interface{} `json:"carrier_edge,omitempty"`
+	CarrierEdge *interface{} `json:"carrier_edge,omitempty"`
 	// Represents the Twilio media gateway for SIP interface and SIP trunking calls. The events here describe the call lifecycle as reported by Twilio's public media gateways.
-	SipEdge *map[string]interface{} `json:"sip_edge,omitempty"`
+	SipEdge *interface{} `json:"sip_edge,omitempty"`
 	// Represents the Voice SDK running locally in the browser or in the Android/iOS application. The events here are emitted by the Voice SDK in response to certain call progress events, network changes, or call quality conditions.
-	SdkEdge *map[string]interface{} `json:"sdk_edge,omitempty"`
+	SdkEdge *interface{} `json:"sdk_edge,omitempty"`
 	// Represents the Twilio media gateway for Client calls. The events here describe the call lifecycle as reported by Twilio's Voice SDK media gateways.
-	ClientEdge *map[string]interface{} `json:"client_edge,omitempty"`
+	ClientEdge *interface{} `json:"client_edge,omitempty"`
 }

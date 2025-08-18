@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **ListSid** | Pointer to **string** | The SID of the Sync List that contains the List Item. |
 **Url** | Pointer to **string** | The absolute URL of the List Item resource. |
 **Revision** | Pointer to **string** | The current revision of the item, represented as a string. |
-**Data** | Pointer to **map[string]interface{}** | An arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. |
+**Data** | Pointer to **interface{}** | An arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. |
 **DateExpires** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the List Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the List Item does not expire, this value is `null`. The List Item resource might not be deleted immediately after it expires. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |

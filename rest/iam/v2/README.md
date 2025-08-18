@@ -38,6 +38,7 @@ Class | Method | HTTP request | Description
  - [VerifyEmailInitiateResponse](docs/VerifyEmailInitiateResponse.md)
  - [VerifyEmailInitiateRequest](docs/VerifyEmailInitiateRequest.md)
  - [JWTTokenRequest](docs/JWTTokenRequest.md)
+ - [EncryptionKeyRequest](docs/EncryptionKeyRequest.md)
  - [IamV2TwilioServiceErrorResponse](docs/IamV2TwilioServiceErrorResponse.md)
  - [VerifyDeviceRequest](docs/VerifyDeviceRequest.md)
  - [TwilioServiceErrorResponse](docs/TwilioServiceErrorResponse.md)
@@ -52,6 +53,7 @@ Class | Method | HTTP request | Description
  - [IamV2CreatePermissionRequest](docs/IamV2CreatePermissionRequest.md)
  - [VerifyEmailResendRequest](docs/VerifyEmailResendRequest.md)
  - [VerifyEmailVerifyRequest](docs/VerifyEmailVerifyRequest.md)
+ - [EncryptionKeyResponse](docs/EncryptionKeyResponse.md)
  - [IamV2CreateRoleRequest](docs/IamV2CreateRoleRequest.md)
  - [IamV2UpdateRoleRequest](docs/IamV2UpdateRoleRequest.md)
  - [AddDeviceAndSendChallengeRequest](docs/AddDeviceAndSendChallengeRequest.md)
@@ -63,6 +65,21 @@ Class | Method | HTTP request | Description
 
 
 ## accountSid_authToken
+
+- **Type**: HTTP basic authentication
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAuth{
+    UserName: "username",
+    Password: "password",
+})
+r, err := client.Service.Operation(auth, args)
+```
+
+
+## access_token_bearer
 
 - **Type**: HTTP basic authentication
 

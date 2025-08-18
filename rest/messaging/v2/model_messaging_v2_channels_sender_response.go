@@ -14,19 +14,20 @@
 
 package openapi
 
-// MessagingV2ChannelsSender struct for MessagingV2ChannelsSender
-type MessagingV2ChannelsSender struct {
+// MessagingV2ChannelsSenderResponse struct for MessagingV2ChannelsSenderResponse
+type MessagingV2ChannelsSenderResponse struct {
 	// A 34 character string that uniquely identifies this Sender.
 	Sid    *string `json:"sid,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// The ID of this Sender prefixed with the channel, e.g., `whatsapp:E.164`
-	SenderId      *string                     `json:"sender_id,omitempty"`
-	Configuration *MessagingV2Configuration   `json:"configuration,omitempty"`
-	Webhook       *MessagingV2Webhook         `json:"webhook,omitempty"`
-	Profile       *MessagingV2ProfileResponse `json:"profile,omitempty"`
-	Properties    *MessagingV2Properties      `json:"properties,omitempty"`
+	SenderId      *string                            `json:"sender_id,omitempty"`
+	Configuration *MessagingV2Configuration          `json:"configuration,omitempty"`
+	Webhook       *MessagingV2Webhook                `json:"webhook,omitempty"`
+	Profile       *MessagingV2ProfileGenericResponse `json:"profile,omitempty"`
+	Properties    *MessagingV2Properties             `json:"properties,omitempty"`
 	// Reasons why the sender is offline., e.g., [{\"code\": \"21211400\", \"message\": \"Whatsapp business account is banned by provider {provider_name} | Credit line is assigned to another BSP\", \"more_info\": \"https://www.twilio.com/docs/errors/21211400\"}]
-	OfflineReasons *[]MessagingV2Items `json:"offline_reasons,omitempty"`
+	OfflineReasons *[]MessagingV2Items               `json:"offline_reasons,omitempty"`
+	Compliance     *MessagingV2RcsComplianceResponse `json:"compliance,omitempty"`
 	// The URL of this resource, relative to `https://messaging.twilio.com`.
 	Url *string `json:"url,omitempty"`
 }

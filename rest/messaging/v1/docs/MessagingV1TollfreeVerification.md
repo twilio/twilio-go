@@ -39,7 +39,7 @@ Name | Type | Description | Notes
 **EditExpiration** | Pointer to [**time.Time**](time.Time.md) | The date and time when the ability to edit a rejected verification expires. |
 **EditAllowed** | Pointer to **bool** | If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not. |
 **RejectionReasons** | Pointer to **[]interface{}** | A list of rejection reasons and codes describing why a Tollfree Verification has been rejected. |
-**ResourceLinks** | Pointer to **map[string]interface{}** | The URLs of the documents associated with the Tollfree Verification resource. |
+**ResourceLinks** | Pointer to **interface{}** | The URLs of the documents associated with the Tollfree Verification resource. |
 **ExternalReferenceId** | Pointer to **string** | An optional external reference ID supplied by customer and echoed back on status retrieval. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

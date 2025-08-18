@@ -89,7 +89,7 @@ type MessagingV1TollfreeVerification struct {
 	// A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
 	RejectionReasons *[]interface{} `json:"rejection_reasons,omitempty"`
 	// The URLs of the documents associated with the Tollfree Verification resource.
-	ResourceLinks *map[string]interface{} `json:"resource_links,omitempty"`
+	ResourceLinks *interface{} `json:"resource_links,omitempty"`
 	// An optional external reference ID supplied by customer and echoed back on status retrieval.
 	ExternalReferenceId *string `json:"external_reference_id,omitempty"`
 }

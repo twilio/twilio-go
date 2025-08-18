@@ -14,8 +14,8 @@
 
 package openapi
 
-// MessagingV2ChannelsSenderProfileResponseEmails struct for MessagingV2ChannelsSenderProfileResponseEmails
-type MessagingV2ChannelsSenderProfileResponseEmails struct {
+// MessagingV2ChannelsSenderProfileGenericResponseEmails struct for MessagingV2ChannelsSenderProfileGenericResponseEmails
+type MessagingV2ChannelsSenderProfileGenericResponseEmails struct {
 	Email string `json:"email,omitempty"`
 	Label string `json:"label,omitempty"`
 }

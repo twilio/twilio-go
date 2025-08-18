@@ -14,8 +14,8 @@
 
 package openapi
 
-// MessagingV2ProfileResponse Sender profile specific configurations for create and update request, e.g., {\"name\": \"xxx\", \"about\": \"xxx\", \"address\": \"xxx\", \"description\": \"xxx\", \"emails\": [{\"label\": \"email 1\", \"email\": \"xxx@xxx\"}], \"logo_url\": \"https://xxx\", \"vertical\": \"xxx\", \"websites\": [{\"label\": \"email 1\", \"website\": \"https://xxx\"}]}
-type MessagingV2ProfileResponse struct {
+// MessagingV2ProfileGenericResponse Sender profile configuration response 1) RCS 2) Whatsapp
+type MessagingV2ProfileGenericResponse struct {
 	// The name of the sender.
 	Name *string `json:"name,omitempty"`
 	// The about text of the sender.
@@ -24,12 +24,22 @@ type MessagingV2ProfileResponse struct {
 	Address *string `json:"address,omitempty"`
 	// The description of the sender.
 	Description *string `json:"description,omitempty"`
-	// The emails of the sender.
-	Emails *[]MessagingV2ChannelsSenderProfileResponseEmails `json:"emails,omitempty"`
 	// The logo URL of the sender.
 	LogoUrl *string `json:"logo_url,omitempty"`
+	// The banner URL of the sender.
+	BannerUrl *string `json:"banner_url,omitempty"`
+	// The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+	PrivacyUrl *string `json:"privacy_url,omitempty"`
+	// The terms of service URL of the sender.
+	TermsOfServiceUrl *string `json:"terms_of_service_url,omitempty"`
+	// string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
+	AccentColor *string `json:"accent_color,omitempty"`
 	// The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
 	Vertical *string `json:"vertical,omitempty"`
 	// The websites of the sender.
-	Websites *[]MessagingV2ChannelsSenderProfileResponseWebsites `json:"websites,omitempty"`
+	Websites *[]MessagingV2ChannelsSenderProfileGenericResponseWebsites `json:"websites,omitempty"`
+	// The emails of the sender.
+	Emails *[]MessagingV2ChannelsSenderProfileGenericResponseEmails `json:"emails,omitempty"`
+	// The phone numbers of the sender.
+	PhoneNumbers *[]MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers `json:"phone_numbers,omitempty"`
 }

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DomainName** | Pointer to **string** | Full url path for this domain. |
 **CertificateSid** | Pointer to **string** | The unique string that we created to identify this Certificate resource. |
 **Url** | Pointer to **string** |  |
-**CertInValidation** | Pointer to **map[string]interface{}** | Optional JSON field describing the status and upload date of a new certificate in the process of validation |
+**CertInValidation** | Pointer to **interface{}** | Optional JSON field describing the status and upload date of a new certificate in the process of validation |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

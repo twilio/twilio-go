@@ -51,12 +51,12 @@ type InsightsV1Conference struct {
 	// Boolean. Indicates whether recording was enabled at the conference mixer.
 	RecordingEnabled *bool `json:"recording_enabled,omitempty"`
 	// Potential issues detected by Twilio during the conference.
-	DetectedIssues *map[string]interface{} `json:"detected_issues,omitempty"`
+	DetectedIssues *interface{} `json:"detected_issues,omitempty"`
 	// Tags for detected conference conditions and participant behaviors which may be of interest.
 	Tags *[]string `json:"tags,omitempty"`
 	// Object. Contains details about conference tags including severity.
-	TagInfo         *map[string]interface{} `json:"tag_info,omitempty"`
-	ProcessingState *string                 `json:"processing_state,omitempty"`
+	TagInfo         *interface{} `json:"tag_info,omitempty"`
+	ProcessingState *string      `json:"processing_state,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 	// Contains a dictionary of URL links to nested resources of this Conference.

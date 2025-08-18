@@ -23,5 +23,6 @@ type IamV1GetKeys struct {
 	// The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *string `json:"date_created,omitempty"`
 	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-	DateUpdated *string `json:"date_updated,omitempty"`
+	DateUpdated *string  `json:"date_updated,omitempty"`
+	Flags       []string `json:"flags,omitempty"`
 }

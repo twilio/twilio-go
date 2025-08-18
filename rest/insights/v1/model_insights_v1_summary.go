@@ -39,27 +39,27 @@ type InsightsV1Summary struct {
 	// Duration between when the call was answered and when it ended
 	ConnectDuration *int `json:"connect_duration,omitempty"`
 	// The calling party.
-	From *map[string]interface{} `json:"from,omitempty"`
+	From *interface{} `json:"from,omitempty"`
 	// The called party.
-	To *map[string]interface{} `json:"to,omitempty"`
+	To *interface{} `json:"to,omitempty"`
 	// Contains metrics and properties for the Twilio media gateway of a PSTN call.
-	CarrierEdge *map[string]interface{} `json:"carrier_edge,omitempty"`
+	CarrierEdge *interface{} `json:"carrier_edge,omitempty"`
 	// Contains metrics and properties for the Twilio media gateway of a Client call.
-	ClientEdge *map[string]interface{} `json:"client_edge,omitempty"`
+	ClientEdge *interface{} `json:"client_edge,omitempty"`
 	// Contains metrics and properties for the SDK sensor library for Client calls.
-	SdkEdge *map[string]interface{} `json:"sdk_edge,omitempty"`
+	SdkEdge *interface{} `json:"sdk_edge,omitempty"`
 	// Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
-	SipEdge *map[string]interface{} `json:"sip_edge,omitempty"`
+	SipEdge *interface{} `json:"sip_edge,omitempty"`
 	// Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
 	Tags *[]string `json:"tags,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 	// Attributes capturing call-flow-specific details.
-	Attributes *map[string]interface{} `json:"attributes,omitempty"`
+	Attributes *interface{} `json:"attributes,omitempty"`
 	// Contains edge-agnostic call-level details.
-	Properties *map[string]interface{} `json:"properties,omitempty"`
+	Properties *interface{} `json:"properties,omitempty"`
 	// Contains trusted communications details including Branded Call and verified caller ID.
-	Trust *map[string]interface{} `json:"trust,omitempty"`
+	Trust *interface{} `json:"trust,omitempty"`
 	// Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API.
-	Annotation *map[string]interface{} `json:"annotation,omitempty"`
+	Annotation *interface{} `json:"annotation,omitempty"`
 }

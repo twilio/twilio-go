@@ -21,9 +21,9 @@ Name | Type | Description | Notes
 **MixerRegion** | Pointer to [**string**](ConferenceEnumRegion.md) |  |
 **MixerRegionRequested** | Pointer to [**string**](ConferenceEnumRegion.md) |  |
 **RecordingEnabled** | Pointer to **bool** | Boolean. Indicates whether recording was enabled at the conference mixer. |
-**DetectedIssues** | Pointer to **map[string]interface{}** | Potential issues detected by Twilio during the conference. |
+**DetectedIssues** | Pointer to **interface{}** | Potential issues detected by Twilio during the conference. |
 **Tags** | Pointer to [**[]string**](ConferenceEnumTag.md) | Tags for detected conference conditions and participant behaviors which may be of interest. |
-**TagInfo** | Pointer to **map[string]interface{}** | Object. Contains details about conference tags including severity. |
+**TagInfo** | Pointer to **interface{}** | Object. Contains details about conference tags including severity. |
 **ProcessingState** | Pointer to [**string**](ConferenceEnumProcessingState.md) |  |
 **Url** | Pointer to **string** | The URL of this resource. |
 **Links** | Pointer to **map[string]interface{}** | Contains a dictionary of URL links to nested resources of this Conference. |

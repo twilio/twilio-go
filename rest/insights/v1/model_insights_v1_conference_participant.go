@@ -60,11 +60,11 @@ type InsightsV1ConferenceParticipant struct {
 	CallType            *string   `json:"call_type,omitempty"`
 	ProcessingState     *string   `json:"processing_state,omitempty"`
 	// Participant properties and metadata.
-	Properties *map[string]interface{} `json:"properties,omitempty"`
+	Properties *interface{} `json:"properties,omitempty"`
 	// Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant.
-	Events *map[string]interface{} `json:"events,omitempty"`
+	Events *interface{} `json:"events,omitempty"`
 	// Object. Contains participant call quality metrics.
-	Metrics *map[string]interface{} `json:"metrics,omitempty"`
+	Metrics *interface{} `json:"metrics,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }

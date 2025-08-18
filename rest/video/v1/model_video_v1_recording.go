@@ -39,7 +39,7 @@ type VideoV1Recording struct {
 	ContainerFormat *string `json:"container_format,omitempty"`
 	Codec           *string `json:"codec,omitempty"`
 	// A list of SIDs related to the recording. Includes the `room_sid` and `participant_sid`.
-	GroupingSids *map[string]interface{} `json:"grouping_sids,omitempty"`
+	GroupingSids *interface{} `json:"grouping_sids,omitempty"`
 	// The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
 	TrackName *string `json:"track_name,omitempty"`
 	// The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room.

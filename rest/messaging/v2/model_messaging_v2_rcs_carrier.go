@@ -14,8 +14,9 @@
 
 package openapi
 
-// MessagingV2ChannelsSenderProfileResponseWebsites struct for MessagingV2ChannelsSenderProfileResponseWebsites
-type MessagingV2ChannelsSenderProfileResponseWebsites struct {
-	Website string `json:"website,omitempty"`
-	Label   string `json:"label,omitempty"`
+// MessagingV2RcsCarrier struct for MessagingV2RcsCarrier
+type MessagingV2RcsCarrier struct {
+	// carrier in a country e.g. For US-Verizon, AT&T
+	Name   string                      `json:"name,omitempty"`
+	Status MessagingV2RcsCarrierStatus `json:"status,omitempty"`
 }
