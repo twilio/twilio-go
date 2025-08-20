@@ -2,6 +2,8 @@
 
 This document provides comprehensive examples for using Twilio's Content API with different content types. The Content API allows you to create, manage, and send structured content templates with various interactive elements.
 
+> **Quick Start**: For a simple runnable example, see [content_api_example.go](content_api_example.go) or the [Content API README](content_api_README.md).
+
 ## Basic Setup
 
 ```go
