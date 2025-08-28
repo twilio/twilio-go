@@ -516,6 +516,12 @@ type UpdateServiceParams struct {
 	PasskeysRelyingPartyName *string `json:"Passkeys.RelyingParty.Name,omitempty"`
 	// The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
 	PasskeysRelyingPartyOrigins *string `json:"Passkeys.RelyingParty.Origins,omitempty"`
+	// The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+	PasskeysAuthenticatorAttachment *string `json:"Passkeys.AuthenticatorAttachment,omitempty"`
+	// Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+	PasskeysDiscoverableCredentials *string `json:"Passkeys.DiscoverableCredentials,omitempty"`
+	// The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+	PasskeysUserVerification *string `json:"Passkeys.UserVerification,omitempty"`
 	// Whether to allow verifications from the service to reach the stream-events sinks if configured
 	VerifyEventSubscriptionEnabled *bool `json:"VerifyEventSubscriptionEnabled,omitempty"`
 }
@@ -608,6 +614,18 @@ func (params *UpdateServiceParams) SetPasskeysRelyingPartyOrigins(PasskeysRelyin
 	params.PasskeysRelyingPartyOrigins = &PasskeysRelyingPartyOrigins
 	return params
 }
+func (params *UpdateServiceParams) SetPasskeysAuthenticatorAttachment(PasskeysAuthenticatorAttachment string) *UpdateServiceParams {
+	params.PasskeysAuthenticatorAttachment = &PasskeysAuthenticatorAttachment
+	return params
+}
+func (params *UpdateServiceParams) SetPasskeysDiscoverableCredentials(PasskeysDiscoverableCredentials string) *UpdateServiceParams {
+	params.PasskeysDiscoverableCredentials = &PasskeysDiscoverableCredentials
+	return params
+}
+func (params *UpdateServiceParams) SetPasskeysUserVerification(PasskeysUserVerification string) *UpdateServiceParams {
+	params.PasskeysUserVerification = &PasskeysUserVerification
+	return params
+}
 func (params *UpdateServiceParams) SetVerifyEventSubscriptionEnabled(VerifyEventSubscriptionEnabled bool) *UpdateServiceParams {
 	params.VerifyEventSubscriptionEnabled = &VerifyEventSubscriptionEnabled
 	return params
@@ -688,6 +706,15 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	}
 	if params != nil && params.PasskeysRelyingPartyOrigins != nil {
 		data.Set("Passkeys.RelyingParty.Origins", *params.PasskeysRelyingPartyOrigins)
+	}
+	if params != nil && params.PasskeysAuthenticatorAttachment != nil {
+		data.Set("Passkeys.AuthenticatorAttachment", *params.PasskeysAuthenticatorAttachment)
+	}
+	if params != nil && params.PasskeysDiscoverableCredentials != nil {
+		data.Set("Passkeys.DiscoverableCredentials", *params.PasskeysDiscoverableCredentials)
+	}
+	if params != nil && params.PasskeysUserVerification != nil {
+		data.Set("Passkeys.UserVerification", *params.PasskeysUserVerification)
 	}
 	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
 		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))

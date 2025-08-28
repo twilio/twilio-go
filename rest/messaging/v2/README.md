@@ -31,7 +31,7 @@ All URIs are relative to *https://messaging.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ChannelsSendersApi* | [**CreateChannelsSender**](docs/ChannelsSendersApi.md#createchannelssender) | **Post** /v2/Channels/Senders | Create a new sender of WhatsApp.
+*ChannelsSendersApi* | [**CreateChannelsSender**](docs/ChannelsSendersApi.md#createchannelssender) | **Post** /v2/Channels/Senders | Create a new OTT Sender
 *ChannelsSendersApi* | [**DeleteChannelsSender**](docs/ChannelsSendersApi.md#deletechannelssender) | **Delete** /v2/Channels/Senders/{Sid} | Delete a specific sender by its unique identifier.
 *ChannelsSendersApi* | [**FetchChannelsSender**](docs/ChannelsSendersApi.md#fetchchannelssender) | **Get** /v2/Channels/Senders/{Sid} | Retrieve details of a specific sender by its unique identifier.
 *ChannelsSendersApi* | [**ListChannelsSender**](docs/ChannelsSendersApi.md#listchannelssender) | **Get** /v2/Channels/Senders | Get a list of Senders for an account.
@@ -59,6 +59,8 @@ Class | Method | HTTP request | Description
  - [MessagingV2ChannelsSenderProfileGenericResponseWebsites](docs/MessagingV2ChannelsSenderProfileGenericResponseWebsites.md)
  - [MessagingV2RcsCarrier](docs/MessagingV2RcsCarrier.md)
  - [MessagingV2Properties](docs/MessagingV2Properties.md)
+ - [MessagingV2RcsCompliancePatchUpdateResponse](docs/MessagingV2RcsCompliancePatchUpdateResponse.md)
+ - [MessagingV2RcsComplianceCountryUpdatePatchResponse](docs/MessagingV2RcsComplianceCountryUpdatePatchResponse.md)
 
 
 ## Documentation For Authorization

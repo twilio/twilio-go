@@ -17,7 +17,7 @@ package openapi
 // EncryptionKeyRequest struct for EncryptionKeyRequest
 type EncryptionKeyRequest struct {
 	// The ID of the owner requesting the encryption key.
-	OwnerId string `json:"ownerId"`
+	OwnerId string `json:"owner_id"`
 	// The namespace for the encryption key.
 	Namespace string `json:"namespace"`
 }

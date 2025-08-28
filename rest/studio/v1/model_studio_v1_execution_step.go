@@ -38,6 +38,8 @@ type StudioV1ExecutionStep struct {
 	TransitionedFrom *string `json:"transitioned_from,omitempty"`
 	// The Widget that will follow the Widget for the Step.
 	TransitionedTo *string `json:"transitioned_to,omitempty"`
+	// The type of the widget that was executed.
+	Type *string `json:"type,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

@@ -1,5 +1,14 @@
 twilio-go changelog
 ====================
+[2025-08-28] Version 1.27.2
+---------------------------
+**Studio**
+- Add `type` to Step resource APIs
+
+**Verify**
+- Allow to update all passkeys parameters in the service update
+
+
 [2025-08-18] Version 1.27.1
 ---------------------------
 **Accounts**

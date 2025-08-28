@@ -16,6 +16,6 @@ package openapi
 
 // IamV1ChangeAccountOwnerRequest struct for IamV1ChangeAccountOwnerRequest
 type IamV1ChangeAccountOwnerRequest struct {
-	// The SID of the new owner to transfer the account to
-	NewOwnerSid string `json:"newOwnerSid,omitempty"`
+	// New owner's email address
+	EmailAddress string `json:"emailAddress,omitempty"`
 }

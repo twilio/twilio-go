@@ -245,6 +245,9 @@ Name | Type | Description
 **PasskeysRelyingPartyId** | **string** | The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
 **PasskeysRelyingPartyName** | **string** | The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
 **PasskeysRelyingPartyOrigins** | **string** | The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+**PasskeysAuthenticatorAttachment** | **string** | The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+**PasskeysDiscoverableCredentials** | **string** | Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+**PasskeysUserVerification** | **string** | The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
 **VerifyEventSubscriptionEnabled** | **bool** | Whether to allow verifications from the service to reach the stream-events sinks if configured
 
 ### Return type

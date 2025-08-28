@@ -4,7 +4,7 @@ All URIs are relative to *https://messaging.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateChannelsSender**](ChannelsSendersApi.md#CreateChannelsSender) | **Post** /v2/Channels/Senders | Create a new sender of WhatsApp.
+[**CreateChannelsSender**](ChannelsSendersApi.md#CreateChannelsSender) | **Post** /v2/Channels/Senders | Create a new OTT Sender
 [**DeleteChannelsSender**](ChannelsSendersApi.md#DeleteChannelsSender) | **Delete** /v2/Channels/Senders/{Sid} | Delete a specific sender by its unique identifier.
 [**FetchChannelsSender**](ChannelsSendersApi.md#FetchChannelsSender) | **Get** /v2/Channels/Senders/{Sid} | Retrieve details of a specific sender by its unique identifier.
 [**ListChannelsSender**](ChannelsSendersApi.md#ListChannelsSender) | **Get** /v2/Channels/Senders | Get a list of Senders for an account.
@@ -16,9 +16,9 @@ Method | HTTP request | Description
 
 > MessagingV2ChannelsSenderResponse CreateChannelsSender(ctx, optional)
 
-Create a new sender of WhatsApp.
+Create a new OTT Sender
 
-Create a new sender of WhatsApp.
+- Create a new OTT Sender - Supported OTT 1) Whatsapp 2) RCS 
 
 ### Path Parameters
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 Delete a specific sender by its unique identifier.
 
-Delete a specific sender by its unique identifier.
+- Delete a specific OTT sender by its unique identifier. - Supported OTT 1) Whatsapp. RCS is not supported 
 
 ### Path Parameters
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 Get a list of Senders for an account.
 
-Get a list of Senders for an account.
+- Get a list of OTT Senders for an account. - OTT Supported 1) Whatsapp 2) RCS 
 
 ### Path Parameters
 
@@ -182,7 +182,7 @@ Name | Type | Description
 
 Update a specific sender information like OTP Code, Webhook, Profile information.
 
-Update a specific sender information like OTP Code, Webhook, Profile information.
+- Update a specific sender information like OTP Code, Webhook, Profile information. - Supported OTT 1) Whatsapp. RCS not supported 
 
 ### Path Parameters
 

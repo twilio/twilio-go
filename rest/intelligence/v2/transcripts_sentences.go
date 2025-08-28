@@ -29,7 +29,7 @@ type ListSentenceParams struct {
 	Redacted *bool `json:"Redacted,omitempty"`
 	// Returns word level timestamps information, if word_timestamps is enabled. The default is `false`.
 	WordTimestamps *bool `json:"WordTimestamps,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// How many resources to return in each list page. The default is 50, and the maximum is 5000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`

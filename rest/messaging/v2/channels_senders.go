@@ -34,7 +34,7 @@ func (params *CreateChannelsSenderParams) SetMessagingV2Create(MessagingV2Create
 	return params
 }
 
-// Create a new sender of WhatsApp.
+// - Create a new OTT Sender - Supported OTT 1) Whatsapp 2) RCS
 func (c *ApiService) CreateChannelsSender(params *CreateChannelsSenderParams) (*MessagingV2ChannelsSenderResponse, error) {
 	path := "/v2/Channels/Senders"
 
@@ -67,7 +67,7 @@ func (c *ApiService) CreateChannelsSender(params *CreateChannelsSenderParams) (*
 	return ps, err
 }
 
-// Delete a specific sender by its unique identifier.
+// - Delete a specific OTT sender by its unique identifier. - Supported OTT 1) Whatsapp. RCS is not supported
 func (c *ApiService) DeleteChannelsSender(Sid string) error {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -270,7 +270,7 @@ func (params *UpdateChannelsSenderParams) SetMessagingV2Update(MessagingV2Update
 	return params
 }
 
-// Update a specific sender information like OTP Code, Webhook, Profile information.
+// - Update a specific sender information like OTP Code, Webhook, Profile information. - Supported OTT 1) Whatsapp. RCS not supported
 func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSenderParams) (*MessagingV2ChannelsSenderResponse, error) {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
