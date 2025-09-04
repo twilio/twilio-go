@@ -16,7 +16,7 @@ package openapi
 
 // MessagingV2Create struct for MessagingV2Create
 type MessagingV2Create struct {
-	// The ID of this Sender prefixed with the channel, e.g., `whatsapp:E.164`
+	// The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
 	SenderId      *string                   `json:"sender_id"`
 	Configuration *MessagingV2Configuration `json:"configuration,omitempty"`
 	Webhook       *MessagingV2Webhook       `json:"webhook,omitempty"`

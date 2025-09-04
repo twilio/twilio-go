@@ -31,7 +31,7 @@ type CreateUsageTriggerParams struct {
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
 	// The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
 	TriggerValue *string `json:"TriggerValue,omitempty"`
-	//
+	// The usage category that the trigger should watch.  Use one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) for this value.
 	UsageCategory *string `json:"UsageCategory,omitempty"`
 	// The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
@@ -97,7 +97,7 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 		data.Set("TriggerValue", *params.TriggerValue)
 	}
 	if params != nil && params.UsageCategory != nil {
-		data.Set("UsageCategory", fmt.Sprint(*params.UsageCategory))
+		data.Set("UsageCategory", *params.UsageCategory)
 	}
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
@@ -267,7 +267,7 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken,
 		data.Set("TriggerBy", fmt.Sprint(*params.TriggerBy))
 	}
 	if params != nil && params.UsageCategory != nil {
-		data.Set("UsageCategory", fmt.Sprint(*params.UsageCategory))
+		data.Set("UsageCategory", *params.UsageCategory)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

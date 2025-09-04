@@ -1,5 +1,11 @@
 twilio-go changelog
 ====================
+[2025-09-04] Version 1.28.0
+---------------------------
+**Api**
+- Remove usage category enum from usage record and usage triggers API **(breaking change)**
+
+
 [2025-08-28] Version 1.27.2
 ---------------------------
 **Studio**

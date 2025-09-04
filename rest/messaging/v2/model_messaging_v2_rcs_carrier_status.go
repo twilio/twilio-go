@@ -14,7 +14,7 @@
 
 package openapi
 
-// MessagingV2RcsCarrierStatus Carrier level status
+// MessagingV2RcsCarrierStatus The carrier-level status.
 type MessagingV2RcsCarrierStatus string
 
 // List of messaging.v2.rcs_carrier_status

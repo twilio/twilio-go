@@ -14,7 +14,7 @@
 
 package openapi
 
-// MessagingV2RcsCountryStatus Country level status, it is an aggregation of Carrier level status
+// MessagingV2RcsCountryStatus The country-level status. Based on the aggregation of the carrier-level status.
 type MessagingV2RcsCountryStatus string
 
 // List of messaging.v2.rcs_country_status

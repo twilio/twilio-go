@@ -4,11 +4,11 @@ All URIs are relative to *https://messaging.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateChannelsSender**](ChannelsSendersApi.md#CreateChannelsSender) | **Post** /v2/Channels/Senders | Create a new OTT Sender
-[**DeleteChannelsSender**](ChannelsSendersApi.md#DeleteChannelsSender) | **Delete** /v2/Channels/Senders/{Sid} | Delete a specific sender by its unique identifier.
-[**FetchChannelsSender**](ChannelsSendersApi.md#FetchChannelsSender) | **Get** /v2/Channels/Senders/{Sid} | Retrieve details of a specific sender by its unique identifier.
-[**ListChannelsSender**](ChannelsSendersApi.md#ListChannelsSender) | **Get** /v2/Channels/Senders | Get a list of Senders for an account.
-[**UpdateChannelsSender**](ChannelsSendersApi.md#UpdateChannelsSender) | **Post** /v2/Channels/Senders/{Sid} | Update a specific sender information like OTP Code, Webhook, Profile information.
+[**CreateChannelsSender**](ChannelsSendersApi.md#CreateChannelsSender) | **Post** /v2/Channels/Senders | Create a Sender
+[**DeleteChannelsSender**](ChannelsSendersApi.md#DeleteChannelsSender) | **Delete** /v2/Channels/Senders/{Sid} | Delete a Sender
+[**FetchChannelsSender**](ChannelsSendersApi.md#FetchChannelsSender) | **Get** /v2/Channels/Senders/{Sid} | Retrieve a Sender
+[**ListChannelsSender**](ChannelsSendersApi.md#ListChannelsSender) | **Get** /v2/Channels/Senders | Retrieve a list of Senders
+[**UpdateChannelsSender**](ChannelsSendersApi.md#UpdateChannelsSender) | **Post** /v2/Channels/Senders/{Sid} | Update a sender&#39;s information, including &#x60;profile&#x60;, &#x60;webhook&#x60;, and &#x60;configuration&#x60;.
 
 
 
@@ -16,9 +16,9 @@ Method | HTTP request | Description
 
 > MessagingV2ChannelsSenderResponse CreateChannelsSender(ctx, optional)
 
-Create a new OTT Sender
+Create a Sender
 
-- Create a new OTT Sender - Supported OTT 1) Whatsapp 2) RCS 
+Create a Sender.
 
 ### Path Parameters
 
@@ -55,9 +55,9 @@ Name | Type | Description
 
 > DeleteChannelsSender(ctx, Sid)
 
-Delete a specific sender by its unique identifier.
+Delete a Sender
 
-- Delete a specific OTT sender by its unique identifier. - Supported OTT 1) Whatsapp. RCS is not supported 
+(WhatsApp only) Delete a Sender.
 
 ### Path Parameters
 
@@ -65,7 +65,7 @@ Delete a specific sender by its unique identifier.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies this Sender.
+**Sid** | **string** | The SID of the sender.
 
 ### Other Parameters
 
@@ -97,9 +97,9 @@ Name | Type | Description
 
 > MessagingV2ChannelsSenderResponse FetchChannelsSender(ctx, Sid)
 
-Retrieve details of a specific sender by its unique identifier.
+Retrieve a Sender
 
-Retrieve details of a specific sender by its unique identifier.
+Retrieve a Sender.
 
 ### Path Parameters
 
@@ -107,7 +107,7 @@ Retrieve details of a specific sender by its unique identifier.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies this Sender.
+**Sid** | **string** | The SID of the sender.
 
 ### Other Parameters
 
@@ -139,9 +139,9 @@ Name | Type | Description
 
 > []MessagingV2ChannelsSenderResponse ListChannelsSender(ctx, optional)
 
-Get a list of Senders for an account.
+Retrieve a list of Senders
 
-- Get a list of OTT Senders for an account. - OTT Supported 1) Whatsapp 2) RCS 
+Retrieve a list of Senders for an account.
 
 ### Path Parameters
 
@@ -155,7 +155,7 @@ Other parameters are passed through a pointer to a ListChannelsSenderParams stru
 Name | Type | Description
 ------------- | ------------- | -------------
 **Channel** | **string** | 
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | The number of items to return per page.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type
@@ -180,9 +180,9 @@ Name | Type | Description
 
 > MessagingV2ChannelsSenderResponse UpdateChannelsSender(ctx, Sidoptional)
 
-Update a specific sender information like OTP Code, Webhook, Profile information.
+Update a sender's information, including `profile`, `webhook`, and `configuration`.
 
-- Update a specific sender information like OTP Code, Webhook, Profile information. - Supported OTT 1) Whatsapp. RCS not supported 
+(WhatsApp only) Update a Sender. You can update a sender's information, including `profile`, `webhook`, and `configuration`. To verify a phone number, set `configuration.verification_code` to the One-time Password (OTP) that you received.
 
 ### Path Parameters
 
@@ -190,7 +190,7 @@ Update a specific sender information like OTP Code, Webhook, Profile information
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies this Sender.
+**Sid** | **string** | The SID of the sender.
 
 ### Other Parameters
 

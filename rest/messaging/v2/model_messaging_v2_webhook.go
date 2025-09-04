@@ -14,18 +14,18 @@
 
 package openapi
 
-// MessagingV2Webhook Webhook specific configurations, e.g., {\"callback_url\": \"https://xxx\", \"callback_method\": \"POST\", \"fallback_url\": \"https://xxx\", \"fallback_method\": \"POST\", \"status_callback_url\": \"https://xxx\", \"status_callback_method\": \"POST\"}
+// MessagingV2Webhook The configuration settings for webhooks.
 type MessagingV2Webhook struct {
 	// The URL to send the webhook to.
 	CallbackUrl *string `json:"callback_url,omitempty"`
-	// The HTTP method to use for the webhook. Either \"POST\" or \"PUT\".
+	// The HTTP method for the webhook.
 	CallbackMethod *string `json:"callback_method,omitempty"`
 	// The URL to send the fallback webhook to.
 	FallbackUrl *string `json:"fallback_url,omitempty"`
-	// The HTTP method to use for the fallback webhook. Either \"POST\" or \"PUT\".
+	// The HTTP method for the fallback webhook.
 	FallbackMethod *string `json:"fallback_method,omitempty"`
 	// The URL to send the status callback to.
 	StatusCallbackUrl *string `json:"status_callback_url,omitempty"`
-	// The HTTP method to use for the status callback.
+	// The HTTP method for the status callback.
 	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
 }

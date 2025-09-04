@@ -14,10 +14,10 @@
 
 package openapi
 
-// MessagingV2RcsCompliancePatchUpdateResponse KYC compliance information.  This section consists of response to the request launch
+// MessagingV2RcsCompliancePatchUpdateResponse The KYC compliance information. This section consists of response to the request launch.
 type MessagingV2RcsCompliancePatchUpdateResponse struct {
-	// The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+	// The default compliance registration SID (e.g., from CR-Google) that applies to all countries unless overridden within the `countries` array.
 	RegistrationSid string `json:"registration_sid"`
-	// A list of country-specific compliance details.  It consists of registration_sid, country iso code, country status and carriers information
+	// A list of country-specific compliance details.
 	Countries []MessagingV2RcsComplianceCountryUpdatePatchResponse `json:"countries"`
 }

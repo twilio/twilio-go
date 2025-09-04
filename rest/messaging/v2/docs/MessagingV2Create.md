@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SenderId** | Pointer to **string** | The ID of this Sender prefixed with the channel, e.g., `whatsapp:E.164` |
+**SenderId** | Pointer to **string** | The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format. |
 **Configuration** | Pointer to [**MessagingV2Configuration**](MessagingV2Configuration.md) |  |
 **Webhook** | Pointer to [**MessagingV2Webhook**](MessagingV2Webhook.md) |  |
 **Profile** | Pointer to [**MessagingV2Profile**](MessagingV2Profile.md) |  |

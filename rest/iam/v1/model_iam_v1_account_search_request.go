@@ -21,4 +21,5 @@ type IamV1AccountSearchRequest struct {
 	Status          *[]int  `json:"status,omitempty"`
 	Dormant         *bool   `json:"dormant,omitempty"`
 	Trial           *bool   `json:"trial,omitempty"`
+	Subaccount      *bool   `json:"subaccount,omitempty"`
 }

@@ -46,6 +46,7 @@ Class | Method | HTTP request | Description
  - [FlowsPageComponent](docs/FlowsPageComponent.md)
  - [TwilioCard](docs/TwilioCard.md)
  - [ContentV1ApprovalCreate](docs/ContentV1ApprovalCreate.md)
+ - [WebviewSizeType](docs/WebviewSizeType.md)
  - [CallToActionActionType](docs/CallToActionActionType.md)
  - [QuickReplyActionType](docs/QuickReplyActionType.md)
  - [ContentV1ApprovalFetch](docs/ContentV1ApprovalFetch.md)

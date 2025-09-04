@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **TriggerBy** | Pointer to [**string**](UsageTriggerEnumTriggerField.md) |  |
 **TriggerValue** | Pointer to **string** | The value at which the trigger will fire.  Must be a positive, numeric value. |
 **Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com`. |
-**UsageCategory** | Pointer to [**string**](UsageTriggerEnumUsageCategory.md) |  |
+**UsageCategory** | Pointer to **string** | The usage category the trigger watches. Must be one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). |
 **UsageRecordUri** | Pointer to **string** | The URI of the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource this trigger watches, relative to `https://api.twilio.com`. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

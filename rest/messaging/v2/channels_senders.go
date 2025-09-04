@@ -34,7 +34,7 @@ func (params *CreateChannelsSenderParams) SetMessagingV2Create(MessagingV2Create
 	return params
 }
 
-// - Create a new OTT Sender - Supported OTT 1) Whatsapp 2) RCS
+// Create a Sender.
 func (c *ApiService) CreateChannelsSender(params *CreateChannelsSenderParams) (*MessagingV2ChannelsSenderResponse, error) {
 	path := "/v2/Channels/Senders"
 
@@ -67,7 +67,7 @@ func (c *ApiService) CreateChannelsSender(params *CreateChannelsSenderParams) (*
 	return ps, err
 }
 
-// - Delete a specific OTT sender by its unique identifier. - Supported OTT 1) Whatsapp. RCS is not supported
+// (WhatsApp only) Delete a Sender.
 func (c *ApiService) DeleteChannelsSender(Sid string) error {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -87,7 +87,7 @@ func (c *ApiService) DeleteChannelsSender(Sid string) error {
 	return nil
 }
 
-// Retrieve details of a specific sender by its unique identifier.
+// Retrieve a Sender.
 func (c *ApiService) FetchChannelsSender(Sid string) (*MessagingV2ChannelsSenderResponse, error) {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -116,7 +116,7 @@ func (c *ApiService) FetchChannelsSender(Sid string) (*MessagingV2ChannelsSender
 type ListChannelsSenderParams struct {
 	//
 	Channel *string `json:"Channel,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// The number of items to return per page.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
@@ -270,7 +270,7 @@ func (params *UpdateChannelsSenderParams) SetMessagingV2Update(MessagingV2Update
 	return params
 }
 
-// - Update a specific sender information like OTP Code, Webhook, Profile information. - Supported OTT 1) Whatsapp. RCS not supported
+// (WhatsApp only) Update a Sender. You can update a sender's information, including `profile`, `webhook`, and `configuration`. To verify a phone number, set `configuration.verification_code` to the One-time Password (OTP) that you received.
 func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSenderParams) (*MessagingV2ChannelsSenderResponse, error) {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

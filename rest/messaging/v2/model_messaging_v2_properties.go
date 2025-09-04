@@ -14,7 +14,7 @@
 
 package openapi
 
-// MessagingV2Properties Sender specific additional properties, e.g., {\"quality_rating\": \"HIGH\", \"messaging_limit\": \"10K Customers/24hr\"}
+// MessagingV2Properties The additional properties for the sender.
 type MessagingV2Properties struct {
 	// The quality rating of the sender.
 	QualityRating *string `json:"quality_rating,omitempty"`

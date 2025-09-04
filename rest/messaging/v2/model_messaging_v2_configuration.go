@@ -14,14 +14,14 @@
 
 package openapi
 
-// MessagingV2Configuration Configuration settings for creating a sender, e.g., {\"waba_id\": \"1234567890\", \"verification_method\": \"sms\"}
+// MessagingV2Configuration The configuration settings for creating a sender.
 type MessagingV2Configuration struct {
-	// The ID of the WhatsApp Business Account to use for this sender.
+	// The ID of the WhatsApp Business Account (WABA) to use for this sender.
 	WabaId *string `json:"waba_id,omitempty"`
-	// The method to use for verification. Either \"sms\" or \"voice\".
+	// The verification method.
 	VerificationMethod *string `json:"verification_method,omitempty"`
-	// The verification code to use for this sender.
+	// The verification code.
 	VerificationCode *string `json:"verification_code,omitempty"`
-	// The SID of the Twilio Voice application to use for this sender.
+	// The SID of the Twilio Voice application.
 	VoiceApplicationSid *string `json:"voice_application_sid,omitempty"`
 }

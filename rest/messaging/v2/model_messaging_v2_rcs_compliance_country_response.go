@@ -16,9 +16,9 @@ package openapi
 
 // MessagingV2RcsComplianceCountryResponse struct for MessagingV2RcsComplianceCountryResponse
 type MessagingV2RcsComplianceCountryResponse struct {
-	// ISO 3166-1 alpha-2 country code (e.g., 'US', 'UK').
+	// The ISO 3166-1 alpha-2 country code.
 	Country string `json:"country"`
-	// The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+	// The default compliance registration SID (e.g., from CR-Google) that applies to all countries unless overridden in the `countries` array.
 	RegistrationSid string                      `json:"registration_sid"`
 	Status          MessagingV2RcsCountryStatus `json:"status"`
 	Carriers        []MessagingV2RcsCarrier     `json:"carriers,omitempty"`

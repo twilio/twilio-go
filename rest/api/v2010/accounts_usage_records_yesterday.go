@@ -86,7 +86,7 @@ func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 	}
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", fmt.Sprint(*params.Category))
+		data.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
 		data.Set("StartDate", fmt.Sprint(*params.StartDate))

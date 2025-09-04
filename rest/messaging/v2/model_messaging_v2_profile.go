@@ -14,11 +14,11 @@
 
 package openapi
 
-// MessagingV2Profile Sender profile configuration 1) RCS 2) Whatsapp
+// MessagingV2Profile The profile information for the sender.
 type MessagingV2Profile struct {
-	// The name of the sender.
+	// The name of the sender. Required for WhatsApp senders and must follow [Meta's display name guidelines](https://www.facebook.com/business/help/757569725593362).
 	Name *string `json:"name,omitempty"`
-	// The about text of the sender.
+	// The profile about text for the sender.
 	About *string `json:"about,omitempty"`
 	// The address of the sender.
 	Address *string `json:"address,omitempty"`
@@ -28,18 +28,18 @@ type MessagingV2Profile struct {
 	LogoUrl *string `json:"logo_url,omitempty"`
 	// The banner URL of the sender.
 	BannerUrl *string `json:"banner_url,omitempty"`
-	// The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+	// The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
 	PrivacyUrl *string `json:"privacy_url,omitempty"`
 	// The terms of service URL of the sender.
 	TermsOfServiceUrl *string `json:"terms_of_service_url,omitempty"`
-	// string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
+	// The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
 	AccentColor *string `json:"accent_color,omitempty"`
-	// The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
+	// The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
 	Vertical *string `json:"vertical,omitempty"`
-	// The websites of the sender
+	// The websites of the sender.
 	Websites *interface{} `json:"websites,omitempty"`
-	// The emails of the sender
+	// The emails of the sender.
 	Emails *interface{} `json:"emails,omitempty"`
-	// The phone numbers of the sender
+	// The phone numbers of the sender.
 	PhoneNumbers *interface{} `json:"phone_numbers,omitempty"`
 }

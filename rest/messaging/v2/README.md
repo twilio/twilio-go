@@ -31,11 +31,11 @@ All URIs are relative to *https://messaging.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ChannelsSendersApi* | [**CreateChannelsSender**](docs/ChannelsSendersApi.md#createchannelssender) | **Post** /v2/Channels/Senders | Create a new OTT Sender
-*ChannelsSendersApi* | [**DeleteChannelsSender**](docs/ChannelsSendersApi.md#deletechannelssender) | **Delete** /v2/Channels/Senders/{Sid} | Delete a specific sender by its unique identifier.
-*ChannelsSendersApi* | [**FetchChannelsSender**](docs/ChannelsSendersApi.md#fetchchannelssender) | **Get** /v2/Channels/Senders/{Sid} | Retrieve details of a specific sender by its unique identifier.
-*ChannelsSendersApi* | [**ListChannelsSender**](docs/ChannelsSendersApi.md#listchannelssender) | **Get** /v2/Channels/Senders | Get a list of Senders for an account.
-*ChannelsSendersApi* | [**UpdateChannelsSender**](docs/ChannelsSendersApi.md#updatechannelssender) | **Post** /v2/Channels/Senders/{Sid} | Update a specific sender information like OTP Code, Webhook, Profile information.
+*ChannelsSendersApi* | [**CreateChannelsSender**](docs/ChannelsSendersApi.md#createchannelssender) | **Post** /v2/Channels/Senders | Create a Sender
+*ChannelsSendersApi* | [**DeleteChannelsSender**](docs/ChannelsSendersApi.md#deletechannelssender) | **Delete** /v2/Channels/Senders/{Sid} | Delete a Sender
+*ChannelsSendersApi* | [**FetchChannelsSender**](docs/ChannelsSendersApi.md#fetchchannelssender) | **Get** /v2/Channels/Senders/{Sid} | Retrieve a Sender
+*ChannelsSendersApi* | [**ListChannelsSender**](docs/ChannelsSendersApi.md#listchannelssender) | **Get** /v2/Channels/Senders | Retrieve a list of Senders
+*ChannelsSendersApi* | [**UpdateChannelsSender**](docs/ChannelsSendersApi.md#updatechannelssender) | **Post** /v2/Channels/Senders/{Sid} | Update a sender&#39;s information, including &#x60;profile&#x60;, &#x60;webhook&#x60;, and &#x60;configuration&#x60;.
 
 
 ## Documentation For Models
