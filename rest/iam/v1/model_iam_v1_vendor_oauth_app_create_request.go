@@ -16,16 +16,11 @@ package openapi
 
 // IamV1VendorOauthAppCreateRequest struct for IamV1VendorOauthAppCreateRequest
 type IamV1VendorOauthAppCreateRequest struct {
-	Type           string                    `json:"type,omitempty"`
-	FriendlyName   string                    `json:"friendly_name,omitempty"`
-	OwnerSid       *string                   `json:"owner_sid,omitempty"`
-	Description    string                    `json:"description,omitempty"`
-	ClientSid      *string                   `json:"client_sid,omitempty"`
-	Policy         IamV1VendoroauthappPolicy `json:"policy,omitempty"`
-	ImageUrl       string                    `json:"image_url,omitempty"`
-	CompanyName    string                    `json:"company_name,omitempty"`
-	HomepageUrl    string                    `json:"homepage_url,omitempty"`
-	TosUrl         string                    `json:"tos_url,omitempty"`
-	RedirectUrls   []string                  `json:"redirect_urls,omitempty"`
-	AccessTokenTtl int                       `json:"access_token_ttl,omitempty"`
+	Type           string                                `json:"type,omitempty"`
+	FriendlyName   string                                `json:"friendly_name,omitempty"`
+	OwnerSid       *string                               `json:"owner_sid,omitempty"`
+	Description    string                                `json:"description,omitempty"`
+	ClientSid      *string                               `json:"client_sid,omitempty"`
+	Policy         IamV1OrganizationVendoroauthappPolicy `json:"policy,omitempty"`
+	AccessTokenTtl int                                   `json:"access_token_ttl,omitempty"`
 }

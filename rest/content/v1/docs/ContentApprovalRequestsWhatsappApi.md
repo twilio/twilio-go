@@ -4,7 +4,7 @@ All URIs are relative to *https://content.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateApprovalCreate**](ContentApprovalRequestsWhatsappApi.md#CreateApprovalCreate) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | 
+[**CreateApprovalCreate**](ContentApprovalRequestsWhatsappApi.md#CreateApprovalCreate) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | Create Content Approval Request
 
 
 
@@ -12,9 +12,9 @@ Method | HTTP request | Description
 
 > ContentV1ApprovalCreate CreateApprovalCreate(ctx, ContentSidoptional)
 
+Create Content Approval Request
 
-
-
+Create a ContentApprovalRequest for a content item
 
 ### Path Parameters
 

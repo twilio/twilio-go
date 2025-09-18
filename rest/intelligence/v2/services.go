@@ -43,6 +43,8 @@ type CreateServiceParams struct {
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 	//
 	WebhookHttpMethod *string `json:"WebhookHttpMethod,omitempty"`
+	// The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
+	EncryptionCredentialSid *string `json:"EncryptionCredentialSid,omitempty"`
 }
 
 func (params *CreateServiceParams) SetUniqueName(UniqueName string) *CreateServiceParams {
@@ -81,6 +83,10 @@ func (params *CreateServiceParams) SetWebhookHttpMethod(WebhookHttpMethod string
 	params.WebhookHttpMethod = &WebhookHttpMethod
 	return params
 }
+func (params *CreateServiceParams) SetEncryptionCredentialSid(EncryptionCredentialSid string) *CreateServiceParams {
+	params.EncryptionCredentialSid = &EncryptionCredentialSid
+	return params
+}
 
 // Create a new Service for the given Account
 func (c *ApiService) CreateService(params *CreateServiceParams) (*IntelligenceV2Service, error) {
@@ -117,6 +123,9 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*IntelligenceV2
 	}
 	if params != nil && params.WebhookHttpMethod != nil {
 		data.Set("WebhookHttpMethod", fmt.Sprint(*params.WebhookHttpMethod))
+	}
+	if params != nil && params.EncryptionCredentialSid != nil {
+		data.Set("EncryptionCredentialSid", *params.EncryptionCredentialSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -337,6 +346,8 @@ type UpdateServiceParams struct {
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 	//
 	WebhookHttpMethod *string `json:"WebhookHttpMethod,omitempty"`
+	// The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
+	EncryptionCredentialSid *string `json:"EncryptionCredentialSid,omitempty"`
 }
 
 func (params *UpdateServiceParams) SetIfMatch(IfMatch string) *UpdateServiceParams {
@@ -375,6 +386,10 @@ func (params *UpdateServiceParams) SetWebhookHttpMethod(WebhookHttpMethod string
 	params.WebhookHttpMethod = &WebhookHttpMethod
 	return params
 }
+func (params *UpdateServiceParams) SetEncryptionCredentialSid(EncryptionCredentialSid string) *UpdateServiceParams {
+	params.EncryptionCredentialSid = &EncryptionCredentialSid
+	return params
+}
 
 // Update a specific Service.
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*IntelligenceV2Service, error) {
@@ -409,6 +424,9 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*In
 	}
 	if params != nil && params.WebhookHttpMethod != nil {
 		data.Set("WebhookHttpMethod", fmt.Sprint(*params.WebhookHttpMethod))
+	}
+	if params != nil && params.EncryptionCredentialSid != nil {
+		data.Set("EncryptionCredentialSid", *params.EncryptionCredentialSid)
 	}
 
 	if params != nil && params.IfMatch != nil {

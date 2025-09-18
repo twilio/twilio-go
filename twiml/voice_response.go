@@ -1824,6 +1824,37 @@ func (m VoiceConnect) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
+//VoiceAiSession <AiSession> TwiML Noun
+type VoiceAiSession struct {
+	// ai_connector: The unique name or installed add-on sid that identifies the installed addon resource for the AI Connector
+	// ai_session_configuration: The unique name or id of the AiSession Configuration resource.
+	// OptionalAttributes: additional attributes
+	AiConnector            string
+	AiSessionConfiguration string
+	InnerElements          []Element
+	OptionalAttributes     map[string]string
+}
+
+func (m VoiceAiSession) GetName() string {
+	return "AiSession"
+}
+
+func (m VoiceAiSession) GetText() string {
+	return ""
+}
+
+func (m VoiceAiSession) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"AiConnector":            m.AiConnector,
+		"AiSessionConfiguration": m.AiSessionConfiguration,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceAiSession) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
 //VoiceAssistant <Assistant> TwiML Noun
 type VoiceAssistant struct {
 	// id: The assistant ID of the AI Assistant

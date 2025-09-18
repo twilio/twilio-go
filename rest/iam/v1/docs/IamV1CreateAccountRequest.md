@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Owner** | **string** | The owner of the account to be provisioned. |[optional] 
+**OwnerId** | **string** | The owner of the account to be provisioned. |[optional] 
 **FriendlyName** | **string** |  |
 **Tags** | **map[string]string** |  |[optional] 
 

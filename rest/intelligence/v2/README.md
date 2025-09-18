@@ -57,7 +57,9 @@ Class | Method | HTTP request | Description
 *TranscriptsMediaApi* | [**FetchMedia**](docs/TranscriptsMediaApi.md#fetchmedia) | **Get** /v2/Transcripts/{Sid}/Media | Get download URLs for media if possible
 *TranscriptsOperatorResultsApi* | [**FetchOperatorResult**](docs/TranscriptsOperatorResultsApi.md#fetchoperatorresult) | **Get** /v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid} | Fetch a specific Operator Result for the given Transcript.
 *TranscriptsOperatorResultsApi* | [**ListOperatorResult**](docs/TranscriptsOperatorResultsApi.md#listoperatorresult) | **Get** /v2/Transcripts/{TranscriptSid}/OperatorResults | Retrieve a list of Operator Results for the given Transcript.
+*TranscriptsOperatorResultsEncryptedApi* | [**FetchEncryptedOperatorResults**](docs/TranscriptsOperatorResultsEncryptedApi.md#fetchencryptedoperatorresults) | **Get** /v2/Transcripts/{TranscriptSid}/OperatorResults/Encrypted | Fetch Public Key Encrypted Operator Results by TranscriptSid
 *TranscriptsSentencesApi* | [**ListSentence**](docs/TranscriptsSentencesApi.md#listsentence) | **Get** /v2/Transcripts/{TranscriptSid}/Sentences | Get all Transcript Sentences by TranscriptSid
+*TranscriptsSentencesEncryptedApi* | [**FetchEncryptedSentences**](docs/TranscriptsSentencesEncryptedApi.md#fetchencryptedsentences) | **Get** /v2/Transcripts/{TranscriptSid}/Sentences/Encrypted | Fetch Public Key Encrypted Sentences by TranscriptSid
 
 
 ## Documentation For Models
@@ -72,12 +74,14 @@ Class | Method | HTTP request | Description
  - [IntelligenceV2Operator](docs/IntelligenceV2Operator.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
  - [IntelligenceV2CustomOperator](docs/IntelligenceV2CustomOperator.md)
+ - [IntelligenceV2EncryptedSentences](docs/IntelligenceV2EncryptedSentences.md)
  - [ListOperatorTypeResponse](docs/ListOperatorTypeResponse.md)
  - [IntelligenceV2PrebuiltOperator](docs/IntelligenceV2PrebuiltOperator.md)
  - [IntelligenceV2OperatorResult](docs/IntelligenceV2OperatorResult.md)
  - [IntelligenceV2OperatorType](docs/IntelligenceV2OperatorType.md)
  - [ListCustomOperatorResponseMeta](docs/ListCustomOperatorResponseMeta.md)
  - [IntelligenceV2Service](docs/IntelligenceV2Service.md)
+ - [IntelligenceV2EncryptedOperatorResults](docs/IntelligenceV2EncryptedOperatorResults.md)
  - [ListOperatorResultResponse](docs/ListOperatorResultResponse.md)
  - [IntelligenceV2Media](docs/IntelligenceV2Media.md)
  - [ListOperatorResponse](docs/ListOperatorResponse.md)

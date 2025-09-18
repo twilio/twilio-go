@@ -1,11 +1,12 @@
-# IamV1VendorOauthAppUpdateRequestPolicy
+# NumbersV3HostedNumbersHostedNumberOrderCapabilities
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Allow** | **[]string** | Set of permissions explicitly allowed |[optional] 
-**Deny** | **[]string** | Set of permissions explicitly denied |[optional] 
+**Mms** | **bool** |  |[optional] 
+**Sms** | **bool** |  |[optional] 
+**Voice** | **bool** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

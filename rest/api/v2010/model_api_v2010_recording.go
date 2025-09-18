@@ -39,7 +39,7 @@ type ApiV2010Recording struct {
 	// The currency used in the `price` property. Example: `USD`.
 	PriceUnit *string `json:"price_unit,omitempty"`
 	Status    *string `json:"status,omitempty"`
-	// The number of channels in the final recording file. Can be: `1` or `2`. Default: `1`.
+	// The number of channels in the recording resource. For information on specifying the number of channels in the downloaded recording file, check out [Fetch a Recording’s media file](https://www.twilio.com/docs/voice/api/recording#download-dual-channel-media-file).
 	Channels *int    `json:"channels,omitempty"`
 	Source   *string `json:"source,omitempty"`
 	// The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.

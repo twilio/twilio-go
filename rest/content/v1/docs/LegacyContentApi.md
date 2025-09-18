@@ -4,7 +4,7 @@ All URIs are relative to *https://content.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListLegacyContent**](LegacyContentApi.md#ListLegacyContent) | **Get** /v1/LegacyContent | 
+[**ListLegacyContent**](LegacyContentApi.md#ListLegacyContent) | **Get** /v1/LegacyContent | List Legacy Contents
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []ContentV1LegacyContent ListLegacyContent(ctx, optional)
 
-
+List Legacy Contents
 
 Retrieve a list of Legacy Contents belonging to the account used to make the request
 

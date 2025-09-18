@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **Duration** | **int** | The duration of this Transcript's source |[optional] [default to 0]
 **Url** | Pointer to **string** | The URL of this resource. |
 **Redaction** | Pointer to **bool** | If the transcript has been redacted, a redacted alternative of the transcript will be available. |
+**EncryptionCredentialSid** | Pointer to **string** | The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results. |
 **Links** | Pointer to **map[string]interface{}** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

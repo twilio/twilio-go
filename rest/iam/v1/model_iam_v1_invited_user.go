@@ -20,16 +20,16 @@ import (
 
 // IamV1InvitedUser struct for IamV1InvitedUser
 type IamV1InvitedUser struct {
-	NotificationSid string              `json:"notificationSid,omitempty"`
-	Email           string              `json:"email,omitempty"`
-	SenderFirstName string              `json:"senderFirstName,omitempty"`
-	SenderLastName  string              `json:"senderLastName,omitempty"`
-	SenderEmail     string              `json:"senderEmail,omitempty"`
-	DateCreated     time.Time           `json:"dateCreated,omitempty"`
-	TotalSends      int                 `json:"totalSends,omitempty"`
-	DateLastSent    time.Time           `json:"dateLastSent,omitempty"`
-	TokenExpired    bool                `json:"tokenExpired,omitempty"`
-	CanResend       bool                `json:"canResend,omitempty"`
-	CanResendReason string              `json:"canResendReason,omitempty"`
-	ScopeRoleMap    map[string][]string `json:"scopeRoleMap,omitempty"`
+	NotificationSid string                            `json:"notificationSid,omitempty"`
+	Email           string                            `json:"email,omitempty"`
+	SenderFirstName string                            `json:"senderFirstName,omitempty"`
+	SenderLastName  string                            `json:"senderLastName,omitempty"`
+	SenderEmail     string                            `json:"senderEmail,omitempty"`
+	DateCreated     time.Time                         `json:"dateCreated,omitempty"`
+	TotalSends      int                               `json:"totalSends,omitempty"`
+	DateLastSent    time.Time                         `json:"dateLastSent,omitempty"`
+	TokenExpired    bool                              `json:"tokenExpired,omitempty"`
+	CanResend       bool                              `json:"canResend,omitempty"`
+	CanResendReason string                            `json:"canResendReason,omitempty"`
+	RoleAssignments []IamV1InvitedUserRoleAssignments `json:"roleAssignments,omitempty"`
 }

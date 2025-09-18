@@ -64,6 +64,8 @@ Class | Method | HTTP request | Description
 *ServicesMessagingConfigurationsApi* | [**FetchMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#fetchmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | Fetch a specific MessagingConfiguration.
 *ServicesMessagingConfigurationsApi* | [**ListMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#listmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations | Retrieve a list of all Messaging Configurations for a Service.
 *ServicesMessagingConfigurationsApi* | [**UpdateMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#updatemessagingconfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | Update a specific MessagingConfiguration
+*ServicesPasskeysChallengesApi* | [**CreateChallengePasskeys**](docs/ServicesPasskeysChallengesApi.md#createchallengepasskeys) | **Post** /v2/Services/{ServiceSid}/Passkeys/Challenges | Create a Passkeys Challenge
+*ServicesPasskeysFactorsApi* | [**CreateNewFactorPasskey**](docs/ServicesPasskeysFactorsApi.md#createnewfactorpasskey) | **Post** /v2/Services/{ServiceSid}/Passkeys/Factors | Create a new Passkeys Factor for the Entity
 *ServicesRateLimitsApi* | [**CreateRateLimit**](docs/ServicesRateLimitsApi.md#createratelimit) | **Post** /v2/Services/{ServiceSid}/RateLimits | Create a new Rate Limit for a Service
 *ServicesRateLimitsApi* | [**DeleteRateLimit**](docs/ServicesRateLimitsApi.md#deleteratelimit) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{Sid} | Delete a specific Rate Limit.
 *ServicesRateLimitsApi* | [**FetchRateLimit**](docs/ServicesRateLimitsApi.md#fetchratelimit) | **Get** /v2/Services/{ServiceSid}/RateLimits/{Sid} | Fetch a specific Rate Limit.
@@ -96,7 +98,9 @@ Class | Method | HTTP request | Description
  - [VerifyV2Notification](docs/VerifyV2Notification.md)
  - [VerifyV2Factor](docs/VerifyV2Factor.md)
  - [VerifyV2Form](docs/VerifyV2Form.md)
+ - [CreateNewFactorPasskeyResponse](docs/CreateNewFactorPasskeyResponse.md)
  - [VerifyV2VerificationAttempt](docs/VerifyV2VerificationAttempt.md)
+ - [CreateNewPasskeysFactorRequestConfig](docs/CreateNewPasskeysFactorRequestConfig.md)
  - [VerifyV2Safelist](docs/VerifyV2Safelist.md)
  - [VerifyV2Challenge](docs/VerifyV2Challenge.md)
  - [ListEntityResponse](docs/ListEntityResponse.md)
@@ -104,13 +108,17 @@ Class | Method | HTTP request | Description
  - [ListRateLimitResponse](docs/ListRateLimitResponse.md)
  - [ListFactorResponse](docs/ListFactorResponse.md)
  - [ListVerificationTemplateResponse](docs/ListVerificationTemplateResponse.md)
+ - [CreatePasskeysChallengeRequest](docs/CreatePasskeysChallengeRequest.md)
  - [VerifyV2MessagingConfiguration](docs/VerifyV2MessagingConfiguration.md)
  - [VerifyV2Service](docs/VerifyV2Service.md)
  - [ListBucketResponseMeta](docs/ListBucketResponseMeta.md)
  - [VerifyV2VerificationTemplate](docs/VerifyV2VerificationTemplate.md)
  - [VerifyV2VerificationCheck](docs/VerifyV2VerificationCheck.md)
  - [ListVerificationAttemptResponse](docs/ListVerificationAttemptResponse.md)
+ - [CreateNewPasskeysFactorRequest](docs/CreateNewPasskeysFactorRequest.md)
  - [VerifyV2NewFactor](docs/VerifyV2NewFactor.md)
+ - [CreateChallengePasskeysResponse](docs/CreateChallengePasskeysResponse.md)
+ - [CreateNewPasskeysFactorRequestConfigRelyingParty](docs/CreateNewPasskeysFactorRequestConfigRelyingParty.md)
  - [VerifyV2VerificationAttemptsSummary](docs/VerifyV2VerificationAttemptsSummary.md)
  - [VerifyV2Verification](docs/VerifyV2Verification.md)
  - [ListBucketResponse](docs/ListBucketResponse.md)

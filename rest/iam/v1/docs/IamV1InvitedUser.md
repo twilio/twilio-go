@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **TokenExpired** | **bool** |  |[optional] 
 **CanResend** | **bool** |  |[optional] 
 **CanResendReason** | **string** |  |[optional] 
-**ScopeRoleMap** | [**map[string][]string**](array.md) |  |[optional] 
+**RoleAssignments** | [**[]IamV1InvitedUserRoleAssignments**](IamV1InvitedUserRoleAssignments.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

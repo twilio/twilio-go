@@ -17,7 +17,7 @@ package openapi
 // IamV1CreateAccountRequest struct for IamV1CreateAccountRequest
 type IamV1CreateAccountRequest struct {
 	// The owner of the account to be provisioned.
-	Owner        string            `json:"owner,omitempty"`
+	OwnerId      string            `json:"ownerId,omitempty"`
 	FriendlyName string            `json:"friendlyName"`
 	Tags         map[string]string `json:"tags,omitempty"`
 }

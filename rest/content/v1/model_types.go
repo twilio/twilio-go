@@ -29,4 +29,5 @@ type Types struct {
 	TwilioSchedule         *TwilioSchedule         `json:"twilio/schedule,omitempty"`
 	WhatsappCard           *WhatsappCard           `json:"whatsapp/card,omitempty"`
 	WhatsappAuthentication *WhatsappAuthentication `json:"whatsapp/authentication,omitempty"`
+	WhatsappFlows          *WhatsappFlows          `json:"whatsapp/flows,omitempty"`
 }

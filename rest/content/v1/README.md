@@ -31,14 +31,14 @@ All URIs are relative to *https://content.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ContentApi* | [**CreateContent**](docs/ContentApi.md#createcontent) | **Post** /v1/Content | 
-*ContentApi* | [**DeleteContent**](docs/ContentApi.md#deletecontent) | **Delete** /v1/Content/{Sid} | 
-*ContentApi* | [**FetchContent**](docs/ContentApi.md#fetchcontent) | **Get** /v1/Content/{Sid} | 
-*ContentApi* | [**ListContent**](docs/ContentApi.md#listcontent) | **Get** /v1/Content | 
-*ContentAndApprovalsApi* | [**ListContentAndApprovals**](docs/ContentAndApprovalsApi.md#listcontentandapprovals) | **Get** /v1/ContentAndApprovals | 
-*ContentApprovalRequestsApi* | [**FetchApprovalFetch**](docs/ContentApprovalRequestsApi.md#fetchapprovalfetch) | **Get** /v1/Content/{Sid}/ApprovalRequests | 
-*ContentApprovalRequestsWhatsappApi* | [**CreateApprovalCreate**](docs/ContentApprovalRequestsWhatsappApi.md#createapprovalcreate) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | 
-*LegacyContentApi* | [**ListLegacyContent**](docs/LegacyContentApi.md#listlegacycontent) | **Get** /v1/LegacyContent | 
+*ContentApi* | [**CreateContent**](docs/ContentApi.md#createcontent) | **Post** /v1/Content | Create Content
+*ContentApi* | [**DeleteContent**](docs/ContentApi.md#deletecontent) | **Delete** /v1/Content/{Sid} | Delete Content
+*ContentApi* | [**FetchContent**](docs/ContentApi.md#fetchcontent) | **Get** /v1/Content/{Sid} | Fetch Content
+*ContentApi* | [**ListContent**](docs/ContentApi.md#listcontent) | **Get** /v1/Content | List Contents
+*ContentAndApprovalsApi* | [**ListContentAndApprovals**](docs/ContentAndApprovalsApi.md#listcontentandapprovals) | **Get** /v1/ContentAndApprovals | List Content Approvals
+*ContentApprovalRequestsApi* | [**FetchApprovalFetch**](docs/ContentApprovalRequestsApi.md#fetchapprovalfetch) | **Get** /v1/Content/{Sid}/ApprovalRequests | Fetch Approval Status
+*ContentApprovalRequestsWhatsappApi* | [**CreateApprovalCreate**](docs/ContentApprovalRequestsWhatsappApi.md#createapprovalcreate) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | Create Content Approval Request
+*LegacyContentApi* | [**ListLegacyContent**](docs/LegacyContentApi.md#listlegacycontent) | **Get** /v1/LegacyContent | List Legacy Contents
 
 
 ## Documentation For Models
@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
  - [TwilioFlows](docs/TwilioFlows.md)
  - [CallToActionAction](docs/CallToActionAction.md)
  - [TwilioQuickReply](docs/TwilioQuickReply.md)
+ - [WhatsappFlows](docs/WhatsappFlows.md)
  - [ContentApprovalRequest](docs/ContentApprovalRequest.md)
  - [TwilioCatalog](docs/TwilioCatalog.md)
  - [ContentV1Content](docs/ContentV1Content.md)

@@ -16,13 +16,9 @@ package openapi
 
 // IamV1VendorOauthAppUpdateRequest struct for IamV1VendorOauthAppUpdateRequest
 type IamV1VendorOauthAppUpdateRequest struct {
-	Type           *string                                 `json:"type,omitempty"`
-	FriendlyName   *string                                 `json:"friendly_name,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
-	Policy         *IamV1VendorOauthAppUpdateRequestPolicy `json:"policy,omitempty"`
-	CompanyName    *string                                 `json:"company_name,omitempty"`
-	HomepageUrl    *string                                 `json:"homepage_url,omitempty"`
-	TosUrl         *string                                 `json:"tos_url,omitempty"`
-	RedirectUrls   *[]string                               `json:"redirect_urls,omitempty"`
-	AccessTokenTtl *int                                    `json:"access_token_ttl,omitempty"`
+	Type           *string                                             `json:"type,omitempty"`
+	FriendlyName   *string                                             `json:"friendly_name,omitempty"`
+	Description    *string                                             `json:"description,omitempty"`
+	Policy         *IamV1OrganizationVendorOauthAppUpdateRequestPolicy `json:"policy,omitempty"`
+	AccessTokenTtl *int                                                `json:"access_token_ttl,omitempty"`
 }
