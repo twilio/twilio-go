@@ -1,6 +1,7 @@
 package client_test
 
 import (
+	"context"
 	"errors"
 	"net/http"
 	"net/http/httptest"
@@ -83,7 +84,7 @@ func TestRequestHandler_SendGetRequest(t *testing.T) {
 	defer errorServer.Close()
 
 	requestHandler := NewRequestHandler("user", "pass")
-	resp, err := requestHandler.Get(errorServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := requestHandler.GetWithContext(context.Background(), errorServer.URL, nil, nil) //nolint:bodyclose
 	twilioError := err.(*client.TwilioRestError)
 	assert.Nil(t, resp)
 	assert.Equal(t, 400, twilioError.Status)
@@ -108,7 +109,7 @@ func TestRequestHandler_SendPostRequest(t *testing.T) {
 	defer errorServer.Close()
 
 	requestHandler := NewRequestHandler("user", "pass")
-	resp, err := requestHandler.Post(errorServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := requestHandler.PostWithContext(context.Background(), errorServer.URL, nil, nil) //nolint:bodyclose
 	twilioError := err.(*client.TwilioRestError)
 	assert.Nil(t, resp)
 	assert.Equal(t, 400, twilioError.Status)
