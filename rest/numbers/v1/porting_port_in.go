@@ -23,11 +23,11 @@ import (
 // Optional parameters for the method 'CreatePortingPortIn'
 type CreatePortingPortInParams struct {
 	//
-	Body *map[string]interface{} `json:"body,omitempty"`
+	NumbersV1PortingPortInCreate *NumbersV1PortingPortInCreate `json:"NumbersV1PortingPortInCreate,omitempty"`
 }
 
-func (params *CreatePortingPortInParams) SetBody(Body map[string]interface{}) *CreatePortingPortInParams {
-	params.Body = &Body
+func (params *CreatePortingPortInParams) SetNumbersV1PortingPortInCreate(NumbersV1PortingPortInCreate NumbersV1PortingPortInCreate) *CreatePortingPortInParams {
+	params.NumbersV1PortingPortInCreate = &NumbersV1PortingPortInCreate
 	return params
 }
 
@@ -41,8 +41,8 @@ func (c *ApiService) CreatePortingPortIn(params *CreatePortingPortInParams) (*Nu
 	}
 
 	body := []byte{}
-	if params != nil && params.Body != nil {
-		b, err := json.Marshal(*params.Body)
+	if params != nil && params.NumbersV1PortingPortInCreate != nil {
+		b, err := json.Marshal(*params.NumbersV1PortingPortInCreate)
 		if err != nil {
 			return nil, err
 		}

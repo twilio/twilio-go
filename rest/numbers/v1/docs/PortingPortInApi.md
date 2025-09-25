@@ -29,7 +29,7 @@ Other parameters are passed through a pointer to a CreatePortingPortInParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Body** | **map[string]interface{}** | 
+**NumbersV1PortingPortInCreate** | [**NumbersV1PortingPortInCreate**](NumbersV1PortingPortInCreate.md) | 
 
 ### Return type
 

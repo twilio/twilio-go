@@ -1,5 +1,12 @@
 twilio-go changelog
 ====================
+[2025-09-25] Version 1.28.2
+---------------------------
+**Api**
+- Added optional parameter `CallerDisplayName` for conference participant outbound
+- Updated description for property `to` in the participant create request
+
+
 [2025-09-18] Version 1.28.1
 ---------------------------
 **Api**

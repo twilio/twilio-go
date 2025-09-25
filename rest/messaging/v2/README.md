@@ -36,6 +36,7 @@ Class | Method | HTTP request | Description
 *ChannelsSendersApi* | [**FetchChannelsSender**](docs/ChannelsSendersApi.md#fetchchannelssender) | **Get** /v2/Channels/Senders/{Sid} | Retrieve a Sender
 *ChannelsSendersApi* | [**ListChannelsSender**](docs/ChannelsSendersApi.md#listchannelssender) | **Get** /v2/Channels/Senders | Retrieve a list of Senders
 *ChannelsSendersApi* | [**UpdateChannelsSender**](docs/ChannelsSendersApi.md#updatechannelssender) | **Post** /v2/Channels/Senders/{Sid} | Update a sender&#39;s information, including &#x60;profile&#x60;, &#x60;webhook&#x60;, and &#x60;configuration&#x60;.
+*IndicatorsTypingApi* | [**CreateTypingIndicator**](docs/IndicatorsTypingApi.md#createtypingindicator) | **Post** /v2/Indicators/Typing.json | Send a typing indicator
 
 
 ## Documentation For Models
@@ -53,6 +54,7 @@ Class | Method | HTTP request | Description
  - [MessagingV2Update](docs/MessagingV2Update.md)
  - [MessagingV2Profile](docs/MessagingV2Profile.md)
  - [MessagingV2ChannelsSenderProfileGenericResponseEmails](docs/MessagingV2ChannelsSenderProfileGenericResponseEmails.md)
+ - [CreateTypingIndicatorResponse](docs/CreateTypingIndicatorResponse.md)
  - [MessagingV2RcsCountryStatus](docs/MessagingV2RcsCountryStatus.md)
  - [MessagingV2ProfileGenericResponse](docs/MessagingV2ProfileGenericResponse.md)
  - [ListChannelsSenderResponseMeta](docs/ListChannelsSenderResponseMeta.md)

@@ -64,8 +64,10 @@ Class | Method | HTTP request | Description
 *ServicesMessagingConfigurationsApi* | [**FetchMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#fetchmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | Fetch a specific MessagingConfiguration.
 *ServicesMessagingConfigurationsApi* | [**ListMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#listmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations | Retrieve a list of all Messaging Configurations for a Service.
 *ServicesMessagingConfigurationsApi* | [**UpdateMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#updatemessagingconfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | Update a specific MessagingConfiguration
+*ServicesPasskeysApproveChallengeApi* | [**UpdateChallengePasskeys**](docs/ServicesPasskeysApproveChallengeApi.md#updatechallengepasskeys) | **Post** /v2/Services/{ServiceSid}/Passkeys/ApproveChallenge | Approve a Passkeys Challenge
 *ServicesPasskeysChallengesApi* | [**CreateChallengePasskeys**](docs/ServicesPasskeysChallengesApi.md#createchallengepasskeys) | **Post** /v2/Services/{ServiceSid}/Passkeys/Challenges | Create a Passkeys Challenge
 *ServicesPasskeysFactorsApi* | [**CreateNewFactorPasskey**](docs/ServicesPasskeysFactorsApi.md#createnewfactorpasskey) | **Post** /v2/Services/{ServiceSid}/Passkeys/Factors | Create a new Passkeys Factor for the Entity
+*ServicesPasskeysVerifyFactorApi* | [**UpdatePasskeysFactor**](docs/ServicesPasskeysVerifyFactorApi.md#updatepasskeysfactor) | **Post** /v2/Services/{ServiceSid}/Passkeys/VerifyFactor | Verify a Passkeys Factor
 *ServicesRateLimitsApi* | [**CreateRateLimit**](docs/ServicesRateLimitsApi.md#createratelimit) | **Post** /v2/Services/{ServiceSid}/RateLimits | Create a new Rate Limit for a Service
 *ServicesRateLimitsApi* | [**DeleteRateLimit**](docs/ServicesRateLimitsApi.md#deleteratelimit) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{Sid} | Delete a specific Rate Limit.
 *ServicesRateLimitsApi* | [**FetchRateLimit**](docs/ServicesRateLimitsApi.md#fetchratelimit) | **Get** /v2/Services/{ServiceSid}/RateLimits/{Sid} | Fetch a specific Rate Limit.
@@ -94,6 +96,7 @@ Class | Method | HTTP request | Description
  - [VerifyV2RateLimit](docs/VerifyV2RateLimit.md)
  - [VerifyV2AccessToken](docs/VerifyV2AccessToken.md)
  - [VerifyV2Webhook](docs/VerifyV2Webhook.md)
+ - [UpdatePasskeysFactorResponse](docs/UpdatePasskeysFactorResponse.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
  - [VerifyV2Notification](docs/VerifyV2Notification.md)
  - [VerifyV2Factor](docs/VerifyV2Factor.md)
@@ -103,11 +106,14 @@ Class | Method | HTTP request | Description
  - [CreateNewPasskeysFactorRequestConfig](docs/CreateNewPasskeysFactorRequestConfig.md)
  - [VerifyV2Safelist](docs/VerifyV2Safelist.md)
  - [VerifyV2Challenge](docs/VerifyV2Challenge.md)
+ - [ApprovePasskeysChallengeRequest](docs/ApprovePasskeysChallengeRequest.md)
  - [ListEntityResponse](docs/ListEntityResponse.md)
  - [ListWebhookResponse](docs/ListWebhookResponse.md)
  - [ListRateLimitResponse](docs/ListRateLimitResponse.md)
  - [ListFactorResponse](docs/ListFactorResponse.md)
  - [ListVerificationTemplateResponse](docs/ListVerificationTemplateResponse.md)
+ - [CreateVerificationResponse](docs/CreateVerificationResponse.md)
+ - [VerifyPasskeysFactorRequest](docs/VerifyPasskeysFactorRequest.md)
  - [CreatePasskeysChallengeRequest](docs/CreatePasskeysChallengeRequest.md)
  - [VerifyV2MessagingConfiguration](docs/VerifyV2MessagingConfiguration.md)
  - [VerifyV2Service](docs/VerifyV2Service.md)
@@ -115,9 +121,11 @@ Class | Method | HTTP request | Description
  - [VerifyV2VerificationTemplate](docs/VerifyV2VerificationTemplate.md)
  - [VerifyV2VerificationCheck](docs/VerifyV2VerificationCheck.md)
  - [ListVerificationAttemptResponse](docs/ListVerificationAttemptResponse.md)
+ - [VerifyPasskeysFactorRequestResponse](docs/VerifyPasskeysFactorRequestResponse.md)
  - [CreateNewPasskeysFactorRequest](docs/CreateNewPasskeysFactorRequest.md)
  - [VerifyV2NewFactor](docs/VerifyV2NewFactor.md)
  - [CreateChallengePasskeysResponse](docs/CreateChallengePasskeysResponse.md)
+ - [ApprovePasskeysChallengeRequestResponse](docs/ApprovePasskeysChallengeRequestResponse.md)
  - [CreateNewPasskeysFactorRequestConfigRelyingParty](docs/CreateNewPasskeysFactorRequestConfigRelyingParty.md)
  - [VerifyV2VerificationAttemptsSummary](docs/VerifyV2VerificationAttemptsSummary.md)
  - [VerifyV2Verification](docs/VerifyV2Verification.md)

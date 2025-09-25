@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **OwnerId** | **string** | The owner of the account to be provisioned. |[optional] 
+**ParentAccountId** | **string** | The parent account ID of the subaccount to be provisioned. |[optional] 
 **FriendlyName** | **string** |  |
 **Tags** | **map[string]string** |  |[optional] 
 
