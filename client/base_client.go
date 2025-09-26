@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"net/http"
 	"net/url"
 	"time"
@@ -13,4 +14,10 @@ type BaseClient interface {
 		headers map[string]interface{}, body ...byte) (*http.Response, error)
 	SetOauth(auth OAuth)
 	OAuth() OAuth
+}
+
+type BaseClientWithContext interface {
+	BaseClient
+	SendRequestWithContext(ctx context.Context, method string, rawURL string, data url.Values,
+		headers map[string]interface{}, body ...byte) (*http.Response, error)
 }

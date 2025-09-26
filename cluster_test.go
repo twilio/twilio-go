@@ -4,6 +4,7 @@
 package twilio
 
 import (
+	"context"
 	"os"
 	"testing"
 
@@ -15,6 +16,7 @@ import (
 	EventsV1 "github.com/twilio/twilio-go/rest/events/v1"
 
 	"github.com/stretchr/testify/assert"
+
 	IamV1 "github.com/twilio/twilio-go/rest/iam/v1"
 )
 
@@ -267,4 +269,27 @@ func TestOrgsScimUerList(t *testing.T) {
 	users, err := orgsClient.PreviewIamOrganization.ListOrganizationUsers(orgSid, &PreviewIam.ListOrganizationUsersParams{})
 	assert.Nil(t, err)
 	assert.NotNil(t, users)
+}
+
+func TestSendingATextWithContext(t *testing.T) {
+	params := &Api.CreateMessageParams{}
+	params.SetTo(to)
+	params.SetFrom(from)
+	params.SetBody("Hello there")
+
+	resp, err := testClient.Api.CreateMessageWithContext(context.Background(), params)
+	assert.Nil(t, err)
+	assert.NotNil(t, resp)
+	assert.Equal(t, "Hello there", *resp.Body)
+	assert.Equal(t, from, *resp.From)
+	assert.Equal(t, to, *resp.To)
+}
+
+func TestOrgsAccountsListWithContext(t *testing.T) {
+	listAccounts, err := orgsClient.PreviewIamOrganization.ListOrganizationAccountsWithContext(context.Background(), orgSid, &PreviewIam.ListOrganizationAccountsParams{})
+	assert.Nil(t, err)
+	assert.NotNil(t, listAccounts)
+	accounts, err := orgsClient.PreviewIamOrganization.FetchOrganizationAccountWithContext(context.Background(), orgSid, &PreviewIam.FetchOrganizationAccountParams{PathAccountSid: &accountSidOrgs})
+	assert.Nil(t, err)
+	assert.NotNil(t, accounts)
 }
