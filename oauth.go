@@ -8,7 +8,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 
 	"github.com/twilio/twilio-go/client"
-	iam "github.com/twilio/twilio-go/rest/iam/v1"
+	oauth "github.com/twilio/twilio-go/rest/oauth/v2"
 )
 
 var jwtParser = new(jwt.Parser)
@@ -69,8 +69,8 @@ type OAuthCredentials struct {
 
 // APIOAuth handles OAuth authentication for the Twilio API.
 type APIOAuth struct {
-	// iamService is the service used to interact with the IAM API.
-	iamService *iam.ApiService
+	// oauthService is the service used to interact with the OAuth API.
+	oauthService *oauth.ApiService
 	// creds holds the necessary credentials for OAuth authentication.
 	creds *OAuthCredentials
 	// tokenAuth *TokenAuth
@@ -79,7 +79,7 @@ type APIOAuth struct {
 
 // NewAPIOAuth creates a new APIOAuth instance with the provided request handler and credentials.
 func NewAPIOAuth(c *client.RequestHandler, creds *OAuthCredentials) *APIOAuth {
-	a := &APIOAuth{iamService: iam.NewApiService(c), creds: creds}
+	a := &APIOAuth{oauthService: oauth.NewApiService(c), creds: creds}
 	return a
 }
 
@@ -95,12 +95,12 @@ func (a *APIOAuth) GetAccessToken(ctx context.Context) (string, error) {
 	if a.tokenAuth.Token != "" && !expired {
 		return a.tokenAuth.Token, nil
 	}
-	params := &iam.CreateTokenParams{}
+	params := &oauth.CreateOauth2TokenParams{}
 	params.SetGrantType(a.creds.GrantType).
 		SetClientId(a.creds.ClientId).
 		SetClientSecret(a.creds.ClientSecret)
-	a.iamService.RequestHandler().Client.SetOauth(nil) // set oauth to nil to make no-auth request
-	token, err := a.iamService.CreateToken(params)
+	a.oauthService.RequestHandler().Client.SetOauth(nil) // set oauth to nil to make no-auth request
+	token, err := a.oauthService.CreateOauth2Token(params)
 	if err == nil {
 		a.tokenAuth = TokenAuth{
 			Token: *token.AccessToken,
