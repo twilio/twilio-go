@@ -1,4 +1,4 @@
-# LookupRequestWithCorId
+# LookupBatchRequest
 
 ## Properties
 
@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **Fields** | **[]string** |  |[optional] 
 **CountryCode** | **string** |  |[optional] 
 **IdentityMatch** | [**IdentityMatchParameters**](IdentityMatchParameters.md) |  |[optional] 
-**ReassignedNumber** | [**ReassignedNumberRequest**](ReassignedNumberRequest.md) |  |[optional] 
-**SmsPumpingRisk** | [**SmsPumpingRiskParameters**](SmsPumpingRiskParameters.md) |  |[optional] 
+**ReassignedNumber** | [**ReassignedNumberParameters**](ReassignedNumberParameters.md) |  |[optional] 
+**SmsPumpingRisk** | [**RiskParameters**](RiskParameters.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

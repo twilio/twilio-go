@@ -32,7 +32,7 @@ All URIs are relative to *https://lookups.twilio.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *BatchQueryApi* | [**CreateBulkLookup**](docs/BatchQueryApi.md#createbulklookup) | **Post** /v2/batch/query | In Request Bulk
-*PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | 
+*PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | Full API documentation: https://www.twilio.com/docs/lookup/v2-api
 *PhoneNumbersOverridesApi* | [**CreateLookupPhoneNumberOverrides**](docs/PhoneNumbersOverridesApi.md#createlookupphonenumberoverrides) | **Post** /v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field} | Create Override for a Phone Number for a specific field
 *PhoneNumbersOverridesApi* | [**DeleteLookupPhoneNumberOverrides**](docs/PhoneNumbersOverridesApi.md#deletelookupphonenumberoverrides) | **Delete** /v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field} | Delete an Override for a Phone Number for a specific field
 *PhoneNumbersOverridesApi* | [**FetchLookupPhoneNumberOverrides**](docs/PhoneNumbersOverridesApi.md#fetchlookupphonenumberoverrides) | **Get** /v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field} | Get Overrides for a Phone Number for a specific field.
@@ -46,10 +46,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [LineTypeIntelligence](docs/LineTypeIntelligence.md)
- - [ATOCarrier](docs/ATOCarrier.md)
- - [ReassignedNumberResponse](docs/ReassignedNumberResponse.md)
- - [TwilioServiceErrorResponse](docs/TwilioServiceErrorResponse.md)
  - [RateLimitRequest](docs/RateLimitRequest.md)
+ - [ReassignedNumber](docs/ReassignedNumber.md)
  - [LastSimSwap](docs/LastSimSwap.md)
  - [RateLimitResponse](docs/RateLimitResponse.md)
  - [LineStatus](docs/LineStatus.md)
@@ -58,24 +56,21 @@ Class | Method | HTTP request | Description
  - [OverridesRequest](docs/OverridesRequest.md)
  - [Result](docs/Result.md)
  - [JobStatus](docs/JobStatus.md)
- - [LookupFileJobResponseResult](docs/LookupFileJobResponseResult.md)
+ - [FetchLookupAccountRateLimitsResponse](docs/FetchLookupAccountRateLimitsResponse.md)
  - [SimSwap](docs/SimSwap.md)
- - [LookupRequest1](docs/LookupRequest1.md)
  - [SmsPumpingRisk](docs/SmsPumpingRisk.md)
- - [LookupRequestWithCorId](docs/LookupRequestWithCorId.md)
- - [Carrier](docs/Carrier.md)
+ - [ValidationError](docs/ValidationError.md)
  - [CallerName](docs/CallerName.md)
  - [LookupResponse1](docs/LookupResponse1.md)
- - [LookupsV2PhoneNumber](docs/LookupsV2PhoneNumber.md)
+ - [LookupBatchRequest](docs/LookupBatchRequest.md)
+ - [LookupBatchResponse](docs/LookupBatchResponse.md)
  - [Thresholds](docs/Thresholds.md)
- - [LookupFileJobResponse](docs/LookupFileJobResponse.md)
  - [IdentityMatch](docs/IdentityMatch.md)
- - [ReassignedNumberRequest](docs/ReassignedNumberRequest.md)
+ - [ReassignedNumberParameters](docs/ReassignedNumberParameters.md)
  - [LookupResponse](docs/LookupResponse.md)
+ - [RiskParameters](docs/RiskParameters.md)
  - [LookupJobResponse](docs/LookupJobResponse.md)
- - [SmsPumpingRiskParameters](docs/SmsPumpingRiskParameters.md)
  - [LookupJobRequest](docs/LookupJobRequest.md)
- - [LookupResponseWithCorId](docs/LookupResponseWithCorId.md)
  - [IdentityMatchParameters](docs/IdentityMatchParameters.md)
  - [OverridesResponse](docs/OverridesResponse.md)
  - [CallForwarding](docs/CallForwarding.md)

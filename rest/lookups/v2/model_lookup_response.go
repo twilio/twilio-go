@@ -16,18 +16,30 @@ package openapi
 
 // LookupResponse struct for LookupResponse
 type LookupResponse struct {
-	CallingCountryCode   string                   `json:"calling_country_code,omitempty"`
-	CountryCode          string                   `json:"country_code,omitempty"`
-	PhoneNumber          string                   `json:"phone_number,omitempty"`
-	NationalFormat       string                   `json:"national_format,omitempty"`
-	Valid                bool                     `json:"valid,omitempty"`
-	ValidationErrors     []string                 `json:"validation_errors,omitempty"`
-	CallerName           CallerName               `json:"caller_name,omitempty"`
-	SimSwap              SimSwap                  `json:"sim_swap,omitempty"`
-	CallForwarding       CallForwarding           `json:"call_forwarding,omitempty"`
-	LineTypeIntelligence LineTypeIntelligence     `json:"line_type_intelligence,omitempty"`
-	LineStatus           LineStatus               `json:"line_status,omitempty"`
-	IdentityMatch        IdentityMatch            `json:"identity_match,omitempty"`
-	ReassignedNumber     ReassignedNumberResponse `json:"reassigned_number,omitempty"`
-	SmsPumpingRisk       SmsPumpingRisk           `json:"sms_pumping_risk,omitempty"`
+	// International dialing prefix of the phone number defined in the E.164 standard.
+	CallingCountryCode *string `json:"calling_country_code,omitempty"`
+	// The phone number's [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+	CountryCode *string `json:"country_code,omitempty"`
+	// The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+	// The phone number in [national format](https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers).
+	NationalFormat *string `json:"national_format,omitempty"`
+	// Boolean which indicates if the phone number is in a valid range that can be freely assigned by a carrier to a user.
+	Valid bool `json:"valid,omitempty"`
+	// Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
+	ValidationErrors     []ValidationError    `json:"validation_errors,omitempty"`
+	CallerName           CallerName           `json:"caller_name,omitempty"`
+	SimSwap              SimSwap              `json:"sim_swap,omitempty"`
+	CallForwarding       CallForwarding       `json:"call_forwarding,omitempty"`
+	LineTypeIntelligence LineTypeIntelligence `json:"line_type_intelligence,omitempty"`
+	LineStatus           LineStatus           `json:"line_status,omitempty"`
+	IdentityMatch        IdentityMatch        `json:"identity_match,omitempty"`
+	ReassignedNumber     ReassignedNumber     `json:"reassigned_number,omitempty"`
+	SmsPumpingRisk       SmsPumpingRisk       `json:"sms_pumping_risk,omitempty"`
+	// An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
+	PhoneNumberQualityScore *interface{} `json:"phone_number_quality_score,omitempty"`
+	// An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code.
+	PreFill *interface{} `json:"pre_fill,omitempty"`
+	// The absolute URL of the resource.
+	Url string `json:"url,omitempty"`
 }

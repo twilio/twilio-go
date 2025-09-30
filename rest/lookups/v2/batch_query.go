@@ -22,11 +22,11 @@ import (
 // Optional parameters for the method 'CreateBulkLookup'
 type CreateBulkLookupParams struct {
 	//
-	LookupRequest1 *LookupRequest1 `json:"LookupRequest1,omitempty"`
+	LookupRequest *LookupRequest `json:"LookupRequest,omitempty"`
 }
 
-func (params *CreateBulkLookupParams) SetLookupRequest1(LookupRequest1 LookupRequest1) *CreateBulkLookupParams {
-	params.LookupRequest1 = &LookupRequest1
+func (params *CreateBulkLookupParams) SetLookupRequest(LookupRequest LookupRequest) *CreateBulkLookupParams {
+	params.LookupRequest = &LookupRequest
 	return params
 }
 
@@ -40,8 +40,8 @@ func (c *ApiService) CreateBulkLookup(params *CreateBulkLookupParams) (*LookupRe
 	}
 
 	body := []byte{}
-	if params != nil && params.LookupRequest1 != nil {
-		b, err := json.Marshal(*params.LookupRequest1)
+	if params != nil && params.LookupRequest != nil {
+		b, err := json.Marshal(*params.LookupRequest)
 		if err != nil {
 			return nil, err
 		}

@@ -115,8 +115,8 @@ func (params *FetchPhoneNumberParams) SetPartnerSubId(PartnerSubId string) *Fetc
 	return params
 }
 
-//
-func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV2PhoneNumber, error) {
+// The Lookup API allows you to query information on a phone number so that you can make a trusted interaction with your user
+func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupResponse, error) {
 	path := "/v2/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
@@ -178,7 +178,7 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 
 	defer resp.Body.Close()
 
-	ps := &LookupsV2PhoneNumber{}
+	ps := &LookupResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

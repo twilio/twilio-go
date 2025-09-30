@@ -16,10 +16,10 @@ package openapi
 
 // Result struct for Result
 type Result struct {
-	FileUrl        string `json:"file_url,omitempty"`
-	TotalCount     int    `json:"total_count,omitempty"`
-	ProcessedCount int    `json:"processed_count,omitempty"`
-	SuccessCount   int    `json:"success_count,omitempty"`
-	ErrorCount     int    `json:"error_count,omitempty"`
-	Details        string `json:"details,omitempty"`
+	FileUrl        *string `json:"file_url,omitempty"`
+	TotalCount     int     `json:"total_count,omitempty"`
+	ProcessedCount int     `json:"processed_count,omitempty"`
+	SuccessCount   int     `json:"success_count,omitempty"`
+	ErrorCount     int     `json:"error_count,omitempty"`
+	Details        *string `json:"details,omitempty"`
 }

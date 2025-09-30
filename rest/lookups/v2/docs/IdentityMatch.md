@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FirstNameMatch** | **string** |  |[optional] 
 **LastNameMatch** | **string** |  |[optional] 
-**AddressLineMatch** | **string** |  |[optional] 
+**AddressLinesMatch** | **string** |  |[optional] 
 **CityMatch** | **string** |  |[optional] 
 **StateMatch** | **string** |  |[optional] 
 **PostalCodeMatch** | **string** |  |[optional] 
-**CountryCodeMatch** | **string** |  |[optional] 
+**AddressCountryMatch** | **string** |  |[optional] 
 **NationalIdMatch** | **string** |  |[optional] 
 **DateOfBirthMatch** | **string** |  |[optional] 
 **SummaryScore** | **int** |  |[optional] 

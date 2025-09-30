@@ -16,5 +16,5 @@ package openapi
 
 // LookupResponse1 struct for LookupResponse1
 type LookupResponse1 struct {
-	PhoneNumbers []LookupResponseWithCorId `json:"phone_numbers,omitempty"`
+	PhoneNumbers []LookupBatchResponse `json:"phone_numbers,omitempty"`
 }

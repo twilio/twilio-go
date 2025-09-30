@@ -14,9 +14,9 @@
 
 package openapi
 
-// ATOCarrier struct for ATOCarrier
-type ATOCarrier struct {
-	CarrierName       string `json:"carrier_name,omitempty"`
-	MobileCountryCode string `json:"mobile_country_code,omitempty"`
-	MobileNetworkCode string `json:"mobile_network_code,omitempty"`
+// ReassignedNumber struct for ReassignedNumber
+type ReassignedNumber struct {
+	LastVerifiedDate   string `json:"last_verified_date,omitempty"`
+	IsNumberReassigned string `json:"is_number_reassigned,omitempty"`
+	ErrorCode          string `json:"error_code,omitempty"`
 }

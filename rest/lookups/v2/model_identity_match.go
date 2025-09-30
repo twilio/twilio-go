@@ -16,16 +16,16 @@ package openapi
 
 // IdentityMatch struct for IdentityMatch
 type IdentityMatch struct {
-	FirstNameMatch   string `json:"first_name_match,omitempty"`
-	LastNameMatch    string `json:"last_name_match,omitempty"`
-	AddressLineMatch string `json:"address_line_match,omitempty"`
-	CityMatch        string `json:"city_match,omitempty"`
-	StateMatch       string `json:"state_match,omitempty"`
-	PostalCodeMatch  string `json:"postal_code_match,omitempty"`
-	CountryCodeMatch string `json:"country_code_match,omitempty"`
-	NationalIdMatch  string `json:"national_id_match,omitempty"`
-	DateOfBirthMatch string `json:"date_of_birth_match,omitempty"`
-	SummaryScore     int    `json:"summary_score,omitempty"`
-	ErrorCode        int    `json:"error_code,omitempty"`
-	ErrorMessage     string `json:"error_message,omitempty"`
+	FirstNameMatch      string `json:"first_name_match,omitempty"`
+	LastNameMatch       string `json:"last_name_match,omitempty"`
+	AddressLinesMatch   string `json:"address_lines_match,omitempty"`
+	CityMatch           string `json:"city_match,omitempty"`
+	StateMatch          string `json:"state_match,omitempty"`
+	PostalCodeMatch     string `json:"postal_code_match,omitempty"`
+	AddressCountryMatch string `json:"address_country_match,omitempty"`
+	NationalIdMatch     string `json:"national_id_match,omitempty"`
+	DateOfBirthMatch    string `json:"date_of_birth_match,omitempty"`
+	SummaryScore        int    `json:"summary_score,omitempty"`
+	ErrorCode           int    `json:"error_code,omitempty"`
+	ErrorMessage        string `json:"error_message,omitempty"`
 }

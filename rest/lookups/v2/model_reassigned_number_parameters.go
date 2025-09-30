@@ -14,8 +14,7 @@
 
 package openapi
 
-// Carrier struct for Carrier
-type Carrier struct {
-	MobileCountryCode string `json:"mobile_country_code,omitempty"`
-	MobileNetworkCode string `json:"mobile_network_code,omitempty"`
+// ReassignedNumberParameters struct for ReassignedNumberParameters
+type ReassignedNumberParameters struct {
+	LastVerifiedDate string `json:"last_verified_date,omitempty"`
 }

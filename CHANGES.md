@@ -1,5 +1,14 @@
 twilio-go changelog
 ====================
+[2025-09-30] Version 1.28.3
+---------------------------
+**Library - Chore**
+- [PR #302](https://github.com/twilio/twilio-go/pull/302): change oauth token endpoint. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Insights**
+- Replace `field` with `key` in Request Filters and Response Metadata Filters and  for Reports API
+
+
 [2025-09-25] Version 1.28.2
 ---------------------------
 **Api**

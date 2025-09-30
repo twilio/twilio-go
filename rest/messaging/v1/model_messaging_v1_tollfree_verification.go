@@ -75,7 +75,9 @@ type MessagingV1TollfreeVerification struct {
 	AdditionalInformation *string `json:"additional_information,omitempty"`
 	// The SID of the Phone Number associated with the Tollfree Verification.
 	TollfreePhoneNumberSid *string `json:"tollfree_phone_number_sid,omitempty"`
-	Status                 *string `json:"status,omitempty"`
+	// The E.164 formatted toll-free phone number associated with the verification.
+	TollfreePhoneNumber *string `json:"tollfree_phone_number,omitempty"`
+	Status              *string `json:"status,omitempty"`
 	// The absolute URL of the Tollfree Verification resource.
 	Url *string `json:"url,omitempty"`
 	// The rejection reason given when a Tollfree Verification has been rejected.
@@ -86,6 +88,30 @@ type MessagingV1TollfreeVerification struct {
 	EditExpiration *time.Time `json:"edit_expiration,omitempty"`
 	// If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
 	EditAllowed *bool `json:"edit_allowed,omitempty"`
+	// A legally recognized business registration number
+	BusinessRegistrationNumber *string `json:"business_registration_number,omitempty"`
+	// The organizational authority for business registrations
+	BusinessRegistrationAuthority *string `json:"business_registration_authority,omitempty"`
+	// Country business is registered in
+	BusinessRegistrationCountry *string `json:"business_registration_country,omitempty"`
+	// The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+	BusinessType *string `json:"business_type,omitempty"`
+	// The E.164 formatted number associated with the business.
+	BusinessRegistrationPhoneNumber *string `json:"business_registration_phone_number,omitempty"`
+	// Trade name, sub entity, or downstream business name of business being submitted for verification
+	DoingBusinessAs *string `json:"doing_business_as,omitempty"`
+	// The confirmation message sent to users when they opt in to receive messages.
+	OptInConfirmationMessage *string `json:"opt_in_confirmation_message,omitempty"`
+	// A sample help message provided to users.
+	HelpMessageSample *string `json:"help_message_sample,omitempty"`
+	// The URL to the privacy policy for the business or organization.
+	PrivacyPolicyUrl *string `json:"privacy_policy_url,omitempty"`
+	// The URL to the terms and conditions for the business or organization.
+	TermsAndConditionsUrl *string `json:"terms_and_conditions_url,omitempty"`
+	// Indicates if the content is age gated.
+	AgeGatedContent *bool `json:"age_gated_content,omitempty"`
+	// List of keywords that users can text in to opt in to receive messages.
+	OptInKeywords *[]string `json:"opt_in_keywords,omitempty"`
 	// A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
 	RejectionReasons *[]interface{} `json:"rejection_reasons,omitempty"`
 	// The URLs of the documents associated with the Tollfree Verification resource.

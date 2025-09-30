@@ -35,7 +35,9 @@ type NumbersV1PortingPortIn struct {
 	// The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier. The time will be stored and returned as UTC standard timezone.
 	TargetPortInTimeRangeEnd *string `json:"target_port_in_time_range_end,omitempty"`
 	// The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
-	PortInRequestStatus      *string                                    `json:"port_in_request_status,omitempty"`
+	PortInRequestStatus *string `json:"port_in_request_status,omitempty"`
+	// If the order is cancelled this field will provide further context on the cause of the cancellation.
+	OrderCancellationReason  *string                                    `json:"order_cancellation_reason,omitempty"`
 	LosingCarrierInformation NumbersV1PortingLosingCarrierInformation   `json:"losing_carrier_information,omitempty"`
 	PhoneNumbers             *[]NumbersV1PortingPortInPhoneNumberResult `json:"phone_numbers,omitempty"`
 	// The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.

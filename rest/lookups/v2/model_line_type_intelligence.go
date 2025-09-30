@@ -16,9 +16,9 @@ package openapi
 
 // LineTypeIntelligence struct for LineTypeIntelligence
 type LineTypeIntelligence struct {
-	Type              string `json:"type,omitempty"`
-	CarrierName       string `json:"carrier_name,omitempty"`
 	MobileCountryCode string `json:"mobile_country_code,omitempty"`
 	MobileNetworkCode string `json:"mobile_network_code,omitempty"`
+	CarrierName       string `json:"carrier_name,omitempty"`
+	Type              string `json:"type,omitempty"`
 	ErrorCode         int    `json:"error_code,omitempty"`
 }

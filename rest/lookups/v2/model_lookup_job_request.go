@@ -16,7 +16,7 @@ package openapi
 
 // LookupJobRequest struct for LookupJobRequest
 type LookupJobRequest struct {
-	FriendlyName string     `json:"friendly_name,omitempty"`
-	Description  string     `json:"description,omitempty"`
+	FriendlyName *string    `json:"friendly_name,omitempty"`
+	Description  *string    `json:"description,omitempty"`
 	Thresholds   Thresholds `json:"thresholds,omitempty"`
 }

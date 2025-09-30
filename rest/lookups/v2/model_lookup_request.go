@@ -14,11 +14,7 @@
 
 package openapi
 
-// LookupRequest
+// LookupRequest struct for LookupRequest
 type LookupRequest struct {
-	PhoneNumber      string                  `json:"phone_number"`
-	Fields           []string                `json:"fields,omitempty"`
-	CountryCode      string                  `json:"country_code,omitempty"`
-	IdentityMatch    IdentityMatchParameters `json:"identity_match,omitempty"`
-	ReassignedNumber ReassignedNumberRequest `json:"reassigned_number,omitempty"`
+	PhoneNumbers []LookupBatchRequest `json:"phone_numbers,omitempty"`
 }

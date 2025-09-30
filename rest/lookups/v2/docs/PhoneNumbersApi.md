@@ -4,17 +4,17 @@ All URIs are relative to *https://lookups.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchPhoneNumber**](PhoneNumbersApi.md#FetchPhoneNumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | 
+[**FetchPhoneNumber**](PhoneNumbersApi.md#FetchPhoneNumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | Full API documentation: https://www.twilio.com/docs/lookup/v2-api
 
 
 
 ## FetchPhoneNumber
 
-> LookupsV2PhoneNumber FetchPhoneNumber(ctx, PhoneNumberoptional)
+> LookupResponse FetchPhoneNumber(ctx, PhoneNumberoptional)
 
+Full API documentation: https://www.twilio.com/docs/lookup/v2-api
 
-
-
+The Lookup API allows you to query information on a phone number so that you can make a trusted interaction with your user
 
 ### Path Parameters
 
@@ -49,7 +49,7 @@ Name | Type | Description
 
 ### Return type
 
-[**LookupsV2PhoneNumber**](LookupsV2PhoneNumber.md)
+[**LookupResponse**](LookupResponse.md)
 
 ### Authorization
 

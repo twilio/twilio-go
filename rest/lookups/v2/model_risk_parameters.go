@@ -14,7 +14,7 @@
 
 package openapi
 
-// ReassignedNumberRequest struct for ReassignedNumberRequest
-type ReassignedNumberRequest struct {
-	LastVerifiedDate string `json:"last_verified_date,omitempty"`
+// RiskParameters struct for RiskParameters
+type RiskParameters struct {
+	PartnerSubId string `json:"partner_sub_id,omitempty"`
 }

@@ -27,7 +27,7 @@ Other parameters are passed through a pointer to a CreateBulkLookupParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**LookupRequest1** | [**LookupRequest1**](LookupRequest1.md) | 
+**LookupRequest** | [**LookupRequest**](LookupRequest.md) | 
 
 ### Return type
 

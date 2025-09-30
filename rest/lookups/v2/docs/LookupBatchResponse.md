@@ -1,4 +1,4 @@
-# LookupResponseWithCorId
+# LookupBatchResponse
 
 ## Properties
 
@@ -18,8 +18,10 @@ Name | Type | Description | Notes
 **LineTypeIntelligence** | [**LineTypeIntelligence**](LineTypeIntelligence.md) |  |[optional] 
 **LineStatus** | [**LineStatus**](LineStatus.md) |  |[optional] 
 **IdentityMatch** | [**IdentityMatch**](IdentityMatch.md) |  |[optional] 
-**ReassignedNumber** | [**ReassignedNumberResponse**](ReassignedNumberResponse.md) |  |[optional] 
+**ReassignedNumber** | [**ReassignedNumber**](ReassignedNumber.md) |  |[optional] 
 **SmsPumpingRisk** | [**SmsPumpingRisk**](SmsPumpingRisk.md) |  |[optional] 
+**PhoneNumberQualityScore** | Pointer to **interface{}** |  |
+**PreFill** | Pointer to **interface{}** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

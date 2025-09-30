@@ -22,12 +22,12 @@ import (
 
 // Thresholds struct for Thresholds
 type Thresholds struct {
-	Error float32 `json:"error,omitempty"`
+	Error *float32 `json:"error,omitempty"`
 }
 
 func (response *Thresholds) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		Error interface{} `json:"error"`
+		Error *interface{} `json:"error"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -36,11 +36,11 @@ func (response *Thresholds) UnmarshalJSON(bytes []byte) (err error) {
 
 	*response = Thresholds{}
 
-	responseError, err := client.UnmarshalFloat32(&raw.Error)
+	responseError, err := client.UnmarshalFloat32(raw.Error)
 	if err != nil {
 		return err
 	}
-	response.Error = *responseError
+	response.Error = responseError
 
 	return
 }

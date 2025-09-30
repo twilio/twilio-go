@@ -42,6 +42,7 @@ Class | Method | HTTP request | Description
 *PortingPortInApi* | [**FetchPortingPortIn**](docs/PortingPortInApi.md#fetchportingportin) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | Fetch a port in request by SID
 *PortingPortInPhoneNumberApi* | [**DeletePortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#deleteportingportinphonenumber) | **Delete** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | Allows to cancel a port in request phone number by SID
 *PortingPortInPhoneNumberApi* | [**FetchPortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#fetchportingportinphonenumber) | **Get** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | Fetch a phone number by port in request SID and phone number SID
+*PortingPortInPortInRequestsApi* | [**ListPortInRequests**](docs/PortingPortInPortInRequestsApi.md#listportinrequests) | **Get** /v1/Porting/PortIn/PortInRequests | Fetch all PortInRequests for a user
 *PortingPortabilityPhoneNumberApi* | [**FetchPortingPortability**](docs/PortingPortabilityPhoneNumberApi.md#fetchportingportability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | Check if a single phone number can be ported to Twilio
 *SigningRequestConfigurationApi* | [**CreateSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#createsigningrequestconfiguration) | **Post** /v1/SigningRequest/Configuration | Synchronous operation to insert or update a configuration for the customer.
 *SigningRequestConfigurationApi* | [**ListSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#listsigningrequestconfiguration) | **Get** /v1/SigningRequest/Configuration | Synchronous operation to retrieve configurations for the customer.
@@ -49,8 +50,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [NumbersV1PortInRequestListMeta](docs/NumbersV1PortInRequestListMeta.md)
  - [NumbersV1PortingPortInPhoneNumberResult](docs/NumbersV1PortingPortInPhoneNumberResult.md)
  - [NumbersV1PortingLosingCarrierInformation](docs/NumbersV1PortingLosingCarrierInformation.md)
+ - [NumbersV1PortInRequestList](docs/NumbersV1PortInRequestList.md)
  - [ListSigningRequestConfigurationResponseMeta](docs/ListSigningRequestConfigurationResponseMeta.md)
  - [NumbersV1PortingPortInCreate](docs/NumbersV1PortingPortInCreate.md)
  - [NumbersV1PortingPortIn](docs/NumbersV1PortingPortIn.md)
@@ -63,6 +66,7 @@ Class | Method | HTTP request | Description
  - [NumbersV1PortingAddress](docs/NumbersV1PortingAddress.md)
  - [NumbersV1Eligibility](docs/NumbersV1Eligibility.md)
  - [NumbersV1PortingPortInPhoneNumber](docs/NumbersV1PortingPortInPhoneNumber.md)
+ - [ListPortInRequestsResponse](docs/ListPortInRequestsResponse.md)
  - [NumbersV1PortingWebhookConfigurationDelete](docs/NumbersV1PortingWebhookConfigurationDelete.md)
  - [NumbersV1PortingWebhookConfigurationFetch](docs/NumbersV1PortingWebhookConfigurationFetch.md)
 

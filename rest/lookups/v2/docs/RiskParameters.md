@@ -1,4 +1,4 @@
-# SmsPumpingRiskParameters
+# RiskParameters
 
 ## Properties
 

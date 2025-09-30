@@ -14,7 +14,14 @@
 
 package openapi
 
-// LookupRequest1 struct for LookupRequest1
-type LookupRequest1 struct {
-	PhoneNumbers []LookupRequestWithCorId `json:"phone_numbers,omitempty"`
+// FetchLookupAccountRateLimitsResponse struct for FetchLookupAccountRateLimitsResponse
+type FetchLookupAccountRateLimitsResponse struct {
+	// Twilio-specific error code
+	Code int `json:"code,omitempty"`
+	// Error message
+	Message string `json:"message,omitempty"`
+	// Link to Error Code References
+	MoreInfo string `json:"more_info,omitempty"`
+	// HTTP response status code
+	Status int `json:"status,omitempty"`
 }

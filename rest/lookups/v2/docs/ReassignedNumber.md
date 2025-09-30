@@ -1,4 +1,4 @@
-# ReassignedNumberResponse
+# ReassignedNumber
 
 ## Properties
 
