@@ -60,7 +60,6 @@ func (params *CreateWebChannelParams) SetIdentity(Identity string) *CreateWebCha
 	return params
 }
 
-//
 func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2WebChannel, error) {
 	path := "/v2/WebChats"
 
