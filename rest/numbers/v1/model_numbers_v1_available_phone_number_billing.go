@@ -14,8 +14,8 @@
 
 package openapi
 
-// NumbersV2AvailablePhoneNumberFlags The flags that describe the phone number features.
-type NumbersV2AvailablePhoneNumberFlags struct {
-	National      bool `json:"National,omitempty"`
-	International bool `json:"International,omitempty"`
+// NumbersV1AvailablePhoneNumberBilling The billing information for the phone number.
+type NumbersV1AvailablePhoneNumberBilling struct {
+	RecurringBillableItemSid string `json:"RecurringBillableItemSid,omitempty"`
+	SetupBillableItemSid     string `json:"SetupBillableItemSid,omitempty"`
 }

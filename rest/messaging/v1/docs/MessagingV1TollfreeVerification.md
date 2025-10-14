@@ -48,9 +48,9 @@ Name | Type | Description | Notes
 **OptInConfirmationMessage** | Pointer to **string** | The confirmation message sent to users when they opt in to receive messages. |
 **HelpMessageSample** | Pointer to **string** | A sample help message provided to users. |
 **PrivacyPolicyUrl** | Pointer to **string** | The URL to the privacy policy for the business or organization. |
-**TermsAndConditionsUrl** | Pointer to **string** | The URL to the terms and conditions for the business or organization. |
+**TermsAndConditionsUrl** | Pointer to **string** | The URL of the terms and conditions for the business or organization. |
 **AgeGatedContent** | Pointer to **bool** | Indicates if the content is age gated. |
-**OptInKeywords** | Pointer to **[]string** | List of keywords that users can text in to opt in to receive messages. |
+**OptInKeywords** | Pointer to **[]string** | List of keywords that users can send to opt in or out of messages. |
 **RejectionReasons** | Pointer to **[]interface{}** | A list of rejection reasons and codes describing why a Tollfree Verification has been rejected. |
 **ResourceLinks** | Pointer to **interface{}** | The URLs of the documents associated with the Tollfree Verification resource. |
 **ExternalReferenceId** | Pointer to **string** | An optional external reference ID supplied by customer and echoed back on status retrieval. |

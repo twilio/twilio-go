@@ -49,4 +49,6 @@ type NumbersV1PortingPortIn struct {
 	// List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
 	Documents   *[]string  `json:"documents,omitempty"`
 	DateCreated *time.Time `json:"date_created,omitempty"`
+	// Unique ID of the request's support ticket
+	SupportTicketId int `json:"support_ticket_id,omitempty"`
 }

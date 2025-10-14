@@ -1,4 +1,4 @@
-# NumbersV2AvailablePhoneNumberCapabilities
+# NumbersV1AvailablePhoneNumberCapabilities
 
 ## Properties
 

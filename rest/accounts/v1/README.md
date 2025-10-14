@@ -46,6 +46,8 @@ Class | Method | HTTP request | Description
 *CredentialsPublicKeysApi* | [**FetchCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#fetchcredentialpublickey) | **Get** /v1/Credentials/PublicKeys/{Sid} | Fetch the public key specified by the provided Credential Sid
 *CredentialsPublicKeysApi* | [**ListCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#listcredentialpublickey) | **Get** /v1/Credentials/PublicKeys | Retrieves a collection of Public Key Credentials belonging to the account used to make the request
 *CredentialsPublicKeysApi* | [**UpdateCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#updatecredentialpublickey) | **Post** /v1/Credentials/PublicKeys/{Sid} | Modify the properties of a given Account
+*MessagingGeoPermissionsApi* | [**FetchMessagingGeopermissions**](docs/MessagingGeoPermissionsApi.md#fetchmessaginggeopermissions) | **Get** /v1/Messaging/GeoPermissions | 
+*MessagingGeoPermissionsApi* | [**UpdateMessagingGeopermissions**](docs/MessagingGeoPermissionsApi.md#updatemessaginggeopermissions) | **Patch** /v1/Messaging/GeoPermissions | 
 *SafeListNumbersApi* | [**CreateSafelist**](docs/SafeListNumbersApi.md#createsafelist) | **Post** /v1/SafeList/Numbers | Add a new phone number or phone number 1k prefix to SafeList.
 *SafeListNumbersApi* | [**DeleteSafelist**](docs/SafeListNumbersApi.md#deletesafelist) | **Delete** /v1/SafeList/Numbers | Remove a phone number or phone number 1k prefix from SafeList.
 *SafeListNumbersApi* | [**FetchSafelist**](docs/SafeListNumbersApi.md#fetchsafelist) | **Get** /v1/SafeList/Numbers | Check if a phone number or phone number 1k prefix exists in SafeList.
@@ -56,6 +58,7 @@ Class | Method | HTTP request | Description
  - [AccountsV1BulkContacts](docs/AccountsV1BulkContacts.md)
  - [AccountsV1BulkConsents](docs/AccountsV1BulkConsents.md)
  - [ListCredentialAwsResponse](docs/ListCredentialAwsResponse.md)
+ - [AccountsV1MessagingGeopermissions](docs/AccountsV1MessagingGeopermissions.md)
  - [ListCredentialPublicKeyResponse](docs/ListCredentialPublicKeyResponse.md)
  - [AccountsV1SecondaryAuthToken](docs/AccountsV1SecondaryAuthToken.md)
  - [AccountsV1AuthTokenPromotion](docs/AccountsV1AuthTokenPromotion.md)

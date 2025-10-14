@@ -71,6 +71,30 @@ type CreateTollfreeVerificationParams struct {
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
 	// An optional external reference ID supplied by customer and echoed back on status retrieval.
 	ExternalReferenceId *string `json:"ExternalReferenceId,omitempty"`
+	// A legally recognized business registration number
+	BusinessRegistrationNumber *string `json:"BusinessRegistrationNumber,omitempty"`
+	// The organizational authority for business registrations
+	BusinessRegistrationAuthority *string `json:"BusinessRegistrationAuthority,omitempty"`
+	// Country business is registered in
+	BusinessRegistrationCountry *string `json:"BusinessRegistrationCountry,omitempty"`
+	// The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+	BusinessType *string `json:"BusinessType,omitempty"`
+	// The E.164 formatted number associated with the business.
+	BusinessRegistrationPhoneNumber *string `json:"BusinessRegistrationPhoneNumber,omitempty"`
+	// Trade name, sub entity, or downstream business name of business being submitted for verification
+	DoingBusinessAs *string `json:"DoingBusinessAs,omitempty"`
+	// The confirmation message sent to users when they opt in to receive messages.
+	OptInConfirmationMessage *string `json:"OptInConfirmationMessage,omitempty"`
+	// A sample help message provided to users.
+	HelpMessageSample *string `json:"HelpMessageSample,omitempty"`
+	// The URL to the privacy policy for the business or organization.
+	PrivacyPolicyUrl *string `json:"PrivacyPolicyUrl,omitempty"`
+	// The URL to the terms and conditions for the business or organization.
+	TermsAndConditionsUrl *string `json:"TermsAndConditionsUrl,omitempty"`
+	// Indicates if the content is age gated.
+	AgeGatedContent *bool `json:"AgeGatedContent,omitempty"`
+	// List of keywords that users can text in to opt in to receive messages.
+	OptInKeywords *[]string `json:"OptInKeywords,omitempty"`
 }
 
 func (params *CreateTollfreeVerificationParams) SetBusinessName(BusinessName string) *CreateTollfreeVerificationParams {
@@ -165,8 +189,56 @@ func (params *CreateTollfreeVerificationParams) SetExternalReferenceId(ExternalR
 	params.ExternalReferenceId = &ExternalReferenceId
 	return params
 }
+func (params *CreateTollfreeVerificationParams) SetBusinessRegistrationNumber(BusinessRegistrationNumber string) *CreateTollfreeVerificationParams {
+	params.BusinessRegistrationNumber = &BusinessRegistrationNumber
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetBusinessRegistrationAuthority(BusinessRegistrationAuthority string) *CreateTollfreeVerificationParams {
+	params.BusinessRegistrationAuthority = &BusinessRegistrationAuthority
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetBusinessRegistrationCountry(BusinessRegistrationCountry string) *CreateTollfreeVerificationParams {
+	params.BusinessRegistrationCountry = &BusinessRegistrationCountry
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetBusinessType(BusinessType string) *CreateTollfreeVerificationParams {
+	params.BusinessType = &BusinessType
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetBusinessRegistrationPhoneNumber(BusinessRegistrationPhoneNumber string) *CreateTollfreeVerificationParams {
+	params.BusinessRegistrationPhoneNumber = &BusinessRegistrationPhoneNumber
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetDoingBusinessAs(DoingBusinessAs string) *CreateTollfreeVerificationParams {
+	params.DoingBusinessAs = &DoingBusinessAs
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetOptInConfirmationMessage(OptInConfirmationMessage string) *CreateTollfreeVerificationParams {
+	params.OptInConfirmationMessage = &OptInConfirmationMessage
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetHelpMessageSample(HelpMessageSample string) *CreateTollfreeVerificationParams {
+	params.HelpMessageSample = &HelpMessageSample
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetPrivacyPolicyUrl(PrivacyPolicyUrl string) *CreateTollfreeVerificationParams {
+	params.PrivacyPolicyUrl = &PrivacyPolicyUrl
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetTermsAndConditionsUrl(TermsAndConditionsUrl string) *CreateTollfreeVerificationParams {
+	params.TermsAndConditionsUrl = &TermsAndConditionsUrl
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetAgeGatedContent(AgeGatedContent bool) *CreateTollfreeVerificationParams {
+	params.AgeGatedContent = &AgeGatedContent
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetOptInKeywords(OptInKeywords []string) *CreateTollfreeVerificationParams {
+	params.OptInKeywords = &OptInKeywords
+	return params
+}
 
-//
+// Create a tollfree verification
 func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications"
 
@@ -248,6 +320,44 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	if params != nil && params.ExternalReferenceId != nil {
 		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
 	}
+	if params != nil && params.BusinessRegistrationNumber != nil {
+		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
+	}
+	if params != nil && params.BusinessRegistrationAuthority != nil {
+		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+	}
+	if params != nil && params.BusinessRegistrationCountry != nil {
+		data.Set("BusinessRegistrationCountry", *params.BusinessRegistrationCountry)
+	}
+	if params != nil && params.BusinessType != nil {
+		data.Set("BusinessType", *params.BusinessType)
+	}
+	if params != nil && params.BusinessRegistrationPhoneNumber != nil {
+		data.Set("BusinessRegistrationPhoneNumber", *params.BusinessRegistrationPhoneNumber)
+	}
+	if params != nil && params.DoingBusinessAs != nil {
+		data.Set("DoingBusinessAs", *params.DoingBusinessAs)
+	}
+	if params != nil && params.OptInConfirmationMessage != nil {
+		data.Set("OptInConfirmationMessage", *params.OptInConfirmationMessage)
+	}
+	if params != nil && params.HelpMessageSample != nil {
+		data.Set("HelpMessageSample", *params.HelpMessageSample)
+	}
+	if params != nil && params.PrivacyPolicyUrl != nil {
+		data.Set("PrivacyPolicyUrl", *params.PrivacyPolicyUrl)
+	}
+	if params != nil && params.TermsAndConditionsUrl != nil {
+		data.Set("TermsAndConditionsUrl", *params.TermsAndConditionsUrl)
+	}
+	if params != nil && params.AgeGatedContent != nil {
+		data.Set("AgeGatedContent", fmt.Sprint(*params.AgeGatedContent))
+	}
+	if params != nil && params.OptInKeywords != nil {
+		for _, item := range *params.OptInKeywords {
+			data.Add("OptInKeywords", item)
+		}
+	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -264,7 +374,7 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	return ps, err
 }
 
-//
+// Delete a tollfree verification
 func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -284,7 +394,7 @@ func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	return nil
 }
 
-//
+// Retrieve a tollfree verification
 func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -527,6 +637,30 @@ type UpdateTollfreeVerificationParams struct {
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
 	// Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 	EditReason *string `json:"EditReason,omitempty"`
+	// A legaly recognized business registration number
+	BusinessRegistrationNumber *string `json:"BusinessRegistrationNumber,omitempty"`
+	// The organizational authority for business registrations
+	BusinessRegistrationAuthority *string `json:"BusinessRegistrationAuthority,omitempty"`
+	// Country business is registered in
+	BusinessRegistrationCountry *string `json:"BusinessRegistrationCountry,omitempty"`
+	// The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+	BusinessType *string `json:"BusinessType,omitempty"`
+	// The E.164 formatted number associated with the business.
+	BusinessRegistrationPhoneNumber *string `json:"BusinessRegistrationPhoneNumber,omitempty"`
+	// Trade name, sub entity, or downstream business name of business being submitted for verification
+	DoingBusinessAs *string `json:"DoingBusinessAs,omitempty"`
+	// The confirmation message sent to users when they opt in to receive messages.
+	OptInConfirmationMessage *string `json:"OptInConfirmationMessage,omitempty"`
+	// A sample help message provided to users.
+	HelpMessageSample *string `json:"HelpMessageSample,omitempty"`
+	// The URL to the privacy policy for the business or organization.
+	PrivacyPolicyUrl *string `json:"PrivacyPolicyUrl,omitempty"`
+	// The URL to the terms and conditions for the business or organization.
+	TermsAndConditionsUrl *string `json:"TermsAndConditionsUrl,omitempty"`
+	// Indicates if the content is age gated.
+	AgeGatedContent *bool `json:"AgeGatedContent,omitempty"`
+	// List of keywords that users can text in to opt in to receive messages.
+	OptInKeywords *[]string `json:"OptInKeywords,omitempty"`
 }
 
 func (params *UpdateTollfreeVerificationParams) SetBusinessName(BusinessName string) *UpdateTollfreeVerificationParams {
@@ -613,8 +747,56 @@ func (params *UpdateTollfreeVerificationParams) SetEditReason(EditReason string)
 	params.EditReason = &EditReason
 	return params
 }
+func (params *UpdateTollfreeVerificationParams) SetBusinessRegistrationNumber(BusinessRegistrationNumber string) *UpdateTollfreeVerificationParams {
+	params.BusinessRegistrationNumber = &BusinessRegistrationNumber
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetBusinessRegistrationAuthority(BusinessRegistrationAuthority string) *UpdateTollfreeVerificationParams {
+	params.BusinessRegistrationAuthority = &BusinessRegistrationAuthority
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetBusinessRegistrationCountry(BusinessRegistrationCountry string) *UpdateTollfreeVerificationParams {
+	params.BusinessRegistrationCountry = &BusinessRegistrationCountry
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetBusinessType(BusinessType string) *UpdateTollfreeVerificationParams {
+	params.BusinessType = &BusinessType
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetBusinessRegistrationPhoneNumber(BusinessRegistrationPhoneNumber string) *UpdateTollfreeVerificationParams {
+	params.BusinessRegistrationPhoneNumber = &BusinessRegistrationPhoneNumber
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetDoingBusinessAs(DoingBusinessAs string) *UpdateTollfreeVerificationParams {
+	params.DoingBusinessAs = &DoingBusinessAs
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetOptInConfirmationMessage(OptInConfirmationMessage string) *UpdateTollfreeVerificationParams {
+	params.OptInConfirmationMessage = &OptInConfirmationMessage
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetHelpMessageSample(HelpMessageSample string) *UpdateTollfreeVerificationParams {
+	params.HelpMessageSample = &HelpMessageSample
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetPrivacyPolicyUrl(PrivacyPolicyUrl string) *UpdateTollfreeVerificationParams {
+	params.PrivacyPolicyUrl = &PrivacyPolicyUrl
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetTermsAndConditionsUrl(TermsAndConditionsUrl string) *UpdateTollfreeVerificationParams {
+	params.TermsAndConditionsUrl = &TermsAndConditionsUrl
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetAgeGatedContent(AgeGatedContent bool) *UpdateTollfreeVerificationParams {
+	params.AgeGatedContent = &AgeGatedContent
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetOptInKeywords(OptInKeywords []string) *UpdateTollfreeVerificationParams {
+	params.OptInKeywords = &OptInKeywords
+	return params
+}
 
-//
+// Create a tollfree verification
 func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -690,6 +872,44 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 	}
 	if params != nil && params.EditReason != nil {
 		data.Set("EditReason", *params.EditReason)
+	}
+	if params != nil && params.BusinessRegistrationNumber != nil {
+		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
+	}
+	if params != nil && params.BusinessRegistrationAuthority != nil {
+		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+	}
+	if params != nil && params.BusinessRegistrationCountry != nil {
+		data.Set("BusinessRegistrationCountry", *params.BusinessRegistrationCountry)
+	}
+	if params != nil && params.BusinessType != nil {
+		data.Set("BusinessType", *params.BusinessType)
+	}
+	if params != nil && params.BusinessRegistrationPhoneNumber != nil {
+		data.Set("BusinessRegistrationPhoneNumber", *params.BusinessRegistrationPhoneNumber)
+	}
+	if params != nil && params.DoingBusinessAs != nil {
+		data.Set("DoingBusinessAs", *params.DoingBusinessAs)
+	}
+	if params != nil && params.OptInConfirmationMessage != nil {
+		data.Set("OptInConfirmationMessage", *params.OptInConfirmationMessage)
+	}
+	if params != nil && params.HelpMessageSample != nil {
+		data.Set("HelpMessageSample", *params.HelpMessageSample)
+	}
+	if params != nil && params.PrivacyPolicyUrl != nil {
+		data.Set("PrivacyPolicyUrl", *params.PrivacyPolicyUrl)
+	}
+	if params != nil && params.TermsAndConditionsUrl != nil {
+		data.Set("TermsAndConditionsUrl", *params.TermsAndConditionsUrl)
+	}
+	if params != nil && params.AgeGatedContent != nil {
+		data.Set("AgeGatedContent", fmt.Sprint(*params.AgeGatedContent))
+	}
+	if params != nil && params.OptInKeywords != nil {
+		for _, item := range *params.OptInKeywords {
+			data.Add("OptInKeywords", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

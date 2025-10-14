@@ -106,11 +106,11 @@ type MessagingV1TollfreeVerification struct {
 	HelpMessageSample *string `json:"help_message_sample,omitempty"`
 	// The URL to the privacy policy for the business or organization.
 	PrivacyPolicyUrl *string `json:"privacy_policy_url,omitempty"`
-	// The URL to the terms and conditions for the business or organization.
+	// The URL of the terms and conditions for the business or organization.
 	TermsAndConditionsUrl *string `json:"terms_and_conditions_url,omitempty"`
 	// Indicates if the content is age gated.
 	AgeGatedContent *bool `json:"age_gated_content,omitempty"`
-	// List of keywords that users can text in to opt in to receive messages.
+	// List of keywords that users can send to opt in or out of messages.
 	OptInKeywords *[]string `json:"opt_in_keywords,omitempty"`
 	// A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
 	RejectionReasons *[]interface{} `json:"rejection_reasons,omitempty"`

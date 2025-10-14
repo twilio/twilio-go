@@ -83,11 +83,11 @@ Class | Method | HTTP request | Description
 *ServicesShortCodesApi* | [**FetchShortCode**](docs/ServicesShortCodesApi.md#fetchshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
 *ServicesShortCodesApi* | [**ListShortCode**](docs/ServicesShortCodesApi.md#listshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | 
 *ServicesUsecasesApi* | [**FetchUsecase**](docs/ServicesUsecasesApi.md#fetchusecase) | **Get** /v1/Services/Usecases | 
-*TollfreeVerificationsApi* | [**CreateTollfreeVerification**](docs/TollfreeVerificationsApi.md#createtollfreeverification) | **Post** /v1/Tollfree/Verifications | 
-*TollfreeVerificationsApi* | [**DeleteTollfreeVerification**](docs/TollfreeVerificationsApi.md#deletetollfreeverification) | **Delete** /v1/Tollfree/Verifications/{Sid} | 
-*TollfreeVerificationsApi* | [**FetchTollfreeVerification**](docs/TollfreeVerificationsApi.md#fetchtollfreeverification) | **Get** /v1/Tollfree/Verifications/{Sid} | 
-*TollfreeVerificationsApi* | [**ListTollfreeVerification**](docs/TollfreeVerificationsApi.md#listtollfreeverification) | **Get** /v1/Tollfree/Verifications | 
-*TollfreeVerificationsApi* | [**UpdateTollfreeVerification**](docs/TollfreeVerificationsApi.md#updatetollfreeverification) | **Post** /v1/Tollfree/Verifications/{Sid} | 
+*TollfreeVerificationsApi* | [**CreateTollfreeVerification**](docs/TollfreeVerificationsApi.md#createtollfreeverification) | **Post** /v1/Tollfree/Verifications | Create a tollfree verification
+*TollfreeVerificationsApi* | [**DeleteTollfreeVerification**](docs/TollfreeVerificationsApi.md#deletetollfreeverification) | **Delete** /v1/Tollfree/Verifications/{Sid} | Delete a tollfree verification
+*TollfreeVerificationsApi* | [**FetchTollfreeVerification**](docs/TollfreeVerificationsApi.md#fetchtollfreeverification) | **Get** /v1/Tollfree/Verifications/{Sid} | Retrieve a tollfree verification
+*TollfreeVerificationsApi* | [**ListTollfreeVerification**](docs/TollfreeVerificationsApi.md#listtollfreeverification) | **Get** /v1/Tollfree/Verifications | List tollfree verifications
+*TollfreeVerificationsApi* | [**UpdateTollfreeVerification**](docs/TollfreeVerificationsApi.md#updatetollfreeverification) | **Post** /v1/Tollfree/Verifications/{Sid} | Create a tollfree verification
 
 
 ## Documentation For Models

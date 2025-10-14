@@ -1,11 +1,11 @@
-# NumbersV2AvailablePhoneNumberFlags
+# NumbersV1AvailablePhoneNumberBilling
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**National** | **bool** |  |[optional] 
-**International** | **bool** |  |[optional] 
+**RecurringBillableItemSid** | **string** |  |[optional] 
+**SetupBillableItemSid** | **string** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

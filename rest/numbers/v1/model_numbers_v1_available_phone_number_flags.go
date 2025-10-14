@@ -14,8 +14,8 @@
 
 package openapi
 
-// NumbersV2AvailablePhoneNumberCertifications The certifications required for the phone number.
-type NumbersV2AvailablePhoneNumberCertifications struct {
-	Resident    bool `json:"Resident,omitempty"`
-	NonResident bool `json:"Non-Resident,omitempty"`
+// NumbersV1AvailablePhoneNumberFlags The flags that describe the phone number features.
+type NumbersV1AvailablePhoneNumberFlags struct {
+	National      bool `json:"National,omitempty"`
+	International bool `json:"International,omitempty"`
 }

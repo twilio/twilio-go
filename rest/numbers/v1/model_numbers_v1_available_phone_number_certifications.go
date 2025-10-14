@@ -14,8 +14,8 @@
 
 package openapi
 
-// NumbersV2AvailablePhoneNumberBilling The billing information for the phone number.
-type NumbersV2AvailablePhoneNumberBilling struct {
-	RecurringBillableItemSid string `json:"RecurringBillableItemSid,omitempty"`
-	SetupBillableItemSid     string `json:"SetupBillableItemSid,omitempty"`
+// NumbersV1AvailablePhoneNumberCertifications The certifications required for the phone number.
+type NumbersV1AvailablePhoneNumberCertifications struct {
+	Resident    bool `json:"Resident,omitempty"`
+	NonResident bool `json:"Non-Resident,omitempty"`
 }

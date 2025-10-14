@@ -20,8 +20,8 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-// NumbersV2AvailablePhoneNumberGeography The geographic information associated with the phone number.
-type NumbersV2AvailablePhoneNumberGeography struct {
+// NumbersV1AvailablePhoneNumberGeography The geographic information associated with the phone number.
+type NumbersV1AvailablePhoneNumberGeography struct {
 	IsoCountry string  `json:"IsoCountry,omitempty"`
 	Region     string  `json:"Region,omitempty"`
 	Locality   string  `json:"Locality,omitempty"`
@@ -32,7 +32,7 @@ type NumbersV2AvailablePhoneNumberGeography struct {
 	RateCenter string  `json:"RateCenter,omitempty"`
 }
 
-func (response *NumbersV2AvailablePhoneNumberGeography) UnmarshalJSON(bytes []byte) (err error) {
+func (response *NumbersV1AvailablePhoneNumberGeography) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
 		IsoCountry string      `json:"IsoCountry"`
 		Region     string      `json:"Region"`
@@ -48,7 +48,7 @@ func (response *NumbersV2AvailablePhoneNumberGeography) UnmarshalJSON(bytes []by
 		return err
 	}
 
-	*response = NumbersV2AvailablePhoneNumberGeography{
+	*response = NumbersV1AvailablePhoneNumberGeography{
 		IsoCountry: raw.IsoCountry,
 		Region:     raw.Region,
 		Locality:   raw.Locality,

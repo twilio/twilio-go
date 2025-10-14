@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **AutoCancelApprovalNumbers** | Pointer to **string** | Japan specific field, indicates the number of phone numbers to automatically approve for cancellation. |
 **Documents** | Pointer to **[]string** | List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
+**SupportTicketId** | **int** | Unique ID of the request's support ticket |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

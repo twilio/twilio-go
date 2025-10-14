@@ -18,8 +18,8 @@ import (
 	"time"
 )
 
-// NumbersV2AvailablePhoneNumber struct for NumbersV2AvailablePhoneNumber
-type NumbersV2AvailablePhoneNumber struct {
+// NumbersV1AvailablePhoneNumber struct for NumbersV1AvailablePhoneNumber
+type NumbersV1AvailablePhoneNumber struct {
 	// The phone number in E.164 format.
 	Did *string `json:"Did,omitempty"`
 	// The unique string that identifies the inventory DID resource.
@@ -36,12 +36,12 @@ type NumbersV2AvailablePhoneNumber struct {
 	Locked *bool `json:"Locked,omitempty"`
 	// The Unix timestamp when the phone number lock expires.
 	LockedUntil  *int                                       `json:"LockedUntil,omitempty"`
-	Capabilities *NumbersV2AvailablePhoneNumberCapabilities `json:"Capabilities,omitempty"`
-	Geography    *NumbersV2AvailablePhoneNumberGeography    `json:"Geography,omitempty"`
+	Capabilities *NumbersV1AvailablePhoneNumberCapabilities `json:"Capabilities,omitempty"`
+	Geography    *NumbersV1AvailablePhoneNumberGeography    `json:"Geography,omitempty"`
 	// The type of Address resource the phone number requires.
 	AddressRequirements *string                                      `json:"AddressRequirements,omitempty"`
-	Certifications      *NumbersV2AvailablePhoneNumberCertifications `json:"Certifications,omitempty"`
-	Billing             *NumbersV2AvailablePhoneNumberBilling        `json:"Billing,omitempty"`
+	Certifications      *NumbersV1AvailablePhoneNumberCertifications `json:"Certifications,omitempty"`
+	Billing             *NumbersV1AvailablePhoneNumberBilling        `json:"Billing,omitempty"`
 	// The date and time in GMT when the resource was created specified in ISO 8601 format.
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in ISO 8601 format.
@@ -50,5 +50,5 @@ type NumbersV2AvailablePhoneNumber struct {
 	Beta *bool `json:"Beta,omitempty"`
 	// Whether the phone number can handle emergency calls.
 	VoiceEmergencyCapable *bool                               `json:"VoiceEmergencyCapable,omitempty"`
-	Flags                 *NumbersV2AvailablePhoneNumberFlags `json:"Flags,omitempty"`
+	Flags                 *NumbersV1AvailablePhoneNumberFlags `json:"Flags,omitempty"`
 }

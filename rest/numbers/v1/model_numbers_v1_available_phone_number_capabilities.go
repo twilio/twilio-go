@@ -14,8 +14,8 @@
 
 package openapi
 
-// NumbersV2AvailablePhoneNumberCapabilities The set of Boolean properties that describes the SMS, MMS, Voice, and Fax capabilities of the phone number.
-type NumbersV2AvailablePhoneNumberCapabilities struct {
+// NumbersV1AvailablePhoneNumberCapabilities The set of Boolean properties that describes the SMS, MMS, Voice, and Fax capabilities of the phone number.
+type NumbersV1AvailablePhoneNumberCapabilities struct {
 	Voice           bool `json:"Voice,omitempty"`
 	RestrictedVoice bool `json:"RestrictedVoice,omitempty"`
 	Sms             bool `json:"Sms,omitempty"`
